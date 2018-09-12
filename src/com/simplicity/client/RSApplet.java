@@ -23,6 +23,8 @@ import java.awt.event.MouseWheelListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.SwingUtilities;
+
 import com.simplicity.Jframe;
 
 @SuppressWarnings("all")
@@ -472,7 +474,8 @@ WindowListener {
 				}
 			}
 		}
-		if (type == 2) {
+		//if (type == 2) {
+		if (SwingUtilities.isMiddleMouseButton(e)) {
 			mouseWheelDown = true;
 			mouseWheelX = x;
 			mouseWheelY = y;
