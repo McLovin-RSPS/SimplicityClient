@@ -12373,7 +12373,7 @@ public class Client extends RSApplet {
 		}
 		// repackCacheIndex(5);
 		// repackCacheIndex(1);
-		 repackCacheIndex(4);
+		 //repackCacheIndex(4);
 		load();
 		// refreshClientScreen();
 	}
