@@ -6,13 +6,13 @@ public class Configuration {
 	 * Connection information
 	 */
 	public final static boolean LOCALHOST = true;
-	public final static String HOST = LOCALHOST ? "127.0.0.1" : "144.217.252.177";
+	public final static String HOST = LOCALHOST ? "127.0.0.1" : "144.217.252.177"; //TEST
 	public static int PORT = 43594;
 
 	/**
 	 * Client information
 	 */
-	public final static String CLIENT_NAME = "Simplicity";
+	public final static String CLIENT_NAME = "SimplicityPS.org";
 	public static final boolean SEND_HASH = true;
 	public static  boolean upscaling = true;
 	public static final boolean DISCO_ITEMS = false;

@@ -1094,6 +1094,16 @@ public final class ItemDefinition {
             case 6183:
                 itemDef.name = "@red@Donation Box";
                 break;
+            case 6828:
+                itemDef.name = "@red@Bronze Mystery Box";
+                itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
+                break;
+            case 6829:
+                itemDef.name = "@red@Gold Mystery Box";
+                itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
+                break;
             case 12632:
                 itemDef.name = "100m Note";
                 itemDef.actions = new String[]{"Claim", null, null, null, "Drop"};
