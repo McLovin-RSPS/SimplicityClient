@@ -11223,7 +11223,6 @@ public class Client extends RSApplet {
 				aStream_847.writeWordBigEndian(255);
 				aStream_847.writeWord(14);
 				aStream_847.writeWordBigEndian(lowMem ? 1 : 0);
-                String set = signlink.getId();
 				if (Configuration.SEND_HASH) {
 					byte[] bytes = hash.getBytes("UTF-8");
 					aStream_847.writeWordBigEndian(bytes.length);
