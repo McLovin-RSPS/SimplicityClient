@@ -1,5 +1,10 @@
 package com.simplicity.client.cache.definitions;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import com.simplicity.client.*;
 
 public final class MobDefinition {
@@ -11,6 +16,7 @@ public final class MobDefinition {
 	public int leftLight = 0;
 	
 	public static MobDefinition forID(int i) {
+		
 		for (int j = 0; j < 20; j++)
 			if (cache[j].type == (long) i)
 				return cache[j];
@@ -21,6 +27,7 @@ public final class MobDefinition {
 		stream.currentOffset = streamIndices[i];
 		npc.type = i;
 		npc.readValues(stream);
+		
 		if(npc.name != null && npc.name.toLowerCase().contains("bank")) {
 			if(npc.actions != null) {
 				for(int l = 0; l < npc.actions.length; l++) {
@@ -30,7 +37,17 @@ public final class MobDefinition {
 			}
 		}
 		npc.id = i;
+		
 		switch (i) {
+		
+		case 3975: 
+			npc.name = "Max Hit Stone";
+			npc.description = "Attack with any weapon of your choice to find out what your max hit is!";
+			npc.actions = new String[5];
+	        npc.actions[1] = "Attack";
+	        System.out.println(npc.sizeXZ+" "+npc.sizeY);
+			break;
+			
         case 132:
         	npc.name = "Blitz";
         	npc.description = "A master attacker of Simplicity.";
@@ -1511,6 +1528,7 @@ public final class MobDefinition {
 	}
 
 	public void readValues(Stream stream) {
+		
 		do {
 			int i = stream.readUnsignedByte();
 			if (i == 0)

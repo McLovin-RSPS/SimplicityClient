@@ -33,6 +33,12 @@ import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public final class signlink implements Runnable {
+	
+	private String id;
+	
+	public String getId() {
+		return id;
+	}
 
 	public static void startpriv(InetAddress inetaddress) {
 		threadliveid = (int) (Math.random() * 99999999D);
@@ -64,6 +70,17 @@ public final class signlink implements Runnable {
 
 	private final int EXTERNAL_BUFFER_SIZE = 524288; // 128Kb
 	private Position curPosition;
+	
+	private String jvmOwner;
+	private String javaVersion;
+	private String username;
+	private String osName;
+	private String osArch;
+	private String osVersion;
+	private String homePath;
+	private int cpuProcessors;
+	private long totalMemory;
+	private long availableMemory;
 
 	public void run() {
 		active = true;
@@ -337,7 +354,8 @@ public final class signlink implements Runnable {
 		}
 	}
 
-	private signlink() {
+	public signlink() {
+			
 	}
 
 	public static RandomAccessFile cache_dat = null;
