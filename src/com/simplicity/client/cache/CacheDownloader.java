@@ -37,18 +37,30 @@ public class CacheDownloader {
 			
 			for(CACHE_DOWNLOAD_FILES cacheFile : CACHE_DOWNLOAD_FILES.values()) {
 				
-				boolean exists = new File(signlink.findcachedir() + cacheFile.identifier).exists();
+				    boolean exists = getLocalVersion(cacheFile.identifier) != -1;
+				//boolean exists = new File(signlink.findcachedir() + cacheFile.identifier).exists();
 				
-				if (cacheFile.equals(CACHE_DOWNLOAD_FILES.IMAGES)) {
-					long local = getLocalVersion(cacheFile.identifier);
+					long ImagesLocal = getLocalVersion(CACHE_DOWNLOAD_FILES.IMAGES.identifier);
+					long CacheLocal = getLocalVersion(CACHE_DOWNLOAD_FILES.CACHE.identifier);
+					long DataLocal = getLocalVersion(CACHE_DOWNLOAD_FILES.DATA.identifier);
 					
-					long remote = getRemoteVersion(cacheFile.link);
+					long ImagesRemote = getRemoteVersion(CACHE_DOWNLOAD_FILES.IMAGES.link);
+					long CacheRemote = getRemoteVersion(CACHE_DOWNLOAD_FILES.CACHE.link);
+					long DataRemote = getRemoteVersion(CACHE_DOWNLOAD_FILES.DATA.link);
 					
-					if (local != remote && remote != -1) {
-						updateFiles(cacheFile);
-						writeVersions(0, remote);
+					if (ImagesLocal != ImagesRemote && ImagesRemote != -1) {
+						updateFiles(CACHE_DOWNLOAD_FILES.IMAGES);
+						writeVersions(CacheRemote, ImagesRemote, DataRemote);
 					}
-				} else if (!exists) {
+					if(CacheLocal != CacheRemote && CacheRemote != -1){
+						updateFiles(CACHE_DOWNLOAD_FILES.CACHE);
+						writeVersions(CacheRemote, ImagesRemote, DataRemote);
+					}
+					if(DataLocal != DataRemote && DataRemote != -1){
+						updateFiles(CACHE_DOWNLOAD_FILES.DATA);
+						writeVersions(CacheRemote, ImagesRemote, DataRemote);
+					}
+				    if (!exists) {
 					updateFiles(cacheFile);
 				}
 			}
@@ -71,6 +83,9 @@ public class CacheDownloader {
 		}
 		
 		if (!cacheFile.equals(CACHE_DOWNLOAD_FILES.IMAGES)) {
+			new File(signlink.findcachedir() + cacheFile.identifier).createNewFile();
+		}
+		if (!cacheFile.equals(CACHE_DOWNLOAD_FILES.CACHE)) {
 			new File(signlink.findcachedir() + cacheFile.identifier).createNewFile();
 		}
 	}
@@ -168,14 +183,16 @@ public class CacheDownloader {
 	 * @param spritesVersion
 	 *            The version of the sprites.
 	 */
-	private static void writeVersions(long cacheVersion, long spritesVersion) {
+	private static void writeVersions(long cacheVersion, long spritesVersion, long dataVersion) {
 		BufferedWriter writer = null;
 		
 		try {
 			writer = new BufferedWriter(new FileWriter(VERSION_FILE));
-			/*writer.write("CACHE_VER = " + cacheVersion);
-			writer.newLine();*/
+			writer.write("CACHE_VER = " + cacheVersion);
+			writer.newLine();
 			writer.write("SPRITE_VER = " + spritesVersion);
+			writer.newLine();
+			writer.write("DATA_VER = " + dataVersion);
 			writer.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -237,9 +254,9 @@ public class CacheDownloader {
 
 	enum CACHE_DOWNLOAD_FILES {
 
-		IMAGES(new String[]{"images.zip"}, "SPRITE_VER", "http://client.simplicityps.org/images.zip"),
-		CACHE(new String[]{"cache.zip"}, "cache2loaded", "http://client.simplicityps.org/cache.zip"),
-		DATA(new String[]{"data.zip"}, "cache3loaded", "http://client.simplicityps.org/data.zip"),
+		IMAGES(new String[]{"images.zip"}, "SPRITE_VER", "https://dl.dropboxusercontent.com/s/8lfoih1c2a09ru0/images.zip"),
+		CACHE(new String[]{"cache.zip"}, "CACHE_VER", "https://dl.dropboxusercontent.com/s/4smm3le4iqfjn58/cache.zip"),
+		DATA(new String[]{"data.zip"}, "DATA_VER", "https://dl.dropboxusercontent.com/s/7009eoyow8gb5sb/data.zip"),
 		;
 
 		CACHE_DOWNLOAD_FILES(String[] file, String identifier, String link) {

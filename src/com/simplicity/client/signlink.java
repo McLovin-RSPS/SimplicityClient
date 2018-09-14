@@ -270,9 +270,7 @@ public final class signlink implements Runnable {
 	public static Synthesizer synthesizer;
 
 	public static String findcachedir() {
-	String cacheLoc = System.getProperty("user.home") + "/.SimplicityCache/"; //live
-		//String cacheLoc = System.getProperty("user.home") + "/Dropbox/AJCLIENT/SimplicityCacheV5/"; //devs
-
+	    String cacheLoc = System.getProperty("user.home") + "/.SimplicityCache/"; //live
 		File cacheDir = new File(cacheLoc);
 		if(!cacheDir.exists()) {
 			cacheDir.mkdir();
