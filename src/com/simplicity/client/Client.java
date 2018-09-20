@@ -16,7 +16,6 @@ import java.awt.image.BufferedImage;
 import java.awt.image.FilteredImageSource;
 import java.awt.image.RGBImageFilter;
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -41,11 +40,12 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.Set;
 import java.util.zip.CRC32;
-import java.util.zip.GZIPOutputStream;
 
 import javax.imageio.ImageIO;
 import javax.sound.midi.MidiSystem;
@@ -3724,7 +3724,7 @@ public class Client extends RSApplet {
 						// System.out.println("Object maps: "+anIntArray1236[i6]);
 						int l8 = (mapCoordinates[i6] >> 8) * 64 - baseX;
 						int k9 = (mapCoordinates[i6] & 0xff) * 64 - baseY;
-						objectManager.method190(l8, clippingPlanes, k9, worldController, abyte1);
+						objectManager.method190(isOsrsRegion(), l8, clippingPlanes, k9, worldController, abyte1);
 					}
 				}
 
@@ -3783,7 +3783,7 @@ public class Client extends RSApplet {
 									}
 									objectManager.readObjectMap(clippingPlanes, worldController, plane, chunkX * 8,
 											(coordY & 7) * 8, chunkZ, objectData[idx], (coordX & 7) * 8, rotation,
-											chunkY * 8);
+											chunkY * 8, isOsrsRegion());
 									break;
 								}
 							}
@@ -3831,7 +3831,9 @@ public class Client extends RSApplet {
 			exception.printStackTrace();
 		}
 		ObjectDefinition.modelCache.clear();
+		ObjectDefinition.osrsModelCache.clear();
 		ObjectDefinition.completedModelCache.clear();
+		ObjectDefinition.completedOSRSModelCache.clear();
 		handleRegionChange();
 		if (loggedIn) {
 			stream.createFrame(210);
@@ -3865,9 +3867,12 @@ public class Client extends RSApplet {
 
 	public void clearMemoryCaches() {
 		ObjectDefinition.modelCache.clear();
+		ObjectDefinition.osrsModelCache.clear();
 		ObjectDefinition.completedModelCache.clear();
+		ObjectDefinition.completedOSRSModelCache.clear();
 		MobDefinition.modelCache.clear();
 		ItemDefinition.modelCache.clear();
+		ItemDefinition.modelCacheOSRS.clear();
 		ItemDefinition.spriteCache.clear();
 		Player.modelCache.clear();
 		SpotAnimDefinition.modelCache.clear();
@@ -3920,7 +3925,7 @@ public class Client extends RSApplet {
 				int uid = worldController.fetchGroundDecorationNewUID(plane, xTile, yTIle);
 				if (uid != 0) {
 					// uid = uid >> 14 & 0x7fff;
-					int functionId = ObjectDefinition.forID(uid).mapFunctionID;
+					int functionId = ObjectDefinition.forID(uid, isOsrsRegion()).mapFunctionID;
 					if (functionId >= 0) {
 						int k3 = xTile;
 						int l3 = yTIle;
@@ -5798,7 +5803,7 @@ public class Client extends RSApplet {
 			int scene_pixels[] = miniMap.myPixels;
 			int pixel = 24624 + x * 4 + (103 - y) * 512 * 4;
 			int object_id = worldController.fetchWallObjectNewUID(z, x, y);
-			ObjectDefinition def = ObjectDefinition.forID(object_id);
+			ObjectDefinition def = ObjectDefinition.forID(object_id, isOsrsRegion());
 			if (def.mapSceneID != -1) {
 				Background scene = mapScenes[def.mapSceneID];
 				if (scene != null) {
@@ -5875,7 +5880,7 @@ public class Client extends RSApplet {
 			int direction = resource_tag >> 6 & 3;
 			int type = resource_tag & 0x1f;
 			int object_id = worldController.fetchObjectMeshNewUID(z, x, y);
-			ObjectDefinition def = ObjectDefinition.forID(object_id);
+			ObjectDefinition def = ObjectDefinition.forID(object_id, isOsrsRegion());
 			if (def.mapSceneID != -1) {
 				Background scene = mapScenes[def.mapSceneID];
 				if (scene != null) {
@@ -5906,7 +5911,7 @@ public class Client extends RSApplet {
 		}
 		uid = worldController.fetchGroundDecorationNewUID(z, x, y);
 		if (uid > 0 || uid != 0) {
-			ObjectDefinition def = ObjectDefinition.forID(uid);
+			ObjectDefinition def = ObjectDefinition.forID(uid, isOsrsRegion());
 			if (def.mapSceneID != -1) {
 				Background scene = mapScenes[def.mapSceneID];
 				if (scene != null) {
@@ -6064,7 +6069,8 @@ public class Client extends RSApplet {
 					k = 10;
 					l = 10;
 				}
-				flag &= ObjectManager.method189(k, obData, l);
+				
+				flag &= ObjectManager.method189(isOsrsRegion(), k, obData, l);
 			}
 		}
 		if (!flag) {
@@ -6147,6 +6153,15 @@ public class Client extends RSApplet {
 					needDrawTabArea = true;
 
 				}
+				
+				/**
+				 * OSRS Models Loading *
+				 */
+				if (onDemandData.dataType == OSRS_MODEL_IDX - 1) {
+					Model.readFirstModelData(onDemandData.buffer, onDemandData.id);
+					needDrawTabArea = true;
+				}
+				
 				/**
 				 * Animations Loading *
 				 */
@@ -6201,7 +6216,7 @@ public class Client extends RSApplet {
 
 				}
 			} while (onDemandData.dataType != 93 || !onDemandFetcher.mapIsObjectMap(onDemandData.id));
-			ObjectManager.method173(new Stream(onDemandData.buffer), onDemandFetcher);
+			ObjectManager.method173(new Stream(onDemandData.buffer), onDemandFetcher, isOsrsRegion());
 		} while (true);
 	}
 
@@ -6347,6 +6362,7 @@ public class Client extends RSApplet {
 			RandomColor.process();
 			ItemDefinition.spriteCache.clear();
 			ItemDefinition.modelCache.clear();
+			ItemDefinition.modelCacheOSRS.clear();
 			Player.modelCache.clear();
 		}
 		if (openInterfaceID == 24600 && buttonclicked && interfaceButtonAction != 1558 && interfaceButtonAction != 1557
@@ -7015,7 +7031,7 @@ public class Client extends RSApplet {
 		int objectType = objectBits & 0x1f;
 		int objectRotation = objectBits >> 6 & 3;
 		if (objectType == 10 || objectType == 11 || objectType == 22) {
-			ObjectDefinition objectDef = ObjectDefinition.forID(id);
+			ObjectDefinition objectDef = ObjectDefinition.forID(id, isOsrsRegion());
 			int i2;
 			int j2;
 			if (objectRotation == 0 || objectRotation == 2) {
@@ -8849,7 +8865,7 @@ public class Client extends RSApplet {
 		}
 		if (l == 1226) {
 			int j1 = nodeId >> 14 & 0x7fff;
-			ObjectDefinition class46 = ObjectDefinition.forID(j1);
+			ObjectDefinition class46 = ObjectDefinition.forID(j1, isOsrsRegion());
 			String s10;
 			if (class46.description != null) {
 				s10 = new String(class46.description);
@@ -8960,9 +8976,9 @@ public class Client extends RSApplet {
 				if (resourceId != 1814) {
 					resourceId = Model.mapObjectIds[index];
 				}
-				ObjectDefinition object = ObjectDefinition.forID(resourceId);
+				ObjectDefinition object = ObjectDefinition.forID(resourceId, isOsrsRegion());
 				if (object.configObjectIDs != null) {
-					object = object.getTransformedObject();
+					object = object.getTransformedObject(isOsrsRegion());
 				}
 				if (object == null || object.name == null || object.name == "null") {
 					continue;
@@ -12361,7 +12377,7 @@ public class Client extends RSApplet {
 		CacheDownloader.init();
 
 		if (signlink.cache_dat != null) {
-			for (int i = 0; i < 7; i++) {
+			for (int i = 0; i < 8; i++) {
 				cacheIndices[i] = new Decompressor(signlink.cache_dat, signlink.cache_idx[i], i + 1);
 			}
 		}
@@ -12524,7 +12540,7 @@ public class Client extends RSApplet {
 
 			setLoadingText(80, "Loading misc..");
 			Animation.unpackConfig(configArchive);
-			ObjectDefinition.unpackConfig(configArchive, soundArchive);
+			ObjectDefinition.unpackConfig(configArchive);
 			FloorOverlay.unpackConfig(configArchive);
 			FloorUnderlay.unpackConfig(configArchive);
 			ItemDefinition.unpackConfig(configArchive);
@@ -14741,6 +14757,10 @@ public class Client extends RSApplet {
 			}
 		}
 	}
+	
+	public boolean isOsrsRegion() {
+		return OSRS_REGIONS.contains(getRegionId());
+	}
 
 	public int getRegionId() {
 		int localX = this.currentRegionX / 8;
@@ -14818,7 +14838,7 @@ public class Client extends RSApplet {
 					request.removeTime--;
 				}
 				if (request.removeTime == 0) {
-					if (request.objectId < 0 || ObjectManager.isObjectModelCached(request.objectId, request.type)) {
+					if (request.objectId < 0 || ObjectManager.isObjectModelCached(request.objectId, request.type, isOsrsRegion())) {
 						addRequestedObject(request.tileY, request.plane, request.face, request.type, request.tileX,
 								request.objectType, request.objectId);
 						request.unlink();
@@ -14829,7 +14849,7 @@ public class Client extends RSApplet {
 					}
 					if (request.spawnTime == 0 && request.tileX >= 1 && request.tileY >= 1 && request.tileX <= 102
 							&& request.tileY <= 102 && (request.currentIDRequested < 0 || ObjectManager
-									.isObjectModelCached(request.currentIDRequested, request.currentTypeRequested))) {
+									.isObjectModelCached(request.currentIDRequested, request.currentTypeRequested, isOsrsRegion()))) {
 						addRequestedObject(request.tileY, request.plane, request.currentFaceRequested,
 								request.currentTypeRequested, request.tileX, request.objectType,
 								request.currentIDRequested);
@@ -16182,17 +16202,17 @@ public class Client extends RSApplet {
 					if (class10 != null) {
 						int k21 = class10.wallObjUID;
 						if (j12 == 2) {
-							class10.node1 = new ObjectOnTile(k21, 4 + k14, 2, i19, l19, j18, k20, animId, false);
-							class10.node2 = new ObjectOnTile(k21, k14 + 1 & 3, 2, i19, l19, j18, k20, animId, false);
+							class10.node1 = new ObjectOnTile(k21, 4 + k14, 2, i19, l19, j18, k20, animId, false, isOsrsRegion());
+							class10.node2 = new ObjectOnTile(k21, k14 + 1 & 3, 2, i19, l19, j18, k20, animId, false, isOsrsRegion());
 						} else {
-							class10.node1 = new ObjectOnTile(k21, k14, j12, i19, l19, j18, k20, animId, false);
+							class10.node1 = new ObjectOnTile(k21, k14, j12, i19, l19, j18, k20, animId, false, isOsrsRegion());
 						}
 					}
 				}
 				if (objectType == 1) {
 					WallDecoration class26 = worldController.getWallDecoration(j4, i7, plane);
 					if (class26 != null) {
-						class26.node = new ObjectOnTile(class26.wallDecorUID, 0, 4, i19, l19, j18, k20, animId, false);
+						class26.node = new ObjectOnTile(class26.wallDecorUID, 0, 4, i19, l19, j18, k20, animId, false, isOsrsRegion());
 					}
 				}
 				if (objectType == 2) {
@@ -16202,14 +16222,14 @@ public class Client extends RSApplet {
 					}
 					if (class28 != null) {
 						class28.node = new ObjectOnTile(class28.interactiveObjUID, k14, j12, i19, l19, j18, k20, animId,
-								false);
+								false, isOsrsRegion());
 					}
 				}
 				if (objectType == 3) {
 					GroundDecoration class49 = worldController.getGroundDecoration(i7, j4, plane);
 					if (class49 != null) {
 						class49.node = new ObjectOnTile(class49.groundDecorUID, k14, 22, i19, l19, j18, k20, animId,
-								false);
+								false, isOsrsRegion());
 					}
 				}
 			}
@@ -16238,7 +16258,7 @@ public class Client extends RSApplet {
 				player = playerArray[plrId];
 			}
 			if (player != null) {
-				ObjectDefinition objectDef = ObjectDefinition.forID(objectId);
+				ObjectDefinition objectDef = ObjectDefinition.forID(objectId, isOsrsRegion());
 				int mine = intGroundArray[plane][x][y];
 				int right = intGroundArray[plane][x + 1][y];
 				int upperRight = intGroundArray[plane][x + 1][y + 1];
@@ -16543,7 +16563,7 @@ public class Client extends RSApplet {
 				int l2 = uidTag >> 6;
 				if (objectType == 0) {
 					worldController.removeWallObject(xTile, z, yTile);
-					ObjectDefinition objectDef = ObjectDefinition.forID(objectId_1);
+					ObjectDefinition objectDef = ObjectDefinition.forID(objectId_1, isOsrsRegion());
 					if (objectDef.isUnwalkable) {
 						clippingPlanes[z].addClip(l2, k2, objectDef.aBoolean757, xTile, yTile);
 					}
@@ -16553,7 +16573,7 @@ public class Client extends RSApplet {
 				}
 				if (objectType == 2) {
 					worldController.removeInteractableObject(z % 4, xTile, yTile);
-					ObjectDefinition objectDef_1 = ObjectDefinition.forID(objectId_1);
+					ObjectDefinition objectDef_1 = ObjectDefinition.forID(objectId_1, isOsrsRegion());
 					if (xTile + objectDef_1.sizeX > 103 || yTile + objectDef_1.sizeX > 103
 							|| xTile + objectDef_1.sizeY > 103 || yTile + objectDef_1.sizeY > 103) {
 						return;
@@ -16565,7 +16585,7 @@ public class Client extends RSApplet {
 				}
 				if (objectType == 3) {
 					worldController.removeGroundDecoration(z % 4, yTile, xTile);
-					ObjectDefinition objectDef_2 = ObjectDefinition.forID(objectId_1);
+					ObjectDefinition objectDef_2 = ObjectDefinition.forID(objectId_1, isOsrsRegion());
 					if (objectDef_2.isUnwalkable && objectDef_2.hasActions) {
 						clippingPlanes[z].addGroundDecClip(yTile, xTile);
 					}
@@ -16577,7 +16597,7 @@ public class Client extends RSApplet {
 					j3++;
 				}
 				ObjectManager.method188(worldController, objectFace, yTile, requestType, j3, clippingPlanes[z],
-						intGroundArray, xTile, objectId, z);
+						intGroundArray, xTile, objectId, z, isOsrsRegion());
 			}
 		}
 	}
@@ -21758,7 +21778,9 @@ public class Client extends RSApplet {
 	private String information = "";
 
 	private ArrayList<CustomMinimapIcon> customMinimapIcons = new ArrayList<CustomMinimapIcon>();
-
+	
+	private static Set<Integer> OSRS_REGIONS = new HashSet<>(Arrays.asList(9043, 12887));
+	
 	private int drawX = 0;
 	private int drawY = 0;
 	private int speed = 0;

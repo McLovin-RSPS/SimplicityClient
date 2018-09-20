@@ -1,26 +1,43 @@
 package com.simplicity.client.cache.definitions;
 
-import com.simplicity.Configuration;
-import com.simplicity.client.*;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import com.simplicity.Configuration;
+import com.simplicity.client.CacheArchive;
+import com.simplicity.client.DrawingArea;
+import com.simplicity.client.MemCache;
+import com.simplicity.client.Model;
+import com.simplicity.client.RandomColor;
+import com.simplicity.client.Rasterizer;
+import com.simplicity.client.Sprite;
+import com.simplicity.client.Stream;
+import com.simplicity.client.signlink;
 
 public final class ItemDefinition {
 
     private static int[] prices;
     private static List<Integer> untradeableItems = new ArrayList<Integer>();
+    private static Set<Integer> osrsItemIds = new HashSet<Integer>(Arrays.asList(44000, 44001, 44002, 44003, 44004, 44005, 44006));
+    private static final int OSRS_ITEMS_START = 12603;
+    private static final int OSRS_ITEMS_OFFSET = 30_000;
 
     public static void nullLoader() {
         modelCache = null;
+        modelCacheOSRS = null;
         spriteCache = null;
         streamIndices = null;
+        streamIndicesOSRS = null;
         cache = null;
+        cacheOSRS = null;
         stream = null;
+        streamOSRS = null;
     }
 
 
@@ -35,10 +52,10 @@ public final class ItemDefinition {
             return true;
         }
         boolean flag = true;
-        if (!Model.modelIsFetched(k)) {
+        if (!Model.modelIsFetched(k, osrs)) {
             flag = false;
         }
-        if (l != -1 && !Model.modelIsFetched(l)) {
+        if (l != -1 && !Model.modelIsFetched(l, osrs)) {
             flag = false;
         }
         return flag;
@@ -54,9 +71,9 @@ public final class ItemDefinition {
         if (k == -1) {
             return null;
         }
-        Model model = Model.fetchModel(k);
+        Model model = Model.fetchModel(k, osrs);
         if (l != -1) {
-            Model model_1 = Model.fetchModel(l);
+            Model model_1 = Model.fetchModel(l, osrs);
             Model models[] = {model, model_1};
             model = new Model(2, models);
         }
@@ -81,13 +98,13 @@ public final class ItemDefinition {
             return true;
         }
         boolean flag = true;
-        if (!Model.modelIsFetched(fistModel)) {
+        if (!Model.modelIsFetched(fistModel, osrs)) {
             flag = false;
         }
-        if (secondModel != -1 && !Model.modelIsFetched(secondModel)) {
+        if (secondModel != -1 && !Model.modelIsFetched(secondModel, osrs)) {
             flag = false;
         }
-        if (thirdModel != -1 && !Model.modelIsFetched(thirdModel)) {
+        if (thirdModel != -1 && !Model.modelIsFetched(thirdModel, osrs)) {
             flag = false;
         }
         return flag;
@@ -105,15 +122,15 @@ public final class ItemDefinition {
         if (j == -1) {
             return null;
         }
-        Model model = Model.fetchModel(j);
+        Model model = Model.fetchModel(j, osrs);
         if (k != -1) {
             if (l != -1) {
-                Model model_1 = Model.fetchModel(k);
-                Model model_3 = Model.fetchModel(l);
+                Model model_1 = Model.fetchModel(k, osrs);
+                Model model_3 = Model.fetchModel(l, osrs);
                 Model model_1s[] = {model, model_1, model_3};
                 model = new Model(3, model_1s);
             } else {
-                Model model_2 = Model.fetchModel(k);
+                Model model_2 = Model.fetchModel(k, osrs);
                 Model models[] = {model, model_2};
                 model = new Model(2, models);
             }
@@ -179,28 +196,88 @@ public final class ItemDefinition {
     }
 
     public static void unpackConfig(CacheArchive streamLoader) {
-        /*
-         * stream = new Stream(FileOperations.ReadFile("./Cache/obj.dat"));
-		 * Stream stream = new
-		 * Stream(FileOperations.ReadFile("./Cache/obj.idx"));
-         */
         stream = new Stream(streamLoader.getDataForName("obj.dat"));
         Stream stream = new Stream(streamLoader.getDataForName("obj.idx"));
+        streamOSRS = new Stream(streamLoader.getDataForName("obj3.dat"));
+        Stream streamOSRS = new Stream(streamLoader.getDataForName("obj3.idx"));
+        
         totalItems = stream.readUnsignedWord();
+        int totalItemsOSRS = streamOSRS.readUnsignedWord();
+        
         streamIndices = new int[totalItems + 1000];
+        streamIndicesOSRS = new int[totalItemsOSRS];
+        
         int i = 2;
+        
         for (int j = 0; j < totalItems; j++) {
             streamIndices[j] = i;
             i += stream.readUnsignedWord();
         }
+        
+        i = 2;
+        
+        for (int j = 0; j < totalItemsOSRS; j++) {
+            streamIndicesOSRS[j] = i;
+            i += streamOSRS.readUnsignedWord();
+        }
+        
         cache = new ItemDefinition[10];
+        cacheOSRS = new ItemDefinition[10];
+        
         for (int k = 0; k < 10; k++) {
             cache[k] = new ItemDefinition();
+            cacheOSRS[k] = new ItemDefinition();
         }
+        
         setSettings();
     }
-
+    
     public static ItemDefinition forID(int i) {
+    	if (i >= OSRS_ITEMS_OFFSET + OSRS_ITEMS_START) {
+    		i -= OSRS_ITEMS_OFFSET;
+    		
+            for (int j = 0; j < 10; j++) {
+                if (cacheOSRS[j].id == i) {
+                    return cacheOSRS[j];
+                }
+            }
+
+            cacheIndexOSRS = (cacheIndexOSRS + 1) % 10;
+    		
+            ItemDefinition itemDef = cacheOSRS[cacheIndexOSRS];
+            
+            if (i >= streamIndicesOSRS.length) {
+                itemDef.id = 1;
+                itemDef.setDefaults();
+                return itemDef;
+            }
+            
+            streamOSRS.currentOffset = streamIndicesOSRS[i];
+            itemDef.id = i;
+            itemDef.osrs = true;
+            itemDef.setDefaults();
+            itemDef.readValues(streamOSRS);
+            
+            if (itemDef.certTemplateID != -1) {
+                itemDef.toNote();
+            }
+            
+            if (itemDef.lentItemID != -1) {
+                itemDef.toLend();
+            }
+            
+            if (itemDef.id == i && itemDef.editedModelColor == null) {
+                itemDef.editedModelColor = new int[1];
+                itemDef.newModelColor = new int[1];
+                itemDef.editedModelColor[0] = 0;
+                itemDef.newModelColor[0] = 1;
+            }
+            
+            itemDef.value = prices[itemDef.id];
+            
+    		return itemDef;
+    	}
+    	
         for (int j = 0; j < 10; j++) {
             if (cache[j].id == i) {
             	if(Configuration.DISCO_ITEMS) {
@@ -211,6 +288,7 @@ public final class ItemDefinition {
                 return cache[j];
             }
         }
+    	
         cacheIndex = (cacheIndex + 1) % 10;
         ItemDefinition itemDef = cache[cacheIndex];
         if (i >= streamIndices.length) {
@@ -218,6 +296,7 @@ public final class ItemDefinition {
             itemDef.setDefaults();
             return itemDef;
         }
+
         stream.currentOffset = streamIndices[i];
         itemDef.id = i;
         itemDef.setDefaults();
@@ -6074,6 +6153,8 @@ public final class ItemDefinition {
     }
 
     private void readValues(Stream stream) {
+    	boolean osrs = stream == streamOSRS;
+    	
         do {
             int i = stream.readUnsignedByte();
             if (i == 0) {
@@ -6101,12 +6182,12 @@ public final class ItemDefinition {
                 if (modelOffsetY > 32767) {
                     modelOffsetY -= 0x10000;
                 }
-            } else if (i == 10) {
+            } else if (i == 10 && osrs) {
                 stream.readUnsignedWord();
             } else if (i == 11) {
                 stackable = true;
             } else if (i == 12) {
-                value = stream.readUnsignedWord();
+                value = osrs ? stream.readInt() : stream.readUnsignedWord();
             } else if (i == 16) {
                 membersObject = true;
             } else if (i == 23) {
@@ -6184,7 +6265,7 @@ public final class ItemDefinition {
                 lendID = stream.readUnsignedWord();
             } else if (i == 117) {
                 lentItemID = stream.readUnsignedWord();
-            }
+			}
         } while (true);
     }
 
@@ -6586,11 +6667,11 @@ public final class ItemDefinition {
                 return forID(stackId).getItemModelFinalised(1);
             }
         }
-        Model model = (Model) modelCache.get(id);
+        Model model = osrs ? (Model) modelCacheOSRS.get(id) : (Model) modelCache.get(id);
         if (model != null) {
             return model;
         }
-        model = Model.fetchModel(modelID);
+        model = Model.fetchModel(modelID, osrs);
         if (model == null) {
             return null;
         }
@@ -6605,7 +6686,11 @@ public final class ItemDefinition {
         model.light(64 + shadow, 768 + lightness, -50, -10, -50, true);
         model.rendersWithinOneTile = true;
         if (id != 5572 && id != 5573 && id != 640 && id != 650 && id != 630) {
-        modelCache.put(model, id);
+        	if (osrs) {
+        		modelCacheOSRS.put(model, id);
+        	} else {
+        		modelCache.put(model, id);	
+        	}
         }
         return model;
     }
@@ -6622,7 +6707,7 @@ public final class ItemDefinition {
                 return forID(j).getItemModel(1);
             }
         }
-        Model model = Model.fetchModel(modelID);
+        Model model = Model.fetchModel(modelID, osrs);
         if (model == null) {
             return null;
         }
@@ -6686,6 +6771,7 @@ public final class ItemDefinition {
     public int id;
     public static MemCache spriteCache = new MemCache(100);
     public static MemCache modelCache = new MemCache(50);
+    public static MemCache modelCacheOSRS = new MemCache(50);
     public int[] newModelColor;
     public boolean membersObject;
     public int femaleEquip3;
@@ -6698,6 +6784,7 @@ public final class ItemDefinition {
     public int modelOffset1;
     public String name;
     public static ItemDefinition[] cache;
+    public static ItemDefinition[] cacheOSRS;
     public int femaleDialogueModel;
     public int modelID;
     public int maleDialogue;
@@ -6705,8 +6792,10 @@ public final class ItemDefinition {
     public String description;
     public int certID;
     public static int cacheIndex;
+    public static int cacheIndexOSRS;
     public int modelZoom;
     public static Stream stream;
+    public static Stream streamOSRS;
     public int lightness;
     public int maleEquip3;
     public int maleEquip2;
@@ -6717,6 +6806,7 @@ public final class ItemDefinition {
     public int[] stackIDs;
     public int modelOffsetY;
     public static int[] streamIndices;
+    public static int[] streamIndicesOSRS;
     public int shadow;
     public int femaleDialogue;
     public int rotationX;
@@ -6730,4 +6820,5 @@ public final class ItemDefinition {
     public int lendID;
     public int lentItemID;
     public boolean untradeable;
+    public boolean osrs;
 }

@@ -14,8 +14,34 @@ public final class MobDefinition {
 	public int rightLight = 0;
 	public int middleLight = -1; // Cannot be 0
 	public int leftLight = 0;
+	private static final int OSRS_NPCS_OFFSET = 20000;
 	
 	public static MobDefinition forID(int i) {
+		if (i >= OSRS_NPCS_OFFSET) {
+			i -= OSRS_NPCS_OFFSET;
+			
+			for (int j = 0; j < 20; j++) {
+				if (cacheOSRS[j].type == (long) i) {
+					return cacheOSRS[j];
+				}
+			}
+			
+			cacheIndexOSRS = (cacheIndexOSRS + 1) % 20;
+			
+			MobDefinition npc = cacheOSRS[cacheIndexOSRS] = new MobDefinition();
+			
+			if (i >= streamIndicesOSRS.length) {
+				return null;
+			}
+			
+			streamOSRS.currentOffset = streamIndicesOSRS[i];
+			npc.id = i;
+			npc.type = i;
+			npc.osrs = true;
+			npc.readValues(streamOSRS);
+			
+			return npc; 
+		}
 		
 		for (int j = 0; j < 20; j++)
 			if (cache[j].type == (long) i)
@@ -1361,13 +1387,13 @@ public final class MobDefinition {
 			return null;
 		boolean everyFetched = false;
 		for (int i = 0; i < npcHeadModels.length; i++)
-			if (!Model.modelIsFetched(npcHeadModels[i]))
+			if (!Model.modelIsFetched(npcHeadModels[i], osrs))
 				everyFetched = true;
 		if (everyFetched)
 			return null;
 		Model parts[] = new Model[npcHeadModels.length];
 		for (int j = 0; j < npcHeadModels.length; j++)
-			parts[j] = Model.fetchModel(npcHeadModels[j]);
+			parts[j] = Model.fetchModel(npcHeadModels[j], osrs);
 		Model completeModel;
 		if (parts.length == 1)
 			completeModel = parts[0];
@@ -1408,17 +1434,35 @@ public final class MobDefinition {
 	public static void unpackConfig(CacheArchive streamLoader) {
 		stream = new Stream(streamLoader.getDataForName("npc.dat"));
 		Stream stream2 = new Stream(streamLoader.getDataForName("npc.idx"));
+		streamOSRS = new Stream(streamLoader.getDataForName("npc3.dat"));
+		Stream stream3 = new Stream(streamLoader.getDataForName("npc3.idx"));
+		
 		int totalNPCs = stream2.readUnsignedWord();
+		int totalOSRSNPCs = stream3.readUnsignedWord();
 		streamIndices = new int[totalNPCs];
+		streamIndicesOSRS = new int[totalOSRSNPCs];
+		
 		int i = 2;
+		
 		for (int j = 0; j < totalNPCs; j++) {
 			streamIndices[j] = i;
 			i += stream2.readUnsignedWord();
 		}
+		
+		i = 2;
+		
+		for (int j = 0; j < totalOSRSNPCs; j++) {
+			streamIndicesOSRS[j] = i;
+			i += stream3.readUnsignedWord();
+		}
+		
 		cache = new MobDefinition[20];
-		for (int k = 0; k < 20; k++)
+		cacheOSRS = new MobDefinition[20];
+		
+		for (int k = 0; k < 20; k++) {
 			cache[k] = new MobDefinition();
-		//NPCDefThing2.initialize();
+			cacheOSRS[k] = new MobDefinition();
+		}
 	}
 
 	public static void nullLoader() {
@@ -1440,14 +1484,14 @@ public final class MobDefinition {
 		if (completedModel == null) {
 			boolean everyModelFetched = false;
 			for (int ptr = 0; ptr < models.length; ptr++)
-				if (!Model.modelIsFetched(models[ptr]))
+				if (!Model.modelIsFetched(models[ptr], false))
 					everyModelFetched = true;
 
 			if (everyModelFetched)
 				return null;
 			Model parts[] = new Model[models.length];
 			for (int j1 = 0; j1 < models.length; j1++)
-				parts[j1] = Model.fetchModel(models[j1]);
+				parts[j1] = Model.fetchModel(models[j1], osrs);
 			if (parts.length == 1)
 				completedModel = parts[0];
 			else
@@ -1488,14 +1532,14 @@ public final class MobDefinition {
 		if (completedModel == null) {
 			boolean everyModelFetched = false;
 			for (int ptr = 0; ptr < models.length; ptr++)
-				if (!Model.modelIsFetched(models[ptr]))
+				if (!Model.modelIsFetched(models[ptr], false))
 					everyModelFetched = true;
 
 			if (everyModelFetched)
 				return null;
 			Model parts[] = new Model[models.length];
 			for (int j1 = 0; j1 < models.length; j1++)
-				parts[j1] = Model.fetchModel(models[j1]);
+				parts[j1] = Model.fetchModel(models[j1], osrs);
 			if (parts.length == 1)
 				completedModel = parts[0];
 			else
@@ -1528,7 +1572,7 @@ public final class MobDefinition {
 	}
 
 	public void readValues(Stream stream) {
-		
+		boolean osrs = stream == streamOSRS;
 		do {
 			int i = stream.readUnsignedByte();
 			if (i == 0)
@@ -1539,9 +1583,9 @@ public final class MobDefinition {
 				for (int j1 = 0; j1 < j; j1++)
 					models[j1] = stream.readUnsignedWord();
 			} else if (i == 2)
-				name = stream.readNewString();
+				name = osrs ? stream.readString() : stream.readNewString();
 			else if (i == 3) {
-				description = stream.readNewString();
+				description = osrs ? new String(stream.readBytes()) : stream.readNewString();
 			} else if (i == 12)
 				squaresNeeded = stream.readSignedByte();
 			else if (i == 13)
@@ -1565,7 +1609,7 @@ public final class MobDefinition {
 			} else if (i >= 30 && i < 40) {
 				if (actions == null)
 					actions = new String[5];
-				actions[i - 30] = stream.readNewString();
+				actions[i - 30] = osrs ? stream.readString() : stream.readNewString();
 				if (actions[i - 30].equalsIgnoreCase("hidden"))
 					actions[i - 30] = null;
 			} else if (i == 40) {
@@ -1646,10 +1690,12 @@ public final class MobDefinition {
 
 	public int turn90CCWAnimIndex;
 	public static int cacheIndex;
+	public static int cacheIndexOSRS;
 	public int varbitId;
 	public int turn180AnimIndex;
 	public int varSettingsId;
 	public static Stream stream;
+	public static Stream streamOSRS;
 	public int combatLevel;
 	public String name;
 	public String actions[];
@@ -1658,6 +1704,7 @@ public final class MobDefinition {
 	public byte squaresNeeded;
 	public int[] destColours;
 	public static int[] streamIndices;
+	public static int[] streamIndicesOSRS;
 	public int[] npcHeadModels;
 	public int headIcon;
 	public int[] originalColours;
@@ -1665,6 +1712,7 @@ public final class MobDefinition {
 	public long type;
 	public int degreesToTurn;
 	public static MobDefinition[] cache;
+	public static MobDefinition[] cacheOSRS;
 	public static Client clientInstance;
 	public int turn90CWAnimIndex;
 	public boolean clickable;
@@ -1679,4 +1727,5 @@ public final class MobDefinition {
 	public int[] models;
 	public static MemCache modelCache = new MemCache(30);
 	public int id;
+	public boolean osrs;
 }

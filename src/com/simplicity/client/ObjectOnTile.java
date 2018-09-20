@@ -36,7 +36,7 @@ final class ObjectOnTile extends Animable {
 		if(objectConfigs != null)
 			objectDef = getObjectForVarbitConfig();
 		else
-			objectDef = ObjectDefinition.forID(objectId);
+			objectDef = ObjectDefinition.forID(objectId, osrs);
 		if(objectDef == null)
 		{
 			return null;
@@ -64,15 +64,13 @@ final class ObjectOnTile extends Animable {
 		if(i < 0 || i >= objectConfigs.length || objectConfigs[i] == -1)
 			return null;
 		else
-			return ObjectDefinition.forID(objectConfigs[i]);
+			return ObjectDefinition.forID(objectConfigs[i], osrs);
 		} catch(ArrayIndexOutOfBoundsException e) {return null;}
 	}
 	
 	
 
-	public ObjectOnTile(int i, int j, int k, int l, int i1, int j1,
-						 int k1, int anim, boolean randomizeAnimStart)
-	{
+	public ObjectOnTile(int i, int j, int k, int l, int i1, int j1, int k1, int anim, boolean randomizeAnimStart, boolean osrs) {
 		objectId = i;
 		type = k;
 		orientation = j;
@@ -91,10 +89,11 @@ final class ObjectOnTile extends Animable {
 				nextFrameTime -= (int)(Math.random() * (double) animation.getFrameLength(frame));
 			}
 		}
-		ObjectDefinition object = ObjectDefinition.forID(objectId);
+		ObjectDefinition object = ObjectDefinition.forID(objectId, osrs);
 		varbitIndex = object.varbitIndex;
 		configId = object.configID;
 		objectConfigs = object.configObjectIDs;
+		this.osrs = osrs;
 	}
 
 	private int frame;
@@ -111,4 +110,5 @@ final class ObjectOnTile extends Animable {
 	private final int objectId;
 	private final int type;
 	private final int orientation;
+	private boolean osrs;
 }

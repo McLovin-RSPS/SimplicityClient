@@ -119,15 +119,19 @@ public class Model extends Animable {
 		hsl2rgb = Rasterizer.anIntArray1482;
 		lightDecay = Rasterizer.anIntArray1469;
 	}
-
+	
 	public static Model fetchModel(int j) {
+		return fetchModel(j, false);
+	}
+	
+	public static Model fetchModel(int j, boolean osrs) {
 		if (modelHeader == null)
 			return null;
 		if (j == 0)
 			return null;
 		ModelHeader class21 = modelHeader[j];
 		if (class21 == null) {
-			resourceManager.get(j);
+			resourceManager.get(osrs ? Client.OSRS_MODEL_IDX - 1 : Client.MODEL_IDX - 1, j);
 			return null;
 		} else {
 			return new Model(j);
@@ -180,13 +184,13 @@ public class Model extends Animable {
 		return (i & 0xff80) + j;
 	}
 
-	public static boolean modelIsFetched(int i) {
+	public static boolean modelIsFetched(int i, boolean osrs) {
 		if (modelHeader == null)
 			return false;
 
 		ModelHeader class21 = modelHeader[i];
 		if (class21 == null) {
-			resourceManager.get(i);
+			resourceManager.get(osrs ? Client.OSRS_MODEL_IDX - 1 : Client.MODEL_IDX - 1, i);
 			return false;
 		} else {
 			return true;

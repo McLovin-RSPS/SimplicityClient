@@ -87,7 +87,7 @@ public final class signlink implements Runnable {
 		String s = findcachedir();
 		try {
 			cache_dat = new RandomAccessFile(s + "main_file_cache.dat", "rw");
-			for (int j = 0; j < 7; j++) {
+			for (int j = 0; j < 8; j++) {
 				cache_idx[j] = new RandomAccessFile(s + "main_file_cache.idx" + j, "rw");
 			}
 		} catch (Exception exception) {
@@ -357,7 +357,7 @@ public final class signlink implements Runnable {
 	}
 
 	public static RandomAccessFile cache_dat = null;
-	public static final RandomAccessFile[] cache_idx = new RandomAccessFile[7];
+	public static final RandomAccessFile[] cache_idx = new RandomAccessFile[8];
 	public static Applet mainapp = null;
 	private static boolean active;
 	private static int threadliveid;

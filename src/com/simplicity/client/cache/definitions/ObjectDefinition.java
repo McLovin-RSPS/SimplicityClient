@@ -1,17 +1,27 @@
 package com.simplicity.client.cache.definitions;
 
 
-import com.simplicity.client.*;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.simplicity.client.CacheArchive;
+import com.simplicity.client.Client;
+import com.simplicity.client.FileOperations;
+import com.simplicity.client.FrameReader;
+import com.simplicity.client.MemCache;
+import com.simplicity.client.Model;
+import com.simplicity.client.OnDemandFetcher;
+import com.simplicity.client.Stream;
+import com.simplicity.client.signlink;
 
 
 
 @SuppressWarnings("all")
 public final class ObjectDefinition {
-
-
+	
 	public static void dump() {
 		for(int i = 0; i < streamIndices667.length-1; i++) {
 			ObjectDefinition object = forID(i);
@@ -60,16 +70,24 @@ public final class ObjectDefinition {
 	}
 	public static ObjectDefinition forIDOSRS(int i)
 	  {
-	    for (int j = 0; j < 200; j++) {
-	      if (cache[j].type == i) {
-	        return cache[j];
-	      }
-	    }
-	    cacheIndex = (cacheIndex + 1) % 200;
-	    ObjectDefinition objectDef = cache[cacheIndex];
+		for (int j = 0; j < 200; j++) {
+			if (cacheOSRS[j].type == i) {
+				return cacheOSRS[j];
+			}
+		}
+		
+
+	    osrsCacheIndex = (osrsCacheIndex + 1) % 200;
+	    ObjectDefinition objectDef = cacheOSRS[osrsCacheIndex];
+	    
+	    if (i > streamIndicesOSRS.length) {
+			return objectDef;
+		}
+	    
 	    streamOSRS.currentOffset = streamIndicesOSRS[i];
 	    objectDef.type = i;
 	    objectDef.setDefaults();
+	    objectDef.osrs = true;
 	    try
 	    {
 	      objectDef.readValues(streamOSRS);
@@ -78,6 +96,9 @@ public final class ObjectDefinition {
 	    {
 	      e.printStackTrace();
 	    }
+	    if (i == 30351 || i == 30349 || i == 30348) {
+			System.out.println("" + Arrays.toString(objectDef.objectModelIDs));
+		}
 	    return objectDef;
 	  }
 	  
@@ -107,36 +128,60 @@ public final class ObjectDefinition {
 	    
 	    11698, 11699, 11700, 
 	    
-	    26765 };
+	    26765,
+	  /**  
+	   * Inferno
+	   */
+	    30310, 30302
+	  };
 	private final static int[] hotSpotIDs = new int[] {13374, 13375, 13376, 13377, 13378, 39260, 39261, 39262, 39263, 39264, 39265, 2715, 13366, 13367, 13368, 13369, 13370, 13371, 13372, 15361, 15362, 15363, 15366, 15367, 15364, 15365, 15410, 15412, 15411, 15414, 15415, 15413, 15416, 15416, 15418, 15419, 15419, 15419, 15419, 15419, 15419, 15419, 15419, 15402, 15405, 15401, 15398, 15404, 15403, 15400, 15400, 15399, 15302, 15302, 15302, 15302, 15302, 15302, 15304, 15303, 15303, 15301, 15300, 15300, 15300, 15300, 15299, 15299, 15299, 15299, 15298, 15443, 15445, 15447, 15446, 15444, 15441, 15439, 15448, 15450, 15266, 15265, 15264, 15263, 15263, 15263, 15263, 15263, 15263, 15263, 15263, 15267, 15262, 15260, 15261, 15268, 15379, 15378, 15377, 15386, 15383, 15382, 15384, 34255, 15380, 15381, 15346, 15344, 15345, 15343, 15342, 15296, 15297, 15297, 15294, 15293, 15292, 15291, 15290, 15289, 15288, 15287, 15286, 15282, 15281, 15280, 15279, 15278, 15277, 15397, 15396, 15395, 15393, 15392, 15394, 15390, 15389, 15388, 15387, 44909, 44910, 44911, 44908, 15423, 15423, 15423, 15423, 15420, 48662, 15422, 15421, 15425, 15425, 15424, 18813, 18814, 18812, 18815, 18811, 18810, 15275, 15275, 15271, 15271, 15276, 15270, 15269, 13733, 13733, 13733, 13733, 13733, 13733, 15270, 15274, 15273, 15406, 15407, 15408, 15409, 15368, 15375, 15375, 15375, 15375, 15376, 15376, 15376, 15376, 15373, 15373, 15374, 15374, 15370, 15371, 15372, 15369, 15426, 15426, 15435, 15438, 15434, 15434, 15431, 15431, 15431, 15431, 15436, 15436, 15436, 15436, 15436, 15436, 15437, 15437, 15437, 15437, 15437, 15437, 15350, 15348, 15347, 15351, 15349, 15353, 15352, 15354, 15356, 15331, 15331, 15331, 15331, 15355, 15355, 15355, 15355, 15330, 15330, 15330, 15330, 15331, 15331, 15323, 15325, 15325, 15324, 15324, 15329, 15328, 15326, 15327, 15325, 15325, 15324, 15324, 15330, 15330, 15330, 15330, 15331, 15331, 34138, 15330, 15330, 34138, 34138, 15330, 34138, 15330, 15331, 15331, 15337, 15336, 39230, 39231, 36692, 39229, 36676, 34138, 15330, 15330, 34138, 34138, 15330, 34138, 15330, 15331, 15331, 36675, 36672, 36672, 36675, 36672, 36675, 36675, 36672, 15331, 15331, 15330, 15330, 15257, 15256, 15259, 15259, 15327, 15326};
+	
 	public static ObjectDefinition forID(int i) {
+		return forID(i, false);
+	}
+	
+	public static ObjectDefinition forID(int i, boolean isOsrs) {
 		boolean loadNew = (
-				/*i == 8550 || i == 8551 || i == 7847 || i == 8150 || */i == 32159 || i == 32157 || i == 36672 || i == 36675 || i == 36692 || i == 34138 || i >= 39260 && i <= 39271 || i == 39229 || i == 39230 || i == 39231 || i == 36676 || i == 36692 || i > 11915 && i <= 11929 || i >= 11426 && i <= 11444 || i >= 14835 && i <= 14845 || i >= 11391 && i <= 11397 || i >= 12713 && i <= 12715
-				);
-		for (int j = 0; j < 200; j++)
+		/* i == 8550 || i == 8551 || i == 7847 || i == 8150 || */i == 32159 || i == 32157 || i == 36672 || i == 36675 || i == 36692 || i == 34138 || i >= 39260 && i <= 39271 || i == 39229
+				|| i == 39230 || i == 39231 || i == 36676 || i == 36692 || i > 11915 && i <= 11929 || i >= 11426 && i <= 11444 || i >= 14835 && i <= 14845 || i >= 11391 && i <= 11397
+				|| i >= 12713 && i <= 12715);
+		
+		if (!isOsrs && i == 30283) {
+			isOsrs = true;
+		}
+
+		if (isOSRSObject(i) || isOsrs) {
+			return forIDOSRS(i);
+		}
+
+		for (int j = 0; j < 200; j++) {
 			if (cache[j].type == i) {
 				return cache[j];
 			}
-		 if (isOSRSObject(i)) {
-		      return forIDOSRS(i);
-		    }
+		}
+
 		cacheIndex = (cacheIndex + 1) % 200;
 		ObjectDefinition objectDef = cache[cacheIndex];
+		
 		try {
-
-			if(i > streamIndices.length || loadNew)
+			if (i > streamIndices.length || loadNew)
 				stream667.currentOffset = streamIndices667[i];
-			else 
+			else
 				stream.currentOffset = streamIndices[i];
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		objectDef.type = i;
 		objectDef.setDefaults();
-		if(i > streamIndices.length || loadNew)
+		if (i > streamIndices.length || loadNew)
 			objectDef.readValues(stream667);
 		else
 			objectDef.readValues(stream);
+		/*if (objectDef.objectModelIDs != null)
+		for (int d = 0; d < objectDef.objectModelIDs.length; d++) {
+			objectDef.objectModelIDs[d] = 4086;
+		}*/
 		/*Removing doors etc*/
 		boolean removeObject = i == 5244 || i == 2623 || i == 2956 || i == 463 || i == 462 || i == 10527 || i == 10529 || i == 40257 || i == 296 || i == 300 || i == 1747 || i == 7332 || i == 7326 || i == 7325 || i == 7385 || i == 7331 || i == 7385 || i == 7320 || i == 7317 || i == 7323 || i == 7354 || i == 1536 || i == 1537 || i == 5126 || i == 1551 || i == 1553 || i == 1516 || i == 1519 || i == 1557 || i == 1558 || i == 7126 || i == 733 || i == 14233 || i == 14235 || i == 1596 || i == 1597 || i == 14751 || i == 14752 || i == 14923 || i == 36844 || i == 30864 || i == 2514 || i == 1805 || i == 15536 || i == 2399 || i == 14749 || i == 29315 || i == 29316 || i == 29319 || i == 29320 || i == 29360 || i == 1528 || i == 36913 || i == 36915 || i == 15516 ||i == 35549 || i == 35551 || i == 26808 || i == 26910 || i == 26913 || i == 24381 || i == 15514 || i == 25891 || i == 26082 || i == 26081 || i == 1530 || i == 16776 || i == 16778 || i == 28589 || i == 1533 || i == 17089 || i == 1600 || i == 1601 || i == 11707 || i == 24376 || i == 24378 || i == 40108 || i == 59 || i == 2069 || i == 36846;
 		if(removeObject) {
@@ -600,17 +645,21 @@ public final class ObjectDefinition {
 	public static void nullLoader() {
 		modelCache = null;
 		completedModelCache = null;
+		completedOSRSModelCache = null;
 		streamIndices = null;
 		cache = null;
+		cacheOSRS = null;
 		stream = null;
+		stream667 = null;
+		streamOSRS = null;
 	}
-	public static void unpackConfig(CacheArchive streamLoader, CacheArchive secondArchive) {
+	public static void unpackConfig(CacheArchive streamLoader) {
 		stream = new Stream(streamLoader.getDataForName("loc.dat"));
 		Stream stream = new Stream(streamLoader.getDataForName("loc.idx"));
-		stream667 = new Stream(secondArchive.getDataForName("loc2.dat"));
-		Stream streamIdx667 = new Stream(secondArchive.getDataForName("loc2.idx"));
-		streamOSRS = new Stream(FileOperations.ReadFile(signlink.findcachedir() + "loc.dat"));
-		Stream streamIdxOSRS = new Stream(FileOperations.ReadFile(signlink.findcachedir() + "loc.idx"));
+		stream667 = new Stream(streamLoader.getDataForName("loc2.dat"));
+		Stream streamIdx667 = new Stream(streamLoader.getDataForName("loc2.idx"));
+		streamOSRS = new Stream(streamLoader.getDataForName("loc3.dat"));
+		Stream streamIdxOSRS = new Stream(streamLoader.getDataForName("loc3.idx"));
 
 		//FileOperations.WriteFile("C:\\Users\\te12ga8\\Dropbox\\Source\\data\\clipping\\objects\\loc.dat", ObjectDefinition.stream.buffer);
 		//FileOperations.WriteFile("C:\\Users\\te12ga8\\Dropbox\\Source\\data\\clipping\\objects\\loc.idx", stream.buffer);
@@ -620,30 +669,40 @@ public final class ObjectDefinition {
 		int totalObjects = stream.readUnsignedWord();
 		int totalObjects667 = streamIdx667.readUnsignedWord();
 		int totalObjectsOSRS = streamIdxOSRS.readUnsignedWord();
+		
 		streamIndices = new int[totalObjects];
 		streamIndices667 = new int[totalObjects667];
 		streamIndicesOSRS = new int[totalObjectsOSRS];
+		
 		int i = 2;
+		
 		for (int j = 0; j < totalObjects; j++) {
 			streamIndices[j] = i;
 			i += stream.readUnsignedWord();
 		}
+		
 		i = 2;
+		
 		for (int j = 0; j < totalObjects667; j++) {
 			streamIndices667[j] = i;
 			i += streamIdx667.readUnsignedWord();
 		}
-		 i = 2;
-		    for (int j = 0; j < totalObjectsOSRS; j++)
-		    {
-		      streamIndicesOSRS[j] = i;
-		      i += streamIdxOSRS.readUnsignedWord();
-		    }
-		    cache = new ObjectDefinition[200];
-		    for (int k = 0; k < 200; k++) {
-		      cache[k] = new ObjectDefinition();
-		    }
-		  }
+		
+		i = 2;
+		
+		for (int j = 0; j < totalObjectsOSRS; j++) {
+			streamIndicesOSRS[j] = i;
+			i += streamIdxOSRS.readUnsignedWord();
+		}
+		
+		cache = new ObjectDefinition[200];
+		cacheOSRS = new ObjectDefinition[200];
+		
+		for (int k = 0; k < 200; k++) {
+			cache[k] = new ObjectDefinition();
+			cacheOSRS[k] = new ObjectDefinition();
+		}
+	}
 
 	public boolean allModelsFetched(int i) {
 		if (objectModelTypes == null) {
@@ -652,13 +711,14 @@ public final class ObjectDefinition {
 			if (i != 10)
 				return true;
 			boolean flag1 = true;
-			for (int k = 0; k < objectModelIDs.length; k++)
-				flag1 &= Model.modelIsFetched(objectModelIDs[k] & 0xffff);
+			for (int k = 0; k < objectModelIDs.length; k++) {
+				flag1 &= Model.modelIsFetched(objectModelIDs[k] & 0xffff, osrs);
+			}
 			return flag1;
 		}
 		for (int j = 0; j < objectModelTypes.length; j++)
 			if (objectModelTypes[j] == i)
-				return Model.modelIsFetched(objectModelIDs[j] & 0xffff);
+				return Model.modelIsFetched(objectModelIDs[j] & 0xffff, osrs);
 
 		return true;
 	}
@@ -689,11 +749,11 @@ public final class ObjectDefinition {
 			return true;
 		boolean flag1 = true;
 		for (int i = 0; i < objectModelIDs.length; i++)
-			flag1 &= Model.modelIsFetched(objectModelIDs[i] & 0xffff);
+			flag1 &= Model.modelIsFetched(objectModelIDs[i] & 0xffff, osrs);
 		return flag1;
 	}
 
-	public ObjectDefinition getTransformedObject() {
+	public ObjectDefinition getTransformedObject(boolean osrs) {
 		int configIdx = -1;
 		if (varbitIndex != -1) {
 			VarBit varBit = VarBit.cache[varbitIndex];
@@ -707,7 +767,7 @@ public final class ObjectDefinition {
 		if (configIdx < 0 || configIdx >= configObjectIDs.length || configObjectIDs[configIdx] == -1)
 			return null;
 		else
-			return forID(configObjectIDs[configIdx]);
+			return forID(configObjectIDs[configIdx], osrs);
 	}
 
 	private Model getAnimatedModel(int objectType, int animId, int face) {
@@ -717,7 +777,7 @@ public final class ObjectDefinition {
 			if (objectType != 10)
 				return null;
 			hash = (long) ((type << 8) + face) + ((long) (animId + 1) << 32);
-			Model model_1 = (Model) completedModelCache.get(hash);
+			Model model_1 = osrs ? (Model) completedOSRSModelCache.get(hash) : (Model) completedModelCache.get(hash);
 			if (model_1 != null)
 				return model_1;
 			if (objectModelIDs == null)
@@ -728,14 +788,17 @@ public final class ObjectDefinition {
 				int subModelID = objectModelIDs[ptr];
 				if (mirror)
 					subModelID += 0x10000;
-				model = (Model) modelCache.get(subModelID);
+				model = Model.fetchModel(subModelID & 0xffff, osrs);
 				if (model == null) {
-					model = Model.fetchModel(subModelID & 0xffff);
+					model = Model.fetchModel(subModelID & 0xffff, osrs);
 					if (model == null)
 						return null;
 					if (mirror)
 						model.mirrorModel();
-					modelCache.put(model, subModelID);
+					if (osrs)
+						osrsModelCache.put(model, subModelID);
+					else
+						modelCache.put(model, subModelID);
 				}
 				if (modelAmt > 1)
 					modelParts[ptr] = model;
@@ -753,7 +816,7 @@ public final class ObjectDefinition {
 			if (i1 == -1)
 				return null;
 			hash = (long) ((type << 8) + (i1 << 3) + face) + ((long) (animId + 1) << 32);
-			Model model_2 = (Model) completedModelCache.get(hash);
+			Model model_2 = osrs ? (Model) completedOSRSModelCache.get(hash) : (Model) completedModelCache.get(hash);
 			if (model_2 != null)
 				return model_2;
 			int subModelId = objectModelIDs[i1];
@@ -762,7 +825,7 @@ public final class ObjectDefinition {
 				subModelId += 0x10000;
 			model = (Model) modelCache.get(subModelId);
 			if (model == null) {
-				model = Model.fetchModel(subModelId & 0xffff);
+				model = Model.fetchModel(subModelId & 0xffff, osrs);
 				if (model == null)
 					return null;
 				if (mirror)
@@ -796,7 +859,10 @@ public final class ObjectDefinition {
 		//64 + aByte737, 768 + aByte742 * 5, -50, -10, -50, !aBoolean769
 		if (anInt760 == 1)
 			model_3.myPriority = model_3.modelHeight;
-		completedModelCache.put(model_3, hash);
+		if (osrs)
+			completedOSRSModelCache.put(model_3, hash);	
+		else
+			completedModelCache.put(model_3, hash);
 		return model_3;
 	}
 
@@ -831,8 +897,10 @@ public final class ObjectDefinition {
 						if (objectModelIDs == null || lowMem) {
 							objectModelTypes = null;
 							objectModelIDs = new int[l];
-							for (int l1 = 0; l1 < l; l1++)
+							for (int l1 = 0; l1 < l; l1++) {
 								objectModelIDs[l1] = stream.readUnsignedWord();
+								System.out.println("ModelID: " + objectModelIDs[l1]);
+							}
 						} else {
 							stream.currentOffset += l * 2;
 						}
@@ -978,6 +1046,7 @@ public final class ObjectDefinition {
 	public int plane;
 	private boolean nonFlatShading;
 	private static int cacheIndex;
+	private static int osrsCacheIndex;
 	private int modelSizeH;
 	public int[] objectModelIDs;
 	public int varbitIndex;
@@ -987,11 +1056,15 @@ public final class ObjectDefinition {
 	public boolean hasActions;
 	public boolean aBoolean779;
 	public static MemCache completedModelCache = new MemCache(30);//30
+	public static MemCache completedOSRSModelCache = new MemCache(30);//30
 	public int animationID;
 	private static ObjectDefinition[] cache;
+	private static ObjectDefinition[] cacheOSRS;
 	private int offsetY;
 	private int[] modifiedModelColors;
 	public static MemCache modelCache = new MemCache(500);
+	public static MemCache osrsModelCache = new MemCache(500);
 	public String actions[];
+	public boolean osrs;
 
 }

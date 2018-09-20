@@ -1,8 +1,5 @@
 package com.simplicity.client;
 
-import com.simplicity.Configuration;
-import com.simplicity.client.cache.node.Deque;
-
 import java.io.ByteArrayInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -13,6 +10,9 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.zip.CRC32;
 import java.util.zip.GZIPInputStream;
+
+import com.simplicity.Configuration;
+import com.simplicity.client.cache.node.Deque;
 
 public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
 
@@ -259,10 +259,10 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
 		byte modelIndex[] = streamLoader.getDataForName("map_index");
 		Stream data = new Stream(modelIndex);
 		int mapCount = data.readUnsignedWord();
-		regionIds = new int[mapCount];
-		landscapeIds = new int[mapCount];
-		objectMapIds = new int[mapCount];
-		regionIsMembers = new int[mapCount];
+		regionIds = new int[mapCount + 1];
+		landscapeIds = new int[mapCount + 1];
+		objectMapIds = new int[mapCount + 1];
+		regionIsMembers = new int[mapCount + 1];
 		int[] dntUse = new int[] { 5181, 5182, 5183, 5184, 5180, 5179, 5175, 5176, 4014, 3997, 5314, 5315, 5172 };
 		for (int i2 = 0; i2 < mapCount; i2++) {
 			regionIds[i2] = data.readUnsignedWord();
@@ -276,6 +276,12 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
 					objectMapIds[i2] = -1;
 			}
 		}
+		/**
+		 * Inferno
+		 */
+		regionIds[mapCount] = 9043;
+		landscapeIds[mapCount] = 3018;
+		objectMapIds[mapCount] = 3019;
 
 		/** KRAKEN **/
 		regionIds[941] = 14681;
@@ -689,8 +695,12 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
 			4013, 4079, 4080, 4082, 3996, 4083, 4084, 4075, 4076, 3664, 3993, 3994, 3995, 4077, 4078, 4073, 4074, 4011,
 			4012, 3998, 3999, 4081, };
 
-	public final void get(int idx) {
-		requestFileData(0, idx);
+	public final void get(int id) {
+		get(0, id);
+	}
+	
+	public final void get(int type, int id) {
+		requestFileData(type, id);
 	}
 
 	public final void fetchPriorityFile(byte fileData, int idx, int fileId) {
