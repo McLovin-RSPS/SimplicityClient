@@ -3204,7 +3204,7 @@ public class Client extends RSApplet {
 
 	public static final int MAP_IDX = 4;
 
-	public static final int MODEL_IDX = 1, CONFIG_IDX = 0;
+	public static final int MODEL_IDX = 1, CONFIG_IDX = 0, OSRS_MODEL_IDX = 7;
 
 	public static boolean displayScrollbar;
 
