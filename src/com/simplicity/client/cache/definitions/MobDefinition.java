@@ -1,11 +1,11 @@
 package com.simplicity.client.cache.definitions;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import com.simplicity.client.*;
+import com.simplicity.client.CacheArchive;
+import com.simplicity.client.Client;
+import com.simplicity.client.FrameReader;
+import com.simplicity.client.MemCache;
+import com.simplicity.client.Model;
+import com.simplicity.client.Stream;
 
 public final class MobDefinition {
 
@@ -1467,6 +1467,7 @@ public final class MobDefinition {
 
 	public static void nullLoader() {
 		modelCache = null;
+		modelCacheOSRS = null;
 		streamIndices = null;
 		cache = null;
 		stream = null;
@@ -1480,11 +1481,11 @@ public final class MobDefinition {
 			else
 				return npc.getAnimatedModel(j, k, ai);
 		}
-		Model completedModel = (Model) modelCache.get(type);
+		Model completedModel = osrs ? (Model) modelCacheOSRS.get(type) : (Model) modelCache.get(type);
 		if (completedModel == null) {
 			boolean everyModelFetched = false;
 			for (int ptr = 0; ptr < models.length; ptr++)
-				if (!Model.modelIsFetched(models[ptr], false))
+				if (!Model.modelIsFetched(models[ptr], osrs))
 					everyModelFetched = true;
 
 			if (everyModelFetched)
@@ -1502,14 +1503,18 @@ public final class MobDefinition {
 			}
 			completedModel.createBones();
 			completedModel.light(frontLight, backLight, rightLight, middleLight, leftLight, true);
-			modelCache.put(completedModel, type);
+			if (osrs) {
+				modelCacheOSRS.put(completedModel, type);
+			} else {
+				modelCache.put(completedModel, type);
+			}
 		}
 		Model animatedModel = Model.entityModelDesc;
 		animatedModel.method464(completedModel, FrameReader.isNullFrame(k) & FrameReader.isNullFrame(j));
 		if (k != -1 && j != -1)
-			animatedModel.method471(ai, j, k);
+			animatedModel.method471(ai, j, k, osrs);
 		else if (k != -1)
-			animatedModel.applyTransform(k);
+			animatedModel.applyTransform(k, osrs);
 		if (sizeXZ != 128 || sizeY != 128)
 			animatedModel.scaleT(sizeXZ, sizeXZ, sizeY);
 		animatedModel.calculateDiagonals();
@@ -1528,11 +1533,11 @@ public final class MobDefinition {
 			else
 				return npc.method164(j, frame, ai, nextFrame, idk, idk2);
 		}
-		Model completedModel = (Model) modelCache.get(type);
+		Model completedModel = osrs ? (Model) modelCacheOSRS.get(type) : (Model) modelCache.get(type);
 		if (completedModel == null) {
 			boolean everyModelFetched = false;
 			for (int ptr = 0; ptr < models.length; ptr++)
-				if (!Model.modelIsFetched(models[ptr], false))
+				if (!Model.modelIsFetched(models[ptr], osrs))
 					everyModelFetched = true;
 
 			if (everyModelFetched)
@@ -1550,17 +1555,21 @@ public final class MobDefinition {
 			}
 			completedModel.createBones();
 			completedModel.light(frontLight, backLight, rightLight, middleLight, leftLight, true);
-			modelCache.put(completedModel, type);
+			if (osrs) {
+				modelCacheOSRS.put(completedModel, type);
+			} else {
+				modelCache.put(completedModel, type);
+			}
 		}
 		Model animatedModel = Model.entityModelDesc;
 		animatedModel.method464(completedModel, FrameReader.isNullFrame(frame) & FrameReader.isNullFrame(j));
 
 		if (frame != -1 && j != -1)
-			animatedModel.method471(ai, j, frame);
+			animatedModel.method471(ai, j, frame, osrs);
 		else if (frame != -1 && nextFrame != -1)
-			animatedModel.applyTransform(frame, nextFrame, idk, idk2);
+			animatedModel.applyTransform(frame, nextFrame, idk, idk2, osrs);
 		else if (frame != -1)
-			animatedModel.applyTransform(frame);
+			animatedModel.applyTransform(frame, osrs);
 		if (sizeXZ != 128 || sizeY != 128)
 			animatedModel.scaleT(sizeXZ, sizeXZ, sizeY);
 		animatedModel.calculateDiagonals();
@@ -1726,6 +1735,7 @@ public final class MobDefinition {
 	public boolean hasRenderPriority;
 	public int[] models;
 	public static MemCache modelCache = new MemCache(30);
+	public static MemCache modelCacheOSRS = new MemCache(30);
 	public int id;
 	public boolean osrs;
 }

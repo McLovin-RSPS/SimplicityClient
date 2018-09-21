@@ -5,16 +5,32 @@ import com.simplicity.client.FrameReader;
 import com.simplicity.client.Stream;
 
 public final class Animation {
-
+	
+	public static final int OSRS_ANIM_OFFSET = 15260;
+	
+	private static Stream streamOSRS;
+	
 	public static void unpackConfig(CacheArchive streamLoader) {
 		Stream stream = new Stream(streamLoader.getDataForName("seq.dat"));
+		streamOSRS = new Stream(streamLoader.getDataForName("seq3.dat"));
+		
 		int length = stream.readUnsignedWord();
-		if (anims == null)
-			anims = new Animation[length];
-		for (int j = 0; j < length; j++) {
-			if (anims[j] == null)
+		int lengthOSRS = streamOSRS.readUnsignedWord();
+		
+		if (anims == null) {
+			anims = new Animation[length + lengthOSRS];
+		}
+		
+		for (int j = 0; j < length + lengthOSRS; j++) {
+			if (anims[j] == null) {
 				anims[j] = new Animation();
-			anims[j].readValues(stream);
+			}
+			
+			if (j >= length) {
+				anims[j].osrs = true;
+			}
+			
+			anims[j].readValues(anims[j].osrs ? streamOSRS : stream);
 
 			if (j == 884) {
 				anims[j].leftHandItem = -1;
@@ -786,9 +802,10 @@ public final class Animation {
 			return 1;
 		int j = delays[i];
 		if (j == 0) {
-			FrameReader reader = FrameReader.forID(frameIDs[i]);
-			if (reader != null)
+			FrameReader reader = FrameReader.forID(frameIDs[i], osrs);
+			if (reader != null) {
 				j = delays[i] = reader.displayLength;
+			}
 		}
 		if (j == 0)
 			j = 1;
@@ -796,6 +813,8 @@ public final class Animation {
 	}
 
 	public void readValues(Stream stream) {
+		boolean osrs = stream == streamOSRS;
+		
 		do {
 			int i = stream.readUnsignedByte();
 			if (i == 0)
@@ -805,12 +824,31 @@ public final class Animation {
 				frameIDs = new int[frameCount];
 				frameIDs2 = new int[frameCount];
 				delays = new int[frameCount];
-				for (int i_ = 0; i_ < frameCount; i_++) {
-					frameIDs[i_] = stream.readDWord();
-					frameIDs2[i_] = -1;
+				
+				if (osrs) {
+					for (int i_ = 0; i_ < frameCount; i_++) {
+						delays[i_] = stream.readUnsignedWord();
+					}
+
+					for (int i_ = 0; i_ < frameCount; i_++) {
+						frameIDs[i_] = stream.readUnsignedWord();
+						frameIDs2[i_] = -1;
+					}
+
+					for (int i_ = 0; i_ < frameCount; i_++) {
+						frameIDs[i_] += stream.readUnsignedWord() << 16;
+					}
+				} else {
+					for (int i_ = 0; i_ < frameCount; i_++) {
+						frameIDs[i_] = stream.readDWord();
+						frameIDs2[i_] = -1;
+					}
+					
+					for (int i_ = 0; i_ < frameCount; i_++) {
+						delays[i_] = stream.readUnsignedByte();
+					}
 				}
-				for (int i_ = 0; i_ < frameCount; i_++)
-					delays[i_] = stream.readUnsignedByte();
+				
 			} else if (i == 2)
 				loopDelay = stream.readUnsignedWord();
 			else if (i == 3) {
@@ -835,7 +873,23 @@ public final class Animation {
 				priority = stream.readUnsignedByte();
 			else if (i == 11)
 				delayType = stream.readUnsignedByte();
-			else
+			else if (i == 12) {
+				int len = stream.readUnsignedByte();
+
+				for (int k = 0; k < len; k++) {
+					stream.readUnsignedWord();
+				}
+
+				for (int k = 0; k < len; k++) {
+					stream.readUnsignedWord();
+				}
+			} else if (i == 13) {
+				int len = stream.readUnsignedByte();
+
+				for (int k = 0; k < len; k++) {
+					stream.read24Int();
+				};
+			} else
 				System.out.println("Unrecognized seq.dat config code: " + i);
 		} while (true);
 		if (frameCount == 0) {
@@ -888,5 +942,6 @@ public final class Animation {
 	public int resetWhenWalk;
 	public int priority;
 	public int delayType;
+	public boolean osrs;
 	public static int anInt367;
 }

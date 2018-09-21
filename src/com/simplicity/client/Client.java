@@ -3204,7 +3204,7 @@ public class Client extends RSApplet {
 
 	public static final int MAP_IDX = 4;
 
-	public static final int MODEL_IDX = 1, CONFIG_IDX = 0, OSRS_MODEL_IDX = 7;
+	public static final int MODEL_IDX = 1, CONFIG_IDX = 0, OSRS_MODEL_IDX = 7, OSRS_ANIM_IDX = 8;
 
 	public static boolean displayScrollbar;
 
@@ -3871,6 +3871,7 @@ public class Client extends RSApplet {
 		ObjectDefinition.completedModelCache.clear();
 		ObjectDefinition.completedOSRSModelCache.clear();
 		MobDefinition.modelCache.clear();
+		MobDefinition.modelCacheOSRS.clear();
 		ItemDefinition.modelCache.clear();
 		ItemDefinition.modelCacheOSRS.clear();
 		ItemDefinition.spriteCache.clear();
@@ -6166,8 +6167,16 @@ public class Client extends RSApplet {
 				 * Animations Loading *
 				 */
 				if (onDemandData.dataType == ANIM_IDX - 1) {
-					FrameReader.load(onDemandData.id, onDemandData.buffer);
+					FrameReader.load(onDemandData.id, onDemandData.buffer, false);
 				}
+				
+				/**
+				 * OSRS Animations Loading *
+				 */
+				if (onDemandData.dataType == OSRS_ANIM_IDX - 1) {
+					FrameReader.load(onDemandData.id, onDemandData.buffer, true);
+				}
+				
 				/**
 				 * Sounds Loading *
 				 */
@@ -12377,7 +12386,7 @@ public class Client extends RSApplet {
 		CacheDownloader.init();
 
 		if (signlink.cache_dat != null) {
-			for (int i = 0; i < 8; i++) {
+			for (int i = 0; i < signlink.CACHE_INDEX_LENGTH; i++) {
 				cacheIndices[i] = new Decompressor(signlink.cache_dat, signlink.cache_idx[i], i + 1);
 			}
 		}
@@ -14195,18 +14204,14 @@ public class Client extends RSApplet {
 				player.anInt1520 = -1;
 			}
 			try {
-				if (FrameReader.animationlist[Integer.parseInt(
-						Integer.toHexString(SpotAnimDefinition.cache[player.anInt1520].animation.frameIDs[0]).substring(
-								0, Integer.toHexString(SpotAnimDefinition.cache[player.anInt1520].animation.frameIDs[0])
-										.length() - 4),
+				SpotAnimDefinition spotAnim = SpotAnimDefinition.cache[player.anInt1520];
+
+				if (FrameReader.animationlist[Integer.parseInt(Integer.toHexString(spotAnim.animation.frameIDs[0]).substring(0, Integer.toHexString(spotAnim.animation.frameIDs[0]).length() - 4),
 						16)].length == 0) {
-					onDemandFetcher.requestFileData(1, Integer.parseInt(Integer
-							.toHexString(SpotAnimDefinition.cache[player.anInt1520].animation.frameIDs[0]).substring(0,
-									Integer.toHexString(
-											SpotAnimDefinition.cache[player.anInt1520].animation.frameIDs[0]).length()
-											- 4),
-							16));
+					onDemandFetcher.requestFileData(spotAnim.osrs ? OSRS_ANIM_IDX - 1 : ANIM_IDX - 1,
+							Integer.parseInt(Integer.toHexString(spotAnim.animation.frameIDs[0]).substring(0, Integer.toHexString(spotAnim.animation.frameIDs[0]).length() - 4), 16));
 				}
+				
 			} catch (Exception e) {
 			}
 		}
@@ -14238,13 +14243,9 @@ public class Client extends RSApplet {
 
 				try {
 					if (FrameReader.animationlist[Integer.parseInt(
-							Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).substring(0,
-									Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).length() - 4),
-							16)].length == 0) {
-						onDemandFetcher.requestFileData(1, Integer.parseInt(
-								Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).substring(0,
-										Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).length() - 4),
-								16));
+							Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).substring(0, Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).length() - 4), 16)].length == 0) {
+						onDemandFetcher.requestFileData(1, Integer
+								.parseInt(Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).substring(0, Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).length() - 4), 16));
 					}
 				} catch (Exception e) {
 				}
@@ -19214,7 +19215,7 @@ public class Client extends RSApplet {
 		spriteDrawX = -1;
 		spriteDrawY = -1;
 		anIntArray968 = new int[33];
-		cacheIndices = new Decompressor[8];
+		cacheIndices = new Decompressor[signlink.CACHE_INDEX_LENGTH];
 		variousSettings = new int[9000];
 		aBoolean972 = false;
 		anInt975 = 50;

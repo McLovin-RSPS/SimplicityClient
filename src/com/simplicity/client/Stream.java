@@ -172,6 +172,11 @@ public final class Stream extends QueueNode {
 	public int readUnsignedByte() {
 		return buffer[currentOffset++] & 0xff;
 	}
+	
+	public int read24Int() {
+		currentOffset += 3;
+		return ((buffer[currentOffset - 3] & 0xff) << 16) + ((buffer[currentOffset - 2] & 0xff) << 8) + (buffer[currentOffset - 1] & 0xff);
+	}
 
 	public int readUnsignedWord() {
 		currentOffset += 2;
@@ -445,4 +450,5 @@ public final class Stream extends QueueNode {
 		return ((buffer[currentOffset - 1] & 0xff) << 8)
 				+ (buffer[currentOffset - 2] - 128 & 0xff);
 	}
+
 }

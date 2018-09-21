@@ -761,13 +761,17 @@ public class Model extends Animable {
 
 		calculateDiagonals();
 	}
-
+	
 	public void applyTransform(int i) {
+		applyTransform(i, false);
+	}
+
+	public void applyTransform(int i, boolean osrs) {
 		if (vertexSkin == null)
 			return;
 		if (i == -1)
 			return;
-		FrameReader class36 = FrameReader.forID(i);
+		FrameReader class36 = FrameReader.forID(i, osrs);
 		if (class36 == null)
 			return;
 		SkinList class18 = class36.mySkinList;
@@ -782,54 +786,11 @@ public class Model extends Animable {
 
 	}
 	
-	public void mixTransform(int ai[], int j, int k) {
-		if (k == -1)
-			return;
-		if (ai == null || j == -1) {
-			applyTransform(k);
-			return;
-		}
-		FrameReader class36 = FrameReader.forID(k);
-		if (class36 == null)
-			return;
-		FrameReader class36_1 = FrameReader.forID(j);
-		if (class36_1 == null) {
-			applyTransform(k);
-			return;
-		}
-		SkinList class18 = class36.mySkinList;
-		anInt1681 = 0;
-		anInt1682 = 0;
-		anInt1683 = 0;
-		int l = 0;
-		int i1 = ai[l++];
-		for (int j1 = 0; j1 < class36.stepCount; j1++) {
-			int k1;
-			for (k1 = class36.opCodeLinkTable[j1]; k1 > i1; i1 = ai[l++])
-				;
-			if (k1 != i1 || class18.opcodes[k1] == 0)
-				method472(class18.opcodes[k1], class18.skinList[k1], class36.xOffset[j1], class36.yOffset[j1], class36.zOffset[j1]);
-		}
-
-		anInt1681 = 0;
-		anInt1682 = 0;
-		anInt1683 = 0;
-		l = 0;
-		i1 = ai[l++];
-		for (int l1 = 0; l1 < class36_1.stepCount; l1++) {
-			int i2;
-			for (i2 = class36_1.opCodeLinkTable[l1]; i2 > i1; i1 = ai[l++])
-				;
-			if (i2 == i1 || class18.opcodes[i2] == 0)
-				method472(class18.opcodes[i2], class18.skinList[i2], class36_1.xOffset[l1], class36_1.yOffset[l1], class36_1.zOffset[l1]);
-		}
-	}
-
-	public void applyTransform(int firstFrame, int nextFrame, int end, int cycle) {
+	public void applyTransform(int firstFrame, int nextFrame, int end, int cycle, boolean osrs) {
 
 		try {
 			if (vertexSkin != null && firstFrame != -1) {
-				FrameReader currentAnimation = FrameReader.forID(firstFrame);
+				FrameReader currentAnimation = FrameReader.forID(firstFrame, osrs);
 				SkinList list1 = currentAnimation.mySkinList;
 				anInt1681 = 0;
 				anInt1682 = 0;
@@ -837,7 +798,7 @@ public class Model extends Animable {
 				FrameReader nextAnimation = null;
 				SkinList list2 = null;
 				if (nextFrame != -1) {
-					nextAnimation = FrameReader.forID(nextFrame);
+					nextAnimation = FrameReader.forID(nextFrame, osrs);
 					if (nextAnimation.mySkinList != list1)
 						nextAnimation = null;
 					list2 = nextAnimation.mySkinList;
@@ -927,29 +888,6 @@ public class Model extends Animable {
 			//e.printStackTrace();
 			applyTransform(firstFrame); //Cheap fix
 		}
-	}
-
-	public void applyTransform_2(int i, int frame2) {
-		if (vertexSkin == null)
-			return;
-		if (i == -1)
-			return;
-		FrameReader class36 = FrameReader.forID(i);
-		if (class36 == null)
-			return;
-		FrameReader class36_1 = FrameReader.forID(frame2);
-		FrameReader fr = FrameReader.getTween(class36, class36_1);
-		class36 = fr;
-		SkinList class18 = class36.mySkinList;
-		anInt1681 = 0;
-		anInt1682 = 0;
-		anInt1683 = 0;
-		for (int k = 0; k < class36.stepCount; k++) {
-			int l = class36.opCodeLinkTable[k];
-			method472(class18.opcodes[l], class18.skinList[l], class36.xOffset[k], class36.yOffset[k],
-					class36.zOffset[k]);
-		}
-
 	}
 
 	public void calcDiagonalsAndStats(int i) {
@@ -1283,20 +1221,24 @@ public class Model extends Animable {
 		}
 		return j;
 	}
-
+	
 	public void method471(int ai[], int j, int k) {
+		method471(ai, j, k, false);
+	}
+
+	public void method471(int ai[], int j, int k, boolean osrs) {
 		if (k == -1)
 			return;
 		if (ai == null || j == -1) {
-			applyTransform(k);
+			applyTransform(k, osrs);
 			return;
 		}
-		FrameReader class36 = FrameReader.forID(k);
+		FrameReader class36 = FrameReader.forID(k, osrs);
 		if (class36 == null)
 			return;
-		FrameReader class36_1 = FrameReader.forID(j);
+		FrameReader class36_1 = FrameReader.forID(j, osrs);
 		if (class36_1 == null) {
-			applyTransform(k);
+			applyTransform(k, osrs);
 			return;
 		}
 		SkinList class18 = class36.mySkinList;
@@ -1333,188 +1275,6 @@ public class Model extends Animable {
 
 	}
 
-	public void method471_2(int mixingData[], int j, int frameId, int frameId2) {
-		if (frameId == -1)
-			return;
-		if (mixingData == null || j == -1) {
-			applyTransform(frameId);
-			return;
-		}
-		FrameReader class36 = FrameReader.forID(frameId);
-		if (class36 == null)
-			return;
-		FrameReader class36_1 = FrameReader.forID(j);
-		if (class36_1 == null) {
-			applyTransform(frameId);
-			return;
-		}
-		FrameReader fr = FrameReader.forID(frameId2);
-		FrameReader tween = FrameReader.getTween(class36_1, fr);
-		class36 = tween;
-		SkinList class18 = class36.mySkinList;
-		anInt1681 = 0;
-		anInt1682 = 0;
-		anInt1683 = 0;
-		int l = 0;
-		int i1 = mixingData[l++];
-		for (int j1 = 0; j1 < class36.stepCount; j1++) {
-			int k1;
-			for (k1 = class36.opCodeLinkTable[j1]; k1 > i1; i1 = mixingData[l++])
-				;
-			if (k1 != i1 || class18.opcodes[k1] == 0)
-				method472(class18.opcodes[k1], class18.skinList[k1], class36.xOffset[j1], class36.yOffset[j1],
-						class36.zOffset[j1]);
-		}
-
-		anInt1681 = 0;
-		anInt1682 = 0;
-		anInt1683 = 0;
-		l = 0;
-		i1 = mixingData[l++];
-		for (int l1 = 0; l1 < class36_1.stepCount; l1++) {
-			int i2;
-			for (i2 = class36_1.opCodeLinkTable[l1]; i2 > i1; i1 = mixingData[l++])
-				;
-			if (i2 == i1 || class18.opcodes[i2] == 0)
-				method472(class18.opcodes[i2], class18.skinList[i2], class36_1.xOffset[l1], class36_1.yOffset[l1],
-						class36_1.zOffset[l1]);
-		}
-
-	}
-
-	/*private void method472(int i, int ai[], int j, int k, int l) {
-
-		int i1 = ai.length;
-		if (i == 0) {
-			int j1 = 0;
-			anInt1681 = 0;
-			anInt1682 = 0;
-			anInt1683 = 0;
-			for (int k2 = 0; k2 < i1; k2++) {
-				int l3 = ai[k2];
-				if (l3 < vertexSkin.length) {
-					int ai5[] = vertexSkin[l3];
-					for (int i5 = 0; i5 < ai5.length; i5++) {
-						int j6 = ai5[i5];
-						anInt1681 += verticesXCoordinate[j6];
-						anInt1682 += verticesYCoordinate[j6];
-						anInt1683 += verticesZCoordinate[j6];
-						j1++;
-					}
-
-				}
-			}
-
-			if (j1 > 0) {
-				anInt1681 = anInt1681 / j1 + j;
-				anInt1682 = anInt1682 / j1 + k;
-				anInt1683 = anInt1683 / j1 + l;
-				return;
-			} else {
-				anInt1681 = j;
-				anInt1682 = k;
-				anInt1683 = l;
-				return;
-			}
-		}
-		if (i == 1) {
-			for (int k1 = 0; k1 < i1; k1++) {
-				int l2 = ai[k1];
-				if (l2 < vertexSkin.length) {
-					int ai1[] = vertexSkin[l2];
-					for (int i4 = 0; i4 < ai1.length; i4++) {
-						int j5 = ai1[i4];
-						verticesXCoordinate[j5] += j;
-						verticesYCoordinate[j5] += k;
-						verticesZCoordinate[j5] += l;
-					}
-
-				}
-			}
-
-			return;
-		}
-		if (i == 2) {
-			for (int l1 = 0; l1 < i1; l1++) {
-				int i3 = ai[l1];
-				if (i3 < vertexSkin.length) {
-					int ai2[] = vertexSkin[i3];
-					for (int j4 = 0; j4 < ai2.length; j4++) {
-						int k5 = ai2[j4];
-						verticesXCoordinate[k5] -= anInt1681;
-						verticesYCoordinate[k5] -= anInt1682;
-						verticesZCoordinate[k5] -= anInt1683;
-						int k6 = (j & 0xff) * 8;
-						int l6 = (k & 0xff) * 8;
-						int i7 = (l & 0xff) * 8;
-						if (i7 != 0) {
-							int j7 = SINE[i7];
-							int i8 = COSINE[i7];
-							int l8 = verticesYCoordinate[k5] * j7 + verticesXCoordinate[k5] * i8 >> 16;
-							verticesYCoordinate[k5] = verticesYCoordinate[k5] * i8 - verticesXCoordinate[k5] * j7 >> 16;
-							verticesXCoordinate[k5] = l8;
-						}
-						if (k6 != 0) {
-							int k7 = SINE[k6];
-							int j8 = COSINE[k6];
-							int i9 = verticesYCoordinate[k5] * j8 - verticesZCoordinate[k5] * k7 >> 16;
-							verticesZCoordinate[k5] = verticesYCoordinate[k5] * k7 + verticesZCoordinate[k5] * j8 >> 16;
-							verticesYCoordinate[k5] = i9;
-						}
-						if (l6 != 0) {
-							int l7 = SINE[l6];
-							int k8 = COSINE[l6];
-							int j9 = verticesZCoordinate[k5] * l7 + verticesXCoordinate[k5] * k8 >> 16;
-							verticesZCoordinate[k5] = verticesZCoordinate[k5] * k8 - verticesXCoordinate[k5] * l7 >> 16;
-							verticesXCoordinate[k5] = j9;
-						}
-						verticesXCoordinate[k5] += anInt1681;
-						verticesYCoordinate[k5] += anInt1682;
-						verticesZCoordinate[k5] += anInt1683;
-					}
-
-				}
-			}
-			return;
-		}
-		if (i == 3) {
-			for (int i2 = 0; i2 < i1; i2++) {
-				int j3 = ai[i2];
-				if (j3 < vertexSkin.length) {
-					int ai3[] = vertexSkin[j3];
-					for (int k4 = 0; k4 < ai3.length; k4++) {
-						int l5 = ai3[k4];
-						verticesXCoordinate[l5] -= anInt1681;
-						verticesYCoordinate[l5] -= anInt1682;
-						verticesZCoordinate[l5] -= anInt1683;
-						verticesXCoordinate[l5] = (verticesXCoordinate[l5] * j) / 128;
-						verticesYCoordinate[l5] = (verticesYCoordinate[l5] * k) / 128;
-						verticesZCoordinate[l5] = (verticesZCoordinate[l5] * l) / 128;
-						verticesXCoordinate[l5] += anInt1681;
-						verticesYCoordinate[l5] += anInt1682;
-						verticesZCoordinate[l5] += anInt1683;
-					}
-				}
-			}
-			return;
-		}
-		if (i == 5 && triangleSkin != null && face_alpha != null) {
-			for (int j2 = 0; j2 < i1; j2++) {
-				int k3 = ai[j2];
-				if (k3 < triangleSkin.length) {
-					int ai4[] = triangleSkin[k3];
-					for (int l4 = 0; l4 < ai4.length; l4++) {
-						int i6 = ai4[l4];
-						(face_alpha)[i6] += j * 8;
-						if ((face_alpha)[i6] < 0)
-							(face_alpha)[i6] = 0;
-						if ((face_alpha)[i6] > 255)
-							(face_alpha)[i6] = 255;
-					}
-				}
-			}
-		}
-	}*/
 	private void method472(int animationType, int skin[], int xOffset, int yOffset, int zOffset) {
 
 		int i1 = skin.length;
@@ -1608,60 +1368,6 @@ public class Model extends Animable {
 			}
 			return;
 		}
-		/*if (animationType == 2) {
-			for (int l1 = 0; l1 < i1; l1++) {
-				int i3 = skin[l1];
-				if (i3 < vertexSkin.length) {
-					int ai2[] = vertexSkin[i3];
-					for (int j4 = 0; j4 < ai2.length; j4++) {
-						int k5 = ai2[j4];
-						verticesXCoordinate[k5] -= xAnimOffset;
-						verticesYCoordinate[k5] -= yAnimOffset;
-						verticesZCoordinate[k5] -= zAnimOffset;
-						
-						double x_ = xOffset - Math.floor(xOffset);
-						double y_ = yOffset - Math.floor(yOffset);
-						double z_ = zOffset - Math.floor(zOffset);
-						xOffset = (int) xOffset & 0xff;
-						yOffset = (int) yOffset & 0xff;
-						zOffset = (int) zOffset & 0xff;
-						xOffset += x_;
-						yOffset += y_;
-						zOffset += z_;
-						int k6 = (int)((xOffset) * 8);
-						int l6 = (int)((yOffset) * 8);
-						int i7 = (int)((zOffset) * 8);
-						if (i7 != 0) {
-							int j7 = SINE[i7];
-							int i8 = COSINE[i7];
-							int l8 = verticesYCoordinate[k5] * j7 + verticesXCoordinate[k5] * i8 >> 16;
-							verticesYCoordinate[k5] = verticesYCoordinate[k5] * i8 - verticesXCoordinate[k5] * j7 >> 16;
-							verticesXCoordinate[k5] = l8;
-						}
-						if (k6 != 0) {
-							int k7 = SINE[k6];
-							int j8 = COSINE[k6];
-							int i9 = verticesYCoordinate[k5] * j8 - verticesZCoordinate[k5] * k7 >> 16;
-							verticesZCoordinate[k5] = verticesYCoordinate[k5] * k7 + verticesZCoordinate[k5] * j8 >> 16;
-							verticesYCoordinate[k5] = i9;
-						}
-						if (l6 != 0) {
-							int l7 = SINE[l6];
-							int k8 = COSINE[l6];
-							int j9 = verticesZCoordinate[k5] * l7 + verticesXCoordinate[k5] * k8 >> 16;
-							verticesZCoordinate[k5] = verticesZCoordinate[k5] * k8 - verticesXCoordinate[k5] * l7 >> 16;
-							verticesXCoordinate[k5] = j9;
-						}
-						verticesXCoordinate[k5] += xAnimOffset;
-						verticesYCoordinate[k5] += yAnimOffset;
-						verticesZCoordinate[k5] += zAnimOffset;
-					}
-
-				}
-			}
-
-			return;
-		}*/
 		if (animationType == 3) {
 			for (int i2 = 0; i2 < i1; i2++) {
 				int j3 = skin[i2];

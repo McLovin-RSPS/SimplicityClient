@@ -1,5 +1,7 @@
 package com.simplicity.client;
 
+import com.simplicity.client.cache.definitions.Animation;
+
 @SuppressWarnings("all")
 public final class FrameReader {
 
@@ -7,19 +9,23 @@ public final class FrameReader {
 		animationlist = new FrameReader[5000][0];
 	}
 
-	public static void load(int file, byte[] fileData) {
+	public static void load(int file, byte[] fileData, boolean osrs) {
 		try {
 			Stream stream = new Stream(fileData);
 			SkinList skinList = new SkinList(stream, 0);
 			int k1 = stream.readUnsignedWord();
+			
 			animationlist[file] = new FrameReader[(int) (k1 * 3.5)];
+			
 			int ai[] = new int[500];
 			int ai1[] = new int[500];
 			int ai2[] = new int[500];
 			int ai3[] = new int[500];
 			for (int l1 = 0; l1 < k1; l1++) {
 				int i2 = stream.readUnsignedWord();
+				
 				FrameReader frameReader = animationlist[file][i2] = new FrameReader();
+				
 				frameReader.mySkinList = skinList;
 				int j2 = stream.readUnsignedByte();
 				int l2 = 0;
@@ -93,15 +99,26 @@ public final class FrameReader {
 	public static void nullLoader() {
 		animationlist = null;
 	}
-
+	
 	public static FrameReader forID(int int1) {
+		return forID(int1, false);
+	}
+
+	public static FrameReader forID(int int1, boolean osrs) {
 		try {
 			int int2 = int1 >> 16;
 			int1 = int1 & 0xffff;
+			
+			if (int2 == 1825 || int2 == 1744) {
+				//osrs = true;
+			}
+			
 			if (animationlist[int2].length == 0) {
-				Client.instance.onDemandFetcher.requestFileData(1, int2);
+				System.out.println("int1: " + int1 + " int2: " + int2);
+				Client.instance.onDemandFetcher.requestFileData(osrs ? Client.OSRS_ANIM_IDX - 1 : Client.ANIM_IDX - 1, int2);
 				return null;
 			}
+			
 			return animationlist[int2][int1];
 		} catch (Exception ex) {
 			ex.printStackTrace();

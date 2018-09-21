@@ -31,11 +31,10 @@ public final class Player extends Entity {
 		if (super.anInt1520 != -1 && super.currentAnim != -1) {
 			SpotAnimDefinition spotAnim = SpotAnimDefinition.cache[super.anInt1520];
 			Model model_2 = spotAnim.getModel();
-			if(spotAnim.animation != null) {
-				if (FrameReader.animationlist[Integer.parseInt(Integer.toHexString(spotAnim.animation.frameIDs[0]).substring(0, Integer.toHexString(spotAnim.animation.frameIDs[0])
-						.length() - 4), 16)].length == 0){
+			if (spotAnim.animation != null) {
+				if (FrameReader.animationlist[Integer.parseInt(Integer.toHexString(spotAnim.animation.frameIDs[0]).substring(0, Integer.toHexString(spotAnim.animation.frameIDs[0]).length() - 4),
+						16)].length == 0) {
 					model_2 = null;
-
 				}
 			}
 
@@ -359,10 +358,17 @@ public final class Player extends Entity {
 			return model_1;
 		Model model_2 = Model.entityModelDesc;
 		model_2.method464(model_1, FrameReader.isNullFrame(currentFrame) & FrameReader.isNullFrame(i1));
-		if(currentFrame != -1 && i1 != -1)
+
+		boolean osrs = false;
+		
+		if (super.anim != -1) {
+			osrs = Animation.anims[super.anim].osrs;
+		}
+		
+		if (currentFrame != -1 && i1 != -1)
 			model_2.method471(Animation.anims[super.anim].animationFlowControl, i1, currentFrame);
-		else if(currentFrame != -1 && nextFrame != -1)
-			model_2.applyTransform(currentFrame, nextFrame, cycle1, cycle2);
+		else if (currentFrame != -1 && nextFrame != -1)
+			model_2.applyTransform(currentFrame, nextFrame, cycle1, cycle2, osrs);
 		else
 			model_2.applyTransform(currentFrame);
 		model_2.calculateDiagonals();
@@ -373,7 +379,6 @@ public final class Player extends Entity {
 	
 
 	public boolean discoItems(int itemId) {
-
 		return ((itemId == 5572) || (itemId == 5573) || (itemId == 640) || (itemId == 650));
 	}
 
