@@ -16,6 +16,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.FilteredImageSource;
 import java.awt.image.RGBImageFilter;
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -46,6 +47,7 @@ import java.util.LinkedList;
 import java.util.Random;
 import java.util.Set;
 import java.util.zip.CRC32;
+import java.util.zip.GZIPOutputStream;
 
 import javax.imageio.ImageIO;
 import javax.sound.midi.MidiSystem;
