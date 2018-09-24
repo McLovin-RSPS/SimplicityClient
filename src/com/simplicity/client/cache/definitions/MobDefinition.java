@@ -14,7 +14,7 @@ public final class MobDefinition {
 	public int rightLight = 0;
 	public int middleLight = -1; // Cannot be 0
 	public int leftLight = 0;
-	private static final int OSRS_NPCS_OFFSET = 20000;
+	private static final int OSRS_NPCS_OFFSET = 15000;
 	
 	public static MobDefinition forID(int i) {
 		if (i >= OSRS_NPCS_OFFSET) {
