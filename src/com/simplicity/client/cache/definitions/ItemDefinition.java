@@ -6235,7 +6235,7 @@ public final class ItemDefinition {
             } else if (i == 95) {
                 modelOffsetX = stream.readUnsignedWord();
             } else if (i == 97) {
-                certID = stream.readUnsignedWord();
+                certID = osrs ? OSRS_ITEMS_OFFSET + stream.readUnsignedWord() : stream.readUnsignedWord();
             } else if (i == 98) {
                 certTemplateID = stream.readUnsignedWord();
             } else if (i >= 100 && i < 110) {

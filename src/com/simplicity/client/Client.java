@@ -7687,7 +7687,6 @@ public class Client extends RSApplet {
 			}
 		}
 		if (l == 234) {
-			System.out.println("test");
 			boolean flag1 = doWalkTo(2, 0, 0, 0, myPlayer.pathY[0], 0, 0, interfaceId, myPlayer.pathX[0], false, slot);
 			if (!flag1) {
 				flag1 = doWalkTo(2, 0, 1, 0, myPlayer.pathY[0], 1, 0, interfaceId, myPlayer.pathX[0], false, slot);
@@ -16171,7 +16170,7 @@ public class Client extends RSApplet {
 				Deque deque = groundArray[plane][i4][l6];
 				if (deque != null) {
 					for (Item item = (Item) deque.getFront(); item != null; item = (Item) deque.getNext()) {
-						if (item.ID != (k9 & 0x7fff)) {
+						if (item.ID != k9) {
 							continue;
 						}
 						item.unlink();

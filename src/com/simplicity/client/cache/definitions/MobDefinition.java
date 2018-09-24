@@ -35,8 +35,8 @@ public final class MobDefinition {
 			}
 			
 			streamOSRS.currentOffset = streamIndicesOSRS[i];
-			npc.id = i;
-			npc.type = i;
+			npc.id = OSRS_NPCS_OFFSET + i;
+			npc.type = OSRS_NPCS_OFFSET + i;
 			npc.osrs = true;
 			npc.readValues(streamOSRS);
 			
