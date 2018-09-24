@@ -4,10 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.simplicity.Configuration;
 import com.simplicity.client.CacheArchive;
@@ -24,7 +21,6 @@ public final class ItemDefinition {
 
     private static int[] prices;
     private static List<Integer> untradeableItems = new ArrayList<Integer>();
-    private static Set<Integer> osrsItemIds = new HashSet<Integer>(Arrays.asList(44000, 44001, 44002, 44003, 44004, 44005, 44006));
     private static final int OSRS_ITEMS_START = 12603;
     private static final int OSRS_ITEMS_OFFSET = 30_000;
 
@@ -253,7 +249,7 @@ public final class ItemDefinition {
             }
             
             streamOSRS.currentOffset = streamIndicesOSRS[i];
-            itemDef.id = i;
+            itemDef.id = OSRS_ITEMS_OFFSET + i;
             itemDef.osrs = true;
             itemDef.setDefaults();
             itemDef.readValues(streamOSRS);
@@ -273,7 +269,7 @@ public final class ItemDefinition {
                 itemDef.newModelColor[0] = 1;
             }
             
-            itemDef.value = prices[itemDef.id];
+            //itemDef.value = prices[itemDef.id];
             
     		return itemDef;
     	}
