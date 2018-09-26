@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.zip.ZipEntry;
@@ -252,11 +253,33 @@ public class CacheDownloader {
 		out.close();
 	}
 
+	public static String getDownloadLink(String name) {
+		try {
+		  String webLink = "http://simplicityps.org/resources/cache_link.php?type=" + name;
+	      StringBuilder result = new StringBuilder();
+	      URL url = new URL(webLink);
+	      HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+	      conn.setRequestMethod("GET");
+	      BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	      String line;
+	      while ((line = rd.readLine()) != null) {
+	    	 if (line.contains("url:")) {
+	    		 return line.replace("url:", "").trim();
+	    	 }
+	      }
+	      rd.close();
+	      return result.toString();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return "ERROR_IN_URL";
+	}
+	
 	enum CACHE_DOWNLOAD_FILES {
 
-		IMAGES(new String[]{"images.zip"}, "SPRITE_VER", "https://dl.dropboxusercontent.com/s/8lfoih1c2a09ru0/images.zip"),
-		CACHE(new String[]{"cache.zip"}, "CACHE_VER", "https://dl.dropboxusercontent.com/s/4smm3le4iqfjn58/cache.zip"),
-		DATA(new String[]{"data.zip"}, "DATA_VER", "https://dl.dropboxusercontent.com/s/7009eoyow8gb5sb/data.zip"),
+		IMAGES(new String[]{"images.zip"}, "SPRITE_VER", getDownloadLink("images")),
+		CACHE(new String[]{"cache.zip"}, "CACHE_VER", getDownloadLink("cache")),
+		DATA(new String[]{"data.zip"}, "DATA_VER", getDownloadLink("data")),
 		;
 
 		CACHE_DOWNLOAD_FILES(String[] file, String identifier, String link) {
