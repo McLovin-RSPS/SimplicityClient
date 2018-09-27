@@ -57,7 +57,7 @@ public final class NPC extends Entity
 				Model model_2 = new Model(true, FrameReader.isNullFrame(j), false, model_1);
 				model_2.translate(0, -super.graphicHeight, 0);
 				model_2.createBones();
-				model_2.applyTransform(j);
+				model_2.applyTransform(j, spotAnim.osrs);
 				model_2.triangleSkin = null;
 				model_2.vertexSkin = null;
 				if(spotAnim.sizeXY != 128 || spotAnim.sizeZ != 128)

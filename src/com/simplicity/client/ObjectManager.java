@@ -609,7 +609,7 @@ final class ObjectManager {
 		
     public void method175(boolean osrs, int y, WorldController worldController, CollisionDetection class11, int j, int z, int x, int i1, int j1) {
 		try {
-    	if (lowMem && (tileSettings[0][x][y] & 2) == 0) {
+    	if (!osrs && lowMem && (tileSettings[0][x][y] & 2) == 0) {
 			if ((tileSettings[z][x][y] & 0x10) != 0)
 				return;
 			if (method182(y, z, x) != anInt131)
@@ -629,7 +629,7 @@ final class ObjectManager {
 			l2 += 0x80000000;
 		byte byte0 = (byte) ((j1 << 6) + j);
 		if (j == 22) {
-			if (lowMem && !objectDef.hasActions && !objectDef.aBoolean736)
+			if (!osrs && lowMem && !objectDef.hasActions && !objectDef.aBoolean736)
 				return;
 			Object obj;
 			if (objectDef.animationID == -1 && objectDef.configObjectIDs == null)
@@ -1414,7 +1414,7 @@ label0:
 		if (i_261_ > 0 && i_262_ > 0 && i_261_ < 103 && i_262_ < 103)
 		  {
 		    ObjectDefinition class46 = ObjectDefinition.forID (i_252_, osrs);
-		    if (i_260_ != 22 || !lowMem || class46.hasActions
+		    if (i_260_ != 22 || !osrs && !lowMem || class46.hasActions
                     || class46.aBoolean736)
 		      {
 			bool &= class46.isAllModelsFetched ();
