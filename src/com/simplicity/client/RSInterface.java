@@ -2749,6 +2749,7 @@ public static void TeleTAB5() {
 			}
 		}
 		cacheArchive = streamLoader;
+		itemInformation(textDrawingAreas);
 		playersOnline(textDrawingAreas);
 		roomChooser();
 		fornitureChooser(textDrawingAreas);
@@ -2877,6 +2878,58 @@ public static void TeleTAB5() {
 		//	CustomInterfaces.achievementsInterface();
 
 		spriteCache = null;
+	}
+
+	public static void itemInformation(TextDrawingArea[] tda) {
+		RSInterface inter = addTabInterface(58000);
+
+		addText(58002, "Title", tda, 2, 0xff981f, true, true);
+		addSpriteLoader(58001, 581);
+
+		inter.totalChildren(4);
+
+		inter.child(0, 58001, 4, 5);
+		inter.child(1, 58002, 250, 9);
+		inter.child(2, 15210, 480, 6);
+		inter.child(3, 58050, 0, 38);
+
+		inter = addTabInterface(58050);
+		inter.contentType = 504;
+		inter.width = 478;
+		inter.height = 253;
+		inter.scrollMax = 200 * 30 + (200 * 12);
+
+		for (int i = 58302; i < 58702; i++) {
+			addText(i, "", tda, 1, 0xffb000, false, true);
+		}
+
+		inter.totalChildren(400 + 1);
+
+		int Child = 0;
+		int Y = 3;
+
+		for (int i = 58302; i < 58702; i++) {
+			inter.child(Child, i, 80, Y);
+			Child++;
+			Y += 15;
+			if (i % 2 != 0)
+				Y += 12;
+		}
+
+		inter.child(Child, 58800, 30, 0);
+
+		RSInterface Interface = addTabInterface(58800);
+
+		Interface.type = 2;
+		Interface.spritesX = new int[200];
+		Interface.spritesY = new int[200];
+		Interface.contentType = 0;
+		Interface.width = 1;
+		Interface.height = 200;
+		Interface.invSpritePadY = 10;
+		Interface.invSpritePadX = 10;
+		Interface.invStackSizes = new int[Interface.height * Interface.width];
+		Interface.inv = new int[Interface.height * Interface.width];
 	}
 	
 	private static void newShopInterface(TextDrawingArea[] textDrawingAreas) {
