@@ -1414,7 +1414,7 @@ label0:
 		if (i_261_ > 0 && i_262_ > 0 && i_261_ < 103 && i_262_ < 103)
 		  {
 		    ObjectDefinition class46 = ObjectDefinition.forID (i_252_, osrs);
-		    if (i_260_ != 22 || !osrs && !lowMem || class46.hasActions
+		    if (i_260_ != 22 || osrs || !lowMem || class46.hasActions
                     || class46.aBoolean736)
 		      {
 			bool &= class46.isAllModelsFetched ();

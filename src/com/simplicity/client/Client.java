@@ -16432,7 +16432,6 @@ public class Client extends RSApplet {
 		WorldController.lowMem = false;
 		lowMem = true;
 		ObjectManager.lowMem = true;
-		ObjectDefinition.lowMem = true;
 		// Rasterizer.lowMem = true;
 	}
 

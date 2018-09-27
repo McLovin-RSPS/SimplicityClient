@@ -643,6 +643,7 @@ public final class ObjectDefinition {
 
 	public static void nullLoader() {
 		modelCache = null;
+		osrsModelCache = null;
 		completedModelCache = null;
 		completedOSRSModelCache = null;
 		streamIndices = null;
@@ -1027,7 +1028,6 @@ public final class ObjectDefinition {
 	private int modelSizeX;
 	public int configID;
 	private boolean aBoolean751;
-	public static boolean lowMem;
 	private static Stream stream;
 	private static Stream stream667;
 	private static Stream streamOSRS;
