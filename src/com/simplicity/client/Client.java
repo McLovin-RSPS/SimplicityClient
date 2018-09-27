@@ -21780,7 +21780,7 @@ public class Client extends RSApplet {
 
 	private ArrayList<CustomMinimapIcon> customMinimapIcons = new ArrayList<CustomMinimapIcon>();
 	
-	private static Set<Integer> OSRS_REGIONS = new HashSet<>(Arrays.asList(9043, 12887));
+	private static Set<Integer> OSRS_REGIONS = new HashSet<>(Arrays.asList(9023, 9043, 12887));
 	
 	private int drawX = 0;
 	private int drawY = 0;
