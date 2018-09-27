@@ -99,22 +99,13 @@ public final class FrameReader {
 	public static void nullLoader() {
 		animationlist = null;
 	}
-	
-	public static FrameReader forID(int int1) {
-		return forID(int1, false);
-	}
 
 	public static FrameReader forID(int int1, boolean osrs) {
 		try {
 			int int2 = int1 >> 16;
 			int1 = int1 & 0xffff;
 			
-			if (int2 == 1825 || int2 == 1744) {
-				//osrs = true;
-			}
-			
 			if (animationlist[int2].length == 0) {
-				System.out.println("int1: " + int1 + " int2: " + int2);
 				Client.instance.onDemandFetcher.requestFileData(osrs ? Client.OSRS_ANIM_IDX - 1 : Client.ANIM_IDX - 1, int2);
 				return null;
 			}
