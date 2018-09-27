@@ -21,7 +21,7 @@ public final class ItemDefinition {
 
     private static int[] prices;
     private static List<Integer> untradeableItems = new ArrayList<Integer>();
-    private static final int OSRS_ITEMS_START = 12603;
+    private static final int OSRS_ITEMS_START = 10603;
     private static final int OSRS_ITEMS_OFFSET = 30_000;
 
     public static void nullLoader() {
