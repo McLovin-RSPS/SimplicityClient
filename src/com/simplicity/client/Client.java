@@ -5930,7 +5930,6 @@ public class Client extends RSApplet {
 		WorldController.lowMem = false;
 		lowMem = false;
 		ObjectManager.lowMem = false; // Removes roofs
-		ObjectDefinition.lowMem = false;
 	}
 
 	public int canWalkDelay = 0;
