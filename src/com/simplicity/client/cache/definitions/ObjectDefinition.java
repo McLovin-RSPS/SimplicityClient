@@ -923,6 +923,9 @@ public final class ObjectDefinition {
 					aBoolean764 = true;
 				else if (opcode == 24) {
 					animationID = stream.readUnsignedWord();
+					if (osrs) {
+						animationID += Animation.OSRS_ANIM_OFFSET;
+					}
 					if (animationID == 65535)
 						animationID = -1;
 				} else if (opcode == 28)
