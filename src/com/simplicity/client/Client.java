@@ -254,7 +254,7 @@ public class Client extends RSApplet {
 			options.put("save_input", true);
 			options.put("HD_shade", false);
 			options.put("mipm", false);
-			options.put("particles", false);
+			options.put("particles", true);
 			options.put("attk_priority", false);
 			shadowIndex = 4;
 			SoundPlayer.setVolume(4);
@@ -293,9 +293,9 @@ public class Client extends RSApplet {
 			options.put("anti_a", in.readByte() == 1);
 			options.put("HD_shade", in.readByte() == 1);
 			options.put("mipm", in.readByte() == 1);
+			options.put("attk_priority", in.readByte() == 1);
 			options.put("save_input", in.readByte() == 1);
 			options.put("particles", in.readByte() == 1);
-			options.put("attk_priority", in.readByte() == 1);
 
 			if (in.length() > in.getFilePointer()) {
 				shadowIndex = in.readInt();
@@ -18815,7 +18815,10 @@ public class Client extends RSApplet {
 		DrawingArea.resetImage();
 		worldController.render(xCameraPos, yCameraPos, xCameraCurve, zCameraPos, j, yCameraCurve);
 		if (Client.getOption("fog_active")) {
-			Rasterizer.drawFog(0xC6BFA6, 2000, 3000);
+			int baseFogDistance = (int) Math.sqrt(Math.pow(zCameraPos, 2));
+			int fogStart = baseFogDistance + 1100;
+			int fogEnd = baseFogDistance + 2000;
+			Rasterizer.drawFog( fogStart, fogEnd);
 		}
 		if (antialiasing) {
 			Model.currentCursorX >>= 1;
@@ -18852,6 +18855,7 @@ public class Client extends RSApplet {
 		}
 		WorldController.focalLength = 512;
 		worldController.clearInteractableObjects();
+
 		Iterator<Particle> iterator;
 		Particle particle;
 		if (getOption("particles")) {
@@ -18873,19 +18877,15 @@ public class Client extends RSApplet {
 							width = 8;
 							height = 8;
 						} else {
-							def.getSprite();
 							width = DrawingArea.width / 4;
-							def.getSprite();
 							height = DrawingArea.height / 4;
 						}
 						width = (int) (width * particle.getSize());
 						height = (int) (height * particle.getSize());
 						int[] projection = calcParticlePos(displayX, displayY, displayZ, width, height);
-						width = projection[5] - projection[3];
-						height = projection[6] - projection[4];
 						float size = particle.getSize();
 						int alpha = (int) (particle.getAlpha() * 255.0F);
-						int radius = (int) (((clientSize == 0 ? 4.0F : 4.5F)) * particle.getSize());
+						int radius = (int) ((clientSize == 0 ? 4.0F : 5.0F) * particle.getSize());
 						int srcAlpha = 256 - alpha;
 						int srcR = (particle.getColor() >> 16 & 255) * alpha;
 						int srcG = (particle.getColor() >> 8 & 255) * alpha;
@@ -18912,11 +18912,14 @@ public class Client extends RSApplet {
 							int pixel = x1 + iy * DrawingArea.width;
 							try {
 								if (Rasterizer.depthBuffer != null) {
-									if (Rasterizer.depthBuffer[pixel] >= projection[2] - size - 15
-											|| Rasterizer.depthBuffer[pixel++] >= projection[2] + size + 15) {
+									if (pixel < Rasterizer.depthBuffer.length && projection.length > 2 &&
+											(Rasterizer.depthBuffer[pixel] >= projection[2] - size - 15
+													|| pixel++ < Rasterizer.depthBuffer.length && Rasterizer.depthBuffer[pixel] >= projection[2] + size + 15)) {
 										for (int ix = x1; ix <= x2; ++ix) {
-											int dstR = (gameScreenIP.anIntArray315[pixel] >> 16 & 255) * srcAlpha;
-											int dstG = (gameScreenIP.anIntArray315[pixel] >> 8 & 255) * srcAlpha;
+											int dstR = (gameScreenIP.anIntArray315[pixel] >> 16 & 255)
+													* srcAlpha;
+											int dstG = (gameScreenIP.anIntArray315[pixel] >> 8 & 255)
+													* srcAlpha;
 											int dstB = (gameScreenIP.anIntArray315[pixel] & 255) * srcAlpha;
 											int rgb = (srcR + dstR >> 8 << 16) + (srcG + dstG >> 8 << 8)
 													+ (srcB + dstB >> 8);
@@ -18926,7 +18929,9 @@ public class Client extends RSApplet {
 										particle.setAlpha(0f);
 									}
 								}
-							} catch (Exception exception) {
+							} catch (Exception e) {
+								System.out.println("Rasterizer3D error: ");
+								e.printStackTrace();
 							}
 						}
 					}

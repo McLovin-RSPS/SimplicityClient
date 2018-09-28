@@ -22,6 +22,7 @@ public final class RSImageProducer
 		this.height = height;
 		this.component = component;
 		int count = width * height;
+		depthbuffer = new float[width * height];
 		anIntArray315 = new int[count];
 		image = new BufferedImage(COLOR_MODEL, Raster.createWritableRaster(COLOR_MODEL.createCompatibleSampleModel(width, height), new DataBufferInt(anIntArray315, count), null), false, new Hashtable<Object, Object>());
 		initDrawingArea();
@@ -57,9 +58,10 @@ public final class RSImageProducer
 
 	public void initDrawingArea()
 	{
-		DrawingArea.initDrawingArea(height, width, anIntArray315);
+		DrawingArea.initDrawingArea(height, width, anIntArray315, depthbuffer);
 	}
 
+	private float[] depthbuffer;
 	public final int[] anIntArray315;
 	public final int width;
 	public final int height;

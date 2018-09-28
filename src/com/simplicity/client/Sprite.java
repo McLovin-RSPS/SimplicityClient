@@ -737,7 +737,7 @@ public class Sprite extends DrawingArea {
 	}
 
 	public void method343() {
-		DrawingArea.initDrawingArea(myHeight, myWidth, myPixels);
+		DrawingArea.initDrawingArea(myHeight, myWidth, myPixels, null);
 	}
 
 	public void decodePalette(int i, int j, int k) {
