@@ -5930,7 +5930,6 @@ public class Client extends RSApplet {
 		WorldController.lowMem = false;
 		lowMem = false;
 		ObjectManager.lowMem = false; // Removes roofs
-		ObjectDefinition.lowMem = false;
 	}
 
 	public int canWalkDelay = 0;
@@ -16433,7 +16432,6 @@ public class Client extends RSApplet {
 		WorldController.lowMem = false;
 		lowMem = true;
 		ObjectManager.lowMem = true;
-		ObjectDefinition.lowMem = true;
 		// Rasterizer.lowMem = true;
 	}
 
@@ -21781,7 +21779,7 @@ public class Client extends RSApplet {
 
 	private ArrayList<CustomMinimapIcon> customMinimapIcons = new ArrayList<CustomMinimapIcon>();
 	
-	private static Set<Integer> OSRS_REGIONS = new HashSet<>(Arrays.asList(9043, 12887));
+	private static Set<Integer> OSRS_REGIONS = new HashSet<>(Arrays.asList(6810, 9023, 9043, 11850, 11851, 12090, 12106, 12362, 12363, 12605, 12701, 12702, 12703, 12861, 12887, 12889, 12957, 12958, 12959, 12961));
 	
 	private int drawX = 0;
 	private int drawY = 0;

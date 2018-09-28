@@ -79,7 +79,6 @@ public final class ObjectDefinition {
 
 	    osrsCacheIndex = (osrsCacheIndex + 1) % 200;
 	    ObjectDefinition objectDef = cacheOSRS[osrsCacheIndex];
-	    
 	    if (i > streamIndicesOSRS.length) {
 			return objectDef;
 		}
@@ -96,7 +95,7 @@ public final class ObjectDefinition {
 	    {
 	      e.printStackTrace();
 	    }
-	    if (i == 30351 || i == 30349 || i == 30348) {
+	    if ( i == 30351 || i == 30349 || i == 30348) {
 			System.out.println("" + Arrays.toString(objectDef.objectModelIDs));
 		}
 	    return objectDef;
@@ -149,7 +148,7 @@ public final class ObjectDefinition {
 		if (!isOsrs && i == 30283) {
 			isOsrs = true;
 		}
-
+		
 		if (isOSRSObject(i) || isOsrs) {
 			return forIDOSRS(i);
 		}
@@ -644,6 +643,7 @@ public final class ObjectDefinition {
 
 	public static void nullLoader() {
 		modelCache = null;
+		osrsModelCache = null;
 		completedModelCache = null;
 		completedOSRSModelCache = null;
 		streamIndices = null;
@@ -766,8 +766,9 @@ public final class ObjectDefinition {
 			configIdx = clientInstance.variousSettings[configID];
 		if (configIdx < 0 || configIdx >= configObjectIDs.length || configObjectIDs[configIdx] == -1)
 			return null;
-		else
+		else {
 			return forID(configObjectIDs[configIdx], osrs);
+		}
 	}
 
 	private Model getAnimatedModel(int objectType, int animId, int face) {
@@ -840,7 +841,7 @@ public final class ObjectDefinition {
 		Model model_3 = new Model(modifiedModelColors == null, FrameReader.isNullFrame(animId), face == 0 && animId == -1 && !rescale && !hasOffsets, model);
 		if (animId != -1) {
 			model_3.createBones();
-			model_3.applyTransform(animId);
+			model_3.applyTransform(animId, osrs);
 			model_3.triangleSkin = null;
 			model_3.vertexSkin = null;
 		}
@@ -877,7 +878,7 @@ public final class ObjectDefinition {
 				if (opcode == 1) {
 					int k = stream.readUnsignedByte();
 					if (k > 0)
-						if (objectModelIDs == null || lowMem) {
+						if (objectModelIDs == null) {
 							objectModelTypes = new int[k];
 							objectModelIDs = new int[k];
 							for (int k1 = 0; k1 < k; k1++) {
@@ -894,12 +895,11 @@ public final class ObjectDefinition {
 				else if (opcode == 5) {
 					int l = stream.readUnsignedByte();
 					if (l > 0)
-						if (objectModelIDs == null || lowMem) {
+						if (objectModelIDs == null) {
 							objectModelTypes = null;
 							objectModelIDs = new int[l];
 							for (int l1 = 0; l1 < l; l1++) {
 								objectModelIDs[l1] = stream.readUnsignedWord();
-								System.out.println("ModelID: " + objectModelIDs[l1]);
 							}
 						} else {
 							stream.currentOffset += l * 2;
@@ -924,6 +924,9 @@ public final class ObjectDefinition {
 					aBoolean764 = true;
 				else if (opcode == 24) {
 					animationID = stream.readUnsignedWord();
+					if (osrs) {
+						animationID += Animation.OSRS_ANIM_OFFSET;
+					}
 					if (animationID == 65535)
 						animationID = -1;
 				} else if (opcode == 28)
@@ -1025,7 +1028,6 @@ public final class ObjectDefinition {
 	private int modelSizeX;
 	public int configID;
 	private boolean aBoolean751;
-	public static boolean lowMem;
 	private static Stream stream;
 	private static Stream stream667;
 	private static Stream streamOSRS;

@@ -259,10 +259,11 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
 		byte modelIndex[] = streamLoader.getDataForName("map_index");
 		Stream data = new Stream(modelIndex);
 		int mapCount = data.readUnsignedWord();
-		regionIds = new int[mapCount + 1];
-		landscapeIds = new int[mapCount + 1];
-		objectMapIds = new int[mapCount + 1];
-		regionIsMembers = new int[mapCount + 1];
+		int addonMaps = 12;
+		regionIds = new int[mapCount + addonMaps];
+		landscapeIds = new int[mapCount + addonMaps];
+		objectMapIds = new int[mapCount + addonMaps];
+		regionIsMembers = new int[mapCount + addonMaps];
 		int[] dntUse = new int[] { 5181, 5182, 5183, 5184, 5180, 5179, 5175, 5176, 4014, 3997, 5314, 5315, 5172 };
 		for (int i2 = 0; i2 < mapCount; i2++) {
 			regionIds[i2] = data.readUnsignedWord();
@@ -276,6 +277,38 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
 					objectMapIds[i2] = -1;
 			}
 		}
+		/**
+		 * Skotizo lair
+		 */
+		setMapData(mapCount + 1, 6810, 10000, 10001, false);
+		
+		/**
+		 * Revenant cave
+		 */
+		setMapData(mapCount + 2, 12701, 10002, 10003, false);
+		setMapData(mapCount + 3, 12702, 10004, 10005, false);
+		setMapData(mapCount + 4, 12703, 10006, 10007, false);
+		setMapData(mapCount + 5, 12957, 10008, 10009, false);
+		setMapData(mapCount + 6, 12958, 10010, 10011, false);
+		setMapData(mapCount + 7, 12959, 10012, 10013, false);
+		
+		/**
+		 * Abyssal sire
+		 */
+		setMapData(mapCount + 8, 11850, 10014, 10015, false);
+		setMapData(mapCount + 9, 12362, 10016, 10017, false);
+		setMapData(mapCount + 10, 12363, 10018, 10019, false);
+		
+		/**
+		 * Scorpia cave
+		 */
+		setMapData(mapCount + 11, 12961, 10020, 10021, false);
+		
+		/**
+		 * Great Olm
+		 */
+		clearNearRegions(12889);
+		
 		/**
 		 * Inferno
 		 */
@@ -404,7 +437,30 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
 		clientInstance.startRunnable(this, 2);
 		// writeAll();
 	}
-
+	
+	public void setMapData(int index, int regionId, int floorMap, int objectMap, boolean clearNear) {
+		regionIds[index] = regionId;
+		landscapeIds[index] = floorMap;
+		objectMapIds[index] = objectMap;
+		
+		if (clearNear) {
+			clearNearRegions(regionId);
+		}
+	}
+	
+	public void clearNearRegions(int regionId) {
+		int[] regions = getNearRegions(regionId);
+		
+		for (int region : regions) {
+			for (int j1 = 0; j1 < regionIds.length; j1++) {
+				if (regionIds[j1] == region) {
+					landscapeIds[j1] = -1;
+					objectMapIds[j1] = -1;
+				}
+			}
+		}
+	}
+	
 	public int getImageCount() {
 		return crcs[4].length;
 	}
@@ -660,14 +716,33 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
 			OnDemandRequest.buffer[bufferPtr] = gzipInputBuffer[bufferPtr];
 		return OnDemandRequest;
 	}
+	
+	public int[] getNearRegions(int regionId) {
+		int[] near = new int[8];
+		near[0] = regionId - 256 - 1;
+		near[1] = regionId - 256;
+		near[2] = regionId - 256 + 1;
+		near[3] = regionId - 1;
+		near[4] = regionId + 1;
+		near[5] = regionId + 256 - 1;
+		near[6] = regionId + 256;
+		near[7] = regionId + 256 + 1;
+		return near;
+	}
 
 	public final int getMapIdForRegions(int landscapeOrObject, int regionY, int regionX) {
 		int mapNigga2;
 		int mapNigga3;
 		int regionId = (regionX << 8) + regionY;
-		for (int j1 = 0; j1 < regionIds.length; j1++)
+		for (int j1 = 0; j1 < regionIds.length; j1++) {
 			if (regionIds[j1] == regionId) {
 				if (landscapeOrObject == 0) {
+					if (landscapeIds[j1] == -1) {
+						return -1;
+					}
+					if (landscapeIds[j1] >= 10000 && landscapeIds[j1] <= 11000) {
+						return landscapeIds[j1];
+					}
 					// Soulwars
 					if (landscapeIds[j1] >= 3700 && landscapeIds[j1] <= 3840)
 						return landscapeIds[j1];
@@ -677,6 +752,12 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
 					mapNigga2 = landscapeIds[j1] > 3535 ? -1 : landscapeIds[j1];
 					return mapNigga2;
 				} else {
+					if (objectMapIds[j1] == -1) {
+						return -1;
+					}
+					if (objectMapIds[j1] >= 10000 && objectMapIds[j1] <= 11000) {
+						return objectMapIds[j1];
+					}
 					if (objectMapIds[j1] >= 3700 && objectMapIds[j1] <= 3840)
 						return objectMapIds[j1];
 					for (int cheapHax : cheapHaxValues)
@@ -686,6 +767,7 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
 					return mapNigga3;
 				}
 			}
+		}
 		return -1;
 	}
 

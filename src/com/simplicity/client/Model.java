@@ -885,8 +885,7 @@ public class Model extends Animable {
 			}
 
 		} catch(Exception e) {
-			//e.printStackTrace();
-			applyTransform(firstFrame); //Cheap fix
+			applyTransform(firstFrame, osrs); //Cheap fix
 		}
 	}
 

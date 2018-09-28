@@ -1565,7 +1565,7 @@ public final class MobDefinition {
 		animatedModel.method464(completedModel, FrameReader.isNullFrame(frame) & FrameReader.isNullFrame(j));
 
 		if (frame != -1 && j != -1)
-			animatedModel.method471(ai, j, frame, osrs);
+			animatedModel.method471(ai, j, frame);
 		else if (frame != -1 && nextFrame != -1)
 			animatedModel.applyTransform(frame, nextFrame, idk, idk2, osrs);
 		else if (frame != -1)
@@ -1597,16 +1597,29 @@ public final class MobDefinition {
 				description = osrs ? new String(stream.readBytes()) : stream.readNewString();
 			} else if (i == 12)
 				squaresNeeded = stream.readSignedByte();
-			else if (i == 13)
+			else if (i == 13) {
 				standAnim = stream.readUnsignedWord();
+				if (osrs) {
+					standAnim += Animation.OSRS_ANIM_OFFSET;
+				}
+			}
 			else if (i == 14) {
 				walkAnim = stream.readUnsignedWord();
-				runAnim = walkAnim;
+				
+				if (osrs) {
+					runAnim = walkAnim += Animation.OSRS_ANIM_OFFSET;
+				}
 			} else if (i == 17) {
 				walkAnim = stream.readUnsignedWord();
 				turn180AnimIndex = stream.readUnsignedWord();
 				turn90CWAnimIndex = stream.readUnsignedWord();
 				turn90CCWAnimIndex = stream.readUnsignedWord();
+				if (osrs) {
+					walkAnim += Animation.OSRS_ANIM_OFFSET;
+					turn180AnimIndex += Animation.OSRS_ANIM_OFFSET;
+					turn90CWAnimIndex += Animation.OSRS_ANIM_OFFSET;
+					turn90CCWAnimIndex += Animation.OSRS_ANIM_OFFSET;
+				}
 				if (walkAnim == 65535)
 					walkAnim = -1;
 				if (turn180AnimIndex == 65535)
