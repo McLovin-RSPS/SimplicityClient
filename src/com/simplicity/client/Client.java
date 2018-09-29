@@ -297,6 +297,8 @@ public class Client extends RSApplet {
 			options.put("save_input", in.readByte() == 1);
 			options.put("particles", in.readByte() == 1);
 
+			antialiasing = false;
+
 			if (in.length() > in.getFilePointer()) {
 				shadowIndex = in.readInt();
 			}
@@ -8793,7 +8795,7 @@ public class Client extends RSApplet {
 				return;
 			case 35649:
 				options.put("anti_a", !getOption("anti_a"));
-				antialiasing = getOption("anti_a");
+				//antialiasing = getOption("anti_a");
 				saveSettings();
 				return;
 			case 35652:
