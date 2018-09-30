@@ -6,8 +6,7 @@ import com.simplicity.client.Background;
 
 public final class Rasterizer extends DrawingArea {
 	
-	public static boolean saveDepth;
-	public static int[] depthBuffer;
+	public static boolean saveDepth = true;
 	private static int mipMapLevel;
 	public static int textureAmount = 51;
 	static boolean aBoolean1462;
@@ -84,13 +83,40 @@ public final class Rasterizer extends DrawingArea {
         textureInt2 = height / 2;
     }
 
-    public static void drawFog(int rgb, int begin, int end) {
+    public static void drawFog(int begin, int end) {
 		float length = end - begin;
 		for (int index = 0; index < pixels.length; index++) {
 			float factor = (depthBuffer[index] - begin) / length;
-			pixels[index] = blend(pixels[index], rgb, factor);
+			pixels[index] = blend(pixels[index], FOG_COLOR, factor);
 		}
     }
+
+	public static final int FOG_COLOR = 0xC6BFA6;
+
+	public static void renderFog(boolean belowGround, int fogStartDistance, int fogEndDistance,
+						  int fogIntensity) {
+		int pos = Rasterizer.anIntArray1472[0];
+		int src, dst, alpha;
+		int fogBegin = (fogStartDistance);
+		int fogEnd = (fogEndDistance);
+		for (int y = 0; y < DrawingArea.bottomY; y++) {
+			for (int x = 0; x < DrawingArea.viewportRX; x++) {
+				if (DrawingArea.depthBuffer[pos] >= fogEnd) {
+					DrawingArea.pixels[pos] = FOG_COLOR;
+				} else if (DrawingArea.depthBuffer[pos] >= fogBegin) {
+					alpha = (int) (DrawingArea.depthBuffer[pos] - fogBegin) / fogIntensity;
+					src = ((FOG_COLOR & 0xff00ff) * alpha >> 8 & 0xff00ff)
+							+ ((FOG_COLOR & 0xff00) * alpha >> 8 & 0xff00);
+					alpha = 256 - alpha;
+					dst = DrawingArea.pixels[pos];
+					dst = ((dst & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((dst & 0xff00) * alpha >> 8 & 0xff00);
+					DrawingArea.pixels[pos] = src + dst;
+				}
+				pos++;
+			}
+			pos += DrawingArea.width - DrawingArea.viewportRX;
+		}
+	}
     
 	private static int blend(int c1, int c2, float factor) {
 		if (factor >= 1f) {
@@ -2228,7 +2254,7 @@ public final class Rasterizer extends DrawingArea {
 		} while(--div > 0);
 	}
 	
-	private static void drawLDGouraudScanline(int dest[], int offset, int x1, int x2, int hsl1, int hsl2, int z1, int z2) {
+	private static void drawLDGouraudScanline(int dest[], int offset, int x1, int x2, int hsl1, int hsl2, float z1, float z2) {
 		int rgb;
 		int div;
 		int dhsl;
@@ -3010,7 +3036,7 @@ public final class Rasterizer extends DrawingArea {
 		}
 	}
 	
-	public static void drawHDGouraudScanline(int[] dest, int offset, int x1, int x2, int r1, int g1, int b1, int r2, int g2, int b2, int z1, int z2) {
+	public static void drawHDGouraudScanline(int[] dest, int offset, int x1, int x2, int r1, int g1, int b1, int r2, int g2, int b2, float z1, float z2) {
 		int n = x2 - x1;
 		if (n <= 0) {
 			return;
@@ -3416,7 +3442,7 @@ public final class Rasterizer extends DrawingArea {
 		}
 	}
 	
-	private static void drawFlatScanline(int[] dest, int offset, int rgb, int x1, int x2, int z1, int z2) {
+	private static void drawFlatScanline(int[] dest, int offset, int rgb, int x1, int x2, float z1, float z2) {
 		if(x1 >= x2) {
 			return;
 		}

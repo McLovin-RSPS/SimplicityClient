@@ -1078,16 +1078,6 @@ final class WorldController {
 	}
 
 	public void render(int xCam, int yCam, int xCurve, int zCam, int plane, int yCurve) {
-		if (Rasterizer.saveDepth = Client.getOption("fog_active")) {
-			if (Rasterizer.depthBuffer == null || Rasterizer.depthBuffer.length != DrawingArea.pixels.length) {
-				Rasterizer.depthBuffer = new int[DrawingArea.pixels.length];
-			}
-			for (int index = Rasterizer.depthBuffer.length - 1; index >= 0; index--) {
-				Rasterizer.depthBuffer[index] = 3500;//3500 being the viewing distance
-			}
-		} else if (Rasterizer.depthBuffer != null) {
-			Rasterizer.depthBuffer = null;
-		}
 		if (xCam < 0)
 			xCam = 0;
 		else if (xCam >= xMapSize * 128)

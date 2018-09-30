@@ -52,8 +52,9 @@ public class DrawingArea extends QueueNode {
 
 	}
 
-	public static void initDrawingArea(int i, int j, int ai[])
+	public static void initDrawingArea(int i, int j, int ai[], float depth[])
 	{
+		depthBuffer = depth;
 		pixels = ai;
 		width = j;
 		height = i;
@@ -390,8 +391,11 @@ public class DrawingArea extends QueueNode {
 	public static void resetImage()
 	{
 		int i = width * height;
-		for(int j = 0; j < i; j++)
+		for(int j = 0; j < i; j++) {
 			pixels[j] = 0;
+			depthBuffer[j] = Float.MAX_VALUE;
+		}
+
 
 	}
 	public static void drawVLine(int x, int y, int height, int colour)
@@ -760,6 +764,7 @@ public class DrawingArea extends QueueNode {
 
 	}
 
+	public static float depthBuffer[];
 	public static int pixels[];
 	public static int width;
 	public static int height;

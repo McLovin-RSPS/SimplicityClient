@@ -3088,29 +3088,33 @@ public class Model extends Animable {
 			else
 				i5 = -500;
 		}
-		
-		for (int vertex = 0; vertex < numberOfVerticeCoordinates; ++vertex) {
-			int pid = verticesParticle[vertex] - 1;
-			if (pid >= 0) {
-				ParticleDefinition def = ParticleDefinition.cache[pid];
-				int x = verticesXCoordinate[vertex];
-				int y = verticesYCoordinate[vertex];
-				int z = verticesXCoordinate[vertex];
-				int depth = projected_vertex_z[vertex];
-				if (lastRenderedRotation != 0) {
-					int sine = SINE[lastRenderedRotation];
-					int cosine = COSINE[lastRenderedRotation];
-					int rotatedX = z * sine + x * cosine >> 16;
-					z = z * cosine - x * sine >> 16;
-					x = rotatedX;
-				}
-				x += renderAtPointX;
-				z += renderAtPointY;
-			
-				ParticleVector pos = new ParticleVector(x, -y, z);
-				for (int p = 0; p < def.getSpawnRate(); p++) {
-					Particle particle = new Particle(def, pos, depth, pid);
-					Client.instance.addParticle(particle);
+
+		if (Client.getOption("particles")) {
+
+			for (int vertex = 0; vertex < numberOfVerticeCoordinates; ++vertex) {
+				int pid = verticesParticle[vertex] - 1;
+				if (pid >= 0) {
+					ParticleDefinition def = ParticleDefinition.cache[pid];
+					int x = verticesXCoordinate[vertex];
+					int y = verticesYCoordinate[vertex];
+					int z = verticesZCoordinate[vertex];
+					int depth = projected_vertex_z[vertex];
+					if (lastRenderedRotation != 0) {
+						int sine = SINE[lastRenderedRotation];
+						int cosine = COSINE[lastRenderedRotation];
+						int rotatedX = z * sine + x * cosine >> 16;
+						z = z * cosine - x * sine >> 16;
+						x = rotatedX;
+					}
+					x += renderAtPointX;
+					z += renderAtPointY;
+
+					ParticleVector pos = new ParticleVector(x, -y, z);
+
+					for (int p = 0; p < def.getSpawnRate(); p++) {
+						Particle particle = new Particle(def, pos, depth, pid);
+						Client.instance.addParticle(particle);
+					}
 				}
 			}
 		}

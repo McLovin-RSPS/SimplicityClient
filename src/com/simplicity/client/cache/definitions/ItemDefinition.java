@@ -3,6 +3,7 @@ package com.simplicity.client.cache.definitions;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -191,6 +192,46 @@ public final class ItemDefinition {
         lentItemID = -1;
     }
 
+    public static void writeOutOsrsItems(int total667, int totalOSRS) {
+        try {
+            PrintWriter writer = new PrintWriter("../667Items.txt");
+            for (int i = 0; i < total667; i++) {
+                ItemDefinition entityDef = forID(i);
+
+                if (entityDef == null || entityDef.name == null)
+                    continue;
+
+                writer.println(i + " " + entityDef.name + " " + " [Inv Model=" + entityDef.modelID + "], [Male Model="
+                        + (entityDef.maleEquip1) + " " + (entityDef.maleEquip2) + " " + (entityDef.maleEquip3) + "], [Female Model="+
+                        (entityDef.femaleEquip1) + " " + (entityDef.femaleEquip2) + " " + (entityDef.femaleEquip3) + "]");
+
+            }
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("dumping " + totalOSRS + " osrs items");
+
+        try {
+            PrintWriter writer = new PrintWriter("../osrsItems.txt");
+            for (int i = OSRS_ITEMS_START + OSRS_ITEMS_OFFSET; i < OSRS_ITEMS_OFFSET + totalOSRS; i++) {
+                ItemDefinition entityDef = forID(i);
+
+                if (entityDef == null || entityDef.name == null)
+                    continue;
+
+                writer.println(i + " " + entityDef.name + " " + " [Inv Model=" + entityDef.modelID + "], [Male Model="
+                        + (entityDef.maleEquip1) + " " + (entityDef.maleEquip2) + " " + (entityDef.maleEquip3) + "], [Female Model="+
+                        (entityDef.femaleEquip1) + " " + (entityDef.femaleEquip2) + " " + (entityDef.femaleEquip3) + "]");
+
+            }
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void unpackConfig(CacheArchive streamLoader) {
         stream = new Stream(streamLoader.getDataForName("obj.dat"));
         Stream stream = new Stream(streamLoader.getDataForName("obj.idx"));
@@ -199,7 +240,7 @@ public final class ItemDefinition {
         
         totalItems = stream.readUnsignedWord();
         int totalItemsOSRS = streamOSRS.readUnsignedWord();
-        
+
         streamIndices = new int[totalItems + 1000];
         streamIndicesOSRS = new int[totalItemsOSRS];
         
@@ -226,6 +267,7 @@ public final class ItemDefinition {
         }
         
         setSettings();
+        writeOutOsrsItems(totalItems, totalItemsOSRS);
     }
     
     public static ItemDefinition forID(int i) {
@@ -6299,7 +6341,7 @@ public final class ItemDefinition {
         membersObject = itemDef_1.membersObject;
         value = itemDef_1.value;
         String s = "a";
-        char c = itemDef_1.name.charAt(0);
+        char c = itemDef_1.name == null ? 'S' : itemDef_1.name.charAt(0);
         if (c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U') {
             s = "an";
         }
@@ -6391,6 +6433,7 @@ public final class ItemDefinition {
         int k1 = Rasterizer.textureInt1;
         int l1 = Rasterizer.textureInt2;
         int ai[] = Rasterizer.anIntArray1472;
+        float depthBuffer[] = DrawingArea.depthBuffer;
         int ai1[] = DrawingArea.pixels;
         int i2 = DrawingArea.width;
         int j2 = DrawingArea.height;
@@ -6399,7 +6442,7 @@ public final class ItemDefinition {
         int i3 = DrawingArea.topY;
         int j3 = DrawingArea.bottomY;
         Rasterizer.aBoolean1464 = false;
-        DrawingArea.initDrawingArea(32, 32, sprite2.myPixels);
+        DrawingArea.initDrawingArea(32, 32, sprite2.myPixels, new float[32 * 32]);
         DrawingArea.drawPixels(32, 0, 0, 0, 32);
         Rasterizer.setDefaultBounds();
         int k3 = itemDef.modelZoom;
@@ -6496,7 +6539,7 @@ public final class ItemDefinition {
         if (k == 0 && i != 5572 && i != 5573 && i != 640 && i != 650 && i != 630) {
             spriteCache.put(sprite2, i);
         }
-        DrawingArea.initDrawingArea(j2, i2, ai1);
+        DrawingArea.initDrawingArea(j2, i2, ai1, depthBuffer);
         DrawingArea.setDrawingArea(j3, k2, l2, i3);
         Rasterizer.textureInt1 = k1;
         Rasterizer.textureInt2 = l1;
@@ -6555,6 +6598,7 @@ public final class ItemDefinition {
         int l1 = Rasterizer.textureInt2;
         int ai[] = Rasterizer.anIntArray1472;
         int ai1[] = DrawingArea.pixels;
+        float depthBuffer[] = DrawingArea.depthBuffer;
         int i2 = DrawingArea.width;
         int j2 = DrawingArea.height;
         int k2 = DrawingArea.topX;
@@ -6562,7 +6606,7 @@ public final class ItemDefinition {
         int i3 = DrawingArea.topY;
         int j3 = DrawingArea.bottomY;
         Rasterizer.aBoolean1464 = false;
-        DrawingArea.initDrawingArea(32, 32, sprite2.myPixels);
+        DrawingArea.initDrawingArea(32, 32, sprite2.myPixels, new float[32 * 32]);
         DrawingArea.drawPixels(32, 0, 0, 0, 32);
         Rasterizer.setDefaultBounds();
         int k3 = itemDef.modelZoom;
@@ -6636,7 +6680,7 @@ public final class ItemDefinition {
         if (k == 0 && i != 5572 && i != 5573 && i != 640 && i != 650 && i != 630) {
           spriteCache.put(sprite2, i);
         }
-        DrawingArea.initDrawingArea(j2, i2, ai1);
+        DrawingArea.initDrawingArea(j2, i2, ai1, depthBuffer);
         DrawingArea.setDrawingArea(j3, k2, l2, i3);
         Rasterizer.textureInt1 = k1;
         Rasterizer.textureInt2 = l1;

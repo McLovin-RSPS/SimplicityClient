@@ -16,6 +16,7 @@ import java.net.URL;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import com.simplicity.Configuration;
 import com.simplicity.client.Client;
 import com.simplicity.client.DebuggingRunnables;
 import com.simplicity.client.signlink;
@@ -33,6 +34,11 @@ public class CacheDownloader {
 	private static final String VERSION_FILE = CACHE_PATH + "versions.dat";
 
 	public static void init() {
+
+		if(Configuration.LOCALHOST) {
+			return;
+		}
+
 		try {
 			//DebuggingRunnables.getMessageThread("cachestart").start();;
 			
