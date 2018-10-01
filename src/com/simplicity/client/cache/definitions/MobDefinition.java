@@ -1510,7 +1510,7 @@ public final class MobDefinition {
 			cacheOSRS[k] = new MobDefinition();
 		}
 
-		writeOutOSRSNpcs(totalOSRSNPCs);
+		//writeOutOSRSNpcs(totalOSRSNPCs);
 	}
 
 	public static void nullLoader() {
