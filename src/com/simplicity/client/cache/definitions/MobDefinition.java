@@ -7,6 +7,8 @@ import com.simplicity.client.MemCache;
 import com.simplicity.client.Model;
 import com.simplicity.client.Stream;
 
+import java.io.PrintWriter;
+
 public final class MobDefinition {
 
 	public int frontLight = 68;
@@ -39,6 +41,19 @@ public final class MobDefinition {
 			npc.type = OSRS_NPCS_OFFSET + i;
 			npc.osrs = true;
 			npc.readValues(streamOSRS);
+
+			switch(i) {
+				case 2668:
+					npc.name = "Combat dummy";
+					npc.actions = new String[5];
+					npc.actions[1] = "Attack";
+					break;
+				case 7413:
+					npc.name = "Undead Combat dummy";
+					npc.actions = new String[5];
+					npc.actions[1] = "Attack";
+					break;
+			}
 			
 			return npc; 
 		}
@@ -65,7 +80,8 @@ public final class MobDefinition {
 		npc.id = i;
 		
 		switch (i) {
-		
+
+
 		case 3975: 
 			npc.name = "Max Hit Stone";
 			npc.description = "Attack with any weapon of your choice to find out what your max hit is!";
@@ -1429,6 +1445,36 @@ public final class MobDefinition {
 		}
 	}
 
+	public static void writeOutOSRSNpcs(int total) {
+		try {
+			PrintWriter writer = new PrintWriter("../osrsNpcs.txt");
+			for (int i = OSRS_NPCS_OFFSET; i < total + OSRS_NPCS_OFFSET; i++) {
+				MobDefinition entityDef = forID(i);
+
+				if (entityDef == null)
+					continue;
+
+				writer.println(i + " " + entityDef.name + " " + " [Cbt=" + entityDef.combatLevel + "], [Anims="
+						+ (entityDef.walkAnim) + " " + (entityDef.standAnim) + "], [Models="
+						+ (entityDef.models != null && entityDef.models.length > 0 ? entityDef.models[0] + " " : "")
+						+ (entityDef.models != null && entityDef.models.length > 1
+						? entityDef.models[1]
+						: "")
+						+ (entityDef.models != null && entityDef.models.length > 2
+						? " " + entityDef.models[2]
+						: "")
+						+ (entityDef.models != null && entityDef.models.length > 3
+						? " " + entityDef.models[3]
+						: "")
+						+ "], [Sizes=" + entityDef.sizeXZ + "]");
+
+			}
+			writer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public static int NPCAMOUNT = 11599;
 
 	public static void unpackConfig(CacheArchive streamLoader) {
@@ -1463,6 +1509,8 @@ public final class MobDefinition {
 			cache[k] = new MobDefinition();
 			cacheOSRS[k] = new MobDefinition();
 		}
+
+		writeOutOSRSNpcs(totalOSRSNPCs);
 	}
 
 	public static void nullLoader() {
