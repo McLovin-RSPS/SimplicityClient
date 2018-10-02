@@ -78,6 +78,7 @@ import com.simplicity.client.cache.definitions.VarBit;
 import com.simplicity.client.cache.definitions.Varp;
 import com.simplicity.client.cache.node.Deque;
 import com.simplicity.client.cache.node.Node;
+import com.simplicity.client.content.PlayerRights;
 import com.simplicity.client.particles.Particle;
 import com.simplicity.client.particles.ParticleDefinition;
 
@@ -716,7 +717,7 @@ public class Client extends RSApplet {
 					}
 					if ((chatType == 1 || chatType == 2)
 							&& (chatType == 1 || publicChatMode == 0 || publicChatMode == 1 && isFriendOrSelf(name))) {
-						if (chatTypeView == 1 || chatTypeView == 0 || (playerRights > 0 && playerRights <= 4)) {
+						if (chatTypeView == 1 || chatTypeView == 0) {
 							if (positionY > 0 && positionY < 210) {
 								int xPos = 11;
 								if (playerRights > 0 || ironman2 > 0) {
@@ -725,12 +726,13 @@ public class Client extends RSApplet {
 												positionY - 11 + offsetY);
 										xPos += 15;
 									} else if (playerRights > 0 && ironman2 == 0) {
-										SpriteLoader.sprites[679 + playerRights].drawSprite(xPos + 1 + offsetX,
-												positionY - 10 + offsetY);
-										xPos += getCrownOffsetX(playerRights);
+										PlayerRights rights = PlayerRights.get(playerRights);
+										SpriteLoader.sprites[rights.getCrownId()].drawSprite(xPos + 1 + offsetX,
+										 positionY - 10 + offsetY + rights.getDrawOffsetY());
+										xPos += rights.getDrawOffsetX();
 									}
 								}
-								if (title != null && title.length() > 0) {
+								if (title != null && title.length() > 0 && !title.equalsIgnoreCase("null")) {
 									newRegularFont.drawBasicString(title, xPos - 1, positionY + offsetY,
 											clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
 									xPos += newRegularFont.getTextWidth(title) + 1;
@@ -762,9 +764,10 @@ public class Client extends RSApplet {
 												positionY - 11 + offsetY);
 										xPos += 14;
 									} else if (ironman2 == 0 && playerRights > 0) {
-										SpriteLoader.sprites[679 + playerRights].drawSprite(xPos + 1 + offsetX,
-												positionY - 11 + offsetY);
-										xPos += getCrownOffsetX(playerRights);
+										PlayerRights rights = PlayerRights.get(playerRights);
+										SpriteLoader.sprites[rights.getCrownId()].drawSprite(xPos + 1 + offsetX,
+												positionY - 11 + offsetY + rights.getDrawOffsetY());
+										xPos += rights.getDrawOffsetX();
 									}
 								}
 								newRegularFont.drawBasicString(name + ":", xPos + offsetX, positionY + offsetY,
@@ -847,6 +850,8 @@ public class Client extends RSApplet {
 					clientSize != 0);
 			String name;
 
+			PlayerRights rights = PlayerRights.values()[myRights];
+
 			if (myPlayer != null && myPlayer.name != null) {
 				name = myPlayer.name;
 			} else {
@@ -858,14 +863,14 @@ public class Client extends RSApplet {
 					SpriteLoader.sprites[710 + ironman].drawSprite(12 + offsetX, 122 + offsetY);
 					offsetX += 15;
 				} else if (myRights > 0) {
-					SpriteLoader.sprites[679 + myRights].drawSprite(12 + offsetX,
-							122 + offsetY + getCrownOffsetY(myRights));
+					SpriteLoader.sprites[rights.getCrownId()].drawSprite(12 + offsetX,
+							122 + offsetY + rights.getDrawOffsetY());
 
-					offsetX += getCrownOffsetX(myRights);
+					offsetX += rights.getDrawOffsetX();
 				}
 			}
 
-			if (myPlayer.playerTitle != null && myPlayer.playerTitle.length() > 0) {
+			if (myPlayer.playerTitle != null && myPlayer.playerTitle.length() > 0 && !myPlayer.playerTitle.equalsIgnoreCase("null")) {
 				textDrawingArea.drawRegularText(clientSize == 0 ? false : true, 10 + offsetX,
 						clientSize == 0 ? 0 : 0xffffff, myPlayer.playerTitle, 133 + offsetY);
 				offsetX += textDrawingArea.getTextWidth(myPlayer.playerTitle) + 1;
@@ -900,35 +905,6 @@ public class Client extends RSApplet {
 		}
 		gameScreenIP.initDrawingArea();
 		Rasterizer.anIntArray1472 = anIntArray1182;
-	}
-
-	public int getCrownOffsetX(int rights) {
-		switch (rights) {
-		case 3:
-			return 17;
-		case 5:
-		case 6:
-		case 7:
-		case 8:
-		case 9:
-		case 12:
-			return 14;
-		case 11:
-			return 18;
-		case 13:
-			return 20;
-		default:
-			return 17;
-		}
-	}
-
-	public int getCrownOffsetY(int rights) {
-		switch (rights) {
-		case 13:
-			return 0;
-		default:
-			return 1;
-		}
 	}
 
 	public int channel;
@@ -4184,7 +4160,7 @@ public class Client extends RSApplet {
 						}
 						String tooltip = child.tooltip;
 						if (tooltip != null) {
-							if (myRights == 4 || myRights == 5 || myRights == 14) {
+							if (myRights == PlayerRights.OWNER.ordinal() || myRights == PlayerRights.DEVELOPER.ordinal()) {
 								tooltip += " - Id: " + child.id;
 							}
 							if (tooltip.contains("[GE")) {
@@ -4373,7 +4349,7 @@ public class Client extends RSApplet {
 													: 4; j4 >= 0; j4--) {
 												if (child.actions[j4] != null) {
 
-													String s = myRights == 4 || myRights == 14
+													String s = myRights == PlayerRights.OWNER.ordinal() || myRights == PlayerRights.DEVELOPER.ordinal()
 															? child.actions[j4] + " @lre@" + itemDef.name + " "
 																	+ itemDef.id
 															: child.actions[j4] + " @lre@" + itemDef.name;
@@ -9049,7 +9025,7 @@ public class Client extends RSApplet {
 					/*
 					 * right click ids
 					 */
-					String s = myRights == 4 || myRights == 14
+					String s = myRights == PlayerRights.OWNER.ordinal() || myRights == PlayerRights.DEVELOPER.ordinal()
 							? "Examine @cya@" + object.name + " @gre@(@whi@" + object.type + "@gre@) (@whi@"
 									+ (x + baseX) + "," + (y + baseY) + "@gre@)"
 							: "Examine @cya@" + object.name;
@@ -9362,7 +9338,7 @@ public class Client extends RSApplet {
 				}
 			}
 			if (key == 167 || key == 96) {
-				if (myRights >= 1 && myRights <= 4 || myRights == 13) {
+				if (myRights == PlayerRights.OWNER.ordinal() || myRights == PlayerRights.DEVELOPER.ordinal()) {
 					consoleOpen = !consoleOpen;
 				}
 				return;
@@ -10760,10 +10736,12 @@ public class Client extends RSApplet {
 						rights = 1;
 					}
 
-					if (rights != 0 || ironman != 0) {
+					PlayerRights playerRights = PlayerRights.get(rights);
+
+					if (playerRights != PlayerRights.PLAYER || ironman != 0) {
 						if (rights != 0) {
-							SpriteLoader.sprites[679 + rights].drawSprite(k1 + 1, l - 12 + getCrownOffsetY(rights));
-							k1 += getCrownOffsetX(rights);
+							SpriteLoader.sprites[playerRights.getCrownId()].drawSprite(k1 + 1, l - 12 + playerRights.getDrawOffsetY());
+							k1 += playerRights.getDrawOffsetX();
 						} else if (ironman != 0) {
 							SpriteLoader.sprites[710 + ironman].drawSprite(k1, l - 12);
 							k1 += 12;
@@ -12141,7 +12119,7 @@ public class Client extends RSApplet {
 			donator = "@yel@[$]@whi@ ";
 		}
 		s += donator;
-		if (player.playerTitle == null || player.playerTitle.length() <= 0) {
+		if (player.playerTitle == null || player.playerTitle.length() <= 0 || player.playerTitle.equalsIgnoreCase("null")) {
 			s += player.name + combatDiffColor(myPlayer.combatLevel, player.combatLevel) + " (level-"
 					+ player.combatLevel + ")";
 		} else {
@@ -20927,7 +20905,7 @@ public class Client extends RSApplet {
 		sendConsoleMessage("'teleto #player' - Teleports to Player player.", false);
 		sendConsoleMessage("'teletome #player' - Teleports Player player to you.", false);
 		sendConsoleMessage("'globalmsg #message' - Sends a global message to everyone.", false);
-		if (myRights == 2 || myRights == 3 || myRights == 14 || myRights == 4) {
+		if (myRights == PlayerRights.OWNER.ordinal() || myRights == PlayerRights.DEVELOPER.ordinal()) {
 			sendConsoleMessage("'config #' - displays the configs for specified child id.", false);
 			sendConsoleMessage("'unpack_interfaces' - unpacks all interfaces.", false);
 			sendConsoleMessage("'pos' - prints out your position values.", false);
@@ -20958,7 +20936,7 @@ public class Client extends RSApplet {
 			return;
 		}
 		if (commandStart.equals("noclip")) {
-			if (myRights >= 1 && myRights == 14 && myRights <= 4) {
+			if (myRights == PlayerRights.OWNER.ordinal() || myRights == PlayerRights.DEVELOPER.ordinal()) {
 				for (int k1 = 0; k1 < 4; k1++) {
 					for (int i2 = 1; i2 < 103; i2++) {
 						for (int k2 = 1; k2 < 103; k2++) {
@@ -20997,7 +20975,7 @@ public class Client extends RSApplet {
 		} else if (commandStart.equals("hd")) {
 			setHighMem();
 		} else if (commandStart.equals("child")) {
-			if (myRights >= 1 && myRights <= 4) {
+			if (myRights == PlayerRights.OWNER.ordinal() || myRights == PlayerRights.DEVELOPER.ordinal()) {
 				for (int i = 0; i <= 30000; i++) {
 					sendFrame126("" + i, i);
 					sendConsoleMessage("" + i, false);
