@@ -69,7 +69,7 @@ public enum PlayerRights {
     }
 
     public static PlayerRights get(int rights) {
-        if (rights >= 12) {
+        if (rights > 14) {
             rights -= 2;
         }
         if (rights >= values().length) {
