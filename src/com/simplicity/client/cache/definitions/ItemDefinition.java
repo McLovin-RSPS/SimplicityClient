@@ -267,7 +267,7 @@ public final class ItemDefinition {
         }
         
         setSettings();
-        writeOutOsrsItems(totalItems, totalItemsOSRS);
+        //writeOutOsrsItems(totalItems, totalItemsOSRS);
     }
     
     public static ItemDefinition forID(int i) {

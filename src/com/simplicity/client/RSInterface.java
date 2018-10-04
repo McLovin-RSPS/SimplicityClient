@@ -2944,7 +2944,9 @@ public static void TeleTAB5() {
 		RSInterface wrapper = addInterface(33213);
 		
 		addBackground(33214, 255, 0);
-		
+
+		interfaceCache[3900].width = 10;
+		interfaceCache[3900].height = 8;
 		interfaceCache[3900].invSpritePadX = 14;
 		interfaceCache[3900].invSpritePadY = 12;
 		interfaceCache[3900].inv = new int[80];
