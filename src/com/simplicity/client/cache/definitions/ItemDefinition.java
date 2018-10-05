@@ -173,8 +173,11 @@ public final class ItemDefinition {
         maleEquip2 = -1;
         maleYOffset = 0;
         maleXOffset = 0;
+        maleZOffset = 0;
         femaleEquip1 = -1;
         femaleEquip2 = -1;
+        femaleZOffset = 0;
+        femaleXOffset = 0;
         femaleYOffset = 0;
         maleEquip3 = -1;
         femaleEquip3 = -1;
@@ -281,6 +284,15 @@ public final class ItemDefinition {
 
         osrsModels.add(34146);
         osrsModels.add(34150);
+
+        osrsModels.add(35349);
+        osrsModels.add(35361);
+
+        osrsModels.add(35359);
+        osrsModels.add(35368);
+
+        osrsModels.add(35356);
+        osrsModels.add(35367);
 
     }
     
