@@ -89,6 +89,13 @@ public final class Stream extends QueueNode {
 		buffer[currentOffset++] = (byte) i;
 	}
 
+	public void putInt(int i) {
+		buffer[currentOffset++] = (byte) (i >> 24);
+		buffer[currentOffset++] = (byte) (i >> 16);
+		buffer[currentOffset++] = (byte) (i >> 8);
+		buffer[currentOffset++] = (byte) i;
+	}
+
 	public void method400(int i) {
 		buffer[currentOffset++] = (byte) i;
 		buffer[currentOffset++] = (byte) (i >> 8);
@@ -449,6 +456,11 @@ public final class Stream extends QueueNode {
 		currentOffset += 2;
 		return ((buffer[currentOffset - 1] & 0xff) << 8)
 				+ (buffer[currentOffset - 2] - 128 & 0xff);
+	}
+
+	public int getInt() {
+		currentOffset += 4;
+		return ((buffer[currentOffset - 4] & 0xff) << 24) + ((buffer[currentOffset - 3] & 0xff) << 16) + ((buffer[currentOffset - 2] & 0xff) << 8) + (buffer[currentOffset - 1] & 0xff);
 	}
 
 }
