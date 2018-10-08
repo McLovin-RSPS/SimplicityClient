@@ -21,11 +21,17 @@ import com.simplicity.client.signlink;
 public final class ItemDefinition {
 
     private static int[] prices;
-    private static List<Integer> untradeableItems = new ArrayList<Integer>();
+    private static List<Integer> untradeableItems = new ArrayList<>();
     /**
      * The models that should be loaded with a older model header.
      */
-    public static List<Integer> osrsModels = new ArrayList<Integer>();
+    public static List<Integer> osrsModels = new ArrayList<>();
+
+    /**
+     * The models the need priority fix.
+     */
+    public static List<Integer> priorityModels = new ArrayList<>();
+
     private static final int OSRS_ITEMS_START = 10603;
     private static final int OSRS_ITEMS_OFFSET = 30_000;
 
@@ -294,6 +300,23 @@ public final class ItemDefinition {
         osrsModels.add(35356);
         osrsModels.add(35367);
 
+        priorityModels.add(62736);
+        priorityModels.add(62755);
+
+        priorityModels.add(62748);
+        priorityModels.add(62764);
+
+        priorityModels.add(62742);
+        priorityModels.add(62758);
+
+        priorityModels.add(29249);
+        priorityModels.add(29254);
+
+        priorityModels.add(29250);
+        priorityModels.add(29255);
+
+        priorityModels.add(29252);
+        priorityModels.add(29253);
     }
     
     public static ItemDefinition forID(int i) {
