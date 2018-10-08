@@ -341,8 +341,8 @@ public final class ItemDefinition {
 
             switch(itemDef.id) {
                 case 51791:
-                case 51792:
                 case 51793:
+                case 51795:
                     itemDef.maleZOffset += 4;
                     itemDef.femaleZOffset += 4;
                     itemDef.femaleYOffset -= 7;
@@ -1258,6 +1258,11 @@ public final class ItemDefinition {
                 itemDef.actions = new String[5];
                 itemDef.actions[0] = "Open";
                 break;
+            case 6833:
+                itemDef.name = "@red@Gold Mystery Box";
+                itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
+                break;
             case 12632:
                 itemDef.name = "100m Note";
                 itemDef.actions = new String[]{"Claim", null, null, null, "Drop"};
@@ -1968,6 +1973,19 @@ public final class ItemDefinition {
                  itemDef.maleEquip1 = 35374;
                  itemDef.femaleEquip1 = 35369;
                  break;
+    		case 52324:
+                itemDef.modelID = 35739;
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.name = "Ghrazi rapier (r)";
+                itemDef.description = "It is the replica Ghrazi Rapier.";
+                itemDef.modelZoom = 2200;
+                itemDef.stackable = false;
+                itemDef.rotationX = 1603;
+                itemDef.rotationY = 552;
+                itemDef.maleEquip1 = 35374;
+                itemDef.femaleEquip1 = 35369;
+                break;
              case 15000:
                  itemDef.modelID = 35742;
                  itemDef.actions = new String[5];
