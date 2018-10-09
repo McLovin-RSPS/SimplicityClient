@@ -224,6 +224,30 @@ public final class ObjectDefinition {
 			objectDef.actions = new String[] {"Investigate", "Contribute", null, null, null};
 			objectDef.name = "Well of Goodwill";
 		}
+		if(i == 4407) {
+			objectDef.actions = new String[] {"Teleport", null, null, null, null};
+			objectDef.name = "Demonic Gorillas";
+		}
+		if(i == 4408) {
+			objectDef.actions = new String[] {"Visit", null, null, null, null};
+			objectDef.name = "Ancient Wyvern island";
+		}
+		if(i == 4406) {
+			objectDef.actions = new String[] {"Visit", null, null, null, null};
+			objectDef.name = "Emerald cave";
+		}
+		if(i == 48669) {
+			objectDef.actions = new String[] {"Visit", null, null, null, null};
+			objectDef.name = "Sapphire zone";
+		}
+		if(i == 48673) {
+			objectDef.actions = new String[] {"Teleport", null, null, null, null};
+			objectDef.name = "Ruby zone";
+		}
+		if(i == 48675) {
+			objectDef.actions = new String[] {"Teleport", null, null, null, null};
+			objectDef.name = "Diamond demons";
+		}
 		if(i == 25014 || i == 25026 || i == 25020 || i == 25019 || i == 25024 || i == 25025 || i == 25016 || i == 5167 || i == 5168) {
 			objectDef.actions = new String[5];
 		}

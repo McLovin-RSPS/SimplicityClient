@@ -740,6 +740,9 @@ public final class MobDefinition {
 		case 8591:
 			npc.actions = new String[] {"Talk-to", null, "Trade", null, null};
 			break;
+		case 4285:
+			npc.actions = new String[] {"Talk-to", null, "Trade", null, null};
+			break;
 		case 316:
 		case 315:
 		case 309:
