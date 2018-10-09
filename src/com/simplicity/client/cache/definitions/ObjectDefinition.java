@@ -1,71 +1,128 @@
 package com.simplicity.client.cache.definitions;
 
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import com.simplicity.client.*;
 
-import com.simplicity.client.CacheArchive;
-import com.simplicity.client.Client;
-import com.simplicity.client.FileOperations;
-import com.simplicity.client.FrameReader;
-import com.simplicity.client.MemCache;
-import com.simplicity.client.Model;
-import com.simplicity.client.OnDemandFetcher;
-import com.simplicity.client.Stream;
-import com.simplicity.client.signlink;
+import java.io.PrintWriter;
+import java.util.Arrays;
 
 
 
 @SuppressWarnings("all")
 public final class ObjectDefinition {
-	
-	public static void dump() {
-		for(int i = 0; i < streamIndices667.length-1; i++) {
-			ObjectDefinition object = forID(i);
-			BufferedWriter bw = null;
-			System.out.println("dumped "+i);
-			try {
-				bw = new BufferedWriter(new FileWriter("./objects.txt", true));
-				bw.write("ID: "+i);
-				bw.newLine();
-				if(object.name != null) {
-					bw.write("Name: "+object.name);
-					bw.newLine();
+
+	public static void dump(int totalObjects, int totalObjects667, int totalObjectsOSRS) {
+		try {
+			PrintWriter writer = new PrintWriter("../667objects.txt");
+			for (int i = 0; i < totalObjects667; i++) {
+				ObjectDefinition entityDef = forID(i, false);
+
+				if (entityDef == null || entityDef.name == null)
+					continue;
+
+				String build = i + " " + entityDef.name + " ";
+
+				if (entityDef.actions != null && entityDef.actions.length > 0) {
+					build += "[Actions=";
+					for (int index = 0; index < entityDef.actions.length; index++) {
+						if(entityDef.actions[index] != null && !entityDef.actions[index].equalsIgnoreCase("null")) {
+							build += entityDef.actions[index];
+						}
+						if(index == entityDef.actions.length - 1) {
+							build += "] ";
+						}
+					}
 				}
-				bw.write("models: ");
-				if(object.objectModelIDs != null)
-					for(int model : object.objectModelIDs) 
-						bw.write(model+", ");
-				bw.newLine();
-				bw.write("types: ");
-				if(object.objectModelTypes != null)
-					for(int type : object.objectModelTypes) 
-						bw.write(type+", ");
-				bw.newLine();
-				bw.write("children ids: ");
-				if(object.configObjectIDs != null)
-					for(int type : object.configObjectIDs) 
-						bw.write(type+", ");
-				bw.newLine();
-				bw.write("Varbit idx: "+object.varbitIndex);
-				bw.newLine();
-				bw.write("Config idx: "+object.configID);
-				bw.newLine();
-				bw.write("actions: ");
-				if(object.actions != null)
-					for(String type : object.actions) 
-						bw.write(type+", ");
-				bw.newLine();
-				bw.newLine();
-				bw.newLine();
-				bw.flush();
-				bw.close();
-			} catch (Exception e) {
-				e.printStackTrace();
+
+				if (entityDef.objectModelIDs != null && entityDef.objectModelIDs.length > 0) {
+					build += "[Models=";
+					for (int index = 0; index < entityDef.objectModelIDs.length; index++) {
+						build += entityDef.objectModelIDs[index] + (index < entityDef.objectModelIDs.length - 1 ? ", " : "] ");
+					}
+				}
+
+				if (entityDef.objectModelTypes != null && entityDef.objectModelTypes.length > 0) {
+					build += "[Model Types=";
+					for (int index = 0; index < entityDef.objectModelTypes.length; index++) {
+						build += entityDef.objectModelTypes[index] + (index < entityDef.objectModelTypes.length - 1 ? ", " : "] ");
+					}
+				}
+
+				if (entityDef.configObjectIDs != null && entityDef.configObjectIDs.length > 0) {
+					build += "[Config Ids=";
+					for (int index = 0; index < entityDef.configObjectIDs.length; index++) {
+						build += entityDef.configObjectIDs[index] + (index < entityDef.configObjectIDs.length - 1 ? ", " : "] ");
+					}
+				}
+
+				if (entityDef.varbitIndex != -1) {
+					build += "[Varbit=" + entityDef.varbitIndex + "] ";
+				}
+				if (entityDef.configID != -1) {
+					build += "[Config=" + entityDef.configID + "] ";
+				}
+				writer.println(build);
 			}
+			writer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		try {
+			PrintWriter writer = new PrintWriter("../osrsobjects.txt");
+			for (int i = 0; i < totalObjectsOSRS; i++) {
+				ObjectDefinition entityDef = forIDOSRS(i);
+
+				if (entityDef == null || entityDef.name == null)
+					continue;
+
+				String build = i + " " + entityDef.name + " ";
+
+				if (entityDef.actions != null && entityDef.actions.length > 0) {
+					build += "[Actions=";
+					for (int index = 0; index < entityDef.actions.length; index++) {
+						if(entityDef.actions[index] != null && !entityDef.actions[index].equalsIgnoreCase("null")) {
+							build += entityDef.actions[index];
+						}
+						if(index == entityDef.actions.length - 1) {
+							build += "] ";
+						}
+					}
+				}
+
+				if (entityDef.objectModelIDs != null && entityDef.objectModelIDs.length > 0) {
+					build += "[Models=";
+					for (int index = 0; index < entityDef.objectModelIDs.length; index++) {
+						build += entityDef.objectModelIDs[index] + (index < entityDef.objectModelIDs.length - 1 ? ", " : "] ");
+					}
+				}
+
+				if (entityDef.objectModelTypes != null && entityDef.objectModelTypes.length > 0) {
+					build += "[Model Types=";
+					for (int index = 0; index < entityDef.objectModelTypes.length; index++) {
+						build += entityDef.objectModelTypes[index] + (index < entityDef.objectModelTypes.length - 1 ? ", " : "] ");
+					}
+				}
+
+				if (entityDef.configObjectIDs != null && entityDef.configObjectIDs.length > 0) {
+					build += "[Config Ids=";
+					for (int index = 0; index < entityDef.configObjectIDs.length; index++) {
+						build += entityDef.configObjectIDs[index] + (index < entityDef.configObjectIDs.length - 1 ? ", " : "] ");
+					}
+				}
+
+				if (entityDef.varbitIndex != -1) {
+					build += "[Varbit=" + entityDef.varbitIndex + "] ";
+				}
+				if (entityDef.configID != -1) {
+					build += "[Config=" + entityDef.configID + "] ";
+				}
+
+				writer.println(build);
+			}
+			writer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	public static ObjectDefinition forIDOSRS(int i)
@@ -75,14 +132,14 @@ public final class ObjectDefinition {
 				return cacheOSRS[j];
 			}
 		}
-		
+
 
 	    osrsCacheIndex = (osrsCacheIndex + 1) % 200;
 	    ObjectDefinition objectDef = cacheOSRS[osrsCacheIndex];
 	    if (i > streamIndicesOSRS.length) {
 			return objectDef;
 		}
-	    
+
 	    streamOSRS.currentOffset = streamIndicesOSRS[i];
 	    objectDef.type = i;
 	    objectDef.setDefaults();
@@ -100,7 +157,7 @@ public final class ObjectDefinition {
 		}
 	    return objectDef;
 	  }
-	  
+
 	  private static boolean isOSRSObject(int objectId)
 	  {
 	    for (int i = 0; i < OBJECTS_OSRS.length; i++) {
@@ -110,45 +167,45 @@ public final class ObjectDefinition {
 	    }
 	    return false;
 	  }
-	  
+
 	  private static final int[] OBJECTS_OSRS = {
-	  
-	    732, 4451, 6926, 7823, 7824, 7825, 7826, 7827, 7828, 7829, 7830, 7834, 
-	    11853, 14645, 14674, 14675, 17118, 20196, 21696, 21697, 21698, 21699, 21700, 21701, 21702, 21703, 21704, 
-	    21705, 21706, 21707, 21708, 21709, 21710, 21711, 21712, 21713, 21714, 21715, 21716, 21717, 21718, 21748, 
-	    21749, 21750, 21751, 21752, 21753, 21754, 21755, 21756, 21757, 21758, 21759, 21760, 21761, 21762, 21763, 
-	    21765, 21766, 21767, 21768, 21769, 21770, 21772, 21773, 21775, 21776, 21777, 21779, 21780, 21946, 21947, 
-	    22494, 22495, 23100, 23101, 26571, 26572, 1502, 12930, 12931, 12932, 20737, 23102, 23104, 23106, 23107, 
+
+	    732, 4451, 6926, 7823, 7824, 7825, 7826, 7827, 7828, 7829, 7830, 7834,
+	    11853, 14645, 14674, 14675, 17118, 20196, 21696, 21697, 21698, 21699, 21700, 21701, 21702, 21703, 21704,
+	    21705, 21706, 21707, 21708, 21709, 21710, 21711, 21712, 21713, 21714, 21715, 21716, 21717, 21718, 21748,
+	    21749, 21750, 21751, 21752, 21753, 21754, 21755, 21756, 21757, 21758, 21759, 21760, 21761, 21762, 21763,
+	    21765, 21766, 21767, 21768, 21769, 21770, 21772, 21773, 21775, 21776, 21777, 21779, 21780, 21946, 21947,
+	    22494, 22495, 23100, 23101, 26571, 26572, 1502, 12930, 12931, 12932, 20737, 23102, 23104, 23106, 23107,
 	    23108, 23109, 23112, 23610, 26294, 6775, 27059, 27059, 26765,
-	    
+
 	    /**Kraken**/
-		316, 324, 536, 538, 655, 816, 1457, 1459, 1460, 2745, 4909, 5456, 5587, 12299, 14390, 14456, 14457, 14459, 
+		316, 324, 536, 538, 655, 816, 1457, 1459, 1460, 2745, 4909, 5456, 5587, 12299, 14390, 14456, 14457, 14459,
 		14460, 14468, 26529, 26530, 26534, 26552, 26555,
-	    
-	    11698, 11699, 11700, 
-	    
+
+	    11698, 11699, 11700,
+
 	    26765,
-	  /**  
+	  /**
 	   * Inferno
 	   */
 	    30310, 30302
 	  };
 	private final static int[] hotSpotIDs = new int[] {13374, 13375, 13376, 13377, 13378, 39260, 39261, 39262, 39263, 39264, 39265, 2715, 13366, 13367, 13368, 13369, 13370, 13371, 13372, 15361, 15362, 15363, 15366, 15367, 15364, 15365, 15410, 15412, 15411, 15414, 15415, 15413, 15416, 15416, 15418, 15419, 15419, 15419, 15419, 15419, 15419, 15419, 15419, 15402, 15405, 15401, 15398, 15404, 15403, 15400, 15400, 15399, 15302, 15302, 15302, 15302, 15302, 15302, 15304, 15303, 15303, 15301, 15300, 15300, 15300, 15300, 15299, 15299, 15299, 15299, 15298, 15443, 15445, 15447, 15446, 15444, 15441, 15439, 15448, 15450, 15266, 15265, 15264, 15263, 15263, 15263, 15263, 15263, 15263, 15263, 15263, 15267, 15262, 15260, 15261, 15268, 15379, 15378, 15377, 15386, 15383, 15382, 15384, 34255, 15380, 15381, 15346, 15344, 15345, 15343, 15342, 15296, 15297, 15297, 15294, 15293, 15292, 15291, 15290, 15289, 15288, 15287, 15286, 15282, 15281, 15280, 15279, 15278, 15277, 15397, 15396, 15395, 15393, 15392, 15394, 15390, 15389, 15388, 15387, 44909, 44910, 44911, 44908, 15423, 15423, 15423, 15423, 15420, 48662, 15422, 15421, 15425, 15425, 15424, 18813, 18814, 18812, 18815, 18811, 18810, 15275, 15275, 15271, 15271, 15276, 15270, 15269, 13733, 13733, 13733, 13733, 13733, 13733, 15270, 15274, 15273, 15406, 15407, 15408, 15409, 15368, 15375, 15375, 15375, 15375, 15376, 15376, 15376, 15376, 15373, 15373, 15374, 15374, 15370, 15371, 15372, 15369, 15426, 15426, 15435, 15438, 15434, 15434, 15431, 15431, 15431, 15431, 15436, 15436, 15436, 15436, 15436, 15436, 15437, 15437, 15437, 15437, 15437, 15437, 15350, 15348, 15347, 15351, 15349, 15353, 15352, 15354, 15356, 15331, 15331, 15331, 15331, 15355, 15355, 15355, 15355, 15330, 15330, 15330, 15330, 15331, 15331, 15323, 15325, 15325, 15324, 15324, 15329, 15328, 15326, 15327, 15325, 15325, 15324, 15324, 15330, 15330, 15330, 15330, 15331, 15331, 34138, 15330, 15330, 34138, 34138, 15330, 34138, 15330, 15331, 15331, 15337, 15336, 39230, 39231, 36692, 39229, 36676, 34138, 15330, 15330, 34138, 34138, 15330, 34138, 15330, 15331, 15331, 36675, 36672, 36672, 36675, 36672, 36675, 36675, 36672, 15331, 15331, 15330, 15330, 15257, 15256, 15259, 15259, 15327, 15326};
-	
+
 	public static ObjectDefinition forID(int i) {
 		return forID(i, false);
 	}
-	
+
 	public static ObjectDefinition forID(int i, boolean isOsrs) {
 		boolean loadNew = (
 		/* i == 8550 || i == 8551 || i == 7847 || i == 8150 || */i == 32159 || i == 32157 || i == 36672 || i == 36675 || i == 36692 || i == 34138 || i >= 39260 && i <= 39271 || i == 39229
 				|| i == 39230 || i == 39231 || i == 36676 || i == 36692 || i > 11915 && i <= 11929 || i >= 11426 && i <= 11444 || i >= 14835 && i <= 14845 || i >= 11391 && i <= 11397
 				|| i >= 12713 && i <= 12715);
-		
+
 		if (!isOsrs && i == 30283) {
 			isOsrs = true;
 		}
-		
+
 		if (isOSRSObject(i) || isOsrs) {
 			return forIDOSRS(i);
 		}
@@ -161,16 +218,16 @@ public final class ObjectDefinition {
 
 		cacheIndex = (cacheIndex + 1) % 200;
 		ObjectDefinition objectDef = cache[cacheIndex];
-		
+
 		try {
-			if (i > streamIndices.length || loadNew)
+			if (i >= streamIndices.length || loadNew)
 				stream667.currentOffset = streamIndices667[i];
 			else
 				stream.currentOffset = streamIndices[i];
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		objectDef.type = i;
 		objectDef.setDefaults();
 		if (i > streamIndices.length || loadNew)
@@ -488,37 +545,37 @@ public final class ObjectDefinition {
 		if(i == 15305)
 		{
 			objectDef.configID = 8001;
-			objectDef.configObjectIDs = new int[] {i, -1, 13016};	
+			objectDef.configObjectIDs = new int[] {i, -1, 13016};
 		}
 		if(i == 15317)
 		{
 			objectDef.configID = 8001;
-			objectDef.configObjectIDs = new int[] {i, -1, 13096};	
+			objectDef.configObjectIDs = new int[] {i, -1, 13096};
 		}
 		if(i == 8550)
 		{
-			objectDef.configObjectIDs = new int[] 
+			objectDef.configObjectIDs = new int[]
 					{
 					8576, 8575, 8574, 8573, 8576, 8576, 8558, 8559, 8560, 8561, 8562, 8562, 8562, 8580, 8581, 8582, 8583, 8584, 8584, 8584, 8535, 8536, 8537, 8538, 8539, 8539, 8539, 8641, 8642, 8643, 8644, 8645, 8645, 8645, 8618, 8619, 8620, 8621, 8622, 8623, 8624, 8624, 8624, 8595, 8596, 8597, 8598, 8599, 8600, 8601, 8601, 8601, 8656, 8657, 8658, 8659, 8660, 8661, 8662, 8663, 8664, 8664, 8664, 8576, 8576, 8576, 8576, 8576, 8576, 8576, 8563, 8564, 8565, 8566, 8576, 8576, 8576, 8585, 8586, 8587, 8588, 8576, 8576, 8576, 8540, 8541, 8542, 8543, 8576, 8576, 8576, 8646, 8647, 8648, 8649, 8576, 8576, 8576, 8625, 8626, 8627, 8628, 8629, 8630, 8576, 8576, 8576, 8602, 8603, 8604, 8605, 8606, 8607, 8576, 8576, 8576, 8665, 8666, 8667, 8668, 8669, 8670, 8671, 8672, 8576, 8576, 8576, 8576, 8576, 8576, 8576, 8576, 8576, 8576, 8576, 8567, 8568, 8569, 8576, 8576, 8576, 8576, 8589, 8590, 8591, 8576, 8576, 8576, 8576, 8544, 8545, 8546, 8576, 8576, 8576, 8576, 8650, 8651, 8652, 8576, 8576, 8576, 8576, 8631, 8632, 8633, 8634, 8635, 8576, 8576, 8576, 8576, 8608, 8609, 8610, 8611, 8612, 8576, 8576, 8576, 8576, 8673, 8674, 8675, 8676, 8677, 8678, 8679, 8576, 8576, 8576, 8576, 8576, 8576, 8576, 8576, 8576, 8576, 8576, 8570, 8571, 8572, 8576, 8576, 8576, 8576, 8592, 8593, 8594, 8576, 8576, 8576, 8576, 8547, 8548, 8549, 8576, 8576, 8576, 8576, 8653, 8654, 8655, 8576, 8576, 8576, 8576, 8636, 8637, 8638, 8639, 8640, 8576, 8576, 8576, 8576, 8613, 8614, 8615, 8616, 8617, 8576, 8576, 8576, 8576, 8680, 8681, 8682, 8683, 8684, 8685, 8686, 8576, 8576, 8576, 8576
 					};
 		}
 		if(i == 8551)
 		{
-			objectDef.configObjectIDs = new int[] 
+			objectDef.configObjectIDs = new int[]
 					{
 					8576, 8575, 8574, 8573, 8576, 8576, 8558, 8559, 8560, 8561, 8562, 8562, 8562, 8580, 8581, 8582, 8583, 8584, 8584, 8584, 8535, 8536, 8537, 8538, 8539, 8539, 8539, 8641, 8642, 8643, 8644, 8645, 8645, 8645, 8618, 8619, 8620, 8621, 8622, 8623, 8624, 8624, 8624, 8595, 8596, 8597, 8598, 8599, 8600, 8601, 8601, 8601, 8656, 8657, 8658, 8659, 8660, 8661, 8662, 8663, 8664, 8664, 8664, 8576, 8576, 8576, 8576, 8576, 8576, 8576, 8563, 8564, 8565, 8566, 8576, 8576, 8576, 8585, 8586, 8587, 8588, 8576, 8576, 8576, 8540, 8541, 8542, 8543, 8576, 8576, 8576, 8646, 8647, 8648, 8649, 8576, 8576, 8576, 8625, 8626, 8627, 8628, 8629, 8630, 8576, 8576, 8576, 8602, 8603, 8604, 8605, 8606, 8607, 8576, 8576, 8576, 8665, 8666, 8667, 8668, 8669, 8670, 8671, 8672, 8576, 8576, 8576, 8576, 8576, 8576, 8576, 8576, 8576, 8576, 8576, 8567, 8568, 8569, 8576, 8576, 8576, 8576, 8589, 8590, 8591, 8576, 8576, 8576, 8576, 8544, 8545, 8546, 8576, 8576, 8576, 8576, 8650, 8651, 8652, 8576, 8576, 8576, 8576, 8631, 8632, 8633, 8634, 8635, 8576, 8576, 8576, 8576, 8608, 8609, 8610, 8611, 8612, 8576, 8576, 8576, 8576, 8673, 8674, 8675, 8676, 8677, 8678, 8679, 8576, 8576, 8576, 8576, 8576, 8576, 8576, 8576, 8576, 8576, 8576, 8570, 8571, 8572, 8576, 8576, 8576, 8576, 8592, 8593, 8594, 8576, 8576, 8576, 8576, 8547, 8548, 8549, 8576, 8576, 8576, 8576, 8653, 8654, 8655, 8576, 8576, 8576, 8576, 8636, 8637, 8638, 8639, 8640, 8576, 8576, 8576, 8576, 8613, 8614, 8615, 8616, 8617, 8576, 8576, 8576, 8576, 8680, 8681, 8682, 8683, 8684, 8685, 8686, 8576, 8576, 8576, 8576
 					};
 		}
 		if(i == 7847)
 		{
-			objectDef.configObjectIDs = new int[] 
+			objectDef.configObjectIDs = new int[]
 					{
 					7843, 7842, 7841, 7840, 7843, 7843, 7843, 7843, 7867, 7868, 7869, 7870, 7871, 7899, 7900, 7901, 7902, 7903, 7883, 7884, 7885, 7886, 7887, 7919, 7920, 7921, 7922, 7923, 7851, 7852, 7853, 7854, 7855, 7918, 7917, 7916, 7915, 41538, 41539, 41540, 41541, 41542, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7872, 7873, 7874, 7875, 7843, 7904, 7905, 7906, 7907, 7843, 7888, 7889, 7890, 7891, 7843, 7924, 7925, 7926, 7927, 7843, 7856, 7857, 7858, 7859, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7876, 7877, 7878, 7843, 7843, 7908, 7909, 7910, 7843, 7843, 7892, 7893, 7894, 7843, 7843, 7928, 7929, 7930, 7843, 7843, 7860, 7861, 7862, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7879, 7880, 7881, 7882, 7843, 7911, 7912, 7913, 7914, 7843, 7895, 7896, 7897, 7898, 7843, 7931, 7932, 7933, 7934, 7843, 7863, 7864, 7865, 7866, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843, 7843
 					};
 		}
 		if(i == 8150)
 		{
-			objectDef.configObjectIDs = new int[] 
+			objectDef.configObjectIDs = new int[]
 					{
 					8135, 8134, 8133, 8132, 8139, 8140, 8141, 8142, 8143, 8143, 8143, 8139, 8140, 8141, 8142, 8143, 8143, 8143, 8139, 8140, 8141, 8142, 8143, 8143, 8143, 8139, 8140, 8141, 8142, 8143, 8143, 8143, 8139, 8140, 8141, 8142, 8143, 8143, 8143, 8139, 8140, 8141, 8142, 8143, 8143, 8143, 8139, 8140, 8141, 8142, 8143, 8143, 8143, 8139, 8140, 8141, 8142, 8143, 8143, 8143, 21101, 21127, 21159, 21178, 21185, 21185, 21185, 17776, 8139, 8140, 8141, 8142, 8143, 8143, 8143, 8139, 8140, 8141, 8142, 8143, 8143, 8143, 8139, 8140, 8141, 8142, 8143, 8143, 8143, 8139, 8140, 8141, 8142, 8143, 8143, 8143, 8139, 8140, 8141, 8142, 8143, 8143, 8143, 8139, 8140, 8141, 8142, 8143, 8143, 8143, 17777, 17778, 17780, 17781, 17781, 17781, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 8144, 8145, 8146, 8144, 8145, 8146, 8144, 8145, 8146, 8144, 8145, 8146, 8144, 8145, 8146, 8144, 8145, 8146, 8144, 8145, 8146, 8144, 8145, 8146, 8144, 8145, 8146, 8144, 8145, 8146, 8144, 8145, 8146, 8144, 8145, 8146, 8144, 8145, 8146, 8144, 8145, 8146, 8147, 8148, 8149, 8144, 8145, 8146, 8144, 8145, 8146, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 9044, 9045, 9046, 9047, 9048, 9048, 9049, 9050, 9051, 9052, 9053, 9054, 8139, 8140, 8141, 8142, 8143, 8143, 8143, 8144, 8145, 8146, 8135, 8135, 8135, 8135, 8135, 8135, -1, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135, 8135
 					};
@@ -542,7 +599,7 @@ public final class ObjectDefinition {
         	objectDef.name = "Treasure chest";
         	objectDef.actions = new String[]{"Open", null, null, null, null};
             break;
-            
+
 		case 6725:
 		case 6714:
 		case 6734:
@@ -693,39 +750,41 @@ public final class ObjectDefinition {
 		int totalObjects = stream.readUnsignedWord();
 		int totalObjects667 = streamIdx667.readUnsignedWord();
 		int totalObjectsOSRS = streamIdxOSRS.readUnsignedWord();
-		
+
 		streamIndices = new int[totalObjects];
 		streamIndices667 = new int[totalObjects667];
 		streamIndicesOSRS = new int[totalObjectsOSRS];
-		
+
 		int i = 2;
-		
+
 		for (int j = 0; j < totalObjects; j++) {
 			streamIndices[j] = i;
 			i += stream.readUnsignedWord();
 		}
-		
+
 		i = 2;
-		
+
 		for (int j = 0; j < totalObjects667; j++) {
 			streamIndices667[j] = i;
 			i += streamIdx667.readUnsignedWord();
 		}
-		
+
 		i = 2;
-		
+
 		for (int j = 0; j < totalObjectsOSRS; j++) {
 			streamIndicesOSRS[j] = i;
 			i += streamIdxOSRS.readUnsignedWord();
 		}
-		
+
 		cache = new ObjectDefinition[200];
 		cacheOSRS = new ObjectDefinition[200];
-		
+
 		for (int k = 0; k < 200; k++) {
 			cache[k] = new ObjectDefinition();
 			cacheOSRS[k] = new ObjectDefinition();
 		}
+
+		//dump(totalObjects, totalObjects667, totalObjectsOSRS);
 	}
 
 	public boolean allModelsFetched(int i) {
@@ -885,7 +944,7 @@ public final class ObjectDefinition {
 		if (anInt760 == 1)
 			model_3.myPriority = model_3.modelHeight;
 		if (osrs)
-			completedOSRSModelCache.put(model_3, hash);	
+			completedOSRSModelCache.put(model_3, hash);
 		else
 			completedModelCache.put(model_3, hash);
 		return model_3;

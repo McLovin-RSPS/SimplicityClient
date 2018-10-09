@@ -54,7 +54,7 @@ public class RSInterface {
 		addText(37602, "NPC Drop Table Checker", 0xFF981F, true, true, -1, 2);
 		setBounds(37602, 270, 13, 1, main_widget);
 
-		addHoverButtonWSpriteLoader(37603, 1020, 21, 21, "Close Window", 0, 37604, 1);
+		addHoverButtonWSpriteLoader(37603, 1020, 21, 21, "Close Window", 0, 37604, 3);
 		addHoveredImageWSpriteLoader(37604, 1021, 21, 21, 37605);
 
 
@@ -3098,6 +3098,7 @@ public static void TeleTAB5() {
 		addButtonWSpriteLoader(65253,990, "Select", 57, 17);
 		addButtonWSpriteLoader(65254,989, "Select", 57, 17);
 		addButtonWSpriteLoader(77265, 892, "Close Window", 16, 16);
+		interfaceCache[77265].atActionType = 3;
 
 		addText(65256, "Common", tda, 0, 0xff981f, true, true);
 		addText(65257, "Rare", tda, 0, 0xff981f, true, true);
@@ -3188,6 +3189,7 @@ public static void TeleTAB5() {
 		addButtonWSpriteLoader(55253,989, "Select", 57, 17);
 		addButtonWSpriteLoader(55254,990, "Select", 57, 17);
 		addButtonWSpriteLoader(35255, 892, "Close Window", 16, 16);
+		interfaceCache[35255].atActionType = 3;
 
 		addText(55256, "Normal", tda, 0, 0xff981f, true, true);
 		addText(55257, "Bosses", tda, 0, 0xff981f, true, true);
@@ -13070,7 +13072,7 @@ public static void addHoverSpriteLoaderButton(int i, int spriteId,
 				setChildren(37, Interface);
 				addSpriteLoader(38001, 858);
 
-				addHoverButtonWSpriteLoader(38002, 860, 21, 21, "Exit", 0, 38003, 1);
+				addHoverButtonWSpriteLoader(38002, 860, 21, 21, "Exit", 0, 38003, 3);
 				addHoveredImageWSpriteLoader(38003, 861, 21, 21, 38004);
 
 				addSpriteLoader(38005, 859);
@@ -13107,7 +13109,7 @@ public static void addHoverSpriteLoaderButton(int i, int spriteId,
 
 				//Other Stuff
 
-				addHoverButtonWSpriteLoader(38082, 864, 127, 21, "Cancel", -1, 38083, 1);
+				addHoverButtonWSpriteLoader(38082, 864, 127, 21, "Cancel", -1, 38083, 3);
 				addHoveredImageWSpriteLoader(38083, 865, 127, 21, 38084);
 
 				addHoverButtonWSpriteLoader(38085, 866, 127, 21, "Confirm", -1, 38086, 1);

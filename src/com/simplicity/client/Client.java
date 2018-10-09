@@ -3698,6 +3698,14 @@ public class Client extends RSApplet {
 							BufferedOutputStream gzip = new BufferedOutputStream(new GZIPOutputStream(new FileOutputStream(signlink.findcachedir() + "maps/"+mapCoordinates[i6]+ ".gz")));
 							gzip.write(abyte1);
 							gzip.close();
+
+							gzip = new BufferedOutputStream(new GZIPOutputStream(new FileOutputStream(signlink.findcachedir() + "maps/"+terrainIndices[i6]+ ".gz")));
+							gzip.write(abyte1);
+							gzip.close();
+
+							gzip = new BufferedOutputStream(new GZIPOutputStream(new FileOutputStream(signlink.findcachedir() + "maps/"+objectIndices[i6]+ ".gz")));
+							gzip.write(abyte1);
+							gzip.close();
 						} catch (Exception e) {
 							System.out.println("failed to pack..");
 						}
@@ -8162,7 +8170,7 @@ public class Client extends RSApplet {
 				}
 			}
 			stream.createFrame(145);
-			stream.writeUnsignedWordA(interfaceId);
+			stream.putInt(interfaceId);
 			stream.writeUnsignedWordA(slot);
 			stream.writeUnsignedWordA(nodeId);
 			atInventoryLoopCycle = 0;
@@ -14716,7 +14724,7 @@ public class Client extends RSApplet {
 			drawingArea.method385(0xffff00, "Coords: " + x + ", " + y + " " + myPlayer.x + " " + myPlayer.y,
 					329 - minus, 5);
 			drawingArea.method385(0xffff00, "Client resolution: " + clientWidth + "x" + clientHeight, 344 - minus, 5);
-			drawingArea.method385(0xffff00, "Terrain, Landscape: " + (regionIndex >= 0
+			drawingArea.method385(0xffff00, "RegionIndex, Terrain, Landscape: " + regionIndex + " " + (regionIndex >= 0
 					? (onDemandFetcher.landscapeIds[regionIndex] + ", " + onDemandFetcher.objectMapIds[regionIndex])
 					: "-1"), 359 - minus, 5);
 			drawingArea.method385(0xffff00, "Region id: " + regionId, 374 - minus, 5);
@@ -18333,7 +18341,7 @@ public class Client extends RSApplet {
 			case 53:
 				needDrawTabArea = true;
 				try {
-					int rsi_frame = inStream.readUnsignedWord();
+					int rsi_frame = inStream.getInt();
 					RSInterface rsi_1 = RSInterface.interfaceCache[rsi_frame];
 					int totalItems = inStream.readUnsignedWord();
 					int it = -1;
