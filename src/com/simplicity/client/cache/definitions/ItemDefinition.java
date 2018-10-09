@@ -1282,7 +1282,7 @@ public final class ItemDefinition {
                 itemDef.actions[0] = "Open";
                 break;
             case 6833:
-                itemDef.name = "@red@Gold Mystery Box";
+                itemDef.name = "@red@Diamond Mystery Box";
                 itemDef.actions = new String[5];
                 itemDef.actions[0] = "Open";
                 break;
