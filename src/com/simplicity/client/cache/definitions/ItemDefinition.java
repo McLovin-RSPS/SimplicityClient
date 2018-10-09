@@ -422,7 +422,7 @@ public final class ItemDefinition {
         	break;
 		case 8421:
 			itemDef.setDefaults();
-			itemDef.name = "Dragonbone spirit shield";
+			itemDef.name = "Demonic spirit shield";
 			itemDef.modelZoom = 1616; // Model Zoom
 			itemDef.maleEquip1 = 38941; // Male Equip 1
 			itemDef.femaleEquip1 = 38941; // Male Equip 2
@@ -2264,7 +2264,7 @@ public final class ItemDefinition {
    		      itemDef.rotationY = itemDef21111111.rotationY;
    		      itemDef.rotationX = itemDef21111111.rotationX;
    		      itemDef.modelZoom = itemDef21111111.modelZoom;
-   		    //itemDef.name = "White Dragon boots ";
+   		      itemDef.name = "Demonic Dragon boots ";
    		      itemDef.actions = itemDef21111111.actions;		 
    		      itemDef.editedModelColor = new int[] { 926 };
    		      itemDef.newModelColor  = new int[] { 266770 };
