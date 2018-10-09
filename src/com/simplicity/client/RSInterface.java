@@ -2522,7 +2522,7 @@ public static void TeleTAB5() {
 		Stream stream = new Stream(streamLoader.getDataForName("data"));
 		int parentId = -1;
 		int totalInterfaces = stream.readUnsignedWord();
-		interfaceCache = new RSInterface[85000];
+		interfaceCache = new RSInterface[150000];
 		while (stream.currentOffset < stream.buffer.length) {
 			int opcode = stream.readUnsignedWord();
 			if (opcode == 65535) {
@@ -2845,6 +2845,8 @@ public static void TeleTAB5() {
 		//duelArena();
 		addToTrade();
 		dropTableCheckerInterface(textDrawingAreas);
+		raids(textDrawingAreas);
+		raidsRewards(textDrawingAreas);
 		/*spells[0] = interfaceCache[1572]; //Bind
 		spells[1] = interfaceCache[1582]; //Snare
 		spells[2] = interfaceCache[1592]; //Entangle
@@ -2878,6 +2880,88 @@ public static void TeleTAB5() {
 		//	CustomInterfaces.achievementsInterface();
 
 		spriteCache = null;
+	}
+
+	public static void raids(TextDrawingArea[] tda) {
+		RSInterface tab = addInterface(85000);
+		int c = 0;
+		int x = 0;
+		int y = 0;
+		tab.totalChildren(10);
+		int id = 85001;
+		id++;
+		tab.child(c++, 45002, 0, 33);
+		tab.child(c++, 45003, 0, 36);
+
+		addText(id, "Raiding Party: 0", fonts, 2, 16750623, true, true);
+		tab.child(c++, id++, 95 + x, 10 + y);
+
+		tab.child(c++, 85015, 2 + x, 47 + y);
+
+		addHoverButtonWSpriteLoader(id, 1026, 72, 24, "Invite", -1, id + 1, 1);
+		tab.child(c++, id++, 20 + x, 215 + y);
+		addHoveredImageWSpriteLoader(id, 1027, 72, 24, id + 1);
+		tab.child(c++, id++, 20 + x, 215 + y);
+		id++;
+
+		addHoverButtonWSpriteLoader(id, 1026, 72, 24, "Leave", -1, id + 1, 1);
+		tab.child(c++, id++, 100 + x, 215 + y);
+		addHoveredImageWSpriteLoader(id, 1027, 72, 24, id + 1);
+		tab.child(c++, id++, 100 + x, 215 + y);
+		id++;
+
+		addText(id, "Create", tda, 1, 0xFFA500, true, true);
+		tab.child(c++, id++, 55 + x, 220 + y);
+		addText(id, "Leave", tda, 1, 0xFFA500, true, true);
+		tab.child(c++, id++, 135 + x, 220 + y);
+
+		RSInterface scroll = addInterface(85015);
+
+		scroll.totalChildren(36);
+		scroll.width = 164;
+		scroll.height = 132;
+		scroll.scrollMax = 133;
+		y = 0;
+		c = 0;
+		id = 85016;
+		for (int i = 0; i < 12; i++) {
+			hoverText(id, "---", "Kick", tda, 0, 0xFFA500, false, true, 100, 11, false);
+			// addText(id, "---", tda, 0, 0xFFA500, true, true);
+			scroll.child(c++, id++, 13 + x, 0 + y);
+			addText(id, "--", tda, 0, 0xFFA500, true, true);
+			scroll.child(c++, id++, 120 + x, 0 + y);
+			addText(id, "-", tda, 0, 0xFFA500, true, true);
+			scroll.child(c++, id++, 152 + x, 0 + y);
+			y += 11;
+		}
+	}
+
+	public static void raidsRewards(TextDrawingArea[] tda) {
+		RSInterface tab = addInterface(85075);
+		int c = 0;
+		int x = 120;
+		int y = 80;
+		tab.totalChildren(6);
+		int id = 85076;
+
+		addSpriteLoader(id, 277);
+		tab.child(c++, id++, 0 + x, 0 + y);
+
+		addToItemGroup(id, 1, 1, 1, 1, true, "Take", null, null);
+		tab.child(c++, id++, 132 + x, 45 + y);
+
+		addToItemGroup(id, 1, 1, 1, 1, true, "Take", null, null);
+		tab.child(c++, id++, 132 + x, 80 + y);
+
+		addToItemGroup(id, 1, 1, 1, 1, true, "Take", null, null);
+		tab.child(c++, id++, 132 + x, 115 + y);
+
+		addHoverButtonWSpriteLoader(id, 1020, 21, 21, "Close Window", 0, id + 1, 1);
+		tab.child(c++, id++, 232 + x, 7 + y);
+
+		addHoveredImageWSpriteLoader(id, 1021, 21, 21, id + 1);
+		tab.child(c++, id++, 232 + x, 7 + y);
+
 	}
 
 	public static void itemInformation(TextDrawingArea[] tda) {
@@ -5443,7 +5527,7 @@ public static void addHoverSpriteLoaderButton(int i, int spriteId,
 		addHoverButtonWSpriteLoader(60697, 1013, 90, 32, "Select", 0, 60698, 1);
 		addHoveredImageWSpriteLoader(60698, 1014, 90, 32, 60699);
 
-		addHoverButtonWSpriteLoader(60652, 1015, 16, 16, "Select", 0, 60653, 1);
+		addHoverButtonWSpriteLoader(60652, 1015, 16, 16, "Close", 0, 60653, 3);
 		addHoveredImageWSpriteLoader(60653, 1016, 16, 16, 60654);
 
 
@@ -9208,6 +9292,31 @@ public static void addHoverSpriteLoaderButton(int i, int spriteId,
 		rsi.type = 8;
 		rsi.hoverText = text;
 	}
+
+	public static void hoverText(int id, String text, String tooltip, TextDrawingArea tda[], int idx, int color, boolean center,
+								 boolean textShadowed, int width, int height, boolean u) {
+		RSInterface rsinterface = addInterface(id);
+		rsinterface.id = id;
+		rsinterface.parentID = id;
+		rsinterface.type = 4;
+		rsinterface.atActionType = 1;
+		rsinterface.width = width;
+		rsinterface.height = height;
+		rsinterface.contentType = 0;
+		rsinterface.opacity = 0;
+		rsinterface.hoverType = -1;
+		rsinterface.centerText = true;
+		rsinterface.shadowed = textShadowed;
+		rsinterface.textDrawingAreas = tda[idx];
+		rsinterface.message = text;
+		rsinterface.enabledMessage = "";
+		rsinterface.disabledColor = color;
+		rsinterface.enabledColor = 0;
+		rsinterface.disabledMouseOverColor = 0xffffff;
+		rsinterface.enabledMouseOverColor = 0;
+		rsinterface.tooltip = tooltip;
+	}
+
 
 	public static RSInterface addText(int id, String text, TextDrawingArea tda[],
 			int idx, int color, boolean center, boolean shadow) {

@@ -21,7 +21,17 @@ import com.simplicity.client.signlink;
 public final class ItemDefinition {
 
     private static int[] prices;
-    private static List<Integer> untradeableItems = new ArrayList<Integer>();
+    private static List<Integer> untradeableItems = new ArrayList<>();
+    /**
+     * The models that should be loaded with a older model header.
+     */
+    public static List<Integer> osrsModels = new ArrayList<>();
+
+    /**
+     * The models the need priority fix.
+     */
+    public static List<Integer> priorityModels = new ArrayList<>();
+
     private static final int OSRS_ITEMS_START = 10603;
     private static final int OSRS_ITEMS_OFFSET = 30_000;
 
@@ -134,10 +144,10 @@ public final class ItemDefinition {
         }
         //if (j == 62367)
         //model.translate(68, 7, -8);
-        if (gender == 0 && maleYOffset != 0) {
-            model.translate(0, maleYOffset, 0);
-        } else if (gender == 1 && femaleYOffset != 0) {
-            model.translate(0, femaleYOffset, 0);
+        if (gender == 0 && (maleYOffset != 0 || maleXOffset != 0  || maleZOffset != 0)) {
+            model.translate(maleXOffset, maleYOffset, maleZOffset);
+        } else if (gender == 1 && (femaleYOffset != 0 || femaleXOffset != 0 || femaleZOffset != 0) ) {
+            model.translate(femaleYOffset, femaleYOffset, femaleZOffset);
         }
         if (editedModelColor != null && newModelColor != null) {
             for (int i1 = 0; i1 < editedModelColor.length; i1++) {
@@ -169,8 +179,11 @@ public final class ItemDefinition {
         maleEquip2 = -1;
         maleYOffset = 0;
         maleXOffset = 0;
+        maleZOffset = 0;
         femaleEquip1 = -1;
         femaleEquip2 = -1;
+        femaleZOffset = 0;
+        femaleXOffset = 0;
         femaleYOffset = 0;
         maleEquip3 = -1;
         femaleEquip3 = -1;
@@ -268,12 +281,48 @@ public final class ItemDefinition {
         
         setSettings();
         //writeOutOsrsItems(totalItems, totalItemsOSRS);
+
+        osrsModels.add(34148);
+        osrsModels.add(34152);
+
+        osrsModels.add(34149);
+        osrsModels.add(34151);
+
+        osrsModels.add(34146);
+        osrsModels.add(34150);
+
+        osrsModels.add(35349);
+        osrsModels.add(35361);
+
+        osrsModels.add(35359);
+        osrsModels.add(35368);
+
+        osrsModels.add(35356);
+        osrsModels.add(35367);
+
+        priorityModels.add(62736);
+        priorityModels.add(62755);
+
+        priorityModels.add(62748);
+        priorityModels.add(62764);
+
+        priorityModels.add(62742);
+        priorityModels.add(62758);
+
+        priorityModels.add(29249);
+        priorityModels.add(29254);
+
+        priorityModels.add(29250);
+        priorityModels.add(29255);
+
+        priorityModels.add(29252);
+        priorityModels.add(29253);
     }
     
     public static ItemDefinition forID(int i) {
     	if (i >= OSRS_ITEMS_OFFSET + OSRS_ITEMS_START) {
     		i -= OSRS_ITEMS_OFFSET;
-    		
+
             for (int j = 0; j < 10; j++) {
                 if (cacheOSRS[j].id == i) {
                     return cacheOSRS[j];
@@ -281,38 +330,49 @@ public final class ItemDefinition {
             }
 
             cacheIndexOSRS = (cacheIndexOSRS + 1) % 10;
-    		
+
             ItemDefinition itemDef = cacheOSRS[cacheIndexOSRS];
-            
+
             if (i >= streamIndicesOSRS.length) {
                 itemDef.id = 1;
                 itemDef.setDefaults();
                 return itemDef;
             }
-            
+
             streamOSRS.currentOffset = streamIndicesOSRS[i];
             itemDef.id = OSRS_ITEMS_OFFSET + i;
             itemDef.osrs = true;
             itemDef.setDefaults();
             itemDef.readValues(streamOSRS);
-            
+
             if (itemDef.certTemplateID != -1) {
                 itemDef.toNote();
             }
-            
+
             if (itemDef.lentItemID != -1) {
                 itemDef.toLend();
             }
-            
+
             if (itemDef.id == i && itemDef.editedModelColor == null) {
                 itemDef.editedModelColor = new int[1];
                 itemDef.newModelColor = new int[1];
                 itemDef.editedModelColor[0] = 0;
                 itemDef.newModelColor[0] = 1;
             }
-            
+
             //itemDef.value = prices[itemDef.id];
-            
+
+            switch(itemDef.id) {
+                case 51791:
+                case 51793:
+                case 51795:
+                    itemDef.maleZOffset += 4;
+                    itemDef.femaleZOffset += 4;
+                    itemDef.femaleYOffset -= 7;
+                    itemDef.maleYOffset -= 7;
+                    break;
+            }
+
     		return itemDef;
     	}
     	
@@ -1221,6 +1281,11 @@ public final class ItemDefinition {
                 itemDef.actions = new String[5];
                 itemDef.actions[0] = "Open";
                 break;
+            case 6833:
+                itemDef.name = "@red@Gold Mystery Box";
+                itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
+                break;
             case 12632:
                 itemDef.name = "100m Note";
                 itemDef.actions = new String[]{"Claim", null, null, null, "Drop"};
@@ -1931,6 +1996,19 @@ public final class ItemDefinition {
                  itemDef.maleEquip1 = 35374;
                  itemDef.femaleEquip1 = 35369;
                  break;
+    		case 52324:
+                itemDef.modelID = 35739;
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.name = "Ghrazi rapier (r)";
+                itemDef.description = "It is the replica Ghrazi Rapier.";
+                itemDef.modelZoom = 2200;
+                itemDef.stackable = false;
+                itemDef.rotationX = 1603;
+                itemDef.rotationY = 552;
+                itemDef.maleEquip1 = 35374;
+                itemDef.femaleEquip1 = 35369;
+                break;
              case 15000:
                  itemDef.modelID = 35742;
                  itemDef.actions = new String[5];
@@ -6805,6 +6883,8 @@ public final class ItemDefinition {
         id = -1;
     }
 
+    public byte femaleZOffset;
+    public byte femaleXOffset;
     public byte femaleYOffset;
     public int value;
     public int[] editedModelColor;
@@ -6857,6 +6937,7 @@ public final class ItemDefinition {
     public int modelOffsetX;
     public byte maleYOffset;
     public byte maleXOffset;
+    public byte maleZOffset;
     public int lendID;
     public int lentItemID;
     public boolean untradeable;

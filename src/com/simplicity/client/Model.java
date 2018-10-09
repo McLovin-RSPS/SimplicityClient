@@ -1,6 +1,7 @@
 package com.simplicity.client;
 
 import com.simplicity.Configuration;
+import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.client.particles.Particle;
 import com.simplicity.client.particles.ParticleAttachment;
 import com.simplicity.client.particles.ParticleDefinition;
@@ -297,6 +298,9 @@ public class Model extends Animable {
 	private boolean filtered = false;
 	private boolean aBoolean1618;
 	public int numberOfVerticeCoordinates;
+	public int[] texture_type;
+	public int[] texture;
+	public int[] texture_coordinates;
 	public int verticesXCoordinate[];
 	public int verticesYCoordinate[];
 	public int verticesZCoordinate[];
@@ -478,35 +482,49 @@ public class Model extends Animable {
 
 	public Model(int modelId) {
 		byte[] is = modelHeader[modelId].modelData;
-		if (is[is.length - 1] == -1 && is[is.length - 2] == -1)
+
+		boolean osrsModel = ItemDefinition.osrsModels.contains(modelId);
+
+		if(osrsModel) {
+			if (is[is.length - 1] == -1 && is[is.length - 2] == -1) {
+				readNewModel(is, modelId);
+			} else {
+				readOSRSOldModel(is, modelId);
+			}
+			for (int j = 0; j < face_render_priorities.length; j++) {
+				face_render_priorities[j] = 10;
+			}
+		} else if (is[is.length - 1] == -1 && is[is.length - 2] == -1)
 			read622Model(is, modelId);
 		else
 			readOldModel(modelId);
-		int[] newBoots = new int[] {29249, 29254, 29250, 29255, 29252, 29253};
-		for(int i : newBoots) {
-			if(modelId == i)
-				for (int j = 0; j < face_render_priorities.length; j++) {
-					face_render_priorities[j] = 10;
+
+		if(ItemDefinition.priorityModels.contains(modelId)) {
+			for (int j = 0; j < face_render_priorities.length; j++) {
+				face_render_priorities[j] = 10;
+			}
+		}
+
+		if(!osrsModel) {
+			if (newmodel[modelId]) {
+				if ((Configuration.upscaling)) {
+					scale2(32, 32, 32);// 2 is too big -- 3 is almost right
+					//	upscaled = false;
 				}
-		}
-		if (newmodel[modelId]) {
-			if ((Configuration.upscaling)) {
-			scale2(32, 32,32);// 2 is too big -- 3 is almost right
-		//	upscaled = false;
+				if (!(modelId == 19176 || modelId == 19192 || modelId == 19174 || modelId == 19190 || modelId == 19178 || modelId == 19194 || modelId == 19183 || modelId == 19199 || modelId == 19172 || modelId == 19188 || modelId == 19180 || modelId == 19196)) {
+					recolour(0, 255);
+				}
+				if (face_render_priorities != null) { // rofl
+					for (int j = 0; j < face_render_priorities.length; j++)
+						face_render_priorities[j] = 10;
+				}
 			}
-			if(!(modelId == 19176 || modelId == 19192 || modelId == 19174 || modelId == 19190 || modelId == 19178 || modelId == 19194 || modelId == 19183 || modelId == 19199 || modelId == 19172 || modelId == 19188 || modelId == 19180 || modelId == 19196)) {
-				recolour(0, 255);
+			if (modelId == 48841 || modelId == 48825 || modelId == 48817 || modelId == 48802 || modelId == 48840
+					|| modelId == 45536 || modelId == 38284 || modelId == 45522 || modelId == 45517 || modelId == 45514
+					|| modelId == 45490 || modelId == 48790 || modelId == 59583) {
+				scaleT(32, 32, 32); // rofl owner blade
+				translate(0, 6, 0);
 			}
-			if (face_render_priorities != null) { // rofl
-				for (int j = 0; j < face_render_priorities.length; j++)
-					face_render_priorities[j] = 10;
-			}
-		}
-		if (modelId == 48841 || modelId == 48825 || modelId == 48817 || modelId == 48802 || modelId == 48840
-				|| modelId == 45536 || modelId == 38284 || modelId == 45522 || modelId == 45517 || modelId == 45514
-				|| modelId == 45490 || modelId == 48790 || modelId == 59583) {
-			scaleT(32, 32, 32); // rofl owner blade
-			translate(0, 6, 0);
 		}
 		
 		int[][] attachments = ParticleAttachment.getAttachments(modelId);
@@ -1194,6 +1212,9 @@ public class Model extends Animable {
 		textures_face_a = model.textures_face_a;
 		textures_face_b = model.textures_face_b;
 		textures_face_c = model.textures_face_c;
+		texture_coordinates = model.texture_coordinates;
+		texture_type = model.texture_type;
+		texture = model.texture;
 	}
 
 	private final int method465(Model model, int i) {
@@ -1888,6 +1909,554 @@ public class Model extends Animable {
 		face_c = facePoint3;
 		filterTriangles();
 		convertTexturesTo317(D, texTrianglesPoint1, texTrianglesPoint2, texTrianglesPoint3, x);
+	}
+
+	public void readNewModel(byte data[], int modelId) {
+		Stream nc1 = new Stream(data);
+		Stream nc2 = new Stream(data);
+		Stream nc3 = new Stream(data);
+		Stream nc4 = new Stream(data);
+		Stream nc5 = new Stream(data);
+		Stream nc6 = new Stream(data);
+		Stream nc7 = new Stream(data);
+		nc1.currentOffset = data.length - 23;
+		numberOfVerticeCoordinates = nc1.readUnsignedWord();
+		numberOfTriangleFaces = nc1.readUnsignedWord();
+		numberOfTexturesFaces = nc1.readUnsignedByte();
+		int flags = nc1.readUnsignedByte();
+		int priority_opcode = nc1.readUnsignedByte();
+		int alpha_opcode = nc1.readUnsignedByte();
+		int tSkin_opcode = nc1.readUnsignedByte();
+		int texture_opcode = nc1.readUnsignedByte();
+		int vSkin_opcode = nc1.readUnsignedByte();
+		int j3 = nc1.readUnsignedWord();
+		int k3 = nc1.readUnsignedWord();
+		int l3 = nc1.readUnsignedWord();
+		int i4 = nc1.readUnsignedWord();
+		int j4 = nc1.readUnsignedWord();
+		int texture_id = 0;
+		int texture_ = 0;
+		int texture__ = 0;
+		int face;
+		face_color = new int[numberOfTriangleFaces];
+		if (numberOfTexturesFaces > 0) {
+			texture_type = new int[numberOfTexturesFaces];
+			nc1.currentOffset = 0;
+			for (face = 0; face < numberOfTexturesFaces; face++) {
+				int opcode = texture_type[face] = nc1.readSignedByte();
+				if (opcode == 0) {
+					texture_id++;
+				}
+
+				if (opcode >= 1 && opcode <= 3) {
+					texture_++;
+				}
+				if (opcode == 2) {
+					texture__++;
+				}
+			}
+		}
+		int pos;
+		pos = numberOfTexturesFaces;
+		int vertexMod_offset = pos;
+		pos += numberOfVerticeCoordinates;
+
+		int drawTypeBasePos = pos;
+		if (flags == 1)
+			pos += numberOfTriangleFaces;
+
+		int faceMeshLink_offset = pos;
+		pos += numberOfTriangleFaces;
+
+		int facePriorityBasePos = pos;
+		if (priority_opcode == 255)
+			pos += numberOfTriangleFaces;
+
+		int tSkinBasePos = pos;
+		if (tSkin_opcode == 1)
+			pos += numberOfTriangleFaces;
+
+		int vSkinBasePos = pos;
+		if (vSkin_opcode == 1)
+			pos += numberOfVerticeCoordinates;
+
+		int alphaBasePos = pos;
+		if (alpha_opcode == 1)
+			pos += numberOfTriangleFaces;
+
+		int faceVPoint_offset = pos;
+		pos += i4;
+
+		int textureIdBasePos = pos;
+		if (texture_opcode == 1)
+			pos += numberOfTriangleFaces * 2;
+
+		int textureBasePos = pos;
+		pos += j4;
+
+		int color_offset = pos;
+		pos += numberOfTriangleFaces * 2;
+
+		int vertexX_offset = pos;
+		pos += j3;
+
+		int vertexY_offset = pos;
+		pos += k3;
+
+		int vertexZ_offset = pos;
+		pos += l3;
+
+		int mainBuffer_offset = pos;
+		pos += texture_id * 6;
+
+		int firstBuffer_offset = pos;
+		pos += texture_ * 6;
+
+		int secondBuffer_offset = pos;
+		pos += texture_ * 6;
+
+		int thirdBuffer_offset = pos;
+		pos += texture_ * 2;
+
+		int fourthBuffer_offset = pos;
+		pos += texture_;
+
+		int fifthBuffer_offset = pos;
+		pos += texture_ * 2 + texture__ * 2;
+		verticesParticle = new int[numberOfVerticeCoordinates];
+		verticesXCoordinate = new int[numberOfVerticeCoordinates];
+		verticesYCoordinate = new int[numberOfVerticeCoordinates];
+		verticesZCoordinate = new int[numberOfVerticeCoordinates];
+		face_a = new int[numberOfTriangleFaces];
+		face_b = new int[numberOfTriangleFaces];
+		face_c = new int[numberOfTriangleFaces];
+		if (vSkin_opcode == 1)
+			vertexVSkin = new int[numberOfVerticeCoordinates];
+
+		if (flags == 1)
+			face_render_type = new int[numberOfTriangleFaces];
+
+		if (priority_opcode == 255)
+			face_render_priorities = new int[numberOfTriangleFaces];
+		else
+			face_priority = (byte) priority_opcode;
+
+		if (alpha_opcode == 1)
+			face_alpha = new int[numberOfTriangleFaces];
+
+		if (tSkin_opcode == 1)
+			triangleTSkin = new int[numberOfTriangleFaces];
+
+		if (texture_opcode == 1)
+			texture = new int[numberOfTriangleFaces];
+
+		if (texture_opcode == 1 && numberOfTexturesFaces > 0)
+			texture_coordinates = new int[numberOfTriangleFaces];
+
+		if (numberOfTexturesFaces > 0) {
+			textures_face_a = new int[numberOfTexturesFaces];
+			textures_face_b = new int[numberOfTexturesFaces];
+			textures_face_c = new int[numberOfTexturesFaces];
+		}
+		nc1.currentOffset = vertexMod_offset;
+		nc2.currentOffset = vertexX_offset;
+		nc3.currentOffset = vertexY_offset;
+		nc4.currentOffset = vertexZ_offset;
+		nc5.currentOffset = vSkinBasePos;
+		int start_x = 0;
+		int start_y = 0;
+		int start_z = 0;
+		for (int point = 0; point < numberOfVerticeCoordinates; point++) {
+			int flag = nc1.readUnsignedByte();
+			int x = 0;
+			if ((flag & 1) != 0) {
+				x = nc2.method421();
+			}
+			int y = 0;
+			if ((flag & 2) != 0) {
+				y = nc3.method421();
+
+			}
+			int z = 0;
+			if ((flag & 4) != 0) {
+				z = nc4.method421();
+			}
+
+			verticesXCoordinate[point] = start_x + x;
+			verticesYCoordinate[point] = start_y + y;
+			verticesZCoordinate[point] = start_z + z;
+			start_x = verticesXCoordinate[point];
+			start_y = verticesYCoordinate[point];
+			start_z = verticesZCoordinate[point];
+
+			if (vertexVSkin != null)
+				vertexVSkin[point] = nc5.readUnsignedByte();
+
+		}
+		nc1.currentOffset = color_offset;
+		nc2.currentOffset = drawTypeBasePos;
+		nc3.currentOffset = facePriorityBasePos;
+		nc4.currentOffset = alphaBasePos;
+		nc5.currentOffset = tSkinBasePos;
+		nc6.currentOffset = textureIdBasePos;
+		nc7.currentOffset = textureBasePos;
+		for (face = 0; face < numberOfTriangleFaces; face++) {
+			face_color[face] = (short) nc1.readUnsignedWord();
+			if (flags == 1) {
+				face_render_type[face] = nc2.readSignedByte();
+			}
+			if (priority_opcode == 255) {
+				face_render_priorities[face] = nc3.readSignedByte();
+			}
+			if (alpha_opcode == 1) {
+				face_alpha[face] = nc4.readSignedByte();
+				if (face_alpha[face] < 0)
+					face_alpha[face] = (256 + face_alpha[face]);
+
+			}
+			if (tSkin_opcode == 1)
+				triangleTSkin[face] = nc5.readUnsignedByte();
+
+			if (texture_opcode == 1) {
+				texture[face] = (short) (nc6.readUnsignedWord() - 1);
+				if(texture[face] >= 0) {
+					if(face_render_type != null) {
+						if(face_render_type[face] < 2 && face_color[face] != 127 && face_color[face] != -27075) {
+							texture[face] = -1;
+						}
+					}
+				}
+				if(texture[face] != -1)
+					face_color[face] = 127;
+			}
+			if (texture_coordinates != null && texture[face] != -1) {
+				texture_coordinates[face] = (byte) (nc7.readUnsignedByte() - 1);
+			}
+		}
+		nc1.currentOffset = faceVPoint_offset;
+		nc2.currentOffset = faceMeshLink_offset;
+		int coordinate_a = 0;
+		int coordinate_b = 0;
+		int coordinate_c = 0;
+		int last_coordinate = 0;
+		for (face = 0; face < numberOfTriangleFaces; face++) {
+			int opcode = nc2.readUnsignedByte();
+			if (opcode == 1) {
+				coordinate_a = nc1.method421() + last_coordinate;
+				last_coordinate = coordinate_a;
+				coordinate_b = nc1.method421() + last_coordinate;
+				last_coordinate = coordinate_b;
+				coordinate_c = nc1.method421() + last_coordinate;
+				last_coordinate = coordinate_c;
+				face_a[face] = coordinate_a;
+				face_b[face] = coordinate_b;
+				face_c[face] = coordinate_c;
+			}
+			if (opcode == 2) {
+				coordinate_b = coordinate_c;
+				coordinate_c = nc1.method421() + last_coordinate;
+				last_coordinate = coordinate_c;
+				face_a[face] = coordinate_a;
+				face_b[face] = coordinate_b;
+				face_c[face] = coordinate_c;
+			}
+			if (opcode == 3) {
+				coordinate_a = coordinate_c;
+				coordinate_c = nc1.method421() + last_coordinate;
+				last_coordinate = coordinate_c;
+				face_a[face] = coordinate_a;
+				face_b[face] = coordinate_b;
+				face_c[face] = coordinate_c;
+			}
+			if (opcode == 4) {
+				int l14 = coordinate_a;
+				coordinate_a = coordinate_b;
+				coordinate_b = l14;
+				coordinate_c = nc1.method421() + last_coordinate;
+				last_coordinate = coordinate_c;
+				face_a[face] = coordinate_a;
+				face_b[face] = coordinate_b;
+				face_c[face] = coordinate_c;
+			}
+		}
+		nc1.currentOffset = mainBuffer_offset;
+		nc2.currentOffset = firstBuffer_offset;
+		nc3.currentOffset = secondBuffer_offset;
+		nc4.currentOffset = thirdBuffer_offset;
+		nc5.currentOffset = fourthBuffer_offset;
+		nc6.currentOffset = fifthBuffer_offset;
+		for (face = 0; face < numberOfTexturesFaces; face++) {
+			int opcode = texture_type[face] & 0xff;
+			if (opcode == 0) {
+				textures_face_a[face] = (short) nc1.readUnsignedWord();
+				textures_face_b[face] = (short) nc1.readUnsignedWord();
+				textures_face_c[face] = (short) nc1.readUnsignedWord();
+			}
+			if (opcode == 1) {
+				textures_face_a[face] = (short) nc2.readUnsignedWord();
+				textures_face_b[face] = (short) nc2.readUnsignedWord();
+				textures_face_c[face] = (short) nc2.readUnsignedWord();
+			}
+			if (opcode == 2) {
+				textures_face_a[face] = (short) nc2.readUnsignedWord();
+				textures_face_b[face] = (short) nc2.readUnsignedWord();
+				textures_face_c[face] = (short) nc2.readUnsignedWord();
+			}
+			if (opcode == 3) {
+				textures_face_a[face] = (short) nc2.readUnsignedWord();
+				textures_face_b[face] = (short) nc2.readUnsignedWord();
+				textures_face_c[face] = (short) nc2.readUnsignedWord();
+			}
+		}
+		nc1.currentOffset = pos;
+		face = nc1.readUnsignedByte();
+	}
+
+	public void readOSRSOldModel(byte[] data, int modelId) {
+		boolean has_face_type = false;
+		boolean has_texture_type = false;
+		Stream stream = new Stream(data);
+		Stream stream1 = new Stream(data);
+		Stream stream2 = new Stream(data);
+		Stream stream3 = new Stream(data);
+		Stream stream4 = new Stream(data);
+		stream.currentOffset = data.length - 18;
+		numberOfVerticeCoordinates = stream.readUnsignedWord();
+		numberOfTriangleFaces = stream.readUnsignedWord();
+		numberOfTexturesFaces = stream.readUnsignedByte();
+		int type_opcode = stream.readUnsignedByte();
+		int priority_opcode = stream.readUnsignedByte();
+		int alpha_opcode = stream.readUnsignedByte();
+		int tSkin_opcode = stream.readUnsignedByte();
+		int vSkin_opcode = stream.readUnsignedByte();
+		int i_254_ = stream.readUnsignedWord();
+		int i_255_ = stream.readUnsignedWord();
+		int i_256_ = stream.readUnsignedWord();
+		int i_257_ = stream.readUnsignedWord();
+		int i_258_ = 0;
+
+		int i_259_ = i_258_;
+		i_258_ += numberOfVerticeCoordinates;
+
+		int i_260_ = i_258_;
+		i_258_ += numberOfTriangleFaces;
+
+		int i_261_ = i_258_;
+		if (priority_opcode == 255)
+			i_258_ += numberOfTriangleFaces;
+
+		int i_262_ = i_258_;
+		if (tSkin_opcode == 1)
+			i_258_ += numberOfTriangleFaces;
+
+		int i_263_ = i_258_;
+		if (type_opcode == 1)
+			i_258_ += numberOfTriangleFaces;
+
+		int i_264_ = i_258_;
+		if (vSkin_opcode == 1)
+			i_258_ += numberOfVerticeCoordinates;
+
+		int i_265_ = i_258_;
+		if (alpha_opcode == 1)
+			i_258_ += numberOfTriangleFaces;
+
+		int i_266_ = i_258_;
+		i_258_ += i_257_;
+
+		int i_267_ = i_258_;
+		i_258_ += numberOfTriangleFaces * 2;
+
+		int i_268_ = i_258_;
+		i_258_ += numberOfTexturesFaces * 6;
+
+		int i_269_ = i_258_;
+		i_258_ += i_254_;
+
+		int i_270_ = i_258_;
+		i_258_ += i_255_;
+
+		int i_271_ = i_258_;
+		i_258_ += i_256_;
+		verticesParticle = new int[numberOfVerticeCoordinates];
+		verticesXCoordinate = new int[numberOfVerticeCoordinates];
+		verticesYCoordinate = new int[numberOfVerticeCoordinates];
+		verticesZCoordinate = new int[numberOfVerticeCoordinates];
+		face_a = new int[numberOfTriangleFaces];
+		face_b = new int[numberOfTriangleFaces];
+		face_c = new int[numberOfTriangleFaces];
+		if (numberOfTexturesFaces > 0) {
+			texture_type = new int[numberOfTexturesFaces];
+			textures_face_a = new int[numberOfTexturesFaces];
+			textures_face_b = new int[numberOfTexturesFaces];
+			textures_face_c = new int[numberOfTexturesFaces];
+		}
+
+		if (vSkin_opcode == 1)
+			vertexVSkin = new int[numberOfVerticeCoordinates];
+
+		if (type_opcode == 1) {
+			face_render_type = new int[numberOfTriangleFaces];
+			texture_coordinates = new int[numberOfTriangleFaces];
+			texture = new int[numberOfTriangleFaces];
+		}
+
+		if (priority_opcode == 255)
+			face_render_priorities = new int[numberOfTriangleFaces];
+		else
+			face_priority = (byte) priority_opcode;
+
+		if (alpha_opcode == 1)
+			face_alpha = new int[numberOfTriangleFaces];
+
+		if (tSkin_opcode == 1)
+			triangleTSkin = new int[numberOfTriangleFaces];
+
+		face_color = new int[numberOfTriangleFaces];
+		stream.currentOffset = i_259_;
+		stream1.currentOffset = i_269_;
+		stream2.currentOffset = i_270_;
+		stream3.currentOffset = i_271_;
+		stream4.currentOffset = i_264_;
+		int start_x = 0;
+		int start_y = 0;
+		int start_z = 0;
+		for (int point = 0; point < numberOfVerticeCoordinates; point++) {
+			int flag = stream.readUnsignedByte();
+			int x = 0;
+			if ((flag & 0x1) != 0)
+				x = stream1.method421();
+			int y = 0;
+			if ((flag & 0x2) != 0)
+				y = stream2.method421();
+			int z = 0;
+			if ((flag & 0x4) != 0)
+				z = stream3.method421();
+
+			verticesXCoordinate[point] = start_x + x;
+			verticesYCoordinate[point] = start_y + y;
+			verticesZCoordinate[point] = start_z + z;
+			start_x = verticesXCoordinate[point];
+			start_y = verticesYCoordinate[point];
+			start_z = verticesZCoordinate[point];
+			if (vSkin_opcode == 1)
+				vertexVSkin[point] = stream4.readUnsignedByte();
+
+		}
+		stream.currentOffset = i_267_;
+		stream1.currentOffset = i_263_;
+		stream2.currentOffset = i_261_;
+		stream3.currentOffset = i_265_;
+		stream4.currentOffset = i_262_;
+		for (int face = 0; face < numberOfTriangleFaces; face++) {
+			face_color[face] = stream.readUnsignedWord();
+			if (type_opcode == 1) {
+				int flag = stream1.readUnsignedByte();
+				if ((flag & 0x1) == 1) {
+					face_render_type[face] = 1;
+					has_face_type = true;
+				} else {
+					face_render_type[face] = 0;
+				}
+
+				if ((flag & 0x2) != 0) {
+					texture_coordinates[face] = (byte) (flag >> 2);
+					texture[face] = face_color[face];
+					face_color[face] = 127;
+					if (texture[face] != -1)
+						has_texture_type = true;
+				} else {
+					texture_coordinates[face] = -1;
+					texture[face] =  -1;
+				}
+			}
+			if (priority_opcode == 255)
+				face_render_priorities[face] = stream2.readSignedByte();
+
+			if (alpha_opcode == 1) {
+				face_alpha[face] = stream3.readSignedByte();
+				if (face_alpha[face] < 0)
+					face_alpha[face] = (256 + face_alpha[face]);
+
+			}
+			if (tSkin_opcode == 1)
+				triangleTSkin[face] = stream4.readUnsignedByte();
+
+		}
+		stream.currentOffset = i_266_;
+		stream1.currentOffset = i_260_;
+		int coordinate_a = 0;
+		int coordinate_b = 0;
+		int coordinate_c = 0;
+		int offset = 0;
+		int coordinate;
+		for (int face = 0; face < numberOfTriangleFaces; face++) {
+			int opcode = stream1.readUnsignedByte();
+			if (opcode == 1) {
+				coordinate_a = (stream.method421() + offset);
+				offset = coordinate_a;
+				coordinate_b = (stream.method421() + offset);
+				offset = coordinate_b;
+				coordinate_c = (stream.method421() + offset);
+				offset = coordinate_c;
+				face_a[face] = coordinate_a;
+				face_b[face] = coordinate_b;
+				face_c[face] = coordinate_c;
+			}
+			if (opcode == 2) {
+				coordinate_b = coordinate_c;
+				coordinate_c = (stream.method421() + offset);
+				offset = coordinate_c;
+				face_a[face] = coordinate_a;
+				face_b[face] = coordinate_b;
+				face_c[face] = coordinate_c;
+			}
+			if (opcode == 3) {
+				coordinate_a = coordinate_c;
+				coordinate_c = (stream.method421() + offset);
+				offset = coordinate_c;
+				face_a[face] = coordinate_a;
+				face_b[face] = coordinate_b;
+				face_c[face] = coordinate_c;
+			}
+			if (opcode == 4) {
+				coordinate = coordinate_a;
+				coordinate_a = coordinate_b;
+				coordinate_b = coordinate;
+				coordinate_c = (stream.method421() + offset);
+				offset = coordinate_c;
+				face_a[face] = coordinate_a;
+				face_b[face] = coordinate_b;
+				face_c[face] = coordinate_c;
+			}
+		}
+		stream.currentOffset = i_268_;
+		for (int face = 0; face < numberOfTexturesFaces; face++) {
+			texture_type[face] = 0;
+			textures_face_a[face] = (short) stream.readUnsignedWord();
+			textures_face_b[face] = (short) stream.readUnsignedWord();
+			textures_face_c[face] = (short) stream.readUnsignedWord();
+		}
+		if (texture_coordinates != null) {
+			boolean textured = false;
+			for (int face = 0; face < numberOfTriangleFaces; face++) {
+				coordinate = texture_coordinates[face] & 0xff;
+				if (coordinate != 255) {
+					if (((textures_face_a[coordinate] & 0xffff) == face_a[face]) && ((textures_face_b[coordinate] & 0xffff)  == face_b[face]) && ((textures_face_c[coordinate] & 0xffff) == face_c[face])) {
+						texture_coordinates[face] = -1;
+					} else {
+						textured = true;
+					}
+				}
+			}
+			if (!textured)
+				texture_coordinates = null;
+		}
+		if (!has_texture_type)
+			texture = null;
+
+		if (!has_face_type)
+			face_render_type = null;
 	}
 
 	public void read622Model(byte abyte0[], int modelID) {

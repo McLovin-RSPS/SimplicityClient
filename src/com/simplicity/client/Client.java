@@ -7337,7 +7337,7 @@ public class Client extends RSApplet {
 		}
 		if (l == 10398) {
 			stream.createFrame(185);
-			stream.writeWord(l - 100);
+			stream.putInt(l - 100);
 		}
 		if (l == 72667) {
 			coinToggle = !coinToggle;
@@ -7555,7 +7555,7 @@ public class Client extends RSApplet {
 		}
 		if (l == 1716) {
 			stream.createFrame(185);
-			stream.writeWord(1716);
+			stream.putInt(1716);
 			pushMessage("Opening Teleports Menu", 0, "");
 		}
 		if (l == 1025) {
@@ -7630,23 +7630,23 @@ public class Client extends RSApplet {
 
 		if (l == 13003) {
 			stream.createFrame(185);
-			stream.writeWord(menuActionName[i].contains("Cast") ? 15004 : 15003);
+			stream.putInt(menuActionName[i].contains("Cast") ? 15004 : 15003);
 		}
 		if (l == 13004) {
 			stream.createFrame(185);
-			stream.writeWord(15005);
+			stream.putInt(15005);
 		}
 		if (l == 13005) {
 			stream.createFrame(185);
-			stream.writeWord(15006);
+			stream.putInt(15006);
 		}
 		if (l == 13006) {
 			stream.createFrame(185);
-			stream.writeWord(15007);
+			stream.putInt(15007);
 		}
 		if (l == 13007) {
 			stream.createFrame(185);
-			stream.writeWord(15008);
+			stream.putInt(15008);
 		}
 		if (l == 582) {
 			NPC npc = npcArray[nodeId];
@@ -7753,14 +7753,14 @@ public class Client extends RSApplet {
 					SoundPlayer.setVolume(disabled ? 3 : 4);
 					variousSettings[169] = SoundPlayer.getVolume();
 					stream.createFrame(185);
-					stream.writeWord(disabled ? 942 : 941);
+					stream.putInt(disabled ? 942 : 941);
 					saveSettings();
 					break;
 				case 39171:
 					musicEnabled = !musicEnabled;
 					variousSettings[168] = (musicEnabled ? 3 : 4);
 					stream.createFrame(185);
-					stream.writeWord(!musicEnabled ? 930 : 931);
+					stream.putInt(!musicEnabled ? 930 : 931);
 					saveSettings();
 					if (musicEnabled) {
 						if (currentSong == -1) {
@@ -7792,7 +7792,7 @@ public class Client extends RSApplet {
 					} else {
 
 						stream.createFrame(185);
-						stream.writeWord(interfaceId);
+						stream.putInt(interfaceId);
 					}
 					break;
 
@@ -8358,7 +8358,7 @@ public class Client extends RSApplet {
 		}
 		if (l == 646) {
 			stream.createFrame(185);
-			stream.writeWord(interfaceId);
+			stream.putInt(interfaceId);
 			RSInterface class9_2 = RSInterface.interfaceCache[interfaceId];
 			if (class9_2.valueIndexArray != null && class9_2.valueIndexArray[0][0] == 5) {
 				int i2 = class9_2.valueIndexArray[0][1];
@@ -8705,7 +8705,7 @@ public class Client extends RSApplet {
 		}
 		if (l == 169) {
 			stream.createFrame(185);
-			stream.writeWord(interfaceId);
+			stream.putInt(interfaceId);
 			RSInterface class9_3 = RSInterface.interfaceCache[interfaceId];
 			if (class9_3.valueIndexArray != null && class9_3.valueIndexArray[0][0] == 5) {
 				int l2 = class9_3.valueIndexArray[0][1];
@@ -16697,7 +16697,7 @@ public class Client extends RSApplet {
 
 	public void sendPacket185(int buttonID) {
 		stream.createFrame(185);
-		stream.writeWord(buttonID);
+		stream.putInt(buttonID);
 		RSInterface rsi = RSInterface.interfaceCache[buttonID];
 		if (rsi == null) {
 			return;
@@ -16720,12 +16720,12 @@ public class Client extends RSApplet {
 			}
 			if (flag8) {
 				stream.createFrame(185);
-				stream.writeWord(button);
+				stream.putInt(button);
 			}
 			break;
 		case 646:
 			stream.createFrame(185);
-			stream.writeWord(button);
+			stream.putInt(button);
 			RSInterface class9_2 = RSInterface.interfaceCache[button];
 			if (class9_2.valueIndexArray != null && class9_2.valueIndexArray[0][0] == 5) {
 				if (variousSettings[toggle] != class9_2.requiredValues[0]) {
@@ -16740,7 +16740,7 @@ public class Client extends RSApplet {
 				return;
 			}
 			stream.createFrame(185);
-			stream.writeWord(button);
+			stream.putInt(button);
 			RSInterface clickedInterface = RSInterface.interfaceCache[button];
 			if (clickedInterface.valueIndexArray != null && clickedInterface.valueIndexArray[0][0] == 5) {
 				variousSettings[toggle] = 1 - variousSettings[toggle];
@@ -17208,7 +17208,7 @@ public class Client extends RSApplet {
 				return true;
 
 			case 71:
-				int l1 = inStream.readUnsignedWord();
+				int l1 = inStream.getInt();
 				int j10 = inStream.method426();
 				if (l1 == 65535) {
 					l1 = -1;
@@ -18007,7 +18007,7 @@ public class Client extends RSApplet {
 
 			case 126:
 				String text = inStream.readString();
-				int frame = inStream.readShort();
+				int frame = inStream.getInt();
 				if (text.equals("scrollreset")) {
 					if (frame == 5385) {
 						RSInterface.interfaceCache[5385].scrollPosition = 0;
@@ -18447,7 +18447,7 @@ public class Client extends RSApplet {
 
 			case 97:
 				try {
-					int interfaceID = inStream.readUnsignedWord();
+					int interfaceID = inStream.getInt();
 					resetInterfaceAnimation(interfaceID);
 					if (invOverlayInterfaceID != -1) {
 						invOverlayInterfaceID = -1;
@@ -21035,7 +21035,7 @@ public class Client extends RSApplet {
 							toggle = rsInterface.valueIndexArray[0][1];
 							if (variousSettings[toggle] == 0 && quickPrayers[i] == 1) {
 								stream.createFrame(185);
-								stream.writeWord(button);
+								stream.putInt(button);
 								quickPrsActive = true;
 							} else if (quickPrayers[i] == 1 && variousSettings[toggle] == 1) {
 								quickPrsActive = true;
@@ -21065,7 +21065,7 @@ public class Client extends RSApplet {
 							toggle = rsInterface.valueIndexArray[0][1];
 							if (variousSettings[toggle] == 0 && quickCurses[i] == 1) {
 								stream.createFrame(185);
-								stream.writeWord(button);
+								stream.putInt(button);
 								quickPrsActive = true;
 							}
 						} else if (quickCurses[i] == 1 && variousSettings[toggle] == 1) {
@@ -21224,7 +21224,7 @@ public class Client extends RSApplet {
 				toggle = rsInterface.valueIndexArray[0][1];
 				if (variousSettings[toggle] == 1 && quickPrayers[i] == 1) {
 					stream.createFrame(185);
-					stream.writeWord(x);
+					stream.putInt(x);
 				}
 			}
 		}
@@ -21238,7 +21238,7 @@ public class Client extends RSApplet {
 				toggle = rsInterface.valueIndexArray[0][1];
 				if (variousSettings[toggle] == 1 && quickCurses[i] == 1) {
 					stream.createFrame(185);
-					stream.writeWord((i * 2) + 32503);
+					stream.putInt((i * 2) + 32503);
 				}
 			}
 		}
@@ -21764,7 +21764,8 @@ public class Client extends RSApplet {
 
 	private ArrayList<CustomMinimapIcon> customMinimapIcons = new ArrayList<CustomMinimapIcon>();
 	
-	private static Set<Integer> OSRS_REGIONS = new HashSet<>(Arrays.asList(6810, 9023, 9043, 11850, 11851, 12090, 12106, 12362, 12363, 12605, 12701, 12702, 12703, 12861, 12887, 12889, 12957, 12958, 12959, 12961));
+	private static Set<Integer> OSRS_REGIONS = new HashSet<>(Arrays.asList(4663, 6810, 9023, 9043, 11850, 11851, 12090, 12106, 12362, 12363, 12605,
+			12701, 12702, 12703, 12861, 12887, 12889, 12957, 12958, 12959, 12961));
 	
 	private int drawX = 0;
 	private int drawY = 0;

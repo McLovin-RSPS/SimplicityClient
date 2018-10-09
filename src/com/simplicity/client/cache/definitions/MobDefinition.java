@@ -1662,12 +1662,6 @@ public final class MobDefinition {
 				turn180AnimIndex = stream.readUnsignedWord();
 				turn90CWAnimIndex = stream.readUnsignedWord();
 				turn90CCWAnimIndex = stream.readUnsignedWord();
-				if (osrs) {
-					walkAnim += Animation.OSRS_ANIM_OFFSET;
-					turn180AnimIndex += Animation.OSRS_ANIM_OFFSET;
-					turn90CWAnimIndex += Animation.OSRS_ANIM_OFFSET;
-					turn90CCWAnimIndex += Animation.OSRS_ANIM_OFFSET;
-				}
 				if (walkAnim == 65535)
 					walkAnim = -1;
 				if (turn180AnimIndex == 65535)
@@ -1676,6 +1670,16 @@ public final class MobDefinition {
 					turn90CWAnimIndex = -1;
 				if (turn90CCWAnimIndex == 65535)
 					turn90CCWAnimIndex = -1;
+				if (osrs) {
+					if (walkAnim != -1)
+						walkAnim += Animation.OSRS_ANIM_OFFSET;
+					if (turn180AnimIndex != -1)
+						turn180AnimIndex += Animation.OSRS_ANIM_OFFSET;
+					if (turn90CWAnimIndex != -1)
+						turn90CWAnimIndex += Animation.OSRS_ANIM_OFFSET;
+					if (turn90CCWAnimIndex != -1)
+						turn90CCWAnimIndex += Animation.OSRS_ANIM_OFFSET;
+				}
 			} else if (i >= 30 && i < 40) {
 				if (actions == null)
 					actions = new String[5];
