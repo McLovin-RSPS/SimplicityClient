@@ -47,26 +47,15 @@ public class CacheDownloader {
 				    boolean exists = getLocalVersion(cacheFile.identifier) != -1;
 				//boolean exists = new File(signlink.findcachedir() + cacheFile.identifier).exists();
 				
-					long ImagesLocal = getLocalVersion(CACHE_DOWNLOAD_FILES.IMAGES.identifier);
 					long CacheLocal = getLocalVersion(CACHE_DOWNLOAD_FILES.CACHE.identifier);
-					long DataLocal = getLocalVersion(CACHE_DOWNLOAD_FILES.DATA.identifier);
 					
-					long ImagesRemote = getRemoteVersion(CACHE_DOWNLOAD_FILES.IMAGES.link);
 					long CacheRemote = getRemoteVersion(CACHE_DOWNLOAD_FILES.CACHE.link);
-					long DataRemote = getRemoteVersion(CACHE_DOWNLOAD_FILES.DATA.link);
 					
-					if (ImagesLocal != ImagesRemote && ImagesRemote != -1) {
-						updateFiles(CACHE_DOWNLOAD_FILES.IMAGES);
-						writeVersions(CacheRemote, ImagesRemote, DataRemote);
-					}
 					if(CacheLocal != CacheRemote && CacheRemote != -1){
 						updateFiles(CACHE_DOWNLOAD_FILES.CACHE);
-						writeVersions(CacheRemote, ImagesRemote, DataRemote);
+						writeVersions(CacheRemote);
 					}
-					if(DataLocal != DataRemote && DataRemote != -1){
-						updateFiles(CACHE_DOWNLOAD_FILES.DATA);
-						writeVersions(CacheRemote, ImagesRemote, DataRemote);
-					}
+
 				    if (!exists) {
 					updateFiles(cacheFile);
 				}
@@ -89,12 +78,7 @@ public class CacheDownloader {
 			current++;
 		}
 		
-		if (!cacheFile.equals(CACHE_DOWNLOAD_FILES.IMAGES)) {
-			new File(signlink.findcachedir() + cacheFile.identifier).createNewFile();
-		}
-		if (!cacheFile.equals(CACHE_DOWNLOAD_FILES.CACHE)) {
-			new File(signlink.findcachedir() + cacheFile.identifier).createNewFile();
-		}
+
 	}
 
 	public static void downloadFile(CACHE_DOWNLOAD_FILES cacheFile, String file, int current, int total) throws IOException {
@@ -190,16 +174,12 @@ public class CacheDownloader {
 	 * @param spritesVersion
 	 *            The version of the sprites.
 	 */
-	private static void writeVersions(long cacheVersion, long spritesVersion, long dataVersion) {
+	private static void writeVersions(long cacheVersion) {
 		BufferedWriter writer = null;
 		
 		try {
 			writer = new BufferedWriter(new FileWriter(VERSION_FILE));
 			writer.write("CACHE_VER = " + cacheVersion);
-			writer.newLine();
-			writer.write("SPRITE_VER = " + spritesVersion);
-			writer.newLine();
-			writer.write("DATA_VER = " + dataVersion);
 			writer.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -283,9 +263,7 @@ public class CacheDownloader {
 	
 	enum CACHE_DOWNLOAD_FILES {
 
-		IMAGES(new String[]{"images.zip"}, "SPRITE_VER", getDownloadLink("images")),
 		CACHE(new String[]{"cache.zip"}, "CACHE_VER", getDownloadLink("cache")),
-		DATA(new String[]{"data.zip"}, "DATA_VER", getDownloadLink("data")),
 		;
 
 		CACHE_DOWNLOAD_FILES(String[] file, String identifier, String link) {
