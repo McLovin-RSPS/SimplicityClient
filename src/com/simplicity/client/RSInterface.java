@@ -2944,7 +2944,7 @@ public static void TeleTAB5() {
 		tab.totalChildren(6);
 		int id = 85076;
 
-		addSpriteLoader(id, 277);
+		addSpriteLoader(id, 1031);
 		tab.child(c++, id++, 0 + x, 0 + y);
 
 		addToItemGroup(id, 1, 1, 1, 1, true, "Take", null, null);
