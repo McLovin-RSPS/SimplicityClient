@@ -20570,7 +20570,8 @@ public class Client extends RSApplet {
 					|| name.startsWith("@cr9@")) {
 				name = name.substring(5);
 			} else if (name.startsWith("@cr10@") || name.startsWith("@cr11@") || name.startsWith("@cr12@")
-					|| name.startsWith("@cr13@") || name.startsWith("@cr14@") || name.startsWith("@cr15@")) {
+					|| name.startsWith("@cr13@") || name.startsWith("@cr14@") || name.startsWith("@cr15@")
+					|| name.startsWith("@cr16@")  || name.startsWith("@cr17@")  || name.startsWith("@cr18@")) {
 				name = name.substring(6);
 			}
 		}
