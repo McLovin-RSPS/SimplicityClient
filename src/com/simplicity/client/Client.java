@@ -2013,15 +2013,17 @@ public class Client extends RSApplet {
 		}
 		if (mouseInRegion(clientSize == 0 ? clientWidth - 74 : getOrbX(3), getOrbY(3),
 				(clientSize == 0 ? clientWidth - 74 : getOrbX(3)) + 57, getOrbY(3) + 34)) {
-			menuActionName[4] = "Take BoB";
-			menuActionID[4] = 1118;
+			menuActionName[5] = "Take BoB";
+			menuActionID[5] = 1118;
+			menuActionName[4] = "Cast Special";
+			menuActionID[4] = 1117;
 			menuActionName[3] = "Call Familiar";
 			menuActionID[3] = 1119;
 			menuActionName[2] = "Renew Familiar";
 			menuActionID[2] = 1120;
 			menuActionName[1] = "Dismiss Familiar";
 			menuActionID[1] = 1121;
-			menuActionRow = 5;
+			menuActionRow = 6;
 		}
 	}
 
@@ -7499,6 +7501,10 @@ public class Client extends RSApplet {
 			return;
 		}
 		if (l == 1118) {// Call Follower
+			sendPacket185(l - 100);
+			return;
+		}
+		if (l == 1117) {// Call Follower
 			sendPacket185(l - 100);
 			return;
 		}
