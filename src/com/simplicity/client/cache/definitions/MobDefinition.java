@@ -53,6 +53,12 @@ public final class MobDefinition {
 					npc.actions = new String[5];
 					npc.actions[1] = "Attack";
 					break;
+				case 7519:
+					npc.name = "Superior Olmlet";
+					npc.actions = new String[5];
+					npc.actions[0] = "Pick-up";
+					npc.actions[1] = "Toggle Special";
+					break;
 			}
 			
 			return npc; 

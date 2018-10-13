@@ -26,6 +26,8 @@ public enum PlayerRights {
     SAPPHIRE(693),
     EMERALD(694),
     ONYX(695),
+    HEAD_MODERATOR(680, 20, -3),
+    SUPER_ADMIN(681, 19, -3),
 
     ;
 
