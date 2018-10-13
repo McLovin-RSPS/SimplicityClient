@@ -2956,7 +2956,7 @@ public static void TeleTAB5() {
 		addToItemGroup(id, 1, 1, 1, 1, true, "Take", null, null);
 		tab.child(c++, id++, 132 + x, 115 + y);
 
-		addHoverButtonWSpriteLoader(id, 1020, 21, 21, "Close Window", 0, id + 1, 1);
+		addHoverButtonWSpriteLoader(id, 1020, 21, 21, "Close Window", 0, id + 1, 3);
 		tab.child(c++, id++, 232 + x, 7 + y);
 
 		addHoveredImageWSpriteLoader(id, 1021, 21, 21, id + 1);
