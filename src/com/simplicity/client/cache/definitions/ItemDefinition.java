@@ -1293,6 +1293,10 @@ public final class ItemDefinition {
                 itemDef.name = "100m Note";
                 itemDef.actions = new String[]{"Claim", null, null, null, "Drop"};
                 break;
+            case 52410:
+                itemDef.name = "1000m Note";
+                itemDef.actions = new String[]{"Claim", "Use", "Drop", "Examine", "Cancel"};
+                break;
             case 4202:
                 itemDef.name = "Ring of Coins";
             	break;
