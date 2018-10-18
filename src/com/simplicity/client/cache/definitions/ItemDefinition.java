@@ -371,7 +371,6 @@ public final class ItemDefinition {
                     itemDef.femaleYOffset -= 7;
                     itemDef.maleYOffset -= 7;
                     break;
-<<<<<<< HEAD
                 case 50851:
                     itemDef.name = "Superior Olmlet";
                     break;
@@ -404,8 +403,6 @@ public final class ItemDefinition {
                     itemDef.maleEquip1 = 35374;
                     itemDef.femaleEquip1 = 35369;
                     break;
-=======
->>>>>>> daa2bf2c1a2457776d69638d9c5285f78c7eca8d
             }
 
     		return itemDef;
