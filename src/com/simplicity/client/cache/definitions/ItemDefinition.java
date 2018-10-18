@@ -371,6 +371,7 @@ public final class ItemDefinition {
                     itemDef.femaleYOffset -= 7;
                     itemDef.maleYOffset -= 7;
                     break;
+<<<<<<< HEAD
                 case 50851:
                     itemDef.name = "Superior Olmlet";
                     break;
@@ -403,6 +404,8 @@ public final class ItemDefinition {
                     itemDef.maleEquip1 = 35374;
                     itemDef.femaleEquip1 = 35369;
                     break;
+=======
+>>>>>>> daa2bf2c1a2457776d69638d9c5285f78c7eca8d
             }
 
     		return itemDef;
@@ -2776,8 +2779,15 @@ public final class ItemDefinition {
                 itemDef.modelOffset1 = 0;
                 break;
             case 13327:
-                itemDef.copy(forID(50851));
                 itemDef.name = "Olmlet";
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelZoom = 968;
+                itemDef.rotationX = 1778;
+                itemDef.rotationY = 67;
+                itemDef.modelID = 32798;
+                itemDef.modelOffsetY = 16;
+                itemDef.modelOffset1 = 1;
                 break;
             //end
 
@@ -6837,7 +6847,6 @@ public final class ItemDefinition {
         return model;
     }
 
-
     public static final int[] UNTRADEABLE_ITEMS
             = {13661, 13262,
             6529, 6950, 1464, 2996, 2677, 2678, 2679, 2680, 2682,
@@ -6883,68 +6892,6 @@ public final class ItemDefinition {
     public ItemDefinition() {
         id = -1;
     }
-
-    private void copy(ItemDefinition copy) {
-        femaleZOffset = copy.femaleZOffset;
-        femaleXOffset = copy.femaleXOffset;
-        femaleYOffset = copy.femaleYOffset;
-
-        maleYOffset = copy.maleYOffset;
-        maleXOffset = copy.maleXOffset;
-        maleZOffset = copy.maleZOffset;
-
-        modelOffsetX = copy.modelOffsetX;
-        modelOffsetY = copy.modelOffsetY;
-        modelOffset1 = copy.modelOffset1;
-
-        value = copy.value;
-
-        editedModelColor = copy.editedModelColor;
-        newModelColor = copy.newModelColor;
-
-        femaleEquip3 = copy.femaleEquip3;
-        femaleEquip2 = copy.femaleEquip2;
-
-        maleEquip1 = copy.maleEquip1;
-        maleEquip3 = copy.maleEquip3;
-        maleEquip2 = copy.maleEquip2;
-
-        rotationX = copy.rotationX;
-        rotationY = copy.rotationY;
-
-        maleDialogueModel = copy.maleDialogueModel;
-        femaleDialogueModel = copy.femaleDialogueModel;
-
-        sizeX = copy.sizeX;
-        sizeZ = copy.sizeZ;
-        sizeY = copy.sizeY;
-
-        groundActions = copy.groundActions;
-        actions = copy.actions;
-        name = copy.name;
-        description = copy.description;
-
-        modelID = copy.modelID;
-        certID = copy.certID;
-        modelZoom = copy.modelZoom;
-        lightness = copy.lightness;
-        shadow = copy.shadow;
-        femaleDialogue = copy.femaleDialogue;
-        maleDialogue = copy.maleDialogue;
-        stackIDs = copy.stackIDs;
-        stackAmounts = copy.stackAmounts;
-        team = copy.team;
-
-        certTemplateID = copy.certTemplateID;
-        lendID = copy.lendID;
-        lentItemID = copy.lentItemID;
-
-        untradeable = copy.untradeable;
-        osrs = copy.osrs;
-        membersObject = copy.membersObject;
-        stackable = copy.stackable;
-    }
-
 
     public byte femaleZOffset;
     public byte femaleXOffset;
