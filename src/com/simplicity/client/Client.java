@@ -5953,7 +5953,11 @@ public class Client extends RSApplet {
 
 	public static void main(String args[]) {
 		try {
-			// DebuggingRunnables.getMessageThread("main").start();
+
+			if(args.length > 0) {
+				Configuration.HOST = args[0];
+			}
+
 			nodeID = 10;
 			portOff = 0;
 			setHighMem();
@@ -12377,7 +12381,7 @@ public class Client extends RSApplet {
 		/**
 		 * DOWNLOADING CACHE *
 		 */
-		CacheDownloader.init();
+		//CacheDownloader.init();
 
 		if (signlink.cache_dat != null) {
 			for (int i = 0; i < signlink.CACHE_INDEX_LENGTH; i++) {
