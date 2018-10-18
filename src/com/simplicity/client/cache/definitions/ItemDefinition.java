@@ -374,6 +374,35 @@ public final class ItemDefinition {
                 case 50851:
                     itemDef.name = "Superior Olmlet";
                     break;
+                case 42603:
+                    itemDef.name = "Ring of Bosses";
+                    break;
+                case 52316:
+                    itemDef.name = "Emerald rapier";
+                    break;
+                case 52296:
+                    itemDef.name = "Staff of Demonic";
+                    break;
+                case 50368:
+                    itemDef.name = "Demonic armadyl godsword";
+                    break;
+                case 52410:
+                    itemDef.name = "1000m Note";
+                    itemDef.actions = new String[]{"Claim", "Use", "Drop", "Examine", "Cancel"};
+                    break;
+        		case 52324:
+                    itemDef.modelID = 35739;
+                    itemDef.actions = new String[5];
+                    itemDef.actions[1] = "Wield";
+                    itemDef.name = "Ghrazi rapier (r)";
+                    itemDef.description = "It is the replica Ghrazi Rapier.";
+                    itemDef.modelZoom = 2200;
+                    itemDef.stackable = false;
+                    itemDef.rotationX = 1603;
+                    itemDef.rotationY = 552;
+                    itemDef.maleEquip1 = 35374;
+                    itemDef.femaleEquip1 = 35369;
+                    break;
             }
 
     		return itemDef;
@@ -1293,9 +1322,9 @@ public final class ItemDefinition {
                 itemDef.name = "100m Note";
                 itemDef.actions = new String[]{"Claim", null, null, null, "Drop"};
                 break;
-            case 52410:
-                itemDef.name = "1000m Note";
-                itemDef.actions = new String[]{"Claim", "Use", "Drop", "Examine", "Cancel"};
+            case 6798:
+                itemDef.name = "Superior Scroll";
+                itemDef.actions = new String[]{"Claim", null, null, null, "Drop"};
                 break;
             case 4202:
                 itemDef.name = "Ring of Coins";
@@ -2003,19 +2032,6 @@ public final class ItemDefinition {
                  itemDef.maleEquip1 = 35374;
                  itemDef.femaleEquip1 = 35369;
                  break;
-    		case 52324:
-                itemDef.modelID = 35739;
-                itemDef.actions = new String[5];
-                itemDef.actions[1] = "Wield";
-                itemDef.name = "Ghrazi rapier (r)";
-                itemDef.description = "It is the replica Ghrazi Rapier.";
-                itemDef.modelZoom = 2200;
-                itemDef.stackable = false;
-                itemDef.rotationX = 1603;
-                itemDef.rotationY = 552;
-                itemDef.maleEquip1 = 35374;
-                itemDef.femaleEquip1 = 35369;
-                break;
              case 15000:
                  itemDef.modelID = 35742;
                  itemDef.actions = new String[5];
@@ -2150,22 +2166,6 @@ public final class ItemDefinition {
 			itemDef.maleEquip1 = 31236;
 			itemDef.femaleEquip1 = 31236;
 			break;
-   	/*	case 13329:
-			itemDef.name = "Fire max cape";
-			itemDef.modelZoom = 2232;
-			itemDef.rotationY = 687;
-			itemDef.rotationX = 27;
-			itemDef.modelOffsetY = 0;
-			itemDef.modelOffset1 = 27;
-			
-			itemDef.newModelColor = new int[] { 668,675,673,815,784 };
-	        itemDef.editedModelColor = new int[] { 947,960,7104,8146,0 };
-			itemDef.groundActions = new String[] { null, null, "Take", null, null };
-			itemDef.actions = new String[] { null, "Wear", "Teleports", "Features", "Drop", };
-			itemDef.modelID = 10888;
-			itemDef.maleEquip1 = 10889;
-			itemDef.femaleEquip1 = 11080; 
-			break; */
    		case 20998:
 			itemDef.actions = new String[5];
 			itemDef.actions[1] = "Wear";
