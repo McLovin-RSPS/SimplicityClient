@@ -5949,11 +5949,14 @@ public class Client extends RSApplet {
 	
 	public static signlink signlink;
 
+	public static boolean fromLauncher = false;
+
 	public static void main(String args[]) {
 		try {
 
 			if(args.length > 0) {
 				Configuration.HOST = args[0];
+				fromLauncher = true;
 			}
 
 			nodeID = 10;
@@ -12375,7 +12378,8 @@ public class Client extends RSApplet {
 		/**
 		 * DOWNLOADING CACHE *
 		 */
-		//CacheDownloader.init();
+		if(!fromLauncher)
+		CacheDownloader.init();
 
 		if (signlink.cache_dat != null) {
 			for (int i = 0; i < signlink.CACHE_INDEX_LENGTH; i++) {
