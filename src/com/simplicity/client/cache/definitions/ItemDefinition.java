@@ -376,6 +376,10 @@ public final class ItemDefinition {
                     break;
                 case 42603:
                     itemDef.name = "Ring of Bosses";
+                    itemDef.actions = new String[5];
+                    itemDef.actions[1] = "Wield";
+                    itemDef.actions[2] = "Check";
+                    itemDef.actions[3] = "Toggle Config";
                     break;
                 case 52316:
                     itemDef.name = "Emerald rapier";
