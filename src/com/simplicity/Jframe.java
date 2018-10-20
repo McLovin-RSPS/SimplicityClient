@@ -34,7 +34,7 @@ public class Jframe extends Client implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	public static JFrame frame;
 
-	public Jframe(String[] args, int width, int height, boolean resizable) {
+	public Jframe(int width, int height, boolean resizable) {
 		super();
 		try {
 			signlink.startpriv(InetAddress.getByName(Configuration.HOST));

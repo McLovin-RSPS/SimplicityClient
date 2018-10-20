@@ -5967,7 +5967,7 @@ public class Client extends RSApplet {
 			signlink = new signlink();
 			signlink.startpriv(InetAddress.getLocalHost());
 			clientSize = 0;
-			instance = new Jframe(args, clientWidth, clientHeight, false);
+			instance = new Jframe(clientWidth, clientHeight, false);
 
 			// instance = new Client();
 			// instance.createClientFrame(clientWidth, clientHeight);
