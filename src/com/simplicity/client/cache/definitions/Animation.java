@@ -16,6 +16,8 @@ public final class Animation {
 		
 		int length = stream.readUnsignedWord();
 		int lengthOSRS = streamOSRS.readUnsignedWord();
+
+		System.out.println("Loaded " + lengthOSRS + " OSRS animations.");
 		
 		if (anims == null) {
 			anims = new Animation[length + lengthOSRS];
@@ -30,7 +32,11 @@ public final class Animation {
 				anims[j].osrs = true;
 			}
 			
-			anims[j].readValues(anims[j].osrs ? streamOSRS : stream);
+			if(anims[j].osrs) {
+				anims[j].readValuesOSRS(j, streamOSRS);
+			} else {
+				anims[j].readValuesNew(stream);
+			}
 
 			if (j == 884) {
 				anims[j].leftHandItem = -1;
@@ -810,6 +816,142 @@ public final class Animation {
 		if (j == 0)
 			j = 1;
 		return j;
+	}
+
+	private void readValuesOSRS(int id, Stream buffer) {
+		try {
+
+			int opcode;
+			while ((opcode = buffer.readUnsignedByte()) != 0) {
+
+				if (opcode == 1) {
+					frameCount = buffer.readUnsignedWord();
+					frameIDs = new int[frameCount];
+					frameIDs2 = new int[frameCount];
+					delays = new int[frameCount];
+					for (int i = 0; i < frameCount; i++) {
+						frameIDs[i] = buffer.readDWord();
+						frameIDs2[i] = -1;
+					}
+					for (int i = 0; i < frameCount; i++) {
+						delays[i] = buffer.readUnsignedByte();
+					}
+				} else if (opcode == 2) {
+					loopDelay = buffer.readUnsignedWord();
+				} else if (opcode == 3) {
+					int length = buffer.readUnsignedByte();
+					animationFlowControl = new int[length + 1];
+					for (int i = 0; i < length; i++) {
+						animationFlowControl[i] = buffer.readUnsignedByte();
+					}
+					animationFlowControl[length] = 9999999;
+				} else if (opcode == 4) {
+					oneSquareAnimation = true;
+				} else if (opcode == 5) {
+					priority = buffer.readUnsignedByte();
+				} else if (opcode == 6) {
+					leftHandItem = buffer.readUnsignedWord();
+				} else if (opcode == 7) {
+					rightHandItem = buffer.readUnsignedWord();
+				} else if (opcode == 8) {
+					frameStep = buffer.readUnsignedByte();
+				} else if (opcode == 9) {
+					resetWhenWalk = buffer.readUnsignedByte();
+				} else if (opcode == 10) {
+					priority = buffer.readUnsignedByte();
+				} else if (opcode == 11) {
+					delayType = buffer.readUnsignedByte();
+				} else if (opcode == 12) {
+					buffer.readDWord();
+				} else {
+					System.out.println("Error unrecognised OSRS anim config code: " + opcode + " for anim " + id);
+				}
+			}
+			if (resetWhenWalk == -1)
+				if (animationFlowControl != null)
+					resetWhenWalk = 2;
+				else
+					resetWhenWalk = 0;
+		} catch (Exception e) {
+			System.out.println("Error while loading an animation(ID: " + id + ").");
+			e.printStackTrace();
+		}
+	}
+
+	private void readValuesNew(Stream stream) {
+		do {
+			int i = stream.readUnsignedByte();
+			if (i == 0)
+				break;
+			if (i == 1) {
+
+				frameCount = stream.readUnsignedWord();
+				frameIDs = new int[frameCount];
+				frameIDs2 = new int[frameCount];
+				delays = new int[frameCount];
+
+				for (int j = 0; j < frameCount; j++) {
+					frameIDs[j] = stream.readDWord();
+					frameIDs2[j] = -1;
+				}
+
+				for (int j = 0; j < frameCount; j++)
+					delays[j] = stream.readUnsignedByte();
+
+			} else if (i == 2)
+				loopDelay = stream.readUnsignedWord();
+			else if (i == 3) {
+				int k = stream.readUnsignedByte();
+				animationFlowControl = new int[k + 1];
+				for (int l = 0; l < k; l++)
+					animationFlowControl[l] = stream.readUnsignedByte();
+				animationFlowControl[k] = 0x98967f;
+			} else if (i == 4)
+				oneSquareAnimation = true;
+			else if (i == 5)
+				forcedPriority = stream.readUnsignedByte();
+			else if (i == 6)
+				leftHandItem = stream.readUnsignedWord();
+			else if (i == 7)
+				rightHandItem = stream.readUnsignedWord();
+			else if (i == 8)
+				frameStep = stream.readUnsignedByte();
+			else if (i == 9)
+				resetWhenWalk = stream.readUnsignedByte();
+			else if (i == 10)
+				priority = stream.readUnsignedByte();
+			else if (i == 11)
+				delayType = stream.readUnsignedByte();
+			else if (i == 12)
+				stream.readDWord();
+			else
+				System.out.println("Error unrecognised seq config code: " + i);
+		} while (true);
+		if (frameCount == 0) {
+			frameCount = 1;
+			frameIDs = new int[1];
+			frameIDs[0] = -1;
+			frameIDs2 = new int[1];
+			frameIDs2[0] = -1;
+			delays = new int[1];
+			delays[0] = -1;
+		}
+		if (resetWhenWalk == -1)
+			if (animationFlowControl != null)
+				resetWhenWalk = 2;
+			else
+				resetWhenWalk = 0;
+		if (priority == -1) {
+			if (animationFlowControl != null) {
+				priority = 2;
+				return;
+			}
+			priority = 0;
+		}
+		if (leftHandItem == 65535)
+			leftHandItem = 0;
+		if (rightHandItem == 65535)
+			rightHandItem = 0;
 	}
 
 	public void readValues(Stream stream) {
