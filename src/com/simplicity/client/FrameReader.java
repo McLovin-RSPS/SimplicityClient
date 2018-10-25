@@ -6,7 +6,7 @@ import com.simplicity.client.cache.definitions.Animation;
 public final class FrameReader {
 
 	public static void initialise(int i) {
-		animationlist = new FrameReader[5000][0];
+		animationlist = new FrameReader[20000][0];
 	}
 
 	public static void load(int file, byte[] fileData, boolean osrs) {
@@ -15,7 +15,7 @@ public final class FrameReader {
 			SkinList skinList = new SkinList(stream, 0);
 			int k1 = stream.readUnsignedWord();
 			
-			animationlist[file] = new FrameReader[(int) (k1 * 3.5)];
+			animationlist[file] = new FrameReader[(int) (k1 * 10)];
 			
 			int ai[] = new int[500];
 			int ai1[] = new int[500];

@@ -6367,7 +6367,7 @@ public final class ItemDefinition {
                     stackIDs = new int[10];
                     stackAmounts = new int[10];
                 }
-                stackIDs[i - 100] = stream.readUnsignedWord();
+                stackIDs[i - 100] = stream.readUnsignedWord() + (osrs ? OSRS_ITEMS_OFFSET : 0);
                 stackAmounts[i - 100] = stream.readUnsignedWord();
             } else if (i == 110) {
                 sizeX = stream.readUnsignedWord();
