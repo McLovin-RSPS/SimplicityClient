@@ -77,6 +77,24 @@ public class CustomObjects {
 			{-1, 3041, 4385, 0, 0}, //Expiriment Tables
 			{-1, 3039, 4385, 0, 0}, //Expiriment Tables
 			
+			
+			//onyx city
+			
+			// onyxrocks
+			{54613, 2716, 5312, 0, 0}, // Onyx city
+			{54613, 2717, 5312, 0, 0}, // Onyx city			
+			{54613, 2717, 5311, 0, 0}, // Onyx city		
+			{54613, 2717, 5310, 0, 0}, // Onyx city		
+			{54613, 2717, 5309, 0, 0}, // Onyx city		
+			{54613, 2716, 5311, 0, 0}, // Onyx city		
+			{54613, 2716, 5310, 0, 0}, // Onyx city		
+			{54613, 2716, 5309, 0, 0}, // Onyx city	
+			
+			{10089 , 1826, 5168, 2, 0}, // anglerfish spot fishworld
+			{10089 , 1827, 5168, 2, 0}, // anglerfish spot fishworld
+			{10089 , 1823, 5168, 2, 0}, // anglerfish spot fishworld
+			{10089 , 1822, 5168, 2, 0}, // anglerfish spot fishworld
+			
 			//dzone
 			
 			//runerocks
@@ -352,7 +370,12 @@ public class CustomObjects {
 
 
 		{ 75 , 2914, 3452, 0, 2},
-		{ 10091 , 2352, 3703, 0, 2},
+		
+		
+		{ 47947 , 2720, 5352, 0, 2}, // anglerfish waterfall
+		{ 47947 , 2720, 5355, 0, 2}, // anglerfish waterfall
+		
+		
 		{ 11758, 3449, 3722, 0, 0},
 		{ 11758, 3450, 3722, 0, 0},
 		{ 50547, 3445, 3717, 0, 3},

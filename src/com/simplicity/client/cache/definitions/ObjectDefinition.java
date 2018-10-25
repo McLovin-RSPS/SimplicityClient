@@ -272,6 +272,10 @@ public final class ObjectDefinition {
 			objectDef.actions = new String[] {"Bait", null, null, null, null};
 			objectDef.name = "@yel@Rocktail spot";
 		}
+		if(i == 10089) {
+			objectDef.actions = new String[] {"Bait", null, null, null, null};
+			objectDef.name = "@yel@Anglerfish";
+		}
 		if(i == 7836 || i == 7808) {
 			objectDef.hasActions = true;
 			objectDef.actions = new String[] {"Dump-weeds", null, null, null, null};
@@ -292,6 +296,10 @@ public final class ObjectDefinition {
 		if(i == 4406) {
 			objectDef.actions = new String[] {"Visit", null, null, null, null};
 			objectDef.name = "Emerald cave";
+		}
+		if(i == 11398) {
+			objectDef.actions = new String[] {"Leave ", null, null, null, null};
+			objectDef.name = "Arthur's Dream";
 		}
 		if(i == 48669) {
 			objectDef.actions = new String[] {"Visit", null, null, null, null};
