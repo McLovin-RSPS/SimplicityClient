@@ -276,6 +276,10 @@ public final class ObjectDefinition {
 			objectDef.actions = new String[] {"Bait", null, null, null, null};
 			objectDef.name = "@yel@Anglerfish";
 		}
+		if(i == 48661) {
+			objectDef.actions = new String[] {"Teleport", null, null, null, null};
+			objectDef.name = "@yel@Arthur";
+		}
 		if(i == 7836 || i == 7808) {
 			objectDef.hasActions = true;
 			objectDef.actions = new String[] {"Dump-weeds", null, null, null, null};

@@ -90,10 +90,21 @@ public class CustomObjects {
 			{54613, 2716, 5310, 0, 0}, // Onyx city		
 			{54613, 2716, 5309, 0, 0}, // Onyx city	
 			
+			// Arthur's dream
 			{10089 , 1826, 5168, 2, 0}, // anglerfish spot fishworld
 			{10089 , 1827, 5168, 2, 0}, // anglerfish spot fishworld
 			{10089 , 1823, 5168, 2, 0}, // anglerfish spot fishworld
 			{10089 , 1822, 5168, 2, 0}, // anglerfish spot fishworld
+			
+			// Edge arthur's dream teleporter
+			{48661, 3083, 3488, 0, 3}, // Arthur's dream teleporter edgeville
+			
+			{14859, 3099, 3499, 0, 0}, // rune ore edge bank
+			{14859, 3099, 3498, 0, 0}, // rune ore edge bank
+			{14859, 3099, 3497, 0, 0}, // rune ore edge bank
+			{14859, 3099, 3496, 0, 0}, // rune ore edge bank
+			{14859, 3099, 3495, 0, 0}, // rune ore edge bank
+			{14859, 3099, 3494, 0, 0}, // rune ore edge bank
 			
 			//dzone
 			
