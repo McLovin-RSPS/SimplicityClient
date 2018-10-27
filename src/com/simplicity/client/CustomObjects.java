@@ -96,8 +96,8 @@ public class CustomObjects {
 			{10089 , 1823, 5168, 2, 0}, // anglerfish spot fishworld
 			{10089 , 1822, 5168, 2, 0}, // anglerfish spot fishworld
 			
-			{9222 , 1820, 5160, 2, 0}, // white tree arthur's dream
-			{9222 , 1827, 5159, 2, 0}, // white tree arthur's dream
+			{61551 , 1820, 5160, 2, 0}, // white tree arthur's dream
+			{61551 , 1827, 5159, 2, 0}, // white tree arthur's dream
 			
 			{52709, 1824, 5161, 2, 0}, // arthur's dream campfire
 			
@@ -110,6 +110,14 @@ public class CustomObjects {
 			{14859, 3099, 3496, 0, 0}, // rune ore edge bank
 			{14859, 3099, 3495, 0, 0}, // rune ore edge bank
 			{14859, 3099, 3494, 0, 0}, // rune ore edge bank
+			
+			{54613, 3089, 3483, 0, 0}, // Onyx ore edge bank		
+			{54613, 3088, 3483, 0, 0}, // Onyx ore edge bank	
+			{54613, 3087, 3483, 0, 0}, // Onyx ore edge bank	
+			{54613, 3086, 3483, 0, 0}, // Onyx ore edge bank		
+			{54613, 3085, 3483, 0, 0}, // Onyx ore edge bank	
+			{54613, 3084, 3483, 0, 0}, // Onyx ore edge bank
+			{54613, 3083, 3483, 0, 0}, // Onyx ore edge bank	
 			
 			//dzone
 			
@@ -186,6 +194,10 @@ public class CustomObjects {
 			{2646, 2329, 9803, 0, 0},
 			{2646, 2327, 9803, 0, 0},
 			{2646, 2330, 9803, 0, 0},
+			
+			{1, 3294, 3946, 0, 0}, // rogue castel crates
+			{1, 3293, 3946, 0, 0},
+			{1, 3295, 3945, 0, 0},
 
 			
 			//rocktail fishing
