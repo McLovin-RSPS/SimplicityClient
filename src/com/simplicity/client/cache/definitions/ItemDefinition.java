@@ -1322,6 +1322,9 @@ public final class ItemDefinition {
                 itemDef.actions = new String[5];
                 itemDef.actions[0] = "Open";
                 break;
+            case 3157:
+                itemDef.name = "@red@Anglerfish vessel";
+                break;
             case 12632:
                 itemDef.name = "100m Note";
                 itemDef.actions = new String[]{"Claim", null, null, null, "Drop"};
