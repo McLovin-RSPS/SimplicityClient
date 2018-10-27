@@ -96,6 +96,8 @@ public class CustomObjects {
 			{10089 , 1823, 5168, 2, 0}, // anglerfish spot fishworld
 			{10089 , 1822, 5168, 2, 0}, // anglerfish spot fishworld
 			
+			{9222 , 1820, 5160, 2, 0}, // white tree arthur's dream
+			
 			// Edge arthur's dream teleporter
 			{48661, 3083, 3488, 0, 3}, // Arthur's dream teleporter edgeville
 			
