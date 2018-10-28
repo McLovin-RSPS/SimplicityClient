@@ -12790,7 +12790,7 @@ public class Client extends RSApplet {
 			g.setColor(Color.white);
 			g.drawString("Error - unable to load game!", 50, 50);
 			g.drawString("To play Simplicity make sure you play from", 50, 100);
-			g.drawString("http://www.Simplicity-rsps.com", 50, 150);
+			g.drawString("http://www.Simplicityps.org", 50, 150);
 		}
 	}
 
