@@ -195,9 +195,10 @@ public class CustomObjects {
 			{2646, 2327, 9803, 0, 0},
 			{2646, 2330, 9803, 0, 0},
 			
-			{1, 3294, 3946, 0, 0}, // rogue castel crates
+			{170, 3294, 3946, 0, 0}, // rogue castel crates
 			{1, 3293, 3946, 0, 0},
 			{1, 3295, 3945, 0, 0},
+			{1, 3294, 3945, 0, 0},
 
 			
 			//rocktail fishing
@@ -400,8 +401,10 @@ public class CustomObjects {
 		{ 75 , 2914, 3452, 0, 2},
 		
 		
-		{ 47947 , 2720, 5352, 0, 2}, // anglerfish waterfall
-		{ 47947 , 2720, 5355, 0, 2}, // anglerfish waterfall
+	//	{ 47947 , 2720, 5352, 0, 2}, // waterfall o city
+	//	{ 47947 , 2720, 5355, 0, 2}, // waterfall o city
+		
+		
 		
 		
 		{ 11758, 3449, 3722, 0, 0},
