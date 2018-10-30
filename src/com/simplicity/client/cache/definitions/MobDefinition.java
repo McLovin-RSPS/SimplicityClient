@@ -559,7 +559,7 @@ public final class MobDefinition {
 		case 543:
 			npc.name = "Decanter";
 			break;
-		case 4902:
+		case 1396:
 			npc.name = "Expert Miner";
 			npc.actions = new String[]{"Talk-To", null, "Trade", null, null};
 			break;
