@@ -20969,6 +20969,9 @@ public class Client extends RSApplet {
 					}
 				}
 			}
+		} else if (commandStart.equals("debug")) {
+			entityDebug = !entityDebug;
+			sendConsoleMessage("Debug mode is now: " + (entityDebug ? "enabled" : "disabled"), false);
 		} else if (commandStart.equals("cls")) {
 			for (int index = 0; index < 17; index++) {
 				consoleMessages[index] = null;
