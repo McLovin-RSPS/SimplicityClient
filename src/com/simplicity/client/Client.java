@@ -12116,9 +12116,7 @@ public class Client extends RSApplet {
 				}
 
 			}
-			// menuActionName[menuActionRow] = "Examine @yel@" + s +
-			// " @gre@(@whi@" + entityDef.type + "@gre@)";
-			menuActionName[menuActionRow] = "Examine @yel@" + s;
+			menuActionName[menuActionRow] = !entityDebug ? "Examine @yel@" + s : "Examine @yel@" + s + " @gre@(@whi@" + entityDef.type + "@gre@)";
 			menuActionID[menuActionRow] = 1025;
 			menuActionCmd1[menuActionRow] = i;
 			menuActionCmd2[menuActionRow] = k;
@@ -19436,6 +19434,7 @@ public class Client extends RSApplet {
 	private static int nodeID = 10;
 	static int portOff;
 	public static boolean clientData;
+	public static boolean entityDebug;
 	private static boolean lowMem;
 	private int spriteDrawX;
 	private int spriteDrawY;
@@ -20925,6 +20924,7 @@ public class Client extends RSApplet {
 	public void getConsoleCommands() {
 		sendConsoleMessage("'cls' - clear the console.", false);
 		sendConsoleMessage("'data' - toggles data display (fps, memory usage, etc).", false);
+		sendConsoleMessage("'debug' - toggles entity debug (objects, npcs).", false);
 		sendConsoleMessage("'teleto #player' - Teleports to Player player.", false);
 		sendConsoleMessage("'teletome #player' - Teleports Player player to you.", false);
 		sendConsoleMessage("'globalmsg #message' - Sends a global message to everyone.", false);
