@@ -710,7 +710,7 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
 		} catch (IOException _ex) {
 			_ex.printStackTrace();
 			System.out.println("Failed to unzip model [" + OnDemandRequest.id + "] type = " + OnDemandRequest.dataType);
-			return null;
+			return OnDemandRequest;
 		}
 		OnDemandRequest.buffer = new byte[readData];
 		for (int bufferPtr = 0; bufferPtr < readData; bufferPtr++)
