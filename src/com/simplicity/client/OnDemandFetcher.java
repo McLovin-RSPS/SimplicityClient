@@ -288,21 +288,21 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
 		setMapData(mapCount + 2, 12701, 10002, 10003, false);
 		setMapData(mapCount + 3, 12702, 10004, 10005, false);
 		setMapData(mapCount + 4, 12703, 10006, 10007, false);
-		setMapData(mapCount + 5, 12957, 10008, 10009, false);
-		setMapData(mapCount + 6, 12958, 10010, 10011, false);
-		setMapData(mapCount + 7, 12959, 10012, 10013, false);
+		setMapData(1346, 12957, 10008, 10009, false);
+		setMapData(mapCount + 5, 12958, 10010, 10011, false);
+		setMapData(mapCount + 6, 12959, 10012, 10013, false);
 		
 		/**
 		 * Abyssal sire
 		 */
-		setMapData(mapCount + 8, 11850, 10014, 10015, false);
-		setMapData(mapCount + 9, 12362, 10016, 10017, false);
-		setMapData(mapCount + 10, 12363, 10018, 10019, false);
+		setMapData(mapCount + 7, 11850, 10014, 10015, false);
+		setMapData(mapCount + 8, 12362, 10016, 10017, false);
+		setMapData(mapCount + 9, 12363, 10018, 10019, false);
 		
 		/**
 		 * Scorpia cave
 		 */
-		setMapData(mapCount + 11, 12961, 10020, 10021, false);
+		setMapData(mapCount + 10, 12961, 10020, 10021, false);
 		
 		/**
 		 * Great Olm
@@ -709,7 +709,8 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
 			} while (true);
 		} catch (IOException _ex) {
 			_ex.printStackTrace();
-			throw new RuntimeException("error unzipping");
+			System.out.println("Failed to unzip model [" + OnDemandRequest.id + "] type = " + OnDemandRequest.dataType);
+			return null;
 		}
 		OnDemandRequest.buffer = new byte[readData];
 		for (int bufferPtr = 0; bufferPtr < readData; bufferPtr++)
