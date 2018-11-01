@@ -3020,7 +3020,7 @@ public class Model extends Animable {
 					face_render_type[i] = 0;
 				}
 				
-				if(textureIds[i] >= max || textureIds[i] < 0 || textureIds[i] == 39) {
+				if((textureIds[i] >= max)  || textureIds[i] < 0 || !Rasterizer.textureEnabled[textureIds[i]] || textureIds[i] == 39) {
 					face_render_type[i] = 0;
 					continue;
 				}
