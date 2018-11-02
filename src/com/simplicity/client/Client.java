@@ -19057,6 +19057,22 @@ public class Client extends RSApplet {
 			aByteArray912 = abyte2;
 			Rasterizer.method370(40);
 		}
+
+		if (Rasterizer.anIntArray1480[59] >= j) {
+			Background background_2 = Rasterizer.aBackgroundArray1474s[59];
+			int i1 = background_2.imgWidth * background_2.imgHeight - 1;
+			int l1 = background_2.imgWidth * cycleTimer * 1;
+			byte abyte2[] = background_2.imgPixels;
+			byte abyte5[] = aByteArray912;
+
+			for (int k2 = 0; k2 <= i1; k2++) {
+				abyte5[k2] = abyte2[k2 - l1 & i1];
+			}
+
+			background_2.imgPixels = abyte5;
+			aByteArray912 = abyte2;
+			Rasterizer.method370(59);
+		}
 	}
 
 	public int[] write(int var1, int var2, int var3, int var4, int var5) {

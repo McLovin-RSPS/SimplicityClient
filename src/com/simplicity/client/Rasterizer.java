@@ -8,7 +8,8 @@ public final class Rasterizer extends DrawingArea {
 	
 	public static boolean saveDepth = true;
 	private static int mipMapLevel;
-	public static int textureAmount = 51;
+	public static int textureAmount = 60;
+	public static boolean[] textureEnabled = new boolean[textureAmount];
 	static boolean aBoolean1462;
 	private static boolean aBoolean1463;
 	public static boolean aBoolean1464 = true;
@@ -215,15 +216,23 @@ public final class Rasterizer extends DrawingArea {
 	}
 
 	public static void method368(CacheArchive streamLoader) {
-        anInt1473 = 0;
-        for (int index = 0; index < textureAmount; index++) {
-            try {
-                aBackgroundArray1474s[index] = new Background(streamLoader, String.valueOf(index), 0);
-                aBackgroundArray1474s[index].setOffset();
-                anInt1473++;
-            } catch (Exception ex) {}
-        }
-    }
+		anInt1473 = 0;
+		for (int index = textureAmount - 1; index >= 0; index--) {
+			try {
+				if (index > 50 && index != 59) {
+					aBackgroundArray1474s[index] = aBackgroundArray1474s[59];
+					textureEnabled[index] = false;
+				} else {
+					aBackgroundArray1474s[index] = new Background(streamLoader, String.valueOf(index), 0);
+					aBackgroundArray1474s[index].setOffset();
+					textureEnabled[index] = true;
+				}
+				anInt1473++;
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
 
     public static int method369(int texture) {
         if (anIntArray1476[texture] != 0) {

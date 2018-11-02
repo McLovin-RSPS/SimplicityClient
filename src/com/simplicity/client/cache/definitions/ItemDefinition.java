@@ -317,6 +317,28 @@ public final class ItemDefinition {
 
         priorityModels.add(29252);
         priorityModels.add(29253);
+
+        //Ancestral hat
+        priorityModels.add(32655);
+        priorityModels.add(32663);
+
+        //Ancestral robe top
+        priorityModels.add(32657);
+        priorityModels.add(32658);
+        priorityModels.add(32664);
+        priorityModels.add(32665);
+
+        //Ancestral robe bottom
+        priorityModels.add(32653);
+        priorityModels.add(32662);
+
+        //Infernal Cape
+        priorityModels.add(33103);
+        priorityModels.add(33111);
+
+        //Infernal max cape
+        priorityModels.add(33102);
+        priorityModels.add(33114);
     }
     
     public static ItemDefinition forID(int i) {
@@ -370,6 +392,17 @@ public final class ItemDefinition {
                     itemDef.femaleZOffset += 4;
                     itemDef.femaleYOffset -= 7;
                     itemDef.maleYOffset -= 7;
+                    break;
+                case 51295:
+                case 51285:
+                    itemDef.maleZOffset += 4;
+                    itemDef.femaleZOffset += 4;
+                    itemDef.femaleYOffset -= 4;
+                    itemDef.maleYOffset -= 4;
+                case 51296:
+                    break;
+                case 51018:
+                    itemDef.maleYOffset -= 10;
                     break;
                 case 50851:
                     itemDef.name = "Superior Olmlet";
