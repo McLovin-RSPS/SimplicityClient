@@ -422,6 +422,10 @@ public final class ItemDefinition {
                 case 50851:
                     itemDef.name = "Superior Olmlet";
                     break;
+                case 51802:
+                    itemDef.name = "Revenant teleport";
+                    itemDef.actions[1] = "Break";         
+                    break;
                 case 42603:
                     itemDef.name = "Ring of Bosses";
                     itemDef.actions = new String[5];

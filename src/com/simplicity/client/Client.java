@@ -5387,6 +5387,7 @@ public class Client extends RSApplet {
 		currentSong = -1;
 		nextSong = -1;
 		prevSong = 0;
+		alertBoxTimer = 0;
 	}
 
 	private void setMyAppearance() {
@@ -6388,6 +6389,9 @@ public class Client extends RSApplet {
 		}
 		if (anInt1011 > 0) {
 			anInt1011--;
+		}
+		if (alertBoxTimer > 0) {
+			alertBoxTimer--;
 		}
 		for (int j = 0; j < 5; j++) {
 			if (!parsePacket()) {
@@ -18975,6 +18979,18 @@ public class Client extends RSApplet {
 			drawConsole();
 			drawConsoleArea();
 		}
+		if (alertBoxTimer > 0) {
+			TextDrawingArea.drawRectangle(249, 74, 75, 0x000000, 486, 12);
+			TextDrawingArea.drawAlphaFilledPixels(13, 250, 484, 72, 0x4286f4, 75);
+
+			newRegularFont.drawBasicString("Simplicity", 224, 268);
+			
+			if (alertText != null) {
+				for (int i = 0; i < alertText.length; i++) {
+					smallText.drawCenteredText(0xffffff, 250, alertText[i], 283 + (i * 10), true);
+				}
+			}
+		}
 		if (loggedIn) {
 			drawHpBar();
 			// drawNexBar();
@@ -20874,6 +20890,12 @@ public class Client extends RSApplet {
 		smallHit.drawOpacityText(0xffffff, String.valueOf(damage), drawPos + 32,
 				spriteDrawX - 8 + x + (soakLength == 1 ? 5 : 0), opacity);
 	}
+	
+	/**
+	 * Alert box.
+	 */
+	private int alertBoxTimer;
+	private String[] alertText;
 
 	/**
 	 * Console

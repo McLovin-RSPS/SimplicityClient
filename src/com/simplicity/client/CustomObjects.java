@@ -111,13 +111,13 @@ public class CustomObjects {
 			{14859, 3099, 3495, 0, 0}, // rune ore edge bank
 			{14859, 3099, 3494, 0, 0}, // rune ore edge bank
 			
-			{54613, 3089, 3483, 0, 0}, // Onyx ore edge bank		
+			/*{54613, 3089, 3483, 0, 0}, // Onyx ore edge bank		
 			{54613, 3088, 3483, 0, 0}, // Onyx ore edge bank	
 			{54613, 3087, 3483, 0, 0}, // Onyx ore edge bank	
 			{54613, 3086, 3483, 0, 0}, // Onyx ore edge bank		
 			{54613, 3085, 3483, 0, 0}, // Onyx ore edge bank	
-			{54613, 3084, 3483, 0, 0}, // Onyx ore edge bank
-			{54613, 3083, 3483, 0, 0}, // Onyx ore edge bank	
+			{54613, 3084, 3483, 0, 0}, // Onyx ore edge bank	
+			{54613, 3083, 3483, 0, 0}, // Onyx ore edge bank */
 			
 			//dzone
 			
