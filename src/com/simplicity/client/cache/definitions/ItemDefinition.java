@@ -32,6 +32,11 @@ public final class ItemDefinition {
      */
     public static List<Integer> priorityModels = new ArrayList<>();
 
+    /**
+     * The models that need the infernal texture.
+     */
+    public static List<Integer> infernalModels = new ArrayList<>();
+
     private static final int OSRS_ITEMS_START = 10603;
     private static final int OSRS_ITEMS_OFFSET = 30_000;
 
@@ -339,6 +344,16 @@ public final class ItemDefinition {
         //Infernal max cape
         priorityModels.add(33102);
         priorityModels.add(33114);
+
+        //Infernal Cape
+        infernalModels.add(33144);
+        infernalModels.add(33103);
+        infernalModels.add(33111);
+
+        //Infernal max cape
+        infernalModels.add(33145);
+        infernalModels.add(33102);
+        infernalModels.add(33114);
     }
     
     public static ItemDefinition forID(int i) {
