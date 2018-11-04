@@ -21,6 +21,10 @@ public class CustomObjects {
 	}
 	
 	public static final int[][] CUSTOM_OBJECTS = {
+
+			//Well for upgradable at home
+			{3485, 3077, 3500, 0, 0},
+
 			 //Treasure island chests
 			  { 18804, 3039, 2912, 0, 2 },
 
