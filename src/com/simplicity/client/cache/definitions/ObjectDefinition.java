@@ -971,6 +971,7 @@ public final class ObjectDefinition {
 	}
 
 	private void readValues(Stream stream) {
+		boolean osrs = stream == streamOSRS;
 		int i = -1;
 		label0: do {
 			int opcode;
