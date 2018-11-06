@@ -5138,4 +5138,6 @@ public final class Rasterizer extends DrawingArea {
 			hsl1 += dl;
 		}
 	}
+
+	public static final int infernalTexture = 59;
 }

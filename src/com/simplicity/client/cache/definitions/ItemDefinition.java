@@ -32,6 +32,11 @@ public final class ItemDefinition {
      */
     public static List<Integer> priorityModels = new ArrayList<>();
 
+    /**
+     * The models that need the infernal texture.
+     */
+    public static List<Integer> infernalModels = new ArrayList<>();
+
     private static final int OSRS_ITEMS_START = 10603;
     private static final int OSRS_ITEMS_OFFSET = 30_000;
 
@@ -339,8 +344,26 @@ public final class ItemDefinition {
         //Infernal max cape
         priorityModels.add(33102);
         priorityModels.add(33114);
+
+        //Max Cape
+        priorityModels.add(29616);
+        priorityModels.add(29624);
+
+        //Max Hood
+        priorityModels.add(29614);
+        priorityModels.add(29623);
+
+        //Infernal Cape
+        infernalModels.add(33144);
+        infernalModels.add(33103);
+        infernalModels.add(33111);
+
+        //Infernal max cape
+        infernalModels.add(33145);
+        infernalModels.add(33102);
+        infernalModels.add(33114);
     }
-    
+
     public static ItemDefinition forID(int i) {
     	if (i >= OSRS_ITEMS_OFFSET + OSRS_ITEMS_START) {
     		i -= OSRS_ITEMS_OFFSET;
@@ -395,10 +418,24 @@ public final class ItemDefinition {
                     break;
                 case 51295:
                 case 51285:
-                    itemDef.maleZOffset += 4;
-                    itemDef.femaleZOffset += 4;
-                    itemDef.femaleYOffset -= 4;
-                    itemDef.maleYOffset -= 4;
+                case 51776:
+                case 51780:
+                case 51784:
+                case 51898:
+                case 43280:
+                case 43282:
+                case 43329:
+                case 43331:
+                case 43333:
+                case 43335:
+                case 43337:
+                case 43342:
+                case 50760:
+                case 51186:
+                    itemDef.maleZOffset += 3;
+                    itemDef.femaleZOffset += 3;
+                    itemDef.femaleYOffset -= 3;
+                    itemDef.maleYOffset -= 3;
                 case 51296:
                     break;
                 case 51018:

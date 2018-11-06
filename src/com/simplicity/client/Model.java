@@ -1908,7 +1908,7 @@ public class Model extends Animable {
 		face_b = facePoint2;
 		face_c = facePoint3;
 		filterTriangles();
-		convertTexturesTo317(D, texTrianglesPoint1, texTrianglesPoint2, texTrianglesPoint3, x);
+		convertTexturesTo317(modelID, D, texTrianglesPoint1, texTrianglesPoint2, texTrianglesPoint3, x);
 	}
 
 	public void readNewModel(byte data[], int modelId) {
@@ -2841,7 +2841,7 @@ public class Model extends Animable {
 		face_b = facePoint2;
 		face_c = facePoint3;
 		filterTriangles();
-		convertTexturesTo317(D, texTrianglesPoint1, texTrianglesPoint2, texTrianglesPoint3, x);
+		convertTexturesTo317(modelID, D, texTrianglesPoint1, texTrianglesPoint2, texTrianglesPoint3, x);
 	}
 
 	private void readOldModel(int i) {
@@ -3005,7 +3005,7 @@ public class Model extends Animable {
 			}
 	}
 	
-	public void convertTexturesTo317(short[] textureIds, int[] texa, int[] texb, int[] texc, byte[] texture_coordinates) {
+	public void convertTexturesTo317(int modelId, short[] textureIds, int[] texa, int[] texb, int[] texc, byte[] texture_coordinates) {
 		int set = 0;
 		int set2 = 0;
 		int max = Rasterizer.textureAmount;
@@ -3019,9 +3019,18 @@ public class Model extends Animable {
 					face_color[i] = 65535;
 					face_render_type[i] = 0;
 				}
-				
-				if((textureIds[i] >= max)  || textureIds[i] < 0 || !Rasterizer.textureEnabled[textureIds[i]] || textureIds[i] == 39) {
+
+				if(textureIds[i] >= max  || textureIds[i] < 0) {
 					face_render_type[i] = 0;
+					continue;
+				}
+
+				if(!Rasterizer.textureEnabled[textureIds[i]] || textureIds[i] == 39) {
+					face_render_type[i] = 0;
+					continue;
+				}
+
+				if (!ItemDefinition.infernalModels.contains(modelId) && textureIds[i] == Rasterizer.infernalTexture) {
 					continue;
 				}
 				
