@@ -287,6 +287,64 @@ public class RSInterface {
 		Tab.enabledSprite = imageLoader(bID2, bName);
 		Tab.tooltip = tT;
 	}
+	
+	public static void dealsInterface(TextDrawingArea[] tda) {
+		RSInterface rsi = addInterface(44100);
+		
+		rsi.totalChildren(23);
+		
+		addSpriteLoader(44101, 1008);
+		addText(44102, "Donation Deals", tda, 2, 0xff0000);
+		addCloseButton(44103, 44104, 44105);
+		
+		addRectangle(44105, 150, 0x000000, true, 102, 102);
+		addRectangleClickable(44106, 150, 0xff0000, true, 100, 100);
+		addSpriteLoader(44107, 1013);
+		addRectangle(44108, 150, 0x000000, false, 262, 102);
+		addRectangle(44109, 100, 0x000000, true, 260, 100);
+		
+		addHoverButtonWSpriteLoader(44110, 1026, 72, 24, "Previous", -1, 44111, 1);
+		addHoveredImageWSpriteLoader(44111, 1027, 164, 24, 44112);
+		
+		addHoverButtonWSpriteLoader(44113, 1026, 72, 24, "Next", -1, 44114, 1);
+		addHoveredImageWSpriteLoader(44114, 1027, 72, 24, 44115);
+		
+		addText(44116, "Previous", tda, 1, 0xff7000);
+		addText(44117, "Next", tda, 1, 0xff7000);
+		addText(44118, "1 / 10", tda, 1, 0xff7000, true);
+		addText(44119, "24:00:00", tda, 1, 0xff7000, true);
+		addItemOnInterface(44120, 44100, new String[] {});
+		interfaceCache[44120].inv[0] = 14009;
+		interfaceCache[44120].invStackSizes[0] = 1;
+		interfaceCache[44120].itemSpriteZoom1 = 1000;
+		interfaceCache[44120].itemSpriteZoom2 = 1000;
+		
+		String[] text = new String[] { "Torva Set", "", "On sale for -50% discount!", "", "Total: $150" };
+		
+		for (int i = 0; i < 5; i++) {
+			addText(44121 + i, text[i], tda, 1, 0xff7000);
+			rsi.child(17 + i, 44121 + i, 197, 125 + (i * 14));
+		}
+		
+		rsi.child(0, 44101, 12, 34);
+		rsi.child(1, 44102, 207, 44);
+		rsi.child(2, 44103, 472, 41);
+		rsi.child(3, 44104, 472, 41);
+		rsi.child(4, 44105, 61, 109);
+		rsi.child(5, 44106, 62, 110);
+		rsi.child(6, 44107, 67, 224);
+		rsi.child(7, 44108, 182, 109);
+		rsi.child(8, 44109, 183, 110);
+		rsi.child(9, 44110, 182, 228);
+		rsi.child(10, 44111, 182, 228);
+		rsi.child(11, 44113, 372, 228);
+		rsi.child(12, 44114, 372, 228);
+		rsi.child(13, 44116, 192, 232);
+		rsi.child(14, 44117, 394, 232);
+		rsi.child(15, 44118, 310, 232);
+		rsi.child(16, 44119, 111, 233);
+		rsi.child(22, 44120, 96, 142);
+	}
 
 	public static void playerOwnedShopInterface(TextDrawingArea[] tda) {
 		RSInterface tab = addInterface(32600);
@@ -2838,6 +2896,7 @@ public static void TeleTAB5() {
 
 
 		godWars();
+		dealsInterface(textDrawingAreas);
 		playerOwnedShopInterface(textDrawingAreas);
 		playerOwnedShopInterface2(textDrawingAreas);
 		playerOwnedShopInterface3(textDrawingAreas);
