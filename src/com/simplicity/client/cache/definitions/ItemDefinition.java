@@ -446,7 +446,7 @@ public final class ItemDefinition {
                     break;
                 case 51802:
                     itemDef.name = "Revenant teleport";
-                    itemDef.actions[1] = "Break";         
+                    itemDef.actions[0] = "Break";         
                     break;
                 case 42603:
                     itemDef.name = "Ring of Bosses";
