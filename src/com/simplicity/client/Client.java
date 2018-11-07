@@ -7307,6 +7307,9 @@ public class Client extends RSApplet {
 			rollingCharacter = !rollingCharacter;
 			return;
 		}
+		if (l == 476 && alertBoxTimer > 0) {
+			alertBoxTimer = 0;
+		}
 		if (openInterfaceID == 60000) {
 			switch (interfaceId) {
 			case 60005:
@@ -11110,6 +11113,15 @@ public class Client extends RSApplet {
 			rightClickMapArea();
 		}
 		processTabAreaHovers();
+		
+		boolean alertHover = super.mouseX >= 12 && super.mouseX <= 498 && super.mouseY >= 249 && super.mouseY <= 323;
+		
+		if (alertHover && alertBoxTimer > 0) {
+			menuActionName[1] = "Dismiss";
+			menuActionID[1] = 476;
+			menuActionRow = 2;
+		}
+		
 		/**/
 		boolean flag = false;
 		while (!flag) {
@@ -17646,6 +17658,11 @@ public class Client extends RSApplet {
 					}
 					if (!flag2 && s3.length() >= 2) {
 						pushMessage("wishes to trade with you.", 4, s3);
+					}
+				} else if (s.startsWith(":alert:")) {
+					if (s.length() > 7) {
+						alertBoxTimer = 2500;
+						alertText = s.substring(7).split(":n:");
 					}
 				} else if (s.endsWith("::")) {
 					String s4 = s.substring(0, s.indexOf(":"));
