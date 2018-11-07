@@ -140,10 +140,10 @@ public final class ItemDefinition {
         }
         //if (j == 62367)
         //model.translate(68, 7, -8);
-        if (gender == 0 && (maleYOffset != 0 || maleXOffset != 0  || maleZOffset != 0)) {
+        if (gender == 0 && (femaleYOffset != 0 || femaleXOffset != 0  || femaleZOffset != 0)) {
+            model.translate(femaleXOffset, femaleYOffset, femaleZOffset);
+        } else if (gender == 1 && (maleXOffset != 0 || maleYOffset != 0 || maleZOffset != 0) ) {
             model.translate(maleXOffset, maleYOffset, maleZOffset);
-        } else if (gender == 1 && (femaleYOffset != 0 || femaleXOffset != 0 || femaleZOffset != 0) ) {
-            model.translate(femaleYOffset, femaleYOffset, femaleZOffset);
         }
         if (editedModelColor != null && newModelColor != null) {
             for (int i1 = 0; i1 < editedModelColor.length; i1++) {
@@ -620,6 +620,9 @@ public final class ItemDefinition {
         }
         itemDef.value = prices[itemDef.id];
         switch (i) {
+            case 1050:
+                itemDef.femaleZOffset += 4;
+                break;
             case 19713:
                 itemDef.copy(forID(6199));
                 itemDef.name = "Archery Box";
