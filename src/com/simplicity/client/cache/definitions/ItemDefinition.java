@@ -1,22 +1,13 @@
 package com.simplicity.client.cache.definitions;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.collect.ConcurrentHashMultiset;
+import com.google.common.collect.Multiset;
 import com.simplicity.Configuration;
-import com.simplicity.client.CacheArchive;
-import com.simplicity.client.DrawingArea;
-import com.simplicity.client.MemCache;
-import com.simplicity.client.Model;
-import com.simplicity.client.RandomColor;
-import com.simplicity.client.Rasterizer;
-import com.simplicity.client.Sprite;
-import com.simplicity.client.Stream;
-import com.simplicity.client.signlink;
+import com.simplicity.client.*;
 
 public final class ItemDefinition {
 
@@ -219,10 +210,19 @@ public final class ItemDefinition {
                 if (entityDef == null || entityDef.name == null)
                     continue;
 
-                writer.println(i + " " + entityDef.name + " " + " [Inv Model=" + entityDef.modelID + "], [Male Model="
+                writer.print(i + " " + entityDef.name + " " + " [Inv Model=" + entityDef.modelID + "], [Male Model="
                         + (entityDef.maleEquip1) + " " + (entityDef.maleEquip2) + " " + (entityDef.maleEquip3) + "], [Female Model="+
                         (entityDef.femaleEquip1) + " " + (entityDef.femaleEquip2) + " " + (entityDef.femaleEquip3) + "]");
 
+                if(entityDef.newModelColor != null && entityDef.newModelColor.length > 0) {
+                    writer.print(", [Model Colour=");
+                    for (int i1 : entityDef.newModelColor) {
+                        writer.print(i1 + " ");
+                    }
+                    writer.print("]");
+                }
+
+                writer.println();
             }
             writer.close();
         } catch (Exception e) {
@@ -239,9 +239,19 @@ public final class ItemDefinition {
                 if (entityDef == null || entityDef.name == null)
                     continue;
 
-                writer.println(i + " " + entityDef.name + " " + " [Inv Model=" + entityDef.modelID + "], [Male Model="
+                writer.print(i + " " + entityDef.name + " " + " [Inv Model=" + entityDef.modelID + "], [Male Model="
                         + (entityDef.maleEquip1) + " " + (entityDef.maleEquip2) + " " + (entityDef.maleEquip3) + "], [Female Model="+
                         (entityDef.femaleEquip1) + " " + (entityDef.femaleEquip2) + " " + (entityDef.femaleEquip3) + "]");
+
+                if(entityDef.newModelColor != null && entityDef.newModelColor.length > 0) {
+                    writer.print(", [Model Colour=");
+                    for (int i1 : entityDef.newModelColor) {
+                        writer.print(i1 + " ");
+                    }
+                    writer.print("]");
+                }
+
+                writer.println();
 
             }
             writer.close();
@@ -285,7 +295,6 @@ public final class ItemDefinition {
         }
         
         setSettings();
-        //writeOutOsrsItems(totalItems, totalItemsOSRS);
 
         osrsModels.add(34148);
         osrsModels.add(34152);
@@ -362,6 +371,91 @@ public final class ItemDefinition {
         infernalModels.add(33145);
         infernalModels.add(33102);
         infernalModels.add(33114);
+
+        //writeOutOsrsItems(totalItems, totalItemsOSRS);
+        //dumpInterface(totalItems, totalItemsOSRS);
+    }
+
+    public static void dumpInterface(int totalItems, int totalItemsOSRS) {
+
+        try {
+            BufferedWriter file = new BufferedWriter(new FileWriter(
+                    "../Items.java"), 1024);
+
+            Multiset<String> addedNames = ConcurrentHashMultiset.create();
+
+            String[] unwanted_chars = { "'", "(", ")", ".", "%", "?", "@red@", ",", "�" };
+
+            String[] underline_chars = { " ", "-", "/" };
+
+            String[][] replace_chars = {
+                    { "1/2", "half"},
+                    { "1/3", "one_third"}, { "2/3", "two_thirds"},
+                    { "1/5", "one_fifth"}, { "2/5", "two_fifths"},  { "3/5", "three_fifths"},  { "4/5", "four_fifths"},
+                    { "3rd", "third"}, { "4th", "fourth"},
+                    { "100m", "one_hundred_million"},{ "1000m", "one_billion"},
+                    {"+", "plus"}, {"++", "plus_plus"}, {"+++", "plus_plus_plus"}, {"&", "and"}};
+
+            for (int i = 0; i < totalItems + totalItemsOSRS; i++) {
+
+                int add = 0;
+
+                if(i >= totalItems) {
+                    add += OSRS_ITEMS_OFFSET;
+                }
+
+                ItemDefinition definition = forID(i + add);
+
+                if(definition == null || definition.name == null || definition.name.equalsIgnoreCase("null")) {
+                    continue;
+                }
+
+                String name = definition.name;
+
+                for (int i1 = 0; i1 < replace_chars.length; i1++) {
+                    name = name.replace(replace_chars[i1][0], replace_chars[i1][1]);
+                }
+
+                for (String unwanted_char : unwanted_chars) {
+                    name = name.replace(unwanted_char, "");
+                }
+
+                for (String underline_char : underline_chars) {
+                    name = name.replace(underline_char, "_");
+                }
+
+                if (definition.certTemplateID != -1) {
+                    name = name + "_noted";
+                }
+
+                if(name.isEmpty() || name.equalsIgnoreCase(" ") || name.equalsIgnoreCase("_")) {
+                    continue;
+                }
+
+                name = name.toUpperCase();
+
+                int count = addedNames.count(name);
+
+                if(count < 0) {
+                    count = addedNames.count(name + "_1");
+                }
+
+                if(count > 0) {
+                    file.write("int " + name + "_" + count + " = " + definition.id + ";");
+                } else {
+                    file.write("int " + name + " = " + definition.id + ";");
+                }
+
+                addedNames.add(name);
+
+                file.newLine();
+            }
+
+            file.close();
+
+        } catch(Throwable t) {
+            t.printStackTrace();
+        }
     }
 
     public static ItemDefinition forID(int i) {
@@ -526,6 +620,21 @@ public final class ItemDefinition {
         }
         itemDef.value = prices[itemDef.id];
         switch (i) {
+            case 19713:
+                itemDef.copy(forID(6199));
+                itemDef.name = "Archery Box";
+                itemDef.newModelColor[0] = 15260;
+                break;
+            case 19714:
+                itemDef.copy(forID(6199));
+                itemDef.name = "Warrior Box";
+                itemDef.newModelColor[0] = 40260;
+                break;
+            case 19715:
+                itemDef.copy(forID(6199));
+                itemDef.name = "Wizard Box";
+                itemDef.newModelColor[0] = 2060;
+                break;
         case 15420:
         	itemDef.actions = new String[5];
         	itemDef.actions[0] = "Open";
