@@ -1,14 +1,22 @@
 package com.simplicity.client.cache.definitions;
 
-import com.simplicity.Configuration;
-import com.simplicity.client.*;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.simplicity.Configuration;
+import com.simplicity.client.CacheArchive;
+import com.simplicity.client.DrawingArea;
+import com.simplicity.client.MemCache;
+import com.simplicity.client.Model;
+import com.simplicity.client.RandomColor;
+import com.simplicity.client.Rasterizer;
+import com.simplicity.client.Sprite;
+import com.simplicity.client.Stream;
+import com.simplicity.client.signlink;
 
 public final class ItemDefinition {
 
@@ -266,35 +274,35 @@ public final class ItemDefinition {
         Stream stream = new Stream(streamLoader.getDataForName("obj.idx"));
         streamOSRS = new Stream(streamLoader.getDataForName("obj3.dat"));
         Stream streamOSRS = new Stream(streamLoader.getDataForName("obj3.idx"));
-        
+
         totalItems = stream.readUnsignedWord();
         int totalItemsOSRS = streamOSRS.readUnsignedWord();
 
         streamIndices = new int[totalItems + 1000];
         streamIndicesOSRS = new int[totalItemsOSRS];
-        
+
         int i = 2;
-        
+
         for (int j = 0; j < totalItems; j++) {
             streamIndices[j] = i;
             i += stream.readUnsignedWord();
         }
-        
+
         i = 2;
-        
+
         for (int j = 0; j < totalItemsOSRS; j++) {
             streamIndicesOSRS[j] = i;
             i += streamOSRS.readUnsignedWord();
         }
-        
+
         cache = new ItemDefinition[10];
         cacheOSRS = new ItemDefinition[10];
-        
+
         for (int k = 0; k < 10; k++) {
             cache[k] = new ItemDefinition();
             cacheOSRS[k] = new ItemDefinition();
         }
-        
+
         setSettings();
 
         osrsModels.add(34148);
@@ -377,9 +385,9 @@ public final class ItemDefinition {
         //dumpInterface(totalItems, totalItemsOSRS);
     }
 
-    public static void dumpInterface(int totalItems, int totalItemsOSRS) {
+    /*public static void dumpInterface(int totalItems, int totalItemsOSRS) {
 
-       /* try {
+        try {
             BufferedWriter file = new BufferedWriter(new FileWriter(
                     "../Items.java"), 1024);
 
@@ -456,12 +464,12 @@ public final class ItemDefinition {
 
         } catch(Throwable t) {
             t.printStackTrace();
-        }*/
-    }
+        }
+    }*/
 
     public static ItemDefinition forID(int i) {
-    	if (i >= OSRS_ITEMS_OFFSET + OSRS_ITEMS_START) {
-    		i -= OSRS_ITEMS_OFFSET;
+        if (i >= OSRS_ITEMS_OFFSET + OSRS_ITEMS_START) {
+            i -= OSRS_ITEMS_OFFSET;
 
             for (int j = 0; j < 10; j++) {
                 if (cacheOSRS[j].id == i) {
@@ -541,7 +549,7 @@ public final class ItemDefinition {
                     break;
                 case 51802:
                     itemDef.name = "Revenant teleport";
-                    itemDef.actions[0] = "Break";         
+                    itemDef.actions[0] = "Break";
                     break;
                 case 42603:
                     itemDef.name = "Ring of Bosses";
@@ -563,7 +571,7 @@ public final class ItemDefinition {
                     itemDef.name = "1000m Note";
                     itemDef.actions = new String[]{"Claim", "Use", "Drop", "Examine", "Cancel"};
                     break;
-        		case 52324:
+                case 52324:
                     itemDef.modelID = 35739;
                     itemDef.actions = new String[5];
                     itemDef.actions[1] = "Wield";
@@ -578,20 +586,20 @@ public final class ItemDefinition {
                     break;
             }
 
-    		return itemDef;
-    	}
-    	
+            return itemDef;
+        }
+
         for (int j = 0; j < 10; j++) {
             if (cache[j].id == i) {
-            	if(Configuration.DISCO_ITEMS) {
-	            	if (i == 5572 || i == 5573 || i == 640 || i == 650 || i == 630) {
-	            		ItemDefinition.cache[j].newModelColor[0] = RandomColor.currentColour;
-	                }
-            	}
+                if(Configuration.DISCO_ITEMS) {
+                    if (i == 5572 || i == 5573 || i == 640 || i == 650 || i == 630) {
+                        ItemDefinition.cache[j].newModelColor[0] = RandomColor.currentColour;
+                    }
+                }
                 return cache[j];
             }
         }
-    	
+
         cacheIndex = (cacheIndex + 1) % 10;
         ItemDefinition itemDef = cache[cacheIndex];
         if (i >= streamIndices.length) {
@@ -639,105 +647,105 @@ public final class ItemDefinition {
                 itemDef.name = "Wizard Box";
                 itemDef.newModelColor[0] = 2060;
                 break;
-        case 15420:
-        	itemDef.actions = new String[5];
-        	itemDef.actions[0] = "Open";
-        	break;
-		case 8421:
-			itemDef.setDefaults();
-			itemDef.name = "Demonic spirit shield";
-			itemDef.modelZoom = 1616; // Model Zoom
-			itemDef.maleEquip1 = 38941; // Male Equip 1
-			itemDef.femaleEquip1 = 38941; // Male Equip 2
-			itemDef.modelID = 38942; // Model ID
-			itemDef.rotationY = 396; // Model Rotation 1
-			itemDef.rotationX = 1050; // Model Rotation 2
-			itemDef.modelOffset1 = -3; // Model Offset 1
-			itemDef.modelOffsetY = 16; // Model Offset 2
-			itemDef.actions = new String[5];
-			itemDef.actions[1] = "Wear";
-			itemDef.actions[4] = "Drop";
-			break;
-     case 5573:
-			ItemDefinition def = forID(1019);
-			itemDef.name = "Disco cape";
-			itemDef.description = def.description;
-			itemDef.actions = new String[5];
-			itemDef.actions[1] = "Wear";
-			itemDef.editedModelColor = new int[1];
-			itemDef.newModelColor = new int[1];
-			itemDef.editedModelColor[0] = 7700;
-			itemDef.newModelColor[0] = RandomColor.currentColour; 
-			itemDef.modelID = def.modelID;
-			itemDef.modelZoom = def.modelZoom;
-			itemDef.rotationY = def.rotationY;
-			itemDef.rotationX = def.rotationX;
-			itemDef.modelOffset1 = def.modelOffset1;
-			itemDef.modelOffsetY = def.modelOffsetY;
-			itemDef.maleEquip1 = def.maleEquip1;
-			itemDef.femaleEquip1 = def.femaleEquip1;
-		//	System.out.print("model "+def.maleEquip1);
-			break;
+            case 15420:
+                itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
+                break;
+            case 8421:
+                itemDef.setDefaults();
+                itemDef.name = "Demonic spirit shield";
+                itemDef.modelZoom = 1616; // Model Zoom
+                itemDef.maleEquip1 = 38941; // Male Equip 1
+                itemDef.femaleEquip1 = 38941; // Male Equip 2
+                itemDef.modelID = 38942; // Model ID
+                itemDef.rotationY = 396; // Model Rotation 1
+                itemDef.rotationX = 1050; // Model Rotation 2
+                itemDef.modelOffset1 = -3; // Model Offset 1
+                itemDef.modelOffsetY = 16; // Model Offset 2
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wear";
+                itemDef.actions[4] = "Drop";
+                break;
+            case 5573:
+                ItemDefinition def = forID(1019);
+                itemDef.name = "Disco cape";
+                itemDef.description = def.description;
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wear";
+                itemDef.editedModelColor = new int[1];
+                itemDef.newModelColor = new int[1];
+                itemDef.editedModelColor[0] = 7700;
+                itemDef.newModelColor[0] = RandomColor.currentColour;
+                itemDef.modelID = def.modelID;
+                itemDef.modelZoom = def.modelZoom;
+                itemDef.rotationY = def.rotationY;
+                itemDef.rotationX = def.rotationX;
+                itemDef.modelOffset1 = def.modelOffset1;
+                itemDef.modelOffsetY = def.modelOffsetY;
+                itemDef.maleEquip1 = def.maleEquip1;
+                itemDef.femaleEquip1 = def.femaleEquip1;
+                //	System.out.print("model "+def.maleEquip1);
+                break;
 
-        /**
-         * Treasure Island Keys
-         */
-        case 18689:
-            itemDef.name = "Key of blitz";
-            itemDef.actions = new String[5];
-            itemDef.actions[4] = "Drop";
-            itemDef.description = "I wonder what this does..?";
-            break;
-        case 14678:
-            itemDef.name = "Key of cobra";
-            itemDef.actions = new String[5];
-            itemDef.actions[4] = "Drop";
-            itemDef.description = "I wonder what this does..?";
-            break;
-        case 13158:
-            itemDef.name = "Key of fear";
-            itemDef.actions = new String[5];
-            itemDef.actions[4] = "Drop";
-            itemDef.description = "I wonder what this does..?";
-            break;
-        case 13758:
-            itemDef.name = "Key of death";
-            itemDef.actions = new String[5];
-            itemDef.actions[4] = "Drop";
-            itemDef.description = "I wonder what this does..?";
-            break;
-      
-        case 640:
-        	itemDef.name = "Disco Robe Top";
-        	itemDef.newModelColor[0] = RandomColor.currentColour; 
-        	break;
-        case 630:
-        	itemDef.name = "Disco Boots";
-        	itemDef.newModelColor[0] = RandomColor.currentColour; 
-        	break;
-        case 650:
-        	itemDef.name = "Disco Robe Bottom";
-        	itemDef.newModelColor[0] = RandomColor.currentColour; 
-        	break;
-		case 5572:
-			itemDef.name = "Disco partyhat";
-			itemDef.description = "A nice hat from a cracker.";
-			itemDef.actions = new String[5];
-			itemDef.actions[1] = "Wear";
-			itemDef.editedModelColor = new int[1];
-			itemDef.newModelColor = new int[1];
-			itemDef.editedModelColor[0] = 926;
-			itemDef.newModelColor[0] = RandomColor.currentColour; 
-			itemDef.modelID = 2635;
-			itemDef.modelZoom = 440;
-			itemDef.rotationY = 121;
-			itemDef.rotationX = 1845;
-			itemDef.modelOffsetY = 1;
-			itemDef.modelOffset1 = 1;
-			itemDef.maleEquip1 = 187;
-			itemDef.femaleEquip1 = 363;
-			break;
-			
+            /**
+             * Treasure Island Keys
+             */
+            case 18689:
+                itemDef.name = "Key of blitz";
+                itemDef.actions = new String[5];
+                itemDef.actions[4] = "Drop";
+                itemDef.description = "I wonder what this does..?";
+                break;
+            case 14678:
+                itemDef.name = "Key of cobra";
+                itemDef.actions = new String[5];
+                itemDef.actions[4] = "Drop";
+                itemDef.description = "I wonder what this does..?";
+                break;
+            case 13158:
+                itemDef.name = "Key of fear";
+                itemDef.actions = new String[5];
+                itemDef.actions[4] = "Drop";
+                itemDef.description = "I wonder what this does..?";
+                break;
+            case 13758:
+                itemDef.name = "Key of death";
+                itemDef.actions = new String[5];
+                itemDef.actions[4] = "Drop";
+                itemDef.description = "I wonder what this does..?";
+                break;
+
+            case 640:
+                itemDef.name = "Disco Robe Top";
+                itemDef.newModelColor[0] = RandomColor.currentColour;
+                break;
+            case 630:
+                itemDef.name = "Disco Boots";
+                itemDef.newModelColor[0] = RandomColor.currentColour;
+                break;
+            case 650:
+                itemDef.name = "Disco Robe Bottom";
+                itemDef.newModelColor[0] = RandomColor.currentColour;
+                break;
+            case 5572:
+                itemDef.name = "Disco partyhat";
+                itemDef.description = "A nice hat from a cracker.";
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wear";
+                itemDef.editedModelColor = new int[1];
+                itemDef.newModelColor = new int[1];
+                itemDef.editedModelColor[0] = 926;
+                itemDef.newModelColor[0] = RandomColor.currentColour;
+                itemDef.modelID = 2635;
+                itemDef.modelZoom = 440;
+                itemDef.rotationY = 121;
+                itemDef.rotationX = 1845;
+                itemDef.modelOffsetY = 1;
+                itemDef.modelOffset1 = 1;
+                itemDef.maleEquip1 = 187;
+                itemDef.femaleEquip1 = 363;
+                break;
+
             /** OSRS && NEW ITEMS **/
             case 13247:
                 itemDef.modelID = 29240;
@@ -865,21 +873,21 @@ public final class ItemDefinition {
                 itemDef.maleEquip1 = 44812;
                 itemDef.femaleEquip1 = 44812;
                 break;
-          
-            case 14062: 
+
+            case 14062:
                 itemDef.modelID = 50011;
-		        itemDef.name = "Vanguard legs";
-		        itemDef.modelZoom = 1711;
-		        itemDef.rotationX = 0;
-		        itemDef.rotationY = 360;
-		        itemDef.modelOffset1 = 3;
-		        itemDef.modelOffsetY = -11;
-	            itemDef.groundActions = new String[] { null, null, "Take", null, null };
-		        itemDef.actions = new String[5];
-		        itemDef.actions[1] = "Wear";
-		        itemDef.maleEquip1 = 44771;
-		        itemDef.femaleEquip1 = 44771;
-		        break;
+                itemDef.name = "Vanguard legs";
+                itemDef.modelZoom = 1711;
+                itemDef.rotationX = 0;
+                itemDef.rotationY = 360;
+                itemDef.modelOffset1 = 3;
+                itemDef.modelOffsetY = -11;
+                itemDef.groundActions = new String[] { null, null, "Take", null, null };
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wear";
+                itemDef.maleEquip1 = 44771;
+                itemDef.femaleEquip1 = 44771;
+                break;
             case 20016:
                 itemDef.modelID = 44704;
                 itemDef.name = "Battle-mage helm";
@@ -1522,11 +1530,11 @@ public final class ItemDefinition {
                 break;
             case 4202:
                 itemDef.name = "Ring of Coins";
-            	break;
+                break;
             case 2568:
-            	itemDef.name = "Ring of Wealthier";
-            	break;
-            
+                itemDef.name = "Ring of Wealthier";
+                break;
+
             case 2677:
             case 2678:
             case 2679:
@@ -2166,719 +2174,719 @@ public final class ItemDefinition {
                 itemDef.actions = new String[]{null, null, null, null, null, null};
                 break;
             case 20787:
-    			itemDef.modelID = 35118;
-    			itemDef.name = "Golden mining gloves";
-    			itemDef.modelZoom = 1049;
-    			itemDef.rotationX = 377;
-    			itemDef.rotationY = 970;
-    			itemDef.modelOffset1 = -1;
-    			itemDef.modelOffsetY = -1;
-    			itemDef.maleEquip1 = 35119;
-    			itemDef.femaleEquip1 = 35120;
-    			itemDef.groundActions = new String[5];
-    			itemDef.groundActions[2] = "Take";
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wear";
-    			itemDef.actions[4] = "Drop";
-    		break;
-    		case 20788:
-    			itemDef.modelID = 35121;
-    			itemDef.name = "Golden mining boots";
-    			itemDef.modelZoom = 848;
-    			itemDef.rotationX = 177;
-    			itemDef.rotationY = 195;
-    			itemDef.modelOffset1 = 7;
-    			itemDef.modelOffsetY = -20;
-    			itemDef.maleEquip1 = 35122;
-    			itemDef.femaleEquip1 = 35123;
-    			itemDef.groundActions = new String[5];
-    			itemDef.groundActions[2] = "Take";
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wear";
-    			itemDef.actions[4] = "Drop";
-    		break;
-    		case 20789:
-    			itemDef.modelID = 35124;
-    			itemDef.name = "Golden mining helmet";
-    			itemDef.modelZoom = 976;
-    			itemDef.rotationX = 132;
-    			itemDef.rotationY = 165;
-    			itemDef.modelOffset1 = 0;
-    			itemDef.modelOffsetY = 0;
-    			itemDef.maleEquip1 = 35125;
-    			itemDef.femaleEquip1 = 35126;
-    			itemDef.groundActions = new String[5];
-    			itemDef.groundActions[2] = "Take";
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wear";
-    			itemDef.actions[4] = "Drop";
-    		break;
-    		case 15001:
-                 itemDef.modelID = 35739;
-                 itemDef.actions = new String[5];
-                 itemDef.actions[1] = "Wield";
-                 itemDef.name = "Ghrazi rapier";
-                 itemDef.description = "It is the Ghrazi Rapier";
-                 itemDef.modelZoom = 2200;
-                 itemDef.stackable = false;
-                 itemDef.rotationX = 1603;
-                 itemDef.rotationY = 552;
-                 itemDef.maleEquip1 = 35374;
-                 itemDef.femaleEquip1 = 35369;
-                 break;
-             case 15000:
-                 itemDef.modelID = 35742;
-                 itemDef.actions = new String[5];
-                 itemDef.actions[1] = "Wield";
-                 itemDef.name = "@or2@Scythe Of Vitur";
-                 itemDef.description = "It is the Scythe Of Vitur";
-                 itemDef.modelZoom = 2200;
-                 itemDef.stackable = false;
-                 itemDef.rotationX = 23;
-                 itemDef.rotationY = 327;
-                 itemDef.maleEquip1 = 35371;
-                 itemDef.femaleEquip1 = 35371;
-                 break;
-    		case 20790:
-    			itemDef.modelID = 35127;
-    			itemDef.name = "Golden mining trousers";
-    			itemDef.modelZoom = 1616;
-    			itemDef.rotationX = 276;
-    			itemDef.rotationY = 1829;
-    			itemDef.modelOffset1 = 0;
-    			itemDef.modelOffsetY = 11;
-    			itemDef.maleEquip1 = 35128;
-    			itemDef.femaleEquip1 = 35129;
-    			itemDef.groundActions = new String[5];
-    			itemDef.groundActions[2] = "Take";
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wear";
-    			itemDef.actions[4] = "Drop";
-    		break;
-    		case 13356:
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wear";
-    			itemDef.modelID = 65495;
-    			itemDef.modelZoom = 2200;
-    			itemDef.rotationY = 504;
-    			itemDef.rotationX = 1000;
-    			itemDef.modelOffset1 = 30;
-    			itemDef.modelOffsetY = 35;
-    			itemDef.maleEquip1 = 65496;
-    			itemDef.femaleEquip1 = 65496;
-    			itemDef.stackable = false;
-    			itemDef.name = "Master agility cape";
-    			itemDef.description = "Master agility cape";
-    			break;
-    		 case 11350: 
-   		      ItemDefinition itemDef21 = forID(11732);
-   		      itemDef.modelID = itemDef21.modelID;
-   		      itemDef.maleEquip1 = itemDef21.maleEquip1;
-   		      itemDef.femaleEquip1 = itemDef21.femaleEquip1;
-   		      itemDef.modelOffset1 = itemDef21.modelOffset1;
-   		      itemDef.modelOffsetX = itemDef21.modelOffsetX;
-   		      itemDef.modelOffsetY = itemDef21.modelOffsetY;
-   		      itemDef.rotationY = itemDef21.rotationY;
-   		      itemDef.rotationX = itemDef21.rotationX;
-   		      itemDef.modelZoom = itemDef21.modelZoom;
-   		      itemDef.name = "Green Dragon boots ";
-   		      itemDef.actions = itemDef21.actions;
-   		     
-   		      itemDef.editedModelColor = new int[] { 926 };
-   		      itemDef.newModelColor = new int[] { 419770 };
-   		     
-   		      itemDef.stackable = false;
-   		   
-   		      break;
-   		 case 11352: 
-   		      ItemDefinition itemDef2111 = forID(11732);
-   		      itemDef.modelID = itemDef2111.modelID;
-   		      itemDef.maleEquip1 = itemDef2111.maleEquip1;
-   		      itemDef.femaleEquip1 = itemDef2111.femaleEquip1;
-   		      itemDef.modelOffset1 = itemDef2111.modelOffset1;
-   		      itemDef.modelOffsetX = itemDef2111.modelOffsetX;
-   		      itemDef.modelOffsetY = itemDef2111.modelOffsetY;
-   		      itemDef.rotationY = itemDef2111.rotationY;
-   		      itemDef.rotationX = itemDef2111.rotationX;
-   		      itemDef.modelZoom = itemDef2111.modelZoom;
-   		      itemDef.name = "Blue Dragon boots ";
-   		      itemDef.actions = itemDef2111.actions;
-   		     
-   		      itemDef.editedModelColor = new int[] { 926 };
-   		      itemDef.newModelColor  = new int[] { 302770 };
-   		      itemDef.stackable = false;
-   		    
-   		      break;
-   		 case 11351: 
-   		      ItemDefinition itemDef211 = forID(11732);
-   		      itemDef.modelID = itemDef211.modelID;
-   		      itemDef.maleEquip1 = itemDef211.maleEquip1;
-   		      itemDef.femaleEquip1 = itemDef211.femaleEquip1;
-   		      itemDef.modelOffset1 = itemDef211.modelOffset1;
-   		      itemDef.modelOffsetX = itemDef211.modelOffsetX;
-   		      itemDef.modelOffsetY = itemDef211.modelOffsetY;
-   		      itemDef.rotationY = itemDef211.rotationY;
-   		      itemDef.rotationX = itemDef211.rotationX;
-   		      itemDef.modelZoom = itemDef211.modelZoom;
-   		      itemDef.name = "Lava Dragon boots ";
-   		      itemDef.actions = itemDef211.actions;
-   		     
-   		      itemDef.editedModelColor = new int[] { 926 };
-   		      itemDef.newModelColor  = new int[] { 461770 };
-   		      itemDef.stackable = false;
-   		    
-   		      break;
-   
-   		 case 11353: 
-   		      ItemDefinition itemDef211111 = forID(11732);
-   		      itemDef.modelID = itemDef211111.modelID;
-   		      itemDef.maleEquip1 = itemDef211111.maleEquip1;
-   		      itemDef.femaleEquip1 = itemDef211111.femaleEquip1;
-   		      itemDef.modelOffset1 = itemDef211111.modelOffset1;
-   		      itemDef.modelOffsetX = itemDef211111.modelOffsetX;
-   		      itemDef.modelOffsetY = itemDef211111.modelOffsetY;
-   		      itemDef.rotationY = itemDef211111.rotationY;
-   		      itemDef.rotationX = itemDef211111.rotationX;
-   		      itemDef.modelZoom = itemDef211111.modelZoom;
-   		      itemDef.name = "Pink Dragon boots ";
-   		      itemDef.actions = itemDef211111.actions;		 
-   		      itemDef.editedModelColor = new int[] { 926 };
-   		      itemDef.newModelColor  = new int[] { 123770 };
-   		      itemDef.stackable = false;		    
-   		      break;
-   		case 19481:
-			itemDef.name = "Heavy ballista";
-			itemDef.description = "It's a Heavy ballista!";
-			itemDef.modelZoom = 1284;
-			itemDef.rotationY = 189;
-			itemDef.rotationX = 148;
-			itemDef.modelOffset1 = 8;
-			itemDef.modelOffsetY = -18;
-			itemDef.groundActions = new String[] { null, null, "Take", null, null };
-			itemDef.actions = new String[] { null, "Wear", null, null, "Drop" };
-			itemDef.modelID = 31523;
-			itemDef.maleEquip1 = 31236;
-			itemDef.femaleEquip1 = 31236;
-			break;
-   		case 20998:
-			itemDef.actions = new String[5];
-			itemDef.actions[1] = "Wear";
-			itemDef.actions[4] = "Drop";
-			itemDef.modelID = 32799;
-			itemDef.name = "Twisted bow";
-			itemDef.modelZoom = 2000;
-			itemDef.rotationY = 720;
-			itemDef.rotationX = 1500;
-			itemDef.modelOffset1 = 3;
-			itemDef.modelOffsetY = 1;
-			itemDef.femaleEquip1 = 32674;
-			itemDef.maleEquip1 = 32674;
-			itemDef.description = "A mystical bow carved from the twisted remains of the Great Olm.";
-			break;
-        case 4706:
-            itemDef.modelID = 62692;
-            itemDef.name = "Zaryte bow";
-            itemDef.modelZoom = 1703;
-            itemDef.rotationY = 221;
-            itemDef.rotationX = 404;
-            itemDef.modelOffsetX = 0;
-            itemDef.modelOffsetY = -13;
-            itemDef.maleEquip1 = 62750;
-            itemDef.femaleEquip1 = 62750;
-            itemDef.groundActions = new String[5];
-            itemDef.groundActions[2] = "Take";
-            itemDef.actions = new String[5];
-            itemDef.actions[1] = "Wield";
-            itemDef.actions[4] = "Drop";
-            break;
-   		case 8465:
-		    itemDef.name = "Red slayer helmet";
-		    itemDef.description = "You really don't want to wear it inside-out.";
-		    itemDef.modelID = 20861;
-		    itemDef.maleEquip1 = 20862;
-		    itemDef.femaleEquip1 = 20862;
-		    itemDef.modelZoom = 750;
-		    itemDef.actions = new String[] { null, "Wear", "Revert", null, "Drop" };
-		    itemDef.groundActions = new String[] {null, null, "Take", null, null, };
-		    itemDef.rotationX = 1743;
-		    itemDef.rotationY = 69;
-		    itemDef.modelOffset1 = -4;
-		    itemDef.modelOffsetY = -3;
-		
-		    break;
-		    
-		case 8467:
-		    itemDef.name = "Green slayer helmet";
-		    itemDef.description = "You really don't want to wear it inside-out.";
-		    itemDef.modelID = 20859;
-		    itemDef.maleEquip1 = 20860;
-		    itemDef.femaleEquip1 = 20860;
-		    itemDef.modelZoom = 750;
-		    itemDef.actions = new String[] { null, "Wear", "Revert", null, "Drop" };
-		    itemDef.groundActions = new String[] {null, null, "Take", null, null, };
-		    itemDef.rotationX = 1743;
-		    itemDef.rotationY = 69;
-		    itemDef.modelOffset1 = -4;
-		    itemDef.modelOffsetY = -3;
-		   
-		    break;
-		case 8469:
-		    itemDef.name = "Black slayer helmet";
-		    itemDef.description = "You really don't want to wear it inside-out.";
-		    itemDef.modelID = 20863;
-		    itemDef.maleEquip1 = 20864;
-		    itemDef.femaleEquip1 = 20864;
-		    itemDef.modelZoom = 750;
-		    itemDef.actions = new String[] { null, "Wear", "Revert", null, "Drop" };
-		    itemDef.groundActions = new String[] {null, null, "Take", null, null, };
-		    itemDef.rotationX = 1743;
-		    itemDef.rotationY = 69;
-		    itemDef.modelOffset1 = -4;
-		    itemDef.modelOffsetY = -3;
-	
-		    break;
-   		 case 11354: 
-   		      ItemDefinition itemDef2111111 = forID(11732);
-   		      itemDef.modelID = itemDef2111111.modelID;
-   		      itemDef.maleEquip1 = itemDef2111111.maleEquip1;
-   		      itemDef.femaleEquip1 = itemDef2111111.femaleEquip1;
-   		      itemDef.modelOffset1 = itemDef2111111.modelOffset1;
-   		      itemDef.modelOffsetX = itemDef2111111.modelOffsetX;
-   		      itemDef.modelOffsetY = itemDef2111111.modelOffsetY;
-   		      itemDef.rotationY = itemDef2111111.rotationY;
-   		      itemDef.rotationX = itemDef2111111.rotationX;
-   		      itemDef.modelZoom = itemDef2111111.modelZoom;
-   		      itemDef.name = "Yellow Dragon boots ";
-   		      itemDef.actions = itemDef2111111.actions;		 
-   		      itemDef.editedModelColor = new int[] { 926 };
-   		      itemDef.newModelColor  = new int[] { 76770 };
-   		      itemDef.stackable = false;		    
-   		      break;
-   		 case 11355: 
-   		      ItemDefinition itemDef21111111 = forID(11732);
-   		      itemDef.modelID = itemDef21111111.modelID;
-   		      itemDef.maleEquip1 = itemDef21111111.maleEquip1;
-   		      itemDef.femaleEquip1 = itemDef21111111.femaleEquip1;
-   		      itemDef.modelOffset1 = itemDef21111111.modelOffset1;
-   		      itemDef.modelOffsetX = itemDef21111111.modelOffsetX;
-   		      itemDef.modelOffsetY = itemDef21111111.modelOffsetY;
-   		      itemDef.rotationY = itemDef21111111.rotationY;
-   		      itemDef.rotationX = itemDef21111111.rotationX;
-   		      itemDef.modelZoom = itemDef21111111.modelZoom;
-   		      itemDef.name = "Demonic Dragon boots ";
-   		      itemDef.actions = itemDef21111111.actions;		 
-   		      itemDef.editedModelColor = new int[] { 926 };
-   		      itemDef.newModelColor  = new int[] { 266770 };
-   		      itemDef.stackable = false;		    
-   		      break;
-   		 case 11356: 
-   		      ItemDefinition itemDef211111111 = forID(11732);
-   		      itemDef.modelID = itemDef211111111.modelID;
-   		      itemDef.maleEquip1 = itemDef211111111.maleEquip1;
-   		      itemDef.femaleEquip1 = itemDef211111111.femaleEquip1;
-   		      itemDef.modelOffset1 = itemDef211111111.modelOffset1;
-   		      itemDef.modelOffsetX = itemDef211111111.modelOffsetX;
-   		      itemDef.modelOffsetY = itemDef211111111.modelOffsetY;
-   		      itemDef.rotationY = itemDef211111111.rotationY;
-   		      itemDef.rotationX = itemDef211111111.rotationX;
-   		      itemDef.modelZoom = itemDef211111111.modelZoom;
-   		      itemDef.name = "White Dragon boots ";
-   		      itemDef.actions = itemDef211111111.actions;		 
-   		      itemDef.editedModelColor = new int[] { 926 };
-   		      itemDef.newModelColor  = new int[] { 100 };
-   		      itemDef.stackable = false;		    
-   		      break;
-    		case 13657:
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wield";
-    			itemDef.modelID = 65497;
-    			itemDef.modelZoom = 2200;
-    			itemDef.rotationY = 504;
-    			itemDef.rotationX = 1000;
-    			itemDef.modelOffset1 = 30;
-    			itemDef.modelOffsetY = 35;
-    			itemDef.maleEquip1 = 65498;
-    			itemDef.femaleEquip1 = 65498;
-    			itemDef.stackable = false;
-    			   itemDef.rotationY = 0;
-    			itemDef.name = "Master attack cape";
-    			itemDef.description = "Master attack cape";
-    			break;
-    		case 13994:
-    			   itemDef.modelID = 44699;
-    			   itemDef.name = "Vanguard gloves";
-    			   itemDef.modelZoom = 830;
-    			   itemDef.rotationX = 536;
-    			   itemDef.rotationY = 0;
-    			   itemDef.modelOffset1 = 9;
-    			   itemDef.modelOffsetY = 3;
-    			   itemDef.stackable = false;
-    			   itemDef.actions = new String[5];
-       			itemDef.actions[1] = "Wear";
-    			   itemDef.maleEquip1 = 44758;
-    			   itemDef.femaleEquip1 = 44758;
-    			   break;
+                itemDef.modelID = 35118;
+                itemDef.name = "Golden mining gloves";
+                itemDef.modelZoom = 1049;
+                itemDef.rotationX = 377;
+                itemDef.rotationY = 970;
+                itemDef.modelOffset1 = -1;
+                itemDef.modelOffsetY = -1;
+                itemDef.maleEquip1 = 35119;
+                itemDef.femaleEquip1 = 35120;
+                itemDef.groundActions = new String[5];
+                itemDef.groundActions[2] = "Take";
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wear";
+                itemDef.actions[4] = "Drop";
+                break;
+            case 20788:
+                itemDef.modelID = 35121;
+                itemDef.name = "Golden mining boots";
+                itemDef.modelZoom = 848;
+                itemDef.rotationX = 177;
+                itemDef.rotationY = 195;
+                itemDef.modelOffset1 = 7;
+                itemDef.modelOffsetY = -20;
+                itemDef.maleEquip1 = 35122;
+                itemDef.femaleEquip1 = 35123;
+                itemDef.groundActions = new String[5];
+                itemDef.groundActions[2] = "Take";
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wear";
+                itemDef.actions[4] = "Drop";
+                break;
+            case 20789:
+                itemDef.modelID = 35124;
+                itemDef.name = "Golden mining helmet";
+                itemDef.modelZoom = 976;
+                itemDef.rotationX = 132;
+                itemDef.rotationY = 165;
+                itemDef.modelOffset1 = 0;
+                itemDef.modelOffsetY = 0;
+                itemDef.maleEquip1 = 35125;
+                itemDef.femaleEquip1 = 35126;
+                itemDef.groundActions = new String[5];
+                itemDef.groundActions[2] = "Take";
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wear";
+                itemDef.actions[4] = "Drop";
+                break;
+            case 15001:
+                itemDef.modelID = 35739;
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.name = "Ghrazi rapier";
+                itemDef.description = "It is the Ghrazi Rapier";
+                itemDef.modelZoom = 2200;
+                itemDef.stackable = false;
+                itemDef.rotationX = 1603;
+                itemDef.rotationY = 552;
+                itemDef.maleEquip1 = 35374;
+                itemDef.femaleEquip1 = 35369;
+                break;
+            case 15000:
+                itemDef.modelID = 35742;
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.name = "@or2@Scythe Of Vitur";
+                itemDef.description = "It is the Scythe Of Vitur";
+                itemDef.modelZoom = 2200;
+                itemDef.stackable = false;
+                itemDef.rotationX = 23;
+                itemDef.rotationY = 327;
+                itemDef.maleEquip1 = 35371;
+                itemDef.femaleEquip1 = 35371;
+                break;
+            case 20790:
+                itemDef.modelID = 35127;
+                itemDef.name = "Golden mining trousers";
+                itemDef.modelZoom = 1616;
+                itemDef.rotationX = 276;
+                itemDef.rotationY = 1829;
+                itemDef.modelOffset1 = 0;
+                itemDef.modelOffsetY = 11;
+                itemDef.maleEquip1 = 35128;
+                itemDef.femaleEquip1 = 35129;
+                itemDef.groundActions = new String[5];
+                itemDef.groundActions[2] = "Take";
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wear";
+                itemDef.actions[4] = "Drop";
+                break;
+            case 13356:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wear";
+                itemDef.modelID = 65495;
+                itemDef.modelZoom = 2200;
+                itemDef.rotationY = 504;
+                itemDef.rotationX = 1000;
+                itemDef.modelOffset1 = 30;
+                itemDef.modelOffsetY = 35;
+                itemDef.maleEquip1 = 65496;
+                itemDef.femaleEquip1 = 65496;
+                itemDef.stackable = false;
+                itemDef.name = "Master agility cape";
+                itemDef.description = "Master agility cape";
+                break;
+            case 11350:
+                ItemDefinition itemDef21 = forID(11732);
+                itemDef.modelID = itemDef21.modelID;
+                itemDef.maleEquip1 = itemDef21.maleEquip1;
+                itemDef.femaleEquip1 = itemDef21.femaleEquip1;
+                itemDef.modelOffset1 = itemDef21.modelOffset1;
+                itemDef.modelOffsetX = itemDef21.modelOffsetX;
+                itemDef.modelOffsetY = itemDef21.modelOffsetY;
+                itemDef.rotationY = itemDef21.rotationY;
+                itemDef.rotationX = itemDef21.rotationX;
+                itemDef.modelZoom = itemDef21.modelZoom;
+                itemDef.name = "Green Dragon boots ";
+                itemDef.actions = itemDef21.actions;
 
-    			  case 13995:
-    			   itemDef.modelID = 44700;
-    			   itemDef.name = "Vanguard boots";
-    			   itemDef.modelZoom = 848;
-    			   itemDef.rotationY = 141;
-    			   itemDef.rotationX = 141;
-    			   itemDef.modelOffset1 = 4;
-    			   itemDef.modelOffsetY = 0;
-    			   itemDef.stackable = false;
-    			   itemDef.actions = new String[5];
-       			itemDef.actions[1] = "Wear";
-    			   itemDef.maleEquip1 = 44752;
-    			   itemDef.femaleEquip1 = 44752;
-    			   break;
-    		case 13658:
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wield";
-    			itemDef.modelID = 65499;
-    			itemDef.modelZoom = 2200;
-    			itemDef.rotationY = 504;
-    			itemDef.rotationX = 1000;
-    			itemDef.modelOffset1 = 30;
-    			itemDef.modelOffsetY = 35;
-    			itemDef.maleEquip1 = 65500;
-    			itemDef.femaleEquip1 = 65500;
-    			itemDef.stackable = false;
-    			itemDef.name = "Master const. cape";
-    			itemDef.description = "Master const. cape";
-    			break;
-    		case 13359:
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wield";
-    			itemDef.modelID = 65501;
-    			itemDef.modelZoom = 2200;
-    			itemDef.rotationY = 504;
-    			itemDef.rotationX = 1000;
-    			itemDef.modelOffset1 = 30;
-    			itemDef.modelOffsetY = 35;
-    			itemDef.maleEquip1 = 65502;
-    			itemDef.femaleEquip1 = 65502;
-    			itemDef.stackable = false;
-    			itemDef.name = "master cooking cape";
-    			itemDef.description = "Master cooking cape";
-    			break;
-    		case 13360:
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wield";
-    			itemDef.modelID = 65503;
+                itemDef.editedModelColor = new int[] { 926 };
+                itemDef.newModelColor = new int[] { 419770 };
+
+                itemDef.stackable = false;
+
+                break;
+            case 11352:
+                ItemDefinition itemDef2111 = forID(11732);
+                itemDef.modelID = itemDef2111.modelID;
+                itemDef.maleEquip1 = itemDef2111.maleEquip1;
+                itemDef.femaleEquip1 = itemDef2111.femaleEquip1;
+                itemDef.modelOffset1 = itemDef2111.modelOffset1;
+                itemDef.modelOffsetX = itemDef2111.modelOffsetX;
+                itemDef.modelOffsetY = itemDef2111.modelOffsetY;
+                itemDef.rotationY = itemDef2111.rotationY;
+                itemDef.rotationX = itemDef2111.rotationX;
+                itemDef.modelZoom = itemDef2111.modelZoom;
+                itemDef.name = "Blue Dragon boots ";
+                itemDef.actions = itemDef2111.actions;
+
+                itemDef.editedModelColor = new int[] { 926 };
+                itemDef.newModelColor  = new int[] { 302770 };
+                itemDef.stackable = false;
+
+                break;
+            case 11351:
+                ItemDefinition itemDef211 = forID(11732);
+                itemDef.modelID = itemDef211.modelID;
+                itemDef.maleEquip1 = itemDef211.maleEquip1;
+                itemDef.femaleEquip1 = itemDef211.femaleEquip1;
+                itemDef.modelOffset1 = itemDef211.modelOffset1;
+                itemDef.modelOffsetX = itemDef211.modelOffsetX;
+                itemDef.modelOffsetY = itemDef211.modelOffsetY;
+                itemDef.rotationY = itemDef211.rotationY;
+                itemDef.rotationX = itemDef211.rotationX;
+                itemDef.modelZoom = itemDef211.modelZoom;
+                itemDef.name = "Lava Dragon boots ";
+                itemDef.actions = itemDef211.actions;
+
+                itemDef.editedModelColor = new int[] { 926 };
+                itemDef.newModelColor  = new int[] { 461770 };
+                itemDef.stackable = false;
+
+                break;
+
+            case 11353:
+                ItemDefinition itemDef211111 = forID(11732);
+                itemDef.modelID = itemDef211111.modelID;
+                itemDef.maleEquip1 = itemDef211111.maleEquip1;
+                itemDef.femaleEquip1 = itemDef211111.femaleEquip1;
+                itemDef.modelOffset1 = itemDef211111.modelOffset1;
+                itemDef.modelOffsetX = itemDef211111.modelOffsetX;
+                itemDef.modelOffsetY = itemDef211111.modelOffsetY;
+                itemDef.rotationY = itemDef211111.rotationY;
+                itemDef.rotationX = itemDef211111.rotationX;
+                itemDef.modelZoom = itemDef211111.modelZoom;
+                itemDef.name = "Pink Dragon boots ";
+                itemDef.actions = itemDef211111.actions;
+                itemDef.editedModelColor = new int[] { 926 };
+                itemDef.newModelColor  = new int[] { 123770 };
+                itemDef.stackable = false;
+                break;
+            case 19481:
+                itemDef.name = "Heavy ballista";
+                itemDef.description = "It's a Heavy ballista!";
+                itemDef.modelZoom = 1284;
+                itemDef.rotationY = 189;
+                itemDef.rotationX = 148;
+                itemDef.modelOffset1 = 8;
+                itemDef.modelOffsetY = -18;
+                itemDef.groundActions = new String[] { null, null, "Take", null, null };
+                itemDef.actions = new String[] { null, "Wear", null, null, "Drop" };
+                itemDef.modelID = 31523;
+                itemDef.maleEquip1 = 31236;
+                itemDef.femaleEquip1 = 31236;
+                break;
+            case 20998:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wear";
+                itemDef.actions[4] = "Drop";
+                itemDef.modelID = 32799;
+                itemDef.name = "Twisted bow";
+                itemDef.modelZoom = 2000;
+                itemDef.rotationY = 720;
+                itemDef.rotationX = 1500;
+                itemDef.modelOffset1 = 3;
+                itemDef.modelOffsetY = 1;
+                itemDef.femaleEquip1 = 32674;
+                itemDef.maleEquip1 = 32674;
+                itemDef.description = "A mystical bow carved from the twisted remains of the Great Olm.";
+                break;
+            case 4706:
+                itemDef.modelID = 62692;
+                itemDef.name = "Zaryte bow";
+                itemDef.modelZoom = 1703;
+                itemDef.rotationY = 221;
+                itemDef.rotationX = 404;
+                itemDef.modelOffsetX = 0;
+                itemDef.modelOffsetY = -13;
+                itemDef.maleEquip1 = 62750;
+                itemDef.femaleEquip1 = 62750;
+                itemDef.groundActions = new String[5];
+                itemDef.groundActions[2] = "Take";
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.actions[4] = "Drop";
+                break;
+            case 8465:
+                itemDef.name = "Red slayer helmet";
+                itemDef.description = "You really don't want to wear it inside-out.";
+                itemDef.modelID = 20861;
+                itemDef.maleEquip1 = 20862;
+                itemDef.femaleEquip1 = 20862;
+                itemDef.modelZoom = 750;
+                itemDef.actions = new String[] { null, "Wear", "Revert", null, "Drop" };
+                itemDef.groundActions = new String[] {null, null, "Take", null, null, };
+                itemDef.rotationX = 1743;
+                itemDef.rotationY = 69;
+                itemDef.modelOffset1 = -4;
+                itemDef.modelOffsetY = -3;
+
+                break;
+
+            case 8467:
+                itemDef.name = "Green slayer helmet";
+                itemDef.description = "You really don't want to wear it inside-out.";
+                itemDef.modelID = 20859;
+                itemDef.maleEquip1 = 20860;
+                itemDef.femaleEquip1 = 20860;
+                itemDef.modelZoom = 750;
+                itemDef.actions = new String[] { null, "Wear", "Revert", null, "Drop" };
+                itemDef.groundActions = new String[] {null, null, "Take", null, null, };
+                itemDef.rotationX = 1743;
+                itemDef.rotationY = 69;
+                itemDef.modelOffset1 = -4;
+                itemDef.modelOffsetY = -3;
+
+                break;
+            case 8469:
+                itemDef.name = "Black slayer helmet";
+                itemDef.description = "You really don't want to wear it inside-out.";
+                itemDef.modelID = 20863;
+                itemDef.maleEquip1 = 20864;
+                itemDef.femaleEquip1 = 20864;
+                itemDef.modelZoom = 750;
+                itemDef.actions = new String[] { null, "Wear", "Revert", null, "Drop" };
+                itemDef.groundActions = new String[] {null, null, "Take", null, null, };
+                itemDef.rotationX = 1743;
+                itemDef.rotationY = 69;
+                itemDef.modelOffset1 = -4;
+                itemDef.modelOffsetY = -3;
+
+                break;
+            case 11354:
+                ItemDefinition itemDef2111111 = forID(11732);
+                itemDef.modelID = itemDef2111111.modelID;
+                itemDef.maleEquip1 = itemDef2111111.maleEquip1;
+                itemDef.femaleEquip1 = itemDef2111111.femaleEquip1;
+                itemDef.modelOffset1 = itemDef2111111.modelOffset1;
+                itemDef.modelOffsetX = itemDef2111111.modelOffsetX;
+                itemDef.modelOffsetY = itemDef2111111.modelOffsetY;
+                itemDef.rotationY = itemDef2111111.rotationY;
+                itemDef.rotationX = itemDef2111111.rotationX;
+                itemDef.modelZoom = itemDef2111111.modelZoom;
+                itemDef.name = "Yellow Dragon boots ";
+                itemDef.actions = itemDef2111111.actions;
+                itemDef.editedModelColor = new int[] { 926 };
+                itemDef.newModelColor  = new int[] { 76770 };
+                itemDef.stackable = false;
+                break;
+            case 11355:
+                ItemDefinition itemDef21111111 = forID(11732);
+                itemDef.modelID = itemDef21111111.modelID;
+                itemDef.maleEquip1 = itemDef21111111.maleEquip1;
+                itemDef.femaleEquip1 = itemDef21111111.femaleEquip1;
+                itemDef.modelOffset1 = itemDef21111111.modelOffset1;
+                itemDef.modelOffsetX = itemDef21111111.modelOffsetX;
+                itemDef.modelOffsetY = itemDef21111111.modelOffsetY;
+                itemDef.rotationY = itemDef21111111.rotationY;
+                itemDef.rotationX = itemDef21111111.rotationX;
+                itemDef.modelZoom = itemDef21111111.modelZoom;
+                itemDef.name = "Demonic Dragon boots ";
+                itemDef.actions = itemDef21111111.actions;
+                itemDef.editedModelColor = new int[] { 926 };
+                itemDef.newModelColor  = new int[] { 266770 };
+                itemDef.stackable = false;
+                break;
+            case 11356:
+                ItemDefinition itemDef211111111 = forID(11732);
+                itemDef.modelID = itemDef211111111.modelID;
+                itemDef.maleEquip1 = itemDef211111111.maleEquip1;
+                itemDef.femaleEquip1 = itemDef211111111.femaleEquip1;
+                itemDef.modelOffset1 = itemDef211111111.modelOffset1;
+                itemDef.modelOffsetX = itemDef211111111.modelOffsetX;
+                itemDef.modelOffsetY = itemDef211111111.modelOffsetY;
+                itemDef.rotationY = itemDef211111111.rotationY;
+                itemDef.rotationX = itemDef211111111.rotationX;
+                itemDef.modelZoom = itemDef211111111.modelZoom;
+                itemDef.name = "White Dragon boots ";
+                itemDef.actions = itemDef211111111.actions;
+                itemDef.editedModelColor = new int[] { 926 };
+                itemDef.newModelColor  = new int[] { 100 };
+                itemDef.stackable = false;
+                break;
+            case 13657:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.modelID = 65497;
+                itemDef.modelZoom = 2200;
+                itemDef.rotationY = 504;
+                itemDef.rotationX = 1000;
+                itemDef.modelOffset1 = 30;
+                itemDef.modelOffsetY = 35;
+                itemDef.maleEquip1 = 65498;
+                itemDef.femaleEquip1 = 65498;
+                itemDef.stackable = false;
+                itemDef.rotationY = 0;
+                itemDef.name = "Master attack cape";
+                itemDef.description = "Master attack cape";
+                break;
+            case 13994:
+                itemDef.modelID = 44699;
+                itemDef.name = "Vanguard gloves";
+                itemDef.modelZoom = 830;
+                itemDef.rotationX = 536;
+                itemDef.rotationY = 0;
+                itemDef.modelOffset1 = 9;
+                itemDef.modelOffsetY = 3;
+                itemDef.stackable = false;
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wear";
+                itemDef.maleEquip1 = 44758;
+                itemDef.femaleEquip1 = 44758;
+                break;
+
+            case 13995:
+                itemDef.modelID = 44700;
+                itemDef.name = "Vanguard boots";
+                itemDef.modelZoom = 848;
+                itemDef.rotationY = 141;
+                itemDef.rotationX = 141;
+                itemDef.modelOffset1 = 4;
+                itemDef.modelOffsetY = 0;
+                itemDef.stackable = false;
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wear";
+                itemDef.maleEquip1 = 44752;
+                itemDef.femaleEquip1 = 44752;
+                break;
+            case 13658:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.modelID = 65499;
+                itemDef.modelZoom = 2200;
+                itemDef.rotationY = 504;
+                itemDef.rotationX = 1000;
+                itemDef.modelOffset1 = 30;
+                itemDef.modelOffsetY = 35;
+                itemDef.maleEquip1 = 65500;
+                itemDef.femaleEquip1 = 65500;
+                itemDef.stackable = false;
+                itemDef.name = "Master const. cape";
+                itemDef.description = "Master const. cape";
+                break;
+            case 13359:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.modelID = 65501;
+                itemDef.modelZoom = 2200;
+                itemDef.rotationY = 504;
+                itemDef.rotationX = 1000;
+                itemDef.modelOffset1 = 30;
+                itemDef.modelOffsetY = 35;
+                itemDef.maleEquip1 = 65502;
+                itemDef.femaleEquip1 = 65502;
+                itemDef.stackable = false;
+                itemDef.name = "master cooking cape";
+                itemDef.description = "Master cooking cape";
+                break;
+            case 13360:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.modelID = 65503;
                 itemDef.modelZoom = 1385;
                 itemDef.modelOffset1 = 0;
                 itemDef.modelOffsetY = 24;
                 itemDef.rotationY = 279;
                 itemDef.rotationX = 948;
-    			itemDef.maleEquip1 = 65504;
-    			itemDef.femaleEquip1 = 65504;
-    			itemDef.stackable = false;
-    			itemDef.name = "master crafting cape";
-    			itemDef.description = "Master crafting cape";
-    			break;
-    		case 13361:
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wield";
-    			itemDef.modelID = 65505;
-    			itemDef.modelZoom = 2200;
-    			itemDef.rotationY = 504;
-    			itemDef.rotationX = 1000;
-    			itemDef.modelOffset1 = 30;
-    			itemDef.modelOffsetY = 35;
-    			itemDef.maleEquip1 = 65506;
-    			itemDef.femaleEquip1 = 65506;
-    			itemDef.stackable = false;
-    			itemDef.name = "master defence cape";
-    			itemDef.description = "Master defence cape";
-    			break;
-    		case 13662:
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wield";
-    			itemDef.modelID = 65507;
-    			itemDef.modelZoom = 2200;
-    			itemDef.rotationY = 504;
-    			itemDef.rotationX = 1000;
-    			itemDef.modelOffset1 = 30;
-    			itemDef.modelOffsetY = 35;
-    			itemDef.maleEquip1 = 65508;
-    			itemDef.femaleEquip1 = 65508;
-    			itemDef.stackable = false;
-    			itemDef.name = "master farming cape";
-    			itemDef.description = "Master farming cape";
-    			break;
-    		case 13664:
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wield";
-    			itemDef.modelID = 65509;
-    			itemDef.modelZoom = 2200;
-    			itemDef.rotationY = 504;
-    			itemDef.rotationX = 1000;
-    			itemDef.modelOffset1 = 30;
-    			itemDef.modelOffsetY = 35;
-    			itemDef.maleEquip1 = 65510;
-    			itemDef.femaleEquip1 = 65510;
-    			itemDef.stackable = false;
-    			itemDef.name = "master firemaking cape";
-    			itemDef.description = "Master firemaking cape";
-    			break;
-    		case 13665:
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wield";
-    			itemDef.modelID = 65511;
-    			itemDef.modelZoom = 2200;
-    			itemDef.rotationY = 504;
-    			itemDef.rotationX = 1000;
-    			itemDef.modelOffset1 = 30;
-    			itemDef.modelOffsetY = 35;
-    			itemDef.maleEquip1 = 65512;
-    			itemDef.femaleEquip1 = 65512;
-    			itemDef.stackable = false;
-    			itemDef.name = "master fishing cape";
-    			itemDef.description = "Master fishing cape";
-    			break;
-    		case 13666:
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wield";
-    			itemDef.modelID = 65513;
-    			itemDef.modelZoom = 2200;
-    			itemDef.rotationY = 504;
-    			itemDef.rotationX = 1000;
-    			itemDef.modelOffset1 = 30;
-    			itemDef.modelOffsetY = 35;
-    			itemDef.maleEquip1 = 65514;
-    			itemDef.femaleEquip1 = 65514;
-    			itemDef.stackable = false;
-    			itemDef.name = "master fletching cape";
-    			itemDef.description = "Master fletching cape";
-    			break;
-    		case 13667:
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wield";
-    			itemDef.modelID = 65515;
-    			itemDef.modelZoom = 2200;
-    			itemDef.rotationY = 504;
-    			itemDef.rotationX = 1000;
-    			itemDef.modelOffset1 = 30;
-    			itemDef.modelOffsetY = 35;
-    			itemDef.maleEquip1 = 65516;
-    			itemDef.femaleEquip1 = 65516;
-    			itemDef.stackable = false;
-    			itemDef.name = "master herblore cape";
-    			itemDef.description = "Master herblore cape";
-    			break;
-    		case 13668:
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wield";
-    			itemDef.modelID = 65517;
-    			itemDef.modelZoom = 2200;
-    			itemDef.rotationY = 504;
-    			itemDef.rotationX = 1000;
-    			itemDef.modelOffset1 = 30;
-    			itemDef.modelOffsetY = 35;
-    			itemDef.maleEquip1 = 65518;
-    			itemDef.femaleEquip1 = 65518;
-    			itemDef.stackable = false;
-    			itemDef.name = "master hitpoints cape";
-    			itemDef.description = "Master hitpoints cape";
-    			break;
-    		case 13669:
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wield";
-    			itemDef.modelID = 65519;
-    			itemDef.modelZoom = 2200;
-    			itemDef.rotationY = 504;
-    			itemDef.rotationX = 1000;
-    			itemDef.modelOffset1 = 30;
-    			itemDef.modelOffsetY = 35;
-    			itemDef.maleEquip1 = 65520;
-    			itemDef.femaleEquip1 = 65520;
-    			itemDef.stackable = false;
-    			itemDef.name = "master hunter cape";
-    			itemDef.description = "Master hunter cape";
-    			break;
-    		case 13670:
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wield";
-    			itemDef.modelID = 65521;
-    			itemDef.modelZoom = 2200;
-    			itemDef.rotationY = 504;
-    			itemDef.rotationX = 1000;
-    			itemDef.modelOffset1 = 30;
-    			itemDef.modelOffsetY = 35;
-    			itemDef.maleEquip1 = 65522;
-    			itemDef.femaleEquip1 = 65522;
-    			itemDef.stackable = false;
-    			itemDef.name = "master magic cape";
-    			itemDef.description = "Master magic cape";
-    			break;
-    		case 13671:
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wield";
-    			itemDef.modelID = 65523;
-    			itemDef.modelZoom = 2200;
-    			itemDef.rotationY = 504;
-    			itemDef.rotationX = 1000;
-    			itemDef.modelOffset1 = 30;
-    			itemDef.modelOffsetY = 35;
-    			itemDef.maleEquip1 = 65524;
-    			itemDef.femaleEquip1 = 65524;
-    			itemDef.stackable = false;
-    			itemDef.name = "master mining cape";
-    			itemDef.description = "Master mining cape";
-    			break;
-    		case 13672:
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wield";
-    			itemDef.modelID = 65525;
-    			itemDef.modelZoom = 2200;
-    			itemDef.rotationY = 504;
-    			itemDef.rotationX = 1000;
-    			itemDef.modelOffset1 = 30;
-    			itemDef.modelOffsetY = 35;
-    			itemDef.maleEquip1 = 65526;
-    			itemDef.femaleEquip1 = 65526;
-    			itemDef.stackable = false;
-    			itemDef.name = "master prayer cape";
-    			itemDef.description = "Master prayer cape";
-    			break;
-    		case 13673:
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wield";
-    			itemDef.modelID = 65527;
-    			itemDef.modelZoom = 2200;
-    			itemDef.rotationY = 504;
-    			itemDef.rotationX = 1000;
-    			itemDef.modelOffset1 = 30;
-    			itemDef.modelOffsetY = 35;
-    			itemDef.maleEquip1 = 65528;
-    			itemDef.femaleEquip1 = 65528;
-    			itemDef.stackable = false;
-    			itemDef.name = "master ranged cape";
-    			itemDef.description = "Master ranged cape";
-    			break;
-    		case 13674:
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wield";
-    			itemDef.modelID = 65529;
-    			itemDef.modelZoom = 2200;
-    			itemDef.rotationY = 504;
-    			itemDef.rotationX = 1000;
-    			itemDef.modelOffset1 = 30;
-    			itemDef.modelOffsetY = 35;
-    			itemDef.maleEquip1 = 65530;
-    			itemDef.femaleEquip1 = 65530;
-    			itemDef.stackable = false;
-    			itemDef.name = "master runecrafting cape";
-    			itemDef.description = "Master runecrafting cape";
-    			break;
-    		case 13675:
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wield";
-    			itemDef.modelID = 65531;
-    			itemDef.modelZoom = 2200;
-    			itemDef.rotationY = 504;
-    			itemDef.rotationX = 1000;
-    			itemDef.modelOffset1 = 30;
-    			itemDef.modelOffsetY = 35;
-    			itemDef.maleEquip1 = 65532;
-    			itemDef.femaleEquip1 = 65532;
-    			itemDef.stackable = false;
-    			itemDef.name = "master slayer cape";
-    			itemDef.description = "Master slayer cape";
-    			break;
-    		case 13676:
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wield";
-    			itemDef.modelID = 65533;
-    			itemDef.modelZoom = 2200;
-    			itemDef.rotationY = 504;
-    			itemDef.rotationX = 1000;
-    			itemDef.modelOffset1 = 30;
-    			itemDef.modelOffsetY = 35;
-    			itemDef.maleEquip1 = 65534;
-    			itemDef.femaleEquip1 = 65534;
-    			itemDef.stackable = false;
-    			itemDef.name = "master smithing cape";
-    			itemDef.description = "Master smithing cape";
-    			break;
-    		case 13690:
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wield";
-    			itemDef.modelID = 65535;
-    			itemDef.modelZoom = 2200;
-    			itemDef.rotationY = 504;
-    			itemDef.rotationX = 1000;
-    			itemDef.modelOffset1 = 30;
-    			itemDef.modelOffsetY = 35;
-    			itemDef.maleEquip1 = 64536;
-    			itemDef.femaleEquip1 = 64536;
-    			itemDef.stackable = false;
-    			itemDef.name = "Master strength cape";
-    			itemDef.description = "Master strength cape";
-    			break;
-    		case 13678:
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wield";
-    			itemDef.modelID = 64537;
-    			itemDef.modelZoom = 2203;
-    			itemDef.rotationY = 504;
-    			itemDef.rotationX = 1000;
-    			itemDef.modelOffset1 = 30;
-    			itemDef.modelOffsetY = 35;
-    			itemDef.maleEquip1 = 64538;
-    			itemDef.femaleEquip1 = 64538;
-    			itemDef.stackable = false;
-    			itemDef.name = "master summoning cape";
-    			itemDef.description = "Master summoning cape";
-    			break;
-    		case 13679:
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wield";
-    			itemDef.modelID = 64539;
-    			itemDef.modelZoom = 2200;
-    			itemDef.rotationY = 504;
-    			itemDef.rotationX = 1000;
-    			itemDef.modelOffset1 = 30;
-    			itemDef.modelOffsetY = 35;
-    			itemDef.maleEquip1 = 64540;
-    			itemDef.femaleEquip1 = 64540;
-    			itemDef.stackable = false;
-    			itemDef.name = "master thieving cape";
-    			itemDef.description = "Master thieving cape";
-    			break;
-    		case 13680:
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wield";
-    			itemDef.modelID = 64541;
-    			itemDef.modelZoom = 2200;
-    			itemDef.rotationY = 504;
-    			itemDef.rotationX = 1000;
-    			itemDef.modelOffset1 = 30;
-    			itemDef.modelOffsetY = 35;
-    			itemDef.maleEquip1 = 64542;
-    			itemDef.femaleEquip1 = 64542;
-    			itemDef.stackable = false;
-    			itemDef.name = "master woodcutting cape";
-    			itemDef.description = "Master woodcutting cape";
-    			break;
-    		case 20791:
-    			itemDef.modelID = 35130;
-    			itemDef.name = "Golden mining top";
-    			itemDef.modelZoom = 1360;
-    			itemDef.rotationX = 609;
-    			itemDef.rotationY = 0;
-    			itemDef.modelOffset1 = 0;
-    			itemDef.modelOffsetY = -1;
-    			itemDef.maleEquip1 = 35131;
-    			itemDef.femaleEquip1 = 351329;
-    			itemDef.groundActions = new String[5];
-    			itemDef.groundActions[2] = "Take";
-    			itemDef.actions = new String[5];
-    			itemDef.actions[1] = "Wear";
-    			itemDef.actions[4] = "Drop";
-    		break;
+                itemDef.maleEquip1 = 65504;
+                itemDef.femaleEquip1 = 65504;
+                itemDef.stackable = false;
+                itemDef.name = "master crafting cape";
+                itemDef.description = "Master crafting cape";
+                break;
+            case 13361:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.modelID = 65505;
+                itemDef.modelZoom = 2200;
+                itemDef.rotationY = 504;
+                itemDef.rotationX = 1000;
+                itemDef.modelOffset1 = 30;
+                itemDef.modelOffsetY = 35;
+                itemDef.maleEquip1 = 65506;
+                itemDef.femaleEquip1 = 65506;
+                itemDef.stackable = false;
+                itemDef.name = "master defence cape";
+                itemDef.description = "Master defence cape";
+                break;
+            case 13662:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.modelID = 65507;
+                itemDef.modelZoom = 2200;
+                itemDef.rotationY = 504;
+                itemDef.rotationX = 1000;
+                itemDef.modelOffset1 = 30;
+                itemDef.modelOffsetY = 35;
+                itemDef.maleEquip1 = 65508;
+                itemDef.femaleEquip1 = 65508;
+                itemDef.stackable = false;
+                itemDef.name = "master farming cape";
+                itemDef.description = "Master farming cape";
+                break;
+            case 13664:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.modelID = 65509;
+                itemDef.modelZoom = 2200;
+                itemDef.rotationY = 504;
+                itemDef.rotationX = 1000;
+                itemDef.modelOffset1 = 30;
+                itemDef.modelOffsetY = 35;
+                itemDef.maleEquip1 = 65510;
+                itemDef.femaleEquip1 = 65510;
+                itemDef.stackable = false;
+                itemDef.name = "master firemaking cape";
+                itemDef.description = "Master firemaking cape";
+                break;
+            case 13665:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.modelID = 65511;
+                itemDef.modelZoom = 2200;
+                itemDef.rotationY = 504;
+                itemDef.rotationX = 1000;
+                itemDef.modelOffset1 = 30;
+                itemDef.modelOffsetY = 35;
+                itemDef.maleEquip1 = 65512;
+                itemDef.femaleEquip1 = 65512;
+                itemDef.stackable = false;
+                itemDef.name = "master fishing cape";
+                itemDef.description = "Master fishing cape";
+                break;
+            case 13666:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.modelID = 65513;
+                itemDef.modelZoom = 2200;
+                itemDef.rotationY = 504;
+                itemDef.rotationX = 1000;
+                itemDef.modelOffset1 = 30;
+                itemDef.modelOffsetY = 35;
+                itemDef.maleEquip1 = 65514;
+                itemDef.femaleEquip1 = 65514;
+                itemDef.stackable = false;
+                itemDef.name = "master fletching cape";
+                itemDef.description = "Master fletching cape";
+                break;
+            case 13667:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.modelID = 65515;
+                itemDef.modelZoom = 2200;
+                itemDef.rotationY = 504;
+                itemDef.rotationX = 1000;
+                itemDef.modelOffset1 = 30;
+                itemDef.modelOffsetY = 35;
+                itemDef.maleEquip1 = 65516;
+                itemDef.femaleEquip1 = 65516;
+                itemDef.stackable = false;
+                itemDef.name = "master herblore cape";
+                itemDef.description = "Master herblore cape";
+                break;
+            case 13668:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.modelID = 65517;
+                itemDef.modelZoom = 2200;
+                itemDef.rotationY = 504;
+                itemDef.rotationX = 1000;
+                itemDef.modelOffset1 = 30;
+                itemDef.modelOffsetY = 35;
+                itemDef.maleEquip1 = 65518;
+                itemDef.femaleEquip1 = 65518;
+                itemDef.stackable = false;
+                itemDef.name = "master hitpoints cape";
+                itemDef.description = "Master hitpoints cape";
+                break;
+            case 13669:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.modelID = 65519;
+                itemDef.modelZoom = 2200;
+                itemDef.rotationY = 504;
+                itemDef.rotationX = 1000;
+                itemDef.modelOffset1 = 30;
+                itemDef.modelOffsetY = 35;
+                itemDef.maleEquip1 = 65520;
+                itemDef.femaleEquip1 = 65520;
+                itemDef.stackable = false;
+                itemDef.name = "master hunter cape";
+                itemDef.description = "Master hunter cape";
+                break;
+            case 13670:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.modelID = 65521;
+                itemDef.modelZoom = 2200;
+                itemDef.rotationY = 504;
+                itemDef.rotationX = 1000;
+                itemDef.modelOffset1 = 30;
+                itemDef.modelOffsetY = 35;
+                itemDef.maleEquip1 = 65522;
+                itemDef.femaleEquip1 = 65522;
+                itemDef.stackable = false;
+                itemDef.name = "master magic cape";
+                itemDef.description = "Master magic cape";
+                break;
+            case 13671:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.modelID = 65523;
+                itemDef.modelZoom = 2200;
+                itemDef.rotationY = 504;
+                itemDef.rotationX = 1000;
+                itemDef.modelOffset1 = 30;
+                itemDef.modelOffsetY = 35;
+                itemDef.maleEquip1 = 65524;
+                itemDef.femaleEquip1 = 65524;
+                itemDef.stackable = false;
+                itemDef.name = "master mining cape";
+                itemDef.description = "Master mining cape";
+                break;
+            case 13672:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.modelID = 65525;
+                itemDef.modelZoom = 2200;
+                itemDef.rotationY = 504;
+                itemDef.rotationX = 1000;
+                itemDef.modelOffset1 = 30;
+                itemDef.modelOffsetY = 35;
+                itemDef.maleEquip1 = 65526;
+                itemDef.femaleEquip1 = 65526;
+                itemDef.stackable = false;
+                itemDef.name = "master prayer cape";
+                itemDef.description = "Master prayer cape";
+                break;
+            case 13673:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.modelID = 65527;
+                itemDef.modelZoom = 2200;
+                itemDef.rotationY = 504;
+                itemDef.rotationX = 1000;
+                itemDef.modelOffset1 = 30;
+                itemDef.modelOffsetY = 35;
+                itemDef.maleEquip1 = 65528;
+                itemDef.femaleEquip1 = 65528;
+                itemDef.stackable = false;
+                itemDef.name = "master ranged cape";
+                itemDef.description = "Master ranged cape";
+                break;
+            case 13674:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.modelID = 65529;
+                itemDef.modelZoom = 2200;
+                itemDef.rotationY = 504;
+                itemDef.rotationX = 1000;
+                itemDef.modelOffset1 = 30;
+                itemDef.modelOffsetY = 35;
+                itemDef.maleEquip1 = 65530;
+                itemDef.femaleEquip1 = 65530;
+                itemDef.stackable = false;
+                itemDef.name = "master runecrafting cape";
+                itemDef.description = "Master runecrafting cape";
+                break;
+            case 13675:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.modelID = 65531;
+                itemDef.modelZoom = 2200;
+                itemDef.rotationY = 504;
+                itemDef.rotationX = 1000;
+                itemDef.modelOffset1 = 30;
+                itemDef.modelOffsetY = 35;
+                itemDef.maleEquip1 = 65532;
+                itemDef.femaleEquip1 = 65532;
+                itemDef.stackable = false;
+                itemDef.name = "master slayer cape";
+                itemDef.description = "Master slayer cape";
+                break;
+            case 13676:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.modelID = 65533;
+                itemDef.modelZoom = 2200;
+                itemDef.rotationY = 504;
+                itemDef.rotationX = 1000;
+                itemDef.modelOffset1 = 30;
+                itemDef.modelOffsetY = 35;
+                itemDef.maleEquip1 = 65534;
+                itemDef.femaleEquip1 = 65534;
+                itemDef.stackable = false;
+                itemDef.name = "master smithing cape";
+                itemDef.description = "Master smithing cape";
+                break;
+            case 13690:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.modelID = 65535;
+                itemDef.modelZoom = 2200;
+                itemDef.rotationY = 504;
+                itemDef.rotationX = 1000;
+                itemDef.modelOffset1 = 30;
+                itemDef.modelOffsetY = 35;
+                itemDef.maleEquip1 = 64536;
+                itemDef.femaleEquip1 = 64536;
+                itemDef.stackable = false;
+                itemDef.name = "Master strength cape";
+                itemDef.description = "Master strength cape";
+                break;
+            case 13678:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.modelID = 64537;
+                itemDef.modelZoom = 2203;
+                itemDef.rotationY = 504;
+                itemDef.rotationX = 1000;
+                itemDef.modelOffset1 = 30;
+                itemDef.modelOffsetY = 35;
+                itemDef.maleEquip1 = 64538;
+                itemDef.femaleEquip1 = 64538;
+                itemDef.stackable = false;
+                itemDef.name = "master summoning cape";
+                itemDef.description = "Master summoning cape";
+                break;
+            case 13679:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.modelID = 64539;
+                itemDef.modelZoom = 2200;
+                itemDef.rotationY = 504;
+                itemDef.rotationX = 1000;
+                itemDef.modelOffset1 = 30;
+                itemDef.modelOffsetY = 35;
+                itemDef.maleEquip1 = 64540;
+                itemDef.femaleEquip1 = 64540;
+                itemDef.stackable = false;
+                itemDef.name = "master thieving cape";
+                itemDef.description = "Master thieving cape";
+                break;
+            case 13680:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.modelID = 64541;
+                itemDef.modelZoom = 2200;
+                itemDef.rotationY = 504;
+                itemDef.rotationX = 1000;
+                itemDef.modelOffset1 = 30;
+                itemDef.modelOffsetY = 35;
+                itemDef.maleEquip1 = 64542;
+                itemDef.femaleEquip1 = 64542;
+                itemDef.stackable = false;
+                itemDef.name = "master woodcutting cape";
+                itemDef.description = "Master woodcutting cape";
+                break;
+            case 20791:
+                itemDef.modelID = 35130;
+                itemDef.name = "Golden mining top";
+                itemDef.modelZoom = 1360;
+                itemDef.rotationX = 609;
+                itemDef.rotationY = 0;
+                itemDef.modelOffset1 = 0;
+                itemDef.modelOffsetY = -1;
+                itemDef.maleEquip1 = 35131;
+                itemDef.femaleEquip1 = 351329;
+                itemDef.groundActions = new String[5];
+                itemDef.groundActions[2] = "Take";
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wear";
+                itemDef.actions[4] = "Drop";
+                break;
             case 15010:
                 itemDef.modelID = 2429;
                 itemDef.name = "Gold Ring";
@@ -5328,7 +5336,7 @@ public final class ItemDefinition {
     			itemDef.modelZoom = 440;
     			itemDef.rotationX = 76;
     			itemDef.rotationY = 1850;
-    			
+
     			itemDef.modelOffsetX = 1;
     			itemDef.modelOffsetY = 1;
     			itemDef.maleEquip1 = 187;
@@ -6463,8 +6471,8 @@ public final class ItemDefinition {
     }
 
     private void readValues(Stream stream) {
-    	boolean osrs = stream == streamOSRS;
-    	
+        boolean osrs = stream == streamOSRS;
+
         do {
             int i = stream.readUnsignedByte();
             if (i == 0) {
@@ -6575,7 +6583,7 @@ public final class ItemDefinition {
                 lendID = stream.readUnsignedWord();
             } else if (i == 117) {
                 lentItemID = stream.readUnsignedWord();
-			}
+            }
         } while (true);
     }
 
@@ -6586,8 +6594,8 @@ public final class ItemDefinition {
             BufferedReader in = new BufferedReader(new FileReader(new File(signlink.findcachedir() + "data/data.txt")));
             String line;
             while((line = in.readLine()) != null) {
-            	 prices[index] = Integer.parseInt(line);
-                 index++;
+                prices[index] = Integer.parseInt(line);
+                index++;
             }
             for (int i : UNTRADEABLE_ITEMS) {
                 untradeableItems.add(i);
@@ -6950,7 +6958,7 @@ public final class ItemDefinition {
             sprite.maxHeight = j6;
         }
         if (k == 0 && i != 5572 && i != 5573 && i != 640 && i != 650 && i != 630) {
-          spriteCache.put(sprite2, i);
+            spriteCache.put(sprite2, i);
         }
         DrawingArea.initDrawingArea(j2, i2, ai1, depthBuffer);
         DrawingArea.setDrawingArea(j3, k2, l2, i3);
@@ -6998,11 +7006,11 @@ public final class ItemDefinition {
         model.light(64 + shadow, 768 + lightness, -50, -10, -50, true);
         model.rendersWithinOneTile = true;
         if (id != 5572 && id != 5573 && id != 640 && id != 650 && id != 630) {
-        	if (osrs) {
-        		modelCacheOSRS.put(model, id);
-        	} else {
-        		modelCache.put(model, id);	
-        	}
+            if (osrs) {
+                modelCacheOSRS.put(model, id);
+            } else {
+                modelCache.put(model, id);
+            }
         }
         return model;
     }
