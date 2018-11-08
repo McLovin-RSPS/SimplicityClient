@@ -4408,7 +4408,13 @@ public class Client extends RSApplet {
 											}
 										}
 										if (!ignoreExamine) {
-											menuActionName[menuActionRow] = "Examine @lre@" + itemDef.name;
+											
+											if (myRights == PlayerRights.OWNER.ordinal() || myRights == PlayerRights.DEVELOPER.ordinal()) {
+												menuActionName[menuActionRow] = "Examine @lre@" + itemDef.name + " @gre@(@whi@" + itemDef.id + "@gre@)";
+											} else {
+												menuActionName[menuActionRow] = "Examine @lre@" + itemDef.name;
+											}
+											
 											menuActionID[menuActionRow] = 1125;
 											menuActionCmd1[menuActionRow] = itemDef.id;
 											menuActionCmd2[menuActionRow] = ptr;
