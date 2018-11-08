@@ -1,13 +1,14 @@
 package com.simplicity.client.cache.definitions;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.google.common.collect.ConcurrentHashMultiset;
-import com.google.common.collect.Multiset;
 import com.simplicity.Configuration;
 import com.simplicity.client.*;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class ItemDefinition {
 
@@ -378,7 +379,7 @@ public final class ItemDefinition {
 
     public static void dumpInterface(int totalItems, int totalItemsOSRS) {
 
-        try {
+       /* try {
             BufferedWriter file = new BufferedWriter(new FileWriter(
                     "../Items.java"), 1024);
 
@@ -455,7 +456,7 @@ public final class ItemDefinition {
 
         } catch(Throwable t) {
             t.printStackTrace();
-        }
+        }*/
     }
 
     public static ItemDefinition forID(int i) {
