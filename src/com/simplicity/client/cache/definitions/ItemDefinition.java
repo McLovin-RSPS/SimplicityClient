@@ -1,13 +1,22 @@
 package com.simplicity.client.cache.definitions;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.collect.ConcurrentHashMultiset;
-import com.google.common.collect.Multiset;
 import com.simplicity.Configuration;
-import com.simplicity.client.*;
+import com.simplicity.client.CacheArchive;
+import com.simplicity.client.DrawingArea;
+import com.simplicity.client.MemCache;
+import com.simplicity.client.Model;
+import com.simplicity.client.RandomColor;
+import com.simplicity.client.Rasterizer;
+import com.simplicity.client.Sprite;
+import com.simplicity.client.Stream;
+import com.simplicity.client.signlink;
 
 public final class ItemDefinition {
 
@@ -376,7 +385,7 @@ public final class ItemDefinition {
         //dumpInterface(totalItems, totalItemsOSRS);
     }
 
-    public static void dumpInterface(int totalItems, int totalItemsOSRS) {
+    /*public static void dumpInterface(int totalItems, int totalItemsOSRS) {
 
         try {
             BufferedWriter file = new BufferedWriter(new FileWriter(
@@ -456,7 +465,7 @@ public final class ItemDefinition {
         } catch(Throwable t) {
             t.printStackTrace();
         }
-    }
+    }*/
 
     public static ItemDefinition forID(int i) {
     	if (i >= OSRS_ITEMS_OFFSET + OSRS_ITEMS_START) {
