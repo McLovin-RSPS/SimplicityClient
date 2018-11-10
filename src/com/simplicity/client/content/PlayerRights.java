@@ -70,6 +70,10 @@ public enum PlayerRights {
         return drawOffsetY;
     }
 
+    public boolean isHighStaff() {
+        return this == ADMINISTRATOR || this == SUPER_ADMIN || this == MANAGER || this == OWNER || this == DEVELOPER;
+    }
+
     public static PlayerRights get(int rights) {
         if (rights > 14) {
             rights -= 2;

@@ -665,6 +665,11 @@ WindowListener {
 			charQueue[writeIndex] = j;
 			writeIndex = writeIndex + 1 & 0x7f;
 		}
+
+		if ((keyevent.isControlDown() && keyevent.getKeyCode() == KeyEvent.VK_V)) {
+			Client.getClient().inputString += Client.getClient().getClipboardContents();
+			Client.inputTaken = true;
+		}
 	}
 
 	public void replyLastPM()

@@ -11,6 +11,10 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.FilteredImageSource;
@@ -19436,7 +19440,7 @@ public class Client extends RSApplet {
 	private int playerId;
 	private boolean menuOpen;
 	private int hoveredInterface;
-	private String inputString;
+	protected String inputString;
 	private final int maxPlayers;
 	private final int myPlayerIndex;
 	private Player[] playerArray;
@@ -21840,6 +21844,31 @@ public class Client extends RSApplet {
 			}
 		}
 		return 0;
+	}
+
+	public String getClipboardContents() {
+		String result = "";
+		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		Transferable contents = clipboard.getContents(null);
+		boolean hasTransferableText = (contents != null)
+				&& contents.isDataFlavorSupported(DataFlavor.stringFlavor);
+		if (hasTransferableText) {
+			try {
+				result = (String) contents.getTransferData(DataFlavor.stringFlavor);
+			} catch (UnsupportedFlavorException ex) {
+				System.out.println(ex);
+				ex.printStackTrace();
+			} catch (IOException ex) {
+				System.out.println(ex);
+				ex.printStackTrace();
+			}
+		}
+		PlayerRights rights = PlayerRights.get(myRights);
+		if (rights.isHighStaff()) {
+			return result;
+		} else {
+			return "";
+		}
 	}
 
 	boolean twitterHover, fbHover, ytHover, soundHover;
