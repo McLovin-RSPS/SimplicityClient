@@ -371,6 +371,14 @@ public final class ItemDefinition {
         priorityModels.add(29614);
         priorityModels.add(29623);
 
+        //Fire Max Cape
+        priorityModels.add(32820);
+        priorityModels.add(32821);
+
+        //Fire Max Hood
+        priorityModels.add(32808);
+        priorityModels.add(32810);
+
         //Infernal Cape
         infernalModels.add(33144);
         infernalModels.add(33103);
