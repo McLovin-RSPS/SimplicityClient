@@ -577,6 +577,31 @@ public class DrawingArea extends QueueNode {
 
 	}
 
+	public static void drawPixels2(int i, int j, int k, int l, int i1) {
+		if (k < topX) {
+			i1 -= topX - k;
+			k = topX;
+		}
+		if (j < topY) {
+			i -= topY - j;
+			j = topY;
+		}
+		if (k + i1 > bottomX) {
+			i1 = bottomX - k;
+		}
+		if (j + i > bottomY) {
+			i = bottomY - j;
+		}
+		int k1 = width - i1;
+		int l1 = k + j * width;
+		for (int i2 = -i; i2 < 0; i2++) {
+			for (int j2 = -i1; j2 < 0; j2++) {
+				pixels[l1++] = l;
+			}
+			l1 += k1;
+		}
+	}
+
 	public static void fillPixels(int i, int j, int k, int l, int i1)
 	{
 		drawLine(i1, l, j, i);

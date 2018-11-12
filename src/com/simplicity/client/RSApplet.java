@@ -26,6 +26,7 @@ import java.awt.event.WindowListener;
 import javax.swing.SwingUtilities;
 
 import com.simplicity.Jframe;
+import com.simplicity.client.content.CustomisableHotKeys;
 
 @SuppressWarnings("all")
 public class RSApplet extends Applet implements Runnable, MouseListener,
@@ -588,6 +589,9 @@ WindowListener {
 		idleTime = 0;
 		int i = keyevent.getKeyCode();
 		int j = keyevent.getKeyChar();
+
+		CustomisableHotKeys.checkPressedKey(i);
+
 		if(i == 17)
 			lastB = 1;
 		else if(i != 83)
@@ -600,7 +604,7 @@ WindowListener {
 				}
 			}
 		}
-		if (hotKey == 508) {
+		/*if (hotKey == 508) {
 			if (i == KeyEvent.VK_ESCAPE) {
 				Client.setTab(3);
 			} else if (i == KeyEvent.VK_F1) {
@@ -628,7 +632,7 @@ WindowListener {
 			} else if (i == KeyEvent.VK_F5) {
 				Client.setTab(0);
 			}
-		}
+		}*/
 		if (j < 30)
 			j = 0;
 		if (i == 37)

@@ -9,8 +9,8 @@ public class SpriteCache {
 	private static OnDemandFetcher onDemandFetcher;
 	public static void initialise(int total, OnDemandFetcher onDemandFetcher_)
 	{
-		spriteCache = new Sprite[total+100];
-		spriteLink = new Sprite[total+100];
+		spriteCache = new Sprite[total+200];
+		spriteLink = new Sprite[total+200];
 		onDemandFetcher = onDemandFetcher_;
 	}
 	public static void loadSprite(final int spriteId, final Sprite sprite, boolean priority)

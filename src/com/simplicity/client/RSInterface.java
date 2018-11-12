@@ -3,9 +3,16 @@ package com.simplicity.client;
 import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.client.cache.definitions.MobDefinition;
 import com.simplicity.client.DrawLine.LineType;
+import com.simplicity.client.content.dropdownmenu.DropDownAction;
+import com.simplicity.client.content.dropdownmenu.DropDownMenu;
 
 @SuppressWarnings("all")
 public class RSInterface {
+
+	public boolean drawInterface(final Client client, int widgetDrawX, int widgetDrawY, int subWidgetDrawX,
+								 int subWidgetDrawY) {
+		return false;
+	}
 	
 	public static void addRectangle(int id, int width, int height, int colour, int alpha, boolean filled) {
 		RSInterface tab = interfaceCache[id] = new RSInterface();
@@ -2934,7 +2941,139 @@ public static void TeleTAB5() {
 		//	CustomInterfaces.loyaltyShop();
 		//	CustomInterfaces.achievementsInterface();
 		dealsInterface(textDrawingAreas);
+		customisableHotKeys(textDrawingAreas);
 		spriteCache = null;
+	}
+
+	private static final void customisableHotKeys(TextDrawingArea[] TDA) {
+
+		int frameIndex = 0;
+
+		RSInterface hotKey = addTabInterface(28630);
+
+		addSprite(28631, SpriteLoader.sprites[1038]); //Main BG
+		addHoverButton_sprite_loader(28632, 1020, 21, 21, "Close", -1, 28633, 3); // Close button
+		addHoveredButton_sprite_loader(28633, 1021, 21, 21, 28634); // Close button hover
+		addText(28635, "Keybinding", 0xFF981F, false, true, 52, TDA, 2); // Title //0xFF981F
+		addConfigButtonWSpriteLoader(28636, 28630, 1039, 1040, 15, 15, "Close Interfaces when using Esc", 1, 5, 400); // Radio button for esc
+		addText(28637, "Esc closes current interface", 0xFF981F, false, true, 52, TDA, 1); // esc text
+
+		addHoverButton_sprite_loader(28638, 1041, 150, 35, "Close", -1, 28639, 1); // Close button
+		addHoveredButton_sprite_loader(28639, 1042, 150, 35, 28640); // Close button hover
+
+		addText(28641, "Restore Defaults", 0xFF981F, false, true, 52, TDA, 2); // restore default button text
+
+		setChildren(51, hotKey);
+		setBounds(28631, 11, 16, frameIndex++, hotKey);
+		setBounds(28632, 471, 23, frameIndex++, hotKey);
+		setBounds(28633, 471, 23, frameIndex++, hotKey);
+		setBounds(28635, 225, 25, frameIndex++, hotKey);
+		setBounds(28636, 46, 285, frameIndex++, hotKey);
+		setBounds(28637, 68, 285, frameIndex++, hotKey);
+		setBounds(28638, 335, 268, frameIndex++, hotKey);
+		setBounds(28639, 335, 268, frameIndex++, hotKey);
+		setBounds(28641, 355, 277, frameIndex++, hotKey);
+
+		int childId = 28642;
+		int startX = 40;
+		int startY = 65;
+		int tabIconX = 46;
+		int tabIconY = 72;
+		for (int spriteIndex = 0; spriteIndex < 14; spriteIndex++) {
+			addSprite(childId, SpriteLoader.sprites[1037]); // Sideicon BG's
+			setBounds(childId, startX, startY, frameIndex++, hotKey);
+			childId++;
+			addSprite(childId,
+					SpriteLoader.sprites[657 + spriteIndex]); // Sideicon BG's
+			setBounds(childId, tabIconX, tabIconY, frameIndex++, hotKey);
+			childId++;
+			startY += 43;
+			tabIconY += 43;
+			if (spriteIndex == 4 || spriteIndex == 9) {
+				startX += 150;
+				startY = 65;
+				tabIconX += spriteIndex == 4 ? 151 : spriteIndex == 9 ? 150 : 152;
+				tabIconY = spriteIndex == 4 ? 68 : 69;
+			} else {
+				tabIconX = tabIconX + (spriteIndex == 0 ? -2
+						: spriteIndex == 1 ? 1 : spriteIndex == 2 ? -2 : spriteIndex == 8 ? 1 : 0);
+				tabIconY = tabIconY + (spriteIndex == 2 ? -3
+						: spriteIndex == 3 ? -2 : spriteIndex == 5 ? 3 : spriteIndex == 8 ? -2 : 0);
+			}
+		}
+
+		startX = 380;
+		startY = 196;
+		for (childId = 28670 + 13; childId > 28669; childId--) {
+			new DropDownMenu(childId, 90, 0x3B3629, 0x695B36, 3, 30,
+					new DropDownAction[]{
+							new DropDownAction(0, "None"), new DropDownAction(1, "F1"),
+							new DropDownAction(2, "F2"), new DropDownAction(3, "F3"),
+							new DropDownAction(4, "F4"), new DropDownAction(5, "F5"),
+							new DropDownAction(6, "F6"), new DropDownAction(7, "F7"),
+							new DropDownAction(8, "F8"), new DropDownAction(9, "F9"),
+							new DropDownAction(10, "F10"), new DropDownAction(11, "F11"),
+							new DropDownAction(12, "F12"), new DropDownAction(13, "ESC")
+					}
+			);
+			setBounds(childId, startX, startY, frameIndex++, hotKey);
+			startY -= 43;
+			if (childId == 28680 || childId == 28675) {
+				startX = childId == 28675 ? 80 : 230;
+				startY = 239;
+			}
+		}
+
+	}
+
+	public static void addHoverButton_sprite_loader(int i, int spriteId, int width, int height, String text,
+													int contentType, int hoverOver, int aT) {// hoverable
+		// button
+		RSInterface tab = addTabInterface(i);
+		tab.id = i;
+		tab.parentID = i;
+		tab.type = 5;
+		tab.atActionType = aT;
+		tab.contentType = contentType;
+		tab.opacity = 0;
+		tab.hoverType = hoverOver;
+		tab.disabledSprite = Client.cacheSprite[spriteId];
+		tab.enabledSprite = Client.cacheSprite[spriteId];
+		tab.width = width;
+		tab.height = height;
+		tab.tooltip = text;
+	}
+
+	public static void addHoveredButton_sprite_loader(int i, int spriteId, int w, int h, int IMAGEID) {// hoverable
+		// button
+		RSInterface tab = addTabInterface(i);
+		tab.parentID = i;
+		tab.id = i;
+		tab.type = 0;
+		tab.atActionType = 0;
+		tab.width = w;
+		tab.height = h;
+		tab.opacity = 0;
+		tab.hoverType = -1;
+		tab.scrollMax = 0;
+		addHoverImage_sprite_loader(IMAGEID, spriteId);
+		tab.totalChildren(1);
+		tab.child(0, IMAGEID, 0, 0);
+	}
+
+	public static void addHoverImage_sprite_loader(int i, int spriteId) {
+		RSInterface tab = addTabInterface(i);
+		tab.id = i;
+		tab.parentID = i;
+		tab.type = 5;
+		tab.atActionType = 0;
+		tab.contentType = 0;
+		tab.width = 512;
+		tab.height = 334;
+		tab.opacity = 0;
+		tab.hoverType = 52;
+		tab.disabledSprite = Client.cacheSprite[spriteId];
+		tab.enabledSprite = Client.cacheSprite[spriteId];
 	}
 
 	public static void raids(TextDrawingArea[] tda) {
@@ -10766,6 +10905,15 @@ public static void addHoverSpriteLoaderButton(int i, int spriteId,
 			public RSInterface() {
 				enabledSpriteId = disabledSpriteId = -1;
 			}
+
+	public RSInterface(int identifier, int width, int height, int type, int atActionType) {
+		id = identifier;
+		this.width = width;
+		this.height = height;
+		this.type = type;
+		this.atActionType = atActionType;
+		interfaceCache[identifier] = this;
+	}
 
 			public int enabledSpriteId, disabledSpriteId;
 			public static CacheArchive cacheArchive;

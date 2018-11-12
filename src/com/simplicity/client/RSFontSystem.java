@@ -541,6 +541,112 @@ public class RSFontSystem extends DrawingArea {
 		}
 	}
 
+	public void drawCenteredString(String string, int drawX, int drawY, int color, int shadow, boolean showCharSixty) {
+		if (string != null) {
+			setColorAndShadow(color, shadow);
+			string = handleOldSyntax(string);
+			drawBasicString(string, drawX - getTextWidth(string) / 2, drawY, showCharSixty);
+		}
+	}
+
+	public void drawBasicString(String string, int drawX, int drawY, boolean showCharSixty) {
+		drawY -= baseCharacterHeight;
+		int startIndex = -1;
+		string = handleOldSyntax(string);
+		for (int currentCharacter = 0; currentCharacter < string.length(); currentCharacter++) {
+			int character = string.charAt(currentCharacter);
+			if (character > 255) {
+				character = 32;
+			}
+			if (character == 60 && !showCharSixty) {
+				startIndex = currentCharacter;
+			} else {
+				if (character == 62 && startIndex != -1) {
+					String effectString = string.substring(startIndex + 1, currentCharacter);
+					startIndex = -1;
+					if (effectString.equals(startEffect)) {
+						character = 60;
+					} else if (effectString.equals(endEffect)) {
+						character = 62;
+					} else if (effectString.equals(aRSString_4135)) {
+						character = 160;
+					} else if (effectString.equals(aRSString_4162)) {
+						character = 173;
+					} else if (effectString.equals(aRSString_4165)) {
+						character = 215;
+					} else if (effectString.equals(aRSString_4147)) {
+						character = 128;
+					} else if (effectString.equals(aRSString_4163)) {
+						character = 169;
+					} else if (effectString.equals(aRSString_4169)) {
+						character = 174;
+					} else {
+						if (effectString.startsWith(startImage)) {
+							try {
+								int imageId = Integer.valueOf(effectString.substring(4));
+								Sprite chatImageId = SpriteLoader.sprites[imageId];
+								int iconModY = chatImageId.maxHeight - ((imageId >= 0 && imageId <= 7) ? 10 : 0);
+								/*if (transparency == 256) {
+									chatImageId.method346(drawX, (drawY + baseCharacterHeight - iconModY));
+								} else {
+									chatImageId.drawSprite(drawX,(drawY + baseCharacterHeight - iconModY), transparency);
+								}*/
+
+								chatImageId.drawSprite(drawX + 2, (drawY + baseCharacterHeight) - 12 + chatImageId.drawOffsetY);
+								drawX += chatImageId.maxWidth;
+							} catch (Exception exception) {
+
+								/* empty */
+							}
+						} else {
+							setTextEffects(effectString);
+						}
+						continue;
+					}
+				}
+				if (startIndex == -1) {
+					int width = characterWidths[character];
+					int height = characterHeights[character];
+					if (character != 32) {
+						if (transparency == 256) {
+							if (textShadowColor != -1) {
+								drawCharacter(character, drawX + characterDrawXOffsets[character] + 1,
+										drawY + characterDrawYOffsets[character] + 1, width, height, textShadowColor,
+										true);
+							}
+							drawCharacter(character, drawX + characterDrawXOffsets[character],
+									drawY + characterDrawYOffsets[character], width, height, textColor, false);
+						} else {
+							if (textShadowColor != -1) {
+								drawTransparentCharacter(character, drawX + characterDrawXOffsets[character] + 1,
+										drawY + characterDrawYOffsets[character] + 1, width, height, textShadowColor,
+										transparency, true);
+							}
+							drawTransparentCharacter(character, drawX + characterDrawXOffsets[character],
+									drawY + characterDrawYOffsets[character], width, height, textColor, transparency,
+									false);
+						}
+					} else if (anInt4178 > 0) {
+						anInt4175 += anInt4178;
+						drawX += anInt4175 >> 8;
+						anInt4175 &= 0xff;
+					}
+					int lineWidth = characterScreenWidths[character];
+					if (strikethroughColor != -1) {
+						DrawingArea.drawHorizontalLine(drawX,
+								drawY + (int) (baseCharacterHeight * 0.69999999999999996D), lineWidth,
+								strikethroughColor);
+					}
+					if (underlineColor != -1) {
+						DrawingArea.drawHorizontalLine(drawX, drawY + baseCharacterHeight, lineWidth,
+								underlineColor);
+					}
+					drawX += lineWidth;
+				}
+			}
+		}
+	}
+
 	public void drawCenteredString(String string, int drawX, int drawY, int color, int shadow) {
 		if (string != null) {
 			setColorAndShadow(color, shadow);

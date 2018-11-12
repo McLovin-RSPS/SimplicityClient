@@ -39,17 +39,7 @@ import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.URL;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 import java.util.zip.CRC32;
 import java.util.zip.GZIPOutputStream;
 
@@ -82,7 +72,10 @@ import com.simplicity.client.cache.definitions.VarBit;
 import com.simplicity.client.cache.definitions.Varp;
 import com.simplicity.client.cache.node.Deque;
 import com.simplicity.client.cache.node.Node;
+import com.simplicity.client.content.CustomisableHotKeys;
 import com.simplicity.client.content.PlayerRights;
+import com.simplicity.client.content.dropdownmenu.DropDownAction;
+import com.simplicity.client.content.dropdownmenu.DropDownMenu;
 import com.simplicity.client.particles.Particle;
 import com.simplicity.client.particles.ParticleDefinition;
 
@@ -319,6 +312,11 @@ public class Client extends RSApplet {
 					quickCurses[i] = Integer.parseInt(q.substring(i, i + 1));
 			}
 			RSFontSystem.SMILIES_TOGGLED = getOption("smilies");
+			for (List<Integer> hotKey : CustomisableHotKeys.getCustomisableHotKeys().values()) {
+				final int keyCode = in.readInt();
+				hotKey.set(0, keyCode);
+				hotKey.set(2, CustomisableHotKeys.ChildTabKeyRelation.getFromKeyCode(keyCode));
+			}
 
 			in.close();
 		} catch (IOException e) {
@@ -391,6 +389,11 @@ public class Client extends RSApplet {
 				stringSave = stringSave + quickCurses[i];
 			}
 			out.writeUTF(stringSave);
+
+			for (List<Integer> hotKey : CustomisableHotKeys.getCustomisableHotKeys().values()) {
+				out.writeInt(hotKey.get(0));
+			}
+
 			out.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -4240,6 +4243,68 @@ public class Client extends RSApplet {
 					menuActionCmd3[menuActionRow] = child.id;
 					menuActionRow++;
 				}
+				if (child.atActionType == 18) {
+					if (child instanceof DropDownMenu) {
+
+						final DropDownMenu dropDownInter = (DropDownMenu) child;
+
+						int rowAmount = (int) Math
+								.ceil((float) dropDownInter.getActions().length / dropDownInter.getColumnAmount());
+						child.height = 16 + (dropDownInter.isOpen() ? 16 * rowAmount + 2 : 0);
+						int childDDMWidth = (dropDownInter.isOpen()
+								? dropDownInter.getColumnWidth() * dropDownInter.getColumnAmount()
+								: child.width);
+						if (mouseX >= childX && mouseY >= childY && mouseX < childX + childDDMWidth
+								&& mouseY < childY + child.height) {
+							int drawX = childX;
+							int drawY = childY;
+
+							if (mouseX >= drawX && mouseX <= drawX + dropDownInter.width && mouseY >= drawY
+									&& mouseY <= drawY + 16) {
+								menuActionName[menuActionRow] = dropDownInter.isOpen() ? "Close" : "Open";
+								menuActionID[menuActionRow] = 1999;
+								menuActionCmd1[menuActionRow] = dropDownInter.id;
+								menuActionCmd2[menuActionRow] = 0;
+								menuActionRow++;
+							}
+
+							if (dropDownInter.isOpen()) {
+
+								drawY += 15;
+								int counter = 0;
+								for (DropDownAction action : dropDownInter.getActions()) {
+									if (action == null) {
+										continue;
+									}
+
+									boolean isHighlighted = mouseX >= drawX
+											&& mouseX <= drawX + dropDownInter.getColumnWidth() && mouseY >= drawY
+											&& mouseY < drawY + 16;
+									action.setHighlighted(isHighlighted);
+
+									if (isHighlighted) {
+										menuActionName[menuActionRow] = action.getMessage();
+										menuActionID[menuActionRow] = 1998;
+										menuActionCmd1[menuActionRow] = dropDownInter.id;
+										menuActionCmd2[menuActionRow] = action.getIdentifier();
+										dropDownMenu = menuActionRow;
+										menuActionRow++;
+										tabAreaAltered = true;
+										break;
+									}
+
+									drawY += 16;
+									counter++;
+									if (counter == rowAmount) {
+										drawX += dropDownInter.getColumnWidth();
+										drawY = childY + 15;
+										counter = 0;
+									}
+								}
+							}
+						}
+					}
+				}
 				if (child.type == 2) {
 					int ptr = 0;
 					for (int height = 0; height < child.height; height++) {
@@ -4412,13 +4477,13 @@ public class Client extends RSApplet {
 											}
 										}
 										if (!ignoreExamine) {
-											
+
 											if (myRights == PlayerRights.OWNER.ordinal() || myRights == PlayerRights.DEVELOPER.ordinal()) {
 												menuActionName[menuActionRow] = "Examine @lre@" + itemDef.name + " @gre@(@whi@" + itemDef.id + "@gre@)";
 											} else {
 												menuActionName[menuActionRow] = "Examine @lre@" + itemDef.name;
 											}
-											
+
 											menuActionID[menuActionRow] = 1125;
 											menuActionCmd1[menuActionRow] = itemDef.id;
 											menuActionCmd2[menuActionRow] = ptr;
@@ -4651,7 +4716,7 @@ public class Client extends RSApplet {
 		variousSettings[168] = musicEnabled ? 3 : 4;
 	}
 
-	private void handleActions(int configID) {
+	public void handleActions(int configID) {
 		int action = 0;
 		if (configID < Varp.cache.length) {
 			action = Varp.cache[configID].usage;
@@ -4849,7 +4914,7 @@ public class Client extends RSApplet {
 							// markhereaj
 							/**
 							 * MobDefinition entityDef_1 = ((NPC) obj).desc;
-							 * 
+							 *
 							 * TargetInformation( spriteDrawX - 30, spriteDrawY - 21, "@whi@"+
 							 * entityDef_1.name +"", ""+ combatDiffColor(myPlayer.combatLevel,
 							 * entityDef_1.combatLevel) + "" + entityDef_1.combatLevel + "", spriteDrawX -
@@ -5770,7 +5835,7 @@ public class Client extends RSApplet {
 	 * resourceTag = worldController.getIDTagForXYZ(z, x, y, uid); int direction =
 	 * resourceTag >> 6 & 3; int type = resourceTag & 0x1f; int objectId =
 	 * worldController.fetchObjectMeshNewUID(z, x, y);
-	 * 
+	 *
 	 * ObjectDefinition objDef = ObjectDefinition.forID(objectId); if
 	 * (objDef.mapSceneID != -1) { Background scene = mapScenes[objDef.mapSceneID];
 	 * if (scene != null) { int sceneX = (objDef.sizeX * 4 - scene.imgWidth) / 2;
@@ -5959,7 +6024,7 @@ public class Client extends RSApplet {
 		}
 		return false;
 	}
-	
+
 	public static signlink signlink;
 
 	public static boolean fromLauncher = false;
@@ -6028,7 +6093,7 @@ public class Client extends RSApplet {
 				 * highestAmtToLoad = todo; } double percentage = (((double) todo / (double)
 				 * highestAmtToLoad) * 100D); normalFont.drawRegularText(false, 180 - 36,
 				 * 0xc8c8c8, "(" + (100 - (int) percentage) + "%)", 30);
-				 * 
+				 *
 				 */
 				drawLoadingMessages(1, "Loading - please wait.", null);
 				gameScreenIP.drawGraphics(clientSize == 0 ? 4 : 0, super.graphics, clientSize == 0 ? 4 : 0);
@@ -6077,7 +6142,7 @@ public class Client extends RSApplet {
 					k = 10;
 					l = 10;
 				}
-				
+
 				flag &= ObjectManager.method189(isOsrsRegion(), k, obData, l);
 			}
 		}
@@ -6161,7 +6226,7 @@ public class Client extends RSApplet {
 					needDrawTabArea = true;
 
 				}
-				
+
 				/**
 				 * OSRS Models Loading *
 				 */
@@ -6169,21 +6234,21 @@ public class Client extends RSApplet {
 					Model.readFirstModelData(onDemandData.buffer, onDemandData.id);
 					needDrawTabArea = true;
 				}
-				
+
 				/**
 				 * Animations Loading *
 				 */
 				if (onDemandData.dataType == ANIM_IDX - 1) {
 					FrameReader.load(onDemandData.id, onDemandData.buffer, false);
 				}
-				
+
 				/**
 				 * OSRS Animations Loading *
 				 */
 				if (onDemandData.dataType == OSRS_ANIM_IDX - 1) {
 					FrameReader.load(onDemandData.id, onDemandData.buffer, true);
 				}
-				
+
 				/**
 				 * Sounds Loading *
 				 */
@@ -6805,7 +6870,7 @@ public class Client extends RSApplet {
 			 * if (super.clickMode3 == 1) { if (super.saveClickX >= 522 && super.saveClickX
 			 * <= 558 && super.saveClickY >= 124 && super.saveClickY < 161) { worldMap[0] =
 			 * !worldMap[0]; // WorldMap.clientInstance = this; // wm = new WorldMap();
-			 * 
+			 *
 			 * } }
 			 */
 
@@ -7542,6 +7607,26 @@ public class Client extends RSApplet {
 			stream.createFrame(204);
 			stream.writeWord(GEItemId);
 		}
+		if (l == 1998) {
+			// Drop down menu actionId.
+			handleDropDownMenuClick(nodeId, slot);
+			return;
+		} else if (l == 1999) {
+			final DropDownMenu inter = (DropDownMenu) RSInterface.interfaceCache[nodeId];
+			if (inter.isOpen()) {
+				inter.setOpen(false);
+
+				if (openInterfaceID == 28630 && inter.id >= 28670 && inter.id <= 28683) { // Hot keys
+					final int tabStoneSprite = (inter.id - 28670) + (inter.id - 28);
+					RSInterface.interfaceCache[tabStoneSprite].disabledSprite = Client.cacheSprite[1037];
+				}
+
+			} else {
+				inter.setOpen(true);
+				closeDropDownMenus(nodeId);
+			}
+			return;
+		}
 		if (l == 1007) {
 			canGainXP = canGainXP ? false : true;
 		}
@@ -7780,6 +7865,10 @@ public class Client extends RSApplet {
 			}
 			if (flag8) {
 				switch (interfaceId) {
+					case 28638: // Restore default button for hot keys.
+						CustomisableHotKeys.restoreDefaults();
+						CustomisableHotKeys.updateDropDownMenuDisplaysOnLogin();
+						break;
 				case 24654:
 					amountOrNameInput = "";
 					totalItemResults = 0;
@@ -8395,6 +8484,15 @@ public class Client extends RSApplet {
 			stream.writeUnsignedWordA(selectedSpellId);
 		}
 		if (l == 646) {
+
+			if (interfaceId == 28636) {
+				if (variousSettings[CustomisableHotKeys.ESC_VALUE_SETTING_IDENTIFIER] != 0)
+					CustomisableHotKeys.setEscClosesInterface(false);
+				else
+					CustomisableHotKeys.setEscClosesInterface(true);
+				saveSettings();
+			}
+
 			stream.createFrame(185);
 			stream.putInt(interfaceId);
 			RSInterface class9_2 = RSInterface.interfaceCache[interfaceId];
@@ -9983,7 +10081,7 @@ public class Client extends RSApplet {
 
 	/**
 	 * Dumps the item images for all items in the cache.
-	 * 
+	 *
 	 * @param dumpByName
 	 */
 	public void dumpItemImages(boolean dumpByName) {
@@ -9998,7 +10096,7 @@ public class Client extends RSApplet {
 
 	/**
 	 * Dumps a sprite with the specified name.
-	 * 
+	 *
 	 * @param id
 	 * @param image
 	 */
@@ -10021,7 +10119,7 @@ public class Client extends RSApplet {
 
 	/**
 	 * Turns an Image into a BufferedImage.
-	 * 
+	 *
 	 * @param image
 	 * @return
 	 */
@@ -10036,7 +10134,7 @@ public class Client extends RSApplet {
 
 	/**
 	 * Makes the specified color transparent in a buffered image.
-	 * 
+	 *
 	 * @param im
 	 * @param color
 	 * @return
@@ -11123,15 +11221,15 @@ public class Client extends RSApplet {
 			rightClickMapArea();
 		}
 		processTabAreaHovers();
-		
+
 		boolean alertHover = super.mouseX >= 12 && super.mouseX <= 498 && super.mouseY >= 249 && super.mouseY <= 323;
-		
+
 		if (alertHover && alertBoxTimer > 0) {
 			menuActionName[1] = "Dismiss";
 			menuActionID[1] = 476;
 			menuActionRow = 2;
 		}
-		
+
 		/**/
 		boolean flag = false;
 		while (!flag) {
@@ -11328,6 +11426,9 @@ public class Client extends RSApplet {
 				// glowColor = socketStream.read();
 				flagged = socketStream.read() == 1;
 				boolean captcha = socketStream.read() >= 1;
+
+				// Update hotkey menus
+				CustomisableHotKeys.updateDropDownMenuDisplaysOnLogin();
 
 				if (captcha) {
 
@@ -12343,15 +12444,15 @@ public class Client extends RSApplet {
 	/*
 	 * public void drawLoadingText(int percent, String text) { if (!isLoading) {
 	 * return; }
-	 * 
+	 *
 	 * if (loadingSprites[0] == null) { super.prepareGraphics(); return; }
-	 * 
+	 *
 	 * setLoadingAndLoginHovers();
-	 * 
+	 *
 	 * super.graphics.drawImage(loadingSprites[0], 0, 0, null);
 	 * super.graphics.drawImage(loadingSprites[1], 5, Client.clientHeight - 35,
 	 * null);
-	 * 
+	 *
 	 * Graphics2D g2 = (Graphics2D) super.graphics;
 	 * g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 	 * RenderingHints.VALUE_ANTIALIAS_ON); Font font = new Font("Serif", Font.PLAIN,
@@ -12359,15 +12460,15 @@ public class Client extends RSApplet {
 	 * 272; if (Client.loadingText.length() > 33) { textX = 248; } int textY = 326;
 	 * super.graphics.drawString(Client.loadingText, textX, textY);
 	 * g2.drawString(Client.loadingText, textX, textY);
-	 * 
+	 *
 	 * if (Client.loadingPercentage > 0) { int percentDraw =
 	 * Client.loadingPercentage * 7; if (percentDraw <= 123) { percentDraw = 108 +
 	 * Client.loadingPercentage; } Image resized =
 	 * Sprite.getScaledImage(loadingSprites[2], percentDraw, 28, 764, 28);
 	 * super.graphics.drawImage(resized, 5, Client.clientHeight - 35, null); }
-	 * 
+	 *
 	 * setLoadingAndLoginHovers(); }(non-Javadoc)
-	 * 
+	 *
 	 * @see com.simplicity.RSApplet#drawLoadingText(int, java.lang.String)
 	 */
 
@@ -13100,7 +13201,7 @@ public class Client extends RSApplet {
 		 * entity.currentForcedAnimFrame++; } if (entity.currentForcedAnimFrame >=
 		 * animation.frameCount) { entity.anInt1519 = 1; entity.currentForcedAnimFrame =
 		 * 0; } } catch(Exception e) {
-		 * 
+		 *
 		 * } } if (entity.anInt1520 != -1 && loopCycle >= entity.graphicDelay) { if
 		 * (entity.currentAnim < 0) entity.currentAnim = 0; Animation animation_1 =
 		 * SpotAnimDefinition.cache[entity.anInt1520].animation; if (animation_1 !=
@@ -13108,7 +13209,7 @@ public class Client extends RSApplet {
 		 * && entity.animCycle > animation_1 .getFrameLength(entity.currentAnim);
 		 * entity.currentAnim++) entity.animCycle -= animation_1
 		 * .getFrameLength(entity.currentAnim);
-		 * 
+		 *
 		 * if (entity.currentAnim >= animation_1.frameCount && (entity.currentAnim < 0
 		 * || entity.currentAnim >= animation_1.frameCount)) entity.anInt1520 = -1; } }
 		 * if (entity.anim != -1 && entity.animationDelay <= 1) { if
@@ -13122,14 +13223,14 @@ public class Client extends RSApplet {
 		 * animation_3 .getFrameLength(entity.currentAnimFrame);
 		 * entity.currentAnimFrame++) entity.anInt1528 -= animation_3
 		 * .getFrameLength(entity.currentAnimFrame);
-		 * 
+		 *
 		 * if (entity.currentAnimFrame >= animation_3.frameCount) {
 		 * entity.currentAnimFrame -= animation_3.loopDelay; entity.anInt1530++; if
 		 * (entity.anInt1530 >= animation_3.frameStep) entity.anim = -1; if
 		 * (entity.currentAnimFrame < 0 || entity.currentAnimFrame >=
 		 * animation_3.frameCount) entity.anim = -1; } entity.aBoolean1541 =
 		 * animation_3.oneSquareAnimation; } } catch (Exception e) {
-		 * 
+		 *
 		 * } if (entity.animationDelay > 0) entity.animationDelay--;
 		 */
 
@@ -13541,6 +13642,9 @@ public class Client extends RSApplet {
 				childY += child.yOffset;
 				if (child.contentType > 0) {
 					drawFriendsListOrWelcomeScreen(child);
+				}
+				if (child.drawInterface(this, interfaceX, interfaceY, childX, childY)) {
+					continue;
 				}
 				for (int m5 = 0; m5 < IDs.length; m5++) {
 					if (child.id == IDs[m5] + 1) {
@@ -14237,7 +14341,7 @@ public class Client extends RSApplet {
 					onDemandFetcher.requestFileData(spotAnim.osrs ? OSRS_ANIM_IDX - 1 : ANIM_IDX - 1,
 							Integer.parseInt(Integer.toHexString(spotAnim.animation.frameIDs[0]).substring(0, Integer.toHexString(spotAnim.animation.frameIDs[0]).length() - 4), 16));
 				}
-				
+
 			} catch (Exception e) {
 			}
 		}
@@ -14784,7 +14888,7 @@ public class Client extends RSApplet {
 			}
 		}
 	}
-	
+
 	public boolean isOsrsRegion() {
 		return OSRS_REGIONS.contains(getRegionId());
 	}
@@ -15393,6 +15497,41 @@ public class Client extends RSApplet {
 		}
 	}
 
+	public int dropDownMenu = -1;
+
+	private void handleDropDownMenuClick(final int childId, final int identifier) {
+		// Customisable Hot Key handler
+		if (childId > 28669 && childId < 28684) {
+			if (identifier >= 0 && identifier <= 13) {
+				CustomisableHotKeys.processHotKeySelection(childId, identifier);
+				saveSettings();
+			}
+		}
+
+		closeDropDownMenus(-1);
+	}
+
+	private void closeDropDownMenus(final int childId) {
+		for (RSInterface rsi : RSInterface.interfaceCache) {
+			if (rsi == null) {
+				continue;
+			}
+			if (rsi.type == 18 && rsi instanceof DropDownMenu && rsi.id != childId) {
+				final DropDownMenu ddm = (DropDownMenu) rsi;
+
+				if (!ddm.isOpen())
+					continue;
+
+				ddm.setOpen(false);
+
+				if (openInterfaceID == 28630 && ddm.id >= 28670 && ddm.id <= 28683) { // Hot keys
+					final int tabStoneSprite = (ddm.id - 28670) + (ddm.id - 28);
+					RSInterface.interfaceCache[tabStoneSprite].disabledSprite = Client.cacheSprite[1037];
+				}
+			}
+		}
+	}
+
 	public void drawTooltip() {
 		if (getOption("cursors")) {
 			int newCursor = getCursorID();
@@ -15402,6 +15541,9 @@ public class Client extends RSApplet {
 		}
 		if (menuActionRow < 2 && itemSelected == 0 && spellSelected == 0) {
 			return;
+		}
+		if (dropDownMenu != -1) {
+			prioritizeMenuAction(dropDownMenu);
 		}
 		String s;
 		if (itemSelected == 1 && menuActionRow < 2) {
@@ -15422,6 +15564,30 @@ public class Client extends RSApplet {
 			s = s + "@whi@ / " + (menuActionRow - 2) + " more options";
 		}
 		chatTextDrawingArea.method390(4, 0xffffff, s, loopCycle / 1000, 15);
+	}
+
+	public void prioritizeMenuAction(int toShift) {
+		if (menuActionRow <= 2 || menuActionID[toShift - 1] == 1999) {
+			return;
+		}
+		dropDownMenu = -1;
+		String name = menuActionName[toShift - 1];
+		int id = menuActionID[toShift - 1];
+		int childId = menuActionCmd1[toShift - 1];
+		int slot = menuActionCmd2[toShift - 1];
+		for (int l1 = toShift - 1; l1 < menuActionRow - 1; l1++) {
+			menuActionName[l1] = menuActionName[l1 + 1];
+			menuActionID[l1] = menuActionID[l1 + 1];
+			menuActionCmd1[l1] = menuActionCmd1[l1 + 1];
+			menuActionCmd2[l1] = menuActionCmd1[l1 + 1];
+		}
+		menuActionName[menuActionRow - 1] = name;
+		menuActionID[menuActionRow - 1] = id;
+		menuActionCmd1[menuActionRow - 1] = childId;
+		menuActionCmd2[menuActionRow - 1] = slot;
+
+		menuActionID[menuActionRow] = 2606;
+		menuActionRow++;
 	}
 
 	public final int[] calcParticlePos(int x, int y, int z, int width, int height) {
@@ -19011,7 +19177,7 @@ public class Client extends RSApplet {
 			TextDrawingArea.drawAlphaFilledPixels(13, 250, 484, 72, 0x4286f4, 75);
 
 			newRegularFont.drawBasicString("Simplicity", 224, 268);
-			
+
 			if (alertText != null) {
 				for (int i = 0; i < alertText.length; i++) {
 					smallText.drawCenteredText(0xffffff, 250, alertText[i], 283 + (i * 10), true);
@@ -19574,7 +19740,7 @@ public class Client extends RSApplet {
 	private int anInt1039;
 	private int dialogID;
 	private final int[] currentMaxStats;
-	private final int[] varbitConfigs;
+	public final int[] varbitConfigs;
 	private int anInt1046;
 	private boolean isMale;
 	private int anInt1048;
