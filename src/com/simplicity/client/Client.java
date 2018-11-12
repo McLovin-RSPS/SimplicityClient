@@ -7116,20 +7116,41 @@ public class Client extends RSApplet {
 		int objectRotation = objectBits >> 6 & 3;
 		if (objectType == 10 || objectType == 11 || objectType == 22) {
 			ObjectDefinition objectDef = ObjectDefinition.forID(id, isOsrsRegion());
-			int i2;
-			int j2;
+			int sizeX;
+			int sizeY;
 			if (objectRotation == 0 || objectRotation == 2) {
-				i2 = objectDef.sizeX;
-				j2 = objectDef.sizeY;
+				sizeX = objectDef.sizeX;
+				sizeY = objectDef.sizeY;
 			} else {
-				i2 = objectDef.sizeY;
-				j2 = objectDef.sizeX;
+				sizeX = objectDef.sizeY;
+				sizeY = objectDef.sizeX;
 			}
+			
+			/**
+			 * Revenant cave pillars walking up to.
+			 */
+			if (id == 31561) {
+				if (objectRotation == 1) {
+					if (myPlayer.pathX[0] < tileX) {
+						tileX -= sizeX;
+					} else {
+						tileX += sizeX;
+					}
+				} else if (objectRotation == 0) {
+					if (myPlayer.pathY[0] < tileY) {
+						tileY -= sizeY;
+					} else {
+						tileY += sizeY;
+					}
+				}
+			}
+			
 			int reqPlane = objectDef.plane;
 			if (objectRotation != 0) {
 				reqPlane = (reqPlane << objectRotation & 0xf) + (reqPlane >> 4 - objectRotation);
 			}
-			doWalkTo(2, 0, j2, 0, myPlayer.pathY[0], i2, reqPlane, tileY, myPlayer.pathX[0], false, tileX);
+			
+			doWalkTo(2, 0, sizeY, 0, myPlayer.pathY[0], sizeX, reqPlane, tileY, myPlayer.pathX[0], false, tileX);
 		} else {
 			doWalkTo(2, objectRotation, 0, objectType + 1, myPlayer.pathY[0], 0, 0, tileY, myPlayer.pathX[0], false,
 					tileX);

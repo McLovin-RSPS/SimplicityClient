@@ -637,6 +637,11 @@ public final class ItemDefinition {
         }
         itemDef.value = prices[itemDef.id];
         switch (i) {
+        	case 11008:
+        		itemDef.name = "Scratch card";
+        		itemDef.actions[0] = "Check";
+        		itemDef.actions[4] = "Drop";
+        		break;
             case 1050:
                 itemDef.femaleZOffset += 4;
                 break;
