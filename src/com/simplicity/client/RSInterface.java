@@ -4056,7 +4056,9 @@ public static void TeleTAB5() {
     		addHoverButton(40049, 409, 409, 50, 39, "Fullscreen", 0, 40050, 1);
     		addHoveredButton(40050, 410, 410, 50, 39, 40051);
 
-    		tab.totalChildren(25);
+			addButtonWSpriteLoader(40052, 1043, "F-Keys");
+
+    		tab.totalChildren(26);
     		tab.child(0, 40042, 25, 75 + byte0);
     		tab.child(1, 906, 35, 140 + byte0);
     		tab.child(2, 908, 61, 140 + byte0);
@@ -4088,6 +4090,8 @@ public static void TeleTAB5() {
     		tab.child(22, 35580, 105, 180);
     		tab.child(23, 35610, 208, 180);
     		tab.child(24, 35640, 310, 180);
+
+			tab.child(25, 40052, 440, 264);
     	}
 
 	public static void addButton(int id, int sid, String spriteName,

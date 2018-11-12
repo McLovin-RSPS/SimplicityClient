@@ -7890,6 +7890,9 @@ public class Client extends RSApplet {
 						CustomisableHotKeys.restoreDefaults();
 						CustomisableHotKeys.updateDropDownMenuDisplaysOnLogin();
 						break;
+					case 40052:
+						openInterfaceID = 28630;
+						break;
 				case 24654:
 					amountOrNameInput = "";
 					totalItemResults = 0;
