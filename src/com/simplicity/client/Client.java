@@ -5519,7 +5519,7 @@ public class Client extends RSApplet {
 	}
 
 	public void processGameLoop() {
-		if (loadingError || genericLoadingError) {
+		if (loadingError || spritesLoadingError) {
 			return;
 		}
 		loopCycle++;
@@ -12717,7 +12717,16 @@ public class Client extends RSApplet {
 			Sounds.unpack(stream);
 			setLoadingText(95, "Loading interfaces..");
 			TextDrawingArea fonts[] = { smallText, drawingArea, chatTextDrawingArea, aTextDrawingArea_1273 };
-			RSInterface.unpack(interfaceArchive, fonts, mediaArchive);
+			try {
+				RSInterface.unpack(interfaceArchive, fonts, mediaArchive);
+			} catch (Exception e) {
+				e.printStackTrace();
+				
+				if (e instanceof java.lang.ArrayIndexOutOfBoundsException) {
+					spritesLoadingError = true;
+					return;
+				}
+			}
 			handleSettings();
 			clearMemoryCaches();
 			setLoadingText(99, "");
@@ -12934,12 +12943,24 @@ public class Client extends RSApplet {
 			k += 30;
 			g.drawString("5: Try selecting a different version of Java from the play-game menu", 30, k);
 		}
-		if (genericLoadingError) {
-			g.setFont(new Font("Helvetica", 1, 20));
+		if (spritesLoadingError) {
+			g.setFont(new Font("Helvetica", 1, 16));
+			g.setColor(Color.yellow);
+			int k = 35;
+			g.drawString("Error - missing sprites!", 30, k);
+			k += 50;
 			g.setColor(Color.white);
-			g.drawString("Error - unable to load game!", 50, 50);
-			g.drawString("To play Simplicity make sure you play from", 50, 100);
-			g.drawString("http://www.Simplicityps.org", 50, 150);
+			g.drawString("To fix this try the following (in order):", 30, k);
+			k += 50;
+			g.setColor(Color.white);
+			g.setFont(new Font("Helvetica", 1, 12));
+			g.drawString("1: Try closing ALL open clients, and reloading", 30, k);
+			k += 30;
+			g.drawString("2: Try deleting your cache from the user folder", 30, k);
+			k += 30;
+			g.drawString("3: Try redownloading the launcher at:", 30, k);
+			k += 30;
+			g.drawString("http://simplicityps.org", 30, k);
 		}
 	}
 
@@ -14606,7 +14627,7 @@ public class Client extends RSApplet {
 	}
 
 	public void processDrawing() {
-		if (loadingError || genericLoadingError) {
+		if (loadingError || spritesLoadingError) {
 			showErrorScreen();
 			return;
 		}
@@ -19539,7 +19560,7 @@ public class Client extends RSApplet {
 		anInt1171 = 1;
 		myUsername = "";
 		myPassword = "";
-		genericLoadingError = false;
+		spritesLoadingError = false;
 		reportAbuseInterfaceID = -1;
 		objectSpawnDeque = new Deque();
 		anInt1184 = 128;
@@ -19871,7 +19892,7 @@ public class Client extends RSApplet {
 	public String myUsername;
 	public String myPassword;
 	private static int anInt1175;
-	private boolean genericLoadingError;
+	private boolean spritesLoadingError;
 	private final int[] anIntArray1177 = { 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3 };
 	private int reportAbuseInterfaceID;
 	private Deque objectSpawnDeque;
