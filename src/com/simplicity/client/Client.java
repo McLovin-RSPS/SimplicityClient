@@ -312,10 +312,10 @@ public class Client extends RSApplet {
 					quickCurses[i] = Integer.parseInt(q.substring(i, i + 1));
 			}
 			RSFontSystem.SMILIES_TOGGLED = getOption("smilies");
-			for (List<Integer> hotKey : CustomisableHotKeys.getCustomisableHotKeys().values()) {
-				final int keyCode = in.readInt();
-				hotKey.set(0, keyCode);
-				hotKey.set(2, CustomisableHotKeys.ChildTabKeyRelation.getFromKeyCode(keyCode));
+
+			for (int i = 0; i < CustomisableHotKeys.ChildTabKeyRelation.values().length; i++) {
+				int keyId = in.readInt();
+				CustomisableHotKeys.getHotKeys().get(i).setKeyId(keyId);
 			}
 
 			in.close();
@@ -345,7 +345,7 @@ public class Client extends RSApplet {
 			SoundPlayer.setVolume(4);
 			saveSettings();
 			loadSettings();
-			// e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 
@@ -390,8 +390,8 @@ public class Client extends RSApplet {
 			}
 			out.writeUTF(stringSave);
 
-			for (List<Integer> hotKey : CustomisableHotKeys.getCustomisableHotKeys().values()) {
-				out.writeInt(hotKey.get(0));
+			for (CustomisableHotKeys.HotKey hotKey : CustomisableHotKeys.getHotKeys()) {
+				out.writeInt(hotKey.getKeyId());
 			}
 
 			out.close();
@@ -7637,8 +7637,8 @@ public class Client extends RSApplet {
 			if (inter.isOpen()) {
 				inter.setOpen(false);
 
-				if (openInterfaceID == 28630 && inter.id >= 28670 && inter.id <= 28683) { // Hot keys
-					final int tabStoneSprite = (inter.id - 28670) + (inter.id - 28);
+				if (openInterfaceID == CustomisableHotKeys.interfaceID && inter.id >= 90040 && inter.id <= 90054) { // Hot keys
+					final int tabStoneSprite = (inter.id - 90040) + (inter.id - 28);
 					RSInterface.interfaceCache[tabStoneSprite].disabledSprite = Client.cacheSprite[1037];
 				}
 
@@ -7886,12 +7886,12 @@ public class Client extends RSApplet {
 			}
 			if (flag8) {
 				switch (interfaceId) {
-					case 28638: // Restore default button for hot keys.
+					case 90008: // Restore default button for hot keys.
 						CustomisableHotKeys.restoreDefaults();
 						CustomisableHotKeys.updateDropDownMenuDisplaysOnLogin();
 						break;
 					case 40052:
-						openInterfaceID = 28630;
+						openInterfaceID = CustomisableHotKeys.interfaceID;
 						break;
 				case 24654:
 					amountOrNameInput = "";
@@ -8509,7 +8509,7 @@ public class Client extends RSApplet {
 		}
 		if (l == 646) {
 
-			if (interfaceId == 28636) {
+			if (interfaceId == 90006) {
 				if (variousSettings[CustomisableHotKeys.ESC_VALUE_SETTING_IDENTIFIER] != 0)
 					CustomisableHotKeys.setEscClosesInterface(false);
 				else
@@ -15546,11 +15546,9 @@ public class Client extends RSApplet {
 
 	private void handleDropDownMenuClick(final int childId, final int identifier) {
 		// Customisable Hot Key handler
-		if (childId > 28669 && childId < 28684) {
-			if (identifier >= 0 && identifier <= 13) {
-				CustomisableHotKeys.processHotKeySelection(childId, identifier);
-				saveSettings();
-			}
+		if (childId > 90039 && childId < 90055) {
+			CustomisableHotKeys.processHotKeySelection(childId, identifier);
+			saveSettings();
 		}
 
 		closeDropDownMenus(-1);
@@ -15569,8 +15567,8 @@ public class Client extends RSApplet {
 
 				ddm.setOpen(false);
 
-				if (openInterfaceID == 28630 && ddm.id >= 28670 && ddm.id <= 28683) { // Hot keys
-					final int tabStoneSprite = (ddm.id - 28670) + (ddm.id - 28);
+				if (openInterfaceID == CustomisableHotKeys.interfaceID && ddm.id >= 90040 && ddm.id <= 90054) { // Hot keys
+					final int tabStoneSprite = (ddm.id - 90040) + (ddm.id - 28);
 					RSInterface.interfaceCache[tabStoneSprite].disabledSprite = Client.cacheSprite[1037];
 				}
 			}

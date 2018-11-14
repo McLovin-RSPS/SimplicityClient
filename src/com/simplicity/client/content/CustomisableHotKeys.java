@@ -2,10 +2,14 @@ package com.simplicity.client.content;
 
 import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
+import com.simplicity.client.content.dropdownmenu.DropDownAction;
 import com.simplicity.client.content.dropdownmenu.DropDownMenu;
 
 import java.awt.event.KeyEvent;
-import java.util.*;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.LinkedList;
+import java.util.Set;
 
 /**
  * Created using Eclipse.
@@ -15,22 +19,25 @@ import java.util.*;
 @SuppressWarnings("serial")
 public class CustomisableHotKeys {
 
+    public static final int interfaceID = 90000;
+
     public enum ChildTabKeyRelation {
 
-        COMBAT_TAB(28670, 0, -1),
-        SKILLS_TAB(28671, 1, KeyEvent.VK_F1),
-        QUEST_TAB(28672, 2, KeyEvent.VK_F2),
-        INVENTORY_TAB(28673, 3, KeyEvent.VK_F3),
-        EQUIPMENT_TAB(28674, 4, KeyEvent.VK_F4),
-        PRAYER_TAB(28675, 5, KeyEvent.VK_F5),
-        SPELLBOOK_TAB(28676, 6, KeyEvent.VK_F6),
-        FRIENDS_TAB(28677, 8, KeyEvent.VK_F8),
-        IGNORE_TAB(28678, 9, KeyEvent.VK_F9),
-        LOGOUT_TAB(28679, 10, KeyEvent.VK_F10),
-        SETTINGS_TAB(28680, 11, KeyEvent.VK_F11),
-        EMOTES_TAB(28681, 12, KeyEvent.VK_F12),
-        CLANCHAT_TAB(28682, 7, KeyEvent.VK_F7),
-        MUSIC_TAB(28683, 13, KeyEvent.VK_ESCAPE);
+        COMBAT_TAB(90040, 0, 1, KeyEvent.VK_F1),
+        SKILLS_TAB(90041, 1, 2, KeyEvent.VK_F2),
+        QUEST_TAB(90042, 2, -1, -1),
+        ACHIEVEMENTS(90043, 14, 3, KeyEvent.VK_ESCAPE),
+        INVENTORY_TAB(90044, 3, 4, KeyEvent.VK_F3),
+        EQUIPMENT_TAB(90045, 4, 5, KeyEvent.VK_F4),
+        PRAYER_TAB(90046, 5, 6, KeyEvent.VK_F5),
+        SPELLBOOK_TAB(90047, 6, 7, KeyEvent.VK_F6),
+        FAMILAR_TAB(90048, 13, 8, KeyEvent.VK_F7),
+        FRIENDS_TAB(90049, 8, 9, KeyEvent.VK_F8),
+        IGNORE_TAB(90050, 9, 9, KeyEvent.VK_F9),
+        CLANCHAT_TAB(90051, 7, 10, KeyEvent.VK_F10),
+        SETTINGS_TAB(90052, 11, 11, KeyEvent.VK_F11),
+        EMOTES_TAB(90053, 12, 12, KeyEvent.VK_F12),
+        ;
 
         /**
          * ChildId of the tab.
@@ -43,42 +50,20 @@ public class CustomisableHotKeys {
         private final int tabId;
 
         /**
+         * Drop menu option identifier number.
+         */
+        private final int identifier;
+
+        /**
          * Key code in relation to the identifer.
          */
         private final int keyCode;
 
-        private ChildTabKeyRelation(final int childId, final int tabId, final int keyCode) {
+        ChildTabKeyRelation(final int childId, final int tabId, int identifier, final int keyCode) {
             this.childId = childId;
             this.tabId = tabId;
+            this.identifier = identifier;
             this.keyCode = keyCode;
-        }
-
-        public static final int[] getFromChildId(final int childId, final int identifier) {
-            int[] data = {-1, -1};
-            for (ChildTabKeyRelation childTabKeyInfo : VALUES) {
-                if (childTabKeyInfo == null) {
-                    continue;
-                }
-                if (childTabKeyInfo.getChildId() == childId) {
-                    data[0] = childTabKeyInfo.getTabId();
-                }
-                if (childTabKeyInfo.getTabId() == identifier) {
-                    data[1] = childTabKeyInfo.getKeyCode();
-                }
-            }
-            return data;
-        }
-
-        public static final int getFromKeyCode(final int keyCode) {
-            for (ChildTabKeyRelation childTabKeyInfo : VALUES) {
-                if (childTabKeyInfo == null) {
-                    continue;
-                }
-                if (childTabKeyInfo.getKeyCode() == keyCode) {
-                    return childTabKeyInfo.getTabId();
-                }
-            }
-            return -1;
         }
 
         private static final Set<ChildTabKeyRelation> VALUES = Collections.unmodifiableSet(EnumSet.allOf(ChildTabKeyRelation.class));
@@ -95,6 +80,25 @@ public class CustomisableHotKeys {
             return keyCode;
         }
 
+
+        public static int getIdentifierByKey(int keyId) {
+            for (ChildTabKeyRelation value : VALUES) {
+                if (value.keyCode == keyId) {
+                    return value.identifier;
+                }
+            }
+            return -1;
+        }
+
+        public static int getKeyIdByIdentifier(int identifier) {
+            for (ChildTabKeyRelation value : VALUES) {
+                if (value.identifier == identifier) {
+                    return value.keyCode;
+                }
+            }
+            return -1;
+        }
+
     }
 
     /**
@@ -107,37 +111,22 @@ public class CustomisableHotKeys {
      */
     private static boolean escClosesInterface = true;
 
-    /**
-     * A map holding players customised hot key preferences.
-     * <p>
-     * Key; Child Id we are dealing with.
-     * <p>
-     * Value; As list(key stroke unique Id, tab id, drop menu identifier specific to the key stroke).
-     */
-    private static LinkedHashMap<Integer, List<Integer>> customisableHotKeys = new LinkedHashMap<Integer, List<Integer>>(14) {
-
-        /**
-         * Set the default F Keys for this client.
-         *
-         */ {
-            put(28670, Arrays.asList(KeyEvent.VK_F5, 0, 5)); // Combat Tab.
-            put(28671, Arrays.asList(KeyEvent.VK_F6, 1, 6)); // Skills Tab.
-            put(28672, Arrays.asList(-1, 2, 0)); // Quest Tab.
-            put(28673, Arrays.asList(KeyEvent.VK_F1, 3, 1)); // Inventory Tab.
-            put(28674, Arrays.asList(KeyEvent.VK_F2, 3, 2)); // Equipment Tab.
-            put(28675, Arrays.asList(KeyEvent.VK_F3, 4, 3)); // Prayer Tab.
-            put(28676, Arrays.asList(KeyEvent.VK_F4, 5, 4)); // Spellbook Tab.
-            put(28677, Arrays.asList(KeyEvent.VK_F8, 8, 8)); // Friends Tab.
-            put(28678, Arrays.asList(KeyEvent.VK_F9, 13, 9)); // Ignore Tab.
-            put(28679, Arrays.asList(-1, 10, 0)); // Logout Tab.
-            put(28680, Arrays.asList(KeyEvent.VK_F10, 11, 10)); // Settings Tab.
-            put(28681, Arrays.asList(KeyEvent.VK_F11, 12, 11)); // Emotes Tab.
-            put(28682, Arrays.asList(KeyEvent.VK_F7, 11, 7)); // Clan Chat Tab.
-            put(28683, Arrays.asList(KeyEvent.VK_F12, 9, 12)); // Music Tab.
-
+    private static LinkedList<HotKey> hotKeys = new LinkedList<HotKey>() {
+        {
+            for (ChildTabKeyRelation value : ChildTabKeyRelation.VALUES) {
+                add(new HotKey(value.childId, value.identifier, value.keyCode, value.tabId));
+            }
         }
-
     };
+
+    /**
+     * The hotkeys.
+     *
+     * @return the hotkeys
+     */
+    public static LinkedList<HotKey> getHotKeys() {
+        return hotKeys;
+    }
 
     /**
      * Checks whether the key pressed is a match for the available hot keys. If
@@ -164,16 +153,18 @@ public class CustomisableHotKeys {
             case KeyEvent.VK_F12:
             case KeyEvent.VK_ESCAPE:
 
-                int tabID = -1;
+                HotKey hotkey = null;
 
-                for (List<Integer> hotKey : customisableHotKeys.values()) {
-                    if (hotKey.get(0) == keyCode) {
-                        tabID = hotKey.get(1);
+                for (HotKey hotKey : hotKeys) {
+                    if (hotKey.keyId == keyCode) {
+                        hotkey = hotKey;
                     }
                 }
 
-                if (tabID >= 0) {
-                    Client.setTab(tabID);
+                System.out.println("Tab Id: " + (hotkey != null ? hotkey.tabId : -1));
+
+                if (hotkey != null) {
+                    Client.setTab(hotkey.tabId);
                     if (keyCode == KeyEvent.VK_ESCAPE && isEscClosesInterface()) {
                         Client.instance.clearTopInterfaces();
                         break;
@@ -185,8 +176,6 @@ public class CustomisableHotKeys {
                     }
                 }
 
-                System.out.println("Tab : " + tabID);
-
                 break;
         }
 
@@ -197,24 +186,11 @@ public class CustomisableHotKeys {
      */
     public static void restoreDefaults() {
 
-        customisableHotKeys = new LinkedHashMap<Integer, List<Integer>>(14) {
-            {
-                put(28670, Arrays.asList(KeyEvent.VK_F5, 0, 5)); // Combat Tab.
-                put(28671, Arrays.asList(KeyEvent.VK_F6, 1, 6)); // Skills Tab.
-                put(28672, Arrays.asList(-1, 2, 0)); // Quest Tab.
-                put(28673, Arrays.asList(KeyEvent.VK_F1, 14, 1)); // Achievements Tab.
-                put(28674, Arrays.asList(KeyEvent.VK_F2, 3, 2)); // Inventory Tab.
-                put(28675, Arrays.asList(KeyEvent.VK_F3, 4, 3)); // Equipment Tab.
-                put(28676, Arrays.asList(KeyEvent.VK_F4, 5, 4)); // Prayer Tab.
-                put(28677, Arrays.asList(KeyEvent.VK_F8, 6, 8)); // Spellbook Tab.
-                put(28678, Arrays.asList(KeyEvent.VK_F9, 13, 9)); // Summoning Tab.
-                put(28679, Arrays.asList(-1, 10, 0)); // Logout Tab.
-                put(28680, Arrays.asList(KeyEvent.VK_F10, 9, 10)); // Settings Tab.
-                put(28681, Arrays.asList(KeyEvent.VK_F11, 7, 11)); // Emotes Tab.
-                put(28682, Arrays.asList(KeyEvent.VK_F7, 11, 7)); // Clan Chat Tab.
-                put(28683, Arrays.asList(KeyEvent.VK_F12, 12, 12)); // Music Tab.
-            }
-        };
+        hotKeys.clear();
+
+        for (ChildTabKeyRelation value : ChildTabKeyRelation.VALUES) {
+            hotKeys.add(new HotKey(value.childId, value.identifier, value.keyCode, value.tabId));
+        }
 
         if (isEscClosesInterface()) {
             setEscConfigButtonSettings(0);
@@ -229,11 +205,17 @@ public class CustomisableHotKeys {
      */
     public static void updateDropDownMenuDisplaysOnLogin() {
 
-        for (Map.Entry<Integer, List<Integer>> hotKey : customisableHotKeys.entrySet()) {
-            final DropDownMenu inter = (DropDownMenu) RSInterface.interfaceCache[hotKey.getKey()];
+        for (HotKey hotKey : hotKeys) {
 
-            if (inter != null)
-                inter.message = inter.getActions()[hotKey.getValue().get(2)].getMessage();
+            final DropDownMenu inter = (DropDownMenu) RSInterface.interfaceCache[hotKey.childId];
+
+            if (inter != null) {
+                if (hotKey.keyId < 0) {
+                    inter.message = "None";
+                } else {
+                    inter.message = getActionMessage(inter, hotKey.keyId);
+                }
+            }
         }
 
         if (isEscClosesInterface()) {
@@ -257,49 +239,58 @@ public class CustomisableHotKeys {
     /**
      * Handles the swap between 2 tab F Keys. Self explanatory.
      *
-     * @param childId    The childId we are handling as known as the tab.
-     * @param identifier The drop down menu selection unique Id as known as
-     *                   identifier/action id.
+     * @param childId The childId we are handling as known as the tab.
+     * @param keyUsed The drop down menu selection unique Id as known as
+     *                identifier/action id.
      */
-    public static void processHotKeySelection(final int childId, final int identifier) {
+    public static void processHotKeySelection(final int childId, final int keyUsed) {
 
-        // The current tab we are dealing with already has this F Key assigned to it, stop the process as nothing needs done.
-        if (identifier == customisableHotKeys.get(childId).get(2)) {
-            return;
-        }
+        HotKey key = null;
+        int keyIndex = -1;
 
-        int newKeyCode = 0, tabId = 0;
-
-        // Check the map to find out which tab currently has ownership of the F Key we are dealing with.
-        // Returns optional empty if no tab has ownership of this F Key.
-        int oldChildId = 0;
-        for (Map.Entry<Integer, List<Integer>> hotKey : customisableHotKeys.entrySet()) {
-            if (hotKey.getValue().get(2) == identifier) {
-                oldChildId = hotKey.getKey();
+        for (int i = 0; i < hotKeys.size(); i++) {
+            if (hotKeys.get(i).childId == childId) {
+                key = hotKeys.get(i);
+                keyIndex = i;
             }
         }
 
-        final int[] data = ChildTabKeyRelation.getFromChildId(childId, identifier);
-
-        if (data[0] > -1) {
-            tabId = data[0];
-            newKeyCode = data[1];
+        if (key == null) {
+            return;
         }
 
-        // Get the currently handled drop down menu and update its display message to sync with the selected F Key.
+        if (keyUsed == key.keyId) {
+            return;
+        }
+
+        HotKey oldKey = null;
+        int oldKeyIndex = -1;
+
+        for (int i = 0; i < hotKeys.size(); i++) {
+            if (hotKeys.get(i).keyId == keyUsed) {
+                oldKey = hotKeys.get(i);
+                oldKeyIndex = i;
+            }
+        }
+
+        if (oldKey != null) {
+            hotKeys.get(oldKeyIndex).setKeyId(-1);
+            DropDownMenu inter = (DropDownMenu) RSInterface.interfaceCache[oldKey.childId];
+            inter.message = "None";
+        }
+
+        hotKeys.get(keyIndex).setKeyId(keyUsed);
         DropDownMenu inter = (DropDownMenu) RSInterface.interfaceCache[childId];
-        inter.message = inter.getActions()[identifier].getMessage();
+        inter.message = getActionMessage(inter, keyUsed);
+    }
 
-        // Update the old tabs values within the map that previously held the F Key that we are now assigning to the new tab.
-        if (oldChildId > 0) {
-            inter = (DropDownMenu) RSInterface.interfaceCache[oldChildId];
-            inter.message = inter.getActions()[0].getMessage();
-            customisableHotKeys.put(oldChildId, Arrays.asList(-1, -1, 0));
+    public static String getActionMessage(DropDownMenu menu, int keyId) {
+        for (DropDownAction action : menu.getActions()) {
+            if (action.getIdentifier() == keyId) {
+                return action.getMessage();
+            }
         }
-
-        // Update the tab we are dealing with its new values.
-        customisableHotKeys.put(childId, Arrays.asList(newKeyCode, tabId, identifier));
-
+        return "None";
     }
 
     public static boolean isEscClosesInterface() {
@@ -310,16 +301,48 @@ public class CustomisableHotKeys {
         CustomisableHotKeys.escClosesInterface = escClosesInterface;
     }
 
-    public static LinkedHashMap<Integer, List<Integer>> getCustomisableHotKeys() {
-        return customisableHotKeys;
-    }
-
-    public static void setCustomisableHotKeys(LinkedHashMap<Integer, List<Integer>> customisableHotKeys) {
-        CustomisableHotKeys.customisableHotKeys = customisableHotKeys;
-    }
 
     private CustomisableHotKeys() {
 
+    }
+
+    public static class HotKey {
+
+        private final int childId;
+
+        private int keyId;
+
+        private final int identifierId;
+
+        private final int tabId;
+
+
+        public HotKey(int childId, int identifierId, int keyId, int tabId) {
+            this.childId = childId;
+            this.identifierId = identifierId;
+            this.keyId = keyId;
+            this.tabId = tabId;
+        }
+
+        public int getChildId() {
+            return childId;
+        }
+
+        public int getIdentifierId() {
+            return identifierId;
+        }
+
+        public int getTabId() {
+            return tabId;
+        }
+
+        public int getKeyId() {
+            return keyId;
+        }
+
+        public void setKeyId(int keyId) {
+            this.keyId = keyId;
+        }
     }
 
 }

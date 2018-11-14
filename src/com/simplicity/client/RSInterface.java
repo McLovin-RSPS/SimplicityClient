@@ -3,8 +3,11 @@ package com.simplicity.client;
 import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.client.cache.definitions.MobDefinition;
 import com.simplicity.client.DrawLine.LineType;
+import com.simplicity.client.content.CustomisableHotKeys;
 import com.simplicity.client.content.dropdownmenu.DropDownAction;
 import com.simplicity.client.content.dropdownmenu.DropDownMenu;
+
+import java.awt.event.KeyEvent;
 
 @SuppressWarnings("all")
 public class RSInterface {
@@ -2949,32 +2952,33 @@ public static void TeleTAB5() {
 
 		int frameIndex = 0;
 
-		RSInterface hotKey = addTabInterface(28630);
+		RSInterface hotKey = addTabInterface(CustomisableHotKeys.interfaceID);
 
-		addSprite(28631, SpriteLoader.sprites[1038]); //Main BG
-		addHoverButton_sprite_loader(28632, 1020, 21, 21, "Close", -1, 28633, 3); // Close button
-		addHoveredButton_sprite_loader(28633, 1021, 21, 21, 28634); // Close button hover
-		addText(28635, "Keybinding", 0xFF981F, false, true, 52, TDA, 2); // Title //0xFF981F
-		addConfigButtonWSpriteLoader(28636, 28630, 1039, 1040, 15, 15, "Close Interfaces when using Esc", 1, 5, 400); // Radio button for esc
-		addText(28637, "Esc closes current interface", 0xFF981F, false, true, 52, TDA, 1); // esc text
+		addSprite(90001, SpriteLoader.sprites[1038]); //Main BG
+		addHoverButton_sprite_loader(90002, 1020, 21, 21, "Close", -1, 90003, 3); // Close button
+		addHoveredButton_sprite_loader(90003, 1021, 21, 21, 28634); // Close button hover
+		addText(90005, "Keybinding", 0xFF981F, false, true, 52, TDA, 2); // Title //0xFF981F
+		addConfigButtonWSpriteLoader(90006, 90000, 1039, 1040, 15, 15, "Close Interfaces when using Esc", 1, 5, 400); // Radio button for esc
+		addText(90007, "Esc closes current interface", 0xFF981F, false, true, 52, TDA, 1); // esc text
 
-		addHoverButton_sprite_loader(28638, 1041, 150, 35, "Close", -1, 28639, 1); // Close button
-		addHoveredButton_sprite_loader(28639, 1042, 150, 35, 28640); // Close button hover
 
-		addText(28641, "Restore Defaults", 0xFF981F, false, true, 52, TDA, 2); // restore default button text
+		addHoverButtonWSpriteLoader(90008, 954, 114, 25, "Restore Default Keys", -1, 90009, 1);
+		addHoveredImageWSpriteLoader(90009, 955, 114, 25, 90010);
+
+		addText(90011, "Restore Defaults", 0xFF981F, false, true, 52, TDA, 1); // restore default button text
 
 		setChildren(51, hotKey);
-		setBounds(28631, 11, 16, frameIndex++, hotKey);
-		setBounds(28632, 471, 23, frameIndex++, hotKey);
-		setBounds(28633, 471, 23, frameIndex++, hotKey);
-		setBounds(28635, 225, 25, frameIndex++, hotKey);
-		setBounds(28636, 46, 285, frameIndex++, hotKey);
-		setBounds(28637, 68, 285, frameIndex++, hotKey);
-		setBounds(28638, 335, 268, frameIndex++, hotKey);
-		setBounds(28639, 335, 268, frameIndex++, hotKey);
-		setBounds(28641, 355, 277, frameIndex++, hotKey);
+		setBounds(90001, 11, 16, frameIndex++, hotKey);
+		setBounds(90002, 471, 23, frameIndex++, hotKey);
+		setBounds(90003, 471, 23, frameIndex++, hotKey);
+		setBounds(90005, 225, 25, frameIndex++, hotKey);
+		setBounds(90006, 46, 285, frameIndex++, hotKey);
+		setBounds(90007, 68, 285, frameIndex++, hotKey);
+		setBounds(90008, 360, 278, frameIndex++, hotKey);
+		setBounds(90009, 360, 278, frameIndex++, hotKey);
+		setBounds(90011, 375, 284, frameIndex++, hotKey);
 
-		int childId = 28642;
+		int childId = 90012;
 		int startX = 40;
 		int startY = 65;
 		int tabIconX = 46;
@@ -3004,22 +3008,23 @@ public static void TeleTAB5() {
 
 		startX = 380;
 		startY = 196;
-		for (childId = 28670 + 13; childId > 28669; childId--) {
+
+		for (childId = 90040 + 13; childId > 90039; childId--) {
 			new DropDownMenu(childId, 90, 0x3B3629, 0x695B36, 3, 30,
 					new DropDownAction[]{
-							new DropDownAction(0, "None"), new DropDownAction(1, "F1"),
-							new DropDownAction(2, "F2"), new DropDownAction(3, "F3"),
-							new DropDownAction(4, "F4"), new DropDownAction(5, "F5"),
-							new DropDownAction(6, "F6"), new DropDownAction(7, "F7"),
-							new DropDownAction(8, "F8"), new DropDownAction(9, "F9"),
-							new DropDownAction(10, "F10"), new DropDownAction(11, "F11"),
-							new DropDownAction(12, "F12"), new DropDownAction(13, "ESC")
+							new DropDownAction(-1, "None"), new DropDownAction(KeyEvent.VK_F1, "F1"),
+							new DropDownAction(KeyEvent.VK_F2, "F2"), new DropDownAction(KeyEvent.VK_F3, "F3"),
+							new DropDownAction(KeyEvent.VK_F4, "F4"), new DropDownAction(KeyEvent.VK_F5, "F5"),
+							new DropDownAction(KeyEvent.VK_F6, "F6"), new DropDownAction(KeyEvent.VK_F7, "F7"),
+							new DropDownAction(KeyEvent.VK_F8, "F8"), new DropDownAction(KeyEvent.VK_F9, "F9"),
+							new DropDownAction(KeyEvent.VK_F10, "F10"), new DropDownAction(KeyEvent.VK_F11, "F11"),
+							new DropDownAction(KeyEvent.VK_F12, "F12"), new DropDownAction(KeyEvent.VK_ESCAPE, "ESC")
 					}
 			);
 			setBounds(childId, startX, startY, frameIndex++, hotKey);
 			startY -= 43;
-			if (childId == 28680 || childId == 28675) {
-				startX = childId == 28675 ? 80 : 230;
+			if (childId == 90050 || childId == 90045) {
+				startX = childId == 90045 ? 80 : 230;
 				startY = 239;
 			}
 		}
