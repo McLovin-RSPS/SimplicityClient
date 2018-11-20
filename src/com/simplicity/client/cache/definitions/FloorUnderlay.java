@@ -2,7 +2,9 @@ package com.simplicity.client.cache.definitions;
 import com.simplicity.client.CacheArchive;
 import com.simplicity.client.Stream;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 
 @SuppressWarnings("all")
@@ -20,6 +22,12 @@ public final class FloorUnderlay {
 		}
 
 	}
+
+	private Calendar date = new GregorianCalendar();
+	
+	private boolean isSnowing() {
+		return date.get(Calendar.MONTH) >= Calendar.NOVEMBER && date.get(Calendar.DATE) >= 20 || date.get(Calendar.MONTH) == Calendar.DECEMBER || date.get(Calendar.MONTH) == 0 && date.get(Calendar.DATE) <= 10;
+	}
 	
 	private void readValues(Stream stream) {
 		do {
@@ -29,21 +37,14 @@ public final class FloorUnderlay {
 				return;
 			else if (opcode == 1) {
 				colour2 = stream.read3Bytes();
-				Date date = new Date();
 				
-				if (date.getMonth() == 11 || date.getMonth() == 0 && date.getDate() <= 10) {
+				if (isSnowing() && colour2 == 0x35720A || colour2 == 0x50680B || colour2 == 0x78680B || colour2 == 0x6CAC10 || colour2 == 0x819531) {
 					colour2 = 0xffffff;
 				}
 				
 				rgb2hsl(colour2);
 			} else if (opcode == 2) {
 				texture = stream.readUnsignedByte();
-				
-				Date date = new Date();
-				
-				if (date.getMonth() == 11 || date.getMonth() == 0 && date.getDate() <= 10) {
-					texture = 0xffffff;
-				}
 			} else if (opcode == 3)
 				dummy = true;
 			else if (opcode == 5)
