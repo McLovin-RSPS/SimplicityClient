@@ -22,11 +22,13 @@ public final class FloorUnderlay {
 		}
 
 	}
-
-	private Calendar date = new GregorianCalendar();
 	
-	private boolean isSnowing() {
-		return date.get(Calendar.MONTH) >= Calendar.NOVEMBER && date.get(Calendar.DATE) >= 20 || date.get(Calendar.MONTH) == Calendar.DECEMBER || date.get(Calendar.MONTH) == 0 && date.get(Calendar.DATE) <= 10;
+	public static boolean snowEnabled = true;
+
+	private static Calendar date = new GregorianCalendar();
+	
+	private static boolean isSnowing() {
+		return snowEnabled && (date.get(Calendar.MONTH) >= Calendar.NOVEMBER && date.get(Calendar.DATE) >= 20 || date.get(Calendar.MONTH) == Calendar.DECEMBER || date.get(Calendar.MONTH) == 0 && date.get(Calendar.DATE) <= 10);
 	}
 	
 	private void readValues(Stream stream) {
@@ -38,7 +40,7 @@ public final class FloorUnderlay {
 			else if (opcode == 1) {
 				colour2 = stream.read3Bytes();
 				
-				if (isSnowing() && colour2 == 0x35720A || colour2 == 0x50680B || colour2 == 0x78680B || colour2 == 0x6CAC10 || colour2 == 0x819531) {
+				if (isSnowing() && (colour2 == 0x35720A || colour2 == 0x50680B || colour2 == 0x78680B || colour2 == 0x6CAC10 || colour2 == 0x819531)) {
 					colour2 = 0xffffff;
 				}
 				

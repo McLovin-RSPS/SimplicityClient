@@ -9984,6 +9984,12 @@ public class Client extends RSApplet {
 							e.printStackTrace();
 						}
 					}
+					if (inputString.startsWith("::snow")) {
+						FloorUnderlay.snowEnabled = !FloorUnderlay.snowEnabled;
+						pushMessage("Snow is now: @dre@" + (FloorUnderlay.snowEnabled ? "enabled" : "disabled") + "@bla@.", 0, "");
+						FloorUnderlay.unpackConfig(streamLoaderForName(2, "config", "config", expectedCRCs[2], 30));
+						loadRegion();
+					}
 					if (inputString.startsWith("::fps")) {
 						fpsOn = !fpsOn;
 					}
@@ -12603,7 +12609,6 @@ public class Client extends RSApplet {
 
 			Model.initialise(onDemandFetcher.getModelCount(), onDemandFetcher);
 			SpriteCache.initialise(onDemandFetcher.getImageCount(), onDemandFetcher);
-			loadSettings();
 			SpriteLoader.loadSprites(configArchives);
 			cacheSprite = SpriteLoader.sprites;
 			SpriteCache.load(getClient());
