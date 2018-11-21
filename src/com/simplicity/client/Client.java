@@ -21920,7 +21920,7 @@ public class Client extends RSApplet {
 		for (GameObject customObject : CustomObjects.CUSTOM_OBJECT_LIST) {
 			if (customObject != null) {
 				if (plane == customObject.z && goodDistance(customObject.x, customObject.y, playerX, playerY, 50)) {
-					addObject(customObject.id, customObject.x, customObject.y, customObject.face, 10);
+					addObject(customObject.id, customObject.x, customObject.y, customObject.face, customObject.type);
 				}
 			}
 		}

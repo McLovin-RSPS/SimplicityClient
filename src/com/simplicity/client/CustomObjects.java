@@ -16,11 +16,20 @@ public class CustomObjects {
 			int y = CUSTOM_OBJECTS[i][2];
 			int z = CUSTOM_OBJECTS[i][3];
 			int face = CUSTOM_OBJECTS[i][4];
-			CUSTOM_OBJECT_LIST.add(new GameObject(id, x, y, z, face));
+			int type = CUSTOM_OBJECTS[i].length > 5 ? CUSTOM_OBJECTS[i][5] : 10;
+			CUSTOM_OBJECT_LIST.add(new GameObject(id, x, y, z, face, type));
 		}
 	}
 	
 	public static final int[][] CUSTOM_OBJECTS = {
+			
+			{-1, 3158, 3951, 0, 0}, // Web
+			
+			{1817, 3090, 3475, 0, 0, 4}, // Edge lever
+			
+			{1816, 3153, 3923, 0, 0, 4}, // Wildy lever
+			
+			{10087, 3187, 3927, 0 , 0}, // Dark crab fishing spot
 
 			//Well for upgradable at home
 			{3485, 3089, 3495, 0, 0},

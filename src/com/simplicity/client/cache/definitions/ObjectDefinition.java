@@ -155,6 +155,10 @@ public final class ObjectDefinition {
 	    if ( i == 30351 || i == 30349 || i == 30348) {
 			System.out.println("" + Arrays.toString(objectDef.objectModelIDs));
 		}
+	    if (i == 10087) {
+			objectDef.actions = new String[] {"Cage", null, null, null, null};
+			objectDef.name = "@yel@Dark crab";
+		}
 	    return objectDef;
 	  }
 
@@ -209,7 +213,7 @@ public final class ObjectDefinition {
 		if (isOSRSObject(i) || isOsrs) {
 			return forIDOSRS(i);
 		}
-
+		
 		for (int j = 0; j < 200; j++) {
 			if (cache[j].type == i) {
 				return cache[j];
