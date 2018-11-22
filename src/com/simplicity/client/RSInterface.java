@@ -1956,6 +1956,23 @@ public static void TeleTAB5() {
 		tab.height = height;
 		tab.tooltip = "Select";
 	}
+	
+	public static void addRectangleClickable(int id, int opacity, int color,
+			boolean filled, int width, int height, String...actions) {
+		RSInterface tab = interfaceCache[id] = new RSInterface();
+		tab.disabledColor = color;
+		tab.filled = filled;
+		tab.id = id;
+		tab.parentID = id;
+		tab.type = 3;
+		tab.atActionType = 5;
+		tab.contentType = 0;
+		tab.opacity = (byte) opacity;
+		tab.width = width;
+		tab.height = height;
+		tab.atActionType = 1;
+		tab.actions = actions;
+	}
 
 	public static void setSelectableValues(int frame, int configId,
 			int requiredValue) {
@@ -2945,6 +2962,7 @@ public static void TeleTAB5() {
 		//	CustomInterfaces.achievementsInterface();
 		dealsInterface(textDrawingAreas);
 		customisableHotKeys(textDrawingAreas);
+		presetsInterface(textDrawingAreas);
 		spriteCache = null;
 	}
 
@@ -3029,6 +3047,140 @@ public static void TeleTAB5() {
 			}
 		}
 
+	}
+	
+	public static void presetsInterface(TextDrawingArea[] tda) {
+		int id = 86000;
+		
+		RSInterface presets = addInterface(id++);
+		
+		presets.totalChildren(39);
+		
+		int frame = 0;
+		
+		addRectangle(id, 50, 0x000000, true, 515, 334);
+		presets.child(frame++, id++, 0, 0);
+		id++;
+		
+		addSpriteLoader(id, 953);
+		presets.child(frame++, id, 5, 1);
+		id++;
+		
+		addText(id, "Equipment", tda, 2, 0xFFA500, true);
+		presets.child(frame++, id, 205, 26 - 14);
+		id++;
+		
+		addCloseButton(id, id + 1, id + 2, true);
+		presets.child(frame++, id, 482, 23 - 14);
+		presets.child(frame++, id + 1, 482, 23 - 14);
+		id += 3;
+		
+		int y = 23 - 14;
+		
+		for (int i = 1; i <= 9; i++) {
+			addRectangleClickable(id, 150, 0, true, 106, 31, "View", "Rename", "Delete");
+			addText(id + 1, "Preset " + i, tda, 0, 0xFFA500);
+			presets.child(frame++, id, 13, y);
+			presets.child(frame++, id + 1, 43, y + 9);
+			id += 2;
+			y += 32;
+		}
+		
+		id += 20;
+		
+		addText(id, "Inventory", tda, 2, 0xFFA500, true);
+		presets.child(frame++, id, 392, 26 - 14);
+		id++;
+		
+		addRectangle(id, 200, 0x000000, true, 206, 264);
+		presets.child(frame++, id, 292, 45 - 14);
+		id++;
+		
+		addContainer(id, 0, 4, 7, 18, 5, false, new String[] { "Edit", "Remove", null, null, null });
+		
+		presets.child(frame++, id, 303, 47 - 11);
+		id++;
+		
+		addHoverButtonWSpriteLoader(id, 954, 114, 25, "Save/Update", -1, id + 1, 1);
+		addHoveredImageWSpriteLoader(id + 1, 955, 114, 25, id + 2);
+		addText(id + 3, "Save/Update", tda, 0, 0xffffff);
+		presets.child(frame++, id, 5, 306);
+		presets.child(frame++, id + 1, 5, 306);
+		presets.child(frame++, id + 3, 48 - 18, 313);
+		id += 4;
+		
+		addHoverButtonWSpriteLoader(id, 954, 114, 25, "Load", -1, id + 1, 1);
+		addHoveredImageWSpriteLoader(id + 1, 955, 114, 25, id + 2);
+		addText(id + 3, "Load", tda, 0, 0xffffff);
+		presets.child(frame++, id, 5 + 130, 306);
+		presets.child(frame++, id + 1, 5 + 130, 306);
+		presets.child(frame++, id + 3, 49 + 130, 313);
+		id += 4;
+		
+		addHoverButtonWSpriteLoader(id, 954, 114, 25, "Switch", -1, id + 1, 1);
+		addHoveredImageWSpriteLoader(id + 1, 955, 114, 25, id + 2);
+		addText(id + 3, "Prayer: @yel@Regular", tda, 0, 0xffffff, true);
+		presets.child(frame++, id, 5 + 260, 306);
+		presets.child(frame++, id + 1, 5 + 260, 306);
+		presets.child(frame++, id + 3, 48 + 260 + 14, 313);
+		id += 4;
+		
+		addHoverButtonWSpriteLoader(id, 954, 114, 25, "Switch", -1, id + 1, 1);
+		addHoveredImageWSpriteLoader(id + 1, 955, 114, 25, id + 2);
+		addText(id + 3, "Spells: @yel@Modern", tda, 0, 0xffffff, true);
+		presets.child(frame++, id, 393, 306);
+		presets.child(frame++, id + 1, 393, 306);
+		presets.child(frame++, id + 3, 450, 313);
+		id += 4;
+		
+		addInterface(86100).copy(interfaceCache[1644]);
+		
+		addInterface(86150).copy(interfaceCache[1688]);
+		
+		interfaceCache[86100].children[27] = 86150; 
+		
+		presets.child(frame++, 86100, 109, 50);
+	}
+	
+	public void copy(RSInterface from) {
+		type = from.type;
+		atActionType = from.atActionType;
+		contentType = from.contentType;
+		valueCompareType = from.valueCompareType;
+		width = from.width;
+		height = from.height;
+		
+		if (from.inv != null) {
+			inv = new int[from.inv.length];
+			invStackSizes = new int[from.invStackSizes.length];
+			sprites = new Sprite[from.sprites.length];
+			spritesX = new int[from.spritesX.length];
+			spritesY = new int[from.spritesY.length];
+			System.arraycopy(from.inv, 0, inv, 0, from.inv.length);
+			System.arraycopy(from.invStackSizes, 0, invStackSizes, 0, from.invStackSizes.length);
+			System.arraycopy(from.sprites, 0, sprites, 0, from.sprites.length);
+			System.arraycopy(from.spritesX, 0, spritesX, 0, from.spritesX.length);
+			System.arraycopy(from.spritesY, 0, spritesY, 0, from.spritesY.length);
+			invSpritePadX = from.invSpritePadX;
+			invSpritePadY = from.invSpritePadY;
+		}
+		
+		if (from.valueCompareType != null) {
+			System.arraycopy(from.valueCompareType, 0, valueCompareType, 0, from.valueCompareType.length);
+		}
+		
+		if (from.valueIndexArray != null) {
+			System.arraycopy(from.valueIndexArray, 0, valueIndexArray, 0, from.valueIndexArray.length);
+		}
+		
+		if (from.children != null) {
+			children = new int[from.children.length];
+			childX = new int[from.childX.length];
+			childY = new int[from.childY.length];
+			System.arraycopy(from.children, 0, children, 0, from.children.length);
+			System.arraycopy(from.childX, 0, childX, 0, from.childX.length);
+			System.arraycopy(from.childY, 0, childY, 0, from.childY.length);			
+		}
 	}
 
 	public static void addHoverButton_sprite_loader(int i, int spriteId, int width, int height, String text,
@@ -11009,10 +11161,14 @@ public static void addHoverSpriteLoaderButton(int i, int spriteId,
 			/*
 			 * Custom interfaces
 			 */
-
+			
 			public static void addCloseButton(int child, int hoverChild, int hoverImageChild) {
-				addHoverButtonWSpriteLoader(child, 740, 21, 21, "Close", 250, hoverChild, 3);
-				addHoveredImageWSpriteLoader(hoverChild, 741, 21, 21, hoverImageChild);
+				addCloseButton(child, hoverChild, hoverImageChild, false);
+			}
+
+			public static void addCloseButton(int child, int hoverChild, int hoverImageChild, boolean small) {
+				addHoverButtonWSpriteLoader(child, 737, 16, 16, "Close", 250, hoverChild, 3);
+				addHoveredImageWSpriteLoader(hoverChild, 738, 16, 16, hoverImageChild);
 			}
 
 			private static void equipmentScreenInterface() {
