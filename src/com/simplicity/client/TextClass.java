@@ -158,6 +158,48 @@ public final class TextClass {
 			stringbuffer.append("*");
 		return stringbuffer.toString();
 	}
+	
+	/**
+	 * Cuts a string into more than one line if it exceeds the specified max width.
+	 * @param font
+	 * @param string
+	 * @param maxWidth
+	 * @return
+	 */
+	public static String[] splitString(RSFontSystem font, String prefix, String string, int maxWidth, boolean ranked) {
+		maxWidth -= font.getTextWidth(prefix) + (ranked ? 14 : 0);
+		if (font.getTextWidth(prefix + string) + (ranked ? 14 : 0) <= maxWidth) {
+			return new String[]{ string };
+		}
+		String line = "";
+		String[] cut = new String[2];
+		boolean split = false;
+		char[] characters = string.toCharArray();
+		int space = -1;
+		for (int index = 0; index < characters.length; index++) {
+			char c = characters[index];
+			line += c;
+			if (c == ' ') {
+				space = index;
+			}
+			if (!split) {
+				if (font.getTextWidth(line) + 10 > maxWidth) {
+					if (space != -1 && characters[index - 1] != ' ') {
+						cut[0] = line.substring(0, space);
+						line = line.substring(space);
+					} else {
+						cut[0] = line;
+						line = "";
+					}
+					split = true;
+				}
+			}
+		}
+		if (line.length() > 0) {
+			cut[1] = line;
+		}
+		return cut;
+	}
 
 	private static final char[] validChars = { '_', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 

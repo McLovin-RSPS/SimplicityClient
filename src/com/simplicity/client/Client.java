@@ -715,8 +715,20 @@ public class Client extends RSApplet {
 						if (chatTypeView == 5 || chatTypeView == 0) {
 							if (positionY > 0 && positionY < 210) {
 								int xPos = 11;
-								newRegularFont.drawBasicString(chatMessages[index], xPos + offsetX, positionY + offsetY,
-										clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
+								
+								int yPos = positionY; 
+								
+								String[] message = TextClass.splitString(newRegularFont, "", chatMessages[index], 464, rights != 0);
+								
+								if (message.length > 1) {
+									newRegularFont.drawBasicString(message[0], xPos, yPos - 14, clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
+									xPos -= 3;
+									newRegularFont.drawBasicString(message[1], xPos, yPos, clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
+									messageY++;
+								} else {
+									newRegularFont.drawBasicString(chatMessages[index], xPos + offsetX, positionY + offsetY, clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
+								}
+								
 							}
 							scrollPosition++;
 							messageY++;
