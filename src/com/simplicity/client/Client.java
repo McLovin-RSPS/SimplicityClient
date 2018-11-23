@@ -721,9 +721,9 @@ public class Client extends RSApplet {
 								String[] message = TextClass.splitString(newRegularFont, "", chatMessages[index], 464, rights != 0);
 								
 								if (message.length > 1) {
-									newRegularFont.drawBasicString(message[0], xPos, yPos - 14, clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
+									newRegularFont.drawBasicString(message[0], xPos + offsetX, yPos - 14 + offsetY, clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
 									xPos -= 3;
-									newRegularFont.drawBasicString(message[1], xPos, yPos, clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
+									newRegularFont.drawBasicString(message[1], xPos + offsetX, yPos + offsetY, clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
 									messageY++;
 								} else {
 									newRegularFont.drawBasicString(chatMessages[index], xPos + offsetX, positionY + offsetY, clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
