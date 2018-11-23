@@ -259,6 +259,7 @@ public final class ObjectDefinition {
 			if(s.contains("bank") && !s.contains("closed")) {
 				objectDef.actions = new String[5];
 				objectDef.actions[0] = "Use";
+				objectDef.actions[1] = "View-presets";
 			}
 		}
 		if(i == 3485) {
