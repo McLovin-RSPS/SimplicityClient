@@ -194,8 +194,10 @@ final class ObjectManager {
 											&& overlayClippingPaths[l][l6][k17] != 0) {
 										flag = false;
 									}
-									if (i19 > 0
-											&& !FloorOverlay.overlayFloor[i19 - 1].aBoolean393) {
+									if (i19 - 1 >= FloorOverlay.overlayFloor.length) {
+										i19 = FloorOverlay.overlayFloor.length;
+									}
+									if (i19 > 0 && !FloorOverlay.overlayFloor[i19 - 1].aBoolean393) {
 										flag = false;
 									}
 									if (flag && j19 == k19 && j19 == l19
@@ -219,7 +221,7 @@ final class ObjectManager {
 								} else {
 									int k22 = overlayClippingPaths[l][l6][k17] + 1;
 									byte byte4 = overlayClippingPathRotations[l][l6][k17];
-									if (i19 - 1 > FloorOverlay.overlayFloor.length) {
+									if (i19 - 1 >= FloorOverlay.overlayFloor.length) {
 										i19 = FloorOverlay.overlayFloor.length;
 									}
 									FloorOverlay flo_2 = FloorOverlay.overlayFloor[i19 - 1];
