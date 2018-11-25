@@ -303,7 +303,7 @@ public final class ObjectDefinition {
 			objectDef.name = "Well of Goodwill";
 		}
 		if(i == 4407) {
-			objectDef.actions = new String[] {"Teleport", null, null, null, null};
+			objectDef.actions = new String[] {"Visit", null, null, null, null};
 			objectDef.name = "Demonic Gorillas";
 		}
 		if(i == 4408) {
@@ -608,8 +608,8 @@ public final class ObjectDefinition {
 
 		switch (i) {
 		case 47748:
-			objectDef.actions = new String[] { "Search", null, null, null, null };
-			objectDef.name = "Christmas Tree";
+			objectDef.actions = new String[] { "Cut", null, null, null, null };
+			objectDef.name = "Christmas AFK Tree";
 			break;
         /**
          * Treasure Chests

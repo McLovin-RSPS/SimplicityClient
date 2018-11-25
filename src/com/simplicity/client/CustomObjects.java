@@ -33,6 +33,10 @@ public class CustomObjects {
 
 			//Well for upgradable at home
 			{3485, 3089, 3495, 0, 0},
+			
+			//Xmass tree for december
+			{47748, 3087, 3504, 0, 0},
+
 
 			 //Treasure island chests
 			  { 18804, 3039, 2912, 0, 2 },

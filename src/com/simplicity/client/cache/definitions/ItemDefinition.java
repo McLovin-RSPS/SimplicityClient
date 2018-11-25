@@ -572,6 +572,11 @@ public final class ItemDefinition {
                     itemDef.actions[2] = "Check";
                     itemDef.actions[3] = "Toggle Config";
                     break;
+                case 42897:
+                    itemDef.name = "Christmas Mystery Box";
+                    itemDef.actions = new String[5];
+                    itemDef.actions[0] = "Open";
+                    break;
                 case 52316:
                     itemDef.name = "Emerald rapier";
                     break;
@@ -778,6 +783,7 @@ public final class ItemDefinition {
                 itemDef.groundActions = new String[]{null, null, "Take", null, null};
                 itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
                 break;
+            
 
             case 12646:
                 itemDef.modelID = 12073;
@@ -5303,8 +5309,8 @@ public final class ItemDefinition {
                 break;
             case 4705:
                 itemDef.modelID = 6701;
-                itemDef.name = "Abyssal vine whip";
-                itemDef.description = "A weapon from the Abyss, interlaced with a vicious jade vine.";
+                itemDef.name = "Vorkath's Vine Whip";
+                itemDef.description = "A weapon from Vorkath island, interlaced with a vicious vorkath vine.";
                 itemDef.modelZoom = 900;
                 itemDef.rotationY = 324;
                 itemDef.rotationX = 1808;
