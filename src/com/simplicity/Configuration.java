@@ -12,7 +12,7 @@ public class Configuration {
 	/**
 	 * Client information
 	 */
-	public final static String CLIENT_NAME = "SimplicityPS.org";
+	public final static String CLIENT_NAME = "Simplicity RSPS | Runescape Private Server | SimplicityPS.org";
 	public static final boolean SEND_HASH = true;
 	public static  boolean upscaling = true;
 	public static final boolean DISCO_ITEMS = false;

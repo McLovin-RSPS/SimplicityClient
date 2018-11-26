@@ -2336,7 +2336,6 @@ public final class ItemDefinition {
                 itemDef.modelZoom = itemDef2111.modelZoom;
                 itemDef.name = "Blue Dragon boots ";
                 itemDef.actions = itemDef2111.actions;
-
                 itemDef.editedModelColor = new int[] { 926 };
                 itemDef.newModelColor  = new int[] { 302770 };
                 itemDef.stackable = false;
@@ -2355,11 +2354,9 @@ public final class ItemDefinition {
                 itemDef.modelZoom = itemDef211.modelZoom;
                 itemDef.name = "Lava Dragon boots ";
                 itemDef.actions = itemDef211.actions;
-
                 itemDef.editedModelColor = new int[] { 926 };
                 itemDef.newModelColor  = new int[] { 461770 };
                 itemDef.stackable = false;
-
                 break;
 
             case 11353:
@@ -2408,6 +2405,7 @@ public final class ItemDefinition {
                 itemDef.maleEquip1 = 32674;
                 itemDef.description = "A mystical bow carved from the twisted remains of the Great Olm.";
                 break;
+                
             case 4706:
                 itemDef.modelID = 62692;
                 itemDef.name = "Zaryte bow";
