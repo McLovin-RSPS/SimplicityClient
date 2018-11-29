@@ -394,6 +394,34 @@ public final class ItemDefinition {
         infernalModels.add(33145);
         infernalModels.add(33102);
         infernalModels.add(33114);
+        
+        /**
+         * Master capes
+         */
+        priorityModels.add(64536);
+        priorityModels.add(64538);
+        priorityModels.add(64540);
+        priorityModels.add(64542);
+        priorityModels.add(65496);
+        priorityModels.add(65498);
+        priorityModels.add(65500);
+        priorityModels.add(65502);
+        priorityModels.add(65504);
+        priorityModels.add(65506);
+        priorityModels.add(65508);
+        priorityModels.add(65510);
+        priorityModels.add(65512);
+        priorityModels.add(65514);
+        priorityModels.add(65516);
+        priorityModels.add(65518);
+        priorityModels.add(65520);
+        priorityModels.add(65522);
+        priorityModels.add(65524);
+        priorityModels.add(65526);
+        priorityModels.add(65528);
+        priorityModels.add(65530);
+        priorityModels.add(65532);
+        priorityModels.add(65534);
 
         //writeOutOsrsItems(totalItems, totalItemsOSRS);
         //dumpInterface(totalItems, totalItemsOSRS);
