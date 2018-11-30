@@ -676,7 +676,23 @@ public final class ItemDefinition {
         }
         itemDef.value = prices[itemDef.id];
         switch (i) {
-        	case 11008:
+        case 21000:
+        	ItemDefinition def2 = forID(9774);
+        	itemDef.actions = def2.actions;
+        	itemDef.name = "Vorkath cape";
+        	itemDef.modelID = 62909;
+        	itemDef.sizeX = def2.sizeX;
+        	itemDef.sizeY = def2.sizeY;
+        	itemDef.sizeZ = def2.sizeZ;
+        	itemDef.maleEquip1 = 62908;
+        	itemDef.femaleEquip1 = 62908;
+        	itemDef.rotationX = def2.rotationX;
+        	itemDef.rotationY = def2.rotationY;
+        	itemDef.modelZoom = def2.modelZoom;
+        	itemDef.editedModelColor = def2.editedModelColor;
+        	itemDef.newModelColor = def2.newModelColor;
+        	break;
+        	case 110208:
         		itemDef.name = "Scratch card";
         		itemDef.actions[0] = "Check";
         		itemDef.actions[4] = "Drop";
