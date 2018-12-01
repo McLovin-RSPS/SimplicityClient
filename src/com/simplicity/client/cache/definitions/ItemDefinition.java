@@ -2814,7 +2814,7 @@ public final class ItemDefinition {
                 itemDef.maleEquip1 = 65528;
                 itemDef.femaleEquip1 = 65528;
                 itemDef.stackable = false;
-                itemDef.name = "master ranged cape";
+                itemDef.name = "Master ranged cape";
                 itemDef.description = "Master ranged cape";
                 break;
             case 13674:
@@ -2829,7 +2829,7 @@ public final class ItemDefinition {
                 itemDef.maleEquip1 = 65530;
                 itemDef.femaleEquip1 = 65530;
                 itemDef.stackable = false;
-                itemDef.name = "master runecrafting cape";
+                itemDef.name = "Master runecrafting cape";
                 itemDef.description = "Master runecrafting cape";
                 break;
             case 13675:
@@ -2844,7 +2844,7 @@ public final class ItemDefinition {
                 itemDef.maleEquip1 = 65532;
                 itemDef.femaleEquip1 = 65532;
                 itemDef.stackable = false;
-                itemDef.name = "master slayer cape";
+                itemDef.name = "Master slayer cape";
                 itemDef.description = "Master slayer cape";
                 break;
             case 13676:
@@ -2904,7 +2904,7 @@ public final class ItemDefinition {
                 itemDef.maleEquip1 = 64540;
                 itemDef.femaleEquip1 = 64540;
                 itemDef.stackable = false;
-                itemDef.name = "master thieving cape";
+                itemDef.name = "Master thieving cape";
                 itemDef.description = "Master thieving cape";
                 break;
             case 13680:
