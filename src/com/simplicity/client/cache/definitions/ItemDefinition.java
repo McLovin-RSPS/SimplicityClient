@@ -696,8 +696,8 @@ public final class ItemDefinition {
             itemDef.modelID = 35742;
             itemDef.actions = new String[5];
             itemDef.actions[1] = "Wield";
-            itemDef.name = "@or2@UCMJ";
-            itemDef.description = "It is the UCMJ.";
+            itemDef.name = "@or2@Thaad Talon";
+            itemDef.description = "It is the Thaad Talon.";
             itemDef.modelZoom = 2200;
             itemDef.stackable = false;
             itemDef.rotationX = 23;
