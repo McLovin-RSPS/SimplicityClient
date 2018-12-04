@@ -8744,8 +8744,7 @@ public class Client extends RSApplet {
 			}
 		}
 		if (l == 606) {
-			launchURL("https://Simplicityps.org");
-			pushMessage("We've attempted to open www.Simplicityps.org for you.", 0, "");
+			tabToReplyPm();
 		}
 		if (l == 491) {
 			Player class30_sub2_sub4_sub1_sub2_6 = playerArray[nodeId];
@@ -10234,8 +10233,8 @@ public class Client extends RSApplet {
 			if ((type == 1 || type == 2)
 					&& (type == 1 || publicChatMode == 0 || publicChatMode == 1 && isFriendOrSelf(name))) {
 				if (j > positionY - 14 && j <= positionY && !name.equals(myPlayer.name)) {
-					if (myRights >= 1) {
-						menuActionName[menuActionRow] = "Report abuse @whi@" + name;
+					if (isStaff(myRights)) {
+						menuActionName[menuActionRow] = "Reply @whi@" + name;
 						menuActionID[menuActionRow] = 606;
 						menuActionRow++;
 					}
@@ -10284,8 +10283,8 @@ public class Client extends RSApplet {
 			if ((type == 3 || type == 7) && (splitPrivateChat == 0 || chatTypeView == 2)
 					&& (type == 7 || privateChatMode == 0 || privateChatMode == 1 && isFriendOrSelf(name))) {
 				if (j > k1 - 14 && j <= k1) {
-					if (myRights >= 1) {
-						menuActionName[menuActionRow] = "Report abuse @whi@" + name;
+					if (isStaff(myRights)) {
+						menuActionName[menuActionRow] = "Reply @whi@" + name;
 						menuActionID[menuActionRow] = 606;
 						menuActionRow++;
 					}
@@ -10403,8 +10402,8 @@ public class Client extends RSApplet {
 			if ((j1 == 1 || j1 == 2)
 					&& (j1 == 1 || publicChatMode == 0 || publicChatMode == 1 && isFriendOrSelf(name))) {
 				if (j > k1 - 14 && j <= k1 && !name.equals(myPlayer.name)) {
-					if (myRights >= 1) {
-						menuActionName[menuActionRow] = "Report abuse @whi@" + name;
+					if (isStaff(myRights)) {
+						menuActionName[menuActionRow] = "Reply @whi@" + name;
 						menuActionID[menuActionRow] = 606;
 						menuActionRow++;
 					}
@@ -10427,8 +10426,8 @@ public class Client extends RSApplet {
 			if ((j1 == 3 || j1 == 7) && splitPrivateChat == 0
 					&& (j1 == 7 || privateChatMode == 0 || privateChatMode == 1 && isFriendOrSelf(name))) {
 				if (j > k1 - 14 && j <= k1) {
-					if (myRights >= 1) {
-						menuActionName[menuActionRow] = "Report abuse @whi@" + name;
+					if (isStaff(myRights)) {
+						menuActionName[menuActionRow] = "Reply @whi@" + name;
 						menuActionID[menuActionRow] = 606;
 						menuActionRow++;
 					}
@@ -15741,8 +15740,8 @@ public class Client extends RSApplet {
 							i1 = 450;
 						}
 						if (super.mouseX < (clientSize == 0 ? 4 : 0) + i1) {
-							if (myRights >= 1) {
-								menuActionName[menuActionRow] = "Report abuse @whi@" + name;
+							if (isStaff(myRights)) {
+								menuActionName[menuActionRow] = "Reply @whi@" + name;
 								menuActionID[menuActionRow] = 2606;
 								menuActionRow++;
 							}
@@ -20897,16 +20896,30 @@ public class Client extends RSApplet {
 					aLong953 = friendsListAsLongs[node];
 					promptMessage = "Enter message to send to " + friendsList[node];
 				} else {
-					if (node == -1) {
-						pushMessage(capitalize(name) + " is not in your friendlist.", 0, "");
-					} else if (!(friendsNodeIDs[node] > 0)) {
-						pushMessage(capitalize(name) + " is not online.", 0, "");
+					if (isStaff(myRights)) { 
+						inputTaken = true;
+						inputDialogState = 0;
+						showInput = true;
+						promptInput = "";
+						friendsListAction = 3;
+						aLong953 = TextClass.longForName(capitalize(name));
+						promptMessage = "Enter message to send to " + capitalize(name);
+					} else {
+						if (node == -1) {
+							pushMessage(capitalize(name) + " is not in your friendlist.", 0, "");
+						} else if (!(friendsNodeIDs[node] > 0)) {
+							pushMessage(capitalize(name) + " is not online.", 0, "");
+						}
 					}
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static boolean isStaff(int rights) {
+		return rights >= 1 && rights <= 4 || rights == 10 || rights == 13;
 	}
 
 	public int getClientWidth() {
