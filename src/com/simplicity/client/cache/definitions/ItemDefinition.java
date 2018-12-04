@@ -2469,7 +2469,7 @@ public final class ItemDefinition {
                 itemDef.actions[1] = "Wear";
                 itemDef.actions[4] = "Drop";
                 itemDef.modelID = 32799;
-                itemDef.name = "Twisted bow";
+                itemDef.name = "Dark twisted bow";
                 itemDef.modelZoom = 2000;
                 itemDef.rotationY = 720;
                 itemDef.rotationX = 1500;
