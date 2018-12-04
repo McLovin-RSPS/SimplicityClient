@@ -2464,6 +2464,23 @@ public final class ItemDefinition {
                 itemDef.maleEquip1 = 32674;
                 itemDef.description = "A mystical bow carved from the twisted remains of the Great Olm.";
                 break;
+            case 20999:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wear";
+                itemDef.actions[4] = "Drop";
+                itemDef.modelID = 32799;
+                itemDef.name = "Twisted bow";
+                itemDef.modelZoom = 2000;
+                itemDef.rotationY = 720;
+                itemDef.rotationX = 1500;
+                itemDef.modelOffset1 = 3;
+                itemDef.modelOffsetY = 1;
+                itemDef.femaleEquip1 = 32674;
+                itemDef.maleEquip1 = 32674;
+                itemDef.description = "A mystical bow carved from the twisted remains of the Great Olm.";
+                itemDef.editedModelColor = new int[] { 16, 24, 33, 13223, 14236 };
+                itemDef.newModelColor = new int[] { 1024, 1024, 937, 1024, 1024 };
+                break;
                 
             case 4706:
                 itemDef.modelID = 62692;
