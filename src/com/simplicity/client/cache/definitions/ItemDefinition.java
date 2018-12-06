@@ -686,9 +686,10 @@ public final class ItemDefinition {
         	itemDef.sizeZ = def2.sizeZ;
         	itemDef.maleEquip1 = 62908;
         	itemDef.femaleEquip1 = 62908;
-        	itemDef.rotationX = def2.rotationX;
-        	itemDef.rotationY = def2.rotationY;
-        	itemDef.modelZoom = def2.modelZoom;
+        	itemDef.rotationX = 1024;
+        	itemDef.rotationY = 300;
+        	itemDef.modelZoom = 2000;
+        	itemDef.modelOffsetY = 130;
         	itemDef.editedModelColor = def2.editedModelColor;
         	itemDef.newModelColor = def2.newModelColor;
         	break;
@@ -707,6 +708,23 @@ public final class ItemDefinition {
             itemDef.editedModelColor = new int[] { 784, 790, 796, 536, 61, 78, 49 };
             itemDef.newModelColor = new int[] { 14875, 14875, 14875, 14875, 14875, 14875, 14875 };
             break;
+        case 21003:
+        	def2 = forID(9774);
+        	itemDef.actions = def2.actions;
+        	itemDef.name = "Raids cape";
+        	itemDef.modelID = 62911;
+        	itemDef.sizeX = def2.sizeX;
+        	itemDef.sizeY = def2.sizeY;
+        	itemDef.sizeZ = def2.sizeZ;
+        	itemDef.maleEquip1 = 62910;
+        	itemDef.femaleEquip1 = 62910;
+        	itemDef.rotationX = 1024;
+        	itemDef.rotationY = 300;
+        	itemDef.modelZoom = 2000;
+        	itemDef.modelOffsetY = 130;
+        	itemDef.editedModelColor = def2.editedModelColor;
+        	itemDef.newModelColor = def2.newModelColor;
+        	break;
         	case 110208:
         		itemDef.name = "Scratch card";
         		itemDef.actions[0] = "Check";
