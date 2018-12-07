@@ -589,6 +589,9 @@ public final class ItemDefinition {
                 case 50851:
                     itemDef.name = "Superior Olmlet";
                     break;
+                case 50884:
+                    itemDef.name = "@or2@Great Olm's crystal";
+                    break;
                 case 51802:
                     itemDef.name = "Revenant teleport";
                     itemDef.actions[0] = "Break";
