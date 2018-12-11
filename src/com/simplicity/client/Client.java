@@ -21229,8 +21229,8 @@ public class Client extends RSApplet {
 		sendConsoleMessage("'cls' - clear the console.", false);
 		sendConsoleMessage("'data' - toggles data display (fps, memory usage, etc).", false);
 		sendConsoleMessage("'debug' - toggles entity debug (objects, npcs).", false);
-		sendConsoleMessage("'teleto #player' - Teleports to Player player.", false);
-		sendConsoleMessage("'teletome #player' - Teleports Player player to you.", false);
+		sendConsoleMessage("'xteleto #player' - Teleports to Player player.", false);
+		sendConsoleMessage("'xteletome #player' - Teleports Player player to you.", false);
 		sendConsoleMessage("'globalmsg #message' - Sends a global message to everyone.", false);
 		if (myRights == PlayerRights.OWNER.ordinal() || myRights == PlayerRights.DEVELOPER.ordinal()) {
 			sendConsoleMessage("'config #' - displays the configs for specified child id.", false);
