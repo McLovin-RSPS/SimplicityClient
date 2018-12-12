@@ -172,7 +172,7 @@ public final class MobDefinition {
             break;
         case 1472:
             npc.name = "Death";
-            npc.description = "A master Attacker of Simplicity.";
+            npc.description = "This boss looks so superior.";
             npc.combatLevel = 941;
             npc.actions = new String[5];
             npc.actions[1] = "Attack";
@@ -194,6 +194,56 @@ public final class MobDefinition {
             npc.squaresNeeded = 2;
             npc.destColours = new int[]{127, 127, 127, 127};
             npc.originalColours = new int[]{65214, 65200, 65186, 62995};
+            break;
+            
+        case 1337:
+        	npc.name = "Superior Arthur";
+        	npc.description = "The master of the universe.";
+            npc.combatLevel = 913;
+            npc.actions = new String[5];
+            npc.actions[1] = "Attack";
+            npc.models = new int[9];
+            npc.models[0] = 55770; // Hat
+            npc.models[1] = 62746; // Platebody
+            npc.models[2] = 62743; // Platelegs
+            npc.models[3] = 62582; // Cape
+            npc.models[4] = 13307; // Gloves
+            npc.models[5] = 53327; // Boots
+            npc.models[6] = 9642; // Amulet
+            npc.models[7] = 2295; // Weapon
+            npc.models[8] = 26423; // Shield
+            npc.standAnim = 808;
+            npc.walkAnim = 819;
+            npc.npcHeadModels = MobDefinition.forID(517).npcHeadModels;
+            npc.sizeXZ = 200;
+            npc.sizeY = 200;
+            npc.squaresNeeded = 2;
+            break;
+            
+        case 1335:
+            npc.name = "Superior Dro";
+            npc.description = "A cool looking dude, but Arthur looks cooler.";
+            npc.combatLevel = 844;
+            npc.actions = new String[5];
+            npc.actions[1] = "Attack";
+            npc.models = new int[9];
+            npc.models[0] = 3188; // Hat
+            npc.models[1] = 20157; // Platebody
+            npc.models[2] = 20139; // Platelegs
+            npc.models[3] = 65297; // Cape
+            npc.models[4] = 20129; // Gloves
+            npc.models[5] = 27738; // Boots
+            npc.models[6] = 9642; // Amulet
+            npc.models[7] = 58380; // Weapon
+            npc.models[8] = 20121;
+            npc.standAnim = 808;
+            npc.walkAnim = 819;
+            npc.npcHeadModels = MobDefinition.forID(517).npcHeadModels;
+            npc.sizeXZ = 200;
+            npc.sizeY = 200;
+            npc.destColours = ItemDefinition.forID(10372).newModelColor;
+            npc.originalColours = ItemDefinition.forID(10372).editedModelColor;
+            npc.squaresNeeded = 2;
             break;
 		     
 		case 3334:

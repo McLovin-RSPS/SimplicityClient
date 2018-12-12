@@ -202,6 +202,8 @@ public class CustomObjects {
 			{54613, 3084, 3483, 0, 0}, // Onyx ore edge bank	
 			{54613, 3083, 3483, 0, 0}, // Onyx ore edge bank */
 			
+			//{11435, 3414, 2762, 0, 0}, // gold tree
+			
 			//dzone
 			
 			//runerocks
@@ -298,7 +300,7 @@ public class CustomObjects {
 			{21893, 3058, 4410, 0, 0},
 			
 			//Superior portal at dzone
-			{46935, 2346, 9801, 0, 0},
+			{46935, 2345, 9801, 0, 2},
 			
 			
 			//dzone thieve altars

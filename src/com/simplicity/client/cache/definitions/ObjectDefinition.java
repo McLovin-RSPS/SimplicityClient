@@ -611,6 +611,10 @@ public final class ObjectDefinition {
 			objectDef.actions = new String[] { "Cut", null, null, null, null };
 			objectDef.name = "Christmas AFK Tree";
 			break;
+		case 11435:
+			objectDef.actions = new String[] { "Cut", null, null, null, null };
+			objectDef.name = "Gold Evil Tree";
+			break;
         /**
          * Treasure Chests
          */
