@@ -2974,7 +2974,7 @@ public static void TeleTAB5() {
 
 		addSprite(90001, SpriteLoader.sprites[1038]); //Main BG
 		addHoverButton_sprite_loader(90002, 1020, 21, 21, "Close", -1, 90003, 3); // Close button
-		addHoveredButton_sprite_loader(90003, 1021, 21, 21, 28634); // Close button hover
+		addHoveredImageWSpriteLoader(90003, 1021, 21, 21, 28634); // Close button hover
 		addText(90005, "Keybinding", 0xFF981F, false, true, 52, TDA, 2); // Title //0xFF981F
 		addConfigButtonWSpriteLoader(90006, 90000, 1039, 1040, 15, 15, "Close Interfaces when using Esc", 1, 5, 400); // Radio button for esc
 		addText(90007, "Esc closes current interface", 0xFF981F, false, true, 52, TDA, 1); // esc text
