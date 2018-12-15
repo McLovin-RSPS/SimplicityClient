@@ -170,6 +170,21 @@ public class ParticleDefinition {
             updateSteps();
             setColorStep(0xB70000);
         }
+    }, new ParticleDefinition() {
+        {
+			// Sled
+            setStartVelocity(new ParticleVector(0, 3, 0));
+            setEndVelocity(new ParticleVector(0, -30, 0));
+            setGravity(new ParticleVector(0, 0, 0));
+            setLifeSpan(28); // 19
+            setStartColor(0xFFFFFF);
+            setSpawnRate(8);
+            setStartSize(1.25f);
+            setEndSize(0);
+            setStartAlpha(0.095f);
+            updateSteps();
+            setColorStep(0x000000);
+        }
     },
     };
 
