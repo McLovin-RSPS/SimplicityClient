@@ -682,6 +682,9 @@ public final class ItemDefinition {
         }
         itemDef.value = prices[itemDef.id];
         switch (i) {
+        case 1543:
+        	itemDef.name = "Santa's key";
+        	break;
         case 21000:
         	ItemDefinition def2 = forID(9774);
         	itemDef.actions = def2.actions;
