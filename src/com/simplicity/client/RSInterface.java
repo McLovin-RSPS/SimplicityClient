@@ -1,13 +1,13 @@
 package com.simplicity.client;
 
+import java.awt.event.KeyEvent;
+
+import com.simplicity.client.DrawLine.LineType;
 import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.client.cache.definitions.MobDefinition;
-import com.simplicity.client.DrawLine.LineType;
 import com.simplicity.client.content.CustomisableHotKeys;
 import com.simplicity.client.content.dropdownmenu.DropDownAction;
 import com.simplicity.client.content.dropdownmenu.DropDownMenu;
-
-import java.awt.event.KeyEvent;
 
 @SuppressWarnings("all")
 public class RSInterface {
@@ -2963,6 +2963,7 @@ public static void TeleTAB5() {
 		dealsInterface(textDrawingAreas);
 		customisableHotKeys(textDrawingAreas);
 		presetsInterface(textDrawingAreas);
+		runePouch(textDrawingAreas);
 		spriteCache = null;
 	}
 
@@ -3142,6 +3143,49 @@ public static void TeleTAB5() {
 		presets.child(frame++, 86100, 109, 50);
 	}
 	
+	public static void runePouch(TextDrawingArea[] tda) {
+		RSInterface tab = addInterface(49000);
+		addSpriteLoader(49001, 1044);
+		addSpriteLoader(49005, 1045);
+		addSpriteLoader(49006, 1046);
+    	addText(49002, "Rune pouch", tda, 2, 0xFFA500, true, true);
+    	addText(49003, "Pouch", tda, 1, 0xFFA500, true, true);
+    	addText(49004, "Inventory", tda, 1, 0xFFA500, true, true);
+    	addHoverButtonWSpriteLoader(49007, 1020, 21, 21, "Close window", 0, 49008, 3);
+    	addHoveredImageWSpriteLoader(49008, 1021, 21, 21, 49009);
+		RSInterface add = addInterface(49010);
+		addToItemGroup(add, 3, 1, 26, 1, new String[] { "Withdraw-1", "Withdraw-5", "Withdraw-10", "Withdraw-All", "Withdraw-X" });
+		add = addInterface(49011);
+		addToItemGroup(add, 7, 4, 16, 2, new String[] { "Store-1", "Store-5", "Store-10", "Store-All", "Store-X" });
+    	tab.totalChildren(10);
+    	tab.child(0, 49001, 82, 20);
+    	tab.child(1, 49002, 253, 29);
+    	tab.child(2, 49003, 256, 64);
+    	tab.child(3, 49004, 253, 137);
+    	tab.child(4, 49005, 105, 57);
+    	tab.child(5, 49006, 342, 57);
+    	tab.child(6, 49007, 406, 26);
+    	tab.child(7, 49008, 406, 26);
+    	tab.child(8, 49010, 186, 86);
+    	tab.child(9, 49011, 98, 152);
+	}
+	
+	public static void addToItemGroup(RSInterface rsi, int w, int h, int x, int y, String...actions) {
+		rsi.width = w;
+		rsi.height = h;
+		rsi.inv = new int[w * h];
+		rsi.invStackSizes = new int[w * h];
+		rsi.usableItemInterface = false;
+		rsi.isInventoryInterface = false;
+		rsi.invSpritePadX = x;
+		rsi.invSpritePadY = y;
+		rsi.spritesX = new int[20];
+		rsi.spritesY = new int[20];
+		rsi.sprites = new Sprite[20];
+		rsi.actions = actions;
+		rsi.type = 2;
+	}
+
 	public void copy(RSInterface from) {
 		type = from.type;
 		atActionType = from.atActionType;
