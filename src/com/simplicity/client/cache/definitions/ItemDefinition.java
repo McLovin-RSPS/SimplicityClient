@@ -734,8 +734,8 @@ public final class ItemDefinition {
         	itemDef.editedModelColor = def2.editedModelColor;
         	itemDef.newModelColor = def2.newModelColor;
         	break;
-        	case 110208:
-        		itemDef.name = "Scratch card";
+        	case 18339:
+        		itemDef.name = "Gold bag";
         		itemDef.actions[0] = "Check";
         		itemDef.actions[4] = "Drop";
         		break;
