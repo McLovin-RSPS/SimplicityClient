@@ -757,6 +757,11 @@ public final class ItemDefinition {
                 itemDef.name = "Wizard Box";
                 itemDef.newModelColor[0] = 2060;
                 break;
+            case 19717:
+                itemDef.copy(forID(6199));
+                itemDef.name = "Christmas Box";
+                itemDef.newModelColor[0] = -1253;
+                break;
             case 15420:
                 itemDef.actions = new String[5];
                 itemDef.actions[0] = "Open";
@@ -7222,9 +7227,18 @@ public final class ItemDefinition {
 
         value = copy.value;
 
-        editedModelColor = copy.editedModelColor;
-        newModelColor = copy.newModelColor;
-
+        editedModelColor = new int[copy.editedModelColor.length];
+        
+        for (int i = 0; i < editedModelColor.length; i++) {
+        	editedModelColor[i] = copy.editedModelColor[i];
+        }
+        
+        newModelColor = new int[copy.newModelColor.length];
+        
+        for (int i = 0; i < newModelColor.length; i++) {
+        	newModelColor[i] = copy.newModelColor[i];
+        }
+        
         femaleEquip3 = copy.femaleEquip3;
         femaleEquip2 = copy.femaleEquip2;
 
