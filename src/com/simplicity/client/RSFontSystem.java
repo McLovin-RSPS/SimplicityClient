@@ -473,6 +473,16 @@ public class RSFontSystem extends DrawingArea {
 		anInt4178 = 0;
 		anInt4175 = 0;
 	}
+	
+	public void setColorAndShadowAndTrans(int color, int shadow, int trans) {
+		strikethroughColor = -1;
+		underlineColor = -1;
+		textShadowColor = defaultShadow = shadow;
+		textColor = defaultColor = color;
+		transparency = defaultTransparency = trans;
+		anInt4178 = 0;
+		anInt4175 = 0;
+	}
 
 	public int getTextWidth(String string) {
 		if (string == null) {
@@ -530,6 +540,13 @@ public class RSFontSystem extends DrawingArea {
 	public void drawBasicString(String string, int drawX, int drawY, int color, int shadow) {
 		if (string != null) {
 			setColorAndShadow(color, shadow);
+			drawBasicString(string, drawX, drawY);
+		}
+	}
+	
+	public void drawBasicString(String string, int drawX, int drawY, int color, int shadow, int trans) {
+		if (string != null) {
+			setColorAndShadowAndTrans(color, shadow, trans);
 			drawBasicString(string, drawX, drawY);
 		}
 	}

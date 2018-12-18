@@ -39,7 +39,17 @@ import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.URL;
 import java.text.NumberFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Random;
+import java.util.Set;
 import java.util.zip.CRC32;
 import java.util.zip.GZIPOutputStream;
 
@@ -4318,9 +4328,25 @@ public class Client extends RSApplet {
 					}
 				}
 				if (child.type == 2) {
+					// Find last slot of a bank container
+					int lastSlot = 0;
+					
+					if (child.contentType == 206) {
+						for (int i12 = child.inv.length - 1; i12 >= 0; i12--) {
+							if (child.inv[i12] > 0) {
+								lastSlot = i12;
+								break;
+							}
+						}
+					}
+					
 					int ptr = 0;
-					for (int height = 0; height < child.height; height++) {
+					rowLoop: for (int height = 0; height < child.height; height++) {
 						for (int width = 0; width < child.width; width++) {
+							// End the loop if we're past the last filled slot of a bank container
+							if (child.contentType == 206 && ptr > lastSlot) {
+								break rowLoop;
+							}
 							int itemX = childX + width * (32 + child.invSpritePadX);
 							int itemY = childY + height * (32 + child.invSpritePadY);
 							if (ptr < 20) {
@@ -4451,7 +4477,30 @@ public class Client extends RSApplet {
 																				// examine
 																				// option
 													}
-
+													
+													if (openInterfaceID == 5292) {
+														// Placeholder releasing
+														if (child.contentType == 206 && child.invStackSizes[ptr] == 0) {
+															menuActionName[menuActionRow] = "Release @lre@" + itemDef.name;
+															menuActionID[menuActionRow] = 633;
+															menuActionCmd1[menuActionRow] = itemDef.id;
+															menuActionCmd2[menuActionRow] = ptr;
+															menuActionCmd3[menuActionRow] = child.id;
+															menuActionRow++;
+															break;
+														}
+														
+														// Placeholder
+														if (j4 == child.actions.length - 1 && child.contentType == 206) { // check if placeholders enabled variousSettings[RSInterface.interfaceCache[Bank.START_ID + 82].valueIndexArray[0][1]] == 0
+															menuActionName[menuActionRow] = "Placeholder @lre@" + itemDef.name;
+															menuActionID[menuActionRow] = 434;
+															menuActionCmd1[menuActionRow] = itemDef.id;
+															menuActionCmd2[menuActionRow] = ptr;
+															menuActionCmd3[menuActionRow] = child.id;
+															menuActionRow++;
+														}
+													}
+													
 													int interfaceId = child.id;
 
 													if (child.parentID == 3321 && openInterfaceID == 42000) {
@@ -7585,6 +7634,39 @@ public class Client extends RSApplet {
 		}
 		if (l >= 2000) {
 			l -= 2000;
+		}
+		
+		// Placeholder releasing
+		if (l == 633) {
+			if (menuOpen) {
+				stream.createFrame(145);
+				stream.putInt(interfaceId);
+				stream.writeUnsignedWordA(slot);
+				stream.writeUnsignedWordA(nodeId);
+			} else {
+				determineMenuSize();
+			}
+		}
+		
+		// Placeholder bank option
+		if (l == 434) {
+			stream.createFrame(142);
+			stream.putInt(interfaceId);
+			stream.writeUnsignedWordBigEndian(slot);
+			stream.writeUnsignedWordBigEndian(nodeId);
+			
+			if (openInterfaceID != 5292) {
+				atInventoryLoopCycle = 0;
+				atInventoryInterface = slot;
+				atInventoryIndex = nodeId;
+				atInventoryInterface = interfaceId;
+				atInventoryInterfaceType = 2;
+				if (RSInterface.interfaceCache[slot].parentID == openInterfaceID)
+					atInventoryInterfaceType = 1;
+				if (RSInterface.interfaceCache[slot].parentID == backDialogID)
+					atInventoryInterfaceType = 3;
+			}
+			return;
 		}
 		if (l == 104) {
 			RSInterface rsInterface = RSInterface.interfaceCache[interfaceId];
@@ -13833,6 +13915,8 @@ public class Client extends RSApplet {
 												if (!bankTab) {
 													if (k10 >= 1500000000 && child.drawInfinity) {
 														SpriteLoader.sprites[653].drawSprite(itemSpriteX, itemSpriteY);
+													} else if (k10 == 0) { // Placeholder text
+														newSmallFont.drawBasicString(intToKOrMil(k10), itemSpriteX + k6, itemSpriteY + 9 + j7, 0xFFFF00, 1, 120);
 													} else {
 														smallText.method385(0, intToKOrMil(k10), itemSpriteY + 10 + j7,
 																itemSpriteX + 1 + k6);

@@ -12133,7 +12133,7 @@ public static void addHoverSpriteLoaderButton(int i, int spriteId,
 			 */
 			private static void bankInterface() {
 				RSInterface rsinterface = addTabInterface(5292);
-				setChildren(38, rsinterface);
+				setChildren(39, rsinterface);
 				setBounds(5383, 170, 15, 1, rsinterface);
 				interfaceCache[5385].height = 206;
 				interfaceCache[5385].width = 474;
@@ -12238,6 +12238,9 @@ public static void addHoverSpriteLoaderButton(int i, int spriteId,
 				addText(27001, "0", 0xff981f, false, true, 52, fonts, 1);
 				addText(27002, "0", 0xff981f, false, true, 52, fonts, 1);
 				//newBank();
+				
+				addConfigButtonWSpriteLoader(22043, 22044, 1047, 1048, 35, 25, "Always set placeholders", 1, 4, 305);
+				setBounds(22043, 240 + 90, 285, 38, rsinterface);
 			}
 
 			/*
