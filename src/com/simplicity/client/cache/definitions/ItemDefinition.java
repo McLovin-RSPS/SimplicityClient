@@ -759,7 +759,7 @@ public final class ItemDefinition {
                 break;
             case 19717:
                 itemDef.copy(forID(6199));
-                itemDef.name = "Christmas Box";
+                itemDef.name = "Santa's Secret Box";
                 itemDef.newModelColor[0] = -1253;
                 break;
             case 15420:
