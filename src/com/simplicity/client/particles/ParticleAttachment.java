@@ -49,5 +49,11 @@ public class ParticleAttachment {
 		
 		// Sled
 		attachments.put(4946, new int[][] { { 85, 9 }, { 167, 9 } });
+		
+		// Dark Sled
+		attachments.put(2215, new int[][] { { 62, 12 }, { 120, 12 } });
+		
+		// Godsword
+		attachments.put(2606, new int[][] { { 188, 10 }, { 181, 11 }, { 187, 10 }, { 223, 10 } });
 	}
 }

@@ -185,6 +185,49 @@ public class ParticleDefinition {
             updateSteps();
             setColorStep(0x000000);
         }
+    }, new ParticleDefinition() {
+        { // Onyx gs 1
+            setStartVelocity(new ParticleVector(0, -3, 0)); // x z y
+            setEndVelocity(new ParticleVector(0, -3, 0));
+            setGravity(new ParticleVector(0, 1 / 2, 0));
+            setLifeSpan(19);
+            setStartColor(0xB70000);
+            setSpawnRate(2);
+            setStartSize(1.2f);
+            setEndSize(0);
+            setStartAlpha(0.2f);
+            updateSteps();
+            setColorStep(0x000900);
+        }
+    }, new ParticleDefinition() {
+        { // Onyx gs 2
+            setStartVelocity(new ParticleVector(0, -3, 0)); // x z y
+            setEndVelocity(new ParticleVector(0, 30, 0));
+            setGravity(new ParticleVector(0, 1 / 2, 0));
+            setLifeSpan(29);
+            setStartColor(0xB70000);
+            setSpawnRate(1);
+            setStartSize(1.0f);
+            setEndSize(0.7f);
+            setStartAlpha(0.2f);
+            updateSteps();
+            setColorStep(0x000900);
+        }
+    }, new ParticleDefinition() {
+        {
+			// Dark Sled
+            setStartVelocity(new ParticleVector(0, 3, 0));
+            setEndVelocity(new ParticleVector(0, -30, 0));
+            setGravity(new ParticleVector(0, 0, 0));
+            setLifeSpan(28); // 19
+            setStartColor(0xB70000);
+            setSpawnRate(8);
+            setStartSize(1.25f);
+            setEndSize(0);
+            setStartAlpha(0.095f);
+            updateSteps();
+            setColorStep(0x000000);
+        }        
     },
     };
 

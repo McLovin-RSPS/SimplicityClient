@@ -734,6 +734,25 @@ public final class ItemDefinition {
         	itemDef.editedModelColor = def2.editedModelColor;
         	itemDef.newModelColor = def2.newModelColor;
         	break;
+        case 21004:
+        	itemDef.copy(forID(11694));
+        	itemDef.modelID = 2608;
+        	itemDef.maleEquip1 = 2606;
+        	itemDef.femaleEquip1 = 2606;
+        	itemDef.maleXOffset += 130;
+        	itemDef.femaleXOffset -= 1;
+        	itemDef.femaleZOffset -= 13;
+        	itemDef.femaleYOffset += 8;
+        	itemDef.modelOffset1 = -2;
+        	itemDef.name = "Onyx 2h sword";
+        	break;
+        case 21006:
+        	itemDef.copy(forID(4084));
+        	itemDef.modelID = 2214;
+        	itemDef.maleEquip1 = 2215;
+        	itemDef.femaleEquip1 = 2215;
+        	itemDef.name = "Dark sled";
+        	break;
         	case 18339:
         		itemDef.name = "Gold bag";
         		itemDef.actions[0] = "Check";
