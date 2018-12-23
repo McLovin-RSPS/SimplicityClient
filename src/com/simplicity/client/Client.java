@@ -17983,7 +17983,7 @@ public class Client extends RSApplet {
 						alertBoxTimer = 2500;
 						alertText = s.substring(7).split(":n:");
 					}
-				} else if (s.endsWith("::")) {
+				} else if (s.endsWith("::") && !s.startsWith("@clan:A@")) {
 					String s4 = s.substring(0, s.indexOf(":"));
 					TextClass.longForName(s4);
 					pushMessage("Clan: ", 8, s4);
