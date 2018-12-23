@@ -221,7 +221,7 @@ public final class MobDefinition {
             break;
             
         case 1335:
-            npc.name = "Superior Dro";
+            npc.name = "Zamorak Dro";
             npc.description = "A cool looking dude, but Arthur looks cooler.";
             npc.combatLevel = 844;
             npc.actions = new String[5];
@@ -244,6 +244,33 @@ public final class MobDefinition {
             npc.destColours = ItemDefinition.forID(10372).newModelColor;
             npc.originalColours = ItemDefinition.forID(10372).editedModelColor;
             npc.squaresNeeded = 2;
+            break;
+            
+        case 1334:
+            npc.name = "Master Lewis";
+            npc.description = "A master mager of Simplicity.";
+            npc.combatLevel = 903;
+            npc.actions = new String[5];
+            npc.actions[1] = "Attack";
+            npc.models = new int[10];
+            npc.models[0] = 3188; // Hat
+            npc.models[1] = 58366; // Platebody
+            npc.models[2] = 58333; // Platelegs
+            npc.models[3] = 65297; // Cape
+            npc.models[4] = 179; // Gloves
+            npc.models[5] = 27738; // Boots
+            npc.models[6] = 9642; // Amulet
+            npc.models[7] = 56022; // Weapon
+            npc.models[8] = 40942; // Shield
+            npc.models[9] = 58316;
+            npc.standAnim = 808;
+            npc.walkAnim = 819;
+            npc.npcHeadModels = MobDefinition.forID(517).npcHeadModels;
+            npc.sizeXZ = 200;
+            npc.sizeY = 200;
+            npc.squaresNeeded = 2;
+            npc.destColours = new int[]{226770, 34503, 34503, 34503, 34503};
+            npc.originalColours = new int[]{926, 65214, 65200, 65186, 62995};
             break;
 		     
 		case 3334:
