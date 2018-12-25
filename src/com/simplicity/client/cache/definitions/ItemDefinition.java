@@ -599,6 +599,20 @@ public final class ItemDefinition {
                     itemDef.name = "Revenant teleport";
                     itemDef.actions[0] = "Break";
                     break;
+                case 51803:
+                	ItemDefinition def = forID(51802);
+                	itemDef.osrs = true;
+                	itemDef.modelID = def.modelID;
+                	itemDef.modelOffset1 = def.modelOffset1;
+                	itemDef.modelOffsetX = def.modelOffsetX;
+                	itemDef.modelOffsetY = def.modelOffsetY;
+                	itemDef.modelZoom = def.modelZoom;
+                	itemDef.rotationX = def.rotationX;
+                	itemDef.rotationY = def.rotationY;
+                	itemDef.description = def.description;
+                	itemDef.actions = def.actions;
+                	itemDef.name = "Lava dragon teleport";
+                	break;
                 case 42603:
                     itemDef.name = "Ring of Bosses";
                     itemDef.actions = new String[5];
