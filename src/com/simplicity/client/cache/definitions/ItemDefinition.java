@@ -682,6 +682,18 @@ public final class ItemDefinition {
         }
         itemDef.value = prices[itemDef.id];
         switch (i) {
+        case 15449:
+        	itemDef.name = "Symbol of Combat";
+        	break;
+        case 15454:
+        	itemDef.name = "Symbol of Collectors";
+        	break;
+        case 15459:
+        	itemDef.name = "Symbol of Creation";
+        	break;
+        case 15464:
+        	itemDef.name = "Symbol of Life";
+        	break;
         case 1543:
         	itemDef.name = "Santa's key";
         	break;
