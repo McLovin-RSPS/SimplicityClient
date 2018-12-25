@@ -689,7 +689,7 @@ public final class ItemDefinition {
         	itemDef.name = "Symbol of Collectors";
         	break;
         case 15459:
-        	itemDef.name = "Symbol of Creation";
+        	itemDef.name = "Symbol of Artisans";
         	break;
         case 15464:
         	itemDef.name = "Symbol of Life";
