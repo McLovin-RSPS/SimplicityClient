@@ -48,6 +48,15 @@ public final class MobDefinition {
 					npc.actions = new String[5];
 					npc.actions[1] = "Attack";
 					break;
+				case 2669:
+					npc.copy(forID(17668));
+					npc.name = "Muhammad Ali";
+					npc.actions = new String[5];
+					npc.actions[1] = "Attack";
+					npc.sizeXZ *= 3;
+					npc.sizeY *= 3;
+					npc.squaresNeeded = 4;
+					break;
 				case 7413:
 					npc.name = "Undead Combat dummy";
 					npc.actions = new String[5];
@@ -1559,6 +1568,75 @@ public final class MobDefinition {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void copy(MobDefinition def) {
+		name = def.name;
+		description = def.description;
+		combatLevel = def.combatLevel;
+		
+		models = new int[def.models.length];
+		
+		for (int i = 0; i < models.length; i++) {
+			models[i] = def.models[i];
+		}
+		
+		actions = new String[def.actions.length];
+		
+		for (int i = 0; i < actions.length; i++) {
+			actions[i] = def.actions[i];
+		}
+		
+		if (def.originalColours != null) {
+			originalColours = new int[def.originalColours.length];
+			
+			for (int i = 0; i < originalColours.length; i++) {
+				originalColours[i] = def.originalColours[i];
+			}
+		}
+		
+		if (def.destColours != null) {
+			destColours = new int[def.destColours.length];
+			
+			for (int i = 0; i < def.destColours.length; i++) {
+				destColours[i] = def.destColours[i];
+			}
+		}
+		
+		if (def.childrenIDs != null) {
+			childrenIDs = new int[def.childrenIDs.length];
+			
+			for (int i = 0; i < def.childrenIDs.length; i++) {
+				childrenIDs[i] = def.childrenIDs[i];
+			}
+		}
+		
+		if (def.npcHeadModels != null) {
+			npcHeadModels = new int[def.npcHeadModels.length];
+			
+			for (int i = 0; i < def.npcHeadModels.length; i++) {
+				npcHeadModels[i] = def.npcHeadModels[i];
+			}
+		}
+		
+		osrs = def.osrs;
+		drawMinimapDot = def.drawMinimapDot;
+		sizeXZ = def.sizeXZ;
+		sizeY = def.sizeY;
+		shadow = def.shadow;
+		lightning = def.lightning;
+		backLight = def.backLight;
+		frontLight = def.frontLight;
+		leftLight = def.leftLight;
+		middleLight = def.middleLight;
+		rightLight = def.rightLight;
+		standAnim = def.standAnim;
+		walkAnim = def.walkAnim;
+		squaresNeeded = def.squaresNeeded;
+		hasRenderPriority = def.hasRenderPriority;
+		degreesToTurn = def.degreesToTurn;
+		varbitId = def.varbitId;
+		varSettingsId = def.varSettingsId;
 	}
 
 	public static int NPCAMOUNT = 11599;
