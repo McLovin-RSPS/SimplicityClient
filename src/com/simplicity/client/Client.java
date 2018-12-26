@@ -48,8 +48,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.zip.CRC32;
 import java.util.zip.GZIPOutputStream;
 
@@ -83,6 +85,7 @@ import com.simplicity.client.cache.definitions.Varp;
 import com.simplicity.client.cache.node.Deque;
 import com.simplicity.client.cache.node.Node;
 import com.simplicity.client.content.CustomisableHotKeys;
+import com.simplicity.client.content.EffectTimer;
 import com.simplicity.client.content.PlayerRights;
 import com.simplicity.client.content.dropdownmenu.DropDownAction;
 import com.simplicity.client.content.dropdownmenu.DropDownMenu;
@@ -408,6 +411,51 @@ public class Client extends RSApplet {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void addEffectTimer(EffectTimer et) {
+
+		for (EffectTimer timer : effects_list) {
+			if (timer.getSprite() == et.getSprite()) {
+				timer.setSeconds(et.getSecondsTimer().secondsRemaining());
+				return;
+			}
+		}
+
+		effects_list.add(et);
+	}
+
+	public void drawEffectTimers() {
+		int yDraw = clientHeight - 195;
+		int xDraw = clientWidth - 330;
+		for (EffectTimer timer : effects_list) {
+			if (timer.getSecondsTimer().finished()) {
+				effects_list.remove(timer);
+				continue;
+			}
+
+			Sprite sprite = cacheSprite[timer.getSprite()];
+
+			if (sprite != null) {
+				sprite.drawAdvancedSprite(xDraw + 12, yDraw);
+				newSmallFont.drawBasicString(calculateInMinutes(timer.getSecondsTimer().secondsRemaining()) + "", xDraw + 40, yDraw + 13, 0xFF8C00, 0);
+				yDraw -= 25;
+			}
+		}
+	}
+
+	private String calculateInMinutes(int paramInt) {
+		int i = (int) Math.floor(paramInt / 60);
+		int j = paramInt - i * 60;
+		String str1 = "" + i;
+		String str2 = "" + j;
+		if (j < 10) {
+			str2 = "0" + str2;
+		}
+		if (i < 10) {
+			str1 = "0" + str1;
+		}
+		return str1 + ":" + str2;
 	}
 
 	private int screenOpacity = 255;
@@ -6535,23 +6583,6 @@ public class Client extends RSApplet {
 			}
 		}
 
-		if (getOption("veng_timer")) {
-			if (vengTimer != null) {
-				RSInterface vengText = RSInterface.interfaceCache[41002];
-
-				if (!vengTimer.finished()) {
-
-					vengText.message = (vengTimer.getMinutes() + ":" + vengTimer.getSeconds());
-				} else {
-					vengText.message = "READY";
-					vengTimer = null;
-					RSInterface iface1 = RSInterface.interfaceCache[41000];
-					parallelWidgetList.remove(iface1);
-				}
-			}
-		} else {
-
-		}
 		if (!loggedIn) {
 			return;
 		}
@@ -13409,9 +13440,11 @@ public class Client extends RSApplet {
 				entity.currentAnim = 0;
 			}
 			Animation animation_1 = SpotAnimDefinition.cache[entity.anInt1520].animation;
-			for (entity.animCycle++; entity.currentAnim < animation_1.frameCount
-					&& entity.animCycle > animation_1.getFrameLength(entity.currentAnim); entity.currentAnim++) {
-				entity.animCycle -= animation_1.getFrameLength(entity.currentAnim);
+			if (animation_1 != null) {
+				for (entity.animCycle++; entity.currentAnim < animation_1.frameCount
+						&& entity.animCycle > animation_1.getFrameLength(entity.currentAnim); entity.currentAnim++) {
+					entity.animCycle -= animation_1.getFrameLength(entity.currentAnim);
+				}
 			}
 
 			if (entity.currentAnim >= animation_1.frameCount
@@ -14968,6 +15001,12 @@ public class Client extends RSApplet {
 			}
 			SpriteLoader.sprites[652].drawSprite(clientSize == 0 ? 472 : clientWidth - 40, y);
 		}
+		
+		// Effect timers
+		if (getOption("veng_timer")) {
+			drawEffectTimers();
+		}
+		
 		if (fpsOn) {
 			char c = '\u01FB';
 			int k = 20;
@@ -17327,21 +17366,6 @@ public class Client extends RSApplet {
 
 				int k = inStream.readWordBigEndian();
 
-				if (k == 9410) {
-					if (getOption("veng_timer")) {
-						RSInterface iface1 = RSInterface.interfaceCache[41000];
-						parallelWidgetList.add(iface1);
-
-						vengTimer = new Countdown();
-						vengTimer.addSeconds(30);
-						opCode = -1;
-						return true;
-					} else {
-
-					}
-
-				}
-
 				RSInterface.interfaceCache[k].mediaType = 3;
 				if (myPlayer.desc == null) {
 					RSInterface.interfaceCache[k].mediaID = (myPlayer.anIntArray1700[0] << 25)
@@ -18718,6 +18742,28 @@ public class Client extends RSApplet {
 				}
 				opCode = -1;
 				return true;
+				
+			case 54:
+				try {
+					int timer = inStream.readShort();
+					int sprite = inStream.readShort();
+					
+					if (timer == 0) {
+						for (EffectTimer et : effects_list) {
+							if (sprite == et.getSprite()) {
+								effects_list.remove(et);
+								break;
+							}
+						}
+					} else if (getOption("veng_timer")) {
+						addEffectTimer(new EffectTimer(timer, sprite));
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				opCode = -1;
+				return true;
 
 			case 230:
 				int j7 = inStream.readByteA();
@@ -19713,7 +19759,6 @@ public class Client extends RSApplet {
 	public int loginScreenState = 5;
 	public int previousScreenState;
 	private Stream textStream;
-	private Countdown vengTimer;
 	private NPC[] npcArray;
 	private int npcCount;
 	private int[] npcIndices;
@@ -22205,6 +22250,8 @@ public class Client extends RSApplet {
 	
 	private static Set<Integer> OSRS_REGIONS = new HashSet<>(Arrays.asList(4663, 6810, 9023, 9043, 11850, 11851, 12090, 12106, 12362, 12363, 12347, 12605,
 			12701, 12702, 12703, 12861, 12887, 12889, 12957, 12958, 12959, 12961));
+	
+	public List<EffectTimer> effects_list = new CopyOnWriteArrayList<EffectTimer>();
 	
 	private int drawX = 0;
 	private int drawY = 0;

@@ -1815,7 +1815,7 @@ public static void TeleTAB5() {
 	}
 
 	public static void optionsInterface() {
-		String[] options = new String[] {"525 Frame", "Old Hits", "10x Hits", "HD Shading", "Veng Timer"};
+		String[] options = new String[] {"525 Frame", "Old Hits", "10x Hits", "HD Shading", "Effect Timers"};
 		String[] options2 = new String[] {"Cursors", "Smilies", "Censor", "Mipmapping", "Attk Priority"};
 		String[] options3 = new String[] {"Tooltips", "HD Textures", "FOG", "Spec Button"};
 		String[] options4 = new String[] {"Absorption", "Save Input", "Anti Aliasing", "Particles"};
@@ -2893,8 +2893,6 @@ public static void TeleTAB5() {
 		pouchCreation();
 		opacityInterface();
 		levelUpInterfaces();
-		vengTimer(textDrawingAreas);
-		barrageTimer(textDrawingAreas);
 		entityInterface(textDrawingAreas);
 		clueScrolls(textDrawingAreas);
 		npcTracker(textDrawingAreas);
@@ -4114,38 +4112,6 @@ public static void TeleTAB5() {
 			}
 		}
 	}
-
-        public static void vengTimer(TextDrawingArea tda[]) {
-            RSInterface tab = addInterface(41000);
-
-            addTransparentSpriteWSpriteLoader(41003, 956, 60);
-            addSpriteLoader(41001, 944);
-
-
-            addText(41002, "READY", tda, 1, 0xffffff, true, true);
-
-            tab.totalChildren(3);
-            tab.child(0, 41001, 440, 266);
-            tab.child(1, 41002, 480, 268);
-            tab.child(2, 41003, 434, 262);
-
-//
-        }
-
-        public static void barrageTimer(TextDrawingArea tda[]) {
-            RSInterface tab = addInterface(44000);
-
-            addTransparentSpriteWSpriteLoader(44003, 956, 60);
-            addSpriteLoader(44001, 957);
-
-
-            addText(47072, "READY", tda, 1, 0xffffff, true, true);
-
-            tab.totalChildren(3);
-            tab.child(0, 44001, 440, 238);
-            tab.child(1, 47072, 480, 240);
-            tab.child(2, 44003, 434, 234);
-        }
 
         public static void loyaltyBox(TextDrawingArea wid[]) {
         	  RSInterface tab = addInterface(41500);
