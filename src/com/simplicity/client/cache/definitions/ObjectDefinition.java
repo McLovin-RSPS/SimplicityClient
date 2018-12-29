@@ -266,6 +266,10 @@ public final class ObjectDefinition {
 			objectDef.actions = new String[5];
 			objectDef.name = "Magic well";
 		}
+		if(i == 36263) {
+			objectDef.actions = new String[5];
+			objectDef.name = "POS Gold Bars";
+		}
 		if(i == 5259) {
 			objectDef.actions = new String[5];
 			objectDef.name = "Ghost Town Barrier";
