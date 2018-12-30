@@ -227,6 +227,8 @@ public class RSInterface {
 		rsi.width = width;
 	}
 	
+	public static final int purchase_options = 9;
+	
 	private static void donationPanel(TextDrawingArea[] tda) {
 		int frame = 0;
 		int id = 50_000;
@@ -270,8 +272,6 @@ public class RSInterface {
 
 		tab.child(frame++, id, 35, 87);
 
-		int purchase_options = 10;
-
 		RSInterface scroll = addInterface(id);
 		id++;
 		scroll.totalChildren(1 + (purchase_options * 5));
@@ -282,7 +282,7 @@ public class RSInterface {
 
 		System.out.println("donation panel item container id: " + id);
 		RSInterface item = addInterface(id);
-		addToItemGroup(item, 3, purchase_options, 59, 28, null);
+		addToItemGroup(item, 3, purchase_options / 3, 59, 28, null);
 		for (int i = 0; i < item.inv.length; i++) {
 			item.inv[i] = 4152;
 			item.invStackSizes[i] = 1;
@@ -296,7 +296,7 @@ public class RSInterface {
 
 		for (int i = 0; i < purchase_options; i++) {
 
-			addText(id, "@or1@" + i, tda, 0, 0xFFFFFF, false, true);
+			addText(id, "@or1@" + (i + 1), tda, 0, 0xFFFFFF, false, true);
 			scroll.child(scroll_frame++, id, x + 5, y + 3);
 			id++;
 			
@@ -331,6 +331,7 @@ public class RSInterface {
 		scroll.scrollMax = 300;
 		scroll_frame = 0;
 
+		
 		addText(id,
 				"@gre@3x Abyssal whip: @whi@$15.00\\n@gre@2x Abyssal whip: @whi@$10.00\\n@gre@1x Abyssal whip: @whi@$5.00",
 				tda, 0, 0xFFFFFF, false, true);
@@ -11334,6 +11335,7 @@ public static void addHoverSpriteLoaderButton(int i, int spriteId,
 			public int childY[];
 			public boolean inventoryHover;
 			public boolean greyScale;
+			public boolean hidden;
 
 			/*
 			 * Custom interfaces

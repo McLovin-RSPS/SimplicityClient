@@ -13790,7 +13790,7 @@ public class Client extends RSApplet {
 
 	private void drawInterface(int scrollOffset, int interfaceX, RSInterface rsInterface, int interfaceY) {
 		try {
-			if (rsInterface == null || rsInterface.type != 0 || rsInterface.children == null) {
+			if (rsInterface == null || rsInterface.type != 0 || rsInterface.children == null || rsInterface.hidden) {
 				return;
 			}
 			if (rsInterface.id != 3213) {
@@ -13811,7 +13811,7 @@ public class Client extends RSApplet {
 				int childX = rsInterface.childX[childID] + interfaceX;
 				int childY = (rsInterface.childY[childID] + interfaceY) - scrollOffset;
 				RSInterface child = RSInterface.interfaceCache[rsInterface.children[childID]];
-				if (child == null) {
+				if (child == null || child.hidden) {
 					continue;
 				}
 				childX += child.xOffset;
@@ -18736,6 +18736,13 @@ public class Client extends RSApplet {
 					}
 					if (rsi_frame == 24680) {
 						currentGEItem = it;
+					}
+					if (rsi_frame == 50_010) {
+						for (int j = 0; j < RSInterface.purchase_options; j++) {
+							RSInterface.interfaceCache[50012 + j * 7].hidden = j >= totalItems ? true : false;
+							RSInterface.interfaceCache[50015 + j * 7].hidden = j >= totalItems ? true : false;
+						}
+						RSInterface.interfaceCache[50009].scrollMax = RSInterface.purchase_options * 24;
 					}
 				} catch (Exception e) {
 
