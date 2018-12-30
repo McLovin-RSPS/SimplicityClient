@@ -921,42 +921,42 @@ public class Sprite extends DrawingArea {
 		}
 	}
 
-	public void drawSprite(int i, int k) {
-		i += drawOffsetX;
-		k += drawOffsetY;
-		int l = i + k * DrawingArea.width;
-		int i1 = 0;
-		int j1 = myHeight;
-		int k1 = myWidth;
-		int l1 = DrawingArea.width - k1;
-		int i2 = 0;
-		if (k < DrawingArea.topY) {
-			int j2 = DrawingArea.topY - k;
-			j1 -= j2;
-			k = DrawingArea.topY;
-			i1 += j2 * k1;
-			l += j2 * DrawingArea.width;
+	public void drawSprite(int x, int y) {
+		x += drawOffsetX;
+		y += drawOffsetY;
+		int rasterClip = x + y * DrawingArea.width;
+		int imageClip = 0;
+		int height = myHeight;
+		int width = myWidth;
+		int rasterOffset = DrawingArea.width - width;
+		int imageOffset = 0;
+		if (y < DrawingArea.topY) {
+			int dy = DrawingArea.topY - y;
+			height -= dy;
+			y = DrawingArea.topY;
+			imageClip += dy * width;
+			rasterClip += dy * DrawingArea.width;
 		}
-		if (k + j1 > DrawingArea.bottomY)
-			j1 -= (k + j1) - DrawingArea.bottomY;
-		if (i < DrawingArea.topX) {
-			int k2 = DrawingArea.topX - i;
-			k1 -= k2;
-			i = DrawingArea.topX;
-			i1 += k2;
-			l += k2;
-			i2 += k2;
-			l1 += k2;
+		if (y + height > DrawingArea.bottomY)
+			height -= (y + height) - DrawingArea.bottomY;
+		if (x < DrawingArea.topX) {
+			int k2 = DrawingArea.topX - x;
+			width -= k2;
+			x = DrawingArea.topX;
+			imageClip += k2;
+			rasterClip += k2;
+			imageOffset += k2;
+			rasterOffset += k2;
 		}
-		if (i + k1 > DrawingArea.bottomX) {
-			int l2 = (i + k1) - DrawingArea.bottomX;
-			k1 -= l2;
-			i2 += l2;
-			l1 += l2;
+		if (x + width > DrawingArea.bottomX) {
+			int dx = (x + width) - DrawingArea.bottomX;
+			width -= dx;
+			imageOffset += dx;
+			rasterOffset += dx;
 		}
-		if (!(k1 <= 0 || j1 <= 0)) {
+		if (!(width <= 0 || height <= 0)) {
 			try {
-				block_copy_trans(DrawingArea.pixels, myPixels, i1, l, k1, j1, l1, i2);
+				block_copy_trans(DrawingArea.pixels, myPixels, imageClip, rasterClip, width, height, rasterOffset, imageOffset);
 			} catch(Exception e) {
 				e.printStackTrace();
 			}

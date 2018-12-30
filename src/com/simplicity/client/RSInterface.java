@@ -226,6 +226,172 @@ public class RSInterface {
 		rsi.height = height;
 		rsi.width = width;
 	}
+	
+	private static void donationPanel(TextDrawingArea[] tda) {
+		int frame = 0;
+		int id = 50_000;
+
+		RSInterface tab = addTabInterface(id);
+		id++;
+		tab.totalChildren(16);
+
+		addSpriteLoader(id, 1052);
+		tab.child(frame++, id, 8, 12);
+		id++;
+
+		addTextClose(40000, tda);
+		setBounds(40000, 412, 24, frame, tab);
+		frame++;
+		id++;
+
+		addText(id, "@or1@Donation Panel", tda, 2, 0xFFFFFF, true, true);
+		tab.child(frame++, id, 256, 22);
+		id++;
+
+		addText(id, "@or1@Purchase Options", tda, 2, 0xFFFFFF, false, true);
+		tab.child(frame++, id, 35, 65);
+		id++;
+
+		addText(id, "@or1@Shopping Cart", tda, 2, 0xFFFFFF, false, true);
+		tab.child(frame++, id, 325, 65);
+		id++;
+
+		addText(id, "@or1@Promotions", tda, 2, 0xFFFFFF, true, true);
+		tab.child(frame++, id, 256, 203);
+		id++;
+
+		addText(id, "@or1@Subtotal: @whi@$30.00", tda, 1, 0xFFFFFF, false, true);
+		tab.child(frame++, id, 325, 139);
+		id++;
+
+		addText(id, "@or1@Checkout", tda, 2, 0xFFFFFF, false, true);
+		tab.child(frame++, id, 373, 161);
+		id++;
+
+		tab.child(frame++, id, 35, 87);
+
+		int purchase_options = 10;
+
+		RSInterface scroll = addInterface(id);
+		id++;
+		scroll.totalChildren(1 + (purchase_options * 5));
+		scroll.height = 100;
+		scroll.width = 255;
+		scroll.scrollMax = purchase_options * 24;
+		int scroll_frame = 0;
+
+		System.out.println("donation panel item container id: " + id);
+		RSInterface item = addInterface(id);
+		addToItemGroup(item, 3, purchase_options, 59, 28, null);
+		for (int i = 0; i < item.inv.length; i++) {
+			item.inv[i] = 4152;
+			item.invStackSizes[i] = 1;
+		}
+		setBounds(id, 23, 3, scroll_frame, scroll);
+		scroll_frame++;
+		id++;
+
+		int x = 30;
+		int y = 36;
+
+		for (int i = 0; i < purchase_options; i++) {
+
+			addText(id, "@or1@" + i, tda, 0, 0xFFFFFF, false, true);
+			scroll.child(scroll_frame++, id, x + 5, y + 3);
+			id++;
+			
+			addHoverButton_sprite_loader(id, 1054, 16, 16, "Decrease", -1, id + 1, 5); // Close button
+			addHoveredImageWSpriteLoader(id + 1, 1053, 16, 16, id + 2); // Close button hover
+
+			scroll.child(scroll_frame++, id, x - 22, y);
+			scroll.child(scroll_frame++, id + 1, x - 22, y);
+			id += 3;
+
+			addHoverButton_sprite_loader(id, 1055, 16, 16, "Increase", -1, id + 1, 5);
+			addHoveredImageWSpriteLoader(id + 1, 1056, 16, 16, id + 2);
+			scroll.child(scroll_frame++, id, x + 22, y);
+			scroll.child(scroll_frame++, id + 1, x + 22, y);
+			id += 3;
+
+			x += 90;
+
+			if (x >= 300) {
+				y += 60;
+				x = 30;
+			}
+		}
+
+		tab.child(frame++, id, 320, 87);
+
+		scroll = addInterface(id);
+		id++;
+		scroll.totalChildren(1);
+		scroll.height = 50;
+		scroll.width = 147;
+		scroll.scrollMax = 300;
+		scroll_frame = 0;
+
+		addText(id,
+				"@gre@3x Abyssal whip: @whi@$15.00\\n@gre@2x Abyssal whip: @whi@$10.00\\n@gre@1x Abyssal whip: @whi@$5.00",
+				tda, 0, 0xFFFFFF, false, true);
+		scroll.child(scroll_frame++, id, 5, 5);
+		id++;
+
+		x = 16;
+		y = 240;
+
+		for (int i = 0; i < 3; i++) {
+
+			addText(id, "@or1@" + (i + 1) + "00$ Offers", tda, 2, 0xFFFFFF, true, true);
+			tab.child(frame++, id, x + 87, y - 16);
+			id++;
+
+			tab.child(frame++, id, x, y);
+
+			scroll = addInterface(id);
+			id++;
+			scroll.totalChildren(10);
+			scroll.height = 65;
+			scroll.width = 147;
+			scroll.scrollMax = 220;
+			scroll_frame = 0;
+
+
+			for (int l = 0; l < 10; l++) {
+				addClickableText(id, "line: " + id, "Select @or1@Promotion", tda, 0, 0xFF981F, 100, 14);
+				/*addHoverClickText(id, "line: " + id, "Select @or1@Promotion", tda, 0, 0xFF981F, true,
+						true, 100);*/
+				setBounds(id, 15, 5 + (l * 20), scroll_frame, scroll);
+				scroll_frame++;
+				id++;
+
+			}
+
+			x += 152;
+		}
+	}
+
+	public static void addTextClose(int id, TextDrawingArea tda[]) {
+		RSInterface rsinterface = addInterface(id);
+		rsinterface.id = id;
+		rsinterface.parentID = id;
+		rsinterface.type = 4;
+		rsinterface.atActionType = 3;
+		rsinterface.width = 70;
+		rsinterface.height = 11;
+		rsinterface.contentType = 0;
+		rsinterface.opacity = 0;
+		rsinterface.hoverType = -1;
+		rsinterface.centerText = false;
+		rsinterface.shadowed = true;
+		rsinterface.textDrawingAreas = tda[0];
+		rsinterface.message = "Close Window";
+		rsinterface.tooltip = "Close";
+		rsinterface.disabledColor = 0x808080;
+		rsinterface.enabledColor = 0;
+		rsinterface.disabledMouseOverColor = 0xFFFFFF;
+		rsinterface.enabledMouseOverColor = 0;
+	}
 
 	public static void customization(TextDrawingArea[] tda) {
 
@@ -2962,6 +3128,7 @@ public static void TeleTAB5() {
 		customisableHotKeys(textDrawingAreas);
 		presetsInterface(textDrawingAreas);
 		runePouch(textDrawingAreas);
+		donationPanel(textDrawingAreas);
 		spriteCache = null;
 	}
 
