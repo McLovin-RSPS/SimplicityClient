@@ -241,7 +241,7 @@ public class CacheDownloader {
 
 	public static String getDownloadLink(String name) {
 		try {
-		  String webLink = "http://simplicityps.org/resources/cache_link.php?type=" + name;
+		  String webLink = "https://simplicityps.org/resources/cache_link.php?type=" + name;
 	      StringBuilder result = new StringBuilder();
 	      URL url = new URL(webLink);
 	      HttpURLConnection conn = (HttpURLConnection) url.openConnection();
