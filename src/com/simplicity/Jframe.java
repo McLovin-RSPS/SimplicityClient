@@ -216,7 +216,7 @@ public class Jframe extends Client implements ActionListener {
 		 */
 		menuPanel.setFocusTraversalKeysEnabled(false);
 
-		menuPanel.setBackground(Color.decode("0x541619"));
+		menuPanel.setBackground(Color.decode("0x145200"));
 
 		menuPanel.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, null);
 		menuPanel.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, null);
