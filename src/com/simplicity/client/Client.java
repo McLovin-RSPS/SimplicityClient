@@ -433,6 +433,11 @@ public class Client extends RSApplet {
 			if (timer.getSecondsTimer().finished()) {
 				effects_list.remove(timer);
 				continue;
+			
+			}
+
+			if (timer.getSprite() > cacheSprite.length) {
+				continue;
 			}
 
 			Sprite sprite = cacheSprite[timer.getSprite()];
@@ -15027,12 +15032,15 @@ public class Client extends RSApplet {
 			}
 			SpriteLoader.sprites[652].drawSprite(clientSize == 0 ? 472 : clientWidth - 40, y);
 		}
-		
 		// Effect timers
-		if (getOption("veng_timer")) {
-			drawEffectTimers();
+		try {
+			if (getOption("veng_timer")) {
+				drawEffectTimers();
+			}
+		} catch (Exception e) {
+			System.out.println("Effect timers");
+			e.printStackTrace();
 		}
-		
 		if (fpsOn) {
 			char c = '\u01FB';
 			int k = 20;
