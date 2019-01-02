@@ -52,6 +52,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.TimeUnit;
 import java.util.zip.CRC32;
 import java.util.zip.GZIPOutputStream;
 
@@ -438,15 +439,25 @@ public class Client extends RSApplet {
 
 			if (sprite != null) {
 				sprite.drawAdvancedSprite(xDraw + 12, yDraw);
-				newSmallFont.drawBasicString(calculateInMinutes(timer.getSecondsTimer().secondsRemaining()) + "", xDraw + 40, yDraw + 13, 0xFF8C00, 0);
+				
+				int seconds = timer.getSecondsTimer().secondsRemaining();
+				
+				if (seconds > 86400) {
+					newSmallFont.drawBasicString(getDaysAndHours(TimeUnit.SECONDS.toMillis(seconds)) + "", xDraw + 38, yDraw + 13, 0xFF8C00, 0);
+				} else if (seconds > 3600 && seconds < 36000) { // Between 1 and 10 hours
+					newSmallFont.drawBasicString(getHours(TimeUnit.SECONDS.toMillis(seconds)) + "", xDraw + 36, yDraw + 13, 0xFF8C00, 0);
+				} else {
+					newSmallFont.drawBasicString(seconds < 3600 ? getMinutes(seconds) : getHours(TimeUnit.SECONDS.toMillis(seconds)) + "", xDraw + 40, yDraw + 13, 0xFF8C00, 0);
+				}
+				
 				yDraw -= 25;
 			}
 		}
 	}
 
-	private String calculateInMinutes(int paramInt) {
-		int i = (int) Math.floor(paramInt / 60);
-		int j = paramInt - i * 60;
+	private String getMinutes(int seconds) {
+		int i = (int) Math.floor(seconds / 60);
+		int j = seconds - i * 60;
 		String str1 = "" + i;
 		String str2 = "" + j;
 		if (j < 10) {
@@ -455,7 +466,22 @@ public class Client extends RSApplet {
 		if (i < 10) {
 			str1 = "0" + str1;
 		}
-		return str1 + ":" + str2;
+		return str1 + ":" + str2+"";
+	}
+
+	public static String getHours(long milliseconds) {
+		final int sec = (int) (milliseconds / 1000), min = sec / 60 % 60, h = sec / 3600;
+		
+		return (h < 12 ? h : h) + "h " + (sec < 36000 && min > 0 ? min + "m" : "");
+	}
+	
+	public static String getDaysAndHours(long milliseconds) {
+		final int sec = (int) (milliseconds / 1000);
+		final int min = sec / 60 % 60;
+		final int h = sec / 3600 % 24;
+		final int days = (int) (sec / 86400);
+		
+		return days + "d " + (h > 0 ? h + "h" : "");
 	}
 
 	private int screenOpacity = 255;
@@ -18752,7 +18778,7 @@ public class Client extends RSApplet {
 				
 			case 54:
 				try {
-					int timer = inStream.readShort();
+					int timer = inStream.readInt();
 					int sprite = inStream.readShort();
 					
 					if (timer == 0) {
