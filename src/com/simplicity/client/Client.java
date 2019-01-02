@@ -5714,7 +5714,7 @@ public class Client extends RSApplet {
 		if (player == null || !player.isVisible()) {
 			return false;
 		}
-		player.aBoolean1699 = (lowMem && playerCount > 50 || playerCount > 200) && !flag
+		player.aBoolean1699 = (/*lowMem && playerCount > 50 || */playerCount > 200) && !flag
 				&& player.anInt1517 == player.anInt1511;
 		int j1 = player.x >> 7;
 		int k1 = player.y >> 7;
@@ -19117,7 +19117,7 @@ public class Client extends RSApplet {
 			if (player == null || !player.isVisible()) {
 				continue;
 			}
-			player.aBoolean1699 = (lowMem && playerCount > 50 || playerCount > 200) && !flag
+			player.aBoolean1699 = (/*lowMem && playerCount > 50 || */playerCount > 200) && !flag
 					&& player.anInt1517 == player.anInt1511;
 			int j1 = player.x >> 7;
 			int k1 = player.y >> 7;
