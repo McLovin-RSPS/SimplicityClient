@@ -777,9 +777,9 @@ public final class ItemDefinition {
         	break;
         case 21006:
         	itemDef.copy(forID(4084));
-        	itemDef.modelID = 2214;
-        	itemDef.maleEquip1 = 2215;
-        	itemDef.femaleEquip1 = 2215;
+        	itemDef.modelID = 62922;
+        	itemDef.maleEquip1 = 62923;
+        	itemDef.femaleEquip1 = 62923;
         	itemDef.name = "Dark sled";
         	break;
         case 21007:
@@ -796,6 +796,23 @@ public final class ItemDefinition {
             itemDef.femaleEquip1 = 35371;
             itemDef.editedModelColor = new int[] { 784, 790, 796, 536, 61, 78, 49 };
             itemDef.newModelColor = new int[] { -1253, -1253, -1253, -1253, -1253, -1253, -1253 };
+            break;
+        case 21008:
+        	def2 = forID(9774);
+        	itemDef.actions = def2.actions;
+        	itemDef.name = "Nex cape";
+        	itemDef.modelID = 62921;
+        	itemDef.sizeX = def2.sizeX;
+        	itemDef.sizeY = def2.sizeY;
+        	itemDef.sizeZ = def2.sizeZ;
+        	itemDef.maleEquip1 = 62920;
+        	itemDef.femaleEquip1 = 62920;
+        	itemDef.rotationX = 1024;
+        	itemDef.rotationY = 300;
+        	itemDef.modelZoom = 2000;
+        	itemDef.modelOffsetY = 130;
+        	itemDef.editedModelColor = def2.editedModelColor;
+        	itemDef.newModelColor = def2.newModelColor;
             break;
         	case 18339:
         		itemDef.name = "Gold bag";
