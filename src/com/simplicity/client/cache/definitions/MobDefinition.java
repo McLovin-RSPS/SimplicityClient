@@ -698,6 +698,9 @@ public final class MobDefinition {
 			npc.name = "Player Owned Shop Manager";
 			npc.actions = new String[] {"Talk-to", null, "View Shops", "My Shop", "Claim Earnings"};
 			break;
+		case 465:
+			npc.name = "Master Zulri";
+			break;
 		case 9939:
 			npc.combatLevel = 607;
 			break;

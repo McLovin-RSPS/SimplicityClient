@@ -620,6 +620,10 @@ public final class ItemDefinition {
                     itemDef.actions[2] = "Check";
                     itemDef.actions[3] = "Toggle Config";
                     break;
+                case 49643:
+                    itemDef.copy(forID(8467));
+                    itemDef.name = "Great Olm's slayer helmet";
+                    break;
                 case 42897:
                     itemDef.name = "Christmas Mystery Box";
                     itemDef.actions = new String[5];
