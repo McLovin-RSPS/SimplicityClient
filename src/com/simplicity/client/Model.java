@@ -3504,6 +3504,9 @@ public class Model extends Animable {
 	}
 
 	private final void translateToScreen(boolean flag, boolean needAddToSelectedObjects, int i, int id) {
+		if (Client.RENDER_DEBUG) {
+			needAddToSelectedObjects = true;
+		}
 		for (int j = 0; j < diagonal3D; j++)
 			depthListIndices[j] = 0;
 
