@@ -41,7 +41,11 @@ public final class MobDefinition {
 			npc.type = OSRS_NPCS_OFFSET + i;
 			npc.osrs = true;
 			npc.readValues(streamOSRS);
-
+			if (npc.name.contains("Ket-Keh")) {
+				npc.name = "Inferno";
+				npc.actions = new String[5];
+				npc.actions[0] = "Start";
+			}
 			if (npc.name.contains("00ffff")) {
 				npc.name = npc.name.replaceAll("<col=00ffff>", "@cya@").replaceAll("</col>", "");
 			}
