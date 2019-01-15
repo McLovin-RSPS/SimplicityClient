@@ -42,6 +42,9 @@ public final class MobDefinition {
 			npc.osrs = true;
 			npc.readValues(streamOSRS);
 
+			if (npc.name.contains("00ffff")) {
+				npc.name = npc.name.replaceAll("<col=00ffff>", "@cya@").replaceAll("</col>", "");
+			}
 			switch(i) {
 				case 2668:
 					npc.name = "Combat dummy";

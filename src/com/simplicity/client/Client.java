@@ -100,7 +100,7 @@ public class Client extends RSApplet {
 
 	public static boolean enableParticles = false;
 	
-	public static final boolean RENDER_DEBUG = true;
+	public static final boolean RENDER_DEBUG = false;
 
 	public static boolean timersEnabled = true;
 
@@ -9258,7 +9258,6 @@ public class Client extends RSApplet {
 	}
 
 	private void build3dScreenMenu() {
-		System.out.println("BUILDING 3D MENU !!! " + Model.objectsRendered);
 		if (itemSelected == 0 && spellSelected == 0) {
 			menuActionName[menuActionRow] = "Walk here";
 			menuActionID[menuActionRow] = 516;
@@ -9273,13 +9272,11 @@ public class Client extends RSApplet {
 			int y = uid >> 7 & 0x7f;
 			int resourceType = uid >> 29 & 3; // k1
 			int resourceId = uid >> 14 & 0x7fff;
-			System.out.println("hereeee ");
 			if (uid == lastUID) {
-				System.out.println("gaaaay ");
 				continue;
 			}
 			lastUID = uid;
-			if (resourceType == 2 && (worldController.getIDTagForXYZ(plane, x, y, uid) >= 0 ||true)) {
+			if (resourceType == 2 && (worldController.getIDTagForXYZ(plane, x, y, uid) >= 0 )) {
 				if (resourceId != 1814) {
 					resourceId = Model.mapObjectIds[index];
 				}
@@ -9288,11 +9285,12 @@ public class Client extends RSApplet {
 					object = object.getTransformedObject(isOsrsRegion());
 				}
 				if (object == null || object.name == null || object.name == "null") {
-					System.out.println("This fag shit 0" + object);
-					object.name = "lelele";
-//					continue;
+					if (RENDER_DEBUG) {
+						object.name = "lelele";
+					} else {
+						continue;
+					}
 				}
-				System.out.println("This fag shit 1 " + object);
 				if (itemSelected == 1) {
 					menuActionName[menuActionRow] = "Use " + selectedItemName + " -> @cya@" + object.name;
 					menuActionID[menuActionRow] = 62;

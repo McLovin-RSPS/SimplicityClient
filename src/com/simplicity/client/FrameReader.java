@@ -105,11 +105,10 @@ public final class FrameReader {
 			int int2 = int1 >> 16;
 			int1 = int1 & 0xffff;
 			
-			if (animationlist[int2].length == 0) {
+			if (animationlist[int2].length == 0 || animationlist[int2].length < int1) {
 				Client.instance.onDemandFetcher.requestFileData(osrs ? Client.OSRS_ANIM_IDX - 1 : Client.ANIM_IDX - 1, int2);
 				return null;
 			}
-			
 			return animationlist[int2][int1];
 		} catch (Exception ex) {
 			ex.printStackTrace();

@@ -785,6 +785,7 @@ public class Model extends Animable {
 	}
 
 	public void applyTransform(int i, boolean osrs) {
+//		System.out.println("Applying NPC transformation flag --> " + i + " OSRS: " + osrs);
 		if (vertexSkin == null)
 			return;
 		if (i == -1)
