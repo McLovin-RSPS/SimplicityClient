@@ -831,6 +831,11 @@ public final class ItemDefinition {
                 itemDef.name = "Archery Box";
                 itemDef.newModelColor[0] = 15260;
                 break;
+            case 6855:
+                itemDef.name = "Arthur's Birthday Box";
+                itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
+                break;
             case 19714:
                 itemDef.copy(forID(6199));
                 itemDef.name = "Warrior Box";
