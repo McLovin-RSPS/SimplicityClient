@@ -88,6 +88,7 @@ import com.simplicity.client.cache.node.Node;
 import com.simplicity.client.content.CustomisableHotKeys;
 import com.simplicity.client.content.EffectTimer;
 import com.simplicity.client.content.PlayerRights;
+import com.simplicity.client.content.RichPresence;
 import com.simplicity.client.content.dropdownmenu.DropDownAction;
 import com.simplicity.client.content.dropdownmenu.DropDownMenu;
 import com.simplicity.client.particles.Particle;
@@ -104,6 +105,8 @@ public class Client extends RSApplet {
 
 	public static boolean timersEnabled = true;
 
+	public static final RichPresence RICH_PRESENCE = new RichPresence();
+	
 	public static void drawBorder(Sprite backTexture, int x, int y, int width, int height, int alpha, int backColour,
 			boolean filled, boolean shadow) {
 		final int pieceWidth = SpriteLoader.sprites[623].myWidth;
@@ -6177,7 +6180,7 @@ public class Client extends RSApplet {
 
 	public static void main(String args[]) {
 		try {
-
+			RICH_PRESENCE.initiate();
 			if(args.length > 0) {
 				Configuration.HOST = args[0];
 				fromLauncher = true;
@@ -11675,6 +11678,8 @@ public class Client extends RSApplet {
 				for (int j1 = 0; j1 < 100; j1++) {
 					chatMessages[j1] = null;
 				}
+				RICH_PRESENCE.updateState("[ Logged In: "+username+" ]");
+				RICH_PRESENCE.updateDetails("SIMPLICITYPS.ORG");
 				itemSelected = 0;
 				spellSelected = 0;
 				loadingStage = 0;
@@ -11941,6 +11946,7 @@ public class Client extends RSApplet {
 				menuActionRow = 0;
 				menuOpen = false;
 				mapLoadingTime = System.currentTimeMillis();
+				
 				return;
 			}
 			if (loginCode == 16) {
