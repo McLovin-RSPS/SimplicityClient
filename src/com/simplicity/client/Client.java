@@ -9900,23 +9900,23 @@ public class Client extends RSApplet {
 							&& !amountOrNameInput.toLowerCase().contains("m")
 							&& !amountOrNameInput.toLowerCase().contains("b"))
 							&& (key == 107 || key == 109 || key == 98)) {
-						int am = 0;
+						long am = 0;
 						boolean addChar = true;
 						long l = Long.valueOf(amountOrNameInput);
-						if (l > 2147483647) {
+						if (false && l > 2147483647) {
 							amountOrNameInput = "2147483647";
 							inputTaken = true;
 							addChar = false;
 						} else {
-							am = Integer.parseInt(amountOrNameInput);
+							am = Long.valueOf(amountOrNameInput);
 						}
-						if (key == 107 && am > 2147000) {
+						if (key == 107 && am > 2147000000) {
 							addChar = false;
 						}
-						if (key == 109 && am > 2147) {
+						if (key == 109 && am > 2147000) {
 							addChar = false;
 						}
-						if (key == 98 && am > 2) {
+						if (key == 98 && am > 1000) {
 							addChar = false;
 						}
 
@@ -9939,22 +9939,38 @@ public class Client extends RSApplet {
 								amountOrNameInput = amountOrNameInput.replaceAll("b", "000000000");
 							}
 							long l = Long.valueOf(amountOrNameInput);
-
+							boolean asString = false;
+							String prev = amountOrNameInput;
 							if (l > 2147483647) {
+								asString = true;
 								amountOrNameInput = "2147483647";
 							}
 							int amount = 0;
-							amount = Integer.parseInt(amountOrNameInput);
-							if (interfaceButtonAction == 557 && withdrawingMoneyFromPouch) {
-								stream.createFrame(7);
+							if (asString) {
+								if (interfaceButtonAction == 557 && withdrawingMoneyFromPouch) {
+									stream.createFrame(7);
+									stream.writeDWord(amount);
+									inputDialogState = 0;
+									inputTaken = true;
+									withdrawingMoneyFromPouch = false;
+									return;
+								}
+								stream.createFrame(60);
+								stream.writeWordBigEndian(prev.length() + 1);
+								stream.writeString(prev);
+							} else {
+								amount = Integer.parseInt(amountOrNameInput);
+								if (interfaceButtonAction == 557 && withdrawingMoneyFromPouch) {
+									stream.createFrame(7);
+									stream.writeDWord(amount);
+									inputDialogState = 0;
+									inputTaken = true;
+									withdrawingMoneyFromPouch = false;
+									return;
+								}
+								stream.createFrame(208);
 								stream.writeDWord(amount);
-								inputDialogState = 0;
-								inputTaken = true;
-								withdrawingMoneyFromPouch = false;
-								return;
 							}
-							stream.createFrame(208);
-							stream.writeDWord(amount);
 							if (openInterfaceID == 24600 || openInterfaceID == 24700) {
 								amountOrNameInput = "";
 							}
