@@ -5622,42 +5622,46 @@ public class Client extends RSApplet {
 	}
 
 	private void updateNPCMovement(int i, Stream stream) {
-		while (stream.bitPosition + 21 < i * 8) {
-			int k = stream.readBits(14);
-			if (k == 16383) {
-				break;
+		try {
+			while (stream.bitPosition + 21 < i * 8) {
+				int k = stream.readBits(14);
+				if (k == 16383) {
+					break;
+				}
+				if (npcArray[k] == null) {
+					npcArray[k] = new NPC();
+				}
+				NPC npc = npcArray[k];
+				npcIndices[npcCount++] = k;
+				npc.loopCycle = loopCycle;
+				int l = stream.readBits(5);
+				if (l > 15) {
+					l -= 32;
+				}
+				int i1 = stream.readBits(5);
+				if (i1 > 15) {
+					i1 -= 32;
+				}
+				int j1 = stream.readBits(1);
+				npc.desc = MobDefinition.forID(stream.readBits(Configuration.NPC_BITS));
+				int k1 = stream.readBits(1);
+				if (k1 == 1) {
+					playersToUpdate[playersToUpdateCount++] = k;
+				}
+				npc.boundDim = npc.desc.squaresNeeded;
+				npc.anInt1504 = npc.desc.degreesToTurn;
+				npc.anInt1554 = npc.desc.walkAnim;
+				npc.runAnimation = npc.desc.runAnim;
+				npc.anInt1555 = npc.desc.turn180AnimIndex;
+				npc.anInt1556 = npc.desc.turn90CWAnimIndex;
+				npc.anInt1557 = npc.desc.turn90CCWAnimIndex;
+				npc.anInt1511 = npc.desc.standAnim;
+				npc.setPos(myPlayer.pathX[0] + i1, myPlayer.pathY[0] + l, j1 == 1);
 			}
-			if (npcArray[k] == null) {
-				npcArray[k] = new NPC();
-			}
-			NPC npc = npcArray[k];
-			npcIndices[npcCount++] = k;
-			npc.loopCycle = loopCycle;
-			int l = stream.readBits(5);
-			if (l > 15) {
-				l -= 32;
-			}
-			int i1 = stream.readBits(5);
-			if (i1 > 15) {
-				i1 -= 32;
-			}
-			int j1 = stream.readBits(1);
-			npc.desc = MobDefinition.forID(stream.readBits(Configuration.NPC_BITS));
-			int k1 = stream.readBits(1);
-			if (k1 == 1) {
-				playersToUpdate[playersToUpdateCount++] = k;
-			}
-			npc.boundDim = npc.desc.squaresNeeded;
-			npc.anInt1504 = npc.desc.degreesToTurn;
-			npc.anInt1554 = npc.desc.walkAnim;
-			npc.runAnimation = npc.desc.runAnim;
-			npc.anInt1555 = npc.desc.turn180AnimIndex;
-			npc.anInt1556 = npc.desc.turn90CWAnimIndex;
-			npc.anInt1557 = npc.desc.turn90CCWAnimIndex;
-			npc.anInt1511 = npc.desc.standAnim;
-			npc.setPos(myPlayer.pathX[0] + i1, myPlayer.pathY[0] + l, j1 == 1);
+			stream.finishBitAccess();
+		} catch(Exception e) {
+			
 		}
-		stream.finishBitAccess();
 	}
 
 	public void processGameLoop() {
@@ -12217,6 +12221,7 @@ public class Client extends RSApplet {
 	 * @param stream
 	 */
 	private void readNPCUpdateMask(Stream stream) {
+		try {
 		for (int j = 0; j < playersToUpdateCount; j++) {
 			int k = playersToUpdate[j];
 			NPC npc = npcArray[k];
@@ -12333,6 +12338,9 @@ public class Client extends RSApplet {
 				npc.anInt1538 = stream.ig2();
 				npc.anInt1539 = stream.ig2();
 			}
+		}
+		} catch(Exception e) {
+			
 		}
 	}
 
@@ -17016,7 +17024,7 @@ public class Client extends RSApplet {
 		}
 	}
 
-	private void updatePlayers(int i, Stream stream) {
+	private void updatePlayers(int i, Stream stream) {//TODO
 		anInt839 = 0;
 		playersToUpdateCount = 0;
 		updatePlayerMovement(stream);

@@ -589,6 +589,39 @@ public final class ItemDefinition {
                 case 50851:
                     itemDef.name = "Superior Olmlet";
                     break;
+                case 50852:
+                	ItemDefinition def2 = forID(52319);
+                    itemDef.name = "Superior " + def2.name;
+                    itemDef.modelID = def2.modelID;
+                    itemDef.modelOffset1 = def2.modelOffset1;
+                    itemDef.modelOffsetX = def2.modelOffsetX;
+                    itemDef.modelOffsetY = def2.modelOffsetY;
+                    itemDef.modelZoom = def2.modelZoom;
+                    break;
+                case 50854:
+                	ItemDefinition defVorki = forID(51992);
+                    itemDef.name = "Superior " + defVorki.name;
+                    itemDef.modelID = defVorki.modelID;
+                    itemDef.modelOffset1 = defVorki.modelOffset1;
+                    itemDef.modelOffsetX = defVorki.modelOffsetX;
+                    itemDef.modelOffsetY = defVorki.modelOffsetY;
+                    itemDef.sizeX = defVorki.sizeX;
+                    itemDef.sizeY = defVorki.sizeY;
+                    itemDef.sizeZ = defVorki.sizeZ;
+                    itemDef.rotationX = defVorki.rotationX;
+                    itemDef.rotationY = defVorki.rotationY;
+                	itemDef.actions = defVorki.actions;
+                	itemDef.modelID = defVorki.modelID;
+                	itemDef.sizeX = defVorki.sizeX;
+                	itemDef.sizeY = defVorki.sizeY;
+                	itemDef.sizeZ = defVorki.sizeZ;
+                	itemDef.maleEquip1 = defVorki.maleEquip1;
+                	itemDef.femaleEquip1 = defVorki.femaleEquip1;
+                	itemDef.modelZoom = defVorki.modelZoom;
+                	itemDef.modelOffsetY = defVorki.modelOffsetY;
+                	itemDef.editedModelColor = defVorki.editedModelColor;
+                	itemDef.newModelColor = defVorki.newModelColor;
+                    break;
                 case 50884:
                     itemDef.name = "@or2@Great Olm's crystal";
                     break;

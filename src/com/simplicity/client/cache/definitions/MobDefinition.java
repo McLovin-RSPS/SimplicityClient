@@ -1485,6 +1485,14 @@ public final class MobDefinition {
 			npc.sizeY = 28;
 			npc.squaresNeeded = 1;
 			break;
+		case 153:
+			npc.copy(forID(23009));
+			npc.name = "Superior TzRek-Zuk";
+			break;
+		case 154:
+			npc.copy(forID(23025));
+			npc.name = "Superior Vorki";
+			break;
 		/*  		     
 		case 1265:
 			 System.out.println("Models: " + npc.models[1]);
