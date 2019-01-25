@@ -11250,6 +11250,12 @@ public class Client extends RSApplet {
 		if (s == null) {
 			return "";
 		}
+//		System.out.println("Capitalizing " + s);
+		if (s.startsWith("@") ) {
+			if (s.charAt(5) == '@') {
+				s = s.substring(6, s.length());
+			}
+		}
 		for (int i = 0; i < s.length(); i++) {
 			if (i == 0) {
 				s = String.format("%s%s", Character.toUpperCase(s.charAt(0)), s.substring(1));
