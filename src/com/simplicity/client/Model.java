@@ -491,8 +491,10 @@ public class Model extends Animable {
 			} else {
 				readOSRSOldModel(is, modelId);
 			}
+			if (face_render_priorities != null) {
 			for (int j = 0; j < face_render_priorities.length; j++) {
 				face_render_priorities[j] = 10;
+			}
 			}
 		} else if (is[is.length - 1] == -1 && is[is.length - 2] == -1)
 			read622Model(is, modelId);
@@ -500,8 +502,10 @@ public class Model extends Animable {
 			readOldModel(modelId);
 
 		if(ItemDefinition.priorityModels.contains(modelId)) {
+			if (face_render_priorities !=null) {
 			for (int j = 0; j < face_render_priorities.length; j++) {
 				face_render_priorities[j] = 10;
+			}
 			}
 		}
 
@@ -1220,6 +1224,7 @@ public class Model extends Animable {
 
 	private final int method465(Model model, int i) {
 		int j = -1;
+		if (i < 0) return 0;
 		int var4 = model.verticesParticle[i];
 		int k = model.verticesXCoordinate[i];
 		int l = model.verticesYCoordinate[i];
