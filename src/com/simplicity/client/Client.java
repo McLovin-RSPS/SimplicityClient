@@ -2658,6 +2658,8 @@ public class Client extends RSApplet {
 		int orbY = getCoinOrbY();
 		if (clientSize == 0 ? mouseInRegion(515, 85, 515 + 34, 85 + 34)
 				: mouseInRegion(orbX, orbY, orbX + 34, orbY + 34)) {
+			menuActionName[5] = "@gre@Withdraw 1b Tickets";
+			menuActionID[5] = 72671;
 			menuActionName[4] = coinToggle ? "Hide Money Pouch" : "Show Money Pouch";
 			menuActionID[4] = 72667;
 			menuActionName[3] = "Withdraw Money Pouch";
@@ -2666,7 +2668,7 @@ public class Client extends RSApplet {
 			menuActionID[2] = 72668;
 			menuActionName[1] = "Examine Money Pouch";
 			menuActionID[1] = 72669;
-			menuActionRow = 5;
+			menuActionRow = 6;
 		}
 		if (clientSize == 0) {
 			int positionX = clientWidth - 244;
@@ -7620,6 +7622,21 @@ public class Client extends RSApplet {
 			inputTaken = true;
 			withdrawingMoneyFromPouch = true;
 			return;
+		} else if (l == 72671){
+			if (openInterfaceID > 0 && openInterfaceID != 3323 && openInterfaceID != 6575 && openInterfaceID != 5292) {
+				pushMessage("Please close the interface you have open before opening another one.", 0, "");
+				return;
+			}
+			inputTitle = "Enter amount of tickets to withdraw:";
+			if (!getOption("save_input")) {
+				amountOrNameInput = "";
+			}
+			interfaceButtonAction = 557;
+			showInput = false;
+			inputDialogState = 1;
+			inputTaken = true;
+			withdrawingMoneyFromPouch = true;
+			return;
 		} else {
 			withdrawingMoneyFromPouch = false;
 		}
@@ -9955,6 +9972,15 @@ public class Client extends RSApplet {
 									withdrawingMoneyFromPouch = false;
 									return;
 								}
+								if (interfaceButtonAction == 559 && withdrawingMoneyFromPouch) {
+									stream.createFrame(9);
+									stream.writeDWord(amount);
+									inputDialogState = 0;
+									inputTaken = true;
+									withdrawingMoneyFromPouch = false;
+									return;
+								}
+		
 								stream.createFrame(60);
 								stream.writeWordBigEndian(prev.length() + 1);
 								stream.writeString(prev);
