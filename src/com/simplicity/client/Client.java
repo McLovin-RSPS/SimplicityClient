@@ -2658,10 +2658,10 @@ public class Client extends RSApplet {
 		int orbY = getCoinOrbY();
 		if (clientSize == 0 ? mouseInRegion(515, 85, 515 + 34, 85 + 34)
 				: mouseInRegion(orbX, orbY, orbX + 34, orbY + 34)) {
-			menuActionName[5] = "@gre@Withdraw 1b Tickets";
-			menuActionID[5] = 72671;
-			menuActionName[4] = coinToggle ? "Hide Money Pouch" : "Show Money Pouch";
-			menuActionID[4] = 72667;
+			menuActionName[5] = coinToggle ? "Hide Money Pouch" : "Show Money Pouch";
+			menuActionID[5] = 72667;
+			menuActionName[4] = "@gre@Withdraw 1b Tickets";
+			menuActionID[4] = 72671;
 			menuActionName[3] = "Withdraw Money Pouch";
 			menuActionID[3] = 72666;
 			menuActionName[2] = "Open Pricechecker";
@@ -7631,7 +7631,7 @@ public class Client extends RSApplet {
 			if (!getOption("save_input")) {
 				amountOrNameInput = "";
 			}
-			interfaceButtonAction = 557;
+			interfaceButtonAction = 559;
 			showInput = false;
 			inputDialogState = 1;
 			inputTaken = true;
@@ -9988,6 +9988,14 @@ public class Client extends RSApplet {
 								amount = Integer.parseInt(amountOrNameInput);
 								if (interfaceButtonAction == 557 && withdrawingMoneyFromPouch) {
 									stream.createFrame(7);
+									stream.writeDWord(amount);
+									inputDialogState = 0;
+									inputTaken = true;
+									withdrawingMoneyFromPouch = false;
+									return;
+								}
+								if (interfaceButtonAction == 559 && withdrawingMoneyFromPouch) {
+									stream.createFrame(9);
 									stream.writeDWord(amount);
 									inputDialogState = 0;
 									inputTaken = true;
