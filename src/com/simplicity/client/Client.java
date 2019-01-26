@@ -2658,12 +2658,12 @@ public class Client extends RSApplet {
 		int orbY = getCoinOrbY();
 		if (clientSize == 0 ? mouseInRegion(515, 85, 515 + 34, 85 + 34)
 				: mouseInRegion(orbX, orbY, orbX + 34, orbY + 34)) {
+			menuActionName[3] = "@gre@Withdraw 1b Tickets";
+			menuActionID[3] = 72671;
 			menuActionName[5] = coinToggle ? "Hide Money Pouch" : "Show Money Pouch";
 			menuActionID[5] = 72667;
-			menuActionName[4] = "@gre@Withdraw 1b Tickets";
-			menuActionID[4] = 72671;
-			menuActionName[3] = "Withdraw Money Pouch";
-			menuActionID[3] = 72666;
+			menuActionName[4] = "Withdraw Money Pouch";
+			menuActionID[4] = 72666;
 			menuActionName[2] = "Open Pricechecker";
 			menuActionID[2] = 72668;
 			menuActionName[1] = "Examine Money Pouch";
