@@ -155,6 +155,9 @@ public final class ObjectDefinition {
 	    if ( i == 30351 || i == 30349 || i == 30348) {
 			System.out.println("" + Arrays.toString(objectDef.objectModelIDs));
 		}
+	    if (i == 34573) {
+	    	objectDef.isUnwalkable = false;
+	    }
 	    if (i == 10087) {
 			objectDef.actions = new String[] {"Cage", null, null, null, null};
 			objectDef.name = "@yel@Dark crab";
