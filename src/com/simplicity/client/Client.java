@@ -3829,7 +3829,7 @@ public class Client extends RSApplet {
 						// System.out.println("Object maps: "+anIntArray1236[i6]);
 						int l8 = (mapCoordinates[i6] >> 8) * 64 - baseX;
 						int k9 = (mapCoordinates[i6] & 0xff) * 64 - baseY;
-						objectManager.method190(isOsrsRegion(), l8, clippingPlanes, k9, worldController, abyte1);
+						objectManager.method190(isOsrsRegion(), getRegionId(), l8, clippingPlanes, k9, worldController, abyte1);
 					}
 				}
 

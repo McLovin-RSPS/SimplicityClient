@@ -606,16 +606,22 @@ final class ObjectManager {
 	}
 		
 	public void method175(int y, WorldController worldController, CollisionDetection class11, int j, int z, int x, int i1, int j1) {
-		method175(false, y, worldController, class11, j, z, x, i1, j1);
+		method175(false, -1, y, worldController, class11, j, z, x, i1, j1);
 	}
 		
-    public void method175(boolean osrs, int y, WorldController worldController, CollisionDetection class11, int j, int z, int x, int i1, int j1) {
+    public void method175(boolean osrs, int regionId, int y, WorldController worldController, CollisionDetection class11, int j, int z, int x, int i1, int j1) {
 		try {
     	if (!osrs && lowMem && (tileSettings[0][x][y] & 2) == 0) {
 			if ((tileSettings[z][x][y] & 0x10) != 0)
 				return;
 			if (method182(y, z, x) != anInt131)
 				return;
+		}
+    	/**
+    	 * Castle Wars.
+    	 */
+		if (i1 == 4446 && regionId == 9520 && z == 1) {
+			i1 = 4410;
 		}
 		if (z < highestPlane)
 			highestPlane = z;
@@ -1429,7 +1435,7 @@ label0:
     return bool;
   }
 
-    public final void method190(boolean osrs, int i, CollisionDetection aclass11[], int j, WorldController worldController, byte abyte0[]) {
+    public final void method190(boolean osrs, int regionId, int i, CollisionDetection aclass11[], int j, WorldController worldController, byte abyte0[]) {
 		label0: {
 			ByteBuffer stream = new ByteBuffer(abyte0);
 			int l = -1;
@@ -1459,7 +1465,7 @@ label0:
 						CollisionDetection class11 = null;
 						if (l3 >= 0 && l3 < 4)
 							class11 = aclass11[l3];
-						method175(osrs, k3, worldController, class11, l2, j2, j3, l, i3);
+						method175(osrs, regionId, k3, worldController, class11, l2, j2, j3, l, i3);
 					}
 				} while (true);
 			} while (true);
