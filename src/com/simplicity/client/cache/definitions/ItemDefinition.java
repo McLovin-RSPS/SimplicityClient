@@ -851,7 +851,7 @@ public final class ItemDefinition {
         	itemDef.editedModelColor = def2.editedModelColor;
         	itemDef.newModelColor = def2.newModelColor;
             break;
-        case 21010:
+        case 21012:
             itemDef.modelID = 35742;
             itemDef.actions = new String[5];
             itemDef.actions[1] = "Wield";
