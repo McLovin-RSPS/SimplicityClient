@@ -7382,7 +7382,10 @@ public final class ItemDefinition {
         }
         Sprite sprite = null;
         if (itemDef.certTemplateID != -1) {
-            sprite = getSprite(itemDef.certID, 10, -1);
+//        	System.out.println(i + " Fetchng sprte for " + itemDef.certID + " for " + itemDef.certTemplateID);
+        	if (itemDef.certID != i) {
+        		sprite = getSprite(itemDef.certID, 10, -1);
+        	}
             if (sprite == null) {
                 return null;
             }
