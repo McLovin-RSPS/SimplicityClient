@@ -6873,10 +6873,18 @@ public final class ItemDefinition {
                 lightness = stream.readSignedByte() * 5;
             } else if (i == 115) {
                 team = stream.readUnsignedByte();
-            } else if (i == 116) {
+            } else if (i == 116 && osrs) {
                 lendID = stream.readUnsignedWord();
-            } else if (i == 117) {
+            } else if (i == 117 && osrs) {
                 lentItemID = stream.readUnsignedWord();
+            } else if (i == 139) {
+            	stream.readUnsignedWord();
+            } else if (i == 140) {
+            	stream.readUnsignedWord();
+            } else if (i == 148) {
+            	stream.readUnsignedWord();
+            } else if (i == 149) {
+            	stream.readUnsignedWord();
             }
         } while (true);
     }
