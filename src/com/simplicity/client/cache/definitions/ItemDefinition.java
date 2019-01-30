@@ -7091,9 +7091,9 @@ public final class ItemDefinition {
                 lightness = stream.readSignedByte() * 5;
             } else if (i == 115) {
                 team = stream.readUnsignedByte();
-            } else if (i == 116 && osrs) {
+            } else if (i == 116) {
                 lendID = stream.readUnsignedWord();
-            } else if (i == 117 && osrs) {
+            } else if (i == 117) {
                 lentItemID = stream.readUnsignedWord();
             } else if (i == 139) {
             	stream.readUnsignedWord();
