@@ -736,6 +736,27 @@ public final class ItemDefinition {
         }
         itemDef.value = prices[itemDef.id];
         switch (i) {
+        	
+        case 4513: // Saradomin team hood
+        	itemDef.editedModelColor = new int[] {8739, 8741,7700,8076,11200};
+        	itemDef.newModelColor = new int[] {-24120,-24120,-24112,-26982,10473};
+        	break;
+        	
+        case 4514: // Saradomin team cape
+        	itemDef.editedModelColor = new int[] {8739, 8741, 7698, 7700, 924, 926, 8076, 11196, 11200};
+        	itemDef.newModelColor = new int[] {-24120, -24120,-24112, -24112,-26982, -26982,-27735, 10473, 10473};
+        	break;
+
+		case 4515: // Zamorak team hood
+			itemDef.editedModelColor = new int[] {8739, 8741,7700,8076,11200};
+        	itemDef.newModelColor = new int[] {2735,2735,2611,2844,2578};
+			break;
+
+        case 4516: // Zamorak team cape
+        	itemDef.editedModelColor = new int[] {8739, 8741, 7698, 7700, 924, 926, 8076, 11196, 11200};
+        	itemDef.newModelColor = new int[] {2735, 2735, 2611, 2611,2844, 2844, 2844, 2578, 2578};
+        	break;
+        	
         case 15449:
         	itemDef.name = "Symbol of Combat";
         	break;
