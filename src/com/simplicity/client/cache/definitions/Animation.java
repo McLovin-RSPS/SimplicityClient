@@ -830,11 +830,14 @@ public final class Animation {
 					frameIDs2 = new int[frameCount];
 					delays = new int[frameCount];
 					for (int i = 0; i < frameCount; i++) {
-						frameIDs[i] = buffer.readDWord();
+						delays[i] = buffer.readUnsignedWord();
+					}
+					for (int i = 0; i < frameCount; i++) {
+						frameIDs[i] = buffer.readUnsignedWord();
 						frameIDs2[i] = -1;
 					}
 					for (int i = 0; i < frameCount; i++) {
-						delays[i] = buffer.readUnsignedByte();
+						frameIDs[i] += buffer.readUnsignedWord() << 16;
 					}
 				} else if (opcode == 2) {
 					loopDelay = buffer.readUnsignedWord();
@@ -862,7 +865,21 @@ public final class Animation {
 				} else if (opcode == 11) {
 					delayType = buffer.readUnsignedByte();
 				} else if (opcode == 12) {
-					buffer.readDWord();
+					int len = buffer.readUByte();
+
+					for (int i = 0; i < len; i++) {
+						buffer.readUnsignedWord();
+					}
+
+					for (int i = 0; i < len; i++) {
+						buffer.readUnsignedWord();
+					}
+				} else if (opcode == 13) {
+					int len = buffer.readUByte();
+
+					for (int i = 0; i < len; i++) {
+						buffer.read3Bytes();
+					}
 				} else {
 					System.out.println("Error unrecognised OSRS anim config code: " + opcode + " for anim " + id);
 				}

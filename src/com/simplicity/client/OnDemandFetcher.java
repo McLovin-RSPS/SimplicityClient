@@ -259,7 +259,7 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
 		byte modelIndex[] = streamLoader.getDataForName("map_index");
 		Stream data = new Stream(modelIndex);
 		int mapCount = data.readUnsignedWord();
-		int addonMaps = 12;
+		int addonMaps = 13;
 		regionIds = new int[mapCount + addonMaps];
 		landscapeIds = new int[mapCount + addonMaps];
 		objectMapIds = new int[mapCount + addonMaps];
@@ -303,6 +303,8 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
 		 * Scorpia cave
 		 */
 		setMapData(mapCount + 10, 12961, 10020, 10021, false);
+		
+		setMapData(mapCount + 11, 5536, 3472, 3473, true);
 		
 		/**
 		 * Great Olm
