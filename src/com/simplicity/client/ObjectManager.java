@@ -620,7 +620,7 @@ final class ObjectManager {
     	/**
     	 * Castle Wars.
     	 */
-		if (i1 == 4446 && regionId == 9520 && z == 1) {
+		if ((i1 == 4446 || i1 == 4447) && regionId == 9520 && z == 1) {
 			i1 = 4410;
 		}
 		if (z < highestPlane)
