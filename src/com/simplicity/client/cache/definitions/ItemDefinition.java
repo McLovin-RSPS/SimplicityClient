@@ -653,6 +653,9 @@ public final class ItemDefinition {
                     itemDef.actions[2] = "Check";
                     itemDef.actions[3] = "Toggle Config";
                     break;
+                case 51695:
+                    itemDef.name = "Simpfest shield";
+                    break;              
                 case 49643:
                     itemDef.copy(forID(8467));
                     itemDef.name = "Great Olm's slayer helmet";
