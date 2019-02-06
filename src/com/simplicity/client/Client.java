@@ -75,6 +75,7 @@ import com.simplicity.Jframe;
 import com.simplicity.client.DrawLine.LineType;
 import com.simplicity.client.cache.CacheDownloader;
 import com.simplicity.client.cache.definitions.Animation;
+import com.simplicity.client.cache.definitions.FloorDefinitionOSRS;
 import com.simplicity.client.cache.definitions.FloorOverlay;
 import com.simplicity.client.cache.definitions.FloorUnderlay;
 import com.simplicity.client.cache.definitions.ItemDefinition;
@@ -3900,7 +3901,9 @@ public class Client extends RSApplet {
 			if (loggedIn) {
 				stream.createFrame(0);
 			}
-			objectManager.method171(clippingPlanes, worldController);
+			
+			objectManager.method171(isOsrsRegion(), clippingPlanes, worldController);
+			
 			if (loggedIn) {
 				gameScreenIP.initDrawingArea();
 			}
@@ -12939,6 +12942,7 @@ public class Client extends RSApplet {
 			ObjectDefinition.unpackConfig(configArchive);
 			FloorOverlay.unpackConfig(configArchive);
 			FloorUnderlay.unpackConfig(configArchive);
+			FloorDefinitionOSRS.unpackConfig(configArchive);
 			ItemDefinition.unpackConfig(configArchive);
 			MobDefinition.unpackConfig(configArchive);
 			IDK.unpackConfig(configArchive);
@@ -22365,7 +22369,7 @@ public class Client extends RSApplet {
 
 	private ArrayList<CustomMinimapIcon> customMinimapIcons = new ArrayList<CustomMinimapIcon>();
 	
-	private static Set<Integer> OSRS_REGIONS = new HashSet<>(Arrays.asList(5536, 4663, 6810, 9023, 9043, 11850, 11851, 12090, 12106, 12362, 12363, 12347, 12605,
+	private static Set<Integer> OSRS_REGIONS = new HashSet<>(Arrays.asList(4919, 5945, 5946, 6201, 5536, 4663, 6810, 9023, 9043, 11850, 11851, 12090, 12106, 12362, 12363, 12347, 12605,
 			12701, 12702, 12703, 12861, 12887, 12889, 12957, 12958, 12959, 12961));
 	
 	public List<EffectTimer> effects_list = new CopyOnWriteArrayList<EffectTimer>();
