@@ -1,12 +1,13 @@
 package com.simplicity.client;
 
 
-import com.simplicity.client.cache.definitions.FloorUnderlay;
-import com.simplicity.client.cache.definitions.ObjectDefinition;
-import com.simplicity.client.cache.definitions.FloorOverlay;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+
+import com.simplicity.client.cache.definitions.FloorDefinitionOSRS;
+import com.simplicity.client.cache.definitions.FloorOverlay;
+import com.simplicity.client.cache.definitions.FloorUnderlay;
+import com.simplicity.client.cache.definitions.ObjectDefinition;
 
 @SuppressWarnings("all")
 final class ObjectManager {
@@ -40,7 +41,7 @@ final class ObjectManager {
         return l >> 19 & 0xff;
     }
     
-    public final void method171(CollisionDetection aclass11[],
+    public final void method171(boolean osrs, CollisionDetection aclass11[],
 			WorldController worldController) {
 		for (int j = 0; j < 4; j++) {
 			for (int k = 0; k < 104; k++) {
@@ -104,30 +105,48 @@ final class ObjectManager {
 					if (k9 >= 0 && k9 < anInt146) {
 						int l12 = underLay[l][k9][i8] & 0xff;
 						if (l12 > 0) {
-							if (l12 > FloorUnderlay.cache.length) {
-								l12 = FloorUnderlay.cache.length;
+							if (osrs) {
+								FloorDefinitionOSRS flo = FloorDefinitionOSRS.underlays[l12 - 1];
+								anIntArray124[i8] += flo.blendHue;
+								anIntArray125[i8] += flo.saturation;
+								anIntArray126[i8] += flo.luminance;
+								anIntArray127[i8] += flo.blendHueMultiplier;
+								anIntArray128[i8]++;
+							} else {
+								if (l12 > FloorUnderlay.cache.length) {
+									l12 = FloorUnderlay.cache.length;
+								}
+								FloorUnderlay flo = FloorUnderlay.cache[l12 - 1];
+								anIntArray124[i8] += flo.hue2;
+								anIntArray125[i8] += flo.saturation;
+								anIntArray126[i8] += flo.lightness;
+								anIntArray127[i8] += flo.hue_weight;
+								anIntArray128[i8]++;
 							}
-							FloorUnderlay flo = FloorUnderlay.cache[l12 - 1];
-							anIntArray124[i8] += flo.hue2;
-							anIntArray125[i8] += flo.saturation;
-							anIntArray126[i8] += flo.lightness;
-							anIntArray127[i8] += flo.hue_weight;
-							anIntArray128[i8]++;
 						}
 					}
 					int i13 = l6 - 5;
 					if (i13 >= 0 && i13 < anInt146) {
 						int i14 = underLay[l][i13][i8] & 0xff;
 						if (i14 > 0) {
-							if (i14 > FloorUnderlay.cache.length) {
-								i14 = FloorUnderlay.cache.length;
+							if (osrs) {
+								FloorDefinitionOSRS flo_1 = FloorDefinitionOSRS.underlays[i14 - 1];
+	                            anIntArray124[i8] -= flo_1.blendHue;
+	                            anIntArray125[i8] -= flo_1.saturation;
+	                            anIntArray126[i8] -= flo_1.luminance;
+	                            anIntArray127[i8] -= flo_1.blendHueMultiplier;
+	                            anIntArray128[i8]--;
+							} else {
+								if (i14 > FloorUnderlay.cache.length) {
+									i14 = FloorUnderlay.cache.length;
+								}
+								FloorUnderlay flo_1 = FloorUnderlay.cache[i14 - 1];
+								anIntArray124[i8] -= flo_1.hue2;
+								anIntArray125[i8] -= flo_1.saturation;
+								anIntArray126[i8] -= flo_1.lightness;
+								anIntArray127[i8] -= flo_1.hue_weight;
+								anIntArray128[i8]--;
 							}
-							FloorUnderlay flo_1 = FloorUnderlay.cache[i14 - 1];
-							anIntArray124[i8] -= flo_1.hue2;
-							anIntArray125[i8] -= flo_1.saturation;
-							anIntArray126[i8] -= flo_1.lightness;
-							anIntArray127[i8] -= flo_1.hue_weight;
-							anIntArray128[i8]--;
 						}
 					}
 				}
@@ -194,12 +213,24 @@ final class ObjectManager {
 											&& overlayClippingPaths[l][l6][k17] != 0) {
 										flag = false;
 									}
-									if (i19 - 1 >= FloorOverlay.overlayFloor.length) {
-										i19 = FloorOverlay.overlayFloor.length;
+									
+									if (osrs) {
+										if (i19 - 1 >= FloorDefinitionOSRS.overlays.length) {
+											i19 = FloorDefinitionOSRS.overlays.length;
+										}
+										if (i19 > 0 && !FloorDefinitionOSRS.overlays[i19 - 1].occlude) {
+											flag = false;
+										}
+									} else {
+										if (i19 - 1 >= FloorOverlay.overlayFloor.length) {
+											i19 = FloorOverlay.overlayFloor.length;
+										}
+										if (i19 > 0 && !FloorOverlay.overlayFloor[i19 - 1].aBoolean393) {
+											flag = false;
+										}
 									}
-									if (i19 > 0 && !FloorOverlay.overlayFloor[i19 - 1].aBoolean393) {
-										flag = false;
-									}
+									
+									
 									if (flag && j19 == k19 && j19 == l19
 											&& j19 == i20) {
 										anIntArrayArrayArray135[l][l6][k17] |= 0x924;
@@ -221,109 +252,148 @@ final class ObjectManager {
 								} else {
 									int k22 = overlayClippingPaths[l][l6][k17] + 1;
 									byte byte4 = overlayClippingPathRotations[l][l6][k17];
-									if (i19 - 1 >= FloorOverlay.overlayFloor.length) {
-										i19 = FloorOverlay.overlayFloor.length;
-									}
-									FloorOverlay flo_2 = FloorOverlay.overlayFloor[i19 - 1];
-									int floorTexture = flo_2.textureId;
+									
+									int floorTexture;
 									int j23;
 									int mapTexture;
-									if (floorTexture >= 0 && floorTexture <= 50) {
-										mapTexture = Rasterizer.method369(floorTexture);
-										j23 = -1;
-									} else if (flo_2.rgb == 0xff00ff) {
-										mapTexture = 0;
-										j23 = -2;
-										floorTexture = -1;
-									} else if (flo_2.rgb == 0x333333) {
-										mapTexture = Rasterizer.anIntArray1482[getOverlayShadow(flo_2.anInt399, 96)];
-										j23 = -2;
-										floorTexture = -1;
+									
+									if (osrs) {
+										if (i19 - 1 > FloorDefinitionOSRS.overlays.length) {
+											i19 = FloorDefinitionOSRS.overlays.length;
+										}
+	                                    FloorDefinitionOSRS overlay_flo = FloorDefinitionOSRS.overlays[i19 - 1];
+		                                floorTexture = overlay_flo.texture;
+		                                
+										if (floorTexture > 50) {
+											floorTexture = -1;
+										}
+										if (floorTexture >= 0) {
+		                                    mapTexture = Rasterizer.method369(floorTexture);
+		                                    j23 = -1;
+		                                } else if (overlay_flo.rgb == 0xff00ff) {
+		                                    mapTexture = 0;
+		                                    j23 = -2;
+		                                    floorTexture = -1;
+		                                } else if(overlay_flo.rgb == 0x333333) {
+		                                    mapTexture = Rasterizer.anIntArray1482[getOverlayShadow(overlay_flo.hsl16, 96)];                                
+		                                    j23 = -2;
+		                                	floorTexture = -1;
+		                                } else {
+		                                    j23 = method177(overlay_flo.hue, overlay_flo.saturation, overlay_flo.luminance);
+		                                   mapTexture = Rasterizer.anIntArray1482[getOverlayShadow(overlay_flo.hsl16, 96)];
+		                                }
+								
+									    if (mapTexture == 0x000000 && overlay_flo.anotherRgb != -1) {
+		                                    int temporaryMinimapColor = method177(overlay_flo.anotherHue,
+		                                    		overlay_flo.anotherSaturation, overlay_flo.anotherLuminance);
+		                                    mapTexture = Rasterizer.anIntArray1482[getOverlayShadow(temporaryMinimapColor, 96)];
+		                                   
+		                                }
 									} else {
-										j23 = method177(flo_2.anInt394, flo_2.anInt395, flo_2.anInt396);
-										mapTexture = Rasterizer.anIntArray1482[getOverlayShadow(flo_2.anInt399, 96)];
-									}
-									if (i19 - 1 == 151 && flo_2.rgb == 0xff00ff) { // Lava
-										mapTexture = 0xFBDC26;
-									}
-									if (i19 - 1 == 54) {
-										mapTexture = flo_2.rgb = 0x8B8B83;
-										j23 = -2;
-										floorTexture = -1;
-									} else if (i19 - 1 == 111) {
-										mapTexture = Rasterizer.method369(1);
-										j23 = -1;
-										floorTexture = 1;
-									} else if ((i19 - 1) == 63) {//edge bridge
-										mapTexture = flo_2.rgb = 0x4F4F4F;
-										j23 = -2;
-										floorTexture = -1;
-									}
+										if (i19 - 1 >= FloorOverlay.overlayFloor.length) {
+											i19 = FloorOverlay.overlayFloor.length;
+										}
+										FloorOverlay flo_2 = FloorOverlay.overlayFloor[i19 - 1];
+										floorTexture = flo_2.textureId;
 
-									if (j23 == 111) { // Water
-										mapTexture = Rasterizer.method369(1);
-										j23 = -1;
-										floorTexture = 1;
-									} else if (j23 == 53) { // Blue at duel
-										// arena
-										mapTexture = flo_2.rgb = 0xAA9166;
-										floorTexture = -1;
-									} else if (j23 == 52) { // Green in duel
-										// arena
-										mapTexture = flo_2.rgb = 0x736836;
-										floorTexture = -1;
-									} else if (j23 == 125) { // Roofs, duel
-										// arena
-										mapTexture = flo_2.rgb = 0xAA9166;
-										j23 = -1;
-										floorTexture = 32;
-									} else if (j23 == 135) { // Water at duel
-										// arena
-										mapTexture = Rasterizer.method369(1);
-										j23 = -2;
-										floorTexture = -1;
-									} else if (j23 == 6041) { // Al kharid
-										// floors
-										mapTexture = flo_2.rgb = 0xAA9166;
-										j23 = -1;
-										floorTexture = 32;
-									} else if (j23 == 63) { // Seer's court
-										// stairs
-										mapTexture = flo_2.rgb = 0x767676;
-										j23 = -2;
-										floorTexture = -1;
-									} else if (j23 == 177) { // Castle Wars,
-										// lobby floor
-										mapTexture = flo_2.rgb = 0x4D4D4D;
-										j23 = method177(0, 0, 55);
-										floorTexture = -1;
-									} else if (j23 == 72) { // Cliffside at
-										// ogres
-										mapTexture = flo_2.rgb = 0x483B21;
-										j23 = method177(25, 146, 24);
-									} else if (j23 == 6363 || j23 == 549) { // Dirt
-										// banks,
-										// etc
-										mapTexture = 0x483B21;
-										j23 = method177(25, 146, 24);
-									} else if (j23 == 6363) { // river bank
-										// (brown shit)
-										// 508
-										mapTexture = 0x483B21;
-										j23 = method177(25, 146, 24);
-									} else if (j23 == 127) {
-										mapTexture = Rasterizer.method369(25);
-										j23 = -1;
-										floorTexture = 25;
-									} else if (j23 == 6813) {//Castle wars road
-										mapTexture = flo_2.rgb = 7757611;
-										floorTexture = 154;//154
+										if (floorTexture >= 0 && floorTexture <= 50) {
+											mapTexture = Rasterizer.method369(floorTexture);
+											j23 = -1;
+										} else if (flo_2.rgb == 0xff00ff) {
+											mapTexture = 0;
+											j23 = -2;
+											floorTexture = -1;
+										} else if (flo_2.rgb == 0x333333) {
+											mapTexture = Rasterizer.anIntArray1482[getOverlayShadow(flo_2.anInt399, 96)];
+											j23 = -2;
+											floorTexture = -1;
+										} else {
+											j23 = method177(flo_2.anInt394, flo_2.anInt395, flo_2.anInt396);
+											mapTexture = Rasterizer.anIntArray1482[getOverlayShadow(flo_2.anInt399, 96)];
+										}
+										if (i19 - 1 == 151 && flo_2.rgb == 0xff00ff) { // Lava
+											mapTexture = 0xFBDC26;
+										}
+										if (i19 - 1 == 54) {
+											mapTexture = flo_2.rgb = 0x8B8B83;
+											j23 = -2;
+											floorTexture = -1;
+										} else if (i19 - 1 == 111) {
+											mapTexture = Rasterizer.method369(1);
+											j23 = -1;
+											floorTexture = 1;
+										} else if ((i19 - 1) == 63) {//edge bridge
+											mapTexture = flo_2.rgb = 0x4F4F4F;
+											j23 = -2;
+											floorTexture = -1;
+										}
+
+										if (j23 == 111) { // Water
+											mapTexture = Rasterizer.method369(1);
+											j23 = -1;
+											floorTexture = 1;
+										} else if (j23 == 53) { // Blue at duel
+											// arena
+											mapTexture = flo_2.rgb = 0xAA9166;
+											floorTexture = -1;
+										} else if (j23 == 52) { // Green in duel
+											// arena
+											mapTexture = flo_2.rgb = 0x736836;
+											floorTexture = -1;
+										} else if (j23 == 125) { // Roofs, duel
+											// arena
+											mapTexture = flo_2.rgb = 0xAA9166;
+											j23 = -1;
+											floorTexture = 32;
+										} else if (j23 == 135) { // Water at duel
+											// arena
+											mapTexture = Rasterizer.method369(1);
+											j23 = -2;
+											floorTexture = -1;
+										} else if (j23 == 6041) { // Al kharid
+											// floors
+											mapTexture = flo_2.rgb = 0xAA9166;
+											j23 = -1;
+											floorTexture = 32;
+										} else if (j23 == 63) { // Seer's court
+											// stairs
+											mapTexture = flo_2.rgb = 0x767676;
+											j23 = -2;
+											floorTexture = -1;
+										} else if (j23 == 177) { // Castle Wars,
+											// lobby floor
+											mapTexture = flo_2.rgb = 0x4D4D4D;
+											j23 = method177(0, 0, 55);
+											floorTexture = -1;
+										} else if (j23 == 72) { // Cliffside at
+											// ogres
+											mapTexture = flo_2.rgb = 0x483B21;
+											j23 = method177(25, 146, 24);
+										} else if (j23 == 6363 || j23 == 549) { // Dirt
+											// banks,
+											// etc
+											mapTexture = 0x483B21;
+											j23 = method177(25, 146, 24);
+										} else if (j23 == 6363) { // river bank
+											// (brown shit)
+											// 508
+											mapTexture = 0x483B21;
+											j23 = method177(25, 146, 24);
+										} else if (j23 == 127) {
+											mapTexture = Rasterizer.method369(25);
+											j23 = -1;
+											floorTexture = 25;
+										} else if (j23 == 6813) {//Castle wars road
+											mapTexture = flo_2.rgb = 7757611;
+											floorTexture = 154;//154
+										}
+										if (floorTexture == 137) {
+											mapTexture = Rasterizer.method369(25);
+											floorTexture = 25;
+											j23 = -1;
+										}
 									}
-									if (floorTexture == 137) {
-										mapTexture = Rasterizer.method369(25);
-										floorTexture = 25;
-										j23 = -1;
-									}
+									
 									worldController.addTile(l, l6, k17, k22,
 											byte4, floorTexture, 154, j19, k19,
 											l19, i20, getShadow(j21, j20),
