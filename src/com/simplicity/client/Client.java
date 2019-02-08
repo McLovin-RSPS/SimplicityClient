@@ -7264,6 +7264,13 @@ public class Client extends RSApplet {
 			}
 			
 			/**
+			 * Chambers of Xeric entrance.
+			 */
+			if (id == 29777) {
+				sizeY = -1;
+			}
+			
+			/**
 			 * Revenant cave pillars walking up to.
 			 */
 			if (id == 31561) {
