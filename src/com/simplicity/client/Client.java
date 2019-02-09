@@ -19648,20 +19648,22 @@ public class Client extends RSApplet {
 	}
 
 	public final String formatAmount(long amount) {
-		String format = "Too high!";
+		//System.out.println(getMoneyInPouch());
+		String format = "Too Much!";
+		//System.out.println(amount);
 		if (amount >= 0 && amount < 100000) {
 			format = String.valueOf(amount);
-		} else if (amount >= 100000 && amount < 1000000) {
+		} else if (amount >= 100000 && amount <= 1000000) {
 			format = amount / 1000 + "K";
-		} else if (amount >= 1000000 && amount < 1000000000L) {
+		} else if (amount >= 1000000 && amount <= 1000000000L) {
 			format = amount / 1000000 + "M";
-		} else if (amount >= 1000000000L && amount < 1000000000000L) {
+		} else if (amount >= 1000000000L && amount <= 5000000000000L) {
 			format = amount / 1000000000 + "B";
-		} else if (amount >= 10000000000000L && amount < 10000000000000000L) {
+		} else if (amount >= 5000000000000L && amount <= 10000000000000000L) {
 			format = amount / 1000000000000L + "T";
-		} else if (amount >= 10000000000000000L && amount < 1000000000000000000L) {
+		} else if (amount >= 10000000000000000L && amount <= 1000000000000000000L) {
 			format = amount / 1000000000000000L + "QD";
-		} else if (amount >= 1000000000000000000L && amount < Long.MAX_VALUE) {
+		} else if (amount >= 1000000000000000000L && amount <= Long.MAX_VALUE) {
 			format = amount / 1000000000000000000L + "QT";
 		}
 		return format;
@@ -21986,8 +21988,7 @@ public class Client extends RSApplet {
 
 	public String getMoneyInPouch() {
 		String Cash = RSInterface.interfaceCache[8135].message;
-		long convertedMoney = Long.parseLong(Cash);
-		Cash = formatAmount(convertedMoney);
+		Cash = formatAmount(Long.parseLong(Cash));
 		return Cash;
 	}
 
