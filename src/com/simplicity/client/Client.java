@@ -18129,9 +18129,9 @@ public class Client extends RSApplet {
 						alertText = s.substring(7).split(":n:");
 					}
 				}  else if (s.startsWith(":shortalert:")) {
-					if (s.length() > 7) {
+					if (s.length() > 12) {
 						alertBoxTimer = 350;
-						alertText = s.substring(7).split(":n:");
+						alertText = s.substring(12).split(":n:");
 					}
 				}else if (s.endsWith("::") && !s.startsWith("@clan:A@")) {
 					String s4 = s.substring(0, s.indexOf(":"));
