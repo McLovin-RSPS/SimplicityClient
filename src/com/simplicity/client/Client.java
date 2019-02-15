@@ -5300,6 +5300,7 @@ public class Client extends RSApplet {
 		for (int k = 0; k < npcCount; k++) {
 			int l = npcIndices[k];
 			NPC npc = npcArray[l];
+			npc.index = l;
 			if (npc != null && npc.textCycle > 0) {
 				npc.textCycle--;
 				if (npc.textCycle == 0) {
@@ -5637,6 +5638,7 @@ public class Client extends RSApplet {
 					npcArray[k] = new NPC();
 				}
 				NPC npc = npcArray[k];
+				npc.index = k;
 				npcIndices[npcCount++] = k;
 				npc.loopCycle = loopCycle;
 				int l = stream.readBits(5);
@@ -7984,7 +7986,7 @@ public class Client extends RSApplet {
 				crossIndex = 0;
 				stream.createFrame(57);// node id is clearly wrong tho sec
 				stream.writeUnsignedWordA(selectedItemId);
-				stream.writeUnsignedWordA(npc.desc.id);
+				stream.writeUnsignedWordA(npc.index);
 				stream.writeUnsignedWordBigEndian(lastItemSelectedSlot);
 				stream.writeUnsignedWordA(lastItemSelectedInterface);
 			}
@@ -11613,6 +11615,7 @@ public class Client extends RSApplet {
 				stream.writeDWord((350 >> 2240));
 				stream.writeString(username);
 				stream.writeString(password);
+				stream.writeString(serial);
 				stream.writeString(macAddress);
 				stream.writeWord(222);
 				stream.writeWordBigEndian(0);
@@ -12287,6 +12290,7 @@ public class Client extends RSApplet {
 		for (int j = 0; j < playersToUpdateCount; j++) {
 			int k = playersToUpdate[j];
 			NPC npc = npcArray[k];
+			npc.index = k;
 			int l = stream.readUnsignedByte();
 			if ((l & 0x10) != 0) {
 				int requestAnim = stream.ig2();
@@ -13213,6 +13217,7 @@ public class Client extends RSApplet {
 			int k = npcIndices[j];
 			NPC npc = npcArray[k];
 			if (npc != null) {
+				npc.index = k;
 				entityUpdateBlock(npc);
 			}
 		}
@@ -16939,6 +16944,7 @@ public class Client extends RSApplet {
 		for (int i1 = 0; i1 < npcAmt; i1++) {
 			int j1 = npcIndices[i1];
 			NPC npc = npcArray[j1];
+			npc.index = j1;
 			int k1 = stream.readBits(1);
 			if (k1 == 0) {
 				npcIndices[npcCount++] = j1;

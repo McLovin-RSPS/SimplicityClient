@@ -7,6 +7,8 @@ import com.simplicity.client.cache.definitions.SpotAnimDefinition;
 
 public final class NPC extends Entity
 {
+	
+	public int index;
 
 	private Model getAnimatedModel()
 	{
