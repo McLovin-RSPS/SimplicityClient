@@ -653,6 +653,9 @@ public final class ItemDefinition {
                     itemDef.actions[2] = "Check";
                     itemDef.actions[3] = "Toggle Config";
                     break;
+                case 51695:
+                    itemDef.name = "Simpfest shield";
+                    break;              
                 case 49643:
                     itemDef.copy(forID(8467));
                     itemDef.name = "Great Olm's slayer helmet";
@@ -736,26 +739,244 @@ public final class ItemDefinition {
         }
         itemDef.value = prices[itemDef.id];
         switch (i) {
-        	
-        case 4513: // Saradomin team hood
-        	itemDef.editedModelColor = new int[] {8739, 8741,7700,8076,11200};
-        	itemDef.newModelColor = new int[] {-24120,-24120,-24112,-26982,10473};
+        case 4037:
+        	itemDef.maleEquip1 = 4850;
+        	itemDef.femaleEquip1 = 4850;
+        	break;
+        case 4039:
+        	itemDef.maleEquip1 = 4851;
+        	itemDef.femaleEquip1 = 4851;
+        	break;
+        case 4068: // Dec sword 
+        	itemDef.maleEquip1 = 522;
+        	itemDef.femaleEquip1 = 522;
+        	itemDef.modelID = 2503;
+        	itemDef.editedModelColor = new int[] {43990, 43321, 43486, 127};
+        	itemDef.newModelColor = new int[] {937, 937, 937, -22429};
+        	itemDef.rotationX = 408;
+        	itemDef.rotationY = 224;
+        	itemDef.modelOffsetX = 6;
+        	itemDef.modelOffsetY = -49;
+        	itemDef.modelZoom = 1530;
+        	break;
+        case 4069:
+        	itemDef.maleEquip1 = 306;
+        	itemDef.maleEquip2 = 164;
+        	itemDef.femaleEquip1 = 468;
+        	itemDef.femaleEquip2 = 344;
+        	itemDef.modelID = 2605;
+        	itemDef.editedModelColor = new int[] {61,41};
+        	itemDef.newModelColor = new int[] {937,-21591};
+        	itemDef.modelOffset1 = -1;
+        	itemDef.modelOffsetX = 0;
+        	itemDef.modelOffsetY = 0;
+        	itemDef.rotationX = 0;
+        	itemDef.rotationY = 488;
+        	itemDef.modelZoom = 1250;
+        	itemDef.name = "Decorative platebody";
+        	break;
+        case 4070:
+        	itemDef.maleEquip1 = 268;
+        	itemDef.femaleEquip1 = 432;
+        	itemDef.femaleEquip2 = 344;
+        	itemDef.modelID = 2582;
+        	itemDef.editedModelColor = new int[] {61,41,57};
+        	itemDef.newModelColor = new int[] {-21591,937,-21591};
+        	itemDef.modelOffsetY = -8;
+        	itemDef.rotationY = 444;
+        	itemDef.modelZoom = 1740;
+        	itemDef.name = "Decorative platelegs";
+        	break;
+        case 4071:
+        	itemDef.maleEquip1 = 219;
+        	itemDef.maleDialogueModel = 57;
+        	itemDef.femaleEquip1 = 395;
+        	itemDef.femaleDialogueModel = 117;
+        	itemDef.editedModelColor = new int[] {926,61};
+        	itemDef.newModelColor = new int[] {-21591,937};
+        	itemDef.modelID = 2833;
+        	itemDef.modelOffsetX = 0;
+        	itemDef.modelOffsetY = -4;
+        	itemDef.rotationX = 156;
+        	itemDef.rotationY = 108;
+        	itemDef.modelZoom = 640;
+        	itemDef.name = "Decorative helm";
+        	break;
+        case 4072:
+        	itemDef.maleEquip1 = 486;
+        	itemDef.femaleEquip1 = 486;
+        	itemDef.modelID = 2339;
+        	itemDef.editedModelColor = new int[] {61,7054,57};
+        	itemDef.newModelColor = new int[] {937,-21591,-21591};
+        	itemDef.modelOffset1 = -6;
+        	itemDef.modelOffsetX = 0;
+        	itemDef.modelOffsetY = -14;
+        	itemDef.rotationX = 1104;
+        	itemDef.rotationY = 344;
+        	itemDef.modelZoom = 1560;
+        	itemDef.name = "Decorative shield";
         	break;
         	
-        case 4514: // Saradomin team cape
-        	itemDef.editedModelColor = new int[] {8739, 8741, 7698, 7700, 924, 926, 8076, 11196, 11200};
-        	itemDef.newModelColor = new int[] {-24120, -24120,-24112, -24112,-26982, -26982,-27735, 10473, 10473};
+        case 4503:
+        	itemDef.maleEquip1 = 522;
+        	itemDef.femaleEquip1 = 522;
+        	itemDef.modelID = 2503;
+        	itemDef.editedModelColor = new int[] {43990, 43321, 43992, 43486, 127};
+        	itemDef.newModelColor = new int[] {-22087, -22087, -22087, -22087, -22429};
+        	itemDef.rotationX = 408;
+        	itemDef.rotationY = 224;
+        	itemDef.modelOffsetX = 6;
+        	itemDef.modelOffsetY = -49;
+        	itemDef.modelZoom = 1530;
         	break;
-
-		case 4515: // Zamorak team hood
-			itemDef.editedModelColor = new int[] {8739, 8741,7700,8076,11200};
-        	itemDef.newModelColor = new int[] {2735,2735,2611,2844,2578};
+        case 4504:
+        	itemDef.maleEquip1 = 306;
+        	itemDef.maleEquip2 = 164;
+        	itemDef.femaleEquip1 = 468;
+        	itemDef.femaleEquip2 = 344;
+        	itemDef.modelID = 2605;
+        	itemDef.editedModelColor = new int[] {61,41};
+        	itemDef.newModelColor = new int[] {94,-22087};
+        	itemDef.modelOffset1 = -1;
+        	itemDef.modelOffsetX = 0;
+        	itemDef.modelOffsetY = 0;
+        	itemDef.rotationX = 0;
+        	itemDef.rotationY = 488;
+        	itemDef.modelZoom = 1250;
+        	itemDef.name = "Decorative platebody";
+        	break;
+        case 4505:
+        	itemDef.maleEquip1 = 268;
+        	itemDef.femaleEquip1 = 432;
+        	itemDef.femaleEquip2 = 344;
+        	itemDef.modelID = 2582;
+        	itemDef.editedModelColor = new int[] {61,41,57};
+        	itemDef.newModelColor = new int[] {-22087,94,-22087};
+        	itemDef.modelOffsetY = -8;
+        	itemDef.rotationY = 444;
+        	itemDef.modelZoom = 1740;
+        	itemDef.name = "Decorative platelegs";
+        	break;
+        case 4506:
+        	itemDef.maleEquip1 = 219;
+        	itemDef.maleDialogueModel = 57;
+        	itemDef.femaleEquip1 = 395;
+        	itemDef.femaleDialogueModel = 117;
+        	itemDef.editedModelColor = new int[] {926,61,929};
+        	itemDef.newModelColor = new int[] {-22087,94,-22087};
+        	itemDef.modelID = 2833;
+        	itemDef.modelOffsetX = 0;
+        	itemDef.modelOffsetY = -4;
+        	itemDef.rotationX = 156;
+        	itemDef.rotationY = 108;
+        	itemDef.modelZoom = 640;
+        	itemDef.name = "Decorative helm";
+        	break;
+        case 4507:
+        	itemDef.maleEquip1 = 486;
+        	itemDef.femaleEquip1 = 486;
+        	itemDef.modelID = 2339;
+        	itemDef.editedModelColor = new int[] {61,7054,57};
+        	itemDef.newModelColor = new int[] {94,-22087,-22087};
+        	itemDef.modelOffset1 = -6;
+        	itemDef.modelOffsetX = 0;
+        	itemDef.modelOffsetY = -14;
+        	itemDef.rotationX = 1104;
+        	itemDef.rotationY = 344;
+        	itemDef.modelZoom = 1560;
+        	itemDef.name = "Decorative shield";
+        	break;
+        	
+        case 4508:
+        	itemDef.maleEquip1 = 522;
+        	itemDef.femaleEquip1 = 522;
+        	itemDef.modelID = 2503;
+        	itemDef.editedModelColor = new int[] {43321, 43990, 43992};
+        	itemDef.newModelColor = new int[] {10929, 10929, 10929};
+        	itemDef.rotationX = 408;
+        	itemDef.rotationY = 224;
+        	itemDef.modelOffsetX = 6;
+        	itemDef.modelOffsetY = -49;
+        	itemDef.modelZoom = 1530;
+        	break;
+        case 4509:
+        	itemDef.maleEquip1 = 306;
+        	itemDef.maleEquip2 = 164;
+        	itemDef.femaleEquip1 = 468;
+        	itemDef.femaleEquip2 = 344;
+        	itemDef.modelID = 2605;
+        	itemDef.editedModelColor = new int[] {61,41};
+        	itemDef.newModelColor = new int[] {10929,-22256};
+        	itemDef.modelOffset1 = -1;
+        	itemDef.modelOffsetX = 0;
+        	itemDef.modelOffsetY = 0;
+        	itemDef.rotationX = 0;
+        	itemDef.rotationY = 488;
+        	itemDef.modelZoom = 1250;
+        	itemDef.name = "Decorative platebody";
+        	break;
+        case 4510:
+        	itemDef.maleEquip1 = 268;
+        	itemDef.femaleEquip1 = 432;
+        	itemDef.femaleEquip2 = 344;
+        	itemDef.modelID = 2582;
+        	itemDef.editedModelColor = new int[] {61,41,57};
+        	itemDef.newModelColor = new int[] {-22256,10929,-22256};
+        	itemDef.modelOffsetY = -8;
+        	itemDef.rotationY = 444;
+        	itemDef.modelZoom = 1740;
+        	itemDef.name = "Decorative platelegs";
+        	break;
+        case 4511:
+        	itemDef.maleEquip1 = 219;
+        	itemDef.maleDialogueModel = 57;
+        	itemDef.femaleEquip1 = 395;
+        	itemDef.femaleDialogueModel = 117;
+        	itemDef.editedModelColor = new int[] {926,61,929};
+        	itemDef.newModelColor = new int[] {-22256,10929,-22256};
+        	itemDef.modelID = 2833;
+        	itemDef.modelOffsetX = 0;
+        	itemDef.modelOffsetY = -4;
+        	itemDef.rotationX = 156;
+        	itemDef.rotationY = 108;
+        	itemDef.modelZoom = 640;
+        	itemDef.name = "Decorative helm";
+        	break;
+        	
+        case 4512:
+        	itemDef.maleEquip1 = 486;
+        	itemDef.femaleEquip1 = 486;
+        	itemDef.modelID = 2339;
+        	itemDef.editedModelColor = new int[] {61,7054,57};
+        	itemDef.newModelColor = new int[] {10929,-22256,-22256};
+        	itemDef.modelOffset1 = -6;
+        	itemDef.modelOffsetX = 0;
+        	itemDef.modelOffsetY = -14;
+        	itemDef.rotationX = 1104;
+        	itemDef.rotationY = 344;
+        	itemDef.modelZoom = 1560;
+        	itemDef.name = "Decorative shield";
+        	break;
+        	
+		case 4513: // Saradomin team hood
+			itemDef.editedModelColor = new int[] { 8739, 8741, 7700, 8076, 11200 };
+			itemDef.newModelColor = new int[] { -24120, -24120, -24112, -26982, 10473 };
 			break;
 
-        case 4516: // Zamorak team cape
-        	itemDef.editedModelColor = new int[] {8739, 8741, 7698, 7700, 924, 926, 8076, 11196, 11200};
-        	itemDef.newModelColor = new int[] {2735, 2735, 2611, 2611,2844, 2844, 2844, 2578, 2578};
-        	break;
+		case 4514: // Saradomin team cape
+			itemDef.editedModelColor = new int[] { 8739, 8741, 7698, 7700, 924, 926, 8076, 11196, 11200 };
+			itemDef.newModelColor = new int[] { -24120, -24120, -24112, -24112, -26982, -26982, -27735, 10473, 10473 };
+			break;
+
+		case 4515: // Zamorak team hood
+			itemDef.editedModelColor = new int[] { 8739, 8741, 7700, 8076, 11200 };
+			itemDef.newModelColor = new int[] { 2735, 2735, 2611, 2844, 2578 };
+			break;
+
+		case 4516: // Zamorak team cape
+			itemDef.editedModelColor = new int[] { 8739, 8741, 7698, 7700, 924, 926, 8076, 11196, 11200 };
+			itemDef.newModelColor = new int[] { 2735, 2735, 2611, 2611, 2844, 2844, 2844, 2578, 2578 };
+			break;
         	
         case 15449:
         	itemDef.name = "Symbol of Combat";
@@ -902,6 +1123,16 @@ public final class ItemDefinition {
                 break;
             case 6855:
                 itemDef.name = "Arthur's Birthday Box";
+                itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
+                break;
+            case 6831:
+                itemDef.name = "Sapphire Mystery Box";
+                itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
+                break;
+            case 744:
+                itemDef.name = "Valentine Mystery Box";
                 itemDef.actions = new String[5];
                 itemDef.actions[0] = "Open";
                 break;
@@ -6877,6 +7108,14 @@ public final class ItemDefinition {
                 lendID = stream.readUnsignedWord();
             } else if (i == 117) {
                 lentItemID = stream.readUnsignedWord();
+            } else if (i == 139) {
+            	stream.readUnsignedWord();
+            } else if (i == 140) {
+            	stream.readUnsignedWord();
+            } else if (i == 148) {
+            	stream.readUnsignedWord();
+            } else if (i == 149) {
+            	stream.readUnsignedWord();
             }
         } while (true);
     }
@@ -7156,7 +7395,10 @@ public final class ItemDefinition {
         }
         Sprite sprite = null;
         if (itemDef.certTemplateID != -1) {
-            sprite = getSprite(itemDef.certID, 10, -1);
+//        	System.out.println(i + " Fetchng sprte for " + itemDef.certID + " for " + itemDef.certTemplateID);
+        	if (itemDef.certID != i) {
+        		sprite = getSprite(itemDef.certID, 10, -1);
+        	}
             if (sprite == null) {
                 return null;
             }

@@ -488,10 +488,10 @@ WindowListener {
 		clickY = y;
 		clickTime = System.currentTimeMillis();
 		
-		if (e.isMetaDown()) {
+		if(SwingUtilities.isRightMouseButton(e)) {
 			mouseReleased = MIDDLE;
 			mouseDown = MIDDLE;
-		} else {
+		} else if(SwingUtilities.isLeftMouseButton(e)){
 			mouseReleased = LEFT;
 			mouseDown = LEFT;
 		}

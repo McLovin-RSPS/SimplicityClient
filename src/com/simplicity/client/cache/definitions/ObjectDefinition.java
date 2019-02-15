@@ -309,18 +309,6 @@ public final class ObjectDefinition {
 			objectDef.actions = new String[] {"Investigate", "Contribute", null, null, null};
 			objectDef.name = "Well of Goodwill";
 		}
-		if(i == 4407) {
-			objectDef.actions = new String[] {"Visit", null, null, null, null};
-			objectDef.name = "Demonic Gorillas";
-		}
-		if(i == 4408) {
-			objectDef.actions = new String[] {"Visit", null, null, null, null};
-			objectDef.name = "Ancient Wyvern island";
-		}
-		if(i == 4406) {
-			objectDef.actions = new String[] {"Visit", null, null, null, null};
-			objectDef.name = "Emerald cave";
-		}
 		if(i == 11398) {
 			objectDef.actions = new String[] {"Leave ", null, null, null, null};
 			objectDef.name = "Arthur's Dream";

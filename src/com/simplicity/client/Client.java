@@ -75,6 +75,7 @@ import com.simplicity.Jframe;
 import com.simplicity.client.DrawLine.LineType;
 import com.simplicity.client.cache.CacheDownloader;
 import com.simplicity.client.cache.definitions.Animation;
+import com.simplicity.client.cache.definitions.FloorDefinitionOSRS;
 import com.simplicity.client.cache.definitions.FloorOverlay;
 import com.simplicity.client.cache.definitions.FloorUnderlay;
 import com.simplicity.client.cache.definitions.ItemDefinition;
@@ -2658,12 +2659,12 @@ public class Client extends RSApplet {
 		int orbY = getCoinOrbY();
 		if (clientSize == 0 ? mouseInRegion(515, 85, 515 + 34, 85 + 34)
 				: mouseInRegion(orbX, orbY, orbX + 34, orbY + 34)) {
-			menuActionName[3] = "@gre@Withdraw 1b Tickets";
-			menuActionID[3] = 72671;
 			menuActionName[5] = coinToggle ? "Hide Money Pouch" : "Show Money Pouch";
 			menuActionID[5] = 72667;
-			menuActionName[4] = "Withdraw Money Pouch";
-			menuActionID[4] = 72666;
+			menuActionName[4] = "@gre@Withdraw 1b Tickets";
+			menuActionID[4] = 72671;
+			menuActionName[3] = "Withdraw Money Pouch";
+			menuActionID[3] = 72666;
 			menuActionName[2] = "Open Pricechecker";
 			menuActionID[2] = 72668;
 			menuActionName[1] = "Examine Money Pouch";
@@ -3900,7 +3901,9 @@ public class Client extends RSApplet {
 			if (loggedIn) {
 				stream.createFrame(0);
 			}
-			objectManager.method171(clippingPlanes, worldController);
+			
+			objectManager.method171(isOsrsRegion(), clippingPlanes, worldController);
+			
 			if (loggedIn) {
 				gameScreenIP.initDrawingArea();
 			}
@@ -7260,6 +7263,13 @@ public class Client extends RSApplet {
 			} else {
 				sizeX = objectDef.sizeY;
 				sizeY = objectDef.sizeX;
+			}
+			
+			/**
+			 * Chambers of Xeric entrance.
+			 */
+			if (id == 29777) {
+				sizeY = -1;
 			}
 			
 			/**
@@ -12943,6 +12953,7 @@ public class Client extends RSApplet {
 			ObjectDefinition.unpackConfig(configArchive);
 			FloorOverlay.unpackConfig(configArchive);
 			FloorUnderlay.unpackConfig(configArchive);
+			FloorDefinitionOSRS.unpackConfig(configArchive);
 			ItemDefinition.unpackConfig(configArchive);
 			MobDefinition.unpackConfig(configArchive);
 			IDK.unpackConfig(configArchive);
@@ -18123,7 +18134,12 @@ public class Client extends RSApplet {
 						alertBoxTimer = 2500;
 						alertText = s.substring(7).split(":n:");
 					}
-				} else if (s.endsWith("::") && !s.startsWith("@clan:A@")) {
+				}  else if (s.startsWith(":shortalert:")) {
+					if (s.length() > 12) {
+						alertBoxTimer = 350;
+						alertText = s.substring(12).split(":n:");
+					}
+				}else if (s.endsWith("::") && !s.startsWith("@clan:A@")) {
 					String s4 = s.substring(0, s.indexOf(":"));
 					TextClass.longForName(s4);
 					pushMessage("Clan: ", 8, s4);
@@ -19643,20 +19659,22 @@ public class Client extends RSApplet {
 	}
 
 	public final String formatAmount(long amount) {
-		String format = "Too high!";
+		//System.out.println(getMoneyInPouch());
+		String format = "Too Much!";
+		//System.out.println(amount);
 		if (amount >= 0 && amount < 100000) {
 			format = String.valueOf(amount);
-		} else if (amount >= 100000 && amount < 1000000) {
+		} else if (amount >= 100000 && amount <= 1000000) {
 			format = amount / 1000 + "K";
-		} else if (amount >= 1000000 && amount < 1000000000L) {
+		} else if (amount >= 1000000 && amount <= 1000000000L) {
 			format = amount / 1000000 + "M";
-		} else if (amount >= 1000000000L && amount < 1000000000000L) {
+		} else if (amount >= 1000000000L && amount <= 5000000000000L) {
 			format = amount / 1000000000 + "B";
-		} else if (amount >= 10000000000000L && amount < 10000000000000000L) {
+		} else if (amount >= 5000000000000L && amount <= 10000000000000000L) {
 			format = amount / 1000000000000L + "T";
-		} else if (amount >= 10000000000000000L && amount < 1000000000000000000L) {
+		} else if (amount >= 10000000000000000L && amount <= 1000000000000000000L) {
 			format = amount / 1000000000000000L + "QD";
-		} else if (amount >= 1000000000000000000L && amount < Long.MAX_VALUE) {
+		} else if (amount >= 1000000000000000000L && amount <= Long.MAX_VALUE) {
 			format = amount / 1000000000000000000L + "QT";
 		}
 		return format;
@@ -21981,8 +21999,7 @@ public class Client extends RSApplet {
 
 	public String getMoneyInPouch() {
 		String Cash = RSInterface.interfaceCache[8135].message;
-		long convertedMoney = Long.parseLong(Cash);
-		Cash = formatAmount(convertedMoney);
+		Cash = formatAmount(Long.parseLong(Cash));
 		return Cash;
 	}
 
@@ -22371,7 +22388,7 @@ public class Client extends RSApplet {
 
 	private ArrayList<CustomMinimapIcon> customMinimapIcons = new ArrayList<CustomMinimapIcon>();
 	
-	private static Set<Integer> OSRS_REGIONS = new HashSet<>(Arrays.asList(5536, 4663, 6810, 9023, 9043, 11850, 11851, 12090, 12106, 12362, 12363, 12347, 12605,
+	private static Set<Integer> OSRS_REGIONS = new HashSet<>(Arrays.asList(4919, 5945, 5946, 6201, 5536, 4663, 6810, 9023, 9043, 11850, 11851, 12090, 12106, 12362, 12363, 12347, 12605,
 			12701, 12702, 12703, 12861, 12887, 12889, 12957, 12958, 12959, 12961));
 	
 	public List<EffectTimer> effects_list = new CopyOnWriteArrayList<EffectTimer>();

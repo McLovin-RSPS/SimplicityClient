@@ -259,7 +259,7 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
 		byte modelIndex[] = streamLoader.getDataForName("map_index");
 		Stream data = new Stream(modelIndex);
 		int mapCount = data.readUnsignedWord();
-		int addonMaps = 13;
+		int addonMaps = 16;
 		regionIds = new int[mapCount + addonMaps];
 		landscapeIds = new int[mapCount + addonMaps];
 		objectMapIds = new int[mapCount + addonMaps];
@@ -305,6 +305,18 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
 		setMapData(mapCount + 10, 12961, 10020, 10021, false);
 		
 		setMapData(mapCount + 11, 5536, 3472, 3473, true);
+		
+		/**
+		 * Lizardman Shaman
+		 */
+		setMapData(mapCount + 12, 5945, 2206, 2207, false);
+		setMapData(mapCount + 13, 5946, 2208, 2209, false);
+		setMapData(mapCount + 14, 6201, 2242, 2243, false);
+		
+		/**
+		 * Raids lobby
+		 */
+		setMapData(mapCount + 15, 4919, 2820, 2821, false);
 		
 		/**
 		 * Great Olm
