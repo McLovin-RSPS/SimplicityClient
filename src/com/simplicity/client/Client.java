@@ -97,6 +97,10 @@ import com.simplicity.client.particles.ParticleDefinition;
 
 @SuppressWarnings("all")
 public class Client extends RSApplet {
+	
+	private boolean showUpdates = true;
+	private int updateOpacity = 256;
+	private boolean updateOpacityDecrease;
 
 	public static ResourceLoader resourceLoader;
 
@@ -7605,6 +7609,13 @@ public class Client extends RSApplet {
 			stream.createFrame(185);
 			stream.putInt(l - 100);
 		}
+		if(l == 100_384_1) {
+			stream.createFrame(185);
+			stream.putInt(l);
+		}
+		if(l == 100_384_2) {
+			showUpdates = false;
+		}
 		if (l == 72667) {
 			coinToggle = !coinToggle;
 			return;
@@ -11448,6 +11459,16 @@ public class Client extends RSApplet {
 			inputTaken = true;
 			anInt1039 = hoveredInterface;
 		}
+		if(showUpdates) {
+			if (super.mouseX >= 0 && super.mouseX <= 100
+					&& super.mouseY >= 0 && super.mouseY <= 100) {
+				menuActionName[2] = "@gre@Open Recent Updates";
+				menuActionID[2] = 100_384_1;
+				menuActionName[1] = "Dismiss";
+				menuActionID[1] = 100_384_2;
+				menuActionRow = 3;
+			}
+		}
 		if (openInterfaceID == -1 && hasSpecWeapon && getOption("special_button")) {
 			if (clientSize == 0) {
 
@@ -11605,7 +11626,9 @@ public class Client extends RSApplet {
 				socketStream.read();
 			}
 			int loginCode = socketStream.read();
-
+			options.put("save_input", false);
+			options.put("HD_shade", true);
+			handleSettings();
 			int i1 = loginCode;
 			if (loginCode == 0) {
 				socketStream.flushInputStream(inStream.buffer, 8);
@@ -14972,6 +14995,21 @@ public class Client extends RSApplet {
 			drawInterface(0, 512 * 2, RSInterface.interfaceCache[35555], 700);
 			drawInterface(0, 512 * 3, RSInterface.interfaceCache[35555], 700);
 		}
+		if (showUpdates) {
+			if (updateOpacity >= 250) {
+				updateOpacityDecrease = true;
+			}
+			if (updateOpacity <= 128) {
+				updateOpacityDecrease = false;
+			}
+			if (updateOpacityDecrease) {
+				updateOpacity -= 4;
+			} else {
+				updateOpacity += 4;
+			}
+			cacheSprite[800].drawSprite3(30, 30, updateOpacity);
+			smallText.drawText(0xffffff, "Recent Updates", 98, 50);
+		}
 		drawParallelWidgets();
 		// drawTeleIcon();
 		processAnAnim();// its already being drawn?
@@ -18134,7 +18172,9 @@ public class Client extends RSApplet {
 						alertBoxTimer = 2500;
 						alertText = s.substring(7).split(":n:");
 					}
-				}  else if (s.startsWith(":shortalert:")) {
+				}  else if (s.startsWith(":show_update:")) {
+					showUpdates = true;
+				} else if (s.startsWith(":shortalert:")) {
 					if (s.length() > 12) {
 						alertBoxTimer = 350;
 						alertText = s.substring(12).split(":n:");

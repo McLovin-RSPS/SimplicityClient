@@ -346,6 +346,15 @@ WindowListener {
 				Client.inputTaken = true;
 			}
 		}
+		if(Client.openInterfaceID == -1) {
+			Client.clientZoom += rotation * 35;
+
+			if (Client.clientZoom > 1100) {
+				Client.clientZoom = 1100;
+			} else if (Client.clientZoom < -400) {
+				Client.clientZoom = -400;
+			}
+		}
 		
 		if (event.isControlDown()) {
 			if (rotation == -1) {
