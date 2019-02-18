@@ -1,10 +1,16 @@
 package com.simplicity.client.cache.definitions;
 
 
-import com.simplicity.client.*;
-
 import java.io.PrintWriter;
 import java.util.Arrays;
+
+import com.simplicity.client.CacheArchive;
+import com.simplicity.client.Client;
+import com.simplicity.client.FrameReader;
+import com.simplicity.client.MemCache;
+import com.simplicity.client.Model;
+import com.simplicity.client.OnDemandFetcher;
+import com.simplicity.client.Stream;
 
 
 
@@ -259,7 +265,7 @@ public final class ObjectDefinition {
 		}
 		if(objectDef.name != null && i != 591) {
 			String s =objectDef.name.toLowerCase();
-			if(s.contains("bank") && !s.contains("closed")) {
+			if((s.contains("bank") && !s.contains("closed")) || i == 30087) {
 				objectDef.actions = new String[5];
 				objectDef.actions[0] = "Use";
 				objectDef.actions[1] = "View-presets";
