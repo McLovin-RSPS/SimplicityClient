@@ -556,6 +556,7 @@ public final class ItemDefinition {
                 case 51791:
                 case 51793:
                 case 51795:
+                case 52954:
                     itemDef.maleZOffset += 4;
                     itemDef.femaleZOffset += 4;
                     itemDef.femaleYOffset -= 7;

@@ -242,6 +242,14 @@ public class CustomObjects {
 			{-1, 2034, 4500, 0, 0},
 			
 			{35469, 2035, 4492, 0, 0},
+			{16859, 2378, 3842, 0, 0}, // Block Electro Wyrm
+			{16859, 2378, 3845, 0, 0}, // Block Electro Wyrm
+			{49296, 2378, 3841, 0, 0}, // Block Electro Wyrm
+			
+			{57163, 2348, 3879, 0, 0}, // Block Drake island
+			{57163, 2347, 3882, 0, 0}, // Block Drake island
+			
+			{46327, 2314, 3848, 0, 0}, // Block Drake island
 			
 			{57165, 2031, 4496, 0, 0},
 			{57165, 2031, 4491, 0, 0},
