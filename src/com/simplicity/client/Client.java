@@ -12355,7 +12355,7 @@ public class Client extends RSApplet {
 								Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).substring(0,
 										Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).length() - 4),
 								16)].length == 0) {
-							onDemandFetcher.requestFileData(1, Integer.parseInt(
+							onDemandFetcher.requestFileData(Animation.anims[requestAnim].osrs ? Client.OSRS_ANIM_IDX - 1 : Client.ANIM_IDX - 1, Integer.parseInt(
 									Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).substring(0,
 											Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).length() - 4),
 									16));
@@ -12392,7 +12392,7 @@ public class Client extends RSApplet {
 									Integer.toHexString(SpotAnimDefinition.cache[npc.anInt1520].animation.frameIDs[0])
 											.length() - 4),
 							16)].length == 0) {
-						onDemandFetcher.requestFileData(1, Integer.parseInt(Integer
+						onDemandFetcher.requestFileData(SpotAnimDefinition.cache[npc.anInt1520].osrs ? Client.OSRS_ANIM_IDX - 1 : Client.ANIM_IDX - 1, Integer.parseInt(Integer
 								.toHexString(SpotAnimDefinition.cache[npc.anInt1520].animation.frameIDs[0]).substring(0,
 										Integer.toHexString(
 												SpotAnimDefinition.cache[npc.anInt1520].animation.frameIDs[0]).length()
@@ -14698,7 +14698,7 @@ public class Client extends RSApplet {
 				try {
 					if (FrameReader.animationlist[Integer.parseInt(
 							Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).substring(0, Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).length() - 4), 16)].length == 0) {
-						onDemandFetcher.requestFileData(1, Integer
+						onDemandFetcher.requestFileData(Animation.anims[requestAnim].osrs ? Client.OSRS_ANIM_IDX - 1 : Client.ANIM_IDX - 1, Integer
 								.parseInt(Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).substring(0, Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).length() - 4), 16));
 					}
 				} catch (Exception e) {
