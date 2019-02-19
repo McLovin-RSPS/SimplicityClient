@@ -244,12 +244,19 @@ public class CustomObjects {
 			{35469, 2035, 4492, 0, 0},
 			{16859, 2378, 3842, 0, 0}, // Block Electro Wyrm
 			{16859, 2378, 3845, 0, 0}, // Block Electro Wyrm
-			{49296, 2378, 3841, 0, 0}, // Block Electro Wyrm
+			
+			{0, 2378, 3841, 0, 0}, // Block Broken Bridge
+			
+			{0, 2355, 3846, 0, 0}, // Block Broken Bridge
+			{0, 2355, 3841, 0, 0}, // Block Broken Bridge
 			
 			{57163, 2348, 3879, 0, 0}, // Block Drake island
 			{57163, 2347, 3882, 0, 0}, // Block Drake island
 			
+			{57163, 2345, 3830, 0, 0}, // Block Drake island
+			
 			{46327, 2314, 3848, 0, 0}, // Block Drake island
+			{46327, 2345, 3833, 0, 0}, // Block Bridge Drake island
 			
 			{57165, 2031, 4496, 0, 0},
 			{57165, 2031, 4491, 0, 0},
