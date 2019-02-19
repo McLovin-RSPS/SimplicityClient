@@ -244,6 +244,7 @@ public class CustomObjects {
 			{35469, 2035, 4492, 0, 0},
 			{16859, 2378, 3842, 0, 0}, // Block Electro Wyrm
 			{16859, 2378, 3845, 0, 0}, // Block Electro Wyrm
+			{29828, 2374, 3851, 0, 0}, // Hole Electro Wyrm
 			
 			{0, 2378, 3841, 0, 0}, // Block Broken Bridge
 			
