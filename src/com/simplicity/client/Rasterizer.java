@@ -2,8 +2,6 @@ package com.simplicity.client;
 
 import java.awt.Color;
 
-import com.simplicity.client.Background;
-
 public final class Rasterizer extends DrawingArea {
 	
 	public static boolean saveDepth = true;
@@ -1218,7 +1216,7 @@ public final class Rasterizer extends DrawingArea {
 	}
 	
 	public static boolean enableMipmapping = false;
-	public static boolean enableSmoothShading = false;
+	public static boolean enableSmoothShading = true;
 	public static boolean oldTriangles = true;
 	
 	public static int RS2HSB_to_RGB(int RS2HSB) {

@@ -88,6 +88,7 @@ import com.simplicity.client.cache.node.Deque;
 import com.simplicity.client.cache.node.Node;
 import com.simplicity.client.content.CustomisableHotKeys;
 import com.simplicity.client.content.EffectTimer;
+import com.simplicity.client.content.FlashingSprite;
 import com.simplicity.client.content.PlayerRights;
 import com.simplicity.client.content.RichPresence;
 import com.simplicity.client.content.dropdownmenu.DropDownAction;
@@ -99,9 +100,11 @@ import com.simplicity.client.particles.ParticleDefinition;
 public class Client extends RSApplet {
 	
 	private boolean showUpdates = true;
-	private int updateOpacity = 256;
-	private boolean updateOpacityDecrease;
-
+	private FlashingSprite recentUpdate = new FlashingSprite();
+	
+	private boolean showMysteryBoxAlert = true;
+	private FlashingSprite mysteryBoxAlert = new FlashingSprite();
+	
 	public static ResourceLoader resourceLoader;
 
 	public static boolean enableParticles = false;
@@ -274,7 +277,7 @@ public class Client extends RSApplet {
 			options.put("absorb_damage", true);
 			options.put("anti_a", false);
 			options.put("save_input", true);
-			options.put("HD_shade", false);
+			options.put("HD_shade", true);
 			options.put("mipm", false);
 			options.put("particles", true);
 			options.put("attk_priority", false);
@@ -360,7 +363,7 @@ public class Client extends RSApplet {
 			options.put("fog_active", false);
 			options.put("absorb_damage", true);
 			options.put("anti_a", false);
-			options.put("HD_shade", false);
+			options.put("HD_shade", true);
 			options.put("mipm", false);
 			options.put("attk_priority", false);
 			options.put("save_input", true);
@@ -393,7 +396,7 @@ public class Client extends RSApplet {
 			out.write(getOption("fog_active") ? 1 : 0);
 			out.write(getOption("absorb_damage") ? 1 : 0);
 			out.write(getOption("anti_a") ? 1 : 0);
-			out.write(getOption("HD_shade") ? 1 : 0);
+			out.write(1);
 			out.write(getOption("mipm") ? 1 : 0);
 			out.write(getOption("attk_priority") ? 1 : 0);
 			out.write(getOption("save_input") ? 1 : 0);
@@ -7610,11 +7613,20 @@ public class Client extends RSApplet {
 			stream.putInt(l - 100);
 		}
 		if(l == 100_384_1) {
+			showUpdates = false;
 			stream.createFrame(185);
 			stream.putInt(l);
 		}
 		if(l == 100_384_2) {
 			showUpdates = false;
+		}
+		if(l == 100_384_3) {
+			showMysteryBoxAlert = false;
+			stream.createFrame(185);
+			stream.putInt(l);
+		}
+		if(l == 100_384_4) {
+			showMysteryBoxAlert = false;
 		}
 		if (l == 72667) {
 			coinToggle = !coinToggle;
@@ -11462,10 +11474,20 @@ public class Client extends RSApplet {
 		if(showUpdates) {
 			if (super.mouseX >= 0 && super.mouseX <= 100
 					&& super.mouseY >= 0 && super.mouseY <= 100) {
-				menuActionName[2] = "@gre@Open Recent Updates";
+				menuActionName[2] = "Open @gre@Recent Updates";
 				menuActionID[2] = 100_384_1;
 				menuActionName[1] = "Dismiss";
 				menuActionID[1] = 100_384_2;
+				menuActionRow = 3;
+			}
+		}
+		if(showMysteryBoxAlert) {
+				if (super.mouseX >= 240 && super.mouseX <= 340
+					&& super.mouseY >= 250 && super.mouseY <= 350) {
+				menuActionName[2] = "Open @gre@Discount Store";
+				menuActionID[2] = 100_384_3;
+				menuActionName[1] = "Dismiss";
+				menuActionID[1] = 100_384_4;
 				menuActionRow = 3;
 			}
 		}
@@ -11628,6 +11650,7 @@ public class Client extends RSApplet {
 			int loginCode = socketStream.read();
 			options.put("save_input", false);
 			options.put("HD_shade", true);
+			Rasterizer.enableSmoothShading = true;
 			handleSettings();
 			int i1 = loginCode;
 			if (loginCode == 0) {
@@ -14996,19 +15019,13 @@ public class Client extends RSApplet {
 			drawInterface(0, 512 * 3, RSInterface.interfaceCache[35555], 700);
 		}
 		if (showUpdates) {
-			if (updateOpacity >= 250) {
-				updateOpacityDecrease = true;
-			}
-			if (updateOpacity <= 128) {
-				updateOpacityDecrease = false;
-			}
-			if (updateOpacityDecrease) {
-				updateOpacity -= 4;
-			} else {
-				updateOpacity += 4;
-			}
-			cacheSprite[800].drawSprite3(30, 30, updateOpacity);
+			recentUpdate.drawFlashingSprite(300, 30, 30);
 			smallText.drawText(0xffffff, "Recent Updates", 98, 50);
+		}
+		if(showMysteryBoxAlert) {
+			mysteryBoxAlert.drawFlashingSprite(301, 240, 250);
+			fancyText.drawText(0, "Available Mystery Box Discount", 319, 261);
+			fancyText.drawText(0x50D050, "Available Mystery Box Discount", 320, 260);
 		}
 		drawParallelWidgets();
 		// drawTeleIcon();
@@ -18174,6 +18191,8 @@ public class Client extends RSApplet {
 					}
 				}  else if (s.startsWith(":show_update:")) {
 					showUpdates = true;
+				}   else if (s.startsWith(":show_mystery_box:")) {
+					showMysteryBoxAlert = true;
 				} else if (s.startsWith(":shortalert:")) {
 					if (s.length() > 12) {
 						alertBoxTimer = 350;
