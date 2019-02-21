@@ -17,7 +17,7 @@ public final class NPC extends Entity
 		{
 			Animation animation = Animation.anims[super.anim];
 			int currentFrame = animation.frameIDs[super.currentAnimFrame];
-			int nextFrame = animation.frameIDs[super.nextAnimationFrame];
+			int nextFrame = super.nextAnimationFrame >= animation.frameIDs.length ? currentFrame : animation.frameIDs[super.nextAnimationFrame];
 			int cycle1 = animation.delays[super.currentAnimFrame];
 			int cycle2 = super.anInt1528;
 			//int frame = Animation.anims[super.anim].anIntArray353[super.anInt1527];
