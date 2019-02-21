@@ -269,6 +269,9 @@ public class CustomObjects {
 			{57165, 2042, 4496, 0, 0},
 			{57165, 2042, 4491, 0, 0},
 			
+			// Teleport to new slayer dung
+			{10780, 3088, 3512, 0, 0}, 
+			
 			//magetrees
 			{1306, 2326, 9795, 0, 0},
 			

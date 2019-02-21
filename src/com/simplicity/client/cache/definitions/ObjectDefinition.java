@@ -306,6 +306,10 @@ public final class ObjectDefinition {
 			objectDef.actions = new String[] {"Touch", null, null, null, null};
 			objectDef.name = "@yel@Statuette of Arthur";
 		}
+		if(i == 10780) {
+			objectDef.actions = new String[] {"Enter", null, null, null, null};
+			objectDef.name = "@yel@Karuulm Dungeon";
+		}
 		if(i == 7836 || i == 7808) {
 			objectDef.hasActions = true;
 			objectDef.actions = new String[] {"Dump-weeds", null, null, null, null};
