@@ -453,6 +453,9 @@ public final class ObjectDefinition {
 		if(i == 172) {
 			objectDef.name = "Crystal chest";
 		}
+		if(i == 34585) {
+			objectDef.name = "Stone chest";
+		}
 		if(i == 6714)
 		{
 			objectDef.hasActions = true;
