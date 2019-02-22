@@ -289,6 +289,11 @@ public final class MobDefinition {
             npc.originalColours = new int[]{926, 65214, 65200, 65186, 62995};
             break;
 		     
+		case 23611:
+			npc.name = "Draconic Wyrm";
+			npc.combatLevel = 399;
+		break;
+            
 		case 3334:
 			npc.name = "WildyWyrm";
 			npc.models = new int[] { 63604 };

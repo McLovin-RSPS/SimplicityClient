@@ -242,6 +242,22 @@ public class CustomObjects {
 			{-1, 2034, 4500, 0, 0},
 			
 			{35469, 2035, 4492, 0, 0},
+			{16859, 2378, 3842, 0, 0}, // Block Electro Wyrm
+			{16859, 2378, 3845, 0, 0}, // Block Electro Wyrm
+			{29828, 2374, 3851, 0, 0}, // Hole Electro Wyrm
+			
+			{0, 2378, 3841, 0, 0}, // Block Broken Bridge
+			
+			{0, 2355, 3846, 0, 0}, // Block Broken Bridge
+			{0, 2355, 3841, 0, 0}, // Block Broken Bridge
+			
+			{57163, 2348, 3879, 0, 0}, // Block Drake island
+			{57163, 2347, 3882, 0, 0}, // Block Drake island
+			
+			{57163, 2345, 3830, 0, 0}, // Block Drake island
+			
+			{46327, 2314, 3848, 0, 0}, // Block Drake island
+			{46327, 2345, 3833, 0, 0}, // Block Bridge Drake island
 			
 			{57165, 2031, 4496, 0, 0},
 			{57165, 2031, 4491, 0, 0},
@@ -252,6 +268,14 @@ public class CustomObjects {
 			
 			{57165, 2042, 4496, 0, 0},
 			{57165, 2042, 4491, 0, 0},
+			
+			// Teleport to new slayer dung
+			
+			{-1, 3079, 3510, 0, 0}, 
+			
+			{-1, 3078, 3510, 0, 0}, 
+			{10780, 3080, 3510, 0, 0}, 
+			{-1, 3081, 3510, 0, 0}, 
 			
 			//magetrees
 			{1306, 2326, 9795, 0, 0},
