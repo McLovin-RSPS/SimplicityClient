@@ -1,6 +1,7 @@
 package com.simplicity.client.content;
 
 import com.simplicity.client.SpriteLoader;
+import com.simplicity.client.cache.definitions.ItemDefinition;
 
 /**
  * Creates a flashing sprite
@@ -51,7 +52,29 @@ public class FlashingSprite {
 		} else {
 			opacity += rate;
 		}
-		SpriteLoader.sprites[sprite].drawSprite3(x, y, opacity);
+		SpriteLoader.sprites[sprite].drawAdvancedSprite(x, y, opacity);
+	}
+	
+	/**
+	 * Draws the sprite
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 * @param rate the rate
+	 */
+	public void drawFlashingItem(int id, int x, int y) {
+		if (opacity >= 250) {
+			decrease = true;
+		}
+		if (opacity <= 128) {
+			decrease = false;
+		}
+		if (decrease) {
+			opacity -= DEFAULT_FLASH_RATE;
+		} else {
+			opacity += DEFAULT_FLASH_RATE;
+		}
+		ItemDefinition.getSprite(id, 1, 0).drawSprite(x, y);
 	}
 	
 	/**

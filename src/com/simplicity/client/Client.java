@@ -104,6 +104,9 @@ public class Client extends RSApplet {
 	
 	private boolean showMysteryBoxAlert = true;
 	private FlashingSprite mysteryBoxAlert = new FlashingSprite();
+	private Sprite[] mysteryBoxSprites = new Sprite[3];
+	private static final int[] MYSTERY_BOXES = {
+			19713, 19714, 19715 };
 	
 	public static ResourceLoader resourceLoader;
 
@@ -13092,6 +13095,15 @@ public class Client extends RSApplet {
 				serial = CreateUID.generateUID();
 			} catch (Exception e) {
 			}
+			for(int i = 0; i < mysteryBoxSprites.length; i++) {
+				Sprite s = ItemDefinition.getSprite(MYSTERY_BOXES[i], 1, 0);
+				if(s != null) {
+				mysteryBoxSprites[i] = s;
+				System.out.println(mysteryBoxSprites[i]+"-"+MYSTERY_BOXES[i]);
+				} else {
+					System.out.println("invalid");
+				}
+			}
 			setLoadingText(100, "");
 			isLoading = false;
 		} catch (Exception exception) {
@@ -13979,6 +13991,9 @@ public class Client extends RSApplet {
 			for (int childID = 0; childID < totalChildrens; childID++) {
 				int childX = rsInterface.childX[childID] + interfaceX;
 				int childY = (rsInterface.childY[childID] + interfaceY) - scrollOffset;
+				if(rsInterface.children[childID] == -1) {
+					continue;
+				}
 				RSInterface child = RSInterface.interfaceCache[rsInterface.children[childID]];
 				if (child == null || child.hidden) {
 					continue;
@@ -15019,11 +15034,15 @@ public class Client extends RSApplet {
 			drawInterface(0, 512 * 3, RSInterface.interfaceCache[35555], 700);
 		}
 		if (showUpdates) {
-			recentUpdate.drawFlashingSprite(300, 30, 30);
+			recentUpdate.drawFlashingSprite(1057, 20, 20);
 			smallText.drawText(0xffffff, "Recent Updates", 98, 50);
 		}
 		if(showMysteryBoxAlert) {
-			mysteryBoxAlert.drawFlashingSprite(301, 240, 250);
+			int x = 210;
+			for(int i = 0; i < MYSTERY_BOXES.length; i++) {
+				mysteryBoxAlert.drawFlashingItem(MYSTERY_BOXES[i], x, 265);
+				x+= 30;
+			}
 			fancyText.drawText(0, "Available Mystery Box Discount", 319, 261);
 			fancyText.drawText(0x50D050, "Available Mystery Box Discount", 320, 260);
 		}

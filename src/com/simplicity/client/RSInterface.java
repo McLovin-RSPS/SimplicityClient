@@ -3130,7 +3130,35 @@ public static void TeleTAB5() {
 		presetsInterface(textDrawingAreas);
 		runePouch(textDrawingAreas);
 		donationPanel(textDrawingAreas);
+		thrownaxeSpecial();
 		spriteCache = null;
+	}
+	
+	private static final void thrownaxeSpecial() {
+		RSInterface tab = addTabInterface(75321);
+		
+		setChildren(1, tab);
+		
+		RSInterface copy = addInterface(75322);
+		RSInterface empty = addTabInterface(75320);
+		
+		copy.copy(interfaceCache[425]);
+		
+		copy.children[1] = 431;
+		copy.children[0] = 75320;
+		
+		copy.children[7] = 439;
+		copy.childX[7] += 6;
+		copy.children[5] = 434;
+		
+		copy.children[3] = 75320;
+		copy.children[8] = 75320;
+		
+		setBounds(75322, 0, 0, 0, tab);
+		
+		for(int i = 0; i < copy.children.length; i++) {
+			System.out.println(copy.children[i]+". "+i+", "+interfaceCache[copy.children[i]].type);
+		}
 	}
 
 	private static final void customisableHotKeys(TextDrawingArea[] TDA) {
