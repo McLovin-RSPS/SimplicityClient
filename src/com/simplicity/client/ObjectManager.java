@@ -693,6 +693,21 @@ final class ObjectManager {
 		if ((i1 == 4446 || i1 == 4447) && regionId == 9520 && z == 1) {
 			i1 = 4410;
 		}
+		
+		boolean debug = false;
+		
+		if (debug) { // Debug's the object at player's position...
+			int objectX = Client.instance.getBaseX() + x;
+			int objectY = Client.instance.getBaseY() + y;
+			
+			int playerX = Client.instance.getBaseX() + (Client.instance.myPlayer.x - 6 >> 7);
+			int playerY = Client.instance.getBaseY() + (Client.instance.myPlayer.y - 6 >> 7);
+			
+			if (objectX == playerX && objectY == playerY) {
+				System.out.println("Id at player's position: " + i1);
+			}
+		}
+		
 		if (z < highestPlane)
 			highestPlane = z;
 		int k1 = heightMap[z][x][y];
