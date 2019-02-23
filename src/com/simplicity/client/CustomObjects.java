@@ -244,6 +244,7 @@ public class CustomObjects {
 			{35469, 2035, 4492, 0, 0},
 			{16859, 2378, 3842, 0, 0}, // Block Electro Wyrm
 			{16859, 2378, 3845, 0, 0}, // Block Electro Wyrm
+			{29828, 2374, 3851, 0, 0}, // Hole Electro Wyrm
 			
 			{0, 2378, 3841, 0, 0}, // Block Broken Bridge
 			
@@ -267,6 +268,14 @@ public class CustomObjects {
 			
 			{57165, 2042, 4496, 0, 0},
 			{57165, 2042, 4491, 0, 0},
+			
+			// Teleport to new slayer dung
+			
+			{-1, 3079, 3510, 0, 0}, 
+			
+			{-1, 3078, 3510, 0, 0}, 
+			{10780, 3080, 3510, 0, 0}, 
+			{-1, 3081, 3510, 0, 0}, 
 			
 			//magetrees
 			{1306, 2326, 9795, 0, 0},
