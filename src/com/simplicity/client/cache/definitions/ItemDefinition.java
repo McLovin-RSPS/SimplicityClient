@@ -654,6 +654,11 @@ public final class ItemDefinition {
                     itemDef.actions[2] = "Check";
                     itemDef.actions[3] = "Toggle Config";
                     break;
+                case 49473:
+                    itemDef.name = "Six Month Anniversary Bag";
+                    itemDef.actions = new String[5];
+                    itemDef.actions[0] = "Open";
+                    break;
                 case 51695:
                     itemDef.name = "Simpfest shield";
                     break;              
