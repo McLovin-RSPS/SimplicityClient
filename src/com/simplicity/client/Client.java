@@ -11474,24 +11474,24 @@ public class Client extends RSApplet {
 			inputTaken = true;
 			anInt1039 = hoveredInterface;
 		}
-		if(showUpdates) {
-			if (super.mouseX >= 0 && super.mouseX <= 100
-					&& super.mouseY >= 0 && super.mouseY <= 100) {
-				menuActionName[2] = "Open @gre@Recent Updates";
-				menuActionID[2] = 100_384_1;
-				menuActionName[1] = "Dismiss";
-				menuActionID[1] = 100_384_2;
-				menuActionRow = 3;
+		if (openInterfaceID == -1) {
+			if (showUpdates) {
+				if (super.mouseX >= 200 && super.mouseX <= 300 && super.mouseY >= 0 && super.mouseY <= 100) {
+					menuActionName[2] = "Open @gre@Recent Updates";
+					menuActionID[2] = 100_384_1;
+					menuActionName[1] = "Dismiss";
+					menuActionID[1] = 100_384_2;
+					menuActionRow = 3;
+				}
 			}
-		}
-		if(showMysteryBoxAlert) {
-				if (super.mouseX >= 240 && super.mouseX <= 340
-					&& super.mouseY >= 250 && super.mouseY <= 350) {
-				menuActionName[2] = "Open @gre@Discount Store";
-				menuActionID[2] = 100_384_3;
-				menuActionName[1] = "Dismiss";
-				menuActionID[1] = 100_384_4;
-				menuActionRow = 3;
+			if (showMysteryBoxAlert) {
+				if (super.mouseX >= 240 && super.mouseX <= 340 && super.mouseY >= 250 && super.mouseY <= 350) {
+					menuActionName[2] = "Open @gre@Discount Store";
+					menuActionID[2] = 100_384_3;
+					menuActionName[1] = "Dismiss";
+					menuActionID[1] = 100_384_4;
+					menuActionRow = 3;
+				}
 			}
 		}
 		if (openInterfaceID == -1 && hasSpecWeapon && getOption("special_button")) {
@@ -15034,8 +15034,8 @@ public class Client extends RSApplet {
 			drawInterface(0, 512 * 3, RSInterface.interfaceCache[35555], 700);
 		}
 		if (showUpdates) {
-			recentUpdate.drawFlashingSprite(1057, 20, 20);
-			smallText.drawText(0xffffff, "Recent Updates", 98, 50);
+			recentUpdate.drawFlashingSprite(1057, 222, 2);
+			smallText.drawText(0xffffff, "Recent Updates", 80, 252);
 		}
 		if(showMysteryBoxAlert) {
 			int x = 210;
