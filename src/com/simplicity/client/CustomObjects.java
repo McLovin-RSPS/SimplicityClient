@@ -175,6 +175,8 @@ public class CustomObjects {
 			{54613, 2716, 5310, 0, 0}, // Onyx city		
 			{54613, 2716, 5309, 0, 0}, // Onyx city	
 			
+		//	{10088 , 3113, 3492, 0, 1}, // Afk fish edge
+			
 			// Arthur's dream
 			{10089 , 1826, 5168, 2, 0}, // anglerfish spot fishworld
 			{10089 , 1827, 5168, 2, 0}, // anglerfish spot fishworld
@@ -548,7 +550,23 @@ public class CustomObjects {
 		
 		
 	//	{ 47947 , 2720, 5352, 0, 2}, // waterfall o city
-	//	{ 47947 , 2720, 5355, 0, 2}, // waterfall o city
+
+		
+		{ 0 , 3091, 3513, 0, 0}, // remove object edge
+		{ 357 , 3092, 3514, 0, 0}, // remove object edge
+		{ 13569 , 3092, 3513, 0, 0}, // remove object edge
+		{ 13569 , 3093, 3513, 0, 0}, // remove object edge
+		{ 13569 , 3094, 3513, 0, 0}, // remove object edge
+		{ 13569 , 3095, 3513, 0, 0}, // remove object edge
+		{ 13569 , 3096, 3513, 0, 0}, // remove object edge
+		{ 13569 , 3097, 3513, 0, 0}, // remove object edge
+		
+		
+		{ 0 , 3091, 3508, 0, 0}, // remove object edge
+		{ 0 , 3091, 3507, 0, 0}, // remove object edge
+		{ 0 , 3096, 3507, 0, 0}, // remove object edge
+		{ 0 , 3097, 3507, 0, 0}, // remove object edge
+		{ 0 , 3098, 3507, 0, 0}, // remove object edge
 		
 		
 		
