@@ -53,6 +53,8 @@ import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.CRC32;
 import java.util.zip.GZIPOutputStream;
 
@@ -21209,15 +21211,9 @@ public class Client extends RSApplet {
 			}
 		}
 		if (name != null) {
-			if (name.startsWith("@cr0@") || name.startsWith("@cr1@") || name.startsWith("@cr2@")
-					|| name.startsWith("@cr3@") || name.startsWith("@cr4@") || name.startsWith("@cr5@")
-					|| name.startsWith("@cr6@") || name.startsWith("@cr7@") || name.startsWith("@cr8@")
-					|| name.startsWith("@cr9@")) {
-				name = name.substring(5);
-			} else if (name.startsWith("@cr10@") || name.startsWith("@cr11@") || name.startsWith("@cr12@")
-					|| name.startsWith("@cr13@") || name.startsWith("@cr14@") || name.startsWith("@cr15@")
-					|| name.startsWith("@cr16@")  || name.startsWith("@cr17@")  || name.startsWith("@cr18@")) {
-				name = name.substring(6);
+			if (regexMatch("@.+?@", name) != "NOT_FOUND") {
+				String tag = regexMatch("@.+?@", name);
+				name = name.replace(tag, "");
 			}
 		}
 		if (name == null) {
@@ -21265,6 +21261,17 @@ public class Client extends RSApplet {
 			e.printStackTrace();
 		}
 	}
+	
+	public static String regexMatch(String regex, String content) {
+	      Pattern p = Pattern.compile(regex);
+	      Matcher m = p.matcher(content);
+	      if (m.find()) {
+	         String theGroup = m.group(0);
+	         return theGroup;
+	      } else {
+	         return "NOT_FOUND";
+	      }
+	   }
 	
 	public static boolean isStaff(int rights) {
 		return rights >= 1 && rights <= 4 || rights == 10 || rights == 13;
