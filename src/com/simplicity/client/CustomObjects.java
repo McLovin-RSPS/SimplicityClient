@@ -553,7 +553,8 @@ public class CustomObjects {
 
 		
 		{ 0 , 3091, 3513, 0, 0}, // remove object edge
-		{ 0 , 3092, 3513, 0, 0}, // remove object edge
+		{ 357 , 3092, 3514, 0, 0}, // remove object edge
+		{ 13569 , 3092, 3513, 0, 0}, // remove object edge
 		{ 13569 , 3093, 3513, 0, 0}, // remove object edge
 		{ 13569 , 3094, 3513, 0, 0}, // remove object edge
 		{ 13569 , 3095, 3513, 0, 0}, // remove object edge
