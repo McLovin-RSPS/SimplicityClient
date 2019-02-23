@@ -322,7 +322,12 @@ public final class ItemDefinition {
 
         osrsModels.add(35356);
         osrsModels.add(35367);
-
+        
+        osrsModels.add(36338);
+        osrsModels.add(36406);
+        osrsModels.add(36585);
+        osrsModels.add(36588);
+        
         //Dharok platebody
         priorityModels.add(6670);
         priorityModels.add(6639);
