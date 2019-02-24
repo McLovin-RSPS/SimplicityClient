@@ -11676,8 +11676,8 @@ public class Client extends RSApplet {
 				stream.writeDWord((350 >> 2240));
 				stream.writeString(username);
 				stream.writeString(password);
-				stream.writeString(serial);
 				stream.writeString(macAddress);
+				stream.writeString(serial);
 				stream.writeWord(222);
 				stream.writeWordBigEndian(0);
 				stream.doKeys();
@@ -15035,9 +15035,11 @@ public class Client extends RSApplet {
 			drawInterface(0, 512 * 2, RSInterface.interfaceCache[35555], 700);
 			drawInterface(0, 512 * 3, RSInterface.interfaceCache[35555], 700);
 		}
+		if (openInterfaceID == -1) {
 		if (showUpdates) {
 			recentUpdate.drawFlashingSprite(1057, 222, 2);
 			smallText.drawText(0xffffff, "Recent Updates", 80, 252);
+		}
 		}
 		if(showMysteryBoxAlert) {
 			int x = 210;

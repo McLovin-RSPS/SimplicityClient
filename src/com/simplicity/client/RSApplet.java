@@ -345,8 +345,12 @@ WindowListener {
 				Client.anInt1089 = scrollPos;
 				Client.inputTaken = true;
 			}
-		}
+		} else {
 		if(Client.openInterfaceID == -1) {
+			boolean zoom = Client.clientSize == 0 ? (mouseX < 512)
+					: (mouseX < Client.clientWidth - 200);
+			
+			if(zoom) {
 			Client.clientZoom += rotation * 35;
 
 			if (Client.clientZoom > 1100) {
@@ -354,6 +358,8 @@ WindowListener {
 			} else if (Client.clientZoom < -400) {
 				Client.clientZoom = -400;
 			}
+			}
+		}
 		}
 		
 		if (event.isControlDown()) {
