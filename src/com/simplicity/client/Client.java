@@ -53,6 +53,8 @@ import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.CRC32;
 import java.util.zip.GZIPOutputStream;
 
@@ -11474,24 +11476,24 @@ public class Client extends RSApplet {
 			inputTaken = true;
 			anInt1039 = hoveredInterface;
 		}
-		if(showUpdates) {
-			if (super.mouseX >= 0 && super.mouseX <= 100
-					&& super.mouseY >= 0 && super.mouseY <= 100) {
-				menuActionName[2] = "Open @gre@Recent Updates";
-				menuActionID[2] = 100_384_1;
-				menuActionName[1] = "Dismiss";
-				menuActionID[1] = 100_384_2;
-				menuActionRow = 3;
+		if (openInterfaceID == -1) {
+			if (showUpdates) {
+				if (super.mouseX >= 200 && super.mouseX <= 300 && super.mouseY >= 0 && super.mouseY <= 100) {
+					menuActionName[2] = "Open @gre@Recent Updates";
+					menuActionID[2] = 100_384_1;
+					menuActionName[1] = "Dismiss";
+					menuActionID[1] = 100_384_2;
+					menuActionRow = 3;
+				}
 			}
-		}
-		if(showMysteryBoxAlert) {
-				if (super.mouseX >= 240 && super.mouseX <= 340
-					&& super.mouseY >= 250 && super.mouseY <= 350) {
-				menuActionName[2] = "Open @gre@Discount Store";
-				menuActionID[2] = 100_384_3;
-				menuActionName[1] = "Dismiss";
-				menuActionID[1] = 100_384_4;
-				menuActionRow = 3;
+			if (showMysteryBoxAlert) {
+				if (super.mouseX >= 240 && super.mouseX <= 340 && super.mouseY >= 250 && super.mouseY <= 350) {
+					menuActionName[2] = "Open @gre@Discount Store";
+					menuActionID[2] = 100_384_3;
+					menuActionName[1] = "Dismiss";
+					menuActionID[1] = 100_384_4;
+					menuActionRow = 3;
+				}
 			}
 		}
 		if (openInterfaceID == -1 && hasSpecWeapon && getOption("special_button")) {
@@ -11674,8 +11676,8 @@ public class Client extends RSApplet {
 				stream.writeDWord((350 >> 2240));
 				stream.writeString(username);
 				stream.writeString(password);
-				stream.writeString(serial);
 				stream.writeString(macAddress);
+				stream.writeString(serial);
 				stream.writeWord(222);
 				stream.writeWordBigEndian(0);
 				stream.doKeys();
@@ -15033,9 +15035,11 @@ public class Client extends RSApplet {
 			drawInterface(0, 512 * 2, RSInterface.interfaceCache[35555], 700);
 			drawInterface(0, 512 * 3, RSInterface.interfaceCache[35555], 700);
 		}
+		if (openInterfaceID == -1) {
 		if (showUpdates) {
-			recentUpdate.drawFlashingSprite(1057, 20, 20);
-			smallText.drawText(0xffffff, "Recent Updates", 98, 50);
+			recentUpdate.drawFlashingSprite(1057, 222, 2);
+			smallText.drawText(0xffffff, "Recent Updates", 80, 252);
+		}
 		}
 		if(showMysteryBoxAlert) {
 			int x = 210;
@@ -21209,15 +21213,9 @@ public class Client extends RSApplet {
 			}
 		}
 		if (name != null) {
-			if (name.startsWith("@cr0@") || name.startsWith("@cr1@") || name.startsWith("@cr2@")
-					|| name.startsWith("@cr3@") || name.startsWith("@cr4@") || name.startsWith("@cr5@")
-					|| name.startsWith("@cr6@") || name.startsWith("@cr7@") || name.startsWith("@cr8@")
-					|| name.startsWith("@cr9@")) {
-				name = name.substring(5);
-			} else if (name.startsWith("@cr10@") || name.startsWith("@cr11@") || name.startsWith("@cr12@")
-					|| name.startsWith("@cr13@") || name.startsWith("@cr14@") || name.startsWith("@cr15@")
-					|| name.startsWith("@cr16@")  || name.startsWith("@cr17@")  || name.startsWith("@cr18@")) {
-				name = name.substring(6);
+			if (regexMatch("@.+?@", name) != "NOT_FOUND") {
+				String tag = regexMatch("@.+?@", name);
+				name = name.replace(tag, "");
 			}
 		}
 		if (name == null) {
@@ -21265,6 +21263,17 @@ public class Client extends RSApplet {
 			e.printStackTrace();
 		}
 	}
+	
+	public static String regexMatch(String regex, String content) {
+	      Pattern p = Pattern.compile(regex);
+	      Matcher m = p.matcher(content);
+	      if (m.find()) {
+	         String theGroup = m.group(0);
+	         return theGroup;
+	      } else {
+	         return "NOT_FOUND";
+	      }
+	   }
 	
 	public static boolean isStaff(int rights) {
 		return rights >= 1 && rights <= 4 || rights == 10 || rights == 13;
