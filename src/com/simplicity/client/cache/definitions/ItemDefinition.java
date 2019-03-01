@@ -436,6 +436,14 @@ public final class ItemDefinition {
         priorityModels.add(55672);
         priorityModels.add(56366);
 
+        // Celestial hood
+        priorityModels.add(55746);
+        priorityModels.add(56453);
+
+        // Celestial boots
+        priorityModels.add(55681);
+        priorityModels.add(56367);
+
         // Guadian boots
         priorityModels.add(34233);
         priorityModels.add(34234);
