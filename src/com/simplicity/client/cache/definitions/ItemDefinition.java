@@ -428,6 +428,30 @@ public final class ItemDefinition {
         priorityModels.add(65532);
         priorityModels.add(65534);
 
+        // Spiritbloom hood
+        priorityModels.add(55748);
+        priorityModels.add(56438);
+
+        // Spiritbloom boots
+        priorityModels.add(55672);
+        priorityModels.add(56366);
+
+        // Celestial hood
+        priorityModels.add(55746);
+        priorityModels.add(56453);
+
+        // Celestial boots
+        priorityModels.add(55681);
+        priorityModels.add(56367);
+
+        // Guadian boots
+        priorityModels.add(34233);
+        priorityModels.add(34234);
+
+        // Angelic boots
+        priorityModels.add(28881);
+        priorityModels.add(28888);
+
         //writeOutOsrsItems(totalItems, totalItemsOSRS);
         //dumpInterface(totalItems, totalItemsOSRS);
     }
@@ -7643,16 +7667,20 @@ public final class ItemDefinition {
 
         value = copy.value;
 
-        editedModelColor = new int[copy.editedModelColor.length];
-        
-        for (int i = 0; i < editedModelColor.length; i++) {
-        	editedModelColor[i] = copy.editedModelColor[i];
+        editedModelColor = copy.editedModelColor == null ? null : new int[copy.editedModelColor.length];
+
+        if(editedModelColor != null) {
+            for (int i = 0; i < editedModelColor.length; i++) {
+                editedModelColor[i] = copy.editedModelColor[i];
+            }
         }
         
-        newModelColor = new int[copy.newModelColor.length];
-        
-        for (int i = 0; i < newModelColor.length; i++) {
-        	newModelColor[i] = copy.newModelColor[i];
+        newModelColor = copy.newModelColor == null ? null : new int[copy.newModelColor.length];
+
+        if(newModelColor != null) {
+            for (int i = 0; i < newModelColor.length; i++) {
+                newModelColor[i] = copy.newModelColor[i];
+            }
         }
         
         femaleEquip3 = copy.femaleEquip3;

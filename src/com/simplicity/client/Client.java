@@ -22475,7 +22475,7 @@ public class Client extends RSApplet {
 
 	private ArrayList<CustomMinimapIcon> customMinimapIcons = new ArrayList<CustomMinimapIcon>();
 	
-	private static Set<Integer> OSRS_REGIONS = new HashSet<>(Arrays.asList(4919, 5022, 5023, 5279, 5280, 5535, 5945, 5946, 6201, 5536, 4663, 6810, 9023, 9043, 11850, 11851, 12090, 12106, 12362, 12363, 12347, 12605,
+	private static Set<Integer> OSRS_REGIONS = new HashSet<>(Arrays.asList(4919, 5022, 5023, 5279, 5280, 5535, 5945, 5946, 6201, 5536, 4663, 6810, 9023, 9043, 11850, 11851, 12090, 12106, 12362, 12363, 12347, 12605, 12611,
 			12701, 12702, 12703, 12861, 12887, 12889, 12957, 12958, 12959, 12961));
 	
 	public List<EffectTimer> effects_list = new CopyOnWriteArrayList<EffectTimer>();
