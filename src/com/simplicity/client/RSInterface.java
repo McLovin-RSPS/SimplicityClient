@@ -3554,7 +3554,7 @@ public class RSInterface {
 		runePouch(textDrawingAreas);
 		donationPanel(textDrawingAreas);
 		thrownaxeSpecial();
-		slayerInterfaces(textDrawingAreas);
+//		slayerInterfaces(textDrawingAreas);
 		spriteCache = null;
 	}
 
