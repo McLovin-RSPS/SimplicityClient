@@ -1800,7 +1800,7 @@ public final class MobDefinition {
 		animatedModel.method464(completedModel, FrameReader.isNullFrame(frame) & FrameReader.isNullFrame(j));
 
 		if (frame != -1 && j != -1)
-			animatedModel.method471(ai, j, frame);
+			animatedModel.method471(ai, j, frame, osrs);
 		else if (frame != -1 && nextFrame != -1)
 			animatedModel.applyTransform(frame, nextFrame, idk, idk2, osrs);
 		else if (frame != -1)
