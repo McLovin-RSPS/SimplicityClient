@@ -1100,8 +1100,8 @@ public final class ItemDefinition {
             itemDef.modelID = 35742;
             itemDef.actions = new String[5];
             itemDef.actions[1] = "Wield";
-            itemDef.name = "@red@Sycthe of Vitur X";
-            itemDef.description = "It is the Scythe of Vitur X.";
+            itemDef.name = "@red@Sycthe of Vitur Y";
+            itemDef.description = "It is the Scythe of Vitur Y.";
             itemDef.modelZoom = 2200;
             itemDef.stackable = false;
             itemDef.rotationX = 23;
@@ -1111,6 +1111,99 @@ public final class ItemDefinition {
             itemDef.editedModelColor = new int[] { 784, 790, 796, 536, 61, 78, 49 };
             itemDef.newModelColor = new int[] { -1253, -1253, -1253, -1253, -1253, -1253, -1253 };
             break;
+        case 21077:
+            itemDef.modelID = 35742;
+            itemDef.actions = new String[5];
+            itemDef.actions[1] = "Wield";
+            itemDef.name = "@red@Sycthe of Vitur XL";
+            itemDef.description = "It is the Scythe of Vitur XL.";
+            itemDef.modelZoom = 2200;
+            itemDef.stackable = false;
+            itemDef.rotationX = 23;
+            itemDef.rotationY = 327;
+            itemDef.maleEquip1 = 35371;
+            itemDef.femaleEquip1 = 35371;
+            itemDef.editedModelColor = new int[] { 584, 590, 596, 836, 61, 78, 49 };
+            //            itemDef.editedModelColor = new int[] { 384, 390, 396, 536, 61, 78, 49 };
+            itemDef.newModelColor = new int[] { 14573, 14573, 14573, 14573, 14573, 14573, 14573 };
+            break;
+            
+        case 21010:
+            itemDef.actions = new String[5];
+            itemDef.actions[1] = "Wear";
+            itemDef.actions[4] = "Drop";
+            itemDef.modelID = 32799;
+            itemDef.name = "Fire Twisted Bow";
+            itemDef.modelZoom = 2000;
+            itemDef.rotationY = 720;
+            itemDef.rotationX = 1500;
+            itemDef.modelOffset1 = 3;
+            itemDef.modelOffsetY = 1;
+            itemDef.femaleEquip1 = 32674;
+            itemDef.maleEquip1 = 32674;
+            itemDef.description = "A mystical bow carved from a very hot place.";
+            itemDef.editedModelColor = new int[] { 16, 24, 33, 13223, 14236 };
+            itemDef.newModelColor = new int[] { 4024, 4024, 7073, 4024, 4024 };        
+            break;
+            
+            // Yellow orange https://i.gyazo.com/07b471a0043616d12ecedd616f422fd3.png      
+        /*case 21010:
+            itemDef.actions = new String[5];
+            itemDef.actions[1] = "Wear";
+            itemDef.actions[4] = "Drop";
+            itemDef.modelID = 32799;
+            itemDef.name = "Twisted Bow";
+            itemDef.modelZoom = 2000;
+            itemDef.rotationY = 720;
+            itemDef.rotationX = 1500;
+            itemDef.modelOffset1 = 3;
+            itemDef.modelOffsetY = 1;
+            itemDef.femaleEquip1 = 32674;
+            itemDef.maleEquip1 = 32674;
+            itemDef.description = "A mystical bow carved from a very magical place.";
+            itemDef.editedModelColor = new int[] { 16, 24, 33, 13223, 14236 };
+            itemDef.newModelColor = new int[] { 5024, 5024, 7073, 5024, 5024 };        
+            break; */
+            
+      /*  case 21010:
+            itemDef.actions = new String[5];
+            itemDef.actions[1] = "Wear";
+            itemDef.actions[4] = "Drop";
+            itemDef.modelID = 32799;
+            itemDef.name = "Twisted Bow V";
+            itemDef.modelZoom = 2000;
+            itemDef.rotationY = 720;
+            itemDef.rotationX = 1500;
+            itemDef.modelOffset1 = 3;
+            itemDef.modelOffsetY = 1;
+            itemDef.femaleEquip1 = 32674;
+            itemDef.maleEquip1 = 32674;
+            itemDef.description = "A mystical bow carved from a very magical place.";
+            itemDef.editedModelColor = new int[] { 16, 24, 33, 13223, 14236 }; // Dark grey colour
+            itemDef.newModelColor = new int[] { 6024, 6024, 3073, 6024, 6024 };
+            
+          //  itemDef.editedModelColor = new int[] { 16, 24, 33, 13223, 14236 }; Yellow orange
+          //  itemDef.newModelColor = new int[] { 9024, 9024, 6073, 9024, 9024 };
+            break; */
+            
+        case 20999:
+            itemDef.actions = new String[5];
+            itemDef.actions[1] = "Wear";
+            itemDef.actions[4] = "Drop";
+            itemDef.modelID = 32799;
+            itemDef.name = "Dark twisted bow";
+            itemDef.modelZoom = 2000;
+            itemDef.rotationY = 720;
+            itemDef.rotationX = 1500;
+            itemDef.modelOffset1 = 3;
+            itemDef.modelOffsetY = 1;
+            itemDef.femaleEquip1 = 32674;
+            itemDef.maleEquip1 = 32674;
+            itemDef.description = "A mystical bow carved from the twisted remains of the Great Olm.";
+            itemDef.editedModelColor = new int[] { 16, 24, 33, 13223, 14236 };
+            itemDef.newModelColor = new int[] { 1024, 1024, 937, 1024, 1024 };
+            break;
+            
         case 21008:
         	def2 = forID(9774);
         	itemDef.actions = def2.actions;
@@ -2924,23 +3017,6 @@ public final class ItemDefinition {
                 itemDef.femaleEquip1 = 32674;
                 itemDef.maleEquip1 = 32674;
                 itemDef.description = "A mystical bow carved from the twisted remains of the Great Olm.";
-                break;
-            case 20999:
-                itemDef.actions = new String[5];
-                itemDef.actions[1] = "Wear";
-                itemDef.actions[4] = "Drop";
-                itemDef.modelID = 32799;
-                itemDef.name = "Dark twisted bow";
-                itemDef.modelZoom = 2000;
-                itemDef.rotationY = 720;
-                itemDef.rotationX = 1500;
-                itemDef.modelOffset1 = 3;
-                itemDef.modelOffsetY = 1;
-                itemDef.femaleEquip1 = 32674;
-                itemDef.maleEquip1 = 32674;
-                itemDef.description = "A mystical bow carved from the twisted remains of the Great Olm.";
-                itemDef.editedModelColor = new int[] { 16, 24, 33, 13223, 14236 };
-                itemDef.newModelColor = new int[] { 1024, 1024, 937, 1024, 1024 };
                 break;
                 
             case 4706:
