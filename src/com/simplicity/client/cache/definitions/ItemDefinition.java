@@ -683,6 +683,9 @@ public final class ItemDefinition {
                     itemDef.actions[2] = "Check";
                     itemDef.actions[3] = "Toggle Config";
                     break;
+                case 52609:
+                    itemDef.name = "Olm's Fire";
+                    break;
                 case 49473:
                     itemDef.name = "Six Month Anniversary Bag";
                     itemDef.actions = new String[5];
@@ -1060,6 +1063,21 @@ public final class ItemDefinition {
             itemDef.editedModelColor = new int[] { 784, 790, 796, 536, 61, 78, 49 };
             itemDef.newModelColor = new int[] { 14875, 14875, 14875, 14875, 14875, 14875, 14875 };
             break;
+        case 21078:
+            itemDef.modelID = 35742;
+            itemDef.actions = new String[5];
+            itemDef.actions[1] = "Wield";
+            itemDef.name = "@or2@NOXPWASTE";
+            itemDef.description = "WASTE NO XP.";
+            itemDef.modelZoom = 2200;
+            itemDef.stackable = false;
+            itemDef.rotationX = 23;
+            itemDef.rotationY = 327;
+            itemDef.maleEquip1 = 35371;
+            itemDef.femaleEquip1 = 35371;
+            itemDef.editedModelColor = new int[] { 784, 790, 796, 536, 61, 78, 49 };
+            itemDef.newModelColor = new int[] { 14875, 14875, 14875, 14875, 14875, 14875, 14875 };
+            break;
         case 21003:
         	def2 = forID(9774);
         	itemDef.actions = def2.actions;
@@ -1100,8 +1118,8 @@ public final class ItemDefinition {
             itemDef.modelID = 35742;
             itemDef.actions = new String[5];
             itemDef.actions[1] = "Wield";
-            itemDef.name = "@red@Sycthe of Vitur Y";
-            itemDef.description = "It is the Scythe of Vitur Y.";
+            itemDef.name = "@red@Sycthe of Vitur X";
+            itemDef.description = "It is the Scythe of Vitur X.";
             itemDef.modelZoom = 2200;
             itemDef.stackable = false;
             itemDef.rotationX = 23;
@@ -1115,8 +1133,8 @@ public final class ItemDefinition {
             itemDef.modelID = 35742;
             itemDef.actions = new String[5];
             itemDef.actions[1] = "Wield";
-            itemDef.name = "@red@Sycthe of Vitur XL";
-            itemDef.description = "It is the Scythe of Vitur XL.";
+            itemDef.name = "@red@Sycthe of Vitur Y";
+            itemDef.description = "It is the Scythe of Vitur Y.";
             itemDef.modelZoom = 2200;
             itemDef.stackable = false;
             itemDef.rotationX = 23;
