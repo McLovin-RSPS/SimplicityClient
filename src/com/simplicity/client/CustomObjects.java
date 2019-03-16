@@ -45,7 +45,7 @@ public class CustomObjects {
 			{36263, 3090, 3494, 0, 0},
 			
 			//Xmass tree for december
-			{47748, 3107, 3508, 0, 0},
+			{14309, 3107, 3508, 0, 0},
 			
 			// Warmonger Boss area //
 			
