@@ -3424,6 +3424,7 @@ public class RSInterface {
 			}
 		}
 		cacheArchive = streamLoader;
+		npcInformation(textDrawingAreas);
 		itemInformation(textDrawingAreas);
 		playersOnline(textDrawingAreas);
 		roomChooser();
@@ -3555,6 +3556,23 @@ public class RSInterface {
 		donationPanel(textDrawingAreas);
 		thrownaxeSpecial();
 //		slayerInterfaces(textDrawingAreas);
+
+
+		/*int startFree = -1;
+
+		for (int i = 0; i < interfaceCache.length; i++) {
+
+			if(interfaceCache[i] == null && startFree == -1) {
+				startFree = i;
+			}
+
+			if(interfaceCache[i] != null && startFree != -1) {
+				System.out.println("Free from " + startFree + " to " + i);
+				startFree = -1;
+			}
+
+		}*/
+
 		spriteCache = null;
 	}
 
@@ -4027,6 +4045,55 @@ public class RSInterface {
 		Interface.invSpritePadX = 10;
 		Interface.invStackSizes = new int[Interface.height * Interface.width];
 		Interface.inv = new int[Interface.height * Interface.width];
+	}
+
+	public static void npcInformation(TextDrawingArea[] tda) {
+		RSInterface inter = addTabInterface(30330);
+
+		addText(30332, "Title", tda, 2, 0xff981f, true, true);
+		addSpriteLoader(30331, 581);
+
+		inter.totalChildren(4);
+
+		inter.child(0, 30331, 4, 5);
+		inter.child(1, 30332, 250, 9);
+		inter.child(2, 15210, 480, 6);
+		inter.child(3, 30333, 0, 38);
+
+		inter = addTabInterface(30333);
+		inter.contentType = 504;
+		inter.width = 478;
+		inter.height = 253;
+		inter.scrollMax = 200 * 30 + (200 * 20);
+
+		for (int i = 30334; i < 30334 + 400; i++) {
+			addText(i, "", tda, 1, 0xffb000, false, true);
+		}
+
+		for (int i = 30334 + 400; i < 30334 + 600; i++) {
+			addHead2(i, 10, 10, 5000);
+		}
+
+		inter.totalChildren(600);
+
+		int Child = 0;
+		int Y = 3;
+
+		for (int i = 30334; i < 30334 + 400; i++) {
+			inter.child(Child, i, 80, Y);
+			Child++;
+			Y += 15;
+			if (i % 2 != 0)
+				Y += 20;
+		}
+
+		Y = 8;
+
+		for (int i = 30334 + 400; i < 30334 + 600; i++) {
+			inter.child(Child, i, 50, Y);
+			Child++;
+			Y += 50;
+		}
 	}
 
 	private static void newShopInterface(TextDrawingArea[] textDrawingAreas) {
@@ -9138,15 +9205,15 @@ public class RSInterface {
 	}
 
 	private static void addHead2(int id, int w, int h, int zoom) {// tewst
-		RSInterface rsinterface = interfaceCache[id] = new RSInterface();
-		rsinterface.type = 6;
-		rsinterface.mediaType = 2;
-		rsinterface.mediaID = 4000;//
-		rsinterface.modelZoom = zoom;
-		rsinterface.modelRotation1 = 40;
-		rsinterface.modelRotation2 = 1900;
-		rsinterface.height = h;
-		rsinterface.width = w;
+		RSInterface rsi = addTabInterface(id);
+		rsi.type = 6;
+		rsi.mediaType = 2;
+		rsi.mediaID = 4000;
+		rsi.modelZoom = zoom;
+		rsi.modelRotation1 = 40;
+		rsi.modelRotation2 = 1800;
+		rsi.height = h;
+		rsi.width = w;
 	}
 
 	public static void SummonTab(TextDrawingArea[] wid) {
