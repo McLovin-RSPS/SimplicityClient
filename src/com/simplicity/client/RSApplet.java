@@ -1,16 +1,7 @@
 package com.simplicity.client;
 
 import java.applet.Applet;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Insets;
-import java.awt.Point;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
@@ -23,7 +14,7 @@ import java.awt.event.MouseWheelListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 import com.simplicity.Jframe;
 import com.simplicity.client.content.CustomisableHotKeys;
@@ -685,9 +676,17 @@ WindowListener {
 			writeIndex = writeIndex + 1 & 0x7f;
 		}
 
-		if ((keyevent.isControlDown() && keyevent.getKeyCode() == KeyEvent.VK_V)) {
-			Client.getClient().inputString += Client.getClient().getClipboardContents();
-			Client.inputTaken = true;
+		boolean isMacOs = (System.getProperty("os.name").toLowerCase().contains("mac"));
+		if (isMacOs) {
+			if(keyevent.isMetaDown() && keyevent.getKeyCode() == KeyEvent.VK_V) {
+				Client.getClient().inputString += Client.getClient().getClipboardContents();
+				Client.inputTaken = true;
+			}
+		} else {
+			if ((keyevent.isControlDown() && keyevent.getKeyCode() == KeyEvent.VK_V)) {
+				Client.getClient().inputString += Client.getClient().getClipboardContents();
+				Client.inputTaken = true;
+			}
 		}
 	}
 
