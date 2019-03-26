@@ -13,7 +13,7 @@ public class Configuration {
 	/**
 	 * Client information
 	 */
-	public final static String CLIENT_NAME = "Simplicity RSPS | Runescape Private Server | SimplicityPS.org";
+	public final static String CLIENT_NAME = "Simplicity RSPS - The Biggest Pre-EOC Server 2019";
 	public static final boolean SEND_HASH = true;
 	public static boolean upscaling = true;
 	public static final boolean DISCO_ITEMS = false;
