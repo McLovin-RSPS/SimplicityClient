@@ -693,14 +693,22 @@ public class CustomObjects {
 		{ 13569 , 3096, 3513, 0, 0}, // remove object edge
 		{ 13569 , 3097, 3513, 0, 0}, // remove object edge
 		
-		{ 34585 , 3090, 3507, 0, 0}, // Stone chest crate at edgeville
-		
 		
 		{ 0 , 3091, 3508, 0, 0}, // remove object edge
 		{ 0 , 3091, 3507, 0, 0}, // remove object edge
 		{ 0 , 3096, 3507, 0, 0}, // remove object edge
 		{ 0 , 3097, 3507, 0, 0}, // remove object edge
 		{ 0 , 3098, 3507, 0, 0}, // remove object edge
+		
+		{ 34585 , 3090, 3507, 0, 0}, // Stone chest crate at edgeville
+		
+		{ 0 , 3099, 3507, 0, 0}, // remove object edge
+		{ 0 , 3100, 3507, 0, 0}, // remove object edge
+		{ 0 , 3100, 3508, 0, 0}, // remove object edge
+		{ 0 , 3091, 3510, 0, 0}, // remove object edge
+		{ 0 , 3091, 3511, 0, 0}, // remove object edge
+		{ 0 , 3099, 3512, 0, 0}, // remove object edge
+		{ 0 , 3100, 3512, 0, 0}, // remove object edge
 		
 		
 		
