@@ -777,6 +777,85 @@ public final class ItemDefinition {
         }
         itemDef.value = prices[itemDef.id];
         switch (i) {
+            case 14433:
+                itemDef.actions = new String[5];
+                itemDef.actions[4] = "Drop";
+                itemDef.modelID = 32799;
+                itemDef.name = "Fire Twisted Bow";
+                itemDef.modelZoom = 2000;
+                itemDef.rotationY = 720;
+                itemDef.rotationX = 1500;
+                itemDef.modelOffset1 = 3;
+                itemDef.modelOffsetY = 1;
+                itemDef.description = "A mystical bow carved from a very hot place.";
+                itemDef.editedModelColor = new int[] { 16, 24, 33, 13223, 14236 };
+                itemDef.newModelColor = new int[] { 4024, 4024, 7073, 4024, 4024 };
+                break;
+            case 14434:
+                itemDef.actions = new String[5];
+                itemDef.actions[4] = "Drop";
+                itemDef.modelID = 32799;
+                itemDef.name = "Fire Twisted Bow";
+                itemDef.modelZoom = 2000;
+                itemDef.rotationY = 720;
+                itemDef.rotationX = 1500;
+                itemDef.modelOffset1 = 3;
+                itemDef.modelOffsetY = 1;
+                itemDef.description = "A mystical bow carved from a very hot place.";
+                itemDef.editedModelColor = new int[] { 16, 24, 33, 13223, 14236 };
+                itemDef.newModelColor = new int[] { 1024, 1024, 937, 1024, 1024 };
+                break;
+            case 14435:
+                itemDef.actions = new String[5];
+                itemDef.actions[4] = "Drop";
+                itemDef.modelID = 32799;
+                itemDef.name = "Twisted Bow";
+                itemDef.modelZoom = 2000;
+                itemDef.rotationY = 720;
+                itemDef.rotationX = 1500;
+                itemDef.modelOffset1 = 3;
+                itemDef.modelOffsetY = 1;
+                itemDef.description = "A mystical bow carved from a very hot place.";
+                break;
+            case 14436:
+                itemDef.modelID = 35742;
+                itemDef.actions = new String[5];
+                itemDef.actions[4] = "Drop";
+                itemDef.name = "@red@Scythe of Vitur X";
+                itemDef.description = "It is the Scythe of Vitur X.";
+                itemDef.modelZoom = 2200;
+                itemDef.stackable = false;
+                itemDef.rotationX = 23;
+                itemDef.rotationY = 327;
+                itemDef.editedModelColor = new int[] { 784, 790, 796, 536, 61, 78, 49 };
+                itemDef.newModelColor = new int[] { -1253, -1253, -1253, -1253, -1253, -1253, -1253 };
+                break;
+            case 14437:
+                itemDef.modelID = 35742;
+                itemDef.actions = new String[5];
+                itemDef.actions[4] = "Drop";
+                itemDef.name = "@red@Sycthe of Vitur Y";
+                itemDef.description = "It is the Scythe of Vitur Y.";
+                itemDef.modelZoom = 2200;
+                itemDef.stackable = false;
+                itemDef.rotationX = 23;
+                itemDef.rotationY = 327;
+                itemDef.editedModelColor = new int[] { 584, 590, 596, 836, 61, 78, 49 };
+                itemDef.newModelColor = new int[] { 14573, 14573, 14573, 14573, 14573, 14573, 14573 };
+                break;
+            case 14438:
+                itemDef.modelID = 35742;
+                itemDef.actions = new String[5];
+                itemDef.actions[4] = "Drop";
+                itemDef.name = "@or2@Scythe Of Vitur";
+                itemDef.description = "It is the Scythe Of Vitur";
+                itemDef.modelZoom = 2200;
+                itemDef.stackable = false;
+                itemDef.rotationX = 23;
+                itemDef.rotationY = 327;
+                itemDef.maleEquip1 = 35371;
+                itemDef.femaleEquip1 = 35371;
+                break;
         case 4037:
         	itemDef.maleEquip1 = 4850;
         	itemDef.femaleEquip1 = 4850;
@@ -2903,6 +2982,7 @@ public final class ItemDefinition {
                 itemDef.maleEquip1 = 35371;
                 itemDef.femaleEquip1 = 35371;
                 break;
+
             case 20790:
                 itemDef.modelID = 35127;
                 itemDef.name = "Golden mining trousers";

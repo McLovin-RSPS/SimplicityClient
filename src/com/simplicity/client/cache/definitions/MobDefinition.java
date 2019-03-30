@@ -41,12 +41,12 @@ public final class MobDefinition {
 			npc.type = OSRS_NPCS_OFFSET + i;
 			npc.osrs = true;
 			npc.readValues(streamOSRS);
-			if (npc.name.contains("Ket-Keh")) {
+			if (npc.name != null && npc.name.contains("Ket-Keh")) {
 				npc.name = "Inferno";
 				npc.actions = new String[5];
 				npc.actions[0] = "Start";
 			}
-			if (npc.name.contains("00ffff")) {
+			if (npc.name != null && npc.name.contains("00ffff")) {
 				npc.name = npc.name.replaceAll("<col=00ffff>", "@cya@").replaceAll("</col>", "");
 			}
 			switch(i) {
@@ -76,7 +76,7 @@ public final class MobDefinition {
 					npc.actions[2] = "Toggle Special";
 					break;
 			}
-			
+			System.out.println("name: " + npc.name);
 			return npc; 
 		}
 		
@@ -103,6 +103,103 @@ public final class MobDefinition {
 		
 		switch (i) {
 
+			case 621:
+				npc.name = "@or1@Fire Twisted bow";
+				npc.description = "A mystical bow carved from a very hot place.";
+				npc.combatLevel = 0;
+				npc.actions = new String[5];
+				npc.actions[0] = "Take";
+				npc.models = new int[1];
+				npc.models[0] = 32799;
+				npc.standAnim = 3853;
+				npc.walkAnim = 3853;
+				npc.sizeXZ = 120;
+				npc.sizeY = 120;
+				npc.squaresNeeded = 1;
+				npc.originalColours = new int[] { 16, 24, 33, 13223, 14236 };
+				npc.destColours = new int[] { 4024, 4024, 7073, 4024, 4024 };
+				break;
+
+			case 622:
+				npc.name = "@or1@Dark twisted bow";
+				npc.description = "A mystical bow carved from the twisted remains of the Great Olm.";
+				npc.combatLevel = 0;
+				npc.actions = new String[5];
+				npc.actions[0] = "Take";
+				npc.models = new int[1];
+				npc.models[0] = 32799;
+				npc.standAnim = 3853;
+				npc.walkAnim = 3853;
+				npc.sizeXZ = 120;
+				npc.sizeY = 120;
+				npc.squaresNeeded = 1;
+				npc.originalColours = new int[] { 16, 24, 33, 13223, 14236 };
+				npc.destColours = new int[] { 1024, 1024, 937, 1024, 1024 };
+				break;
+
+			case 623:
+				npc.name = "@or1@Twisted bow";
+				npc.description = "A mystical bow carved from the twisted remains of the Great Olm.";
+				npc.combatLevel = 0;
+				npc.actions = new String[5];
+				npc.actions[0] = "Take";
+				npc.models = new int[1];
+				npc.models[0] = 32799;
+				npc.standAnim = 3853;
+				npc.walkAnim = 3853;
+				npc.sizeXZ = 120;
+				npc.sizeY = 120;
+				npc.squaresNeeded = 1;
+				break;
+
+			case 624:
+				npc.name = "@red@Scythe of Vitur X";
+				npc.description = "It is the Scythe of Vitur X.";
+				npc.combatLevel = 0;
+				npc.actions = new String[5];
+				npc.actions[0] = "Take";
+				npc.models = new int[1];
+				npc.models[0] = 35742;
+				npc.standAnim = 3853;
+				npc.walkAnim = 3853;
+				npc.sizeXZ = 120;
+				npc.sizeY = 120;
+				npc.squaresNeeded = 1;
+				npc.originalColours = new int[] { 784, 790, 796, 536, 61, 78, 49 };
+				npc.destColours = new int[] { -1253, -1253, -1253, -1253, -1253, -1253, -1253 };
+				break;
+
+			case 625:
+				npc.name = "@red@Scythe of Vitur Y";
+				npc.description = "It is the Scythe of Vitur Y.";
+				npc.combatLevel = 0;
+				npc.actions = new String[5];
+				npc.actions[0] = "Take";
+				npc.models = new int[1];
+				npc.models[0] = 35742;
+				npc.standAnim = 3853;
+				npc.walkAnim = 3853;
+				npc.sizeXZ = 120;
+				npc.sizeY = 120;
+				npc.squaresNeeded = 1;
+				npc.originalColours = new int[] { 584, 590, 596, 836, 61, 78, 49 };
+				npc.destColours = new int[] { 14573, 14573, 14573, 14573, 14573, 14573, 14573 };
+				break;
+
+			case 626:
+				npc.name = "@or2@Scythe of Vitur";
+				npc.description = "It is the Scythe of Vitur.";
+				npc.combatLevel = 0;
+				npc.actions = new String[5];
+				npc.actions[0] = "Take";
+				npc.models = new int[1];
+				npc.models[0] = 35742;
+				npc.standAnim = 3853;
+				npc.walkAnim = 3853;
+				npc.sizeXZ = 120;
+				npc.sizeY = 120;
+				npc.squaresNeeded = 1;
+				break;
 
 		case 3975: 
 			npc.name = "Max Hit Stone";
@@ -1563,10 +1660,34 @@ public final class MobDefinition {
 		}
 	}
 
-	public static void writeOutOSRSNpcs(int total) {
+	public static void writeOut(int total) {
 		try {
 			PrintWriter writer = new PrintWriter("../osrsNpcs.txt");
 			for (int i = OSRS_NPCS_OFFSET; i < total + OSRS_NPCS_OFFSET; i++) {
+				MobDefinition entityDef = forID(i);
+
+				if (entityDef == null)
+					continue;
+
+				writer.println(i + " " + entityDef.name + " " + " [Cbt=" + entityDef.combatLevel + "], [Anims="
+						+ (entityDef.walkAnim) + " " + (entityDef.standAnim) + "], [Models="
+						+ (entityDef.models != null && entityDef.models.length > 0 ? entityDef.models[0] + " " : "")
+						+ (entityDef.models != null && entityDef.models.length > 1
+						? entityDef.models[1]
+						: "")
+						+ (entityDef.models != null && entityDef.models.length > 2
+						? " " + entityDef.models[2]
+						: "")
+						+ (entityDef.models != null && entityDef.models.length > 3
+						? " " + entityDef.models[3]
+						: "")
+						+ "], [Sizes=" + entityDef.sizeXZ + "]");
+
+			}
+			writer.close();
+
+			writer = new PrintWriter("../allNpcs.txt");
+			for (int i = 0; i < total + OSRS_NPCS_OFFSET; i++) {
 				MobDefinition entityDef = forID(i);
 
 				if (entityDef == null)
@@ -1697,7 +1818,7 @@ public final class MobDefinition {
 			cacheOSRS[k] = new MobDefinition();
 		}
 
-		//writeOutOSRSNpcs(totalOSRSNPCs);
+		//writeOut(totalOSRSNPCs);
 	}
 
 	public static void nullLoader() {
