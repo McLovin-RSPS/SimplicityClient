@@ -16,6 +16,7 @@ import com.simplicity.client.RandomColor;
 import com.simplicity.client.Rasterizer;
 import com.simplicity.client.Sprite;
 import com.simplicity.client.Stream;
+import com.simplicity.client.cache.definitions.custom.CustomItems;
 import com.simplicity.client.signlink;
 
 public final class ItemDefinition {
@@ -155,6 +156,7 @@ public final class ItemDefinition {
             model.translate(maleXOffset, maleYOffset, maleZOffset);
         }
         if (editedModelColor != null && newModelColor != null) {
+            System.out.println("equipping: " + name);
             for (int i1 = 0; i1 < editedModelColor.length; i1++) {
                 model.recolour(editedModelColor[i1], newModelColor[i1]);
             }
@@ -223,6 +225,14 @@ public final class ItemDefinition {
                         + (entityDef.maleEquip1) + " " + (entityDef.maleEquip2) + " " + (entityDef.maleEquip3) + "], [Female Model="+
                         (entityDef.femaleEquip1) + " " + (entityDef.femaleEquip2) + " " + (entityDef.femaleEquip3) + "]");
 
+                if(entityDef.editedModelColor != null && entityDef.editedModelColor.length > 0) {
+                    writer.print(", [Old Model Colour=");
+                    for (int i1 : entityDef.editedModelColor) {
+                        writer.print(i1 + " ");
+                    }
+                    writer.print("]");
+                }
+
                 if(entityDef.newModelColor != null && entityDef.newModelColor.length > 0) {
                     writer.print(", [Model Colour=");
                     for (int i1 : entityDef.newModelColor) {
@@ -251,6 +261,14 @@ public final class ItemDefinition {
                 writer.print(i + " " + entityDef.name + " " + " [Inv Model=" + entityDef.modelID + "], [Male Model="
                         + (entityDef.maleEquip1) + " " + (entityDef.maleEquip2) + " " + (entityDef.maleEquip3) + "], [Female Model="+
                         (entityDef.femaleEquip1) + " " + (entityDef.femaleEquip2) + " " + (entityDef.femaleEquip3) + "]");
+
+                if(entityDef.editedModelColor != null && entityDef.editedModelColor.length > 0) {
+                    writer.print(", [Old Model Colour=");
+                    for (int i1 : entityDef.editedModelColor) {
+                        writer.print(i1 + " ");
+                    }
+                    writer.print("]");
+                }
 
                 if(entityDef.newModelColor != null && entityDef.newModelColor.length > 0) {
                     writer.print(", [Model Colour=");
@@ -777,85 +795,6 @@ public final class ItemDefinition {
         }
         itemDef.value = prices[itemDef.id];
         switch (i) {
-            case 14433:
-                itemDef.actions = new String[5];
-                itemDef.actions[4] = "Drop";
-                itemDef.modelID = 32799;
-                itemDef.name = "Fire Twisted Bow";
-                itemDef.modelZoom = 2000;
-                itemDef.rotationY = 720;
-                itemDef.rotationX = 1500;
-                itemDef.modelOffset1 = 3;
-                itemDef.modelOffsetY = 1;
-                itemDef.description = "A mystical bow carved from a very hot place.";
-                itemDef.editedModelColor = new int[] { 16, 24, 33, 13223, 14236 };
-                itemDef.newModelColor = new int[] { 4024, 4024, 7073, 4024, 4024 };
-                break;
-            case 14434:
-                itemDef.actions = new String[5];
-                itemDef.actions[4] = "Drop";
-                itemDef.modelID = 32799;
-                itemDef.name = "Fire Twisted Bow";
-                itemDef.modelZoom = 2000;
-                itemDef.rotationY = 720;
-                itemDef.rotationX = 1500;
-                itemDef.modelOffset1 = 3;
-                itemDef.modelOffsetY = 1;
-                itemDef.description = "A mystical bow carved from a very hot place.";
-                itemDef.editedModelColor = new int[] { 16, 24, 33, 13223, 14236 };
-                itemDef.newModelColor = new int[] { 1024, 1024, 937, 1024, 1024 };
-                break;
-            case 14435:
-                itemDef.actions = new String[5];
-                itemDef.actions[4] = "Drop";
-                itemDef.modelID = 32799;
-                itemDef.name = "Twisted Bow";
-                itemDef.modelZoom = 2000;
-                itemDef.rotationY = 720;
-                itemDef.rotationX = 1500;
-                itemDef.modelOffset1 = 3;
-                itemDef.modelOffsetY = 1;
-                itemDef.description = "A mystical bow carved from a very hot place.";
-                break;
-            case 14436:
-                itemDef.modelID = 35742;
-                itemDef.actions = new String[5];
-                itemDef.actions[4] = "Drop";
-                itemDef.name = "@red@Scythe of Vitur X";
-                itemDef.description = "It is the Scythe of Vitur X.";
-                itemDef.modelZoom = 2200;
-                itemDef.stackable = false;
-                itemDef.rotationX = 23;
-                itemDef.rotationY = 327;
-                itemDef.editedModelColor = new int[] { 784, 790, 796, 536, 61, 78, 49 };
-                itemDef.newModelColor = new int[] { -1253, -1253, -1253, -1253, -1253, -1253, -1253 };
-                break;
-            case 14437:
-                itemDef.modelID = 35742;
-                itemDef.actions = new String[5];
-                itemDef.actions[4] = "Drop";
-                itemDef.name = "@red@Sycthe of Vitur Y";
-                itemDef.description = "It is the Scythe of Vitur Y.";
-                itemDef.modelZoom = 2200;
-                itemDef.stackable = false;
-                itemDef.rotationX = 23;
-                itemDef.rotationY = 327;
-                itemDef.editedModelColor = new int[] { 584, 590, 596, 836, 61, 78, 49 };
-                itemDef.newModelColor = new int[] { 14573, 14573, 14573, 14573, 14573, 14573, 14573 };
-                break;
-            case 14438:
-                itemDef.modelID = 35742;
-                itemDef.actions = new String[5];
-                itemDef.actions[4] = "Drop";
-                itemDef.name = "@or2@Scythe Of Vitur";
-                itemDef.description = "It is the Scythe Of Vitur";
-                itemDef.modelZoom = 2200;
-                itemDef.stackable = false;
-                itemDef.rotationX = 23;
-                itemDef.rotationY = 327;
-                itemDef.maleEquip1 = 35371;
-                itemDef.femaleEquip1 = 35371;
-                break;
         case 4037:
         	itemDef.maleEquip1 = 4850;
         	itemDef.femaleEquip1 = 4850;
@@ -1277,7 +1216,7 @@ public final class ItemDefinition {
             itemDef.maleEquip1 = 32674;
             itemDef.description = "A mystical bow carved from a very magical place.";
             itemDef.editedModelColor = new int[] { 16, 24, 33, 13223, 14236 }; // Dark grey colour
-            itemDef.newModelColor = new int[] { 6024, 6024, 3073, 6024, 6024 };
+            itemDef.newModelColor = new int[] { 6024, 6024, 6794, 6024, 6024 };
             
           //  itemDef.editedModelColor = new int[] { 16, 24, 33, 13223, 14236 }; Yellow orange
           //  itemDef.newModelColor = new int[] { 9024, 9024, 6073, 9024, 9024 };
@@ -7173,6 +7112,7 @@ public final class ItemDefinition {
                 itemDef.editedModelColor = new int[]{1};
                 break;
         }
+        CustomItems.loadDefinition(itemDef);
         return itemDef;
     }
 
@@ -7826,7 +7766,7 @@ public final class ItemDefinition {
             19785, 19786, 18782, 18351, 18349, 18353, 18357, 18355, 18359, 18335
     };
 
-    private void copy(ItemDefinition copy) {
+    public void copy(ItemDefinition copy) {
         femaleZOffset = copy.femaleZOffset;
         femaleXOffset = copy.femaleXOffset;
         femaleYOffset = copy.femaleYOffset;
