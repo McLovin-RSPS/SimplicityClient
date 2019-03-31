@@ -470,6 +470,10 @@ public final class ItemDefinition {
         priorityModels.add(28881);
         priorityModels.add(28888);
 
+        //Necklace of anguish (or)
+        priorityModels.add(12778);
+        priorityModels.add(12817);
+
         //writeOutOsrsItems(totalItems, totalItemsOSRS);
         //dumpInterface(totalItems, totalItemsOSRS);
     }
