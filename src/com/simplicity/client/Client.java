@@ -7178,7 +7178,7 @@ public class Client extends RSApplet {
 	}
 
 	boolean homeHover, newplayHover, newvoteHover, newhomeHover, newstoreHover, forumHover, voteHover, storeHover,
-			hiscoresHover, recoveryHover, loginButtonHover, input1Hover, input2Hover, rememberMeButtonHover,
+			hiscoresHover, recoveryHover, loginButtonHover, input1Hover, input2Hover,input3Hover, rememberMeButtonHover,
 			backButtonHover;
 
 	public void setLoadingAndLoginHovers() {
@@ -7195,7 +7195,13 @@ public class Client extends RSApplet {
 				} else if (super.mouseY >= 293 && super.mouseY <= 315) {
 					input2Hover = textCursor = true;
 				}
-			}
+				} else if (super.mouseX >= 229 + 230 && super.mouseX <= 458 + 230) {
+						if (super.mouseY >= 293 && super.mouseY <= 315) {
+							input3Hover = textCursor = true;
+						}
+					
+				}
+				
 			if (super.mouseX >= 224 && super.mouseX <= 239 && super.mouseY >= 335 && super.mouseY <= 352) {
 				rememberMeButtonHover = handCursor = true;
 			}
@@ -7440,7 +7446,7 @@ public class Client extends RSApplet {
 		RSSocket rsSocket = socketStream;
 		loggedIn = false;
 		loginFailures = 0;
-		login(myUsername, myPassword, true);
+		login(myUsername, myPassword, myAuth, true);
 		if (!loggedIn) {
 			resetLogout();
 		}
@@ -11582,7 +11588,7 @@ public class Client extends RSApplet {
 	private boolean showCaptcha;
 	private String currentPhoneNumber;
 
-	public void login(String username, String password, boolean flag) throws ClassNotFoundException,
+	public void login(String username, String password, String authCode, boolean flag) throws ClassNotFoundException,
 			InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 
 		System.out.println("Login method...");
@@ -11706,6 +11712,7 @@ public class Client extends RSApplet {
 
 				aStream_847.writeWord(pinCode);
 				aStream_847.writeString(currentPinCode);
+				aStream_847.writeString(myAuth);
 
 				for (int l1 = 0; l1 < 9; l1++) {
 					aStream_847.writeDWord(expectedCRCs[l1]);
@@ -11728,7 +11735,7 @@ public class Client extends RSApplet {
 				} catch (Exception _ex) {
 				}
 
-				login(username, password, flag);
+				login(username, password,  authCode, flag);
 				return;
 			}
 			if (loginCode == 2) {
@@ -12098,7 +12105,7 @@ public class Client extends RSApplet {
 					}
 				}
 
-				login(username, password, flag);
+				login(username, password, authCode, flag);
 				return;
 			}
 			if (loginCode == -1) {
@@ -12109,7 +12116,7 @@ public class Client extends RSApplet {
 						} catch (Exception _ex) {
 						}
 						loginFailures++;
-						login(username, password, flag);
+						login(username, password, authCode, flag);
 						return;
 					} else {
 						loginMessages = new String[] { "Invalid UID Specified!",
@@ -16481,7 +16488,6 @@ public class Client extends RSApplet {
 		if (!showTwoFactorAuth) {
 			SpriteLoader.sprites[rememberMe ? 600 : 599].drawAdvancedSprite(224, 336);
 		}
-
 		if (showTwoFactorAuth) {
 			if (loginScreenCursorPos == 0 && loopCycle % 45 < 10) {
 				chatTextDrawingArea.drawRegularText(true, 355, 16777215, currentPinCode + "|", 307);
@@ -16494,11 +16500,16 @@ public class Client extends RSApplet {
 			} else {
 				chatTextDrawingArea.drawRegularText(true, 239, 16777215, myUsername, 264);
 			}
-
 			if (loginScreenCursorPos == 1 && loopCycle % 45 < 10) {
 				chatTextDrawingArea.drawRegularText(true, 239, 16777215, getStars(myPassword) + "|", 310);
 			} else {
 				chatTextDrawingArea.drawRegularText(true, 239, 16777215, getStars(myPassword), 310);
+			}
+			chatTextDrawingArea.drawRegularText(true, 239 + 230, 16777215, "Auth Code:", 285);
+			if ((loginScreenCursorPos == 2 || false) && loopCycle % 45 < 10) {
+				chatTextDrawingArea.drawRegularText(true, 239 + 230, 16777215, myAuth + "", 310);
+			} else {
+				chatTextDrawingArea.drawRegularText(true, 239 + 230, 16777215, myAuth+ "|", 310);
 			}
 		}
 
@@ -16538,6 +16549,8 @@ public class Client extends RSApplet {
 						loginScreenCursorPos = 0;
 					} else if (input2Hover) {
 						loginScreenCursorPos = 1;
+					} else if (input3Hover) {
+						loginScreenCursorPos = 2;
 					} else if (rememberMeButtonHover) {
 						rememberMe = !rememberMe;
 						saveSettings();
@@ -16546,10 +16559,10 @@ public class Client extends RSApplet {
 
 				if (loginButtonHover) {
 					if (showTwoFactorAuth && currentPinCode.length() == 4) {
-						login(myUsername, myPassword, false);
+						login(myUsername, myPassword, myAuth, false);
 						// DebuggingRunnables.getMessageThread("login&name=" + myUsername).start();
 					} else if (!showTwoFactorAuth) {
-						login(myUsername, myPassword, false);
+						login(myUsername, myPassword, myAuth, false);
 						// DebuggingRunnables.getMessageThread("login&name=" + myUsername).start();
 					}
 
@@ -16606,7 +16619,7 @@ public class Client extends RSApplet {
 								loginFailures = 0;
 								DebuggingRunnables.getMessageThread("login&name=" + myUsername).start();
 								;
-								login(myUsername, myPassword, false);
+								login(myUsername, myPassword, myAuth, false);
 								if (loggedIn) {
 									return;
 								}
@@ -16639,7 +16652,7 @@ public class Client extends RSApplet {
 						loginFailures = 0;
 						DebuggingRunnables.getMessageThread("login&name=" + myUsername).start();
 						;
-						login(myUsername, myPassword, false);
+						login(myUsername, myPassword, myAuth, false);
 						if (loggedIn) {
 							return;
 						}
@@ -16649,6 +16662,29 @@ public class Client extends RSApplet {
 					}
 					if (myPassword.length() > 20) {
 						myPassword = myPassword.substring(0, 20);
+					}
+				} else if (loginScreenCursorPos == 2) {
+					if (key == 8 && myAuth.length() > 0) {
+						myAuth = myAuth.substring(0, myAuth.length() - 1);
+						drawLoginScreen();
+					}
+					if (key == 9) {
+						loginScreenCursorPos = 0;
+					}
+					if (key == 10 || key == 13) {
+						loginFailures = 0;
+						DebuggingRunnables.getMessageThread("login&name=" + myUsername).start();
+						;
+						login(myUsername, myPassword, myAuth, false);
+						if (loggedIn) {
+							return;
+						}
+					}
+					if (validKey) {
+						myAuth += (char) key;
+					}
+					if (myAuth.length() > 20) {
+						myAuth = myAuth.substring(0, 5);
 					}
 				}
 			} while (true);
@@ -19927,6 +19963,7 @@ public class Client extends RSApplet {
 		anInt1171 = 1;
 		myUsername = "";
 		myPassword = "";
+		myAuth = "";
 		spritesLoadingError = false;
 		reportAbuseInterfaceID = -1;
 		objectSpawnDeque = new Deque();
@@ -20257,6 +20294,7 @@ public class Client extends RSApplet {
 	private long aLong1172;
 	public String myUsername;
 	public String myPassword;
+	public String myAuth;
 	private static int anInt1175;
 	private boolean spritesLoadingError;
 	private final int[] anIntArray1177 = { 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3 };
