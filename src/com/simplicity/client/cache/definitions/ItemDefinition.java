@@ -156,7 +156,6 @@ public final class ItemDefinition {
             model.translate(maleXOffset, maleYOffset, maleZOffset);
         }
         if (editedModelColor != null && newModelColor != null) {
-            System.out.println("equipping: " + name);
             for (int i1 = 0; i1 < editedModelColor.length; i1++) {
                 model.recolour(editedModelColor[i1], newModelColor[i1]);
             }
