@@ -18733,7 +18733,7 @@ public class Client extends RSApplet {
 				if (frame == 0 && text.equals("resting")) {
 					resting = false;
 				}
-				if (text.startsWith("http://") || text.startsWith("www.")) {
+				if (text.startsWith("https://") || text.startsWith("http://") || text.startsWith("www.")) {
 					launchURL(text);
 					opCode = -1;
 					return true;
