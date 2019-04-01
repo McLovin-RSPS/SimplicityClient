@@ -76,8 +76,7 @@ public final class MobDefinition {
 					npc.actions[2] = "Toggle Special";
 					break;
 			}
-			System.out.println("name: " + npc.name);
-			return npc; 
+			return npc;
 		}
 		
 		for (int j = 0; j < 20; j++)
