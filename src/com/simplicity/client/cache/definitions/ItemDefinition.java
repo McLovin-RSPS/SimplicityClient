@@ -1292,6 +1292,11 @@ public final class ItemDefinition {
                 itemDef.name = "Archery Box";
                 itemDef.newModelColor[0] = 15260;
                 break;
+            case 19723:
+                itemDef.copy(forID(6199));
+                itemDef.name = "Elite Archery Box";
+                itemDef.newModelColor[0] = 25260;
+                break;
             case 6855:
                 itemDef.name = "Arthur's Birthday Box";
                 itemDef.actions = new String[5];
@@ -1299,6 +1304,11 @@ public final class ItemDefinition {
                 break;
             case 6831:
                 itemDef.name = "Sapphire Mystery Box";
+                itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
+                break;
+            case 6832:
+                itemDef.name = "Emerald Mystery Box";
                 itemDef.actions = new String[5];
                 itemDef.actions[0] = "Open";
                 break;
@@ -1312,6 +1322,11 @@ public final class ItemDefinition {
                 itemDef.name = "Warrior Box";
                 itemDef.newModelColor[0] = 40260;
                 break;
+            case 19724:
+                itemDef.copy(forID(6199));
+                itemDef.name = "Elite Warrior Box";
+                itemDef.newModelColor[0] = 50260;
+                break;
             case 6824:
                 itemDef.name = "NY LUCKY STAR";
                 itemDef.actions = new String[5];
@@ -1321,6 +1336,11 @@ public final class ItemDefinition {
                 itemDef.copy(forID(6199));
                 itemDef.name = "Wizard Box";
                 itemDef.newModelColor[0] = 2060;
+                break;
+            case 19725:
+                itemDef.copy(forID(6199));
+                itemDef.name = "Elite Wizard Box";
+                itemDef.newModelColor[0] = 3060;
                 break;
             case 19717:
                 itemDef.copy(forID(6199));

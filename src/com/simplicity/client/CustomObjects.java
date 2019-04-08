@@ -755,6 +755,8 @@ public class CustomObjects {
 		
 		
 	//	{ 47947 , 2720, 5352, 0, 2}, // waterfall o city
+		
+		{ 16684 , 2336, 10338, 1, 2}, // sapphire cave
 
 		
 		{ 0 , 3091, 3513, 0, 0}, // remove object edge
