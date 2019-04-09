@@ -10016,7 +10016,8 @@ public class RSInterface {
 
 	public static void rebuildClanChatList(boolean clickable, String ignore, boolean owner) {
 		/* Text area */
-		for (int i = 29344; i <= 29444; i++) {
+		int max_slots = 100;
+		for (int i = 29344; i <= 29344 + max_slots; i++) {
 			if (clickable && RSInterface.interfaceCache[i].message.length() > 0) {
 				addClanChatListTextWithOptions(i, RSInterface.interfaceCache[i].message, ignore, owner,
 						RSInterface.fonts, 0, 0xffffff, 200, 11);
@@ -10026,17 +10027,17 @@ public class RSInterface {
 			}
 		}
 		RSInterface list = addInterface(29343);
-		list.totalChildren(100);
-		for (int id = 29344, i = 0; id <= 29443 && i <= 99; id++, i++) {
+		list.totalChildren(max_slots+1);
+		for (int id = 29344, i = 0; id <= 29343 + max_slots && i <= max_slots; id++, i++) {
 			list.child(id - 29344, id, 5, -1);
-			for (int id2 = 29344, i2 = 1; id2 <= 29443 && i2 <= 99; id2++, i2++) {
+			for (int id2 = 29344, i2 = 1; id2 <= 29343 + max_slots && i2 <= max_slots; id2++, i2++) {
 				list.childY[0] = 2;
 				list.childY[i2] = list.childY[i2 - 1] + 14;
 			}
 		}
 		list.height = 174;
 		list.width = 174;
-		list.scrollMax = 1405;
+		list.scrollMax = 1405 * (max_slots / 100);
 	}
 
 	public static void addText(int childId, String text, int color, boolean center, boolean shadow,

@@ -18411,6 +18411,7 @@ public class Client extends RSApplet {
 				} else if (s.startsWith(":alert:")) {
 					if (s.length() > 7) {
 						alertBoxTimer = 2500;
+						alertColour = 0x4286f4;
 						alertText = s.substring(7).split(":n:");
 					}
 				} else if (s.startsWith(":show_update:")) {
@@ -18420,9 +18421,16 @@ public class Client extends RSApplet {
 				} else if (s.startsWith(":shortalert:")) {
 					if (s.length() > 12) {
 						alertBoxTimer = 350;
+						alertColour = 0x4286f4;
 						alertText = s.substring(12).split(":n:");
 					}
-				} else if (s.endsWith("::") && !s.startsWith("@clan:A@")) {
+				}  else if (s.startsWith(":greenalert:")) {
+					if (s.length() > 12) {
+						alertBoxTimer = 350;
+						alertColour = 0x008000;
+						alertText = s.substring(12).split(":n:");
+					}
+				}else if (s.endsWith("::") && !s.startsWith("@clan:A@")) {
 					String s4 = s.substring(0, s.indexOf(":"));
 					TextClass.longForName(s4);
 					pushMessage("Clan: ", 8, s4);
@@ -19785,7 +19793,7 @@ public class Client extends RSApplet {
 		}
 		if (alertBoxTimer > 0) {
 			TextDrawingArea.drawRectangle(249, 74, 75, 0x000000, 486, 12);
-			TextDrawingArea.drawAlphaFilledPixels(13, 250, 484, 72, 0x4286f4, 75);
+			TextDrawingArea.drawAlphaFilledPixels(13, 250, 484, 72, alertColour, 75);
 
 			newRegularFont.drawBasicString("Simplicity", 224, 268);
 
@@ -19807,7 +19815,6 @@ public class Client extends RSApplet {
 			yCameraCurve = k1;
 			xCameraCurve = l1;
 		}
-
 	}
 
 	private void method37(int j) {
@@ -21722,6 +21729,7 @@ public class Client extends RSApplet {
 	 */
 	private int alertBoxTimer;
 	private String[] alertText;
+	private int alertColour = 0x4286f4;
 
 	/**
 	 * Console
