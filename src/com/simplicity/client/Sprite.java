@@ -213,7 +213,7 @@ public class Sprite extends DrawingArea {
 		drawOffsetX = drawOffsetY = 0;
 	}
 
-	public Sprite(byte spriteData[]) {
+	public Sprite(byte spriteData[], int id) {
 		try {
 			Image image = Toolkit.getDefaultToolkit().createImage(spriteData);
 			ImageIcon sprite = new ImageIcon(image);
@@ -228,7 +228,9 @@ public class Sprite extends DrawingArea {
 			pixelgrabber.grabPixels();
 			image = null;
 			setTransparency(255, 0, 255);
-			setTransparency(255, 255, 255);
+			if(id!=1130) {
+				setTransparency(255, 255, 255);
+			}
 		} catch (Exception _ex) {
 			_ex.printStackTrace();
 		}

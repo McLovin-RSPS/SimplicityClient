@@ -1,15 +1,10 @@
 package com.simplicity.client;
 
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.awt.image.WritableRaster;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.zip.GZIPInputStream;
-
-import javax.imageio.ImageIO;
 
 public class SpriteLoader {
 
@@ -104,7 +99,7 @@ public class SpriteLoader {
 		// System.out.print("Successfuly Dumped Sprites");
 
 		if (!second) {
-			sprites[sprite.id] = new Sprite(sprite.spriteData);
+			sprites[sprite.id] = new Sprite(sprite.spriteData, sprite.id);
 			sprites[sprite.id].drawOffsetX = sprite.drawOffsetX;
 			sprites[sprite.id].drawOffsetY = sprite.drawOffsetY;
 		}
