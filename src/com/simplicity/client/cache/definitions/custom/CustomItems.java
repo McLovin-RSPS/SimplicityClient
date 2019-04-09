@@ -10,7 +10,7 @@ public class CustomItems {
                 itemDef.actions = new String[5];
                 itemDef.actions[4] = "Drop";
                 itemDef.modelID = 32799;
-                itemDef.name = "Fire Twisted Bow";
+                itemDef.name = "Fire Twisted Bow Pet";
                 itemDef.modelZoom = 2000;
                 itemDef.rotationY = 720;
                 itemDef.rotationX = 1500;
@@ -24,7 +24,7 @@ public class CustomItems {
                 itemDef.actions = new String[5];
                 itemDef.actions[4] = "Drop";
                 itemDef.modelID = 32799;
-                itemDef.name = "Fire Twisted Bow";
+                itemDef.name = "Dark Twisted Bow Pet";
                 itemDef.modelZoom = 2000;
                 itemDef.rotationY = 720;
                 itemDef.rotationX = 1500;
@@ -38,7 +38,7 @@ public class CustomItems {
                 itemDef.actions = new String[5];
                 itemDef.actions[4] = "Drop";
                 itemDef.modelID = 32799;
-                itemDef.name = "Twisted Bow";
+                itemDef.name = "Twisted Bow Pet";
                 itemDef.modelZoom = 2000;
                 itemDef.rotationY = 720;
                 itemDef.rotationX = 1500;
@@ -50,7 +50,7 @@ public class CustomItems {
                 itemDef.modelID = 35742;
                 itemDef.actions = new String[5];
                 itemDef.actions[4] = "Drop";
-                itemDef.name = "@red@Scythe of Vitur X";
+                itemDef.name = "@red@Scythe of Vitur X Pet";
                 itemDef.description = "It is the Scythe of Vitur X.";
                 itemDef.modelZoom = 2200;
                 itemDef.stackable = false;
@@ -63,7 +63,7 @@ public class CustomItems {
                 itemDef.modelID = 35742;
                 itemDef.actions = new String[5];
                 itemDef.actions[4] = "Drop";
-                itemDef.name = "@red@Sycthe of Vitur Y";
+                itemDef.name = "@red@Sycthe of Vitur Y Pet";
                 itemDef.description = "It is the Scythe of Vitur Y.";
                 itemDef.modelZoom = 2200;
                 itemDef.stackable = false;
@@ -76,7 +76,7 @@ public class CustomItems {
                 itemDef.modelID = 35742;
                 itemDef.actions = new String[5];
                 itemDef.actions[4] = "Drop";
-                itemDef.name = "@or2@Scythe Of Vitur";
+                itemDef.name = "@or2@Scythe Of Vitur Pet";
                 itemDef.description = "It is the Scythe Of Vitur";
                 itemDef.modelZoom = 2200;
                 itemDef.stackable = false;
