@@ -756,7 +756,7 @@ public class CustomObjects {
 		
 	//	{ 47947 , 2720, 5352, 0, 2}, // waterfall o city
 		
-		//{ 16684 , 3040, 4380, 0, 0}, // Onyx afk
+		{ 16284 , 3028, 4514, 0, 0}, // Crystal afk
 
 		
 		{ 0 , 3091, 3513, 0, 0}, // remove object edge
