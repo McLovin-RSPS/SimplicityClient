@@ -757,6 +757,10 @@ public class CustomObjects {
 	//	{ 47947 , 2720, 5352, 0, 2}, // waterfall o city
 		
 		{ 16284 , 3028, 4514, 0, 0}, // Crystal afk
+		{ 49653 , 3036, 4531, 0, 0}, // Stattuete of Axemurdera
+		{ -1 , 2461, 5295, 0, 0}, // remove object crystal cave
+		{ -1 , 2463, 5291, 0, 0}, // remove object crystal cave
+		{ -1 , 2462, 5287, 0, 0}, // remove object crystal cave
 
 		
 		{ 0 , 3091, 3513, 0, 0}, // remove object edge

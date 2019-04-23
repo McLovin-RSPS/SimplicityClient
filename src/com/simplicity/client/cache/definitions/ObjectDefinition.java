@@ -312,7 +312,11 @@ public final class ObjectDefinition {
 		}
 		if(i == 48661) {
 			objectDef.actions = new String[] {"Touch", null, null, null, null};
-			objectDef.name = "@yel@Statuette of Arthur";
+			objectDef.name = "@yel@Statue of Arthur";
+		}
+		if(i == 49653) {
+			objectDef.actions = new String[] {"Touch", null, null, null, null};
+			objectDef.name = "@yel@Statue of Axemurdera";
 		}
 		if(i == 16284) {
 			objectDef.actions = new String[] {"Mine", null, null, null, null};

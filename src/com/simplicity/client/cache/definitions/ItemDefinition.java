@@ -1040,6 +1040,87 @@ public final class ItemDefinition {
 			itemDef.editedModelColor = new int[] { 8739, 8741, 7698, 7700, 924, 926, 8076, 11196, 11200 };
 			itemDef.newModelColor = new int[] { 2735, 2735, 2611, 2611, 2844, 2844, 2844, 2578, 2578 };
 			break;
+			
+		case 20910:
+			itemDef.modelID = 40920;
+			itemDef.name = "Mystical Spirit Shield";
+			itemDef.description = "It's a mystical spirit shield";
+			itemDef.newModelColor = new int[] { 32703, 33727, 34751, 35775, 36799, 37823, 38847, 39871, 43967, 40895,
+					41919, 42943 };
+			itemDef.editedModelColor = new int[] { 44635, 44612, 44606, 44615, 44641, 44564, 44575, 44618, 105, 44603,
+					44570, 4500 };
+			itemDef.modelZoom = 1616;
+			itemDef.rotationY = 396;
+			itemDef.rotationX = 1050;
+			itemDef.modelOffsetY = -3;
+			itemDef.modelOffset1 = 4;
+			itemDef.maleEquip1 = 40940;
+			itemDef.femaleEquip1 = 40940;
+			itemDef.groundActions = new String[5];
+			itemDef.groundActions[2] = "Take";
+			itemDef.actions = new String[5];
+			itemDef.actions[1] = "Wear";
+			itemDef.actions[4] = "Drop";
+			break;
+			
+		case 20911:
+			itemDef.modelID = 40920;
+			itemDef.name = "Demonic Spirit Shield (e)";
+			itemDef.description = "It's one of the darkest spirit shields";
+			itemDef.editedModelColor = new int[13];
+			itemDef.newModelColor = new int[13];
+			itemDef.editedModelColor[0] = 44635;
+			itemDef.newModelColor[0] = 959;
+			itemDef.editedModelColor[1] = 44612;
+			itemDef.newModelColor[1] = 1983;
+			itemDef.editedModelColor[2] = 44606;
+			itemDef.newModelColor[2] = 3007;
+			itemDef.editedModelColor[3] = 44615;
+			itemDef.newModelColor[3] = 4031;
+			itemDef.editedModelColor[4] = 44641;
+			itemDef.newModelColor[4] = 5055;
+			itemDef.editedModelColor[5] = 44564;
+			itemDef.newModelColor[5] = 6079;
+			itemDef.editedModelColor[6] = 44575;
+			itemDef.newModelColor[6] = 7103;
+			itemDef.editedModelColor[7] = 44618;
+			itemDef.newModelColor[7] = 8127;
+			itemDef.editedModelColor[8] = 105;
+			itemDef.newModelColor[8] = 0;
+			itemDef.editedModelColor[9] = 44603;
+			itemDef.newModelColor[9] = 9151;
+			itemDef.editedModelColor[10] = 44570;
+			itemDef.newModelColor[10] = 11199;
+			itemDef.editedModelColor[11] = 4500;
+			itemDef.newModelColor[11] = 12223;
+			itemDef.modelZoom = 1616;
+			itemDef.rotationY = 396;
+			itemDef.rotationX = 1050;
+			itemDef.modelOffsetY = -3;
+			itemDef.modelOffset1 = 4;
+			itemDef.maleEquip1 = 40940;
+			itemDef.femaleEquip1 = 40940;
+			itemDef.groundActions = new String[5];
+			itemDef.groundActions[2] = "Take";
+			itemDef.actions = new String[5];
+			itemDef.actions[1] = "Wear";
+			itemDef.actions[4] = "Drop";
+			break;
+			
+		case 20912:
+			itemDef.modelID = 65435;
+			itemDef.name = "Purple-black pony";
+			itemDef.description = "It's for the fashion.";
+			itemDef.modelZoom = 1519;
+			itemDef.rotationY = 595;
+			itemDef.rotationX = 0;
+			itemDef.modelOffset1 = 0;
+			itemDef.modelOffsetY = 0;
+			itemDef.maleEquip1 = 65436;
+			itemDef.femaleEquip1 = 65436;
+			itemDef.groundActions = new String[] { null, null, "Take", null, null };
+			itemDef.actions = new String[] { null, "Wear", null, null, "Drop" };
+			break;
         	
         case 15449:
         	itemDef.name = "Symbol of Combat";
@@ -1245,6 +1326,24 @@ public final class ItemDefinition {
             itemDef.description = "A mystical bow carved from the twisted remains of the Great Olm.";
             itemDef.editedModelColor = new int[] { 16, 24, 33, 13223, 14236 };
             itemDef.newModelColor = new int[] { 1024, 1024, 937, 1024, 1024 };
+            break;
+            
+        case 21020:
+            itemDef.actions = new String[5];
+            itemDef.actions[1] = "Wear";
+            itemDef.actions[4] = "Drop";
+            itemDef.modelID = 32799;
+            itemDef.name = "Light twisted bow";
+            itemDef.modelZoom = 2000;
+            itemDef.rotationY = 720;
+            itemDef.rotationX = 1500;
+            itemDef.modelOffset1 = 3;
+            itemDef.modelOffsetY = 1;
+            itemDef.femaleEquip1 = 32674;
+            itemDef.maleEquip1 = 32674;
+            itemDef.description = "A mystical bow carved from the twisted remains of the Great Olm.";
+            itemDef.editedModelColor = new int[] { 16, 24, 33, 43223, 44236 };
+            itemDef.newModelColor = new int[] { 9024, 9024, 7937, 9024, 9024 };
             break;
             
         case 21008:
