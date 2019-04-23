@@ -11656,8 +11656,10 @@ public class Client extends RSApplet {
 	private boolean showCaptcha;
 	private String currentPhoneNumber;
 
-	public void login(String username, String password, String authCode, boolean flag) throws ClassNotFoundException,
-			InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+	public void login(String username, String password, String authCode, boolean flag) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+
+		myUsername = username;
+		myPassword = password;
 
 		System.out.println("Login method...");
 		username = TextClass.fixName(username);

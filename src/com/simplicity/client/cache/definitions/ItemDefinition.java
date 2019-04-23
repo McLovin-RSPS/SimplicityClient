@@ -160,6 +160,8 @@ public final class ItemDefinition {
                 model.recolour(editedModelColor[i1], newModelColor[i1]);
             }
         }
+
+
         return model;
     }
 
@@ -472,6 +474,9 @@ public final class ItemDefinition {
         //Necklace of anguish (or)
         priorityModels.add(12778);
         priorityModels.add(12817);
+
+        priorityModels.add(36324); //devout boots
+        priorityModels.add(36333); //devout boots
 
         //writeOutOsrsItems(totalItems, totalItemsOSRS);
         //dumpInterface(totalItems, totalItemsOSRS);
