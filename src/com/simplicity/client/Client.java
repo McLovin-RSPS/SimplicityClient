@@ -11208,7 +11208,7 @@ public class Client extends RSApplet {
 			if (chatMessages[j] != null) {
 				int type = chatTypes[j];
 				String name = chatNames[j];
-				int rights = 0, ironman2;
+				int rights = 0, ironman2 = 0;
 				if ((type == 3 || type == 7)
 						&& (type == 7 || privateChatMode == 0 || privateChatMode == 1 && isFriendOrSelf(name))) {
 					int l = (clientHeight - 174) - i * 13;
@@ -11216,7 +11216,6 @@ public class Client extends RSApplet {
 					textDrawingArea.method385(0, "From", l, k1);
 					textDrawingArea.method385(65535, "From", l - 1, k1);
 					k1 += textDrawingArea.getTextWidth("From ");
-
 					if (name != null && name.indexOf("@") == 0) {
 						if (name.contains("@cr12")) {
 							ironman2 = 1;
@@ -11236,13 +11235,13 @@ public class Client extends RSApplet {
 
 					PlayerRights playerRights = PlayerRights.get(rights);
 
-					if (playerRights != PlayerRights.PLAYER || ironman != 0) {
+					if (playerRights != PlayerRights.PLAYER || ironman2 != 0) {
 						if (rights != 0) {
 							SpriteLoader.sprites[playerRights.getCrownId()].drawSprite(k1 + 1,
 									l - 12 + playerRights.getDrawOffsetY());
 							k1 += playerRights.getDrawOffsetX();
-						} else if (ironman != 0) {
-							SpriteLoader.sprites[710 + ironman].drawSprite(k1, l - 12);
+						} else if (ironman2 != 0) {
+							SpriteLoader.sprites[710 + ironman2].drawSprite(k1, l - 12);
 							k1 += 12;
 						}
 					}
@@ -18672,6 +18671,7 @@ public class Client extends RSApplet {
 				long l5 = inStream.readQWord();
 				inStream.readDWord();
 				int playerRights = inStream.readUnsignedByte();
+				int ironMan = inStream.readUnsignedByte();
 				boolean flag5 = false;
 				if (playerRights <= 1) {
 					for (int l29 = 0; l29 < ignoreCount; l29++) {
@@ -18685,9 +18685,9 @@ public class Client extends RSApplet {
 				if (!flag5) {
 					try {
 						String message = TextInput.decodeToString(pktSize - 13, inStream);
-						if (playerRights != 0) {
+						if (playerRights != 0 || ironMan != 0) {
 							pushMessage(message, 7,
-									getPrefix(playerRights, 0) + TextClass.fixName(TextClass.nameForLong(l5)));
+									getPrefix(playerRights, ironMan) + TextClass.fixName(TextClass.nameForLong(l5)));
 						} else {
 							pushMessage(message, 3, TextClass.fixName(TextClass.nameForLong(l5)));
 						}
