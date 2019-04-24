@@ -83,21 +83,7 @@ public class Jframe extends Client implements ActionListener {
 			gamePanel.setLayout(new BorderLayout());
 			gamePanel.add(this);
 			gamePanel.setBackground(Color.BLACK);
-			URL icon64 = Jframe.class.getResource("/com/simplicity/client/images/i64.png");
-			URL icon32 = Jframe.class.getResource("/com/simplicity/client/images/i32.png");
-			URL icon16 = Jframe.class.getResource("/com/simplicity/client/images/i16.png");
-			try {
-				Image whip64 = ImageIO.read(icon64.openStream());
-				Image whip32 = ImageIO.read(icon32.openStream());
-				Image whip16 = ImageIO.read(icon16.openStream());
-				ArrayList<Image> icons = new ArrayList<Image>();
-				icons.add(whip64);
-				icons.add(whip32);
-				icons.add(whip16);
-				frame.setIconImages(icons);
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
+			setClientIcon();
 			initializeMenuBar();
 			frame.getContentPane().add(gamePanel, BorderLayout.CENTER);
 			frame.pack();
@@ -181,16 +167,26 @@ public class Jframe extends Client implements ActionListener {
 		});
 		
 	}
-	
+
 	public void setClientIcon() {
-		Image img = resourceLoader.getImage("icon");
-		if(img == null)
-			return;
-		frame.setIconImage(img);
-	
+		URL icon64 = Jframe.class.getResource("/com/simplicity/client/images/i64.png");
+		URL icon32 = Jframe.class.getResource("/com/simplicity/client/images/i32.png");
+		URL icon16 = Jframe.class.getResource("/com/simplicity/client/images/i16.png");
+		try {
+			Image whip64 = ImageIO.read(icon64.openStream());
+			Image whip32 = ImageIO.read(icon32.openStream());
+			Image whip16 = ImageIO.read(icon16.openStream());
+			ArrayList<Image> icons = new ArrayList<Image>();
+			icons.add(whip64);
+			icons.add(whip32);
+			icons.add(whip16);
+			frame.setIconImages(icons);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	
+
 	/**
 	 * Our jpanel for the menu bar
 	 */

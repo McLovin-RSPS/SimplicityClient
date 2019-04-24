@@ -74,14 +74,15 @@ WindowListener {
 			return this;
 		return mainFrame;
 	}
-	public void rebuildFrame(boolean undecorated, int width, int height,
-			boolean resizable, boolean full) {
+	public void rebuildFrame(boolean undecorated, int width, int height, boolean resizable, boolean full) {
 		boolean webc = Client.webclient && Jframe.frame == null;
+
 		if(webc) {
 			if(mainFrame != null)
 				mainFrame.dispose();
 			mainFrame = null;
 		}
+
 		if(full)
 			webc = false;
 		myWidth = width;
@@ -100,16 +101,14 @@ WindowListener {
 			
 			
 			if(Client.instance instanceof Jframe) {
-				
 				Jframe frame = (Jframe) Client.instance;
-				
 				frame.rebuildFrame(width, height, resizable, undecorated);
-				
+				frame.setClientIcon();
 			} else {
 				mainFrame = new RSFrame(this, width, height, undecorated, resizable);
 				mainFrame.addWindowListener(this);
+				mainFrame.setClientIcon();
 			}
-			
 		}
 		graphics = (webc || Jframe.frame != null ? this : mainFrame).getGraphics();
 		if(getGameComponent().getMouseListeners().length == 0) {
