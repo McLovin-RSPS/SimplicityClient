@@ -11561,7 +11561,7 @@ public class Client extends RSApplet {
 				}
 			}
 			if (showMysteryBoxAlert) {
-				if (super.mouseX >= 240 && super.mouseX <= 340 && super.mouseY >= 250 && super.mouseY <= 350) {
+				if (super.mouseX >= 210 && super.mouseX <= 310 && super.mouseY >= 250 && super.mouseY <= 350) {
 					menuActionName[2] = "Open @gre@Discount Store";
 					menuActionID[2] = 100_384_3;
 					menuActionName[1] = "Dismiss";
