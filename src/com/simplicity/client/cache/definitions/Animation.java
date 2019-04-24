@@ -17,8 +17,9 @@ public final class Animation {
 		int length = stream.readUnsignedWord();
 		int lengthOSRS = streamOSRS.readUnsignedWord();
 
+		System.out.println("Loaded " + length + " regular animations.");
 		System.out.println("Loaded " + lengthOSRS + " OSRS animations.");
-		
+
 		if (anims == null) {
 			anims = new Animation[length + lengthOSRS];
 		}

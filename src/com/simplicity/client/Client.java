@@ -668,6 +668,7 @@ public class Client extends RSApplet {
 			}
 			rebuildFrame(size, width, height);
 			saveSettings();
+
 			if (!isWebclient() && mainFrame != null) {
 				mainFrame.setClientIcon();
 			}
@@ -704,6 +705,7 @@ public class Client extends RSApplet {
 			clientWidth = width;
 			clientHeight = height;
 			instance.rebuildFrame(size == 2, width, height, size == 1, size != 0);
+
 			updateGameArea();
 			super.mouseX = super.mouseY = -1;
 		} catch (Exception e) {
@@ -11561,7 +11563,7 @@ public class Client extends RSApplet {
 				}
 			}
 			if (showMysteryBoxAlert) {
-				if (super.mouseX >= 240 && super.mouseX <= 340 && super.mouseY >= 250 && super.mouseY <= 350) {
+				if (super.mouseX >= 210 && super.mouseX <= 310 && super.mouseY >= 250 && super.mouseY <= 350) {
 					menuActionName[2] = "Open @gre@Discount Store";
 					menuActionID[2] = 100_384_3;
 					menuActionName[1] = "Dismiss";
