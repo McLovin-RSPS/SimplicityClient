@@ -12924,7 +12924,7 @@ public class RSInterface {
 		RSInterface agil = interfaceCache[4277];
 		RSInterface thie = interfaceCache[4261];
 		RSInterface slay = interfaceCache[12122];
-		RSInterface farm = addTabInterface(5267);
+		RSInterface farm = addTabInterface(45400);
 		RSInterface rune = interfaceCache[4267];
 		RSInterface cons = interfaceCache[7267];
 		RSInterface hunt = addTabInterface(8267);
