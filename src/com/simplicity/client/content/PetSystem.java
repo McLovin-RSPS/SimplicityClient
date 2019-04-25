@@ -9,7 +9,6 @@ import com.simplicity.client.cache.definitions.MobDefinition;
 
 public class PetSystem {
 
-
     /**
      * @param entity Use EntityDef.forID() to insert the ID of the Pet.
      */
@@ -26,9 +25,8 @@ public class PetSystem {
         this.description = entity.description;
         animation = entity.walkAnim;
         animationDelay = Animation.anims[animation].delays[animationFrame];
-
-
     }
+
     public static void petAnimationStep() {
         if (updatePetAnimations) {
             return;

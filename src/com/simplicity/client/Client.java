@@ -10998,36 +10998,40 @@ public class Client extends RSApplet {
 			}
 			return;
 		}
-		if (j == 3291) {    
-		    PetSystem petDef = new PetSystem(MobDefinition.forID(PetSystem.petSelected));
-		    RSInterface rsInterface = rsi;
-		    int verticleTilt = 150;
-		    rsInterface.modelRotation1 = verticleTilt;
-		    rsInterface.modelRotation2 = (int)(double)(loopCycle / 100D * 1024D) & 2047;
-		    Model model;
-		    final Model[] parts = new Model[petDef.getModelArrayLength()];
-		    for (int i = 0; i < petDef.getModelArrayLength(); i++) {
-		        parts[i] = Model.fetchModel(petDef.getModelArray()[i]);
-		    }
-		    if (parts.length == 1) {
-		        model = parts[0];
-		    } else {
-		        model = new Model(parts.length, parts);
-		    }
+		if (j == 3291) {
+			try {
+				PetSystem petDef = new PetSystem(MobDefinition.forID(PetSystem.petSelected));
+				RSInterface rsInterface = rsi;
+				int verticleTilt = 150;
+				rsInterface.modelRotation1 = verticleTilt;
+				rsInterface.modelRotation2 = (int) (double) (loopCycle / 100D * 1024D) & 2047;
+				Model model;
+				final Model[] parts = new Model[petDef.getModelArrayLength()];
+				for (int i = 0; i < petDef.getModelArrayLength(); i++) {
+					parts[i] = Model.fetchModel(petDef.getModelArray()[i]);
+				}
+				if (parts.length == 1) {
+					model = parts[0];
+				} else {
+					model = new Model(parts.length, parts);
+				}
 
 
-		    if (model == null) {
-		        return;
-		    }
+				if (model == null) {
+					return;
+				}
 
-		    int scale = 60;
-		    model.createBones();
-		    model.scale2(scale, scale, scale);
-		    model.applyTransform(Animation.anims[petDef.getAnimation()].frameIDs[PetSystem.animationFrame]);
-		    model.light(64, 850, -30, -50, -30, true);
-		    rsInterface.mediaType = 5;
-		    rsInterface.mediaID = 0;
-		    RSInterface.clearModelCache(aBoolean994, model);
+				int scale = 60;
+				model.createBones();
+				model.scale2(scale, scale, scale);
+				model.applyTransform(Animation.anims[petDef.getAnimation()].frameIDs[PetSystem.animationFrame]);
+				model.light(64, 850, -30, -50, -30, true);
+				rsInterface.mediaType = 5;
+				rsInterface.mediaID = 0;
+				RSInterface.clearModelCache(aBoolean994, model);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		    return;
 		}
 		if (j == 327) {
@@ -14558,6 +14562,9 @@ public class Client extends RSApplet {
 							}
 						}
 					} else if (child.type == 6) {
+						if(!child.interfaceShown) {
+							continue;
+						}
 						int k3 = Rasterizer.textureInt1;
 						int j4 = Rasterizer.textureInt2;
 						Rasterizer.textureInt1 = childX + child.width / 2;
@@ -18826,7 +18833,12 @@ public class Client extends RSApplet {
 			case 171:
 				boolean flag1 = inStream.readUnsignedByte() == 1;
 				int j13 = inStream.readUnsignedWord();
-				RSInterface.interfaceCache[j13].interfaceShown = flag1;
+				try {
+					RSInterface.interfaceCache[j13].interfaceShown = flag1;
+				} catch (Exception e) {
+					System.out.println("Error hiding interface id: "+j13);
+					e.printStackTrace();
+				}
 				opCode = -1;
 				return true;
 
