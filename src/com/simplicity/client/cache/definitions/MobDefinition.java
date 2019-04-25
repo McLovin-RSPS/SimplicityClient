@@ -478,7 +478,7 @@ public final class MobDefinition {
 		break;
 		
 		case 963:
-			npc.name = "Hellpupy";
+			npc.name = "Hellpuppy";
 			npc.models = new int[] { 29240 };
 			//npc.boundDim = 1;
 			npc.standAnim = 6561;
