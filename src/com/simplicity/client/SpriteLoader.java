@@ -28,6 +28,7 @@ public class SpriteLoader {
 				cache = new SpriteLoader[totalSprites];
 				sprites = new Sprite[totalSprites];
 			}
+			System.out.println("totalSprites: "+totalSprites);
 			for (int i = 0; i < totalSprites; i++) {
 				int id = indexFile.readInt();
 				if (cache[id] == null) {
@@ -36,6 +37,7 @@ public class SpriteLoader {
 				cache[id].readValues(dataFile, indexFile);
 				createSprite(cache[id], false);
 			}
+			
 			indexFile.close();
 			dataFile.close();
 		} catch (Exception e) {
@@ -63,6 +65,9 @@ public class SpriteLoader {
 	 */
 	public void readValues(DataInputStream data, DataInputStream indexFile) throws IOException {
 		do {
+			if(data == null) {
+				return;
+			}
 			int opCode = data.readByte();
 			if (opCode == 0) {
 				return;
