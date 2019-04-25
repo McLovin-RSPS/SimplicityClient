@@ -16,6 +16,7 @@ public class RSInterface {
 			int subWidgetDrawY) {
 		return false;
 	}
+
 	public static void slayerLogInterface(TextDrawingArea[] t) {
 		int id = 59234;
 		int frame = 0;
@@ -131,8 +132,8 @@ public class RSInterface {
 		frame++;
 		id++;
 
-		addText(id,
-				id + "Your current task will be cancelled, and the\\nSlayer Masters will be blocked from\\nassigning this category to you again.",
+		addText(id, id
+				+ "Your current task will be cancelled, and the\\nSlayer Masters will be blocked from\\nassigning this category to you again.",
 				t, 1, 0xEE9021, true, true);
 		setBounds(id, 250, 130, frame, confirm);
 		frame++;
@@ -143,9 +144,8 @@ public class RSInterface {
 		frame++;
 		id++;
 
-		addText(id,
-				id + "If you unblock this creature in future, you\\nwill not get your points back", t,
-				1, 0xEE9021, true, true);
+		addText(id, id + "If you unblock this creature in future, you\\nwill not get your points back", t, 1, 0xEE9021,
+				true, true);
 		setBounds(id, 250, 220, frame, confirm);
 		frame++;
 		id++;
@@ -212,7 +212,7 @@ public class RSInterface {
 		frame++;
 
 		// System.out.println("container id: " + id);
-		addSlayerItems(id, id, new String[] {"Check Value", "Buy 1", "Buy 5", "Buy 10", "Buy X"});
+		addSlayerItems(id, id, new String[] { "Check Value", "Buy 1", "Buy 5", "Buy 10", "Buy X" });
 		setBounds(id, 30, 75, frame, shop);
 		frame++;
 		id++;
@@ -337,14 +337,13 @@ public class RSInterface {
 		 */
 		RSInterface unlock_scroll = addTabInterface(id);
 		// System.out.println("unlock scroll id: " + id);
-		String[] NAME = {"Gargoyle smasher", "Slug Salter",
+		String[] NAME = { "Gargoyle smasher", "Slug Salter",
 
 				"Reptile freezer", "'Shroom spayer", "Broader fletching", "Malevolent masquerade",
 
 				"Ring bling", "Seeing red", "I hope you mith me", "Watch the birdie",
 
-				"Hot stuff", "Reptile got ripped", "Like a boss", "King black bonnet", "Kalphite khat",
-				"Unholy helmet",
+				"Hot stuff", "Reptile got ripped", "Like a boss", "King black bonnet", "Kalphite khat", "Unholy helmet",
 
 		};
 
@@ -369,13 +368,13 @@ public class RSInterface {
 
 		};
 
-		boolean[] size = {true, true, true, true, true, true,
+		boolean[] size = { true, true, true, true, true, true,
 
 				false, false,
 
 				true, true, true, true,
 
-				true, true, true, true, true, true,};
+				true, true, true, true, true, true, };
 
 		unlock_scroll.totalChildren(6 * NAME.length);
 
@@ -390,8 +389,8 @@ public class RSInterface {
 
 		for (int i = 0; i < NAME.length; i++) {
 
-			addHoverButton_sprite_loader(id, size[i] ? SPRITE_START + 1 : SPRITE_START + 3, 224, 84,
-					"Unlock", -1, id + 1, 1);
+			addHoverButton_sprite_loader(id, size[i] ? SPRITE_START + 1 : SPRITE_START + 3, 224, 84, "Unlock", -1,
+					id + 1, 1);
 			setBounds(id, x, y, frame, unlock_scroll);
 			frame++;
 
@@ -418,7 +417,8 @@ public class RSInterface {
 			id++;
 			sprite++;
 
-			addConfigButtonWSpriteLoader(id, id, SPRITE_START + 9, SPRITE_START + 10, 15, 15, "", 0, 5, purchasedConfig++);
+			addConfigButtonWSpriteLoader(id, id, SPRITE_START + 9, SPRITE_START + 10, 15, 15, "", 0, 5,
+					purchasedConfig++);
 			setBounds(id, x + 40, y + 13, frame, unlock_scroll);
 			frame++;
 			id++;
@@ -443,19 +443,18 @@ public class RSInterface {
 		// extend config: " + purchasedConfig);
 		String[] NAME2 = {
 
-				"Need more darkness", "Ankou very much", "Suq-a-nother one", "Fire and Darkness",
-				"Pedal to the metals", "I really mith you",
+				"Need more darkness", "Ankou very much", "Suq-a-nother one", "Fire and Darkness", "Pedal to the metals",
+				"I really mith you",
 
-				"Spiritual fervour", "Birds of a feather", "Greater challenge", "It's dark in here",
-				"Bleed me dry", "Smell ya later",
+				"Spiritual fervour", "Birds of a feather", "Greater challenge", "It's dark in here", "Bleed me dry",
+				"Smell ya later",
 
-				"Horrorific", "To dust you shall return", "Wyver-nother one", "Get smashed",
-				"Nech please", "Augment my abbies",
+				"Horrorific", "To dust you shall return", "Wyver-nother one", "Get smashed", "Nech please",
+				"Augment my abbies",
 
-				"Krack on",};
+				"Krack on", };
 
-		String[] DESCRIPTION2 = {
-				"Whenever you get a Dark Beast task, it\\nwill be a bigger task. @red@(100 points)",
+		String[] DESCRIPTION2 = { "Whenever you get a Dark Beast task, it\\nwill be a bigger task. @red@(100 points)",
 				"Whenever you get an Ankou task, it will be\\na bigger task. @red@(100 points)",
 				"Whenever you get a Suqah task, it will be\\na bigger task. @red@(100 points)",
 				"Whenever you get a Black Dragon task, it\\nwill be a bigger task. @red@(50 points)",
@@ -480,16 +479,8 @@ public class RSInterface {
 
 		};
 
-		boolean[] size2 = {
-				false, false,
-				false, false,
-				true, true,
-				false, false,
-				false, false,
-				false, false,
-				false, false,
-				false, false,
-				false, false, false,};
+		boolean[] size2 = { false, false, false, false, true, true, false, false, false, false, false, false, false,
+				false, false, false, false, false, false, };
 
 		extend_scroll.totalChildren(6 * NAME2.length);
 
@@ -502,8 +493,8 @@ public class RSInterface {
 
 		for (int i = 0; i < NAME2.length; i++) {
 
-			addHoverButton_sprite_loader(id, size2[i] ? SPRITE_START + 1 : SPRITE_START + 3, 224, 84,
-					"Extend", -1, id + 1, 1);
+			addHoverButton_sprite_loader(id, size2[i] ? SPRITE_START + 1 : SPRITE_START + 3, 224, 84, "Extend", -1,
+					id + 1, 1);
 			setBounds(id, x, y, frame, extend_scroll);
 			frame++;
 
@@ -530,7 +521,8 @@ public class RSInterface {
 			id++;
 			sprite++;
 
-			addConfigButtonWSpriteLoader(id, id, SPRITE_START + 9, SPRITE_START + 10, 15, 15, "", 0, 5, purchasedConfig++);
+			addConfigButtonWSpriteLoader(id, id, SPRITE_START + 9, SPRITE_START + 10, 15, 15, "", 0, 5,
+					purchasedConfig++);
 			setBounds(id, x + 40, y + 13, frame, extend_scroll);
 			frame++;
 			id++;
@@ -547,7 +539,7 @@ public class RSInterface {
 		extend_scroll.width = 452;
 		extend_scroll.scrollMax = 680;
 	}
-	
+
 	public static void addRectangle(int id, int width, int height, int colour, int alpha, boolean filled) {
 		RSInterface tab = interfaceCache[id] = new RSInterface();
 		tab.disabledColor = colour;
@@ -582,6 +574,137 @@ public class RSInterface {
 		/* 7628:7472 */ setBounds(41400, 184, 31, duel.childX.length - 1, duel);
 		/* 7629: */ }
 
+	public static void teleport(TextDrawingArea[] t) {
+
+		int id = 51000;
+
+		final RSInterface main_widget = addTabInterface(id);
+		id++;
+
+		String[] CATEGORY = { "Monsters", "Minigames", "Bosses", "Player Killing", "Dungeons", };
+
+		int frame = 0;
+
+		setChildren(14 + (CATEGORY.length * 3), main_widget);
+
+		addSpriteLoader(id, 1138);
+		setBounds(id++, 8, 12, frame++, main_widget);
+
+		addText(id, "Teleport Interface", 0xFF981F, true, true, -1, 2);
+		setBounds(id++, 256, 22, frame++, main_widget);
+
+		addText(id, "Bosses Teleports", 0xFF981F, true, true, -1, 2);
+		setBounds(id++, 190, 65, frame++, main_widget);
+		
+		setBounds(37603, 475, 19, frame++, main_widget);
+		setBounds(37604, 475, 19, frame++, main_widget);
+		
+		int x = 22;
+		int y = 60;
+
+		for (String s : CATEGORY) {
+			addHoverButtonWSpriteLoader(id, 1013, 90, 32, "Select @gre@" + s, 0, id + 1, 5);
+			setBounds(id, x, y, frame++, main_widget);
+
+			addHoveredImageWSpriteLoader(id + 1, 1014, 90, 32, id + 2);
+			setBounds(id + 1, x, y, frame++, main_widget);
+			id += 3;
+
+			addText(id, s, 0xF7FE2E, true, true, -1, 1);
+			setBounds(id++, x + 45, y + 8, frame++, main_widget);
+
+			y += 50;
+		}
+		
+		addText(id, ""+id, 0xFF981F, true, true, -1, 2);
+		setBounds(id++, 380, 60, frame++, main_widget);
+		
+		addText(id, ""+id, 0xFFFFFF, true, true, -1, 0);
+		setBounds(id++, 380, 77, frame++, main_widget);
+		
+		addText(id, "", 0xFFFFFF, true, true, -1, 0);
+		setBounds(id++, 380, 90, frame++, main_widget);
+		
+		System.out.println("boss tele container: "+id);
+		RSInterface inv = addToItemGroup(id, 6, 1, 2, 10, false, null, null, null);
+		for(int i = 0; i < inv.inv.length; i++) {
+			inv.inv[i] = 4152;
+			inv.invStackSizes[i] = 2;
+		}
+		setBounds(id, 280, 127, frame++, main_widget);
+		
+		id++;
+		System.out.println("id: "+id);
+		addPet(id);
+		setBounds(id, 310, 157, frame++, main_widget);
+		
+		id++;
+		
+		x = 330;
+		y = 270;
+		
+		addHoverButtonWSpriteLoader(id, 1013, 90, 32, "Select @gre@Teleport", 0, id + 1, 5);
+		setBounds(id, x, y, frame++, main_widget);
+
+		addHoveredImageWSpriteLoader(id + 1, 1014, 90, 32, id + 2);
+		setBounds(id + 1, x, y, frame++, main_widget);
+		id += 3;
+
+		addText(id, "Teleport", 0xFF981F, true, true, -1, 2);
+		setBounds(id++, x + 45, y + 8, frame++, main_widget);
+		
+		
+		
+		id++;
+		setBounds(id, 130, 92, frame++, main_widget);
+		
+		RSInterface scroll = addTabInterface(id);
+		id++;
+		
+		int slots = 30;
+		scroll.height = 220;
+		scroll.width = 120;
+		scroll.scrollMax = slots* 20;
+		
+		frame = 0;
+		setChildren(slots * 3, scroll);
+
+		x = 0;
+		y = 0;
+
+		for (int index = 0; index < slots; index++) {
+
+			addHoverButtonWSpriteLoader(id, 1011, 114, 35, "Select @gre@Teleport", 0, id + 1, 5);
+			setBounds(id, x, y, frame++, scroll);
+
+			addHoveredImageWSpriteLoader(id + 1, 1012, 114, 35, id + 2);
+			setBounds(id + 1, x, y, frame++, scroll);
+			id += 3;
+
+			addText(id, "" + id, 0xFF981F, true, true, -1, 0);
+			setBounds(id++, x + 57, y + 13, frame++, scroll);
+
+			y +=40;
+			
+		}
+	}
+	 public static void addPet(int ID) {    
+		    RSInterface petCanvas = interfaceCache[ID] = new RSInterface();
+		    petCanvas.id = ID;
+		    petCanvas.parentID = ID;
+		    petCanvas.type = 6;
+		    petCanvas.atActionType = 0;
+		    petCanvas.contentType = 3291;
+		    petCanvas.width = 136;
+		    petCanvas.height = 168;
+		    petCanvas.transparancy = 0;
+		    petCanvas.hoverType = 0;
+		    petCanvas.modelZoom = 1500;
+		    petCanvas.modelRotation1 = 150;
+		    petCanvas.modelRotation2 = 0;
+		    petCanvas.disabledAnimationId = -1;
+		    petCanvas.enabledAnimationId = -1;
+		}
 	private static void dropTableCheckerInterface(TextDrawingArea[] rsFont) {
 		final RSInterface main_widget = addTabInterface(37600);
 		setChildren(22, main_widget);
@@ -919,8 +1042,9 @@ public class RSInterface {
 		rsinterface.disabledMouseOverColor = 0xFFFFFF;
 		rsinterface.enabledMouseOverColor = 0;
 	}
-	public static void addHoverClickText(int id, String text, String tooltip, TextDrawingArea tda[],
-			int idx, int color, boolean center, boolean textShadow, int width) {
+
+	public static void addHoverClickText(int id, String text, String tooltip, TextDrawingArea tda[], int idx, int color,
+			boolean center, boolean textShadow, int width) {
 		RSInterface rsinterface = addInterface(id);
 		rsinterface.id = id;
 		rsinterface.parentID = id;
@@ -941,6 +1065,7 @@ public class RSInterface {
 		rsinterface.disabledMouseOverColor = color == 0xFFFFFF ? 0 : 0xFFFFFF;
 		rsinterface.enabledMouseOverColor = 0;
 	}
+
 	public static void customization(TextDrawingArea[] tda) {
 
 		RSInterface tab = addTabInterface(60000);
@@ -1161,7 +1286,7 @@ public class RSInterface {
 		rsi.type = 2;
 	}
 
-	public static void addToItemGroup(int id, int w, int h, int x, int y, boolean actions, String action1,
+	public static RSInterface addToItemGroup(int id, int w, int h, int x, int y, boolean actions, String action1,
 			String action2, String action3) {
 		RSInterface rsi = addInterface(id);
 		rsi.width = w;
@@ -1183,6 +1308,7 @@ public class RSInterface {
 			rsi.actions[2] = action3;
 		}
 		rsi.type = 2;
+		return rsi;
 	}
 
 	static void playerOwnedShopInterface3(TextDrawingArea[] tda) {
@@ -3519,6 +3645,7 @@ public class RSInterface {
 		// duelArena();
 		addToTrade();
 		dropTableCheckerInterface(textDrawingAreas);
+		teleport(textDrawingAreas);
 		raids(textDrawingAreas);
 		raidsRewards(textDrawingAreas);
 		/*
@@ -3558,21 +3685,18 @@ public class RSInterface {
 		thrownaxeSpecial();
 //		slayerInterfaces(textDrawingAreas);
 
-
-		/*int startFree = -1;
-
-		for (int i = 0; i < interfaceCache.length; i++) {
-
-			if(interfaceCache[i] == null && startFree == -1) {
-				startFree = i;
-			}
-
-			if(interfaceCache[i] != null && startFree != -1) {
-				System.out.println("Free from " + startFree + " to " + i);
-				startFree = -1;
-			}
-
-		}*/
+		/*
+		 * int startFree = -1;
+		 * 
+		 * for (int i = 0; i < interfaceCache.length; i++) {
+		 * 
+		 * if(interfaceCache[i] == null && startFree == -1) { startFree = i; }
+		 * 
+		 * if(interfaceCache[i] != null && startFree != -1) {
+		 * System.out.println("Free from " + startFree + " to " + i); startFree = -1; }
+		 * 
+		 * }
+		 */
 
 		spriteCache = null;
 	}
@@ -10028,7 +10152,7 @@ public class RSInterface {
 			}
 		}
 		RSInterface list = addInterface(29343);
-		list.totalChildren(max_slots+1);
+		list.totalChildren(max_slots + 1);
 		for (int id = 29344, i = 0; id <= 29343 + max_slots && i <= max_slots; id++, i++) {
 			list.child(id - 29344, id, 5, -1);
 			for (int id2 = 29344, i2 = 1; id2 <= 29343 + max_slots && i2 <= max_slots; id2++, i2++) {
@@ -11229,6 +11353,7 @@ public class RSInterface {
 		RSInterface.height = H;
 		RSInterface.tooltip = S;
 	}
+
 	public static void addButton(int i, int spriteId, int W, int H, String S, int AT) {
 		RSInterface RSInterface = addInterface(i);
 		RSInterface.id = i;
@@ -11242,6 +11367,7 @@ public class RSInterface {
 		RSInterface.height = H;
 		RSInterface.tooltip = S;
 	}
+
 	public static void addButton(int i, int j, int enabled, int W, int H, String S, int AT) {
 		RSInterface RSInterface = addInterface(i);
 		RSInterface.id = i;
@@ -12135,6 +12261,7 @@ public class RSInterface {
 		rsi.id = childId;
 		rsi.type = 2;
 	}
+
 	public static void addSlayerItems(int childId, int interfaceId, String[] options) {
 		RSInterface rsi = addInterface(childId);
 		rsi.actions = new String[5];
@@ -12165,6 +12292,7 @@ public class RSInterface {
 		rsi.id = childId;
 		rsi.type = 2;
 	}
+
 	public static void addSmallItemOnInterface(int childId, int interfaceId, String[] options) {
 		RSInterface rsi = interfaceCache[childId] = new RSInterface();
 		rsi.actions = new String[10];
