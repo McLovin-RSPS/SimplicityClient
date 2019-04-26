@@ -672,10 +672,10 @@ public class RSInterface {
         RSInterface scroll = addTabInterface(id);
         id++;
 
-        int slots = 30;
+        int slots = 25;
         scroll.height = 220;
         scroll.width = 120;
-        scroll.scrollMax = slots * 20;
+        scroll.scrollMax = slots * 40;
 
         frame = 0;
         setChildren(slots * 3, scroll);
