@@ -672,10 +672,10 @@ public class RSInterface {
         RSInterface scroll = addTabInterface(id);
         id++;
 
-        int slots = 30;
+        int slots = 25;
         scroll.height = 220;
         scroll.width = 120;
-        scroll.scrollMax = slots * 20;
+        scroll.scrollMax = slots * 40;
 
         frame = 0;
         setChildren(slots * 3, scroll);
@@ -14045,6 +14045,11 @@ public class RSInterface {
         spellButtons.height = 260;
         spellButtons.width = 190;
         newInterface.child(0, 1151, 5, 34);
+
+        RSInterface.interfaceCache[12424].scrollMax = 0;
+        RSInterface.interfaceCache[12424].height = 400;
+        RSInterface.interfaceCache[1151].childX[54] += 8;
+
         interfaceCache[1164] = interfaceCache[1165];
         interfaceCache[1165] = interfaceCache[1166];
         interfaceCache[1166] = interfaceCache[1168];

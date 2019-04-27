@@ -14562,7 +14562,7 @@ public class Client extends RSApplet {
 							}
 						}
 					} else if (child.type == 6) {
-						if(!child.interfaceShown) {
+						if(child.interfaceShown) {
 							continue;
 						}
 						int k3 = Rasterizer.textureInt1;

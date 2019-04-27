@@ -902,6 +902,8 @@ public class CustomObjects {
 		{ 5277, 3690, 3465, 0, 2},
 		{ 5277, 3688, 3465, 0, 2},
 		{ 5277, 3687, 3465, 0, 2},
+
+		{ 30087, 1231, 3559, 0, 3}, //west raids bank booth
 	};
 	
 	public static List<GameObject> CUSTOM_OBJECT_LIST = new ArrayList<GameObject>();
