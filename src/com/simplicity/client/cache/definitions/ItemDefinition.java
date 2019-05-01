@@ -565,12 +565,13 @@ public final class ItemDefinition {
         }
     }*/
 
-    public static ItemDefinition forID(int i) {
-        if (i >= OSRS_ITEMS_OFFSET + OSRS_ITEMS_START) {
-            i -= OSRS_ITEMS_OFFSET;
+    public static ItemDefinition forID(int itemId) {
+       // System.out.println("item id: "+itemId+", OSRS_ITEMS_OFFSET="+OSRS_ITEMS_OFFSET+", OSRS_ITEMS_START="+OSRS_ITEMS_START);
+        if (itemId >= OSRS_ITEMS_OFFSET + OSRS_ITEMS_START) {
+            itemId -= OSRS_ITEMS_OFFSET;
 
             for (int j = 0; j < 10; j++) {
-                if (cacheOSRS[j].id == i) {
+                if (cacheOSRS[j].id == itemId) {
                     return cacheOSRS[j];
                 }
             }
@@ -579,14 +580,14 @@ public final class ItemDefinition {
 
             ItemDefinition itemDef = cacheOSRS[cacheIndexOSRS];
 
-            if (i >= streamIndicesOSRS.length) {
+            if (itemId >= streamIndicesOSRS.length) {
                 itemDef.id = 1;
                 itemDef.setDefaults();
                 return itemDef;
             }
 
-            streamOSRS.currentOffset = streamIndicesOSRS[i];
-            itemDef.id = OSRS_ITEMS_OFFSET + i;
+            streamOSRS.currentOffset = streamIndicesOSRS[itemId];
+            itemDef.id = OSRS_ITEMS_OFFSET + itemId;
             itemDef.dataType = DataType.OLDSCHOOL;
             itemDef.setDefaults();
             itemDef.readValues(streamOSRS);
@@ -599,7 +600,7 @@ public final class ItemDefinition {
                 itemDef.toLend();
             }
 
-            if (itemDef.id == i && itemDef.editedModelColor == null) {
+            if (itemDef.id == itemId && itemDef.editedModelColor == null) {
                 itemDef.editedModelColor = new int[1];
                 itemDef.newModelColor = new int[1];
                 itemDef.editedModelColor[0] = 0;
@@ -764,31 +765,13 @@ public final class ItemDefinition {
                     itemDef.femaleEquip1 = 35369;
                     break;
             }
-
             return itemDef;
         }
 
-        for (int j = 0; j < 10; j++) {
-            if (cache[j].id == i) {
-                if(Configuration.DISCO_ITEMS) {
-                    if (i == 5572 || i == 5573 || i == 640 || i == 650 || i == 630) {
-                        ItemDefinition.cache[j].newModelColor[0] = RandomColor.currentColour;
-                    }
-                }
-                return cache[j];
-            }
-        }
+        ItemDefinition itemDef = new ItemDefinition();
 
-        cacheIndex = (cacheIndex + 1) % 10;
-        ItemDefinition itemDef = cache[cacheIndex];
-        if (i >= streamIndices.length) {
-            itemDef.id = 1;
-            itemDef.setDefaults();
-            return itemDef;
-        }
-
-        stream.currentOffset = streamIndices[i];
-        itemDef.id = i;
+        stream.currentOffset = streamIndices[itemId];
+        itemDef.id = itemId;
         itemDef.setDefaults();
         itemDef.readValues(stream);
         if (itemDef.certTemplateID != -1) {
@@ -797,7 +780,7 @@ public final class ItemDefinition {
         if (itemDef.lentItemID != -1) {
             itemDef.toLend();
         }
-        if (itemDef.id == i && itemDef.editedModelColor == null) {
+        if (itemDef.id == itemId && itemDef.editedModelColor == null) {
             itemDef.editedModelColor = new int[1];
             itemDef.newModelColor = new int[1];
             itemDef.editedModelColor[0] = 0;
@@ -807,7 +790,7 @@ public final class ItemDefinition {
             itemDef.untradeable = true;
         }
         itemDef.value = prices[itemDef.id];
-        switch (i) {
+        switch (itemId) {
         case 4037:
         	itemDef.maleEquip1 = 4850;
         	itemDef.femaleEquip1 = 4850;
@@ -7670,7 +7653,13 @@ public final class ItemDefinition {
                 itemDef = forID(i1);
             }
         }
-        Model model = itemDef.getItemModelFinalised(1);
+        Model model = null;
+        try {
+            model = itemDef.getItemModelFinalised(1);
+        } catch(Exception e) {
+            System.out.println("Error with item : "+itemDef.name+", "+itemDef.dataType+", i="+i);
+            e.printStackTrace();
+        }
         if (model == null) {
             return null;
         }
@@ -8034,5 +8023,5 @@ public final class ItemDefinition {
     public int lendID;
     public int lentItemID;
     public boolean untradeable;
-    public DataType dataType;
+    public DataType dataType = DataType.REGULAR;
 }
