@@ -3,6 +3,8 @@ package com.simplicity.client;
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
+import com.simplicity.client.cache.DataType;
+
 public final class IDK {
 
 	public static void unpackConfig(CacheArchive streamLoader) {
@@ -48,7 +50,7 @@ public final class IDK {
 			return true;
 		boolean flag = true;
 		for (int j = 0; j < bodyModelIDs.length; j++)
-			if (!Model.modelIsFetched(bodyModelIDs[j], false))
+			if (!Model.modelIsFetched(bodyModelIDs[j], DataType.REGULAR))
 				flag = false;
 
 		return flag;
@@ -79,7 +81,7 @@ public final class IDK {
 	public boolean headModelFetched() {
 		boolean flag1 = true;
 		for (int i = 0; i < 5; i++)
-			if (headModelIDs[i] != -1 && !Model.modelIsFetched(headModelIDs[i], false))
+			if (headModelIDs[i] != -1 && !Model.modelIsFetched(headModelIDs[i], DataType.REGULAR))
 				flag1 = false;
 
 		return flag1;

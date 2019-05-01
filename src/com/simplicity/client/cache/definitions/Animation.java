@@ -3,6 +3,7 @@ package com.simplicity.client.cache.definitions;
 import com.simplicity.client.CacheArchive;
 import com.simplicity.client.FrameReader;
 import com.simplicity.client.Stream;
+import com.simplicity.client.cache.DataType;
 
 public final class Animation {
 	
@@ -30,10 +31,10 @@ public final class Animation {
 			}
 			
 			if (j >= length) {
-				anims[j].osrs = true;
+				anims[j].dataType = DataType.OLDSCHOOL;
 			}
 			
-			if(anims[j].osrs) {
+			if(anims[j].dataType == DataType.OLDSCHOOL) {
 				anims[j].readValuesOSRS(j, streamOSRS);
 			} else {
 				anims[j].readValuesNew(stream);
@@ -809,7 +810,7 @@ public final class Animation {
 			return 1;
 		int j = delays[i];
 		if (j == 0) {
-			FrameReader reader = FrameReader.forID(frameIDs[i], osrs);
+			FrameReader reader = FrameReader.forID(frameIDs[i], dataType);
 			if (reader != null) {
 				j = delays[i] = reader.displayLength;
 			}
@@ -1102,6 +1103,6 @@ public final class Animation {
 	public int resetWhenWalk;
 	public int priority;
 	public int delayType;
-	public boolean osrs;
+	public DataType dataType;
 	public static int anInt367;
 }

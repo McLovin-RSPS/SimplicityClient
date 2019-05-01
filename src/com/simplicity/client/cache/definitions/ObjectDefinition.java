@@ -2,7 +2,6 @@ package com.simplicity.client.cache.definitions;
 
 
 import java.io.PrintWriter;
-import java.util.Arrays;
 
 import com.simplicity.client.CacheArchive;
 import com.simplicity.client.Client;
@@ -11,6 +10,7 @@ import com.simplicity.client.MemCache;
 import com.simplicity.client.Model;
 import com.simplicity.client.OnDemandFetcher;
 import com.simplicity.client.Stream;
+import com.simplicity.client.cache.DataType;
 
 
 @SuppressWarnings("all")
@@ -146,7 +146,7 @@ public final class ObjectDefinition {
         streamOSRS.currentOffset = streamIndicesOSRS[i];
         objectDef.type = i;
         objectDef.setDefaults();
-        objectDef.osrs = true;
+        objectDef.dataType = DataType.OLDSCHOOL;
         try {
             objectDef.readValues(streamOSRS);
         } catch (Exception e) {
@@ -822,13 +822,13 @@ public final class ObjectDefinition {
                 return true;
             boolean flag1 = true;
             for (int k = 0; k < objectModelIDs.length; k++) {
-                flag1 &= Model.modelIsFetched(objectModelIDs[k] & 0xffff, osrs);
+                flag1 &= Model.modelIsFetched(objectModelIDs[k] & 0xffff, dataType);
             }
             return flag1;
         }
         for (int j = 0; j < objectModelTypes.length; j++)
             if (objectModelTypes[j] == i)
-                return Model.modelIsFetched(objectModelIDs[j] & 0xffff, osrs);
+                return Model.modelIsFetched(objectModelIDs[j] & 0xffff, dataType);
 
         return true;
     }
@@ -859,7 +859,7 @@ public final class ObjectDefinition {
             return true;
         boolean flag1 = true;
         for (int i = 0; i < objectModelIDs.length; i++)
-            flag1 &= Model.modelIsFetched(objectModelIDs[i] & 0xffff, osrs);
+            flag1 &= Model.modelIsFetched(objectModelIDs[i] & 0xffff, dataType);
         return flag1;
     }
 
@@ -888,7 +888,7 @@ public final class ObjectDefinition {
             if (objectType != 10)
                 return null;
             hash = (long) ((type << 8) + face) + ((long) (animId + 1) << 32);
-            Model model_1 = osrs ? (Model) completedOSRSModelCache.get(hash) : (Model) completedModelCache.get(hash);
+            Model model_1 = dataType == DataType.OLDSCHOOL ? (Model) completedOSRSModelCache.get(hash) : (Model) completedModelCache.get(hash);
             if (model_1 != null)
                 return model_1;
             if (objectModelIDs == null)
@@ -899,14 +899,14 @@ public final class ObjectDefinition {
                 int subModelID = objectModelIDs[ptr];
                 if (mirror)
                     subModelID += 0x10000;
-                model = Model.fetchModel(subModelID & 0xffff, osrs);
+                model = Model.fetchModel(subModelID & 0xffff, dataType);
                 if (model == null) {
-                    model = Model.fetchModel(subModelID & 0xffff, osrs);
+                    model = Model.fetchModel(subModelID & 0xffff, dataType);
                     if (model == null)
                         return null;
                     if (mirror)
                         model.mirrorModel();
-                    if (osrs)
+                    if (dataType == DataType.OLDSCHOOL)
                         osrsModelCache.put(model, subModelID);
                     else
                         modelCache.put(model, subModelID);
@@ -927,7 +927,7 @@ public final class ObjectDefinition {
             if (i1 == -1)
                 return null;
             hash = (long) ((type << 8) + (i1 << 3) + face) + ((long) (animId + 1) << 32);
-            Model model_2 = osrs ? (Model) completedOSRSModelCache.get(hash) : (Model) completedModelCache.get(hash);
+            Model model_2 = dataType == DataType.OLDSCHOOL ? (Model) completedOSRSModelCache.get(hash) : (Model) completedModelCache.get(hash);
             if (model_2 != null)
                 return model_2;
             int subModelId = objectModelIDs[i1];
@@ -936,7 +936,7 @@ public final class ObjectDefinition {
                 subModelId += 0x10000;
             model = (Model) modelCache.get(subModelId);
             if (model == null) {
-                model = Model.fetchModel(subModelId & 0xffff, osrs);
+                model = Model.fetchModel(subModelId & 0xffff, dataType);
                 if (model == null)
                     return null;
                 if (mirror)
@@ -951,7 +951,7 @@ public final class ObjectDefinition {
         Model model_3 = new Model(modifiedModelColors == null, FrameReader.isNullFrame(animId), face == 0 && animId == -1 && !rescale && !hasOffsets, model);
         if (animId != -1) {
             model_3.createBones();
-            model_3.applyTransform(animId, osrs);
+            model_3.applyTransform(animId, dataType);
             model_3.triangleSkin = null;
             model_3.vertexSkin = null;
         }
@@ -970,7 +970,7 @@ public final class ObjectDefinition {
         //64 + aByte737, 768 + aByte742 * 5, -50, -10, -50, !aBoolean769
         if (anInt760 == 1)
             model_3.myPriority = model_3.modelHeight;
-        if (osrs)
+        if (dataType == DataType.OLDSCHOOL)
             completedOSRSModelCache.put(model_3, hash);
         else
             completedModelCache.put(model_3, hash);
@@ -1179,6 +1179,6 @@ public final class ObjectDefinition {
     public static MemCache modelCache = new MemCache(500);
     public static MemCache osrsModelCache = new MemCache(500);
     public String actions[];
-    public boolean osrs;
+    public DataType dataType;
 
 }

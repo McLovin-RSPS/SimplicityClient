@@ -4,6 +4,7 @@ import com.simplicity.client.CacheArchive;
 import com.simplicity.client.MemCache;
 import com.simplicity.client.Model;
 import com.simplicity.client.Stream;
+import com.simplicity.client.cache.DataType;
 
 public final class SpotAnimDefinition {
 	
@@ -27,11 +28,11 @@ public final class SpotAnimDefinition {
 			}
 			
 			if (j >= length) {
-				cache[j].osrs = true;
+				cache[j].dataType = DataType.OLDSCHOOL;
 			}
 			
 			cache[j].id = j;
-			cache[j].readValues(cache[j].osrs ? streamOSRS : stream);
+			cache[j].readValues(cache[j].dataType == DataType.OLDSCHOOL ? streamOSRS : stream);
 		}
 		
 		custom();
@@ -54,7 +55,7 @@ public final class SpotAnimDefinition {
 			else if (i == 2) {
 				animationId = stream.readUnsignedWord();
 				
-				if (osrs) {
+				if (dataType == DataType.OLDSCHOOL) {
 					animationId += Animation.OSRS_ANIM_OFFSET;
 				}
 				
@@ -95,7 +96,7 @@ public final class SpotAnimDefinition {
 		Model model = (Model) modelCache.get(id);
 		if (model != null)
 			return model;
-		model = Model.fetchModel(modelId, osrs);
+		model = Model.fetchModel(modelId, dataType);
 		if (model == null)
 			return null;
 		for (int i = 0; i < 6; i++)
@@ -127,7 +128,7 @@ public final class SpotAnimDefinition {
 	public int rotation;
 	public int shadow;
 	public int lightness;
-	public boolean osrs;
+	public DataType dataType;
 	public static MemCache modelCache = new MemCache(30);
 
 }

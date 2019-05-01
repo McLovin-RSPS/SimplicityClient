@@ -76,6 +76,7 @@ import com.simplicity.Configuration;
 import com.simplicity.Jframe;
 import com.simplicity.client.DrawLine.LineType;
 import com.simplicity.client.cache.CacheDownloader;
+import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.Animation;
 import com.simplicity.client.cache.definitions.FloorDefinitionOSRS;
 import com.simplicity.client.cache.definitions.FloorOverlay;
@@ -6447,7 +6448,7 @@ public class Client extends RSApplet {
 				 * Models Loading *
 				 */
 				if (onDemandData.dataType == MODEL_IDX - 1) {
-					Model.readFirstModelData(onDemandData.buffer, onDemandData.id);
+					Model.readFirstModelData(onDemandData.buffer, onDemandData.id, DataType.REGULAR);
 					needDrawTabArea = true;
 
 				}
@@ -6456,7 +6457,7 @@ public class Client extends RSApplet {
 				 * OSRS Models Loading *
 				 */
 				if (onDemandData.dataType == OSRS_MODEL_IDX - 1) {
-					Model.readFirstModelData(onDemandData.buffer, onDemandData.id);
+					Model.readFirstModelData(onDemandData.buffer, onDemandData.id, DataType.OLDSCHOOL);
 					needDrawTabArea = true;
 				}
 
@@ -12505,12 +12506,12 @@ public class Client extends RSApplet {
 						npc.anInt1530 = 0;
 						npc.anInt1542 = npc.pathLength;
 						try {
-							if (FrameReader.animationlist[Integer.parseInt(
+							if (FrameReader.animationListRegular[Integer.parseInt(
 									Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).substring(0,
 											Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).length() - 4),
 									16)].length == 0) {
 								onDemandFetcher.requestFileData(
-										Animation.anims[requestAnim].osrs ? Client.OSRS_ANIM_IDX - 1
+										Animation.anims[requestAnim].dataType == DataType.OLDSCHOOL ? Client.OSRS_ANIM_IDX - 1
 												: Client.ANIM_IDX - 1,
 										Integer.parseInt(
 												Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).substring(
@@ -12545,14 +12546,14 @@ public class Client extends RSApplet {
 						npc.anInt1520 = -1;
 					}
 					try {
-						if (FrameReader.animationlist[Integer.parseInt(Integer
+						if (FrameReader.animationListRegular[Integer.parseInt(Integer
 								.toHexString(SpotAnimDefinition.cache[npc.anInt1520].animation.frameIDs[0]).substring(0,
 										Integer.toHexString(
 												SpotAnimDefinition.cache[npc.anInt1520].animation.frameIDs[0]).length()
 												- 4),
 								16)].length == 0) {
 							onDemandFetcher.requestFileData(
-									SpotAnimDefinition.cache[npc.anInt1520].osrs ? Client.OSRS_ANIM_IDX - 1
+									SpotAnimDefinition.cache[npc.anInt1520].dataType == DataType.OLDSCHOOL ? Client.OSRS_ANIM_IDX - 1
 											: Client.ANIM_IDX - 1,
 									Integer.parseInt(Integer
 											.toHexString(SpotAnimDefinition.cache[npc.anInt1520].animation.frameIDs[0])
@@ -14840,13 +14841,13 @@ public class Client extends RSApplet {
 			try {
 				SpotAnimDefinition spotAnim = SpotAnimDefinition.cache[player.anInt1520];
 
-				if (FrameReader.animationlist[Integer
+				if (FrameReader.animationListRegular[Integer
 						.parseInt(
 								Integer.toHexString(spotAnim.animation.frameIDs[0]).substring(0,
 										Integer.toHexString(spotAnim.animation.frameIDs[0]).length() - 4),
 								16)].length == 0) {
 					onDemandFetcher
-							.requestFileData(spotAnim.osrs ? OSRS_ANIM_IDX - 1 : ANIM_IDX - 1,
+							.requestFileData(spotAnim.dataType == DataType.OLDSCHOOL ? OSRS_ANIM_IDX - 1 : ANIM_IDX - 1,
 									Integer.parseInt(
 											Integer.toHexString(spotAnim.animation.frameIDs[0]).substring(0,
 													Integer.toHexString(spotAnim.animation.frameIDs[0]).length() - 4),
@@ -14883,12 +14884,12 @@ public class Client extends RSApplet {
 				player.anInt1542 = player.pathLength;
 
 				try {
-					if (FrameReader.animationlist[Integer.parseInt(
+					if (FrameReader.animationListRegular[Integer.parseInt(
 							Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).substring(0,
 									Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).length() - 4),
 							16)].length == 0) {
 						onDemandFetcher.requestFileData(
-								Animation.anims[requestAnim].osrs ? Client.OSRS_ANIM_IDX - 1 : Client.ANIM_IDX - 1,
+								Animation.anims[requestAnim].dataType == DataType.OLDSCHOOL ? Client.OSRS_ANIM_IDX - 1 : Client.ANIM_IDX - 1,
 								Integer.parseInt(
 										Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).substring(0,
 												Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).length()

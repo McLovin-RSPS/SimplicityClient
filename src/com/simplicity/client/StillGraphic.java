@@ -28,7 +28,7 @@ final class StillGraphic extends Animable {
 		if(!animFinished)
 		{
 			animableModel.createBones();
-			animableModel.applyTransform(frameToPlay, gfx.osrs);
+			animableModel.applyTransform(frameToPlay, gfx.dataType);
 			animableModel.triangleSkin = null;
 			animableModel.vertexSkin = null;
 		}

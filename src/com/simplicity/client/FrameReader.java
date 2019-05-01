@@ -1,12 +1,12 @@
 package com.simplicity.client;
 
-import com.simplicity.client.cache.definitions.Animation;
+import com.simplicity.client.cache.DataType;
 
 @SuppressWarnings("all")
 public final class FrameReader {
 
 	public static void initialise(int i) {
-		animationlist = new FrameReader[20000][0];
+		animationListRegular = new FrameReader[20000][0];
 	}
 
 	public static void load(int file, byte[] fileData, boolean osrs) {
@@ -15,7 +15,7 @@ public final class FrameReader {
 			SkinList skinList = new SkinList(stream, 0);
 			int k1 = stream.readUnsignedWord();
 			
-			animationlist[file] = new FrameReader[(int) (k1 * 10)];
+			animationListRegular[file] = new FrameReader[(int) (k1 * 10)];
 			
 			int ai[] = new int[500];
 			int ai1[] = new int[500];
@@ -24,7 +24,7 @@ public final class FrameReader {
 			for (int l1 = 0; l1 < k1; l1++) {
 				int i2 = stream.readUnsignedWord();
 				
-				FrameReader frameReader = animationlist[file][i2] = new FrameReader();
+				FrameReader frameReader = animationListRegular[file][i2] = new FrameReader();
 				
 				frameReader.mySkinList = skinList;
 				int j2 = stream.readUnsignedByte();
@@ -97,19 +97,19 @@ public final class FrameReader {
 	}
 
 	public static void nullLoader() {
-		animationlist = null;
+		animationListRegular = null;
 	}
 
-	public static FrameReader forID(int int1, boolean osrs) {
+	public static FrameReader forID(int int1, DataType dataType) {
 		try {
 			int int2 = int1 >> 16;
 			int1 = int1 & 0xffff;
 			
-			if (animationlist[int2].length == 0 || animationlist[int2].length < int1) {
-				Client.instance.onDemandFetcher.requestFileData(osrs ? Client.OSRS_ANIM_IDX - 1 : Client.ANIM_IDX - 1, int2);
+			if (animationListRegular[int2].length == 0 || animationListRegular[int2].length < int1) {
+				Client.instance.onDemandFetcher.requestFileData(dataType == DataType.OLDSCHOOL ? Client.OSRS_ANIM_IDX - 1 : Client.ANIM_IDX - 1, int2);
 				return null;
 			}
-			return animationlist[int2][int1];
+			return animationListRegular[int2][int1];
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return null;
@@ -163,7 +163,7 @@ public final class FrameReader {
 	private FrameReader() {
 	}
 
-	public static FrameReader animationlist[][];
+	public static FrameReader animationListRegular[][];
 	public int displayLength;
 	public SkinList mySkinList;
 	public int stepCount;

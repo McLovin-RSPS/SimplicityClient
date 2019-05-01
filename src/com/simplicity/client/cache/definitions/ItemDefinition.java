@@ -16,6 +16,7 @@ import com.simplicity.client.RandomColor;
 import com.simplicity.client.Rasterizer;
 import com.simplicity.client.Sprite;
 import com.simplicity.client.Stream;
+import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.custom.CustomItems;
 import com.simplicity.client.signlink;
 
@@ -65,10 +66,10 @@ public final class ItemDefinition {
             return true;
         }
         boolean flag = true;
-        if (!Model.modelIsFetched(k, osrs)) {
+        if (!Model.modelIsFetched(k, dataType)) {
             flag = false;
         }
-        if (l != -1 && !Model.modelIsFetched(l, osrs)) {
+        if (l != -1 && !Model.modelIsFetched(l, dataType)) {
             flag = false;
         }
         return flag;
@@ -84,9 +85,9 @@ public final class ItemDefinition {
         if (k == -1) {
             return null;
         }
-        Model model = Model.fetchModel(k, osrs);
+        Model model = Model.fetchModel(k, dataType);
         if (l != -1) {
-            Model model_1 = Model.fetchModel(l, osrs);
+            Model model_1 = Model.fetchModel(l, dataType);
             Model models[] = {model, model_1};
             model = new Model(2, models);
         }
@@ -111,13 +112,13 @@ public final class ItemDefinition {
             return true;
         }
         boolean flag = true;
-        if (!Model.modelIsFetched(fistModel, osrs)) {
+        if (!Model.modelIsFetched(fistModel, dataType)) {
             flag = false;
         }
-        if (secondModel != -1 && !Model.modelIsFetched(secondModel, osrs)) {
+        if (secondModel != -1 && !Model.modelIsFetched(secondModel, dataType)) {
             flag = false;
         }
-        if (thirdModel != -1 && !Model.modelIsFetched(thirdModel, osrs)) {
+        if (thirdModel != -1 && !Model.modelIsFetched(thirdModel, dataType)) {
             flag = false;
         }
         return flag;
@@ -135,15 +136,15 @@ public final class ItemDefinition {
         if (j == -1) {
             return null;
         }
-        Model model = Model.fetchModel(j, osrs);
+        Model model = Model.fetchModel(j, dataType);
         if (k != -1) {
             if (l != -1) {
-                Model model_1 = Model.fetchModel(k, osrs);
-                Model model_3 = Model.fetchModel(l, osrs);
+                Model model_1 = Model.fetchModel(k, dataType);
+                Model model_3 = Model.fetchModel(l, dataType);
                 Model model_1s[] = {model, model_1, model_3};
                 model = new Model(3, model_1s);
             } else {
-                Model model_2 = Model.fetchModel(k, osrs);
+                Model model_2 = Model.fetchModel(k, dataType);
                 Model models[] = {model, model_2};
                 model = new Model(2, models);
             }
@@ -249,7 +250,7 @@ public final class ItemDefinition {
             e.printStackTrace();
         }
 
-        System.out.println("dumping " + totalOSRS + " osrs items");
+        System.out.println("dumping " + totalOSRS + " dataType items");
 
         try {
             PrintWriter writer = new PrintWriter("../osrsItems.txt");
@@ -586,7 +587,7 @@ public final class ItemDefinition {
 
             streamOSRS.currentOffset = streamIndicesOSRS[i];
             itemDef.id = OSRS_ITEMS_OFFSET + i;
-            itemDef.osrs = true;
+            itemDef.dataType = DataType.OLDSCHOOL;
             itemDef.setDefaults();
             itemDef.readValues(streamOSRS);
 
@@ -690,7 +691,7 @@ public final class ItemDefinition {
                     break;
                 case 51803:
                 	ItemDefinition def = forID(51802);
-                	itemDef.osrs = true;
+                	itemDef.dataType = DataType.OLDSCHOOL;
                 	itemDef.modelID = def.modelID;
                 	itemDef.modelOffset1 = def.modelOffset1;
                 	itemDef.modelOffsetX = def.modelOffsetX;
@@ -3703,7 +3704,7 @@ public final class ItemDefinition {
                 itemDef.certID = 15009;
                 itemDef.certTemplateID = 799;
                 break;
-            //start osrs pets
+            //start dataType pets
             case 13321:
                 itemDef.name = "Rock Golem";
                 itemDef.groundActions = new String[]{null, null, "Take", null, null};
@@ -7803,11 +7804,11 @@ public final class ItemDefinition {
                 return forID(stackId).getItemModelFinalised(1);
             }
         }
-        Model model = osrs ? (Model) modelCacheOSRS.get(id) : (Model) modelCache.get(id);
+        Model model = dataType == DataType.OLDSCHOOL ? (Model) modelCacheOSRS.get(id) : (Model) modelCache.get(id);
         if (model != null) {
             return model;
         }
-        model = Model.fetchModel(modelID, osrs);
+        model = Model.fetchModel(modelID, dataType);
         if (model == null) {
             return null;
         }
@@ -7822,7 +7823,7 @@ public final class ItemDefinition {
         model.light(64 + shadow, 768 + lightness, -50, -10, -50, true);
         model.rendersWithinOneTile = true;
         if (id != 5572 && id != 5573 && id != 640 && id != 650 && id != 630) {
-            if (osrs) {
+            if (dataType == DataType.OLDSCHOOL) {
                 modelCacheOSRS.put(model, id);
             } else {
                 modelCache.put(model, id);
@@ -7843,7 +7844,7 @@ public final class ItemDefinition {
                 return forID(j).getItemModel(1);
             }
         }
-        Model model = Model.fetchModel(modelID, osrs);
+        Model model = Model.fetchModel(modelID, dataType);
         if (model == null) {
             return null;
         }
@@ -7966,7 +7967,7 @@ public final class ItemDefinition {
         lentItemID = copy.lentItemID;
 
         untradeable = copy.untradeable;
-        osrs = copy.osrs;
+        dataType = copy.dataType;
         membersObject = copy.membersObject;
         stackable = copy.stackable;
     }
@@ -8033,5 +8034,5 @@ public final class ItemDefinition {
     public int lendID;
     public int lentItemID;
     public boolean untradeable;
-    public boolean osrs;
+    public DataType dataType;
 }

@@ -1,6 +1,7 @@
 package com.simplicity.client;
 
 import com.simplicity.Configuration;
+import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.Animation;
 import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.client.cache.definitions.MobDefinition;
@@ -32,7 +33,7 @@ public final class Player extends Entity {
 			SpotAnimDefinition spotAnim = SpotAnimDefinition.cache[super.anInt1520];
 			Model model_2 = spotAnim.getModel();
 			if (spotAnim.animation != null) {
-				if (FrameReader.animationlist[Integer.parseInt(Integer.toHexString(spotAnim.animation.frameIDs[0]).substring(0, Integer.toHexString(spotAnim.animation.frameIDs[0]).length() - 4),
+				if (FrameReader.animationListRegular[Integer.parseInt(Integer.toHexString(spotAnim.animation.frameIDs[0]).substring(0, Integer.toHexString(spotAnim.animation.frameIDs[0]).length() - 4),
 						16)].length == 0) {
 					model_2 = null;
 				}
@@ -359,16 +360,16 @@ public final class Player extends Entity {
 		Model model_2 = Model.entityModelDesc;
 		model_2.method464(model_1, FrameReader.isNullFrame(currentFrame) & FrameReader.isNullFrame(i1));
 
-		boolean osrs = false;
+		DataType dataType = DataType.REGULAR;
 		
 		if (super.anim != -1) {
-			osrs = Animation.anims[super.anim].osrs;
+			dataType = Animation.anims[super.anim].dataType;
 		}
 		
 		if (currentFrame != -1 && i1 != -1)
 			model_2.method471(Animation.anims[super.anim].animationFlowControl, i1, currentFrame);
 		else if (currentFrame != -1 && nextFrame != -1)
-			model_2.applyTransform(currentFrame, nextFrame, cycle1, cycle2, osrs);
+			model_2.applyTransform(currentFrame, nextFrame, cycle1, cycle2, dataType);
 		else
 			model_2.applyTransform(currentFrame);
 		model_2.calculateDiagonals();
