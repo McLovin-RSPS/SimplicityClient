@@ -7,15 +7,20 @@ public final class FrameReader {
 
 	public static void initialise(int i) {
 		animationListRegular = new FrameReader[20000][0];
+		animationListOldschool = new FrameReader[20000][0];
 	}
 
-	public static void load(int file, byte[] fileData, boolean osrs) {
+	public static void load(int file, byte[] fileData, DataType dataType) {
 		try {
 			Stream stream = new Stream(fileData);
 			SkinList skinList = new SkinList(stream, 0);
 			int k1 = stream.readUnsignedWord();
-			
-			animationListRegular[file] = new FrameReader[(int) (k1 * 10)];
+
+			if(dataType == DataType.OLDSCHOOL) {
+				animationListOldschool[file] = new FrameReader[(int) (k1 * 10)];
+			} else {
+				animationListRegular[file] = new FrameReader[(int) (k1 * 10)];
+			}
 			
 			int ai[] = new int[500];
 			int ai1[] = new int[500];
@@ -24,7 +29,12 @@ public final class FrameReader {
 			for (int l1 = 0; l1 < k1; l1++) {
 				int i2 = stream.readUnsignedWord();
 				
-				FrameReader frameReader = animationListRegular[file][i2] = new FrameReader();
+				FrameReader frameReader;
+				if(dataType == DataType.OLDSCHOOL) {
+					frameReader = animationListOldschool[file][i2] = new FrameReader();
+				} else {
+					frameReader = animationListRegular[file][i2] = new FrameReader();
+				}
 				
 				frameReader.mySkinList = skinList;
 				int j2 = stream.readUnsignedByte();
@@ -98,18 +108,27 @@ public final class FrameReader {
 
 	public static void nullLoader() {
 		animationListRegular = null;
+		animationListOldschool = null;
 	}
 
 	public static FrameReader forID(int int1, DataType dataType) {
 		try {
 			int int2 = int1 >> 16;
 			int1 = int1 & 0xffff;
-			
-			if (animationListRegular[int2].length == 0 || animationListRegular[int2].length < int1) {
-				Client.instance.onDemandFetcher.requestFileData(dataType == DataType.OLDSCHOOL ? Client.OSRS_ANIM_IDX - 1 : Client.ANIM_IDX - 1, int2);
-				return null;
+
+			if(dataType == DataType.OLDSCHOOL) {
+				if (animationListOldschool[int2].length == 0 || animationListOldschool[int2].length < int1) {
+					Client.instance.onDemandFetcher.requestFileData(Client.OSRS_ANIM_IDX - 1, int2);
+					return null;
+				}
+				return animationListOldschool[int2][int1];
+			} else {
+				if (animationListRegular[int2].length == 0 || animationListRegular[int2].length < int1) {
+					Client.instance.onDemandFetcher.requestFileData(Client.ANIM_IDX - 1, int2);
+					return null;
+				}
+				return animationListRegular[int2][int1];
 			}
-			return animationListRegular[int2][int1];
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return null;
@@ -164,6 +183,7 @@ public final class FrameReader {
 	}
 
 	public static FrameReader animationListRegular[][];
+	public static FrameReader animationListOldschool[][];
 	public int displayLength;
 	public SkinList mySkinList;
 	public int stepCount;

@@ -33,9 +33,14 @@ public final class Player extends Entity {
 			SpotAnimDefinition spotAnim = SpotAnimDefinition.cache[super.anInt1520];
 			Model model_2 = spotAnim.getModel();
 			if (spotAnim.animation != null) {
-				if (FrameReader.animationListRegular[Integer.parseInt(Integer.toHexString(spotAnim.animation.frameIDs[0]).substring(0, Integer.toHexString(spotAnim.animation.frameIDs[0]).length() - 4),
-						16)].length == 0) {
-					model_2 = null;
+				if(spotAnim.dataType == DataType.OLDSCHOOL) {
+					if (FrameReader.animationListOldschool[Integer.parseInt(Integer.toHexString(spotAnim.animation.frameIDs[0]).substring(0, Integer.toHexString(spotAnim.animation.frameIDs[0]).length() - 4), 16)].length == 0) {
+						model_2 = null;
+					}
+				} else {
+					if (FrameReader.animationListRegular[Integer.parseInt(Integer.toHexString(spotAnim.animation.frameIDs[0]).substring(0, Integer.toHexString(spotAnim.animation.frameIDs[0]).length() - 4), 16)].length == 0) {
+						model_2 = null;
+					}
 				}
 			}
 
