@@ -5734,7 +5734,7 @@ public class Client extends RSApplet {
                 npc.anInt1555 = npc.desc.turn180AnimIndex;
                 npc.anInt1556 = npc.desc.turn90CWAnimIndex;
                 npc.anInt1557 = npc.desc.turn90CCWAnimIndex;
-                npc.anInt1511 = npc.desc.standAnim;
+                npc.standAnim = npc.desc.standAnim;
                 npc.setPos(myPlayer.pathX[0] + i1, myPlayer.pathY[0] + l, j1 == 1);
             }
             stream.finishBitAccess();
@@ -5805,7 +5805,7 @@ public class Client extends RSApplet {
             return false;
         }
         player.aBoolean1699 = (/* lowMem && playerCount > 50 || */playerCount > 200) && !flag
-                && player.anInt1517 == player.anInt1511;
+                && player.entityAnimation == player.standAnim;
         int j1 = player.x >> 7;
         int k1 = player.y >> 7;
         if (j1 < 0 || j1 >= 104 || k1 < 0 || k1 >= 104) {
@@ -11067,7 +11067,7 @@ public class Client extends RSApplet {
                 }
 
                 model.createBones();
-                model.applyTransform(Animation.anims[myPlayer.anInt1511].frameIDs[0]);
+                model.applyTransform(Animation.anims[myPlayer.standAnim].frameIDs[0]);
                 model.light(64, 850, -30, -50, -30, true);
                 rsi.mediaType = 5;
                 rsi.mediaID = 0;
@@ -11109,7 +11109,7 @@ public class Client extends RSApplet {
                         }
                     }
                 }
-                int staticFrame = myPlayer.anInt1511;
+                int staticFrame = myPlayer.standAnim;
                 characterDisplay.createBones();
                 characterDisplay.applyTransform(Animation.anims[staticFrame].frameIDs[0]);
                 rsInterface.mediaType = 5;
@@ -12585,7 +12585,7 @@ public class Client extends RSApplet {
                     npc.anInt1555 = npc.desc.turn180AnimIndex;
                     npc.anInt1556 = npc.desc.turn90CWAnimIndex;
                     npc.anInt1557 = npc.desc.turn90CCWAnimIndex;
-                    npc.anInt1511 = npc.desc.standAnim;
+                    npc.standAnim = npc.desc.standAnim;
                 }
                 if ((l & 4) != 0) {
                     npc.anInt1538 = stream.ig2();
@@ -13502,7 +13502,7 @@ public class Client extends RSApplet {
     }
 
     private void processWalkingStep(Entity entity) {
-        entity.anInt1517 = entity.anInt1511;
+        entity.entityAnimation = entity.standAnim;
         if (entity.pathLength == 0) {
             entity.anInt1503 = 0;
             return;
@@ -13563,7 +13563,7 @@ public class Client extends RSApplet {
         if (j1 == -1) {
             j1 = entity.anInt1554;
         }
-        entity.anInt1517 = j1;
+        entity.entityAnimation = j1;
         int k1 = 4;
         if (entity.anInt1552 != entity.turnDirection && entity.interactingEntity == -1 && entity.anInt1504 != 0) {
             k1 = 2;
@@ -13581,8 +13581,8 @@ public class Client extends RSApplet {
         if (entity.aBooleanArray1553[entity.pathLength - 1]) {
             k1 <<= 1;
         }
-        if (k1 >= 8 && entity.anInt1517 == entity.anInt1554 && entity.runAnimation != -1) {
-            entity.anInt1517 = entity.runAnimation;
+        if (k1 >= 8 && entity.entityAnimation == entity.anInt1554 && entity.runAnimation != -1) {
+            entity.entityAnimation = entity.runAnimation;
         }
         if (currentX < nextX) {
             entity.x += k1;
@@ -13664,20 +13664,20 @@ public class Client extends RSApplet {
                 entity.anInt1552 += entity.anInt1504;
             }
             entity.anInt1552 &= 0x7ff;
-            if (entity.anInt1517 == entity.anInt1511 && entity.anInt1552 != entity.turnDirection) {
+            if (entity.entityAnimation == entity.standAnim && entity.anInt1552 != entity.turnDirection) {
                 if (entity.anInt1512 != -1) {
-                    entity.anInt1517 = entity.anInt1512;
+                    entity.entityAnimation = entity.anInt1512;
                     return;
                 }
-                entity.anInt1517 = entity.anInt1554;
+                entity.entityAnimation = entity.anInt1554;
             }
         }
     }
 
     private void appendAnimation(Entity entity) {
         /*
-         * entity.aBoolean1541 = false; if (entity.anInt1517 != -1) { try { Animation
-         * animation = Animation.anims[entity.anInt1517]; entity.anInt1519++; if
+         * entity.aBoolean1541 = false; if (entity.entityAnimation != -1) { try { Animation
+         * animation = Animation.anims[entity.entityAnimation]; entity.anInt1519++; if
          * (entity.currentForcedAnimFrame < animation.frameCount && entity.anInt1519 >
          * animation .getFrameLength(entity.currentForcedAnimFrame)) {
          * //entity.anInt1519 = 1;// this is the frame delay. 0 is what it's // normally
@@ -13720,11 +13720,11 @@ public class Client extends RSApplet {
          */
 
         entity.aBoolean1541 = false;
-        if (entity.anInt1517 != -1) {
-            if (entity.anInt1517 > Animation.anims.length) {
-                entity.anInt1517 = 0;
+        if (entity.entityAnimation != -1) {
+            if (entity.entityAnimation > Animation.anims.length) {
+                entity.entityAnimation = 0;
             }
-            Animation animation = Animation.anims[entity.anInt1517];
+            Animation animation = Animation.anims[entity.entityAnimation];
             entity.anInt1519++;
             if (entity.currentForcedAnimFrame < animation.frameCount
                     && entity.anInt1519 > animation.getFrameLength(entity.currentForcedAnimFrame)) {
@@ -19563,7 +19563,7 @@ public class Client extends RSApplet {
                 continue;
             }
             player.aBoolean1699 = (/* lowMem && playerCount > 50 || */playerCount > 200) && !flag
-                    && player.anInt1517 == player.anInt1511;
+                    && player.entityAnimation == player.standAnim;
             int j1 = player.x >> 7;
             int k1 = player.y >> 7;
             if (j1 < 0 || j1 >= 104 || k1 < 0 || k1 >= 104) {

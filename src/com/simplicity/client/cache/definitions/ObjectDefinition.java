@@ -1179,6 +1179,6 @@ public final class ObjectDefinition {
     public static MemCache modelCache = new MemCache(500);
     public static MemCache osrsModelCache = new MemCache(500);
     public String actions[];
-    public DataType dataType;
+    public DataType dataType = DataType.REGULAR;
 
 }

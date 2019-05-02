@@ -22,8 +22,8 @@ public final class NPC extends Entity
 			int cycle2 = super.anInt1528;
 			//int frame = Animation.anims[super.anim].anIntArray353[super.anInt1527];
 			int i1 = -1;
-			if(super.anInt1517 >= 0 && super.anInt1517 != super.anInt1511)
-				i1 = Animation.anims[super.anInt1517].frameIDs[super.currentForcedAnimFrame];
+			if(super.entityAnimation >= 0 && super.entityAnimation != super.standAnim)
+				i1 = Animation.anims[super.entityAnimation].frameIDs[super.currentForcedAnimFrame];
 			return desc.method164(i1, currentFrame, Animation.anims[super.anim].animationFlowControl, nextFrame, cycle1, cycle2);
 		}
 		
@@ -31,8 +31,8 @@ public final class NPC extends Entity
 		int nextFrame = -1;
 		int cycle1 = 0;
 		int cycle2 = 0;
-		if(super.anInt1517 >= 0) {
-			Animation animation = Animation.anims[super.anInt1517];
+		if(super.entityAnimation >= 0) {
+			Animation animation = Animation.anims[super.entityAnimation];
 			currentFrame = animation.frameIDs[super.currentForcedAnimFrame];
 			nextFrame = animation.frameIDs[super.nextIdleAnimationFrame];
 			cycle1 = animation.delays[super.currentForcedAnimFrame];

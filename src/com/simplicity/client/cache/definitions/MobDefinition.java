@@ -2114,5 +2114,5 @@ public final class MobDefinition {
 	public static MemCache modelCache = new MemCache(30);
 	public static MemCache modelCacheOSRS = new MemCache(30);
 	public int id;
-	public DataType dataType;
+	public DataType dataType = DataType.REGULAR;
 }

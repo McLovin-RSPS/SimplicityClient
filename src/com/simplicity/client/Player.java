@@ -49,7 +49,7 @@ public final class Player extends Entity {
 				model_3.translate(0, -super.graphicHeight, 0);
 				model_3.createBones();
 				model_3.scaleT(132, 132, 132);
-				model_3.applyTransform(spotAnim.animation.frameIDs[super.currentAnim]);
+				model_3.applyTransform(spotAnim.animation.frameIDs[super.currentAnim], spotAnim.animation.dataType);
 				model_3.triangleSkin = null;
 				model_3.vertexSkin = null;
 				if (spotAnim.sizeXY != 128 || spotAnim.sizeZ != 128)
@@ -153,9 +153,9 @@ public final class Player extends Entity {
 			anIntArray1700[l] = j1;
 		}
 
-		super.anInt1511 = stream.readUnsignedWord();
-		if (super.anInt1511 == 65535)
-			super.anInt1511 = -1;
+		super.standAnim = stream.readUnsignedWord();
+		if (super.standAnim == 65535)
+			super.standAnim = -1;
 		super.anInt1512 = stream.readUnsignedWord();
 		if (super.anInt1512 == 65535)
 			super.anInt1512 = -1;
@@ -185,7 +185,7 @@ public final class Player extends Entity {
 
 		if (desc != null) {
 			combatLevel = desc.combatLevel;
-			super.anInt1511 = desc.standAnim;
+			super.standAnim = desc.standAnim;
 			super.anInt1512 = desc.standAnim;
 			super.anInt1554 = desc.walkAnim;
 			super.anInt1555 = desc.standAnim;
@@ -219,27 +219,29 @@ public final class Player extends Entity {
 			int j = -1;
 			if (super.anim >= 0 && super.animationDelay == 0) {
 				j = Animation.anims[super.anim].frameIDs[super.currentAnimFrame];
-			} else if (super.anInt1517 >= 0) {
-				j = Animation.anims[super.anInt1517].frameIDs[super.currentForcedAnimFrame];
+			} else if (super.entityAnimation >= 0) {
+				j = Animation.anims[super.entityAnimation].frameIDs[super.currentForcedAnimFrame];
 			}
 			Model model = desc.getAnimatedModel(-1, j, null);
 			return model;
 		}
 		 */
+
 		if(desc != null)
 		{
 			int currentFrame = -1;
 			int nextFrame = -1;
 			int cycle1 = 0;
 			int cycle2 = 0;
+
 			if(super.anim >= 0 && super.animationDelay == 0) {
 				Animation animation = Animation.anims[super.anim];
 				currentFrame = animation.frameIDs[super.currentAnimFrame];
 				nextFrame = animation.frameIDs[super.nextAnimationFrame];
 				cycle1 = animation.delays[super.currentAnimFrame];
 				cycle2 = super.anInt1528;
-			} else if(super.anInt1517 >= 0) {
-				Animation animation = Animation.anims[super.anInt1517];
+			} else if(super.entityAnimation >= 0) {
+				Animation animation = Animation.anims[super.entityAnimation];
 				currentFrame = animation.frameIDs[super.currentForcedAnimFrame];
 				nextFrame = animation.frameIDs[super.nextIdleAnimationFrame];
 				cycle1 = animation.delays[super.currentForcedAnimFrame];
@@ -267,8 +269,9 @@ public final class Player extends Entity {
 				nextFrame = animation.frameIDs[super.nextAnimationFrame];
 			cycle1 = animation.delays[super.currentAnimFrame];
 			cycle2 = super.anInt1528;
-			if(super.anInt1517 >= 0 && super.anInt1517 != super.anInt1511)
-				i1 = Animation.anims[super.anInt1517].frameIDs[super.currentForcedAnimFrame];
+			if(super.entityAnimation >= 0 && super.entityAnimation != super.standAnim)
+				i1 = Animation.anims[super.entityAnimation].frameIDs[super.currentForcedAnimFrame];
+
 			if(animation.leftHandItem >= 0)
 			{
 				j1 = animation.leftHandItem;
@@ -280,8 +283,8 @@ public final class Player extends Entity {
 				l += k1 - equipment[3] << 48;
 			}
 		} else
-			if(super.anInt1517 >= 0) {
-				Animation animation = Animation.anims[super.anInt1517];
+			if(super.entityAnimation >= 0) {
+				Animation animation = Animation.anims[super.entityAnimation];
 				currentFrame = animation.frameIDs[super.currentForcedAnimFrame];
 				nextFrame = animation.frameIDs[super.nextIdleAnimationFrame];
 				cycle1 = animation.delays[super.currentForcedAnimFrame];
@@ -369,6 +372,8 @@ public final class Player extends Entity {
 		
 		if (super.anim != -1) {
 			dataType = Animation.anims[super.anim].dataType;
+		} else if(super.entityAnimation != -1) {
+			dataType = Animation.anims[super.entityAnimation].dataType;
 		}
 		
 		if (currentFrame != -1 && i1 != -1)
@@ -376,7 +381,7 @@ public final class Player extends Entity {
 		else if (currentFrame != -1 && nextFrame != -1)
 			model_2.applyTransform(currentFrame, nextFrame, cycle1, cycle2, dataType);
 		else
-			model_2.applyTransform(currentFrame);
+			model_2.applyTransform(currentFrame, dataType);
 		model_2.calculateDiagonals();
 		model_2.triangleSkin = null;
 		model_2.vertexSkin = null;
