@@ -770,6 +770,9 @@ public final class ItemDefinition {
 
         ItemDefinition itemDef = new ItemDefinition();
 
+        if(itemId > streamIndices.length) {
+            return forID(1);
+        }
         stream.currentOffset = streamIndices[itemId];
         itemDef.id = itemId;
         itemDef.setDefaults();
