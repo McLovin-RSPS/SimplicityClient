@@ -14260,23 +14260,38 @@ public class Client extends RSApplet {
                                                 boolean bankTab = child.id >= 22035 && child.id <= 22042;
                                                 int k10 = child.invStackSizes[spriteIndex];
                                                 if (!bankTab) {
-                                                    if (k10 >= 1500000000 && child.drawInfinity) {
-                                                        SpriteLoader.sprites[653].drawSprite(itemSpriteX, itemSpriteY);
-                                                    } else if (k10 == 0) { // Placeholder text
-                                                        newSmallFont.drawBasicString(intToKOrMil(k10), itemSpriteX + k6,
-                                                                itemSpriteY + 9 + j7, 0xFFFF00, 1, 120);
-                                                    } else {
-                                                        smallText.method385(0, intToKOrMil(k10), itemSpriteY + 10 + j7,
-                                                                itemSpriteX + 1 + k6);
-                                                        if (k10 > 99999 && k10 < 10000000) {
-                                                            smallText.method385(0xFFFFFF, intToKOrMil(k10),
-                                                                    itemSpriteY + 9 + j7, itemSpriteX + k6);
-                                                        } else if (k10 > 9999999) {
-                                                            smallText.method385(0x00ff80, intToKOrMil(k10),
-                                                                    itemSpriteY + 9 + j7, itemSpriteX + k6);
+
+                                                    if(rsInterface.id == 33213) {
+                                                        if (k10 >= 1500000000 && child.drawInfinity) {
+                                                            SpriteLoader.sprites[653].drawSprite(itemSpriteX, itemSpriteY);
+                                                        } else if (k10 == 0) {
+
                                                         } else {
-                                                            smallText.method385(0xFFFF00, intToKOrMil(k10),
-                                                                    itemSpriteY + 9 + j7, itemSpriteX + k6);
+                                                            smallText.method385(0, formatWithDecimal(k10), itemSpriteY + 10 + j7 - 6,
+                                                                    itemSpriteX + 1 + k6);
+
+                                                                smallText.method385(0xFFFF00, formatWithDecimal(k10),
+                                                                        itemSpriteY + 9 + j7 - 6, itemSpriteX + k6);
+                                                        }
+                                                    } else {
+                                                        if (k10 >= 1500000000 && child.drawInfinity) {
+                                                            SpriteLoader.sprites[653].drawSprite(itemSpriteX, itemSpriteY);
+                                                        } else if (k10 == 0) { // Placeholder text
+                                                            newSmallFont.drawBasicString(intToKOrMil(k10), itemSpriteX + k6,
+                                                                    itemSpriteY + 9 + j7, 0xFFFF00, 1, 120);
+                                                        } else {
+                                                            smallText.method385(0, intToKOrMil(k10), itemSpriteY + 10 + j7,
+                                                                    itemSpriteX + 1 + k6);
+                                                            if (k10 > 99999 && k10 < 10000000) {
+                                                                smallText.method385(0xFFFFFF, intToKOrMil(k10),
+                                                                        itemSpriteY + 9 + j7, itemSpriteX + k6);
+                                                            } else if (k10 > 9999999) {
+                                                                smallText.method385(0x00ff80, intToKOrMil(k10),
+                                                                        itemSpriteY + 9 + j7, itemSpriteX + k6);
+                                                            } else {
+                                                                smallText.method385(0xFFFF00, intToKOrMil(k10),
+                                                                        itemSpriteY + 9 + j7, itemSpriteX + k6);
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -19996,11 +20011,77 @@ public class Client extends RSApplet {
         return 0xFFFFFF;
     }
 
+    public static String formatWithDecimal(long num) {
+        boolean negative = false;
+        if (num < 0) {
+            num = -num;
+            negative = true;
+        }
+        int length = String.valueOf(num).length();
+        String number = Long.toString(num);
+        String numberString = number;
+        String end = "";
+        if (length == 4) {
+            numberString = number.substring(0, 1) + "k";
+            //6400
+            double doubleVersion = 0.0;
+            doubleVersion = num / 1000.0;
+            if (doubleVersion != getDoubleRoundedUp(doubleVersion)) {
+                if (num - (1000 * getDoubleRoundedDown(doubleVersion)) > 100) {
+                    numberString = number.substring(0, 1) + "." + number.substring(1, 2) + "k";
+                }
+            }
+        } else if (length == 5) {
+            numberString = number.substring(0, 2) + "k";
+        } else if (length == 6) {
+            numberString = number.substring(0, 3) + "k";
+        } else if (length == 7) {
+            String sub = number.substring(1, 2);
+            if (sub.equals("0")) {
+                numberString = number.substring(0, 1) + "m";
+            } else {
+                numberString = number.substring(0, 1) + "." + number.substring(1, 2) + "m";
+            }
+        } else if (length == 8) {
+            end = "." + number.substring(2, 3);
+            if (end.equals(".0")) {
+                end = "";
+            }
+            numberString = number.substring(0, 2) + end + "m";
+        } else if (length == 9) {
+            end = "." + number.substring(3, 4);
+            if (end.equals(".0")) {
+                end = "";
+            }
+            numberString = number.substring(0, 3) + end + "m";
+        } else if (length == 10) {
+            numberString = number.substring(0, 4) + "m";
+        } else if (length == 11) {
+            numberString = number.substring(0, 2) + "." + number.substring(2, 5) + "b";
+        } else if (length == 12) {
+            numberString = number.substring(0, 3) + "." + number.substring(3, 6) + "b";
+        } else if (length == 13) {
+            numberString = number.substring(0, 4) + "." + number.substring(4, 7) + "b";
+        }
+        if (negative) {
+            numberString = "-" + numberString;
+        }
+        return numberString;
+    }
+
+    public static double getDoubleRoundedUp(double doubleNumber) {
+        return Math.ceil(doubleNumber);
+    }
+
+    public static double getDoubleRoundedDown(double doubleNumber) {
+        return (double) ((int) doubleNumber);
+    }
+
     public final String formatAmount(long amount) {
         // System.out.println(getMoneyInPouch());
         String format = "Too Much!";
         // System.out.println(amount);
-        if (amount >= 0 && amount < 100000) {
+        if (amount >= 0 && amount <= 100000) {
             format = String.valueOf(amount);
         } else if (amount >= 100000 && amount <= 1000000) {
             format = amount / 1000 + "K";
