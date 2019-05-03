@@ -2260,7 +2260,7 @@ public final class ItemDefinition {
                 itemDef.modelZoom = 2150;
                 itemDef.rotationX = 1010;
                 itemDef.rotationY = 512;
-                itemDef.femaleEquip1 = 14402;
+                itemDef.femaleEquip1 = 49001;
                 itemDef.maleEquip1 = 49001;
                 itemDef.actions = new String[5];
                 itemDef.actions[1] = "Wield";
@@ -7918,6 +7918,7 @@ public final class ItemDefinition {
             }
         }
         
+        femaleEquip1 = copy.femaleEquip1;
         femaleEquip3 = copy.femaleEquip3;
         femaleEquip2 = copy.femaleEquip2;
 
