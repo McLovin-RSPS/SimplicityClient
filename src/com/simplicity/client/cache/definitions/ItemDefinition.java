@@ -7331,8 +7331,13 @@ public final class ItemDefinition {
                 editedModelColor = new int[j];
                 newModelColor = new int[j];
                 for (int k = 0; k < j; k++) {
-                    editedModelColor[k] = stream.readUnsignedWord();
-                    newModelColor[k] = stream.readUnsignedWord();
+                    if(osrs) {
+                        newModelColor[k] = stream.readUnsignedWord();
+                        editedModelColor[k] = stream.readUnsignedWord();
+                    } else {
+                        editedModelColor[k] = stream.readUnsignedWord();
+                        newModelColor[k] = stream.readUnsignedWord();
+                    }
                 }
             } else if (i == 78) {
                 maleEquip3 = stream.readUnsignedWord();
