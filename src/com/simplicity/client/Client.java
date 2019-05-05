@@ -4300,6 +4300,9 @@ public class Client extends RSApplet {
             // mouseX = super.clickX;
             // mouseY = super.clickY;
             // }
+            if(child.invisible) {
+                continue;
+            }
             if ((child.hoverType >= 0 || child.disabledMouseOverColor != 0) && mouseX >= childX && mouseY >= childY
                     && mouseX < childX + child.width && mouseY < childY + child.height) {
                 if (child.hoverType >= 0) {
@@ -4398,6 +4401,13 @@ public class Client extends RSApplet {
                 }
                 if (child.atActionType == 5 && mouseX >= childX && mouseY >= childY && mouseX < childX + child.width
                         && mouseY < childY + child.height) {
+                    if(child.tooltip2 != null) {
+                        menuActionName[menuActionRow] = child.tooltip2
+                                + ((myRights != 0) ? ", @gre@(@whi@" + (child.id + 1) + "@gre@)" : "");
+                        menuActionID[menuActionRow] = 646;
+                        menuActionCmd3[menuActionRow] = child.id + 1;
+                        menuActionRow++;
+                    }
                     menuActionName[menuActionRow] = child.tooltip
                             + ((myRights != 0) ? ", @gre@(@whi@" + child.id + "@gre@)" : "");
                     menuActionID[menuActionRow] = 646;
@@ -10281,7 +10291,7 @@ public class Client extends RSApplet {
                         inputString = "";
                         return;
                     }
-                    if (inputString.equals("::packrsi")) {
+                    if (inputString.equals("::packrsi") || inputString.equals("::repack")) {
                         CacheArchive streamLoader_1 = streamLoaderForName(3, "interface", "interface", expectedCRCs[3],
                                 35);
                         CacheArchive streamLoader_2 = streamLoaderForName(4, "2d graphics", "media", expectedCRCs[4],
@@ -14128,6 +14138,9 @@ public class Client extends RSApplet {
                 if (child == null || child.hidden) {
                     continue;
                 }
+                if(child.invisible) {
+                    continue;
+                }
                 childX += child.xOffset;
                 childY += child.yOffset;
                 if (child.contentType > 0) {
@@ -14256,7 +14269,7 @@ public class Client extends RSApplet {
                                             } else {
                                                 sprite_2.drawSprite(itemSpriteX, itemSpriteY);
                                             }
-                                            if (sprite_2.maxWidth == 33 || child.invStackSizes[spriteIndex] != 1) {
+                                            if (sprite_2.maxWidth == 33 || child.invStackSizes[spriteIndex] != 1 || rsInterface.id == 33213) {
                                                 boolean bankTab = child.id >= 22035 && child.id <= 22042;
                                                 int k10 = child.invStackSizes[spriteIndex];
                                                 if (!bankTab) {
@@ -14267,11 +14280,7 @@ public class Client extends RSApplet {
                                                         } else if (k10 == 0) {
 
                                                         } else {
-                                                            smallText.method385(0, formatWithDecimal(k10), itemSpriteY + 10 + j7 - 6,
-                                                                    itemSpriteX + 1 + k6);
-
-                                                                smallText.method385(0xFFFF00, formatWithDecimal(k10),
-                                                                        itemSpriteY + 9 + j7 - 6, itemSpriteX + k6);
+                                                            smallText.drawCenteredText(0xffff00, itemSpriteX + 14, formatWithDecimal(k10), itemSpriteY + 10 + j7 - 8, true);
                                                         }
                                                     } else {
                                                         if (k10 >= 1500000000 && child.drawInfinity) {
@@ -14486,7 +14495,6 @@ public class Client extends RSApplet {
                             }
                         }
                     } else if (child.type == 5) {
-
                         Sprite sprite;
                         if (child.enabledSpriteId != -1) {
                             if (child.enabledSpriteId > SpriteCache.spriteCache.length) {
@@ -14569,9 +14577,6 @@ public class Client extends RSApplet {
                             }
                         }
                     } else if (child.type == 6) {
-                        if (child.interfaceShown) {
-                            continue;
-                        }
                         int k3 = Rasterizer.textureInt1;
                         int j4 = Rasterizer.textureInt2;
                         Rasterizer.textureInt1 = childX + child.width / 2;
@@ -18836,7 +18841,11 @@ public class Client extends RSApplet {
                     boolean flag1 = inStream.readUnsignedByte() == 1;
                     int j13 = inStream.readUnsignedWord();
                     try {
-                        RSInterface.interfaceCache[j13].interfaceShown = flag1;
+                        if(j13 >= 52000 && j13 <= 53000) {
+                            RSInterface.interfaceCache[j13].invisible = flag1;
+                        } else {
+                            RSInterface.interfaceCache[j13].interfaceShown = flag1;
+                        }
                     } catch (Exception e) {
                         System.out.println("Error hiding interface id: " + j13);
                         e.printStackTrace();
@@ -18888,6 +18897,12 @@ public class Client extends RSApplet {
                             opCode = -1;
                             return true;
                         }
+                    }
+                    if(text.startsWith("scrollmax")) {
+                        String[] args = text.split(" ");
+                        int scrollValue = Integer.parseInt(args[2]);
+                        int scrollInterfaceId = Integer.parseInt(args[1]);
+                        RSInterface.interfaceCache[scrollInterfaceId].scrollMax = scrollValue;
                     }
                     if (frame == 29450) {
                         if (text.contains("Owner:")) {

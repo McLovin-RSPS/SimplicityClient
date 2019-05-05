@@ -588,6 +588,123 @@ public class RSInterface {
         /* 7629: */
     }
 
+    public static void teleports(TextDrawingArea[] tda) {
+        int baseX = 8;
+        int baseY = 12;
+
+        int interfaceId = 51_000;
+        int teleportListId = 51_100;
+        int favoritesListId = 52_000;
+        int index = 1;
+
+        String[] categories = {"Monsters", "Minigames", "Bosses", "Wilderness", "Dungeons"};
+
+        RSInterface mainInterface = RSInterface.addInterface(interfaceId); //main interface display
+
+        addSpriteLoader(interfaceId + index++, 1138); //main sprite
+        RSInterface.addText(interfaceId + index++, "Teleports", tda, 2, 0xff981f, true);
+        RSInterface.addText(interfaceId + index++, "Category", tda, 3, 0xffff01, true);
+        RSInterface.addText(interfaceId + index++, "Favorites", tda, 3, 0xffff01, true);
+
+        addHoverButtonWSpriteLoader(interfaceId + index++, 1020, 21, 21, "Close Window", 0, interfaceId + index, 3);
+        addHoveredImageWSpriteLoader(interfaceId + index++, 1021, 21, 21, interfaceId + index++);
+
+        for(String category : categories) {
+            addHoverButtonWSpriteLoader(interfaceId + index++, 1013, 90, 32, "Select @gre@"+category, 0, interfaceId + index, 5);
+            addHoveredImageWSpriteLoader(interfaceId + index++, 1014, 90, 32, interfaceId + index++);
+            RSInterface.addText(interfaceId + index++, category, tda, 1, 0xffff01, true);
+        }
+
+        RSInterface teleportsList = RSInterface.addInterface(teleportListId); index++; //teleport list scroll
+        RSInterface favoritesList = RSInterface.addInterface(favoritesListId); index++; //favorite list scroll
+
+        mainInterface.totalChildren(index - 2 - categories.length);
+
+        index = 0;
+        mainInterface.child(index++, interfaceId + index, baseX, baseY); //background
+        mainInterface.child(index++, interfaceId + index, baseX + (495 / 2), baseY + 9); //title
+        mainInterface.child(index++, interfaceId + index, baseX + 123 + (163 / 2) + 8, baseY + 39); //category
+        mainInterface.child(index++, interfaceId + index, baseX + 309 + (163 / 2) + 8, baseY + 39); //favorites
+
+        mainInterface.child(index++, interfaceId + index, baseX + 466, baseY + 7); //close
+        mainInterface.child(index++, interfaceId++ + index, baseX + 466, baseY + 7); //close hover
+
+        int categoryLength = 0;
+        for(String category : categories) {
+            mainInterface.child(index++, interfaceId + index, baseX + 16, baseY + 53 + (categoryLength * 50)); //teleport
+            mainInterface.child(index++, interfaceId++ + index, baseX + 16, baseY + 53 + (categoryLength * 50)); //teleport hover
+            mainInterface.child(index++, interfaceId + index, baseX + 16 + (90 / 2), baseY + 61 + (categoryLength * 50)); //teleport text
+            categoryLength++;
+        }
+
+        mainInterface.child(index++, teleportListId, 123 + baseX, 67 + baseY); //teleport list
+        mainInterface.child(index++, favoritesListId, 309 + baseX, 67 + baseY); //teleport list
+
+        /*
+         * Teleport list
+         */
+        int totalTeleports = 30;
+        teleportsList.width = 163;
+        teleportsList.height = 236;
+        teleportsList.scrollMax = totalTeleports * 40 + 5;
+
+        teleportsList.totalChildren(totalTeleports * 4);
+
+        teleportListId++;
+
+        index = 0;
+
+        int increaseY = 0;
+        for (int i = 0; i < totalTeleports; i++) {
+            addHoverButtonWSpriteLoader(teleportListId, 1139, 145, 35, "Select", 0, teleportListId + 1, 5, "Favorite");
+            teleportsList.child(index++, teleportListId++, 7, 7 + increaseY); //teleport
+
+            addHoveredImageWSpriteLoader(teleportListId, 1140, 145, 35, teleportListId + 1);
+            teleportsList.child(index++, teleportListId++, 7, 7 + increaseY); //teleport hover
+
+            teleportListId++;
+
+            RSInterface.addText(teleportListId, "Teleport Text", tda, 1, 0xc8aa64, true);
+            teleportsList.child(index++, teleportListId++, 7 + (145 / 2), 16 + increaseY);
+
+            RSInterface.addText(teleportListId, "21", tda, 0, 0xff0000, true);
+            teleportsList.child(index++, teleportListId++, 9 + 135 - 3, 7 + increaseY + 3);
+            increaseY += 40;
+        }
+
+        /*
+         * Favorite list
+         */
+        totalTeleports = 30;
+        favoritesList.width = 163;
+        favoritesList.height = 236;
+        favoritesList.scrollMax = totalTeleports * 80 + 5;
+
+        favoritesList.totalChildren(totalTeleports * 4);
+
+        favoritesListId++;
+
+        index = 0;
+
+        increaseY = 0;
+        for (int i = 0; i < totalTeleports; i++) {
+            addHoverButtonWSpriteLoader(favoritesListId, 1139, 145, 35, "Select", 0, favoritesListId + 1, 5, "Remove");
+            favoritesList.child(index++, favoritesListId++, 7, 7 + increaseY); //teleport
+
+            addHoveredImageWSpriteLoader(favoritesListId, 1140, 145, 35, favoritesListId + 1);
+            favoritesList.child(index++, favoritesListId++, 7, 7 + increaseY); //teleport hover
+
+            favoritesListId++;
+
+            RSInterface.addText(favoritesListId, "Teleport Text", tda, 1, 0xc8aa64, true);
+            favoritesList.child(index++, favoritesListId++, 7 + (145 / 2), 16 + increaseY);
+
+            RSInterface.addText(favoritesListId, "21", tda, 0, 0xff0000, true);
+            favoritesList.child(index++, favoritesListId++, 9 + 135 - 3, 7 + increaseY + 3);
+            increaseY += 40;
+        }
+    }
+
     public static void teleport(TextDrawingArea[] t) {
 
         int id = 51000;
@@ -595,7 +712,7 @@ public class RSInterface {
         final RSInterface main_widget = addTabInterface(id);
         id++;
 
-        String[] CATEGORY = {"Monsters", "Minigames", "Bosses", "Player Killing", "Dungeons",};
+        String[] CATEGORY = {"Monsters", "Minigames", "Bosses", "Wilderness", "Dungeons",};
 
         int frame = 0;
 
@@ -3658,7 +3775,7 @@ public class RSInterface {
         // duelArena();
         addToTrade();
         dropTableCheckerInterface(textDrawingAreas);
-        teleport(textDrawingAreas);
+        teleports(textDrawingAreas);
         raids(textDrawingAreas);
         raidsRewards(textDrawingAreas);
         /*
@@ -10548,8 +10665,11 @@ public class RSInterface {
         tab.drawsTransparent = true;
     }
 
-    public static void addHoverButtonWSpriteLoader(int i, int spriteId, int width, int height, String text,
-                                                   int contentType, int hoverOver, int aT) {// hoverable
+    public static void addHoverButtonWSpriteLoader(int i, int spriteId, int width, int height, String text, int contentType, int hoverOver, int aT) {// hoverable
+        addHoverButtonWSpriteLoader(i, spriteId, width, height, text, contentType, hoverOver, aT, null);
+    }
+
+    public static void addHoverButtonWSpriteLoader(int i, int spriteId, int width, int height, String text, int contentType, int hoverOver, int aT, String tooltip2) {// hoverable
         // button
         RSInterface tab = addTabInterface(i);
         tab.id = i;
@@ -10564,6 +10684,7 @@ public class RSInterface {
         tab.width = width;
         tab.height = height;
         tab.tooltip = text;
+        tab.tooltip2 = tooltip2;
     }
 
     public static void addButtonWSpriteLoader(int id, int spriteId, String tooltip) {
@@ -11751,6 +11872,7 @@ public class RSInterface {
     public int itemSpriteZoom2;
     public int itemSpriteIndex;
     public String tooltip;
+    public String tooltip2 = null;
     public String selectedActionName;
     public boolean centerText;
     public int scrollPosition;
@@ -11801,6 +11923,7 @@ public class RSInterface {
     private static final MemCache modelCache = new MemCache(30);
     public int yOffset;
     public boolean interfaceShown;
+    public boolean invisible;
     public int height;
     public boolean shadowed;
     public int modelZoom;
