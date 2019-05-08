@@ -21597,21 +21597,13 @@ public class Client extends RSApplet {
                     aLong953 = friendsListAsLongs[node];
                     promptMessage = "Enter message to send to " + friendsList[node];
                 } else {
-                    if (isStaff(myRights)) {
-                        inputTaken = true;
-                        inputDialogState = 0;
-                        showInput = true;
-                        promptInput = "";
-                        friendsListAction = 3;
-                        aLong953 = TextClass.longForName(capitalize(name));
-                        promptMessage = "Enter message to send to " + capitalize(name);
-                    } else {
-                        if (node == -1) {
-                            pushMessage(capitalize(name) + " is not in your friendlist.", 0, "");
-                        } else if (!(friendsNodeIDs[node] > 0)) {
-                            pushMessage(capitalize(name) + " is not online.", 0, "");
-                        }
-                    }
+                    inputTaken = true;
+                    inputDialogState = 0;
+                    showInput = true;
+                    promptInput = "";
+                    friendsListAction = 3;
+                    aLong953 = TextClass.longForName(capitalize(name));
+                    promptMessage = "Enter message to send to " + capitalize(name);
                 }
             }
         } catch (Exception e) {
