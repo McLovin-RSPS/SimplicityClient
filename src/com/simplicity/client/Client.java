@@ -5490,8 +5490,8 @@ public class Client extends RSApplet {
         int i = menuOffsetX;
         int j = menuOffsetY;
         int k = menuWidth;
-        int j1 = super.mouseX;
-        int k1 = super.mouseY;
+        int posX = super.mouseX;
+        int posY = super.mouseY;
         int l = menuHeight + 1;
         int i1 = 0x5d5447;
         if (menuScreenArea == 1 && (clientSize > 0)) {
@@ -5505,25 +5505,26 @@ public class Client extends RSApplet {
             i += 515;
             j += 0;
         }
+
         if (menuScreenArea == 0) {
-            j1 -= 4;
-            k1 -= 4;
+            posX -= 4;
+            posY -= 2;
         }
         if (menuScreenArea == 1) {
             if (!(clientSize > 0)) {
-                j1 -= 519;
-                k1 -= 168;
+                posX -= 519;
+                posY -= 168;
             }
         }
         if (menuScreenArea == 2) {
             if (!(clientSize > 0)) {
-                j1 -= 17;
-                k1 -= 338;
+                posX -= 17;
+                posY -= 338;
             }
         }
         if (menuScreenArea == 3 && !(clientSize > 0)) {
-            j1 -= 515;
-            k1 -= 0;
+            posX -= 515;
+            posY -= 0;
         }
         if (menuToggle == false) {
             DrawingArea.fillRectangle(i1, j, k, l, 150, i);
@@ -5535,7 +5536,7 @@ public class Client extends RSApplet {
             for (int l1 = 0; l1 < menuActionRow; l1++) {
                 int i2 = j + 31 + (menuActionRow - 1 - l1) * 15;
                 int j2 = 0xffffff;
-                if (j1 > i && j1 < i + k && k1 > i2 - 13 && k1 < i2 + 3) {
+                if (posX > i && posX < i + k && posY > i2 - 13 && posY < i2 + 3) {
                     j2 = 0xffff00;
                 }
                 chatTextDrawingArea.drawRegularText(true, i + 3, j2, menuActionName[l1], i2);
@@ -5573,7 +5574,7 @@ public class Client extends RSApplet {
             for (int l1 = 0; l1 < menuActionRow; l1++) {
                 int i2 = j + 31 + (menuActionRow - 1 - l1) * 15;
                 int j2 = 0xc6b895;
-                if (j1 > i && j1 < i + k && k1 > i2 - 13 && k1 < i2 + 3) {
+                if (posX > i && posX < i + k && posY > i2 - 13 && posY < i2 + 3) {
                     DrawingArea.drawPixels(15, i2 - 11, i + 3, 0x6f695d, menuWidth - 6);
                     j2 = 0xeee5c6;
                     currentActionMenu = l1;
