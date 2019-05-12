@@ -20,7 +20,7 @@ public final class ObjectDefinition {
         try {
             PrintWriter writer = new PrintWriter("../667objects.txt");
             for (int i = 0; i < totalObjects667; i++) {
-                ObjectDefinition entityDef = forID(i, false);
+                ObjectDefinition entityDef = forID(i);
 
                 if (entityDef == null || entityDef.name == null)
                     continue;
@@ -76,7 +76,7 @@ public final class ObjectDefinition {
         try {
             PrintWriter writer = new PrintWriter("../osrsobjects.txt");
             for (int i = 0; i < totalObjectsOSRS; i++) {
-                ObjectDefinition entityDef = forIDOSRS(i);
+                ObjectDefinition entityDef = getDefOldschool(i);
 
                 if (entityDef == null || entityDef.name == null)
                     continue;
@@ -131,7 +131,7 @@ public final class ObjectDefinition {
         }
     }
 
-    public static ObjectDefinition forIDOSRS(int i) {
+    public static ObjectDefinition getDefOldschool(int i) {
         for (int j = 0; j < 200; j++) {
             if (cacheOSRS[j].type == i) {
                 return cacheOSRS[j];
@@ -139,11 +139,8 @@ public final class ObjectDefinition {
         }
         osrsCacheIndex = (osrsCacheIndex + 1) % 200;
         ObjectDefinition objectDef = cacheOSRS[osrsCacheIndex];
-        if (i > streamIndicesOSRS.length) {
-            return objectDef;
-        }
 
-        streamOSRS.currentOffset = streamIndicesOSRS[i];
+        streamOSRS.currentOffset = streamIndicesOSRS[i - 100_000];
         objectDef.type = i;
         objectDef.setDefaults();
         objectDef.dataType = DataType.OLDSCHOOL;
@@ -152,15 +149,15 @@ public final class ObjectDefinition {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (i == 30087) {
+        if (i == 130087) {
             objectDef.actions = new String[5];
             objectDef.actions[0] = "Use";
             objectDef.actions[1] = "View-presets";
         }
-        if (i == 34573) {
+        if (i == 134573) {
             objectDef.isUnwalkable = false;
         }
-        if (i == 10087) {
+        if (i == 110087) {
             objectDef.actions = new String[]{"Cage", null, null, null, null};
             objectDef.name = "@yel@Dark crab";
         }
@@ -201,22 +198,13 @@ public final class ObjectDefinition {
     private final static int[] hotSpotIDs = new int[]{13374, 13375, 13376, 13377, 13378, 39260, 39261, 39262, 39263, 39264, 39265, 2715, 13366, 13367, 13368, 13369, 13370, 13371, 13372, 15361, 15362, 15363, 15366, 15367, 15364, 15365, 15410, 15412, 15411, 15414, 15415, 15413, 15416, 15416, 15418, 15419, 15419, 15419, 15419, 15419, 15419, 15419, 15419, 15402, 15405, 15401, 15398, 15404, 15403, 15400, 15400, 15399, 15302, 15302, 15302, 15302, 15302, 15302, 15304, 15303, 15303, 15301, 15300, 15300, 15300, 15300, 15299, 15299, 15299, 15299, 15298, 15443, 15445, 15447, 15446, 15444, 15441, 15439, 15448, 15450, 15266, 15265, 15264, 15263, 15263, 15263, 15263, 15263, 15263, 15263, 15263, 15267, 15262, 15260, 15261, 15268, 15379, 15378, 15377, 15386, 15383, 15382, 15384, 34255, 15380, 15381, 15346, 15344, 15345, 15343, 15342, 15296, 15297, 15297, 15294, 15293, 15292, 15291, 15290, 15289, 15288, 15287, 15286, 15282, 15281, 15280, 15279, 15278, 15277, 15397, 15396, 15395, 15393, 15392, 15394, 15390, 15389, 15388, 15387, 44909, 44910, 44911, 44908, 15423, 15423, 15423, 15423, 15420, 48662, 15422, 15421, 15425, 15425, 15424, 18813, 18814, 18812, 18815, 18811, 18810, 15275, 15275, 15271, 15271, 15276, 15270, 15269, 13733, 13733, 13733, 13733, 13733, 13733, 15270, 15274, 15273, 15406, 15407, 15408, 15409, 15368, 15375, 15375, 15375, 15375, 15376, 15376, 15376, 15376, 15373, 15373, 15374, 15374, 15370, 15371, 15372, 15369, 15426, 15426, 15435, 15438, 15434, 15434, 15431, 15431, 15431, 15431, 15436, 15436, 15436, 15436, 15436, 15436, 15437, 15437, 15437, 15437, 15437, 15437, 15350, 15348, 15347, 15351, 15349, 15353, 15352, 15354, 15356, 15331, 15331, 15331, 15331, 15355, 15355, 15355, 15355, 15330, 15330, 15330, 15330, 15331, 15331, 15323, 15325, 15325, 15324, 15324, 15329, 15328, 15326, 15327, 15325, 15325, 15324, 15324, 15330, 15330, 15330, 15330, 15331, 15331, 34138, 15330, 15330, 34138, 34138, 15330, 34138, 15330, 15331, 15331, 15337, 15336, 39230, 39231, 36692, 39229, 36676, 34138, 15330, 15330, 34138, 34138, 15330, 34138, 15330, 15331, 15331, 36675, 36672, 36672, 36675, 36672, 36675, 36675, 36672, 15331, 15331, 15330, 15330, 15257, 15256, 15259, 15259, 15327, 15326};
 
     public static ObjectDefinition forID(int i) {
-        return forID(i, false);
-    }
-
-    public static ObjectDefinition forID(int i, boolean isOsrs) {
         boolean loadNew = (
                 /* i == 8550 || i == 8551 || i == 7847 || i == 8150 || */i == 32159 || i == 32157 || i == 36672 || i == 36675 || i == 36692 || i == 34138 || i >= 39260 && i <= 39271 || i == 39229
                 || i == 39230 || i == 39231 || i == 36676 || i == 36692 || i > 11915 && i <= 11929 || i >= 11426 && i <= 11444 || i >= 14835 && i <= 14845 || i >= 11391 && i <= 11397
                 || i >= 12713 && i <= 12715);
 
-        if (!isOsrs && i == 30283) {
-            isOsrs = true;
-        }
-
-        if (isOSRSObject(i) || isOsrs) {
-            return forIDOSRS(i);
-        }
+        if (i >= 100_000)
+            return getDefOldschool(i);
 
         for (int j = 0; j < 200; j++) {
             if (cache[j].type == i) {
@@ -863,7 +851,7 @@ public final class ObjectDefinition {
         return flag1;
     }
 
-    public ObjectDefinition getTransformedObject(boolean osrs) {
+    public ObjectDefinition getTransformedObject() {
         int configIdx = -1;
         if (varbitIndex != -1) {
             VarBit varBit = VarBit.cache[varbitIndex];
@@ -877,7 +865,7 @@ public final class ObjectDefinition {
         if (configIdx < 0 || configIdx >= configObjectIDs.length || configObjectIDs[configIdx] == -1)
             return null;
         else {
-            return forID(configObjectIDs[configIdx], osrs);
+            return forID(configObjectIDs[configIdx]);
         }
     }
 
