@@ -86,6 +86,30 @@ public class CustomItems {
                 itemDef.femaleEquip1 = 35371;
                 break;
 
+            case 11848:
+                itemDef.copy(ItemDefinition.forID(30_000 + 12877));
+                break;
+
+            case 11850:
+                itemDef.copy(ItemDefinition.forID(30_000 + 12873));
+                break;
+
+            case 11854:
+                itemDef.copy(ItemDefinition.forID(30_000 + 12879));
+                break;
+
+            case 11856:
+                itemDef.copy(ItemDefinition.forID(30_000 + 12875));
+                break;
+
+            case 11846:
+                itemDef.copy(ItemDefinition.forID(30_000 + 12881));
+                break;
+
+            case 11852:
+                itemDef.copy(ItemDefinition.forID(30_000 + 12883));
+                break;
+
             case 14545:
                 itemDef.copy(ItemDefinition.forID(14094));
                 itemDef.name = "Dark Sacred Clay";
