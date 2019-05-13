@@ -8142,7 +8142,7 @@ public class Client extends RSApplet {
         if (l == 62 && reachedClickedObject(entityId, y, x, id)) {
             stream.createFrame(192);
             stream.writeWord(lastItemSelectedInterface);
-            stream.writeWord(id);
+            stream.writeDWord(id);
             stream.writeSignedBigEndian(y + baseY);
             stream.writeUnsignedWordBigEndian(lastItemSelectedSlot);
             stream.writeSignedBigEndian(x + baseX);
@@ -8329,7 +8329,7 @@ public class Client extends RSApplet {
             }
             reachedClickedObject(entityId, y, x, id);
             stream.createFrame(228);
-            stream.writeUnsignedWordA(id);
+            stream.writeDWord(id);
             stream.writeUnsignedWordA(y + baseY);
             stream.writeWord(x + baseX);
         }
@@ -8909,7 +8909,7 @@ public class Client extends RSApplet {
         if (l == 900) {
             reachedClickedObject(entityId, y, x, id);
             stream.createFrame(252);
-            stream.writeSignedBigEndian(id);
+            stream.writeDWord(id);
             stream.writeUnsignedWordBigEndian(y + baseY);
             stream.writeUnsignedWordA(x + baseX);
         }
@@ -9135,20 +9135,20 @@ public class Client extends RSApplet {
             stream.createFrame(70);
             stream.writeUnsignedWordBigEndian(x + baseX);
             stream.writeWord(y + baseY);
-            stream.writeSignedBigEndian(id);
+            stream.writeDWord(id);
         }
         if (l == 872) {
             reachedClickedObject(entityId, y, x, id);
             stream.createFrame(234);
             stream.writeSignedBigEndian(x + baseX);
-            stream.writeUnsignedWordA(id);
+            stream.writeDWord(id);
             stream.writeSignedBigEndian(y + baseY);
         }
         if (l == 502) {
             reachedClickedObject(entityId, y, x, id);
             stream.createFrame(132);
             stream.method433(x + baseX);
-            stream.writeWord(id);
+            stream.writeDWord(id);
             stream.method432(y + baseY);
         }
         if (l == 1125) {
