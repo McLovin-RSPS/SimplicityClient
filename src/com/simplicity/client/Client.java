@@ -87,6 +87,7 @@ import com.simplicity.client.cache.definitions.ObjectDefinition;
 import com.simplicity.client.cache.definitions.SpotAnimDefinition;
 import com.simplicity.client.cache.definitions.VarBit;
 import com.simplicity.client.cache.definitions.Varp;
+import com.simplicity.client.cache.maps.OldschoolMaps;
 import com.simplicity.client.cache.node.Deque;
 import com.simplicity.client.cache.node.Node;
 import com.simplicity.client.content.CustomisableHotKeys;
@@ -3353,7 +3354,7 @@ public class Client extends RSApplet {
 
     public static final int MAP_IDX = 4;
 
-    public static final int MODEL_IDX = 1, CONFIG_IDX = 0, OSRS_MODEL_IDX = 7, OSRS_ANIM_IDX = 8;
+    public static final int MODEL_IDX = 1, CONFIG_IDX = 0, OSRS_MODEL_IDX = 7, OSRS_ANIM_IDX = 8, OSRS_MAP_IDX = 9;
 
     public static boolean displayScrollbar;
 
@@ -3830,18 +3831,17 @@ public class Client extends RSApplet {
             }
             if (!requestMapReconstruct) {
                 for (int i3 = 0; i3 < k2; i3++) {
-                    int i4 = (mapCoordinates[i3] >> 8) * 64 - baseX;
-                    int k5 = (mapCoordinates[i3] & 0xff) * 64 - baseY;
+                    int i4 = (regionIds[i3] >> 8) * 64 - baseX;
+                    int k5 = (regionIds[i3] & 0xff) * 64 - baseY;
                     byte abyte0[] = terrainData[i3];
                     if (abyte0 != null) {
-                        objectManager.method180(abyte0, k5, i4, (currentRegionX - 6) * 8, (currentRegionY - 6) * 8,
-                                clippingPlanes);
+                        objectManager.method180(regionIds[i3], abyte0, k5, i4, (currentRegionX - 6) * 8, (currentRegionY - 6) * 8, clippingPlanes);
                     }
                 }
 
                 for (int j4 = 0; j4 < k2; j4++) {
-                    int l5 = (mapCoordinates[j4] >> 8) * 64 - baseX;
-                    int k7 = (mapCoordinates[j4] & 0xff) * 64 - baseY;
+                    int l5 = (regionIds[j4] >> 8) * 64 - baseX;
+                    int k7 = (regionIds[j4] & 0xff) * 64 - baseY;
                     byte abyte2[] = terrainData[j4];
                     if (abyte2 == null && currentRegionY < 800) {
                         objectManager.method174(k7, 64, 64, l5);
@@ -3860,13 +3860,13 @@ public class Client extends RSApplet {
                 for (int i6 = 0; i6 < k2; i6++) {
                     byte abyte1[] = objectData[i6];
                     if (abyte1 != null) {
-                        FileOperations.WriteFile(signlink.findcachedir() + "maps/" + mapCoordinates[i6] + ".dat",
+                        FileOperations.WriteFile(signlink.findcachedir() + "maps/" + regionIds[i6] + ".dat",
                                 abyte1);
                         try {
                             System.out.println("regionId=" + getRegionId());
                             BufferedOutputStream gzip = new BufferedOutputStream(
                                     new GZIPOutputStream(new FileOutputStream(
-                                            signlink.findcachedir() + "maps/" + mapCoordinates[i6] + ".gz")));
+                                            signlink.findcachedir() + "maps/" + regionIds[i6] + ".gz")));
                             gzip.write(abyte1);
                             gzip.close();
 
@@ -3883,10 +3883,9 @@ public class Client extends RSApplet {
                             System.out.println("failed to pack..");
                         }
                         // System.out.println("Object maps: "+anIntArray1236[i6]);
-                        int l8 = (mapCoordinates[i6] >> 8) * 64 - baseX;
-                        int k9 = (mapCoordinates[i6] & 0xff) * 64 - baseY;
-                        objectManager.method190(isOsrsRegion(), getRegionId(), l8, clippingPlanes, k9, worldController,
-                                abyte1);
+                        int l8 = (regionIds[i6] >> 8) * 64 - baseX;
+                        int k9 = (regionIds[i6] & 0xff) * 64 - baseY;
+                        objectManager.method190(regionIds[i6], l8, clippingPlanes, k9, worldController, abyte1);
                     }
                 }
 
@@ -3901,11 +3900,11 @@ public class Client extends RSApplet {
                                 int xCoord = chunkBits >> 14 & 0x3ff;
                                 int yCoord = chunkBits >> 3 & 0x7ff;
                                 int mapRegion = (xCoord / 8 << 8) + yCoord / 8;
-                                for (int idx = 0; idx < mapCoordinates.length; idx++) {
-                                    if (mapCoordinates[idx] != mapRegion || terrainData[idx] == null) {
+                                for (int idx = 0; idx < regionIds.length; idx++) {
+                                    if (regionIds[idx] != mapRegion || terrainData[idx] == null) {
                                         continue;
                                     }
-                                    objectManager.loadMapChunk(z, rotation, clippingPlanes, x * 8, (xCoord & 7) * 8,
+                                    objectManager.loadMapChunk(regionIds[idx], z, rotation, clippingPlanes, x * 8, (xCoord & 7) * 8,
                                             terrainData[idx], (yCoord & 7) * 8, plane, y * 8);
                                     break;
                                 }
@@ -3939,13 +3938,13 @@ public class Client extends RSApplet {
                                 int coordX = tileBits >> 14 & 0x3ff;
                                 int coordY = tileBits >> 3 & 0x7ff;
                                 int mapRegion = (coordX / 8 << 8) + coordY / 8;
-                                for (int idx = 0; idx < mapCoordinates.length; idx++) {
-                                    if (mapCoordinates[idx] != mapRegion || objectData[idx] == null) {
+                                for (int idx = 0; idx < regionIds.length; idx++) {
+                                    if (regionIds[idx] != mapRegion || objectData[idx] == null) {
                                         continue;
                                     }
                                     objectManager.readObjectMap(clippingPlanes, worldController, plane, chunkX * 8,
                                             (coordY & 7) * 8, chunkZ, objectData[idx], (coordX & 7) * 8, rotation,
-                                            chunkY * 8, isOsrsRegion());
+                                            chunkY * 8, regionIds[idx]);
                                     break;
                                 }
                             }
@@ -3958,7 +3957,7 @@ public class Client extends RSApplet {
                 stream.createFrame(0);
             }
 
-            objectManager.method171(isOsrsRegion(), clippingPlanes, worldController);
+            objectManager.method171(clippingPlanes, worldController);
 
             if (loggedIn) {
                 gameScreenIP.initDrawingArea();
@@ -4090,7 +4089,7 @@ public class Client extends RSApplet {
                 int uid = worldController.fetchGroundDecorationNewUID(plane, xTile, yTIle);
                 if (uid != 0) {
                     // uid = uid >> 14 & 0x7fff;
-                    int functionId = ObjectDefinition.forID(uid, isOsrsRegion()).mapFunctionID;
+                    int functionId = ObjectDefinition.forID(uid).mapFunctionID;
                     if (functionId >= 0) {
                         int k3 = xTile;
                         int l3 = yTIle;
@@ -6106,7 +6105,7 @@ public class Client extends RSApplet {
             int scene_pixels[] = miniMap.myPixels;
             int pixel = 24624 + x * 4 + (103 - y) * 512 * 4;
             int object_id = worldController.fetchWallObjectNewUID(z, x, y);
-            ObjectDefinition def = ObjectDefinition.forID(object_id, isOsrsRegion());
+            ObjectDefinition def = ObjectDefinition.forID(object_id);
             if (def.mapSceneID != -1) {
                 Background scene = mapScenes[def.mapSceneID];
                 if (scene != null) {
@@ -6183,7 +6182,7 @@ public class Client extends RSApplet {
             int direction = resource_tag >> 6 & 3;
             int type = resource_tag & 0x1f;
             int object_id = worldController.fetchObjectMeshNewUID(z, x, y);
-            ObjectDefinition def = ObjectDefinition.forID(object_id, isOsrsRegion());
+            ObjectDefinition def = ObjectDefinition.forID(object_id);
             if (def.mapSceneID != -1) {
                 Background scene = mapScenes[def.mapSceneID];
                 if (scene != null) {
@@ -6214,7 +6213,7 @@ public class Client extends RSApplet {
         }
         uid = worldController.fetchGroundDecorationNewUID(z, x, y);
         if (uid > 0 || uid != 0) {
-            ObjectDefinition def = ObjectDefinition.forID(uid, isOsrsRegion());
+            ObjectDefinition def = ObjectDefinition.forID(uid);
             if (def.mapSceneID != -1) {
                 Background scene = mapScenes[def.mapSceneID];
                 if (scene != null) {
@@ -6372,14 +6371,14 @@ public class Client extends RSApplet {
         for (int j = 0; j < terrainData.length; j++) {
             byte obData[] = objectData[j];
             if (obData != null) {
-                int k = (mapCoordinates[j] >> 8) * 64 - baseX;
-                int l = (mapCoordinates[j] & 0xff) * 64 - baseY;
+                int k = (regionIds[j] >> 8) * 64 - baseX;
+                int l = (regionIds[j] & 0xff) * 64 - baseY;
                 if (requestMapReconstruct) {
                     k = 10;
                     l = 10;
                 }
 
-                flag &= ObjectManager.method189(isOsrsRegion(), k, obData, l);
+                flag &= ObjectManager.method189(k, obData, l, regionIds[j]);
             }
         }
         if (!flag) {
@@ -6510,30 +6509,36 @@ public class Client extends RSApplet {
                     // FileOperations.WriteFile(signlink.findcachedir() +
                     // "dump/"+onDemandData.id+".png", onDemandData.buffer);
                 }
-                if (onDemandData.dataType == MAP_IDX - 1 && loadingStage == 1) {
 
-                    for (int i = 0; i < terrainData.length; i++) {
-                        if (terrainIndices[i] == onDemandData.id) {
-                            terrainData[i] = onDemandData.buffer;
+                if (onDemandData.dataType == MAP_IDX - 1 || onDemandData.dataType == OSRS_MAP_IDX - 1) {
+                    if(loadingStage == 1) {
+                        for (int i = 0; i < terrainData.length; i++) {
+                            if (terrainIndices[i] == onDemandData.id) {
+                                terrainData[i] = onDemandData.buffer;
+                                if (onDemandData.buffer == null) {
+                                    terrainIndices[i] = -1;
+                                }
+                                break;
+                            }
+                            if (objectIndices[i] != onDemandData.id) {
+                                continue;
+                            }
+                            // System.out.println("Loading map data : "+i);
+                            objectData[i] = onDemandData.buffer;
                             if (onDemandData.buffer == null) {
-                                terrainIndices[i] = -1;
+                                objectIndices[i] = -1;
                             }
                             break;
                         }
-                        if (objectIndices[i] != onDemandData.id) {
-                            continue;
-                        }
-                        // System.out.println("Loading map data : "+i);
-                        objectData[i] = onDemandData.buffer;
-                        if (onDemandData.buffer == null) {
-                            objectIndices[i] = -1;
-                        }
-                        break;
                     }
-
                 }
+
             } while (onDemandData.dataType != 93 || !onDemandFetcher.mapIsObjectMap(onDemandData.id));
-            ObjectManager.method173(new Stream(onDemandData.buffer), onDemandFetcher, isOsrsRegion());
+            DataType dataType = DataType.REGULAR;
+            if(onDemandData.dataType == 8) {
+                dataType = DataType.OLDSCHOOL;
+            }
+            ObjectManager.method173(new Stream(onDemandData.buffer), onDemandFetcher, dataType);
         } while (true);
     }
 
@@ -7356,7 +7361,7 @@ public class Client extends RSApplet {
         int objectType = objectBits & 0x1f;
         int objectRotation = objectBits >> 6 & 3;
         if (objectType == 10 || objectType == 11 || objectType == 22) {
-            ObjectDefinition objectDef = ObjectDefinition.forID(id, isOsrsRegion());
+            ObjectDefinition objectDef = ObjectDefinition.forID(id);
             int sizeX;
             int sizeY;
             if (objectRotation == 0 || objectRotation == 2) {
@@ -7642,10 +7647,10 @@ public class Client extends RSApplet {
         int interfaceId = menuActionCmd3[i];
         int cmd4 = menuActionCmd4[i];
         int l = menuActionID[i];
-        int nodeId = menuActionCmd1[i];
+        int entityId = menuActionCmd1[i];
         int x = slot;
         int y = interfaceId;
-        int id = (nodeId > 32767 ? cmd4 : nodeId >> 14 & 0x7fff);
+        int id = (entityId > 0x7fff ? cmd4 : entityId >> 14 & 0x7fff);
         if (openInterfaceID == 21172 && super.saveClickX > 182 && super.saveClickX < 342 && super.saveClickY > 30
                 && super.saveClickY < 321) {
             rollingCharacter = !rollingCharacter;
@@ -7860,7 +7865,7 @@ public class Client extends RSApplet {
                 stream.createFrame(145);
                 stream.putInt(interfaceId);
                 stream.writeUnsignedWordA(slot);
-                stream.writeUnsignedWordA(nodeId);
+                stream.writeUnsignedWordA(entityId);
             } else {
                 determineMenuSize();
             }
@@ -7871,12 +7876,12 @@ public class Client extends RSApplet {
             stream.createFrame(142);
             stream.putInt(interfaceId);
             stream.writeUnsignedWordBigEndian(slot);
-            stream.writeUnsignedWordBigEndian(nodeId);
+            stream.writeUnsignedWordBigEndian(entityId);
 
             if (openInterfaceID != 5292) {
                 atInventoryLoopCycle = 0;
                 atInventoryInterface = slot;
-                atInventoryIndex = nodeId;
+                atInventoryIndex = entityId;
                 atInventoryInterface = interfaceId;
                 atInventoryInterfaceType = 2;
                 if (RSInterface.interfaceCache[slot].parentID == openInterfaceID)
@@ -7942,10 +7947,10 @@ public class Client extends RSApplet {
         }
         if (l == 1998) {
             // Drop down menu actionId.
-            handleDropDownMenuClick(nodeId, slot);
+            handleDropDownMenuClick(entityId, slot);
             return;
         } else if (l == 1999) {
-            final DropDownMenu inter = (DropDownMenu) RSInterface.interfaceCache[nodeId];
+            final DropDownMenu inter = (DropDownMenu) RSInterface.interfaceCache[entityId];
             if (inter.isOpen()) {
                 inter.setOpen(false);
 
@@ -7957,7 +7962,7 @@ public class Client extends RSApplet {
 
             } else {
                 inter.setOpen(true);
-                closeDropDownMenus(nodeId);
+                closeDropDownMenus(entityId);
             }
             return;
         }
@@ -8106,7 +8111,7 @@ public class Client extends RSApplet {
             stream.putInt(15008);
         }
         if (l == 582) {
-            NPC npc = npcArray[nodeId];
+            NPC npc = npcArray[entityId];
             if (npc != null) {
                 doWalkTo(2, 0, 1, 0, myPlayer.pathY[0], 1, 0, npc.pathY[0], myPlayer.pathX[0], false, npc.pathX[0]);
                 crossX = super.saveClickX;
@@ -8131,13 +8136,13 @@ public class Client extends RSApplet {
             crossIndex = 0;
             stream.createFrame(236);
             stream.writeUnsignedWordBigEndian(interfaceId + baseY);
-            stream.writeWord(nodeId);
+            stream.writeWord(entityId);
             stream.writeUnsignedWordBigEndian(slot + baseX);
         }
-        if (l == 62 && reachedClickedObject(nodeId, y, x, id)) {
+        if (l == 62 && reachedClickedObject(entityId, y, x, id)) {
             stream.createFrame(192);
             stream.writeWord(lastItemSelectedInterface);
-            stream.writeWord(id);
+            stream.writeDWord(id);
             stream.writeSignedBigEndian(y + baseY);
             stream.writeUnsignedWordBigEndian(lastItemSelectedSlot);
             stream.writeSignedBigEndian(x + baseX);
@@ -8155,7 +8160,7 @@ public class Client extends RSApplet {
             stream.createFrame(25);
             stream.writeUnsignedWordBigEndian(lastItemSelectedInterface);
             stream.writeUnsignedWordA(selectedItemId);
-            stream.writeWord(nodeId);
+            stream.writeWord(entityId);
             stream.writeUnsignedWordA(interfaceId + baseY);
             stream.writeSignedBigEndian(lastItemSelectedSlot);
             stream.writeWord(slot + baseX);
@@ -8164,7 +8169,7 @@ public class Client extends RSApplet {
             stream.createFrame(122);
             stream.writeWord(interfaceId);
             stream.writeWord(slot);
-            stream.writeWord(nodeId);
+            stream.writeWord(entityId);
             atInventoryLoopCycle = 0;
             atInventoryInterface = interfaceId;
             atInventoryIndex = slot;
@@ -8266,7 +8271,7 @@ public class Client extends RSApplet {
         switch (l) {
         }
         if (l == 561) {
-            Player player = playerArray[nodeId];
+            Player player = playerArray[entityId];
             if (player != null) {
                 doWalkTo(2, 0, 1, 0, myPlayer.pathY[0], 1, 0, player.pathY[0], myPlayer.pathX[0], false,
                         player.pathX[0]);
@@ -8274,17 +8279,17 @@ public class Client extends RSApplet {
                 crossY = super.saveClickY;
                 crossType = 2;
                 crossIndex = 0;
-                anInt1188 += nodeId;
+                anInt1188 += entityId;
                 if (anInt1188 >= 90) {
                     stream.createFrame(136);
                     anInt1188 = 0;
                 }
                 stream.createFrame(128);
-                stream.writeWord(nodeId);
+                stream.writeWord(entityId);
             }
         }
         if (l == 20) {
-            NPC npc = npcArray[nodeId];
+            NPC npc = npcArray[entityId];
             if (npc != null) {
                 doWalkTo(2, 0, 1, 0, myPlayer.pathY[0], 1, 0, npc.pathY[0], myPlayer.pathX[0], false, npc.pathX[0]);
                 crossX = super.saveClickX;
@@ -8292,11 +8297,11 @@ public class Client extends RSApplet {
                 crossType = 2;
                 crossIndex = 0;
                 stream.createFrame(155);
-                stream.writeUnsignedWordBigEndian(nodeId);
+                stream.writeUnsignedWordBigEndian(entityId);
             }
         }
         if (l == 779) {
-            Player plr = playerArray[nodeId];
+            Player plr = playerArray[entityId];
             if (plr != null) {
                 doWalkTo(2, 0, 1, 0, myPlayer.pathY[0], 1, 0, plr.pathY[0], myPlayer.pathX[0], false, plr.pathX[0]);
                 crossX = super.saveClickX;
@@ -8304,7 +8309,7 @@ public class Client extends RSApplet {
                 crossType = 2;
                 crossIndex = 0;
                 stream.createFrame(153);
-                stream.writeUnsignedWordBigEndian(nodeId);
+                stream.writeUnsignedWordBigEndian(entityId);
             }
         }
 
@@ -8322,9 +8327,9 @@ public class Client extends RSApplet {
                 stream.writeDWordBigEndian(0xe63271);
                 anInt924 = 0;
             }
-            reachedClickedObject(nodeId, y, x, id);
+            reachedClickedObject(entityId, y, x, id);
             stream.createFrame(228);
-            stream.writeUnsignedWordA(id);
+            stream.writeDWord(id);
             stream.writeUnsignedWordA(y + baseY);
             stream.writeWord(x + baseX);
         }
@@ -8337,7 +8342,7 @@ public class Client extends RSApplet {
             stream.createFrame(129);
             stream.writeUnsignedWordA(slot);
             stream.writeWord(interfaceId);
-            stream.writeUnsignedWordA(nodeId);
+            stream.writeUnsignedWordA(entityId);
             atInventoryLoopCycle = 0;
             atInventoryInterface = interfaceId;
             atInventoryIndex = slot;
@@ -8405,7 +8410,7 @@ public class Client extends RSApplet {
             stream.createFrame(135);
             stream.writeUnsignedWordBigEndian(slot);
             stream.writeUnsignedWordA(interfaceId);
-            stream.writeUnsignedWordBigEndian(nodeId);
+            stream.writeUnsignedWordBigEndian(entityId);
             atInventoryLoopCycle = 0;
             atInventoryInterface = interfaceId;
             atInventoryIndex = slot;
@@ -8421,7 +8426,7 @@ public class Client extends RSApplet {
             stream.createFrame(135);
             stream.writeUnsignedWordBigEndian(slot);
             stream.writeUnsignedWordA(11);
-            stream.writeUnsignedWordBigEndian(nodeId);
+            stream.writeUnsignedWordBigEndian(entityId);
             atInventoryLoopCycle = 0;
             atInventoryInterface = interfaceId;
             atInventoryIndex = slot;
@@ -8435,7 +8440,7 @@ public class Client extends RSApplet {
         }
         if (l == 539) {
             stream.createFrame(16);
-            stream.writeUnsignedWordA(nodeId);
+            stream.writeUnsignedWordA(entityId);
             stream.writeSignedBigEndian(slot);
             stream.writeSignedBigEndian(interfaceId);
             atInventoryLoopCycle = 0;
@@ -8469,7 +8474,7 @@ public class Client extends RSApplet {
                         stream.writeUnsignedWordBigEndian(playerIndices[j3]);
                     }
                     if (l == 6) {
-                        anInt1188 += nodeId;
+                        anInt1188 += entityId;
                         if (anInt1188 >= 90) {
                             stream.createFrame(136);
                             anInt1188 = 0;
@@ -8490,7 +8495,7 @@ public class Client extends RSApplet {
             stream.createFrame(53);
             stream.writeWord(slot);
             stream.writeUnsignedWordA(lastItemSelectedSlot);
-            stream.writeSignedBigEndian(nodeId);
+            stream.writeSignedBigEndian(entityId);
             stream.writeWord(lastItemSelectedInterface);
             stream.writeUnsignedWordBigEndian(selectedItemId);
             stream.writeWord(interfaceId);
@@ -8522,7 +8527,7 @@ public class Client extends RSApplet {
         }
         if (l == 847) {
             stream.createFrame(87);
-            stream.writeUnsignedWordA(nodeId);
+            stream.writeUnsignedWordA(entityId);
             stream.writeWord(interfaceId);
             stream.writeUnsignedWordA(slot);
             atInventoryLoopCycle = 0;
@@ -8563,7 +8568,7 @@ public class Client extends RSApplet {
         if (l == 78) {
             stream.createFrame(117);
             stream.writeSignedBigEndian(interfaceId);
-            stream.writeSignedBigEndian(nodeId);
+            stream.writeSignedBigEndian(entityId);
             stream.writeUnsignedWordBigEndian(slot);
             atInventoryLoopCycle = 0;
             atInventoryInterface = interfaceId;
@@ -8577,7 +8582,7 @@ public class Client extends RSApplet {
             }
         }
         if (l == 27) {
-            Player class30_sub2_sub4_sub1_sub2_2 = playerArray[nodeId];
+            Player class30_sub2_sub4_sub1_sub2_2 = playerArray[entityId];
             if (class30_sub2_sub4_sub1_sub2_2 != null) {
                 doWalkTo(2, 0, 1, 0, myPlayer.pathY[0], 1, 0, class30_sub2_sub4_sub1_sub2_2.pathY[0], myPlayer.pathX[0],
                         false, class30_sub2_sub4_sub1_sub2_2.pathX[0]);
@@ -8585,14 +8590,14 @@ public class Client extends RSApplet {
                 crossY = super.saveClickY;
                 crossType = 2;
                 crossIndex = 0;
-                anInt986 += nodeId;
+                anInt986 += entityId;
                 if (anInt986 >= 54) {
                     stream.createFrame(189);
                     stream.writeWordBigEndian(234);
                     anInt986 = 0;
                 }
                 stream.createFrame(73);
-                stream.writeUnsignedWordBigEndian(nodeId);
+                stream.writeUnsignedWordBigEndian(entityId);
             }
         }
         if (l == 213) {
@@ -8606,7 +8611,7 @@ public class Client extends RSApplet {
             crossIndex = 0;
             stream.createFrame(79);
             stream.writeUnsignedWordBigEndian(interfaceId + baseY);
-            stream.writeWord(nodeId);
+            stream.writeWord(entityId);
             stream.writeUnsignedWordA(slot + baseX);
         }
         if (l == 632) {
@@ -8628,7 +8633,7 @@ public class Client extends RSApplet {
             stream.createFrame(145);
             stream.putInt(interfaceId);
             stream.writeUnsignedWordA(slot);
-            stream.writeUnsignedWordA(nodeId);
+            stream.writeUnsignedWordA(entityId);
             atInventoryLoopCycle = 0;
             atInventoryInterface = interfaceId;
             atInventoryIndex = slot;
@@ -8779,7 +8784,7 @@ public class Client extends RSApplet {
             stream.createFrame(75);
             stream.writeSignedBigEndian(interfaceId);
             stream.writeUnsignedWordBigEndian(slot);
-            stream.writeUnsignedWordA(nodeId);
+            stream.writeUnsignedWordA(entityId);
             atInventoryLoopCycle = 0;
             atInventoryInterface = interfaceId;
             atInventoryIndex = slot;
@@ -8803,7 +8808,7 @@ public class Client extends RSApplet {
             stream.createFrame(156);
             stream.writeUnsignedWordA(slot + baseX);
             stream.writeUnsignedWordBigEndian(interfaceId + baseY);
-            stream.writeSignedBigEndian(nodeId);
+            stream.writeSignedBigEndian(entityId);
         }
         if (l == 94) {
             boolean flag5 = doWalkTo(2, 0, 0, 0, myPlayer.pathY[0], 0, 0, interfaceId, myPlayer.pathX[0], false, slot);
@@ -8816,7 +8821,7 @@ public class Client extends RSApplet {
             crossIndex = 0;
             stream.createFrame(181);
             stream.writeUnsignedWordBigEndian(interfaceId + baseY);
-            stream.writeWord(nodeId);
+            stream.writeWord(entityId);
             stream.writeUnsignedWordBigEndian(slot + baseX);
             stream.writeUnsignedWordA(selectedSpellId);
         }
@@ -8844,7 +8849,7 @@ public class Client extends RSApplet {
             }
         }
         if (l == 225) {
-            NPC class30_sub2_sub4_sub1_sub1_2 = npcArray[nodeId];
+            NPC class30_sub2_sub4_sub1_sub1_2 = npcArray[entityId];
             if (class30_sub2_sub4_sub1_sub1_2 != null) {
                 doWalkTo(2, 0, 1, 0, myPlayer.pathY[0], 1, 0, class30_sub2_sub4_sub1_sub1_2.pathY[0], myPlayer.pathX[0],
                         false, class30_sub2_sub4_sub1_sub1_2.pathX[0]);
@@ -8852,13 +8857,13 @@ public class Client extends RSApplet {
                 crossY = super.saveClickY;
                 crossType = 2;
                 crossIndex = 0;
-                anInt1226 += nodeId;
+                anInt1226 += entityId;
                 stream.createFrame(17);
-                stream.writeSignedBigEndian(nodeId);
+                stream.writeSignedBigEndian(entityId);
             }
         }
         if (l == 965) {
-            NPC class30_sub2_sub4_sub1_sub1_3 = npcArray[nodeId];
+            NPC class30_sub2_sub4_sub1_sub1_3 = npcArray[entityId];
             if (class30_sub2_sub4_sub1_sub1_3 != null) {
                 doWalkTo(2, 0, 1, 0, myPlayer.pathY[0], 1, 0, class30_sub2_sub4_sub1_sub1_3.pathY[0], myPlayer.pathX[0],
                         false, class30_sub2_sub4_sub1_sub1_3.pathX[0]);
@@ -8868,11 +8873,11 @@ public class Client extends RSApplet {
                 crossIndex = 0;
                 anInt1134++;
                 stream.createFrame(21);
-                stream.writeWord(nodeId);
+                stream.writeWord(entityId);
             }
         }
         if (l == 413) {
-            NPC class30_sub2_sub4_sub1_sub1_4 = npcArray[nodeId];
+            NPC class30_sub2_sub4_sub1_sub1_4 = npcArray[entityId];
             if (class30_sub2_sub4_sub1_sub1_4 != null) {
                 doWalkTo(2, 0, 1, 0, myPlayer.pathY[0], 1, 0, class30_sub2_sub4_sub1_sub1_4.pathY[0], myPlayer.pathX[0],
                         false, class30_sub2_sub4_sub1_sub1_4.pathX[0]);
@@ -8881,7 +8886,7 @@ public class Client extends RSApplet {
                 crossType = 2;
                 crossIndex = 0;
                 stream.createFrame(131);
-                stream.writeSignedBigEndian(nodeId);
+                stream.writeSignedBigEndian(entityId);
                 stream.writeUnsignedWordA(spellID);
             }
         }
@@ -8889,7 +8894,7 @@ public class Client extends RSApplet {
             clearTopInterfaces();
         }
         if (l == 1025) {
-            NPC class30_sub2_sub4_sub1_sub1_5 = npcArray[nodeId];
+            NPC class30_sub2_sub4_sub1_sub1_5 = npcArray[entityId];
             if (class30_sub2_sub4_sub1_sub1_5 != null) {
                 MobDefinition entityDef = class30_sub2_sub4_sub1_sub1_5.desc;
                 if (entityDef.childrenIDs != null) {
@@ -8902,14 +8907,14 @@ public class Client extends RSApplet {
             }
         }
         if (l == 900) {
-            reachedClickedObject(nodeId, y, x, id);
+            reachedClickedObject(entityId, y, x, id);
             stream.createFrame(252);
-            stream.writeSignedBigEndian(id);
+            stream.writeDWord(id);
             stream.writeUnsignedWordBigEndian(y + baseY);
             stream.writeUnsignedWordA(x + baseX);
         }
         if (l == 412) {
-            NPC class30_sub2_sub4_sub1_sub1_6 = npcArray[nodeId];
+            NPC class30_sub2_sub4_sub1_sub1_6 = npcArray[entityId];
             if (class30_sub2_sub4_sub1_sub1_6 != null) {
                 doWalkTo(2, 0, 1, 0, myPlayer.pathY[0], 1, 0, class30_sub2_sub4_sub1_sub1_6.pathY[0], myPlayer.pathX[0],
                         false, class30_sub2_sub4_sub1_sub1_6.pathX[0]);
@@ -8918,11 +8923,11 @@ public class Client extends RSApplet {
                 crossType = 2;
                 crossIndex = 0;
                 stream.createFrame(72);
-                stream.writeUnsignedWordA(nodeId);
+                stream.writeUnsignedWordA(entityId);
             }
         }
         if (l == 365) {
-            Player class30_sub2_sub4_sub1_sub2_3 = playerArray[nodeId];
+            Player class30_sub2_sub4_sub1_sub2_3 = playerArray[entityId];
             if (class30_sub2_sub4_sub1_sub2_3 != null) {
                 doWalkTo(2, 0, 1, 0, myPlayer.pathY[0], 1, 0, class30_sub2_sub4_sub1_sub2_3.pathY[0], myPlayer.pathX[0],
                         false, class30_sub2_sub4_sub1_sub2_3.pathX[0]);
@@ -8931,12 +8936,12 @@ public class Client extends RSApplet {
                 crossType = 2;
                 crossIndex = 0;
                 stream.createFrame(249);
-                stream.writeUnsignedWordA(nodeId);
+                stream.writeUnsignedWordA(entityId);
                 stream.writeUnsignedWordBigEndian(selectedSpellId);
             }
         }
         if (l == 729) {
-            Player class30_sub2_sub4_sub1_sub2_4 = playerArray[nodeId];
+            Player class30_sub2_sub4_sub1_sub2_4 = playerArray[entityId];
             if (class30_sub2_sub4_sub1_sub2_4 != null) {
                 doWalkTo(2, 0, 1, 0, myPlayer.pathY[0], 1, 0, class30_sub2_sub4_sub1_sub2_4.pathY[0], myPlayer.pathX[0],
                         false, class30_sub2_sub4_sub1_sub2_4.pathX[0]);
@@ -8945,11 +8950,11 @@ public class Client extends RSApplet {
                 crossType = 2;
                 crossIndex = 0;
                 stream.createFrame(39);
-                stream.writeUnsignedWordBigEndian(nodeId);
+                stream.writeUnsignedWordBigEndian(entityId);
             }
         }
         if (l == 577) {
-            Player class30_sub2_sub4_sub1_sub2_5 = playerArray[nodeId];
+            Player class30_sub2_sub4_sub1_sub2_5 = playerArray[entityId];
             if (class30_sub2_sub4_sub1_sub2_5 != null) {
                 doWalkTo(2, 0, 1, 0, myPlayer.pathY[0], 1, 0, class30_sub2_sub4_sub1_sub2_5.pathY[0], myPlayer.pathX[0],
                         false, class30_sub2_sub4_sub1_sub2_5.pathX[0]);
@@ -8958,10 +8963,10 @@ public class Client extends RSApplet {
                 crossType = 2;
                 crossIndex = 0;
                 stream.createFrame(139);
-                stream.writeUnsignedWordBigEndian(nodeId);
+                stream.writeUnsignedWordBigEndian(entityId);
             }
         }
-        if (l == 956 && reachedClickedObject(nodeId, y, x, id)) {
+        if (l == 956 && reachedClickedObject(entityId, y, x, id)) {
             stream.createFrame(35);
             stream.writeUnsignedWordBigEndian(x + baseX);
             stream.writeUnsignedWordA(selectedSpellId);
@@ -8979,11 +8984,11 @@ public class Client extends RSApplet {
             crossIndex = 0;
             stream.createFrame(23);
             stream.writeUnsignedWordBigEndian(interfaceId + baseY);
-            stream.writeUnsignedWordBigEndian(nodeId);
+            stream.writeUnsignedWordBigEndian(entityId);
             stream.writeUnsignedWordBigEndian(slot + baseX);
         }
         if (l == 867) {
-            if ((nodeId & 3) == 0) {
+            if ((entityId & 3) == 0) {
                 anInt1175++;
             }
             if (anInt1175 >= 59) {
@@ -8993,7 +8998,7 @@ public class Client extends RSApplet {
             }
             stream.createFrame(43);
             stream.writeUnsignedWordBigEndian(interfaceId);
-            stream.writeUnsignedWordA(nodeId);
+            stream.writeUnsignedWordA(entityId);
             stream.writeUnsignedWordA(slot);
             atInventoryLoopCycle = 0;
             atInventoryInterface = interfaceId;
@@ -9009,7 +9014,7 @@ public class Client extends RSApplet {
         if (l == 291) {
             stream.createFrame(140);
             stream.writeUnsignedWordBigEndian(interfaceId);
-            stream.writeUnsignedWordA(nodeId);
+            stream.writeUnsignedWordA(entityId);
             stream.writeUnsignedWordA(slot);
             atInventoryLoopCycle = 0;
             atInventoryInterface = interfaceId;
@@ -9023,14 +9028,14 @@ public class Client extends RSApplet {
         if (l == 300) {
             stream.createFrame(141);
             stream.writeUnsignedWordBigEndian(interfaceId);
-            stream.writeUnsignedWordA(nodeId);
+            stream.writeUnsignedWordA(entityId);
             stream.writeUnsignedWordA(slot);
             // assign for saving
         }
         if (l == 543) {
             stream.createFrame(237);
             stream.writeWord(slot);
-            stream.writeUnsignedWordA(nodeId);
+            stream.writeUnsignedWordA(entityId);
             stream.writeWord(interfaceId);
             stream.writeUnsignedWordA(selectedSpellId);
             atInventoryLoopCycle = 0;
@@ -9048,7 +9053,7 @@ public class Client extends RSApplet {
             tabToReplyPm();
         }
         if (l == 491) {
-            Player class30_sub2_sub4_sub1_sub2_6 = playerArray[nodeId];
+            Player class30_sub2_sub4_sub1_sub2_6 = playerArray[entityId];
             if (class30_sub2_sub4_sub1_sub2_6 != null) {
                 doWalkTo(2, 0, 1, 0, myPlayer.pathY[0], 1, 0, class30_sub2_sub4_sub1_sub2_6.pathY[0], myPlayer.pathX[0],
                         false, class30_sub2_sub4_sub1_sub2_6.pathX[0]);
@@ -9058,7 +9063,7 @@ public class Client extends RSApplet {
                 crossIndex = 0;
                 stream.createFrame(14);
                 stream.writeUnsignedWordA(lastItemSelectedInterface);
-                stream.writeWord(nodeId);
+                stream.writeWord(entityId);
                 stream.writeWord(selectedItemId);
                 stream.writeUnsignedWordBigEndian(lastItemSelectedSlot);
             }
@@ -9090,7 +9095,7 @@ public class Client extends RSApplet {
         }
         if (l == 454) {
             stream.createFrame(41);
-            stream.writeWord(nodeId);
+            stream.writeWord(entityId);
             stream.writeUnsignedWordA(slot);
             stream.writeUnsignedWordA(interfaceId);
             atInventoryLoopCycle = 0;
@@ -9105,7 +9110,7 @@ public class Client extends RSApplet {
             }
         }
         if (l == 478) {
-            NPC class30_sub2_sub4_sub1_sub1_7 = npcArray[nodeId];
+            NPC class30_sub2_sub4_sub1_sub1_7 = npcArray[entityId];
             if (class30_sub2_sub4_sub1_sub1_7 != null) {
                 doWalkTo(2, 0, 1, 0, myPlayer.pathY[0], 1, 0, class30_sub2_sub4_sub1_sub1_7.pathY[0], myPlayer.pathX[0],
                         false, class30_sub2_sub4_sub1_sub1_7.pathX[0]);
@@ -9113,7 +9118,7 @@ public class Client extends RSApplet {
                 crossY = super.saveClickY;
                 crossType = 2;
                 crossIndex = 0;
-                if ((nodeId & 3) == 0) {
+                if ((entityId & 3) == 0) {
                     anInt1155++;
                 }
                 if (anInt1155 >= 53) {
@@ -9122,38 +9127,38 @@ public class Client extends RSApplet {
                     anInt1155 = 0;
                 }
                 stream.createFrame(18);
-                stream.writeUnsignedWordBigEndian(nodeId);
+                stream.writeUnsignedWordBigEndian(entityId);
             }
         }
         if (l == 113) {
-            reachedClickedObject(nodeId, y, x, id);
+            reachedClickedObject(entityId, y, x, id);
             stream.createFrame(70);
             stream.writeUnsignedWordBigEndian(x + baseX);
             stream.writeWord(y + baseY);
-            stream.writeSignedBigEndian(id);
+            stream.writeDWord(id);
         }
         if (l == 872) {
-            reachedClickedObject(nodeId, y, x, id);
+            reachedClickedObject(entityId, y, x, id);
             stream.createFrame(234);
             stream.writeSignedBigEndian(x + baseX);
-            stream.writeUnsignedWordA(id);
+            stream.writeDWord(id);
             stream.writeSignedBigEndian(y + baseY);
         }
         if (l == 502) {
-            reachedClickedObject(nodeId, y, x, id);
+            reachedClickedObject(entityId, y, x, id);
             stream.createFrame(132);
             stream.method433(x + baseX);
-            stream.writeWord(id);
+            stream.writeDWord(id);
             stream.method432(y + baseY);
         }
         if (l == 1125) {
-            ItemDefinition itemDef = ItemDefinition.forID(nodeId);
+            ItemDefinition itemDef = ItemDefinition.forID(entityId);
             RSInterface class9_4 = RSInterface.interfaceCache[interfaceId];
             if (interfaceId == 38274) {
                 stream.createFrame(122);
                 stream.writeWord(interfaceId);
                 stream.writeWord(slot);
-                stream.writeWord(nodeId);
+                stream.writeWord(entityId);
             } else {
                 stream.createFrame(2); // examine item
                 stream.writeWord(itemDef.id);
@@ -9163,7 +9168,7 @@ public class Client extends RSApplet {
             stream.createFrame(138);
             stream.writeUnsignedWordA(interfaceId);
             stream.writeUnsignedWordA(slot);
-            stream.writeUnsignedWordA(nodeId);
+            stream.writeUnsignedWordA(entityId);
             atInventoryLoopCycle = 0;
             atInventoryInterface = interfaceId;
             atInventoryIndex = slot;
@@ -9316,15 +9321,14 @@ public class Client extends RSApplet {
             itemSelected = 1;
             lastItemSelectedSlot = slot;
             lastItemSelectedInterface = interfaceId;
-            selectedItemId = nodeId;
-            selectedItemName = ItemDefinition.forID(nodeId).name;
+            selectedItemId = entityId;
+            selectedItemName = ItemDefinition.forID(entityId).name;
             spellSelected = 0;
             needDrawTabArea = true;
             return;
         }
         if (l == 1226) {
-            int j1 = nodeId >> 14 & 0x7fff;
-            ObjectDefinition class46 = ObjectDefinition.forID(j1, isOsrsRegion());
+            ObjectDefinition class46 = ObjectDefinition.forID(id);
             String s10;
             if (class46.description != null) {
                 s10 = new String(class46.description);
@@ -9345,7 +9349,7 @@ public class Client extends RSApplet {
             stream.createFrame(253);
             stream.writeUnsignedWordBigEndian(slot + baseX);
             stream.writeSignedBigEndian(interfaceId + baseY);
-            stream.writeUnsignedWordA(nodeId);
+            stream.writeUnsignedWordA(entityId);
         }
         if (interfaceId == 957) {
             variousSettings[287] = variousSettings[502] = variousSettings[502] == 1 ? 0 : 1;
@@ -9435,9 +9439,9 @@ public class Client extends RSApplet {
                 if (resourceId != 1814) {
                     resourceId = Model.mapObjectIds[index];
                 }
-                ObjectDefinition object = ObjectDefinition.forID(resourceId, isOsrsRegion());
+                ObjectDefinition object = ObjectDefinition.forID(resourceId);
                 if (object.configObjectIDs != null) {
-                    object = object.getTransformedObject(isOsrsRegion());
+                    object = object.getTransformedObject();
                 }
                 if (object == null || object.name == null || object.name == "null") {
                     if (RENDER_DEBUG) {
@@ -9650,7 +9654,7 @@ public class Client extends RSApplet {
         stream = null;
         aStream_847 = null;
         inStream = null;
-        mapCoordinates = null;
+        regionIds = null;
         terrainData = null;
         objectData = null;
         terrainIndices = null;
@@ -12988,7 +12992,7 @@ public class Client extends RSApplet {
             mainFrame.setClientIcon();
 
         }
-        // repackCacheIndex(5);
+       // repackCacheIndex(9);
         // repackCacheIndex(1);
         // repackCacheIndex(4);
         load();
@@ -15418,7 +15422,7 @@ public class Client extends RSApplet {
                     329 - minus, 5);
             drawingArea.method385(0xffff00, "Client resolution: " + clientWidth + "x" + clientHeight, 344 - minus, 5);
             drawingArea.method385(0xffff00, "RegionIndex, Terrain, Landscape: " + regionIndex + " " + (regionIndex >= 0
-                    ? (onDemandFetcher.landscapeIds[regionIndex] + ", " + onDemandFetcher.objectMapIds[regionIndex])
+                    ? (onDemandFetcher.landscapeMapIds[regionIndex] + ", " + onDemandFetcher.objectMapIds[regionIndex])
                     : "-1"), 359 - minus, 5);
             drawingArea.method385(0xffff00, "Region id: " + regionId, 374 - minus, 5);
 
@@ -15438,10 +15442,6 @@ public class Client extends RSApplet {
                 stream.createFrame(148);
             }
         }
-    }
-
-    public boolean isOsrsRegion() {
-        return OSRS_REGIONS.contains(getRegionId());
     }
 
     public int getRegionId() {
@@ -15521,7 +15521,7 @@ public class Client extends RSApplet {
                 }
                 if (request.removeTime == 0) {
                     if (request.objectId < 0
-                            || ObjectManager.isObjectModelCached(request.objectId, request.type, isOsrsRegion())) {
+                            || ObjectManager.isObjectModelCached(request.objectId, request.type)) {
                         addRequestedObject(request.tileY, request.plane, request.face, request.type, request.tileX,
                                 request.objectType, request.objectId);
                         request.unlink();
@@ -15533,7 +15533,7 @@ public class Client extends RSApplet {
                     if (request.spawnTime == 0 && request.tileX >= 1 && request.tileY >= 1 && request.tileX <= 102
                             && request.tileY <= 102
                             && (request.currentIDRequested < 0 || ObjectManager.isObjectModelCached(
-                            request.currentIDRequested, request.currentTypeRequested, isOsrsRegion()))) {
+                            request.currentIDRequested, request.currentTypeRequested))) {
                         addRequestedObject(request.tileY, request.plane, request.currentFaceRequested,
                                 request.currentTypeRequested, request.tileX, request.objectType,
                                 request.currentIDRequested);
@@ -16487,13 +16487,13 @@ public class Client extends RSApplet {
         }
         terrainData = new byte[k16][];
         objectData = new byte[k16][];
-        mapCoordinates = new int[k16];
+        regionIds = new int[k16];
         terrainIndices = new int[k16];
         objectIndices = new int[k16];
         k16 = 0;
         for (int l23 = (currentRegionX - 6) / 8; l23 <= (currentRegionX + 6) / 8; l23++) {
             for (int j26 = (currentRegionY - 6) / 8; j26 <= (currentRegionY + 6) / 8; j26++) {
-                mapCoordinates[k16] = (l23 << 8) + j26;
+                regionIds[k16] = (l23 << 8) + j26;
                 if (inTutorialIsland
                         && (j26 == 49 || j26 == 149 || j26 == 147 || l23 == 50 || l23 == 49 && j26 == 47)) {
                     terrainIndices[k16] = -1;
@@ -17034,21 +17034,17 @@ public class Client extends RSApplet {
                     if (class10 != null) {
                         int k21 = class10.wallObjUID;
                         if (j12 == 2) {
-                            class10.node1 = new ObjectOnTile(k21, 4 + k14, 2, i19, l19, j18, k20, animId, false,
-                                    isOsrsRegion());
-                            class10.node2 = new ObjectOnTile(k21, k14 + 1 & 3, 2, i19, l19, j18, k20, animId, false,
-                                    isOsrsRegion());
+                            class10.node1 = new ObjectOnTile(k21, 4 + k14, 2, i19, l19, j18, k20, animId, false);
+                            class10.node2 = new ObjectOnTile(k21, k14 + 1 & 3, 2, i19, l19, j18, k20, animId, false);
                         } else {
-                            class10.node1 = new ObjectOnTile(k21, k14, j12, i19, l19, j18, k20, animId, false,
-                                    isOsrsRegion());
+                            class10.node1 = new ObjectOnTile(k21, k14, j12, i19, l19, j18, k20, animId, false);
                         }
                     }
                 }
                 if (objectType == 1) {
                     WallDecoration class26 = worldController.getWallDecoration(j4, i7, plane);
                     if (class26 != null) {
-                        class26.node = new ObjectOnTile(class26.wallDecorUID, 0, 4, i19, l19, j18, k20, animId, false,
-                                isOsrsRegion());
+                        class26.node = new ObjectOnTile(class26.wallDecorUID, 0, 4, i19, l19, j18, k20, animId, false);
                     }
                 }
                 if (objectType == 2) {
@@ -17057,15 +17053,13 @@ public class Client extends RSApplet {
                         j12 = 10;
                     }
                     if (class28 != null) {
-                        class28.node = new ObjectOnTile(class28.interactiveObjUID, k14, j12, i19, l19, j18, k20, animId,
-                                false, isOsrsRegion());
+                        class28.node = new ObjectOnTile(class28.interactiveObjUID, k14, j12, i19, l19, j18, k20, animId, false);
                     }
                 }
                 if (objectType == 3) {
                     GroundDecoration class49 = worldController.getGroundDecoration(i7, j4, plane);
                     if (class49 != null) {
-                        class49.node = new ObjectOnTile(class49.groundDecorUID, k14, 22, i19, l19, j18, k20, animId,
-                                false, isOsrsRegion());
+                        class49.node = new ObjectOnTile(class49.groundDecorUID, k14, 22, i19, l19, j18, k20, animId, false);
                     }
                 }
             }
@@ -17094,7 +17088,7 @@ public class Client extends RSApplet {
                 player = playerArray[plrId];
             }
             if (player != null) {
-                ObjectDefinition objectDef = ObjectDefinition.forID(objectId, isOsrsRegion());
+                ObjectDefinition objectDef = ObjectDefinition.forID(objectId);
                 int mine = intGroundArray[plane][x][y];
                 int right = intGroundArray[plane][x + 1][y];
                 int upperRight = intGroundArray[plane][x + 1][y + 1];
@@ -17399,7 +17393,7 @@ public class Client extends RSApplet {
                 int l2 = uidTag >> 6;
                 if (objectType == 0) {
                     worldController.removeWallObject(xTile, z, yTile);
-                    ObjectDefinition objectDef = ObjectDefinition.forID(objectId_1, isOsrsRegion());
+                    ObjectDefinition objectDef = ObjectDefinition.forID(objectId_1);
                     if (objectDef.isUnwalkable) {
                         clippingPlanes[z].addClip(l2, k2, objectDef.aBoolean757, xTile, yTile);
                     }
@@ -17409,7 +17403,7 @@ public class Client extends RSApplet {
                 }
                 if (objectType == 2) {
                     worldController.removeInteractableObject(z % 4, xTile, yTile);
-                    ObjectDefinition objectDef_1 = ObjectDefinition.forID(objectId_1, isOsrsRegion());
+                    ObjectDefinition objectDef_1 = ObjectDefinition.forID(objectId_1);
                     if (xTile + objectDef_1.sizeX > 103 || yTile + objectDef_1.sizeX > 103
                             || xTile + objectDef_1.sizeY > 103 || yTile + objectDef_1.sizeY > 103) {
                         return;
@@ -17421,7 +17415,7 @@ public class Client extends RSApplet {
                 }
                 if (objectType == 3) {
                     worldController.removeGroundDecoration(z % 4, yTile, xTile);
-                    ObjectDefinition objectDef_2 = ObjectDefinition.forID(objectId_1, isOsrsRegion());
+                    ObjectDefinition objectDef_2 = ObjectDefinition.forID(objectId_1);
                     if (objectDef_2.isUnwalkable && objectDef_2.hasActions) {
                         clippingPlanes[z].addGroundDecClip(yTile, xTile);
                     }
@@ -17432,8 +17426,7 @@ public class Client extends RSApplet {
                 if (j3 < 3 && (byteGroundArray[1][xTile][yTile] & 2) == 2) {
                     j3++;
                 }
-                ObjectManager.method188(worldController, objectFace, yTile, requestType, j3, clippingPlanes[z],
-                        intGroundArray, xTile, objectId, z, isOsrsRegion());
+                ObjectManager.method188(worldController, objectFace, yTile, requestType, j3, clippingPlanes[z], intGroundArray, xTile, objectId, z);
             }
         }
     }
@@ -18150,13 +18143,13 @@ public class Client extends RSApplet {
                         }
                         terrainData = new byte[k16][];
                         objectData = new byte[k16][];
-                        mapCoordinates = new int[k16];
+                        regionIds = new int[k16];
                         terrainIndices = new int[k16];
                         objectIndices = new int[k16];
                         k16 = 0;
                         for (int l23 = (currentRegionX - 6) / 8; l23 <= (currentRegionX + 6) / 8; l23++) {
                             for (int j26 = (currentRegionY - 6) / 8; j26 <= (currentRegionY + 6) / 8; j26++) {
-                                mapCoordinates[k16] = (l23 << 8) + j26;
+                                regionIds[k16] = (l23 << 8) + j26;
                                 if (inTutorialIsland
                                         && (j26 == 49 || j26 == 149 || j26 == 147 || l23 == 50 || l23 == 49 && j26 == 47)) {
                                     terrainIndices[k16] = -1;
@@ -18164,12 +18157,16 @@ public class Client extends RSApplet {
                                     k16++;
                                 } else {
                                     int k28 = terrainIndices[k16] = onDemandFetcher.getMapIdForRegions(0, j26, l23);
+                                    int index = 3;
+                                    if(OldschoolMaps.isOldschoolRegion(regionIds[k16])) {
+                                        index = 8;
+                                    }
                                     if (k28 != -1) {
-                                        onDemandFetcher.requestFileData(3, k28);
+                                        onDemandFetcher.requestFileData(index, k28);
                                     }
                                     int j30 = objectIndices[k16] = onDemandFetcher.getMapIdForRegions(1, j26, l23);
                                     if (j30 != -1) {
-                                        onDemandFetcher.requestFileData(3, j30);
+                                        onDemandFetcher.requestFileData(index, j30);
                                     }
                                     k16++;
                                 }
@@ -18203,11 +18200,11 @@ public class Client extends RSApplet {
                         }
                         terrainData = new byte[totalLegitChunks][];
                         objectData = new byte[totalLegitChunks][];
-                        mapCoordinates = new int[totalLegitChunks];
+                        regionIds = new int[totalLegitChunks];
                         terrainIndices = new int[totalLegitChunks];
                         objectIndices = new int[totalLegitChunks];
                         for (int idx = 0; idx < totalLegitChunks; idx++) {
-                            int region = mapCoordinates[idx] = totalChunks[idx];
+                            int region = regionIds[idx] = totalChunks[idx];
                             int l30 = region >> 8 & 0xff;
                             int l31 = region & 0xff;
                             int terrainMapId = terrainIndices[idx] = onDemandFetcher.getMapIdForRegions(0, l31, l30);
@@ -20661,7 +20658,7 @@ public class Client extends RSApplet {
     private final int[] minimapYPosArray;
     static CollisionDetection[] clippingPlanes;
     public static int anIntArray1232[];
-    private int[] mapCoordinates;
+    private int[] regionIds;
     private int[] terrainIndices;
     private int[] objectIndices;
     private int anInt1237;
@@ -22819,10 +22816,6 @@ public class Client extends RSApplet {
     private String information = "";
 
     private ArrayList<CustomMinimapIcon> customMinimapIcons = new ArrayList<CustomMinimapIcon>();
-
-    private static Set<Integer> OSRS_REGIONS = new HashSet<>(Arrays.asList(4919, 5022, 5023, 5279, 5280, 5535, 5945,
-            5946, 6201, 5536, 4663, 6810, 9023, 9043, 11850, 11851, 12090, 12106, 12362, 12363, 12347, 12605, 12611,
-            12701, 12702, 12703, 12861, 12887, 12889, 12957, 12958, 12959, 12961));
 
     public List<EffectTimer> effects_list = new CopyOnWriteArrayList<EffectTimer>();
 

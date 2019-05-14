@@ -36,7 +36,7 @@ final class ObjectOnTile extends Animable {
 		if(objectConfigs != null)
 			objectDef = getObjectForVarbitConfig();
 		else
-			objectDef = ObjectDefinition.forID(objectId, osrs);
+			objectDef = ObjectDefinition.forID(objectId);
 		if(objectDef == null)
 		{
 			return null;
@@ -64,13 +64,11 @@ final class ObjectOnTile extends Animable {
 		if(i < 0 || i >= objectConfigs.length || objectConfigs[i] == -1)
 			return null;
 		else
-			return ObjectDefinition.forID(objectConfigs[i], osrs);
+			return ObjectDefinition.forID(objectConfigs[i]);
 		} catch(ArrayIndexOutOfBoundsException e) {return null;}
 	}
-	
-	
 
-	public ObjectOnTile(int i, int j, int k, int l, int i1, int j1, int k1, int anim, boolean randomizeAnimStart, boolean osrs) {
+	public ObjectOnTile(int i, int j, int k, int l, int i1, int j1, int k1, int anim, boolean randomizeAnimStart) {
 		objectId = i;
 		type = k;
 		orientation = j;
@@ -78,22 +76,19 @@ final class ObjectOnTile extends Animable {
 		b_y = l;
 		d_y = i1;
 		c_y = k1;
-		if(anim != -1)
-		{
+		if (anim != -1) {
 			animation = Animation.anims[anim];
 			frame = 0;
 			nextFrameTime = Client.loopCycle;
-			if(randomizeAnimStart && animation.loopDelay != -1)
-			{
-				frame = (int)(Math.random() * (double) animation.frameCount);
-				nextFrameTime -= (int)(Math.random() * (double) animation.getFrameLength(frame));
+			if (randomizeAnimStart && animation.loopDelay != -1) {
+				frame = (int) (Math.random() * (double) animation.frameCount);
+				nextFrameTime -= (int) (Math.random() * (double) animation.getFrameLength(frame));
 			}
 		}
-		ObjectDefinition object = ObjectDefinition.forID(objectId, osrs);
+		ObjectDefinition object = ObjectDefinition.forID(objectId);
 		varbitIndex = object.varbitIndex;
 		configId = object.configID;
 		objectConfigs = object.configObjectIDs;
-		this.osrs = osrs;
 	}
 
 	private int frame;
@@ -110,5 +105,4 @@ final class ObjectOnTile extends Animable {
 	private final int objectId;
 	private final int type;
 	private final int orientation;
-	private boolean osrs;
 }
