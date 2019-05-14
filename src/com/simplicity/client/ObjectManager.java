@@ -1113,12 +1113,17 @@ final class ObjectManager {
 				}
 				if (tileType <= 49) {
 					overLay[tilePlane][tileX][tileY] = stream.readSignedByte();
+					overlayDataType[tilePlane][tileX][tileY] = OldschoolMaps.isOldschoolRegion(regionId) ? DataType.OLDSCHOOL : DataType.REGULAR;
+
 					overlayClippingPaths[tilePlane][tileX][tileY] = (byte) ((tileType - 2) / 4);
 					overlayClippingPathRotations[tilePlane][tileX][tileY] = (byte) ((tileType - 2) + rotation & 3);
 				} else if (tileType <= 81)
 					tileSettings[tilePlane][tileX][tileY] = (byte) (tileType - 49);
-				else
+				else {
 					underLay[tilePlane][tileX][tileY] = (byte) (tileType - 81);
+					underlayDataType[tilePlane][tileX][tileY] = OldschoolMaps.isOldschoolRegion(regionId) ? DataType.OLDSCHOOL : DataType.REGULAR;
+
+				}
 			} while (true);
 		}
 		do {
