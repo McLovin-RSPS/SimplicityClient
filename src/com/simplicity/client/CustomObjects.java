@@ -384,7 +384,7 @@ public class CustomObjects {
 			{-1, 3036, 4532, 0, 0},
 			//{-1, 3037, 4535, 0, 0},
 			{-1, 3034, 4531, 0, 0},
-			{-1, 3035, 4531, 0, 0},
+			//{-1, 3035, 4531, 0, 0},
 			{-1, 3036, 4531, 0, 0},
 			{-1, 3036, 4530, 0, 0},
 			{-1, 3034, 4530, 0, 0},
@@ -757,7 +757,8 @@ public class CustomObjects {
 	//	{ 47947 , 2720, 5352, 0, 2}, // waterfall o city
 		
 		{ 16284 , 3028, 4514, 0, 0}, // Crystal afk
-		{ 49653 , 3036, 4531, 0, 0}, // Stattuete of Axemurdera
+		{ 49653 , 3035, 4531, 0, 3}, // Stattuete of Axemurdera
+		{ 53979 , 3044, 4536, 0, 0}, // Teleporter to AFK Bosses
 		{ -1 , 2461, 5295, 0, 0}, // remove object crystal cave
 		{ -1 , 2463, 5291, 0, 0}, // remove object crystal cave
 		{ -1 , 2462, 5287, 0, 0}, // remove object crystal cave

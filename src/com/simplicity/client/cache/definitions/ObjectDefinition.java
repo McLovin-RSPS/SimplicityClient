@@ -301,6 +301,10 @@ public final class ObjectDefinition {
             objectDef.actions = new String[]{"Touch", null, null, null, null};
             objectDef.name = "@yel@Statue of Axemurdera";
         }
+        if (i == 53979) {
+            objectDef.actions = new String[]{"Teleport", null, null, null, null};
+            objectDef.name = "@yel@Crystal Boss Zone";
+        }
         if (i == 16284) {
             objectDef.actions = new String[]{"Mine", null, null, null, null};
             objectDef.name = "@yel@Large Rock";
