@@ -2042,6 +2042,9 @@ public final class ItemDefinition {
                 itemDef.actions[1] = "Wear";
                 itemDef.actions[4] = "Drop";
                 break;
+            case 4749:
+                itemDef.femaleEquip1 = itemDef.maleEquip1;
+                break;
             case 12278:
                 itemDef.name = "Tanzanite helm";
                 itemDef.modelID = 29213;
