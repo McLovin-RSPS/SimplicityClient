@@ -6685,6 +6685,12 @@ public final class ItemDefinition {
             case 19584:
             case 19590:
             case 19594:
+            case 42873:
+            case 42875:
+            case 42877:
+            case 42879:
+            case 42881:
+            case 42883:
             case 19598:
                 itemDef.actions = new String[5];
                 itemDef.actions[0] = "Open";
