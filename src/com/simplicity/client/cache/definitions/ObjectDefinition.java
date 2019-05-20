@@ -139,7 +139,9 @@ public final class ObjectDefinition {
         }
         osrsCacheIndex = (osrsCacheIndex + 1) % 200;
         ObjectDefinition objectDef = cacheOSRS[osrsCacheIndex];
-
+        
+        System.out.println("i: " + i);
+ 
         streamOSRS.currentOffset = streamIndicesOSRS[i - 100_000];
         objectDef.type = i;
         objectDef.setDefaults();
