@@ -46,7 +46,7 @@ public final class MobDefinition {
                 npc.name = "Inferno";
                 npc.actions = new String[5];
                 npc.actions[0] = "Start";
-                System.out.println("asdfasdfsfsdf " + npc.models[0]);
+             //   System.out.println("asdfasdfsfsdf " + npc.models[0]);
             }
             if (npc.name != null && npc.name.contains("00ffff")) {
                 npc.name = npc.name.replaceAll("<col=00ffff>", "@cya@").replaceAll("</col>", "");
