@@ -88,26 +88,38 @@ public class CustomItems {
 
             case 11848:
                 itemDef.copy(ItemDefinition.forID(30_000 + 12877));
+                itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
                 break;
 
             case 11850:
                 itemDef.copy(ItemDefinition.forID(30_000 + 12873));
+                itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
                 break;
 
             case 11854:
                 itemDef.copy(ItemDefinition.forID(30_000 + 12879));
+                itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
                 break;
 
             case 11856:
                 itemDef.copy(ItemDefinition.forID(30_000 + 12875));
+                itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
                 break;
 
             case 11846:
                 itemDef.copy(ItemDefinition.forID(30_000 + 12881));
+                itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
                 break;
 
             case 11852:
                 itemDef.copy(ItemDefinition.forID(30_000 + 12883));
+                itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
                 break;
 
             case 14545:

@@ -16220,8 +16220,7 @@ public class Client extends RSApplet {
                 int k = chatTypes[j];
                 String name = chatNames[j];
                 if (name != null && name.indexOf("@") == 0) {
-
-                    // name = name.substring(5);
+                    name = name.substring(name.lastIndexOf("@") + 1);
                 }
                 if ((k == 3 || k == 7)
                         && (k == 7 || privateChatMode == 0 || privateChatMode == 1 && isFriendOrSelf(name))) {

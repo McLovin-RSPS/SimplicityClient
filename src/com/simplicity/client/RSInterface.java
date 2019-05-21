@@ -10305,7 +10305,7 @@ public class RSInterface {
         }
         list.height = 174;
         list.width = 174;
-        list.scrollMax = 1405 * (max_slots / 100);
+        list.scrollMax = 1505 * (max_slots / 100);
     }
 
     public static void addText(int childId, String text, int color, boolean center, boolean shadow,
