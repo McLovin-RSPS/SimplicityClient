@@ -620,6 +620,82 @@ public final class ItemDefinition {
                     itemDef.maleYOffset -= 7;
                     break;
                 case 51295:
+                case 51400: // Red Inf cape
+                	itemDef.copy(forID(51295));
+                	itemDef.maleZOffset += 3;
+                    itemDef.femaleZOffset += 3;
+                    itemDef.femaleYOffset -= 3;
+                    itemDef.maleYOffset -= 3;
+                    itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
+                    itemDef.newModelColor = new int[] { 61, 946, 946, 946, 946 };
+                	break;
+                case 51401: // Bloody cape
+                	itemDef.copy(forID(51295));
+                	itemDef.maleZOffset += 3;
+                    itemDef.femaleZOffset += 3;
+                    itemDef.femaleYOffset -= 3;
+                    itemDef.maleYOffset -= 3;
+                    itemDef.name = "Bloody cape";
+                    itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
+                    itemDef.newModelColor = new int[] { 62, 921, 921, 921, 0 };
+                	break;
+                case 51402: // Stone Cape
+                	itemDef.copy(forID(51295));
+                	itemDef.maleZOffset += 3;
+                    itemDef.femaleZOffset += 3;
+                    itemDef.femaleYOffset -= 3;
+                    itemDef.maleYOffset -= 3;
+                    itemDef.name = "Stone cape";
+                    itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
+                    itemDef.newModelColor = new int[] { 63, 25, 25, 25, 25 };
+                	break;
+                case 51403: // Ocean Cape
+                	itemDef.copy(forID(51295));
+                	itemDef.maleZOffset += 3;
+                    itemDef.femaleZOffset += 3;
+                    itemDef.femaleYOffset -= 3;
+                    itemDef.maleYOffset -= 3;
+                    itemDef.name = "Ocean cape";
+                    itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
+                    itemDef.newModelColor = new int[] { 64, 32665, 32665, 32665, 32665 };
+                	break;
+                case 51404: // Pink Inf Cape
+                	itemDef.copy(forID(51295));
+                	itemDef.maleZOffset += 3;
+                    itemDef.femaleZOffset += 3;
+                    itemDef.femaleYOffset -= 3;
+                    itemDef.maleYOffset -= 3;
+                    itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
+                    itemDef.newModelColor = new int[] { 65, 54194, 54194, 54194, 54194 };
+                	break;
+                case 51405: // Green inf Cape
+                	itemDef.copy(forID(51295));
+                	itemDef.maleZOffset += 3;
+                    itemDef.femaleZOffset += 3;
+                    itemDef.femaleYOffset -= 3;
+                    itemDef.maleYOffset -= 3;
+                    itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
+                    itemDef.newModelColor = new int[] { 66, 16306, 16306, 16306, 16306 };
+                	break;
+                case 51406: // Frozen cape
+                	itemDef.copy(forID(51295));
+                	itemDef.maleZOffset += 3;
+                    itemDef.femaleZOffset += 3;
+                    itemDef.femaleYOffset -= 3;
+                    itemDef.maleYOffset -= 3;
+                    itemDef.name = "Frozen cape";
+                    itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
+                    itemDef.newModelColor = new int[] { 67, 43263, 43263, 43263, 37247 };
+                	break;
+                case 51407: // Yellow inf Cape
+                	itemDef.copy(forID(51295));
+                	itemDef.maleZOffset += 3;
+                    itemDef.femaleZOffset += 3;
+                    itemDef.femaleYOffset -= 3;
+                    itemDef.maleYOffset -= 3;
+                    itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
+                    itemDef.newModelColor = new int[] { 68, 11212, 11212, 11212, 11212 };
+                	break;
                 case 51285:
                 case 51776:
                 case 51780:
