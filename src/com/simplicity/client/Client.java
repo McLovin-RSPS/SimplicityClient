@@ -19959,24 +19959,28 @@ public class Client extends RSApplet {
             aByteArray912 = abyte2;
             Rasterizer.method370(40);
         }
+        
+        for (int i : MOVING_TEXTURES) {
+        	if (Rasterizer.anIntArray1480[i] >= j) {
+                Background background_2 = Rasterizer.aBackgroundArray1474s[i];
+                int i1 = background_2.imgWidth * background_2.imgHeight - 1;
+                int l1 = background_2.imgWidth * cycleTimer * 1;
+                byte abyte2[] = background_2.imgPixels;
+                byte abyte5[] = aByteArray912;
 
-        if (Rasterizer.anIntArray1480[59] >= j) {
-            Background background_2 = Rasterizer.aBackgroundArray1474s[59];
-            int i1 = background_2.imgWidth * background_2.imgHeight - 1;
-            int l1 = background_2.imgWidth * cycleTimer * 1;
-            byte abyte2[] = background_2.imgPixels;
-            byte abyte5[] = aByteArray912;
+                for (int k2 = 0; k2 <= i1; k2++) {
+                    abyte5[k2] = abyte2[k2 - l1 & i1];
+                }
 
-            for (int k2 = 0; k2 <= i1; k2++) {
-                abyte5[k2] = abyte2[k2 - l1 & i1];
+                background_2.imgPixels = abyte5;
+                aByteArray912 = abyte2;
+                Rasterizer.method370(i);
             }
-
-            background_2.imgPixels = abyte5;
-            aByteArray912 = abyte2;
-            Rasterizer.method370(59);
         }
     }
-
+    
+    public static final int[] MOVING_TEXTURES = new int[] { 59, 61, 62, 63, 64, 65, 66, 67, 68 };
+    
     public int[] write(int var1, int var2, int var3, int var4, int var5) {
         WorldController.focalLength = Rasterizer.width;
         if (var1 >= 128 && var3 >= 128 && var1 <= 13056 && var3 <= 13056) {
