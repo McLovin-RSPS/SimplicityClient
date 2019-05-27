@@ -303,6 +303,10 @@ public final class ObjectDefinition {
             objectDef.actions = new String[]{"Touch", null, null, null, null};
             objectDef.name = "@yel@Statue of Axemurdera";
         }
+        if (i == 41026) {
+            objectDef.actions = new String[]{"Touch", null, null, null, null};
+            objectDef.name = "@yel@Statue of Risen Siren";
+        }
         if (i == 53979) {
             objectDef.actions = new String[]{"Teleport", null, null, null, null};
             objectDef.name = "@yel@Crystal Boss Zone";
@@ -448,8 +452,11 @@ public final class ObjectDefinition {
         if (i == 172) {
             objectDef.name = "Crystal chest";
         }
-        if (i == 34585) {
+        if (i == 134585) {
             objectDef.name = "Stone chest";
+        }
+        if (i == 18321) {
+            objectDef.name = "Wilderness chest";
         }
         if (i == 6714) {
             objectDef.hasActions = true;

@@ -3113,7 +3113,11 @@ public class Model extends Animable {
                     continue;
                 }
 
-                if (!ItemDefinition.infernalModels.contains(modelId) && textureIds[i] == Rasterizer.infernalTexture) {
+				/**
+				 * Allowing only the infernal cape and its colored versions to
+				 * be textured using its textures.
+				 */
+                if (!ItemDefinition.infernalModels.contains(modelId) && (textureIds[i] >= Rasterizer.infernalTexture && textureIds[i] <= 68)) {
                     continue;
                 }
 

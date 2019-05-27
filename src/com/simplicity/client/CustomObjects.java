@@ -187,7 +187,6 @@ public class CustomObjects {
 			{61551 , 1827, 5159, 2, 0}, // white tree arthur's dream
 			
 			{52709, 1824, 5161, 2, 0}, // arthur's dream campfire
-			
 			// Edge arthur's dream teleporter
 			{48661, 3083, 3488, 0, 3}, // Arthur's dream teleporter edgeville
 			{27254 , 1831, 5163, 2, 0}, // Dark portal arthur's dream
@@ -582,6 +581,28 @@ public class CustomObjects {
 			{2213, 2334, 9808, 0, 0},
 			{2213, 2313, 9798, 0, 0},
 			/*End of new Donator Zone*/
+			
+			//Wilderness box area
+			
+			{18321, 3099, 3624, 0, 0}, //Tier 1 Wilderness Box
+			{59732, 3108, 3699, 0, 2}, //Tier 2 Wilderness Box
+			{29578, 3170, 3886, 0, 0}, //Tier 3 Wilderness Box
+			
+			
+			{-1, 3171, 3886, 0, 0}, //Removal objects
+			{-1, 3168, 3884, 0, 0}, //Removal objects
+			
+			{-1, 3097, 3624, 0, 0}, //Removal objects
+			{-1, 3098, 3624, 0, 0}, //Removal objects
+			{-1, 3100, 3624, 0, 0}, //Removal objects
+			
+			{-1, 3099, 3625, 0, 0}, //Removal objects
+			{-1, 3098, 3625, 0, 0}, //Removal objects
+			
+			{-1, 3099, 3623, 0, 0}, //Removal objects
+			{-1, 3101, 3623, 0, 0}, //Removal objects
+			/*End of wilderness box area*/
+			
 			/*Misc*/
 		{-1, 3091, 3495, 0, 0},	
 		{-1, 2268, 3067, 0, 0},
@@ -745,7 +766,7 @@ public class CustomObjects {
 		{ 14859, 3054, 9746, 0, 2},
 		{ 4306, 3026, 9741, 0, 0},
 		{ 6189, 3022, 9742, 0, 1},
-		{ 172 , 3083, 3497, 0, 1},
+		{ 172 , 3077, 3499, 0, 1},
 		{3192, 3084, 3485, 0, 4},
 		{ -1, 3090, 3503, 0, 0},
 		
@@ -759,7 +780,9 @@ public class CustomObjects {
 		
 		{ 16284 , 3028, 4514, 0, 0}, // Crystal afk
 		{ 49653 , 3035, 4531, 0, 3}, // Stattuete of Axemurdera
+		{ 41026 , 3045, 4531, 0, 1}, // Stattuete of Risen Siren
 		{ 53979 , 3044, 4536, 0, 0}, // Teleporter to AFK Bosses
+		
 		{ -1 , 2461, 5295, 0, 0}, // remove object crystal cave
 		{ -1 , 2463, 5291, 0, 0}, // remove object crystal cave
 		{ -1 , 2462, 5287, 0, 0}, // remove object crystal cave
