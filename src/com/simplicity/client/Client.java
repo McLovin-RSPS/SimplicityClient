@@ -1,5 +1,49 @@
 package com.simplicity.client;
 
+import com.simplicity.Configuration;
+import com.simplicity.Jframe;
+import com.simplicity.client.DrawLine.LineType;
+import com.simplicity.client.cache.CacheDownloader;
+import com.simplicity.client.cache.DataType;
+import com.simplicity.client.cache.definitions.Animation;
+import com.simplicity.client.cache.definitions.FloorDefinitionOSRS;
+import com.simplicity.client.cache.definitions.FloorOverlay;
+import com.simplicity.client.cache.definitions.FloorUnderlay;
+import com.simplicity.client.cache.definitions.ItemDefinition;
+import com.simplicity.client.cache.definitions.MobDefinition;
+import com.simplicity.client.cache.definitions.ObjectDefinition;
+import com.simplicity.client.cache.definitions.SpotAnimDefinition;
+import com.simplicity.client.cache.definitions.VarBit;
+import com.simplicity.client.cache.definitions.Varp;
+import com.simplicity.client.cache.maps.OldschoolMaps;
+import com.simplicity.client.cache.node.Deque;
+import com.simplicity.client.cache.node.Node;
+import com.simplicity.client.content.CustomisableHotKeys;
+import com.simplicity.client.content.EffectTimer;
+import com.simplicity.client.content.FlashingSprite;
+import com.simplicity.client.content.LoginScreen;
+import com.simplicity.client.content.LoginScreen.CharacterFile;
+import com.simplicity.client.content.PetSystem;
+import com.simplicity.client.content.PlayerRights;
+import com.simplicity.client.content.RichPresence;
+import com.simplicity.client.content.dropdownmenu.DropDownAction;
+import com.simplicity.client.content.dropdownmenu.DropDownMenu;
+import com.simplicity.client.particles.Particle;
+import com.simplicity.client.particles.ParticleDefinition;
+
+import javax.imageio.ImageIO;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Sequence;
+import javax.sound.midi.Sequencer;
+import javax.swing.ImageIcon;
+import javax.swing.JColorChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.colorchooser.AbstractColorChooserPanel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.applet.AppletContext;
 import java.awt.Color;
 import java.awt.Component;
@@ -45,63 +89,16 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.CRC32;
 import java.util.zip.GZIPOutputStream;
-
-import javax.imageio.ImageIO;
-import javax.sound.midi.MidiSystem;
-import javax.sound.midi.MidiUnavailableException;
-import javax.sound.midi.Sequence;
-import javax.sound.midi.Sequencer;
-import javax.swing.ImageIcon;
-import javax.swing.JColorChooser;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.colorchooser.AbstractColorChooserPanel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
-import com.simplicity.Configuration;
-import com.simplicity.Jframe;
-import com.simplicity.client.DrawLine.LineType;
-import com.simplicity.client.cache.CacheDownloader;
-import com.simplicity.client.cache.DataType;
-import com.simplicity.client.cache.definitions.Animation;
-import com.simplicity.client.cache.definitions.FloorDefinitionOSRS;
-import com.simplicity.client.cache.definitions.FloorOverlay;
-import com.simplicity.client.cache.definitions.FloorUnderlay;
-import com.simplicity.client.cache.definitions.ItemDefinition;
-import com.simplicity.client.cache.definitions.MobDefinition;
-import com.simplicity.client.cache.definitions.ObjectDefinition;
-import com.simplicity.client.cache.definitions.SpotAnimDefinition;
-import com.simplicity.client.cache.definitions.VarBit;
-import com.simplicity.client.cache.definitions.Varp;
-import com.simplicity.client.cache.maps.OldschoolMaps;
-import com.simplicity.client.cache.node.Deque;
-import com.simplicity.client.cache.node.Node;
-import com.simplicity.client.content.CustomisableHotKeys;
-import com.simplicity.client.content.EffectTimer;
-import com.simplicity.client.content.FlashingSprite;
-import com.simplicity.client.content.LoginScreen;
-import com.simplicity.client.content.LoginScreen.CharacterFile;
-import com.simplicity.client.content.PetSystem;
-import com.simplicity.client.content.PlayerRights;
-import com.simplicity.client.content.RichPresence;
-import com.simplicity.client.content.dropdownmenu.DropDownAction;
-import com.simplicity.client.content.dropdownmenu.DropDownMenu;
-import com.simplicity.client.particles.Particle;
-import com.simplicity.client.particles.ParticleDefinition;
 
 @SuppressWarnings("all")
 public class Client extends RSApplet {
@@ -4299,7 +4296,7 @@ public class Client extends RSApplet {
             // mouseX = super.clickX;
             // mouseY = super.clickY;
             // }
-            if(child.invisible) {
+            if (child.invisible) {
                 continue;
             }
             if ((child.hoverType >= 0 || child.disabledMouseOverColor != 0) && mouseX >= childX && mouseY >= childY
@@ -4400,7 +4397,7 @@ public class Client extends RSApplet {
                 }
                 if (child.atActionType == 5 && mouseX >= childX && mouseY >= childY && mouseX < childX + child.width
                         && mouseY < childY + child.height) {
-                    if(child.tooltip2 != null) {
+                    if (child.tooltip2 != null) {
                         menuActionName[menuActionRow] = child.tooltip2
                                 + ((myRights != 0) ? ", @gre@(@whi@" + (child.id + 1) + "@gre@)" : "");
                         menuActionID[menuActionRow] = 646;
@@ -6511,7 +6508,7 @@ public class Client extends RSApplet {
                 }
 
                 if (onDemandData.dataType == MAP_IDX - 1 || onDemandData.dataType == OSRS_MAP_IDX - 1) {
-                    if(loadingStage == 1) {
+                    if (loadingStage == 1) {
                         for (int i = 0; i < terrainData.length; i++) {
                             if (terrainIndices[i] == onDemandData.id) {
                                 terrainData[i] = onDemandData.buffer;
@@ -6535,7 +6532,7 @@ public class Client extends RSApplet {
 
             } while (onDemandData.dataType != 93 || !onDemandFetcher.mapIsObjectMap(onDemandData.id));
             DataType dataType = DataType.REGULAR;
-            if(onDemandData.dataType == 8) {
+            if (onDemandData.dataType == 8) {
                 dataType = DataType.OLDSCHOOL;
             }
             ObjectManager.method173(new Stream(onDemandData.buffer), onDemandFetcher, dataType);
@@ -12558,7 +12555,7 @@ public class Client extends RSApplet {
                         npc.anInt1520 = -1;
                     }
                     try {
-                        if(SpotAnimDefinition.cache[npc.anInt1520].dataType == DataType.OLDSCHOOL) {
+                        if (SpotAnimDefinition.cache[npc.anInt1520].dataType == DataType.OLDSCHOOL) {
                             if (FrameReader.animationListOldschool[Integer.parseInt(Integer.toHexString(SpotAnimDefinition.cache[npc.anInt1520].animation.frameIDs[0]).substring(0, Integer.toHexString(SpotAnimDefinition.cache[npc.anInt1520].animation.frameIDs[0]).length() - 4), 16)].length == 0) {
                                 onDemandFetcher.requestFileData(Client.OSRS_ANIM_IDX - 1, Integer.parseInt(Integer.toHexString(SpotAnimDefinition.cache[npc.anInt1520].animation.frameIDs[0]).substring(0, Integer.toHexString(SpotAnimDefinition.cache[npc.anInt1520].animation.frameIDs[0]).length() - 4), 16));
                             }
@@ -12992,7 +12989,7 @@ public class Client extends RSApplet {
             mainFrame.setClientIcon();
 
         }
-       // repackCacheIndex(9);
+        // repackCacheIndex(9);
         // repackCacheIndex(1);
         // repackCacheIndex(4);
         load();
@@ -14143,7 +14140,7 @@ public class Client extends RSApplet {
                 if (child == null || child.hidden) {
                     continue;
                 }
-                if(child.invisible) {
+                if (child.invisible) {
                     continue;
                 }
                 childX += child.xOffset;
@@ -14279,7 +14276,7 @@ public class Client extends RSApplet {
                                                 int k10 = child.invStackSizes[spriteIndex];
                                                 if (!bankTab) {
 
-                                                    if(rsInterface.id == 33213) {
+                                                    if (rsInterface.id == 33213) {
                                                         if (k10 >= 1500000000 && child.drawInfinity) {
                                                             SpriteLoader.sprites[653].drawSprite(itemSpriteX, itemSpriteY);
                                                         } else if (k10 == 0) {
@@ -14857,7 +14854,7 @@ public class Client extends RSApplet {
             try {
                 SpotAnimDefinition spotAnim = SpotAnimDefinition.cache[player.anInt1520];
 
-                if(spotAnim.dataType == DataType.OLDSCHOOL) {
+                if (spotAnim.dataType == DataType.OLDSCHOOL) {
                     if (FrameReader.animationListOldschool[Integer.parseInt(Integer.toHexString(spotAnim.animation.frameIDs[0]).substring(0, Integer.toHexString(spotAnim.animation.frameIDs[0]).length() - 4), 16)].length == 0) {
                         onDemandFetcher.requestFileData(OSRS_ANIM_IDX - 1, Integer.parseInt(Integer.toHexString(spotAnim.animation.frameIDs[0]).substring(0, Integer.toHexString(spotAnim.animation.frameIDs[0]).length() - 4), 16));
                     }
@@ -14898,7 +14895,7 @@ public class Client extends RSApplet {
 
                 try {
 
-                    if(Animation.anims[requestAnim].dataType == DataType.OLDSCHOOL) {
+                    if (Animation.anims[requestAnim].dataType == DataType.OLDSCHOOL) {
                         if (FrameReader.animationListOldschool[Integer.parseInt(Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).substring(0, Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).length() - 4), 16)].length == 0) {
                             onDemandFetcher.requestFileData(Client.OSRS_ANIM_IDX - 1, Integer.parseInt(Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).substring(0, Integer.toHexString(Animation.anims[requestAnim].frameIDs[0]).length() - 4), 16));
                         }
@@ -15930,7 +15927,10 @@ public class Client extends RSApplet {
                     RSInterface interfaceToCheckOn = RSInterface.interfaceCache[myValues[valueIdx++]];
                     int itemId = myValues[valueIdx++];
                     for (int j3 = 0; j3 < interfaceToCheckOn.inv.length; j3++) {
-                        if (interfaceToCheckOn.inv[j3] == itemId + 1) {
+                        int checkItemId = interfaceToCheckOn.inv[j3];
+                        if (itemId == 555 && checkItemId == 18346)
+                            returnValue += 999999999;
+                        else if (checkItemId == itemId + 1) {
                             returnValue += interfaceToCheckOn.invStackSizes[j3];
                         }
                     }
@@ -18157,7 +18157,7 @@ public class Client extends RSApplet {
                                 } else {
                                     int k28 = terrainIndices[k16] = onDemandFetcher.getMapIdForRegions(0, j26, l23);
                                     int index = 3;
-                                    if(OldschoolMaps.isOldschoolRegion(regionIds[k16])) {
+                                    if (OldschoolMaps.isOldschoolRegion(regionIds[k16])) {
                                         index = 8;
                                     }
                                     if (k28 != -1) {
@@ -18838,7 +18838,7 @@ public class Client extends RSApplet {
                     boolean flag1 = inStream.readUnsignedByte() == 1;
                     int j13 = inStream.readUnsignedWord();
                     try {
-                        if(j13 >= 52000 && j13 <= 53000) {
+                        if (j13 >= 52000 && j13 <= 53000) {
                             RSInterface.interfaceCache[j13].invisible = flag1;
                         } else {
                             RSInterface.interfaceCache[j13].interfaceShown = flag1;
@@ -18895,7 +18895,7 @@ public class Client extends RSApplet {
                             return true;
                         }
                     }
-                    if(text.startsWith("scrollmax")) {
+                    if (text.startsWith("scrollmax")) {
                         String[] args = text.split(" ");
                         int scrollValue = Integer.parseInt(args[2]);
                         int scrollInterfaceId = Integer.parseInt(args[1]);
