@@ -619,7 +619,6 @@ public final class ItemDefinition {
                     itemDef.femaleYOffset -= 7;
                     itemDef.maleYOffset -= 7;
                     break;
-                case 51295:
                 case 51400: // Red Inf cape
                 	itemDef.copy(forID(51295));
                 	itemDef.maleZOffset += 3;
@@ -696,6 +695,7 @@ public final class ItemDefinition {
                     itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
                     itemDef.newModelColor = new int[] { 68, 11212, 11212, 11212, 11212 };
                 	break;
+                case 51295:
                 case 51285:
                 case 51776:
                 case 51780:
