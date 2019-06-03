@@ -1338,6 +1338,24 @@ public final class ItemDefinition {
             itemDef.newModelColor = new int[] { 4024, 4024, 7073, 4024, 4024 };        
             break;
             
+        case 21011:
+        	def2 = forID(9774);
+        	itemDef.actions = def2.actions;
+        	itemDef.name = "Corp cape";
+        	itemDef.modelID = 62923;
+        	itemDef.sizeX = def2.sizeX;
+        	itemDef.sizeY = def2.sizeY;
+        	itemDef.sizeZ = def2.sizeZ;
+        	itemDef.maleEquip1 = 62922;
+        	itemDef.femaleEquip1 = 62922;
+        	itemDef.rotationX = 1024;
+        	itemDef.rotationY = 300;
+        	itemDef.modelZoom = 2000;
+        	itemDef.modelOffsetY = 130;
+        	itemDef.editedModelColor = def2.editedModelColor;
+        	itemDef.newModelColor = def2.newModelColor;
+            break;
+            
             // Yellow orange https://i.gyazo.com/07b471a0043616d12ecedd616f422fd3.png      
         /*case 21010:
             itemDef.actions = new String[5];
