@@ -865,8 +865,21 @@ public class Client extends RSApplet {
                                     newRegularFont.drawBasicString(message[0], xPos + offsetX, yPos - 14 + offsetY,
                                             clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
                                     xPos -= 3;
+                                    
+                                    int col = -1;
+                                    
+                                    if (message[0].indexOf("<col=") != -1) {
+                                    	try {
+                                    		int colorStart = message[0].lastIndexOf("<col=");
+                                        	int colorEnd = message[0].lastIndexOf(">");
+                                    		col = Integer.parseInt(message[0].substring(colorStart + 5, colorEnd), 16);
+                                    	} catch (Exception e) {
+                                    		
+                                    	}
+                                    }
+                                    
                                     newRegularFont.drawBasicString(message[1], xPos + offsetX, yPos + offsetY,
-                                            clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
+                                            col != -1 ? col : clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
                                     messageY++;
                                 } else {
                                     newRegularFont.drawBasicString(chatMessages[index], xPos + offsetX,

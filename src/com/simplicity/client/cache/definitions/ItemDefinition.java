@@ -619,7 +619,6 @@ public final class ItemDefinition {
                     itemDef.femaleYOffset -= 7;
                     itemDef.maleYOffset -= 7;
                     break;
-                case 51295:
                 case 51400: // Red Inf cape
                 	itemDef.copy(forID(51295));
                 	itemDef.maleZOffset += 3;
@@ -696,6 +695,7 @@ public final class ItemDefinition {
                     itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
                     itemDef.newModelColor = new int[] { 68, 11212, 11212, 11212, 11212 };
                 	break;
+                case 51295:
                 case 51285:
                 case 51776:
                 case 51780:
@@ -1336,6 +1336,24 @@ public final class ItemDefinition {
             itemDef.description = "A mystical bow carved from a very hot place.";
             itemDef.editedModelColor = new int[] { 16, 24, 33, 13223, 14236 };
             itemDef.newModelColor = new int[] { 4024, 4024, 7073, 4024, 4024 };        
+            break;
+            
+        case 21011:
+        	def2 = forID(9774);
+        	itemDef.actions = def2.actions;
+        	itemDef.name = "Corp cape";
+        	itemDef.modelID = 62923;
+        	itemDef.sizeX = def2.sizeX;
+        	itemDef.sizeY = def2.sizeY;
+        	itemDef.sizeZ = def2.sizeZ;
+        	itemDef.maleEquip1 = 62922;
+        	itemDef.femaleEquip1 = 62922;
+        	itemDef.rotationX = 1024;
+        	itemDef.rotationY = 300;
+        	itemDef.modelZoom = 2000;
+        	itemDef.modelOffsetY = 130;
+        	itemDef.editedModelColor = def2.editedModelColor;
+        	itemDef.newModelColor = def2.newModelColor;
             break;
             
             // Yellow orange https://i.gyazo.com/07b471a0043616d12ecedd616f422fd3.png      
