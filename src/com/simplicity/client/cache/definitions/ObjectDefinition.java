@@ -325,7 +325,7 @@ public final class ObjectDefinition {
             objectDef.name = "Compost bin";
         }
         if (i == 884) {
-            objectDef.actions = new String[]{"Investigate", "Contribute", null, null, null};
+            objectDef.actions = new String[]{"Investigate", "Contribute", "Status", null, null};
             objectDef.name = "Well of Goodwill";
         }
         if (i == 11398) {
