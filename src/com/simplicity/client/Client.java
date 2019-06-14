@@ -865,19 +865,19 @@ public class Client extends RSApplet {
                                     newRegularFont.drawBasicString(message[0], xPos + offsetX, yPos - 14 + offsetY,
                                             clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
                                     xPos -= 3;
-                                    
+
                                     int col = -1;
-                                    
+
                                     if (message[0].indexOf("<col=") != -1) {
-                                    	try {
-                                    		int colorStart = message[0].lastIndexOf("<col=");
-                                        	int colorEnd = message[0].lastIndexOf(">");
-                                    		col = Integer.parseInt(message[0].substring(colorStart + 5, colorEnd), 16);
-                                    	} catch (Exception e) {
-                                    		
-                                    	}
+                                        try {
+                                            int colorStart = message[0].lastIndexOf("<col=");
+                                            int colorEnd = message[0].lastIndexOf(">");
+                                            col = Integer.parseInt(message[0].substring(colorStart + 5, colorEnd), 16);
+                                        } catch (Exception e) {
+
+                                        }
                                     }
-                                    
+
                                     newRegularFont.drawBasicString(message[1], xPos + offsetX, yPos + offsetY,
                                             col != -1 ? col : clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
                                     messageY++;
@@ -15941,10 +15941,16 @@ public class Client extends RSApplet {
                     int itemId = myValues[valueIdx++];
                     for (int j3 = 0; j3 < interfaceToCheckOn.inv.length; j3++) {
                         int checkItemId = interfaceToCheckOn.inv[j3];
-                        if (itemId == 555 && checkItemId == 18346)
-                            returnValue += 999999999;
-                        else if (checkItemId == itemId + 1) {
+                        if (checkItemId == itemId + 1) {
                             returnValue += interfaceToCheckOn.invStackSizes[j3];
+                        }
+                    }
+                    if(myPlayer.equipment != null) {
+                        for (int id : myPlayer.equipment) {
+                            id -= 512;
+                            if (id == 18346 && itemId == 554 + 1) { // Tome of frost.
+                                returnValue += 999999999;
+                            }
                         }
                     }
                 }
@@ -19972,9 +19978,9 @@ public class Client extends RSApplet {
             aByteArray912 = abyte2;
             Rasterizer.method370(40);
         }
-        
+
         for (int i : MOVING_TEXTURES) {
-        	if (Rasterizer.anIntArray1480[i] >= j) {
+            if (Rasterizer.anIntArray1480[i] >= j) {
                 Background background_2 = Rasterizer.aBackgroundArray1474s[i];
                 int i1 = background_2.imgWidth * background_2.imgHeight - 1;
                 int l1 = background_2.imgWidth * cycleTimer * 1;
@@ -19991,9 +19997,9 @@ public class Client extends RSApplet {
             }
         }
     }
-    
-    public static final int[] MOVING_TEXTURES = new int[] { 59, 61, 62, 63, 64, 65, 66, 67, 68 };
-    
+
+    public static final int[] MOVING_TEXTURES = new int[]{59, 61, 62, 63, 64, 65, 66, 67, 68};
+
     public int[] write(int var1, int var2, int var3, int var4, int var5) {
         WorldController.focalLength = Rasterizer.width;
         if (var1 >= 128 && var3 >= 128 && var1 <= 13056 && var3 <= 13056) {
