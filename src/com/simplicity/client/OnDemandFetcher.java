@@ -261,7 +261,7 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
         Stream stream = new Stream(data);
         int mapCount = stream.readUnsignedWord();
 
-        int extraMaps = 21 + OldschoolMaps.OLDSCHOOL_REGION_IDS.length;
+        int extraMaps = 200 + OldschoolMaps.OLDSCHOOL_REGION_IDS.length;
         regionIds = new int[mapCount + extraMaps];
         landscapeMapIds = new int[mapCount + extraMaps];
         objectMapIds = new int[mapCount + extraMaps];
@@ -295,55 +295,57 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
             oldschoolObjectMapIds[i2] = osrsMapStream.readUnsignedWord();
         }
 
+        int currentCount = mapCount + 1;
+
         /**
          * Skotizo lair
          */
-        setMapData(mapCount + 1, 6810, 10000, 10001, false);
+        setMapData(currentCount++, 6810, 10000, 10001, false);
 
         /**
          * Revenant cave
          */
-        setMapData(mapCount + 2, 12701, 10002, 10003, false);
-        setMapData(mapCount + 3, 12702, 10004, 10005, false);
-        setMapData(mapCount + 4, 12703, 10006, 10007, false);
+        setMapData(currentCount++, 12701, 10002, 10003, false);
+        setMapData(currentCount++, 12702, 10004, 10005, false);
+        setMapData(currentCount++, 12703, 10006, 10007, false);
         setMapData(1346, 12957, 10008, 10009, false);
-        setMapData(mapCount + 5, 12958, 10010, 10011, false);
-        setMapData(mapCount + 6, 12959, 10012, 10013, false);
+        setMapData(currentCount++, 12958, 10010, 10011, false);
+        setMapData(currentCount++, 12959, 10012, 10013, false);
 
         /**
          * Abyssal sire
          */
-        setMapData(mapCount + 7, 11850, 10014, 10015, false);
-        setMapData(mapCount + 8, 12362, 10016, 10017, false);
-        setMapData(mapCount + 9, 12363, 10018, 10019, false);
+        setMapData(currentCount++, 11850, 10014, 10015, false);
+        setMapData(currentCount++, 12362, 10016, 10017, false);
+        setMapData(currentCount++, 12363, 10018, 10019, false);
 
         /**
          * Scorpia cave
          */
-        setMapData(mapCount + 10, 12961, 10020, 10021, false);
+        setMapData(currentCount++, 12961, 10020, 10021, false);
 
-        setMapData(mapCount + 11, 5536, 3472, 3473, true);
+        setMapData(currentCount++, 5536, 3472, 3473, true);
 
         /**
          * Lizardman Shaman
          */
-        setMapData(mapCount + 12, 5945, 2206, 2207, false);
-        setMapData(mapCount + 13, 5946, 2208, 2209, false);
-        setMapData(mapCount + 14, 6201, 2242, 2243, false);
+        setMapData(currentCount++, 5945, 2206, 2207, false);
+        setMapData(currentCount++, 5946, 2208, 2209, false);
+        setMapData(currentCount++, 6201, 2242, 2243, false);
 
         /**
          * Raids lobby
          */
-        setMapData(mapCount + 15, 4919, 2820, 2821, false);
+        setMapData(currentCount++, 4919, 2820, 2821, false);
 
         /**
          * Hydra.
          */
-        setMapData(mapCount + 16, 5022, 10028, 10029, false);
-        setMapData(mapCount + 17, 5023, 10022, 10023, false);
-        setMapData(mapCount + 18, 5279, 10026, 10027, false);
-        setMapData(mapCount + 19, 5280, 10024, 10025, false);
-        setMapData(mapCount + 20, 5535, 10030, 10031, false);
+        setMapData(currentCount++, 5022, 10028, 10029, false);
+        setMapData(currentCount++, 5023, 10022, 10023, false);
+        setMapData(currentCount++, 5279, 10026, 10027, false);
+        setMapData(currentCount++, 5280, 10024, 10025, false);
+        setMapData(currentCount++, 5535, 10030, 10031, false);
 
         /**
          * Great Olm
@@ -353,9 +355,9 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
         /**
          * Inferno
          */
-        regionIds[mapCount] = 9043;
-        landscapeMapIds[mapCount] = 3018;
-        objectMapIds[mapCount] = 3019;
+        regionIds[currentCount] = 9043;
+        landscapeMapIds[currentCount] = 3018;
+        objectMapIds[currentCount++] = 3019;
 
         /** KRAKEN **/
         regionIds[941] = 14681;
@@ -441,28 +443,15 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
         landscapeMapIds[150] = 956;
         objectMapIds[150] = 957;
 
-        /** CERBERUS **/
-        regionIds[0] = 4883;
-        landscapeMapIds[0] = 1984;
-        objectMapIds[0] = 1985;
-        regionIds[1] = 5139;
-        landscapeMapIds[1] = 1988;
-        objectMapIds[1] = 1989;
-        regionIds[2] = 5140;
-        landscapeMapIds[2] = 1986;
-        objectMapIds[2] = 1987;
-
-        int index = 0;
         for(Integer region : OldschoolMaps.OLDSCHOOL_REGION_IDS) {
             if(getOldschoolLandscapeMapId(region) != -1 && getOldschoolObjectMapId(region) != -1 && getIndicesIndex(region) != -1) {
                 objectMapIds[getIndicesIndex(region)] = -1;
                 landscapeMapIds[getIndicesIndex(region)] = -1;
                 regionIds[getIndicesIndex(region)] = -1;
             }
-            regionIds[mapCount + index] = region;
-            objectMapIds[mapCount + index] = getOldschoolObjectMapId(region);
-            landscapeMapIds[mapCount + index] = getOldschoolLandscapeMapId(region);
-            index++;
+            regionIds[currentCount] = region;
+            objectMapIds[currentCount] = getOldschoolObjectMapId(region);
+            landscapeMapIds[currentCount++] = getOldschoolLandscapeMapId(region);
         }
 
         data = streamLoader.getDataForName("model_index");
