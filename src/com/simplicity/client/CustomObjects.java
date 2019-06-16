@@ -590,7 +590,7 @@ public class CustomObjects {
 
             //Wilderness box area
 
-            {18321, 3099, 3624, 0, 0}, //Tier 1 Wilderness Box
+            {18321, 3104, 3621, 0, 0}, //Tier 1 Wilderness Box
             {59732, 3108, 3699, 0, 2}, //Tier 2 Wilderness Box
             {29578, 3170, 3886, 0, 0}, //Tier 3 Wilderness Box
 
