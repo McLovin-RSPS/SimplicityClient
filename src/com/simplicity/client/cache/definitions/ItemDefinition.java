@@ -787,6 +787,11 @@ public final class ItemDefinition {
                     itemDef.actions[2] = "Check";
                     itemDef.actions[3] = "Toggle Config";
                     break;
+                case 52191:
+                    itemDef.name = "Master Stone";
+                    itemDef.actions = new String[5];
+                    itemDef.actions[1] = "Hold";
+                    break;
                 case 52609:
                     itemDef.name = "Olm's Fire";
                     break;
