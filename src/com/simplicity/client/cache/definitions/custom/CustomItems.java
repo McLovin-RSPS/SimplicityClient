@@ -170,6 +170,25 @@ public class CustomItems {
                 itemDef.editedModelColor = new int[] { 4497, 4491, 4500, 4383, 4514, 4510, 4523, 4361, 4513, 4505, 4373 };
                 itemDef.newModelColor =    new int[] { 80, 90, 80, 90, 90, 90, 90, 90, 90, 90, 90 };
                 break;
+
+            case 19123:
+                itemDef.copy(ItemDefinition.forID(15335));
+                itemDef.toCustomNote(15335);
+                break;
+
+            case 19124:
+                itemDef.copy(ItemDefinition.forID(15334));
+                itemDef.toCustomNote(15334);
+                break;
+            case 19125:
+                itemDef.copy(ItemDefinition.forID(15333));
+                itemDef.toCustomNote(15333);
+                break;
+            case 19126:
+                itemDef.copy(ItemDefinition.forID(15332));
+                itemDef.toCustomNote(15332);
+                break;
+
         }
     }
 

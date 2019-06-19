@@ -7559,6 +7559,33 @@ public final class ItemDefinition {
         stackable = true;
     }
 
+    public void toCustomNote(int copyId) {
+        certTemplateID = 799;
+        certID = copyId;
+        ItemDefinition itemDef = forID(certTemplateID);
+        modelID = itemDef.modelID;
+        modelZoom = itemDef.modelZoom;
+        rotationY = itemDef.rotationY;
+        rotationX = itemDef.rotationX;
+        modelOffsetX = itemDef.modelOffsetX;
+        modelOffset1 = itemDef.modelOffset1;
+        modelOffsetY = itemDef.modelOffsetY;
+        editedModelColor = itemDef.editedModelColor;
+        newModelColor = itemDef.newModelColor;
+        ItemDefinition itemDef_1 = forID(copyId);
+        name = itemDef_1.name;
+        membersObject = itemDef_1.membersObject;
+        value = itemDef_1.value;
+        String s = "a";
+        char c = itemDef_1.name == null ? 'S' : itemDef_1.name.charAt(0);
+        if (c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U') {
+            s = "an";
+        }
+        actions = itemDef.actions;
+        description = ("Swap this note at any bank for " + s + " " + itemDef_1.name + ".");
+        stackable = true;
+    }
+
     private void toLend() {
         ItemDefinition itemDef = forID(lentItemID);
         actions = new String[5];
