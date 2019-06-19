@@ -7964,6 +7964,13 @@ public final class ItemDefinition {
         if (sizeX != 128 || sizeY != 128 || sizeZ != 128) {
             model.scaleT(sizeX, sizeZ, sizeY);
         }
+        if (Configuration.debuggingModels) {
+            String colours = id + " Model colours: ";
+            for (int i : model.face_color) {
+                colours = colours + ", " + i;
+            }
+            System.out.println(colours);
+        }
         if (editedModelColor != null) {
             for (int l = 0; l < editedModelColor.length; l++) {
                 model.recolour(editedModelColor[l], newModelColor[l]);
