@@ -1845,7 +1845,7 @@ public class Client extends RSApplet {
         int x = getOrbX(1);
         int y = getOrbY(1);
         orbs[clientSize == 0 ? (hoverPos == 1 ? 12 : 0) : (hoverPos == 1 ? 13 : 11)].drawSprite(x, y);
-        if (prayer <= 100 && prayer >= 75) {
+        if (prayer >= 75) {
             newSmallFont.drawCenteredString(Integer.toString(currentPray), x + (clientSize == 0 ? 42 : 15), y + 26,
                     65280, 0);
         } else if (prayer <= 74 && prayer >= 50) {
