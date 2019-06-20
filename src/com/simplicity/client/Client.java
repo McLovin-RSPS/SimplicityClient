@@ -4309,9 +4309,14 @@ public class Client extends RSApplet {
             // mouseX = super.clickX;
             // mouseY = super.clickY;
             // }
+
             if (child.invisible) {
                 continue;
             }
+
+            if(child.id == 30000)
+                System.out.println(child.type);
+
             if ((child.hoverType >= 0 || child.disabledMouseOverColor != 0) && mouseX >= childX && mouseY >= childY
                     && mouseX < childX + child.width && mouseY < childY + child.height) {
                 if (child.hoverType >= 0) {
@@ -4333,6 +4338,7 @@ public class Client extends RSApplet {
                             child.scrollMax);
                 }
             } else {
+
                 if (child.atActionType == 1 && mouseX >= childX && mouseY >= childY && mouseX < childX + child.width
                         && mouseY < childY + child.height) {
 
@@ -14364,6 +14370,9 @@ public class Client extends RSApplet {
                     } else if (child.type == 4) {
                         TextDrawingArea textDrawingArea = child.textDrawingAreas;
                         String s = child.message;
+                        if(textDrawingArea == null) {
+                            continue;
+                        }
                         int xOffset = 0;
                         int imageDraw = 0;
                         final String INITIAL_MESSAGE = s;

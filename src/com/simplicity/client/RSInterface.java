@@ -2431,6 +2431,74 @@ public class RSInterface {
 
     }
 
+    public static void makeAllSkilling(TextDrawingArea[] tda) {
+
+        RSInterface skilling = RSInterface.interfaceCache[8880];
+
+        addOption(49850, "Make All", skilling.id);
+        addOption(49851, "Make All", skilling.id);
+        addOption(49852, "Make All", skilling.id);
+
+        int[] tempChildIds = new int[skilling.children.length + 2];
+
+        int[] tempChildX = new int[skilling.childX.length + 2];
+
+        int[] tempChildY = new int[skilling.childY.length + 2];
+
+        System.arraycopy(skilling.children, 0, tempChildIds, 0, skilling.children.length);
+
+        System.arraycopy(skilling.childX, 0, tempChildX, 0, skilling.childX.length);
+
+        System.arraycopy(skilling.childY, 0, tempChildY, 0, skilling.childY.length);
+
+        skilling.children = tempChildIds;
+
+        skilling.childX = tempChildX;
+
+        skilling.childY = tempChildY;
+
+        skilling.children[5] = 49850;
+        skilling.children[6] = 8886;
+        skilling.children[7] = 8887;
+        skilling.children[8] = 8888;
+        skilling.children[9] = 8889;
+        skilling.children[10] = 49851;
+        skilling.children[11] = 8890;
+        skilling.children[12] = 8891;
+        skilling.children[13] = 8892;
+        skilling.children[14] = 8893;
+        skilling.children[15] = 49852;
+        skilling.children[16] = 8894;
+        skilling.children[17] = 8895;
+        skilling.children[18] = 8896;
+        skilling.children[19] = 8897;
+
+        skilling.childX[9] = 38;
+        skilling.childX[13] = 189;
+        skilling.childX[14] = 189;
+
+        skilling.childX[17] = 342;
+        skilling.childX[18] = 342;
+        skilling.childX[19] = 342;
+
+        skilling.childY[18] = 16;
+        skilling.childY[19] = 16;
+    }
+
+    public static void addOption(int id, String title, int parentId) {
+        RSInterface tab = interfaceCache[id] = new RSInterface();
+        tab.disabledMouseOverColor = 49152;
+        tab.atActionType = 1;
+        tab.width = 100;
+        tab.tooltip = title;
+        tab.centerText = true;
+        tab.parentID = parentId;
+        tab.height = 93;
+        tab.id = id;
+        tab.type = 4;
+        tab.message = "";
+    }
+
     public static void editClan(TextDrawingArea[] tda) {
         RSInterface tab = addTabInterface(40172);
         addSpriteLoader(47251, 736);
@@ -3827,6 +3895,8 @@ public class RSInterface {
          *
          * }
          */
+
+        makeAllSkilling(textDrawingAreas);
 
         spriteCache = null;
     }
