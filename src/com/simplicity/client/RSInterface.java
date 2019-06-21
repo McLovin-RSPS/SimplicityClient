@@ -3634,6 +3634,9 @@ public class RSInterface {
                         rsInterface.actions[3] = "Sell All";
                         rsInterface.actions[4] = "Sell X";
                     }
+                    if (rsInterface.parentID == 994) {
+                        rsInterface.actions[4] = "Make All";
+                    }
                     if (rsInterface.parentID == 1644)
                         rsInterface.actions[2] = "Operate";
                     if (rsInterface.parentID == 5292)
