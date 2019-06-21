@@ -3629,10 +3629,19 @@ public class RSInterface {
                     if (rsInterface.actions[l3].length() == 0)
                         rsInterface.actions[l3] = null;
                     if (rsInterface.parentID == 3824)
-                        rsInterface.actions[4] = "Buy X";
+                        rsInterface.actions = new String[] {
+                                "Buy 1",
+                                "Buy 5",
+                                "Buy 10",
+                                "Buy All",
+                                "Buy X"
+                        };
                     if (rsInterface.parentID == 3822) {
                         rsInterface.actions[3] = "Sell All";
                         rsInterface.actions[4] = "Sell X";
+                    }
+                    if (rsInterface.parentID == 994) {
+                        rsInterface.actions[4] = "Make All";
                     }
                     if (rsInterface.parentID == 1644)
                         rsInterface.actions[2] = "Operate";
