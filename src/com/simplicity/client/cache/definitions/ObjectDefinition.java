@@ -683,6 +683,7 @@ public final class ObjectDefinition {
                 objectDef.actions[0] = "Use";
                 break;
             case 2732:
+            case 52709:
                 objectDef.actions = new String[5];
                 objectDef.actions[0] = "Add logs";
                 break;
