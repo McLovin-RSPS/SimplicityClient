@@ -7675,6 +7675,8 @@ public class Client extends RSApplet {
         if (l == 476 && alertBoxTimer > 0) {
             alertBoxTimer = 0;
         }
+
+        System.out.println("interface="+interfaceId+",id="+id+",identity="+l);
         if (openInterfaceID == 60000) {
             switch (interfaceId) {
                 case 60005:
@@ -9170,7 +9172,7 @@ public class Client extends RSApplet {
         if (l == 1125) {
             ItemDefinition itemDef = ItemDefinition.forID(entityId);
             RSInterface class9_4 = RSInterface.interfaceCache[interfaceId];
-            if (interfaceId == 38274) {
+            if (interfaceId == 38274 || interfaceId == 3900) {
                 stream.createFrame(122);
                 stream.writeWord(interfaceId);
                 stream.writeWord(slot);
@@ -18928,6 +18930,9 @@ public class Client extends RSApplet {
                         int scrollValue = Integer.parseInt(args[2]);
                         int scrollInterfaceId = Integer.parseInt(args[1]);
                         RSInterface.interfaceCache[scrollInterfaceId].scrollMax = scrollValue;
+                    } else if (text.startsWith("closedialogue")) {
+                        backDialogID = -1;
+                        inputTaken = true;
                     }
                     if (frame == 29450) {
                         if (text.contains("Owner:")) {
@@ -19558,7 +19563,6 @@ public class Client extends RSApplet {
                     }
                     backDialogID = j9;
                     inputTaken = true;
-                    openInterfaceID = -1;
                     aBoolean1149 = false;
                     withdrawingMoneyFromPouch = false;
                     opCode = -1;
