@@ -10590,7 +10590,16 @@ public class Client extends RSApplet {
                 break;
             }
             if (name != null && name.indexOf("@") == 0) {
-                name = name.substring(5);
+                if (!name.contains("@cr12") && !name.contains("@cr13")) {
+                    rights = getRights(name);
+                }
+
+                name = name.substring(name.lastIndexOf("@") + 1);
+            }
+
+            if (rights == 0 && name != null && name.startsWith("<img=0>")) {
+                name = name.substring(7);
+                rights = 1;
             }
             if ((type == 1 || type == 2)
                     && (type == 1 || publicChatMode == 0 || publicChatMode == 1 && isFriendOrSelf(name))) {
@@ -10636,7 +10645,16 @@ public class Client extends RSApplet {
                 break;
             }
             if (name != null && name.indexOf("@") == 0) {
-                // name = name.substring(5);
+                if (!name.contains("@cr12") && !name.contains("@cr13")) {
+                    rights = getRights(name);
+                }
+
+                name = name.substring(name.lastIndexOf("@") + 1);
+            }
+
+            if (rights == 0 && name != null && name.startsWith("<img=0>")) {
+                name = name.substring(7);
+                rights = 1;
             }
             if ((type == 5 || type == 6) && (splitPrivateChat == 0 || chatTypeView == 2)
                     && (type == 6 || privateChatMode == 0 || privateChatMode == 1 && isFriendOrSelf(name))) {
@@ -16250,7 +16268,16 @@ public class Client extends RSApplet {
                 int k = chatTypes[j];
                 String name = chatNames[j];
                 if (name != null && name.indexOf("@") == 0) {
+                    if (!name.contains("@cr12") && !name.contains("@cr13")) {
+                        rights = getRights(name);
+                    }
+
                     name = name.substring(name.lastIndexOf("@") + 1);
+                }
+
+                if (rights == 0 && name != null && name.startsWith("<img=0>")) {
+                    name = name.substring(7);
+                    rights = 1;
                 }
                 if ((k == 3 || k == 7)
                         && (k == 7 || privateChatMode == 0 || privateChatMode == 1 && isFriendOrSelf(name))) {
