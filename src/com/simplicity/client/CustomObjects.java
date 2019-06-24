@@ -598,15 +598,6 @@ public class CustomObjects {
             {-1, 3171, 3886, 0, 0}, //Removal objects
             {-1, 3168, 3884, 0, 0}, //Removal objects
 
-            {-1, 3097, 3624, 0, 0}, //Removal objects
-            {-1, 3098, 3624, 0, 0}, //Removal objects
-            {-1, 3100, 3624, 0, 0}, //Removal objects
-
-            {-1, 3099, 3625, 0, 0}, //Removal objects
-            {-1, 3098, 3625, 0, 0}, //Removal objects
-
-            {-1, 3099, 3623, 0, 0}, //Removal objects
-            {-1, 3101, 3623, 0, 0}, //Removal objects
             /*End of wilderness box area*/
 
             /*Misc*/
