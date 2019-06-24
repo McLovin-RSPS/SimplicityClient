@@ -164,6 +164,9 @@ public class CustomItems {
                 itemDef.editedModelColor = new int[]{4522, 4116, 10536, 4123};
                 itemDef.newModelColor = new int[]{90, 80, 90, 90};
                 break;
+            case 17215:
+                itemDef.femaleEquip1 = itemDef.maleEquip1;
+                break;
             case 14552:
                 itemDef.copy(ItemDefinition.forID(17317));
                 itemDef.name = "Light Sagittarian boots";

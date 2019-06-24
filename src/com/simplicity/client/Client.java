@@ -59,7 +59,6 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.FilteredImageSource;
 import java.awt.image.RGBImageFilter;
@@ -4429,7 +4428,7 @@ public class Client extends RSApplet {
                     menuActionCmd3[menuActionRow] = child.id;
                     menuActionRow++;
                 }
-                if (child.atActionType == 6 && !aBoolean1149 && mouseX >= childX && mouseY >= childY
+                if (child.atActionType == 6 && !dialogOptionsShowing && mouseX >= childX && mouseY >= childY
                         && mouseX < childX + child.width && mouseY < childY + child.height) {
                     menuActionName[menuActionRow] = child.tooltip + ", " + child.id;
                     menuActionID[menuActionRow] = 679;
@@ -8351,10 +8350,10 @@ public class Client extends RSApplet {
             stream.writeUnsignedWordA(y + baseY);
             stream.writeWord(x + baseX);
         }
-        if (l == 679 && !aBoolean1149) {
+        if (l == 679 && !dialogOptionsShowing) {
             stream.createFrame(40);
             stream.writeWord(interfaceId);
-            aBoolean1149 = true;
+            dialogOptionsShowing = true;
         }
         if (l == 431) {
             stream.createFrame(129);
@@ -9903,15 +9902,34 @@ public class Client extends RSApplet {
                     }
                 }
             }
-            if (backDialogID == 310 || backDialogID == 306 || backDialogID == 315 || backDialogID == 321
-                    || backDialogID == 4887 || backDialogID == 4900 || backDialogID == 6179 || backDialogID == 356
-                    || backDialogID == 4882 || backDialogID == 356 || backDialogID == 359 || backDialogID == 363
-                    || backDialogID == 368 || backDialogID == 374 || backDialogID == 4882 || backDialogID == 4887
-                    || backDialogID == 4893 || backDialogID == 4900 || backDialogID == 968 || backDialogID == 973
-                    || backDialogID == 979 || backDialogID == 986) {
-                if (key == KeyEvent.VK_SPACE) {
-                    stream.createFrame(40);
-                    stream.writeWord(0);
+            if (!dialogOptionsShowing && backDialogID > 0 && inputDialogState == 0 && !showInput) {
+                if (key == 32) {
+                    for (int index = 0; index < DIALOG_CONTINUE_IDS.length; index++) {
+                        if (backDialogID == DIALOG_CONTINUE_IDS[index]) {
+                            Client.instance.stream.createFrame(40);
+                            Client.instance.stream.writeWord(4892);
+                            dialogOptionsShowing = true;
+                            inputTaken = true;
+                            break;
+                        }
+                    }
+                } else {
+                    int index = key - 49;
+                    int packetInteger = 0;
+                    if (backDialogID == 2480) {
+                        packetInteger = 2482;
+                    } else if (backDialogID == 2469) {
+                        packetInteger = 2471;
+                    } else if (backDialogID == 2459) {
+                        packetInteger = 2461;
+                    } else if (backDialogID == 2492) {
+                        packetInteger = 2494;
+                    }
+                    if (packetInteger != 0) {
+                        Client.instance.stream.createFrame(185);
+                        Client.instance.stream.putInt(packetInteger + index);
+                        Client.setDialogueOptionUsed(packetInteger + index);
+                    }
                 }
             }
             if (openInterfaceID != -1 && openInterfaceID == reportAbuseInterfaceID) {
@@ -12024,7 +12042,7 @@ public class Client extends RSApplet {
                 openInterfaceID = -1;
                 invOverlayInterfaceID = -1;
                 walkableInterfaceId = -1;
-                aBoolean1149 = false;
+                dialogOptionsShowing = false;
                 tabID = 3;
                 inputDialogState = 0;
                 menuOpen = false;
@@ -14441,7 +14459,7 @@ public class Client extends RSApplet {
                                 color = child.disabledMouseOverColor;
                             }
                         }
-                        if (child.atActionType == 6 && aBoolean1149) {
+                        if (child.atActionType == 6 && dialogOptionsShowing) {
                             s = "Please wait...";
                             color = child.disabledColor;
                         }
@@ -17693,7 +17711,7 @@ public class Client extends RSApplet {
             inputTaken = true;
         }
         openInterfaceID = -1;
-        aBoolean1149 = false;
+        dialogOptionsShowing = false;
     }
 
     public void sendFrame248(int interfaceID, int sideInterfaceID) {
@@ -17709,7 +17727,7 @@ public class Client extends RSApplet {
         invOverlayInterfaceID = sideInterfaceID;
         needDrawTabArea = true;
         tabAreaAltered = true;
-        aBoolean1149 = false;
+        dialogOptionsShowing = false;
     }
 
     private int packets = 0;
@@ -18747,7 +18765,7 @@ public class Client extends RSApplet {
                     invOverlayInterfaceID = k12;
                     needDrawTabArea = true;
                     tabAreaAltered = true;
-                    aBoolean1149 = false;
+                    dialogOptionsShowing = false;
                     bankItemDragSprite = null;
                     opCode = -1;
                     return true;
@@ -18918,7 +18936,7 @@ public class Client extends RSApplet {
                     tabAreaAltered = true;
                     bankItemDragSprite = null;
                     openInterfaceID = -1;
-                    aBoolean1149 = false;
+                    dialogOptionsShowing = false;
                     opCode = -1;
                     return true;
 
@@ -19434,7 +19452,7 @@ public class Client extends RSApplet {
                         }
                         openInterfaceID = interfaceID;
                         bankItemDragSprite = null;
-                        aBoolean1149 = false;
+                        dialogOptionsShowing = false;
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -19527,7 +19545,7 @@ public class Client extends RSApplet {
                     }
                     openInterfaceID = -1;
                     bankItemDragSprite = null;
-                    aBoolean1149 = false;
+                    dialogOptionsShowing = false;
                     withdrawingMoneyFromPouch = false;
                     opCode = -1;
                     return true;
@@ -19585,7 +19603,7 @@ public class Client extends RSApplet {
                     }
                     backDialogID = j9;
                     inputTaken = true;
-                    aBoolean1149 = false;
+                    dialogOptionsShowing = false;
                     withdrawingMoneyFromPouch = false;
                     opCode = -1;
                     return true;
@@ -20183,13 +20201,13 @@ public class Client extends RSApplet {
         if (invOverlayInterfaceID != -1) {
             invOverlayInterfaceID = -1;
             needDrawTabArea = true;
-            aBoolean1149 = false;
+            dialogOptionsShowing = false;
             tabAreaAltered = true;
         }
         if (backDialogID != -1) {
             backDialogID = -1;
             inputTaken = true;
-            aBoolean1149 = false;
+            dialogOptionsShowing = false;
         }
         openInterfaceID = -1;
         fullscreenInterfaceID = -1;
@@ -20323,7 +20341,7 @@ public class Client extends RSApplet {
         anInt1132 = 2;
         currentMapFunctionSprites = new Sprite[1000];
         inTutorialIsland = false;
-        aBoolean1149 = false;
+        dialogOptionsShowing = false;
         crosses = new Sprite[8];
         musicEnabled = true;
         needDrawTabArea = false;
@@ -20638,7 +20656,7 @@ public class Client extends RSApplet {
     private Sprite[] currentMapFunctionSprites;
     private boolean inTutorialIsland;
     private static int anInt1142;
-    private boolean aBoolean1149;
+    private boolean dialogOptionsShowing;
     private Sprite[] crosses;
     private boolean musicEnabled;
     private Background[] aBackgroundArray1152s;
@@ -22883,5 +22901,27 @@ public class Client extends RSApplet {
     private int type2 = -1;
     private int itemToLend;
     private int currentActionMenu;
+
+    public final static int[] DIALOG_CONTINUE_IDS = { 979, 968, 973, 986, 306, 4887, 4893, 356, 310, 4882, 4900, 6247, 6253,
+            6206, 6216, 4443, 6242, 6211, 6226, 4272, 6231, 6258, 4282, 6263, 6221, 4416, 6237, 4277, 4261, 12122, 5267,
+            4267,
+            359
+
+    };
+
+    private static int dialogueOptionUsed;
+
+    public static void setDialogueOptionUsed(int dialogueOptionUsed) {
+        Client.dialogueOptionUsed = dialogueOptionUsed;
+        if (dialogueOptionUsed != 0 && !Client.getClient().dialogOptionsShowing && Client.getClient().backDialogID > 0) {
+            try {
+                if (Client.dialogueOptionUsed >= 2461 && Client.dialogueOptionUsed <= 2498) {
+                    Client.getClient().inputTaken = true;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }
