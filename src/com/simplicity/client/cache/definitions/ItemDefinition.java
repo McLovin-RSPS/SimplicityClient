@@ -7197,7 +7197,7 @@ public final class ItemDefinition {
                 itemDef.modelOffset1 = 0;
                 itemDef.modelOffsetY = 0;
                 itemDef.maleEquip1 = 62746;
-                itemDef.femaleEquip1 = 62762;
+                itemDef.femaleEquip1 = 62746;
                 itemDef.groundActions = new String[5];
                 itemDef.groundActions[2] = "Take";
                 itemDef.actions = new String[5];
@@ -7339,7 +7339,7 @@ public final class ItemDefinition {
                 itemDef.modelOffset1 = -1;
                 itemDef.modelOffsetY = 4;
                 itemDef.maleEquip1 = 62742;
-                itemDef.femaleEquip1 = 62758;
+                itemDef.femaleEquip1 = 62742;
                 itemDef.groundActions = new String[5];
                 itemDef.groundActions[2] = "Take";
                 itemDef.actions = new String[5];
