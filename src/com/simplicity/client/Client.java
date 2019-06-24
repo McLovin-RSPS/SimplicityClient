@@ -18394,16 +18394,11 @@ public class Client extends RSApplet {
 
                 case 207:
                     int flag = inStream.readUnsignedWord();// 1 player, 0 npc
-                    int maxHealth = inStream.readUnsignedWord();
-                    int currentHealth = inStream.readUnsignedWord();
-                    int Max = inStream.readUnsignedWord();
-                    int Current = inStream.readUnsignedWord();
+                    int maxHealth = inStream.getInt();
+                    int currentHealth = inStream.getInt();
 
                     currentEntityHealth = currentHealth;
                     maximumEntityHealth = maxHealth;
-
-                    MaxHealth = Max;
-                    CurrentHealth = Current;
 
                     RSInterface entityInterface = RSInterface.interfaceCache[41020];
                     // RSInterface entityInterface =
