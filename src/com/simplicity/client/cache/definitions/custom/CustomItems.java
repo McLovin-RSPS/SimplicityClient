@@ -199,6 +199,12 @@ public class CustomItems {
                 itemDef.newModelColor = new int[]{90, -1253, 90, 70, 70, 70, 70, -1253, 70};
                 break;
 
+            case 14911:
+                itemDef.copy(ItemDefinition.forID(15241));
+                itemDef.editedModelColor = new int[]{35868, 35895, 35912, 35865, 35882, 35875, 35888, 35905, 35856, 35873, 35866, 6303, 35840, 35862, 35855, 6317, 35886, 1058, 1070, 1051, 1097, 54, 49, 39, 32, 64, 59, 45, 31, 40, 50, 23, 85, 6303};
+                itemDef.newModelColor = new int[]{1566, 1566, 1566, 1566, 1566, 1566, 1566, 1566, 1566, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 54, 49, 39, 32, 64, 59, 45, 31, 40, 50, 23, 85, 6303};
+                itemDef.name = "Hand cannon S";
+                break;
         }
     }
 
