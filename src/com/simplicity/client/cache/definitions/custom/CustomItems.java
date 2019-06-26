@@ -205,6 +205,14 @@ public class CustomItems {
                 itemDef.newModelColor = new int[]{1566, 1566, 1566, 1566, 1566, 1566, 1566, 1566, 1566, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 54, 49, 39, 32, 64, 59, 45, 31, 40, 50, 23, 85, 6303};
                 itemDef.name = "Hand cannon S";
                 break;
+
+            case 6851:
+                itemDef.copy(ItemDefinition.forID(6199));
+                itemDef.editedModelColor = new int[]{2999, 926, 22410};
+                itemDef.newModelColor = new int[]{90, -1253, -1253};
+                itemDef.name = "@red@Ruby box";
+                itemDef.description = "The ruby loot box.";
+                break;
         }
     }
 

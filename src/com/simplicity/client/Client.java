@@ -7675,7 +7675,6 @@ public class Client extends RSApplet {
             alertBoxTimer = 0;
         }
 
-        System.out.println("interface="+interfaceId+",id="+id+",identity="+l);
         if (openInterfaceID == 60000) {
             switch (interfaceId) {
                 case 60005:
