@@ -194,16 +194,16 @@ public class CustomItems {
 
             case 14910:
                 itemDef.copy(ItemDefinition.forID(13660));
-                itemDef.name = "Light flame gloves";
-                itemDef.editedModelColor = new int[]{1566, 1561, 803, 8128, 8119, 8114, 8124, 793, 8109};
-                itemDef.newModelColor = new int[]{90, -1253, 90, 70, 70, 70, 70, -1253, 70};
+                itemDef.name = "Flame gloves (e)";
+                itemDef.editedModelColor = new int[]{5566, 5561, 803, 8128, 8119, 8114, 8124, 793, 8109};
+                itemDef.newModelColor = new int[]{90, -5566, 4566, 4566, 4566, 4566, 4566, -1253, 70};
                 break;
 
             case 14911:
                 itemDef.copy(ItemDefinition.forID(15241));
-                itemDef.editedModelColor = new int[]{35868, 35895, 35912, 35865, 35882, 35875, 35888, 35905, 35856, 35873, 35866, 6303, 35840, 35862, 35855, 6317, 35886, 1058, 1070, 1051, 1097, 54, 49, 39, 32, 64, 59, 45, 31, 40, 50, 23, 85, 6303};
-                itemDef.newModelColor = new int[]{1566, 1566, 1566, 1566, 1566, 1566, 1566, 1566, 1566, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 54, 49, 39, 32, 64, 59, 45, 31, 40, 50, 23, 85, 6303};
-                itemDef.name = "Hand cannon S";
+                itemDef.editedModelColor = new int[]{35868, 35895, 35912, 35865, 35882, 35875, 35888, 35905, 35856, 35873, 35866, 6303, 35840, 35862, 35855, 6317, 35886, 2566, 2566, 2566, 1097, 54, 49, 39, 32, 64, 59, 45, 31, 40, 50, 23, 85, 6303};
+                itemDef.newModelColor = new int[]{1566, 1566, 1566, 1566, 1566, 1566, 1566, 1566, 1566, 2566, 2566, 2566, 2566, 2566, 2566, 2566, 2566, 2566, 2566, 2566, 2566, 54, 49, 39, 32, 64, 59, 45, 31, 40, 50, 23, 85, 6303};
+                itemDef.name = "Hand cannon ULTRA";
                 break;
 
             case 6851:
