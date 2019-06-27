@@ -18558,6 +18558,12 @@ public class Client extends RSApplet {
                             alertColour = 0x008000;
                             alertText = s.substring(12).split(":n:");
                         }
+                    } else if (s.startsWith(":redalert:")) {
+                        if (s.length() > 12) {
+                            alertBoxTimer = 350;
+                            alertColour = 0xEA5353;
+                            alertText = s.substring(10).split(":n:");
+                        }
                     } else if (s.endsWith("::") && !s.startsWith("@clan:A@")) {
                         String s4 = s.substring(0, s.indexOf(":"));
                         TextClass.longForName(s4);

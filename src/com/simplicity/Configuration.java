@@ -24,7 +24,7 @@ public class Configuration {
 	public final static String JAGGRAB_HOST = "127.0.0.1";
 	public static final boolean JAGCACHED_ENABLED = false;
 
-	public static final boolean debuggingModels = false;
+	public static final boolean debuggingModels = true;
 
 	/**
 	 * The NPC bits. 12 = 317/377 14 = 474+ 16 = 600+
