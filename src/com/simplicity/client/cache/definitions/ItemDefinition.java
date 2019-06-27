@@ -1519,6 +1519,11 @@ public final class ItemDefinition {
                 itemDef.actions = new String[5];
                 itemDef.actions[0] = "Open";
                 break;
+            case 6830:
+                itemDef.name = "Ruby Mystery Box";
+                itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
+                break;
             case 744:
                 itemDef.name = "Valentine Mystery Box";
                 itemDef.actions = new String[5];
