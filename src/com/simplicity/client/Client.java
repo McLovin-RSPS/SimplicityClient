@@ -4045,7 +4045,6 @@ public class Client extends RSApplet {
         MobDefinition.modelCache.clear();
         MobDefinition.modelCacheOSRS.clear();
         ItemDefinition.modelCache.clear();
-        ItemDefinition.modelCacheOSRS.clear();
         ItemDefinition.spriteCache.clear();
         Player.modelCache.clear();
         SpotAnimDefinition.modelCache.clear();
@@ -6699,7 +6698,6 @@ public class Client extends RSApplet {
             RandomColor.process();
             ItemDefinition.spriteCache.clear();
             ItemDefinition.modelCache.clear();
-            ItemDefinition.modelCacheOSRS.clear();
             Player.modelCache.clear();
         }
         if (openInterfaceID == 24600 && buttonclicked && interfaceButtonAction != 1558 && interfaceButtonAction != 1557
@@ -11665,7 +11663,15 @@ public class Client extends RSApplet {
         }
         if (openInterfaceID == -1) {
             if (showUpdates) {
-                if (super.mouseX >= 200 && super.mouseX <= 300 && super.mouseY >= 0 && super.mouseY <= 100) {
+                boolean fixed = (clientSize == 0);
+                boolean resizable = (clientSize == 1);
+
+                int xOffset = fixed ? 222 : (clientWidth / 2) - (82 / 2);
+                int yOffset = fixed ? 0 : 0;
+
+                xOffset -= 25;
+
+                if (super.mouseX >= xOffset && super.mouseX <= 100 + xOffset && super.mouseY >= yOffset && super.mouseY <= 100 + yOffset) {
                     menuActionName[2] = "Open @gre@Recent Updates";
                     menuActionID[2] = 100_384_1;
                     menuActionName[1] = "Dismiss";
@@ -11674,7 +11680,13 @@ public class Client extends RSApplet {
                 }
             }
             if (showMysteryBoxAlert) {
-                if (super.mouseX >= 210 && super.mouseX <= 310 && super.mouseY >= 250 && super.mouseY <= 350) {
+
+                boolean fixed = (clientSize == 0);
+                boolean resizable = (clientSize == 1);
+
+                int xOffset = fixed ? 200 : 60 + (clientWidth / 2) - 110 ;
+                int yOffset = fixed ? 50 : (clientHeight - 503);
+                if (super.mouseX >= xOffset && super.mouseX <= 110 + xOffset && super.mouseY >= 200 + yOffset && super.mouseY <= 300 + yOffset) {
                     menuActionName[2] = "Open @gre@Discount Store";
                     menuActionID[2] = 100_384_3;
                     menuActionName[1] = "Dismiss";
@@ -13207,7 +13219,7 @@ public class Client extends RSApplet {
             SpotAnimDefinition.unpackConfig(configArchive);
             Varp.unpackConfig(configArchive);
             VarBit.unpackConfig(configArchive);
-            // repackCacheIndex(1); // I send something in the file box
+           // repackCacheIndex(1);
             Censor.loadConfig(streamLoader_4);
             setLoadingText(85, "Loading sounds..");
             byte abyte0[] = soundArchive.getDataForName("sounds.dat");
@@ -14788,6 +14800,7 @@ public class Client extends RSApplet {
                             if (yPos + boxHeight > interfaceY + rsInterface.height) {
                                 yPos = (childY - boxHeight);
                             }
+
                             if (Skills.SKILL_ID(child.id) == child.id
                                     && xPos + boxWidth + interfaceX + rsInterface.width > 765) {
                                 xPos = 765 - boxWidth - interfaceX - rsInterface.width - 3;
@@ -14806,6 +14819,23 @@ public class Client extends RSApplet {
                                 xPos -= 90;
                             }
                         }
+
+                        Integer[] moveLeftFarIds = new Integer[] {
+                                4040, 4046, 4052, 4058, 4064, 4070, 4160, 28173, 28176,
+                        };
+
+                        if(Arrays.asList(moveLeftFarIds).contains(child.id)) {
+                            xPos += 100;
+                        }
+
+                        Integer[] moveLeftLittleIds = new Integer[] {
+                                28174, 4076, 4082, 4088, 4094, 4100, 4106,  2832
+                        };
+
+                        if(Arrays.asList(moveLeftLittleIds).contains(child.id)) {
+                            xPos += 50;
+                        }
+
                         DrawingArea.drawPixels(boxHeight, yPos, xPos, 0xFFFFA0, boxWidth);
                         if (canDrawPercent && currentExp[skillIdForButton(child.id)] < 1000000000
                                 && Skills.goalData[skillIdForButton(child.id)][0] != -1
@@ -15260,18 +15290,33 @@ public class Client extends RSApplet {
         }
         if (openInterfaceID == -1) {
             if (showUpdates) {
-                recentUpdate.drawFlashingSprite(1057, 222, 2);
-                smallText.drawText(0xffffff, "Recent Updates", 80, 252);
+
+                boolean fixed = (clientSize == 0);
+                boolean resizable = (clientSize == 1);
+
+                int xOffset = fixed ? 222 : (clientWidth / 2) - (82 / 2);
+                int yOffset = fixed ? 2 : 2;
+
+                recentUpdate.drawFlashingSprite(1057, xOffset, yOffset);
+                smallText.drawText(0xffffff, "Recent Updates", 78 + yOffset, 27 + xOffset);
             }
         }
         if (showMysteryBoxAlert) {
-            int x = 210;
+            int x = 0;
+
+            boolean fixed = (clientSize == 0);
+            boolean resizable = (clientSize == 1);
+
+            int xOffset = fixed ? 210 : 60 + (clientWidth / 2) - 110 ;
+            int yOffset = fixed ? 50 : (clientHeight - 503);
+
             for (int i = 0; i < MYSTERY_BOXES.length; i++) {
-                mysteryBoxAlert.drawFlashingItem(MYSTERY_BOXES[i], x, 265);
+                mysteryBoxAlert.drawFlashingItem(MYSTERY_BOXES[i], x + xOffset, 215 + yOffset);
                 x += 30;
             }
-            fancyText.drawText(0, "Available Mystery Box Discount", 319, 261);
-            fancyText.drawText(0x50D050, "Available Mystery Box Discount", 320, 260);
+
+            fancyText.drawText(0, "Available Mystery Box Discount", 269 + yOffset, 51 + xOffset);
+            fancyText.drawText(0x50D050, "Available Mystery Box Discount", 270 + yOffset, 50 + xOffset);
         }
         drawParallelWidgets();
         // drawTeleIcon();
