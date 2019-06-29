@@ -860,7 +860,7 @@ public class Client extends RSApplet {
                                 String[] message = TextClass.splitString(newRegularFont, "", chatMessages[index], 480,
                                         rights != 0);
 
-                                if (message.length > 1) {
+                                if (message != null && message.length > 1) {
                                     newRegularFont.drawBasicString(message[0], xPos + offsetX, yPos - 14 + offsetY,
                                             clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
                                     xPos -= 3;
@@ -871,9 +871,11 @@ public class Client extends RSApplet {
                                         try {
                                             int colorStart = message[0].lastIndexOf("<col=");
                                             int colorEnd = message[0].lastIndexOf(">");
-                                            col = Integer.parseInt(message[0].substring(colorStart + 5, colorEnd), 16);
+                                            if (colorStart != -1 && colorEnd != -1) {
+                                                col = Integer.parseInt(message[0].substring(colorStart + 5, colorEnd), 16);
+                                            }
                                         } catch (Exception e) {
-
+                                            e.printStackTrace();
                                         }
                                     }
 
