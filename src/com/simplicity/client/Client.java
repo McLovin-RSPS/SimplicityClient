@@ -11663,7 +11663,15 @@ public class Client extends RSApplet {
         }
         if (openInterfaceID == -1) {
             if (showUpdates) {
-                if (super.mouseX >= 200 && super.mouseX <= 300 && super.mouseY >= 0 && super.mouseY <= 100) {
+                boolean fixed = (clientSize == 0);
+                boolean resizable = (clientSize == 1);
+
+                int xOffset = fixed ? 222 : (clientWidth / 2) - (82 / 2);
+                int yOffset = fixed ? 0 : 0;
+
+                xOffset -= 25;
+
+                if (super.mouseX >= xOffset && super.mouseX <= 100 + xOffset && super.mouseY >= yOffset && super.mouseY <= 100 + yOffset) {
                     menuActionName[2] = "Open @gre@Recent Updates";
                     menuActionID[2] = 100_384_1;
                     menuActionName[1] = "Dismiss";
@@ -11672,7 +11680,13 @@ public class Client extends RSApplet {
                 }
             }
             if (showMysteryBoxAlert) {
-                if (super.mouseX >= 210 && super.mouseX <= 310 && super.mouseY >= 250 && super.mouseY <= 350) {
+
+                boolean fixed = (clientSize == 0);
+                boolean resizable = (clientSize == 1);
+
+                int xOffset = fixed ? 0 : 60 + (clientWidth / 2) - 110 ;
+                int yOffset = fixed ? 50 : (clientHeight - 503);
+                if (super.mouseX >= xOffset && super.mouseX <= 110 + xOffset && super.mouseY >= 200 + yOffset && super.mouseY <= 300 + yOffset) {
                     menuActionName[2] = "Open @gre@Discount Store";
                     menuActionID[2] = 100_384_3;
                     menuActionName[1] = "Dismiss";
@@ -15276,26 +15290,33 @@ public class Client extends RSApplet {
         }
         if (openInterfaceID == -1) {
             if (showUpdates) {
-                recentUpdate.drawFlashingSprite(1057, 222, 2);
-                smallText.drawText(0xffffff, "Recent Updates", 80, 252);
+
+                boolean fixed = (clientSize == 0);
+                boolean resizable = (clientSize == 1);
+
+                int xOffset = fixed ? 222 : (clientWidth / 2) - (82 / 2);
+                int yOffset = fixed ? 2 : 2;
+
+                recentUpdate.drawFlashingSprite(1057, xOffset, yOffset);
+                smallText.drawText(0xffffff, "Recent Updates", 78 + yOffset, 27 + xOffset);
             }
         }
         if (showMysteryBoxAlert) {
-            int x = 210;
+            int x = 0;
 
             boolean fixed = (clientSize == 0);
             boolean resizable = (clientSize == 1);
 
-            int xOffset = fixed ? 0 : (clientWidth - 765);
-            int yOffset = fixed ? 0 : (clientHeight - 503);
+            int xOffset = fixed ? 210 : 60 + (clientWidth / 2) - 110 ;
+            int yOffset = fixed ? 50 : (clientHeight - 503);
 
             for (int i = 0; i < MYSTERY_BOXES.length; i++) {
-                mysteryBoxAlert.drawFlashingItem(MYSTERY_BOXES[i], x + xOffset, 265 + yOffset);
+                mysteryBoxAlert.drawFlashingItem(MYSTERY_BOXES[i], x + xOffset, 215 + yOffset);
                 x += 30;
             }
 
-            fancyText.drawText(0, "Available Mystery Box Discount", 319 + yOffset, 261 + xOffset);
-            fancyText.drawText(0x50D050, "Available Mystery Box Discount", 320 + yOffset, 260 + xOffset);
+            fancyText.drawText(0, "Available Mystery Box Discount", 269 + yOffset, 51 + xOffset);
+            fancyText.drawText(0x50D050, "Available Mystery Box Discount", 270 + yOffset, 50 + xOffset);
         }
         drawParallelWidgets();
         // drawTeleIcon();
