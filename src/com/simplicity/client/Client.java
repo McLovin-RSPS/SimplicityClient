@@ -14788,6 +14788,7 @@ public class Client extends RSApplet {
                             if (yPos + boxHeight > interfaceY + rsInterface.height) {
                                 yPos = (childY - boxHeight);
                             }
+
                             if (Skills.SKILL_ID(child.id) == child.id
                                     && xPos + boxWidth + interfaceX + rsInterface.width > 765) {
                                 xPos = 765 - boxWidth - interfaceX - rsInterface.width - 3;
@@ -14806,6 +14807,23 @@ public class Client extends RSApplet {
                                 xPos -= 90;
                             }
                         }
+
+                        Integer[] moveLeftFarIds = new Integer[] {
+                                4040, 4046, 4052, 4058, 4064, 4070, 4160, 28173, 28176,
+                        };
+
+                        if(Arrays.asList(moveLeftFarIds).contains(child.id)) {
+                            xPos += 100;
+                        }
+
+                        Integer[] moveLeftLittleIds = new Integer[] {
+                                28174, 4076, 4082, 4088, 4094, 4100, 4106,  2832
+                        };
+
+                        if(Arrays.asList(moveLeftLittleIds).contains(child.id)) {
+                            xPos += 50;
+                        }
+
                         DrawingArea.drawPixels(boxHeight, yPos, xPos, 0xFFFFA0, boxWidth);
                         if (canDrawPercent && currentExp[skillIdForButton(child.id)] < 1000000000
                                 && Skills.goalData[skillIdForButton(child.id)][0] != -1
