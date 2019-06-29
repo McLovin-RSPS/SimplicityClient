@@ -11684,7 +11684,7 @@ public class Client extends RSApplet {
                 boolean fixed = (clientSize == 0);
                 boolean resizable = (clientSize == 1);
 
-                int xOffset = fixed ? 0 : 60 + (clientWidth / 2) - 110 ;
+                int xOffset = fixed ? 200 : 60 + (clientWidth / 2) - 110 ;
                 int yOffset = fixed ? 50 : (clientHeight - 503);
                 if (super.mouseX >= xOffset && super.mouseX <= 110 + xOffset && super.mouseY >= 200 + yOffset && super.mouseY <= 300 + yOffset) {
                     menuActionName[2] = "Open @gre@Discount Store";
