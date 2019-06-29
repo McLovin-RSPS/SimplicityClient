@@ -15282,12 +15282,20 @@ public class Client extends RSApplet {
         }
         if (showMysteryBoxAlert) {
             int x = 210;
+
+            boolean fixed = (clientSize == 0);
+            boolean resizable = (clientSize == 1);
+
+            int xOffset = fixed ? 0 : (clientWidth - 765);
+            int yOffset = fixed ? 0 : (clientHeight - 503);
+
             for (int i = 0; i < MYSTERY_BOXES.length; i++) {
-                mysteryBoxAlert.drawFlashingItem(MYSTERY_BOXES[i], x, 265);
+                mysteryBoxAlert.drawFlashingItem(MYSTERY_BOXES[i], x + xOffset, 265 + yOffset);
                 x += 30;
             }
-            fancyText.drawText(0, "Available Mystery Box Discount", 319, 261);
-            fancyText.drawText(0x50D050, "Available Mystery Box Discount", 320, 260);
+
+            fancyText.drawText(0, "Available Mystery Box Discount", 319 + yOffset, 261 + xOffset);
+            fancyText.drawText(0x50D050, "Available Mystery Box Discount", 320 + yOffset, 260 + xOffset);
         }
         drawParallelWidgets();
         // drawTeleIcon();
