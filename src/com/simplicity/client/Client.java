@@ -4045,7 +4045,6 @@ public class Client extends RSApplet {
         MobDefinition.modelCache.clear();
         MobDefinition.modelCacheOSRS.clear();
         ItemDefinition.modelCache.clear();
-        ItemDefinition.modelCacheOSRS.clear();
         ItemDefinition.spriteCache.clear();
         Player.modelCache.clear();
         SpotAnimDefinition.modelCache.clear();
@@ -6699,7 +6698,6 @@ public class Client extends RSApplet {
             RandomColor.process();
             ItemDefinition.spriteCache.clear();
             ItemDefinition.modelCache.clear();
-            ItemDefinition.modelCacheOSRS.clear();
             Player.modelCache.clear();
         }
         if (openInterfaceID == 24600 && buttonclicked && interfaceButtonAction != 1558 && interfaceButtonAction != 1557

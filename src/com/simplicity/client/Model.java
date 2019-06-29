@@ -538,7 +538,7 @@ public class Model extends Animable {
             is = modelHeaderRegular[modelId].modelData;
         }
 
-        boolean osrsModel = ItemDefinition.osrsModels.contains(modelId);
+        boolean osrsModel = ItemDefinition.osrsModels.contains(modelId) || dataType == DataType.OLDSCHOOL;
 
         if (osrsModel) {
             if (is[is.length - 1] == -1 && is[is.length - 2] == -1) {
