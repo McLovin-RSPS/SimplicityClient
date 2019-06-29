@@ -3036,6 +3036,9 @@ public final class ItemDefinition {
             case 2996:
                 itemDef.name = "Agility ticket";
                 break;
+            case 3135:
+                itemDef.name = "Wilderness key";
+                break;
             case 5510:
             case 5512:
             case 5509:
