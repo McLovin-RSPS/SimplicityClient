@@ -196,7 +196,7 @@ public class CustomItems {
                 itemDef.copy(ItemDefinition.forID(13660));
                 itemDef.name = "Flame gloves (e)";
                 itemDef.editedModelColor = new int[]{5566, 5561, 803, 8128, 8119, 8114, 8124, 793, 8109};
-                itemDef.newModelColor = new int[]{90, -5566, 4566, 4566, 4566, 4566, 4566, -1253, 70};
+                itemDef.newModelColor = new int[]{90, 926, 90, 90, 90, 90, 90, 926, 70};
                 break;
 
             case 14911:
