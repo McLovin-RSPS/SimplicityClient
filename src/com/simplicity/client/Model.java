@@ -544,7 +544,7 @@ public class Model extends Animable {
             if (is[is.length - 1] == -1 && is[is.length - 2] == -1) {
                 readNewModel(is, modelId);
             } else {
-                readOSRSOldModel(is, modelId);
+                readOldModel(modelId, dataType);
             }
             if (face_render_priorities != null) {
                 for (int j = 0; j < face_render_priorities.length; j++) {
