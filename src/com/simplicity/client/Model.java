@@ -538,20 +538,17 @@ public class Model extends Animable {
             is = modelHeaderRegular[modelId].modelData;
         }
 
-        boolean osrsModel = ItemDefinition.osrsModels.contains(modelId);
+        boolean osrsModel = ItemDefinition.osrsModels.contains(modelId) || dataType == DataType.OLDSCHOOL;
 
         if (osrsModel) {
-            if (is[is.length - 1] == -1 && is[is.length - 2] == -1) {
-                readNewModel(is, modelId);
-            } else {
-                readOSRSOldModel(is, modelId);
-            }
             if (face_render_priorities != null) {
                 for (int j = 0; j < face_render_priorities.length; j++) {
                     face_render_priorities[j] = 10;
                 }
             }
-        } else if (is[is.length - 1] == -1 && is[is.length - 2] == -1)
+        }
+
+        if (is[is.length - 1] == -1 && is[is.length - 2] == -1)
             read622Model(is, modelId, dataType);
         else
             readOldModel(modelId, dataType);

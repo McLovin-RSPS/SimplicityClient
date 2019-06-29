@@ -44,7 +44,6 @@ public final class ItemDefinition {
 
     public static void nullLoader() {
         modelCache = null;
-        modelCacheOSRS = null;
         spriteCache = null;
         streamIndices = null;
         streamIndicesOSRS = null;
@@ -7864,12 +7863,14 @@ public final class ItemDefinition {
         DrawingArea.drawPixels(32, 0, 0, 0, 32);
         Rasterizer.setDefaultBounds();
         int k3 = itemDef.modelZoom;
+
         if (k == -1) {
             k3 = (int) ((double) k3 * 1.5D);
         }
         if (k > 0) {
             k3 = (int) ((double) k3 * 1.04D);
         }
+
         int l3 = Rasterizer.anIntArray1470[itemDef.rotationY] * k3 >> 16;
         int i4 = Rasterizer.anIntArray1471[itemDef.rotationY] * k3 >> 16;
         model.renderSingle(itemDef.rotationX, itemDef.modelOffsetX, itemDef.rotationY, itemDef.modelOffset1, l3 + model.modelHeight / 2 + itemDef.modelOffsetY, i4 + itemDef.modelOffsetY);
@@ -7961,10 +7962,13 @@ public final class ItemDefinition {
                 return forID(stackId).getItemModelFinalised(1);
             }
         }
-        Model model = dataType == DataType.OLDSCHOOL ? (Model) modelCacheOSRS.get(id) : (Model) modelCache.get(id);
+        int itemForModel = id;
+
+        Model model = (Model) modelCache.get(itemForModel);
         if (model != null) {
             return model;
         }
+
         model = Model.fetchModel(modelID, dataType);
         if (model == null) {
             return null;
@@ -7987,11 +7991,7 @@ public final class ItemDefinition {
         model.light(64 + shadow, 768 + lightness, -50, -10, -50, true);
         model.rendersWithinOneTile = true;
         if (id != 5572 && id != 5573 && id != 640 && id != 650 && id != 630) {
-            if (dataType == DataType.OLDSCHOOL) {
-                modelCacheOSRS.put(model, id);
-            } else {
-                modelCache.put(model, id);
-            }
+            modelCache.put(model, id);
         }
         return model;
     }
@@ -8149,7 +8149,6 @@ public final class ItemDefinition {
     public int id;
     public static MemCache spriteCache = new MemCache(100);
     public static MemCache modelCache = new MemCache(50);
-    public static MemCache modelCacheOSRS = new MemCache(50);
     public int[] newModelColor;
     public boolean membersObject;
     public int femaleEquip3;
