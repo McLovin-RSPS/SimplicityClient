@@ -7390,14 +7390,14 @@ public class Client extends RSApplet {
             /**
              * Chambers of Xeric entrance.
              */
-            if (id == 29777) {
+            if (id == 129777) {
                 sizeY = -1;
             }
 
             /**
              * Revenant cave pillars walking up to.
              */
-            if (id == 31561) {
+            if (id == 131561) {
                 if (objectRotation == 1) {
                     if (myPlayer.pathX[0] < tileX) {
                         tileX -= sizeX;
