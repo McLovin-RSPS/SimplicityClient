@@ -14817,30 +14817,23 @@ public class Client extends RSApplet {
                                 yPos -= boxHeight + 35;
                             }
                         } else {
-                            if (xPos < childX + 5) {
-                                xPos = childX + 5;
+
+                            Integer[] moveLeftFarIds = new Integer[] {
+                                    4040, 4046, 4052, 4058, 4064, 4070, 4160, 28173, 28176,
+                            };
+
+                            if(Arrays.asList(moveLeftFarIds).contains(child.id)) {
+                                xPos += 100;
                             }
-                            if (xPos > 1560 && xPos < 1600) {
-                                xPos -= 40;
-                            } else if (xPos >= 1600) {
-                                xPos -= 90;
+
+                            Integer[] moveLeftLittleIds = new Integer[] {
+                                    28174, 4076, 4082, 4088, 4094, 4100, 4106,  2832
+                            };
+
+                            if(Arrays.asList(moveLeftLittleIds).contains(child.id)) {
+                                xPos += 50;
                             }
-                        }
 
-                        Integer[] moveLeftFarIds = new Integer[] {
-                                4040, 4046, 4052, 4058, 4064, 4070, 4160, 28173, 28176,
-                        };
-
-                        if(Arrays.asList(moveLeftFarIds).contains(child.id)) {
-                            xPos += 100;
-                        }
-
-                        Integer[] moveLeftLittleIds = new Integer[] {
-                                28174, 4076, 4082, 4088, 4094, 4100, 4106,  2832
-                        };
-
-                        if(Arrays.asList(moveLeftLittleIds).contains(child.id)) {
-                            xPos += 50;
                         }
 
                         DrawingArea.drawPixels(boxHeight, yPos, xPos, 0xFFFFA0, boxWidth);
