@@ -823,6 +823,9 @@ public final class ItemDefinition {
                 case 41860:
                     itemDef.name = "Angelic Boots";
                     break;
+                case 51076:
+                    itemDef.name = "Angelic Boots (b)";
+                    break;
                 case 52325:
                     itemDef.name = "Scythe of vitur";
                     itemDef.actions = new String[]{"Drink", "Use", "Drop", "Examine", "Cancel"};
