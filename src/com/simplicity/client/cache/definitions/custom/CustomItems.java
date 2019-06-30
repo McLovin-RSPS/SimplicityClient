@@ -203,7 +203,7 @@ public class CustomItems {
                 itemDef.copy(ItemDefinition.forID(15241));
                 itemDef.editedModelColor = new int[]{35868, 35895, 35912, 35865, 35882, 35875, 35888, 35905, 35856, 35873, 35866, 6303, 35840, 35862, 35855, 6317, 35886, 2566, 2566, 2566, 1097, 54, 49, 39, 32, 64, 59, 45, 31, 40, 50, 23, 85, 6303};
                 itemDef.newModelColor = new int[]{1566, 1566, 1566, 1566, 1566, 1566, 1566, 1566, 1566, 2566, 2566, 2566, 2566, 2566, 2566, 2566, 2566, 2566, 2566, 2566, 2566, 54, 49, 39, 32, 64, 59, 45, 31, 40, 50, 23, 85, 6303};
-                itemDef.name = "Hand cannon ULTRA";
+                itemDef.name = "Hand cannon Ultra";
                 break;
 
             case 14912:
@@ -217,7 +217,7 @@ public class CustomItems {
                 itemDef.copy(ItemDefinition.forID(11614));
                 itemDef.editedModelColor = new int[]{40023, 40036, 1822, 36, 25, 34243, 9230, 40040, 10348, 48, 34251, 0, 43335, 6218, 23, 11013};
                 itemDef.newModelColor = new int[]{90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 70};
-                itemDef.name = "Death Cape";
+                itemDef.name = "Angelic Cape";
                 break;
 
         }
