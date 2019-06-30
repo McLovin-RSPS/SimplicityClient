@@ -3630,10 +3630,11 @@ public class RSInterface {
                         rsInterface.actions[l3] = null;
                     if (rsInterface.parentID == 3824)
                         rsInterface.actions = new String[] {
+                                "Value",
                                 "Buy 1",
                                 "Buy 5",
                                 "Buy 10",
-                                "Buy All",
+                                "Buy 500",
                                 "Buy X"
                         };
                     if (rsInterface.parentID == 3822) {
