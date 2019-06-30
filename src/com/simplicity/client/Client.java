@@ -9461,8 +9461,10 @@ public class Client extends RSApplet {
                     object = object.getTransformedObject();
                 }
                 if (object == null || object.name == null || object.name == "null") {
+
+
                     if (RENDER_DEBUG) {
-                        object.name = "lelele";
+                        object.name = "test";
                     } else {
                         continue;
                     }
@@ -9486,6 +9488,8 @@ public class Client extends RSApplet {
                         menuActionRow++;
                     }
                 } else {
+
+
                     if (object.actions != null) {
                         for (int i2 = 4; i2 >= 0; i2--) {
                             if (object.actions[i2] != null) {
