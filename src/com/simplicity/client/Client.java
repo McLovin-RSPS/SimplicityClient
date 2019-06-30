@@ -4634,7 +4634,7 @@ public class Client extends RSApplet {
                                                 || child.parentID == 2903 || child.parentID == 2904;
 
                                         if (child.actions != null) {
-                                            for (int j4 = child.parentID == 5292 && child.actions.length == 6 ? 5
+                                            for (int j4 = child.parentID == 5292 || child.parentID == 3824 && child.actions.length == 6 ? 5
                                                     : 4; j4 >= 0; j4--) {
                                                 if (child.actions[j4] != null) {
 
@@ -8438,6 +8438,7 @@ public class Client extends RSApplet {
                 atInventoryInterfaceType = 3;
             }
         }
+
         if (l == 54) {
             stream.createFrame(135);
             stream.writeUnsignedWordBigEndian(slot);
@@ -19025,6 +19026,41 @@ public class Client extends RSApplet {
                     } else if (text.startsWith("closedialogue")) {
                         backDialogID = -1;
                         inputTaken = true;
+                    } else if (text.startsWith("interfaceactions")) {
+                        System.out.println(text);
+                        String[] args = text.split("&");
+                        interfaceId = Integer.parseInt(args[1]);
+                        String[] actions = args[2].split("#");
+
+                        if(interfaceId == 3824) {
+                            for(RSInterface rsInterface : RSInterface.interfaceCache) {
+                                if(rsInterface == null)
+                                    continue;
+                                if(rsInterface.parentID == interfaceId) {
+                                    for(int index = 0; index < actions.length; index++) {
+                                        if(actions[index].isEmpty())
+                                            continue;
+                                        if(rsInterface.actions == null)
+                                            continue;
+                                        rsInterface.actions[index] = actions[index];
+                                    }
+                                }
+                            }
+                        } else {
+                            for(int index = 0; index < actions.length; index++) {
+                                if(actions[index].isEmpty())
+                                    continue;
+                                RSInterface.interfaceCache[interfaceId].actions[index] = actions[index];
+                            }
+                        }
+
+
+                        for(int index = 0; index < actions.length; index++) {
+                            if(actions[index].isEmpty())
+                                continue;
+
+
+                        }
                     }
                     if (frame == 29450) {
                         if (text.contains("Owner:")) {
