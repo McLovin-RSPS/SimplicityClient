@@ -4634,7 +4634,7 @@ public class Client extends RSApplet {
                                                 || child.parentID == 2903 || child.parentID == 2904;
 
                                         if (child.actions != null) {
-                                            for (int j4 = child.parentID == 5292 && child.actions.length == 6 ? 5
+                                            for (int j4 = child.parentID == 5292 || child.parentID == 3824 && child.actions.length == 6 ? 5
                                                     : 4; j4 >= 0; j4--) {
                                                 if (child.actions[j4] != null) {
 
@@ -7390,14 +7390,14 @@ public class Client extends RSApplet {
             /**
              * Chambers of Xeric entrance.
              */
-            if (id == 29777) {
+            if (id == 129777) {
                 sizeY = -1;
             }
 
             /**
              * Revenant cave pillars walking up to.
              */
-            if (id == 31561) {
+            if (id == 131561) {
                 if (objectRotation == 1) {
                     if (myPlayer.pathX[0] < tileX) {
                         tileX -= sizeX;
@@ -8438,6 +8438,7 @@ public class Client extends RSApplet {
                 atInventoryInterfaceType = 3;
             }
         }
+
         if (l == 54) {
             stream.createFrame(135);
             stream.writeUnsignedWordBigEndian(slot);
@@ -9460,8 +9461,10 @@ public class Client extends RSApplet {
                     object = object.getTransformedObject();
                 }
                 if (object == null || object.name == null || object.name == "null") {
+
+
                     if (RENDER_DEBUG) {
-                        object.name = "lelele";
+                        object.name = "test";
                     } else {
                         continue;
                     }
@@ -9485,6 +9488,8 @@ public class Client extends RSApplet {
                         menuActionRow++;
                     }
                 } else {
+
+
                     if (object.actions != null) {
                         for (int i2 = 4; i2 >= 0; i2--) {
                             if (object.actions[i2] != null) {
@@ -14812,30 +14817,23 @@ public class Client extends RSApplet {
                                 yPos -= boxHeight + 35;
                             }
                         } else {
-                            if (xPos < childX + 5) {
-                                xPos = childX + 5;
+
+                            Integer[] moveLeftFarIds = new Integer[] {
+                                    4040, 4046, 4052, 4058, 4064, 4070, 4160, 28173, 28176,
+                            };
+
+                            if(Arrays.asList(moveLeftFarIds).contains(child.id)) {
+                                xPos += 100;
                             }
-                            if (xPos > 1560 && xPos < 1600) {
-                                xPos -= 40;
-                            } else if (xPos >= 1600) {
-                                xPos -= 90;
+
+                            Integer[] moveLeftLittleIds = new Integer[] {
+                                    28174, 4076, 4082, 4088, 4094, 4100, 4106,  2832
+                            };
+
+                            if(Arrays.asList(moveLeftLittleIds).contains(child.id)) {
+                                xPos += 50;
                             }
-                        }
 
-                        Integer[] moveLeftFarIds = new Integer[] {
-                                4040, 4046, 4052, 4058, 4064, 4070, 4160, 28173, 28176,
-                        };
-
-                        if(Arrays.asList(moveLeftFarIds).contains(child.id)) {
-                            xPos += 100;
-                        }
-
-                        Integer[] moveLeftLittleIds = new Integer[] {
-                                28174, 4076, 4082, 4088, 4094, 4100, 4106,  2832
-                        };
-
-                        if(Arrays.asList(moveLeftLittleIds).contains(child.id)) {
-                            xPos += 50;
                         }
 
                         DrawingArea.drawPixels(boxHeight, yPos, xPos, 0xFFFFA0, boxWidth);
@@ -19025,6 +19023,41 @@ public class Client extends RSApplet {
                     } else if (text.startsWith("closedialogue")) {
                         backDialogID = -1;
                         inputTaken = true;
+                    } else if (text.startsWith("interfaceactions")) {
+                        System.out.println(text);
+                        String[] args = text.split("&");
+                        interfaceId = Integer.parseInt(args[1]);
+                        String[] actions = args[2].split("#");
+
+                        if(interfaceId == 3824) {
+                            for(RSInterface rsInterface : RSInterface.interfaceCache) {
+                                if(rsInterface == null)
+                                    continue;
+                                if(rsInterface.parentID == interfaceId) {
+                                    for(int index = 0; index < actions.length; index++) {
+                                        if(actions[index].isEmpty())
+                                            continue;
+                                        if(rsInterface.actions == null)
+                                            continue;
+                                        rsInterface.actions[index] = actions[index];
+                                    }
+                                }
+                            }
+                        } else {
+                            for(int index = 0; index < actions.length; index++) {
+                                if(actions[index].isEmpty())
+                                    continue;
+                                RSInterface.interfaceCache[interfaceId].actions[index] = actions[index];
+                            }
+                        }
+
+
+                        for(int index = 0; index < actions.length; index++) {
+                            if(actions[index].isEmpty())
+                                continue;
+
+
+                        }
                     }
                     if (frame == 29450) {
                         if (text.contains("Owner:")) {

@@ -341,12 +341,12 @@ public final class ItemDefinition {
 
         osrsModels.add(35356);
         osrsModels.add(35367);
-        
+
         osrsModels.add(36338);
         osrsModels.add(36406);
         osrsModels.add(36585);
         osrsModels.add(36588);
-        
+
         //Dharok platebody
         priorityModels.add(6670);
         priorityModels.add(6639);
@@ -418,7 +418,7 @@ public final class ItemDefinition {
         infernalModels.add(33145);
         infernalModels.add(33102);
         infernalModels.add(33114);
-        
+
         /**
          * Master capes
          */
@@ -609,6 +609,7 @@ public final class ItemDefinition {
             //itemDef.value = prices[itemDef.id];
 
             switch(itemDef.id) {
+
                 case 51791:
                 case 51793:
                 case 51795:
@@ -618,6 +619,7 @@ public final class ItemDefinition {
                     itemDef.femaleYOffset -= 7;
                     itemDef.maleYOffset -= 7;
                     break;
+
                 case 51400: // Red Inf cape
                 	itemDef.copy(forID(51295));
                 	itemDef.maleZOffset += 3;
@@ -801,7 +803,7 @@ public final class ItemDefinition {
                     break;
                 case 51695:
                     itemDef.name = "Simpfest shield";
-                    break;              
+                    break;
                 case 49643:
                     itemDef.copy(forID(8467));
                     itemDef.name = "Great Olm's slayer helmet";
@@ -885,7 +887,7 @@ public final class ItemDefinition {
         	itemDef.maleEquip1 = 4851;
         	itemDef.femaleEquip1 = 4851;
         	break;
-        case 4068: // Dec sword 
+        case 4068: // Dec sword
         	itemDef.maleEquip1 = 522;
         	itemDef.femaleEquip1 = 522;
         	itemDef.modelID = 2503;
@@ -954,7 +956,7 @@ public final class ItemDefinition {
         	itemDef.modelZoom = 1560;
         	itemDef.name = "Decorative shield";
         	break;
-        	
+
         case 4503:
         	itemDef.maleEquip1 = 522;
         	itemDef.femaleEquip1 = 522;
@@ -1024,7 +1026,7 @@ public final class ItemDefinition {
         	itemDef.modelZoom = 1560;
         	itemDef.name = "Decorative shield";
         	break;
-        	
+
         case 4508:
         	itemDef.maleEquip1 = 522;
         	itemDef.femaleEquip1 = 522;
@@ -1080,7 +1082,7 @@ public final class ItemDefinition {
         	itemDef.modelZoom = 640;
         	itemDef.name = "Decorative helm";
         	break;
-        	
+
         case 4512:
         	itemDef.maleEquip1 = 486;
         	itemDef.femaleEquip1 = 486;
@@ -1095,7 +1097,7 @@ public final class ItemDefinition {
         	itemDef.modelZoom = 1560;
         	itemDef.name = "Decorative shield";
         	break;
-        	
+
 		case 4513: // Saradomin team hood
 			itemDef.editedModelColor = new int[] { 8739, 8741, 7700, 8076, 11200 };
 			itemDef.newModelColor = new int[] { -24120, -24120, -24112, -26982, 10473 };
@@ -1115,7 +1117,7 @@ public final class ItemDefinition {
 			itemDef.editedModelColor = new int[] { 8739, 8741, 7698, 7700, 924, 926, 8076, 11196, 11200 };
 			itemDef.newModelColor = new int[] { 2735, 2735, 2611, 2611, 2844, 2844, 2844, 2578, 2578 };
 			break;
-			
+
 		case 20910:
 			itemDef.modelID = 40920;
 			itemDef.name = "Mystical Spirit Shield";
@@ -1137,7 +1139,7 @@ public final class ItemDefinition {
 			itemDef.actions[1] = "Wear";
 			itemDef.actions[4] = "Drop";
 			break;
-			
+
 		case 20911:
 			itemDef.modelID = 40920;
 			itemDef.name = "Demonic Spirit Shield (e)";
@@ -1181,7 +1183,7 @@ public final class ItemDefinition {
 			itemDef.actions[1] = "Wear";
 			itemDef.actions[4] = "Drop";
 			break;
-			
+
 		case 20912:
 			itemDef.modelID = 65435;
 			itemDef.name = "Purple-black pony";
@@ -1196,7 +1198,7 @@ public final class ItemDefinition {
 			itemDef.groundActions = new String[] { null, null, "Take", null, null };
 			itemDef.actions = new String[] { null, "Wear", null, null, "Drop" };
 			break;
-        	
+
         case 15449:
         	itemDef.name = "Symbol of Combat";
         	break;
@@ -1326,7 +1328,7 @@ public final class ItemDefinition {
             //            itemDef.editedModelColor = new int[] { 384, 390, 396, 536, 61, 78, 49 };
             itemDef.newModelColor = new int[] { 14573, 14573, 14573, 14573, 14573, 14573, 14573 };
             break;
-            
+
         case 21010:
             itemDef.actions = new String[5];
             itemDef.actions[1] = "Wear";
@@ -1342,9 +1344,9 @@ public final class ItemDefinition {
             itemDef.maleEquip1 = 32674;
             itemDef.description = "A mystical bow carved from a very hot place.";
             itemDef.editedModelColor = new int[] { 16, 24, 33, 13223, 14236 };
-            itemDef.newModelColor = new int[] { 4024, 4024, 7073, 4024, 4024 };        
+            itemDef.newModelColor = new int[] { 4024, 4024, 7073, 4024, 4024 };
             break;
-            
+
         case 21011:
         	def2 = forID(9774);
         	itemDef.actions = def2.actions;
@@ -1362,8 +1364,8 @@ public final class ItemDefinition {
         	itemDef.editedModelColor = def2.editedModelColor;
         	itemDef.newModelColor = def2.newModelColor;
             break;
-            
-            // Yellow orange https://i.gyazo.com/07b471a0043616d12ecedd616f422fd3.png      
+
+            // Yellow orange https://i.gyazo.com/07b471a0043616d12ecedd616f422fd3.png
         /*case 21010:
             itemDef.actions = new String[5];
             itemDef.actions[1] = "Wear";
@@ -1379,9 +1381,9 @@ public final class ItemDefinition {
             itemDef.maleEquip1 = 32674;
             itemDef.description = "A mystical bow carved from a very magical place.";
             itemDef.editedModelColor = new int[] { 16, 24, 33, 13223, 14236 };
-            itemDef.newModelColor = new int[] { 5024, 5024, 7073, 5024, 5024 };        
+            itemDef.newModelColor = new int[] { 5024, 5024, 7073, 5024, 5024 };
             break; */
-            
+
       /*  case 21010:
             itemDef.actions = new String[5];
             itemDef.actions[1] = "Wear";
@@ -1398,11 +1400,11 @@ public final class ItemDefinition {
             itemDef.description = "A mystical bow carved from a very magical place.";
             itemDef.editedModelColor = new int[] { 16, 24, 33, 13223, 14236 }; // Dark grey colour
             itemDef.newModelColor = new int[] { 6024, 6024, 6794, 6024, 6024 };
-            
+
           //  itemDef.editedModelColor = new int[] { 16, 24, 33, 13223, 14236 }; Yellow orange
           //  itemDef.newModelColor = new int[] { 9024, 9024, 6073, 9024, 9024 };
             break; */
-            
+
         case 20999:
             itemDef.actions = new String[5];
             itemDef.actions[1] = "Wear";
@@ -1420,7 +1422,7 @@ public final class ItemDefinition {
             itemDef.editedModelColor = new int[] { 16, 24, 33, 13223, 14236 };
             itemDef.newModelColor = new int[] { 1024, 1024, 937, 1024, 1024 };
             break;
-            
+
         case 21020:
             itemDef.actions = new String[5];
             itemDef.actions[1] = "Wear";
@@ -1438,7 +1440,7 @@ public final class ItemDefinition {
             itemDef.editedModelColor = new int[] { 16, 24, 33, 43223, 44236 };
             itemDef.newModelColor = new int[] { 9024, 9024, 7937, 9024, 9024 };
             break;
-            
+
         case 21008:
         	def2 = forID(9774);
         	itemDef.actions = def2.actions;
@@ -1673,7 +1675,7 @@ public final class ItemDefinition {
                 itemDef.groundActions = new String[]{null, null, "Take", null, null};
                 itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
                 break;
-            
+
 
             case 12646:
                 itemDef.modelID = 12073;
@@ -3302,7 +3304,7 @@ public final class ItemDefinition {
                 itemDef.maleEquip1 = 32674;
                 itemDef.description = "A mystical bow carved from the twisted remains of the Great Olm.";
                 break;
-                
+
             case 4706:
                 itemDef.modelID = 62692;
                 itemDef.name = "Zaryte bow";
@@ -8087,7 +8089,7 @@ public final class ItemDefinition {
                 editedModelColor[i] = copy.editedModelColor[i];
             }
         }
-        
+
         newModelColor = copy.newModelColor == null ? null : new int[copy.newModelColor.length];
 
         if(newModelColor != null) {
@@ -8095,7 +8097,7 @@ public final class ItemDefinition {
                 newModelColor[i] = copy.newModelColor[i];
             }
         }
-        
+
         femaleEquip1 = copy.femaleEquip1;
         femaleEquip3 = copy.femaleEquip3;
         femaleEquip2 = copy.femaleEquip2;
