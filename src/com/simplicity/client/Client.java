@@ -5709,6 +5709,7 @@ public class Client extends RSApplet {
         nextSong = -1;
         prevSong = 0;
         alertBoxTimer = 0;
+        toggleSize(0);
     }
 
     private void setMyAppearance() {
@@ -15191,6 +15192,11 @@ public class Client extends RSApplet {
                         break;
                     case 25347:
                         yPosition += 185;
+                        xPosition = clientWidth - 770;
+                        break;
+                    case 197:
+                        yPosition = 10;
+                        xPosition = clientWidth - 765 - (clientSize != 0 ? 30 : 0);
                         break;
                 }
                 drawInterface(0, xPosition, widget, yPosition);
@@ -15335,6 +15341,7 @@ public class Client extends RSApplet {
         if (crossType == 2) {
             crosses[4 + crossIndex / 100].drawSprite(crossX - 8 - 4, crossY - 8 - 4);
         }
+
         if (clientSize != 0 && (walkableInterfaceId == 21119 || walkableInterfaceId == 21100)) {
             processInterfaceAnimation(cycleTimer, walkableInterfaceId);
             drawInterface(0, 0, RSInterface.interfaceCache[walkableInterfaceId], 0);
@@ -15342,6 +15349,8 @@ public class Client extends RSApplet {
             processInterfaceAnimation(cycleTimer, walkableInterfaceId);
             int interfaceX = clientSize == 0 ? 0 : (clientWidth / 2) - 256;
             int interfaceY = clientSize == 0 ? 0 : (clientHeight / 2) - 167;
+
+
             if (clientSize != 0) {
                 if (walkableInterfaceId == 16210 || walkableInterfaceId == 21005) {
                     interfaceX = (int) (clientWidth / 1.6) - (clientWidth <= 396 ? 600
