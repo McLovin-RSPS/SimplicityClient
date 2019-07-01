@@ -871,7 +871,7 @@ public class Client extends RSApplet {
                                         try {
                                             int colorStart = message[0].lastIndexOf("<col=");
                                             int colorEnd = message[0].indexOf(">");
-                                            if (colorStart != -1 && colorEnd != -1) {
+                                            if (colorStart > -1 && colorEnd > -1 && colorEnd > colorStart) {
                                                 col = Integer.parseInt(message[0].substring(colorStart + 5, colorEnd), 16);
                                             }
                                         } catch (Exception e) {
