@@ -16036,6 +16036,17 @@ public class Client extends RSApplet {
                             returnValue += interfaceToCheckOn.invStackSizes[j3];
                         }
                     }
+                    RSInterface runePouchRunes = RSInterface.interfaceCache[49010];
+                    if(runePouchRunes != null) {
+                        if(runePouchRunes.inv != null && runePouchRunes.invStackSizes != null) {
+                            for (int j3 = 0; j3 < runePouchRunes.inv.length; j3++) {
+                                int checkItemId = runePouchRunes.inv[j3];
+                                if (checkItemId == itemId + 1) {
+                                    returnValue += runePouchRunes.invStackSizes[j3];
+                                }
+                            }
+                        }
+                    }
                     if(myPlayer.equipment != null) {
                         for (int id : myPlayer.equipment) {
                             id -= 512;
