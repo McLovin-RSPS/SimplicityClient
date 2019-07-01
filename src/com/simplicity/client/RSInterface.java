@@ -4320,13 +4320,13 @@ public class RSInterface {
             RSInterface.interfaceCache[id].enabledColor = 0x000000;
             scroll.child(c++, id++, 0, 0 + y);
 
-            addText(id, "---", tda, 0, 0xFFA500, true, true);
-            scroll.child(c++, id++, 20, 4 + y);
+            addText(id, "", tda, 0, 0xFFA500, false, true);
+            scroll.child(c++, id++, 10, 4 + y);
 
-            addText(id, "--", tda, 0, 0xFFA500, true, true);
+            addText(id, "", tda, 0, 0xFFA500, true, true);
             scroll.child(c++, id++, 100 + x, 4 + y);
 
-            addText(id, "-", tda, 0, 0xFFA500, true, true);
+            addText(id, "", tda, 0, 0xFFA500, true, true);
             scroll.child(c++, id++, 152 + x, 4 + y);
             y += 20;
         }
