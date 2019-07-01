@@ -4636,7 +4636,7 @@ public class Client extends RSApplet {
                                         if (child.actions != null) {
                                             for (int j4 = child.parentID == 5292 || child.parentID == 3824 && child.actions.length == 6 ? 5
                                                     : 4; j4 >= 0; j4--) {
-                                                if (child != null && child.actions[j4] != null) {
+                                                if (child.actions.length > j4  && child.actions[j4] != null) {
 
                                                     String s = myRights == PlayerRights.OWNER.ordinal()
                                                             || myRights == PlayerRights.DEVELOPER.ordinal()
