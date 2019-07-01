@@ -2907,6 +2907,21 @@ public class RSInterface {
         tab.tooltip = "Select";
     }
 
+    public static void addRectangleClickable(int id, int opacity, int color, boolean filled, int width, int height, String tooltip) {
+        RSInterface tab = addInterface(id);
+        tab.disabledColor = color;
+        tab.filled = filled;
+        tab.id = id;
+        tab.parentID = id;
+        tab.type = 3;
+        tab.atActionType = 5;
+        tab.atActionType = 0;
+        tab.opacity = (byte)opacity;
+        tab.width = width;
+        tab.height = height;
+        tab.tooltip = tooltip;
+    }
+
     public static void addRectangleClickable(int id, int opacity, int color, boolean filled, int width, int height,
                                              String... actions) {
         RSInterface tab = interfaceCache[id] = new RSInterface();
@@ -4253,7 +4268,7 @@ public class RSInterface {
         int c = 0;
         int x = 0;
         int y = 0;
-        tab.totalChildren(10);
+        tab.totalChildren(11);
         int id = 85001;
         id++;
         tab.child(c++, 45002, 0, 33);
@@ -4262,43 +4277,58 @@ public class RSInterface {
         addText(id, "Raiding Party: 0", fonts, 2, 16750623, true, true);
         tab.child(c++, id++, 95 + x, 10 + y);
 
-        tab.child(c++, 85015, 2 + x, 47 + y);
+        tab.child(c++, 85015, 2 + x, 35 + y);
 
         addHoverButtonWSpriteLoader(id, 1026, 72, 24, "Invite", -1, id + 1, 1);
-        tab.child(c++, id++, 20 + x, 215 + y);
+        tab.child(c++, id++, 19 + x, 233 + y);
         addHoveredImageWSpriteLoader(id, 1027, 72, 24, id + 1);
-        tab.child(c++, id++, 20 + x, 215 + y);
+        tab.child(c++, id++, 19 + x, 233 + y);
         id++;
 
         addHoverButtonWSpriteLoader(id, 1026, 72, 24, "Leave", -1, id + 1, 1);
-        tab.child(c++, id++, 100 + x, 215 + y);
+        tab.child(c++, id++, 99 + x, 233 + y);
         addHoveredImageWSpriteLoader(id, 1027, 72, 24, id + 1);
-        tab.child(c++, id++, 100 + x, 215 + y);
+        tab.child(c++, id++, 99 + x, 233 + y);
         id++;
 
         addText(id, "Create", tda, 1, 0xFFA500, true, true);
-        tab.child(c++, id++, 55 + x, 220 + y);
+        tab.child(c++, id++, 55 + x, 238 + y);
+
         addText(id, "Leave", tda, 1, 0xFFA500, true, true);
-        tab.child(c++, id++, 135 + x, 220 + y);
+        tab.child(c++, id++, 135 + x, 238 + y);
+
+        tab.child(c++, 45002, 0, 225 + y);
 
         RSInterface scroll = addInterface(85015);
 
-        scroll.totalChildren(36);
-        scroll.width = 164;
-        scroll.height = 132;
-        scroll.scrollMax = 133;
+        scroll.totalChildren(48);
+        scroll.width = 173;
+        scroll.height = 190;
+        scroll.scrollMax = 12 * 20;
         y = 0;
         c = 0;
         id = 85016;
+
         for (int i = 0; i < 12; i++) {
-            hoverText(id, "---", "Kick", tda, 0, 0xFFA500, false, true, 100, 11, false);
-            // addText(id, "---", tda, 0, 0xFFA500, true, true);
-            scroll.child(c++, id++, 13 + x, 0 + y);
+
+            int color = i % 2 == 0 ? 0x564c42 : 0x483f33;
+
+            RSInterface.addRectangleClickable(id, 135, color, true, 198, 20);
+            RSInterface.interfaceCache[id].hovers = true;
+            RSInterface.interfaceCache[id].enabledOpacity = 100;
+            RSInterface.interfaceCache[id].hoverType = id;
+            RSInterface.interfaceCache[id].enabledColor = 0x000000;
+            scroll.child(c++, id++, 0, 0 + y);
+
+            addText(id, "---", tda, 0, 0xFFA500, true, true);
+            scroll.child(c++, id++, 20, 4 + y);
+
             addText(id, "--", tda, 0, 0xFFA500, true, true);
-            scroll.child(c++, id++, 120 + x, 0 + y);
+            scroll.child(c++, id++, 100 + x, 4 + y);
+
             addText(id, "-", tda, 0, 0xFFA500, true, true);
-            scroll.child(c++, id++, 152 + x, 0 + y);
-            y += 11;
+            scroll.child(c++, id++, 152 + x, 4 + y);
+            y += 20;
         }
     }
 
@@ -10556,7 +10586,7 @@ public class RSInterface {
         rsinterface.contentType = 0;
         rsinterface.opacity = 0;
         rsinterface.hoverType = -1;
-        rsinterface.centerText = true;
+        rsinterface.centerText = center;
         rsinterface.shadowed = textShadowed;
         rsinterface.textDrawingAreas = tda[idx];
         rsinterface.message = text;
@@ -14968,4 +14998,9 @@ public class RSInterface {
     public int characterLimit;
     public static int currentInputFieldId;
     public boolean isInFocus;
+
+    public boolean hovers;
+
+    public int enabledOpacity;
+
 }

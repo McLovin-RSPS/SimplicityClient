@@ -4326,7 +4326,13 @@ public class Client extends RSApplet {
                     hoveredInterface = child.id;
                     hoverSpriteId = hoveredInterface;
                 }
+            } else {
+                if(hoverSpriteId == child.hoverType) {
+                    hoverSpriteId = -1;
+                }
             }
+
+
             if (child.type == 8 || child.type == 9 || child.type == 10 && mouseX >= childX && mouseY >= childY
                     && mouseX < childX + child.width && mouseY < childY + child.height) {
                 anInt1315 = child.id;
@@ -14395,34 +14401,39 @@ public class Client extends RSApplet {
                             }
                         }
                     } else if (child.type == 3) {
-                        boolean hover = false;
+
+                        boolean flag = false;
+
                         if (anInt1039 == child.id || anInt1048 == child.id || anInt1026 == child.id) {
-                            hover = true;
+                            flag = true;
                         }
-                        int color;
-                        if (interfaceIsSelected(child)) {
-                            color = child.enabledColor;
-                            if (hover && child.enabledMouseOverColor != 0) {
-                                color = child.enabledMouseOverColor;
+                        int j3;
+                        int opacity;
+                        if (interfaceIsSelected(child) || (hovered(child))) {
+                            j3 = child.disabledColor;
+                            if (flag && child.enabledMouseOverColor != 0) {
+                                j3 = child.enabledMouseOverColor;
                             }
+                            opacity = child.enabledOpacity;
                         } else {
-                            color = child.disabledColor;
-                            if (hover && child.disabledMouseOverColor != 0) {
-                                color = child.disabledMouseOverColor;
+                            j3 = child.disabledColor;
+                            if (flag && child.disabledMouseOverColor != 0) {
+                                j3 = child.disabledMouseOverColor;
                             }
+                            opacity = child.opacity;
                         }
-                        if (child.opacity == 0) {
-                            if (child.filled) {
-                                DrawingArea.drawPixels(child.height, childY, childX, color, child.width);
+                        if (opacity != 256) {
+                            if (opacity == 0) {
+                                if (child.filled) {
+                                    DrawingArea.drawPixels(child.height, childY, childX, j3, child.width);
+                                } else {
+                                    DrawingArea.fillPixels(childX, child.width, child.height, j3, childY);
+                                }
+                            } else if (child.filled) {
+                                DrawingArea.method335(j3, childY, child.width, child.height, 256 - (opacity & 0xff), childX);
                             } else {
-                                DrawingArea.fillPixels(childX, child.width, child.height, color, childY);
+                                DrawingArea.drawRectangle(childY, child.height, 256 - (opacity & 0xff), j3, child.width, childX);
                             }
-                        } else if (child.filled) {
-                            DrawingArea.fillRectangle(color, childY, child.width, child.height,
-                                    256 - (child.opacity & 0xff), childX);
-                        } else {
-                            DrawingArea.drawRectangle(childY, child.height, 256 - (child.opacity & 0xff), color,
-                                    child.width, childX);
                         }
                     } else if (child.type == 4) {
                         TextDrawingArea textDrawingArea = child.textDrawingAreas;
@@ -16428,6 +16439,10 @@ public class Client extends RSApplet {
         newRequest.currentFaceRequested = l;
         newRequest.spawnTime = j2;
         newRequest.removeTime = j;
+    }
+
+    private boolean hovered(RSInterface rsi) {
+        return (rsi.id == this.hoverSpriteId) && (rsi.hovers);
     }
 
     private boolean interfaceIsSelected(RSInterface rsInterface) {
