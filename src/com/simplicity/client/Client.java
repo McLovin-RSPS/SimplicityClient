@@ -12615,13 +12615,13 @@ public class Client extends RSApplet {
                     }
                 }
                 if ((l & 8) != 0) {
-                    int j1 = inStream.readByteA();
+                    int j1 = inStream.readDWord();
                     int j2 = stream.nglb();
                     int icon = stream.readUnsignedByte();
                     npc.updateHitData(j2, j1, loopCycle, icon, 0);
                     npc.loopCycleStatus = loopCycle + 300;
-                    npc.currentHealth = inStream.readByteA();
-                    npc.maxHealth = inStream.readByteA();
+                    npc.currentHealth = inStream.readDWord();
+                    npc.maxHealth = inStream.readDWord();
                 }
                 if ((l & 0x80) != 0) {
                     npc.anInt1520 = stream.readUnsignedWord();
@@ -12662,13 +12662,13 @@ public class Client extends RSApplet {
                 }
 
                 if ((l & 0x40) != 0) {
-                    int l1 = inStream.readByteA();
+                    int l1 = inStream.readDWord();
                     int k2 = stream.readByteS();
                     int icon = stream.readUnsignedByte();
                     npc.updateHitData(k2, l1, loopCycle, icon, 0);
                     npc.loopCycleStatus = loopCycle + 300;
-                    npc.currentHealth = inStream.readByteA();
-                    npc.maxHealth = inStream.readByteA();
+                    npc.currentHealth = inStream.readDWord();
+                    npc.maxHealth = inStream.readDWord();
                 }
                 if ((l & 2) != 0) {
                     npc.desc = MobDefinition.forID(stream.readWordBigEndian());
