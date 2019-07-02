@@ -12615,13 +12615,13 @@ public class Client extends RSApplet {
                     }
                 }
                 if ((l & 8) != 0) {
-                    int j1 = inStream.readByteA();
+                    int j1 = inStream.readDWord();
                     int j2 = stream.nglb();
                     int icon = stream.readUnsignedByte();
                     npc.updateHitData(j2, j1, loopCycle, icon, 0);
                     npc.loopCycleStatus = loopCycle + 300;
-                    npc.currentHealth = inStream.readByteA();
-                    npc.maxHealth = inStream.readByteA();
+                    npc.currentHealth = inStream.readDWord();
+                    npc.maxHealth = inStream.readDWord();
                 }
                 if ((l & 0x80) != 0) {
                     npc.anInt1520 = stream.readUnsignedWord();
@@ -12662,13 +12662,13 @@ public class Client extends RSApplet {
                 }
 
                 if ((l & 0x40) != 0) {
-                    int l1 = inStream.readByteA();
+                    int l1 = inStream.readDWord();
                     int k2 = stream.readByteS();
                     int icon = stream.readUnsignedByte();
                     npc.updateHitData(k2, l1, loopCycle, icon, 0);
                     npc.loopCycleStatus = loopCycle + 300;
-                    npc.currentHealth = inStream.readByteA();
-                    npc.maxHealth = inStream.readByteA();
+                    npc.currentHealth = inStream.readDWord();
+                    npc.maxHealth = inStream.readDWord();
                 }
                 if ((l & 2) != 0) {
                     npc.desc = MobDefinition.forID(stream.readWordBigEndian());
@@ -16050,14 +16050,21 @@ public class Client extends RSApplet {
                 if (checkType == 4) {
                     RSInterface interfaceToCheckOn = RSInterface.interfaceCache[myValues[valueIdx++]];
                     int itemId = myValues[valueIdx++];
+
+                    boolean hasRunePouch = false;
+
                     for (int j3 = 0; j3 < interfaceToCheckOn.inv.length; j3++) {
                         int checkItemId = interfaceToCheckOn.inv[j3];
+
                         if (checkItemId == itemId + 1) {
                             returnValue += interfaceToCheckOn.invStackSizes[j3];
                         }
+                        if(checkItemId == 42791 + 1) {
+                            hasRunePouch = true;
+                        }
                     }
                     RSInterface runePouchRunes = RSInterface.interfaceCache[49010];
-                    if(runePouchRunes != null) {
+                    if(runePouchRunes != null && hasRunePouch) {
                         if(runePouchRunes.inv != null && runePouchRunes.invStackSizes != null) {
                             for (int j3 = 0; j3 < runePouchRunes.inv.length; j3++) {
                                 int checkItemId = runePouchRunes.inv[j3];
