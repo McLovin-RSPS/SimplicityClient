@@ -16050,14 +16050,21 @@ public class Client extends RSApplet {
                 if (checkType == 4) {
                     RSInterface interfaceToCheckOn = RSInterface.interfaceCache[myValues[valueIdx++]];
                     int itemId = myValues[valueIdx++];
+
+                    boolean hasRunePouch = false;
+
                     for (int j3 = 0; j3 < interfaceToCheckOn.inv.length; j3++) {
                         int checkItemId = interfaceToCheckOn.inv[j3];
+
                         if (checkItemId == itemId + 1) {
                             returnValue += interfaceToCheckOn.invStackSizes[j3];
                         }
+                        if(checkItemId == 42791 + 1) {
+                            hasRunePouch = true;
+                        }
                     }
                     RSInterface runePouchRunes = RSInterface.interfaceCache[49010];
-                    if(runePouchRunes != null) {
+                    if(runePouchRunes != null && hasRunePouch) {
                         if(runePouchRunes.inv != null && runePouchRunes.invStackSizes != null) {
                             for (int j3 = 0; j3 < runePouchRunes.inv.length; j3++) {
                                 int checkItemId = runePouchRunes.inv[j3];
