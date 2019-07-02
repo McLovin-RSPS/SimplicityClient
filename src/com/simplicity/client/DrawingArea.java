@@ -27,6 +27,38 @@ public class DrawingArea extends QueueNode {
 
 	}
 
+	public static void method335(int i, int j, int k, int l, int i1, int k1) {
+		if (k1 < topX) {
+			k -= topX - k1;
+			k1 = topX;
+		}
+		if (j < topY) {
+			l -= topY - j;
+			j = topY;
+		}
+		if (k1 + k > bottomX)
+			k = bottomX - k1;
+		if (j + l > bottomY)
+			l = bottomY - j;
+		int l1 = 256 - i1;
+		int i2 = (i >> 16 & 0xff) * i1;
+		int j2 = (i >> 8 & 0xff) * i1;
+		int k2 = (i & 0xff) * i1;
+		int k3 = width - k;
+		int l3 = k1 + j * width;
+		for (int i4 = 0; i4 < l; i4++) {
+			for (int j4 = -k; j4 < 0; j4++) {
+				int l2 = (pixels[l3] >> 16 & 0xff) * l1;
+				int i3 = (pixels[l3] >> 8 & 0xff) * l1;
+				int j3 = (pixels[l3] & 0xff) * l1;
+				int k4 = ((i2 + l2 >> 8) << 16) + ((j2 + i3 >> 8) << 8) + (k2 + j3 >> 8);
+				pixels[l3++] = k4;
+			}
+
+			l3 += k3;
+		}
+	}
+
 	static void drawVerticalLineAlpha(int x, int y, int colour, int length, int alpha) {
 		if (x < topX || x >= bottomX)
 			return;
