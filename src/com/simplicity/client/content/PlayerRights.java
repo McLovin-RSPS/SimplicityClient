@@ -9,26 +9,30 @@ import com.simplicity.Configuration;
  */
 public enum PlayerRights {
 
-    PLAYER(-1),
-    MODERATOR(680),
-    ADMINISTRATOR(681),
-    OWNER(682),
-    DEVELOPER(683),
-    BRONZE_MEMBER(684, 14, 1),
-    SILVER_MEMBER(685, 14, 1),
-    GOLD_MEMBER(686, 14, 0),
-    PLATINUM_MEMBER(687, 14, 1),
-    DIAMOND_MEMBER(688, 14, 1),
-    SUPPORT(689),
-    YOUTUBER(690, 18, 1),
-    RUBY_MEMBER(691, 14, 1),
-    MANAGER(692, 20, 1),
-    SAPPHIRE(693),
-    EMERALD(694),
-    ONYX(695),
-    CRYSTAL(1141, 12, 0),
-    HEAD_MODERATOR(1032, 16, 0),
-    SUPER_ADMIN(1033, 16, 0),
+    PLAYER(-1, PlayerRightsType.DEFAULT),
+    MODERATOR(680, PlayerRightsType.STAFF),
+    ADMINISTRATOR(681, PlayerRightsType.STAFF),
+    OWNER(682, PlayerRightsType.STAFF),
+    DEVELOPER(683, PlayerRightsType.STAFF),
+    BRONZE_MEMBER(684, 14, 1, PlayerRightsType.DONATOR),
+    SILVER_MEMBER(685, 14, 1, PlayerRightsType.DONATOR),
+    GOLD_MEMBER(686, 14, 0, PlayerRightsType.DONATOR),
+    PLATINUM_MEMBER(687, 14, 1, PlayerRightsType.DONATOR),
+    DIAMOND_MEMBER(688, 14, 1, PlayerRightsType.DONATOR),
+    SUPPORT(689, PlayerRightsType.STAFF),
+    YOUTUBER(690, 18, 1, PlayerRightsType.STAFF),
+    RUBY_MEMBER(691, 14, 1, PlayerRightsType.DONATOR),
+    MANAGER(692, 20, 1, PlayerRightsType.STAFF),
+    SAPPHIRE(693, PlayerRightsType.DONATOR),
+    EMERALD(694, PlayerRightsType.DONATOR),
+    ONYX(695, PlayerRightsType.DONATOR),
+    CRYSTAL(1141, 12, 0, PlayerRightsType.DONATOR),
+    HEAD_MODERATOR(1032, 16, 0, PlayerRightsType.STAFF),
+    SUPER_ADMIN(1033, 16, 0, PlayerRightsType.STAFF),
+
+    IRON_MAN(712, PlayerRightsType.CUSTOM_GAME_MODE),
+    ULTIMATE_IRON_MAN(711, PlayerRightsType.CUSTOM_GAME_MODE),
+
     ;
 
     /**
@@ -46,16 +50,23 @@ public enum PlayerRights {
      */
     private int drawOffsetY;
 
-    PlayerRights(int crownId) {
+    /**
+     * Is this rank a donator?
+     */
+    private PlayerRightsType playerRightsType;
+
+    PlayerRights(int crownId, PlayerRightsType playerRightsType) {
         this.crownId = crownId;
         this.drawOffsetX = 17;
         this.drawOffsetY = 1;
+        this.playerRightsType = playerRightsType;
     }
 
-    PlayerRights(int crownId, int drawOffsetX, int drawOffsetY) {
+    PlayerRights(int crownId, int drawOffsetX, int drawOffsetY, PlayerRightsType playerRightsType) {
         this.crownId = crownId;
         this.drawOffsetX = drawOffsetX;
         this.drawOffsetY = drawOffsetY;
+        this.playerRightsType = playerRightsType;
     }
 
     public int getCrownId() {
@@ -75,13 +86,36 @@ public enum PlayerRights {
     }
 
     public static PlayerRights get(int rights) {
+        if(rights == 60) {
+            return PlayerRights.IRON_MAN;
+        }
+        if(rights == 61) {
+            return PlayerRights.ULTIMATE_IRON_MAN;
+        }
         if (rights >= values().length) {
             if (Configuration.LOCALHOST) {
-                throw new IllegalArgumentException("Player rights with index " + rights + " does not exist.");
+                //throw new IllegalArgumentException("Player rights with index " + rights + " does not exist.");
+                return PLAYER;
             } else {
                 return PLAYER;
             }
         }
         return values()[rights];
+    }
+
+    public void setPlayerRightsType(PlayerRightsType playerRightsType) {
+        this.playerRightsType = playerRightsType;
+    }
+
+    public boolean isStaff() {
+        return this.playerRightsType == PlayerRightsType.STAFF;
+    }
+
+    public boolean isDonator() {
+        return this.playerRightsType == PlayerRightsType.DONATOR;
+    }
+
+    public boolean isCustomGameMode() {
+        return this.playerRightsType == PlayerRightsType.CUSTOM_GAME_MODE;
     }
 }
