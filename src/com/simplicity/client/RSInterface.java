@@ -2433,56 +2433,109 @@ public class RSInterface {
 
     public static void makeAllSkilling(TextDrawingArea[] tda) {
 
-        RSInterface skilling = RSInterface.interfaceCache[8880];
+        /**
+         * Regular logs
+         */
+        RSInterface regularLogInter = RSInterface.interfaceCache[8880];
 
-        addOption(49850, "Make All", skilling.id);
-        addOption(49851, "Make All", skilling.id);
-        addOption(49852, "Make All", skilling.id);
+        addOption(49850, "Make All", regularLogInter.id);
+        addOption(49851, "Make All", regularLogInter.id);
+        addOption(49852, "Make All", regularLogInter.id);
 
-        int[] tempChildIds = new int[skilling.children.length + 2];
+        int[] tempChildIds = new int[regularLogInter.children.length + 2];
 
-        int[] tempChildX = new int[skilling.childX.length + 2];
+        int[] tempChildX = new int[regularLogInter.childX.length + 2];
 
-        int[] tempChildY = new int[skilling.childY.length + 2];
+        int[] tempChildY = new int[regularLogInter.childY.length + 2];
 
-        System.arraycopy(skilling.children, 0, tempChildIds, 0, skilling.children.length);
+        System.arraycopy(regularLogInter.children, 0, tempChildIds, 0, regularLogInter.children.length);
 
-        System.arraycopy(skilling.childX, 0, tempChildX, 0, skilling.childX.length);
+        System.arraycopy(regularLogInter.childX, 0, tempChildX, 0, regularLogInter.childX.length);
 
-        System.arraycopy(skilling.childY, 0, tempChildY, 0, skilling.childY.length);
+        System.arraycopy(regularLogInter.childY, 0, tempChildY, 0, regularLogInter.childY.length);
 
-        skilling.children = tempChildIds;
+        regularLogInter.children = tempChildIds;
 
-        skilling.childX = tempChildX;
+        regularLogInter.childX = tempChildX;
 
-        skilling.childY = tempChildY;
+        regularLogInter.childY = tempChildY;
 
-        skilling.children[5] = 49850;
-        skilling.children[6] = 8886;
-        skilling.children[7] = 8887;
-        skilling.children[8] = 8888;
-        skilling.children[9] = 8889;
-        skilling.children[10] = 49851;
-        skilling.children[11] = 8890;
-        skilling.children[12] = 8891;
-        skilling.children[13] = 8892;
-        skilling.children[14] = 8893;
-        skilling.children[15] = 49852;
-        skilling.children[16] = 8894;
-        skilling.children[17] = 8895;
-        skilling.children[18] = 8896;
-        skilling.children[19] = 8897;
+        regularLogInter.children[5] = 49850;
+        regularLogInter.children[6] = 8886;
+        regularLogInter.children[7] = 8887;
+        regularLogInter.children[8] = 8888;
+        regularLogInter.children[9] = 8889;
+        regularLogInter.children[10] = 49851;
+        regularLogInter.children[11] = 8890;
+        regularLogInter.children[12] = 8891;
+        regularLogInter.children[13] = 8892;
+        regularLogInter.children[14] = 8893;
+        regularLogInter.children[15] = 49852;
+        regularLogInter.children[16] = 8894;
+        regularLogInter.children[17] = 8895;
+        regularLogInter.children[18] = 8896;
+        regularLogInter.children[19] = 8897;
 
-        skilling.childX[9] = 38;
-        skilling.childX[13] = 189;
-        skilling.childX[14] = 189;
+        regularLogInter.childX[9] = 38;
+        regularLogInter.childX[13] = 189;
+        regularLogInter.childX[14] = 189;
 
-        skilling.childX[17] = 342;
-        skilling.childX[18] = 342;
-        skilling.childX[19] = 342;
+        regularLogInter.childX[17] = 342;
+        regularLogInter.childX[18] = 342;
+        regularLogInter.childX[19] = 342;
 
-        skilling.childY[18] = 16;
-        skilling.childY[19] = 16;
+        regularLogInter.childY[18] = 16;
+        regularLogInter.childY[19] = 16;
+
+
+        /**
+         * All other logs
+         */
+
+        RSInterface otherLogInter = RSInterface.interfaceCache[8866];
+
+        addOption(49853, "Make All", otherLogInter.id);
+        addOption(49854, "Make All", otherLogInter.id);
+
+        tempChildIds = new int[otherLogInter.children.length + 2];
+
+        tempChildX = new int[otherLogInter.childX.length + 2];
+
+        tempChildY = new int[otherLogInter.childY.length + 2];
+
+        System.arraycopy(otherLogInter.children, 0, tempChildIds, 0, otherLogInter.children.length);
+
+        System.arraycopy(otherLogInter.childX, 0, tempChildX, 0, otherLogInter.childX.length);
+
+        System.arraycopy(otherLogInter.childY, 0, tempChildY, 0, otherLogInter.childY.length);
+
+        otherLogInter.children = tempChildIds;
+
+        otherLogInter.childX = tempChildX;
+
+        otherLogInter.childY = tempChildY;
+
+        otherLogInter.childX[8] = 74;
+        otherLogInter.childX[12] = 305;
+        otherLogInter.childX[13] = 305;
+        otherLogInter.childX[14] = 8;
+
+        otherLogInter.childY[12] = 16;
+        otherLogInter.childY[13] = 16;
+        otherLogInter.childY[14] = 3;
+
+        otherLogInter.children[4] = 49853;
+        otherLogInter.children[5] = 8871;
+        otherLogInter.children[6] = 8872;
+        otherLogInter.children[7] = 8873;
+        otherLogInter.children[8] = 8874;
+        otherLogInter.children[9] = 49854;
+        otherLogInter.children[10] = 8875;
+        otherLogInter.children[11] = 8876;
+        otherLogInter.children[12] = 8877;
+        otherLogInter.children[13] = 8878;
+        otherLogInter.children[14] = 8879;
+
     }
 
     public static void addOption(int id, String title, int parentId) {
