@@ -597,8 +597,8 @@ public final class MobDefinition {
                 npc.standAnim = 5070;
                 npc.walkAnim = 5070;
                 npc.combatLevel = 725;
-                npc.sizeXZ = 100;
-                npc.sizeY = 100;
+                npc.sizeXZ = 128;
+                npc.sizeY = 128;
                 break;
             case 2043://regular
                 npc.name = "Zulrah";
@@ -608,8 +608,8 @@ public final class MobDefinition {
                 npc.standAnim = 5070;
                 npc.walkAnim = 5070;
                 npc.combatLevel = 725;
-                npc.sizeXZ = 100;
-                npc.sizeY = 100;
+                npc.sizeXZ = 128;
+                npc.sizeY = 128;
                 break;
             case 2044://melee
                 npc.name = "Zulrah";
@@ -619,8 +619,8 @@ public final class MobDefinition {
                 npc.standAnim = 5070;
                 npc.walkAnim = 5070;
                 npc.combatLevel = 725;
-                npc.sizeXZ = 100;
-                npc.sizeY = 100;
+                npc.sizeXZ = 128;
+                npc.sizeY = 128;
                 break;
             case 2001:
                 npc.models = new int[1];
