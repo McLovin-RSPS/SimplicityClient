@@ -75,9 +75,6 @@ public enum PlayerRights {
     }
 
     public static PlayerRights get(int rights) {
-        if (rights > 14) {
-            rights -= 2;
-        }
         if (rights >= values().length) {
             if (Configuration.LOCALHOST) {
                 throw new IllegalArgumentException("Player rights with index " + rights + " does not exist.");
