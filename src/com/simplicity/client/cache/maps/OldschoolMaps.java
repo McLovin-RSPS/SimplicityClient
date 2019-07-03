@@ -20,6 +20,10 @@ public class OldschoolMaps {
             8280, //demonic gorillas
             8789,
             6457, // Great Kourand
+
+            10894, //monkey skeletons
+            11150, //monkey skeletons
+
             9619,
             14386, 14642,
             4919, 5022, 5023, 5279, 5280, 5535, 5945,
