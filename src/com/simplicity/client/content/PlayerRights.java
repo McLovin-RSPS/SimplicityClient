@@ -32,6 +32,7 @@ public enum PlayerRights {
 
     IRON_MAN(712, PlayerRightsType.CUSTOM_GAME_MODE),
     ULTIMATE_IRON_MAN(711, PlayerRightsType.CUSTOM_GAME_MODE),
+    HARDCORE_IRON_MAN(1142, PlayerRightsType.CUSTOM_GAME_MODE),
 
     ;
 
