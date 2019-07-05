@@ -579,7 +579,14 @@ public class Client extends RSApplet {
         boolean isStaff = playerRights.isStaff();
 
         if (ironman > 0 && !isStaff) {
-            return ironman == 1 ? "@cr60@" : "@cr61@";
+            switch (ironman) {
+                case 1:
+                    return "@cr60@";
+                case 2:
+                    return "@cr61@";
+                case 3:
+                    return "@cr62@";
+            }
         }
 
         String prefix = "cr";
@@ -837,6 +844,8 @@ public class Client extends RSApplet {
                             ironman2 = 1;
                         } else if (name.contains("@cr61")) {
                             ironman2 = 2;
+                        } else if (name.contains("@cr62")) {
+                            ironman2 = 3;
                         }
 
                         playerRights = getRights(name);
@@ -902,7 +911,7 @@ public class Client extends RSApplet {
                                 int xPos = 11;
                                 if (playerRights > 0 || ironman2 > 0) {
 
-                                    boolean isIronman = (playerRights == 60 || playerRights == 61);
+                                    boolean isIronman = (playerRights == 60 || playerRights == 61 || playerRights == 62);
                                     boolean donator = false;
 
                                     boolean isStaff = isStaff(playerRights);
@@ -912,8 +921,13 @@ public class Client extends RSApplet {
                                     }
 
                                     if(isIronman && !isStaff) {
-                                        SpriteLoader.sprites[710 + ironman2].drawSprite(xPos + 1 + offsetX,
-                                                positionY - 11 + offsetY);
+                                        if (ironman2 == 3) {
+                                            SpriteLoader.sprites[1142].drawSprite(xPos + 1 + offsetX,
+                                                    positionY - 11 + offsetY);
+                                        } else {
+                                            SpriteLoader.sprites[710 + ironman2].drawSprite(xPos + 1 + offsetX,
+                                                    positionY - 11 + offsetY);
+                                        }
                                         xPos += 15;
                                     } else if(playerRights > 0) {
                                         PlayerRights rights = PlayerRights.get(playerRights);
@@ -961,8 +975,13 @@ public class Client extends RSApplet {
                                     }
 
                                     if(isIronman && !isStaff) {
-                                        SpriteLoader.sprites[710 + ironman2].drawSprite(xPos + 1 + offsetX,
-                                                positionY - 11 + offsetY);
+                                        if (ironman2 == 3) {
+                                            SpriteLoader.sprites[1142].drawSprite(xPos + 1 + offsetX,
+                                                    positionY - 11 + offsetY);
+                                        } else {
+                                            SpriteLoader.sprites[710 + ironman2].drawSprite(xPos + 1 + offsetX,
+                                                    positionY - 11 + offsetY);
+                                        }
                                         xPos += 14;
                                     } else if(playerRights > 0) {
                                         PlayerRights rights = PlayerRights.get(playerRights);
@@ -1071,7 +1090,11 @@ public class Client extends RSApplet {
                 boolean isStaff = isStaff(myRights);
 
                 if(isIronman && !isStaff) {
-                    SpriteLoader.sprites[710 + ironman].drawSprite(12 + offsetX, 122 + offsetY);
+                    if (ironman == 3) {
+                        SpriteLoader.sprites[1142].drawSprite(12 + offsetX, 122 + offsetY);
+                    } else {
+                        SpriteLoader.sprites[710 + ironman].drawSprite(12 + offsetX, 122 + offsetY);
+                    }
                     offsetX += 15;
                 } else if(myRights > 0) {
                     SpriteLoader.sprites[rights.getCrownId()].drawSprite(12 + offsetX,
@@ -10652,7 +10675,7 @@ public class Client extends RSApplet {
                 break;
             }
             if (name != null && name.indexOf("@") == 0) {
-                if (!name.contains("@cr60") && !name.contains("@cr61")) {
+                if (!name.contains("@cr60") && !name.contains("@cr61") && !name.contains("@cr62")) {
                     rights = getRights(name);
                 }
 
@@ -10707,7 +10730,7 @@ public class Client extends RSApplet {
                 break;
             }
             if (name != null && name.indexOf("@") == 0) {
-                if (!name.contains("@cr60") && !name.contains("@cr61")) {
+                if (!name.contains("@cr60") && !name.contains("@cr61") && !name.contains("@cr62")) {
                     rights = getRights(name);
                 }
 
@@ -10827,7 +10850,7 @@ public class Client extends RSApplet {
             }
 
             if (name != null && name.indexOf("@") == 0) {
-                if (!name.contains("@cr60") && !name.contains("@cr61")) {
+                if (!name.contains("@cr60") && !name.contains("@cr61") && !name.contains("@cr62")) {
                     rights = getRights(name);
                 }
 
@@ -11381,6 +11404,8 @@ public class Client extends RSApplet {
                             ironman2 = 1;
                         } else if (name.contains("@cr61")) {
                             ironman2 = 2;
+                        } else if (name.contains("@cr62")) {
+                            ironman2 = 3;
                         } else {
                             rights = getRights(name);
                         }
@@ -11401,7 +11426,11 @@ public class Client extends RSApplet {
                                     l - 12 + playerRights.getDrawOffsetY());
                             k1 += playerRights.getDrawOffsetX();
                         } else if (ironman2 != 0) {
-                            SpriteLoader.sprites[710 + ironman2].drawSprite(k1, l - 12);
+                            if (ironman2 == 3) {
+                                SpriteLoader.sprites[1142].drawSprite(k1, l - 12);
+                            } else {
+                                SpriteLoader.sprites[710 + ironman2].drawSprite(k1, l - 12);
+                            }
                             k1 += 12;
                         }
                     }
@@ -16395,7 +16424,7 @@ public class Client extends RSApplet {
                 int k = chatTypes[j];
                 String name = chatNames[j];
                 if (name != null && name.indexOf("@") == 0) {
-                    if (!name.contains("@cr60") && !name.contains("@cr61")) {
+                    if (!name.contains("@cr60") && !name.contains("@cr61") && !name.contains("@cr62")) {
                         rights = getRights(name);
                     }
 

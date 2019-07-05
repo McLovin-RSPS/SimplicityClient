@@ -1614,11 +1614,14 @@ public class RSInterface {
         addConfigButtonWSpriteLoader(52756, 51750, 937, 938, 15, 15, "Select Normal", 0, 5, 1085);
         addConfigButtonWSpriteLoader(52757, 51750, 937, 938, 15, 15, "Select Ironman", 1, 5, 1085);
         addConfigButtonWSpriteLoader(52758, 51750, 937, 938, 15, 15, "Select Ultimate Ironman", 2, 5, 1085);
+        addConfigButtonWSpriteLoader(52773, 51750, 937, 938, 15, 15, "Select Hardcore Ironman", 3, 5, 1085);
         addSpriteLoader(52759, 712);
         addSpriteLoader(52760, 711);
+        addSpriteLoader(52774, 1142);
         addText(52761, "Normal", 0xff9933, false, true, 52, tda, 0);
         addText(52762, "  Ironman", 0xff9933, false, true, 52, tda, 0);
         addText(52763, "  Ultimate Iron", 0xff9933, false, true, 52, tda, 0);
+        addText(52775, "  Hardcore Iron", 0xff9933, false, true, 52, tda, 0);
         addText(52764, "Play Simplicity as an Iron man.", 0xff9933, true, true, 52, tda, 0);
         addText(52765, "You will be restricted from trading, staking and looting items from killed players.", 0xff9933,
                 true, true, 52, tda, 0);
@@ -1630,20 +1633,28 @@ public class RSInterface {
         addHoverButtonWSpriteLoader(35769, 961, 123, 30, "Confirm selection", -1, 35770, 1);
         addHoveredImageWSpriteLoader(35770, 962, 123, 30, 35771);
         addText(52772, "Confirm", 0xF7AA25, true, true, 52, tda, 3);
-        tab.totalChildren(48);
+        tab.totalChildren(51);
         tab.child(0, 52751, 7, 8);
         tab.child(1, 52752, 250, 17);
         tab.child(2, 52753, 25, 48);
         tab.child(3, 52754, 347, 45);
         tab.child(4, 52755, 265, 220);
-        tab.child(5, 52756, 366, 75);
-        tab.child(6, 52757, 366, 115);
-        tab.child(7, 52758, 366, 152);
-        tab.child(8, 51759, 388, 115);
-        tab.child(9, 52760, 388, 152);
-        tab.child(10, 52761, 388, 78);
-        tab.child(11, 52762, 397, 117);
-        tab.child(12, 52763, 397, 154);
+
+        tab.child(5, 52756, 366, 76); //normal
+        tab.child(10, 52761, 388, 79); //normal
+
+        tab.child(6, 52757, 366, 103); //iron
+        tab.child(8, 51759, 388, 103); //iron crown
+        tab.child(11, 52762, 397, 105); //iron
+
+        tab.child(7, 52758, 366, 129); //ult iron
+        tab.child(9, 52760, 388, 129); //ulti crown
+        tab.child(12, 52763, 397, 131); //ult iron
+
+        tab.child(21, 52773, 366, 155); //hc iron
+        tab.child(22, 52774, 388, 155); //hc crown
+        tab.child(23, 52775, 397, 157); //hc iron
+
         tab.child(13, 52764, 265, 237);
         tab.child(14, 52765, 265, 247);
         tab.child(15, 52766, 265, 257);
@@ -1655,7 +1666,7 @@ public class RSInterface {
         /**
          * First row of items
          */
-        int child = 21;
+        int child = 24;
         int x = 24;
         for (int i = 59025; i < 59034; i++) {
             addItemOnInterface(i, 59000, new String[]{});
@@ -1664,7 +1675,7 @@ public class RSInterface {
             x += 34;
         }
 
-        int child2 = 30;
+        int child2 = 33;
         int x2 = 24;
         for (int i = 59034; i < 59043; i++) {
             addItemOnInterface(i, 59000, new String[]{});
@@ -1676,7 +1687,7 @@ public class RSInterface {
         /**
          * third row of items
          */
-        int child3 = 39;
+        int child3 = 42;
         int x3 = 24;
         for (int i = 59043; i < 59052; i++) {
             addItemOnInterface(i, 59000, new String[]{});
