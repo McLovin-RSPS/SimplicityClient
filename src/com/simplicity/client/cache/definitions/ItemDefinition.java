@@ -2451,9 +2451,6 @@ public final class ItemDefinition {
             case 4202:
                 itemDef.name = "Ring of Coins";
                 break;
-            case 2568:
-                itemDef.name = "Ring of Wealthier";
-                break;
 
             case 2677:
             case 2678:
