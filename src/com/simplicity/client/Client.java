@@ -54,13 +54,18 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.awt.image.FilteredImageSource;
+import java.awt.image.PixelGrabber;
 import java.awt.image.RGBImageFilter;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -2404,6 +2409,7 @@ public class Client extends RSApplet {
         }
         DrawingArea.drawPixels(3, (clientSize == 0 ? 84 : 80), (clientSize == 0 ? 107 + xPosOffset : clientWidth - 88),
                 0xffffff, 3);
+        
         if (clientSize == 0) {
             cacheSprite[6].drawSprite(0 + xPosOffset, 0);
             // drawSpecOrb();
@@ -2432,7 +2438,6 @@ public class Client extends RSApplet {
         drawSummoningOrb();
         drawCoinOrb();
         drawTeleIcon();
-
         compass[0].rotate(33, viewRotation, anIntArray1057, 256, anIntArray968, 25, (clientSize == 0 ? 8 : 5),
                 (clientSize == 0 ? 8 + xPosOffset : clientWidth - 167), 33, 25);
         if (menuOpen && menuScreenArea == 3) {
@@ -2726,6 +2731,56 @@ public class Client extends RSApplet {
             }
         }
     }
+    
+	/**
+	 * Draws the skill status bar on the screen.
+	 * 
+	 * @param x
+	 *            The x position.
+	 * @param y
+	 *            The y position.
+	 * @param skillId
+	 *            The skill id.
+	 * @param icon
+	 *            The icon.
+	 * @param barHeight
+	 *            The bar height.
+	 * @param barColor
+	 *            The bar color.
+	 */
+	private void drawSkillStatus(int x, int y, int skillId, int icon, int barHeight, Color barColor) {
+		try {
+			drawingArea.drawAlphaGradient(x, y, 20, barHeight + 1, 0, 0, 180);
+
+			Graphics2D g2d = DrawingArea.createGraphics(true);
+
+			int currentLevel = currentStats[skillId];
+
+			int maxLevel = currentMaxStats[skillId];
+
+			double percentage = 100 - ((double) currentLevel / (double) maxLevel * (double) 100);
+
+			Area shape = new Area(new Rectangle(x + 1, y + 1, 18, barHeight));
+
+			shape.subtract(new Area(new Rectangle(x + 1, y + 1, 18, (int) ((double) barHeight / (double) 100 * percentage))));
+
+			if (skillId == 3) {
+				cacheSprite[icon].drawSprite(x + 2, y + 6);
+			} else if (skillId == 5) {
+				cacheSprite[icon].drawSprite(x + 2, y + 4);
+			}
+
+			g2d.setColor(barColor);
+
+			g2d.fill(shape);
+
+			g2d.setColor(Color.white);
+
+			drawingArea.drawCenteredString(g2d, Integer.toString(currentLevel / (skillId == 3 ? 100 : 10)), new Rectangle(x + 5, y + 24, 9, 14), new Font("Arial", Font.PLAIN, 12));
+		} catch (Exception e) {
+			System.out.println("Error drawing skill status for skill: " + skillId);
+		}
+	}
 
     private void drawTabArea() {
         if (clientSize == 0) {
@@ -2733,6 +2788,17 @@ public class Client extends RSApplet {
         }
         Rasterizer.anIntArray1472 = anIntArray1181;
         handleTabArea(clientSize == 0);
+        
+        if (clientSize == 0) {
+        	drawSkillStatus(8, 41, 3, 1155, 250, new Color(255, 0, 0, 45));
+        	drawSkillStatus(218, 41, 5, 1156, 250, new Color(0, 0, 255, 45));
+        } else {
+        	boolean small = clientWidth > smallTabs;
+        	
+        	drawSkillStatus(!showTab ? clientWidth - 50 : clientWidth - 255, small ? clientHeight - 312 : clientHeight - 350, 3, 1155, small ? 271 : 271, new Color(255, 0, 0, 45));
+        	drawSkillStatus(!showTab ? clientWidth - 25 : clientWidth - 230, small ? clientHeight - 312 : clientHeight - 350, 5, 1156, small ? 271 : 271, new Color(0, 0, 255, 45));
+        }
+        
         int y = clientWidth >= smallTabs ? 37 : 74;
         if (showTab) {
             if (invOverlayInterfaceID != -1) {

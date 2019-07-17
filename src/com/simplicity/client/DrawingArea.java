@@ -1,5 +1,17 @@
 package com.simplicity.client;
 
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.DataBufferInt;
+import java.awt.image.DirectColorModel;
+import java.awt.image.Raster;
+import java.util.Hashtable;
 
 public class DrawingArea extends QueueNode {
 	
@@ -577,7 +589,7 @@ public class DrawingArea extends QueueNode {
 			l3 += k3;
 		}
 	}
-
+	
 	public static void drawPixels(int height_, int yPos, int xPos, int color, int width_)
 	{
 		if(xPos < topX)
@@ -815,6 +827,45 @@ public class DrawingArea extends QueueNode {
 			pixels[i3] = k3;
 			i3 += width;
 		}
+	}
+	
+	private static final ColorModel COLOR_MODEL = new DirectColorModel(32, 0xff0000, 0xff00, 0xff);
+
+	public static Graphics2D createGraphics(boolean renderingHints) {
+		Graphics2D g2d = createGraphics(pixels, width, height);
+		if (renderingHints) {
+			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		}
+		return g2d;
+	}
+
+	public static Graphics2D createGraphics(int[] pixels, int width, int height) {
+		return new BufferedImage(COLOR_MODEL, Raster.createWritableRaster(COLOR_MODEL.createCompatibleSampleModel(width, height), new DataBufferInt(pixels, width * height), null), false,
+				new Hashtable<Object, Object>()).createGraphics();
+	}
+	
+	/**
+	 * Draw a String centered in the middle of a Rectangle.
+	 *
+	 * @param g
+	 *            The Graphics instance.
+	 * @param text
+	 *            The String to draw.
+	 * @param rect
+	 *            The Rectangle to center the text in.
+	 */
+	public void drawCenteredString(Graphics g, String text, Rectangle rect, Font font) {
+		// Get the FontMetrics
+		FontMetrics metrics = g.getFontMetrics(font);
+		// Determine the X coordinate for the text
+		int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
+		// Determine the Y coordinate for the text (note we add the ascent, as
+		// in java 2d 0 is top of the screen)
+		int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
+		// Set the font
+		g.setFont(font);
+		// Draw the String
+		g.drawString(text, x, y);
 	}
 
 	public DrawingArea() {
