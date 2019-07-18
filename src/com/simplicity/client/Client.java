@@ -2775,8 +2775,13 @@ public class Client extends RSApplet {
 			g2d.fill(shape);
 
 			g2d.setColor(Color.white);
+			
+			if (skillId == 5 && currentLevel < 100) {
+				drawingArea.drawCenteredString(g2d, "0." + Integer.toString(currentLevel / 10), new Rectangle(x + 5, y + 24, 9, 14), new Font("Arial", Font.PLAIN, 11));
+			} else {
+				drawingArea.drawCenteredString(g2d, Integer.toString(currentLevel / 100), new Rectangle(x + 5, y + 24, 9, 14), new Font("Arial", Font.PLAIN, 11));
+			}
 
-			drawingArea.drawCenteredString(g2d, Integer.toString(currentLevel / (skillId == 3 ? 100 : 10)), new Rectangle(x + 5, y + 24, 9, 14), new Font("Arial", Font.PLAIN, 12));
 		} catch (Exception e) {
 			System.out.println("Error drawing skill status for skill: " + skillId);
 		}
