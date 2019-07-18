@@ -2831,8 +2831,8 @@ public class RSInterface {
     public static void optionsInterface() {
         String[] options = new String[]{"525 Frame", "Old Hits", "10x Hits", "HD Shading", "Effect Timers"};
         String[] options2 = new String[]{"Cursors", "Smilies", "Censor", "Mipmapping", "Attk Priority"};
-        String[] options3 = new String[]{"Tooltips", "HD Textures", "FOG", "Spec Button"};
-        String[] options4 = new String[]{"Absorption", "Save Input", "Anti Aliasing", "Particles"};
+        String[] options3 = new String[]{"Tooltips", "HD Textures", "FOG", "Spec Button", "Skill Status"};
+        String[] options4 = new String[]{"Absorption", "Save Input", "Anti Aliasing", "Particles", "Ground Items"};
 
         RSInterface rsi = addTabInterface(35560);
         setChildren((options.length * 3), rsi);
@@ -5372,7 +5372,7 @@ public class RSInterface {
         tab.child(23, 35610, 208, 180);
         tab.child(24, 35640, 310, 180);
 
-        tab.child(25, 40052, 440, 264);
+        tab.child(25, 40052, 445, 264);
     }
 
     public static void addButton(int id, int sid, String spriteName, String tooltip, int mOver, int atAction, int width,
