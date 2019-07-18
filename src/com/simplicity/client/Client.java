@@ -1,49 +1,5 @@
 package com.simplicity.client;
 
-import com.simplicity.Configuration;
-import com.simplicity.Jframe;
-import com.simplicity.client.DrawLine.LineType;
-import com.simplicity.client.cache.CacheDownloader;
-import com.simplicity.client.cache.DataType;
-import com.simplicity.client.cache.definitions.Animation;
-import com.simplicity.client.cache.definitions.FloorDefinitionOSRS;
-import com.simplicity.client.cache.definitions.FloorOverlay;
-import com.simplicity.client.cache.definitions.FloorUnderlay;
-import com.simplicity.client.cache.definitions.ItemDefinition;
-import com.simplicity.client.cache.definitions.MobDefinition;
-import com.simplicity.client.cache.definitions.ObjectDefinition;
-import com.simplicity.client.cache.definitions.SpotAnimDefinition;
-import com.simplicity.client.cache.definitions.VarBit;
-import com.simplicity.client.cache.definitions.Varp;
-import com.simplicity.client.cache.maps.OldschoolMaps;
-import com.simplicity.client.cache.node.Deque;
-import com.simplicity.client.cache.node.Node;
-import com.simplicity.client.content.CustomisableHotKeys;
-import com.simplicity.client.content.EffectTimer;
-import com.simplicity.client.content.FlashingSprite;
-import com.simplicity.client.content.LoginScreen;
-import com.simplicity.client.content.LoginScreen.CharacterFile;
-import com.simplicity.client.content.PetSystem;
-import com.simplicity.client.content.PlayerRights;
-import com.simplicity.client.content.RichPresence;
-import com.simplicity.client.content.dropdownmenu.DropDownAction;
-import com.simplicity.client.content.dropdownmenu.DropDownMenu;
-import com.simplicity.client.particles.Particle;
-import com.simplicity.client.particles.ParticleDefinition;
-
-import javax.imageio.ImageIO;
-import javax.sound.midi.MidiSystem;
-import javax.sound.midi.MidiUnavailableException;
-import javax.sound.midi.Sequence;
-import javax.sound.midi.Sequencer;
-import javax.swing.ImageIcon;
-import javax.swing.JColorChooser;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.colorchooser.AbstractColorChooserPanel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.applet.AppletContext;
 import java.awt.Color;
 import java.awt.Component;
@@ -55,17 +11,14 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.Shape;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.awt.image.FilteredImageSource;
-import java.awt.image.PixelGrabber;
 import java.awt.image.RGBImageFilter;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -103,6 +56,52 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.CRC32;
 import java.util.zip.GZIPOutputStream;
+
+import javax.imageio.ImageIO;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Sequence;
+import javax.sound.midi.Sequencer;
+import javax.swing.ImageIcon;
+import javax.swing.JColorChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.colorchooser.AbstractColorChooserPanel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import com.simplicity.Configuration;
+import com.simplicity.Jframe;
+import com.simplicity.client.DrawLine.LineType;
+import com.simplicity.client.cache.CacheDownloader;
+import com.simplicity.client.cache.DataType;
+import com.simplicity.client.cache.definitions.Animation;
+import com.simplicity.client.cache.definitions.FloorDefinitionOSRS;
+import com.simplicity.client.cache.definitions.FloorOverlay;
+import com.simplicity.client.cache.definitions.FloorUnderlay;
+import com.simplicity.client.cache.definitions.ItemDefinition;
+import com.simplicity.client.cache.definitions.MobDefinition;
+import com.simplicity.client.cache.definitions.ObjectDefinition;
+import com.simplicity.client.cache.definitions.SpotAnimDefinition;
+import com.simplicity.client.cache.definitions.VarBit;
+import com.simplicity.client.cache.definitions.Varp;
+import com.simplicity.client.cache.maps.OldschoolMaps;
+import com.simplicity.client.cache.node.Deque;
+import com.simplicity.client.cache.node.Node;
+import com.simplicity.client.content.CustomisableHotKeys;
+import com.simplicity.client.content.EffectTimer;
+import com.simplicity.client.content.FlashingSprite;
+import com.simplicity.client.content.LoginScreen;
+import com.simplicity.client.content.LoginScreen.CharacterFile;
+import com.simplicity.client.content.PetSystem;
+import com.simplicity.client.content.PlayerRights;
+import com.simplicity.client.content.RichPresence;
+import com.simplicity.client.content.dropdownmenu.DropDownAction;
+import com.simplicity.client.content.dropdownmenu.DropDownMenu;
+import com.simplicity.client.particles.Particle;
+import com.simplicity.client.particles.ParticleDefinition;
+import com.simplicity.util.StringUtils;
 
 @SuppressWarnings("all")
 public class Client extends RSApplet {
@@ -174,6 +173,10 @@ public class Client extends RSApplet {
     public static HashMap<String, Boolean> options = new HashMap<String, Boolean>();
 
     public static boolean getOption(String s) {
+    	if (!options.containsKey(s)) {
+    		return false;
+    	}
+    	
         return options.get(s).booleanValue();
     }
 
@@ -263,6 +266,16 @@ public class Client extends RSApplet {
             int l2 = RSInterface.interfaceCache[35596].valueIndexArray[0][1];
             variousSettings[l2] = 1 - variousSettings[l2];
         }
+        
+        if (getOption("skill_status_bars")) {
+        	int l2 = RSInterface.interfaceCache[35625].valueIndexArray[0][1];
+        	variousSettings[l2] = 1 - variousSettings[l2];	
+        }
+        
+        if (getOption("ground_items")) {
+        	int l2 = RSInterface.interfaceCache[35655].valueIndexArray[0][1];
+        	variousSettings[l2] = 1 - variousSettings[l2];
+        }
 
         if (!musicEnabled)
             stopMidi();
@@ -291,6 +304,8 @@ public class Client extends RSApplet {
             options.put("mipm", false);
             options.put("particles", true);
             options.put("attk_priority", false);
+            options.put("skill_status_bars", false);
+            options.put("ground_items", false);
             shadowIndex = 4;
             SoundPlayer.setVolume(4);
             saveSettings();
@@ -332,7 +347,9 @@ public class Client extends RSApplet {
             options.put("attk_priority", in.readByte() == 1);
             options.put("save_input", in.readByte() == 1);
             options.put("particles", in.readByte() == 1);
-
+            options.put("skill_status_bars", in.readByte() == 1);
+            options.put("ground_items", in.readByte() == 1);
+            
             antialiasing = false;
 
             if (in.length() > in.getFilePointer()) {
@@ -389,6 +406,8 @@ public class Client extends RSApplet {
             options.put("mipm", false);
             options.put("attk_priority", false);
             options.put("save_input", true);
+            options.put("skill_status_bars", false);
+            options.put("ground_items", false);
 
             shadowIndex = 4;
             SoundPlayer.setVolume(4);
@@ -424,6 +443,8 @@ public class Client extends RSApplet {
             out.write(getOption("attk_priority") ? 1 : 0);
             out.write(getOption("save_input") ? 1 : 0);
             out.write(getOption("particles") ? 1 : 0);
+            out.write(getOption("skill_status_bars") ? 1 : 0);
+            out.write(getOption("ground_item_names") ? 1 : 0);
 
             out.writeInt(shadowIndex);
             /*
@@ -2793,15 +2814,17 @@ public class Client extends RSApplet {
         }
         Rasterizer.anIntArray1472 = anIntArray1181;
         handleTabArea(clientSize == 0);
-        
-        if (clientSize == 0) {
-        	drawSkillStatus(8, 41, 3, 1155, 250, new Color(255, 0, 0, 45));
-        	drawSkillStatus(218, 41, 5, 1156, 250, new Color(0, 0, 255, 45));
-        } else {
-        	boolean small = clientWidth > smallTabs;
-        	
-        	drawSkillStatus(!showTab ? clientWidth - 50 : clientWidth - 255, small ? clientHeight - 312 : clientHeight - 350, 3, 1155, small ? 271 : 271, new Color(255, 0, 0, 45));
-        	drawSkillStatus(!showTab ? clientWidth - 25 : clientWidth - 230, small ? clientHeight - 312 : clientHeight - 350, 5, 1156, small ? 271 : 271, new Color(0, 0, 255, 45));
+
+        if (getOption("skill_status_bars")) {
+            if (clientSize == 0) {
+            	drawSkillStatus(8, 41, 3, 1155, 250, new Color(255, 0, 0, 45));
+            	drawSkillStatus(218, 41, 5, 1156, 250, new Color(0, 0, 255, 45));
+            } else {
+            	boolean small = clientWidth > smallTabs;
+            	
+            	drawSkillStatus(!showTab ? clientWidth - 50 : clientWidth - 255, small ? clientHeight - 312 : clientHeight - 350, 3, 1155, small ? 271 : 271, new Color(255, 0, 0, 45));
+            	drawSkillStatus(!showTab ? clientWidth - 25 : clientWidth - 230, small ? clientHeight - 312 : clientHeight - 350, 5, 1156, small ? 271 : 271, new Color(0, 0, 255, 45));
+            }
         }
         
         int y = clientWidth >= smallTabs ? 37 : 74;
@@ -9360,6 +9383,15 @@ public class Client extends RSApplet {
                 // }
                 // saveSettings();
                 // break;
+            
+            case 35625:
+            	options.put("skill_status_bars", !getOption("skill_status_bars"));
+            	saveSettings();
+            	break;
+            case 35655:
+            	options.put("ground_items", !getOption("ground_items"));
+            	saveSettings();
+            	break;
 
                 case 35577:// veng/barrage timers
                     options.put("veng_timer", !getOption("veng_timer"));
@@ -20073,6 +20105,10 @@ public class Client extends RSApplet {
         WorldController.focalLength = 512;
         worldController.clearInteractableObjects();
 
+        if (getOption("ground_items")) {
+        	renderGroundItemNames();
+        }
+
         Iterator<Particle> iterator;
         Particle particle;
         if (getOption("particles")) {
@@ -20218,7 +20254,28 @@ public class Client extends RSApplet {
         }
     }
 
-    private void method37(int j) {
+	/**
+	 * If toggled, render ground item names and lootbeams
+	 */
+	private void renderGroundItemNames() {
+		for (int x = 0; x < 104; x++) {
+			for (int y = 0; y < 104; y++) {
+				Deque node = groundArray[plane][x][y];
+				int offset = 12;
+				if (node != null) {
+					for (Item item = (Item) node.getFront(); item != null; item = (Item) node.getNext()) {
+						ItemDefinition itemDef = ItemDefinition.forID(item.ID);
+						calcEntityScreenPos((x << 7) + 64, 64, (y << 7) + 64);
+						newSmallFont.drawCenteredString("<trans=200>" + itemDef.name + (item.amount > 1 ? " (" + StringUtils.insertCommasToNumber(item.amount + "") + "</col>)" : ""), spriteDrawX,
+								spriteDrawY - offset, 0xffffff, 1);
+						offset += 12;
+					}
+				}
+			}
+		}
+	}
+
+	private void method37(int j) {
         // Textures
         int speed = 1;
 
