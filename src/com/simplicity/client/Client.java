@@ -305,6 +305,7 @@ public class Client extends RSApplet {
             options.put("attk_priority", false);
             options.put("skill_status_bars", true);
             options.put("ground_items", false);
+            options.put("xp_orbs", true);
             shadowIndex = 4;
             SoundPlayer.setVolume(4);
             saveSettings();
@@ -348,6 +349,7 @@ public class Client extends RSApplet {
             options.put("particles", in.readByte() == 1);
             options.put("skill_status_bars", in.readByte() == 1);
             options.put("ground_items", in.readByte() == 1);
+            options.put("xp_orbs", in.readByte() == 1);
             
             antialiasing = false;
 
@@ -407,6 +409,7 @@ public class Client extends RSApplet {
             options.put("save_input", true);
             options.put("skill_status_bars", true);
             options.put("ground_items", false);
+            options.put("xp_orbs", true);
 
             shadowIndex = 4;
             SoundPlayer.setVolume(4);
@@ -444,6 +447,7 @@ public class Client extends RSApplet {
             out.write(getOption("particles") ? 1 : 0);
             out.write(getOption("skill_status_bars") ? 1 : 0);
             out.write(getOption("ground_item_names") ? 1 : 0);
+            out.write(getOption("xp_orbs") ? 1 : 0);
 
             out.writeInt(shadowIndex);
             /*
@@ -10382,9 +10386,10 @@ public class Client extends RSApplet {
                         return;
                     }
                     if (inputString.equals("::xporbs")) {
-                    	Configuration.enableSkillOrbs = !Configuration.enableSkillOrbs;
-                    	pushMessage("XP Orbs are now " + (Configuration.enableSkillOrbs ? "enabled." : "disabled."), 0, "");
+                    	options.put("xp_orbs", !getOption("xp_orbs"));
+                    	pushMessage("XP Orbs are now " + (getOption("xp_orbs") ? "enabled." : "disabled."), 0, "");
                     	inputString = "";
+                    	saveSettings();
                     	return;
                     }
                     if (inputString.equals("::packrsi") || inputString.equals("::repack")) {
@@ -20121,7 +20126,7 @@ public class Client extends RSApplet {
         if (showXP && loggedIn) {
         	XpDrops.draw();
         }
-        if (Configuration.enableSkillOrbs) {
+        if (Client.getOption("xp_orbs")) {
 			SkillOrbs.process();
 		}
         if (consoleOpen && loggedIn) {

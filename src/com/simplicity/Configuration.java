@@ -73,6 +73,4 @@ public class Configuration {
     public static int xpDropsColour = 0xffffff;
     public static boolean xpDropsGroup = true;
     
-	public static boolean enableSkillOrbs = true;
-
 }
