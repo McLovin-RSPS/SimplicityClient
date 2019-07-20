@@ -20269,7 +20269,7 @@ public class Client extends RSApplet {
 						newSmallFont.drawCenteredString("<trans=200>" + itemDef.name + (item.amount > 1 ? " (" + StringUtils.insertCommasToNumber(item.amount + "") + "</col>)" : ""), spriteDrawX,
 								spriteDrawY - offset, 0xffffff, 1);
 						offset += 12;
-					}
+					}						
 				}
 			}
 		}
