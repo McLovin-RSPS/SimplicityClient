@@ -47,7 +47,6 @@ import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -304,7 +303,7 @@ public class Client extends RSApplet {
             options.put("mipm", false);
             options.put("particles", true);
             options.put("attk_priority", false);
-            options.put("skill_status_bars", false);
+            options.put("skill_status_bars", true);
             options.put("ground_items", false);
             shadowIndex = 4;
             SoundPlayer.setVolume(4);
@@ -406,7 +405,7 @@ public class Client extends RSApplet {
             options.put("mipm", false);
             options.put("attk_priority", false);
             options.put("save_input", true);
-            options.put("skill_status_bars", false);
+            options.put("skill_status_bars", true);
             options.put("ground_items", false);
 
             shadowIndex = 4;
@@ -2049,124 +2048,7 @@ public class Client extends RSApplet {
     public int gainedExpY = 0;
     public static boolean xpGained = false, canGainXP = true, blockXPGain;
     public static long totalXP = 0;
-
-    private LinkedList<XPGain> gains = new LinkedList<XPGain>();
-
-    public void addXP(int skillID, int xp) {
-        if (canGainXP) {
-            if (gains.size() >= 2) {
-                gains.clear();
-            }
-            gains.add(new XPGain(skillID, xp));
-            totalXP += xp;
-        }
-    }
-
-    public class XPGain {
-
-        /**
-         * The skill which gained the xp
-         */
-        private int skill;
-
-        /**
-         * The XP Gained
-         */
-        private int xp;
-        private int y;
-        private int alpha = 0;
-
-        public XPGain(int skill, int xp) {
-            this.skill = skill;
-            this.xp = xp;
-        }
-
-        public void increaseY() {
-            y++;
-        }
-
-        public int getSkill() {
-            return skill;
-        }
-
-        public int getXP() {
-            return xp;
-        }
-
-        public int getY() {
-            return y;
-        }
-
-        public int getAlpha() {
-            return alpha;
-        }
-
-        public void increaseAlpha() {
-            alpha += alpha < 256 ? 30 : 0;
-            alpha = alpha > 256 ? 256 : alpha;
-        }
-
-        public void decreaseAlpha() {
-            alpha -= alpha > 0 ? 30 : 0;
-            alpha = alpha > 256 ? 256 : alpha;
-        }
-    }
-
-    public void displayXPCounter() {
-        int x = clientSize == 0 ? 419 : clientWidth - 310;
-        int y = clientSize == 0 ? 0 : -36;
-        int currentIndex = 0;
-        int offsetY = 0;
-        int stop = 70;
-        cacheSprite[40].drawSprite(x, clientSize == 0 ? 50 : 48 + y);
-        String s = totalXP >= 100000000 ? " XP: A lot!" : "XP:" + String.format("%, d", totalXP);
-        normalFont.drawRegularText(true, x + 1, 0xffffff, s, (clientSize == 0 ? 63 : 61) + y);
-
-        if (!gains.isEmpty()) {
-            Iterator<XPGain> it$ = gains.iterator();
-            while (it$.hasNext()) {
-                XPGain gain = it$.next();
-                if (gain.getY() < stop) {
-                    if (gain.getY() <= 10) {
-                        gain.increaseAlpha();
-                    }
-                    if (gain.getY() >= stop - 10) {
-                        gain.decreaseAlpha();
-                    }
-                    gain.increaseY();
-                } else if (gain.getY() == stop) {
-                    it$.remove();
-                }
-                if (gain.getY() < stop) {
-                    if (gains.size() > 1) {
-                        offsetY = (clientSize == 0 ? -5 : -20) + (currentIndex * 28);
-                    }
-                    if (gain.getSkill() >= 0) {
-                        int id = gain.getSkill() + 41;
-                        if (gain.getSkill() == 23) {
-                            id = 95; // Summon
-                        }
-                        if (id == 65) {
-                            id = 88;
-                        }
-                        int xOffset = gain.getXP() > 100000 && gain.getXP() < 1000000 ? 15
-                                : gain.getXP() > 1000000 ? 5 : 31;
-                        Sprite sprite = SpriteLoader.sprites[id];
-                        sprite.drawSprite((x + xOffset - 12) - (sprite.myWidth / 2),
-                                gain.getY() + offsetY + 66 - (sprite.myHeight / 2), gain.getAlpha());
-                        newSmallFont.drawBasicString(
-                                "<trans=" + gain.getAlpha() + ">+" + format.format(gain.getXP()) + "xp", x + xOffset,
-                                gain.getY() + offsetY + 70, 0xCC6600, 0);
-                    } else {
-                        if (gain.getSkill() == -244 && gain.getXP() == -244) {
-                            newSmallFont.drawBasicString("XP LOCKED!", x + 30, gain.getY() + offsetY + 50, 0xCC6600, 0);
-                        }
-                    }
-                }
-                currentIndex++;
-            }
-        }
-    }
+    public int currentSkill = -1;
 
     public int hoverPos;
 
@@ -8143,9 +8025,6 @@ public class Client extends RSApplet {
             canGainXP = canGainXP ? false : true;
         }
         if (l == 1006 && !showBonus) {
-            if (!gains.isEmpty()) {
-                gains.removeAll(gains);
-            }
             showXP = showXP ? false : true;
         }
         if (l == 1007) {
@@ -10502,6 +10381,12 @@ public class Client extends RSApplet {
                         inputString = "";
                         return;
                     }
+                    if (inputString.equals("::xporbs")) {
+                    	Configuration.enableSkillOrbs = !Configuration.enableSkillOrbs;
+                    	pushMessage("XP Orbs are now " + (Configuration.enableSkillOrbs ? "enabled." : "disabled."), 0, "");
+                    	inputString = "";
+                    	return;
+                    }
                     if (inputString.equals("::packrsi") || inputString.equals("::repack")) {
                         CacheArchive streamLoader_1 = streamLoaderForName(3, "interface", "interface", expectedCRCs[3],
                                 35);
@@ -12117,6 +12002,7 @@ public class Client extends RSApplet {
                 // saveSettings();
                 consoleOpen = false;
                 blockXPGain = true;
+                currentSkill = -1;
                 for (int index = 0; index < 17; index++) {
                     consoleMessages[index] = "";
                 }
@@ -13487,6 +13373,8 @@ public class Client extends RSApplet {
                     System.out.println("invalid");
                 }
             }
+            SkillOrbs.init();
+            setSkillSprites();
             setLoadingText(100, "");
             isLoading = false;
         } catch (Exception exception) {
@@ -13495,7 +13383,16 @@ public class Client extends RSApplet {
         }
     }
 
-    public static final int byteArrayToInt(byte[] b) {
+	private void setSkillSprites() {
+		for (int i = 0; i < Skills.SKILL_COUNT; i++) {
+			Sprite sprite = cacheSprite[41 + i];
+			bigSkillSprites[i] = sprite;
+			smallSkillSprites[i] = new Sprite(sprite, (int) (sprite.myWidth * 0.66), (int) (sprite.myHeight * 0.66), Image.SCALE_AREA_AVERAGING);
+		}
+		
+	}
+
+	public static final int byteArrayToInt(byte[] b) {
         return (b[0] << 24) + ((b[1] & 0xFF) << 16) + ((b[2] & 0xFF) << 8) + (b[3] & 0xFF);
     }
 
@@ -18037,7 +17934,7 @@ public class Client extends RSApplet {
                     loadingMap = false;
                     opCode = -1;
                     return true;
-
+                    
                 case 123:
                     sendConsoleMessage(inStream.readString(), false);
                     opCode = -1;
@@ -18194,8 +18091,8 @@ public class Client extends RSApplet {
                 case 124:
                     int skillID = inStream.readUnsignedByte();
                     int gainedXP = inStream.readDWord();
-                    int totalEXP = inStream.readDWord();
-                    addXP(skillID, gainedXP);
+					int totalEXP = inStream.readDWord();
+					XpDrops.add(skillID, gainedXP);
                     totalXP = totalEXP;
                     opCode = -1;
                     return true;
@@ -18334,7 +18231,12 @@ public class Client extends RSApplet {
                     currentStats[id] = level;
                     currentMaxStats[id] = maxLevel;
                     if (!blockXPGain && gainedExperience > 0) {
-                        addXP(id, gainedExperience);
+						SkillOrbs.orbs[id].receivedExperience();
+						XpDrops.add(id, gainedExperience);
+						
+						if (id != 3) {
+							currentSkill = id;
+						}
                     }
                     if (id == 23) {
                         sendFrame126("" + maxLevel + "", 28171);
@@ -18756,11 +18658,6 @@ public class Client extends RSApplet {
 
                 case 253:
                     String s = inStream.readString();
-                    if (s.equals("@CANTADDXP:LOCKED@")) {
-                        gains.add(new XPGain(-244, -244));
-                        opCode = -1;
-                        return true;
-                    }
                     if (s.endsWith(":tradereq:")) {
                         String s3 = s.substring(0, s.indexOf(":"));
                         long l17 = TextClass.longForName(s3);
@@ -20222,8 +20119,11 @@ public class Client extends RSApplet {
 
         }
         if (showXP && loggedIn) {
-            displayXPCounter();
+        	XpDrops.draw();
         }
+        if (Configuration.enableSkillOrbs) {
+			SkillOrbs.process();
+		}
         if (consoleOpen && loggedIn) {
             drawConsole();
             drawConsoleArea();
@@ -20774,7 +20674,7 @@ public class Client extends RSApplet {
     private int crossIndex;
     private int crossType;
     public int plane;
-    private final int[] currentStats;
+    public final int[] currentStats;
     private static int anInt924;
     private long[] ignoreListAsLongs;
     private boolean loadingError;
@@ -20887,7 +20787,7 @@ public class Client extends RSApplet {
     private int anInt1037;
     private int anInt1039;
     private int dialogID;
-    private final int[] currentMaxStats;
+    public final int[] currentMaxStats;
     public final int[] varbitConfigs;
     private int anInt1046;
     private boolean isMale;
@@ -22819,7 +22719,7 @@ public class Client extends RSApplet {
         return Cash;
     }
 
-    public int getXPForLevel(int level) {
+    public static int getXPForLevel(int level) {
         int points = 0;
         int output = 0;
         for (int lvl = 1; lvl <= level; lvl++) {
@@ -23212,6 +23112,8 @@ public class Client extends RSApplet {
     private int type2 = -1;
     private int itemToLend;
     private int currentActionMenu;
+	public Sprite[] smallSkillSprites = new Sprite[Skills.SKILL_COUNT];
+	public Sprite[] bigSkillSprites = new Sprite[Skills.SKILL_COUNT];
 
     public final static int[] DIALOG_CONTINUE_IDS = { 979, 968, 973, 986, 306, 4887, 4893, 356, 310, 4882, 4900, 6247, 6253,
             6206, 6216, 4443, 6242, 6211, 6226, 4272, 6231, 6258, 4282, 6263, 6221, 4416, 6237, 4277, 4261, 12122, 5267,
@@ -23234,5 +23136,47 @@ public class Client extends RSApplet {
             }
         }
     }
+
+	public static int getProgressColor(int percent) {
+		if (percent <= 15) {
+			return 0x808080;
+		}
+		
+		if (percent <= 45) {
+			return 0x7f7f00;
+		}
+		
+		if (percent <= 65) {
+			return 0x999900;
+		}
+		
+		if (percent <= 75) {
+			return 0xb2b200;
+		}
+		
+		if (percent <= 90) {
+			return 0x007f00;
+		}
+		
+		return 31744;
+	}
+
+	public boolean hover(int x, int y, Sprite sprite) {
+		return super.mouseX >= x && super.mouseX <= x + sprite.myWidth && super.mouseY >= y && super.mouseY <= y + sprite.myHeight;
+	}
+	
+	public RSFontSystem getRSFont(TextDrawingArea textDrawingArea) {
+		RSFontSystem font = null;
+		if (textDrawingArea == smallText) {
+			font = newSmallFont;
+		} else if (textDrawingArea == normalFont) {
+			font = newRegularFont;
+		} else if (textDrawingArea == boldFont) {
+			font = newBoldFont;
+		} else if (textDrawingArea == fancyText) {
+			font = newFancyFont;
+		}
+		return font;
+	}
 
 }

@@ -1,5 +1,6 @@
 package com.simplicity.client;
 
+import com.simplicity.util.StringUtils;
 
 /**
  * This enum contains data used as constants for skill configurations
@@ -88,7 +89,7 @@ public enum Skill {
 	 * @return	The skill's name in a lower case format.
 	 */
 	public String getName() {
-		return toString().toLowerCase();
+		return StringUtils.capitalizeFirst(toString().toLowerCase());
 	}
 	
 	/**

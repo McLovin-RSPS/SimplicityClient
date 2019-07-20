@@ -3838,6 +3838,7 @@ public class RSInterface {
             }
         }
         cacheArchive = streamLoader;
+        defaultFont = textDrawingAreas;
         npcInformation(textDrawingAreas);
         itemInformation(textDrawingAreas);
         playersOnline(textDrawingAreas);
@@ -15066,5 +15067,7 @@ public class RSInterface {
     public boolean hovers;
 
     public int enabledOpacity;
+    
+    public static TextDrawingArea defaultFont[];
 
 }
