@@ -672,6 +672,14 @@ public class RSFontSystem extends DrawingArea {
 		}
 	}
 
+	public void drawRightAlignedString(String string, int drawX, int drawY, int color, int shadow) {
+		if (string != null) {
+			setColorAndShadow(color, shadow);
+			string = handleOldSyntax(string);
+			drawBasicString(string, drawX - getTextWidth(string), drawY);
+		}
+	}
+
 	public static String replaceAllString(String strOrig, String strFind, String strReplace) {  
 		if(strOrig == null) {  
 			return null;  

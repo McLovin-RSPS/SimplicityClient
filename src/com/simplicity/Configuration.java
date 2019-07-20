@@ -60,5 +60,17 @@ public class Configuration {
 			-1, 0, 0, -1, 6, 0, 0// 250
 
 	};
-
+	
+    /**
+     * Exp counter
+     */
+    public static boolean xpCounterOpen = true;
+    public static int xpDropsPosition = 0;
+    public static int xpCounterSize = 0;
+    public static int xpDropsSpeed = 0;
+    public static int xpCounterType = 0;
+    public static int xpCounterProgress = 1;
+    public static int xpDropsColour = 0xffffff;
+    public static boolean xpDropsGroup = true;
+    
 }

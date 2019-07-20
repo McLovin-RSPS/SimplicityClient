@@ -1,12 +1,17 @@
 package com.simplicity.client;
 
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.awt.image.FilteredImageSource;
+import java.awt.image.ImageFilter;
+import java.awt.image.ImageProducer;
 import java.awt.image.MemoryImageSource;
 import java.awt.image.PixelGrabber;
+import java.awt.image.RGBImageFilter;
 import java.io.File;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -116,6 +121,24 @@ public class Sprite extends DrawingArea {
 			exception.printStackTrace();
 		}
 	}
+	
+    public Sprite(Sprite s, int width, int height, int scale) {
+        try {
+            Image image = s.convertToImage().getScaledInstance(width, height, scale);
+            myWidth = width;
+            myHeight = height;
+            maxWidth = myWidth;
+            maxHeight = myHeight;
+            drawOffsetX = 0;
+            drawOffsetY = 0;
+            myPixels = new int[myWidth * myHeight];
+            PixelGrabber pixelgrabber = new PixelGrabber(image, 0, 0, myWidth, myHeight, myPixels, 0, myWidth);
+            pixelgrabber.grabPixels();
+            image = null;
+        } catch (Exception _ex) {
+            System.out.println(_ex);
+        }
+    }
 
 	public Sprite(String string, int clientWidth, int clientHeight, boolean yas) {
 		try {
@@ -141,6 +164,30 @@ public class Sprite extends DrawingArea {
 
 		}
 	}
+	
+    public Image convertToImage() {
+
+        // Convert to buffered image
+        BufferedImage bufferedimage = new BufferedImage(myWidth, myHeight, 1);
+        bufferedimage.setRGB(0, 0, myWidth, myHeight, myPixels, 0, myWidth);
+
+        // Filter to ensure transparency preserved
+        ImageFilter filter = new RGBImageFilter() {
+            public int markerRGB = Color.BLACK.getRGB() | 0xFF000000;
+
+            public final int filterRGB(int x, int y, int rgb) {
+                if ((rgb | 0xFF000000) == markerRGB) {
+                    return 0x00FFFFFF & rgb;
+                } else {
+                    return rgb;
+                }
+            }
+        };
+
+        // Create image
+        ImageProducer ip = new FilteredImageSource(bufferedimage.getSource(), filter);
+        return Toolkit.getDefaultToolkit().createImage(ip);
+    }
 
 	public static Image downScaleImage(Image image, int width, int height) {
 		return image.getScaledInstance(width, height, Image.SCALE_SMOOTH);

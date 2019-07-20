@@ -6,6 +6,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.Shape;
+import java.awt.geom.Arc2D;
+import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.DataBufferInt;
@@ -696,7 +700,21 @@ public class DrawingArea extends QueueNode {
 			pixels[i1 + j1] = j;
 
 	}
-
+	
+    public static void drawVerticalLine(int xPosition, int yPosition, int height, int rgbColour) {
+        if (xPosition < topX || xPosition >= bottomX)
+            return;
+        if (yPosition < topY) {
+            height -= topY - yPosition;
+            yPosition = topY;
+        }
+        if (yPosition + height > bottomY)
+            height = bottomY - yPosition;
+        int pixelIndex = xPosition + yPosition * width;
+        for (int rowIndex = 0; rowIndex < height; rowIndex++)
+            pixels[pixelIndex + rowIndex * width] = rgbColour;
+    }
+	
 	protected static void drawHLine(int i, int j, int k, int l, int i1)
 	{
 		if(k < topY || k >= bottomY)
@@ -829,6 +847,16 @@ public class DrawingArea extends QueueNode {
 		}
 	}
 	
+    public static final int STYLISH_BOX_OUTLINE_OUTLINE_COLOR = 0x383023;
+    public static final int STYLISH_BOX_OUTLINE_COLOR = 0x5a5245;
+    public static final int STYLISH_BOX_BACKGROUND_COLOR = 0x463D32;
+
+    public static void drawStylishBox(int x, int y, int width, int height) {
+    	DrawingArea.drawBoxOutline(x, y, width, height, STYLISH_BOX_OUTLINE_OUTLINE_COLOR);
+    	DrawingArea.drawBoxOutline(x + 1, y + 1, width - 2, height - 2, STYLISH_BOX_OUTLINE_COLOR);
+        DrawingArea.drawTransparentBox(x + 2, y + 2, width - 4, height - 4, STYLISH_BOX_BACKGROUND_COLOR, 156);
+    }
+	
 	private static final ColorModel COLOR_MODEL = new DirectColorModel(32, 0xff0000, 0xff00, 0xff);
 
 	public static Graphics2D createGraphics(boolean renderingHints) {
@@ -843,6 +871,20 @@ public class DrawingArea extends QueueNode {
 		return new BufferedImage(COLOR_MODEL, Raster.createWritableRaster(COLOR_MODEL.createCompatibleSampleModel(width, height), new DataBufferInt(pixels, width * height), null), false,
 				new Hashtable<Object, Object>()).createGraphics();
 	}
+	
+    public static Shape createSector(int x, int y, int r, int angle) {
+        return new Arc2D.Double(x, y, r, r, 90, -angle, Arc2D.PIE);
+    }
+
+    public static Shape createCircle(int x, int y, int r) {
+        return new Ellipse2D.Double(x, y, r, r);
+    }
+
+    public static Shape createRing(Shape sector, Shape innerCircle) {
+        Area ring = new Area(sector);
+        ring.subtract(new Area(innerCircle));
+        return ring;
+    }
 	
 	/**
 	 * Draw a String centered in the middle of a Rectangle.
@@ -867,7 +909,7 @@ public class DrawingArea extends QueueNode {
 		// Draw the String
 		g.drawString(text, x, y);
 	}
-
+	
 	public DrawingArea() {
 
 	}
@@ -883,4 +925,126 @@ public class DrawingArea extends QueueNode {
 	public static int viewportRX;
 	public static int viewport_centerX;
 	public static int viewport_centerY;
+
+	public static void drawFilledCircle(int x, int y, int radius, int color, int alpha) {
+		int y1 = y - radius;
+		if (y1 < 0) {
+			y1 = 0;
+		}
+		int y2 = y + radius;
+		if (y2 >= height) {
+			y2 = height - 1;
+		}
+		int a2 = 256 - alpha;
+		int r1 = (color >> 16 & 0xff) * alpha;
+		int g1 = (color >> 8 & 0xff) * alpha;
+		int b1 = (color & 0xff) * alpha;
+		for (int iy = y1; iy <= y2; iy++) {
+			int dy = iy - y;
+			int dist = (int) Math.sqrt(radius * radius - dy * dy);
+			int x1 = x - dist;
+			if (x1 < 0) {
+				x1 = 0;
+			}
+			int x2 = x + dist;
+			if (x2 >= width) {
+				x2 = width - 1;
+			}
+			int pos = x1 + iy * width;
+			for (int ix = x1; ix <= x2; ix++) {
+				int r2 = (pixels[pos] >> 16 & 0xff) * a2;
+				int g2 = (pixels[pos] >> 8 & 0xff) * a2;
+				int b2 = (pixels[pos] & 0xff) * a2;
+				pixels[pos++] = ((r1 + r2 >> 8) << 16) + ((g1 + g2 >> 8) << 8) + (b1 + b2 >> 8);
+			}
+		}
+	}
+	
+    /**
+     * Draws a box filled with a certain colour.
+     *
+     * @param topX     The left edge X-Coordinate of the box.
+     * @param topY      The top edge Y-Coordinate of the box.
+     * @param width     The width of the box.
+     * @param height    The height of the box.
+     * @param rgbColour The RGBColour of the box.
+     */
+	public static void drawBox(int topX, int topY, int width, int height, int rgbColour) {
+		if (topX < DrawingArea.topX) {
+			width -= DrawingArea.topX - topX;
+			topX = DrawingArea.topX;
+		}
+		if (topY < DrawingArea.topY) {
+			height -= DrawingArea.topY - topY;
+			topY = DrawingArea.topY;
+		}
+		if (topX + width > bottomX)
+			width = bottomX - topX;
+		if (topY + height > bottomY)
+			height = bottomY - topY;
+		int leftOver = DrawingArea.width - width;
+		int pixelIndex = topX + topY * DrawingArea.width;
+		for (int rowIndex = 0; rowIndex < height; rowIndex++) {
+			for (int columnIndex = 0; columnIndex < width; columnIndex++)
+				pixels[pixelIndex++] = rgbColour;
+			pixelIndex += leftOver;
+		}
+	}
+	
+    /**
+     * Draws a transparent box.
+     *
+     * @param topX     The left edge X-Coordinate of the box.
+     * @param topY      The top edge Y-Coordinate of the box.
+     * @param width     The box width.
+     * @param height    The box height.
+     * @param rgbColour The box colour.
+     * @param opacity   The opacity value ranging from 0 to 256.
+     */
+    public static void drawTransparentBox(int topX, int topY, int width, int height, int rgbColour, int opacity) {
+        if (topX < DrawingArea.topX) {
+            width -= DrawingArea.topX - topX;
+            topX = DrawingArea.topX;
+        }
+        if (topY < DrawingArea.topY) {
+            height -= DrawingArea.topY - topY;
+            topY = DrawingArea.topY;
+        }
+        if (topX + width > bottomX)
+            width = bottomX - topX;
+        if (topY + height > bottomY)
+            height = bottomY - topY;
+        int transparency = 256 - opacity;
+        int red = (rgbColour >> 16 & 0xff) * opacity;
+        int green = (rgbColour >> 8 & 0xff) * opacity;
+        int blue = (rgbColour & 0xff) * opacity;
+        int leftOver = DrawingArea.width - width;
+        int pixelIndex = topX + topY * DrawingArea.width;
+        for (int rowIndex = 0; rowIndex < height; rowIndex++) {
+            for (int columnIndex = 0; columnIndex < width; columnIndex++) {
+                int otherRed = (pixels[pixelIndex] >> 16 & 0xff) * transparency;
+                int otherGreen = (pixels[pixelIndex] >> 8 & 0xff) * transparency;
+                int otherBlue = (pixels[pixelIndex] & 0xff) * transparency;
+                int transparentColour = ((red + otherRed >> 8) << 16) + ((green + otherGreen >> 8) << 8) + (blue + otherBlue >> 8);
+                pixels[pixelIndex++] = transparentColour;
+            }
+            pixelIndex += leftOver;
+        }
+    }
+    
+    /**
+     * Draws a 1 pixel thick box outline in a certain colour.
+     *
+     * @param leftX     The left edge X-Coordinate.
+     * @param topY      The top edge Y-Coordinate.
+     * @param width     The width.
+     * @param height    The height.
+     * @param rgbColour The RGB-Colour.
+     */
+    public static void drawBoxOutline(int leftX, int topY, int width, int height, int rgbColour) {
+    	drawHLine(leftX, topY, width, rgbColour);
+        drawHLine(leftX, (topY + height) - 1, width, rgbColour);
+        drawVerticalLine(leftX, topY, height, rgbColour);
+        drawVerticalLine((leftX + width) - 1, topY, height, rgbColour);
+    }
 }
