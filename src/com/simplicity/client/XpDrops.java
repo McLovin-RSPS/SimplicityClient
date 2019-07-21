@@ -110,7 +110,7 @@ public class XpDrops {
             } else {
                 // Show total xp
                 Client.cacheSprite[TOTAL_LEVEL_ICON].drawAdvancedSprite(counterDrawX + 3, drawY + 4);
-                totalSkillXp = String.valueOf(Client.totalXP);
+                totalSkillXp = String.valueOf(Client.instance.getTotalXp());
             }
             font.drawRightAlignedString(StringUtils.insertCommasToNumber(totalSkillXp), counterDrawX + counterWidth - 4, drawY + 18, 0xFFFFFF, 0);
         }

@@ -23007,6 +23007,15 @@ public class Client extends RSApplet {
             e.printStackTrace();
         }
     }
+    
+    public long getTotalXp() {
+    	long totalXp = 0;
+        for (int i = 0; i < currentExp.length; i++) {
+            totalXp += currentExp[i];
+        }
+        
+        return totalXp;
+    }
 
     public String setMessage(int skillLevel) {
         if (skillLevel == 26) {
