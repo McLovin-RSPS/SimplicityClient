@@ -2050,7 +2050,7 @@ public class Client extends RSApplet {
     public boolean showXP;
     public boolean showBonus;
     public int gainedExpY = 0;
-    public static boolean xpGained = false, canGainXP = true, blockXPGain;
+    public static boolean xpGained = false, blockXPGain;
     public static long totalXP = 0;
     public int currentSkill = -1;
 
@@ -2087,13 +2087,9 @@ public class Client extends RSApplet {
     public void rightClickMapArea() {
         if (mouseInRegion(clientWidth - (clientSize == 0 ? 249 : 217), clientSize == 0 ? 46 : 3,
                 clientWidth - (clientSize == 0 ? 249 : 217) + 34, (clientSize == 0 ? 46 : 3) + 34)) {
-            menuActionName[1] = "Examine counter";
-            menuActionID[1] = 1007;
-            menuActionName[2] = "Reset counter";
-            menuActionID[2] = 1013;
-            menuActionName[3] = showXP ? "Hide counter" : "Show counter";
-            menuActionID[3] = 1006;
-            menuActionRow = 4;
+            menuActionName[1] = showXP ? "Hide counter" : "Show counter";
+            menuActionID[1] = 1006;
+            menuActionRow = 2;
         }
         if (super.mouseX >= clientWidth - (clientSize == 0 ? 0 : 66)
                 && super.mouseX <= clientWidth - (clientSize == 0 ? 0 : 41)
@@ -7890,11 +7886,7 @@ public class Client extends RSApplet {
             }
             return;
         }
-        if (l == 1013) {
-            totalXP = 0;
-            sendPacket185(1013);
-            return;
-        } else if (l == 1045) {// Toggle quick prayers / curses
+        if (l == 1045) {// Toggle quick prayers / curses
             if (openInterfaceID != -1) {
                 pushMessage("Please close the open interface first.", 0, "");
             } else {
@@ -8025,16 +8017,8 @@ public class Client extends RSApplet {
             }
             return;
         }
-        if (l == 1007) {
-            canGainXP = canGainXP ? false : true;
-        }
         if (l == 1006 && !showBonus) {
             showXP = showXP ? false : true;
-        }
-        if (l == 1007) {
-            pushMessage("Your XP counter has counted " + formatAmount(totalXP) + " ("
-                    + insertCommasToNumber("" + totalXP + "") + ") total XP so far.", 0, "");
-            return;
         }
         if (l == 1030 && !showXP) {
             showBonus = showBonus ? false : true;
