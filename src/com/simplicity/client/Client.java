@@ -618,6 +618,8 @@ public class Client extends RSApplet {
             }
         }
 
+      //  System.out.println(rights);
+
         String prefix = "cr";
         return "@" + prefix + rights + "@";
     }
@@ -852,12 +854,12 @@ public class Client extends RSApplet {
                 if (chatMessages[index] != null) {
                     int chatType = chatTypes[index];
                     int positionY = (70 - messageY * 14) + anInt1089 + 6;
-                    if (chatNames[index] != null && chatNames[index].startsWith("<img=0>")) {
+                   /* if (chatNames[index] != null && chatNames[index].startsWith("<img=0>")) {
                         chatNames[index] = chatNames[index].replace("<img=0>", "@cr1@");
                     }
                     if (chatNames[index] != null && chatNames[index].startsWith("<img=1>")) {
                         chatNames[index] = chatNames[index].replace("<img=1>", "@cr3@");
-                    }
+                    }*/
                     String name = chatNames[index];
                     String title = chatTitles[index];
 
@@ -876,6 +878,8 @@ public class Client extends RSApplet {
                         } else if (name.contains("@cr62")) {
                             ironman2 = 3;
                         }
+
+                      //  System.out.println(name);
 
                         playerRights = getRights(name);
 
