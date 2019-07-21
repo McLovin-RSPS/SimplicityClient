@@ -11,9 +11,9 @@ public enum PlayerRights {
 
     PLAYER(-1, PlayerRightsType.DEFAULT),
     MODERATOR(680, PlayerRightsType.STAFF),
-    ADMINISTRATOR(682, PlayerRightsType.STAFF),
-    OWNER(683, PlayerRightsType.STAFF),
-    DEVELOPER(681, PlayerRightsType.STAFF),
+    ADMINISTRATOR(681, PlayerRightsType.STAFF),
+    OWNER(682, PlayerRightsType.STAFF),
+    DEVELOPER(682, PlayerRightsType.STAFF),
     BRONZE_MEMBER(684, 14, 1, PlayerRightsType.DONATOR),
     SILVER_MEMBER(685, 14, 1, PlayerRightsType.DONATOR),
     GOLD_MEMBER(686, 14, 0, PlayerRightsType.DONATOR),
