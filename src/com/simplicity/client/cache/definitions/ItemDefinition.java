@@ -788,6 +788,11 @@ public final class ItemDefinition {
                     itemDef.actions[2] = "Check";
                     itemDef.actions[3] = "Toggle Config";
                     break;
+                case 49480:
+                    itemDef.copy(forID(6199));
+                    itemDef.name = "Superior Box";
+                    itemDef.newModelColor[0] = 35260;
+                    break; 
                 case 52191:
                     itemDef.name = "Master Stone";
                     itemDef.actions = new String[5];
@@ -1532,6 +1537,13 @@ public final class ItemDefinition {
                 itemDef.name = "Valentine Mystery Box";
                 itemDef.actions = new String[5];
                 itemDef.actions[0] = "Open";
+                break;
+            case 19730:
+                itemDef.copy(forID(6855));
+                itemDef.name = "Kevin's Birthday Box";
+                itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
+                itemDef.newModelColor[0] = 50260;
                 break;
             case 19714:
                 itemDef.copy(forID(6199));
