@@ -790,7 +790,7 @@ public final class ItemDefinition {
                     break;
                 case 49480:
                     itemDef.copy(forID(6199));
-                    itemDef.name = "Superior Box";
+                    itemDef.name = "Infinity Box";
                     itemDef.newModelColor[0] = 35260;
                     break; 
                 case 52191:
