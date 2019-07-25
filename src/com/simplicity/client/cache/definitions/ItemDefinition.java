@@ -1539,11 +1539,11 @@ public final class ItemDefinition {
                 itemDef.actions[0] = "Open";
                 break;
             case 19730:
-                itemDef.copy(forID(6855));
+            	itemDef.copy(forID(6199));
                 itemDef.name = "Kevin's Birthday Box";
                 itemDef.actions = new String[5];
                 itemDef.actions[0] = "Open";
-                itemDef.newModelColor[0] = 50260;
+                itemDef.newModelColor[0] = 10560;
                 break;
             case 19714:
                 itemDef.copy(forID(6199));
