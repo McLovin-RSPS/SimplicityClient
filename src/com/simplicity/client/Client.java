@@ -13905,6 +13905,7 @@ public class Client extends RSApplet {
                     && (entity.currentAnim < 0 || entity.currentAnim >= animation_1.frameCount)) {
                 entity.anInt1520 = -1;
             }
+
             entity.nextGraphicsAnimationFrame = entity.currentAnim + 1;
             if (entity.nextGraphicsAnimationFrame >= animation_1.frameCount) {
                 if (entity.nextGraphicsAnimationFrame < 0

@@ -835,11 +835,11 @@ public final class ItemDefinition {
                     break;
                 case 52325:
                     itemDef.name = "Scythe of vitur";
-                    itemDef.actions = new String[]{"Drink", "Use", "Drop", "Examine", "Cancel"};
+                    itemDef.actions = new String[]{"Drink",null, null, null, "Drop"};
                     break;
                 case 52410:
                     itemDef.name = "1000m Note";
-                    itemDef.actions = new String[]{"Claim", "Use", "Drop", "Examine", "Cancel"};
+                    itemDef.actions = new String[]{"Claim", null, null, null, "Drop"};
                     break;
                 case 52324:
                     itemDef.modelID = 35739;
