@@ -20160,7 +20160,7 @@ public class Client extends RSApplet {
 					for (Item item = (Item) node.getFront(); item != null; item = (Item) node.getNext()) {
 						ItemDefinition itemDef = ItemDefinition.forID(item.ID);
 						calcEntityScreenPos((x << 7) + 64, 64, (y << 7) + 64);
-						newSmallFont.drawCenteredString("<trans=200>" + itemDef.name + (item.amount > 1 ? " (" + StringUtils.insertCommasToNumber(item.amount + "") + "</col>)" : ""), spriteDrawX,
+						newSmallFont.drawCenteredString("<trans=200>" + RSFontSystem.handleOldSyntax(itemDef.name) + (item.amount > 1 ? " (" + StringUtils.insertCommasToNumber(item.amount + "") + "</col>)" : ""), spriteDrawX,
 								spriteDrawY - offset, 0xffffff, 1);
 						offset += 12;
 					}						

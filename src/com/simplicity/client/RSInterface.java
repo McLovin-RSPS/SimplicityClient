@@ -1497,6 +1497,184 @@ public class RSInterface {
         return rsi;
     }
 
+    private static void createInventoryOverlayInterface(int interfaceId, String[] options) {
+        RSInterface.interfaceCache[interfaceId] = new RSInterface();
+        RSInterface.interfaceCache[interfaceId].children = new int[1];
+        RSInterface.interfaceCache[interfaceId].childX = new int[1];
+        RSInterface.interfaceCache[interfaceId].childY = new int[1];
+        RSInterface.interfaceCache[interfaceId].children[0] = interfaceId + 1;
+        RSInterface.interfaceCache[interfaceId].childX[0] = 16;
+        RSInterface.interfaceCache[interfaceId].childY[0] = 8;
+
+        RSInterface.interfaceCache[interfaceId].id = interfaceId;
+        RSInterface.interfaceCache[interfaceId].height = 334;
+        RSInterface.interfaceCache[interfaceId].hoverType = -1;
+        RSInterface.interfaceCache[interfaceId].parentID = interfaceId;
+        RSInterface.interfaceCache[interfaceId].width = 512;
+
+        interfaceId++;
+        RSInterface.interfaceCache[interfaceId] = new RSInterface();//
+        RSInterface.interfaceCache[interfaceId].actions = options;
+        RSInterface.interfaceCache[interfaceId].inv = new int[28];
+        RSInterface.interfaceCache[interfaceId].invStackSizes = new int[28];//
+        RSInterface.interfaceCache[interfaceId].inv[0] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[0] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[1] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[1] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[2] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[2] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[3] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[3] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[4] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[4] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[5] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[5] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[6] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[6] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[7] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[7] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[8] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[8] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[9] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[9] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[10] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[10] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[11] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[11] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[12] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[12] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[13] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[13] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[14] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[14] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[15] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[15] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[16] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[16] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[17] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[17] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[18] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[18] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[19] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[19] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[20] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[20] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[21] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[21] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[22] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[22] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[23] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[23] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[24] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[24] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[25] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[25] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[26] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[26] = 0;
+
+        RSInterface.interfaceCache[interfaceId].inv[27] = 0;
+        RSInterface.interfaceCache[interfaceId].invStackSizes[27] = 0;
+
+        RSInterface.interfaceCache[interfaceId].spritesX = new int[20];
+        RSInterface.interfaceCache[interfaceId].spritesY = new int[20];
+        RSInterface.interfaceCache[interfaceId].spritesX[0] = 0;
+        RSInterface.interfaceCache[interfaceId].spritesY[0] = 0;
+
+        RSInterface.interfaceCache[interfaceId].spritesX[1] = 0;
+        RSInterface.interfaceCache[interfaceId].spritesY[1] = 0;
+
+        RSInterface.interfaceCache[interfaceId].spritesX[2] = 0;
+        RSInterface.interfaceCache[interfaceId].spritesY[2] = 0;
+
+        RSInterface.interfaceCache[interfaceId].spritesX[3] = 0;
+        RSInterface.interfaceCache[interfaceId].spritesY[3] = 0;
+
+        RSInterface.interfaceCache[interfaceId].spritesX[4] = 0;
+        RSInterface.interfaceCache[interfaceId].spritesY[4] = 0;
+
+        RSInterface.interfaceCache[interfaceId].spritesX[5] = 0;
+        RSInterface.interfaceCache[interfaceId].spritesY[5] = 0;
+
+        RSInterface.interfaceCache[interfaceId].spritesX[6] = 0;
+        RSInterface.interfaceCache[interfaceId].spritesY[6] = 0;
+
+        RSInterface.interfaceCache[interfaceId].spritesX[7] = 0;
+        RSInterface.interfaceCache[interfaceId].spritesY[7] = 0;
+
+        RSInterface.interfaceCache[interfaceId].spritesX[8] = 0;
+        RSInterface.interfaceCache[interfaceId].spritesY[8] = 0;
+
+        RSInterface.interfaceCache[interfaceId].spritesX[9] = 0;
+        RSInterface.interfaceCache[interfaceId].spritesY[9] = 0;
+
+        RSInterface.interfaceCache[interfaceId].spritesX[10] = 0;
+        RSInterface.interfaceCache[interfaceId].spritesY[10] = 0;
+
+        RSInterface.interfaceCache[interfaceId].spritesX[11] = 0;
+        RSInterface.interfaceCache[interfaceId].spritesY[11] = 0;
+
+        RSInterface.interfaceCache[interfaceId].spritesX[12] = 0;
+        RSInterface.interfaceCache[interfaceId].spritesY[12] = 0;
+
+        RSInterface.interfaceCache[interfaceId].spritesX[13] = 0;
+        RSInterface.interfaceCache[interfaceId].spritesY[13] = 0;
+
+        RSInterface.interfaceCache[interfaceId].spritesX[14] = 0;
+        RSInterface.interfaceCache[interfaceId].spritesY[14] = 0;
+
+        RSInterface.interfaceCache[interfaceId].spritesX[15] = 0;
+        RSInterface.interfaceCache[interfaceId].spritesY[15] = 0;
+
+        RSInterface.interfaceCache[interfaceId].spritesX[16] = 0;
+        RSInterface.interfaceCache[interfaceId].spritesY[16] = 0;
+
+        RSInterface.interfaceCache[interfaceId].spritesX[17] = 0;
+        RSInterface.interfaceCache[interfaceId].spritesY[17] = 0;
+
+        RSInterface.interfaceCache[interfaceId].spritesX[18] = 0;
+        RSInterface.interfaceCache[interfaceId].spritesY[18] = 0;
+
+        RSInterface.interfaceCache[interfaceId].spritesX[19] = 0;
+        RSInterface.interfaceCache[interfaceId].spritesY[19] = 0;
+
+        RSInterface.interfaceCache[interfaceId].spellName = "@gre@@whi@";
+        RSInterface.interfaceCache[interfaceId].deleteOnDrag2 = true;
+        RSInterface.interfaceCache[interfaceId].id = interfaceId;
+        RSInterface.interfaceCache[interfaceId].height = 7;
+        RSInterface.interfaceCache[interfaceId].invSpritePadX = 10;
+        RSInterface.interfaceCache[interfaceId].invSpritePadY = 4;
+        RSInterface.interfaceCache[interfaceId].hoverType = -1;
+        RSInterface.interfaceCache[interfaceId].parentID = interfaceId - 1;
+        RSInterface.interfaceCache[interfaceId].type = 2;
+        RSInterface.interfaceCache[interfaceId].width = 4;
+    }
+
     static void playerOwnedShopInterface3(TextDrawingArea[] tda) {
         RSInterface rsi = addInterface(37000);
         addSprite(37001, 0, "Interfaces/ResourceBag/SPRITE");
@@ -1520,10 +1698,6 @@ public class RSInterface {
                 counter = 0;
             }
         }
-        RSInterface tab = addTabInterface(37053);
-        addInventoryItemGroup2(37054, 7, 4);
-        setChildren(1, tab);
-        setBounds(37054, 0, 0, 0, tab);
     }
 
     public static void addToItemGroup(int id, int w, int h, int x, int y, boolean hasActions, String[] actions) {
@@ -3985,6 +4159,9 @@ public class RSInterface {
         playerOwnedShopInterface(textDrawingAreas);
         playerOwnedShopInterface2(textDrawingAreas);
         playerOwnedShopInterface3(textDrawingAreas);
+
+        createInventoryOverlayInterface(37053, new String[] {"Store 1", "Store 5", "Store 10", "Store All", null});
+
         customization(textDrawingAreas);
         // duelArena();
         addToTrade();
