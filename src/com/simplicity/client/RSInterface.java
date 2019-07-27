@@ -588,6 +588,62 @@ public class RSInterface {
         /* 7629: */
     }
 
+    public static void playerOwnedShopHistory(TextDrawingArea[] tda) {
+        int baseX = 40;
+        int baseY = 25;
+
+        int interfaceId = 50_500;
+        int historyListId = 50_550;
+        int index = 1;
+
+        RSInterface mainInterface = RSInterface.addInterface(interfaceId); //main interface display
+
+        addSpriteLoader(interfaceId + index++, 1167); //main sprite
+        RSInterface.addText(interfaceId + index++, "Shop History", tda, 2, 0xff981f, true);
+
+        addHoverButtonWSpriteLoader(interfaceId + index++, 65, 16, 16, "Close Window", 0, interfaceId + index, 3);
+        addHoveredImageWSpriteLoader(interfaceId + index++, 66, 16, 16, interfaceId + index++);
+
+        RSInterface historyList = RSInterface.addInterface(historyListId); index++; //history list scroll
+
+        mainInterface.totalChildren(index - 2);
+
+        index = 0;
+        mainInterface.child(index++, interfaceId + index, baseX, baseY); //background
+        mainInterface.child(index++, interfaceId + index, baseX + (432 / 2), baseY + 8); //title
+
+        mainInterface.child(index++, interfaceId + index, baseX + 408, baseY + 7); //close
+        mainInterface.child(index++, interfaceId + index, baseX + 408, baseY + 7); //close hover
+
+        mainInterface.child(index++, historyListId, 4 + baseX, 29 + baseY); //history list
+
+        /*
+         * History list
+         */
+        int totalHistory = 30;
+        historyList.width = 405;
+        historyList.height = 240;
+        historyList.scrollMax = totalHistory * 25 + 5;
+
+        historyList.totalChildren(totalHistory * 2);
+
+        historyListId++;
+
+        index = 0;
+
+        int increaseY = 0;
+        for (int i = 0; i < totalHistory; i++) {
+
+            RSInterface.addText(historyListId, "Arthur: BOUGHT x1, Leather chaps for 2 gp each", tda, 2, 0xc8aa64, true);
+            historyList.child(index++, historyListId++, (405 / 2), 7 + increaseY + 3);
+            increaseY += 20;
+
+            addRectangle(historyListId, 405, -1, 0x000000, 200, false);
+            historyList.child(index++, historyListId++, 0, 7 + increaseY + 3);
+            increaseY += 10;
+        }
+    }
+
     public static void teleports(TextDrawingArea[] tda) {
         int baseX = 8;
         int baseY = 12;
@@ -3934,6 +3990,7 @@ public class RSInterface {
         addToTrade();
         dropTableCheckerInterface(textDrawingAreas);
         teleports(textDrawingAreas);
+        playerOwnedShopHistory(textDrawingAreas);
         raids(textDrawingAreas);
         raidsRewards(textDrawingAreas);
         /*
