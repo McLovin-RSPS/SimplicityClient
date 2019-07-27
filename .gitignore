@@ -8,3 +8,5 @@ SimplicityClientNew.iml
 *.png
 *.gif
 *.class
+*.classpath
+*.project
