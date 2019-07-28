@@ -634,7 +634,7 @@ public class RSInterface {
         int increaseY = 0;
         for (int i = 0; i < totalHistory; i++) {
 
-            RSInterface.addText(historyListId, "Arthur: BOUGHT x1, Leather chaps for 2 gp each", tda, 2, 0xc8aa64, true);
+            RSInterface.addText(historyListId, " ", tda, 2, 0xc8aa64, true);
             historyList.child(index++, historyListId++, (405 / 2), 7 + increaseY + 3);
             increaseY += 20;
 
