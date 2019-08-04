@@ -1235,6 +1235,8 @@ public final class ItemDefinition {
         	itemDef.modelOffsetY = 130;
         	itemDef.editedModelColor = def2.editedModelColor;
         	itemDef.newModelColor = def2.newModelColor;
+        	itemDef.femaleYOffset -= 7;
+            itemDef.maleYOffset -= 7;
         	break;
         case 21002:
             itemDef.modelID = 35742;
@@ -1282,6 +1284,8 @@ public final class ItemDefinition {
         	itemDef.modelOffsetY = 130;
         	itemDef.editedModelColor = def2.editedModelColor;
         	itemDef.newModelColor = def2.newModelColor;
+        	itemDef.femaleYOffset -= 7;
+            itemDef.maleYOffset -= 7;
         	break;
         case 21004:
         	itemDef.copy(forID(11694));
@@ -1494,6 +1498,27 @@ public final class ItemDefinition {
         	itemDef.modelOffsetY = 50;
         	itemDef.editedModelColor = def2.editedModelColor;
         	itemDef.newModelColor = def2.newModelColor;
+        	itemDef.femaleYOffset -= 1;
+            itemDef.maleYOffset -= 1;
+            break;
+        case 21022:
+        	def2 = forID(9774);
+        	itemDef.actions = def2.actions;
+        	itemDef.name = "Verzik's cape";
+        	itemDef.modelID = 62913;
+        	itemDef.sizeX = def2.sizeX;
+        	itemDef.sizeY = def2.sizeY;
+        	itemDef.sizeZ = def2.sizeZ;
+        	itemDef.maleEquip1 = 62912;
+        	itemDef.femaleEquip1 = 62912;
+        	itemDef.rotationX = 1024;
+        	itemDef.rotationY = 300;
+        	itemDef.modelZoom = 2000;
+        	itemDef.modelOffsetY = 130;
+        	itemDef.editedModelColor = def2.editedModelColor;
+        	itemDef.newModelColor = def2.newModelColor;
+            itemDef.femaleYOffset -= 7;
+            itemDef.maleYOffset -= 7;
             break;
         	case 18339:
         		itemDef.name = "Gold bag";
