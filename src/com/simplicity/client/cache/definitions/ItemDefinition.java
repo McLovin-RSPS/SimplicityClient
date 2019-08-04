@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.simplicity.Configuration;
@@ -884,6 +885,14 @@ public final class ItemDefinition {
         }
         itemDef.value = prices[itemDef.id];
         switch (itemId) {
+        case 21023:
+        	itemDef.copy(forID(52323));
+        	itemDef.dataType = DataType.REGULAR;
+        	itemDef.maleEquip1 = 62914;
+        	itemDef.femaleEquip1 = 62914;
+        	itemDef.modelID = 62915;
+        	itemDef.name = "Sanguinesti staff X";
+        	break;
         case 4037:
         	itemDef.maleEquip1 = 4850;
         	itemDef.femaleEquip1 = 4850;
