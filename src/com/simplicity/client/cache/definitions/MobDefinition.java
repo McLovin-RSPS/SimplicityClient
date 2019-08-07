@@ -52,6 +52,9 @@ public final class MobDefinition {
                 npc.name = npc.name.replaceAll("<col=00ffff>", "@cya@").replaceAll("</col>", "");
             }
             switch (i) {
+                case 3113:
+                    npc.name = "The Pet Tradesman";
+                    break;
                 case 2668:
                     npc.name = "Combat dummy";
                     npc.actions = new String[5];
