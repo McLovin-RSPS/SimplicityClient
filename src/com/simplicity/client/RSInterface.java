@@ -3186,6 +3186,33 @@ public class RSInterface {
         tab.height = height;
     }
 
+    public static void addItemContainer(int id, int[] padding,
+                                        int[] dimensions, String[] actions, boolean examine) {
+        final RSInterface container = addInterface(id);
+        final int item_amount = dimensions[0] * dimensions[1];
+
+        container.parentID = id;
+        container.id = id;
+        container.type = 2;
+        container.actions = actions != null ? actions : new String[10];
+        container.spritesX = new int[item_amount];
+        container.spritesY = new int[item_amount];
+        container.inv = new int[item_amount];
+        container.invStackSizes = new int[item_amount];
+
+        container.invSpritePadX = padding[0];
+        container.invSpritePadY = padding[1];
+        container.width = dimensions[0];
+        container.height = dimensions[1];
+        container.centerText = true;
+        container.filled = false;
+        container.dragDeletes = examine;
+        container.usableItemInterface = false;
+        container.isInventoryInterface = false;
+        container.deleteOnDrag2 = false;
+        container.shadowed = false;
+    }
+
     public static void addRectangleClickable(int id, int opacity, int color, boolean filled, int width, int height) {
         RSInterface tab = interfaceCache[id] = new RSInterface();
         tab.disabledColor = color;
@@ -4169,6 +4196,8 @@ public class RSInterface {
         teleports(textDrawingAreas);
         playerOwnedShopHistory(textDrawingAreas);
         raids(textDrawingAreas);
+        lootingBag(textDrawingAreas);
+        addToLootingBag(textDrawingAreas);
         raidsRewards(textDrawingAreas);
         /*
          * spells[0] = interfaceCache[1572]; //Bind spells[1] = interfaceCache[1582];
@@ -4629,6 +4658,78 @@ public class RSInterface {
             scroll.child(c++, id++, 152 + x, 4 + y);
             y += 20;
         }
+    }
+
+    public static void lootingBag(TextDrawingArea[] tda) {
+
+        int childId = 40_500;
+
+        int index = 0;
+
+        RSInterface tab = addTabInterface(childId++);
+        addText(childId++, "Looting bag", tda, 2, 0xFF981F, true, true);
+
+        addCloseButton(childId++, childId++, childId++);
+
+        addRectangle(childId++, 256, 0x524a3e, true, 170, 225);
+
+        addRectangle(childId++, 170, 0x000000, false, 170, 225);
+
+        addItemContainer(childId++, new int[] { 10, 0 }, new int[] { 4, 7 }, new String[] { }, false);
+
+        addText(childId++, "Value: -", tda, 0, 0xFF981F, true, true);
+
+        childId = 40_501;
+
+        tab.totalChildren(7);
+
+        tab.child(index++, childId++, 95, 5); //title
+
+        tab.child(index++, childId++, 167, 5); //close button
+        tab.child(index++, childId++, 167, 5); //close button hover
+
+        childId++;
+
+        tab.child(index++, childId++, 10, 23); //background of items
+        tab.child(index++, childId++, 10, 25); //border of items
+        tab.child(index++, childId++, 15, 24); //item container
+        tab.child(index++, childId++, 95, 250); //value of items
+    }
+
+    public static void addToLootingBag(TextDrawingArea[] tda) {
+
+        int childId = 40_600;
+
+        int index = 0;
+
+        RSInterface tab = addTabInterface(childId++);
+        addText(childId++, "Add to Bag", tda, 2, 0xFF981F, true, true);
+
+        addCloseButton(childId++, childId++, childId++);
+
+        addRectangle(childId++, 256, 0x524a3e, true, 170, 225);
+
+        addRectangle(childId++, 170, 0x000000, false, 170, 225);
+
+        addItemContainer(childId++, new int[] { 10, 0 }, new int[] { 4, 7 }, new String[] {"Store-1", "Store-5", "Store-All", "Store-X"}, false);
+
+        addText(childId++, "Bag Value: -", tda, 0, 0xFF981F, true, true);
+
+        childId = 40_601;
+
+        tab.totalChildren(7);
+
+        tab.child(index++, childId++, 95, 5); //title
+
+        tab.child(index++, childId++, 167, 5); //close button
+        tab.child(index++, childId++, 167, 5); //close button hover
+
+        childId++;
+
+        tab.child(index++, childId++, 10, 23); //background of items
+        tab.child(index++, childId++, 10, 25); //border of items
+        tab.child(index++, childId++, 15, 24); //item container
+        tab.child(index++, childId++, 95, 250); //value of items
     }
 
     public static void raidsRewards(TextDrawingArea[] tda) {
