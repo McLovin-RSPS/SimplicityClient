@@ -7,16 +7,16 @@ import com.simplicity.client.Client;
 public class LoginScreen {
 	private static final int MAX_CHARACTERS = 3;
 	
-	public static boolean[] socialMediaState = new boolean[4];
+	public static boolean[] socialMediaState = new boolean[5];
 	
 	public static boolean[] deleteCharacterState = new boolean[MAX_CHARACTERS];
 
-	public static final String[] SOCIAL_MEDIA = { "Facebook", "Discord", "Twitter", "Youtube", };
+	public static final String[] SOCIAL_MEDIA = { "Facebook", "Twitter", "YouTube", "Twitch", "Discord" };
 
 	public static final ArrayList<CharacterFile> characters = new ArrayList<CharacterFile>();
 
-	public static final String[] SOCIAL_MEDIA_LINKS = { "https://www.facebook.com/simplicityps", "",
-			"http://www.youtube.com/channel/UCsQMC7RxvylgTL0jveRyjSw", "http://discord.gg/VJy7QAH", };
+	public static final String[] SOCIAL_MEDIA_LINKS = { "https://www.facebook.com/simplicityps", "", "http://www.youtube.com/channel/UCsQMC7RxvylgTL0jveRyjSw",
+			"", "http://discord.gg/VJy7QAH", "" };
 
 
 	public static void add(String username, String password, boolean safe) {

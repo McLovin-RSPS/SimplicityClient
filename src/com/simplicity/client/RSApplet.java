@@ -521,6 +521,8 @@ WindowListener {
 		mouseWheelDown = false;
 		shiftDown = false;
 
+		//System.out.println("x="+x+",y="+y);
+
 		if (Client.clientSize != 0 && resizeChatStartY != -1) {
 			int offsetY = Client.clientHeight - 165 - Client.chatAreaHeight;
 			int difference = y - resizeChatStartY;
