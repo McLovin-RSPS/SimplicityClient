@@ -287,6 +287,10 @@ public final class ObjectDefinition {
             objectDef.actions = new String[]{"Fish", null, null, null, null};
             objectDef.name = "@yel@Westerfish";
         }
+        if (i == 26414) {
+            objectDef.actions = new String[]{"Fill-at", null, null, null, null};
+            objectDef.name = "@yel@AFK Fountain";
+        }
         if (i == 56839) {
             objectDef.actions = new String[]{"Pickup", null, null, null, null};
             objectDef.name = "@yel@Mysterious plant";
@@ -297,6 +301,10 @@ public final class ObjectDefinition {
         }
         if (i == 48661) {
             objectDef.actions = new String[]{"Touch", null, null, null, null};
+            objectDef.name = "@yel@Statue of Arthur";
+        }
+        if (i == 46984) {
+            objectDef.actions = new String[]{"Pray-at", null, null, null, null};
             objectDef.name = "@yel@Statue of Arthur";
         }
         if (i == 49653) {

@@ -6772,7 +6772,7 @@ public class Client extends RSApplet {
         if (alertBoxTimer > 0) {
             alertBoxTimer--;
         }
-        for (int j = 0; j < 5; j++) {
+        for (int j = 0; j < 100; j++) {
             if (!parsePacket()) {
                 break;
             }

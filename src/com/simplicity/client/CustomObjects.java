@@ -181,6 +181,9 @@ public class CustomObjects {
             {54613, 2716, 5309, 0, 0}, // Onyx city
 
             //	{10088 , 3113, 3492, 0, 1}, // Afk fish edge
+           	{26414 , 2393, 3490, 0, 0}, // New AFK zone
+           	{26414 , 2392, 3485, 0, 0}, // New AFK zone
+          	{26414 , 2396, 3488, 0, 0}, // New AFK zone
 
             // Arthur's dream
             {10089, 1826, 5168, 2, 0}, // anglerfish spot fishworld
