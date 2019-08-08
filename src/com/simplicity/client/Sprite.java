@@ -275,7 +275,7 @@ public class Sprite extends DrawingArea {
 			pixelgrabber.grabPixels();
 			image = null;
 			setTransparency(255, 0, 255);
-			if(id!=1130) {
+			if(id!=1130 && id != 1206) {
 				setTransparency(255, 255, 255);
 			}
 		} catch (Exception _ex) {
