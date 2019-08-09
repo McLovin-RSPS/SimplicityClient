@@ -2213,6 +2213,8 @@ public final class ItemDefinition {
                 itemDef.actions[1] = "Wear";
                 itemDef.actions[4] = "Drop";
                 break;
+            case 16027:
+            case 16389:
             case 4749:
                 itemDef.femaleEquip1 = itemDef.maleEquip1;
                 break;
