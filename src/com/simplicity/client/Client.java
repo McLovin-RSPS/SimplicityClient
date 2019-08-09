@@ -13274,7 +13274,7 @@ public class Client extends RSApplet {
             SpotAnimDefinition.unpackConfig(configArchive);
             Varp.unpackConfig(configArchive);
             VarBit.unpackConfig(configArchive);
-           // repackCacheIndex(1);
+            //repackCacheIndex(1);
             Censor.loadConfig(streamLoader_4);
             setLoadingText(85, "Loading sounds..");
             byte abyte0[] = soundArchive.getDataForName("sounds.dat");
@@ -13382,6 +13382,11 @@ public class Client extends RSApplet {
 	private void setSkillSprites() {
 		for (int i = 0; i < Skills.SKILL_COUNT; i++) {
 			Sprite sprite = cacheSprite[41 + i];
+
+			if(41 + i == 65) {
+                sprite = cacheSprite[1166];
+            }
+
 			bigSkillSprites[i] = sprite;
 			smallSkillSprites[i] = new Sprite(sprite, (int) (sprite.myWidth * 0.66), (int) (sprite.myHeight * 0.66), Image.SCALE_AREA_AVERAGING);
 		}
@@ -15329,6 +15334,11 @@ public class Client extends RSApplet {
     private int specRequired = 0;
 
     private void draw3dScreen() {
+
+        if (showXP && loggedIn) {
+            XpDrops.draw();
+        }
+
         if (drawZoomDelay > 0) {
             int x = 22;
             int y = 22;
@@ -20135,9 +20145,6 @@ public class Client extends RSApplet {
             drawUnfixedGame();
             draw3dScreen();
 
-        }
-        if (showXP && loggedIn) {
-        	XpDrops.draw();
         }
         if (Client.getOption("xp_orbs")) {
 			SkillOrbs.process();
