@@ -1118,7 +1118,7 @@ final class WorldController {
 				for (int y_ = anInt451; y_ < anInt452; y_++) {
 					Tile tile = tiles[x_][y_];
 					if (tile != null)
-						if (tile.logicHeight > plane || !tile_visibility_map[(x_ - xCamPosTile) + 25][(y_ - yCamPosTile) + 25] && anIntArrayArrayArray440[k1][x_][y_] - zCam < 2000) {
+						if (tile.logicHeight > plane || !tile_visibility_map[(x_ - xCamPosTile) + 25][(y_ - yCamPosTile) + 25] && anIntArrayArrayArray440[k1][x_][y_] - zCam < 3000) {
 							tile.aBoolean1322 = false;
 							tile.aBoolean1323 = false;
 							tile.anInt1325 = 0;

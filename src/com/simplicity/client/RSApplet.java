@@ -336,20 +336,20 @@ WindowListener {
 				Client.inputTaken = true;
 			}
 		} else {
-		if(Client.openInterfaceID == -1) {
-			boolean zoom = Client.clientSize == 0 ? (mouseX < 512)
-					: (mouseX < Client.clientWidth - 200);
-			
-			if(zoom) {
-			Client.clientZoom += rotation * 35;
-
-			if (Client.clientZoom > 1100) {
-				Client.clientZoom = 1100;
-			} else if (Client.clientZoom < -400) {
-				Client.clientZoom = -400;
+			if(Client.openInterfaceID == -1) {
+				if(mouseX > 0 && mouseX < 512 && mouseY > Client.clientHeight - 165 && mouseY < Client.clientHeight - 25) {
+					return;
+				}
+				if (rotation == -1) {
+					if (Client.cameraZoom > 200) {
+						Client.cameraZoom -= 45;
+					}
+				} else {
+					if (Client.cameraZoom < 1100) {
+						Client.cameraZoom += 45;
+					}
+				}
 			}
-			}
-		}
 		}
 		
 		if (event.isControlDown()) {

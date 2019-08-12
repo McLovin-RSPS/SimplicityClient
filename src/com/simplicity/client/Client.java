@@ -690,14 +690,14 @@ public class Client extends RSApplet {
                 size = 1;
                 width = 766;
                 height = 559;
-                clientZoom = 600;
+                clientZoom = 900;
                 antialiasing = false;
             } else if (size == 2) {
                 antialiasing = false;
                 size = 2;
                 width = getMaxWidth();
                 height = getMaxHeight();
-                clientZoom = 600;
+                clientZoom = 900;
             }
             if (size != 0 && getOption("old_frame")) {
                 pushMessage("Option 'Old Frame' is not available in a resized mode yet.", 0, "");
@@ -19924,8 +19924,8 @@ public class Client extends RSApplet {
                 }
                 int k = viewRotation + viewRotationOffset & 0x7ff;
                 int zoom = (600 + (i * clientHeight / 400) + clientZoom);
-                setCameraPos(clientSize == 0 ? (600 + i * 3) + clientZoom : zoom, i, anInt1014,
-                        getFloorDrawHeight(plane, myPlayer.y, myPlayer.x) - 50, k, anInt1015);
+
+                setCameraPos(cameraZoom + (clientWidth >= 1024 ? i + cameraZoom - clientHeight / 200 : i) * (log_view_dist == 9 && clientSize == 1 ? 1 : log_view_dist == 10 ? 1 : 3), i, anInt1014, getFloorDrawHeight(plane, myPlayer.y, myPlayer.x) - 50, k, anInt1015);
             }
             if (!inCutScene) {
                 j = getCameraHeight();
