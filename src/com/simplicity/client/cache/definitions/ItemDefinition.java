@@ -789,6 +789,9 @@ public final class ItemDefinition {
                     itemDef.actions[2] = "Check";
                     itemDef.actions[3] = "Toggle Config";
                     break;
+                case 52993:
+                    itemDef.name = "Raids Mystery Box";
+                    break;
                 case 49480:
                     itemDef.copy(forID(6199));
                     itemDef.name = "Infinity Box";
