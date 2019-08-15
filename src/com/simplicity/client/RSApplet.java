@@ -403,9 +403,7 @@ WindowListener {
 			offsetX = Client.getClient().clientSize == 0 ? 4 : (Client.getClient().clientWidth / 2) - 256;
 			offsetY = Client.getClient().clientSize == 0 ? 4 : (Client.getClient().clientHeight / 2) - 167;
 			
-			boolean scroll = handleScrolling(rsi, rotation, offsetX, offsetY);
-			
-			if (scroll) {
+			if (handleScrolling(rsi, rotation, offsetX, offsetY)) {
 				return true;
 			}
 		}
