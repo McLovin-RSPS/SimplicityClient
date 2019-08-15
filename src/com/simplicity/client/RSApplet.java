@@ -316,8 +316,8 @@ WindowListener {
 	public void mouseWheelMoved(MouseWheelEvent event) {
 		int rotation = event.getWheelRotation();
 		
-		handleInterfaceScrolling(event);
-
+		boolean interfaceScrolling = handleInterfaceScrolling(event);
+		
 		if (mouseX > 0 && mouseX < 512 && mouseY > Client.getClient().clientHeight - 165 && mouseY < Client.getClient().clientHeight - 25) {
 			int scrollPos = Client.anInt1089;
 			
@@ -335,43 +335,41 @@ WindowListener {
 				Client.anInt1089 = scrollPos;
 				Client.inputTaken = true;
 			}
-		} else {
-			if(Client.openInterfaceID == -1) {
-				if(mouseX > 0 && mouseX < 512 && mouseY > Client.clientHeight - 165 && mouseY < Client.clientHeight - 25) {
-					return;
-				}
-				if (rotation == -1) {
-					if (Client.cameraZoom > 200) {
-						Client.cameraZoom -= 45;
-					}
-				} else {
-					if (Client.cameraZoom < 1100) {
-						Client.cameraZoom += 45;
-					}
-				}
+		} else if (!interfaceScrolling) {
+			if (mouseX > 0 && mouseX < 512 && mouseY > Client.clientHeight - 165 && mouseY < Client.clientHeight - 25) {
+				return;
 			}
-		}
-		
-		if (event.isControlDown()) {
 			if (rotation == -1) {
-				int min = Client.clientSize == 0 ? -600 : -420;
-				
-				if (Client.clientZoom > min) {
-					Client.clientZoom -= 30;
+				if (Client.cameraZoom > 200) {
+					Client.cameraZoom -= 45;
 				}
 			} else {
-				int max = Client.clientSize == 0 ? 1200 : 1800;
-				
-				if (Client.clientZoom < max) {
-					Client.clientZoom += 30;
+				if (Client.cameraZoom < 1100) {
+					Client.cameraZoom += 45;
 				}
 			}
-			
-			Client.getClient().drawZoomDelay = 100;
+
+			if (event.isControlDown()) {
+				if (rotation == -1) {
+					int min = Client.clientSize == 0 ? -600 : -420;
+
+					if (Client.clientZoom > min) {
+						Client.clientZoom -= 30;
+					}
+				} else {
+					int max = Client.clientSize == 0 ? 1200 : 1800;
+
+					if (Client.clientZoom < max) {
+						Client.clientZoom += 30;
+					}
+				}
+
+				Client.getClient().drawZoomDelay = 100;
+			}
 		}
 	}
 
-	public void handleInterfaceScrolling(MouseWheelEvent event) {
+	public boolean handleInterfaceScrolling(MouseWheelEvent event) {
 		int rotation = event.getWheelRotation();
 		int positionX = 0;
 		int positionY = 0;
@@ -394,7 +392,9 @@ WindowListener {
 			offsetX = Client.getClient().clientSize == 0 ? Client.getClient().clientWidth - 218 : (Client.getClient().clientSize == 0 ? 28 : Client.getClient().clientWidth - 197);
 			offsetY = Client.getClient().clientSize == 0 ? Client.getClient().clientHeight - 298 : (Client.getClient().clientSize == 0 ? 37 : Client.getClient().clientHeight - (Client.getClient().clientWidth >= 900 ? 37 : 74) - 267);
 			
-			handleScrolling(tab, rotation, offsetX, offsetY);
+			if (handleScrolling(tab, rotation, offsetX, offsetY)) {
+				return true;
+			}
 		}
 		
 		/* Main interface scrolling */
@@ -403,13 +403,19 @@ WindowListener {
 			offsetX = Client.getClient().clientSize == 0 ? 4 : (Client.getClient().clientWidth / 2) - 256;
 			offsetY = Client.getClient().clientSize == 0 ? 4 : (Client.getClient().clientHeight / 2) - 167;
 			
-			handleScrolling(rsi, rotation, offsetX, offsetY);
+			boolean scroll = handleScrolling(rsi, rotation, offsetX, offsetY);
+			
+			if (scroll) {
+				return true;
+			}
 		}
+		
+		return false;
 	}
 	
-	public void handleScrolling(RSInterface rsi, int rotation, int offsetX, int offsetY) {
+	public boolean handleScrolling(RSInterface rsi, int rotation, int offsetX, int offsetY) {
 		if (rsi.children == null) {
-			return;
+			return false;
 		}
 		
 		int positionX = 0;
@@ -440,9 +446,12 @@ WindowListener {
 					}
 
 					child.scrollPosition += rotation * scrollAmount;
+					return true;
 				}
 			}
 		}
+		
+		return false;
 	}
 
 	/**
