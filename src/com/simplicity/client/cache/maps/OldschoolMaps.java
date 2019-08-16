@@ -21,6 +21,8 @@ public class OldschoolMaps {
             8789,
             6457, // Great Kourand
 
+            12867, //tob treasure
+            
             10894, //monkey skeletons
             11150, //monkey skeletons
 
