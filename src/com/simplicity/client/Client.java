@@ -917,11 +917,17 @@ public class Client extends RSApplet {
                                     int col = -1;
 
                                     if (message[0].indexOf("<col=") != -1) {
-                                        try {
-                                            int colorStart = message[0].lastIndexOf("<col=");
-                                            int colorEnd = message[0].indexOf(">");
-                                            if (colorStart > -1 && colorEnd > -1 && colorEnd > colorStart) {
-                                                col = Integer.parseInt(message[0].substring(colorStart + 5, colorEnd), 16);
+                                        try {                   
+                                        	String splitLine = message[0];
+                                        	if(message[0].contains(myUsername)) {
+                                        		splitLine = message[0].split(myUsername)[1];
+                                        	}
+                                        	int colorStart = splitLine.lastIndexOf("<col=");
+                                            //int colorEnd = message[0].indexOf(">");
+                                            if (colorStart > -1) {
+                                            	String colorCode = splitLine.substring(colorStart+5, colorStart+11);
+                                            	if(validHexColor(colorCode))
+                                            		col = Integer.parseInt(colorCode, 16);
                                             }
                                         } catch (Exception e) {
                                             e.printStackTrace();
@@ -1202,6 +1208,15 @@ public class Client extends RSApplet {
         inputTaken = true;
     }
 
+    public static boolean validHexColor(String strColor) {
+        try {
+            int d = Integer.parseInt(strColor, 16);
+        } catch (NumberFormatException | NullPointerException nfe) {
+            return false;
+        }
+        return true;
+    }
+    
     public void resetQuickChat() {
         divideSelections = false;
         divideSelectedSelections = false;
