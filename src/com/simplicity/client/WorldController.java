@@ -4,6 +4,10 @@ import com.simplicity.client.cache.node.Deque;
 
 @SuppressWarnings("all")
 final class WorldController {
+	
+	public static final int TILE_DRAW_DISTANCE = 50;
+	
+	public static final int MAX_RENDER_DISTANCE = 4500;
 
 	public WorldController(int ai[][][]) {
 		int height = 104;// was parameter
@@ -993,7 +997,7 @@ final class WorldController {
 		bottom = height;
 		midX = width / 2;
 		midY = height / 2;
-		boolean isOnScreen[][][][] = new boolean[9][32][53][53];
+		boolean isOnScreen[][][][] = new boolean[9][32][(TILE_DRAW_DISTANCE * 2) + 3][(TILE_DRAW_DISTANCE * 2) + 3];
 		for (int yAngle = 128; yAngle <= 384; yAngle += 32) {
 			for (int xAngle = 0; xAngle < 2048; xAngle += 64) {
 				yCurveSin = Model.SINE[yAngle];
@@ -1002,8 +1006,8 @@ final class WorldController {
 				xCurveCos = Model.COSINE[xAngle];
 				int l1 = (yAngle - 128) / 32;
 				int j2 = xAngle / 64;
-				for (int l2 = -26; l2 <= 26; l2++) {
-					for (int j3 = -26; j3 <= 26; j3++) {
+				for (int l2 = -TILE_DRAW_DISTANCE - 1; l2 <= TILE_DRAW_DISTANCE + 1; l2++) {
+					for (int j3 = -TILE_DRAW_DISTANCE - 1; j3 <= TILE_DRAW_DISTANCE + 1; j3++) {
 						int k3 = l2 * 128;
 						int i4 = j3 * 128;
 						boolean flag2 = false;
@@ -1014,7 +1018,7 @@ final class WorldController {
 							break;
 						}
 
-						isOnScreen[l1][j2][l2 + 25 + 1][j3 + 25 + 1] = flag2;
+						isOnScreen[l1][j2][l2 + TILE_DRAW_DISTANCE + 1][j3 + TILE_DRAW_DISTANCE + 1] = flag2;
 					}
 
 				}
@@ -1025,19 +1029,19 @@ final class WorldController {
 
 		for (int k1 = 0; k1 < 8; k1++) {
 			for (int i2 = 0; i2 < 32; i2++) {
-				for (int k2 = -25; k2 < 25; k2++) {
-					for (int i3 = -25; i3 < 25; i3++) {
+				for (int k2 = -TILE_DRAW_DISTANCE; k2 < TILE_DRAW_DISTANCE; k2++) {
+					for (int i3 = -TILE_DRAW_DISTANCE; i3 < TILE_DRAW_DISTANCE; i3++) {
 						boolean flag1 = false;
 						label0: for (int l3 = -1; l3 <= 1; l3++) {
 							for (int j4 = -1; j4 <= 1; j4++) {
-								if (isOnScreen[k1][i2][k2 + l3 + 25 + 1][i3 + j4 + 25 + 1])
+								if (isOnScreen[k1][i2][k2 + l3 + TILE_DRAW_DISTANCE + 1][i3 + j4 + TILE_DRAW_DISTANCE + 1])
 									flag1 = true;
-								else if (isOnScreen[k1][(i2 + 1) % 31][k2 + l3 + 25 + 1][i3 + j4 + 25 + 1])
+								else if (isOnScreen[k1][(i2 + 1) % 31][k2 + l3 + TILE_DRAW_DISTANCE + 1][i3 + j4 + TILE_DRAW_DISTANCE + 1])
 									flag1 = true;
-								else if (isOnScreen[k1 + 1][i2][k2 + l3 + 25 + 1][i3 + j4 + 25 + 1]) {
+								else if (isOnScreen[k1 + 1][i2][k2 + l3 + TILE_DRAW_DISTANCE + 1][i3 + j4 + TILE_DRAW_DISTANCE + 1]) {
 									flag1 = true;
 								} else {
-									if (!isOnScreen[k1 + 1][(i2 + 1) % 31][k2 + l3 + 25 + 1][i3 + j4 + 25 + 1])
+									if (!isOnScreen[k1 + 1][(i2 + 1) % 31][k2 + l3 + TILE_DRAW_DISTANCE + 1][i3 + j4 + TILE_DRAW_DISTANCE + 1])
 										continue;
 									flag1 = true;
 								}
@@ -1046,7 +1050,7 @@ final class WorldController {
 
 						}
 
-						tile_visibility_maps[k1][i2][k2 + 25][i3 + 25] = flag1;
+						tile_visibility_maps[k1][i2][k2+ TILE_DRAW_DISTANCE][i3+ TILE_DRAW_DISTANCE] = flag1;
 					}
 
 				}
@@ -1062,10 +1066,10 @@ final class WorldController {
 		int i1 = y * xCurveCos - x * xCurveSin >> 16;
 		int dist = z * yCurveSin + i1 * yCUrveCos >> 16;
 		int k1 = z * yCUrveCos - i1 * yCurveSin >> 16;
-		if (dist < 50 || dist > 4000)
+		if (dist < 50 || dist > MAX_RENDER_DISTANCE)
 			return false;
-		int l1 = midX + l * WorldController.focalLength / dist;
-		int i2 = midY + k1 * WorldController.focalLength / dist;
+		int l1 = midX + (l << viewDistance) / dist;
+		int i2 = midY + (k1 << viewDistance) / dist;
 		return l1 >= left && l1 <= right && i2 >= top && i2 <= bottom;
 	}
 
@@ -1098,16 +1102,16 @@ final class WorldController {
 		xCamPosTile = xCam / 128;
 		yCamPosTile = yCam / 128;
 		plane__ = plane;
-		anInt449 = xCamPosTile - 25;
+		anInt449 = xCamPosTile - TILE_DRAW_DISTANCE;
 		if (anInt449 < 0)
 			anInt449 = 0;
-		anInt451 = yCamPosTile - 25;
+		anInt451 = yCamPosTile - TILE_DRAW_DISTANCE;
 		if (anInt451 < 0)
 			anInt451 = 0;
-		anInt450 = xCamPosTile + 25;
+		anInt450 = xCamPosTile + TILE_DRAW_DISTANCE;
 		if (anInt450 > xMapSize)
 			anInt450 = xMapSize;
-		anInt452 = yCamPosTile + 25;
+		anInt452 = yCamPosTile + TILE_DRAW_DISTANCE;
 		if (anInt452 > yMapSize)
 			anInt452 = yMapSize;
 		processCulling();
@@ -1118,7 +1122,7 @@ final class WorldController {
 				for (int y_ = anInt451; y_ < anInt452; y_++) {
 					Tile tile = tiles[x_][y_];
 					if (tile != null)
-						if (tile.logicHeight > plane || !tile_visibility_map[(x_ - xCamPosTile) + 25][(y_ - yCamPosTile) + 25] && anIntArrayArrayArray440[k1][x_][y_] - zCam < 3000) {
+						if (tile.logicHeight > plane || !tile_visibility_map[(x_ - xCamPosTile)+ TILE_DRAW_DISTANCE][(y_ - yCamPosTile)+ TILE_DRAW_DISTANCE] && anIntArrayArrayArray440[k1][x_][y_] - zCam < 3000) {
 							tile.aBoolean1322 = false;
 							tile.aBoolean1323 = false;
 							tile.anInt1325 = 0;
@@ -1136,11 +1140,11 @@ final class WorldController {
 
 		for (int l1 = currentHL; l1 < zMapSize; l1++) {
 			Tile aclass30_sub3_1[][] = tileArray[l1];
-			for (int l2 = -25; l2 <= 0; l2++) {
+			for (int l2 = -TILE_DRAW_DISTANCE; l2 <= 0; l2++) {
 				int i3 = xCamPosTile + l2;
 				int k3 = xCamPosTile - l2;
 				if (i3 >= anInt449 || k3 < anInt450) {
-					for (int i4 = -25; i4 <= 0; i4++) {
+					for (int i4 = -TILE_DRAW_DISTANCE; i4 <= 0; i4++) {
 						int k4 = yCamPosTile + i4;
 						int i5 = yCamPosTile - i4;
 						if (i3 >= anInt449) {
@@ -1169,7 +1173,6 @@ final class WorldController {
 						}
 						if (anInt446 == 0) {
 							aBoolean467 = false;
-							WorldController.focalLength = 512;
 							return;
 						}
 					}
@@ -1181,11 +1184,11 @@ final class WorldController {
 
 		for (int j2 = currentHL; j2 < zMapSize; j2++) {
 			Tile aclass30_sub3_2[][] = tileArray[j2];
-			for (int j3 = -25; j3 <= 0; j3++) {
+			for (int j3 = -TILE_DRAW_DISTANCE; j3 <= 0; j3++) {
 				int l3 = xCamPosTile + j3;
 				int j4 = xCamPosTile - j3;
 				if (l3 >= anInt449 || j4 < anInt450) {
-					for (int l4 = -25; l4 <= 0; l4++) {
+					for (int l4 = -TILE_DRAW_DISTANCE; l4 <= 0; l4++) {
 						int j5 = yCamPosTile + l4;
 						int k5 = yCamPosTile - l4;
 						if (l3 >= anInt449) {
@@ -1214,7 +1217,6 @@ final class WorldController {
 						}
 						if (anInt446 == 0) {
 							aBoolean467 = false;
-							WorldController.focalLength = 512;
 							return;
 						}
 					}
@@ -1223,7 +1225,6 @@ final class WorldController {
 			}
 		}
 		aBoolean467 = false;
-		WorldController.focalLength = 512;
 	}
 
 	private void renderTile(Tile mainTile, boolean flag) {
@@ -1665,14 +1666,14 @@ final class WorldController {
 		if (j3 < 50) {
 			return;
 		}
-		int i5 = Rasterizer.textureInt1 + i2 * WorldController.focalLength / k2;
-		int j5 = Rasterizer.textureInt2 + l3 * WorldController.focalLength / k2;
-		int k5 = Rasterizer.textureInt1 + i3 * WorldController.focalLength / j2;
-		int l5 = Rasterizer.textureInt2 + i4 * WorldController.focalLength / j2;
-		int i6 = Rasterizer.textureInt1 + l2 * WorldController.focalLength / k3;
-		int j6 = Rasterizer.textureInt2 + j4 * WorldController.focalLength / k3;
-		int k6 = Rasterizer.textureInt1 + l1 * WorldController.focalLength / j3;
-		int l6 = Rasterizer.textureInt2 + k4 * WorldController.focalLength / j3;
+		int i5 = Rasterizer.textureInt1 + (i2 << viewDistance) / k2;
+		int j5 = Rasterizer.textureInt2 + (l3 << viewDistance) / k2;
+		int k5 = Rasterizer.textureInt1 + (i3 << viewDistance) / j2;
+		int l5 = Rasterizer.textureInt2 + (i4 << viewDistance) / j2;
+		int i6 = Rasterizer.textureInt1 + (l2 << viewDistance) / k3;
+		int j6 = Rasterizer.textureInt2 + (j4 << viewDistance) / k3;
+		int k6 = Rasterizer.textureInt1 + (l1 << viewDistance) / j3;
+		int l6 = Rasterizer.textureInt2 + (k4 << viewDistance) / j3;
 		Rasterizer.anInt1465 = 0;
 		if ((i6 - k6) * (l5 - l6) - (j6 - l6) * (k5 - k6) > 0) {
 			Rasterizer.aBoolean1462 = i6 < 0 || k6 < 0 || k5 < 0 || i6 > DrawingArea.viewportRX || k6 > DrawingArea.viewportRX || k5 > DrawingArea.viewportRX;
@@ -1748,8 +1749,8 @@ final class WorldController {
 				ShapedTile.anIntArray691[l1] = k2;
 				ShapedTile.anIntArray692[l1] = i3;
 			}
-			ShapedTile.anIntArray688[l1] = Rasterizer.textureInt1 + i2 * WorldController.focalLength / i3;
-			ShapedTile.anIntArray689[l1] = Rasterizer.textureInt2 + k2 * WorldController.focalLength / i3;
+			ShapedTile.anIntArray688[l1] = Rasterizer.textureInt1 + (i2 << viewDistance) / i3;
+			ShapedTile.anIntArray689[l1] = Rasterizer.textureInt2 + (k2 << viewDistance) / i3;
 			ShapedTile.screenZ[l1] = i3;
 		}
 
@@ -1829,13 +1830,13 @@ final class WorldController {
 		for (int k = 0; k < count; k++) {
 			CullingCluster cluster = clusters[k];
 			if (cluster.searchMask == 1) {
-				int xDistFromCamStart = (cluster.tileStartX - xCamPosTile) + 25;
+				int xDistFromCamStart = (cluster.tileStartX - xCamPosTile) + TILE_DRAW_DISTANCE;
 				if (xDistFromCamStart < 0 || xDistFromCamStart > 50)
 					continue;
-				int yDistFromCamStart = (cluster.tileStartY - yCamPosTile) + 25;
+				int yDistFromCamStart = (cluster.tileStartY - yCamPosTile) + TILE_DRAW_DISTANCE;
 				if (yDistFromCamStart < 0)
 					yDistFromCamStart = 0;
-				int yDistFromCamEnd = (cluster.tileEndY - yCamPosTile) + 25;
+				int yDistFromCamEnd = (cluster.tileEndY - yCamPosTile) + TILE_DRAW_DISTANCE;
 				if (yDistFromCamEnd > 50)
 					yDistFromCamEnd = 50;
 				boolean visisble = false;
@@ -1863,13 +1864,13 @@ final class WorldController {
 				continue;
 			}
 			if (cluster.searchMask == 2) {
-				int yDIstFromCamStart = (cluster.tileStartY - yCamPosTile) + 25;
+				int yDIstFromCamStart = (cluster.tileStartY - yCamPosTile) + TILE_DRAW_DISTANCE;
 				if (yDIstFromCamStart < 0 || yDIstFromCamStart > 50)
 					continue;
-				int xDistFromCamStart = (cluster.tileStartX - xCamPosTile) + 25;
+				int xDistFromCamStart = (cluster.tileStartX - xCamPosTile) + TILE_DRAW_DISTANCE;
 				if (xDistFromCamStart < 0)
 					xDistFromCamStart = 0;
-				int xDistFromCamEnd = (cluster.tileEndX - xCamPosTile) + 25;
+				int xDistFromCamEnd = (cluster.tileEndX - xCamPosTile) + TILE_DRAW_DISTANCE;
 				if (xDistFromCamEnd > 50)
 					xDistFromCamEnd = 50;
 				boolean visible = false;
@@ -1897,17 +1898,17 @@ final class WorldController {
 			} else if (cluster.searchMask == 4) {
 				int yDistFromCamStartReal = cluster.worldStartZ - anInt456;
 				if (yDistFromCamStartReal > 128) {
-					int yDistFromCamStart = (cluster.tileStartY - yCamPosTile) + 25;
+					int yDistFromCamStart = (cluster.tileStartY - yCamPosTile) + TILE_DRAW_DISTANCE;
 					if (yDistFromCamStart < 0)
 						yDistFromCamStart = 0;
-					int yDistFromCamEnd = (cluster.tileEndY - yCamPosTile) + 25;
+					int yDistFromCamEnd = (cluster.tileEndY - yCamPosTile) + TILE_DRAW_DISTANCE;
 					if (yDistFromCamEnd > 50)
 						yDistFromCamEnd = 50;
 					if (yDistFromCamStart <= yDistFromCamEnd) {
-						int xDistFromCamStart = (cluster.tileStartX - xCamPosTile) + 25;
+						int xDistFromCamStart = (cluster.tileStartX - xCamPosTile) + TILE_DRAW_DISTANCE;
 						if (xDistFromCamStart < 0)
 							xDistFromCamStart = 0;
-						int xDistFromCamEnd = (cluster.tileEndX - xCamPosTile) + 25;
+						int xDistFromCamEnd = (cluster.tileEndX - xCamPosTile) + TILE_DRAW_DISTANCE;
 						if (xDistFromCamEnd > 50)
 							xDistFromCamEnd = 50;
 						boolean visisble = false;
@@ -2189,7 +2190,7 @@ final class WorldController {
 	private int anInt488;
 	private final int[][] tileShapePoints = { new int[16], { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, { 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1 }, { 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 }, { 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1 }, { 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, { 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1 }, { 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0 }, { 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1 }, { 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1 } };
 	private final int[][] tileShapeIndices = { { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, { 12, 8, 4, 0, 13, 9, 5, 1, 14, 10, 6, 2, 15, 11, 7, 3 }, { 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 }, { 3, 7, 11, 15, 2, 6, 10, 14, 1, 5, 9, 13, 0, 4, 8, 12 } };
-	private static boolean[][][][] tile_visibility_maps = new boolean[8][32][51][51];
+	private static boolean[][][][] tile_visibility_maps = new boolean[8][32][(TILE_DRAW_DISTANCE * 2) + 1][(TILE_DRAW_DISTANCE * 2) + 1];
 	private static boolean[][] tile_visibility_map;
 	private static int midX;
 	private static int midY;
@@ -2197,10 +2198,9 @@ final class WorldController {
 	private static int top;
 	private static int right;
 	private static int bottom;
-	public static int focalLength;
+	public static int viewDistance = 9;
 
 	static {
-		focalLength = 512;
 		amountOfCullingClusters = 4;
 		cullingClusterPointer = new int[amountOfCullingClusters];
 		cullingClusters = new CullingCluster[amountOfCullingClusters][500];

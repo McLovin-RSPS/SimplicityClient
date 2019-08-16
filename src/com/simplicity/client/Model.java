@@ -10,6 +10,8 @@ import com.simplicity.client.particles.ParticleVector;
 
 @SuppressWarnings("all")
 public class Model extends Animable {
+	
+	private final int DRAW_DISTANCE = 5000; //3500 default
 
     public static int MAX_POLYGON = 10000;
 
@@ -3172,14 +3174,14 @@ public class Model extends Animable {
             int k4 = face_shade_a[i];
             if (j2 >= 50) {
                 int k5 = (50 - l1) * lightDecay[j2 - l1];
-                anIntArray1678[l] = j + (k2 + ((camera_vertex_y[k1] - k2) * k5 >> 16)) * WorldController.focalLength / 50;
-                anIntArray1679[l] = k + (k3 + ((camera_vertex_x[k1] - k3) * k5 >> 16)) * WorldController.focalLength / 50;
+                anIntArray1678[l] = j + (k2 + ((camera_vertex_y[k1] - k2) * k5 >> 16) << WorldController.viewDistance) / 50;
+                anIntArray1679[l] = k + (k3 + ((camera_vertex_x[k1] - k3) * k5 >> 16) << WorldController.viewDistance) / 50;
                 anIntArray1680[l++] = k4 + ((face_shade_c[i] - k4) * k5 >> 16);
             }
             if (i2 >= 50) {
                 int l5 = (50 - l1) * lightDecay[i2 - l1];
-                anIntArray1678[l] = j + (k2 + ((camera_vertex_y[j1] - k2) * l5 >> 16)) * WorldController.focalLength / 50;
-                anIntArray1679[l] = k + (k3 + ((camera_vertex_x[j1] - k3) * l5 >> 16)) * WorldController.focalLength / 50;
+                anIntArray1678[l] = j + (k2 + ((camera_vertex_y[j1] - k2) * l5 >> 16) << WorldController.viewDistance) / 50;
+                anIntArray1679[l] = k + (k3 + ((camera_vertex_x[j1] - k3) * l5 >> 16) << WorldController.viewDistance) / 50;
                 anIntArray1680[l++] = k4 + ((face_shade_b[i] - k4) * l5 >> 16);
             }
         }
@@ -3193,14 +3195,14 @@ public class Model extends Animable {
             int l4 = face_shade_b[i];
             if (l1 >= 50) {
                 int i6 = (50 - i2) * lightDecay[l1 - i2];
-                anIntArray1678[l] = j + (l2 + ((camera_vertex_y[i1] - l2) * i6 >> 16)) * WorldController.focalLength / 50;
-                anIntArray1679[l] = k + (l3 + ((camera_vertex_x[i1] - l3) * i6 >> 16)) * WorldController.focalLength / 50;
+                anIntArray1678[l] = j + (l2 + ((camera_vertex_y[i1] - l2) * i6 >> 16) << WorldController.viewDistance) / 50;
+                anIntArray1679[l] = k + (l3 + ((camera_vertex_x[i1] - l3) * i6 >> 16) << WorldController.viewDistance) / 50;
                 anIntArray1680[l++] = l4 + ((face_shade_a[i] - l4) * i6 >> 16);
             }
             if (j2 >= 50) {
                 int j6 = (50 - i2) * lightDecay[j2 - i2];
-                anIntArray1678[l] = j + (l2 + ((camera_vertex_y[k1] - l2) * j6 >> 16)) * WorldController.focalLength / 50;
-                anIntArray1679[l] = k + (l3 + ((camera_vertex_x[k1] - l3) * j6 >> 16)) * WorldController.focalLength / 50;
+                anIntArray1678[l] = j + (l2 + ((camera_vertex_y[k1] - l2) * j6 >> 16) << WorldController.viewDistance) / 50;
+                anIntArray1679[l] = k + (l3 + ((camera_vertex_x[k1] - l3) * j6 >> 16) << WorldController.viewDistance) / 50;
                 anIntArray1680[l++] = l4 + ((face_shade_c[i] - l4) * j6 >> 16);
             }
         }
@@ -3214,14 +3216,14 @@ public class Model extends Animable {
             int i5 = face_shade_c[i];
             if (i2 >= 50) {
                 int k6 = (50 - j2) * lightDecay[i2 - j2];
-                anIntArray1678[l] = j + (i3 + ((camera_vertex_y[j1] - i3) * k6 >> 16)) * WorldController.focalLength / 50;
-                anIntArray1679[l] = k + (i4 + ((camera_vertex_x[j1] - i4) * k6 >> 16)) * WorldController.focalLength / 50;
+                anIntArray1678[l] = j + (i3 + ((camera_vertex_y[j1] - i3) * k6 >> 16) << WorldController.viewDistance) / 50;
+                anIntArray1679[l] = k + (i4 + ((camera_vertex_x[j1] - i4) * k6 >> 16) << WorldController.viewDistance) / 50;
                 anIntArray1680[l++] = i5 + ((face_shade_b[i] - i5) * k6 >> 16);
             }
             if (l1 >= 50) {
                 int l6 = (50 - j2) * lightDecay[l1 - j2];
-                anIntArray1678[l] = j + (i3 + ((camera_vertex_y[i1] - i3) * l6 >> 16)) * WorldController.focalLength / 50;
-                anIntArray1679[l] = k + (i4 + ((camera_vertex_x[i1] - i4) * l6 >> 16)) * WorldController.focalLength / 50;
+                anIntArray1678[l] = j + (i3 + ((camera_vertex_y[i1] - i3) * l6 >> 16) << WorldController.viewDistance) / 50;
+                anIntArray1679[l] = k + (i4 + ((camera_vertex_x[i1] - i4) * l6 >> 16) << WorldController.viewDistance) / 50;
                 anIntArray1680[l++] = i5 + ((face_shade_a[i] - i5) * l6 >> 16);
             }
         }
@@ -3362,22 +3364,22 @@ public class Model extends Animable {
         int l2 = anInt1650 * k >> 16;
         int i3 = k2 + l2;
 
-        if (i3 <= 50 || k2 >= 3500)
+        if (i3 <= 50 || k2 >= DRAW_DISTANCE)
             return;
         int j3 = l1 * l + j1 * i1 >> 16;
-        int k3 = (j3 - anInt1650) * WorldController.focalLength;
+        int k3 = j3 - anInt1650 << WorldController.viewDistance;
         if (k3 / i3 >= DrawingArea.viewport_centerX)
             return;
-        int l3 = (j3 + anInt1650) * WorldController.focalLength;
+        int l3 = j3 + anInt1650 << WorldController.viewDistance;
         if (l3 / i3 <= -DrawingArea.viewport_centerX)
             return;
         int i4 = k1 * k - j2 * j >> 16;
         int j4 = anInt1650 * j >> 16;
-        int k4 = (i4 + j4) * WorldController.focalLength;
+        int k4 = i4 + j4 << WorldController.viewDistance;
         if (k4 / i3 <= -DrawingArea.viewport_centerY)
             return;
         int l4 = j4 + (super.modelHeight * k >> 16);
-        int i5 = (i4 - l4) * WorldController.focalLength;
+        int i5 = i4 - l4 << WorldController.viewDistance;
         if (i5 / i3 >= DrawingArea.viewport_centerY)
             return;
         int j5 = l2 + (super.modelHeight * j >> 16);
@@ -3440,8 +3442,8 @@ public class Model extends Animable {
             l7 = k8;
             anIntArray1667[j7] = i8 - k2;
             if (i8 >= 50) {
-                projected_vertex_x[j7] = l5 + k7 * WorldController.focalLength / i8;
-                projected_vertex_y[j7] = j6 + l7 * WorldController.focalLength / i8;
+                projected_vertex_x[j7] = l5 + (k7 << WorldController.viewDistance) / i8;
+                projected_vertex_y[j7] = j6 + (l7 << WorldController.viewDistance) / i8;
                 projected_vertex_z[j7] = i8;
             } else {
                 projected_vertex_x[j7] = -5000;

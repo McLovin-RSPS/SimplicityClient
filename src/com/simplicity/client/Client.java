@@ -36,7 +36,6 @@ import java.io.RandomAccessFile;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
-import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.URL;
 import java.text.NumberFormat;
@@ -688,18 +687,21 @@ public class Client extends RSApplet {
                 showChat = true;
                 showTab = true;
                 clientZoom = 0;
+                WorldController.viewDistance = 9;
             } else if (size == 1) {
                 size = 1;
                 width = 766;
                 height = 559;
-                clientZoom = 900;
+                cameraZoom = 900;
                 antialiasing = false;
+                WorldController.viewDistance = 10;
             } else if (size == 2) {
                 antialiasing = false;
                 size = 2;
                 width = getMaxWidth();
                 height = getMaxHeight();
-                clientZoom = 900;
+                cameraZoom = 900;
+                WorldController.viewDistance = 10;
             }
             if (size != 0 && getOption("old_frame")) {
                 pushMessage("Option 'Old Frame' is not available in a resized mode yet.", 0, "");
@@ -16356,10 +16358,10 @@ public class Client extends RSApplet {
     }
 
     public final int[] calcParticlePos(int x, int y, int z, int width, int height) {
-        WorldController.focalLength = Rasterizer.width;
         if (x < 128 || z < 128 || x > 13056 || z > 13056) {
             return new int[]{0, 0, 0, 0, 0, 0, 0};
         }
+        
         int i1 = getFloorDrawHeight(plane, z, x) - y;
         x -= xCameraPos;
         i1 -= zCameraPos;
@@ -16374,12 +16376,12 @@ public class Client extends RSApplet {
         j2 = i1 * k1 - z * j1 >> 16;
         z = i1 * j1 + z * k1 >> 16;
         if (z >= 50) {
-            return new int[]{Rasterizer.textureInt1 + (x * WorldController.focalLength) / z,
-                    Rasterizer.textureInt2 + (j2 * WorldController.focalLength) / z, z,
-                    Rasterizer.textureInt1 + (x - width / 2 * WorldController.focalLength) / z,
-                    Rasterizer.textureInt2 + (j2 - height / 2 * WorldController.focalLength) / z,
-                    Rasterizer.textureInt1 + (x + width / 2 * WorldController.focalLength) / z,
-                    Rasterizer.textureInt2 + (j2 + height / 2 * WorldController.focalLength) / z};
+            return new int[]{Rasterizer.textureInt1 + (x << WorldController.viewDistance) / z,
+                    Rasterizer.textureInt2 + (j2 << WorldController.viewDistance) / z, z,
+                    Rasterizer.textureInt1 + (x - width / 2 << WorldController.viewDistance) / z,
+                    Rasterizer.textureInt2 + (j2 - height / 2 << WorldController.viewDistance) / z,
+                    Rasterizer.textureInt1 + (x + width / 2 << WorldController.viewDistance) / z,
+                    Rasterizer.textureInt2 + (j2 + height / 2 << WorldController.viewDistance) / z};
         } else {
             return new int[]{0, 0, 0, 0, 0, 0, 0};
         }
@@ -16390,7 +16392,6 @@ public class Client extends RSApplet {
     }
 
     private void calcEntityScreenPos(int i, int j, int l) {
-        WorldController.focalLength = Rasterizer.width;
         if (i < 128 || l < 128 || i > 13056 || l > 13056) {
             spriteDrawX = -1;
             spriteDrawY = -1;
@@ -16411,13 +16412,12 @@ public class Client extends RSApplet {
         l = i1 * j1 + l * k1 >> 16;
         i1 = j2;
         if (l >= 50) {
-            spriteDrawX = Rasterizer.textureInt1 + (i * WorldController.focalLength) / l;
-            spriteDrawY = Rasterizer.textureInt2 + (i1 * WorldController.focalLength) / l;
+            spriteDrawX = Rasterizer.textureInt1 + (i  << WorldController.viewDistance) / l;
+            spriteDrawY = Rasterizer.textureInt2 + (i1  << WorldController.viewDistance) / l;
         } else {
             spriteDrawX = -1;
             spriteDrawY = -1;
         }
-        WorldController.focalLength = 512;
     }
 
     private void buildSplitPrivateChatMenu() {
@@ -19927,7 +19927,7 @@ public class Client extends RSApplet {
                 int k = viewRotation + viewRotationOffset & 0x7ff;
                 int zoom = (600 + (i * clientHeight / 400) + clientZoom);
 
-                setCameraPos(cameraZoom + (clientWidth >= 1024 ? i + cameraZoom - clientHeight / 200 : i) * (log_view_dist == 9 && clientSize == 1 ? 1 : log_view_dist == 10 ? 1 : 3), i, anInt1014, getFloorDrawHeight(plane, myPlayer.y, myPlayer.x) - 50, k, anInt1015);
+                setCameraPos(cameraZoom + (clientWidth >= 1024 ? i + cameraZoom - clientHeight / 200 : i) * (WorldController.viewDistance == 10 ? 1 : 3), i, anInt1014, getFloorDrawHeight(plane, myPlayer.y, myPlayer.x) - 50, k, anInt1015);
             }
             if (!inCutScene) {
                 j = getCameraHeight();
@@ -19968,12 +19968,10 @@ public class Client extends RSApplet {
         Model.objectsRendered = 0;
         Model.currentCursorX = super.mouseX - 4;
         Model.currentCursorY = super.mouseY - 4;
-        WorldController.focalLength = DrawingArea.width;
         int[] pixels = null, offsets = null;
         if (antialiasing) {
             Model.currentCursorX <<= 1;
             Model.currentCursorY <<= 1;
-            WorldController.focalLength <<= 1;
             pixels = Rasterizer.pixels;
             Rasterizer.pixels = antialiasingPixels;
             offsets = Rasterizer.anIntArray1472;
@@ -19999,7 +19997,6 @@ public class Client extends RSApplet {
         if (antialiasing) {
             Model.currentCursorX >>= 1;
             Model.currentCursorY >>= 1;
-            WorldController.focalLength >>= 1;
             Rasterizer.pixels = pixels;
             Rasterizer.anIntArray1472 = offsets;
             Rasterizer.bottomX >>= 1;
@@ -20029,7 +20026,6 @@ public class Client extends RSApplet {
                 }
             }
         }
-        WorldController.focalLength = 512;
         worldController.clearInteractableObjects();
 
         if (getOption("ground_items")) {
@@ -20292,7 +20288,6 @@ public class Client extends RSApplet {
     public static final int[] MOVING_TEXTURES = new int[]{59, 61, 62, 63, 64, 65, 66, 67, 68};
 
     public int[] write(int var1, int var2, int var3, int var4, int var5) {
-        WorldController.focalLength = Rasterizer.width;
         if (var1 >= 128 && var3 >= 128 && var1 <= 13056 && var3 <= 13056) {
             int var6 = getFloorDrawHeight(plane, var3, var1) - var2;
             var1 -= xCameraPos;
@@ -20308,16 +20303,15 @@ public class Client extends RSApplet {
             var11 = var6 * var8 - var3 * var7 >> 16;
             var3 = var6 * var7 + var3 * var8 >> 16;
             return var3 >= 50 && var3 <= 3500
-                    ? new int[]{Rasterizer.textureInt1 + var1 * WorldController.focalLength / var3,
-                    Rasterizer.textureInt2 + var11 * WorldController.focalLength / var3, var3,
-                    Rasterizer.textureInt1 + var1 - var4 / 2 * WorldController.focalLength / var3,
-                    Rasterizer.textureInt2 + var11 - var5 / 2 * WorldController.focalLength / var3,
-                    Rasterizer.textureInt1 + var1 + var4 / 2 * WorldController.focalLength / var3,
-                    Rasterizer.textureInt2 + var11 + var5 / 2, WorldController.focalLength / var3}
+                    ? new int[]{Rasterizer.textureInt1 + var1 << WorldController.viewDistance / var3,
+                    Rasterizer.textureInt2 + var11 << WorldController.viewDistance / var3, var3,
+                    Rasterizer.textureInt1 + var1 - var4 / 2 << WorldController.viewDistance / var3,
+                    Rasterizer.textureInt2 + var11 - var5 / 2 << WorldController.viewDistance / var3,
+                    Rasterizer.textureInt1 + var1 + var4 / 2 << WorldController.viewDistance / var3,
+                    Rasterizer.textureInt2 + var11 + var5 / 2, WorldController.viewDistance / var3}
 
                     : new int[]{0, 0, 0, 0, 0, 0, 0};
         }
-        WorldController.focalLength = 512;
         return new int[]{0, 0, 0, 0, 0, 0, 0};
     }
 
