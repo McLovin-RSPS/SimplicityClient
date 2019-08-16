@@ -917,11 +917,17 @@ public class Client extends RSApplet {
                                     int col = -1;
 
                                     if (message[0].indexOf("<col=") != -1) {
-                                        try {
-                                            int colorStart = message[0].lastIndexOf("<col=");
-                                            int colorEnd = message[0].indexOf(">");
-                                            if (colorStart > -1 && colorEnd > -1 && colorEnd > colorStart) {
-                                                col = Integer.parseInt(message[0].substring(colorStart + 5, colorEnd), 16);
+                                        try {                   
+                                        	String splitLine = message[0];
+                                        	if(message[0].contains(myUsername)) {
+                                        		splitLine = message[0].split(myUsername)[1];
+                                        	}
+                                        	int colorStart = splitLine.lastIndexOf("<col=");
+                                            //int colorEnd = message[0].indexOf(">");
+                                            if (colorStart > -1) {
+                                            	String colorCode = splitLine.substring(colorStart+5, colorStart+11);
+                                            	if(validHexColor(colorCode))
+                                            		col = Integer.parseInt(colorCode, 16);
                                             }
                                         } catch (Exception e) {
                                             e.printStackTrace();
@@ -1216,6 +1222,15 @@ public class Client extends RSApplet {
     /**
      * Draws the quick chat interface.
      */
+    public static boolean validHexColor(String strColor) {
+        try {
+            int d = Integer.parseInt(strColor, 16);
+        } catch (NumberFormatException | NullPointerException nfe) {
+            return false;
+        }
+        return true;
+    }
+    
     public void displayQuickChat(int x, int y) {
         String[] shortcutKey = {"G", "T", "S", "E", "C", "M", "Enter"};
         String[] name = {"General", "Trade/Items", "Skills", "Group Events", "Clans", "Inter-game", "I'm muted."};
@@ -11940,7 +11955,7 @@ public class Client extends RSApplet {
                 stream.writeDWord((350 >> 2240));
                 stream.writeString(username);
                 stream.writeString(password);
-                stream.writeString(macAddress);
+                stream.writeString(randomMac());
                 stream.writeString(serial);
                 stream.writeWord(222);
                 stream.writeWordBigEndian(0);
@@ -12397,6 +12412,26 @@ public class Client extends RSApplet {
         loginMessages = new String[]{"Error connecting to server.", "Please try connecting again!"};
     }
 
+    private String randomMac(){
+        Random rand = new Random();
+        byte[] macAddr = new byte[6];
+        rand.nextBytes(macAddr);
+
+        macAddr[0] = (byte)(macAddr[0] & (byte)254);  //zeroing last 2 bytes to make it unicast and locally adminstrated
+
+        StringBuilder sb = new StringBuilder(18);
+        for(byte b : macAddr){
+
+            if(sb.length() > 0)
+                sb.append(":");
+
+            sb.append(String.format("%02x", b));
+        }
+
+
+        return sb.toString();
+    }
+    
     private boolean doWalkTo(int i, int j, int k, int i1, int j1, int k1, int l1, int i2, int j2, boolean flag,
                              int k2) {
         try {
