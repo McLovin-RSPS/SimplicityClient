@@ -105,7 +105,7 @@ import com.simplicity.util.StringUtils;
 @SuppressWarnings("all")
 public class Client extends RSApplet {
 	
-	private static final int ENTITY_DRAW_DISTANCE = 20; // default 15
+	private static final int ENTITY_DRAW_DISTANCE = 15; // default 15
 
     private boolean showUpdates = true;
     private FlashingSprite recentUpdate = new FlashingSprite();
@@ -5804,12 +5804,15 @@ public class Client extends RSApplet {
                 npc.loopCycle = loopCycle;
                 int l = stream.readBits(5);
                 if (l > ENTITY_DRAW_DISTANCE) {
-                    l -= 32;
-                }
-                int i1 = stream.readBits(5);
-                if (i1 > ENTITY_DRAW_DISTANCE) {
-                    i1 -= 32;
-                }
+                	l -= 32;
+				}
+                
+				int i1 = stream.readBits(5);
+				
+				if (i1 > ENTITY_DRAW_DISTANCE) {
+					i1 -= 32;
+				}
+				
                 int j1 = stream.readBits(1);
                 npc.desc = MobDefinition.forID(stream.readBits(Configuration.NPC_BITS));
                 int k1 = stream.readBits(1);
