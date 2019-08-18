@@ -13467,13 +13467,13 @@ public class Client extends RSApplet {
                 playersToUpdate[playersToUpdateCount++] = j;
             }
             int l = stream.readBits(1);
-            int i1 = stream.readBits(5);
+            int i1 = stream.readBits(6);
             if (i1 > ENTITY_DRAW_DISTANCE) {
-                i1 -= 32;
+                i1 -= 64;
             }
-            int j1 = stream.readBits(5);
+            int j1 = stream.readBits(6);
             if (j1 > ENTITY_DRAW_DISTANCE) {
-                j1 -= 32;
+                j1 -= 64;
             }
             player.setPos(myPlayer.pathX[0] + j1, myPlayer.pathY[0] + i1, l == 1);
         }
