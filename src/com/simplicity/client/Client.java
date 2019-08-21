@@ -110,7 +110,7 @@ public class Client extends RSApplet {
     private boolean showUpdates = true;
     private FlashingSprite recentUpdate = new FlashingSprite();
 
-    private boolean showMysteryBoxAlert = true;
+    private boolean showMysteryBoxAlert = false;
     private FlashingSprite mysteryBoxAlert = new FlashingSprite();
     private Sprite[] mysteryBoxSprites = new Sprite[3];
     private static final int[] MYSTERY_BOXES = {19713, 19714, 19715};
@@ -15421,12 +15421,12 @@ public class Client extends RSApplet {
             int yOffset = fixed ? 50 : (clientHeight - 503);
 
             for (int i = 0; i < MYSTERY_BOXES.length; i++) {
-                // mysteryBoxAlert.drawFlashingItem(MYSTERY_BOXES[i], x + xOffset, 215 + yOffset);
+                mysteryBoxAlert.drawFlashingItem(MYSTERY_BOXES[i], x + xOffset, 215 + yOffset);
                 x += 30;
             }
 
-            // fancyText.drawText(0, "Available Mystery Box Discount", 269 + yOffset, 51 + xOffset);
-            // fancyText.drawText(0x50D050, "Available Mystery Box Discount", 270 + yOffset, 50 + xOffset);
+            fancyText.drawText(0, "Available Mystery Box Discount", 269 + yOffset, 51 + xOffset);
+            fancyText.drawText(0x50D050, "Available Mystery Box Discount", 270 + yOffset, 50 + xOffset);
         }
         drawParallelWidgets();
         // drawTeleIcon();
