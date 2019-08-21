@@ -7465,6 +7465,10 @@ public class Client extends RSApplet {
             if (id == 129777) {
                 sizeY = -1;
             }
+            
+            if (id == 132738) {
+            	sizeY = -2;
+            }
 
             /**
              * Revenant cave pillars walking up to.
