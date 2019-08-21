@@ -250,6 +250,8 @@ public class CustomObjects {
             // Edge arthur's dream teleporter
             {48661, 3083, 3488, 0, 3}, // Arthur's dream teleporter edgeville
             {27254, 1831, 5163, 2, 0}, // Dark portal arthur's dream
+            
+            {42774, 3083, 3499, 0, 3}, // Arthur's dream II teleporter edgeville
 
             {14859, 3099, 3499, 0, 0}, // rune ore edge bank
             {14859, 3099, 3498, 0, 0}, // rune ore edge bank

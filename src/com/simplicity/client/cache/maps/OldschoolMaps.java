@@ -15,16 +15,21 @@ public class OldschoolMaps {
     private static final Map<Integer, Integer> OLDSCHOOL_REGIONS = new HashMap<>();
 
     public static int[] OLDSCHOOL_REGION_IDS = {
-            5947, //south of blast mine
-            8536, //demonic gorillas
-            8280, //demonic gorillas
+            5947, // South of blast mine
+            8536, // Demonic gorillas
+            8280, // Demonic gorillas
             8789,
             6457, // Great Kourand
-
-            12867, //tob treasure
             
-            10894, //monkey skeletons
-            11150, //monkey skeletons
+            5789, // CHASM OF FIRE
+            
+            6206, 6462, 6718, 6461, // Wintertodt
+            5945, 6201, // Lizardman Canyon 
+
+            12867, // Tob treasure
+            
+            10894, // Monkey skeletons
+            11150, // Monkey skeletons
 
             9619,
             14386, 14642,
