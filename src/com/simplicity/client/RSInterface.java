@@ -4669,7 +4669,7 @@ public class RSInterface {
         RSInterface tab = addTabInterface(childId++);
         addText(childId++, "Looting bag", tda, 2, 0xFF981F, true, true);
 
-        addCloseButton(childId++, childId++, childId++);
+        addCloseSpecialButton(childId++, childId++, childId++);
 
         addRectangle(childId++, 256, 0x524a3e, true, 170, 225);
 
@@ -4705,13 +4705,13 @@ public class RSInterface {
         RSInterface tab = addTabInterface(childId++);
         addText(childId++, "Add to Bag", tda, 2, 0xFF981F, true, true);
 
-        addCloseButton(childId++, childId++, childId++);
+        addCloseSpecialButton(childId++, childId++, childId++);
 
         addRectangle(childId++, 256, 0x524a3e, true, 170, 225);
 
         addRectangle(childId++, 170, 0x000000, false, 170, 225);
 
-        addItemContainer(childId++, new int[] { 10, 0 }, new int[] { 4, 7 }, new String[] {"Store-1", "Store-5", "Store-All", "Store-X"}, false);
+        addItemContainer(childId++, new int[] { 10, 0 }, new int[] { 4, 7 }, new String[] {"Store-1", "Store-20", "Store-100", "Store-All"}, false);
 
         addText(childId++, "Bag Value: -", tda, 0, 0xFF981F, true, true);
 
@@ -12450,6 +12450,15 @@ public class RSInterface {
 
     public static void addCloseButton(int child, int hoverChild, int hoverImageChild) {
         addCloseButton(child, hoverChild, hoverImageChild, false);
+    }
+
+    public static void addCloseSpecialButton(int child, int hoverChild, int hoverImageChild) {
+        addCloseSpecialButton(child, hoverChild, hoverImageChild, false);
+    }
+
+    public static void addCloseSpecialButton(int child, int hoverChild, int hoverImageChild, boolean small) {
+        addHoverButtonWSpriteLoader(child, 737, 16, 16, "Close", 0, hoverChild, 1);
+        addHoveredImageWSpriteLoader(hoverChild, 738, 16, 16, hoverImageChild);
     }
 
     public static void addCloseButton(int child, int hoverChild, int hoverImageChild, boolean small) {

@@ -66,7 +66,7 @@ public final class MobDefinition {
                     npc.actions = new String[5];
                     npc.actions[1] = "Attack";
                     npc.sizeXZ *= 3;
-                    npc.sizeY *= 3;
+                    npc.sizeY *= 3l;
                     npc.squaresNeeded = 4;
                     break;
                 case 7413:
