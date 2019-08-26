@@ -692,7 +692,7 @@ public class Client extends RSApplet {
             } else if (size == 1) {
                 size = 1;
                 width = 786;
-                height = 559;
+                height = 575;
                 cameraZoom = 900;
                 antialiasing = false;
                 WorldController.viewDistance = 10;
