@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -690,7 +691,7 @@ public class Client extends RSApplet {
                 WorldController.viewDistance = 9;
             } else if (size == 1) {
                 size = 1;
-                width = 766;
+                width = 786;
                 height = 559;
                 cameraZoom = 900;
                 antialiasing = false;
@@ -19956,8 +19957,7 @@ public class Client extends RSApplet {
                 }
                 int k = viewRotation + viewRotationOffset & 0x7ff;
                 int zoom = (600 + (i * clientHeight / 400) + clientZoom);
-
-                setCameraPos(cameraZoom + (clientWidth >= 1024 ? i + cameraZoom - clientHeight / 200 : i) * (WorldController.viewDistance == 10 ? 1 : 3), i, anInt1014, getFloorDrawHeight(plane, myPlayer.y, myPlayer.x) - 50, k, anInt1015);
+                setCameraPos(cameraZoom + (clientSize > 0 ? i + cameraZoom - clientHeight / 200 : i) * (WorldController.viewDistance == 10 ? 1 : 3), i, anInt1014, getFloorDrawHeight(plane, myPlayer.y, myPlayer.x) - 50, k, anInt1015);
             }
             if (!inCutScene) {
                 j = getCameraHeight();

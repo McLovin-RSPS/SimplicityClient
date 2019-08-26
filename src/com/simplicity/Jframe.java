@@ -79,6 +79,7 @@ public class Jframe extends Client implements ActionListener {
 				height += 10;
 			}
 			super.setPreferredSize(new Dimension(width - 10, height - 10));
+			frame.setMinimumSize(new Dimension(width - 10, height - 10));
 			frame.setLayout(new BorderLayout());
 			gamePanel.setLayout(new BorderLayout());
 			gamePanel.add(this);
@@ -138,6 +139,7 @@ public class Jframe extends Client implements ActionListener {
 		frame.getContentPane().add(gamePanel, BorderLayout.CENTER);
 		frame.pack();
 		frame.setResizable(resizable);
+		frame.setMinimumSize(new Dimension(width - 10, height - 10));
 		//init();
 		graphics = getGameComponent().getGraphics();
 		frame.setLocation((screenWidth - width) / 2, ((screenHeight - height) / 2) - screenHeight == getMaxHeight() ? 0 : undecorated ? 0 : 70);
