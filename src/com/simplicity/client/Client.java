@@ -19957,7 +19957,14 @@ public class Client extends RSApplet {
                 }
                 int k = viewRotation + viewRotationOffset & 0x7ff;
                 int zoom = (600 + (i * clientHeight / 400) + clientZoom);
-                setCameraPos(cameraZoom + (clientSize > 0 ? i + cameraZoom - clientHeight / 200 : i) * (WorldController.viewDistance == 10 ? 1 : 3), i, anInt1014, getFloorDrawHeight(plane, myPlayer.y, myPlayer.x) - 50, k, anInt1015);
+                
+                int extraZoom = 0;
+
+                if (getRegionId() == 12611) {
+                	extraZoom = 700;
+                }
+                
+                setCameraPos(extraZoom + cameraZoom + (clientSize > 0 ? i + cameraZoom - clientHeight / 200 : i) * (WorldController.viewDistance == 10 ? 1 : 3), i, anInt1014, getFloorDrawHeight(plane, myPlayer.y, myPlayer.x) - 50, k, anInt1015);
             }
             if (!inCutScene) {
                 j = getCameraHeight();
