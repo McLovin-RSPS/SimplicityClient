@@ -4360,6 +4360,10 @@ public class Client extends RSApplet {
             int childX = class9.childX[frameID] + interfaceX;
             int childY = (class9.childY[frameID] + interfaceY) - scrollOffset;
             RSInterface child = RSInterface.interfaceCache[class9.children[frameID]];
+            
+            if (child == null) {
+            	continue;
+            }
             childX += child.xOffset;
             childY += child.yOffset;
             // if(super.clickMode3 != 0) {
