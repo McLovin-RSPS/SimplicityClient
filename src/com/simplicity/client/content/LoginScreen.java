@@ -3,6 +3,8 @@ package com.simplicity.client.content;
 import java.util.ArrayList;
 
 import com.simplicity.client.Client;
+import com.simplicity.client.ClientSettings;
+import com.simplicity.util.StringUtils;
 
 public class LoginScreen {
 	private static final int MAX_CHARACTERS = 3;
@@ -13,26 +15,30 @@ public class LoginScreen {
 
 	public static final String[] SOCIAL_MEDIA = { "Facebook", "Twitter", "YouTube", "Twitch", "Discord" };
 
-	public static final ArrayList<CharacterFile> characters = new ArrayList<CharacterFile>();
+	public static ArrayList<CharacterFile> characters = new ArrayList<CharacterFile>();
 
 	public static final String[] SOCIAL_MEDIA_LINKS = { "https://www.facebook.com/simplicityps", "", "http://www.youtube.com/channel/UCsQMC7RxvylgTL0jveRyjSw",
 			"", "http://discord.gg/VJy7QAH", "" };
 
 
-	public static void add(String username, String password, boolean safe) {
+	public static boolean add(String username, String password, boolean save) {
 		if (characters.size() == MAX_CHARACTERS) {
-			return;
+			return false;
 		}
 		for (CharacterFile c : characters) {
 			if (c.username.equalsIgnoreCase(username)) {
-				return;
+				return false;
 			}
 		}
+		
 		CharacterFile file = new CharacterFile(username, password);
 		characters.add(file);
-		if(safe) {
-			Client.instance.saveSettings();
+		
+		if (save) {
+			ClientSettings.save();
 		}
+		
+		return true;
 	}
 	
 	public static void delete(String username) {
@@ -42,19 +48,30 @@ public class LoginScreen {
 			if (c.username.equalsIgnoreCase(username)) {
 				characters.remove(i);
 				characters.trimToSize();
-				Client.instance.saveSettings();
+				ClientSettings.save();
 				break;
 			}
 		}
 	}
-
+	
 	public static final class CharacterFile {
-		public String username;
-		public String password;
+		private String username;
+		private String password;
 
 		public CharacterFile(String username, String password) {
 			this.username = username;
-			this.password = password;
+			this.password = StringUtils.xorMessage(password, "yT4eHQk");
 		}
+		
+		public String getUsername() {
+			return username;
+		}
+		
+		public String getPassword() {
+			String encoded = StringUtils.base64decode(StringUtils.base64encode(password));
+			
+			return StringUtils.xorMessage(encoded, "yT4eHQk");
+		}
+		
 	}
 }

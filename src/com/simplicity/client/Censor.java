@@ -1,6 +1,6 @@
 package com.simplicity.client;
 
-
+import com.simplicity.Configuration;
 
 // Decompiled by Jad v1.5.8f. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
@@ -108,7 +108,7 @@ final class Censor {
 	}
 
 	public static String doCensor(String s) {
-		if(!Client.getOption("censor_active"))
+		if(!Configuration.enableCensor)
 			return s;
 		long l = System.currentTimeMillis();
 		char ac[] = s.toCharArray();

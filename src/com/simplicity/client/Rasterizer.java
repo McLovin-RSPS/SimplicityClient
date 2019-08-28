@@ -2,6 +2,8 @@ package com.simplicity.client;
 
 import java.awt.Color;
 
+import com.simplicity.Configuration;
+
 public final class Rasterizer extends DrawingArea {
 	
 	public static boolean saveDepth = true;
@@ -446,7 +448,7 @@ public final class Rasterizer extends DrawingArea {
 	}
 	
 	public static void drawMaterializedTriangle(int y1, int y2, int y3, int x1, int x2, int x3, int hsl1, int hsl2, int hsl3, int tx1, int tx2, int tx3, int ty1, int ty2, int ty3, int tz1, int tz2, int tz3, int tex, int z1, int z2, int z3) {
-		if (!Client.getOption("hd_tex") || Texture.get(tex) == null) {
+		if (!Configuration.enableHDTextures || Texture.get(tex) == null) {
 			drawGouraudTriangle(y1, y2, y3, x1, x2, x3, hsl1, hsl2, hsl3, z1, z2, z3);
 			return;
 		}

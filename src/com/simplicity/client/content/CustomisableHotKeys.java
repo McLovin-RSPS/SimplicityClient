@@ -1,15 +1,18 @@
 package com.simplicity.client.content;
 
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
+import com.simplicity.Configuration;
 import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.content.dropdownmenu.DropDownAction;
 import com.simplicity.client.content.dropdownmenu.DropDownMenu;
-
-import java.awt.event.KeyEvent;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.LinkedList;
-import java.util.Set;
 
 /**
  * Created using Eclipse.
@@ -106,12 +109,7 @@ public class CustomisableHotKeys {
      */
     public static final int ESC_VALUE_SETTING_IDENTIFIER = 400;
 
-    /**
-     * Does esc key close interfaces?/
-     */
-    private static boolean escClosesInterface = true;
-
-    private static LinkedList<HotKey> hotKeys = new LinkedList<HotKey>() {
+    public static LinkedList<HotKey> hotKeys = new LinkedList<HotKey>() {
         {
             for (ChildTabKeyRelation value : ChildTabKeyRelation.VALUES) {
                 add(new HotKey(value.childId, value.identifier, value.keyCode, value.tabId));
@@ -124,8 +122,8 @@ public class CustomisableHotKeys {
      *
      * @return the hotkeys
      */
-    public static LinkedList<HotKey> getHotKeys() {
-        return hotKeys;
+    public static List<HotKey> getHotKeys() {
+        return hotKeys.subList(0, hotKeys.size());
     }
 
     /**
@@ -194,7 +192,7 @@ public class CustomisableHotKeys {
 
         if (isEscClosesInterface()) {
             setEscConfigButtonSettings(0);
-            setEscClosesInterface(false);
+            Configuration.escapeClosesInterface = false;
         }
 
     }
@@ -218,10 +216,7 @@ public class CustomisableHotKeys {
             }
         }
 
-        if (isEscClosesInterface()) {
-            setEscConfigButtonSettings(1);
-        }
-
+        RSInterface.interfaceCache[90006].active = Configuration.escapeClosesInterface;
     }
 
     /**
@@ -294,11 +289,7 @@ public class CustomisableHotKeys {
     }
 
     public static boolean isEscClosesInterface() {
-        return escClosesInterface;
-    }
-
-    public static void setEscClosesInterface(boolean escClosesInterface) {
-        CustomisableHotKeys.escClosesInterface = escClosesInterface;
+        return Configuration.escapeClosesInterface;
     }
 
 

@@ -8,6 +8,7 @@ import com.simplicity.client.cache.definitions.MobDefinition;
 import com.simplicity.client.content.CustomisableHotKeys;
 import com.simplicity.client.content.dropdownmenu.DropDownAction;
 import com.simplicity.client.content.dropdownmenu.DropDownMenu;
+import com.simplicity.client.widget.SettingsWidget;
 
 @SuppressWarnings("all")
 public class RSInterface {
@@ -4250,6 +4251,8 @@ public class RSInterface {
          */
 
         makeAllSkilling(textDrawingAreas);
+        
+        SettingsWidget.unpack(textDrawingAreas);
 
         spriteCache = null;
     }
@@ -4291,12 +4294,10 @@ public class RSInterface {
         addHoverButton_sprite_loader(90002, 1020, 21, 21, "Close", -1, 90003, 3); // Close button
         addHoveredImageWSpriteLoader(90003, 1021, 21, 21, 28634); // Close button hover
         addText(90005, "Keybinding", 0xFF981F, false, true, 52, TDA, 2); // Title //0xFF981F
-        addConfigButtonWSpriteLoader(90006, 90000, 1039, 1040, 15, 15, "Close Interfaces when using Esc", 1, 5, 400); // Radio
-        // button
-        // for
-        // esc
+        
+        configButton(90006, "Esc closes current interface", 1040, 1039);
         addText(90007, "Esc closes current interface", 0xFF981F, false, true, 52, TDA, 1); // esc text
-
+        
         addHoverButtonWSpriteLoader(90008, 954, 114, 25, "Restore Default Keys", -1, 90009, 1);
         addHoveredImageWSpriteLoader(90009, 955, 114, 25, 90010);
 
@@ -12443,6 +12444,16 @@ public class RSInterface {
     public boolean inventoryHover;
     public boolean greyScale;
     public boolean hidden;
+    
+	public Sprite enabledAltSprite;
+	public Sprite disabledAltSprite;
+    
+	public int[] buttonsToDisable;
+	public boolean active;
+	public int spriteOpacity;
+	public int msgX, msgY;
+	
+	public RSFontSystem rsFont;
 
     /*
      * Custom interfaces
@@ -15041,6 +15052,121 @@ public class RSInterface {
         tab.height = tab.disabledSprite.myHeight;
         tab.tooltip = tT;
     }
+    
+	public static void configButton(int id, String tooltip, int enabledSprite, int disabledSprite) {
+		RSInterface tab = addInterface(id);
+		tab.tooltip = tooltip;
+		tab.atActionType = 1;
+		tab.type = 19;
+		tab.enabledSprite = Client.cacheSprite[enabledSprite];
+		tab.disabledSprite = Client.cacheSprite[disabledSprite];
+		tab.width = tab.enabledSprite.myWidth;
+		tab.height = tab.disabledSprite.myHeight;
+		tab.active = false;
+	}
+    
+	public static void configHoverButton(int id, String tooltip, int enabledSprite, int disabledSprite,
+			int enabledAltSprite, int disabledAltSprite) {
+		RSInterface tab = addInterface(id);
+		tab.tooltip = tooltip;
+		tab.atActionType = 1;
+		tab.type = 20;
+		tab.enabledSprite = Client.cacheSprite[enabledSprite];
+		tab.disabledSprite = Client.cacheSprite[disabledSprite];
+		tab.width = tab.enabledSprite.myWidth;
+		tab.height = tab.disabledSprite.myHeight;
+		tab.enabledAltSprite = Client.cacheSprite[enabledAltSprite];
+		tab.disabledAltSprite = Client.cacheSprite[disabledAltSprite];
+		tab.spriteOpacity = 255;
+	}
+
+	public static void configHoverButton(int id, String tooltip, int enabledSprite, int disabledSprite,
+			int enabledAltSprite, int disabledAltSprite, boolean active, int... buttonsToDisable) {
+		RSInterface tab = addInterface(id);
+		tab.tooltip = tooltip;
+		tab.atActionType = 1;
+		tab.type = 20;
+		tab.enabledSprite = Client.cacheSprite[enabledSprite];
+		tab.disabledSprite = Client.cacheSprite[disabledSprite];
+		tab.width = tab.enabledSprite.myWidth;
+		tab.height = tab.disabledSprite.myHeight;
+		tab.enabledAltSprite = Client.cacheSprite[enabledAltSprite];
+		tab.disabledAltSprite = Client.cacheSprite[disabledAltSprite];
+		tab.buttonsToDisable = buttonsToDisable;
+		tab.active = active;
+		tab.spriteOpacity = 255;
+	}
+
+	public static void configHoverButton(int id, String tooltip, int enabledSprite, int disabledSprite,
+			int enabledAltSprite, int disabledAltSprite, boolean active, String buttonText, RSFontSystem rsFont, int colour,
+			int hoveredColour, boolean centerText, int... buttonsToDisable) {
+		RSInterface tab = addInterface(id);
+		tab.tooltip = tooltip;
+		tab.atActionType = 1;
+		tab.type = 20;
+		tab.enabledSprite = Client.cacheSprite[enabledSprite];
+		tab.disabledSprite = Client.cacheSprite[disabledSprite];
+		tab.width = tab.enabledSprite.myWidth;
+		tab.height = tab.disabledSprite.myHeight;
+		tab.enabledAltSprite = Client.cacheSprite[enabledAltSprite];
+		tab.disabledAltSprite = Client.cacheSprite[disabledAltSprite];
+		tab.buttonsToDisable = buttonsToDisable;
+		tab.active = active;
+		tab.msgX = tab.width / 2;
+		tab.msgY = (tab.height / 2) + 4;
+		tab.message = buttonText;
+		tab.rsFont = rsFont;
+		tab.disabledColor = colour;
+		tab.disabledMouseOverColor = hoveredColour;
+		tab.centerText = centerText;
+		tab.spriteOpacity = 255;
+	}
+	
+	public static void handleConfigHover(RSInterface widget) {
+		if (widget.active) {
+			return;
+		}
+		widget.active = true;
+		
+		configHoverButtonSwitch(widget);
+		disableOtherButtons(widget);
+	}
+
+	public static void configHoverButtonSwitch(RSInterface widget) {
+		Sprite[] backup = new Sprite[] { widget.enabledSprite, widget.disabledSprite };
+
+		widget.enabledSprite = widget.enabledAltSprite;
+		widget.disabledSprite = widget.disabledAltSprite;
+
+		widget.enabledAltSprite = backup[0];
+		widget.disabledAltSprite = backup[1];
+	}
+
+	public static void disableOtherButtons(RSInterface widget) {
+		if (widget.buttonsToDisable == null) {
+			return;
+		}
+		for (int btn : widget.buttonsToDisable) {
+			RSInterface btnWidget = interfaceCache[btn];
+
+			if (btnWidget.active) {
+
+				btnWidget.active = false;
+				configHoverButtonSwitch(btnWidget);
+			}
+		}
+	}
+	
+	public void setDropdownValue(int identifier) {
+		DropDownMenu menu = (DropDownMenu) this;
+
+		for (DropDownAction action : menu.getActions()) {
+			if (action.getIdentifier() == identifier) {
+				menu.message = action.getMessage();
+				break;
+			}
+		}
+	}
 
     public static void addInAreaHover(int i, String imageName, int sId, int sId2, int w, int h, String text,
                                       int contentType, int actionType) {

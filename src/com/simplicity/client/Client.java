@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Desktop;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -45,7 +44,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -100,6 +98,7 @@ import com.simplicity.client.content.dropdownmenu.DropDownAction;
 import com.simplicity.client.content.dropdownmenu.DropDownMenu;
 import com.simplicity.client.particles.Particle;
 import com.simplicity.client.particles.ParticleDefinition;
+import com.simplicity.client.widget.SettingsWidget;
 import com.simplicity.util.Stopwatch;
 import com.simplicity.util.StringUtils;
 
@@ -172,15 +171,6 @@ public class Client extends RSApplet {
     }
 
     public static int log_view_dist = 9;
-    public static HashMap<String, Boolean> options = new HashMap<String, Boolean>();
-
-    public static boolean getOption(String s) {
-    	if (!options.containsKey(s)) {
-    		return false;
-    	}
-    	
-        return options.get(s).booleanValue();
-    }
 
     private void handleSettings() {
         if (!isWebclient()) {
@@ -192,303 +182,12 @@ public class Client extends RSApplet {
             }
         } else
             clientSize = 0;
-        if (getOption("hd_tex")) {
-            int l2 = RSInterface.interfaceCache[35616].valueIndexArray[0][1];
-            variousSettings[l2] = 1 - variousSettings[l2];
-        }
-        if (getOption("particles")) {
-            int l2 = RSInterface.interfaceCache[35652].valueIndexArray[0][1];
-            variousSettings[l2] = 1 - variousSettings[l2];
-        }
-        if (getOption("special_button")) {
-            int l2 = RSInterface.interfaceCache[35622].valueIndexArray[0][1];
-            variousSettings[l2] = 1 - variousSettings[l2];
-            RSInterface iface2 = RSInterface.interfaceCache[41005];
-            if (!this.parallelWidgetList.contains(iface2)) {
-                parallelWidgetList.add(iface2);
-            }
-        }
-        if (getOption("veng_timer")) {
-            int l2 = RSInterface.interfaceCache[35577].valueIndexArray[0][1];
-            variousSettings[l2] = 1 - variousSettings[l2];
-        }
-        if (getOption("tooltip_hover")) {
-            int l2 = RSInterface.interfaceCache[35613].valueIndexArray[0][1];
-            variousSettings[l2] = 1 - variousSettings[l2];
-        }
-        if (getOption("old_hits")) {
-            int l2 = RSInterface.interfaceCache[35568].valueIndexArray[0][1];
-            variousSettings[l2] = 1 - variousSettings[l2];
-        }
-        if (getOption("constitution")) {
-            int l2 = RSInterface.interfaceCache[35571].valueIndexArray[0][1];
-            variousSettings[l2] = 1 - variousSettings[l2];
-        }
-        if (getOption("cursors")) {
-            int l2 = RSInterface.interfaceCache[35584].valueIndexArray[0][1];
-            variousSettings[l2] = 1 - variousSettings[l2];
-        }
-        if (getOption("old_frame")) {
-            int l2 = RSInterface.interfaceCache[35565].valueIndexArray[0][1];
-            variousSettings[l2] = 1 - variousSettings[l2];
-        }
-        if (getOption("smilies")) {
-            int l2 = RSInterface.interfaceCache[35587].valueIndexArray[0][1];
-            variousSettings[l2] = 1 - variousSettings[l2];
-        }
-        if (getOption("censor_active")) {
-            int l2 = RSInterface.interfaceCache[35590].valueIndexArray[0][1];
-            variousSettings[l2] = 1 - variousSettings[l2];
-        }
-        if (getOption("fog_active")) {
-            int l2 = RSInterface.interfaceCache[35619].valueIndexArray[0][1];
-            variousSettings[l2] = 1 - variousSettings[l2];
-        }
-        if (getOption("absorb_damage")) {
-            int l2 = RSInterface.interfaceCache[35643].valueIndexArray[0][1];
-            variousSettings[l2] = 1 - variousSettings[l2];
-        }
-        if (getOption("save_input")) {
-            int l2 = RSInterface.interfaceCache[35646].valueIndexArray[0][1];
-            variousSettings[l2] = 1 - variousSettings[l2];
-        }
-        if (getOption("anti_a")) {
-            int l2 = RSInterface.interfaceCache[35649].valueIndexArray[0][1];
-            variousSettings[l2] = 1 - variousSettings[l2];
-        }
-        if (getOption("HD_shade")) {
-            int l2 = RSInterface.interfaceCache[35574].valueIndexArray[0][1];
-            variousSettings[l2] = 1 - variousSettings[l2];
-        }
-        if (getOption("mipm")) {
-            int l2 = RSInterface.interfaceCache[35593].valueIndexArray[0][1];
-            variousSettings[l2] = 1 - variousSettings[l2];
-        }
-        if (getOption("attk_priority")) {
-            int l2 = RSInterface.interfaceCache[35596].valueIndexArray[0][1];
-            variousSettings[l2] = 1 - variousSettings[l2];
-        }
-        
-        if (getOption("skill_status_bars")) {
-        	int l2 = RSInterface.interfaceCache[35625].valueIndexArray[0][1];
-        	variousSettings[l2] = 1 - variousSettings[l2];	
-        }
-        
-        if (getOption("ground_items")) {
-        	int l2 = RSInterface.interfaceCache[35655].valueIndexArray[0][1];
-        	variousSettings[l2] = 1 - variousSettings[l2];
-        }
 
         if (!musicEnabled)
             stopMidi();
     }
-
-    public void loadSettings() {
-        if (!FileOperations.FileExists(signlink.findcachedir() + "preferences.set")) {
-            clientSize = 0;
-            rememberMe = true;
-            musicEnabled = false;
-            options.put("hd_tex", false);
-            options.put("special_button", false);
-            options.put("veng_timer", true);
-            options.put("tooltip_hover", false);
-            options.put("old_hits", false);
-            options.put("constitution", false);
-            options.put("cursors", true);
-            options.put("old_frame", false);
-            options.put("smilies", true);
-            options.put("censor_active", false);
-            options.put("fog_active", false);
-            options.put("absorb_damage", true);
-            options.put("anti_a", false);
-            options.put("save_input", true);
-            options.put("HD_shade", true);
-            options.put("mipm", false);
-            options.put("particles", true);
-            options.put("attk_priority", false);
-            options.put("skill_status_bars", true);
-            options.put("ground_items", false);
-            options.put("xp_orbs", true);
-            shadowIndex = 4;
-            SoundPlayer.setVolume(4);
-            saveSettings();
-            System.out.println("save file doesn't exist.");
-            return;
-        }
-        try {
-            RandomAccessFile in = new RandomAccessFile(signlink.findcachedir() + "preferences.set", "rw");
-            String username = in.readUTF();
-            if (username.length() > 0) {
-                myUsername = username;
-                rememberMe = true;
-                loginScreenCursorPos = 1;
-            }
-            String password = in.readUTF();
-            if (password.length() > 0) {
-                myPassword = password;
-                rememberMe = true;
-                loginScreenCursorPos = 0;
-            }
-
-            SoundPlayer.setVolume(in.readShort());
-            musicEnabled = in.readByte() == 1;
-            options.put("hd_tex", in.readByte() == 1);
-            options.put("special_button", in.readByte() == 1);
-            options.put("veng_timer", in.readByte() == 1);
-            options.put("tooltip_hover", in.readByte() == 1);
-            options.put("old_hits", in.readByte() == 1);
-            options.put("constitution", in.readByte() == 1);
-            options.put("cursors", in.readByte() == 1);
-            options.put("old_frame", in.readByte() == 1);
-            options.put("smilies", in.readByte() == 1);
-            options.put("censor_active", in.readByte() == 1);
-            options.put("fog_active", in.readByte() == 1);
-            options.put("absorb_damage", in.readByte() == 1);
-            options.put("anti_a", in.readByte() == 1);
-            options.put("HD_shade", in.readByte() == 1);
-            options.put("mipm", in.readByte() == 1);
-            options.put("attk_priority", in.readByte() == 1);
-            options.put("save_input", in.readByte() == 1);
-            options.put("particles", in.readByte() == 1);
-            options.put("skill_status_bars", in.readByte() == 1);
-            options.put("ground_items", in.readByte() == 1);
-            options.put("xp_orbs", in.readByte() == 1);
-            
-            antialiasing = false;
-
-            if (in.length() > in.getFilePointer()) {
-                shadowIndex = in.readInt();
-            }
-            /*
-             * Quick prayers / curses
-             */
-            if (in.length() > in.getFilePointer()) {
-                String q = in.readUTF();
-                for (int i = 0; i < q.length(); i++)
-                    quickPrayers[i] = Integer.parseInt(q.substring(i, i + 1));
-                q = in.readUTF();
-                for (int i = 0; i < q.length(); i++)
-                    quickCurses[i] = Integer.parseInt(q.substring(i, i + 1));
-            }
-            RSFontSystem.SMILIES_TOGGLED = getOption("smilies");
-
-            for (int i = 0; i < CustomisableHotKeys.ChildTabKeyRelation.values().length; i++) {
-                int keyId = in.readInt();
-                CustomisableHotKeys.getHotKeys().get(i).setKeyId(keyId);
-            }
-
-            for (int i = 0; i < 3; i++) {
-                String un = in.readUTF();
-                String pw = in.readUTF();
-
-                System.out.println("loaded: " + i + ", " + un);
-                if (un.length() > 1) {
-                    LoginScreen.add(un, pw, false);
-                }
-            }
-
-            System.out.println("loaded save file");
-            in.close();
-        } catch (IOException e) {
-            clientSize = 0;
-            rememberMe = true;
-            musicEnabled = false;
-            options.put("hd_tex", false);
-            options.put("special_button", false);
-            options.put("veng_timer", true);
-            options.put("tooltip_hover", false);
-            options.put("old_hits", false);
-            options.put("constitution", false);
-            options.put("cursors", true);
-            options.put("old_frame", false);
-            options.put("smilies", true);
-            options.put("censor_active", false);
-            options.put("fog_active", false);
-            options.put("absorb_damage", true);
-            options.put("anti_a", false);
-            options.put("HD_shade", true);
-            options.put("mipm", false);
-            options.put("attk_priority", false);
-            options.put("save_input", true);
-            options.put("skill_status_bars", true);
-            options.put("ground_items", false);
-            options.put("xp_orbs", true);
-
-            shadowIndex = 4;
-            SoundPlayer.setVolume(4);
-            saveSettings();
-            loadSettings();
-            System.out.println("failed to load existing file.");
-            // e.printStackTrace();
-        }
-    }
-
-    public void saveSettings() {
-        try {
-            RandomAccessFile out = new RandomAccessFile(signlink.findcachedir() + "preferences.set", "rw");
-            out.writeUTF(myUsername == null || !rememberMe ? "" : myUsername);
-            out.writeUTF(myPassword == null || !rememberMe ? "" : myPassword);
-            out.writeShort(SoundPlayer.getVolume());
-            out.write(musicEnabled ? 1 : 0);
-            out.write(getOption("hd_tex") ? 1 : 0);
-            out.write(getOption("special_button") ? 1 : 0);
-            out.write(getOption("veng_timer") ? 1 : 0);
-            out.write(getOption("tooltip_hover") ? 1 : 0);
-            out.write(getOption("old_hits") ? 1 : 0);
-            out.write(getOption("constitution") ? 1 : 0);
-            out.write(getOption("cursors") ? 1 : 0);
-            out.write(getOption("old_frame") ? 1 : 0);
-            out.write(getOption("smilies") ? 1 : 0);
-            out.write(getOption("censor_active") ? 1 : 0);
-            out.write(getOption("fog_active") ? 1 : 0);
-            out.write(getOption("absorb_damage") ? 1 : 0);
-            out.write(getOption("anti_a") ? 1 : 0);
-            out.write(1);
-            out.write(getOption("mipm") ? 1 : 0);
-            out.write(getOption("attk_priority") ? 1 : 0);
-            out.write(getOption("save_input") ? 1 : 0);
-            out.write(getOption("particles") ? 1 : 0);
-            out.write(getOption("skill_status_bars") ? 1 : 0);
-            out.write(getOption("ground_item_names") ? 1 : 0);
-            out.write(getOption("xp_orbs") ? 1 : 0);
-
-            out.writeInt(shadowIndex);
-            /*
-             * Quick prayers & curses saving
-             */
-            String stringSave = "";
-            for (int i = 0; i < quickPrayers.length; i++) {
-                stringSave = stringSave + quickPrayers[i];
-            }
-            out.writeUTF(stringSave);
-            stringSave = "";
-            for (int i = 0; i < quickCurses.length; i++) {
-                stringSave = stringSave + quickCurses[i];
-            }
-            out.writeUTF(stringSave);
-
-            for (CustomisableHotKeys.HotKey hotKey : CustomisableHotKeys.getHotKeys()) {
-                out.writeInt(hotKey.getKeyId());
-            }
-
-            for (int i = 0; i < 3; i++) {
-                System.out.println("saving size: " + LoginScreen.characters.size() + " i: " + i);
-                if (LoginScreen.characters.size() <= i) {
-                    out.writeUTF("");
-                    out.writeUTF("");
-                } else {
-                    CharacterFile file = LoginScreen.characters.get(i);
-                    out.writeUTF(file.username);
-                    out.writeUTF(file.password);
-                    System.out.println(file.username + " saving - ");
-                }
-            }
-
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    
+    public CharacterFile lastCharacter;
 
     public void addEffectTimer(EffectTimer et) {
 
@@ -600,8 +299,11 @@ public class Client extends RSApplet {
         if (!mouseWheelDown) {
             return;
         }
-        this.anInt1186 += i * 3;
-        this.anInt1187 += (j << 1);
+        
+        if (Configuration.enableMouseCamera) {
+        	this.anInt1186 += i * 3;
+        	this.anInt1187 += (j << 1);
+        }
     }
 
     public String getPrefix(int rights, int ironman) {
@@ -704,14 +406,14 @@ public class Client extends RSApplet {
                 cameraZoom = 900;
                 WorldController.viewDistance = 10;
             }
-            if (size != 0 && getOption("old_frame")) {
+            if (size != 0 && Configuration.enableOldFrame) {
                 pushMessage("Option 'Old Frame' is not available in a resized mode yet.", 0, "");
             }
-            if (size != 0 && getOption("anti_a")) {
+            if (size != 0 && Configuration.enableAntiAliasing) {
                 pushMessage("Anti aliasing is not avaible on resized mode yet", 0, "");
             }
             rebuildFrame(size, width, height);
-            saveSettings();
+            ClientSettings.save();
 
             if (!isWebclient() && mainFrame != null) {
                 mainFrame.setClientIcon();
@@ -749,7 +451,6 @@ public class Client extends RSApplet {
             clientWidth = width;
             clientHeight = height;
             instance.rebuildFrame(size == 2, width, height, size == 1, size != 0);
-
             updateGameArea();
             super.mouseX = super.mouseY = -1;
         } catch (Exception e) {
@@ -1906,7 +1607,7 @@ public class Client extends RSApplet {
     public void drawHPOrb() {
         int currentHp = (currentStats[3] / 10);
         int health = (int) (((double) currentStats[3] / (double) currentMaxStats[3]) * 100D);
-        if (!getOption("constitution")) {
+        if (!Configuration.enableConstitution) {
             currentHp = (currentHp / 10);
         }
         int x = getOrbX(0);
@@ -2413,7 +2114,7 @@ public class Client extends RSApplet {
 
     public void handleTabArea(boolean fixed) {
         if (fixed) {
-            if (!getOption("old_frame")) {
+            if (!Configuration.enableOldFrame) {
                 cacheSprite[13].drawSprite(0, 0);
             } else {
                 SpriteLoader.sprites[621].drawSprite(0, 0);
@@ -2444,7 +2145,7 @@ public class Client extends RSApplet {
             }
         }
         if (invOverlayInterfaceID == -1) {
-            if (!getOption("old_frame")) {
+            if (!Configuration.enableOldFrame) {
                 drawTabHover(fixed);
             }
             if (showTab) {
@@ -2463,7 +2164,7 @@ public class Client extends RSApplet {
                     case 0:
                     case 1:
                     case 2:
-                        if (!getOption("old_frame")) {
+                        if (!Configuration.enableOldFrame) {
                             xPos += tabID * 30;
                         } else {
                             if (tabID == 0) {
@@ -2480,7 +2181,7 @@ public class Client extends RSApplet {
                     case 4:
                     case 5:
                     case 6:
-                        if (!getOption("old_frame")) {
+                        if (!Configuration.enableOldFrame) {
                             xPos += (tabID + 1) * 30;
                         } else {
                             if (tabID == 3) {
@@ -2496,7 +2197,7 @@ public class Client extends RSApplet {
                         yPos = 0;
                         break;
                     case 7:
-                        if (!getOption("old_frame")) {
+                        if (!Configuration.enableOldFrame) {
                             xPos = 2 + ((tabID - 4) * 30);
                         } else {
                             xPos = 111;
@@ -2508,7 +2209,7 @@ public class Client extends RSApplet {
                     case 11:
                     case 12:
                     case 13:
-                        if (!getOption("old_frame")) {
+                        if (!Configuration.enableOldFrame) {
                             xPos = 2 + ((tabID - 7) * 30);
                         } else {
                             if (tabID == 8) {
@@ -2525,7 +2226,7 @@ public class Client extends RSApplet {
                         break;
                     case 14:
                         yPos = 0;
-                        if (!getOption("old_frame")) {
+                        if (!Configuration.enableOldFrame) {
                             xPos = 92;
                         } else {
                             xPos = 210;
@@ -2533,7 +2234,7 @@ public class Client extends RSApplet {
                         }
                         break;
                     case 15:
-                        if (!getOption("old_frame")) {
+                        if (!Configuration.enableOldFrame) {
                             xPos = 2;
                         } else {
                             xPos = 7;
@@ -2546,7 +2247,7 @@ public class Client extends RSApplet {
                         break;
                 }
                 if (tabID != 10) {
-                    if (getOption("old_frame")) {
+                    if (Configuration.enableOldFrame) {
                         if (tabID > 6) {
                             yPos--;
                         }
@@ -2599,27 +2300,27 @@ public class Client extends RSApplet {
     public void drawSideIcons(boolean fixed) {
         if (fixed) {
             for (int index = 0; index < 15; index++) {
-                if (index == 3 && getOption("old_frame")) // Skip achievement
+                if (index == 3 && Configuration.enableOldFrame) // Skip achievement
                 // tab, it does not
                 // fit
                 {
                     continue;
                 }
-                if (index == 8 && getOption("old_frame") && tabInterfaceIDs[SIDEICONS_TAB[index]] < 0) {
+                if (index == 8 && Configuration.enableOldFrame && tabInterfaceIDs[SIDEICONS_TAB[index]] < 0) {
                     tabInterfaceIDs[SIDEICONS_TAB[index]] = 54017;
-                } else if (index == 8 && !getOption("old_frame") && tabInterfaceIDs[SIDEICONS_TAB[index]] > 0) {
+                } else if (index == 8 && !Configuration.enableOldFrame && tabInterfaceIDs[SIDEICONS_TAB[index]] > 0) {
                     tabInterfaceIDs[SIDEICONS_TAB[index]] = -1;
                 }
-                if (index == 14 && !getOption("old_frame")) {
+                if (index == 14 && !Configuration.enableOldFrame) {
                     tabInterfaceIDs[SIDEICONS_TAB[index]] = 54017;
-                } else if (index == 14 && getOption("old_frame") && tabInterfaceIDs[SIDEICONS_TAB[index]] < 0) {
+                } else if (index == 14 && Configuration.enableOldFrame && tabInterfaceIDs[SIDEICONS_TAB[index]] < 0) {
                     tabInterfaceIDs[SIDEICONS_TAB[index]] = 15001;
                 }
-                int l = index == 14 && getOption("old_frame") ? 3 : index;
+                int l = index == 14 && Configuration.enableOldFrame ? 3 : index;
                 if (tabInterfaceIDs[SIDEICONS_TAB[l]] != -1) {
-                    int x = getOption("old_frame") ? SIDEICONS_OLD_FRAME_POSITIONX[index] : SIDEICONS_POSITION_X[index];
-                    int y = getOption("old_frame") ? SIDEICONS_OLD_FRAME_POSITIONY[index] : SIDEICONS_POSITION_Y[index];
-                    int draw = l == 3 && getOption("old_frame") ? 15 : l;
+                    int x = Configuration.enableOldFrame ? SIDEICONS_OLD_FRAME_POSITIONX[index] : SIDEICONS_POSITION_X[index];
+                    int y = Configuration.enableOldFrame ? SIDEICONS_OLD_FRAME_POSITIONY[index] : SIDEICONS_POSITION_Y[index];
+                    int draw = l == 3 && Configuration.enableOldFrame ? 15 : l;
 
                     if (index == 2 && doingDung) {
                         x -= 1;
@@ -2627,7 +2328,7 @@ public class Client extends RSApplet {
 
                     }
 
-                    if (getOption("old_frame")) {
+                    if (Configuration.enableOldFrame) {
 
                         SpriteLoader.sprites[972 + draw].drawSprite(x, y);
 
@@ -2722,7 +2423,7 @@ public class Client extends RSApplet {
         Rasterizer.anIntArray1472 = anIntArray1181;
         handleTabArea(clientSize == 0);
 
-        if (getOption("skill_status_bars")) {
+        if (Configuration.enableSkillStatusBars) {
             if (clientSize == 0) {
             	drawSkillStatus(8, 41, 3, 1155, 250, new Color(255, 0, 0, 45));
             	drawSkillStatus(218, 41, 5, 1156, 250, new Color(0, 0, 255, 45));
@@ -2757,7 +2458,7 @@ public class Client extends RSApplet {
     }
 
     private void processTabAreaTooltips(int TabHoverId) {
-        if (getOption("old_frame")) {
+        if (Configuration.enableOldFrame) {
             return;
         }
         boolean fixed = clientSize == 0;
@@ -2995,7 +2696,7 @@ public class Client extends RSApplet {
             int positionX = clientWidth - 244;
             int positionY = 169;
             if (super.clickMode3 == 1) {
-                if (!getOption("old_frame")) {
+                if (!Configuration.enableOldFrame) {
                     if (clickInRegion(positionX, positionY, positionX + 30, positionY + 36)
                             && tabInterfaceIDs[0] != -1) {
                         needDrawTabArea = true;
@@ -3797,7 +3498,7 @@ public class Client extends RSApplet {
             }
             return true;
         } else {
-            if (mouseClickInventory() && j == LEFT && shiftDown) {
+            if (Configuration.enableShiftClickDrop && mouseClickInventory() && j == LEFT && shiftDown) {
                 stream.createFrame(87);
                 stream.method432((RSInterface.interfaceCache[3214].inv[mouseInvInterfaceIndex] - 1));
                 stream.writeWord(3214);
@@ -4377,9 +4078,15 @@ public class Client extends RSApplet {
 
             if(child.id == 30000)
                 System.out.println(child.type);
+            
+			boolean hover = mouseX >= childX && mouseY >= childY
+                    && mouseX < childX + child.width && mouseY < childY + child.height;
+			
+			if (child.id == SettingsWidget.ADVANCED) {
+				hover = mouseX >= childX && mouseY >= childY + 7 - child.height / 2 && mouseX < childX + child.width && mouseY < childY - 9 + child.height;
+			}
 
-            if ((child.hoverType >= 0 || child.disabledMouseOverColor != 0) && mouseX >= childX && mouseY >= childY
-                    && mouseX < childX + child.width && mouseY < childY + child.height) {
+            if ((child.hoverType >= 0 || child.disabledMouseOverColor != 0) && hover) {
                 if (child.hoverType >= 0) {
                     hoveredInterface = child.hoverType;
                     hoverSpriteId = hoveredInterface;
@@ -4405,10 +4112,7 @@ public class Client extends RSApplet {
                             child.scrollMax);
                 }
             } else {
-
-                if (child.atActionType == 1 && mouseX >= childX && mouseY >= childY && mouseX < childX + child.width
-                        && mouseY < childY + child.height) {
-
+                if (child.atActionType == 1 && hover) {
                     boolean flag = false;
                     boolean flag1 = false;
                     if (child.contentType != 0) {
@@ -4442,6 +4146,10 @@ public class Client extends RSApplet {
                             menuActionRow++;
                         }
                     }
+                    
+                    if (child.type == 20) {
+						child.toggled = true;
+					}
                 }
                 if (child.atActionType == 2 && spellSelected == 0 && mouseX >= childX && mouseY >= childY
                         && mouseX < childX + child.width && mouseY < childY + child.height) {
@@ -4510,7 +4218,7 @@ public class Client extends RSApplet {
 
                         int rowAmount = (int) Math
                                 .ceil((float) dropDownInter.getActions().length / dropDownInter.getColumnAmount());
-                        child.height = 16 + (dropDownInter.isOpen() ? 16 * rowAmount + 2 : 0);
+                        child.height = 20 + (dropDownInter.isOpen() ? 20 * rowAmount + 2 : 0);
                         int childDDMWidth = (dropDownInter.isOpen()
                                 ? dropDownInter.getColumnWidth() * dropDownInter.getColumnAmount()
                                 : child.width);
@@ -4520,7 +4228,7 @@ public class Client extends RSApplet {
                             int drawY = childY;
 
                             if (mouseX >= drawX && mouseX <= drawX + dropDownInter.width && mouseY >= drawY
-                                    && mouseY <= drawY + 16) {
+                                    && mouseY <= drawY + 20) {
                                 menuActionName[menuActionRow] = dropDownInter.isOpen() ? "Close" : "Open";
                                 menuActionID[menuActionRow] = 1999;
                                 menuActionCmd1[menuActionRow] = dropDownInter.id;
@@ -4530,7 +4238,7 @@ public class Client extends RSApplet {
 
                             if (dropDownInter.isOpen()) {
 
-                                drawY += 15;
+                                drawY += 19;
                                 int counter = 0;
                                 for (DropDownAction action : dropDownInter.getActions()) {
                                     if (action == null) {
@@ -4539,7 +4247,7 @@ public class Client extends RSApplet {
 
                                     boolean isHighlighted = mouseX >= drawX
                                             && mouseX <= drawX + dropDownInter.getColumnWidth() && mouseY >= drawY
-                                            && mouseY < drawY + 16;
+                                            && mouseY < drawY + 20;
                                     action.setHighlighted(isHighlighted);
 
                                     if (isHighlighted) {
@@ -4553,11 +4261,11 @@ public class Client extends RSApplet {
                                         break;
                                     }
 
-                                    drawY += 16;
+                                    drawY += 20;
                                     counter++;
                                     if (counter == rowAmount) {
                                         drawX += dropDownInter.getColumnWidth();
-                                        drawY = childY + 15;
+                                        drawY = childY + 19;
                                         counter = 0;
                                     }
                                 }
@@ -5003,7 +4711,7 @@ public class Client extends RSApplet {
     private int cButtonHPos;
     private int cButtonCPos;
     private boolean menuToggle = true;
-    private int shadowIndex = 4;
+    public int shadowIndex = 4;
 
     public void handleShadow() {
         variousSettings[166] = shadowIndex;
@@ -5075,7 +4783,7 @@ public class Client extends RSApplet {
                 adjustVolume(musicEnabled, 300);
             }
             if (musicEnabled != music) {
-                saveSettings();
+            	ClientSettings.save();
                 if (musicEnabled) {
                     nextSong = currentSong;
                     songChanging = true;
@@ -5089,7 +4797,7 @@ public class Client extends RSApplet {
         if (action == 4) {
             SoundPlayer.setVolume(config);
             soundEnabled = config != 4;
-            saveSettings();
+            ClientSettings.save();
         }
         if (action == 5) {
             anInt1253 = config;
@@ -5251,7 +4959,7 @@ public class Client extends RSApplet {
                 for (int j1 = 0; j1 < 4; j1++) {
                     if (((Entity) (obj)).hitsLoopCycle[j1] > loopCycle) {
                         npcScreenPos(((Entity) (obj)), ((Entity) (obj)).height / 2);
-                        if (!getOption("old_hits")) {
+                        if (!Configuration.enableOldHitmarkers) {
                             if (spriteDrawX > -1) {
                                 Entity e = ((Entity) (obj));
                                 if (e.moveTimer[j1] == 0) {
@@ -5285,7 +4993,7 @@ public class Client extends RSApplet {
                                 Entity e = ((Entity) (obj));
                                 int dmg = e.hitArray[j1];
                                 if (dmg > 0) {
-                                    if (!getOption("constitution")) {
+                                    if (!Configuration.enableConstitution) {
                                         dmg = dmg / 10;
                                         if (dmg == 0) {
                                             dmg = 1;
@@ -5748,7 +5456,7 @@ public class Client extends RSApplet {
 
     private void resetLogout() {
         RSInterface.clearModelCache();
-        saveSettings();
+        ClientSettings.save();
         loginMessages = new String[]{""};
         prayClicked = false;
         followPlayer = 0;
@@ -7393,7 +7101,7 @@ public class Client extends RSApplet {
         } else if (textCursor) {
             setCursor(-3);
         } else if (cursor != 0 && cursor != -1) {
-            setCursor(!isLoading && getOption("cursors") ? 0 : -1);
+            setCursor(!isLoading && Configuration.enableCursors ? 0 : -1);
         }
     }
 
@@ -7845,7 +7553,7 @@ public class Client extends RSApplet {
                 return;
             }
             inputTitle = "Enter amount of coins to withdraw:";
-            if (!getOption("save_input")) {
+            if (!Configuration.enableSaveInput) {
                 amountOrNameInput = "";
             }
             interfaceButtonAction = 557;
@@ -7860,7 +7568,7 @@ public class Client extends RSApplet {
                 return;
             }
             inputTitle = "Enter amount of tickets to withdraw:";
-            if (!getOption("save_input")) {
+            if (!Configuration.enableSaveInput) {
                 amountOrNameInput = "";
             }
             interfaceButtonAction = 559;
@@ -8284,12 +7992,43 @@ public class Client extends RSApplet {
                 }
                 flag8 = promptUserForInput(class9);
             }
+            
+			/**
+			 * Config button toggle.
+			 */
+			if (class9.type == 19) {
+				class9.active = !class9.active;
+			}
+			
+			/**
+			 * Config hover button toggle.
+			 */
+			if (class9.type == 20) {
+				RSInterface.handleConfigHover(class9);
+			}
+            
             if (flag8) {
+            	
+				if (SettingsWidget.handleButton(interfaceId)) {
+					return;
+				}
+            	
                 switch (interfaceId) {
+				case SettingsWidget.DISPLAY_BUTTON:
+				case SettingsWidget.AUDIO_BUTTON:
+				case SettingsWidget.CHAT_BUTTON:
+				case SettingsWidget.CONTROL_BUTTON:
+					SettingsWidget.switchSettings(interfaceId);
+					break;
+					
                     case 90008: // Restore default button for hot keys.
                         CustomisableHotKeys.restoreDefaults();
                         CustomisableHotKeys.updateDropDownMenuDisplaysOnLogin();
                         break;
+                    case 90006:
+                    	Configuration.escapeClosesInterface = !Configuration.escapeClosesInterface;
+                    	ClientSettings.save();
+                    	break;
                     case 40052:
                         openInterfaceID = CustomisableHotKeys.interfaceID;
                         break;
@@ -8305,14 +8044,14 @@ public class Client extends RSApplet {
                         variousSettings[169] = SoundPlayer.getVolume();
                         stream.createFrame(185);
                         stream.putInt(disabled ? 942 : 941);
-                        saveSettings();
+                        ClientSettings.save();
                         break;
                     case 39171:
                         musicEnabled = !musicEnabled;
                         variousSettings[168] = (musicEnabled ? 3 : 4);
                         stream.createFrame(185);
                         stream.putInt(!musicEnabled ? 930 : 931);
-                        saveSettings();
+                        ClientSettings.save();
                         if (musicEnabled) {
                             if (currentSong == -1) {
                                 currentSong = 3;
@@ -8594,15 +8333,6 @@ public class Client extends RSApplet {
             }
         }
         switch (interfaceId) {
-            case 40049:
-                toggleSize(2);
-                break;
-            case 40046:
-                toggleSize(1);
-                break;
-            case 40043:
-                toggleSize(0);
-                break;
             case 40039:
                 clearTopInterfaces();
                 break;
@@ -8909,15 +8639,6 @@ public class Client extends RSApplet {
             stream.writeUnsignedWordA(selectedSpellId);
         }
         if (l == 646) {
-
-            if (interfaceId == 90006) {
-                if (variousSettings[CustomisableHotKeys.ESC_VALUE_SETTING_IDENTIFIER] != 0)
-                    CustomisableHotKeys.setEscClosesInterface(false);
-                else
-                    CustomisableHotKeys.setEscClosesInterface(true);
-                saveSettings();
-            }
-
             stream.createFrame(185);
             stream.putInt(interfaceId);
             RSInterface class9_2 = RSInterface.interfaceCache[interfaceId];
@@ -9272,141 +8993,6 @@ public class Client extends RSApplet {
                 variousSettings[l2] = 1 - variousSettings[l2];
                 handleActions(l2);
                 needDrawTabArea = true;
-            }
-            // System.out.println("if: " + interfaceId);
-            switch (interfaceId) {
-
-                // case 35802://server sided
-                // options.put("entity_info", !getOption("entity_info"));
-                // boolean on = getOption("entity_info");
-                // RSInterface iface = RSInterface.interfaceCache[41020];
-                // if (on) {
-                //
-                // if (!this.parallelWidgetList.contains(iface)) {
-                // parallelWidgetList.add(iface);
-                // }
-                // } else {
-                // if (this.parallelWidgetList.contains(iface)) {
-                // parallelWidgetList.remove(iface);
-                // }
-                // }
-                // saveSettings();
-                // break;
-            
-            case 35625:
-            	options.put("skill_status_bars", !getOption("skill_status_bars"));
-            	saveSettings();
-            	break;
-            case 35655:
-            	options.put("ground_items", !getOption("ground_items"));
-            	saveSettings();
-            	break;
-
-                case 35577:// veng/barrage timers
-                    options.put("veng_timer", !getOption("veng_timer"));
-                    timersEnabled = getOption("veng_timer");
-                    saveSettings();
-                    break;
-                case 35622:// spec button
-                    options.put("special_button", !getOption("special_button"));
-                    boolean on2 = getOption("special_button");
-                    RSInterface iface2 = RSInterface.interfaceCache[41005];
-                    if (on2) {
-
-                        if (!this.parallelWidgetList.contains(iface2)) {
-                            parallelWidgetList.add(iface2);
-                        }
-                    } else {
-                        if (this.parallelWidgetList.contains(iface2)) {
-                            parallelWidgetList.remove(iface2);
-                        }
-                    }
-                    saveSettings();
-
-                    break;
-
-                case 35616:// hd tex
-                    options.put("hd_tex", !getOption("hd_tex"));
-                    saveSettings();
-                    return;
-
-                case 35613:// tooltip hover
-                    options.put("tooltip_hover", !getOption("tooltip_hover"));
-                    saveSettings();
-                    return;
-                case 35643:
-                    options.put("absorb_damage", !getOption("absorb_damage"));
-                    saveSettings();
-                    return;
-                case 35649:
-                    options.put("anti_a", !getOption("anti_a"));
-                    // antialiasing = getOption("anti_a");
-                    saveSettings();
-                    return;
-                case 35652:
-                    options.put("particles", !getOption("particles"));
-                    enableParticles = getOption("particles");
-
-                    saveSettings();
-                    return;
-                case 35574:
-                    options.put("HD_shade", !getOption("HD_shade"));
-                    Rasterizer.enableSmoothShading = getOption("HD_shade");
-                    saveSettings();
-                    return;
-                case 35593:
-                    options.put("mipm", !getOption("mipm"));
-                    Rasterizer.enableMipmapping = getOption("mipm");
-                    saveSettings();
-                    return;
-                case 35596:
-                    options.put("attk_priority", !getOption("attk_priority"));
-                    Rasterizer.enableMipmapping = getOption("attk_priority");
-                    saveSettings();
-                    break;
-                case 35646:
-                    options.put("save_input", !getOption("save_input"));
-                    saveSettings();
-                    break;
-                case 35568:// old hits
-                    options.put("old_hits", !getOption("old_hits"));
-                    saveSettings();
-                    return;
-                case 35571:// constitution
-                    options.put("constitution", !getOption("constitution"));
-                    saveSettings();
-                    return;
-                case 35584:// cursors
-                    options.put("cursors", !getOption("cursors"));
-                    setCursor(getOption("cursors") ? 0 : -1);
-                    saveSettings();
-                    return;
-                case 35587:
-                    options.put("smilies", !getOption("smilies"));
-                    RSFontSystem.SMILIES_TOGGLED = getOption("smilies");
-                    saveSettings();
-                    return;
-                case 35565:
-                    options.put("old_frame", !getOption("old_frame"));
-                    if (options.get("old_frame")) {
-                        if (tabID == 13) {
-                            tabID = 15;
-                        }
-                    } else {
-                        if (tabID == 15) {
-                            tabID = 13;
-                        }
-                    }
-                    saveSettings();
-                    return;
-                case 35590:
-                    options.put("censor_active", !getOption("censor_active"));
-                    saveSettings();
-                    return;
-                case 35619:
-                    options.put("fog_active", !getOption("fog_active"));
-                    saveSettings();
-                    return;
             }
         }
         if (l == 447) {
@@ -10410,13 +9996,6 @@ public class Client extends RSApplet {
                         stream.writeString(inputString.substring(1));
                         inputString = "";
                         return;
-                    }
-                    if (inputString.equals("::xporbs")) {
-                    	options.put("xp_orbs", !getOption("xp_orbs"));
-                    	pushMessage("XP Orbs are now " + (getOption("xp_orbs") ? "enabled." : "disabled."), 0, "");
-                    	inputString = "";
-                    	saveSettings();
-                    	return;
                     }
                     if (inputString.equals("::packrsi") || inputString.equals("::repack")) {
                         CacheArchive streamLoader_1 = streamLoaderForName(3, "interface", "interface", expectedCRCs[3],
@@ -11784,7 +11363,7 @@ public class Client extends RSApplet {
                 }
             }
         }
-        if (openInterfaceID == -1 && hasSpecWeapon && getOption("special_button")) {
+        if (openInterfaceID == -1 && hasSpecWeapon && Configuration.enableSpecialButton) {
             if (clientSize == 0) {
 
                 if ((super.mouseX >= 473 && super.mouseX <= 510) && (super.mouseY >= 169 && super.mouseY <= 208)) {
@@ -11881,6 +11460,8 @@ public class Client extends RSApplet {
 
         if (rememberMe) {
             LoginScreen.add(username, password, true);
+            
+            lastCharacter = new CharacterFile(username, password);
         }
 
         // setCursor(0);
@@ -11947,8 +11528,8 @@ public class Client extends RSApplet {
                 socketStream.read();
             }
             int loginCode = socketStream.read();
-            options.put("save_input", false);
-            options.put("HD_shade", true);
+            Configuration.enableSaveInput = false;
+            Configuration.enableHDShading = true;
             Rasterizer.enableSmoothShading = true;
             handleSettings();
 
@@ -12170,6 +11751,9 @@ public class Client extends RSApplet {
                 anInt1188 = 0;
                 anInt1155 = 0;
                 anInt1226 = 0;
+                
+                SettingsWidget.updateSettingsTab();
+                
                 resetImageProducers2();
                 clientHeight += 1;
                 clientHeight -= 1;
@@ -12194,7 +11778,7 @@ public class Client extends RSApplet {
                 for (int index = 0; index < 17; index++) {
                     consoleMessages[index] = "";
                 }
-                setCursor(getOption("cursors") ? 0 : -1);
+                setCursor(Configuration.enableCursors ? 0 : -1);
                 return;
             }
             if (loginCode == 3) {
@@ -12834,11 +12418,17 @@ public class Client extends RSApplet {
             if (entityDef.actions != null) {
                 for (int i1 = 4; i1 >= 0; i1--) {
                     if (entityDef.actions[i1] != null && entityDef.actions[i1].equalsIgnoreCase("attack")) {
-                        char c = '\0';
+						char c = '\0';
 
-                        if (!getOption("attk_priority") && entityDef.combatLevel > myPlayer.combatLevel) {
-                            c = '\u07D0';
-                        }
+						if (Configuration.npcAttackOptionPriority == 0) {
+							if (entityDef.combatLevel > myPlayer.combatLevel) {
+								c = '\u07D0';
+							}
+						} else if (Configuration.npcAttackOptionPriority == 1) {
+							c = '\u07D0';
+						} else if (Configuration.npcAttackOptionPriority == 3) {
+							continue;
+						}
 
                         menuActionName[menuActionRow] = entityDef.actions[i1] + " @yel@" + s;
 
@@ -12919,9 +12509,15 @@ public class Client extends RSApplet {
                     char c = '\0';
                     if (atPlayerActions[l].equalsIgnoreCase("attack")) {
 
-                        if (!getOption("attk_priority") && player.combatLevel > myPlayer.combatLevel) {
-                            c = '\u07D0';
-                        }
+						if (Configuration.playerAttackOptionPriority == 0) {
+							if (player.combatLevel > myPlayer.combatLevel) {
+								c = '\u07D0';
+							}
+						} else if (Configuration.playerAttackOptionPriority == 1) {
+							c = '\u07D0';
+						} else if (Configuration.playerAttackOptionPriority == 3) {
+							continue;
+						}
 
                         if (myPlayer.team != 0 && player.team != 0) {
                             if (myPlayer.team == player.team) {
@@ -13128,7 +12724,12 @@ public class Client extends RSApplet {
             e.printStackTrace();
         }
 
-        loadSettings();
+        ClientSettings.load();
+        
+		if (rememberMe && lastCharacter != null) {
+			myUsername = lastCharacter.getUsername();
+			myPassword = lastCharacter.getPassword();
+		}
 
         /**
          * DOWNLOADING CACHE *
@@ -13388,7 +12989,7 @@ public class Client extends RSApplet {
             ObjectOnTile.clientInstance = this;
             ObjectDefinition.clientInstance = this;
             MobDefinition.clientInstance = this;
-            setCursor(getOption("cursors") ? 0 : -1);
+            setCursor(Configuration.enableCursors ? 0 : -1);
             mouseDetection = new MouseDetection(this);
             handleShadow();
             try {
@@ -14159,6 +13760,7 @@ public class Client extends RSApplet {
             try {
                 renderWorld();
             } catch (Exception e) {
+            	
             }
         }
         if (loadingStage == 2) {
@@ -15004,6 +14606,37 @@ public class Client extends RSApplet {
                                         256 - (child.opacity & 0xff));
                             }
                         }
+                    } else if (child.type == 19) {
+                    	Sprite sprite = child.active ? child.enabledSprite : child.disabledSprite;
+    					
+    					sprite.drawSprite(childX, childY);
+                    } else if (child.type == 20) {
+                    	// Draw sprite
+    					boolean flag = false;
+
+    					if (child.toggled) {
+    						child.disabledSprite.drawARGBSprite(childX, childY, child.spriteOpacity);
+    						flag = true;
+    						child.toggled = false;
+    					} else {
+    						child.enabledSprite.drawARGBSprite(childX, childY, child.spriteOpacity);
+    					}
+
+    					// Draw text
+    					if (child.message == null) {
+    						continue;
+    					}
+    					
+    					if (child.centerText) {
+    						child.rsFont.drawCenteredString(child.message, childX + child.msgX,
+    								childY + child.msgY,
+    								flag ? child.disabledMouseOverColor : child.disabledColor, 0);
+    					} else {
+    						if (child.rsFont != null)
+    							child.rsFont.drawBasicString(child.message, childX + 5,
+    									childY + child.msgY,
+    									flag ? child.disabledMouseOverColor : child.disabledColor, 0);
+    					}
                     }
                 }
                 if (openInterfaceID == 10000) {
@@ -15280,7 +14913,7 @@ public class Client extends RSApplet {
 
     int tick = 0;
 
-    ArrayList<RSInterface> parallelWidgetList = new ArrayList<RSInterface>();
+    public ArrayList<RSInterface> parallelWidgetList = new ArrayList<RSInterface>();
 
     private void drawParallelWidgets() {
         if (this.parallelWidgetList.size() <= 0) {
@@ -15498,7 +15131,7 @@ public class Client extends RSApplet {
         if (openInterfaceID == 5292) {
             drawOnBankInterface();
         }
-        if (openInterfaceID == -1 && hasSpecWeapon && getOption("special_button")) {
+        if (openInterfaceID == -1 && hasSpecWeapon && Configuration.enableSpecialButton) {
             if (clientSize == 0) {
                 if (specActivated) {
                     cacheSprite[946].drawSprite(469, 166);
@@ -15594,7 +15227,7 @@ public class Client extends RSApplet {
         }
         // Effect timers
         try {
-            if (getOption("veng_timer")) {
+            if (Configuration.enableTimers) {
                 drawEffectTimers();
             }
         } catch (Exception e) {
@@ -15665,6 +15298,7 @@ public class Client extends RSApplet {
                 stream.createFrame(148);
             }
         }
+        
     }
 
     public int getRegionId() {
@@ -16306,7 +15940,19 @@ public class Client extends RSApplet {
         // Customisable Hot Key handler
         if (childId > 90039 && childId < 90055) {
             CustomisableHotKeys.processHotKeySelection(childId, identifier);
-            saveSettings();
+            ClientSettings.save();
+        } else {
+        	DropDownMenu m = (DropDownMenu) RSInterface.interfaceCache[childId];
+        	
+			m.setDropdownValue(identifier);
+			
+			if (childId == SettingsWidget.PLAYER_ATTACK_DROPDOWN) {
+				Configuration.playerAttackOptionPriority = identifier;
+			}
+			
+			if (childId == SettingsWidget.NPC_ATTACK_DROPDOWN) {
+				Configuration.npcAttackOptionPriority = identifier;
+			}
         }
 
         closeDropDownMenus(-1);
@@ -16335,7 +15981,7 @@ public class Client extends RSApplet {
     }
 
     public void drawTooltip() {
-        if (getOption("cursors")) {
+        if (Configuration.enableCursors) {
             int newCursor = getCursorID();
             if (cursor != newCursor) {
                 setCursor(newCursor);
@@ -16358,8 +16004,8 @@ public class Client extends RSApplet {
         if (s.contains("[GE]")) {
             return;
         }
-        if (!s.contains("Walk here") && getOption("tooltip_hover")) {
-            boolean add = getOption("cursors") && cursor > 0;
+        if (!s.contains("Walk here") && Configuration.enableTooltipHover) {
+            boolean add = Configuration.enableCursors && cursor > 0;
             drawHoverBox(super.mouseX + (add ? 20 : 10), super.mouseY - (add ? 20 : 10), 0x101010, 0xFFFFFF, s);
         }
         if (menuActionRow > 2) {
@@ -16843,7 +16489,7 @@ public class Client extends RSApplet {
         inCutScene = false;
     }
 
-    private boolean rememberMe;
+    public boolean rememberMe;
     private Sprite twoFactorAuthBg;
     private String currentPinCode = "";
 
@@ -16948,7 +16594,7 @@ public class Client extends RSApplet {
 
             SpriteLoader.sprites[LoginScreen.deleteCharacterState[i] ? 1207 : 1208].drawARGBSprite(x - 7, y + 40, 256);
 
-            chatTextDrawingArea.drawCenteredText(16777215, x + 46, f == null ? "Empty" : f.username, y + 59, true);
+            chatTextDrawingArea.drawCenteredText(16777215, x + 46, f == null ? "Empty" : f.getUsername(), y + 59, true);
             x += 95;
         }
 
@@ -17042,16 +16688,16 @@ public class Client extends RSApplet {
                         int x1 = x + 92;
                         CharacterFile file = LoginScreen.characters.get(i);
                         if (LoginScreen.deleteCharacterState[i]) {
-                            LoginScreen.delete(file.username);
+                            LoginScreen.delete(file.getUsername());
                         } else if (super.mouseX >= x && super.mouseX <= x1 && super.mouseY >= 370 && super.mouseY <= 441) {
-                            login(file.username, file.password, myAuth, false);
+                            login(file.getUsername(), file.getPassword(), myAuth, false);
                         }
                         x += 95;
                     }
 
                     if (rememberMeButtonHover) {
                         rememberMe = !rememberMe;
-                        saveSettings();
+                        ClientSettings.save();
                     }
                 }
 
@@ -17993,9 +17639,6 @@ public class Client extends RSApplet {
             switch (opCode) {
                 case 81:
                     updatePlayers(pktSize, inStream);
-                    if (openInterfaceID == 40030) {
-                        sendFrame36(1013, antialiasing ? 1 : 0);
-                    }
                     loadingMap = false;
                     opCode = -1;
                     return true;
@@ -18633,7 +18276,7 @@ public class Client extends RSApplet {
                     RSInterface entityInterface = RSInterface.interfaceCache[41020];
                     // RSInterface entityInterface =
                     // RSInterface.interfaceCache[7799];
-                    if (!getOption("constitution")) {
+                    if (!Configuration.enableConstitution) {
                         entityInterface.message = currentHealth / 10 + " / " + maxHealth / 10;
                     } else {
                         entityInterface.message = currentHealth + " / " + maxHealth;
@@ -19581,7 +19224,7 @@ public class Client extends RSApplet {
                                     break;
                                 }
                             }
-                        } else if (getOption("veng_timer")) {
+                        } else if (Configuration.enableTimers) {
                             addEffectTimer(new EffectTimer(timer, sprite));
                         }
                     } catch (Exception e) {
@@ -19650,7 +19293,7 @@ public class Client extends RSApplet {
                     inputTitle = new String(inStream.readString());
                     showInput = false;
                     inputDialogState = 1;
-                    if (!getOption("save_input")) {
+                    if (!Configuration.enableSaveInput) {
                         amountOrNameInput = "";
                     }
                     inputTaken = true;
@@ -19659,7 +19302,7 @@ public class Client extends RSApplet {
 
                 case 31:
                     inputDialogState = 1;
-                    if (!getOption("save_input")) {
+                    if (!Configuration.enableSaveInput) {
                         amountOrNameInput = "";
                     }
                     inputTaken = true;
@@ -19670,7 +19313,7 @@ public class Client extends RSApplet {
                     inputTitle = new String(inStream.readString());
                     showInput = false;
                     inputDialogState = 2;
-                    if (!getOption("save_input")) {
+                    if (!Configuration.enableSaveInput) {
                         amountOrNameInput = "";
                     }
                     inputTaken = true;
@@ -19697,6 +19340,9 @@ public class Client extends RSApplet {
                         if (interfaceID == 24600) {
                             buttonclicked = false;
                             interfaceButtonAction = 0;
+                        }
+                        if (interfaceID == 56_000) {
+                        	SettingsWidget.updateAdvancedOptions();
                         }
                         openInterfaceID = interfaceID;
                         bankItemDragSprite = null;
@@ -19992,6 +19638,7 @@ public class Client extends RSApplet {
                     if (i2 == 3) {
                         xCameraCurve = xCameraCurve + j2 & 0x7ff;
                     }
+
                     if (i2 == 4) {
                         yCameraCurve += j2;
                         if (yCameraCurve < 128) {
@@ -20029,7 +19676,7 @@ public class Client extends RSApplet {
         }
         DrawingArea.resetImage();
         worldController.render(xCameraPos, yCameraPos, xCameraCurve, zCameraPos, j, yCameraCurve);
-        if (Client.getOption("fog_active")) {
+        if (Configuration.enableFog) {
             int baseFogDistance = (int) Math.sqrt(Math.pow(zCameraPos, 2));
             int fogStart = baseFogDistance + 1100;
             int fogEnd = baseFogDistance + 2000;
@@ -20069,13 +19716,13 @@ public class Client extends RSApplet {
         }
         worldController.clearInteractableObjects();
 
-        if (getOption("ground_items")) {
+        if (Configuration.enableGroundItemNames) {
         	renderGroundItemNames();
         }
 
         Iterator<Particle> iterator;
         Particle particle;
-        if (getOption("particles")) {
+        if (Configuration.enableParticles) {
             iterator = displayedParticles.iterator();
             while (iterator.hasNext()) {
                 particle = iterator.next();
@@ -20185,7 +19832,7 @@ public class Client extends RSApplet {
             draw3dScreen();
 
         }
-        if (Client.getOption("xp_orbs")) {
+        if (Configuration.enableXpOrbs) {
 			SkillOrbs.process();
 		}
         if (consoleOpen && loggedIn) {
@@ -20931,7 +20578,7 @@ public class Client extends RSApplet {
     private static int anInt1142;
     private boolean dialogOptionsShowing;
     private Sprite[] crosses;
-    private boolean musicEnabled;
+    public boolean musicEnabled;
     private Background[] aBackgroundArray1152s;
     public static boolean needDrawTabArea;
     private int unreadMessages;
@@ -21024,7 +20671,7 @@ public class Client extends RSApplet {
     private final int[] soundDelay;
     private final int[] soundVolume;
     private int isOnTutorialIsland;
-    private int anInt1253;
+    public int anInt1253;
     private int anInt1254;
     private boolean welcomeScreenRaised;
     private boolean showInput;
@@ -22096,14 +21743,14 @@ public class Client extends RSApplet {
             drawPos = e.hitMarkPos[mask];
         }
         if (soak > 0) {
-            if (!getOption("absorb_damage")) {
+            if (!Configuration.enableAbsorbDamage) {
                 soak = 0;
             }
         }
         if (damage > 0) {
             Sprite end1 = null, middle = null, end2 = null;
             int x = 0;
-            if (!getOption("constitution")) {
+            if (!Configuration.enableConstitution) {
                 damage = (damage / 10);
                 if (damage == 0) {
                     damage = 1;
@@ -22395,7 +22042,7 @@ public class Client extends RSApplet {
     private String clanchatOwner = "";
 
     private void saveQuickSelection() {
-        saveSettings();
+    	ClientSettings.save();
         tabInterfaceIDs[5] = prayerInterfaceType;
     }
 
@@ -22465,7 +22112,7 @@ public class Client extends RSApplet {
             }
         }
     }
-
+    
     private int getQuickPrayersSet() {
         int amount = 0;
         for (int i = 0; i < quickPrayers.length; i++) {
@@ -22487,7 +22134,24 @@ public class Client extends RSApplet {
     }
 
     private int[] quickPrayers = new int[28];
+    
+    public int[] getQuickPrayers() {
+    	return quickPrayers;
+    }
+    
+    public void setQuickPrayers(int[] quickPrayers) {
+    	this.quickPrayers = quickPrayers;
+    }
+    
     private int[] quickCurses = new int[20];
+    
+    public int[] getQuickCurses() {
+    	return quickCurses;
+    }
+    
+    public void setQuickCurses(int[] quickCurses) {
+    	this.quickCurses = quickCurses;
+    }
 
     private int[] getCurseTypeForIndex(int index) {
         int[] types = null;

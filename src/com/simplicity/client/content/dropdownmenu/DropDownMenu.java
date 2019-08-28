@@ -37,19 +37,28 @@ public class DropDownMenu extends RSInterface {
      * Determines the column width the contents should fit into.
      */
     private final int columnWidth;
+    
+    /**
+     * The text shadow.
+     */
+    private final int textShadow;
 
     private static final int ARRROW_UP = 1035;
 
     private static final int ARRROW_DOWN = 1036;
+    
+	public DropDownMenu(int identifier, int width, int backgroundColor, int hoverColor, int columnAmount, int columnWidth, DropDownAction[] actions) {
+		this(identifier, width, backgroundColor, hoverColor, -1, columnAmount, columnWidth, actions);
+	}
 
-    public DropDownMenu(int identifier, int width, int backgroundColor, int hoverColor, int columnAmount, int columnWidth,
-                        DropDownAction[] actions) {
+	public DropDownMenu(int identifier, int width, int backgroundColor, int hoverColor, int textShadow, int columnAmount, int columnWidth, DropDownAction[] actions) {
         super(identifier, width, 16, 18, 18);
         this.backgroundColor = backgroundColor;
         this.hoverColor = hoverColor;
         this.actions = actions;
         this.columnAmount = columnAmount;
         this.columnWidth = columnWidth;
+        this.textShadow = textShadow;
         message = actions == null || actions.length < 1 ? "NO ACTION" : actions[0].getMessage();
         disabledSprite = Client.cacheSprite[ARRROW_UP];
         enabledSprite = Client.cacheSprite[ARRROW_DOWN];
@@ -62,10 +71,10 @@ public class DropDownMenu extends RSInterface {
         int drawX = subWidgetDrawX;
         int drawY = subWidgetDrawY;
         int parentDDMWidth = width;
-        int parentDDMHeight = 16;
+        int parentDDMHeight = 20;
         int childDDMWidth = columnWidth * columnAmount;
         int rowAmount = (int) Math.ceil((float) getActions().length / columnAmount);
-        int childDDMHeight = rowAmount * 16 + 2;
+        int childDDMHeight = rowAmount * parentDDMHeight + 2;
 
         /**
          * Draw rectangle and fill rectangle for the parent DDM.
@@ -77,12 +86,12 @@ public class DropDownMenu extends RSInterface {
          * Draw arrow down/up sprite. Determined by the isOpen field.
          */
         final Sprite draw = isOpen() ? disabledSprite : enabledSprite;
-        draw.drawSprite(subWidgetDrawX + width - draw.myWidth, subWidgetDrawY);
+        draw.drawSprite(subWidgetDrawX + width - draw.myWidth - 2, subWidgetDrawY + 2);
 
         /**
          * Draw the first drop down menu option text in the parent DDM.
          */
-        client.newSmallFont.drawCenteredString(message, drawX + (width - 16) / 2, drawY + 13, 0xFF981F, -1, false);
+        client.newSmallFont.drawCenteredString(message, drawX + (width - parentDDMHeight) / 2, drawY + parentDDMHeight - 6, 0xFF981F, textShadow, false);
 
         /**
          * Handle drawing of the child DDM contents etc.
@@ -94,28 +103,28 @@ public class DropDownMenu extends RSInterface {
                 RSInterface.interfaceCache[tabStoneSprite].disabledSprite = Client.cacheSprite[12];
             }
 
-            DrawingArea.drawPixels2(childDDMHeight, drawY + 15, drawX, getBackgroundColor(), childDDMWidth); //Fill Rectangle
-            DrawingArea.fillPixels(drawX, childDDMWidth, childDDMHeight, 0, drawY + 15); //Rectangle
+            DrawingArea.drawPixels2(childDDMHeight, drawY + parentDDMHeight - 1, drawX, getBackgroundColor(), childDDMWidth); //Fill Rectangle
+            DrawingArea.fillPixels(drawX, childDDMWidth, childDDMHeight, 0, drawY + parentDDMHeight - 1); //Rectangle
 
             int counter = 0;
-            drawY += 15;
+            drawY += parentDDMHeight - 1;
             for (DropDownAction action : getActions()) {
                 if (action == null) {
                     continue;
                 }
                 if (action.isHighlighted()) {
-                    DrawingArea.drawPixels2(16, subWidgetDrawY + 16 + counter * 16, subWidgetDrawX + 1, getHoverColor(),
+                    DrawingArea.drawPixels2(parentDDMHeight, subWidgetDrawY + parentDDMHeight + counter * parentDDMHeight, subWidgetDrawX + 1, getHoverColor(),
                             columnWidth - 2);
                 }
 
-                client.newSmallFont.drawCenteredString(action.getMessage(), drawX + columnWidth / 2, drawY + 16 - 2, 0xFF981F, -1, false);
+                client.newSmallFont.drawCenteredString(action.getMessage(), drawX + columnWidth / 2, drawY + parentDDMHeight - 5, 0xFF981F, textShadow, false);
 
                 action.setHighlighted(false);
-                drawY += 16;
+                drawY += parentDDMHeight;
                 counter++;
                 if (counter == rowAmount) {
                     drawX += columnWidth;
-                    drawY = subWidgetDrawY + 15;
+                    drawY = subWidgetDrawY + parentDDMHeight - 1;
                     subWidgetDrawX += columnWidth;
                     counter = 0;
                 }

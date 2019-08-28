@@ -1,5 +1,6 @@
 package com.simplicity.client;
 
+import com.simplicity.Configuration;
 import com.simplicity.client.cache.node.Deque;
 
 @SuppressWarnings("all")
@@ -1683,7 +1684,7 @@ final class WorldController {
 			}
 			if (class43.anInt720 == -1 || class43.anInt720 > 50) {
 				if (class43.anInt718 != 0xbc614e) {
-					if (Client.getOption("hd_tex") && class43.anInt720 != -1) {
+					if (Configuration.enableHDTextures && class43.anInt720 != -1) {
 						if (class43.aBoolean721) {
 							Rasterizer.drawMaterializedTriangle(j6, l6, l5, i6, k6, k5, class43.anInt718, class43.anInt719, class43.anInt717, i2, i3, l1, l3, i4, k4, k2, j2, j3, class43.anInt720, k3, j3, j2);
 						} else {
@@ -1712,7 +1713,7 @@ final class WorldController {
 			}
 			if (class43.anInt720 == -1 || class43.anInt720 > 50) {
 				if (class43.anInt716 != 0xbc614e) {
-					if (Client.getOption("hd_tex") && class43.anInt720 != -1) {
+					if (Configuration.enableHDTextures && class43.anInt720 != -1) {
 						Rasterizer.drawMaterializedTriangle(j5, l5, l6, i5, k5, k6, class43.anInt716, class43.anInt717, class43.anInt719, i2, i3, l1, l3, i4, k4, k2, j2, j3, class43.anInt720, k2, j2, j3);
 					} else {
 						Rasterizer.drawGouraudTriangle(j5, l5, l6, i5, k5, k6, class43.anInt716, class43.anInt717, class43.anInt719, k2, j2, j3);
@@ -1744,7 +1745,7 @@ final class WorldController {
 			if (i3 < 50) {
 				return;
 			}
-			if (Client.getOption("hd_tex") || class40.anIntArray682 != null) {
+			if (Configuration.enableHDTextures || class40.anIntArray682 != null) {
 				ShapedTile.anIntArray690[l1] = i2;
 				ShapedTile.anIntArray691[l1] = k2;
 				ShapedTile.anIntArray692[l1] = i3;
@@ -1774,7 +1775,7 @@ final class WorldController {
 				}
 				if (class40.anIntArray682 == null || class40.anIntArray682[j2] == -1 || class40.anIntArray682[j2] > 50) {
 					if (class40.anIntArray676[j2] != 0xbc614e) {
-						if (Client.getOption("hd_tex") && class40.anIntArray682 != null && class40.anIntArray682[j2] != -1) {
+						if (Configuration.enableHDTextures && class40.anIntArray682 != null && class40.anIntArray682[j2] != -1) {
 							if (class40.aBoolean683 || class40.anIntArray682[j2] == 505) {
 								Rasterizer.drawMaterializedTriangle(l4, i5, j5, i4, j4, k4, class40.anIntArray676[j2], class40.anIntArray677[j2], class40.anIntArray678[j2], ShapedTile.anIntArray690[0], ShapedTile.anIntArray690[1], ShapedTile.anIntArray690[3], ShapedTile.anIntArray691[0], ShapedTile.anIntArray691[1], ShapedTile.anIntArray691[3], ShapedTile.anIntArray692[0], ShapedTile.anIntArray692[1], ShapedTile.anIntArray692[3], class40.anIntArray682[j2], ShapedTile.screenZ[l2], ShapedTile.screenZ[j3], ShapedTile.screenZ[l3]);
 							} else {

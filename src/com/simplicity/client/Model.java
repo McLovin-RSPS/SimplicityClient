@@ -3756,7 +3756,7 @@ public class Model extends Animable {
                 i5 = -500;
         }
 
-        if (Client.getOption("particles")) {
+        if (Configuration.enableParticles) {
 
             for (int vertex = 0; vertex < numberOfVerticeCoordinates; ++vertex) {
                 int pid = verticesParticle[vertex] - 1;
