@@ -22,5 +22,17 @@ public class MiscUtils {
 
         return 0xFF000000 | Red | Green | Blue; //0xFF000000 for 100% Alpha. Bitwise OR everything together.
     }
+    
+	public static String formatCoins(final long quantity) {
+		if (quantity >= 10000 && quantity < 10000000) {
+			return quantity / 1000 + "K";
+		} else if (quantity >= 10000000 && quantity <= Integer.MAX_VALUE) {
+			return quantity / 1000000 + "M";
+		} else if (quantity > Integer.MAX_VALUE && quantity <= Long.MAX_VALUE) {
+			return quantity / 10000000 + "B";
+		} else {
+			return Long.toString(quantity);
+		}
+	}
 
 }

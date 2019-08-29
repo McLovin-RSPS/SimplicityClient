@@ -8,6 +8,7 @@ import com.simplicity.client.cache.definitions.MobDefinition;
 import com.simplicity.client.content.CustomisableHotKeys;
 import com.simplicity.client.content.dropdownmenu.DropDownAction;
 import com.simplicity.client.content.dropdownmenu.DropDownMenu;
+import com.simplicity.client.widget.AchievementsWidget;
 import com.simplicity.client.widget.SettingsWidget;
 
 @SuppressWarnings("all")
@@ -4253,6 +4254,8 @@ public class RSInterface {
         makeAllSkilling(textDrawingAreas);
         
         SettingsWidget.unpack(textDrawingAreas);
+        
+        AchievementsWidget.unpack(textDrawingAreas);
 
         spriteCache = null;
     }
@@ -15200,6 +15203,16 @@ public class RSInterface {
         tab.height = h;
         tab.tooltip = text;
     }
+    
+    public static void addProgressBar(int id, int width, int height, int current, int max) {
+		RSInterface rsi = addInterface(id);
+		rsi.id = id;
+		rsi.type = 29;
+		rsi.width = width;
+		rsi.height = height;
+		rsi.message = current + "/" + max;
+		rsi.enabledMessage = current + "/" + max;
+	}
 
     public static void addSummoningText(int i, String s, int k, boolean l, boolean m, int a, TextDrawingArea[] TDA,
                                         int j) {
@@ -15277,6 +15290,30 @@ public class RSInterface {
         setBounds(63450, xPos + 460, yPos + 8, 5, rsinterface);
         setBounds(63451, xPos + 460, yPos + 8, 6, rsinterface);
         setBounds(63478, 0, yPos + 39, 7, rsinterface);
+    }
+    
+    public static void setSelectedInterface(int interfaceId) {
+    	RSInterface selectable = RSInterface.interfaceCache[interfaceId];
+    	
+    	if (selectable == null) {
+    		return;
+    	}
+    	
+    	if (selectable.selected) {
+    		return;
+    	}
+        
+        if (selectable.selectableInterfaces != null) {
+            for (int s : selectable.selectableInterfaces) {
+            	if (s == interfaceId) {
+            		continue;
+            	}
+            	
+            	RSInterface.interfaceCache[s].selected = false;
+            }
+        }
+        
+        selectable.selected = true;
     }
 
     public static int summoningItemRequirements[][] = {{12158, 2859, -1}, // Wolf pouch
@@ -15537,6 +15574,9 @@ public class RSInterface {
     public boolean hovers;
 
     public int enabledOpacity;
+    
+    public boolean selected;
+    public int[] selectableInterfaces;
     
     public static TextDrawingArea defaultFont[];
 

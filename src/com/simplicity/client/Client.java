@@ -32,7 +32,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.RandomAccessFile;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
@@ -98,7 +97,9 @@ import com.simplicity.client.content.dropdownmenu.DropDownAction;
 import com.simplicity.client.content.dropdownmenu.DropDownMenu;
 import com.simplicity.client.particles.Particle;
 import com.simplicity.client.particles.ParticleDefinition;
+import com.simplicity.client.widget.AchievementsWidget;
 import com.simplicity.client.widget.SettingsWidget;
+import com.simplicity.util.MiscUtils;
 import com.simplicity.util.Stopwatch;
 import com.simplicity.util.StringUtils;
 
@@ -14121,6 +14122,12 @@ public class Client extends RSApplet {
                             }
                             opacity = child.opacity;
                         }
+                        
+                        if (child.selected) {
+                        	opacity = child.enabledOpacity;
+                        	j3 = child.enabledColor;
+                        }
+                        
                         if (opacity != 256) {
                             if (opacity == 0) {
                                 if (child.filled) {
@@ -14636,6 +14643,32 @@ public class Client extends RSApplet {
     							child.rsFont.drawBasicString(child.message, childX + 5,
     									childY + child.msgY,
     									flag ? child.disabledMouseOverColor : child.disabledColor, 0);
+    					}
+                    } else if (child.type == 29) {
+                    	try {
+    						String progress = RSInterface.interfaceCache[child.id].message;
+    						
+    						if (progress.indexOf("/") == -1) {
+    							continue;
+    						}
+
+    						int current = Integer.parseInt(progress.substring(0, progress.indexOf("/")));
+    						
+    						int maximum = Integer.parseInt(progress.substring(progress.indexOf("/") + 1, progress.length()));
+    						
+    						int width = child.width;
+    						
+    						int height = child.height;
+    						
+    						int color = color = getProgressBarColor((int) ((double) current / (double) maximum * 100));
+    						
+    						DrawingArea.drawRectangle(childY - 1, child.height + 2, 250, 0, child.width -5, childX - 1);
+    						DrawingArea.drawAlphaPixels(childX, childY, width - 7, height, 0, 150);
+    						DrawingArea.drawAlphaPixels(childX, childY, (int) ((double) current / maximum * width - 7), height, color, 150);
+    						
+    						newSmallFont.drawCenteredString(MiscUtils.formatCoins(current) + "/" + MiscUtils.formatCoins(maximum), childX + (width - 8) / 2, childY + height / 2 + 5, 0xFFFFFF, 0);
+    					} catch (Exception e) {
+    						e.printStackTrace();
     					}
                     }
                 }
@@ -18806,6 +18839,17 @@ public class Client extends RSApplet {
                     myRights = inStream.readUnsignedByte();
                     opCode = -1;
                     return true;
+                    
+				case 102:
+					int textFrom = inStream.readDWord();
+					int textTo = inStream.readDWord();
+					
+					for (int j = textFrom; j <= textTo; j++) {
+						sendFrame126("", j);
+					}
+					
+					opCode = -1;
+					return true;
 
                 case 126:
                     String text = inStream.readString();
@@ -18826,6 +18870,10 @@ public class Client extends RSApplet {
                         int scrollValue = Integer.parseInt(args[2]);
                         int scrollInterfaceId = Integer.parseInt(args[1]);
                         RSInterface.interfaceCache[scrollInterfaceId].scrollMax = scrollValue;
+                    } else if (text.startsWith("selectedItf")) {
+                    	String[] args = text.split(" ");
+                        int selectedItf = Integer.parseInt(args[1]);
+                        RSInterface.setSelectedInterface(selectedItf);
                     } else if (text.startsWith("closedialogue")) {
                         backDialogID = -1;
                         inputTaken = true;
@@ -22894,6 +22942,30 @@ public class Client extends RSApplet {
 		}
 		
 		return 31744;
+	}
+	
+	public static int getProgressBarColor(int percent) {
+		if (percent <= 15) {
+			return 0xFF0000;
+		}
+		
+		if (percent <= 45) {
+			return 0xffa500;
+		}
+		
+		if (percent <= 65) {
+			return 0xffa500;
+		}
+		
+		if (percent <= 75) {
+			return 0xffa500;
+		}
+		
+		if (percent <= 99) {
+			return 0xFFFF00;
+		}
+		
+		return 0x00FF00;
 	}
 
 	public boolean hover(int x, int y, Sprite sprite) {
