@@ -797,6 +797,11 @@ public final class ItemDefinition {
                     itemDef.name = "Infinity Box";
                     itemDef.newModelColor[0] = 35260;
                     break; 
+                case 49485:
+                    itemDef.copy(forID(6199));
+                    itemDef.name = "One Year Box";
+                    itemDef.newModelColor[0] = 25560;
+                    break; 
                 case 52191:
                     itemDef.name = "Master Stone";
                     itemDef.actions = new String[5];
