@@ -73,20 +73,20 @@ public class AchievementsWidget extends RSInterface {
 			id++;
 		}
 		
-		addText(id, "Easy", tda, 0, 0xffff00, false, true);
-		tab.child(child++, id, startX + 4, startY); // 248
+		addSpriteLoader(id, 718);
+		tab.child(child++, id, startX + 11, startY);
 		id++;
 		
-		addText(id, "Medium", tda, 0, 0xffff00, false, true);
-		tab.child(child++, id, startX + 47, startY); // 248
+		addSpriteLoader(id, 719);
+		tab.child(child++, id, startX + 59, startY);
 		id++;
 		
-		addText(id, "Hard", tda, 0, 0xffff00, false, true);
-		tab.child(child++, id, startX + 3 + 96, startY); // 248
+		addSpriteLoader(id, 717);
+		tab.child(child++, id, startX + 11 + 96, startY);
 		id++;
 		
-		addText(id, "Elite", tda, 0, 0xffff00, false, true);
-		tab.child(child++, id, startX + 5 + 144, startY); // 248
+		addSpriteLoader(id, 1255);
+		tab.child(child++, id, startX + 11 + 144, startY);
 		id++;
 		
 		tab.child(child++, id, 2, 39 + 5); // scroll position
@@ -121,7 +121,7 @@ public class AchievementsWidget extends RSInterface {
 			id++;
 			
 			addText(id, "", tda, 0, ACHIEVEMENT_TEXT_COLOR, false);
-			scroll.child(child++, id, 4, yPos + 3); // 83
+			scroll.child(child++, id, 4 + 12, yPos + 3); // 83
 			id++;
 			
 			addProgressBar(id, width - 1, 11, 0, 1);

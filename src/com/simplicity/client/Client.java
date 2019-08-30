@@ -14667,6 +14667,8 @@ public class Client extends RSApplet {
     						DrawingArea.drawAlphaPixels(childX, childY, (int) ((double) current / maximum * width - 7), height, color, 150);
     						
     						newSmallFont.drawCenteredString(MiscUtils.formatCoins(current) + "/" + MiscUtils.formatCoins(maximum), childX + (width - 8) / 2, childY + height / 2 + 5, 0xFFFFFF, 0);
+    						
+    						cacheSprite[719].drawSprite(childX, childY - 14);
     					} catch (Exception e) {
     						e.printStackTrace();
     					}
