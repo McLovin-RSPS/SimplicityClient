@@ -11,6 +11,8 @@ import com.simplicity.client.content.dropdownmenu.DropDownMenu;
 import com.simplicity.client.widget.AchievementsWidget;
 import com.simplicity.client.widget.SettingsWidget;
 
+import static com.simplicity.client.Client.*;
+
 @SuppressWarnings("all")
 public class RSInterface {
 
@@ -4200,6 +4202,7 @@ public class RSInterface {
         raids(textDrawingAreas);
         lootingBag(textDrawingAreas);
         addToLootingBag(textDrawingAreas);
+        broadcastInterface(textDrawingAreas);
         raidsRewards(textDrawingAreas);
         /*
          * spells[0] = interfaceCache[1572]; //Bind spells[1] = interfaceCache[1582];
@@ -4662,6 +4665,29 @@ public class RSInterface {
             scroll.child(c++, id++, 152 + x, 4 + y);
             y += 20;
         }
+    }
+
+    /*
+
+            int xOffset = fixed ? 210 : 60 + (clientWidth / 2) - 110 ;
+            int yOffset = fixed ? 50 : (clientHeight - 503);
+
+     */
+
+    public static void broadcastInterface(TextDrawingArea[] tda) {
+        RSInterface tab = addInterface(40_900);
+        addText(40_901, "@or1@[Broadcast] @whi@", tda, 0, 0xFF981F, true, true);
+
+        tab.children(1);
+
+        boolean fixed = (clientSize == 0);
+        boolean resizable = (clientSize == 1);
+        int xOffset = fixed ? 222 : (clientWidth / 2) - (82 / 4);
+        int yOffset = fixed ? 2 : 2;
+
+        int chatbox = fixed ? 174 : 200;
+        int y = (clientHeight - chatbox) - 13;
+        tab.child(0, 40_901, xOffset - 175, y + yOffset);
     }
 
     public static void lootingBag(TextDrawingArea[] tda) {
