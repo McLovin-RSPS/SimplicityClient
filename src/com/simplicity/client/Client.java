@@ -5486,6 +5486,7 @@ public class Client extends RSApplet {
         prevSong = 0;
         alertBoxTimer = 0;
         toggleSize(0);
+        RSInterface.interfaceCache[3322].deleteOnDrag2 = false;
     }
 
     private void setMyAppearance() {
@@ -18415,6 +18416,8 @@ public class Client extends RSApplet {
                         if (!flag2 && s3.length() >= 2) {
                             pushMessage("wishes to trade with you.", 4, s3);
                         }
+                    } else if (s.startsWith(":trade_drag:")) {
+                    	RSInterface.interfaceCache[3322].deleteOnDrag2 = true;
                     } else if (s.startsWith(":alert:")) {
                         if (s.length() > 7) {
                             alertBoxTimer = 2500;
