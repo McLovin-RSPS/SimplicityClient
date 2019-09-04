@@ -4235,7 +4235,7 @@ public class RSInterface {
         dealsInterface(textDrawingAreas);
         customisableHotKeys(textDrawingAreas);
         presetsInterface(textDrawingAreas);
-//        tournamentInterface(textDrawingAreas);
+        tournamentInterface(textDrawingAreas);
         runePouch(textDrawingAreas);
         donationPanel(textDrawingAreas);
         thrownaxeSpecial();
