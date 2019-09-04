@@ -16,7 +16,7 @@ public class OldschoolMaps {
 
     public static int[] OLDSCHOOL_REGION_IDS = {
             5947, // South of blast mine
-            8536, // Demonic gorillas
+            8536, //Demonic gorillas
             8280, // Demonic gorillas
             8789,
             6457, // Great Kourand
@@ -37,7 +37,10 @@ public class OldschoolMaps {
             5946, 6201, 5536, 4663, 6810, 9023, 9043, 11850, 11851, 12090, 12106, 12362, 12363, 12347, 12605, 12611,
             12701, 12702, 12703, 12861, 12889, 12957, 12958, 12959, 12961,
             /* Cerberus regions */
-            4626, 4627, 46728, 4882, 4883, 4884, 5138, 5139, 5140
+            4626, 4627, 46728, 4882, 4883, 4884, 5138, 5139, 5140,
+
+            //tournament
+            13133
     };
     static {
         for(Integer region : OLDSCHOOL_REGION_IDS) {

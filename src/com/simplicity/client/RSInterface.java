@@ -4202,7 +4202,6 @@ public class RSInterface {
         raids(textDrawingAreas);
         lootingBag(textDrawingAreas);
         addToLootingBag(textDrawingAreas);
-        broadcastInterface(textDrawingAreas);
         raidsRewards(textDrawingAreas);
         /*
          * spells[0] = interfaceCache[1572]; //Bind spells[1] = interfaceCache[1582];
@@ -4673,22 +4672,6 @@ public class RSInterface {
             int yOffset = fixed ? 50 : (clientHeight - 503);
 
      */
-
-    public static void broadcastInterface(TextDrawingArea[] tda) {
-        RSInterface tab = addInterface(40_900);
-        addText(40_901, "@or1@[Broadcast] @whi@", tda, 0, 0xFF981F, true, true);
-
-        tab.children(1);
-
-        boolean fixed = (clientSize == 0);
-        boolean resizable = (clientSize == 1);
-        int xOffset = fixed ? 222 : (clientWidth / 2) - (82 / 4);
-        int yOffset = fixed ? 2 : 2;
-
-        int chatbox = fixed ? 174 : 200;
-        int y = (clientHeight - chatbox) - 13;
-        tab.child(0, 40_901, xOffset - 175, y + yOffset);
-    }
 
     public static void lootingBag(TextDrawingArea[] tda) {
 
