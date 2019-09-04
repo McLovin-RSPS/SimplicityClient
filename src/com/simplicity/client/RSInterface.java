@@ -4471,8 +4471,8 @@ public class RSInterface {
         addText(127_004, "Rounds remaining: ", tda, 1, 0xFFA500, false, true);
         addText(127_005, "Current winner: N/A", tda, 1, 0xFFA500, false, true);
 
-        int x = 155;
-        int y = 15;
+        int x = 15;
+        int y = 18;
 
         tab.totalChildren(5);
         tab.child(0, 127_001, x - 12, 5); //background
