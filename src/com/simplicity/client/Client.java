@@ -18273,7 +18273,7 @@ public class Client extends RSApplet {
                     // }
                     // walkableInterfaceId = i3;
                     // opCode = -1;
-                    int interfaceId = inStream.readUnsignedWord();
+                    int interfaceId = inStream.readDWord();
                     boolean add = inStream.readUnsignedWord() == 1 ? true : false;
                     RSInterface widget = RSInterface.interfaceCache[interfaceId];
                     if (widget != null) {

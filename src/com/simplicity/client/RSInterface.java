@@ -4235,6 +4235,7 @@ public class RSInterface {
         dealsInterface(textDrawingAreas);
         customisableHotKeys(textDrawingAreas);
         presetsInterface(textDrawingAreas);
+//        tournamentInterface(textDrawingAreas);
         runePouch(textDrawingAreas);
         donationPanel(textDrawingAreas);
         thrownaxeSpecial();
@@ -4460,6 +4461,26 @@ public class RSInterface {
         interfaceCache[86100].children[27] = 86150;
 
         presets.child(frame++, 86100, 109, 50);
+    }
+
+    public static void tournamentInterface(TextDrawingArea[] tda) {
+        RSInterface tab = addInterface(127_000);
+        addSpriteLoader(127_001, 1256);
+        addText(127_002, "Tournament starts in: ", tda, 1, 0xFFA500, false, true);
+        addText(127_003, "Time left in round: ", tda, 1, 0xFFA500, false, true);
+        addText(127_004, "Rounds remaining: ", tda, 1, 0xFFA500, false, true);
+        addText(127_005, "Current winner: N/A", tda, 1, 0xFFA500, false, true);
+
+        int x = 155;
+        int y = 15;
+
+        tab.totalChildren(5);
+        tab.child(0, 127_001, x - 12, 5); //background
+        tab.child(1, 127_002, x, y + 1);  //top
+        tab.child(2, 127_003, x, y + 23);
+        tab.child(3, 127_004, x, y + 46);
+        tab.child(4, 127_005, x, y + 69);;
+
     }
 
     public static void runePouch(TextDrawingArea[] tda) {
