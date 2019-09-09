@@ -10984,6 +10984,8 @@ public class Client extends RSApplet {
         int i = 0;
         if (updateMinutes != 0) {
             i = 1;
+        } else if (broadcastText != null) {
+            i = 1;
         }
         for (int j = 0; j < 100; j++) {
             if (chatMessages[j] != null) {
@@ -11670,6 +11672,7 @@ public class Client extends RSApplet {
                 pktSize = 0;
                 anInt1009 = 0;
                 updateMinutes = 0;
+                broadcastText = null;
                 anInt1011 = 0;
                 anInt855 = 0;
                 menuActionRow = 0;
@@ -11946,6 +11949,7 @@ public class Client extends RSApplet {
                 pktSize = 0;
                 anInt1009 = 0;
                 updateMinutes = 0;
+                broadcastText = null;
                 menuActionRow = 0;
                 menuOpen = false;
                 mapLoadingTime = System.currentTimeMillis();
@@ -15333,6 +15337,8 @@ public class Client extends RSApplet {
                 anInt849 = 0;
                 stream.createFrame(148);
             }
+        } else if (broadcastText != null) {
+            drawingArea.method385(0xffff00, broadcastText, 329, 4);
         }
         
     }
@@ -16143,6 +16149,8 @@ public class Client extends RSApplet {
         }
         int i = 0;
         if (updateMinutes != 0) {
+            i = 1;
+        } else if (broadcastText != null) {
             i = 1;
         }
         for (int j = 0; j < 100; j++) {
@@ -18274,7 +18282,7 @@ public class Client extends RSApplet {
                     // }
                     // walkableInterfaceId = i3;
                     // opCode = -1;
-                    int interfaceId = inStream.readUnsignedWord();
+                    int interfaceId = inStream.readDWord();
                     boolean add = inStream.readUnsignedWord() == 1 ? true : false;
                     RSInterface widget = RSInterface.interfaceCache[interfaceId];
                     if (widget != null) {
@@ -18336,6 +18344,19 @@ public class Client extends RSApplet {
 
                 case 114:
                     updateMinutes = inStream.ig2() * 30;
+                    broadcastText = null;
+                    opCode = -1;
+                    return true;
+
+                case 76:
+                    String temp = inStream.readString();
+                    if (temp.substring(1, temp.length() - 1).equalsIgnoreCase("clear")) {
+                        broadcastText = null;
+                        opCode = -1;
+                        return true;
+                    }
+                    broadcastText = temp;
+                    System.out.println("broad cast received: " + broadcastText);
                     opCode = -1;
                     return true;
 
@@ -20607,6 +20628,7 @@ public class Client extends RSApplet {
     private int anInt1102;
     public static boolean tabAreaAltered;
     private int updateMinutes;
+    private String broadcastText;
     private RSImageProducer titleScreen;
     private static int anInt1117;
     private int membersInt;

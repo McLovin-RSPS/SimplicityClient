@@ -4202,7 +4202,6 @@ public class RSInterface {
         raids(textDrawingAreas);
         lootingBag(textDrawingAreas);
         addToLootingBag(textDrawingAreas);
-        broadcastInterface(textDrawingAreas);
         raidsRewards(textDrawingAreas);
         /*
          * spells[0] = interfaceCache[1572]; //Bind spells[1] = interfaceCache[1582];
@@ -4236,6 +4235,7 @@ public class RSInterface {
         dealsInterface(textDrawingAreas);
         customisableHotKeys(textDrawingAreas);
         presetsInterface(textDrawingAreas);
+        tournamentInterface(textDrawingAreas);
         runePouch(textDrawingAreas);
         donationPanel(textDrawingAreas);
         thrownaxeSpecial();
@@ -4463,6 +4463,26 @@ public class RSInterface {
         presets.child(frame++, 86100, 109, 50);
     }
 
+    public static void tournamentInterface(TextDrawingArea[] tda) {
+        RSInterface tab = addInterface(127_000);
+        addSpriteLoader(127_001, 1256);
+        addText(127_002, "Tournament starts in: ", tda, 1, 0xFFA500, false, true);
+        addText(127_003, "Time left in round: ", tda, 1, 0xFFA500, false, true);
+        addText(127_004, "Rounds remaining: ", tda, 1, 0xFFA500, false, true);
+        addText(127_005, "Current winner: N/A", tda, 1, 0xFFA500, false, true);
+
+        int x = 15;
+        int y = 18;
+
+        tab.totalChildren(5);
+        tab.child(0, 127_001, x - 12, 5); //background
+        tab.child(1, 127_002, x, y + 1);  //top
+        tab.child(2, 127_003, x, y + 23);
+        tab.child(3, 127_004, x, y + 46);
+        tab.child(4, 127_005, x, y + 69);;
+
+    }
+
     public static void runePouch(TextDrawingArea[] tda) {
         RSInterface tab = addInterface(49000);
         addSpriteLoader(49001, 1044);
@@ -4673,22 +4693,6 @@ public class RSInterface {
             int yOffset = fixed ? 50 : (clientHeight - 503);
 
      */
-
-    public static void broadcastInterface(TextDrawingArea[] tda) {
-        RSInterface tab = addInterface(40_900);
-        addText(40_901, "@or1@[Broadcast] @whi@", tda, 0, 0xFF981F, true, true);
-
-        tab.children(1);
-
-        boolean fixed = (clientSize == 0);
-        boolean resizable = (clientSize == 1);
-        int xOffset = fixed ? 222 : (clientWidth / 2) - (82 / 4);
-        int yOffset = fixed ? 2 : 2;
-
-        int chatbox = fixed ? 174 : 200;
-        int y = (clientHeight - chatbox) - 13;
-        tab.child(0, 40_901, xOffset - 175, y + yOffset);
-    }
 
     public static void lootingBag(TextDrawingArea[] tda) {
 
