@@ -8272,8 +8272,20 @@ public class Client extends RSApplet {
             }
         }
         if (l == 55) {
-            //stream.createFrame(20);
-            System.out.println("HERE!!!");
+            stream.createFrame(20);
+            stream.writeUnsignedWordBigEndian(slot);
+            stream.writeUnsignedWordA(11);
+            stream.writeUnsignedWordBigEndian(entityId);
+            atInventoryLoopCycle = 0;
+            atInventoryInterface = interfaceId;
+            atInventoryIndex = slot;
+            atInventoryInterfaceType = 2;
+            if (RSInterface.interfaceCache[interfaceId].parentID == openInterfaceID) {
+                atInventoryInterfaceType = 1;
+            }
+            if (RSInterface.interfaceCache[interfaceId].parentID == backDialogID) {
+                atInventoryInterfaceType = 3;
+            }
         }
         if (l == 539) {
             stream.createFrame(16);
