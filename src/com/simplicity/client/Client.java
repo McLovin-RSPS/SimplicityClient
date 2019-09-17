@@ -8274,7 +8274,7 @@ public class Client extends RSApplet {
         if (l == 55) {
             stream.createFrame(20);
             stream.writeUnsignedWordBigEndian(slot);
-            stream.writeUnsignedWordA(11);
+            stream.writeUnsignedWordA(interfaceId);
             stream.writeUnsignedWordBigEndian(entityId);
             atInventoryLoopCycle = 0;
             atInventoryInterface = interfaceId;
