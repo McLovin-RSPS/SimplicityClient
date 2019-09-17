@@ -3988,7 +3988,7 @@ public class RSInterface {
                         rsInterface.actions[2] = "Operate";
                     if (rsInterface.parentID == 5292)
                         rsInterface.actions = new String[]{"Withdraw-1", "Withdraw-5", "Withdraw-10", "Withdraw-All",
-                                "Withdraw-All but one", "Withdraw-X"};
+                                "Withdraw-All but one", "Withdraw-X", null};
                 }
             }
             if (rsInterface.type == 3)

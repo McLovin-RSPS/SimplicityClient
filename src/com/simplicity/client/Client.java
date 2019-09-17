@@ -4410,10 +4410,17 @@ public class Client extends RSApplet {
                                                 || child.parentID == 2903 || child.parentID == 2904;
 
                                         if (child.actions != null) {
-                                            for (int j4 = child.parentID == 5292 || child.parentID == 3824 && child.actions.length == 6 ? 5
+                                            for (int j4 = child.parentID == 5292 || child.parentID == 3824 && child.actions.length == 6 ? 6
                                                     : 4; j4 >= 0; j4--) {
+                                                if (child.parentID == 5292) {
+                                                    int cached = variousSettings[420];
+                                                    if (cached > 0) {
+                                                        child.actions[6] = "Withdraw-"+ cached;
+                                                    } else {
+                                                        child.actions[6] = null;
+                                                    }
+                                                }
                                                 if (child.actions.length > j4  && child.actions[j4] != null) {
-
                                                     String s = myRights == PlayerRights.OWNER.ordinal()
                                                             || myRights == PlayerRights.DEVELOPER.ordinal()
                                                             ? child.actions[j4] + " @lre@" + itemDef.name + " "
@@ -4485,6 +4492,9 @@ public class Client extends RSApplet {
                                                     }
                                                     if (j4 == 5) {
                                                         menuActionID[menuActionRow] = 54;
+                                                    }
+                                                    if (j4 == 6) {
+                                                        menuActionID[menuActionRow] = 55;
                                                     }
                                                     menuActionCmd1[menuActionRow] = itemDef.id;
                                                     menuActionCmd2[menuActionRow] = ptr;
@@ -8245,7 +8255,6 @@ public class Client extends RSApplet {
                 atInventoryInterfaceType = 3;
             }
         }
-
         if (l == 54) {
             stream.createFrame(135);
             stream.writeUnsignedWordBigEndian(slot);
@@ -8261,6 +8270,10 @@ public class Client extends RSApplet {
             if (RSInterface.interfaceCache[interfaceId].parentID == backDialogID) {
                 atInventoryInterfaceType = 3;
             }
+        }
+        if (l == 55) {
+            //stream.createFrame(20);
+            System.out.println("HERE!!!");
         }
         if (l == 539) {
             stream.createFrame(16);
