@@ -11146,7 +11146,7 @@ public class Client extends RSApplet {
         chatAreaIP = new RSImageProducer(519, 165, getGameComponent());
         mapAreaIP = new RSImageProducer(249, 168, getGameComponent());
         DrawingArea.resetImage();
-        cacheSprite[6].drawSprite(0, 0);
+        cacheSprite[6].drawSprite(3, 0);
         // drawSpecOrb();
         tabAreaIP = new RSImageProducer(250, 335, getGameComponent());
         gameScreenIP = new RSImageProducer(clientSize == 0 ? 512 : clientWidth, clientSize == 0 ? 334 : clientHeight,
