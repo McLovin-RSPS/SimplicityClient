@@ -6,11 +6,13 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Font;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
@@ -97,7 +99,6 @@ import com.simplicity.client.content.dropdownmenu.DropDownAction;
 import com.simplicity.client.content.dropdownmenu.DropDownMenu;
 import com.simplicity.client.particles.Particle;
 import com.simplicity.client.particles.ParticleDefinition;
-import com.simplicity.client.widget.AchievementsWidget;
 import com.simplicity.client.widget.SettingsWidget;
 import com.simplicity.util.MiscUtils;
 import com.simplicity.util.Stopwatch;
@@ -1851,7 +1852,7 @@ public class Client extends RSApplet {
             menuActionRow++;
         }
         if (mouseInRegion(522, 121, 559, 157)) {
-            menuActionName[menuActionRow] = "Toggle Panel";
+            menuActionName[menuActionRow] = "Bonus Event";
             menuActionID[menuActionRow] = 10003;
             menuActionRow++;
         }
@@ -1901,6 +1902,7 @@ public class Client extends RSApplet {
             mapAreaIP.initDrawingArea();
             // drawSpecOrb();
         }
+        
         if (minimapStatus == 2) {
             cacheSprite[67].drawSprite((clientSize == 0 ? 32 : clientWidth - 162), (clientSize == 0 ? 9 : 5));
             if (clientSize == 0) {
@@ -2062,18 +2064,90 @@ public class Client extends RSApplet {
                 cacheSprite[35].drawSprite((clientSize == 0 ? 246 : clientWidth) - 21, 0);
             }
         }
+        drawBonusOrb();
         drawHPOrb();
         drawPrayerOrb();
         drawRunOrb();
         drawSummoningOrb();
         drawCoinOrb();
         drawTeleIcon();
+        
+		if (mouseInRegion(clientSize == 0 ? 522 : clientWidth - 44, clientSize == 0 ? 121 : 170, clientSize == 0 ? 559 : clientWidth - 3, clientSize == 0 ? 157 : 170 + 43)) {
+
+			if (bonusOrbHoverTimer < 25) {
+				bonusOrbHoverTimer++;
+			} else {
+				int x = clientSize == 0 ? mouseX - 505 : mouseX;
+
+				int y = clientSize == 0 ? (mouseY > 149 ? 149 : mouseY) : mouseY + 23;
+
+				String tooltip = bonusPercentage == 100 ? "Bonus event is currently active!" : bonusPercentage + "%";
+
+				drawTooltip(x, y, tooltip);
+			}
+
+		} else {
+			bonusOrbHoverTimer = 0;
+		}
+        
         compass[0].rotate(33, viewRotation, anIntArray1057, 256, anIntArray968, 25, (clientSize == 0 ? 8 : 5),
                 (clientSize == 0 ? 8 + xPosOffset : clientWidth - 167), 33, 25);
         if (menuOpen && menuScreenArea == 3) {
             drawMenu();
         }
+
         gameScreenIP.initDrawingArea();
+    }
+    
+    private int bonusPercentage;
+    
+	private void drawBonusOrb() {
+		int x = clientSize == 0 ? 4 : clientWidth - 44;
+
+		int y = clientSize == 0 ? 122 : 173;
+
+		if (clientSize != 0) {
+			cacheSprite[1258].drawSprite(x - 2, y - 3);
+		}
+
+		Graphics2D g2d = DrawingArea.createGraphics(true);
+
+		int radius = 35;
+
+		int borderRadius = 2;
+
+		Shape outer = DrawingArea.createCircle(x + 2, y + 1, radius);
+
+		Shape inner = DrawingArea.createCircle(x + 2 + borderRadius, y + 1 + borderRadius, radius - borderRadius * 2);
+
+		Area area = new Area(outer);
+
+		area.subtract(new Area(inner));
+
+		Shape progress = DrawingArea.createCircle(x + 2, y + 1, radius);
+
+		int percentage = bonusPercentage;
+
+		if (percentage > 0 && percentage < 6) {
+			percentage = 6;
+		}
+
+		int clip = radius + 1 - (percentage * 36 / 100);
+
+		g2d.setPaint(new GradientPaint(x, y, new Color(255, 0, 0, 85), x + 15, y + 50, Color.black));
+		g2d.clip(new Rectangle(x + 2, y + 1 + clip, radius, radius));
+		g2d.fill(progress);
+
+		if (bonusPercentage == 100) {
+			g2d.setColor(new Color(255, 255, 0, getCycleAlpha(100, 35.0)));
+			g2d.fill(area);
+		}
+
+		cacheSprite[1257].drawSprite(x + 8, y + 6);
+	}
+    
+    private int getCycleAlpha(int alpha, double rate) {
+    	return alpha / 2 + (int) (alpha / 2 * Math.sin(loopCycle / rate));
     }
 
     public int tabHover = -1;
@@ -16081,6 +16155,30 @@ public class Client extends RSApplet {
         }
         chatTextDrawingArea.method390(4, 0xffffff, s, loopCycle / 1000, 15);
     }
+    
+	public void drawTooltip(int xPos, int yPos, String text) {
+		String[] results = text.split("\n");
+		int height = (results.length * 16) + 3;
+		int width;
+		width = newRegularFont.getTextWidth(results[0]) + 6;
+		for (int i = 1; i < results.length; i++) {
+			if (width <= newRegularFont.getTextWidth(results[i]) + 6) {
+				width = newRegularFont.getTextWidth(results[i]) + 6;
+			}
+		}
+		
+		if (xPos + width > clientWidth) {
+			xPos = clientWidth - width - 2; 
+		}
+		
+		DrawingArea.drawPixels(height, yPos, xPos, 0xFFFFA0, width);
+		DrawingArea.fillPixels(xPos, width, height, 0, yPos);
+		yPos += 14;
+		for (int i = 0; i < results.length; i++) {
+			newRegularFont.drawBasicString(results[i], xPos + 3, yPos, 0, -1);
+			yPos += 16;
+		}
+	}
 
     public void prioritizeMenuAction(int toShift) {
         if (menuActionRow <= 2 || menuActionID[toShift - 1] == 1999) {
@@ -18464,6 +18562,8 @@ public class Client extends RSApplet {
                         if (!flag2 && s3.length() >= 2) {
                             pushMessage("wishes to trade with you.", 4, s3);
                         }
+                    } else if (s.startsWith(":bonus_amount:")) {
+						bonusPercentage = Integer.parseInt(s.substring(s.lastIndexOf(":") + 1));
                     } else if (s.startsWith(":trade_drag:")) {
                     	RSInterface.interfaceCache[3322].deleteOnDrag2 = true;
                     } else if (s.startsWith(":alert:")) {
@@ -21806,6 +21906,8 @@ public class Client extends RSApplet {
         }
         return false;
     }
+    
+    private int bonusOrbHoverTimer;
 
     public boolean clickInRegion(int x1, int y1, int x2, int y2) {
         if (super.saveClickX >= x1 && super.saveClickX <= x2 && super.saveClickY >= y1 && super.saveClickY <= y2) {
@@ -22492,7 +22594,7 @@ public class Client extends RSApplet {
     }
 
     public int getCoinOrbX() {
-        return clientSize == 0 ? -2 : clientWidth - 40;
+        return clientSize == 0 ? -2 : clientWidth - 85;
     }
 
     public int getCoinOrbY() {
