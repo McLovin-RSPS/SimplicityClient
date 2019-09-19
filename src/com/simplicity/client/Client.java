@@ -15338,7 +15338,8 @@ public class Client extends RSApplet {
                 stream.createFrame(148);
             }
         } else if (broadcastText != null) {
-            drawingArea.method385(0xffff00, broadcastText, 329, 4);
+            drawingArea.method385(0xffff00, broadcastText, 329, 19);
+            cacheSprite[1260].drawSprite(2, 318);
         }
         
     }
@@ -18341,7 +18342,6 @@ public class Client extends RSApplet {
                     RSInterface.interfaceCache[j11].mediaID = mediaId;
                     opCode = -1;
                     return true;
-
                 case 114:
                     updateMinutes = inStream.ig2() * 30;
                     broadcastText = null;
@@ -18356,7 +18356,9 @@ public class Client extends RSApplet {
                         return true;
                     }
                     broadcastText = temp;
-                    System.out.println("broad cast received: " + broadcastText);
+
+//                    System.out.println("broad cast received: " + broadcastText);
+
                     opCode = -1;
                     return true;
 
