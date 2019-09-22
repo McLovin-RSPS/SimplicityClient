@@ -7300,6 +7300,11 @@ public final class ItemDefinition {
                 itemDef.maleEquip1 = 53330;
                 itemDef.femaleEquip1 = 53651;
                 break;
+                
+            case 20060:
+                itemDef.name = "Magic knife";
+                itemDef.description = "You can offer this knife for a chance at the magic chest.";
+                break;
 
             case 14018:
                 itemDef.modelID = 5324;

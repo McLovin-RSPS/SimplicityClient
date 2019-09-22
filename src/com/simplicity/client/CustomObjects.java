@@ -98,8 +98,8 @@ public class CustomObjects {
 
             //Well for upgradable at home and gold bars
             {3485, 3089, 3495, 0, 0},
-            {36263, 3090, 3496, 0, 0},
-            {36263, 3090, 3494, 0, 0},
+            {6267, 3090, 3496, 0, 1},
+            {6267, 3090, 3494, 0, 1},
 
             //Xmass tree for december
             {14309, 3107, 3508, 0, 0},
@@ -278,7 +278,9 @@ public class CustomObjects {
             {129311, 1620, 3988, 0, 1}, // Bruma roots Arthur's dream II
 
 
-            {42774, 3083, 3499, 0, 3}, // Arthur's dream II teleporter edgeville
+            //{42774, 3083, 3499, 0, 3}, // Arthur's dream II teleporter edgeville
+            
+            {13292, 3083, 3499, 0, 1}, // Magic chest
             
             {0, 1625, 3978, 0, 0}, // Objects Arthur's dream II
             {0, 1626, 3978, 0, 0}, // Objects Arthur's dream II
