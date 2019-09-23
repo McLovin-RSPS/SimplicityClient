@@ -21998,6 +21998,13 @@ public class Client extends RSApplet {
             if (soak > 0) {
                 x -= 16;
             }
+            
+            int lengthOffset = 3;
+            
+            if (Configuration.enableConstitution) {
+        		lengthOffset++;
+            }
+            
             end1 = SpriteCache.spriteCache[81 + (type * 3)];
             middle = SpriteCache.spriteCache[81 + (type * 3) + 1];
             end2 = SpriteCache.spriteCache[81 + (type * 3) + 2];
@@ -22008,11 +22015,24 @@ public class Client extends RSApplet {
             x += 4;
             for (int i = 0; i < hitLength * 2; i++) {
                 middle.drawSprite3(spriteDrawX - 12 + x, drawPos - 12, opacity);
-                x += 4;
+                x += lengthOffset;
             }
+            
+            int textXOffset = type == 1 && damage > 99 ? 4 : 1;
+            
+            if (damage > 9999) {
+            	textXOffset += 10;
+            } else if (damage > 999) {
+            	textXOffset += 6;
+            } else if (damage > 99) {
+            	textXOffset += 3;
+			} else if (Configuration.enableConstitution) {
+				textXOffset += 2;
+			}
+            
             end2.drawSprite3(spriteDrawX - 12 + x, drawPos - 12, opacity);
-            (type == 1 ? bigHit : smallHit).drawOpacityText(0xffffff, String.valueOf(damage),
-                    drawPos + (type == 1 ? 2 : 32), spriteDrawX + 4 + (soak > 0 ? -16 : 0), opacity);
+            (type == 1 ? bigHit : smallText).drawOpacityText(0xffffff, String.valueOf(damage),
+                    drawPos + (type == 1 ? 2 : 3), spriteDrawX + textXOffset + (soak > 0 ? -16 : 0), opacity);
             if (soak > 0) {
                 drawSoak(soak, opacity, drawPos, x);
             }
