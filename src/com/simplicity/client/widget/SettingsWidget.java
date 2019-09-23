@@ -30,9 +30,9 @@ public class SettingsWidget extends RSInterface {
     public static final int NPC_ATTACK_DROPDOWN = 46_005;
 	
 	private static final int DISPLAY_SETTINGS = 20_000;
-	private static final int AUDIO_SETTINGS = 12_000;
-	private static final int CHAT_SETTINGS = 13_000;
-	private static final int CONTROL_SETTINGS = 14_000;
+	private static final int AUDIO_SETTINGS = DISPLAY_SETTINGS + 100;
+	private static final int CHAT_SETTINGS = AUDIO_SETTINGS + 100;
+	private static final int CONTROL_SETTINGS = CHAT_SETTINGS + 100;
 	
 	public static final int FIXED = DISPLAY_SETTINGS + 1;
 	public static final int RESIZABLE = DISPLAY_SETTINGS + 2;
