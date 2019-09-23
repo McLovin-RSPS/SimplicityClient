@@ -29,6 +29,13 @@ public final class Player extends Entity {
 		model.rendersWithinOneTile = true;
 		if (aBoolean1699)
 			return model;
+		
+		if (super.anInt1520 == -1 && super.idleGraphicId != -1 && Client.instance.loopCycle % 200 == 0) {
+			super.anInt1520 = super.idleGraphicId;
+			super.graphicHeight = 0;
+			super.currentAnim = 0;
+		}
+		
 		if (super.anInt1520 != -1 && super.currentAnim != -1) {
 			SpotAnimDefinition spotAnim = SpotAnimDefinition.cache[super.anInt1520];
 			Model model_2 = spotAnim.getModel();

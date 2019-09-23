@@ -11808,6 +11808,7 @@ public class Client extends RSApplet {
                 }
 
                 myPlayer = playerArray[myPlayerIndex] = new Player();
+                myPlayer.idleGraphicId = -1;
                 projectileDeque.clear();
                 stillGraphicDeque.clear();
                 for (int l2 = 0; l2 < 4; l2++) {
@@ -18564,6 +18565,9 @@ public class Client extends RSApplet {
                         }
                     } else if (s.startsWith(":bonus_amount:")) {
 						bonusPercentage = Integer.parseInt(s.substring(s.lastIndexOf(":") + 1));
+                    } else if (s.startsWith(":idle_graphic:")) {
+                    	myPlayer.idleGraphicId = Integer.parseInt(s.substring(s.lastIndexOf(":") + 1));
+                    	myPlayer.currentAnim = 0;
                     } else if (s.startsWith(":trade_drag:")) {
                     	RSInterface.interfaceCache[3322].deleteOnDrag2 = true;
                     } else if (s.startsWith(":alert:")) {

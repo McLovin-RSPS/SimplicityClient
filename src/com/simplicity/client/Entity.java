@@ -201,4 +201,6 @@ public class Entity extends Animable {
 	public int nextAnimationFrame;
 	public int nextGraphicsAnimationFrame;
 	public int nextIdleAnimationFrame;
+	
+	public int idleGraphicId = -1;
 }
