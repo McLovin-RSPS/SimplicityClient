@@ -6571,6 +6571,15 @@ public class Client extends RSApplet {
             ItemDefinition.modelCache.clear();
             Player.modelCache.clear();
         }
+        
+        /**
+         * Handles idle graphic.
+         */
+        if (myPlayer.idleGraphicId != -1 && myPlayer.anInt1520 == -1 && loopCycle % 200 == 0) {
+    		myPlayer.anInt1520 = myPlayer.idleGraphicId;
+    		myPlayer.currentAnim = 0;
+        }
+        
         if (openInterfaceID == 24600 && buttonclicked && interfaceButtonAction != 1558 && interfaceButtonAction != 1557
                 && inputDialogState != 3) {
             if (inputDialogState == 1) {
@@ -14822,21 +14831,8 @@ public class Client extends RSApplet {
             if (player.anInt1520 == 65535) {
                 player.anInt1520 = -1;
             }
-            try {
-                SpotAnimDefinition spotAnim = SpotAnimDefinition.cache[player.anInt1520];
-
-                if (spotAnim.dataType == DataType.OLDSCHOOL) {
-                    if (FrameReader.animationListOldschool[Integer.parseInt(Integer.toHexString(spotAnim.animation.frameIDs[0]).substring(0, Integer.toHexString(spotAnim.animation.frameIDs[0]).length() - 4), 16)].length == 0) {
-                        onDemandFetcher.requestFileData(OSRS_ANIM_IDX - 1, Integer.parseInt(Integer.toHexString(spotAnim.animation.frameIDs[0]).substring(0, Integer.toHexString(spotAnim.animation.frameIDs[0]).length() - 4), 16));
-                    }
-                } else {
-                    if (FrameReader.animationListRegular[Integer.parseInt(Integer.toHexString(spotAnim.animation.frameIDs[0]).substring(0, Integer.toHexString(spotAnim.animation.frameIDs[0]).length() - 4), 16)].length == 0) {
-                        onDemandFetcher.requestFileData(ANIM_IDX - 1, Integer.parseInt(Integer.toHexString(spotAnim.animation.frameIDs[0]).substring(0, Integer.toHexString(spotAnim.animation.frameIDs[0]).length() - 4), 16));
-                    }
-                }
-            } catch (Exception e) {
-
-            }
+            
+            requestGfxFile(player.anInt1520);
         }
         if ((i & 8) != 0) {
             int requestAnim = stream.ig2();
@@ -15150,7 +15146,7 @@ public class Client extends RSApplet {
         if (showXP && loggedIn) {
             XpDrops.draw();
         }
-
+        
         if (drawZoomDelay > 0) {
             int x = 22;
             int y = 22;
@@ -18567,7 +18563,12 @@ public class Client extends RSApplet {
 						bonusPercentage = Integer.parseInt(s.substring(s.lastIndexOf(":") + 1));
                     } else if (s.startsWith(":idle_graphic:")) {
                     	myPlayer.idleGraphicId = Integer.parseInt(s.substring(s.lastIndexOf(":") + 1));
-                    	myPlayer.currentAnim = 0;
+                    	
+                    	if (myPlayer.idleGraphicId != -1) {
+                    		myPlayer.graphicHeight = 0;
+                    		myPlayer.graphicDelay = loopCycle;
+                    		requestGfxFile(myPlayer.idleGraphicId);
+                    	}
                     } else if (s.startsWith(":trade_drag:")) {
                     	RSInterface.interfaceCache[3322].deleteOnDrag2 = true;
                     } else if (s.startsWith(":alert:")) {
@@ -19737,7 +19738,25 @@ public class Client extends RSApplet {
         return true;
     }
 
-    public static int clientZoom = 0;
+    private void requestGfxFile(int gfxId) {
+    	try {
+            SpotAnimDefinition spotAnim = SpotAnimDefinition.cache[gfxId];
+
+            if (spotAnim.dataType == DataType.OLDSCHOOL) {
+                if (FrameReader.animationListOldschool[Integer.parseInt(Integer.toHexString(spotAnim.animation.frameIDs[0]).substring(0, Integer.toHexString(spotAnim.animation.frameIDs[0]).length() - 4), 16)].length == 0) {
+                    onDemandFetcher.requestFileData(OSRS_ANIM_IDX - 1, Integer.parseInt(Integer.toHexString(spotAnim.animation.frameIDs[0]).substring(0, Integer.toHexString(spotAnim.animation.frameIDs[0]).length() - 4), 16));
+                }
+            } else {
+                if (FrameReader.animationListRegular[Integer.parseInt(Integer.toHexString(spotAnim.animation.frameIDs[0]).substring(0, Integer.toHexString(spotAnim.animation.frameIDs[0]).length() - 4), 16)].length == 0) {
+                    onDemandFetcher.requestFileData(ANIM_IDX - 1, Integer.parseInt(Integer.toHexString(spotAnim.animation.frameIDs[0]).substring(0, Integer.toHexString(spotAnim.animation.frameIDs[0]).length() - 4), 16));
+                }
+            }
+        } catch (Exception e) {
+        	
+        }
+	}
+
+	public static int clientZoom = 0;
 
     private void processPlayers(boolean flag) {
         if (myPlayer.x >> 7 == destX && myPlayer.y >> 7 == destY) {
