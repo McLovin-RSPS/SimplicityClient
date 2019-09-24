@@ -4486,7 +4486,7 @@ public class Client extends RSApplet {
                                         if (child.actions != null) {
                                             for (int j4 = child.parentID == 5292 || child.parentID == 3824 && child.actions.length == 6 ? 6
                                                     : 4; j4 >= 0; j4--) {
-                                                if (child.parentID == 5292) {
+                                                if (child.parentID == 5292 && child.id == 5382) {
                                                     int cached = variousSettings[420];
                                                     if (cached > 0) {
                                                         child.actions[6] = "Withdraw-"+ cached;
