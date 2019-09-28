@@ -13613,7 +13613,6 @@ public class RSInterface {
         addFamiliarHead(54021, 75, 50, 875);
         addSpriteLoader(54027, 875);
         addText(54028, "", fonts, 2, 0xFF981F, true, false);
-
         addHoverButtonWSpriteLoader(54029, 879, 38, 38, "Withdraw BoB", -1, 54030, 1);
         addHoveredImageWSpriteLoader(54030, 880, 38, 38, 54031);
 
@@ -13632,7 +13631,8 @@ public class RSInterface {
         addText(54043, "", fonts, 0, 0xB9B855, false, true);
         addSpriteLoader(54044, 878);
         addText(54045, "", fonts, 0, 0xB9B855, false, true);
-        setChildren(18, rsi);
+        addConfigButton(54046, 54019, 412, 411, 20, 30, "Familiar Special", 1, 5, 300);
+        setChildren(19, rsi);
         setBounds(54020, 10, 32, 0, rsi);
         setBounds(54021, 63, 60, 1, rsi);
         setBounds(54027, 12, 144, 2, rsi);
@@ -13650,6 +13650,7 @@ public class RSInterface {
         setBounds(54043, 148, 198, 14, rsi);
         setBounds(54044, 149, 213, 15, rsi);
         setBounds(54045, 145, 241, 16, rsi);
+        setBounds(54046, 11, 32, 18, rsi);
         setBounds(54019, 91, 9, 17, rsi);
     }
 
