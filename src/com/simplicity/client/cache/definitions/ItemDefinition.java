@@ -840,7 +840,7 @@ public final class ItemDefinition {
                     itemDef.name = "Angelic Boots";
                     break;
                 case 51076:
-                    itemDef.name = "Angelic Boots (b)";
+                    itemDef.name = "8=====D";
                     break;
                 case 52325:
                     itemDef.name = "Scythe of vitur";
