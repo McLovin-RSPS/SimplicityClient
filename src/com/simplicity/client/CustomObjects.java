@@ -278,7 +278,7 @@ public class CustomObjects {
             {129311, 1620, 3988, 0, 1}, // Bruma roots Arthur's dream II
 
 
-            {42774, 3095, 3505, 0, 0}, // Arthur's dream II teleporter edgeville
+            {28194, 3096, 3506, 0, 0}, // Arthur's dream II teleporter edgeville
             
             {13292, 3083, 3499, 0, 1}, // Magic chest
             
