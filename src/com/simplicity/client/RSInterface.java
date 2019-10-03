@@ -11709,7 +11709,7 @@ public class RSInterface {
         int[] LunarIDs = {30017, 30025, 30032, 30040, 30048, 30056, 30091, 30099, 30122, 30130, 30154, 30178, 30186,
                 30194, 30202, 30210, 30218, 30242, 30282, 30290, 30298, 30306, 30314, 30322};
 
-        lunarB.totalChildren(children);
+        lunarB.totalChildren(children + 39);
         int y = 0, x = 11;
         for (int index = 0; index < children; index++) {
             if (index == 6 || index == 12 || index == 18) {
@@ -11723,6 +11723,49 @@ public class RSInterface {
             lunarB.child(index, LunarIDs[index], x, yToSet);
             x += 30;
         }
+
+        // Hover related info.
+        int index = 24;
+        lunarB.child(index++, 30018, 5, 120);
+        lunarB.child(index++, 30026, 5, 120);
+        lunarB.child(index++, 30033, 5, 114);
+        lunarB.child(index++, 30041, 5, 120);
+        lunarB.child(index++, 30049, 5, 120);
+        lunarB.child(index++, 30057, 5, 120);
+        lunarB.child(index++, 30065, 5, 120);
+        lunarB.child(index++, 30076, 5, 120);
+        lunarB.child(index++, 30084, 5, 120);
+        lunarB.child(index++, 30092, 5, 120);
+        lunarB.child(index++, 30100, 5, 120);
+        lunarB.child(index++, 30107, 5, 120);
+        lunarB.child(index++, 30115, 5, 120);
+        lunarB.child(index++, 30123, 5, 120);
+        lunarB.child(index++, 30131, 5, 120);
+        lunarB.child(index++, 30139, 5, 120);
+        lunarB.child(index++, 30147, 5, 120);
+        lunarB.child(index++, 30155, 5, 120);
+        lunarB.child(index++, 30163, 5, 120);
+        lunarB.child(index++, 30171, 5, 120);
+        lunarB.child(index++, 30179, 5, 120);
+        lunarB.child(index++, 30187, 5, 120);
+        lunarB.child(index++, 30195, 5, 120);
+        lunarB.child(index++, 30203, 5, 120);
+        lunarB.child(index++, 30211, 5, 120);
+        lunarB.child(index++, 30219, 5, 120);
+        lunarB.child(index++, 30227, 5, 120);
+        lunarB.child(index++, 30235, 5, 120);
+        lunarB.child(index++, 30243, 5, 120);
+        lunarB.child(index++, 30251, 5, 120);
+        lunarB.child(index++, 30259, 5, 120);
+        lunarB.child(index++, 30267, 5, 120);
+        lunarB.child(index++, 30275, 5, 120);
+        lunarB.child(index++, 30283, 5, 120);
+        lunarB.child(index++, 30291, 5, 120);
+        lunarB.child(index++, 30299, 5, 120);
+        lunarB.child(index++, 30307, 5, 120);
+        lunarB.child(index++, 30323, 5, 120);
+        lunarB.child(index, 30315, 5, 120);
+
         RSInterface newInterface = addInterface(11800);
         RSInterface spellButtons = interfaceCache[29999];
         newInterface.totalChildren(15);
