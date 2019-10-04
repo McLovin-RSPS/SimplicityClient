@@ -32,7 +32,13 @@ public class CustomObjects {
             */
             {130087, 3675, 3222, 0, 2},
             {132655, 3662, 3218, 0, 1},
-            
+
+            /**
+             * Arthurs Dream II
+            */
+            {0, 2855, 3934, 0, 0},
+            {129314, 2868, 3943, 0, 0}, // Brazier Arthur's dream II @ monster spawn
+
             /**
              * TOB invisible objects to 
             */
