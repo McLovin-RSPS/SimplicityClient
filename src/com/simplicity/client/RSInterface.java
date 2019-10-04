@@ -11709,7 +11709,7 @@ public class RSInterface {
         int[] LunarIDs = {30017, 30025, 30032, 30040, 30048, 30056, 30091, 30099, 30122, 30130, 30154, 30178, 30186,
                 30194, 30202, 30210, 30218, 30242, 30282, 30290, 30298, 30306, 30314, 30322};
 
-        lunarB.totalChildren(children);
+        lunarB.totalChildren(children + 39);
         int y = 0, x = 11;
         for (int index = 0; index < children; index++) {
             if (index == 6 || index == 12 || index == 18) {
@@ -11723,6 +11723,49 @@ public class RSInterface {
             lunarB.child(index, LunarIDs[index], x, yToSet);
             x += 30;
         }
+
+        // Hover related info.
+        int index = 24;
+        lunarB.child(index++, 30018, 5, 120);
+        lunarB.child(index++, 30026, 5, 120);
+        lunarB.child(index++, 30033, 5, 114);
+        lunarB.child(index++, 30041, 5, 120);
+        lunarB.child(index++, 30049, 5, 120);
+        lunarB.child(index++, 30057, 5, 120);
+        lunarB.child(index++, 30065, 5, 120);
+        lunarB.child(index++, 30076, 5, 120);
+        lunarB.child(index++, 30084, 5, 120);
+        lunarB.child(index++, 30092, 5, 120);
+        lunarB.child(index++, 30100, 5, 120);
+        lunarB.child(index++, 30107, 5, 120);
+        lunarB.child(index++, 30115, 5, 120);
+        lunarB.child(index++, 30123, 5, 120);
+        lunarB.child(index++, 30131, 5, 120);
+        lunarB.child(index++, 30139, 5, 120);
+        lunarB.child(index++, 30147, 5, 120);
+        lunarB.child(index++, 30155, 5, 120);
+        lunarB.child(index++, 30163, 5, 120);
+        lunarB.child(index++, 30171, 5, 120);
+        lunarB.child(index++, 30179, 5, 120);
+        lunarB.child(index++, 30187, 5, 120);
+        lunarB.child(index++, 30195, 5, 120);
+        lunarB.child(index++, 30203, 5, 120);
+        lunarB.child(index++, 30211, 5, 120);
+        lunarB.child(index++, 30219, 5, 120);
+        lunarB.child(index++, 30227, 5, 120);
+        lunarB.child(index++, 30235, 5, 120);
+        lunarB.child(index++, 30243, 5, 120);
+        lunarB.child(index++, 30251, 5, 120);
+        lunarB.child(index++, 30259, 5, 120);
+        lunarB.child(index++, 30267, 5, 120);
+        lunarB.child(index++, 30275, 5, 120);
+        lunarB.child(index++, 30283, 5, 120);
+        lunarB.child(index++, 30291, 5, 120);
+        lunarB.child(index++, 30299, 5, 120);
+        lunarB.child(index++, 30307, 5, 120);
+        lunarB.child(index++, 30323, 5, 120);
+        lunarB.child(index, 30315, 5, 120);
+
         RSInterface newInterface = addInterface(11800);
         RSInterface spellButtons = interfaceCache[29999];
         newInterface.totalChildren(15);
@@ -13613,7 +13656,6 @@ public class RSInterface {
         addFamiliarHead(54021, 75, 50, 875);
         addSpriteLoader(54027, 875);
         addText(54028, "", fonts, 2, 0xFF981F, true, false);
-
         addHoverButtonWSpriteLoader(54029, 879, 38, 38, "Withdraw BoB", -1, 54030, 1);
         addHoveredImageWSpriteLoader(54030, 880, 38, 38, 54031);
 
@@ -13632,7 +13674,8 @@ public class RSInterface {
         addText(54043, "", fonts, 0, 0xB9B855, false, true);
         addSpriteLoader(54044, 878);
         addText(54045, "", fonts, 0, 0xB9B855, false, true);
-        setChildren(18, rsi);
+        addConfigButton(54046, 54019, 412, 411, 20, 30, "Familiar Special", 1, 5, 300);
+        setChildren(19, rsi);
         setBounds(54020, 10, 32, 0, rsi);
         setBounds(54021, 63, 60, 1, rsi);
         setBounds(54027, 12, 144, 2, rsi);
@@ -13650,6 +13693,7 @@ public class RSInterface {
         setBounds(54043, 148, 198, 14, rsi);
         setBounds(54044, 149, 213, 15, rsi);
         setBounds(54045, 145, 241, 16, rsi);
+        setBounds(54046, 11, 32, 18, rsi);
         setBounds(54019, 91, 9, 17, rsi);
     }
 

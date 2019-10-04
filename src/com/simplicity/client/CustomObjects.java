@@ -284,7 +284,7 @@ public class CustomObjects {
             {129311, 1620, 3988, 0, 1}, // Bruma roots Arthur's dream II
 
 
-            //{42774, 3083, 3499, 0, 3}, // Arthur's dream II teleporter edgeville
+            {28194, 3096, 3506, 0, 0}, // Arthur's dream II teleporter edgeville
             
             {13292, 3083, 3499, 0, 1}, // Magic chest
             
@@ -705,6 +705,8 @@ public class CustomObjects {
             {13493, 2316, 9801, 0, 2},
             //special altar
             {8749, 2342, 9805, 0, 3},
+            
+            {8749, 3092, 3506, 0, 0}, // special restore edge
 
             //superior hall recharge
             {21893, 3018, 4410, 0, 0},

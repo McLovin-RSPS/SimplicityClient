@@ -307,9 +307,9 @@ public final class ObjectDefinition {
             objectDef.actions = new String[]{"Touch", null, null, null, null};
             objectDef.name = "@yel@Statue of Arthur";
         }
-        if (i == 42774) {
+        if (i == 28194) {
             objectDef.actions = new String[]{"Touch", null, null, null, null};
-            objectDef.name = "@yel@Ice Rock";
+            objectDef.name = "@yel@Completionist orb";
         }
         if (i == 46984) {
             objectDef.actions = new String[]{"Pray-at", null, null, null, null};
