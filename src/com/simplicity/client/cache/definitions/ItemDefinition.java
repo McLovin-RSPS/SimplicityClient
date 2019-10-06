@@ -1323,6 +1323,13 @@ public final class ItemDefinition {
         	itemDef.femaleEquip1 = 62923;
         	itemDef.name = "Dark sled";
         	break;
+        case 21066:
+        	itemDef.copy(forID(4084));
+        	itemDef.modelID = 62922;
+        	itemDef.maleEquip1 = 62923;
+        	itemDef.femaleEquip1 = 62923;
+        	itemDef.name = "White sled";
+        	break;
         case 21007:
             itemDef.modelID = 35742;
             itemDef.actions = new String[5];
@@ -1376,8 +1383,8 @@ public final class ItemDefinition {
             itemDef.modelID = 35742;
             itemDef.actions = new String[5];
             itemDef.actions[1] = "Wield";
-            itemDef.name = "@red@Scythe of Vitur XI";
-            itemDef.description = "It is the Orange Scythe of Vitur XI.";
+            itemDef.name = "@red@G-Unit's Scythe of Vitur XI";
+            itemDef.description = "It is G-Unit's Purps Scythe of Vitur XI.";
             itemDef.modelZoom = 2200;
             itemDef.stackable = false;
             itemDef.rotationX = 23;
@@ -1386,7 +1393,7 @@ public final class ItemDefinition {
             itemDef.femaleEquip1 = 35371;
             itemDef.editedModelColor = new int[] { 584, 590, 596, 836, 61, 78, 49 };
             //            itemDef.editedModelColor = new int[] { 384, 390, 396, 536, 61, 78, 49 };
-            itemDef.newModelColor = new int[] { 34573, 34573, 34573, 34573, 34573, 34573, 34573 };
+            itemDef.newModelColor = new int[] { 54220, 54220, 54220, 54220, 54220, 54220, 54220 };
             break;
             
         case 21081:
