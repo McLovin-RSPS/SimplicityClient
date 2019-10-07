@@ -1324,12 +1324,13 @@ public final class ItemDefinition {
         	itemDef.name = "Dark sled";
         	break;
         case 21066:
-        	itemDef.copy(forID(4084));
-        	itemDef.modelID = 62922;
-        	itemDef.maleEquip1 = 62923;
-        	itemDef.femaleEquip1 = 62923;
-        	itemDef.name = "White sled";
-        	break;
+            itemDef.copy(forID(4084));
+            itemDef.name = "White sled";
+        	itemDef.modelID = 4937;
+        	itemDef.maleEquip1 = 4946;
+        	itemDef.femaleEquip1 = 4946;
+        	itemDef.newModelColor = new int[] { 9583, 9583, 9583, 9583, 9583, 9583, 9583 };
+            break;
         case 21007:
             itemDef.modelID = 35742;
             itemDef.actions = new String[5];
