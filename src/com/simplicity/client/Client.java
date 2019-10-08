@@ -20000,6 +20000,7 @@ public class Client extends RSApplet {
                             int pixel = x1 + iy * DrawingArea.width;
                             try {
                                 if (Rasterizer.depthBuffer != null) {
+                                    pixel = pixel > Rasterizer.depthBuffer.length ? 0 : pixel;
                                     if (pixel < Rasterizer.depthBuffer.length && projection.length > 2
                                             && (Rasterizer.depthBuffer[pixel] >= projection[2] - size - 15
                                             || pixel++ < Rasterizer.depthBuffer.length
