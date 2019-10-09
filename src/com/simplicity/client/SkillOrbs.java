@@ -17,7 +17,7 @@ public class SkillOrbs {
      */
     public static void init() {
         for (int i = 0; i < Skills.SKILL_COUNT; i++) {
-            orbs[i] = new SkillOrb(i, Client.cacheSprite[i == 24 ? 1166 : 41 + i]);
+            orbs[i] = new SkillOrb(i, Client.cacheSprite[i == 24 ? 1166 : i == 23 ? 776 : 41 + i]);
         }
     }
 
