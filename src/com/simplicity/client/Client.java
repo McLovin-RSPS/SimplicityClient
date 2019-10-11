@@ -1885,7 +1885,7 @@ public class Client extends RSApplet {
             menuActionName[5] = "Take BoB";
             menuActionID[5] = 1118;
             menuActionName[4] = "Cast Special";
-            menuActionID[4] = 1117;
+            menuActionID[4] = 627;
             menuActionName[3] = "Call Familiar";
             menuActionID[3] = 1119;
             menuActionName[2] = "Renew Familiar";
@@ -7827,7 +7827,7 @@ public class Client extends RSApplet {
             sendPacket185(l - 100);
             return;
         }
-        if (l == 1117) {// Call Follower
+        if (l == 627) {// Call Follower
             sendPacket185(l - 100);
             return;
         }
