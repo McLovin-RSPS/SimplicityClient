@@ -14758,6 +14758,28 @@ public class Client extends RSApplet {
     									childY + child.msgY,
     									flag ? child.disabledMouseOverColor : child.disabledColor, 0);
     					}
+                    } else if (child.type == 24) {
+    					DrawingArea.setDrawingArea(child.height + childY, childX, child.width + childX, childY);
+    					
+    					cacheSprite[1262].repeatBoth(childX, childY, child.width, child.height);
+    					
+    					cacheSprite[child.isModernWindow() ? 1275 : 1267].repeatX(childX, childY, child.width);
+    					
+    					cacheSprite[child.isModernWindow() ? 1276 : 1268].repeatX(childX, child.height + childY - cacheSprite[child.isModernWindow() ? 1276 : 1268].myHeight, child.width);
+    					
+    					cacheSprite[child.isModernWindow() ? 1277 : 1269].repeatY(childX, childY, child.height);
+    					
+    					cacheSprite[child.isModernWindow() ? 1278 : 1270].repeatY(child.width + childX - cacheSprite[child.isModernWindow() ? 1278 : 1270].myWidth, childY, child.height);
+    					
+    					cacheSprite[child.isModernWindow() ? 1271 : 1263].drawSprite(childX, childY);
+    					cacheSprite[child.isModernWindow() ? 1272 : 1264].drawSprite(child.width + childX - cacheSprite[child.isModernWindow() ? 1272 : 1264].myWidth, childY);
+    					
+    					cacheSprite[child.isModernWindow() ? 1273 : 1265].drawSprite(childX, child.height + childY - cacheSprite[child.isModernWindow() ? 1273 : 1265].myHeight);
+    					cacheSprite[child.isModernWindow() ? 1274 : 1266].drawSprite(child.width + childX - cacheSprite[child.isModernWindow() ? 1274 : 1266].myWidth, child.height + childY - cacheSprite[child.isModernWindow() ? 1274 : 1266].myHeight);
+                    } else if (child.type == 25) {
+    					cacheSprite[child.isModernWindow() ? 1276 : 1267].repeatX(childX, childY, child.width);
+    				} else if (child.type == 26) {
+    					cacheSprite[child.isModernWindow() ? 1277 : 1270].repeatY(childX, childY, child.height);
                     } else if (child.type == 29) {
                     	try {
     						String progress = RSInterface.interfaceCache[child.id].message;

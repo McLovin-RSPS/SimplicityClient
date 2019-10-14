@@ -15105,6 +15105,140 @@ public class RSInterface {
         tab.child(33, 39050, 5, 230);
         tab.child(34, 39055, 163, 7);
     }
+    
+	/**
+	 * Indicates whether to use the modern window or not.
+	 */
+	private boolean modernWindow;
+
+	/**
+	 * Gets if the modern window.
+	 * 
+	 * @return <code>true</code> if modern
+	 */
+	public boolean isModernWindow() {
+		return modernWindow;
+	}
+    
+	/**
+	 * Adds a window with the specified width and height.
+	 * 
+	 * @param id
+	 *            The id.
+	 * @param width
+	 *            The width.
+	 * @param height
+	 *            The height.
+	 * @param modernBorder
+	 *            If the border is modern.
+	 */
+	public static void addWindow(int id, int width, int height, boolean modernBorder) {
+		RSInterface rsi = addInterface(id);
+		rsi.id = id;
+		rsi.type = 24;
+		rsi.width = width;
+		rsi.height = height;
+		rsi.modernWindow = modernBorder;
+	}
+
+	/**
+	 * Adds a closable window with the specified width, height and title.
+	 * 
+	 * @param id
+	 *            The id.
+	 * @param width
+	 *            The width.
+	 * @param height
+	 *            The height.
+	 * @param title
+	 *            The title.
+	 * @param modernBorder
+	 *            If the border is modern.
+	 */
+	public static void addClosableWindow(int id, int width, int height, boolean modernBorder, String title) {
+		RSInterface rsi = addInterface(id);
+		
+		addWindow(id + 1, width, height, modernBorder);
+		addText(id + 2, title, defaultFont, 2, 0xFF981F, true);
+		
+		/* TODO: Fix hovers for cacheSprite */
+		addHoverButton(id + 3, 141, 141, 17, 17, "Close Window", 250, id + 4, 3);
+        addHoveredButton(id + 4, 142, 142, 17, 17, id + 5);
+        
+		addHorizontalSeparator(id + 6, width - 10, modernBorder);
+		
+		setChildren(5, rsi);
+		setBounds(id + 1, 0, 0, 0, rsi);
+		setBounds(id + 2, width / 2, 10, 1, rsi);
+		
+		setBounds(id + 3, width - (modernBorder ? 26 : 28), modernBorder ? 10 : 7, 2, rsi);
+		setBounds(id + 4, width - (modernBorder ? 26 : 28), modernBorder ? 10 : 7, 3, rsi);
+		
+		setBounds(id + 6, 5, 29, 4, rsi);
+	}
+	
+	/**
+	 * Adds a horizontal separator. Must be added last because it has its own
+	 * drawing area.
+	 * 
+	 * @param id
+	 *            The id.
+	 * @param width
+	 *            The width.
+	 * @param modernBorder
+	 *            If the border is modern.
+	 */
+	public static void addHorizontalSeparator(int id, int width, boolean modernBorder) {
+		RSInterface rsi = addWrapper(id, width, 6, id + 1);
+		rsi.type = 25;
+		rsi.width = width;
+		rsi.height = 6;
+		rsi.modernWindow = modernBorder;
+	}
+	
+	/**
+	 * Adds a vertical separator. Must be added last because it has its own
+	 * drawing area.
+	 * 
+	 * @param id
+	 *            The id.
+	 * @param height
+	 *            The height.
+	 */
+	public static void addVerticalSeparator(int id, int height, boolean modernBorder) {
+		RSInterface rsi = addWrapper(id, 6, height, id + 1);
+		rsi.type = 26;
+		rsi.width = 6;
+		rsi.height = height;
+		rsi.modernWindow = modernBorder;
+	}
+	
+	/**
+	 * Adds a wrapper for the interface.
+	 * 
+	 * @param wrapperId
+	 *            The wrapper id.
+	 * @param width
+	 *            The width.
+	 * @param height
+	 *            The height.
+	 * @param interfaceId
+	 *            The interface id.
+	 * @return The interface.
+	 */
+	public static RSInterface addWrapper(int wrapperId, int width, int height, int interfaceId) {
+		RSInterface wrapper = addInterface(wrapperId);
+		wrapper.width = width;
+		wrapper.height = height;
+		wrapper.totalChildren(1);
+		
+		setBounds(interfaceId, 0, 0, 0, wrapper);
+
+		RSInterface rsi = addInterface(interfaceId);
+		wrapper.parentID = wrapperId;
+
+		return rsi;
+	}
 
     public static void addToggleButton(int id, int bID, int bID2, String bName, String tT, int configID, int aT,
                                        int configFrame, int dummy) {

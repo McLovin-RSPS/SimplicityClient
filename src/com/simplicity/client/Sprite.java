@@ -1489,4 +1489,39 @@ public class Sprite extends DrawingArea {
 	public int drawOffsetY;
 	public int maxWidth;
 	public int maxHeight;
+
+	public void repeatBoth(int x, int y, int width, int height) {
+		int rows = (int) Math.ceil((float) (height) / myHeight);
+
+		int cols = (int) Math.ceil((float) (width) / myWidth);
+
+		for (int yy = 0; yy < rows; yy++) {
+			for (int xx = 0; xx < cols; xx++) {
+				drawSprite(x + myWidth * xx, y + myHeight * yy);
+			}
+		}
+	}
+	
+	public void repeatX(int x, int y, int width) {
+		int count = (int) Math.ceil((float) (width) / myWidth);
+		
+		int x2 = 0;
+		
+		for (int i = 0; i < count; i++) {
+			drawSprite(x + x2, y);
+			x2 += myWidth;
+		}
+	}
+	
+	public void repeatY(int x, int y, int height) {
+		int count = (int) Math.ceil((float) (height) / myHeight);
+
+		int y2 = 0;
+
+		for (int i = 0; i < count; i++) {
+			drawSprite(x, y + y2);
+			y2 += myHeight;
+		}
+	}
+	
 }
