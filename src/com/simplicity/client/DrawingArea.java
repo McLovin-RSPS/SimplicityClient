@@ -821,6 +821,31 @@ public class DrawingArea extends QueueNode {
 
 	}
 	
+	public static void drawHorizontalLine(int x, int y, int length, int color, int alpha) {
+		if (y < topY || y >= bottomY) {
+			return;
+		}
+		if (x < topX) {
+			length -= topX - x;
+			x = topX;
+		}
+		if (x + length > bottomX) {
+			length = bottomX - x;
+		}
+		final int j1 = 256 - alpha;
+		final int k1 = (color >> 16 & 0xff) * alpha;
+		final int l1 = (color >> 8 & 0xff) * alpha;
+		final int i2 = (color & 0xff) * alpha;
+		int i3 = x + y * width;
+		for (int j3 = 0; j3 < length; j3++) {
+			final int j2 = (pixels[i3] >> 16 & 0xff) * j1;
+			final int k2 = (pixels[i3] >> 8 & 0xff) * j1;
+			final int l2 = (pixels[i3] & 0xff) * j1;
+			final int k3 = (k1 + j2 >> 8 << 16) + (l1 + k2 >> 8 << 8) + (i2 + l2 >> 8);
+			pixels[i3++] = k3;
+		}
+	}
+	
 	public static void drawVerticalLine(int x, int y, int length, int color, int alpha) {
 		if (x < topX || x >= bottomX) {
 			return;
@@ -988,6 +1013,32 @@ public class DrawingArea extends QueueNode {
 			for (int columnIndex = 0; columnIndex < width; columnIndex++)
 				pixels[pixelIndex++] = rgbColour;
 			pixelIndex += leftOver;
+		}
+	}
+	
+	public static void drawBox(int x, int y, int width, int height, int border, int color, int alpha) {
+		for (int i = 0; i < border; i++) {
+			drawHorizontalLine(x, y + i, width, color, alpha);
+			drawHorizontalLine(x, y + height - i - border, width, color, alpha);
+			
+			drawVerticalLine(x + i, y + border, height - border * 2, color, alpha);
+			drawVerticalLine(x + width - border + i, y + border, height - border * 2, color, alpha);
+		}
+	}
+	
+	public static void drawBox(int x, int y, int width, int height, int border, int borderColor, int color, int alpha) {
+		drawHorizontalLine(x + 1, y, width, color, alpha);
+		drawHorizontalLine(x, y + height - 2, width, color, alpha);
+		
+		drawVerticalLine(x, y, height - 2, color, alpha);
+		drawVerticalLine(x + width, y + 1, height - 2, color, alpha);
+		
+		for (int i = 1; i < border; i++) {
+			drawHorizontalLine(x + 1, y + i, width - 1, borderColor, alpha);
+			drawHorizontalLine(x + border, y + height - i - 2, width - border * 2 + 1, borderColor, alpha);
+			
+			drawVerticalLine(x + i, y + border, height - border - 2, borderColor, alpha);
+			drawVerticalLine(x + width - border + i, y + border, height - border - 2, borderColor, alpha);
 		}
 	}
 	

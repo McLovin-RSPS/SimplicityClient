@@ -23,8 +23,9 @@ public class PetSystem {
         }
         this.name = entity.name;
         this.description = entity.description;
-        animation = entity.walkAnim;
+        animation = entity.standAnim;
         animationDelay = Animation.anims[animation].delays[animationFrame];
+        this.sizeXZ = entity.sizeXZ;
     }
 
     public static void petAnimationStep() {
@@ -55,7 +56,10 @@ public class PetSystem {
     public int getAnimationDelay() {
         return animationDelay;
     }
-
+    
+    public int getSizeXZ() {
+    	return sizeXZ;
+    }
 
     public int getPrimaryModel() {
         return primaryModel;
@@ -130,6 +134,12 @@ public class PetSystem {
      * The default animation delay of the animation frame's.
      */
     private static int animationDelay;
+    
+    /**
+     * The x & z sizes.
+     */
+    private int sizeXZ;
+    
     /**
      * The current index in the animation array.
      */
@@ -146,6 +156,5 @@ public class PetSystem {
      * The current pet your player has following you.
      */
     public static int petSelected = 6260;
-
 
 }

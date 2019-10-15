@@ -11,8 +11,6 @@ import com.simplicity.client.content.dropdownmenu.DropDownMenu;
 import com.simplicity.client.widget.AchievementsWidget;
 import com.simplicity.client.widget.SettingsWidget;
 
-import static com.simplicity.client.Client.*;
-
 @SuppressWarnings("all")
 public class RSInterface {
 
@@ -894,6 +892,24 @@ public class RSInterface {
         petCanvas.disabledAnimationId = -1;
         petCanvas.enabledAnimationId = -1;
     }
+    
+	public static void addNpc(int ID) {
+		RSInterface t = interfaceCache[ID] = new RSInterface();
+		t.id = ID;
+		t.parentID = ID;
+		t.type = 6;
+		t.atActionType = 0;
+		t.contentType = 329;
+		t.width = 136;
+		t.height = 168;
+		t.opacity = 0;
+		t.hoverType = 0;
+		t.modelZoom = 560;
+		t.modelRotation1 = 150;
+		t.modelRotation2 = 0;
+		t.disabledAnimationId = -1;
+		t.enabledAnimationId = -1;
+	}
 
     private static void dropTableCheckerInterface(TextDrawingArea[] rsFont) {
         final RSInterface main_widget = addTabInterface(37600);
@@ -3189,6 +3205,47 @@ public class RSInterface {
         tab.width = width;
         tab.height = height;
     }
+    
+	public static void addVerticalLine(int id, int h, int color, int transparency) {
+		RSInterface r = interfaceCache[id] = new RSInterface();
+		r.id = id;
+		r.parentID = id;
+		r.type = 27;
+		r.width = 1;
+		r.height = h;
+		r.disabledColor = color;
+		r.transparency = transparency;
+	}
+
+	public static void addHorizontalLine(int id, int w, int color, int transparency) {
+		RSInterface r = interfaceCache[id] = new RSInterface();
+		r.id = id;
+		r.parentID = id;
+		r.type = 28;
+		r.width = w;
+		r.height = 1;
+		r.disabledColor = color;
+		r.transparency = transparency;
+	}
+    
+	/**
+	 * Draws a rectangle on the interface.
+	 * @param interfaceId
+	 * @param width
+	 * @param height
+	 * @param color
+	 * @param transparency
+	 */
+	public static void drawBox(int interfaceId, int width, int height, int border, int borderColor, int color, int transparency) {
+		RSInterface tab = addInterface(interfaceId);
+		tab.type = 34;
+		tab.width = width;
+		tab.height = height;
+		tab.borderWidth = border;
+		tab.borderColor = borderColor;
+		tab.disabledColor = color;
+		tab.transparency = transparency;
+	}
 
     public static void addItemContainer(int id, int[] padding,
                                         int[] dimensions, String[] actions, boolean examine) {
@@ -4259,8 +4316,184 @@ public class RSInterface {
         SettingsWidget.unpack(textDrawingAreas);
         
         AchievementsWidget.unpack(textDrawingAreas);
+        
+        windowTest(textDrawingAreas);
+        
+        /* TODO: Finish server-sided! */
+        // newTeleports(textDrawingAreas);
 
         spriteCache = null;
+    }
+    
+    private static final void newTeleports(TextDrawingArea[] tda) {
+    	int id = 60600;
+    	
+    	RSInterface widget = addInterface(id++);
+    	
+    	widget.totalChildren(3 + 38);
+    	
+    	int child = 0;
+    	
+    	addSpriteLoader(id, 1293);
+    	widget.child(child++, id, 14, 16);
+    	id++;
+    	
+    	addCloseSpecialButton(id, id + 1, id + 2);
+        widget.child(child++, id, 477, 19); //close button
+        widget.child(child++, id + 1, 477, 19); //close button hover
+        id += 3;
+        
+        String[] categories = new String[] { "Monsters", "Bosses", "Dungeons", "Skilling", "Minigames", "Cities" };
+        
+        for (int i = 0; i < categories.length; i++) {
+        	addHoverClickText(id, categories[i], "Select", fonts, 1, 0xFF8900, true, true, 52);
+        	widget.child(child++, id, 48 + (i * 75), 43);
+        	id++;
+        }
+        
+        addHorizontalSeparator(id, 475, true);
+        widget.child(child++, id, 20, 63);
+        id+=2;
+        
+        addText(id, "Bosses", tda, 2, 0xFF8900, true);
+        widget.child(child++, id, 99, 80);
+        id++;
+        
+        addText(id, "Preview", tda, 2, 0xFF8900, true);
+        widget.child(child++, id, 99 + 156, 80);
+        id++;
+        
+        addPet(id);
+        widget.child(child++, id, 99 + 90, 108);
+        id++;
+        
+        addText(id, "Description", tda, 2, 0xFF8900, true);
+        widget.child(child++, id, 99 + 312, 80);
+		id++;
+
+		addText(id, "" + id, tda, 1, 0xFF8900, false);
+		widget.child(child++, id, 343, 102);
+		id++;
+
+		addText(id, "" + id, tda, 1, 0xFF8900, false);
+		widget.child(child++, id, 343, 115);
+		id++;
+
+		addText(id, "" + id, tda, 1, 0xFF8900, false);
+		widget.child(child++, id, 343, 128);
+		id++;
+
+		addText(id, "" + id, tda, 1, 0xFF8900, false);
+		widget.child(child++, id, 343, 141);
+		id++;
+		
+		addText(id, "" + id, tda, 1, 0xFF8900, false);
+		widget.child(child++, id, 343, 154);
+		id++;
+
+        addText(id, "Drops", tda, 2, 0xFF8900, true);
+        widget.child(child++, id, 99 + 228, 219);
+        id++;
+        
+        
+        widget.child(child++, id, 99 + 87, 241);
+        
+        RSInterface containerScroll = addInterface(id++);
+        containerScroll.totalChildren(1);
+        containerScroll.width = 282;
+        containerScroll.height = 66;
+        containerScroll.scrollMax = 320;
+        
+        addItemContainer(id, new int[] { 8, 0 }, new int[] { 7, 10 }, new String[] {}, false);
+        containerScroll.child(0, id, 0, 0);
+        id++;
+        
+        
+        int width = 150;
+        
+        int height = 200;
+        
+        int opacity = 75;
+        
+        int x = 25;
+        
+        int y = 74;
+        
+        int[] heights = new int[] { 237, 135, 100, 97 };
+        
+        for (int i = 0; i < 4; i++) {
+            drawBox(id, width, heights[i], 3, 0xffffff, 0, opacity);
+            widget.child(child++, id, x, y);
+            id++;
+            
+            addHorizontalLine(id, width - 5, 0, opacity);
+            widget.child(child++, id, x + 3, y + 23);
+            id++;
+            
+            addHorizontalLine(id, width - 5, 0xffffff, opacity);
+            widget.child(child++, id, x + 3, y + 24);
+            id++;
+            
+            addHorizontalLine(id, width - 5, 0xffffff, opacity);
+            widget.child(child++, id, x + 3, y + 25);
+            id++;
+            
+			if (i == 2) {
+				x -= width + 6;
+				width = 300 + 6;
+				y += heights[1] + 5;
+			} else {
+				x += width + 6;
+			}
+        }
+        
+        addHoverButtonWSpriteLoader(id, 1294, 150, 30, "Teleport", 0, id + 1, 1);
+        widget.child(child++, id, 337, 196 - 20);
+        id++;
+        
+        addHoveredImageWSpriteLoader(id, 1295, 150, 30, id + 1);
+        widget.child(child++, id, 337, 196 - 20);
+        id += 2;
+        
+        addText(id, "Teleport", tda, 1, 0xFFFF00);
+        widget.child(child++, id, 387, 203 - 20);
+        id++;
+        
+        int amount = 50;
+        
+        widget.child(child++, id, 32, 101);
+        
+        RSInterface scroll = addInterface(id++);
+        scroll.width = 125;
+        scroll.height = 206;
+        scroll.scrollMax = amount * 18;
+        scroll.totalChildren(amount);
+        
+        int scrollChild = 0;
+        
+        for (int i = 0; i < amount; i++) {
+        	addHoverClickText(id, "" + (id), "Select", fonts, 1, 0xFF8900, false, true, 130);
+        	scroll.child(scrollChild++, id, 0, i * 18);
+        	id++;
+        }
+    }
+    
+    private static final void teleportBox(RSInterface widget, int child, int id, int width, int height, int borderWidth, int borderColor, int opacity) {
+        drawBox(id, width, height, 3, 0xffffff, 0, opacity);
+        widget.child(child++, id, 25, 74);
+        id++;
+        
+        addHorizontalLine(id, width - 5, 0, opacity);
+        widget.child(child++, id, 26 + 2, 75 + 25);
+        id++;
+        
+        addHorizontalLine(id, width - 5, 0xffffff, opacity);
+        widget.child(child++, id, 26 + 2, 75 + 25 + 1);
+        id++;
+        
+        addHorizontalLine(id, width - 5, 0xffffff, opacity);
+        widget.child(child++, id, 26 + 2, 75 + 25 + 2);
+        id++;
     }
 
     private static final void thrownaxeSpecial() {
@@ -12530,6 +12763,10 @@ public class RSInterface {
 	public int msgX, msgY;
 	
 	public RSFontSystem rsFont;
+	
+	public int borderWidth;
+	
+	public int borderColor;
 
     /*
      * Custom interfaces

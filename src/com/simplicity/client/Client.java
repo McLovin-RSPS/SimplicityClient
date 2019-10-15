@@ -6588,7 +6588,7 @@ public class Client extends RSApplet {
                 inputDialogState = 3;
             }
         }
-        if (openInterfaceID == 51000) {
+        if (openInterfaceID == 51000 || openInterfaceID == 60600) {
             if (!PetSystem.isPetAnimationRunning) {
                 PetSystem.updateAnimations();
             }
@@ -10849,7 +10849,7 @@ public class Client extends RSApplet {
                 RSInterface rsInterface = rsi;
                 int verticleTilt = 150;
                 rsInterface.modelRotation1 = verticleTilt;
-                rsInterface.modelRotation2 = (int) (double) (loopCycle / 100D * 1024D) & 2047;
+                rsInterface.modelRotation2 = (int) (double) (loopCycle / 40D * 256D) & 2047;
                 Model model;
                 final Model[] parts = new Model[petDef.getModelArrayLength()];
                 for (int i = 0; i < petDef.getModelArrayLength(); i++) {
@@ -10865,8 +10865,18 @@ public class Client extends RSApplet {
                 if (model == null) {
                     return;
                 }
-
-                int scale = 60;
+                
+                int scale = (int) (petDef.getSizeXZ() / 2);
+                
+                switch (PetSystem.petSelected) {
+                case 4540:
+                	scale = 100;
+                	break;
+                case 50:
+                	scale = 75;
+                	break;
+                }
+                
                 model.createBones();
                 model.scale2(scale, scale, scale);
                 model.applyTransform(Animation.anims[petDef.getAnimation()].frameIDs[PetSystem.animationFrame]);
@@ -14781,6 +14791,10 @@ public class Client extends RSApplet {
 						cacheSprite[child.isModernWindow() ? 1284 : 1275].repeatX(childX, childY, child.width);
 					} else if (child.type == 26) {
 						cacheSprite[child.isModernWindow() ? 1285 : 1278].repeatY(childX, childY, child.height);
+					} else if (child.type == 27) {
+						DrawingArea.drawVerticalLine(childX, childY, child.height, child.disabledColor, child.transparency);
+					} else if (child.type == 28) {
+						DrawingArea.drawHorizontalLine(childX, childY, child.width, child.disabledColor, child.transparency);
     				} else if (child.type == 29) {
                     	try {
     						String progress = RSInterface.interfaceCache[child.id].message;
@@ -14809,6 +14823,8 @@ public class Client extends RSApplet {
     					} catch (Exception e) {
     						e.printStackTrace();
     					}
+                    } else if (child.type == 34) {
+                    	DrawingArea.drawBox(childX, childY, child.width, child.height, child.borderWidth, child.borderColor, child.disabledColor, child.transparency);
                     }
                 }
                 if (openInterfaceID == 10000) {
