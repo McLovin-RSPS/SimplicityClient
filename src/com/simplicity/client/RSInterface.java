@@ -4317,7 +4317,7 @@ public class RSInterface {
         
         AchievementsWidget.unpack(textDrawingAreas);
         
-        windowTest(textDrawingAreas);
+//        windowTest(textDrawingAreas);
         
         /* TODO: Finish server-sided! */
         // newTeleports(textDrawingAreas);
@@ -4698,7 +4698,7 @@ public class RSInterface {
 
     public static void tournamentInterface(TextDrawingArea[] tda) {
         RSInterface tab = addInterface(127_000);
-        addSpriteLoader(127_001, 1256);
+//        addSpriteLoader(127_001, 1256);
         addText(127_002, "Tournament starts in: ", tda, 1, 0xFFA500, false, true);
         addText(127_003, "Time left in round: ", tda, 1, 0xFFA500, false, true);
         addText(127_004, "Rounds remaining: ", tda, 1, 0xFFA500, false, true);
@@ -4707,12 +4707,12 @@ public class RSInterface {
         int x = 15;
         int y = 18;
 
-        tab.totalChildren(5);
-        tab.child(0, 127_001, x - 12, 5); //background
-        tab.child(1, 127_002, x, y + 1);  //top
-        tab.child(2, 127_003, x, y + 23);
-        tab.child(3, 127_004, x, y + 46);
-        tab.child(4, 127_005, x, y + 69);;
+        tab.totalChildren(4);
+//        tab.child(0, 127_001, x - 12, 5); //background
+        tab.child(0, 127_002, x, y + 1);  //top
+        tab.child(1, 127_003, x, y + 23);
+        tab.child(2, 127_004, x, y + 46);
+        tab.child(3, 127_005, x, y + 69);;
 
     }
 
