@@ -55,6 +55,12 @@ public final class MobDefinition {
                 case 3113:
                     npc.name = "The Pet Tradesman";
                     break;
+                case 8157:
+                    npc.name = "Tournament Master";
+                    npc.actions = new String[5];
+                    npc.actions[0] = "Trade";
+                    npc.combatLevel = 1337;
+                    break;
                 case 2668:
                     npc.name = "Combat dummy";
                     npc.actions = new String[5];
