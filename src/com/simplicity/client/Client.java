@@ -621,13 +621,14 @@ public class Client extends RSApplet {
                                     int col = -1;
 
                                     if (message[0].indexOf("<col=") != -1) {
-                                        try {                   
+                                        try {
                                         	String splitLine = message[0];
-                                        	if(message[0].contains(myUsername)) {
-                                        		splitLine = message[0].split(myUsername)[1];
+                                        	if(regexMatch("\\[.+?\\]", message[0]) != null) {
+                                        		String usernamePrefix = regexMatch("\\[.*\\]", message[0]);	
+                                        		splitLine = splitLine.replace(usernamePrefix, "");
                                         	}
+                                        	
                                         	int colorStart = splitLine.lastIndexOf("<col=");
-                                            //int colorEnd = message[0].indexOf(">");
                                             if (colorStart > -1) {
                                             	String colorCode = splitLine.substring(colorStart+5, colorStart+11);
                                             	if(validHexColor(colorCode))
@@ -21825,7 +21826,7 @@ public class Client extends RSApplet {
             }
         }
         if (name != null) {
-            if (regexMatch("@.+?@", name) != "NOT_FOUND") {
+            if (regexMatch("@.+?@", name) != null) {
                 String tag = regexMatch("@.+?@", name);
                 name = name.replace(tag, "");
             }
@@ -21875,7 +21876,7 @@ public class Client extends RSApplet {
             String theGroup = m.group(0);
             return theGroup;
         } else {
-            return "NOT_FOUND";
+            return null;
         }
     }
 
