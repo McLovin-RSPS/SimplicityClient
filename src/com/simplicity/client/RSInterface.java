@@ -4320,7 +4320,7 @@ public class RSInterface {
 //        windowTest(textDrawingAreas);
         
         /* TODO: Finish server-sided! */
-        // newTeleports(textDrawingAreas);
+        newTeleports(textDrawingAreas);
 
         spriteCache = null;
     }
@@ -4339,7 +4339,7 @@ public class RSInterface {
     	id++;
     	
     	addCloseSpecialButton(id, id + 1, id + 2);
-        widget.child(child++, id, 477, 19); //close button
+        widget.child(child++, id, 477, 19); //close buttonp
         widget.child(child++, id + 1, 477, 19); //close button hover
         id += 3;
         
@@ -4354,7 +4354,8 @@ public class RSInterface {
         addHorizontalSeparator(id, 475, true);
         widget.child(child++, id, 20, 63);
         id+=2;
-        
+
+        System.out.println("ID: " + id);
         addText(id, "Bosses", tda, 2, 0xFF8900, true);
         widget.child(child++, id, 99, 80);
         id++;

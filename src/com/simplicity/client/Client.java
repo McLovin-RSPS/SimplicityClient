@@ -10845,7 +10845,9 @@ public class Client extends RSApplet {
         }
         if (j == 3291) {
             try {
-                PetSystem petDef = new PetSystem(MobDefinition.forID(PetSystem.petSelected));
+                MobDefinition mobDefinition = MobDefinition.forID(PetSystem.petSelected);
+
+                PetSystem petDef = new PetSystem(mobDefinition);
                 RSInterface rsInterface = rsi;
                 int verticleTilt = 150;
                 rsInterface.modelRotation1 = verticleTilt;
@@ -10853,7 +10855,7 @@ public class Client extends RSApplet {
                 Model model;
                 final Model[] parts = new Model[petDef.getModelArrayLength()];
                 for (int i = 0; i < petDef.getModelArrayLength(); i++) {
-                    parts[i] = Model.fetchModel(petDef.getModelArray()[i]);
+                    parts[i] = Model.fetchModel(petDef.getModelArray()[i], mobDefinition.dataType);
                 }
                 if (parts.length == 1) {
                     model = parts[0];
@@ -10876,7 +10878,7 @@ public class Client extends RSApplet {
                 	scale = 75;
                 	break;
                 }
-                
+
                 model.createBones();
                 model.scale2(scale, scale, scale);
                 model.applyTransform(Animation.anims[petDef.getAnimation()].frameIDs[PetSystem.animationFrame]);
@@ -18621,8 +18623,11 @@ public class Client extends RSApplet {
                             String[] ids = s.substring(8).split(":");
                             int id12322 = Integer.parseInt(ids[0]);
                             PetSystem.petSelected = id12322;
-
                         }
+                    } else if (s.startsWith("setTeleportOptions:")) {
+                        String[] ids = s.split(":")[1].split(",");
+                       // RSInterface.???
+
                     } else if (s.startsWith(":show_update:")) {
                         showUpdates = true;
                     } else if (s.startsWith(":show_mystery_box:")) {
