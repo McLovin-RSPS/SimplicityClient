@@ -10882,7 +10882,7 @@ public class Client extends RSApplet {
 
                 model.createBones();
                 model.scale2(scale, scale, scale);
-                model.applyTransform(Animation.anims[petDef.getAnimation()].frameIDs[PetSystem.animationFrame]);
+                model.applyTransform(Animation.anims[petDef.getAnimation()].frameIDs[PetSystem.animationFrame], mobDefinition.dataType);
                 model.light(64, 850, -30, -50, -30, true);
                 rsInterface.mediaType = 5;
                 rsInterface.mediaID = 0;
