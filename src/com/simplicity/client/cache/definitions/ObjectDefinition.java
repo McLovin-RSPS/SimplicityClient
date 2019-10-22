@@ -303,6 +303,10 @@ public final class ObjectDefinition {
             objectDef.actions = new String[]{"Search", null, null, null, null};
             objectDef.name = "@yel@Magic Chest";
         }
+        if (i == 40960) {
+            objectDef.actions = new String[]{"Search", null, null, null, null};
+            objectDef.name = "@gre@Scroll Chest";
+        }
         if (i == 48661) {
             objectDef.actions = new String[]{"Touch", null, null, null, null};
             objectDef.name = "@yel@Statue of Arthur";

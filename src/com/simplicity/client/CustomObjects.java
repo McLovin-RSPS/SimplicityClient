@@ -287,6 +287,7 @@ public class CustomObjects {
             {28194, 3096, 3506, 0, 0}, // Arthur's dream II teleporter edgeville
             
             {13292, 3083, 3499, 0, 1}, // Magic chest
+            {40960, 3092, 3475, 0, 2}, // Scroll chest
             
             {0, 1625, 3978, 0, 0}, // Objects Arthur's dream II
             {0, 1626, 3978, 0, 0}, // Objects Arthur's dream II
