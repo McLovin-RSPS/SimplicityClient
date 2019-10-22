@@ -305,7 +305,11 @@ public final class ObjectDefinition {
         }
         if (i == 40960) {
             objectDef.actions = new String[]{"Search", null, null, null, null};
-            objectDef.name = "@gre@Scroll Chest";
+            objectDef.name = "@gre@Prize Chest";
+        }
+        if (i == 54408) {
+            objectDef.actions = new String[]{"Search", null, null, null, null};
+            objectDef.name = "@gre@Halloween Chest";
         }
         if (i == 48661) {
             objectDef.actions = new String[]{"Touch", null, null, null, null};

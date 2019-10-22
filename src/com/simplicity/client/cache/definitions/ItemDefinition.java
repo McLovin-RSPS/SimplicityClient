@@ -1692,6 +1692,12 @@ public final class ItemDefinition {
         		itemDef.actions[0] = "Check";
         		itemDef.actions[4] = "Drop";
         		break;
+        	case 19864:
+        		itemDef.name = "@gre@Halloween Token";
+        		break;
+        	case 11179:
+        		itemDef.name = "Old Coin";
+        		break;
             case 1050:
                 itemDef.femaleZOffset += 4;
                 break;

@@ -288,6 +288,7 @@ public class CustomObjects {
             
             {13292, 3083, 3499, 0, 1}, // Magic chest
             {40960, 3092, 3475, 0, 2}, // Scroll chest
+            {54408, 3089, 3483, 0, 0}, // Halloween chest
             
             {0, 1625, 3978, 0, 0}, // Objects Arthur's dream II
             {0, 1626, 3978, 0, 0}, // Objects Arthur's dream II
