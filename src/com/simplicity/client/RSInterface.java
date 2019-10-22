@@ -4343,7 +4343,7 @@ public class RSInterface {
         widget.child(child++, id + 1, 477, 19); //close button hover
         id += 3;
         
-        String[] categories = new String[] { "Monsters", "Bosses", "Dungeons", "Skilling", "Minigames", "Cities" };
+        String[] categories = new String[] { "Monsters", "Bosses", "Dungeons", "", "", "" };
         
         for (int i = 0; i < categories.length; i++) {
         	addHoverClickText(id, categories[i], "Select", fonts, 1, 0xFF8900, true, true, 52);
