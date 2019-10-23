@@ -1363,7 +1363,7 @@ public final class ItemDefinition {
             itemDef.actions = new String[5];
             itemDef.actions[1] = "Wield";
             itemDef.name = "@red@Scythe of Vitur XI";
-            itemDef.description = "It is the Fire red Scythe of Vitur XI.";
+            itemDef.description = "It is the Scythe of Vitur XI (Halloween edition).";
             itemDef.modelZoom = 2200;
             itemDef.stackable = false;
             itemDef.rotationX = 23;
@@ -1371,7 +1371,7 @@ public final class ItemDefinition {
             itemDef.maleEquip1 = 35371;
             itemDef.femaleEquip1 = 35371;
             itemDef.editedModelColor = new int[] { 784, 790, 796, 536, 61, 78, 49 };
-            itemDef.newModelColor = new int[] { 1038, 1038, 1038, 1038, 1038, 1038, 1038 };
+            itemDef.newModelColor = new int[] { 8038, 4038, 8038, 4038, 8038, 4038, 8038 };
             break;
         case 21014: // TUBBYY
             itemDef.modelID = 35742;
@@ -1691,6 +1691,9 @@ public final class ItemDefinition {
         		itemDef.name = "Gold bag";
         		itemDef.actions[0] = "Check";
         		itemDef.actions[4] = "Drop";
+        		break;
+        	case 9722:
+        		itemDef.name = "@gre@Prize Key";
         		break;
         	case 19864:
         		itemDef.name = "@gre@Halloween Token";

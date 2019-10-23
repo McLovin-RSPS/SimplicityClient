@@ -164,16 +164,49 @@ public class CustomItems {
                 itemDef.editedModelColor = new int[]{4522, 4116, 10536, 4123};
                 itemDef.newModelColor = new int[]{90, 80, 90, 90};
                 break;
-            case 4736:
-            case 17215:
-                itemDef.femaleEquip1 = itemDef.maleEquip1;
-                itemDef.femaleEquip2 = itemDef.femaleEquip2;
-                break;
             case 14552:
                 itemDef.copy(ItemDefinition.forID(17317));
                 itemDef.name = "Light Sagittarian boots";
                 itemDef.editedModelColor = new int[]{4497, 4491, 4500, 4383, 4514, 4510, 4523, 4361, 4513, 4505, 4373};
                 itemDef.newModelColor = new int[]{80, 90, 80, 90, 90, 90, 90, 90, 90, 90, 90};
+                break;
+                
+                // Halloween Light Sagittarian edition
+            case 14553:
+                itemDef.copy(ItemDefinition.forID(17061));
+                itemDef.name = "Light Sagittarian coif (HW)";
+                itemDef.editedModelColor = new int[]{4396, 4410, 4406, 4397, 4503, 4495, 4390, 4427, 12581, 4381, 31425, 4512, 10527, 10536, 5192, 5180, 4519, 4493, 4378, 4389, 10526, 10523, 12592, 12573, 12566, 12569, 12562, 4523, 10517, 5158};
+                itemDef.newModelColor = new int[]{4024, 4024, 4024, 4024, 3024, 3024, 4024, 4024, 3024, 4024, -1253, -1253, 3024, 3024, 3024, 3024, 3024, 3024, 3024, 3024, 3024, 10523, 3024, 4024, 4024, 4024, 4024, 4024, 80, 80};
+                break;
+            case 14554:
+                itemDef.copy(ItemDefinition.forID(17193));
+                itemDef.name = "Light Sagittarian body (HW)";
+                itemDef.editedModelColor = new int[]{4428, 4500, 4512, 4422, 4420, 4408, 4396, 10520, 4413, 4401, 10427, 4389, 10532, 10439, 10502, 10544, 11539, 10451, 11548, 4403, 4522, 4395, 4427, 4507, 4435, 4539, 255, 4416, 4428, 4515, 4535, 4504, 534024, 4419, 4415, 4410, 4449, 4433, 4519, 4526, 4409, 5394, 5389, 4503, 10529, 4511, 4392, 4421, 4531, 4391, 4513, 31425, 31453, 10536, 4423, 4493, 10542, 4498, 4397, 4529, 4525, 4385, 4414};
+                itemDef.newModelColor = new int[]{4024, 3024, 3024, 3024, 3024, 4024, 3024, 4024, 3024, 4024, 4024, 3024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 3024, 4024, 4024, 3024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 3024, 3024, 3024, 3024, 3024, 4024, 4024, 4024, 4024, 4024, -1253, 3024, 3024, 3024, 3024, 3024, 3024, 3024, 3024, 3024, 3024, 3024};
+                break;
+            case 14555:
+                itemDef.copy(ItemDefinition.forID(17339));
+                itemDef.name = "Light Sagittarian chaps (HW)";
+                itemDef.editedModelColor = new int[]{4532, 4520, 4512, 4513, 9653, 4493, 4539, 4552, 31425, 4533, 4531, 4560, 31453, 4545, 4527, 11549, 4500, 4547, 11539, 10524, 10418, 11534, 10549, 10452, 10544, 4529, 10541, 10551, 10555, 10563, 10536, 4524, 10548, 434024, 4503, 4569, 10413, 10510, 10502, 255,};
+                itemDef.newModelColor = new int[]{3024, 3024, 3024, 4024, 4024, 4024, 4024, 4024, -1253, 4024, 4024, 4024, -1253, 4024, 4024, 3024, 3024, 4024, 4024, 4024, 4024, 3024, 3024, 3024, 3024, 4024, 4024, 3024, 3024, 3024, 4024, 3024, 3024, 3024, 3024, 4024, 3024, 3024, 4024, 4024};
+                break;
+            case 14556:
+                itemDef.copy(ItemDefinition.forID(17215));
+                itemDef.name = "Light Sagittarian vambs (HW)";
+                itemDef.editedModelColor = new int[]{4522, 4116, 10536, 4123};
+                itemDef.newModelColor = new int[]{4024, 3024, 4024, 4024};
+                break;
+            case 14557:
+                itemDef.copy(ItemDefinition.forID(17317));
+                itemDef.name = "Light Sagittarian boots (HW)";
+                itemDef.editedModelColor = new int[]{4497, 4491, 4500, 4383, 4514, 4510, 4523, 4361, 4513, 4505, 4373};
+                itemDef.newModelColor = new int[]{3024, 4024, 3024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024};
+                break;
+                
+            case 4736:
+            case 17215:
+                itemDef.femaleEquip1 = itemDef.maleEquip1;
+                itemDef.femaleEquip2 = itemDef.femaleEquip2;
                 break;
                 
             case 14023:
@@ -198,21 +231,21 @@ public class CustomItems {
                 itemDef.copy(ItemDefinition.forID(52326));
                 itemDef.editedModelColor = new int[]{6709, 6736, 0, 59453, 6602, 59466, 59441};
                 itemDef.newModelColor = new int[]{3024, 3024, 3024, 3024, 3024, 3024, 3024};
-                itemDef.name = "Dark " + itemDef.name;
+                itemDef.name = "HW " + itemDef.name;
                 break;
 
             case 14027:
                 itemDef.copy(ItemDefinition.forID(52327));
                 itemDef.editedModelColor = new int[]{12, 0, 59466, 59453, 6602, 59441, 43294, 43414, 6709, 6699, 6736, 43299, 59474, 3346, 268, 278};
                 itemDef.newModelColor = new int[]{12, 3024, 3024, 4024, 3024, 4024, 4024, 3024, 4024, 4024, 4024, 3024, 3024, 3346, 3024, 3024};
-                itemDef.name = "Dark " + itemDef.name;
+                itemDef.name = "HW " + itemDef.name;
                 break;
 
             case 14028:
                 itemDef.copy(ItemDefinition.forID(52328));
                 itemDef.editedModelColor = new int[]{12, 268, 59466, 59441, 43294, 43299, 6602, 6736, 22, 16, 6699, 54307, 59445, 59453, 0, 6709, 43303};
                 itemDef.newModelColor = new int[]{4024, 4024, 3024, 4024, 4024, 3024, 4024, 3024, 4024, 3024, 4024, 3024, 4024, 3024, 3024, 4024, 4024};
-                itemDef.name = "Dark " + itemDef.name;
+                itemDef.name = "HW " + itemDef.name;
                 break;
 
             case 14029:
@@ -233,94 +266,94 @@ public class CustomItems {
                 itemDef.copy(ItemDefinition.forID(51024));
                 itemDef.editedModelColor = new int[]{49197, 6348, 12, 49209, 6331, 49218, 43311, 43301, 43305, 6323};
                 itemDef.newModelColor = new int[]{4024, 1024, 1024, 4024, 1024, 4024, 4024, 4024, 4024, 1024};
-                itemDef.name = "Dark " + itemDef.name;
+                itemDef.name = "HW " + itemDef.name;
                 break;
 
             case 14032:
                 itemDef.copy(ItemDefinition.forID(10604));
                 itemDef.editedModelColor = new int[]{5590, 3171, 12};
                 itemDef.newModelColor = new int[]{1024, 1024, 1024};
-                itemDef.name = "Dark " + itemDef.name;
+                itemDef.name = "HW " + itemDef.name;
                 break;
 
             case 14033:
                 itemDef.copy(ItemDefinition.forID(10724));
                 itemDef.editedModelColor = new int[]{70, 127, 0};
-                itemDef.newModelColor = new int[]{1024, 1024, 1024};
-                itemDef.name = "Dark " + itemDef.name;
+                itemDef.newModelColor = new int[]{5024, 90, 5024};
+                itemDef.name = "HW " + itemDef.name;
                 break;
             case 14034:
                 itemDef.copy(ItemDefinition.forID(10725));
                 itemDef.editedModelColor = new int[]{0, 127, 70};
-                itemDef.newModelColor = new int[]{1024, 1024, 1024};
-                itemDef.name = "Dark " + itemDef.name;
+                itemDef.newModelColor = new int[]{5024, 90, 5024};
+                itemDef.name = "HW " + itemDef.name;
                 break;
             case 14035:
                 itemDef.copy(ItemDefinition.forID(10726));
                 itemDef.editedModelColor = new int[]{0, 127, 70};
-                itemDef.newModelColor = new int[]{1024, 1024, 1024};
-                itemDef.name = "Dark " + itemDef.name;
+                itemDef.newModelColor = new int[]{5024, 90, 5024};
+                itemDef.name = "HW " + itemDef.name;
                 break;
             case 14036:
                 itemDef.copy(ItemDefinition.forID(10727));
                 itemDef.editedModelColor = new int[]{0, 127, 59515, 70};
-                itemDef.newModelColor = new int[]{1024, 1024, 1024, 1024};
-                itemDef.name = "Dark " + itemDef.name;
+                itemDef.newModelColor = new int[]{5024, 90, 1024, 90};
+                itemDef.name = "HW " + itemDef.name;
                 break;
             case 14037:
                 itemDef.copy(ItemDefinition.forID(10728));
                 itemDef.editedModelColor = new int[]{59515, 24, 0, 70};
-                itemDef.newModelColor = new int[]{1024, 1024, 1024, 1024};
-                itemDef.name = "Dark " + itemDef.name;
+                itemDef.newModelColor = new int[]{5024, 1024, 4024, 4024};
+                itemDef.name = "HW " + itemDef.name;
                 break;
 
             case 14038:
                 itemDef.copy(ItemDefinition.forID(10346));
                 itemDef.editedModelColor = new int[]{33030, 74, 90, 86, 57, 66};
                 itemDef.newModelColor = new int[]{8024, 8024, 4024, 8024, 8024, 4024};
-                itemDef.name = "Dark " + itemDef.name;
+                itemDef.name = "HW " + itemDef.name;
                 break;
 
             case 14039:
                 itemDef.copy(ItemDefinition.forID(10348));
                 itemDef.editedModelColor = new int[]{74, 57, 86, 90, 66, 33030, 10262};
                 itemDef.newModelColor = new int[]{8024, 8024, 8024, 8024, 8024, 8024, 10262};
-                itemDef.name = "Dark " + itemDef.name;
+                itemDef.name = "HW " + itemDef.name;
                 break;
 
             case 14040:
                 itemDef.copy(ItemDefinition.forID(10350));
                 itemDef.editedModelColor = new int[]{78, 86, 94, 33030};
                 itemDef.newModelColor = new int[]{4024, 4024, 8024, 8024};
-                itemDef.name = "Dark " + itemDef.name;
+                itemDef.name = "HW " + itemDef.name;
                 break;
                 
             case 14041:
                 itemDef.copy(ItemDefinition.forID(10352));
                 itemDef.editedModelColor = new int[]{28, 37, 20, 43150, 90, 43146, 21766, 43270};
                 itemDef.newModelColor = new int[]{1024, 1024, 1024, 4024, 1024, 4024, 21766, 4024};
-                itemDef.name = "Dark " + itemDef.name;
+                itemDef.name = "HW " + itemDef.name;
                 break;
                 
             case 14042:
                 itemDef.copy(ItemDefinition.forID(10346));
                 itemDef.editedModelColor = new int[]{33030, 74, 90, 86, 57, 66};
                 itemDef.newModelColor = new int[]{4024, 4024, 4024, 4024, 4024, 4024};
-                itemDef.name = "Dark " + itemDef.name;
+                itemDef.name = "HW " + itemDef.name;
                 break;
 
             case 14043:
                 itemDef.copy(ItemDefinition.forID(10348));
                 itemDef.editedModelColor = new int[]{74, 57, 86, 90, 66, 33030, 10262};
                 itemDef.newModelColor = new int[]{4024, 4024, 4024, 4024, 4024, 4024, 10262};
-                itemDef.name = "Dark " + itemDef.name;
+                itemDef.name = "HW" + itemDef.name;
                 break;
 
             case 14044:
                 itemDef.copy(ItemDefinition.forID(10350));
                 itemDef.editedModelColor = new int[]{78, 86, 94, 33030};
                 itemDef.newModelColor = new int[]{4024, 4024, 4024, 4024};
-                itemDef.name = "Dark " + itemDef.name;
+                itemDef.name = "HW " + itemDef.name;
                 break;
 
             case 14914:
@@ -364,8 +397,8 @@ public class CustomItems {
             case 14920:
                 itemDef.copy(ItemDefinition.forID(42399));
                 itemDef.editedModelColor = new int[]{ 43963, 32883, 33};
-                itemDef.newModelColor = new int[]{ 1024, 32883, 33};
-                itemDef.name = "Dark " + itemDef.name;
+                itemDef.newModelColor = new int[]{ 4024, 4024, 4024};
+                itemDef.name = "Halloween " + itemDef.name;
                 break;
 
             case 14921:
@@ -400,14 +433,14 @@ public class CustomItems {
                 itemDef.copy(ItemDefinition.forID(41860));
                 itemDef.editedModelColor = new int[]{8396, 8417, 5293, 20};
                 itemDef.newModelColor = new int[]{4024, 3024, 4024, 3024};
-                itemDef.name = "Light " + itemDef.name;
+                itemDef.name = "Halloween " + itemDef.name;
                 break;
                 
             case 10900:
                 itemDef.copy(ItemDefinition.forID(41860));
                 itemDef.editedModelColor = new int[]{8396, 8417, 5293, 20};
                 itemDef.newModelColor = new int[]{1024, 1024, 1024, 1024};
-                itemDef.name = "Light " + itemDef.name;
+                itemDef.name = "8=====D";
                 break;
                 
             case 10904:
