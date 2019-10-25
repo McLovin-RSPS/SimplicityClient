@@ -1386,7 +1386,7 @@ public final class ItemDefinition {
             itemDef.maleEquip1 = 35371;
             itemDef.femaleEquip1 = 35371;
             itemDef.editedModelColor = new int[] { 784, 790, 796, 536, 61, 78, 49 };
-            itemDef.newModelColor = new int[] { 1038, 1038, 1038, 1038, 1038, 1038, 1038 };
+            itemDef.newModelColor = new int[] { 1024, 1024, 1024, 1024, 1024, 1024, 1024 };
             break;
         case 21015: // Turtlekun's custom Vitur XI
             itemDef.modelID = 35742;
