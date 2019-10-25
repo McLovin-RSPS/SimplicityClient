@@ -52,6 +52,12 @@ public final class MobDefinition {
                 npc.name = npc.name.replaceAll("<col=00ffff>", "@cya@").replaceAll("</col>", "");
             }
             switch (i) {
+                case 6332:
+                    npc.name = "Dracula";
+                    npc.sizeY = 180;
+                    npc.sizeXZ = 180;
+                    npc.combatLevel = 1031;
+                    break;
                 case 3113:
                     npc.name = "The Pet Tradesman";
                     break;
