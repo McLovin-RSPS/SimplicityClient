@@ -349,11 +349,18 @@ public class CustomItems {
                 itemDef.name = "HW" + itemDef.name;
                 break;
 
-            case 14044:
+           /* case 14044:
                 itemDef.copy(ItemDefinition.forID(10350));
                 itemDef.editedModelColor = new int[]{78, 86, 94, 33030};
                 itemDef.newModelColor = new int[]{4024, 4024, 4024, 4024};
                 itemDef.name = "HW " + itemDef.name;
+                break; */
+                
+            case 14932:
+                itemDef.copy(ItemDefinition.forID(6830));
+                itemDef.editedModelColor = new int[]{127, 11187};
+                itemDef.newModelColor = new int[]{4024, 1024};
+                itemDef.name = "Halloween box";
                 break;
 
             case 14914:
@@ -401,12 +408,12 @@ public class CustomItems {
                 itemDef.name = "Halloween " + itemDef.name;
                 break;
 
-            case 14921:
+            /*case 14921:
                 itemDef.copy(ItemDefinition.forID(52978));
                 itemDef.editedModelColor = new int[]{12484, 16, 12475, 12, 28, 20, 37, 41, 30643, 13493, 0, 29601, 24, 33, 29609};
                 itemDef.newModelColor = new int[]{32883, 0, 32883, 0, 0, 0, 0, 0, 32883, 32883, 0, 32883, 0, 0, 32883};
                 itemDef.name = "Dark " + itemDef.name;
-                break;
+                break; */
 
             case 14922:
                 itemDef.copy(ItemDefinition.forID(51003));
