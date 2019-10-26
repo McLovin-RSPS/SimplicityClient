@@ -610,6 +610,13 @@ public final class ItemDefinition {
             //itemDef.value = prices[itemDef.id];
 
             switch(itemDef.id) {
+                case 43300:
+                    itemDef.name = "Pet Dracula";
+                    itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                    itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                    itemDef.modelID = MobDefinition.forID(21332).models[0];
+                    itemDef.modelZoom = 1200;
+                    break;
 
                 case 51791:
                 case 51793:
