@@ -610,6 +610,13 @@ public final class ItemDefinition {
             //itemDef.value = prices[itemDef.id];
 
             switch(itemDef.id) {
+                case 43300:
+                    itemDef.name = "Pet Dracula";
+                    itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                    itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                    itemDef.modelID = MobDefinition.forID(21332).models[0];
+                    itemDef.modelZoom = 1200;
+                    break;
 
                 case 51791:
                 case 51793:
@@ -1386,7 +1393,7 @@ public final class ItemDefinition {
             itemDef.maleEquip1 = 35371;
             itemDef.femaleEquip1 = 35371;
             itemDef.editedModelColor = new int[] { 784, 790, 796, 536, 61, 78, 49 };
-            itemDef.newModelColor = new int[] { 1038, 1038, 1038, 1038, 1038, 1038, 1038 };
+            itemDef.newModelColor = new int[] { 1024, 1024, 1024, 1024, 1024, 1024, 1024 };
             break;
         case 21015: // Turtlekun's custom Vitur XI
             itemDef.modelID = 35742;

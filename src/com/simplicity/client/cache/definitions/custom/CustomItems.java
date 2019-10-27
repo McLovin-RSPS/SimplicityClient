@@ -6,6 +6,36 @@ public class CustomItems {
 
     public static void loadDefinition(ItemDefinition itemDef) {
         switch (itemDef.id) {
+            case 8300:
+                itemDef.copy(ItemDefinition.forID(9924));
+                itemDef.editedModelColor = new int[] {127, 70, 121, 59515};
+                itemDef.newModelColor = new int[] {933, 933, 933, 933};
+                break;
+
+            case 12501:
+                itemDef.copy(ItemDefinition.forID(9925));
+                itemDef.editedModelColor = new int[] {127, 70, 121, 59515};
+                itemDef.newModelColor = new int[] {933, 933, 933, 933};
+                break;
+
+            case 8301:
+                itemDef.copy(ItemDefinition.forID(9923));
+                itemDef.editedModelColor = new int[] {127, 70, 121, 59515};
+                itemDef.newModelColor = new int[] {933, 933, 933, 933};
+                break;
+
+            case 12502:
+                itemDef.copy(ItemDefinition.forID(9922));
+                itemDef.editedModelColor = new int[] {127, 70, 121, 59515};
+                itemDef.newModelColor = new int[] {933, 933, 933, 933};
+                break;
+
+            case 12500:
+                itemDef.copy(ItemDefinition.forID(9921));
+                itemDef.editedModelColor = new int[] {127, 70, 121, 59515};
+                itemDef.newModelColor = new int[] {933, 933, 933, 933};
+                break;
+
             case 14433:
                 itemDef.actions = new String[5];
                 itemDef.actions[4] = "Drop";

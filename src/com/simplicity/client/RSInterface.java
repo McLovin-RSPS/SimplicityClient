@@ -5709,8 +5709,8 @@ public class RSInterface {
      */
     private static void wildernessInterface() {
         RSInterface tab = RSInterface.addTabInterface(25347);
-        tab.totalChildren(8);
-        addTransparentSpriteWSpriteLoader(25348, 742, 150);
+        tab.totalChildren(7);
+//        addTransparentSpriteWSpriteLoader(25348, 742, 150);
         addText(25349, "Target:", fonts, 0, 0xCCCBCB, true, true);
         addText(25350, "None", fonts, 0, 0xCCCBCB, true, true);
         addText(25351, "Wilderness Level:", fonts, 0, 0xCCCBCB, false, true);
@@ -5718,14 +5718,14 @@ public class RSInterface {
         addText(25353, "Target Percentage:", fonts, 0, 0xCCCBCB, false, true);
         addText(25354, "99%", fonts, 0, 0xCCCBCB, true, true);
         addText(25355, "Levels: 114 - 126", fonts, 1, 0xff9040, false, true);
-        tab.child(0, 25348, 334, 2);
-        tab.child(1, 25349, 356, 10);
-        tab.child(2, 25350, 445, 10);
-        tab.child(3, 25351, 340, 28);
-        tab.child(4, 25352, 492, 28);
-        tab.child(5, 25353, 340, 46);
-        tab.child(6, 25354, 492, 46);
-        tab.child(7, 25355, 411, 315);
+//        tab.child(0, 25348, 334, 2);
+        tab.child(0, 25349, 356, 10);
+        tab.child(1, 25350, 445, 10);
+        tab.child(2, 25351, 340, 28);
+        tab.child(3, 25352, 492, 28);
+        tab.child(4, 25353, 340, 46);
+        tab.child(5, 25354, 492, 46);
+        tab.child(6, 25355, 411, 315);
     }
 
     /*
