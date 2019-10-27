@@ -1401,7 +1401,7 @@ public final class ItemDefinition {
             itemDef.maleEquip1 = 35371;
             itemDef.femaleEquip1 = 35371;
             itemDef.editedModelColor = new int[] { 784, 790, 796, 536, 61, 78, 49 };
-            itemDef.newModelColor = new int[] { 1024, 1024, 1024, 1024, 54220, 54220, 54220 };
+            itemDef.newModelColor = new int[] { 1024, 1024, 1024, 90, 54220, 54220, 54220 };
             break;
         case 21016: // Relax's custom Vitur XI
             itemDef.modelID = 35742;
