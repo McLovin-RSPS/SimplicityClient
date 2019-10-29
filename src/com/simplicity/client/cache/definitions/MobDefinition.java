@@ -34,7 +34,7 @@ public final class MobDefinition {
             MobDefinition npc = cacheOSRS[cacheIndexOSRS] = new MobDefinition();
 
             if (i >= streamIndicesOSRS.length) {
-                return null;
+                return npc;
             }
 
             streamOSRS.currentOffset = streamIndicesOSRS[i];
@@ -115,7 +115,7 @@ public final class MobDefinition {
         cacheIndex = (cacheIndex + 1) % 20;
         MobDefinition npc = cache[cacheIndex] = new MobDefinition();
         if (i >= streamIndices.length)
-            return null;
+            return npc;
         stream.currentOffset = streamIndices[i];
         npc.type = i;
         npc.readValues(stream);

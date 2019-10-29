@@ -5589,7 +5589,6 @@ public class Client extends RSApplet {
     }
 
     private void updateNPCMovement(int i, Stream stream) {
-        try {
             while (stream.bitPosition + 21 < i * 8) {
                 int k = stream.readBits(14);
                 if (k == 16383) {
@@ -5634,9 +5633,6 @@ public class Client extends RSApplet {
                 npc.setPos(myPlayer.pathX[0] + i1, myPlayer.pathY[0] + l, j1 == 1);
             }
             stream.finishBitAccess();
-        } catch (Exception e) {
-
-        }
     }
 
     public void processGameLoop() {
