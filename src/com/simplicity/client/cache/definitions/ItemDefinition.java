@@ -1741,6 +1741,11 @@ public final class ItemDefinition {
                 itemDef.actions = new String[5];
                 itemDef.actions[0] = "Open";
                 break;
+            case 19538:
+                itemDef.name = "Halloween Skeleton Set";
+                itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
+                break;
             case 744:
                 itemDef.name = "Valentine Mystery Box";
                 itemDef.actions = new String[5];
@@ -7027,7 +7032,6 @@ public final class ItemDefinition {
             case 11922:
             case 11960:
             case 11962:
-
             case 19586:
             case 19584:
             case 19590:
