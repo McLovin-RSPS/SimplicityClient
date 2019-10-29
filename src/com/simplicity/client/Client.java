@@ -12352,7 +12352,6 @@ public class Client extends RSApplet {
      * @param stream
      */
     private void readNPCUpdateMask(Stream stream) {
-        try {
             for (int j = 0; j < playersToUpdateCount; j++) {
                 int k = playersToUpdate[j];
                 NPC npc = npcArray[k];
@@ -12470,9 +12469,6 @@ public class Client extends RSApplet {
                     npc.anInt1539 = stream.ig2();
                 }
             }
-        } catch (Exception e) {
-
-        }
     }
 
     private void buildAtNPCMenu(MobDefinition entityDef, int i, int j, int k) {
