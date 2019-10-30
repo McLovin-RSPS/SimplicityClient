@@ -14275,8 +14275,11 @@ public class Client extends RSApplet {
                             continue;
                         }
                         int xOffset = 0;
+                        int yOffset = 0;
                         int imageDraw = 0;
                         final String INITIAL_MESSAGE = s;
+                        
+                        
                         if (s.contains("<img=")) {
                             int prefix = s.indexOf("<img=");
                             int suffix = s.indexOf(">");
@@ -14297,6 +14300,20 @@ public class Client extends RSApplet {
                             }
                             if (suffix > prefix) {
                                 xOffset += 14;
+                            }
+                        } else if (s.contains("<size=")) {
+                        	int prefix = s.indexOf("<size=");
+                        	int suffix = s.indexOf(">");
+                        	
+                        	try {
+                        		int index = Integer.parseInt(s.substring(prefix + 6, suffix));
+                                s = s.replaceAll(s.substring(prefix, suffix + 1), "");
+                        		textDrawingArea = rsInterface.fonts[index];
+                        		child.textDrawingAreas = rsInterface.fonts[index];
+                            } catch (NumberFormatException nfe) {
+                                s = INITIAL_MESSAGE;
+                            } catch (IllegalStateException ise) {
+                                s = INITIAL_MESSAGE;
                             }
                         }
                         // s = RSFontSystem.replaceSyntaxes(s);
@@ -14413,10 +14430,10 @@ public class Client extends RSApplet {
                                 newRegularFont.drawBasicString("<img=" + imageDraw + ">", childX, drawImageY);
                             }
                             if (child.centerText) {
-                                textDrawingArea.drawCenteredText(color, childX + child.width / 2 + xOffset, s1, l6,
+                                textDrawingArea.drawCenteredText(color, childX + child.width / 2 + xOffset, s1, l6 + yOffset,
                                         child.shadowed);
                             } else {
-                                textDrawingArea.drawRegularText(child.shadowed, childX + xOffset, color, s1, l6);
+                                textDrawingArea.drawRegularText(child.shadowed, childX + xOffset, color, s1, l6 + yOffset);
                             }
                         }
                     } else if (child.type == 5) {
