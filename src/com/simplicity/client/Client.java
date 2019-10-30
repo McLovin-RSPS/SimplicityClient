@@ -5593,7 +5593,6 @@ public class Client extends RSApplet {
     }
 
     private void updateNPCMovement(int i, Stream stream) {
-        try {
             while (stream.bitPosition + 21 < i * 8) {
                 int k = stream.readBits(14);
                 if (k == 16383) {
@@ -5638,9 +5637,6 @@ public class Client extends RSApplet {
                 npc.setPos(myPlayer.pathX[0] + i1, myPlayer.pathY[0] + l, j1 == 1);
             }
             stream.finishBitAccess();
-        } catch (Exception e) {
-
-        }
     }
 
     public void processGameLoop() {
@@ -12360,7 +12356,6 @@ public class Client extends RSApplet {
      * @param stream
      */
     private void readNPCUpdateMask(Stream stream) {
-        try {
             for (int j = 0; j < playersToUpdateCount; j++) {
                 int k = playersToUpdate[j];
                 NPC npc = npcArray[k];
@@ -12478,9 +12473,6 @@ public class Client extends RSApplet {
                     npc.anInt1539 = stream.ig2();
                 }
             }
-        } catch (Exception e) {
-
-        }
     }
 
     private void buildAtNPCMenu(MobDefinition entityDef, int i, int j, int k) {
