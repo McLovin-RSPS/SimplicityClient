@@ -9,6 +9,7 @@ import com.simplicity.client.content.CustomisableHotKeys;
 import com.simplicity.client.content.dropdownmenu.DropDownAction;
 import com.simplicity.client.content.dropdownmenu.DropDownMenu;
 import com.simplicity.client.widget.AchievementsWidget;
+import com.simplicity.client.widget.KnowledgeBaseWidget;
 import com.simplicity.client.widget.SettingsWidget;
 
 @SuppressWarnings("all")
@@ -4321,6 +4322,8 @@ public class RSInterface {
         
         /* TODO: Finish server-sided! */
         newTeleports(textDrawingAreas);
+        
+        KnowledgeBaseWidget.unpack(textDrawingAreas);
 
         spriteCache = null;
     }

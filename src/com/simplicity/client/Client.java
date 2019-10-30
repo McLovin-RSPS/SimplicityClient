@@ -4141,6 +4141,7 @@ public class Client extends RSApplet {
             if (child == null) {
             	continue;
             }
+            
             childX += child.xOffset;
             childY += child.yOffset;
             // if(super.clickMode3 != 0) {
@@ -4209,6 +4210,9 @@ public class Client extends RSApplet {
                         }
                         String tooltip = child.tooltip;
                         if (tooltip != null) {
+                        	if (class9.id == 68018 && !child.textDrawingAreas.equals(child.fonts[0])) { // Skip tooltips for Kbase
+                        		continue;
+                        	}
                             if (myRights == PlayerRights.OWNER.ordinal()
                                     || myRights == PlayerRights.DEVELOPER.ordinal()) {
                                 tooltip += " - Id: " + child.id;
@@ -14270,17 +14274,52 @@ public class Client extends RSApplet {
                         }
                     } else if (child.type == 4) {
                         TextDrawingArea textDrawingArea = child.textDrawingAreas;
+                        
                         String s = child.message;
-                        if(textDrawingArea == null) {
+                        
+                        if (textDrawingArea == null) {
                             continue;
                         }
+                        
                         int xOffset = 0;
                         int yOffset = 0;
                         int imageDraw = 0;
                         final String INITIAL_MESSAGE = s;
                         
+                        if (s.contains("<size=")) {
+                        	int prefix = s.indexOf("<size=");
+                        	int suffix = s.indexOf(">");
+                        	
+                        	try {
+                        		int index = Integer.parseInt(s.substring(prefix + 6, suffix));
+                                s = s.replaceAll(s.substring(prefix, suffix + 1), "");
+                        		textDrawingArea = rsInterface.fonts[index];
+                            } catch (NumberFormatException nfe) {
+                                s = INITIAL_MESSAGE;
+                            } catch (IllegalStateException ise) {
+                                s = INITIAL_MESSAGE;
+                            }
+                        }
                         
-                        if (s.contains("<img=")) {
+                        RSFontSystem font = null;
+                    	
+                    	boolean useNewFonts = rsInterface.id == 68069;
+
+						if (useNewFonts) {
+							if (textDrawingArea == smallText) {
+								font = newSmallFont;
+							} else if (textDrawingArea == drawingArea) {
+								font = newRegularFont;
+							} else if (textDrawingArea == chatTextDrawingArea) {
+								font = newBoldFont;
+							} else if (textDrawingArea == aTextDrawingArea_1273) {
+								font = newFancyFont;
+							} else {
+								font = newSmallFont;
+							}
+						}
+                        
+                        if (font == null && s.contains("<img=")) {
                             int prefix = s.indexOf("<img=");
                             int suffix = s.indexOf(">");
                             try {
@@ -14301,21 +14340,8 @@ public class Client extends RSApplet {
                             if (suffix > prefix) {
                                 xOffset += 14;
                             }
-                        } else if (s.contains("<size=")) {
-                        	int prefix = s.indexOf("<size=");
-                        	int suffix = s.indexOf(">");
-                        	
-                        	try {
-                        		int index = Integer.parseInt(s.substring(prefix + 6, suffix));
-                                s = s.replaceAll(s.substring(prefix, suffix + 1), "");
-                        		textDrawingArea = rsInterface.fonts[index];
-                        		child.textDrawingAreas = rsInterface.fonts[index];
-                            } catch (NumberFormatException nfe) {
-                                s = INITIAL_MESSAGE;
-                            } catch (IllegalStateException ise) {
-                                s = INITIAL_MESSAGE;
-                            }
                         }
+                        
                         // s = RSFontSystem.replaceSyntaxes(s);
                         if (child.id == 2458) {
                             s = "Click here to logout";
@@ -14421,7 +14447,7 @@ public class Client extends RSApplet {
                                 s1 = s;
                                 s = "";
                             }
-                            if (imageDraw > 0 && xOffset > 0) {
+                            if (font == null && imageDraw > 0 && xOffset > 0) {
                                 int drawImageY = childY + 14;
                                 if (imageDraw >= 34) { // Clan chat images
                                     xOffset -= 5;
@@ -14430,10 +14456,17 @@ public class Client extends RSApplet {
                                 newRegularFont.drawBasicString("<img=" + imageDraw + ">", childX, drawImageY);
                             }
                             if (child.centerText) {
-                                textDrawingArea.drawCenteredText(color, childX + child.width / 2 + xOffset, s1, l6 + yOffset,
-                                        child.shadowed);
+                            	if (font != null) {
+                            		font.drawCenteredString(s1, childX + child.width / 2, l6 + yOffset, color, child.shadowed ? 0 : -1);
+								} else {
+									textDrawingArea.drawCenteredText(color, childX + child.width / 2 + xOffset, s1, l6 + yOffset, child.shadowed);
+								}
                             } else {
-                                textDrawingArea.drawRegularText(child.shadowed, childX + xOffset, color, s1, l6 + yOffset);
+                            	if (font != null) {
+                            		font.drawBasicString(s1, childX + xOffset, l6 + yOffset);
+                            	} else {
+                            		textDrawingArea.drawRegularText(child.shadowed, childX + xOffset, color, s1, l6 + yOffset);
+                            	}
                             }
                         }
                     } else if (child.type == 5) {
