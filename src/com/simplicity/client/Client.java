@@ -18523,7 +18523,22 @@ public class Client extends RSApplet {
 
                     opCode = -1;
                     return true;
-
+                    
+                case 231:
+                	int componentId = inStream.readInt();
+                	int xOffset = inStream.readUnsignedWord();
+                    int yOffset = inStream.readUnsignedWord();
+                    
+                    RSInterface component = RSInterface.interfaceCache[componentId];
+                    
+                    if (component != null) {
+                    	component.xOffset = xOffset;
+                    	component.yOffset = yOffset;
+                    }
+                    
+                	opCode = -1;
+                	return true;
+                	
                 case 60:
                     bigRegionY = inStream.readUnsignedByte();
                     bigRegionX = inStream.nglb();
