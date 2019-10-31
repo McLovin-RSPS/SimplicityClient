@@ -4934,7 +4934,10 @@ public class Client extends RSApplet {
                 if (j < playerCount) {
                     int l = 30;
                     Player player = (Player) obj;
+
                     if (player.halloweenTeam > 0 && player.halloweenTeam < 3 && spriteDrawX > -1) {
+                    	npcScreenPos(((Entity) (obj)), ((Entity) (obj)).height + 15);
+                    	
                     	Graphics2D g = DrawingArea.createGraphics(true);
                     	
                     	int outerRadius = 12;
