@@ -1502,7 +1502,7 @@ public class Sprite extends DrawingArea {
 		}
 	}
 	
-	public void repeatX(int x, int y, int width) {
+	public int repeatX(int x, int y, int width) {
 		int count = (int) Math.ceil((float) (width) / myWidth);
 		
 		int x2 = 0;
@@ -1511,9 +1511,11 @@ public class Sprite extends DrawingArea {
 			drawSprite(x + x2, y);
 			x2 += myWidth;
 		}
+		
+		return x2;
 	}
 	
-	public void repeatY(int x, int y, int height) {
+	public int repeatY(int x, int y, int height) {
 		int count = (int) Math.ceil((float) (height) / myHeight);
 
 		int y2 = 0;
@@ -1522,6 +1524,8 @@ public class Sprite extends DrawingArea {
 			drawSprite(x, y + y2);
 			y2 += myHeight;
 		}
+		
+		return y2;
 	}
 	
 }

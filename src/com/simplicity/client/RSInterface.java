@@ -15764,6 +15764,17 @@ public class RSInterface {
         
         selectable.selected = true;
     }
+    
+    public static void addTab(int id, int size, String tooltip) {
+    	RSInterface rsi = addInterface(id);
+    	rsi.type = 35;
+    	rsi.width = size + 40;
+		rsi.height = 20;
+		rsi.atActionType = 1;
+		rsi.contentType = 0;
+		rsi.hoverType = 52;
+		rsi.tooltip = tooltip;
+    }
 
     public static int summoningItemRequirements[][] = {{12158, 2859, -1}, // Wolf pouch
             {12158, 2138, -1}, // Dreadfowl pouch

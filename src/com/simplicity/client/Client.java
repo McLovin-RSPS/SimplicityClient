@@ -14870,6 +14870,13 @@ public class Client extends RSApplet {
     					}
                     } else if (child.type == 34) {
                     	DrawingArea.drawBox(childX, childY, child.width, child.height, child.borderWidth, child.borderColor, child.disabledColor, child.transparency);
+                    } else if (child.type == 35) {
+                    	int tabLength = child.width - 44;
+                    	DrawingArea.setDrawingArea(child.height + childY, childX, child.width + childX, childY);
+                    	cacheSprite[child.selected ? 1296 : 1299].drawSprite(childX, childY);
+                    	int repeatedX = cacheSprite[child.selected ? 1297 : 1300].repeatX(childX + 4, childY, tabLength);
+                    	cacheSprite[child.selected ? 1297 : 1300].drawSprite(childX + tabLength, childY);
+                    	cacheSprite[child.selected ? 1298 : 1301].drawSprite(childX + tabLength + 20, childY);
                     }
                 }
                 if (openInterfaceID == 10000) {
