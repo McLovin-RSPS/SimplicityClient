@@ -4968,7 +4968,7 @@ public class Client extends RSApplet {
 						
                     	g.fill(circle);
                     	
-                    	newSmallFont.drawCenteredString(devil ? "Devil" : "Angelic", spriteDrawX + (devil ? 3 : 7), spriteDrawY - 10 + yOff, 0xffffff, 1);
+                    	newSmallFont.drawCenteredString(devil ? "Devil" : "Angel", spriteDrawX + (devil ? 3 : 7), spriteDrawY - 10 + yOff, 0xffffff, 1);
                     }
                     
                     if (player.headIcon >= 0) {
