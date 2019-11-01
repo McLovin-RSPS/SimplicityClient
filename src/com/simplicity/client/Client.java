@@ -4769,9 +4769,13 @@ public class Client extends RSApplet {
     private void updateNPCs(Stream stream, int i) {
         anInt839 = 0;
         playersToUpdateCount = 0;
-        updateNPCAmount(stream);
-        updateNPCMovement(i, stream);
-        readNPCUpdateMask(stream);
+        try {
+            updateNPCAmount(stream);
+            updateNPCMovement(i, stream);
+            readNPCUpdateMask(stream);
+        } catch (Throwable e) {
+        	e.printStackTrace();
+        }
 
         for (int ptr = 0; ptr < anInt839; ptr++) {
             int l = anIntArray840[ptr];
@@ -4783,6 +4787,7 @@ public class Client extends RSApplet {
                 npcArray[l] = null;
             }
         }
+        System.out.println("count: "+npcCount);
 
         if (stream.currentOffset != i) {
             System.out
@@ -5630,7 +5635,10 @@ public class Client extends RSApplet {
     }
 
     private void updateNPCMovement(int i, Stream stream) {
-            while (stream.bitPosition + 21 < i * 8) {
+            for (;;) {
+            	if (i * 8 - stream.bitPosition < 14) {
+            		break;
+            	}
                 int k = stream.readBits(14);
                 if (k == 16383) {
                     break;
@@ -5658,7 +5666,8 @@ public class Client extends RSApplet {
                 int j1 = stream.readBits(1); 
                 
                 npc.desc = MobDefinition.forID(stream.readBits(Configuration.NPC_BITS));
-                
+
+           //     System.out.println(npcCount+", "+k+", "+npc.desc.get);
                 int k1 = stream.readBits(1);
                 if (k1 == 1) {
                     playersToUpdate[playersToUpdateCount++] = k;

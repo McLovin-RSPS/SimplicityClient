@@ -1924,6 +1924,8 @@ public final class MobDefinition {
         }
         Model completedModel = dataType == DataType.OLDSCHOOL ? (Model) modelCacheOSRS.get(type) : (Model) modelCache.get(type);
         if (completedModel == null) {
+            if (models == null)
+            	return null;
             boolean everyModelFetched = false;
             for (int ptr = 0; ptr < models.length; ptr++)
                 if (!Model.modelIsFetched(models[ptr], dataType))
