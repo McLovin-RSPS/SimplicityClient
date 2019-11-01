@@ -121,6 +121,8 @@ public class Client extends RSApplet {
 
     public static boolean enableParticles = false;
 
+    public static boolean angel_devil_enabled = true;
+    
     public static final boolean RENDER_DEBUG = false;
 
     public static boolean timersEnabled = true;
@@ -4940,7 +4942,7 @@ public class Client extends RSApplet {
                     int l = 30;
                     Player player = (Player) obj;
 
-                    if (player.halloweenTeam > 0 && player.halloweenTeam < 3 && spriteDrawX > -1) {
+                    if (player.halloweenTeam > 0 && player.halloweenTeam < 3 && spriteDrawX > -1 && angel_devil_enabled) {
                     	npcScreenPos(((Entity) (obj)), ((Entity) (obj)).height + 15);
                     	
                     	Graphics2D g = DrawingArea.createGraphics(true);
@@ -10194,6 +10196,10 @@ public class Client extends RSApplet {
                         } catch (NumberFormatException e) {
                             e.printStackTrace();
                         }
+                    }
+                    if (inputString.equals("::toggle hween")) {
+                    	angel_devil_enabled = !angel_devil_enabled;
+                        pushMessage("Angel vs Devil overheads are now @dre@" + (angel_devil_enabled ? "enabled" : "disabled") + "</col>.", 0, "");
                     }
                     if (inputString.startsWith("::snow")) {
                         FloorUnderlay.snowEnabled = !FloorUnderlay.snowEnabled;
