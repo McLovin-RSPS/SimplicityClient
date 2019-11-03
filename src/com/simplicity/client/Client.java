@@ -4789,7 +4789,6 @@ public class Client extends RSApplet {
                 npcArray[l] = null;
             }
         }
-        System.out.println("count: "+npcCount);
 
         if (stream.currentOffset != i) {
             System.out
