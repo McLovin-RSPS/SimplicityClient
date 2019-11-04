@@ -9,6 +9,7 @@ import com.simplicity.client.content.CustomisableHotKeys;
 import com.simplicity.client.content.dropdownmenu.DropDownAction;
 import com.simplicity.client.content.dropdownmenu.DropDownMenu;
 import com.simplicity.client.widget.AchievementsWidget;
+import com.simplicity.client.widget.CollectionLogWidget;
 import com.simplicity.client.widget.KnowledgeBaseWidget;
 import com.simplicity.client.widget.SettingsWidget;
 
@@ -4318,17 +4319,16 @@ public class RSInterface {
         
         AchievementsWidget.unpack(textDrawingAreas);
         
-//        windowTest(textDrawingAreas);
-        
-        /* TODO: Finish server-sided! */
         newTeleports(textDrawingAreas);
         
         KnowledgeBaseWidget.unpack(textDrawingAreas);
+        
+        CollectionLogWidget.unpack(textDrawingAreas);
 
         spriteCache = null;
     }
-    
-    private static final void newTeleports(TextDrawingArea[] tda) {
+
+	private static final void newTeleports(TextDrawingArea[] tda) {
     	int id = 60600;
     	
     	RSInterface widget = addInterface(id++);

@@ -99,6 +99,7 @@ import com.simplicity.client.content.dropdownmenu.DropDownAction;
 import com.simplicity.client.content.dropdownmenu.DropDownMenu;
 import com.simplicity.client.particles.Particle;
 import com.simplicity.client.particles.ParticleDefinition;
+import com.simplicity.client.widget.CollectionLogWidget;
 import com.simplicity.client.widget.SettingsWidget;
 import com.simplicity.util.MiscUtils;
 import com.simplicity.util.Stopwatch;
@@ -4789,8 +4790,7 @@ public class Client extends RSApplet {
                 npcArray[l] = null;
             }
         }
-        System.out.println("count: "+npcCount);
-
+        
         if (stream.currentOffset != i) {
             System.out
                     .println(myUsername + " size mismatch in getnpcpos - pos:" + stream.currentOffset + " psize:" + i);
@@ -7588,7 +7588,7 @@ public class Client extends RSApplet {
             type2 = -1;
             return;
         }
-
+        
         bankItemDragSprite = null;
 
         int slot = menuActionCmd2[i];
@@ -8156,7 +8156,6 @@ public class Client extends RSApplet {
 				if (SettingsWidget.handleButton(interfaceId)) {
 					return;
 				}
-            	
                 switch (interfaceId) {
 				case SettingsWidget.DISPLAY_BUTTON:
 				case SettingsWidget.AUDIO_BUTTON:
@@ -14164,7 +14163,8 @@ public class Client extends RSApplet {
                                                 && lastItemSelectedInterface == child.id) {
                                             selectedColour = 0xffffff;
                                         }
-                                        Sprite sprite_2 = ItemDefinition.getSprite(j9, child.invStackSizes[spriteIndex],
+                                        int itemAmount = child.invStackSizes[spriteIndex];
+                                        Sprite sprite_2 = ItemDefinition.getSprite(j9, itemAmount,
                                                 selectedColour);
                                         if (sprite_2 != null) {
                                             if (activeInterfaceType != 0 && anInt1085 == spriteIndex
@@ -14226,38 +14226,42 @@ public class Client extends RSApplet {
                                                     && atInventoryInterface == child.id) {
                                                 sprite_2.drawSprite1(itemSpriteX, itemSpriteY);
                                             } else {
-                                                sprite_2.drawSprite(itemSpriteX, itemSpriteY);
+                                            	int opacity = child.id == 70228 && itemAmount == 0 ? 100 : 255;
+                                            	
+                                                sprite_2.drawSprite1(itemSpriteX, itemSpriteY, opacity);
                                             }
-                                            if (sprite_2.maxWidth == 33 || child.invStackSizes[spriteIndex] != 1 || rsInterface.id == 33213) {
+                                            if (sprite_2.maxWidth == 33 || itemAmount != 1 || rsInterface.id == 33213) {
                                                 boolean bankTab = child.id >= 22035 && child.id <= 22042;
-                                                int k10 = child.invStackSizes[spriteIndex];
                                                 if (!bankTab) {
 
                                                     if (rsInterface.id == 33213) {
-                                                        if (k10 >= 1500000000 && child.drawInfinity) {
+                                                        if (itemAmount >= 1500000000 && child.drawInfinity) {
                                                             SpriteLoader.sprites[653].drawSprite(itemSpriteX, itemSpriteY);
-                                                        } else if (k10 == 0) {
+                                                        } else if (itemAmount == 0) {
 
                                                         } else {
-                                                            smallText.drawCenteredText(0xffff00, itemSpriteX + 14, formatWithDecimal(k10), itemSpriteY + 10 + j7 - 8, true);
+                                                            smallText.drawCenteredText(0xffff00, itemSpriteX + 14, formatWithDecimal(itemAmount), itemSpriteY + 10 + j7 - 8, true);
                                                         }
                                                     } else {
-                                                        if (k10 >= 1500000000 && child.drawInfinity) {
+                                                    	boolean drawAmount = !(child.id == CollectionLogWidget.ITEM_CONTAINER && itemAmount == 0);
+                                                    	
+                                                    	boolean drawPlaceHolderText = itemAmount == 0 && child.id != CollectionLogWidget.ITEM_CONTAINER;
+                                                    	
+                                                        if (itemAmount >= 1500000000 && child.drawInfinity) {
                                                             SpriteLoader.sprites[653].drawSprite(itemSpriteX, itemSpriteY);
-                                                        } else if (k10 == 0) { // Placeholder text
-                                                            newSmallFont.drawBasicString(intToKOrMil(k10), itemSpriteX + k6,
-                                                                    itemSpriteY + 9 + j7, 0xFFFF00, 1, 120);
-                                                        } else {
-                                                            smallText.method385(0, intToKOrMil(k10), itemSpriteY + 10 + j7,
+                                                        } else if (drawPlaceHolderText) { // Placeholder text
+															newSmallFont.drawBasicString(intToKOrMil(itemAmount), itemSpriteX + k6, itemSpriteY + 9 + j7, 0xFFFF00, 1, 120);
+                                                        } else if (drawAmount) {
+                                                            smallText.method385(0, intToKOrMil(itemAmount), itemSpriteY + 10 + j7,
                                                                     itemSpriteX + 1 + k6);
-                                                            if (k10 > 99999 && k10 < 10000000) {
-                                                                smallText.method385(0xFFFFFF, intToKOrMil(k10),
+                                                            if (itemAmount > 99999 && itemAmount < 10000000) {
+                                                                smallText.method385(0xFFFFFF, intToKOrMil(itemAmount),
                                                                         itemSpriteY + 9 + j7, itemSpriteX + k6);
-                                                            } else if (k10 > 9999999) {
-                                                                smallText.method385(0x00ff80, intToKOrMil(k10),
+                                                            } else if (itemAmount > 9999999) {
+                                                                smallText.method385(0x00ff80, intToKOrMil(itemAmount),
                                                                         itemSpriteY + 9 + j7, itemSpriteX + k6);
                                                             } else {
-                                                                smallText.method385(0xFFFF00, intToKOrMil(k10),
+                                                                smallText.method385(0xFFFF00, intToKOrMil(itemAmount),
                                                                         itemSpriteY + 9 + j7, itemSpriteX + k6);
                                                             }
                                                         }
@@ -14347,7 +14351,7 @@ public class Client extends RSApplet {
                         
                         RSFontSystem font = null;
                     	
-                    	boolean useNewFonts = rsInterface.id == 68069;
+                    	boolean useNewFonts = rsInterface.id == 68069 || child.id == 70025;
 
 						if (useNewFonts) {
 							if (textDrawingArea == smallText) {
@@ -14499,18 +14503,22 @@ public class Client extends RSApplet {
                                 }
                                 newRegularFont.drawBasicString("<img=" + imageDraw + ">", childX, drawImageY);
                             }
-                            if (child.centerText) {
-                            	if (font != null) {
-                            		font.drawCenteredString(s1, childX + child.width / 2, l6 + yOffset, color, child.shadowed ? 0 : -1);
-								} else {
-									textDrawingArea.drawCenteredText(color, childX + child.width / 2 + xOffset, s1, l6 + yOffset, child.shadowed);
-								}
+                            if (child.id == 70025) {
+                            	font.drawRightAlignedString(s1, childX + child.width / 2, l6 + yOffset, color, child.shadowed ? 0 : -1);
                             } else {
-                            	if (font != null) {
-                            		font.drawBasicString(s1, childX + xOffset, l6 + yOffset);
-                            	} else {
-                            		textDrawingArea.drawRegularText(child.shadowed, childX + xOffset, color, s1, l6 + yOffset);
-                            	}
+                            	if (child.centerText) {
+                                	if (font != null) {
+                                		font.drawCenteredString(s1, childX + child.width / 2, l6 + yOffset, color, child.shadowed ? 0 : -1);
+    								} else {
+    									textDrawingArea.drawCenteredText(color, childX + child.width / 2 + xOffset, s1, l6 + yOffset, child.shadowed);
+    								}
+                                } else {
+                                	if (font != null) {
+                                		font.drawBasicString(s1, childX + xOffset, l6 + yOffset);
+                                	} else {
+                                		textDrawingArea.drawRegularText(child.shadowed, childX + xOffset, color, s1, l6 + yOffset);
+                                	}
+                                }
                             }
                         }
                     } else if (child.type == 5) {
