@@ -98,7 +98,7 @@ public class CustomObjects {
 
             {1817, 3090, 3475, 0, 0, 4}, // Edge lever
 
-            {1816, 3153, 3923, 0, 0, 4}, // Wildy lever
+            {1817, 3153, 3923, 0, 0, 4}, // Wildy lever
 
             {10087, 3187, 3927, 0, 0}, // Dark crab fishing spot
 
