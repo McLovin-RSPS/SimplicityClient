@@ -6,10 +6,12 @@ public class EffectTimer {
 
     private final int sprite;
     private final SecondsTimer secondsTimer;
+    private boolean isItem;
 
-    public EffectTimer(int seconds, int sprite) {
+    public EffectTimer(int seconds, int sprite, boolean isItem) {
         this.secondsTimer = new SecondsTimer(seconds);
         this.sprite = sprite;
+        this.isItem = isItem;
     }
 
     public int getSprite() {
@@ -22,5 +24,9 @@ public class EffectTimer {
 
     public SecondsTimer getSecondsTimer() {
         return secondsTimer;
+    }
+    
+    public boolean isItem() {
+    	return isItem;
     }
 }

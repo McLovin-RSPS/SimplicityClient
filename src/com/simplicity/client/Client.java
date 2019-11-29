@@ -205,42 +205,73 @@ public class Client extends RSApplet {
 
         effects_list.add(et);
     }
-
+    
+    public boolean effectTimersVisible = true;
+    
+    public int effectTimerToggleX;
+    public int effectTimerToggleY;
+    
     public void drawEffectTimers() {
-        int yDraw = clientHeight - 195;
-        int xDraw = clientWidth - 330;
-        for (EffectTimer timer : effects_list) {
-            if (timer.getSecondsTimer().finished()) {
-                effects_list.remove(timer);
-                continue;
-
-            }
-
-            if (timer.getSprite() > cacheSprite.length) {
-                continue;
-            }
-
-            Sprite sprite = cacheSprite[timer.getSprite()];
-
-            if (sprite != null) {
-                sprite.drawAdvancedSprite(xDraw + 12, yDraw);
-
-                int seconds = timer.getSecondsTimer().secondsRemaining();
-
-                if (seconds > 86400) {
-                    newSmallFont.drawBasicString(getDaysAndHours(TimeUnit.SECONDS.toMillis(seconds)) + "", xDraw + 38,
-                            yDraw + 13, 0xFF8C00, 0);
-                } else if (seconds > 3600 && seconds < 36000) { // Between 1 and 10 hours
-                    newSmallFont.drawBasicString(getHours(TimeUnit.SECONDS.toMillis(seconds)) + "", xDraw + 36,
-                            yDraw + 13, 0xFF8C00, 0);
-                } else {
-                    newSmallFont.drawBasicString(
-                            seconds < 3600 ? getMinutes(seconds) : getHours(TimeUnit.SECONDS.toMillis(seconds)) + "",
-                            xDraw + 40, yDraw + 13, 0xFF8C00, 0);
-                }
-
-                yDraw -= 25;
-            }
+        int yDraw = clientHeight - 185;
+        int xDraw = clientWidth - 335;
+		int fillColor = 0x453e34;
+    	int width = 40 * effects_list.size();
+		int height = 40;
+		
+		if (!effects_list.isEmpty() && effectTimersVisible) {
+			chatTextDrawingArea.drawRectangle(yDraw - 25, height, 250, 0, width, xDraw - width + 80);
+			chatTextDrawingArea.fillRectangle(0x1e1e1f, yDraw - 25 + 1, width - 2, height - 2, 200, xDraw - width + 80 + 1);
+		}
+		
+		if (effectTimersVisible) {
+	        for (EffectTimer timer : effects_list) {
+	            if (timer.getSecondsTimer().finished()) {
+	                effects_list.remove(timer);
+	                continue;
+	
+	            }
+	            
+	            boolean isItem = timer.getSprite() > cacheSprite.length;
+	            
+	            Sprite sprite = isItem ? ItemDefinition.getSprite(timer.getSprite(), 10, -1) : cacheSprite[timer.getSprite()]; 
+	            
+	            if (sprite != null) {
+	            	if (isItem) {
+	            		sprite.drawSprite(xDraw + 39 + 6, yDraw - 27);
+	            	} else {
+	            		sprite.drawAdvancedSprite(xDraw + 37 + 6 + sprite.myWidth / 2, yDraw - 20);
+	            	}
+	
+	                int seconds = timer.getSecondsTimer().secondsRemaining();
+	
+	                if (seconds > 86400) {
+	                    newSmallFont.drawBasicString(getDaysAndHours(TimeUnit.SECONDS.toMillis(seconds)) + "", xDraw + 44,
+	                            yDraw + 13, 0xFFFFFF, 0);
+	                } else if (seconds > 3600 && seconds < 36000) { // Between 1 and 10 hours
+	                    newSmallFont.drawBasicString(getHours(TimeUnit.SECONDS.toMillis(seconds)) + "", xDraw + 42,
+	                            yDraw + 13, 0xFFFFFF, 0);
+	                } else {
+	                    newSmallFont.drawBasicString(
+	                            seconds < 3600 ? getMinutes(seconds) : getHours(TimeUnit.SECONDS.toMillis(seconds)) + "",
+	                            xDraw + 46, yDraw + 13, 0xFFFFFF, 0);
+	                }
+	
+	            	xDraw -= 40;
+	            }
+	        }
+		}
+        
+        if (!effects_list.isEmpty()) {
+        	xDraw += 3;
+        	
+        	chatTextDrawingArea.drawRectangle(yDraw - 25, height, 255, 0, 15, xDraw + 63);
+    		chatTextDrawingArea.fillRectangle(0x1e1e1f, yDraw - 25 + 1, 15, height - 2, 255, xDraw + 63 + 1);
+    		chatTextDrawingArea.drawLineVertical(294, 0, yDraw - 280, xDraw + 63 + 15);
+    		
+        	cacheSprite[effectTimersVisible ? 1304 : 1305].drawAdvancedSprite(xDraw + 63 + 3 + (effectTimersVisible ? 2 : 1), yDraw - 11);
+        	
+        	effectTimerToggleX = xDraw + 63;
+        	effectTimerToggleY = yDraw - 25;
         }
     }
 
@@ -2093,7 +2124,7 @@ public class Client extends RSApplet {
 		} else {
 			bonusOrbHoverTimer = 0;
 		}
-        
+		
         compass[0].rotate(33, viewRotation, anIntArray1057, 256, anIntArray968, 25, (clientSize == 0 ? 8 : 5),
                 (clientSize == 0 ? 8 + xPosOffset : clientWidth - 167), 33, 25);
         if (menuOpen && menuScreenArea == 3) {
@@ -7607,6 +7638,10 @@ public class Client extends RSApplet {
         if (l == 476 && alertBoxTimer > 0) {
             alertBoxTimer = 0;
         }
+        
+        if (l == 477) {
+        	effectTimersVisible = !effectTimersVisible;
+        }
 
         if (openInterfaceID == 60000) {
             switch (interfaceId) {
@@ -11586,6 +11621,12 @@ public class Client extends RSApplet {
             menuActionID[1] = 476;
             menuActionRow = 2;
         }
+        
+		if (mouseInRegion(effectTimerToggleX, effectTimerToggleY, effectTimerToggleX + 19, effectTimerToggleY + 42)) {
+			menuActionName[1] = "Toggle";
+            menuActionID[1] = 477;
+            menuActionRow = 2;
+		}
 
         /**/
         boolean flag = false;
@@ -19591,6 +19632,7 @@ public class Client extends RSApplet {
                     try {
                         int timer = inStream.readInt();
                         int sprite = inStream.readShort();
+                        boolean isItem = inStream.readByte() == 1;
 
                         if (timer == 0) {
                             for (EffectTimer et : effects_list) {
@@ -19600,7 +19642,7 @@ public class Client extends RSApplet {
                                 }
                             }
                         } else if (Configuration.enableTimers) {
-                            addEffectTimer(new EffectTimer(timer, sprite));
+                            addEffectTimer(new EffectTimer(timer, sprite, isItem));
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -23256,6 +23298,7 @@ public class Client extends RSApplet {
     private ArrayList<CustomMinimapIcon> customMinimapIcons = new ArrayList<CustomMinimapIcon>();
 
     public List<EffectTimer> effects_list = new CopyOnWriteArrayList<EffectTimer>();
+    public List<EffectTimer> potion_timers = new CopyOnWriteArrayList<EffectTimer>();
 
     private int drawX = 0;
     private int drawY = 0;
