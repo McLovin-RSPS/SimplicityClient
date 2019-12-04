@@ -2802,21 +2802,6 @@ public final class ItemDefinition {
                 itemDef.name = "Dragon Kiteshield";
                 itemDef.description = "A Dragon Kiteshield!";
                 break;
-            case 4151:
-                itemDef.actions = new String[5];
-                itemDef.actions[1] = "Wield";
-                itemDef.name = "Abyssal whip";
-                itemDef.description = "Lowest powered whip";
-                itemDef.modelID = 5412;//Inv & Ground
-                itemDef.modelZoom = 840;
-                itemDef.rotationY = 280;
-                itemDef.rotationX = 0;
-                itemDef.modelOffsetX = 0;
-                itemDef.modelOffsetY = 56;
-                itemDef.maleEquip1 = 5409;//Male Wield View
-                itemDef.femaleEquip1 = 5409;//Female Wield View
-
-                break;
             case 11614:
                 itemDef.actions = new String[5];
                 itemDef.actions[1] = "Wield";
