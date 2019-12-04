@@ -122,7 +122,7 @@ public class Client extends RSApplet {
 
     public static boolean enableParticles = false;
 
-    public static boolean angel_devil_enabled = true;
+    public static boolean angel_devil_enabled = false;
     
     public static final boolean RENDER_DEBUG = false;
 
