@@ -478,6 +478,10 @@ public final class ItemDefinition {
 
         priorityModels.add(36324); //devout boots
         priorityModels.add(36333); //devout boots
+        
+        // Neitiznot faceguard
+        priorityModels.add(38857);
+        priorityModels.add(38858);
 
         //writeOutOsrsItems(totalItems, totalItemsOSRS);
         //dumpInterface(totalItems, totalItemsOSRS);
