@@ -901,6 +901,18 @@ public final class ItemDefinition {
         }
         itemDef.value = prices[itemDef.id];
         switch (itemId) {
+        case 21630:
+        	itemDef.copy(forID(1582));
+        	itemDef.editedModelColor = new int[] { 61 };
+        	itemDef.newModelColor = new int[] { 921 };
+        	itemDef.name = "Prayer renewal (4)";
+        	break;
+        case 21632:
+        case 21634:
+        case 21636:
+        	itemDef.editedModelColor = new int[] { 61 };
+        	itemDef.newModelColor = new int[] { 921 };
+        	break;
         case 21023:
         	itemDef.copy(forID(52323));
         	itemDef.dataType = DataType.REGULAR;
