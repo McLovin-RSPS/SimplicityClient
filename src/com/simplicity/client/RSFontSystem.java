@@ -29,6 +29,7 @@ public class RSFontSystem extends DrawingArea {
 	public static String lineBreak;
 	public static String startStrikethrough;
 	public static String endColor;
+	public static String startSprite;
 	public static String startImage;
 	public static String endUnderline;
 	public static String defaultStrikethrough;
@@ -226,6 +227,16 @@ public class RSFontSystem extends DrawingArea {
 							} catch (Exception exception) {
 								/* empty */
 							}
+						} else if (effectString.startsWith(startSprite)) {
+							try {
+								int[] args = extractSpriteValues(effectString);
+								int spriteId = args[0];
+								Sprite icon = Client.cacheSprite[spriteId];
+								icon.drawSprite(drawX, drawY + args[1]);
+								drawX += icon.myWidth + icon.drawOffsetX;
+							} catch (Exception exception) {
+								/* empty */
+							}
 						} else {
 							setTextEffects(effectString);
 						}
@@ -265,6 +276,23 @@ public class RSFontSystem extends DrawingArea {
 		}
 	}
 	
+	/**
+	 * Extracts the sprite values from the string.
+	 * 
+	 * @param effectString
+	 *            The sprite effect string.
+	 * @return The values.
+	 */
+	public int[] extractSpriteValues(String effectString) {
+		String[] args = effectString.indexOf(":") != -1 ? effectString.substring(4).split(":") : new String[] { effectString.substring(4) };
+
+		int spriteId = Integer.parseInt(args[0]);
+
+		int yOffset = args.length > 1 ? Integer.parseInt(args[1]) : 0;
+
+		return new int[] { spriteId, yOffset };
+	}
+
 	public void drawBasicString2(String string, int drawX, int drawY) {
 		drawY -= baseCharacterHeight;
 		//string = handleOldSyntax(string);
@@ -365,6 +393,54 @@ public class RSFontSystem extends DrawingArea {
 								drawX += icon.myWidth;
 							} catch (Exception exception) {
 								/* empty */
+							}
+						} else if (effectString.startsWith(startSprite)) {
+							try {
+								int xModI;
+
+								if (xModifier != null) {
+									xModI = xModifier[modifierOffset];
+								} else {
+									xModI = 0;
+								}
+
+								int yMod;
+
+								if (yModifier != null) {
+									yMod = yModifier[modifierOffset];
+								} else {
+									yMod = 0;
+								}
+								
+								modifierOffset++;
+								
+								int[] args = extractSpriteValues(effectString);
+
+								int spriteId = args[0];
+
+								int yOffset = args[1];
+
+								Sprite class92 = Client.cacheSprite[spriteId];
+
+								int iconOffsetY = class92.maxHeight;
+
+								if (transparency == 256) {
+									class92.drawSprite(drawX + xModI,
+											(drawY + baseCharacterHeight
+													- iconOffsetY + yMod
+													+ yOffset));
+								} else {
+									class92.drawSprite(drawX + xModI,
+											(drawY + baseCharacterHeight
+													- iconOffsetY + yMod
+													+ yOffset),
+											transparency);
+								}
+
+								drawX += class92.maxWidth;
+							} catch (Exception exception) {
+								/* empty */
+								exception.printStackTrace();
 							}
 						} else {
 							setTextEffects(effectString);
@@ -522,6 +598,14 @@ public class RSFontSystem extends DrawingArea {
 							try {// <img=
 								int iconId = Integer.valueOf(effectString.substring(4));
 								finalWidth += SpriteLoader.sprites[679+iconId].myWidth;
+							} catch (Exception exception) {
+								/* empty */
+							}
+						} else if (effectString.startsWith(startSprite)) {
+							try {
+								int spriteId = Integer
+										.valueOf(effectString.substring(4));
+								finalWidth += Client.cacheSprite[spriteId].maxWidth;
 							} catch (Exception exception) {
 								/* empty */
 							}
@@ -777,6 +861,7 @@ public class RSFontSystem extends DrawingArea {
 		aRSString_4147 = null;
 		aRSString_4163 = null;
 		aRSString_4169 = null;
+		startSprite = null;
 		startImage = null;
 		lineBreak = null;
 		startColor = null;
@@ -934,6 +1019,7 @@ public class RSFontSystem extends DrawingArea {
 		lineBreak = "br";
 		defaultStrikethrough = "str";
 		endUnderline = "/u";
+		startSprite = "spr=";
 		startImage = "img=";
 		startShadow = "shad=";
 		startUnderline = "u=";
