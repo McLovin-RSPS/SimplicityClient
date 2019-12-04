@@ -6,6 +6,21 @@ public class CustomItems {
 
     public static void loadDefinition(ItemDefinition itemDef) {
         switch (itemDef.id) {
+        	case 21024:
+        		itemDef.copy(ItemDefinition.forID(14601));
+        		itemDef.editedModelColor = new int[] { 940, 933, 928, 924 };
+            	itemDef.newModelColor = new int[] { 37631, 37631, 37631, 37631 };
+            	itemDef.name = "Sky blue santa costume top";
+            	// 11237 yellow
+            	// 43980 blue
+            	// 54194 Purple
+        		break;
+        	case 21025:
+        		itemDef.copy(ItemDefinition.forID(14603));
+        		itemDef.editedModelColor = new int[] { 940, 933, 928, 924 };
+            	itemDef.newModelColor = new int[] { 37631, 37631, 37631, 37631 };
+            	itemDef.name = "Sky blue santa costume legs";
+        		break;
             case 6927:
                 itemDef.copy(ItemDefinition.forID(9924));
                 itemDef.editedModelColor = new int[] {127, 70, 121, 59515};
