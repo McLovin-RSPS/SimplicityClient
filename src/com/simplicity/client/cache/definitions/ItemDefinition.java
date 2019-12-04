@@ -298,7 +298,7 @@ public final class ItemDefinition {
         totalItems = stream.readUnsignedWord();
         int totalItemsOSRS = streamOSRS.readUnsignedWord();
 
-        streamIndices = new int[totalItems + 1000];
+        streamIndices = new int[totalItems + 2000];
         streamIndicesOSRS = new int[totalItemsOSRS];
 
         int i = 2;
@@ -902,16 +902,28 @@ public final class ItemDefinition {
         itemDef.value = prices[itemDef.id];
         switch (itemId) {
         case 21630:
-        	itemDef.copy(forID(1582));
+        	itemDef.copy(forID(2438));
         	itemDef.editedModelColor = new int[] { 61 };
         	itemDef.newModelColor = new int[] { 921 };
         	itemDef.name = "Prayer renewal (4)";
         	break;
         case 21632:
-        case 21634:
-        case 21636:
+        	itemDef.copy(forID(151));
         	itemDef.editedModelColor = new int[] { 61 };
         	itemDef.newModelColor = new int[] { 921 };
+        	itemDef.name = "Prayer renewal (1)";
+        	break;
+        case 21634:
+        	itemDef.copy(forID(153));
+        	itemDef.editedModelColor = new int[] { 61 };
+        	itemDef.newModelColor = new int[] { 921 };
+        	itemDef.name = "Prayer renewal (2)";
+        	break;
+        case 21636:
+        	itemDef.copy(forID(155));
+        	itemDef.editedModelColor = new int[] { 61 };
+        	itemDef.newModelColor = new int[] { 921 };
+        	itemDef.name = "Prayer renewal (1)";
         	break;
         case 21023:
         	itemDef.copy(forID(52323));
