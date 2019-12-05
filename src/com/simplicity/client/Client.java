@@ -8913,7 +8913,7 @@ public class Client extends RSApplet {
         if (l == 412) {
             NPC class30_sub2_sub4_sub1_sub1_6 = npcArray[entityId];
             if (class30_sub2_sub4_sub1_sub1_6 != null) {
-                doWalkTo(2, 0, 1, 0, myPlayer.pathY[0], 1, 0, class30_sub2_sub4_sub1_sub1_6.pathY[0], myPlayer.pathX[0],
+                doWalkTo(2, 0, class30_sub2_sub4_sub1_sub1_6.desc.squaresNeeded, 0, myPlayer.pathY[0], class30_sub2_sub4_sub1_sub1_6.desc.squaresNeeded, 0, class30_sub2_sub4_sub1_sub1_6.pathY[0], myPlayer.pathX[0],
                         false, class30_sub2_sub4_sub1_sub1_6.pathX[0]);
                 crossX = super.saveClickX;
                 crossY = super.saveClickY;
