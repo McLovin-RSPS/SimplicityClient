@@ -636,6 +636,7 @@ public final class ObjectDefinition {
                 objectDef.name = "AFK Tree";
                 break; */
             case 35469:
+            case 21764:
                 objectDef.actions = new String[]{"Drink-from", null, null, null, null};
                 objectDef.name = "Fountain of Life";
                 break;
