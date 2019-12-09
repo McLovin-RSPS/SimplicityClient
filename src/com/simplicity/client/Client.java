@@ -15608,7 +15608,7 @@ public class Client extends RSApplet {
             drawingArea.method385(0xffff00, "RegionIndex, Terrain, Landscape: " + regionIndex + " " + (regionIndex >= 0
                     ? (onDemandFetcher.landscapeMapIds[regionIndex] + ", " + onDemandFetcher.objectMapIds[regionIndex])
                     : "-1"), 359 - minus, 5);
-            drawingArea.method385(0xffff00, "Region id: " + regionId, 374 - minus, 5);
+            drawingArea.method385(0xffff00, "Region id: " + regionId + ", OSRS: " + OldschoolMaps.isOldschoolRegion(regionId), 374 - minus, 5);
 
         }
         if (updateMinutes != 0) {
