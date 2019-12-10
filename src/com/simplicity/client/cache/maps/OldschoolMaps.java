@@ -40,7 +40,10 @@ public class OldschoolMaps {
             4626, 4627, 46728, 4882, 4883, 4884, 5138, 5139, 5140,
 
             //tournament
-            13133
+            13133,
+
+            //ffa
+            12621, 12622, 12623, 6729
     };
     static {
         for(Integer region : OLDSCHOOL_REGION_IDS) {

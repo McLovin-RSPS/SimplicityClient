@@ -96,6 +96,9 @@ public class CustomObjects {
 
             {-1, 3158, 3951, 0, 0}, // Web
 
+            {-1, 1695, 4703, 0, 0}, // ffa portal
+            {-1, 1698, 4702, 0, 0}, // ffa portal
+
             {1817, 3090, 3475, 0, 0, 4}, // Edge lever
 
             {1817, 3153, 3923, 0, 0, 4}, // Wildy lever
