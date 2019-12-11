@@ -5713,7 +5713,16 @@ public class Client extends RSApplet {
                 npc.anInt1556 = npc.desc.turn90CWAnimIndex;
                 npc.anInt1557 = npc.desc.turn90CCWAnimIndex;
                 npc.standAnim = npc.desc.standAnim;
-                npc.setPos(myPlayer.pathX[0] + i1, myPlayer.pathY[0] + l, j1 == 1);
+                
+                int offsetPosX = 0;
+                int offsetPosY = 0;
+                
+                if (npc.desc.squaresNeeded > 1) {
+                	offsetPosX += npc.desc.squaresNeeded / 2;
+                	offsetPosY += npc.desc.squaresNeeded / 2;
+                }
+                
+                npc.setPos(myPlayer.pathX[0] + i1 - offsetPosX, myPlayer.pathY[0] + l - offsetPosY, j1 == 1);
             }
             stream.finishBitAccess();
     }
