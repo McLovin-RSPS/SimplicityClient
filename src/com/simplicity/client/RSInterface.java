@@ -4298,6 +4298,7 @@ public class RSInterface {
         runePouch(textDrawingAreas);
         donationPanel(textDrawingAreas);
         thrownaxeSpecial();
+        warnInterface(textDrawingAreas);
 //		slayerInterfaces(textDrawingAreas);
 
         /*
@@ -4717,6 +4718,47 @@ public class RSInterface {
         tab.child(1, 127_003, x, y + 23);
         tab.child(2, 127_004, x, y + 46);
         tab.child(3, 127_005, x, y + 69);;
+
+    }
+
+    public static void warnInterface(TextDrawingArea[] tda) {
+        int baseX = 40;
+        int baseY = 25;
+        int interID = 128_000 ;
+        RSInterface tab = addInterface(interID);
+        addSpriteLoader(128_001, 1167);
+        addHoverButtonWSpriteLoader(128_002, 726, 150, 35, "Acknowledge", -1, 128_003, 1);
+        addHoveredImageWSpriteLoader(128_003, 727, 150, 35, 128_012);
+        RSInterface.addText(128_004, "Acknowledge", tda, 3, 0xc8aa64, false);
+
+//        addButtonWSpriteLoader(128_002, 989, "Select", 57, 17);
+//        addButtonWSpriteLoader(128_003, 990, "Select", 57, 17);
+
+        RSInterface.addText(128_005, "You got a Warning", tda, 2, 0xff981f, true);
+
+        RSInterface.addText(128_006, " ", tda, 1, 0xc8aa64, false);
+        RSInterface.addText(128_007, " ", tda, 1, 0xc8aa64, false);
+        RSInterface.addText(128_008, " ", tda, 1, 0xc8aa64, false);
+        RSInterface.addText(128_009, " ", tda, 1, 0xc8aa64, false);
+        RSInterface.addText(128_010, " ", tda, 1, 0xc8aa64, false);
+
+
+        tab.totalChildren(10);
+
+        int lineY = 55;
+        int lineSpaceY = 27;
+        tab.child(0, 128_001, baseX, baseY); //background
+        tab.child(1, 128_002, (405 / 2) - baseX, (lineSpaceY * 9)); //button
+        tab.child(2, 128_003, (405 / 2) - baseX, (lineSpaceY * 9)); //button
+        tab.child(3, 128_004, (405 / 2) - baseX + 30, (lineSpaceY * 9) + 8); //button text
+
+        tab.child(4, 128_005, baseX + (432 / 2), baseY + 8); //title
+        baseX *= 3;
+        tab.child(5, 128_006, (405 / 2) - baseX, lineY + 10); //line text
+        tab.child(6, 128_007, (405 / 2) - baseX, lineY + 30); //line text
+        tab.child(7, 128_008, (405 / 2) - baseX, lineY + (lineSpaceY * 3)); //line text
+        tab.child(8, 128_009, (405 / 2) - baseX, lineY + (lineSpaceY * 4)); //line text
+        tab.child(9, 128_010, (405 / 2) - baseX, lineY + (lineSpaceY * 5)); //line text
 
     }
 
