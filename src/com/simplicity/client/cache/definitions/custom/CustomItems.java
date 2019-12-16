@@ -478,7 +478,7 @@ public class CustomItems {
                 itemDef.copy(ItemDefinition.forID(42603));
                 itemDef.editedModelColor = new int[]{43177, 43105, 46249, 5281, 935, 43181, 43189, 43185, 39013, 41135, 3235};
                 itemDef.newModelColor = new int[]{43177, 43105, 46249, 32883, 32883, 43181, 43189, 43185, 39013, 41135, 32883};
-                itemDef.name = "Dark " + itemDef.name;
+                itemDef.name = "Ring of Bosses (i)";
                 break;
 
             case 14924:
