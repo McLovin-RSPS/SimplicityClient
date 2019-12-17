@@ -414,6 +414,13 @@ public class CustomItems {
                 itemDef.newModelColor = new int[]{689484, 687484};
                 itemDef.name = "Supreme box";
                 break;
+                
+            case 14934:
+                itemDef.copy(ItemDefinition.forID(6830));
+                itemDef.editedModelColor = new int[]{127, 11187};
+                itemDef.newModelColor = new int[]{1566, 32883};
+                itemDef.name = "Christmas box";
+                break;
 
             case 14914:
                 itemDef.copy(ItemDefinition.forID(50095));
