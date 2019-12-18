@@ -597,7 +597,7 @@ public class RSInterface {
         int baseY = 25;
 
         int interfaceId = 50_500;
-        int historyListId = 50_550;
+        int historyListId = 50_150;
         int index = 1;
 
         RSInterface mainInterface = RSInterface.addInterface(interfaceId); //main interface display
