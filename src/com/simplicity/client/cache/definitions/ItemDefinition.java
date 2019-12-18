@@ -2288,7 +2288,7 @@ public final class ItemDefinition {
                 itemDef.actions[4] = "Drop";
                 break;
             case 11294:
-                itemDef.name = "Sky Blye Santa Hat";
+                itemDef.name = "Sky Blue Santa Hat";
                 itemDef.modelID = 2537;
                 itemDef.description = "A rare sky blue santa hat!";
                 itemDef.editedModelColor = new int[1];
