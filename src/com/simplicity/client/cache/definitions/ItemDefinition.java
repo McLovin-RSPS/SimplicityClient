@@ -826,6 +826,11 @@ public final class ItemDefinition {
                     itemDef.actions = new String[5];
                     itemDef.actions[0] = "Open";
                     break;
+                case 42789:
+                    itemDef.name = "@gre@Runelocus Box";
+                    itemDef.actions = new String[5];
+                    itemDef.actions[0] = "Open";
+                    break;
                 case 51695:
                     itemDef.name = "Simpfest shield";
                     break;
@@ -1438,6 +1443,7 @@ public final class ItemDefinition {
             itemDef.editedModelColor = new int[] { 784, 790, 796, 536, 61, 78, 49 };
             itemDef.newModelColor = new int[] { 1024, 1024, 1024, 90, 54220, 54220, 54220 };
             break;
+            
         case 21016: // Relax's custom Vitur XI
             itemDef.modelID = 35742;
             itemDef.actions = new String[5];
@@ -1453,6 +1459,7 @@ public final class ItemDefinition {
             itemDef.editedModelColor = new int[] { 784, 790, 796, 536, 61, 78, 49 };
             itemDef.newModelColor = new int[] { 1024, 1024, 1024, 1024, 1024, 1024, 1024 };
             break;
+            
         case 21077: // Scythe of Vitur XI
             itemDef.modelID = 35742;
             itemDef.actions = new String[5];
@@ -1470,7 +1477,23 @@ public final class ItemDefinition {
             itemDef.newModelColor = new int[] { 14573, 14573, 14573, 14573, 14573, 14573, 14573 };
             break;
             
-        case 21079: // No custom order
+        case 21087: // Scythe of Vitur DS
+            itemDef.modelID = 35742;
+            itemDef.actions = new String[5];
+            itemDef.actions[1] = "Wield";
+            itemDef.name = "@red@Scythe of Vitur DS";
+            itemDef.description = "It is the Scythe of Vitur DS.";
+            itemDef.modelZoom = 2200;
+            itemDef.stackable = false;
+            itemDef.rotationX = 23;
+            itemDef.rotationY = 327;
+            itemDef.maleEquip1 = 35371;
+            itemDef.femaleEquip1 = 35371;
+            itemDef.editedModelColor = new int[] { 784, 790, 796, 536, 61, 78, 49 };
+            itemDef.newModelColor = new int[] { 56220, 56220, 56220, 56220, 685484, 685484, 685484 };
+            break;
+            
+        case 21079: // Water blue No custom order
             itemDef.modelID = 35742;
             itemDef.actions = new String[5];
             itemDef.actions[1] = "Wield";
@@ -1484,7 +1507,7 @@ public final class ItemDefinition {
             itemDef.femaleEquip1 = 35371;
             itemDef.editedModelColor = new int[] { 584, 590, 596, 836, 61, 78, 49 };
             //            itemDef.editedModelColor = new int[] { 384, 390, 396, 536, 61, 78, 49 };
-            itemDef.newModelColor = new int[] { 24573, 24573, 24573, 24573, 24573, 24573, 24573 };
+            itemDef.newModelColor = new int[] { 46573, 46573, 46573, 688484, 688484, 688484, 688484 };
             break;
             
         case 21080: // G-Unit's custom Vitur XI
@@ -1492,7 +1515,7 @@ public final class ItemDefinition {
             itemDef.actions = new String[5];
             itemDef.actions[1] = "Wield";
             itemDef.name = "@red@G-Unit's Scythe of Vitur XI";
-            itemDef.description = "It is G-Unit's Purps Scythe of Vitur XI.";
+            itemDef.description = "It is G-Unit's Scythe of Vitur XI.";
             itemDef.modelZoom = 2200;
             itemDef.stackable = false;
             itemDef.rotationX = 23;
@@ -2265,7 +2288,7 @@ public final class ItemDefinition {
                 itemDef.actions[4] = "Drop";
                 break;
             case 11294:
-                itemDef.name = "Sky Blye Santa Hat";
+                itemDef.name = "Sky Blue Santa Hat";
                 itemDef.modelID = 2537;
                 itemDef.description = "A rare sky blue santa hat!";
                 itemDef.editedModelColor = new int[1];
@@ -6740,6 +6763,11 @@ public final class ItemDefinition {
                 itemDef.modelID = 44574;
                 itemDef.maleEquip1 = 43693;
                 itemDef.femaleEquip1 = 43693;
+                break;
+            case 11949:
+                itemDef.name = "Santa's Globe";
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Hold";
                 break;
             case 19111:
                 itemDef.name = "TokHaar-Kal";

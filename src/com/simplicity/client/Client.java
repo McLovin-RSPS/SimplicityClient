@@ -14580,7 +14580,7 @@ public class Client extends RSApplet {
                                 onDemandFetcher.requestFileData(IMAGE_IDX - 1, child.enabledSpriteId);
                             }
                         }
-                        if (child.disabledSpriteId != -1 && SpriteCache.spriteCache[child.disabledSpriteId] == null) {
+                        if (child.disabledSpriteId != -1 && child.disabledSpriteId < SpriteCache.spriteCache.length && SpriteCache.spriteCache[child.disabledSpriteId] == null) {
                             onDemandFetcher.requestFileData(IMAGE_IDX - 1, child.disabledSpriteId);
                         }
                         if (child.itemSpriteId1 != -1 && child.disabledSprite == null && child.disabledSpriteId == -1
@@ -14600,7 +14600,7 @@ public class Client extends RSApplet {
                                 sprite = child.enabledSprite;
                             }
                         } else if (child.disabledSpriteId != -1
-                                && SpriteCache.spriteCache[child.disabledSpriteId] != null) {
+                                && child.disabledSpriteId < SpriteCache.spriteCache.length && SpriteCache.spriteCache[child.disabledSpriteId] != null) {
                             sprite = SpriteCache.spriteCache[child.disabledSpriteId];
                         } else {
                             sprite = child.disabledSprite;

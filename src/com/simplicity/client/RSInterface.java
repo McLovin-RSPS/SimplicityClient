@@ -8,13 +8,43 @@ import com.simplicity.client.cache.definitions.MobDefinition;
 import com.simplicity.client.content.CustomisableHotKeys;
 import com.simplicity.client.content.dropdownmenu.DropDownAction;
 import com.simplicity.client.content.dropdownmenu.DropDownMenu;
-import com.simplicity.client.widget.AchievementsWidget;
-import com.simplicity.client.widget.CollectionLogWidget;
-import com.simplicity.client.widget.KnowledgeBaseWidget;
-import com.simplicity.client.widget.SettingsWidget;
+import com.simplicity.client.widget.*;
 
 @SuppressWarnings("all")
 public class RSInterface {
+
+    public static void addHoveredButton(int i, int sprite2, int width, int height, int i1) {
+        RSInterface component = addTabInterface(i);
+        component.parentID = i;
+        component.id = i;
+        component.type = 0;
+        component.atActionType = 0;
+        component.width = width;
+        component.height = height;
+        component.interfaceShown = true;
+        component.opacity = 0;
+        component.hoverType = -1;
+        component.scrollMax = 0;
+        addHoverImage(i1, sprite2, sprite2);
+        component.totalChildren(1);
+        component.child(0, i1, 0, 0);
+    }
+
+    public static void addHoverButton(int id, int sprite1, int width, int height, String s, int i, int i1, int i2) {
+        RSInterface component = addTabInterface(id);
+        component.id = id;
+        component.parentID = id;
+        component.type = 5;
+        component.atActionType = i2;
+        component.contentType = i;
+        component.opacity = 0;
+        component.hoverType = i1;
+        component.disabledSprite = Client.cacheSprite[sprite1];
+        component.enabledSprite = Client.cacheSprite[sprite1];
+        component.width = width;
+        component.height = height;
+        component.tooltip = s;
+    }
 
     public boolean drawInterface(final Client client, int widgetDrawX, int widgetDrawY, int subWidgetDrawX,
                                  int subWidgetDrawY) {
@@ -4325,7 +4355,7 @@ public class RSInterface {
         KnowledgeBaseWidget.unpack(textDrawingAreas);
         
         CollectionLogWidget.unpack(textDrawingAreas);
-
+        Widget.init();
         spriteCache = null;
     }
 
@@ -4804,6 +4834,10 @@ public class RSInterface {
         rsi.sprites = new Sprite[20];
         rsi.actions = actions;
         rsi.type = 2;
+    }
+
+    public void copy(int fromCompId) {
+        copy(interfaceCache[fromCompId]);
     }
 
     public void copy(RSInterface from) {
@@ -8213,7 +8247,7 @@ public class RSInterface {
         button.tooltip = "@whi@View @or1@" + skillGuide + " @whi@Options";
     }
 
-    private static void addSprite(int id, Sprite sprite) {
+    public static void addSprite(int id, Sprite sprite) {
         RSInterface component = interfaceCache[id] = new RSInterface();
         component.id = id;
         component.parentID = id;
@@ -8224,6 +8258,23 @@ public class RSInterface {
         component.hoverType = 52;
         component.disabledSprite = sprite;
         component.enabledSprite = sprite;
+        component.width = 512;
+        component.height = 334;
+    }
+
+    public static void addSprite(int id, int spriteId) {
+        RSInterface component = interfaceCache[id] = new RSInterface();
+        component.id = id;
+        component.parentID = id;
+        component.type = 5;
+        component.atActionType = 0;
+        component.contentType = 0;
+        component.opacity = (byte) 0;
+        component.hoverType = 52;
+        if (spriteId != -1) {
+            component.disabledSprite = Client.cacheSprite[spriteId];
+            component.enabledSprite = Client.cacheSprite[spriteId];
+        }
         component.width = 512;
         component.height = 334;
     }
@@ -8244,6 +8295,23 @@ public class RSInterface {
         tab.height = height;
         tab.tooltip = text;
     }
+
+    /*public static void addHoverButton(int i, int spriteId, int j, int width, int height, String text, int contentType,
+                                      int hoverOver, int aT) {
+        RSInterface tab = addTabInterface(i);
+        tab.id = i;
+        tab.parentID = i;
+        tab.type = 5;
+        tab.atActionType = aT;
+        tab.contentType = contentType;
+        tab.opacity = 0;
+        tab.hoverType = hoverOver;
+        tab.disabledSprite = Client.cacheSprite[spriteId];
+        tab.enabledSprite = Client.cacheSprite[spriteId];
+        tab.width = width;
+        tab.height = height;
+        tab.tooltip = text;
+    }*/
 
     public void children(int total) {
         children = new int[total];
@@ -12751,6 +12819,7 @@ public class RSInterface {
     public int mediaType;
     public int mediaID;
     public boolean dragDeletes;
+    public int componentId;
     public int parentID;
     public int spellUsableOn;
     private static MemCache spriteCache;
@@ -12776,7 +12845,7 @@ public class RSInterface {
     public int childToIntersect3 = 0;
     public int positionX, positionY;
     public int customOpacity = 0;
-    private int enabledMediaType;
+    public int enabledMediaType;
     private int enabledMediaID;
     public int disabledAnimationId;
     public Sprite displayedSprite;
@@ -16076,6 +16145,12 @@ public class RSInterface {
     public boolean hovers;
 
     public int enabledOpacity;
+    public int percentageCompleted;
+    public int percentageTotal;
+    public int percentageSpriteEmpty;
+    public int percentageSpriteFull;
+    public int percentageDimension;
+    public boolean verticleBar;
     
     public boolean selected;
     public int[] selectableInterfaces;

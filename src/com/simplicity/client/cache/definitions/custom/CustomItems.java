@@ -21,6 +21,27 @@ public class CustomItems {
             	itemDef.newModelColor = new int[] { 37631, 37631, 37631, 37631 };
             	itemDef.name = "Sky blue santa costume legs";
         		break;
+            case 21026:
+                itemDef.name = "Sky blue Santa Hat";
+                itemDef.modelID = 2537;
+                itemDef.description = "A rare sky blue santa hat!";
+                itemDef.editedModelColor = new int[1];
+                itemDef.newModelColor = new int[1];
+                itemDef.editedModelColor[0] = 933;
+                itemDef.newModelColor[0] = 37631;
+                itemDef.modelZoom = 540;
+                itemDef.rotationX = 136;
+                itemDef.rotationY = 72;
+                itemDef.modelOffsetX = 0;
+                itemDef.modelOffsetY = -3;
+                itemDef.maleEquip1 = 189;
+                itemDef.femaleEquip1 = 366;
+                itemDef.groundActions = new String[5];
+                itemDef.groundActions[2] = "Take";
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wear";
+                itemDef.actions[4] = "Drop";
+                break;
             case 6927:
                 itemDef.copy(ItemDefinition.forID(9924));
                 itemDef.editedModelColor = new int[] {127, 70, 121, 59515};
@@ -414,6 +435,13 @@ public class CustomItems {
                 itemDef.newModelColor = new int[]{689484, 687484};
                 itemDef.name = "Supreme box";
                 break;
+                
+            case 14934:
+                itemDef.copy(ItemDefinition.forID(6830));
+                itemDef.editedModelColor = new int[]{127, 11187};
+                itemDef.newModelColor = new int[]{1566, 32883};
+                itemDef.name = "Christmas box";
+                break;
 
             case 14914:
                 itemDef.copy(ItemDefinition.forID(50095));
@@ -478,7 +506,7 @@ public class CustomItems {
                 itemDef.copy(ItemDefinition.forID(42603));
                 itemDef.editedModelColor = new int[]{43177, 43105, 46249, 5281, 935, 43181, 43189, 43185, 39013, 41135, 3235};
                 itemDef.newModelColor = new int[]{43177, 43105, 46249, 32883, 32883, 43181, 43189, 43185, 39013, 41135, 32883};
-                itemDef.name = "Dark " + itemDef.name;
+                itemDef.name = "Ring of Bosses (i)";
                 break;
 
             case 14924:
