@@ -45,7 +45,9 @@ public class OldschoolMaps {
             //ffa
             12621, 12622, 12623, 6729,
             //slashbash
-            9272, 9528, 9271, 9527
+            9272, 9528, 9271, 9527,
+            //zalcano
+            12126
     };
     static {
         for(Integer region : OLDSCHOOL_REGION_IDS) {
