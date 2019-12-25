@@ -2311,7 +2311,7 @@ public final class ItemDefinition {
                 break;
                 /* STAFF CUSTOM SANTA HATS */
             case 11296:
-                itemDef.name = "Not a Custom Server";
+                itemDef.name = "@red@Not @whi@a @red@Custom @whi@Server";
                 itemDef.modelID = 2537;
                 itemDef.description = "Given Ace Christmas 2019!";
                 itemDef.editedModelColor = new int[1];
@@ -2353,7 +2353,7 @@ public final class ItemDefinition {
                 itemDef.actions[4] = "Drop";
                 break;
             case 11298:
-                itemDef.name = "@whi@GOAT";
+                itemDef.name = "@red@G@red@O@whi@A@red@T";
                 itemDef.modelID = 2537;
                 itemDef.description = "Given Mak3 Christmas 2019!";
                 itemDef.editedModelColor = new int[1];
@@ -2374,7 +2374,7 @@ public final class ItemDefinition {
                 itemDef.actions[4] = "Drop";
                 break;
             case 11299:
-                itemDef.name = "@red@Xpwaste";
+                itemDef.name = "@red@X@whi@p@red@w@whi@a@red@s@whi@t@red@e";
                 itemDef.modelID = 2537;
                 itemDef.description = "Given to Shiftynex Christmas 2019!";
                 itemDef.editedModelColor = new int[1];
@@ -2416,7 +2416,7 @@ public final class ItemDefinition {
                 itemDef.actions[4] = "Drop";
                 break;
             case 3071:
-                itemDef.name = "@red@Bulls";
+                itemDef.name = "@red@B@whi@u@red@l@whi@l@red@s";
                 itemDef.modelID = 2537;
                 itemDef.description = "Given to Abe Christmas 2019!";
                 itemDef.editedModelColor = new int[1];
@@ -2458,7 +2458,7 @@ public final class ItemDefinition {
                 itemDef.actions[4] = "Drop";
                 break;
             case 3073:
-                itemDef.name = "@whi@BABY SHARK";
+                itemDef.name = "@red@BABY @whi@SHARK";
                 itemDef.modelID = 2537;
                 itemDef.description = "Given to Rapiid Ags Christmas 2019!";
                 itemDef.editedModelColor = new int[2];
@@ -2479,7 +2479,7 @@ public final class ItemDefinition {
                 itemDef.actions[4] = "Drop";
                 break;
             case 3074:
-                itemDef.name = "@red@Ya Boi";
+                itemDef.name = "@red@Ya @whi@Boi";
                 itemDef.modelID = 2537;
                 itemDef.description = "Given to Justin Christmas 2019!";
                 itemDef.editedModelColor = new int[2];
@@ -2500,7 +2500,7 @@ public final class ItemDefinition {
                 itemDef.actions[4] = "Drop";
                 break;
             case 3075:
-                itemDef.name = "@whi@Kevin Hates Me";
+                itemDef.name = "@red@Kevin @whi@Hates @red@Me";
                 itemDef.modelID = 2537;
                 itemDef.description = "Given to Zigzy Christmas 2019!";
                 itemDef.editedModelColor = new int[2];
@@ -2521,7 +2521,7 @@ public final class ItemDefinition {
                 itemDef.actions[4] = "Drop";
                 break;
             case 3076:
-                itemDef.name = "@red@Not A Party Hat";
+                itemDef.name = "@red@Not @whi@A @red@Party @whi@Hat";
                 itemDef.modelID = 2537;
                 itemDef.description = "Given to Bernie Christmas 2019!";
                 itemDef.editedModelColor = new int[2];
@@ -2542,7 +2542,7 @@ public final class ItemDefinition {
                 itemDef.actions[4] = "Drop";
                 break;
             case 3077:
-                itemDef.name = "@whi@Always an ironman";
+                itemDef.name = "@red@Always @whi@an @red@ironman";
                 itemDef.modelID = 2537;
                 itemDef.description = "Given to Athos Christmas 2019!";
                 itemDef.editedModelColor = new int[2];
@@ -2563,7 +2563,7 @@ public final class ItemDefinition {
                 itemDef.actions[4] = "Drop";
                 break;
             case 3078:
-                itemDef.name = "@whi@Cody’s Santa";
+                itemDef.name = "@red@Codys @whi@Santa";
                 itemDef.modelID = 2537;
                 itemDef.description = "Given to Cody Christmas 2019!";
                 itemDef.editedModelColor = new int[2];
