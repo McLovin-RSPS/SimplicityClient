@@ -2330,11 +2330,11 @@ public final class ItemDefinition {
             case 11296:
                 itemDef.name = "@red@Not @whi@a @red@Custom @whi@Server";
                 itemDef.modelID = 2537;
-                itemDef.description = "Given Ace Christmas 2019!";
+                itemDef.description = "Given to Ace Christmas 2019!";
                 itemDef.editedModelColor = new int[1];
                 itemDef.newModelColor = new int[1];
                 itemDef.editedModelColor[0] = 933;
-                itemDef.newModelColor[0] = 6073;
+                itemDef.newModelColor[0] = 461770;
                 itemDef.modelZoom = 540;
                 itemDef.rotationX = 136;
                 itemDef.rotationY = 72;
@@ -2351,7 +2351,7 @@ public final class ItemDefinition {
             case 11297:
                 itemDef.name = "@whi@Pixie @red@Hoe @whi@Ho @red@Ho";
                 itemDef.modelID = 2537;
-                itemDef.description = "Given Pixie Joe Christmas 2019!";
+                itemDef.description = "Given to Pixie Joe Christmas 2019!";
                 itemDef.editedModelColor = new int[1];
                 itemDef.newModelColor = new int[1];
                 itemDef.editedModelColor[0] = 933;
@@ -2372,7 +2372,7 @@ public final class ItemDefinition {
             case 11298:
                 itemDef.name = "@red@G@red@O@whi@A@red@T";
                 itemDef.modelID = 2537;
-                itemDef.description = "Given Mak3 Christmas 2019!";
+                itemDef.description = "Given to Mak3 Christmas 2019!";
                 itemDef.editedModelColor = new int[1];
                 itemDef.newModelColor = new int[1];
                 itemDef.editedModelColor[0] = 933;
