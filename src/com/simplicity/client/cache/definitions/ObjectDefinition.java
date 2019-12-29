@@ -288,6 +288,10 @@ public final class ObjectDefinition {
             objectDef.actions = new String[]{"Fish", null, null, null, null};
             objectDef.name = "@yel@Westerfish";
         }
+        if (i == 13570) {
+            objectDef.actions = new String[]{"Fish", null, null, null, null};
+            objectDef.name = "@yel@Westerfish";
+        }
         if (i == 26414) {
             objectDef.actions = new String[]{"Fill-at", null, null, null, null};
             objectDef.name = "@yel@AFK Fountain";

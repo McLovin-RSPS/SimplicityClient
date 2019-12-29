@@ -941,6 +941,8 @@ public class CustomObjects {
             {13569, 3095, 3513, 0, 0}, // remove object edge
             {13569, 3096, 3513, 0, 0}, // remove object edge
             {13569, 3097, 3513, 0, 0}, // remove object edge
+            
+            {13570, 3425, 2909, 0, 0}, // sapphire westerfish
 
 
             {0, 3091, 3508, 0, 0}, // remove object edge
@@ -1065,7 +1067,7 @@ public class CustomObjects {
             {8702, 3281, 3940, 0, 0}, // rogues castle rocktail
 
             {47180, 3422, 2918, 0, 0},
-            {11356, 3418, 2917, 0, 1},
+            {11356, 3420, 2917, 0, 1},
             {-1, 2860, 9734, 0, 1},
             {-1, 2857, 9736, 0, 1},
             {664, 2859, 9742, 0, 1},
