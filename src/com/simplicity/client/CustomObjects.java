@@ -245,6 +245,8 @@ public class CustomObjects {
            	{26414 , 2393, 3490, 0, 0}, // New AFK zone
            	{26414 , 2392, 3485, 0, 0}, // New AFK zone
           	{26414 , 2396, 3488, 0, 0}, // New AFK zone
+          	
+          	{0 , 2889, 5319, 2, 0}, // Afk fountain removal Godwars dung
 
             // Arthur's dream
             {10089, 1826, 5168, 2, 0}, // anglerfish spot fishworld

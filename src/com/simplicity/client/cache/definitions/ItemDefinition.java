@@ -1842,6 +1842,11 @@ public final class ItemDefinition {
                 itemDef.actions = new String[5];
                 itemDef.actions[0] = "Open";
                 break;
+            case 6825:
+                itemDef.name = "NY 2020 STAR";
+                itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
+                break;
             case 19715:
                 itemDef.copy(forID(6199));
                 itemDef.name = "Wizard Box";
