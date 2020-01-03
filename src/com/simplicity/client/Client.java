@@ -550,7 +550,7 @@ public class Client extends RSApplet {
             if (clientSize == 0) {
                 cacheSprite[0].drawSprite(0 + offsetX, 0 + offsetY);
             } else {
-                cacheSprite[88].drawARGBSprite(7 + offsetX, 7 + offsetY);
+                cacheSprite[0].drawSprite(0 + offsetX, 0 + offsetY);
             }
         }
         drawChannelButtons(offsetX, offsetY);
