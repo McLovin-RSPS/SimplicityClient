@@ -17487,7 +17487,7 @@ public class Client extends RSApplet {
         }
         if (j == 44) {
             int k2 = stream.readWordBigEndian();
-            int j5 = stream.readUnsignedWord();
+            int j5 = stream.readInt();
             int i8 = stream.readUnsignedByte();
             int l10 = bigRegionX + (i8 >> 4 & 7);
             int i13 = bigRegionY + (i8 & 7);
