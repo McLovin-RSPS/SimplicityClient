@@ -482,7 +482,29 @@ public final class ItemDefinition {
         // Neitiznot faceguard
         priorityModels.add(38857);
         priorityModels.add(38858);
-
+        
+        // Rainbow partyhat
+        priorityModels.add(16246);
+        priorityModels.add(16248);
+        
+        // Twisted slayer helmet
+        priorityModels.add(38960);
+        priorityModels.add(38970);
+        
+        // Corp's graceful cape
+        priorityModels.add(31005);
+        priorityModels.add(31012);
+        
+        // Team cape x
+        priorityModels.add(31773);
+        
+        // Team cape i
+        priorityModels.add(31770);
+        
+        // Justiciar faceguard
+        priorityModels.add(35349);
+        priorityModels.add(35361);
+        
         //writeOutOsrsItems(totalItems, totalItemsOSRS);
         //dumpInterface(totalItems, totalItemsOSRS);
     }
@@ -615,6 +637,15 @@ public final class ItemDefinition {
             
             
             switch(itemDef.id) {
+            	
+            	// Team cape x and i
+	            case 50214:
+	            case 50217:
+	            	itemDef.femaleYOffset -= 7;
+	            	itemDef.femaleZOffset += 4;
+	            	itemDef.maleYOffset -= 7;
+	            	itemDef.femaleZOffset += 4;
+	            	break;
                 case 43300:
                     itemDef.name = "Pet Dracula";
                     itemDef.groundActions = new String[]{null, null, "Take", null, null};
