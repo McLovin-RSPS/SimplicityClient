@@ -939,6 +939,14 @@ public final class ItemDefinition {
         	itemDef.modelID = 62915;
         	itemDef.name = "Sanguinesti staff X";
         	break;
+        case 21027:
+        	itemDef.copy(forID(52323));
+        	itemDef.dataType = DataType.REGULAR;
+        	itemDef.maleEquip1 = 62916;
+        	itemDef.femaleEquip1 = 62916;
+        	itemDef.modelID = 62917;
+        	itemDef.name = "@whi@Sanguinesti staff";
+        	break;
         case 4037:
         	itemDef.maleEquip1 = 4850;
         	itemDef.femaleEquip1 = 4850;
