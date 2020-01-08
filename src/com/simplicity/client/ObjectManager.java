@@ -182,7 +182,7 @@ final class ObjectManager {
 						}
 						if (k17 >= 1
 								&& k17 < anInt147 - 1
-								&& (!(lowMem)
+								&& (!(lowMem && Client.getClient().canRemoveRoofs())
 										|| (tileSettings[0][l6][k17] & 2) != 0 || (tileSettings[l][l6][k17] & 0x10) == 0
 										&& method182(k17, l, l6) == anInt131)) {
 							if (l < highestPlane) {
@@ -684,9 +684,9 @@ final class ObjectManager {
 		
     public void addObjectToRenderer(int regionId, int y, WorldController worldController, CollisionDetection class11, int j, int z, int x, int objId, int face) {
 		boolean osrs = OldschoolMaps.isOldschoolRegion(regionId);
-
+		
     	try {
-    	if (!osrs && lowMem && (tileSettings[0][x][y] & 2) == 0) {
+    	if (Client.getClient().canRemoveRoofs() && !osrs && lowMem && (tileSettings[0][x][y] & 2) == 0) {
 			if ((tileSettings[z][x][y] & 0x10) != 0)
 				return;
 			if (method182(y, z, x) != anInt131)
@@ -762,7 +762,7 @@ final class ObjectManager {
 			l2 += 0x80000000;
 		byte byte0 = (byte) ((face << 6) + j);
 		if (j == 22) {
-			if (!osrs && lowMem && !objectDef.hasActions && !objectDef.aBoolean736)
+			if (!osrs && lowMem && Client.getClient().canRemoveRoofs() && !objectDef.hasActions && !objectDef.aBoolean736)
 				return;
 			Object obj;
 			if (objectDef.animationID == -1 && objectDef.configObjectIDs == null)

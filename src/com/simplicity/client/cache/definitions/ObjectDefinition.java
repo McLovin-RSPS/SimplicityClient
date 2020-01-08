@@ -257,6 +257,10 @@ public final class ObjectDefinition {
                 objectDef.actions[1] = "View-presets";
             }
         }
+        if (i == 9293) { // Tav dung pipe
+			objectDef.offsetX = 64;
+			objectDef.adjustToTerrain = true;
+		}
         if (i == 3485) {
             objectDef.actions = new String[5];
             objectDef.name = "Magic well";

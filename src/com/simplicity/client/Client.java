@@ -45,9 +45,11 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
@@ -15971,6 +15973,10 @@ public class Client extends RSApplet {
     }
 
     private int getCameraHeight() {
+    	if (!canRemoveRoofs()) {
+    		return 3;
+    	}
+    	
         int j = 3;
         if (yCameraCurve < 310) {
             int k = xCameraPos >> 7;
@@ -23406,5 +23412,14 @@ public class Client extends RSApplet {
 		}
 		return font;
 	}
+	
+	/**
+	 * A hash collection of region ids where roofs should not be toggled.
+	 */
+    private static final Set<Integer> NON_TOGGLABLE_ROOF_REGIONS = new HashSet<>(Arrays.asList(10644, 10645, 10646, 10647, 10899, 10900, 10901, 11417, 11673));
+    
+    public boolean canRemoveRoofs() {
+    	return !NON_TOGGLABLE_ROOF_REGIONS.contains(getRegionId());
+    }
 
 }
