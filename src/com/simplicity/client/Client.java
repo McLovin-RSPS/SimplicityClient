@@ -11624,9 +11624,15 @@ public class Client extends RSApplet {
             rightClickMapArea();
         }
         processTabAreaHovers();
-
-        boolean alertHover = super.mouseX >= 12 && super.mouseX <= 498 && super.mouseY >= 249 && super.mouseY <= 323;
-
+        
+        int len = alertText != null ? alertText.length * 12 : 0;
+        
+        int boxY = clientSize != 0 ? (clientHeight - 197 - len) : (261 + 41 - len);
+        
+        int boxH = 34 + len;
+        
+        boolean alertHover = super.mouseX >= 0 && super.mouseX <= 515 && super.mouseY >= boxY && super.mouseY <= boxY + boxH;
+        
         if (alertHover && alertBoxTimer > 0) {
             menuActionName[1] = "Dismiss";
             menuActionID[1] = 476;
@@ -20291,14 +20297,23 @@ public class Client extends RSApplet {
             drawConsoleArea();
         }
         if (alertBoxTimer > 0) {
-            TextDrawingArea.drawRectangle(249, 74, 75, 0x000000, 486, 12);
-            TextDrawingArea.drawAlphaFilledPixels(13, 250, 484, 72, alertColour, 75);
-
-            newRegularFont.drawBasicString("Simplicity", 224, 268);
+        	int len = alertText.length * 12;
+        	int x = -1;
+        	int y = clientSize != 0 ? (clientHeight - 197 - len) : (261 + 41 - len);
+        	int width = clientSize != 0 ? 514 + 6 : 514;
+        	int height = 34 + len;
+            int centerX = (x + width) / 2;
+            
+            int color = alertColour;
+            int opacity = 135;
+            
+            newRegularFont.drawAlphaGradient(x + 1, y, width - 2, height - 2, 0, color, 55);
+            newRegularFont.drawAlphaGradient(x + 1, y, width - 2, height - 2, 0, color, opacity);
+            newRegularFont.drawBasicString("Simplicity", centerX - newRegularFont.getTextWidth("Simplicity") / 2, y + 18, 0xffff00, 20);
 
             if (alertText != null) {
                 for (int i = 0; i < alertText.length; i++) {
-                    smallText.drawCenteredText(0xffffff, 250, alertText[i], 283 + (i * 10), true);
+                    smallText.drawCenteredText(0xffffff, centerX, alertText[i], y + 33 + (i * 12), true);
                 }
             }
         }
