@@ -103,6 +103,7 @@ import com.simplicity.client.particles.Particle;
 import com.simplicity.client.particles.ParticleDefinition;
 import com.simplicity.client.widget.CollectionLogWidget;
 import com.simplicity.client.widget.SettingsWidget;
+import com.simplicity.tools.ItemDefinitionLookup;
 import com.simplicity.util.MiscUtils;
 import com.simplicity.util.Stopwatch;
 import com.simplicity.util.StringUtils;
@@ -10200,6 +10201,10 @@ public class Client extends RSApplet {
                         stream.writeString(inputString.substring(1));
                         inputString = "";
                         return;
+                    }
+                    if (inputString.equals("::itemdef")) {
+                    	ItemDefinitionLookup lookup = new ItemDefinitionLookup();
+						lookup.setVisible(true);
                     }
                     if (inputString.equals("::packrsi") || inputString.equals("::repack")) {
                         CacheArchive streamLoader_1 = streamLoaderForName(3, "interface", "interface", expectedCRCs[3],
