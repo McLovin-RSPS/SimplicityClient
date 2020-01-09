@@ -691,7 +691,7 @@ public class Client extends RSApplet {
                         }
                     }
                     if ((chatType == 1 || chatType == 2)
-                            && (chatType == 1 || publicChatMode == 0 || publicChatMode == 1 && isFriendOrSelf(name))) {
+                            && (chatType == 1 || publicChatMode == 0 || publicChatMode == 1 && isFriendOrSelf(name) || ((publicChatMode == 2 || publicChatMode == 3) && isStaff(playerRights)))) {
                         if (chatTypeView == 1 || chatTypeView == 0) {
                             if (positionY > 0 && positionY < 210) {
                                 int xPos = 11;
