@@ -29,7 +29,7 @@ public class ItemDefinitionLookup extends JFrame {
 	
 	private JTable details;
 	
-	private List<String> detailsData = new ArrayList<String>(Arrays.asList(new String[] { "Id", "Name", "Description", "CertID", "CertTemplateID", "ModelID", "MaleEquip1", "MaleEquip2", "MaleEquip3", "FemaleEquip1", "FemaleEquip2", "FemaleEquip3", "RotationX", "RotationY", "ModelOffsetX", "ModelOffsetY", "MaleXOffset", "MaleYOffset", "MaleZOffset", "FemaleXOffset", "FemaleYOffset", "FemaleZOffset", "EditedModelColor", "NewModelColor", "DataType" }));
+	private List<String> detailsData = new ArrayList<String>(Arrays.asList(new String[] { "Id", "Name", "Description", "CertID", "CertTemplateID", "ModelID", "MaleEquip1", "MaleEquip2", "MaleEquip3", "FemaleEquip1", "FemaleEquip2", "FemaleEquip3", "RotationX", "RotationY", "ModelOffsetX", "ModelOffsetY", "MaleXOffset", "MaleYOffset", "MaleZOffset", "FemaleXOffset", "FemaleYOffset", "FemaleZOffset", "EditedModelColor", "NewModelColor", "Actions", "GroundActions", "DataType" }));
 	
 	public ItemDefinitionLookup() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -122,6 +122,8 @@ public class ItemDefinitionLookup extends JFrame {
 		details.getModel().setValueAt(rsi.femaleZOffset, column++, 1);
 		details.getModel().setValueAt(Arrays.toString(rsi.editedModelColor), column++, 1);
 		details.getModel().setValueAt(Arrays.toString(rsi.newModelColor), column++, 1);
+		details.getModel().setValueAt(Arrays.toString(rsi.actions), column++, 1);
+		details.getModel().setValueAt(Arrays.toString(rsi.groundActions), column++, 1);
 		details.getModel().setValueAt(rsi.dataType, column++, 1);
 	}
 	
