@@ -164,6 +164,28 @@ public final class ObjectDefinition {
             objectDef.actions = new String[]{"Cage", null, null, null, null};
             objectDef.name = "@yel@Dark crab";
         }
+        
+        if (i == 132684 || i == 132671 || i == 132684) {
+        	objectDef.offsetH = 75;
+        }
+        
+        if (i == 117514) {
+        	objectDef.offsetH = 72;
+        }
+        
+        if (i == 132671 || i == 132684) {
+        	objectDef.offsetH = 72;
+        }
+        
+        if (i == 132987) {
+        	objectDef.offsetH = 10;
+        	objectDef.modelSizeH -= 22;
+        }
+        
+        if (i == 132660) {
+        	objectDef.animationID = 0;
+        }
+        
         return objectDef;
     }
 
