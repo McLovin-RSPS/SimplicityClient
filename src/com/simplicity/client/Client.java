@@ -5635,8 +5635,9 @@ public class Client extends RSApplet {
                 socketStream.close();
             }
         } catch (Exception _ex) {
+        } finally {
+            socketStream = null;
         }
-        socketStream = null;
         loggedIn = false;
         previousScreenState = 0;
         loginScreenState = 0;
