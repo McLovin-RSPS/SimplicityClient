@@ -1,6 +1,7 @@
 package com.simplicity.client;
 
 import java.awt.event.KeyEvent;
+import java.util.Arrays;
 
 import com.simplicity.client.DrawLine.LineType;
 import com.simplicity.client.cache.definitions.ItemDefinition;
@@ -2845,6 +2846,50 @@ public class RSInterface {
         tab.message = "";
     }
 
+    public static void tradeConfirm(TextDrawingArea[] tda) {
+        RSInterface parent = interfaceCache[3443];
+        int childCount = parent.children.length;
+
+        int newSize = childCount + 4;
+        int[] newChildren = new int[newSize];
+        int[] newChildX = new int[newSize];
+        int[] newChildY = new int[newSize];
+
+        for (int i = 0; i < childCount; i++) {
+            newChildren[i] = parent.children[i];
+            newChildX[i] = parent.childX[i];
+            newChildY[i] = parent.childY[i];
+        }
+
+        RSInterface ours = interfaceCache[3557];
+        RSInterface theirs = interfaceCache[3558];
+
+        int i = 14229;
+        newChildren[childCount] = ++i;
+        newChildX[childCount] = 92;
+        newChildY[childCount] = 83;
+        addText(i, ours.message, ours.enabledMessage, ours.disabledColor, ours.enabledColor, ours.centerText, ours.shadowed, ours.hoverType, 0);
+
+        newChildren[childCount + 1] = ++i;
+        newChildX[childCount + 1] = 202;
+        newChildY[childCount + 1] = 83;
+        addText(i, ours.message, ours.enabledMessage, ours.disabledColor, ours.enabledColor, ours.centerText, ours.shadowed, ours.hoverType, 0);
+
+        newChildren[childCount + 2] = ++i;
+        newChildX[childCount + 2] = 331;
+        newChildY[childCount + 2] = 84;
+        addText(i, theirs.message, theirs.enabledMessage, theirs.disabledColor, theirs.enabledColor, theirs.centerText, theirs.shadowed, theirs.hoverType, 0);
+
+        newChildren[childCount + 3] = ++i;
+        newChildX[childCount + 3] = 441;
+        newChildY[childCount + 3] = 84;
+        addText(i, theirs.message, theirs.enabledMessage, theirs.disabledColor, theirs.enabledColor, theirs.centerText, theirs.shadowed, theirs.hoverType, 0);
+
+        parent.children = newChildren;
+        parent.childX = newChildX;
+        parent.childY = newChildY;
+    }
+
     public static void editClan(TextDrawingArea[] tda) {
         RSInterface tab = addTabInterface(40172);
         addSpriteLoader(47251, 736);
@@ -4292,6 +4337,7 @@ public class RSInterface {
         lootingBag(textDrawingAreas);
         addToLootingBag(textDrawingAreas);
         raidsRewards(textDrawingAreas);
+        tradeConfirm(textDrawingAreas);
         /*
          * spells[0] = interfaceCache[1572]; //Bind spells[1] = interfaceCache[1582];
          * //Snare spells[2] = interfaceCache[1592]; //Entangle spells[3] =
