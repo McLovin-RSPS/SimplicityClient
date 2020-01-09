@@ -637,6 +637,19 @@ public final class ItemDefinition {
             
             
             switch(itemDef.id) {
+            
+            	// Crystal halberd full
+	            case 43081:
+	            	itemDef.actions = new String[] { null, "Wield", null, null, null };
+	            	break;
+            
+            	// Rainbow partyhat
+	            case 41863:
+	            	itemDef.maleZOffset += 4;
+	            	itemDef.maleYOffset -= 10;
+	            	itemDef.femaleZOffset += 4;
+	            	itemDef.femaleYOffset -= 6;
+	            	break;
             	
             	// Team cape x and i
 	            case 50214:
@@ -938,6 +951,12 @@ public final class ItemDefinition {
         }
         itemDef.value = prices[itemDef.id];
         switch (itemId) {
+        
+        case 17273:
+        	itemDef.femaleYOffset += 7;
+        	itemDef.femaleZOffset -= 6;
+        	itemDef.maleEquip1 = 56110;
+        	break;
         case 21630:
         	itemDef.copy(forID(2438));
         	itemDef.editedModelColor = new int[] { 61 };
