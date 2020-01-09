@@ -2,6 +2,7 @@ package com.simplicity.client.cache.definitions;
 
 
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 import com.simplicity.client.CacheArchive;
 import com.simplicity.client.Client;
@@ -203,7 +204,7 @@ public final class ObjectDefinition {
         boolean loadNew = (
                 /* i == 8550 || i == 8551 || i == 7847 || i == 8150 || */i == 32159 || i == 32157 || i == 36672 || i == 36675 || i == 36692 || i == 34138 || i >= 39260 && i <= 39271 || i == 39229
                 || i == 39230 || i == 39231 || i == 36676 || i == 36692 || i > 11915 && i <= 11929 || i >= 11426 && i <= 11444 || i >= 14835 && i <= 14845 || i >= 11391 && i <= 11397
-                || i >= 12713 && i <= 12715);
+                || i >= 12713 && i <= 12715 || i >= 33407 && i <= 33414);
         
         boolean loadOSRS = i == 3077;
         
@@ -263,6 +264,20 @@ public final class ObjectDefinition {
                 objectDef.actions[1] = "View-presets";
             }
         }
+        if (i == 12010) {
+        	objectDef.adjustToTerrain = true;
+        	objectDef.objectModelIDs = new int[] { 37531 };
+			objectDef.objectModelTypes = new int[] { 22 };
+        }
+        if (i == 33406) {
+        	objectDef.objectModelIDs = new int[] { 37531 };
+			objectDef.objectModelTypes = new int[] { 22 };
+        }
+		if (i == 32347) {
+			objectDef.objectModelIDs = new int[] { 37531 };
+			objectDef.objectModelTypes = new int[] { 22 };
+			objectDef.adjustToTerrain = true;
+		}
         if (i == 9293) { // Tav dung pipe
 			objectDef.offsetX = 64;
 			objectDef.adjustToTerrain = true;
