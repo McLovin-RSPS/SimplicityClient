@@ -148,7 +148,7 @@ public final class ObjectDefinition {
         objectDef.setDefaults();
         objectDef.dataType = DataType.OLDSCHOOL;
         try {
-            objectDef.readValues(streamOSRS);
+            objectDef.readValuesOSRS(streamOSRS);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1205,6 +1205,188 @@ public final class ObjectDefinition {
         if (anInt760 == -1)
             anInt760 = isUnwalkable ? 1 : 0;
     }
+    
+	public void readValuesOSRS(Stream stream) {
+		int flag = -1;
+		do {
+			int opcode = stream.readUnsignedByte();
+			if (opcode == 0)
+				break;
+			if (opcode == 1) {
+				int len = stream.readUnsignedByte();
+				if (len > 0) {
+					if (objectModelIDs == null /*|| lowMem*/) {
+						objectModelTypes = new int[len];
+						objectModelIDs = new int[len];
+						for (int k1 = 0; k1 < len; k1++) {
+							objectModelIDs[k1] = stream.readUnsignedWord();
+							objectModelTypes[k1] = stream.readUnsignedByte();
+						}
+					} else {
+						stream.currentOffset += len * 3;
+					}
+				}
+			} else if (opcode == 2)
+				name = stream.readString();
+			else if (opcode == 3)
+				description = stream.readString().getBytes();
+			else if (opcode == 5) {
+				int len = stream.readUnsignedByte();
+				if (len > 0) {
+					if (objectModelIDs == null /*|| lowMem*/) {
+						objectModelTypes = null;
+						objectModelIDs = new int[len];
+						for (int l1 = 0; l1 < len; l1++)
+							objectModelIDs[l1] = stream.readUnsignedWord();
+					} else {
+						stream.currentOffset += len * 2;
+					}
+				}
+			} else if (opcode == 14)
+				sizeX = stream.readUnsignedByte();
+			else if (opcode == 15)
+				sizeY = stream.readUnsignedByte();
+			else if (opcode == 17)
+				isUnwalkable = false;
+			else if (opcode == 18)
+				aBoolean757 = false;
+			else if (opcode == 19)
+				hasActions = (stream.readUnsignedByte() == 1);
+			else if (opcode == 21)
+				adjustToTerrain = true;
+			else if (opcode == 22)
+				nonFlatShading = true;
+			else if (opcode == 23)
+				aBoolean764 = true;
+			else if (opcode == 24) {
+				animationID = stream.readUnsignedWord();
+				
+				animationID += Animation.OSRS_ANIM_OFFSET;
+				
+				if (animationID == 65535)
+					animationID = -1;
+			} else if (opcode == 28)
+				anInt775 = stream.readUnsignedByte();
+			else if (opcode == 29)
+				brightness = stream.readSignedByte();
+			else if (opcode == 39)
+				contrast = stream.readSignedByte();
+			else if (opcode >= 30 && opcode < 35) {
+				if (actions == null)
+					actions = new String[5];
+				actions[opcode - 30] = stream.readString();
+				if (actions[opcode - 30].equalsIgnoreCase("hidden"))
+					actions[opcode - 30] = null;
+			} else if (opcode == 40) {
+				int i1 = stream.readUnsignedByte();
+				modifiedModelColors = new int[i1];
+				originalModelColors = new int[i1];
+				for (int i2 = 0; i2 < i1; i2++) {
+					modifiedModelColors[i2] = stream.readUnsignedWord();
+					originalModelColors[i2] = stream.readUnsignedWord();
+				}
+			} else if (opcode == 41) {
+				int i1 = stream.readUnsignedByte();
+                short[] modifiedModelTexture = new short[i1];
+                short[] originalModelTexture = new short[i1];
+				for (int i2 = 0; i2 < i1; i2++) {
+					modifiedModelTexture[i2] = (short) stream.readUnsignedWord();
+					originalModelTexture[i2] = (short) stream.readUnsignedWord();
+				}
+			} else if (opcode == 82)
+				mapFunctionID = stream.readUnsignedWord();
+			else if (opcode == 62)
+				aBoolean751 = true;
+			else if (opcode == 64)
+				aBoolean779 = false;
+			else if (opcode == 65)
+				modelSizeX = stream.readUnsignedWord();
+			else if (opcode == 66)
+				modelSizeH = stream.readUnsignedWord();
+			else if (opcode == 67)
+				modelSizeY = stream.readUnsignedWord();
+			else if (opcode == 68)
+				mapSceneID = stream.readUnsignedWord();
+			else if (opcode == 69)
+				plane = stream.readUnsignedByte();
+			else if (opcode == 70)
+				offsetX = stream.readSignedWord();
+			else if (opcode == 71)
+				offsetH = stream.readSignedWord();
+			else if (opcode == 72)
+				offsetY = stream.readSignedWord();
+			else if (opcode == 73)
+				aBoolean736 = true;
+			else if (opcode == 74)
+				isSolidObject = true;
+			else if (opcode == 75)
+				anInt760 = stream.readUnsignedByte();
+			else if (opcode == 78) {
+				stream.readUnsignedWord(); // ambient sound id
+				stream.readUnsignedByte();
+			} else if (opcode == 79) {
+				stream.readUnsignedWord();
+				stream.readUnsignedWord();
+				stream.readUnsignedByte();
+				int len = stream.readUnsignedByte();
+
+				for (int i = 0; i < len; i++) {
+					stream.readUnsignedWord();
+				}
+			} else if (opcode == 81) {
+				stream.readUnsignedByte();
+			} else if (opcode == 82) {
+				int minimapFunction = stream.readUnsignedWord();
+
+				if (minimapFunction == 0xFFFF) {
+					minimapFunction = -1;
+				}
+			} else if (opcode == 77 || opcode == 92) {
+				varbitIndex = stream.readUnsignedWord();
+				
+				if (varbitIndex == 65535)
+					varbitIndex = -1;
+				
+				configID = stream.readUnsignedWord();
+				
+				if (configID == 65535)
+					configID = -1;
+				
+				int value = -1;
+
+				if (opcode == 92) {
+		            value = stream.readUnsignedWord();
+
+		            if (value == 0xFFFF) {
+		                value = -1;
+		            }
+		        }
+				
+				int len = stream.readUnsignedByte();
+				
+				configObjectIDs = new int[len + 2];
+				
+				for (int j2 = 0; j2 <= len; j2++) {
+					configObjectIDs[j2] = stream.readUnsignedWord();
+					if (configObjectIDs[j2] == 65535)
+						configObjectIDs[j2] = -1;
+				}
+				
+				configObjectIDs[len + 1] = value;
+			}
+		} while (true);
+		if (flag == -1 && name != "null" && name != null) {
+			hasActions = objectModelIDs != null && (objectModelTypes == null || objectModelTypes[0] == 10);
+			if (actions != null)
+				hasActions = true;
+		}
+		if (isSolidObject) {
+			isUnwalkable = false;
+			aBoolean757 = false;
+		}
+		if (anInt760 == -1)
+			anInt760 = isUnwalkable ? 1 : 0;
+	}
 
     private ObjectDefinition() {
         type = -1;
@@ -1223,7 +1405,7 @@ public final class ObjectDefinition {
     private int[] originalModelColors;
     private int modelSizeX;
     public int configID;
-    private boolean aBoolean751;
+    public boolean aBoolean751;
     private static Stream stream;
     private static Stream stream667;
     private static Stream streamOSRS;
