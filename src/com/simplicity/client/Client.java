@@ -104,6 +104,7 @@ import com.simplicity.client.particles.ParticleDefinition;
 import com.simplicity.client.widget.CollectionLogWidget;
 import com.simplicity.client.widget.SettingsWidget;
 import com.simplicity.tools.ItemDefinitionLookup;
+import com.simplicity.tools.ObjectDefinitionLookup;
 import com.simplicity.util.MiscUtils;
 import com.simplicity.util.Stopwatch;
 import com.simplicity.util.StringUtils;
@@ -10205,6 +10206,10 @@ public class Client extends RSApplet {
                     }
                     if (inputString.equals("::itemdef")) {
                     	ItemDefinitionLookup lookup = new ItemDefinitionLookup();
+						lookup.setVisible(true);
+                    }
+                    if (inputString.equals("::objectdef")) {
+                    	ObjectDefinitionLookup lookup = new ObjectDefinitionLookup();
 						lookup.setVisible(true);
                     }
                     if (inputString.equals("::packrsi") || inputString.equals("::repack")) {
