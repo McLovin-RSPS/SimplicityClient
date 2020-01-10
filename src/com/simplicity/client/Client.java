@@ -3237,7 +3237,7 @@ public class Client extends RSApplet {
 
     public static final int MAP_IDX = 4;
 
-    public static final int MODEL_IDX = 1, CONFIG_IDX = 0, OSRS_MODEL_IDX = 7, OSRS_ANIM_IDX = 8, OSRS_MAP_IDX = 9;
+    public static final int MODEL_IDX = 1, CONFIG_IDX = 0, OSRS_MODEL_IDX = 7, OSRS_ANIM_IDX = 8, OSRS_MAP_IDX = 9, CUSTOM_MODEL_IDX = 10;
 
     public static boolean displayScrollbar;
 
@@ -6446,6 +6446,14 @@ public class Client extends RSApplet {
                  */
                 if (onDemandData.dataType == OSRS_MODEL_IDX - 1) {
                     Model.readFirstModelData(onDemandData.buffer, onDemandData.id, DataType.OLDSCHOOL);
+                    needDrawTabArea = true;
+                }
+                
+                /**
+                 * Custom Models Loading *
+                 */
+                if (onDemandData.dataType == CUSTOM_MODEL_IDX - 1) {
+                    Model.readFirstModelData(onDemandData.buffer, onDemandData.id, DataType.CUSTOM);
                     needDrawTabArea = true;
                 }
 

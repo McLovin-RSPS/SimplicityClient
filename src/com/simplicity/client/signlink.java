@@ -34,7 +34,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public final class signlink implements Runnable {
 	
-	public static final int CACHE_INDEX_LENGTH = 10;
+	public static final int CACHE_INDEX_LENGTH = 11;
 	
 	private String id;
 	
@@ -359,7 +359,7 @@ public final class signlink implements Runnable {
 	}
 
 	public static RandomAccessFile cache_dat = null;
-	public static final RandomAccessFile[] cache_idx = new RandomAccessFile[10];
+	public static final RandomAccessFile[] cache_idx = new RandomAccessFile[CACHE_INDEX_LENGTH];
 	public static Applet mainapp = null;
 	private static boolean active;
 	private static int threadliveid;

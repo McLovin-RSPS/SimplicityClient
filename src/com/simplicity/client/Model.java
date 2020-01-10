@@ -45,6 +45,8 @@ public class Model extends Animable {
     static ModelHeader modelHeaderRegular[];
 
     static ModelHeader modelHeaderOldschool[];
+    
+    static ModelHeader modelHeaderCustom[];
 
     static OnDemandFetcherParent resourceManager;
 
@@ -135,6 +137,10 @@ public class Model extends Animable {
             if (modelHeaderOldschool == null) {
                 return null;
             }
+        } else if (dataType == DataType.CUSTOM) {
+        	if (modelHeaderCustom == null) {
+                return null;
+            }
         } else{
             if (modelHeaderRegular == null)
                 return null;
@@ -144,7 +150,7 @@ public class Model extends Animable {
             return null;
 
         ModelHeader modelHeader;
-
+        
         if (dataType == DataType.OLDSCHOOL) {
             modelHeader = modelHeaderOldschool[fileId];
             if (modelHeader == null) {
@@ -153,8 +159,18 @@ public class Model extends Animable {
             } else {
                 return new Model(fileId, dataType);
             }
+        } else if (dataType == DataType.CUSTOM) {
+        	modelHeader = Model.modelHeaderCustom[fileId];
+        	
+        	if (modelHeader == null) {
+                resourceManager.get(Client.MODEL_IDX - 1, fileId);
+                return null;
+            } else {
+                return new Model(fileId, dataType);
+            }
         } else {
             modelHeader = Model.modelHeaderRegular[fileId];
+            
             if (modelHeader == null) {
                 resourceManager.get(Client.MODEL_IDX - 1, fileId);
                 return null;
@@ -187,6 +203,7 @@ public class Model extends Animable {
     public static void initialise(int i, OnDemandFetcherParent onDemandFetcher) {
         modelHeaderRegular = new ModelHeader[80000];
         modelHeaderOldschool = new ModelHeader[40000];
+        modelHeaderCustom = new ModelHeader[10000];
         newmodel = new boolean[100000];
         resourceManager = onDemandFetcher;
     }
@@ -229,8 +246,18 @@ public class Model extends Animable {
             } else {
                 return true;
             }
+        } else if (dataType == DataType.CUSTOM) {
+        	modelHeader = modelHeaderCustom[i];
+        	
+            if (modelHeader == null) {
+                resourceManager.get(Client.CUSTOM_MODEL_IDX - 1, i);
+                return false;
+            } else {
+                return true;
+            }
         } else {
             modelHeader = modelHeaderRegular[i];
+            
             if (modelHeader == null) {
                 resourceManager.get(Client.MODEL_IDX - 1, i);
                 return false;
@@ -243,6 +270,7 @@ public class Model extends Animable {
     public static void nullLoader() {
         modelHeaderRegular = null;
         modelHeaderOldschool = null;
+        modelHeaderCustom = null;
         hasAnEdgeToRestrict = null;
         outOfReach = null;
         projected_vertex_y = null;
@@ -269,6 +297,8 @@ public class Model extends Animable {
                 ModelHeader class21;
                 if (dataType == DataType.OLDSCHOOL) {
                     class21 = modelHeaderOldschool[j] = new ModelHeader();
+                } else if (dataType == DataType.CUSTOM) {
+                	class21 = modelHeaderCustom[j] = new ModelHeader();
                 } else {
                     class21 = modelHeaderRegular[j] = new ModelHeader();
                 }
@@ -280,9 +310,11 @@ public class Model extends Animable {
             Stream stream = new Stream(abyte0);
             stream.currentOffset = abyte0.length - 18;
             ModelHeader class21_1;
-
+            
             if (dataType == DataType.OLDSCHOOL) {
                 class21_1 = modelHeaderOldschool[j] = new ModelHeader();
+            } else if (dataType == DataType.CUSTOM) {
+            	class21_1 = modelHeaderCustom[j] = new ModelHeader();
             } else {
                 class21_1 = modelHeaderRegular[j] = new ModelHeader();
             }
@@ -536,6 +568,8 @@ public class Model extends Animable {
 
         if (dataType == DataType.OLDSCHOOL) {
             is = modelHeaderOldschool[modelId].modelData;
+        } else if (dataType == DataType.CUSTOM) {
+        	is = modelHeaderCustom[modelId].modelData;
         } else {
             is = modelHeaderRegular[modelId].modelData;
         }
@@ -1652,6 +1686,8 @@ public class Model extends Animable {
         ModelHeader modelHeader;
         if (dataType == dataType.OLDSCHOOL) {
             modelHeader = modelHeaderOldschool[modelID] = new ModelHeader();
+        } else if (dataType == dataType.CUSTOM) {
+        	modelHeader = modelHeaderCustom[modelID] = new ModelHeader();
         } else {
             modelHeader = modelHeaderRegular[modelID] = new ModelHeader();
         }
@@ -2543,6 +2579,8 @@ public class Model extends Animable {
         ModelHeader modelHeader;
         if(dataType == DataType.OLDSCHOOL) {
             modelHeader = modelHeaderOldschool[modelID] = new ModelHeader();
+        } else if (dataType == DataType.OLDSCHOOL) {
+        	modelHeader = modelHeaderCustom[modelID] = new ModelHeader();
         } else {
             modelHeader = modelHeaderRegular[modelID] = new ModelHeader();
         }
@@ -2928,6 +2966,8 @@ public class Model extends Animable {
         ModelHeader header;
         if(dataType == DataType.OLDSCHOOL) {
             header = modelHeaderOldschool[i];
+        } else if (dataType == DataType.CUSTOM) {
+        	header = modelHeaderCustom[i];
         } else {
             header = modelHeaderRegular[i];
         }

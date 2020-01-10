@@ -8,6 +8,7 @@ public enum DataType {
 
     OLDSCHOOL,
     REGULAR,
-    RS_742;
+    RS_742,
+    CUSTOM;
 
 }
