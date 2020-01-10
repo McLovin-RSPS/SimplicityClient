@@ -165,6 +165,13 @@ public final class ObjectDefinition {
             objectDef.name = "@yel@Dark crab";
         }
         
+        boolean debug = false;
+
+		if (debug) {
+			objectDef.name = ""+i;
+			objectDef.hasActions = true;
+			objectDef.actions = new String[] {"lol" , null, null, null, null, null};
+		}
         return objectDef;
     }
 
@@ -742,14 +749,14 @@ public final class ObjectDefinition {
                 objectDef.name = "Entrance";
                 break;
         }
-		/*
+	
 		boolean debug = false;
 
 		if (debug) {
 			objectDef.name = ""+i;
 			objectDef.hasActions = true;
 			objectDef.actions = new String[] {"lol" , null, null, null, null, null};
-		}*/
+		}
         return objectDef;
     }
 
@@ -953,7 +960,7 @@ public final class ObjectDefinition {
                 int subModelID = objectModelIDs[ptr];
                 if (mirror)
                     subModelID += 0x10000;
-                model = Model.fetchModel(subModelID & 0xffff, dataType);
+                model = dataType == DataType.OLDSCHOOL ? (Model) osrsModelCache.get(subModelID) : (Model) modelCache.get(subModelID);
                 if (model == null) {
                     model = Model.fetchModel(subModelID & 0xffff, dataType);
                     if (model == null)
@@ -988,14 +995,18 @@ public final class ObjectDefinition {
             boolean mirror = aBoolean751 ^ (face > 3);
             if (mirror)
                 subModelId += 0x10000;
-            model = (Model) modelCache.get(subModelId);
+            model = dataType == DataType.OLDSCHOOL ? (Model) osrsModelCache.get(subModelId) : (Model) modelCache.get(subModelId);
             if (model == null) {
                 model = Model.fetchModel(subModelId & 0xffff, dataType);
                 if (model == null)
                     return null;
                 if (mirror)
                     model.mirrorModel();
-                modelCache.put(model, subModelId);
+                
+                if (dataType == DataType.OLDSCHOOL)
+                    osrsModelCache.put(model, subModelId);
+                else
+                    modelCache.put(model, subModelId);
             }
         }
         boolean rescale;
