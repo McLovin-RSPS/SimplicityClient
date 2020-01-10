@@ -165,27 +165,6 @@ public final class ObjectDefinition {
             objectDef.name = "@yel@Dark crab";
         }
         
-        if (i == 132684 || i == 132671 || i == 132684) {
-        	objectDef.offsetH = 75;
-        }
-        
-        if (i == 117514) {
-        	objectDef.offsetH = 72;
-        }
-        
-        if (i == 132671 || i == 132684) {
-        	objectDef.offsetH = 72;
-        }
-        
-        if (i == 132987) {
-        	objectDef.offsetH = 10;
-        	objectDef.modelSizeH -= 22;
-        }
-        
-        if (i == 132660) {
-        	objectDef.animationID = 0;
-        }
-        
         return objectDef;
     }
 
@@ -290,20 +269,7 @@ public final class ObjectDefinition {
                 objectDef.actions[1] = "View-presets";
             }
         }
-        if (i == 12010) {
-        	objectDef.adjustToTerrain = true;
-        	objectDef.objectModelIDs = new int[] { 37531 };
-			objectDef.objectModelTypes = new int[] { 22 };
-        }
-        if (i == 33406) {
-        	objectDef.objectModelIDs = new int[] { 37531 };
-			objectDef.objectModelTypes = new int[] { 22 };
-        }
-		if (i == 32347) {
-			objectDef.objectModelIDs = new int[] { 37531 };
-			objectDef.objectModelTypes = new int[] { 22 };
-			objectDef.adjustToTerrain = true;
-		}
+		
         if (i == 9293) { // Tav dung pipe
 			objectDef.offsetX = 64;
 			objectDef.adjustToTerrain = true;

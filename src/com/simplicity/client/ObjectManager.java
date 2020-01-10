@@ -700,10 +700,6 @@ final class ObjectManager {
 		}
 		
 		boolean debug = false;
-		if (objId == 12010 && regionId == 7473) {
-			objId = 33416;
-		}
-		
 		
 		if (debug) { // Debug's the object at player's position...
 			int objectX = Client.instance.getBaseX() + x;
