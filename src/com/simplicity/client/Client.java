@@ -3919,6 +3919,7 @@ public class Client extends RSApplet {
         MobDefinition.modelCache.clear();
         MobDefinition.modelCacheOSRS.clear();
         ItemDefinition.modelCache.clear();
+        ItemDefinition.modelCacheCustom.clear();
         ItemDefinition.spriteCache.clear();
         Player.modelCache.clear();
         SpotAnimDefinition.modelCache.clear();
@@ -6671,6 +6672,7 @@ public class Client extends RSApplet {
             RandomColor.process();
             ItemDefinition.spriteCache.clear();
             ItemDefinition.modelCache.clear();
+            ItemDefinition.modelCacheCustom.clear();
             Player.modelCache.clear();
         }
         

@@ -45,6 +45,7 @@ public final class ItemDefinition {
 
     public static void nullLoader() {
         modelCache = null;
+        modelCacheCustom = null;
         spriteCache = null;
         streamIndices = null;
         streamIndicesOSRS = null;
@@ -8594,7 +8595,7 @@ public final class ItemDefinition {
         }
         int itemForModel = id;
 
-        Model model = (Model) modelCache.get(itemForModel);
+        Model model = dataType == DataType.CUSTOM ? (Model) modelCacheCustom.get(itemForModel) : (Model) modelCache.get(itemForModel);
         if (model != null) {
             return model;
         }
@@ -8620,8 +8621,12 @@ public final class ItemDefinition {
         }
         model.light(64 + shadow, 768 + lightness, -50, -10, -50, true);
         model.rendersWithinOneTile = true;
-        if (id != 5572 && id != 5573 && id != 640 && id != 650 && id != 630) {
-            modelCache.put(model, id);
+        if (dataType == DataType.CUSTOM) {
+        	modelCacheCustom.put(model, id);
+        } else {
+        	if (id != 5572 && id != 5573 && id != 640 && id != 650 && id != 630) {
+                modelCache.put(model, id);
+            }
         }
         return model;
     }
@@ -8779,6 +8784,7 @@ public final class ItemDefinition {
     public int id;
     public static MemCache spriteCache = new MemCache(100);
     public static MemCache modelCache = new MemCache(50);
+    public static MemCache modelCacheCustom = new MemCache(50);
     public int[] newModelColor;
     public boolean membersObject;
     public int femaleEquip3;
