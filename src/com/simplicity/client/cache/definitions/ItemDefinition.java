@@ -953,6 +953,73 @@ public final class ItemDefinition {
         itemDef.value = prices[itemDef.id];
         switch (itemId) {
         
+        case 22000:
+        	itemDef.copy(forID(14008));
+        	itemDef.name = "Masterwork full helm";
+        	itemDef.maleEquip1 = 2;
+        	itemDef.femaleEquip1 = 2;
+        	itemDef.modelID = 1;
+        	itemDef.dataType = DataType.CUSTOM;
+        	itemDef.editedModelColor = new int[0];
+        	itemDef.newModelColor = new int[0];
+        	itemDef.rotationY = 50;
+        	break;
+        	
+        case 22001:
+        	itemDef.copy(forID(14009));
+        	itemDef.name = "Masterwork platebody";
+        	itemDef.maleEquip1 = 4;
+        	itemDef.femaleEquip1 = 4;
+        	itemDef.modelID = 3;
+        	itemDef.dataType = DataType.CUSTOM;
+        	itemDef.modelOffsetY = 8;
+        	itemDef.editedModelColor = new int[0];
+        	itemDef.newModelColor = new int[0];
+        	break;
+        	
+        case 22002:
+        	itemDef.copy(forID(14010));
+        	itemDef.name = "Masterwork platelegs";
+        	itemDef.maleEquip1 = 6;
+        	itemDef.femaleEquip1 = 6;
+        	itemDef.modelID = 5;
+        	itemDef.dataType = DataType.CUSTOM;
+        	itemDef.modelZoom = 1800;
+        	itemDef.modelOffsetY = 8;
+        	itemDef.editedModelColor = new int[0];
+        	itemDef.newModelColor = new int[0];
+        	break;
+        	
+        case 22003:
+        	itemDef.copy(forID(11732));
+        	itemDef.name = "Masterwork boots";
+        	itemDef.maleEquip1 = 7;
+        	itemDef.femaleEquip1 = 7;
+        	itemDef.modelID = 7;
+        	itemDef.modelZoom = 890;
+        	itemDef.rotationX = 320;
+        	itemDef.rotationY = 290;
+        	itemDef.modelOffsetX = 100;
+        	itemDef.modelOffset1 = 5;
+        	itemDef.modelOffsetY = 15;
+        	itemDef.dataType = DataType.CUSTOM;
+        	break;
+        	
+        case 22004:
+        	itemDef.copy(forID(7462));
+        	itemDef.name = "Masterwork gloves";
+        	itemDef.maleEquip1 = 9;
+        	itemDef.femaleEquip1 = 9;
+        	itemDef.modelID = 8;
+        	itemDef.modelZoom = 700;
+        	itemDef.modelOffset1 = 5;
+        	itemDef.modelOffsetX = 180;
+        	itemDef.modelOffsetY = 30;
+        	itemDef.rotationX = 390;
+        	itemDef.rotationY = 290;
+        	itemDef.dataType = DataType.CUSTOM;
+        	break;
+        
         case 17273:
         	itemDef.femaleYOffset += 7;
         	itemDef.femaleZOffset -= 6;
