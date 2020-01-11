@@ -163,7 +163,7 @@ public class Model extends Animable {
         	modelHeader = Model.modelHeaderCustom[fileId];
         	
         	if (modelHeader == null) {
-                resourceManager.get(Client.MODEL_IDX - 1, fileId);
+                resourceManager.get(Client.CUSTOM_MODEL_IDX - 1, fileId);
                 return null;
             } else {
                 return new Model(fileId, dataType);
