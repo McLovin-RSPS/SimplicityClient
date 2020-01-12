@@ -2731,6 +2731,9 @@ public final class ItemDefinition {
                 itemDef.actions[1] = "Wear";
                 itemDef.actions[4] = "Drop";
                 break;
+            case 8331:
+                itemDef.actions[0] = "Teleport";
+                break;
                 /* END */
             case 12426:
                 itemDef.modelID = 28633;

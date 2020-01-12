@@ -26,7 +26,7 @@ public class CustomObjects {
     // id, x, y, z, face, type
     // 0 = north, 1 = east, 2 = south, 3 = west
     public static final int[][] CUSTOM_OBJECTS = {
-
+    		
             /**
              * TOB
             */
@@ -263,7 +263,8 @@ public class CustomObjects {
             {48661, 3083, 3488, 0, 3}, // Arthur's dream teleporter edgeville
             {27254, 1831, 5163, 2, 0}, // Dark portal arthur's dream
             
-
+            /* 2020 savior */
+    		{44111, 3097, 3482, 0, 3},
             
             // Arthur's dream 2
             {129316, 1626, 3980, 0, 0}, // Objects Arthur's dream II
