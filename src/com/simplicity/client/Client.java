@@ -45,9 +45,11 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -92,6 +94,7 @@ import com.simplicity.client.cache.node.Node;
 import com.simplicity.client.content.CustomisableHotKeys;
 import com.simplicity.client.content.EffectTimer;
 import com.simplicity.client.content.FlashingSprite;
+import com.simplicity.client.content.ItemStatsPanel;
 import com.simplicity.client.content.LoginScreen;
 import com.simplicity.client.content.LoginScreen.CharacterFile;
 import com.simplicity.client.content.PetSystem;
@@ -2411,6 +2414,9 @@ public class Client extends RSApplet {
 
     boolean doingDung = false;
 
+	private int itemStatsId;
+	private int itemStatsIndex;
+
     public void drawSideIcons(boolean fixed) {
         if (fixed) {
             for (int index = 0; index < 15; index++) {
@@ -2564,6 +2570,11 @@ public class Client extends RSApplet {
                 drawMenu();
             }
         }
+        
+        if (Configuration.enableItemStats && controlIsDown && itemStatsId > 0) {
+        	drawItemStats(itemStatsId);
+        }
+        
         if (clientSize == 0) {
             tabAreaIP.drawGraphics(168, super.graphics, 519);
         }
@@ -4424,8 +4435,10 @@ public class Client extends RSApplet {
                                     mouseInvInterfaceIndex = ptr;
                                     lastActiveInvInterface = child.id;
                                 }
+                                
                                 if (child.inv[ptr] > 0) {
                                     ItemDefinition itemDef = ItemDefinition.forID(child.inv[ptr] - 1);
+                                    
                                     if (itemSelected == 1 && child.isInventoryInterface) {
                                         if (child.id != lastItemSelectedInterface || ptr != lastItemSelectedSlot) {
                                             menuActionName[menuActionRow] = "Use " + selectedItemName + " with @lre@"
@@ -4499,6 +4512,15 @@ public class Client extends RSApplet {
                                         if (child.isInventoryInterface && itemDef.actions != null) {
                                             for (int i4 = 2; i4 >= 0; i4--) {
                                                 if (itemDef.actions[i4] != null) {
+                                                	if (child.id == 3214) {
+	                                                	if (itemDef.actions[i4].equals("Wield") || itemDef.actions[i4].equals("Wear")) {
+		                                                	if (Configuration.enableItemStats && controlIsDown) {
+		                                                    	itemStatsId = itemDef.id;
+		                                                    	itemStatsIndex = ptr;
+		                                                    }
+	                                                	}
+                                                	}
+                                                	
                                                     if (openInterfaceID != 24700 && openInterfaceID != 2700) {
                                                         menuActionName[menuActionRow] = itemDef.actions[i4] + " @lre@"
                                                                 + itemDef.name;
@@ -4746,6 +4768,10 @@ public class Client extends RSApplet {
                                             menuActionRow++;
                                         }
                                     }
+                                } else {
+                                	if (Configuration.enableItemStats) {
+                                		itemStatsId = 0;
+                                	}
                                 }
                             }
                             ptr++;
@@ -4758,8 +4784,52 @@ public class Client extends RSApplet {
         }
 
     }
+    
+	/**
+	 * A map that is used for caching the values of {@link ItemStatsPanel}'s.
+	 */
+    private Map<Integer, ItemStatsPanel> itemStatCache = new HashMap<>();
 
-    private void drawScrollbar(int barHeight, int scrollPos, int yPos, int xPos, int contentHeight, boolean newScroller,
+    /**
+     * Draws the item stats.
+     * @param itemId The item id.
+     */
+    private void drawItemStats(int itemId) {
+    	if (!itemStatCache.containsKey(itemId)) {
+    		requestItemStats(itemId);
+    		return;
+    	}
+    	
+    	ItemStatsPanel stats = itemStatCache.get(itemId);
+    	
+    	int xOffset = clientSize == 0 ? 516 : 0;
+    	
+    	int yOffset = clientSize == 0 ? 205 : 30;
+    	
+    	stats.draw(super.mouseX - xOffset + 10, super.mouseY - yOffset, newSmallFont, itemStatsIndex);
+	}
+    
+    /**
+     * The last item stat request.
+     */
+    private long lastItemStatRequest;
+
+	/**
+	 * Sends an item stats request of the specified item id to the server.
+	 * 
+	 * @param itemId The item id.
+	 */
+	private void requestItemStats(int itemId) {
+		if (System.currentTimeMillis() - lastItemStatRequest < 600) {
+			return;
+		}
+		
+		stream.createFrame(250);
+        stream.writeDWord(itemId);
+        lastItemStatRequest = System.currentTimeMillis();
+	}
+
+	private void drawScrollbar(int barHeight, int scrollPos, int yPos, int xPos, int contentHeight, boolean newScroller,
                                boolean isTransparent) {
         int backingAmount = (barHeight - 32) / 5;
         int scrollPartHeight = ((barHeight - 32) * barHeight) / contentHeight;
@@ -18145,6 +18215,22 @@ public class Client extends RSApplet {
                     }
                     opCode = -1;
                     return true;
+                    
+                case 181: {
+					int itemId = inStream.readInt();
+	
+					int[] bonus = new int[12];
+	
+					for (int b = 0; b < bonus.length; b++) {
+						bonus[b] = inStream.readByte();
+					}
+	
+					ItemDefinition def = ItemDefinition.forID(itemId);
+	
+					itemStatCache.put(itemId, new ItemStatsPanel(def.name, bonus));
+					opCode = -1;
+                    return true;
+				}
 
                 case 185:
 
@@ -23366,6 +23452,8 @@ public class Client extends RSApplet {
     private int currentActionMenu;
 	public Sprite[] smallSkillSprites = new Sprite[Skills.SKILL_COUNT];
 	public Sprite[] bigSkillSprites = new Sprite[Skills.SKILL_COUNT];
+
+	public boolean controlIsDown;
 
     public final static int[] DIALOG_CONTINUE_IDS = { 979, 968, 973, 986, 306, 4887, 4893, 356, 310, 4882, 4900, 6247, 6253,
             6206, 6216, 4443, 6242, 6211, 6226, 4272, 6231, 6258, 4282, 6263, 6221, 4416, 6237, 4277, 4261, 12122, 5267,

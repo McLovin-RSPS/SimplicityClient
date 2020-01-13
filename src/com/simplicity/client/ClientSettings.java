@@ -167,6 +167,10 @@ public class ClientSettings {
 				Configuration.escapeClosesInterface = reader.get("esc-closes-interface").getAsBoolean();
 			}
 			
+			if (reader.has("item-stats")) {
+				Configuration.enableItemStats = reader.get("item-stats").getAsBoolean();
+			}
+			
 			if (reader.has("keybindings")) {
 				CustomisableHotKeys.hotKeys = builder.fromJson(reader.get("keybindings"), new TypeToken<LinkedList<HotKey>>() { }.getType());
 			}
@@ -237,6 +241,7 @@ public class ClientSettings {
 			object.addProperty("mouse-buttons", Client.instance.variousSettings[170] == 1);
 			object.addProperty("mouse-camera", Configuration.enableMouseCamera);
 			object.addProperty("esc-closes-interface", Configuration.escapeClosesInterface);
+			object.addProperty("item-stats", Configuration.enableItemStats);
 			object.add("keybindings", builder.toJsonTree(CustomisableHotKeys.getHotKeys().subList(0, CustomisableHotKeys.hotKeys.size())));
 			object.add("quick-prayers", builder.toJsonTree(Client.instance.getQuickPrayers()));
 			object.add("quick-curses", builder.toJsonTree(Client.instance.getQuickCurses()));
@@ -273,6 +278,7 @@ public class ClientSettings {
 		Configuration.enableSkillStatusBars = true;
 		Configuration.enableXpOrbs = true;
 		Configuration.enableMipmapping = false;
+		Configuration.enableItemStats = true;
 		Client.instance.musicEnabled = false;
 		SoundPlayer.setVolume(4);
 	}
