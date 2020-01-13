@@ -289,6 +289,18 @@ public enum Setting {
 		public boolean enabled() {
 			return enableMipmapping;
 		}
+	},
+
+	ITEM_STATS_ON_HOVER() {
+		@Override
+		public void handle() {
+			Configuration.enableItemStats = !Configuration.enableItemStats;
+		}
+
+		@Override
+		public boolean enabled() {
+			return Configuration.enableItemStats;
+		}
 	};
 
 	/**

@@ -696,6 +696,10 @@ WindowListener {
 				Client.inputTaken = true;
 			}
 		}
+		
+		if (i == KeyEvent.VK_CONTROL) {
+			Client.getClient().controlIsDown = true;
+		}
 	}
 
 	public void replyLastPM()
@@ -741,6 +745,10 @@ WindowListener {
 		}
 		if (c > 0 && c < '\200') {
 			keyArray[c] = 0;
+		}
+		
+		if (i == KeyEvent.VK_CONTROL) {
+			Client.getClient().controlIsDown = false;
 		}
 	}
 
