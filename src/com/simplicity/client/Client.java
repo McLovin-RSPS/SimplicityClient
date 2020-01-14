@@ -2571,7 +2571,7 @@ public class Client extends RSApplet {
             }
         }
         
-        if (Configuration.enableItemStats && controlIsDown && itemStatsId > 0) {
+        if (Configuration.enableItemStats && controlIsDown && tabInterfaceIDs[tabID] == 3213 && tabID == 3 && itemStatsId > 0) {
         	drawItemStats(itemStatsId);
         }
         
