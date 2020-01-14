@@ -54,8 +54,8 @@ public class SkillOrbs {
                 }
 
                 orb.draw(x, y);
-
-                if (Client.instance.hover(x, y, Client.cacheSprite[1157])) {
+                
+                if (Client.instance.inCircle(x + 4, y + 4, Client.instance.mouseX, Client.instance.mouseY, 24)) {
                     hover = orb;
                 }
 

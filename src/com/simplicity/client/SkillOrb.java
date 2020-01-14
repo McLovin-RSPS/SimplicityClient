@@ -2,7 +2,6 @@ package com.simplicity.client;
 
 import java.awt.Color;
 import java.awt.Shape;
-import java.sql.ClientInfoStatus;
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -84,9 +83,11 @@ public class SkillOrb {
         if (alpha < 0) {
             alpha = 0;
         }
+        
+        int size = 20;
 
         // Draw inner semi-transparent circle
-        DrawingArea.drawFilledCircle(x + 28, y + 28, 24, 0x504a41, alpha < 180 ? alpha : 180);
+        DrawingArea.drawFilledCircle(x + size + 4, y + size + 4, size, 0x504a41, alpha < 180 ? alpha : 180);
         
         calculateAngleStep();
 
@@ -99,7 +100,7 @@ public class SkillOrb {
         drawRing(xpRing, new Color(0, 0, 0, alpha));
         drawRing(progressRing, new Color(255, 200, 0, alpha));
 
-        icon.drawAdvancedSprite(x + 29 - icon.myWidth / 2, 28 - icon.myHeight / 2 + y, alpha);
+        icon.drawAdvancedSprite(x + size + 5 - icon.myWidth / 2, size + 4 - icon.myHeight / 2 + y, alpha);
     }
 
     /**
@@ -112,8 +113,8 @@ public class SkillOrb {
      */
 
     public Shape createRing(int x, int y, int angle) {
-        Shape sector = DrawingArea.createSector(x + 2, y + 1, 55, angle);
-        Shape innerCircle = DrawingArea.createCircle(x + 7, y + 6, 45);
+        Shape sector = DrawingArea.createSector(x + 2, y + 1, 55 - 8, angle);
+        Shape innerCircle = DrawingArea.createCircle(x + 7, y + 6, 45 - 8);
 
         return DrawingArea.createRing(sector, innerCircle);
     }
