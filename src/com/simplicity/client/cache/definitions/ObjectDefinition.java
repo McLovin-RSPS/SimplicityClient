@@ -148,7 +148,7 @@ public final class ObjectDefinition {
         objectDef.setDefaults();
         objectDef.dataType = DataType.OLDSCHOOL;
         try {
-            objectDef.readValuesOSRS(streamOSRS);
+            objectDef.readValues(streamOSRS);
         } catch (Exception e) {
             e.printStackTrace();
         }
