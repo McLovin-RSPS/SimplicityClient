@@ -15734,8 +15734,14 @@ public class Client extends RSApplet {
                 stream.createFrame(148);
             }
         } else if (broadcastText != null) {
-            drawingArea.method385(0xffff00, broadcastText, 329, 19);
-            cacheSprite[1260].drawSprite(2, 318);
+            if (clientSize == 1) {
+                drawingArea.method385(0xffff00, broadcastText, clientHeight - 170, 19);
+                cacheSprite[1260].drawSprite(2, clientHeight - 180);
+            } else {
+                drawingArea.method385(0xffff00, broadcastText, 329, 19);
+                cacheSprite[1260].drawSprite(2, 318);
+            }
+
         }
         
     }
