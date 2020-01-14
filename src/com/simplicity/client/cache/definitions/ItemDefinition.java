@@ -847,7 +847,9 @@ public final class ItemDefinition {
                     itemDef.actions[3] = "Toggle Config";
                     break;
                 case 52993:
+                	itemDef.copy(forID(6199));
                     itemDef.name = "Raids Mystery Box";
+                    itemDef.newModelColor[0] = 27570;
                     break;
                 case 49480:
                     itemDef.copy(forID(6199));
