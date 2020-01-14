@@ -4401,9 +4401,40 @@ public class RSInterface {
         KnowledgeBaseWidget.unpack(textDrawingAreas);
         
         CollectionLogWidget.unpack(textDrawingAreas);
+        
+        raidsHealth(textDrawingAreas);
+        
         Widget.init();
         spriteCache = null;
     }
+
+	private static void raidsHealth(TextDrawingArea[] textDrawingAreas2) {
+		int id = 61500;
+		
+		RSInterface widget = addInterface(id++);
+		
+		widget.totalChildren(3);
+		
+		int x = 100;
+		
+		int y = 32;
+		
+		int width = 300;
+		
+		int height = 20;
+		
+		drawBox(id, width, height, 2, 0, 0, 250);
+		widget.child(0, id, x, y);
+		id++;
+		
+		addRectangle(id, width - 3, height - 5, 0xff0000, 0, true);
+		widget.child(1, id, x + 2, y + 2);
+		id++;
+		
+		addPercentageBar(id, width - 3, height - 5, 82, 0x00ff00, 0, 250);
+		widget.child(2, id, x + 2, y + 2);
+		id++;
+	}
 
 	private static final void newTeleports(TextDrawingArea[] tda) {
     	int id = 60600;
@@ -15819,6 +15850,19 @@ public class RSInterface {
 		rsi.message = current + "/" + max;
 		rsi.enabledMessage = current + "/" + max;
 	}
+    
+    public static void addPercentageBar(int id, int width, int height, int current, int color, int textColor, int transparency) {
+		RSInterface rsi = addInterface(id);
+		rsi.id = id;
+		rsi.type = 30;
+		rsi.width = width;
+		rsi.height = height;
+		rsi.message = Integer.toString(current);
+		rsi.enabledMessage = Integer.toString(current);
+		rsi.disabledColor = color;
+		rsi.textColor = textColor;
+		rsi.transparency = transparency;
+	}
 
     public static void addSummoningText(int i, String s, int k, boolean l, boolean m, int a, TextDrawingArea[] TDA,
                                         int j) {
@@ -16202,5 +16246,7 @@ public class RSInterface {
     public int[] selectableInterfaces;
     
     public static TextDrawingArea defaultFont[];
+    
+    public int textColor;
 
 }

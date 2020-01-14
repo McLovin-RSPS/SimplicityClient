@@ -39,6 +39,7 @@ import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,6 +50,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -15077,6 +15079,32 @@ public class Client extends RSApplet {
     					} catch (Exception e) {
     						e.printStackTrace();
     					}
+    				} else if (child.type == 30) {
+                    	try {
+    						String progress = RSInterface.interfaceCache[child.id].message;
+    						
+    						if (progress.indexOf("/") == -1) {
+    							continue;
+    						}
+
+    						int current = Integer.parseInt(progress.substring(0, progress.indexOf("/")));
+    						
+    						int maximum = Integer.parseInt(progress.substring(progress.indexOf("/") + 1, progress.length()));
+    						
+    						int width = child.width;
+    						
+    						int height = child.height;
+    						
+    						NumberFormat formatter = new DecimalFormat("#0.0").getInstance(Locale.UK);
+    						
+    						DrawingArea.drawAlphaPixels(childX, childY, (int) ((double) current / maximum * width), height, child.disabledColor, child.transparency);
+    						
+    						double percentage = (double) current / (double) maximum * (double) 100;
+    						
+    						newSmallFont.drawCenteredString(formatter.format(percentage) + "%", childX + (width - 1) / 2 + 5, childY + height / 2 + 5, child.textColor, -1);
+    					} catch (Exception e) {
+    						e.printStackTrace();
+    					}
                     } else if (child.type == 34) {
                     	DrawingArea.drawBox(childX, childY, child.width, child.height, child.borderWidth, child.borderColor, child.disabledColor, child.transparency);
                     } else if (child.type == 35) {
@@ -15375,6 +15403,9 @@ public class Client extends RSApplet {
                         yPosition = 10;
                         xPosition = clientWidth - 765 - (clientSize != 0 ? 30 : 0);
                         break;
+                    case 61500:
+                    	xPosition = clientSize == 0 ? 0 : clientWidth / 2 - 300; // 392
+                    	break;
                 }
                 drawInterface(0, xPosition, widget, yPosition);
             }
