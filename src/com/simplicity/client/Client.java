@@ -20446,11 +20446,11 @@ public class Client extends RSApplet {
         }
         if (alertBoxTimer > 0) {
         	int len = alertText.length * 12;
-        	int x = -1;
-        	int y = clientSize != 0 ? (clientHeight - 197 - len) : (261 + 41 - len);
+        	int x = clientSize == 0 ? -1 : clientWidth / 2 - 300;
+        	int y = clientSize != 0 ? (0) : 0;
         	int width = clientSize != 0 ? 514 + 6 : 514;
         	int height = 34 + len;
-            int centerX = (x + width) / 2;
+            int centerX = clientSize == 0 ? (x + width) / 2 : (x + width / 2);
             
             int color = alertColour;
             int opacity = 135;
