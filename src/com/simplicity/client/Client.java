@@ -661,29 +661,33 @@ public class Client extends RSApplet {
                                             clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
                                     xPos -= 3;
 
-                                    int col = -1;
+                                    String colorCode = "";
 
                                     if (message[0].indexOf("<col=") != -1) {
                                         try {
                                         	String splitLine = message[0];
-                                        	if(regexMatch("\\[.+?\\]", message[0]) != null) {
-                                        		String usernamePrefix = regexMatch("\\[.*\\]", message[0]);	
-                                        		splitLine = splitLine.replace(usernamePrefix, "");
+
+                                        	/**
+                                        	 * Yell line split.
+                                        	 */
+                                        	if (splitLine.indexOf("<spr=1302:") != -1) {
+                                        		String yellTitle = splitLine.substring(splitLine.indexOf("<spr=1302:") + 2, splitLine.indexOf("<spr=1303:") + 2);
+                                        		splitLine = splitLine.replace(yellTitle, "");
                                         	}
                                         	
                                         	int colorStart = splitLine.lastIndexOf("<col=");
-                                            if (colorStart > -1) {
-                                            	String colorCode = splitLine.substring(colorStart+5, colorStart+11);
-                                            	if(validHexColor(colorCode))
-                                            		col = Integer.parseInt(colorCode, 16);
+                                        	int colorEnd = splitLine.indexOf(">", colorStart + 5);
+                                        	
+                                            if (colorStart > -1 && colorEnd > -1) {
+                                            	colorCode = splitLine.substring(colorStart, colorEnd + 1);
                                             }
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
                                     }
 
-                                    newRegularFont.drawBasicString(message[1], xPos + offsetX, yPos + offsetY,
-                                            col != -1 ? col : clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
+                                    newRegularFont.drawBasicString(colorCode + message[1], xPos + offsetX, yPos + offsetY,
+                                            clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
                                     messageY++;
                                 } else {
                                     newRegularFont.drawBasicString(chatMessages[index], xPos + offsetX,
