@@ -955,6 +955,10 @@ public final class ItemDefinition {
         itemDef.value = prices[itemDef.id];
         switch (itemId) {
         
+        case 18346:
+        	itemDef.femaleEquip1 = itemDef.maleEquip1;
+        	break;
+        
         case 22000:
         	itemDef.copy(forID(14008));
         	itemDef.name = "Masterwork full helm";
