@@ -2577,7 +2577,7 @@ public class Client extends RSApplet {
             }
         }
         
-        if (Configuration.enableItemStats && controlIsDown && tabInterfaceIDs[tabID] == 3213 && tabID == 3 && itemStatsId > 0) {
+        if (Configuration.enableItemStats && controlIsDown && tabInterfaceIDs[tabID] == 3213 && tabID == 3 && itemStatsId > 0 && hoverInventory()) {
         	drawItemStats(itemStatsId);
         }
         
@@ -3681,6 +3681,15 @@ public class Client extends RSApplet {
 
         return super.saveClickX > 548 + xOffset && super.saveClickX < 734 + xOffset && super.saveClickY > 207 + yOffset
                 && super.saveClickY < 460 + yOffset;
+    }
+    
+    private boolean hoverInventory() {
+        final int yOffset = clientSize == 0 ? 0 : clientHeight - 503;
+
+        final int xOffset = clientSize == 0 ? 0 : clientWidth - 765;
+
+        return super.mouseX > 548 + xOffset && super.mouseX < 734 + xOffset && super.mouseY > 207 + yOffset
+                && super.mouseY < 460 + yOffset;
     }
 
     public static int totalRead = 0;
