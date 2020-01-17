@@ -152,6 +152,9 @@ public final class ObjectDefinition {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if (i == 116553) {
+        	objectDef.mapSceneID = -1;
+        }
         if (i == 130087) {
             objectDef.actions = new String[5];
             objectDef.actions[0] = "Use";
