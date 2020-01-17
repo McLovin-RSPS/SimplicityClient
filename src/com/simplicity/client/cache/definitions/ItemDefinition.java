@@ -506,6 +506,10 @@ public final class ItemDefinition {
         priorityModels.add(35349);
         priorityModels.add(35361);
         
+        // Dragonstone full helm
+        priorityModels.add(38020);
+        priorityModels.add(38156);
+        
         //writeOutOsrsItems(totalItems, totalItemsOSRS);
         //dumpInterface(totalItems, totalItemsOSRS);
     }
