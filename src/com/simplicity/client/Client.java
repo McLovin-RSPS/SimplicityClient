@@ -20439,6 +20439,10 @@ public class Client extends RSApplet {
         }
         displayedParticles.removeAll(removeDeadParticles);
         removeDeadParticles.clear();
+        
+        if (Configuration.enableXpOrbs) {
+			SkillOrbs.process();
+		}
 
         updateEntities();
         drawHeadIcon();
@@ -20454,9 +20458,6 @@ public class Client extends RSApplet {
             draw3dScreen();
 
         }
-        if (Configuration.enableXpOrbs) {
-			SkillOrbs.process();
-		}
         if (consoleOpen && loggedIn) {
             drawConsole();
             drawConsoleArea();
