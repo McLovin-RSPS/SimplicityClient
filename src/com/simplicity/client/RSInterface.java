@@ -6164,7 +6164,7 @@ public class RSInterface {
         rsi.totalChildren(88);
         rsi.child(0, 18245, 10, 20);// was 10 so + 10
         rsi.child(1, 18246, 100, 50);
-        rsi.child(2, 18247, 472, 21);
+        rsi.child(2, 18247, 471, 23);
         addText(18248, "", fonts, 0, 0xFFFFFF, true, true);
         rsi.child(3, 18248, 472, 23);
         addText(18350, "Total value:", fonts, 0, 0xFFFFFF, false, true);
@@ -6339,7 +6339,7 @@ public class RSInterface {
             child++;
             x += 70;
         }
-        rsi.child(87, 18535, 472, 21);
+        rsi.child(87, 18535, 471, 23);
     }
 
     private static void questTabInterfaceNew() {
