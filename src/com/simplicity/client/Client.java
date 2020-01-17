@@ -4421,6 +4421,8 @@ public class Client extends RSApplet {
                             }
                         }
                     }
+                    
+                    boolean drawStats = false;
 
                     int ptr = 0;
                     rowLoop:
@@ -4515,6 +4517,7 @@ public class Client extends RSApplet {
                                             menuActionCmd3[menuActionRow] = child.id;
                                             menuActionRow++;
                                         }
+                                        
                                         if (child.isInventoryInterface && itemDef.actions != null) {
                                             for (int i4 = 2; i4 >= 0; i4--) {
                                                 if (itemDef.actions[i4] != null) {
@@ -4523,6 +4526,7 @@ public class Client extends RSApplet {
 		                                                	if (Configuration.enableItemStats && controlIsDown) {
 		                                                    	itemStatsId = itemDef.id;
 		                                                    	itemStatsIndex = ptr;
+		                                                    	drawStats = true;
 		                                                    }
 	                                                	}
                                                 	}
@@ -4779,6 +4783,10 @@ public class Client extends RSApplet {
                                 		itemStatsId = 0;
                                 	}
                                 }
+                            } else {
+                            	if (!drawStats) {
+                            		itemStatsId = 0;
+                            	}
                             }
                             ptr++;
                         }
