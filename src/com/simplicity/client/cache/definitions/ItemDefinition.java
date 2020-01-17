@@ -3720,6 +3720,13 @@ public final class ItemDefinition {
             case 15182:
                 itemDef.actions[0] = "Bury";
                 break;
+                
+            case 15288:
+            	itemDef.copy(forID(6199));
+                itemDef.name = "Owner's Birthday Box";
+                itemDef.newModelColor[0] = 1024;
+                break; 
+                
             case 15084:
                 itemDef.actions[0] = "Roll";
                 itemDef.name = "Dice (up to 100)";
