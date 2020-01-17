@@ -180,32 +180,49 @@ public class SkillOrb {
         int mouseX = Client.instance.mouseX + 25;
         int mouseY = Client.instance.mouseY + 25;
         
+        boolean showXp = Client.instance.currentExp[skill] < 200_000_000;
+        
         int width = 152;
-
+        int height = showXp ? 72 : 55;
+        
 		/* Draw box */
-        DrawingArea.drawTransparentBox(mouseX + 1, mouseY + 6, width, 72, 0x504a41, 180);
-        DrawingArea.drawBoxOutline(mouseX + 1, mouseY + 6, width, 72, 0x383023);
+        DrawingArea.drawTransparentBox(mouseX + 1, mouseY + 6, width, height, 0x504a41, 180);
+        DrawingArea.drawBoxOutline(mouseX + 1, mouseY + 6, width, height, 0x383023);
 
 		/* Draw stat information */
         String skillName = Skill.forId(skill).getName();
-
-        String[] labels = new String[]{skillName, "Current XP:", "Xp to level:"};
-        String[] info = new String[]{Integer.toString(Client.instance.currentMaxStats[skill]), nf.format(Client.instance.currentExp[skill]), nf.format(remainderExp())};
+        
+        String[] labels = new String[showXp ? 3 : 2];
+        
+        labels[0] = skillName;
+        labels[1] = "Current XP:";
+        
+        if (showXp) {
+        	labels[2] = "Xp to level:";	
+        }
+        
+        String[] info = new String[]{Integer.toString(currentLevel()), nf.format(Client.instance.currentExp[skill]), nf.format(remainderExp())};
         int y = 20;
 
-        for (int i = 0; i < 3; i++, y += 17) {
+        for (int i = 0; i < labels.length; i++, y += 17) {
             Client.instance.newRegularFont.drawBasicString(labels[i], mouseX + 5, mouseY + y, i == 0 ? 16777215 : 0xffb000, 1);
             Client.instance.newRegularFont.drawRightAlignedString(info[i], mouseX + width - 4, mouseY + y, 16777215, 1);
         }
-
+        
+    	y -= 15;
+        
 		/* Draw progress bar */
-        DrawingArea.drawTransparentBox(mouseX + 3, mouseY + 60, width - 4, 14, 0x2c2720, 180);
-        DrawingArea.drawBox(mouseX + 3, mouseY + 60, (int) ((percentProgress / 100.0) * (width - 4)), 14, Client.getProgressColor(percentProgress));
+        DrawingArea.drawTransparentBox(mouseX + 3, mouseY + y + 6, width - 4, 14, 0x2c2720, 180);
+        DrawingArea.drawBox(mouseX + 3, mouseY + y + 6, (int) ((percentProgress / 100.0) * (width - 4)), 14, Client.getProgressColor(percentProgress));
 
-        Client.instance.newSmallFont.drawCenteredString(percentProgress + "% ", mouseX + (width - 4) / 2 + 6, mouseY + 72, 0xFFFFFF, 1);
+        Client.instance.newSmallFont.drawCenteredString(percentProgress + "% ", mouseX + (width - 4) / 2 + 6, mouseY + y + 18, 0xFFFFFF, 1);
     }
 
     private int currentLevel() {
+    	if (skill == 3) {
+    		return Client.instance.currentMaxStats[skill] / 100;
+    	}
+    	
         return Client.instance.currentMaxStats[skill];
     }
 

@@ -31,10 +31,6 @@ public class XpDrops {
         if (xp <= 0)
             return;
 
-        if (skill == 22) {
-            skill = 21;
-        }
-
         int nextY = getNextCurrentY();
         int[] drop = { 1 << skill, xp, nextY, nextY };
 
@@ -137,7 +133,7 @@ public class XpDrops {
             for (int i = 0; i < sprites.length; i++) {
                 if((skill & (1 << i)) == 0)
                     continue;
-
+                
                 Sprite icon = sprites[i];
                 icons.add(icon);
                 if (bigSprites) {
