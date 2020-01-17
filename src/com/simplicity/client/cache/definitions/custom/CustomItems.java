@@ -194,18 +194,21 @@ public class CustomItems {
                 itemDef.editedModelColor = new int[]{3368, 13490, 13357, 8741, 13500, 13386, 12, 13480, 3363, 3358, 3353, 13475, 3358};
                 itemDef.newModelColor = new int[]{14573, 1024, 1024, 1024, 14573, 14573, 1024, 1024, 1024, 1024, 1024, 1024, 1024};
                 break;
+                
             case 14546:
                 itemDef.copy(ItemDefinition.forID(14095));
                 itemDef.name = "Dark Sacred Clay";
                 itemDef.editedModelColor = new int[]{3368, 13490, 13357, 8741, 13500, 13386, 12, 13480, 3363, 3358, 3353, 13475, 3358, 4550, 908, 3373, 3363, 13465};
                 itemDef.newModelColor = new int[]{14573, 1024, 1024, 1024, 14573, 14573, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 14573};
                 break;
+                
             case 14547:
                 itemDef.copy(ItemDefinition.forID(14096));
                 itemDef.name = "Dark Sacred Clay";
                 itemDef.editedModelColor = new int[]{3368, 13490, 13357, 8741, 13500, 13386, 12, 13480, 3363, 3358, 3353, 13475, 3358, 4550, 908, 3373, 3363, 13465};
                 itemDef.newModelColor = new int[]{14573, 1024, 1024, 1024, 14573, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 14573};
                 break;
+                
             case 14548:
                 itemDef.copy(ItemDefinition.forID(17061));
                 itemDef.name = "Light Sagittarian coif";
@@ -661,6 +664,13 @@ public class CustomItems {
                 itemDef.editedModelColor = new int[]{40023, 40036, 1822, 36, 25, 34243, 9230, 40040, 10348, 48, 34251, 0, 43335, 6218, 23, 11013};
                 itemDef.newModelColor = new int[]{90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 70};
                 itemDef.name = "Angelic Cape";
+                break;
+                
+            case 10170:
+                itemDef.copy(ItemDefinition.forID(11614));
+                itemDef.editedModelColor = new int[]{40023, 40036, 1822, 36, 25, 34243, 9230, 40040, 10348, 48, 34251, 0, 43335, 6218, 23, 11013};
+                itemDef.newModelColor = new int[]{685484, 685484, 685484, 685484, 685484, 685484, 685484, 685484, 685484, 685484, 685484, 685484, 685484, 685484, 685484, 685484};
+                itemDef.name = "Angelic DS Cape ";
                 break;
 
         }
