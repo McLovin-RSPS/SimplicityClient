@@ -169,6 +169,10 @@ public final class ObjectDefinition {
         }
         
         boolean debug = false;
+        if (i == 132660) {
+        	objectDef.animationID = -1;
+        }
+        
 
 		if (debug) {
 			objectDef.name = ""+i;
