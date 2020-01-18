@@ -670,7 +670,7 @@ public class CustomItems {
                 itemDef.copy(ItemDefinition.forID(11614));
                 itemDef.editedModelColor = new int[]{40023, 40036, 1822, 36, 25, 34243, 9230, 40040, 10348, 48, 34251, 0, 43335, 6218, 23, 11013};
                 itemDef.newModelColor = new int[]{685484, 685484, 685484, 685484, 685484, 685484, 685484, 685484, 685484, 685484, 685484, 685484, 685484, 685484, 685484, 685484};
-                itemDef.name = "Angelic DS Cape ";
+                itemDef.name = "Dragonstone Cape ";
                 break;
 
         }

@@ -1619,7 +1619,7 @@ public final class ItemDefinition {
             itemDef.actions = new String[5];
             itemDef.actions[1] = "Wield";
             itemDef.name = "@red@Scythe of Vitur DS";
-            itemDef.description = "It is the Scythe of Vitur DS.";
+            itemDef.description = "It is the Scythe of Vitur Dragonstone.";
             itemDef.modelZoom = 2200;
             itemDef.stackable = false;
             itemDef.rotationX = 23;
