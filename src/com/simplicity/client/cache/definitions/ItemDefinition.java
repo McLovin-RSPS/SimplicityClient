@@ -3464,9 +3464,9 @@ public final class ItemDefinition {
                 itemDef.modelOffsetX = 0;
                 break;
             case 11993:
-                itemDef.name = "Pet Kalphite queen";
+                itemDef.name = "Kalphite princess";
                 itemDef.groundActions = new String[]{null, null, "Take", null, null};
-                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.actions = new String[]{null, null, null, null, "Drop"};
                 itemDef.modelZoom = 7060;
                 itemDef.rotationX = 1868;
                 itemDef.rotationY = 2042;

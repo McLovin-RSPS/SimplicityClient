@@ -52,6 +52,14 @@ public final class MobDefinition {
                 npc.name = npc.name.replaceAll("<col=00ffff>", "@cya@").replaceAll("</col>", "");
             }
             switch (i) {
+
+            // Kalphite princess
+			case 6637:
+			case 6638:
+				npc.actions[0] = "Pick-up";
+				npc.actions[3] = null;
+				break;
+				
                 case 6332:
                     npc.name = "Dracula";
                     npc.sizeY = 180;
@@ -1339,18 +1347,6 @@ public final class MobDefinition {
                 npc.degreesToTurn = 32;
                 npc.actions = new String[5];
                 npc.actions[0] = "Pick-up";
-                npc.sizeY = 40;
-                npc.sizeXZ = 40;
-                npc.squaresNeeded = 1;
-                break;
-            case 3050:
-                npc.models = new int[]{24602, 24605, 24606};
-                npc.name = "Kalphite queen";
-                npc.actions = new String[5];
-                npc.actions[0] = "Pick-up";
-                npc.combatLevel = 333;
-                npc.standAnim = 6236;
-                npc.walkAnim = 6236;
                 npc.sizeY = 40;
                 npc.sizeXZ = 40;
                 npc.squaresNeeded = 1;
