@@ -10321,7 +10321,7 @@ public class Client extends RSApplet {
                         CacheArchive streamLoader_2 = streamLoaderForName(4, "2d graphics", "media", expectedCRCs[4],
                                 40);
                         TextDrawingArea allFonts[] = {smallText, drawingArea, chatTextDrawingArea,
-                                aTextDrawingArea_1273};
+                                aTextDrawingArea_1273, fancyTextLarge};
                         RSInterface.unpack(streamLoader_1, allFonts, streamLoader_2);
                         pushMessage("Reloaded interface configurations.", 0, "");
                     }
@@ -13117,11 +13117,13 @@ public class Client extends RSApplet {
             }
             boldFont = new TextDrawingArea(false, "b12_full", titleStreamLoader);
             fancyText = new TextDrawingArea(true, "q8_full", titleStreamLoader);
+            fancyTextLarge = new TextDrawingArea(false, "q8_full_large", titleStreamLoader);
             newSmallFont = new RSFontSystem(false, "p11_full", titleStreamLoader);
             newRegularFont = new RSFontSystem(false, "p12_full", titleStreamLoader);
             newBoldFont = new RSFontSystem(false, "b12_full", titleStreamLoader);
             newFancyFont = new RSFontSystem(true, "q8_full", titleStreamLoader);
             aTextDrawingArea_1273 = new TextDrawingArea(true, "q8_full", titleStreamLoader);
+            newFancyFontLarge = new RSFontSystem(true, "q8_full_large", titleStreamLoader);
             setLoadingText(10, "Preparing start..");
             CustomObjects.init();
             resetImageProducers();
@@ -13264,7 +13266,7 @@ public class Client extends RSApplet {
             Stream stream = new Stream(abyte0);
             Sounds.unpack(stream);
             setLoadingText(95, "Loading interfaces..");
-            TextDrawingArea fonts[] = {smallText, drawingArea, chatTextDrawingArea, aTextDrawingArea_1273};
+            TextDrawingArea fonts[] = {smallText, drawingArea, chatTextDrawingArea, aTextDrawingArea_1273, fancyTextLarge};
             try {
                 RSInterface.unpack(interfaceArchive, fonts, mediaArchive);
             } catch (Exception e) {
@@ -14534,6 +14536,8 @@ public class Client extends RSApplet {
 								font = newBoldFont;
 							} else if (textDrawingArea == aTextDrawingArea_1273) {
 								font = newFancyFont;
+							} else if (textDrawingArea == fancyTextLarge) {
+								font = newFancyFontLarge;
 							} else {
 								font = newSmallFont;
 							}
@@ -21319,11 +21323,12 @@ public class Client extends RSApplet {
     private String[] loginMessages = new String[]{""};
     private int bigRegionX;
     private int bigRegionY;
-    public RSFontSystem newSmallFont, newRegularFont, newBoldFont, newFancyFont, regularHitFont, bigHitFont;
+    public RSFontSystem newSmallFont, newRegularFont, newBoldFont, newFancyFont, newFancyFontLarge, regularHitFont, bigHitFont;
     public static TextDrawingArea normalFont;
     public static TextDrawingArea boldFont;
     public static TextDrawingArea fancyText;
     public static TextDrawingArea aTextDrawingArea_1273;
+    public static TextDrawingArea fancyTextLarge;
     public TextDrawingArea smallText;
     private TextDrawingArea smallHit;
     private TextDrawingArea bigHit;
@@ -22640,7 +22645,8 @@ public class Client extends RSApplet {
             final CacheArchive interfaceArchive = streamLoaderForName(3, "interface", "interface", expectedCRCs[3], 35);
             final CacheArchive mediaArchive = streamLoaderForName(4, "2d graphics", "media", expectedCRCs[4], 40);
             final TextDrawingArea aTextDrawingArea_1273 = new TextDrawingArea(true, "q8_full", titleStreamLoader);
-            TextDrawingArea fonts[] = {smallText, drawingArea, chatTextDrawingArea, aTextDrawingArea_1273};
+            final TextDrawingArea fancyTextLarge = new TextDrawingArea(true, "q8_full_large", titleStreamLoader);
+            TextDrawingArea fonts[] = {smallText, drawingArea, chatTextDrawingArea, aTextDrawingArea_1273, fancyTextLarge};
             RSInterface.unpack(interfaceArchive, fonts, mediaArchive);
         } else if (commandStart.equals("close")) {
             consoleOpen = false;
@@ -23592,6 +23598,8 @@ public class Client extends RSApplet {
 			font = newBoldFont;
 		} else if (textDrawingArea == fancyText) {
 			font = newFancyFont;
+		} else if (textDrawingArea == fancyTextLarge) {
+			font = newFancyFontLarge;
 		}
 		return font;
 	}
