@@ -13539,7 +13539,7 @@ public class Client extends RSApplet {
             g.setFont(new Font("Helvetica", 1, 16));
             g.setColor(Color.yellow);
             int k = 35;
-            g.drawString("Error - missing sprites!", 30, k);
+            g.drawString("Error loading sprites!", 30, k);
             k += 50;
             g.setColor(Color.white);
             g.drawString("To fix this try the following (in order):", 30, k);
@@ -13552,7 +13552,7 @@ public class Client extends RSApplet {
             k += 30;
             g.drawString("3: Try redownloading the launcher at:", 30, k);
             k += 30;
-            g.drawString("http://simplicityps.org", 30, k);
+            g.drawString("https://simplicityps.org", 30, k);
         }
     }
 
