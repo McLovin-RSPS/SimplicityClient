@@ -5750,6 +5750,7 @@ public class Client extends RSApplet {
         alertBoxTimer = 0;
         toggleSize(0);
         RSInterface.interfaceCache[3322].deleteOnDrag2 = false;
+        RSInterface.handleConfigHover(RSInterface.interfaceCache[71021]);
     }
 
     private void setMyAppearance() {

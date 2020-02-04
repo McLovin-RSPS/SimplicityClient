@@ -4404,6 +4404,8 @@ public class RSInterface {
         
         raidsHealth(textDrawingAreas);
         
+        StarterWidget.unpack(textDrawingAreas);
+        
         Widget.init();
         spriteCache = null;
     }
