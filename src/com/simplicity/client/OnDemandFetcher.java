@@ -296,7 +296,12 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
         }
 
         int currentCount = mapCount + 1;
-
+        
+        /**
+         * Ironman guild.
+         */
+        setMapData(currentCount++, 8773, 4000, 4001, true);
+        
         /**
          * Skotizo lair
          */
@@ -835,7 +840,7 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
             3653, 3654, 4067, 4068, 3639, 3640, 1976, 1977, 3571, 3572, 5129, 5130, 2066, 2067, 3545, 3546, 3559, 3560,
             3569, 3570, 3551, 3552, 3579, 3580, 3575, 3576, 1766, 1767, 3547, 3548, 3682, 3683, 3696, 3697, 3692, 3693,
             4013, 4079, 4080, 4082, 3996, 4083, 4084, 4075, 4076, 3664, 3993, 3994, 3995, 4077, 4078, 4073, 4074, 4011,
-            4012, 3998, 3999, 4081,};
+            4012, 3998, 3999, 4081, 4000, 4001};
 
     public final void get(int id) {
         get(0, id);

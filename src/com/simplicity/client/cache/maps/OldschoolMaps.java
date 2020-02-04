@@ -47,7 +47,10 @@ public class OldschoolMaps {
             //slashbash
             9272, 9528, 9271, 9527,
             //zalcano
-            12126
+            12126,
+            
+            // Ironman Guild
+            8773
     };
     static {
         for(Integer region : OLDSCHOOL_REGION_IDS) {
