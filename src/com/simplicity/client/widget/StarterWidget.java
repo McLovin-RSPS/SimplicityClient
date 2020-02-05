@@ -51,7 +51,7 @@ public class StarterWidget extends RSInterface {
 		id+=2;
 		
 		addText(id, "Welcome to Simplicity!", tda, 4, 0xff9800, true, true);
-		rsi.child(child++, id, 252, 5);
+		rsi.child(child++, id, 252, 20);
 		id++;
 		
 		addRectangle(id, 150, 0, true, 127, 154);
