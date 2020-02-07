@@ -1748,6 +1748,36 @@ public final class ItemDefinition {
             //            itemDef.editedModelColor = new int[] { 384, 390, 396, 536, 61, 78, 49 };
             itemDef.newModelColor = new int[] { 54220, 54220, 54220, 54220, 54220, 54220, 54220 };
             break;
+        case 21085:
+        	itemDef.modelID = 35742;
+            itemDef.actions = new String[5];
+            itemDef.actions[1] = "Wield";
+            itemDef.name = "@yel@FACES";
+            itemDef.description = "It's Scythe of Vitur X.";
+            itemDef.modelZoom = 2200;
+            itemDef.stackable = false;
+            itemDef.rotationX = 23;
+            itemDef.rotationY = 327;
+            itemDef.maleEquip1 = 35371;
+            itemDef.femaleEquip1 = 35371;
+            itemDef.editedModelColor = new int[] { 784, 790, 796, 536, 61, 78, 49 };
+            itemDef.newModelColor = new int[] { 11191, 11191, 11191, 11191, 11191, 11191, 11191 };
+            break;
+         case 21086:
+        	itemDef.modelID = 35742;
+            itemDef.actions = new String[5];
+            itemDef.actions[1] = "Wield";
+            itemDef.name = "@red@666";
+            itemDef.description = "It's Scythe of Vitur X.";
+            itemDef.modelZoom = 2200;
+            itemDef.stackable = false;
+            itemDef.rotationX = 23;
+            itemDef.rotationY = 327;
+            itemDef.maleEquip1 = 35371;
+            itemDef.femaleEquip1 = 35371;
+            itemDef.editedModelColor = new int[] { 784, 790, 796, 536, 61, 78, 49 };
+            itemDef.newModelColor = new int[] { 7300, 57300, 57300, 57300, 57300, 57300, 57300 };
+            break;
 
         case 21010:
             itemDef.actions = new String[5];
