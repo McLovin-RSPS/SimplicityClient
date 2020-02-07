@@ -5,8 +5,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.simplicity.Configuration;
 import com.simplicity.client.CacheArchive;
@@ -17,11 +18,17 @@ import com.simplicity.client.RandomColor;
 import com.simplicity.client.Rasterizer;
 import com.simplicity.client.Sprite;
 import com.simplicity.client.Stream;
+import com.simplicity.client.signlink;
 import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.custom.CustomItems;
-import com.simplicity.client.signlink;
+import com.simplicity.client.cache.definitions.custom.CustomRecolor;
 
 public final class ItemDefinition {
+	
+	/**
+	 * A hash collection of custom recolored items.
+	 */
+	private static final Map<Integer, ItemDefinition> CUSTOM_RECOLORS = new HashMap<>();
 
     private static int[] prices;
     private static List<Integer> untradeableItems = new ArrayList<>();
@@ -512,8 +519,10 @@ public final class ItemDefinition {
         
         //writeOutOsrsItems(totalItems, totalItemsOSRS);
         //dumpInterface(totalItems, totalItemsOSRS);
+        
+        CustomRecolor.values();
     }
-
+    
     /*public static void dumpInterface(int totalItems, int totalItemsOSRS) {
 
         try {
@@ -606,11 +615,15 @@ public final class ItemDefinition {
                     return cacheOSRS[j];
                 }
             }
-
+            
             cacheIndexOSRS = (cacheIndexOSRS + 1) % 10;
 
             ItemDefinition itemDef = cacheOSRS[cacheIndexOSRS];
-
+            
+            if (CUSTOM_RECOLORS.containsKey(itemId + OSRS_ITEMS_OFFSET)) {
+            	return CUSTOM_RECOLORS.get(itemId + OSRS_ITEMS_OFFSET);
+            }
+            
             if (itemId >= streamIndicesOSRS.length) {
                 itemDef.id = 1;
                 itemDef.setDefaults();
@@ -933,6 +946,10 @@ public final class ItemDefinition {
         }
 
         ItemDefinition itemDef = new ItemDefinition();
+        
+        if (CUSTOM_RECOLORS.containsKey(itemId)) {
+        	return CUSTOM_RECOLORS.get(itemId);
+        }
 
         if (itemId >= streamIndices.length) {
             return forID(1);
@@ -8740,6 +8757,15 @@ public final class ItemDefinition {
             }
         }
         return model;
+    }
+
+	/**
+	 * Gets the custom recolors.
+	 * 
+	 * @return The custom recolors.
+	 */
+	public static Map<Integer, ItemDefinition> getCustomRecolors() {
+		return CUSTOM_RECOLORS;
     }
 
     public static final int[] UNTRADEABLE_ITEMS
