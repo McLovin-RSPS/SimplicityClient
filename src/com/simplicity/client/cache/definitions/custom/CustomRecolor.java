@@ -30,7 +30,6 @@ public enum CustomRecolor {
 		ItemDefinition def = new ItemDefinition();
 
 		def.id = itemId;
-		def.dataType = DataType.OLDSCHOOL;
 		def.setDefaults();
 		def.copy(ItemDefinition.forID(copyFromId));
 		def.name = name;
