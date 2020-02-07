@@ -20043,7 +20043,12 @@ public class Client extends RSApplet {
                         class9_4.currentFrame = 0;
                         class9_4.frameTimer = 0;
                     }
-                    class9_4.modelZoom = 1600;
+
+                    if (i15 == 9847) {
+                    	class9_4.modelZoom = 900;
+                    } else {
+                    	class9_4.modelZoom = 1600;
+                    }
                     opCode = -1;
                     return true;
 
