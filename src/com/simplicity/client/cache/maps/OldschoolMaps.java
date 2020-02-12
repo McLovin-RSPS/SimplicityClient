@@ -50,7 +50,10 @@ public class OldschoolMaps {
             12126,
             
             // Ironman Guild
-            8773
+            8773,
+            
+            // KBD Lever Room
+            12192
     };
     static {
         for(Integer region : OLDSCHOOL_REGION_IDS) {
