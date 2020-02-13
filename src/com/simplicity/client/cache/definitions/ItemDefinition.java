@@ -1500,10 +1500,6 @@ public final class ItemDefinition {
         	itemDef.modelID = 2608;
         	itemDef.maleEquip1 = 2606;
         	itemDef.femaleEquip1 = 2606;
-        	itemDef.maleXOffset += 130;
-        	itemDef.femaleXOffset -= 1;
-        	itemDef.femaleZOffset -= 13;
-        	itemDef.femaleYOffset += 8;
         	itemDef.modelOffset1 = -2;
         	itemDef.name = "Onyx 2h sword";
         	break;
