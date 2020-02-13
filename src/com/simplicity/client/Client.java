@@ -22527,7 +22527,7 @@ public class Client extends RSApplet {
         if (damage > 999) {
             x -= 5;
         }
-        smallHit.drawOpacityText(0xffffff, String.valueOf(damage), drawPos + 32,
+        smallText.drawOpacityText(0xffffff, String.valueOf(damage), drawPos + 3,
                 spriteDrawX - 8 + x + (soakLength == 1 ? 5 : 0), opacity);
     }
 
