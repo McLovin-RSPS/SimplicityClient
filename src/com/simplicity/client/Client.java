@@ -20462,7 +20462,7 @@ public class Client extends RSApplet {
         displayedParticles.removeAll(removeDeadParticles);
         removeDeadParticles.clear();
         
-        if (Configuration.enableXpOrbs) {
+        if (Configuration.enableXpOrbs && openInterfaceID == -1) {
 			SkillOrbs.process();
 		}
 
