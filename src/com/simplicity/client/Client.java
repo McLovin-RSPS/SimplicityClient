@@ -20497,7 +20497,7 @@ public class Client extends RSApplet {
             int centerX = (x + width) / 2;
             
             int color = alertColour;
-            int opacity = 135;
+            int opacity = 170;
             
             newRegularFont.drawAlphaGradient(x + 1, y, width - 2, height - 2, 0, color, 55);
             newRegularFont.drawAlphaGradient(x + 1, y, width - 2, height - 2, 0, color, opacity);
