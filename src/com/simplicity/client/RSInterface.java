@@ -4334,7 +4334,7 @@ public class RSInterface {
         teleports(textDrawingAreas);
         playerOwnedShopHistory(textDrawingAreas);
         raids(textDrawingAreas);
-        lootingBag(textDrawingAreas);
+        checkLootingBag(textDrawingAreas);
         addToLootingBag(textDrawingAreas);
         bankLootingBag(textDrawingAreas);
         raidsRewards(textDrawingAreas);
@@ -5087,7 +5087,7 @@ public class RSInterface {
 
      */
 
-    public static void lootingBag(TextDrawingArea[] tda) {
+    public static void checkLootingBag(TextDrawingArea[] tda) {
 
         int childId = 40_500;
 
@@ -5104,7 +5104,7 @@ public class RSInterface {
 
         addItemContainer(childId++, new int[] { 10, 0 }, new int[] { 4, 7 }, new String[] { }, false);
 
-        addText(childId++, "Value: -", tda, 0, 0xFF981F, true, true);
+        addText(childId++, "Bag Value: 0", tda, 0, 0xFF981F, true, true);
 
         childId = 40_501;
 
@@ -5140,7 +5140,7 @@ public class RSInterface {
 
         addItemContainer(childId++, new int[] { 10, 0 }, new int[] { 4, 7 }, new String[] {"Store-1", "Store-20", "Store-100", "Store-All"}, false);
 
-        addText(childId++, "Bag Value: -", tda, 0, 0xFF981F, true, true);
+        addText(childId++, "Inv Value: 0", tda, 0, 0xFF981F, true, true);
 
         childId = 40_601;
 
