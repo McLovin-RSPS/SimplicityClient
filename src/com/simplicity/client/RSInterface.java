@@ -5140,8 +5140,6 @@ public class RSInterface {
 
         addItemContainer(childId++, new int[] { 10, 0 }, new int[] { 4, 7 }, new String[] {"Store-1", "Store-20", "Store-100", "Store-All"}, false);
 
-        addText(childId++, "Inv Value: 0", tda, 0, 0xFF981F, true, true);
-
         childId = 40_601;
 
         tab.totalChildren(7);
@@ -5156,7 +5154,7 @@ public class RSInterface {
         tab.child(index++, childId++, 10, 23); //background of items
         tab.child(index++, childId++, 10, 23); //border of items
         tab.child(index++, childId++, 15, 24); //item container
-        tab.child(index++, childId++, 95, 250); //value of items
+        tab.child(index++, 40508, 95, 250); //value of items
     }
     
     public static void bankLootingBag(TextDrawingArea[] tda) {
@@ -5182,7 +5180,7 @@ public class RSInterface {
         tab.child(index++, 40605, 10, 23); //background of items
         tab.child(index++, 40606, 10, 23); //border of items
         tab.child(index++, childId++, 15, 24); //item container
-        tab.child(index++, 40_508, 95, 250); //value of items
+        tab.child(index++, 40508, 95, 250); //value of items
     }
 
     public static void raidsRewards(TextDrawingArea[] tda) {
