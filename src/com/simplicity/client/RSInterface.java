@@ -4336,6 +4336,7 @@ public class RSInterface {
         raids(textDrawingAreas);
         lootingBag(textDrawingAreas);
         addToLootingBag(textDrawingAreas);
+        bankLootingBag(textDrawingAreas);
         raidsRewards(textDrawingAreas);
         tradeConfirm(textDrawingAreas);
         /*
@@ -5117,7 +5118,7 @@ public class RSInterface {
         childId++;
 
         tab.child(index++, childId++, 10, 23); //background of items
-        tab.child(index++, childId++, 10, 25); //border of items
+        tab.child(index++, childId++, 10, 23); //border of items
         tab.child(index++, childId++, 15, 24); //item container
         tab.child(index++, childId++, 95, 250); //value of items
     }
@@ -5153,9 +5154,35 @@ public class RSInterface {
         childId++;
 
         tab.child(index++, childId++, 10, 23); //background of items
-        tab.child(index++, childId++, 10, 25); //border of items
+        tab.child(index++, childId++, 10, 23); //border of items
         tab.child(index++, childId++, 15, 24); //item container
         tab.child(index++, childId++, 95, 250); //value of items
+    }
+    
+    public static void bankLootingBag(TextDrawingArea[] tda) {
+        int childId = 40_700;
+
+        int index = 0;
+
+        RSInterface tab = addTabInterface(childId++);
+        
+        addText(childId++, "Bank your loot", tda, 2, 0xFF981F, true, true);
+        addButtonWSpriteLoader(childId++, 1318, "Deposit All");
+        addItemContainer(childId++, new int[] { 10, 0 }, new int[] { 4, 7 }, new String[] {"Store-1", "Store-20", "Store-100", "Store-All"}, false);
+
+        childId = 40_701;
+        
+        tab.totalChildren(8);
+
+        tab.child(index++, childId++, 95, 5); //title
+        tab.child(index++, childId++, 10, 3); //deposit all
+
+        tab.child(index++, 40602, 167, 5); //close button
+        tab.child(index++, 40603, 167, 5); //close button hover
+        tab.child(index++, 40605, 10, 23); //background of items
+        tab.child(index++, 40606, 10, 23); //border of items
+        tab.child(index++, childId++, 15, 24); //item container
+        tab.child(index++, 40_508, 95, 250); //value of items
     }
 
     public static void raidsRewards(TextDrawingArea[] tda) {

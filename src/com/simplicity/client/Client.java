@@ -4581,99 +4581,117 @@ public class Client extends RSApplet {
                                                 || child.parentID == 2903 || child.parentID == 2904;
 
                                         if (child.actions != null) {
-                                            for (int j4 = child.parentID == 5292 || child.parentID == 3824 && child.actions.length == 6 ? 6
-                                                    : 4; j4 >= 0; j4--) {
-                                                if (child.parentID == 5292 && child.id == 5382) {
-                                                    int cached = variousSettings[420];
-                                                    if (cached > 0) {
-                                                        child.actions[6] = "Withdraw-"+ cached;
-                                                    } else {
-                                                        child.actions[6] = null;
-                                                    }
-                                                }
-                                                if (child.actions.length > j4  && child.actions[j4] != null) {
-                                                    String s = myRights == PlayerRights.OWNER.ordinal()
-                                                            || myRights == PlayerRights.DEVELOPER.ordinal()
-                                                            ? child.actions[j4] + " @lre@" + itemDef.name + " "
-                                                            + itemDef.id
-                                                            : child.actions[j4] + " @lre@" + itemDef.name;
+                                        	
+                                        	if (openInterfaceID == 5292 && child.parentID == 5063 && itemDef.id == 41941) {
+												String[] bagActions = new String[] { "View", "Store 1", "Store 5",
+														"Store 10", "Store All", "Store X" };
 
-                                                    if (child.parentID == 5292 && openInterfaceID == 5292) {
-                                                        ignoreExamine = true; // Don't
-                                                        // show
-                                                        // examine
-                                                        // option
-                                                    }
+												int[] actionIds = new int[] { 291, 632, 78, 867, 431, 53 };
 
-                                                    if (openInterfaceID == 5292) {
-                                                        // Placeholder releasing
-                                                        if (child.contentType == 206 && child.invStackSizes[ptr] == 0) {
-                                                            menuActionName[menuActionRow] = "Release @lre@"
-                                                                    + itemDef.name;
-                                                            menuActionID[menuActionRow] = 633;
-                                                            menuActionCmd1[menuActionRow] = itemDef.id;
-                                                            menuActionCmd2[menuActionRow] = ptr;
-                                                            menuActionCmd3[menuActionRow] = child.id;
-                                                            menuActionRow++;
-                                                            break;
-                                                        }
-
-                                                        // Placeholder
-                                                        if (j4 == child.actions.length - 1
-                                                                && child.contentType == 206) { // check if placeholders
-                                                            // enabled
-                                                            // variousSettings[RSInterface.interfaceCache[Bank.START_ID
-                                                            // +
-                                                            // 82].valueIndexArray[0][1]]
-                                                            // == 0
-                                                            menuActionName[menuActionRow] = "Placeholder @lre@"
-                                                                    + itemDef.name;
-                                                            menuActionID[menuActionRow] = 434;
-                                                            menuActionCmd1[menuActionRow] = itemDef.id;
-                                                            menuActionCmd2[menuActionRow] = ptr;
-                                                            menuActionCmd3[menuActionRow] = child.id;
-                                                            menuActionRow++;
-                                                        }
-                                                    }
-
-                                                    int interfaceId = child.id;
-
-                                                    if (child.parentID == 3321 && openInterfaceID == 42000) {
-                                                        s = s.replaceAll("Offer", "Pricecheck");
-                                                        interfaceId = 2100;
-                                                    } else if (child.parentID == 3321 && openInterfaceID == 2700) {
-                                                        s = s.replaceAll("Offer", "Store");
-                                                        interfaceId = 2700;
-                                                    }
-                                                    menuActionName[menuActionRow] = s;
-                                                    if (j4 == 0) {
-                                                        menuActionID[menuActionRow] = 632;
-                                                    }
-                                                    if (j4 == 1) {
-                                                        menuActionID[menuActionRow] = 78;
-                                                    }
-                                                    if (j4 == 2) {
-                                                        menuActionID[menuActionRow] = 867;
-                                                    }
-                                                    if (j4 == 3) {
-                                                        menuActionID[menuActionRow] = 431;
-                                                    }
-                                                    if (j4 == 4) {
-                                                        menuActionID[menuActionRow] = 53;
-                                                    }
-                                                    if (j4 == 5) {
-                                                        menuActionID[menuActionRow] = 54;
-                                                    }
-                                                    if (j4 == 6) {
-                                                        menuActionID[menuActionRow] = 55;
-                                                    }
-                                                    menuActionCmd1[menuActionRow] = itemDef.id;
-                                                    menuActionCmd2[menuActionRow] = ptr;
-                                                    menuActionCmd3[menuActionRow] = interfaceId;
-                                                    menuActionRow++;
-
-                                                }
-                                            }
+												for (int i = bagActions.length - 1; i >= 0; i--) {
+													menuActionName[menuActionRow] = bagActions[i] + " @lre@"
+															+ itemDef.name;
+													menuActionID[menuActionRow] = actionIds[i];
+													menuActionCmd1[menuActionRow] = itemDef.id;
+													menuActionCmd2[menuActionRow] = ptr;
+													menuActionCmd3[menuActionRow] = child.id;
+													menuActionRow++;
+												}
+											} else {
+	                                            for (int j4 = child.parentID == 5292 || child.parentID == 3824 && child.actions.length == 6 ? 6
+	                                                    : 4; j4 >= 0; j4--) {
+	                                                if (child.parentID == 5292 && child.id == 5382) {
+	                                                    int cached = variousSettings[420];
+	                                                    if (cached > 0) {
+	                                                        child.actions[6] = "Withdraw-"+ cached;
+	                                                    } else {
+	                                                        child.actions[6] = null;
+	                                                    }
+	                                                }
+	                                                if (child.actions.length > j4  && child.actions[j4] != null) {
+	                                                    String s = myRights == PlayerRights.OWNER.ordinal()
+	                                                            || myRights == PlayerRights.DEVELOPER.ordinal()
+	                                                            ? child.actions[j4] + " @lre@" + itemDef.name + " "
+	                                                            + itemDef.id
+	                                                            : child.actions[j4] + " @lre@" + itemDef.name;
+	
+	                                                    if (child.parentID == 5292 && openInterfaceID == 5292) {
+	                                                        ignoreExamine = true; // Don't
+	                                                        // show
+	                                                        // examine
+	                                                        // option
+	                                                    }
+	
+	                                                    if (openInterfaceID == 5292) {
+	                                                        // Placeholder releasing
+	                                                        if (child.contentType == 206 && child.invStackSizes[ptr] == 0) {
+	                                                            menuActionName[menuActionRow] = "Release @lre@"
+	                                                                    + itemDef.name;
+	                                                            menuActionID[menuActionRow] = 633;
+	                                                            menuActionCmd1[menuActionRow] = itemDef.id;
+	                                                            menuActionCmd2[menuActionRow] = ptr;
+	                                                            menuActionCmd3[menuActionRow] = child.id;
+	                                                            menuActionRow++;
+	                                                            break;
+	                                                        }
+	
+	                                                        // Placeholder
+	                                                        if (j4 == child.actions.length - 1
+	                                                                && child.contentType == 206) { // check if placeholders
+	                                                            // enabled
+	                                                            // variousSettings[RSInterface.interfaceCache[Bank.START_ID
+	                                                            // +
+	                                                            // 82].valueIndexArray[0][1]]
+	                                                            // == 0
+	                                                            menuActionName[menuActionRow] = "Placeholder @lre@"
+	                                                                    + itemDef.name;
+	                                                            menuActionID[menuActionRow] = 434;
+	                                                            menuActionCmd1[menuActionRow] = itemDef.id;
+	                                                            menuActionCmd2[menuActionRow] = ptr;
+	                                                            menuActionCmd3[menuActionRow] = child.id;
+	                                                            menuActionRow++;
+	                                                        }
+	                                                    }
+	
+	                                                    int interfaceId = child.id;
+	
+	                                                    if (child.parentID == 3321 && openInterfaceID == 42000) {
+	                                                        s = s.replaceAll("Offer", "Pricecheck");
+	                                                        interfaceId = 2100;
+	                                                    } else if (child.parentID == 3321 && openInterfaceID == 2700) {
+	                                                        s = s.replaceAll("Offer", "Store");
+	                                                        interfaceId = 2700;
+	                                                    }
+	                                                    menuActionName[menuActionRow] = s;
+	                                                    if (j4 == 0) {
+	                                                        menuActionID[menuActionRow] = 632;
+	                                                    }
+	                                                    if (j4 == 1) {
+	                                                        menuActionID[menuActionRow] = 78;
+	                                                    }
+	                                                    if (j4 == 2) {
+	                                                        menuActionID[menuActionRow] = 867;
+	                                                    }
+	                                                    if (j4 == 3) {
+	                                                        menuActionID[menuActionRow] = 431;
+	                                                    }
+	                                                    if (j4 == 4) {
+	                                                        menuActionID[menuActionRow] = 53;
+	                                                    }
+	                                                    if (j4 == 5) {
+	                                                        menuActionID[menuActionRow] = 54;
+	                                                    }
+	                                                    if (j4 == 6) {
+	                                                        menuActionID[menuActionRow] = 55;
+	                                                    }
+	                                                    menuActionCmd1[menuActionRow] = itemDef.id;
+	                                                    menuActionCmd2[menuActionRow] = ptr;
+	                                                    menuActionCmd3[menuActionRow] = interfaceId;
+	                                                    menuActionRow++;
+	
+	                                                }
+	                                            }
+											}
                                         }
                                         if (!ignoreExamine) {
 
