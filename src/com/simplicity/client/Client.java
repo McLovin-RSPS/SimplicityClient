@@ -6714,12 +6714,13 @@ public class Client extends RSApplet {
         if (!parallelWidgetList.contains(iface)) {
             return;
         }
+        
 
-        float percentage = ((float) currentEntityHealth / (float) maximumEntityHealth) * (float) 100;
-        DrawingArea.drawPixels(16, iface.y + 30, iface.x, 0x00b300, (int) percentage * 7 / 6);
+        double percentage = (int) ((double) currentEntityHealth / maximumEntityHealth * 102);
+        DrawingArea.drawPixels(16, iface.y + 30, iface.x + 2, 0x00b300, (int) percentage * 7 / 6);
         // drawPixels(int height_, int yPos, int xPos, int color, int width_)
 
-        TextDrawingArea.drawAlphaFilledPixels(iface.x, iface.y + 30, 117, 16, 0xff000d, 50);
+        TextDrawingArea.drawAlphaFilledPixels(iface.x + 2, iface.y + 30, 119, 16, 0xff000d, 50);
         // int xPos, int yPos,
         // int pixelWidth, int pixelHeight, int color, int alpha) {// method586
         RSInterface text = RSInterface.interfaceCache[41023];

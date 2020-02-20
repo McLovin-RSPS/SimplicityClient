@@ -6062,16 +6062,23 @@ public class RSInterface {
 
     public static void entityInterface(TextDrawingArea wid[]) {
         RSInterface tab = addInterface(41020);
+        
+        int height = 38;
 
-        addTransparentSpriteWSpriteLoader(41021, 947, 150);
+        //addRectangle(id, opacity, color, filled, width, height);
+        drawBox(41021, 122, height, 2, 0x333333, 0, 30);
+        //addTransparentSpriteWSpriteLoader(41021, 947, 0);
         addText(41022, " ", wid, 1, 0xffffff, true, true);
-
+        
+        addRectangle(41025, 245, 0, true, 122 - 3, height - 5);
+        
         tab.message = " ";
         tab.x = 2;
         tab.y = 9;
-        tab.children(2);
-        tab.child(0, 41021, 0, 20);
-        tab.child(1, 41022, 63, 22);
+        tab.children(3);
+        tab.child(0, 41021, 2, 20);
+        tab.child(1, 41025, 4, 22);
+        tab.child(2, 41022, 63, 22);
     }
 
     public static void clueScrolls(TextDrawingArea wid[]) {
