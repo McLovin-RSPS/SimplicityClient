@@ -6715,7 +6715,6 @@ public class Client extends RSApplet {
             return;
         }
         
-
         double percentage = (int) ((double) currentEntityHealth / maximumEntityHealth * 119);
         
         DrawingArea.drawPixels(16, iface.y + 30, iface.x + 2, 0x00b300, (int) percentage);
@@ -6724,7 +6723,6 @@ public class Client extends RSApplet {
 
         RSInterface text = RSInterface.interfaceCache[41023];
         newSmallFont.drawCenteredString(iface.message, 63, 52, 0xffffff, 1);
-
     }
 
     private void drawNexBar() {
@@ -14287,6 +14285,9 @@ public class Client extends RSApplet {
                     return;
                 }
             }
+            if (rsInterface.id == 41020 && !shouldDrawHpOverlay()) {
+            	return;
+            }
             int origTopX = DrawingArea.topX;
             int origTopY = DrawingArea.topY;
             int origBottomX = DrawingArea.bottomX;
@@ -20480,7 +20481,7 @@ public class Client extends RSApplet {
         displayedParticles.removeAll(removeDeadParticles);
         removeDeadParticles.clear();
         
-        if (Configuration.enableXpOrbs && openInterfaceID == -1) {
+        if (shouldDrawSkillOrb()) {
 			SkillOrbs.process();
 		}
 
@@ -20523,7 +20524,7 @@ public class Client extends RSApplet {
                 }
             }
         }
-        if (loggedIn) {
+        if (loggedIn && shouldDrawHpOverlay()) {
             drawHpBar();
             // drawNexBar();
         }
@@ -20536,7 +20537,7 @@ public class Client extends RSApplet {
             xCameraCurve = l1;
         }
     }
-
+    
 	/**
 	 * If toggled, render ground item names and lootbeams
 	 */
@@ -23648,5 +23649,23 @@ public class Client extends RSApplet {
     public boolean canRemoveRoofs() {
     	return !NON_TOGGLABLE_ROOF_REGIONS.contains(getRegionId());
     }
+    
+	/**
+	 * Determines whether the skill orb should be drawn or not.
+	 * 
+	 * @return <code>true</code> if drawn.
+	 */
+	private boolean shouldDrawSkillOrb() {
+		return Configuration.enableXpOrbs && openInterfaceID == -1 && getRegionId() != 12611;
+	}
+
+	/**
+	 * Determines whether the hp overlay should be drawn or not.
+	 * 
+	 * @return <code>true</code> if drawn.
+	 */
+	private boolean shouldDrawHpOverlay() {
+		return getRegionId() != 12611;
+	}
 
 }
