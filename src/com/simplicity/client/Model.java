@@ -1,5 +1,12 @@
 package com.simplicity.client;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.simplicity.Configuration;
 import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.ItemDefinition;
@@ -10,6 +17,31 @@ import com.simplicity.client.particles.ParticleVector;
 
 @SuppressWarnings("all")
 public class Model extends Animable {
+	
+    /**
+     * A hash collection of textured models per texture id.
+     */
+    public static Map<Integer, List<Integer>> texturedModels = new HashMap<>();
+    
+	/**
+	 * Allows the specified model to be textured by the texture id.
+	 * 
+	 * @param textureId The texture id.
+	 * @param modelId   The model id.
+	 */
+    public static void applyTexture(int textureId, int...modelIds) {
+    	List<Integer> models = texturedModels.get(textureId);
+    	
+    	if (models == null) {
+    		models = new ArrayList<>();
+    	}
+    	
+    	for (int i = 0; i < modelIds.length; i++) {
+    		models.add(modelIds[i]);
+    	}
+    	
+    	texturedModels.put(textureId, models);
+    }
 	
 	private final int DRAW_DISTANCE = 5000; //3500 default
 
@@ -126,6 +158,10 @@ public class Model extends Animable {
         COSINE = Rasterizer.anIntArray1471;
         hsl2rgb = Rasterizer.anIntArray1482;
         lightDecay = Rasterizer.anIntArray1469;
+        
+		applyTexture(69, 16, 17);
+		
+		applyTexture(58, 10, 11, 12, 13, 14, 15); 
     }
 
     public static Model fetchModel(int j) {
@@ -3151,7 +3187,14 @@ public class Model extends Animable {
                     face_render_type[i] = 0;
                     continue;
                 }
-
+                
+				/**
+				 * This is to prevent any other models using this texture by default.
+				 */
+                if (texturedModels.containsKey((int) textureIds[i]) && !texturedModels.get((int) textureIds[i]).contains(modelId)) {
+                	continue;
+                }
+                
 				/**
 				 * Allowing only the infernal cape and its colored versions to
 				 * be textured using its textures.
