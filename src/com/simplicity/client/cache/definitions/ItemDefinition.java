@@ -1076,6 +1076,19 @@ public final class ItemDefinition {
 			itemDef.newModelColor = new int[] { 58 };
 			itemDef.dataType = DataType.CUSTOM;
         	break;
+        	
+		case 22008:
+			itemDef.copy(forID(15000));
+			itemDef.modelID = 17;
+			itemDef.maleEquip1 = 16;
+			itemDef.femaleEquip1 = 16;
+			itemDef.rotationX = 0;
+			itemDef.rotationY = 0;
+			itemDef.modelOffset1 = 0;
+			itemDef.modelOffsetX = 0;
+			itemDef.modelOffsetY = 0;
+			itemDef.dataType = DataType.CUSTOM;
+			break;
         
         case 17273:
         	itemDef.femaleYOffset += 7;
