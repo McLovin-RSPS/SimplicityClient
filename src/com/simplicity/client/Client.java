@@ -6716,13 +6716,12 @@ public class Client extends RSApplet {
         }
         
 
-        double percentage = (int) ((double) currentEntityHealth / maximumEntityHealth * 102);
-        DrawingArea.drawPixels(16, iface.y + 30, iface.x + 2, 0x00b300, (int) percentage * 7 / 6);
-        // drawPixels(int height_, int yPos, int xPos, int color, int width_)
+        double percentage = (int) ((double) currentEntityHealth / maximumEntityHealth * 119);
+        
+        DrawingArea.drawPixels(16, iface.y + 30, iface.x + 2, 0x00b300, (int) percentage);
 
         TextDrawingArea.drawAlphaFilledPixels(iface.x + 2, iface.y + 30, 119, 16, 0xff000d, 50);
-        // int xPos, int yPos,
-        // int pixelWidth, int pixelHeight, int color, int alpha) {// method586
+
         RSInterface text = RSInterface.interfaceCache[41023];
         newSmallFont.drawCenteredString(iface.message, 63, 52, 0xffffff, 1);
 
