@@ -6066,11 +6066,11 @@ public class RSInterface {
         int height = 38;
 
         //addRectangle(id, opacity, color, filled, width, height);
-        drawBox(41021, 122, height, 2, 0x333333, 0, 30);
+        drawBox(41021, 122, height, 2, 0x333333, 0, 150);
         //addTransparentSpriteWSpriteLoader(41021, 947, 0);
         addText(41022, " ", wid, 1, 0xffffff, true, true);
         
-        addRectangle(41025, 245, 0, true, 122 - 3, height - 5);
+        addRectangle(41025, 200, 0, true, 122 - 3, height - 5);
         
         tab.message = " ";
         tab.x = 2;
