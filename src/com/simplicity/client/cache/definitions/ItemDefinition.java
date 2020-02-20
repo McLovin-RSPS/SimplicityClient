@@ -1046,6 +1046,36 @@ public final class ItemDefinition {
         	itemDef.rotationY = 290;
         	itemDef.dataType = DataType.CUSTOM;
         	break;
+        	
+		case 22005:
+			itemDef.copy(forID(14008));
+			itemDef.modelID = 10;
+			itemDef.maleEquip1 = 11;
+			itemDef.femaleEquip1 = 11;
+			itemDef.editedModelColor = new int[] { 70 };
+			itemDef.newModelColor = new int[] { 58 };
+			itemDef.dataType = DataType.CUSTOM;
+			break;
+
+		case 22006:
+			itemDef.copy(forID(14009));
+			itemDef.modelID = 14;
+			itemDef.maleEquip1 = 15;
+			itemDef.femaleEquip1 = 15;
+			itemDef.editedModelColor = new int[] { 70 };
+			itemDef.newModelColor = new int[] { 58 };
+			itemDef.dataType = DataType.CUSTOM;
+			break;
+
+		case 22007:
+			itemDef.copy(forID(14010));
+			itemDef.modelID = 12;
+			itemDef.maleEquip1 = 13;
+			itemDef.femaleEquip1 = 13;
+			itemDef.editedModelColor = new int[] { 70 };
+			itemDef.newModelColor = new int[] { 58 };
+			itemDef.dataType = DataType.CUSTOM;
+        	break;
         
         case 17273:
         	itemDef.femaleYOffset += 7;

@@ -8,7 +8,7 @@ public final class Rasterizer extends DrawingArea {
 	
 	public static boolean saveDepth = true;
 	private static int mipMapLevel;
-	public static int textureAmount = 69;
+	public static int textureAmount = 70;
 	public static boolean[] textureEnabled = new boolean[textureAmount];
 	static boolean aBoolean1462;
 	private static boolean aBoolean1463;
@@ -222,7 +222,7 @@ public final class Rasterizer extends DrawingArea {
 				/**
 				 * Index 60 does not work at all, no matter which texture is packed at it.
 				 */
-				if (index > 50 && index < 59 || index == 60) {
+				if (index > 50 && index < 58 || index == 59 || index == 60) {
 					aBackgroundArray1474s[index] = aBackgroundArray1474s[59];
 					textureEnabled[index] = false;
 				} else {
