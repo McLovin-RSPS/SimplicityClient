@@ -1035,6 +1035,8 @@ public class CustomObjects {
             {0, 3081, 3513, 0, 0},
             {0, 3082, 3513, 0, 0},
             {0, 3083, 3513, 0, 0},
+            {0, 3081, 3507, 0, 0}, //edge general store noclip quick fix
+            {0, 3082, 3507, 0, 0}, //edge general store noclip quick fix
 
             {0, 3091, 3468, 0, 0},
             {0, 3090, 3468, 0, 0},

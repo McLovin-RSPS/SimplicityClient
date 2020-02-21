@@ -2079,6 +2079,11 @@ public final class ItemDefinition {
                 itemDef.name = "Elite Wizard Box";
                 itemDef.newModelColor[0] = 3060;
                 break;
+            case 19726:
+                itemDef.copy(forID(6199));
+                itemDef.name = "Elite Wizard Box";
+                itemDef.newModelColor[0] = 689484;
+                break;
             case 19717:
                 itemDef.copy(forID(6199));
                 itemDef.name = "Santa's Secret Box";
