@@ -14274,7 +14274,7 @@ public class RSInterface {
         RSInterface slay = interfaceCache[12122];
         RSInterface farm = addTabInterface(45400);
         RSInterface rune = interfaceCache[4267];
-        RSInterface cons = interfaceCache[7267];
+        RSInterface cons = addTabInterface(7267);
         RSInterface hunt = addTabInterface(8267);
         RSInterface summ = addTabInterface(9267);
         RSInterface dung = addTabInterface(10267);
@@ -14408,10 +14408,11 @@ public class RSInterface {
         setBounds(4268, 80, 15, 1, rune);
         setBounds(4269, 80, 45, 2, rune);
         setBounds(358, 95, 75, 3, rune);
-        setChildren(3, cons);
-        setBounds(4268, 80, 15, 0, cons);
-        setBounds(4269, 80, 45, 1, cons);
-        setBounds(358, 95, 75, 2, cons);
+        setChildren(4, cons);
+        setBounds(29599, 20, 30, 0, cons);
+        setBounds(4268, 80, 15, 1, cons);
+        setBounds(4269, 80, 45, 2, cons);
+        setBounds(358, 95, 75, 3, cons);
         setChildren(4, hunt);
         setBounds(29600, 20, 30, 0, hunt);
         setBounds(4268, 80, 15, 1, hunt);

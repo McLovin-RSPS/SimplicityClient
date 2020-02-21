@@ -10400,9 +10400,30 @@ public class Client extends RSApplet {
                     if (inputString.startsWith("::fps")) {
                         fpsOn = !fpsOn;
                     }
-                    if (inputString.startsWith("::sprites")) {
+                    if (inputString.startsWith("::itemsprites")) {
                         dumpItemImages(false);
                         return;
+                    }
+                    if (inputString.startsWith("::isprites")) {
+                        File file = new File("./dumps/sprites/");
+                        if (!file.exists())
+                            file.mkdirs();
+
+                        for (int i = 0; i < SpriteLoader.sprites.length; i++) {
+                            Sprite sprite = SpriteLoader.sprites[i];
+                            if (sprite != null) {
+                                try {
+                                    BufferedImage bi = new BufferedImage(sprite.myWidth, sprite.myHeight, BufferedImage.TYPE_INT_ARGB);
+                                    bi.setRGB(0, 0, sprite.myWidth, sprite.myHeight, sprite.myPixels, 0, sprite.myWidth);
+                                    ImageIO.write(bi, "png", new File(file.getPath() +"/"+ i +".png"));
+                                    System.out.println("Dumping isprite "+ i);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
+                                System.out.println("Sprite "+ i +" is null.");
+                            }
+                        }
                     }
                     if (inputString.startsWith("::mipmap")) {
                         Rasterizer.enableMipmapping = !Rasterizer.enableMipmapping;
@@ -13399,10 +13420,12 @@ public class Client extends RSApplet {
 
 	private void setSkillSprites() {
 		for (int i = 0; i < Skills.SKILL_COUNT; i++) {
-			Sprite sprite = cacheSprite[41 + i];
+            Sprite sprite = cacheSprite[41 + i];
 
-			if(41 + i == 65) {
-                sprite = cacheSprite[1166];
+            if (i == 23) {
+                sprite = cacheSprite[776];
+            } else if(i == 24) {
+                sprite = cacheSprite[760];
             }
 
 			bigSkillSprites[i] = sprite;
