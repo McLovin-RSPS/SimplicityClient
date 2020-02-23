@@ -1079,6 +1079,7 @@ public final class ItemDefinition {
         	
 		case 22008:
 			itemDef.copy(forID(15000));
+            itemDef.name = "@red@Scythe of Vitur DSI";
 			itemDef.modelID = 17;
 			itemDef.maleEquip1 = 16;
 			itemDef.femaleEquip1 = 16;
