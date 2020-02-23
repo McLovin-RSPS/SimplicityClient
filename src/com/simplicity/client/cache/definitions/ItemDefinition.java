@@ -2081,7 +2081,7 @@ public final class ItemDefinition {
                 break;
             case 19726:
                 itemDef.copy(forID(6199));
-                itemDef.name = "Elite Wizard Box";
+                itemDef.name = "Superior Combat Box";
                 itemDef.newModelColor[0] = 689484;
                 break;
             case 19717:
