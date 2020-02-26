@@ -107,8 +107,6 @@ public class CustomObjects {
 
             //Well for upgradable at home and gold bars
             {3485, 3089, 3495, 0, 0},
-            {6267, 3090, 3496, 0, 1},
-            {6267, 3090, 3494, 0, 1},
 
             //Xmass tree for december
             {47748, 3095, 3503, 0, 0},
@@ -647,11 +645,7 @@ public class CustomObjects {
 
             // Teleport to new slayer dung
 
-            {-1, 3079, 3510, 0, 0},
-
-            {-1, 3078, 3510, 0, 0},
             {10780, 3080, 3510, 0, 0},
-            {-1, 3081, 3510, 0, 0},
             
             
             
@@ -737,7 +731,7 @@ public class CustomObjects {
             //special altar
             {8749, 2342, 9805, 0, 3},
             
-            {8749, 3092, 3506, 0, 0}, // special restore edge
+            {8749, 3092, 3506, 0, 2}, // special restore edge
 
             //superior hall recharge
             {21893, 3018, 4410, 0, 0},
@@ -784,7 +778,6 @@ public class CustomObjects {
             /*End of wilderness box area*/
 
             /*Misc*/
-            {-1, 3091, 3495, 0, 0},
             {-1, 2268, 3067, 0, 0},
             {401, 3503, 3567, 0, 0},
             {401, 3504, 3567, 0, 0},
@@ -924,8 +917,6 @@ public class CustomObjects {
             {6189, 3022, 9742, 0, 1},
             {172, 3077, 3499, 0, 1},
             {3192, 3084, 3485, 0, 4},
-            {-1, 3090, 3503, 0, 0},
-
 
             {75, 2914, 3452, 0, 2},
 
@@ -940,34 +931,18 @@ public class CustomObjects {
             {-1, 2461, 5295, 0, 0}, // remove object crystal cave
             {-1, 2463, 5291, 0, 0}, // remove object crystal cave
             {-1, 2462, 5287, 0, 0}, // remove object crystal cave
+            
+            // new AFK-westerfish location
+            
+            {13569, 2779, 3520, 0, 0}, // AFK-westerfish
+            {13569, 2778, 3520, 0, 0}, // AFK-westerfish
+            {13569, 2770, 3520, 0, 0}, // AFK-westerfish
+            {13569, 2769, 3520, 0, 0}, // AFK-westerfish
 
-
-            {0, 3091, 3513, 0, 0}, // remove object edge
-            {357, 3092, 3514, 0, 0}, // remove object edge
-            {13569, 3092, 3513, 0, 0}, // remove object edge
-            {13569, 3093, 3513, 0, 0}, // remove object edge
-            {13569, 3094, 3513, 0, 0}, // remove object edge
-            {13569, 3095, 3513, 0, 0}, // remove object edge
-            {13569, 3096, 3513, 0, 0}, // remove object edge
-            {13569, 3097, 3513, 0, 0}, // remove object edge
+            {2158, 3094, 3513, 0, 1}, // remove object edge
             
             {13570, 3425, 2909, 0, 0}, // sapphire westerfish
 
-
-            {0, 3091, 3508, 0, 0}, // remove object edge
-            {0, 3091, 3507, 0, 0}, // remove object edge
-            {0, 3096, 3507, 0, 0}, // remove object edge
-            {0, 3097, 3507, 0, 0}, // remove object edge
-            {0, 3098, 3507, 0, 0}, // remove object edge
-
-
-            {0, 3099, 3507, 0, 0}, // remove object edge
-            {0, 3100, 3507, 0, 0}, // remove object edge
-            {0, 3100, 3508, 0, 0}, // remove object edge
-            {0, 3091, 3510, 0, 0}, // remove object edge
-            {0, 3091, 3511, 0, 0}, // remove object edge
-            {0, 3099, 3512, 0, 0}, // remove object edge
-            {0, 3100, 3512, 0, 0}, // remove object edge
 
             // Cleaning objects home
 
@@ -1063,8 +1038,6 @@ public class CustomObjects {
             {11758, 3450, 3722, 0, 0},
             {50547, 3445, 3717, 0, 3},
             {-1, 3085, 3512, 0, 0},
-            //{ -1, 3090, 3496, 0, 0},
-            //{ -1, 3090, 3494, 0, 0},
             {-1, 3092, 3496, 0, 0},
             {-1, 3659, 3508, 0, 0},
             {4053, 3660, 3508, 0, 0},
