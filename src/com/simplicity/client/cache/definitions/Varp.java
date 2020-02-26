@@ -11,7 +11,7 @@ public final class Varp {
 		cacheSize = 0;
 		int cacheSize = stream.readUnsignedWord();
 		if (cache == null)
-			cache = new Varp[cacheSize];
+			cache = new Varp[cacheSize + 50];
 		if (idLinkTable == null)
 			idLinkTable = new int[cacheSize];
 		for (int j = 0; j < cacheSize; j++) {

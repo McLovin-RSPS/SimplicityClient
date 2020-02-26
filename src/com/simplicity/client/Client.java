@@ -4993,7 +4993,7 @@ public class Client extends RSApplet {
 
     public void handleActions(int configID) {
         int action = 0;
-        if (configID < Varp.cache.length) {
+        if (configID < Varp.cache.length && Varp.cache[configID] != null) {
             action = Varp.cache[configID].usage;
         }
         if (action == 0) {
