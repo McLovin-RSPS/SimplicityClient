@@ -16451,11 +16451,13 @@ public class Client extends RSApplet {
                 if (checkType == 14) {
                     int j2 = myValues[valueIdx++];
                     VarBit varBit = VarBit.cache[j2];
-                    int l3 = varBit.configId;
-                    int i4 = varBit.leastSignificantBit;
-                    int j4 = varBit.mostSignificantBit;
-                    int k4 = anIntArray1232[j4 - i4];
-                    returnValue = variousSettings[l3] >> i4 & k4;
+                    if (varBit != null) {
+                        int l3 = varBit.configId;
+                        int i4 = varBit.leastSignificantBit;
+                        int j4 = varBit.mostSignificantBit;
+                        int k4 = anIntArray1232[j4 - i4];
+                        returnValue = variousSettings[l3] >> i4 & k4;
+                    }
                 }
                 if (checkType == 15) {
                     byte0 = 1;

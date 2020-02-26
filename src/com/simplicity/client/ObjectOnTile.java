@@ -53,6 +53,7 @@ final class ObjectOnTile extends Animable {
 		if(varbitIndex != -1)
 		{
 			VarBit varBit = VarBit.cache[varbitIndex];
+			if (varBit == null) return null;
 			int k = varBit.configId;
 			int l = varBit.leastSignificantBit;
 			int i1 = varBit.mostSignificantBit;
