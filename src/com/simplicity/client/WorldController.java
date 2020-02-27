@@ -1319,9 +1319,20 @@ public final class WorldController {
 			for (int x_ = anInt449; x_ < anInt450; x_++) {
 				for (int y_ = anInt451; y_ < anInt452; y_++) {
 					Tile tile = tiles[x_][y_];
-					if (tile != null && isMarked(tile)) {
-						drawTileMarker(tile.plane, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, tile.tileX, tile.tileY);
+					
+					if (tile == null) {
+						continue;
 					}
+					
+					if (tile.logicHeight > tile.plane || !tile_visibility_map[(x_ - xCamPosTile)+ TILE_DRAW_DISTANCE][(y_ - yCamPosTile)+ TILE_DRAW_DISTANCE] && anIntArrayArrayArray440[k1][x_][y_] - anInt456 < 3000) {
+						continue;
+					}
+					
+					if (!isMarked(tile)) {
+						continue;
+					}
+					
+					drawTileMarker(tile.plane, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, tile.tileX, tile.tileY);
 				}
 
 			}
