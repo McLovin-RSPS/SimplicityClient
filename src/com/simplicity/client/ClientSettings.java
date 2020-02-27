@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,8 +14,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.simplicity.Configuration;
-import com.simplicity.client.content.CustomisableHotKeys;
-import com.simplicity.client.content.CustomisableHotKeys.HotKey;
+import com.simplicity.client.content.Keybinding;
 import com.simplicity.client.content.LoginScreen;
 import com.simplicity.client.content.LoginScreen.CharacterFile;
 import com.simplicity.client.entity.Position;
@@ -175,7 +173,7 @@ public class ClientSettings {
 			}
 			
 			if (reader.has("keybindings")) {
-				CustomisableHotKeys.hotKeys = builder.fromJson(reader.get("keybindings"), new TypeToken<LinkedList<HotKey>>() { }.getType());
+				Keybinding.KEYBINDINGS = builder.fromJson(reader.get("keybindings"), int[].class);
 			}
 			
 			if (reader.has("quick-prayers")) {
@@ -249,7 +247,7 @@ public class ClientSettings {
 			object.addProperty("mouse-camera", Configuration.enableMouseCamera);
 			object.addProperty("esc-closes-interface", Configuration.escapeClosesInterface);
 			object.addProperty("item-stats", Configuration.enableItemStats);
-			object.add("keybindings", builder.toJsonTree(CustomisableHotKeys.getHotKeys().subList(0, CustomisableHotKeys.hotKeys.size())));
+			object.add("keybindings", builder.toJsonTree(Keybinding.KEYBINDINGS));
 			object.add("quick-prayers", builder.toJsonTree(Client.instance.getQuickPrayers()));
 			object.add("quick-curses", builder.toJsonTree(Client.instance.getQuickCurses()));
 			object.add("tile-markers", builder.toJsonTree(WorldController.markedTiles));

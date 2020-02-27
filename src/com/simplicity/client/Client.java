@@ -93,22 +93,21 @@ import com.simplicity.client.cache.definitions.Varp;
 import com.simplicity.client.cache.maps.OldschoolMaps;
 import com.simplicity.client.cache.node.Deque;
 import com.simplicity.client.cache.node.Node;
-import com.simplicity.client.content.CustomisableHotKeys;
 import com.simplicity.client.content.EffectTimer;
 import com.simplicity.client.content.FlashingSprite;
 import com.simplicity.client.content.ItemStatsPanel;
+import com.simplicity.client.content.Keybinding;
 import com.simplicity.client.content.LoginScreen;
 import com.simplicity.client.content.LoginScreen.CharacterFile;
 import com.simplicity.client.content.PetSystem;
 import com.simplicity.client.content.PlayerRights;
 import com.simplicity.client.content.RichPresence;
-import com.simplicity.client.content.dropdownmenu.DropDownAction;
-import com.simplicity.client.content.dropdownmenu.DropDownMenu;
 import com.simplicity.client.entity.Position;
 import com.simplicity.client.particles.Particle;
 import com.simplicity.client.particles.ParticleDefinition;
 import com.simplicity.client.widget.CollectionLogWidget;
 import com.simplicity.client.widget.SettingsWidget;
+import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.tools.ItemDefinitionLookup;
 import com.simplicity.tools.ObjectDefinitionLookup;
 import com.simplicity.util.MiscUtils;
@@ -4369,68 +4368,74 @@ public class Client extends RSApplet {
                     menuActionCmd3[menuActionRow] = child.id;
                     menuActionRow++;
                 }
-                if (child.atActionType == 18) {
-                    if (child instanceof DropDownMenu) {
+                
+				if (child.atActionType == 7) {
 
-                        final DropDownMenu dropDownInter = (DropDownMenu) child;
+					boolean flag = false;
+					child.hovered = false;
+					child.dropdownHover = -1;
 
-                        int rowAmount = (int) Math
-                                .ceil((float) dropDownInter.getActions().length / dropDownInter.getColumnAmount());
-                        child.height = 20 + (dropDownInter.isOpen() ? 20 * rowAmount + 2 : 0);
-                        int childDDMWidth = (dropDownInter.isOpen()
-                                ? dropDownInter.getColumnWidth() * dropDownInter.getColumnAmount()
-                                : child.width);
-                        if (mouseX >= childX && mouseY >= childY && mouseX < childX + childDDMWidth
-                                && mouseY < childY + child.height) {
-                            int drawX = childX;
-                            int drawY = childY;
+					if (child.dropdown.isOpen()) {
 
-                            if (mouseX >= drawX && mouseX <= drawX + dropDownInter.width && mouseY >= drawY
-                                    && mouseY <= drawY + 20) {
-                                menuActionName[menuActionRow] = dropDownInter.isOpen() ? "Close" : "Open";
-                                menuActionID[menuActionRow] = 1999;
-                                menuActionCmd1[menuActionRow] = dropDownInter.id;
-                                menuActionCmd2[menuActionRow] = 0;
-                                menuActionRow++;
-                            }
+						// Inverted keybinds dropdown
+						if (child.type == 37 && child.inverted
+								&& super.mouseX >= childX
+								&& super.mouseX < childX + (child.dropdown.getWidth() - 16)
+								&& super.mouseY >= childY - child.dropdown.getHeight() - 10
+								&& super.mouseY < childY) {
 
-                            if (dropDownInter.isOpen()) {
+							int yy = super.mouseY - (childY - child.dropdown.getHeight());
 
-                                drawY += 19;
-                                int counter = 0;
-                                for (DropDownAction action : dropDownInter.getActions()) {
-                                    if (action == null) {
-                                        continue;
-                                    }
+							if (super.mouseX > childX + (child.dropdown.getWidth() / 2)) {
+								child.dropdownHover = ((yy / 15) * 2) + 1;
+							} else {
+								child.dropdownHover = (yy / 15) * 2;
+							}
+							flag = true;
+						} else if (!child.inverted && super.mouseX >= childX
+								&& super.mouseX < childX + (child.dropdown.getWidth() - 16)
+								&& super.mouseY >= childY + 19
+								&& super.mouseY < childY + 19 + child.dropdown.getHeight()) {
 
-                                    boolean isHighlighted = mouseX >= drawX
-                                            && mouseX <= drawX + dropDownInter.getColumnWidth() && mouseY >= drawY
-                                            && mouseY < drawY + 20;
-                                    action.setHighlighted(isHighlighted);
+							int yy = super.mouseY - (childY + 19);
 
-                                    if (isHighlighted) {
-                                        menuActionName[menuActionRow] = action.getMessage();
-                                        menuActionID[menuActionRow] = 1998;
-                                        menuActionCmd1[menuActionRow] = dropDownInter.id;
-                                        menuActionCmd2[menuActionRow] = action.getIdentifier();
-                                        dropDownMenu = menuActionRow;
-                                        menuActionRow++;
-                                        tabAreaAltered = true;
-                                        break;
-                                    }
-
-                                    drawY += 20;
-                                    counter++;
-                                    if (counter == rowAmount) {
-                                        drawX += dropDownInter.getColumnWidth();
-                                        drawY = childY + 19;
-                                        counter = 0;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+							if (child.type == 37
+									&& child.dropdown.doesSplit()) {
+								if (super.mouseX > childX + (child.dropdown.getWidth() / 2)) {
+									child.dropdownHover = ((yy / 15) * 2) + 1;
+								} else {
+									child.dropdownHover = (yy / 15) * 2;
+								}
+							} else {
+								child.dropdownHover = yy / 14; // Regular dropdown hover
+							}
+							flag = true;
+						}
+						if (flag) {
+							if (menuActionRow != 1) {
+								menuActionRow = 1;
+							}
+							
+							menuActionName[menuActionRow] = "Select";
+							menuActionID[menuActionRow] = 770;
+							menuActionCmd3[menuActionRow] = child.id;
+							menuActionCmd2[menuActionRow] = child.dropdownHover;
+							menuActionCmd1[menuActionRow] = class9.id;
+							menuActionRow++;
+						}
+					}
+					if (super.mouseX >= childX && super.mouseY >= childY
+							&& super.mouseX < childX + child.dropdown.getWidth()
+							&& super.mouseY < childY + 24 && menuActionRow == 1) {
+						child.hovered = true;
+						menuActionName [menuActionRow] = child.dropdown.isOpen() ? "Hide" : "Show";
+						menuActionID[menuActionRow] = 769;
+						menuActionCmd3[menuActionRow] = child.id;
+						menuActionCmd1[menuActionRow] = class9.id;
+						menuActionRow++;
+					}
+				}
+                
                 if (child.type == 2) {
                     // Find last slot of a bank container
                     int lastSlot = 0;
@@ -8077,27 +8082,6 @@ public class Client extends RSApplet {
             stream.createFrame(204);
             stream.writeWord(GEItemId);
         }
-        if (l == 1998) {
-            // Drop down menu actionId.
-            handleDropDownMenuClick(entityId, slot);
-            return;
-        } else if (l == 1999) {
-            final DropDownMenu inter = (DropDownMenu) RSInterface.interfaceCache[entityId];
-            if (inter.isOpen()) {
-                inter.setOpen(false);
-
-                if (openInterfaceID == CustomisableHotKeys.interfaceID && inter.id >= 90040 && inter.id <= 90054) { // Hot
-                    // keys
-                    final int tabStoneSprite = (inter.id - 90040) + (inter.id - 28);
-                    RSInterface.interfaceCache[tabStoneSprite].disabledSprite = Client.cacheSprite[1037];
-                }
-
-            } else {
-                inter.setOpen(true);
-                closeDropDownMenus(entityId);
-            }
-            return;
-        }
         if (l == 1006 && !showBonus) {
             showXP = showXP ? false : true;
         }
@@ -8351,17 +8335,14 @@ public class Client extends RSApplet {
 					SettingsWidget.switchSettings(interfaceId);
 					break;
 					
-                    case 90008: // Restore default button for hot keys.
-                        CustomisableHotKeys.restoreDefaults();
-                        CustomisableHotKeys.updateDropDownMenuDisplaysOnLogin();
+                    case Keybinding.RESTORE_DEFAULT: // Restore default button for hot keys.
+                        Keybinding.restoreDefault();
+    					Keybinding.updateInterface();
+    					ClientSettings.save();
                         break;
-                    case 90006:
-                    	Configuration.escapeClosesInterface = !Configuration.escapeClosesInterface;
-                    	ClientSettings.save();
+                    case Keybinding.ESCAPE_CONFIG:
+                    	Keybinding.toggleEsc();
                     	break;
-                    case 40052:
-                        openInterfaceID = CustomisableHotKeys.interfaceID;
-                        break;
                     case 24654:
                         amountOrNameInput = "";
                         totalItemResults = 0;
@@ -8987,6 +8968,29 @@ public class Client extends RSApplet {
             stream.writeUnsignedWordBigEndian(slot + baseX);
             stream.writeUnsignedWordA(selectedSpellId);
         }
+		// Dropdown clicking
+		if (l == 769) {
+			RSInterface d = RSInterface.interfaceCache[interfaceId];
+			RSInterface p = RSInterface.interfaceCache[entityId];
+			if (!d.dropdown.isOpen()) {
+				if (p.dropdownOpen != null) {
+					p.dropdownOpen.dropdown.setOpen(false);
+				}
+				p.dropdownOpen = d;
+			} else {
+				p.dropdownOpen = null;
+			}
+			d.dropdown.setOpen(!d.dropdown.isOpen());
+		} else if (l == 770) {
+			RSInterface d = RSInterface.interfaceCache[interfaceId];
+			RSInterface p = RSInterface.interfaceCache[entityId];
+			if (slot >= d.dropdown.getOptions().length)
+				return;
+			d.dropdown.setSelected(d.dropdown.getOptions()[slot]);
+			d.dropdown.setOpen(false);
+			d.dropdown.getDrop().selectOption(slot, d);
+			p.dropdownOpen = null;
+		}
         if (l == 646) {
             stream.createFrame(185);
             stream.putInt(interfaceId);
@@ -12042,9 +12046,6 @@ public class Client extends RSApplet {
                 // glowColor = socketStream.read();
                 flagged = socketStream.read() == 1;
                 boolean captcha = socketStream.read() >= 1;
-
-                // Update hotkey menus
-                CustomisableHotKeys.updateDropDownMenuDisplaysOnLogin();
 
                 if (captcha) {
 
@@ -15216,6 +15217,118 @@ public class Client extends RSApplet {
                     	int repeatedX = cacheSprite[child.selected ? 1297 : 1300].repeatX(childX + 4, childY, tabLength);
                     	cacheSprite[child.selected ? 1297 : 1300].drawSprite(childX + tabLength, childY);
                     	cacheSprite[child.selected ? 1298 : 1301].drawSprite(childX + tabLength + 20, childY);
+                    } else if (child.type == 36) {
+    					DropdownMenu d = child.dropdown;
+    					
+    					boolean white = /*d.getDrop().equals(Dropdown.GAMEFRAME)*/false;
+    					int bgColour = child.dropdownColours[2];
+    					int fontColour = 0xfe971e;
+    					int downArrow = white ? 55 : 1036;
+    					int upArrow = white ? 54 : 1035;
+
+    					if (child.hovered || d.isOpen()) {
+    						fontColour = 0xffb83f;
+    						bgColour = child.dropdownColours[3];
+    					}
+
+    					DrawingArea.drawPixels(20, childY, childX, child.dropdownColours[0], d.getWidth());
+    					DrawingArea.drawPixels(18, childY + 1, childX + 1, child.dropdownColours[1],
+    							d.getWidth() - 2);
+    					DrawingArea.drawPixels(16, childY + 2, childX + 2, bgColour, d.getWidth() - 4);
+
+    					int xOffset = child.centerText ? 3 : 16;
+    					newSmallFont.drawCenteredString(d.getSelected(), childX + (d.getWidth() - xOffset) / 2, childY + 14,
+    							fontColour, 0);
+
+    					if (d.isOpen()) {
+    						// Up arrow
+    						cacheSprite[upArrow].drawSprite(childX + d.getWidth() - 18, childY + 2);
+
+    						DrawingArea.drawPixels(d.getHeight(), childY + 19, childX, child.dropdownColours[0],
+    								d.getWidth());
+    						DrawingArea.drawPixels(d.getHeight() - 2, childY + 20, childX + 1,
+    								child.dropdownColours[1], d.getWidth() - 2);
+    						DrawingArea.drawPixels(d.getHeight() - 4, childY + 21, childX + 2,
+    								child.dropdownColours[3], d.getWidth() - 4);
+
+    						int yy = 2;
+    						for (int i = 0; i < d.getOptions().length; i++) {
+    							if (child.dropdownHover == i) {
+    								DrawingArea.drawPixels(13, childY + 19 + yy, childX + 2, child.dropdownColours[4], d.getWidth() - 4);
+    								newSmallFont.drawCenteredString(d.getOptions()[i], childX + (d.getWidth() - xOffset) / 2, childY + 29 + yy, 0xffb83f, 0);
+    							} else {
+    								DrawingArea.drawPixels(13, childY + 19 + yy, childX + 2, child.dropdownColours[3], d.getWidth() - 4);
+    								newSmallFont.drawCenteredString(d.getOptions()[i], childX + (d.getWidth() - xOffset) / 2, childY + 29 + yy, 0xfe971e, 0);
+    							}
+    							yy += 14;
+    						}
+
+    						if (white) {
+    							//drawWhiteScrollbar(d.getHeight() - 4, child.scrollPosition, childY + 21, childX + d.getWidth() - 18, d.getHeight() -5, false, true);
+    						} else {
+    							drawScrollbar(d.getHeight() - 4, child.scrollPosition, childY + 21, childX + d.getWidth() - 18, d.getHeight() - 5, false, false);
+    						}
+    					} else {
+    						cacheSprite[downArrow].drawSprite(childX + d.getWidth() - 18, childY + 2);
+    					}
+                    } else if (child.type == 37) {
+    					DropdownMenu d = child.dropdown;
+
+    					// If dropdown inverted, don't draw following 2 menus
+    					if (dropdownInversionFlag > 0) {
+    						dropdownInversionFlag--;
+    						continue;
+    					}
+    					
+    					int downArrow = 1036;
+    					int upArrow = 1035;
+
+    					DrawingArea.drawPixels(18, childY + 1, childX + 1, 0x544834, d.getWidth() - 2);
+    					DrawingArea.drawPixels(16, childY + 2, childX + 2, 0x2e281d, d.getWidth() - 4);
+    					newRegularFont.drawBasicString(d.getSelected(), childX + 7, childY + 15, 0xff8a1f, 0);
+    					cacheSprite[upArrow].drawSprite(childX + d.getWidth() - 18, childY + 2); // Arrow
+
+    					if (d.isOpen()) {
+
+    						RSInterface.interfaceCache[child.id - 1].active = true; // Alter
+    						// stone
+    						// colour
+
+    						int yPos = childY + 18;
+
+    						// Dropdown inversion for lower stones
+    						if (child.inverted) {
+    							yPos = childY - d.getHeight() - 10;
+    							dropdownInversionFlag = 2;
+    						}
+
+    						DrawingArea.drawPixels(d.getHeight() + 12, yPos, childX + 1, 0x544834, d.getWidth() - 2);
+    						DrawingArea.drawPixels(d.getHeight() + 10, yPos + 1, childX + 2, 0x2e281d, d.getWidth() - 4);
+
+    						int yy = 2;
+    						int xx = 0;
+    						int bb = d.getWidth() / 2;
+
+    						for (int i = 0; i < d.getOptions().length; i++) {
+
+    							int fontColour = 0xff981f;
+    							if (child.dropdownHover == i) {
+    								fontColour = 0xffffff;
+    							}
+
+    							if (xx == 0) {
+    								newRegularFont.drawBasicString(d.getOptions()[i], childX + 5, yPos + 14 + yy, fontColour, 0x2e281d);
+    								xx = 1;
+
+    							} else {
+    								newRegularFont.drawBasicString(d.getOptions()[i], childX + 5 + bb, yPos + 14 + yy, fontColour, 0x2e281d);
+    								xx = 0;
+    								yy += 15;
+    							}
+    						}
+    					} else {
+    						RSInterface.interfaceCache[child.id - 1].active = false;
+    					}
                     }
                 }
                 if (openInterfaceID == 10000) {
@@ -16518,52 +16631,6 @@ public class Client extends RSApplet {
         }
     }
 
-    public int dropDownMenu = -1;
-
-    private void handleDropDownMenuClick(final int childId, final int identifier) {
-        // Customisable Hot Key handler
-        if (childId > 90039 && childId < 90055) {
-            CustomisableHotKeys.processHotKeySelection(childId, identifier);
-            ClientSettings.save();
-        } else {
-        	DropDownMenu m = (DropDownMenu) RSInterface.interfaceCache[childId];
-        	
-			m.setDropdownValue(identifier);
-			
-			if (childId == SettingsWidget.PLAYER_ATTACK_DROPDOWN) {
-				Configuration.playerAttackOptionPriority = identifier;
-			}
-			
-			if (childId == SettingsWidget.NPC_ATTACK_DROPDOWN) {
-				Configuration.npcAttackOptionPriority = identifier;
-			}
-        }
-
-        closeDropDownMenus(-1);
-    }
-
-    private void closeDropDownMenus(final int childId) {
-        for (RSInterface rsi : RSInterface.interfaceCache) {
-            if (rsi == null) {
-                continue;
-            }
-            if (rsi.type == 18 && rsi instanceof DropDownMenu && rsi.id != childId) {
-                final DropDownMenu ddm = (DropDownMenu) rsi;
-
-                if (!ddm.isOpen())
-                    continue;
-
-                ddm.setOpen(false);
-
-                if (openInterfaceID == CustomisableHotKeys.interfaceID && ddm.id >= 90040 && ddm.id <= 90054) { // Hot
-                    // keys
-                    final int tabStoneSprite = (ddm.id - 90040) + (ddm.id - 28);
-                    RSInterface.interfaceCache[tabStoneSprite].disabledSprite = Client.cacheSprite[1037];
-                }
-            }
-        }
-    }
-
     public void drawTooltip() {
         if (Configuration.enableCursors) {
             int newCursor = getCursorID();
@@ -16573,9 +16640,6 @@ public class Client extends RSApplet {
         }
         if (menuActionRow < 2 && itemSelected == 0 && spellSelected == 0) {
             return;
-        }
-        if (dropDownMenu != -1) {
-            prioritizeMenuAction(dropDownMenu);
         }
         String s;
         if (itemSelected == 1 && menuActionRow < 2) {
@@ -16626,7 +16690,6 @@ public class Client extends RSApplet {
         if (menuActionRow <= 2 || menuActionID[toShift - 1] == 1999) {
             return;
         }
-        dropDownMenu = -1;
         String name = menuActionName[toShift - 1];
         int id = menuActionID[toShift - 1];
         int childId = menuActionCmd1[toShift - 1];
@@ -20848,6 +20911,10 @@ public class Client extends RSApplet {
         }
         openInterfaceID = -1;
         fullscreenInterfaceID = -1;
+        
+        if (openInterfaceID != -1) {
+			resetWidgetDropDowns(openInterfaceID);
+		}
     }
 
     private ArrayList<Particle> displayedParticles;
@@ -21029,6 +21096,7 @@ public class Client extends RSApplet {
     public ArrayList<String> clanMembers = new ArrayList<String>();
     public int clanChatMode;
     public int duelMode;
+    public int dropdownInversionFlag;
     /* Declare custom sprites */
     public Sprite loadingPleaseWait;
     public Sprite reestablish;
@@ -23718,6 +23786,29 @@ public class Client extends RSApplet {
         int y = baseY + (myPlayer.y - 6 >> 7);
         
         return new Position(x, y, plane);
+	}
+	
+    public void resetWidgetDropDowns(int interfaceId) {
+		RSInterface widget = RSInterface.interfaceCache[interfaceId];
+
+		if (widget == null || widget.children == null)
+			return;
+
+		for (int i = 0; i < widget.children.length; i++) {
+			RSInterface child = RSInterface.interfaceCache[widget.children[i]];
+
+			if (child == null) {
+				continue;
+			}
+
+			if ((child.type == 36 || child.type == 37) && child.dropdown.isOpen()) {
+				child.dropdown.setOpen(false);
+			}
+
+			if (child.children != null) {
+				resetWidgetDropDowns(child.id);
+			}
+		}
 	}
 
 }

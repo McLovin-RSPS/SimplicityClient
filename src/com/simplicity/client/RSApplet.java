@@ -1,7 +1,16 @@
 package com.simplicity.client;
 
 import java.applet.Applet;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Insets;
+import java.awt.Point;
+import java.awt.RenderingHints;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
@@ -14,10 +23,11 @@ import java.awt.event.MouseWheelListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-import javax.swing.*;
+import javax.swing.SwingUtilities;
 
+import com.simplicity.Configuration;
 import com.simplicity.Jframe;
-import com.simplicity.client.content.CustomisableHotKeys;
+import com.simplicity.client.content.Keybinding;
 
 @SuppressWarnings("all")
 public class RSApplet extends Applet implements Runnable, MouseListener,
@@ -599,9 +609,16 @@ WindowListener {
 		idleTime = 0;
 		int i = keyevent.getKeyCode();
 		int j = keyevent.getKeyChar();
-
-		CustomisableHotKeys.checkPressedKey(i);
-
+		
+		if (i == KeyEvent.VK_ESCAPE && Configuration.escapeClosesInterface && Client.loggedIn && Client.openInterfaceID != -1) {
+			Client.instance.clearTopInterfaces();
+			return;
+		}
+		
+		if (Keybinding.isBound(i)) {
+			return;
+		}
+		
 		if(i == 17)
 			lastB = 1;
 		else if(i != 83)

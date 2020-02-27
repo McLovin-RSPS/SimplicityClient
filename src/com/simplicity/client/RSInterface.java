@@ -1,15 +1,17 @@
 package com.simplicity.client;
 
-import java.awt.event.KeyEvent;
-import java.util.Arrays;
-
 import com.simplicity.client.DrawLine.LineType;
 import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.client.cache.definitions.MobDefinition;
-import com.simplicity.client.content.CustomisableHotKeys;
-import com.simplicity.client.content.dropdownmenu.DropDownAction;
-import com.simplicity.client.content.dropdownmenu.DropDownMenu;
-import com.simplicity.client.widget.*;
+import com.simplicity.client.content.Keybinding;
+import com.simplicity.client.widget.AchievementsWidget;
+import com.simplicity.client.widget.CollectionLogWidget;
+import com.simplicity.client.widget.KnowledgeBaseWidget;
+import com.simplicity.client.widget.SettingsWidget;
+import com.simplicity.client.widget.StarterWidget;
+import com.simplicity.client.widget.Widget;
+import com.simplicity.client.widget.dropdown.Dropdown;
+import com.simplicity.client.widget.dropdown.DropdownMenu;
 
 @SuppressWarnings("all")
 public class RSInterface {
@@ -4369,7 +4371,8 @@ public class RSInterface {
         // CustomInterfaces.loyaltyShop();
         // CustomInterfaces.achievementsInterface();
         dealsInterface(textDrawingAreas);
-        customisableHotKeys(textDrawingAreas);
+        //customisableHotKeys(textDrawingAreas);
+        keybindings(textDrawingAreas);
         presetsInterface(textDrawingAreas);
         tournamentInterface(textDrawingAreas);
         runePouch(textDrawingAreas);
@@ -4637,86 +4640,73 @@ public class RSInterface {
             System.out.println(copy.children[i] + ". " + i + ", " + interfaceCache[copy.children[i]].type);
         }
     }
+    
+	/**
+	 * Keybindings interface.
+	 * 
+	 * @param wid
+	 */
+	public static void keybindings(TextDrawingArea[] wid) {
+		int id = 90_000;
 
-    private static final void customisableHotKeys(TextDrawingArea[] TDA) {
+		RSInterface rsi = addInterface(id++);
 
-        int frameIndex = 0;
+		setChildren(48, rsi);
 
-        RSInterface hotKey = addTabInterface(CustomisableHotKeys.interfaceID);
+		addClosableWindow(id, 484, 304, false, "Keybinding");
 
-        addSprite(90001, SpriteLoader.sprites[1038]); // Main BG
-        addHoverButton_sprite_loader(90002, 1020, 21, 21, "Close", -1, 90003, 3); // Close button
-        addHoveredImageWSpriteLoader(90003, 1021, 21, 21, 28634); // Close button hover
-        addText(90005, "Keybinding", 0xFF981F, false, true, 52, TDA, 2); // Title //0xFF981F
-        
-        configButton(90006, "Esc closes current interface", 1040, 1039);
-        addText(90007, "Esc closes current interface", 0xFF981F, false, true, 52, TDA, 1); // esc text
-        
-        addHoverButtonWSpriteLoader(90008, 954, 114, 25, "Restore Default Keys", -1, 90009, 1);
-        addHoveredImageWSpriteLoader(90009, 955, 114, 25, 90010);
+		int child = 0;
 
-        addText(90011, "Restore Defaults", 0xFF981F, false, true, 52, TDA, 1); // restore default button text
+		rsi.child(child++, id, 14, 16);
 
-        setChildren(51, hotKey);
-        setBounds(90001, 11, 16, frameIndex++, hotKey);
-        setBounds(90002, 471, 23, frameIndex++, hotKey);
-        setBounds(90003, 471, 23, frameIndex++, hotKey);
-        setBounds(90005, 225, 25, frameIndex++, hotKey);
-        setBounds(90006, 46, 285, frameIndex++, hotKey);
-        setBounds(90007, 68, 285, frameIndex++, hotKey);
-        setBounds(90008, 360, 278, frameIndex++, hotKey);
-        setBounds(90009, 360, 278, frameIndex++, hotKey);
-        setBounds(90011, 375, 284, frameIndex++, hotKey);
+		id += 8;
 
-        int childId = 90012;
-        int startX = 40;
-        int startY = 65;
-        int tabIconX = 46;
-        int tabIconY = 72;
-        for (int spriteIndex = 0; spriteIndex < 14; spriteIndex++) {
-            addSprite(childId, SpriteLoader.sprites[1037]); // Sideicon BG's
-            setBounds(childId, startX, startY, frameIndex++, hotKey);
-            childId++;
-            addSprite(childId, SpriteLoader.sprites[657 + spriteIndex]); // Sideicon BG's
-            setBounds(childId, tabIconX, tabIconY, frameIndex++, hotKey);
-            childId++;
-            startY += 43;
-            tabIconY += 43;
-            if (spriteIndex == 4 || spriteIndex == 9) {
-                startX += 150;
-                startY = 65;
-                tabIconX += spriteIndex == 4 ? 151 : spriteIndex == 9 ? 150 : 152;
-                tabIconY = spriteIndex == 4 ? 68 : 69;
-            } else {
-                tabIconX = tabIconX + (spriteIndex == 0 ? -2
-                        : spriteIndex == 1 ? 1 : spriteIndex == 2 ? -2 : spriteIndex == 8 ? 1 : 0);
-                tabIconY = tabIconY + (spriteIndex == 2 ? -3
-                        : spriteIndex == 3 ? -2 : spriteIndex == 5 ? 3 : spriteIndex == 8 ? -2 : 0);
-            }
-        }
+		int xPos = 0;
 
-        startX = 380;
-        startY = 196;
+		int yPos = 0;
 
-        for (childId = 90040 + 13; childId > 90039; childId--) {
-            new DropDownMenu(childId, 90, 0x3B3629, 0x695B36, 3, 30,
-                    new DropDownAction[]{new DropDownAction(-1, "None"), new DropDownAction(KeyEvent.VK_F1, "F1"),
-                            new DropDownAction(KeyEvent.VK_F2, "F2"), new DropDownAction(KeyEvent.VK_F3, "F3"),
-                            new DropDownAction(KeyEvent.VK_F4, "F4"), new DropDownAction(KeyEvent.VK_F5, "F5"),
-                            new DropDownAction(KeyEvent.VK_F6, "F6"), new DropDownAction(KeyEvent.VK_F7, "F7"),
-                            new DropDownAction(KeyEvent.VK_F8, "F8"), new DropDownAction(KeyEvent.VK_F9, "F9"),
-                            new DropDownAction(KeyEvent.VK_F10, "F10"), new DropDownAction(KeyEvent.VK_F11, "F11"),
-                            new DropDownAction(KeyEvent.VK_F12, "F12"),
-                            new DropDownAction(KeyEvent.VK_ESCAPE, "ESC")});
-            setBounds(childId, startX, startY, frameIndex++, hotKey);
-            startY -= 43;
-            if (childId == 90050 || childId == 90045) {
-                startX = childId == 90045 ? 80 : 230;
-                startY = 239;
-            }
-        }
+		int[] icons = new int[] { 657, 658, 659, 660, 661, 662, 663, 664, 670, 666, 667, 668, 669, 671 };
 
-    }
+		int[] offX = new int[] { 6, 5, 5, 5, 6, 8, 5, 6, 6, 6, 7, 5, 5, 5 };
+		int[] offY = new int[] { 8, 6, 7, 7, 7, 7, 6, 8, 8, 8, 7, 8, 8, 6 };
+
+		child = 42;
+
+		for (int i = 0; i < 14; i++) {
+			addSprite(id, 1037);
+			addSprite(id + 1, icons[i]);
+			boolean inverted = i == 3 || i == 4 || i == 8 || i == 9 || i == 13;
+			keybindingDropdown(id + 2, 86, 0, Keybinding.OPTIONS, Dropdown.KEYBIND_SELECTION, inverted);
+			rsi.child(child--, id + 1, 40 + xPos + offX[i], 70 + yPos + offY[i]);
+			rsi.child(child--, id, 40 + xPos, 70 + yPos);
+			rsi.child(child--, id + 2, 80 + xPos, 70 + yPos);
+			id += 3;
+
+			yPos += 45;
+
+			if (i != 0 && (i + 1) % 5 == 0) {
+				xPos += 150;
+				yPos = 0;
+			}
+		}
+
+		child = 43;
+
+		addHoverButton(id, 1294, 150, 30, "Restore defaults", 0, id + 1, 1);
+		addHoveredButton(id + 1, 1295, 150, 30, id + 2);
+		addText(id + 3, "Restore defaults", wid, 2, 0xff8a1f);
+		rsi.child(child++, id, 334, 277);
+		rsi.child(child++, id + 1, 334, 277);
+		rsi.child(child++, id + 3, 352, 284);
+		id += 4;
+
+		addText(id, "Esc closes current interface", wid, 1, 0xff8a1f, false, true);
+		rsi.child(child++, id, 65, 293);
+		id++;
+		configButton(id, "Toggle", 1322, 1321);
+
+		rsi.child(child++, id, 40, 293);
+	}
 
     public static void presetsInterface(TextDrawingArea[] tda) {
         int id = 86000;
@@ -12976,6 +12966,12 @@ public class RSInterface {
     public int modelRotation1;
     public int modelRotation2;
     public int childY[];
+	public DropdownMenu dropdown;
+	public int[] dropdownColours;
+	public boolean hovered = false;
+	public RSInterface dropdownOpen;
+	public int dropdownHover = -1;
+	public boolean inverted;
     public boolean inventoryHover;
     public boolean greyScale;
     public boolean hidden;
@@ -15831,17 +15827,6 @@ public class RSInterface {
 			}
 		}
 	}
-	
-	public void setDropdownValue(int identifier) {
-		DropDownMenu menu = (DropDownMenu) this;
-
-		for (DropDownAction action : menu.getActions()) {
-			if (action.getIdentifier() == identifier) {
-				menu.message = action.getMessage();
-				break;
-			}
-		}
-	}
 
     public static void addInAreaHover(int i, String imageName, int sId, int sId2, int w, int h, String text,
                                       int contentType, int actionType) {
@@ -16011,6 +15996,39 @@ public class RSInterface {
 		rsi.hoverType = 52;
 		rsi.tooltip = tooltip;
     }
+    
+	public static void dropdownMenu(int id, int width, int defaultOption, String[] options, Dropdown d) {
+		dropdownMenu(id, width, defaultOption, options, d,
+				new int[] { 0x0d0d0b, 0x464644, 0x473d32, 0x51483c, 0x787169 }, false);
+	}
+
+	public static void dropdownMenu(int id, DropdownMenu d) {
+		RSInterface menu = addInterface(id);
+		menu.type = 36;
+		menu.dropdown = d;
+		menu.atActionType = 7;
+		menu.dropdownColours = new int[] { 0x80786d, 0x464644, 0x473d32, 0x51483c, 0x787169 };
+		menu.centerText = false;
+	}
+
+	public static void dropdownMenu(int id, int width, int defaultOption, String[] options, Dropdown d,
+			int[] dropdownColours, boolean centerText) {
+		RSInterface menu = addInterface(id);
+		menu.type = 36;
+		menu.dropdown = new DropdownMenu(width, false, defaultOption, options, d);
+		menu.atActionType = 7;
+		menu.dropdownColours = dropdownColours;
+		menu.centerText = centerText;
+	}
+
+	public static void keybindingDropdown(int id, int width, int defaultOption, String[] options, Dropdown d,
+			boolean inverted) {
+		RSInterface widget = addInterface(id);
+		widget.type = 37;
+		widget.dropdown = new DropdownMenu(width, true, defaultOption, options, d);
+		widget.atActionType = 7;
+		widget.inverted = inverted;
+	}
 
     public static int summoningItemRequirements[][] = {{12158, 2859, -1}, // Wolf pouch
             {12158, 2138, -1}, // Dreadfowl pouch

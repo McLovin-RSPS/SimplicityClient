@@ -9,9 +9,8 @@ import com.simplicity.client.Client;
 import com.simplicity.client.ClientSettings;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.TextDrawingArea;
-import com.simplicity.client.content.CustomisableHotKeys;
-import com.simplicity.client.content.dropdownmenu.DropDownAction;
-import com.simplicity.client.content.dropdownmenu.DropDownMenu;
+import com.simplicity.client.content.Keybinding;
+import com.simplicity.client.widget.dropdown.Dropdown;
 
 /**
  * A class that handles all of the client's settings.
@@ -232,15 +231,13 @@ public class SettingsWidget extends RSInterface {
 		tab.child(child++, id + 1, 28 + 18 + 70, yPos + 8 + 43);
 		id += 2;
 		
-		new DropDownMenu(PLAYER_ATTACK_DROPDOWN, 166, 0x3B3629, 0x695B36, 0, 1, 166,
-                new DropDownAction[]{new DropDownAction(0, "Depends on combat levels"), new DropDownAction(1, "Always right-click"),
-                        new DropDownAction(2, "Left-click where available"), new DropDownAction(3, "Hidden")});
+		String[] options = {"Depends on combat levels", "Always right-click", "Left-click where available", "Hidden"};
+		
+		dropdownMenu(PLAYER_ATTACK_DROPDOWN, 166, 0, options, Dropdown.PLAYER_ATTACK_OPTION_PRIORITY);
 		
         addText(id, "Player 'Attack' options:", tda, 1, 0xfe971e, false, true);
 
-		new DropDownMenu(NPC_ATTACK_DROPDOWN, 166, 0x3B3629, 0x695B36, 0, 1, 166,
-                new DropDownAction[]{new DropDownAction(0, "Depends on combat levels"), new DropDownAction(1, "Always right-click"),
-                        new DropDownAction(2, "Left-click where available"), new DropDownAction(3, "Hidden")});
+        dropdownMenu(NPC_ATTACK_DROPDOWN, 166, 2, options, Dropdown.NPC_ATTACK_OPTION_PRIORITY);
         
         addText(id + 1, "NPC 'Attack' options:", tda, 1, 0xfe971e, false, true);
         
@@ -376,7 +373,8 @@ public class SettingsWidget extends RSInterface {
 			ClientSettings.save();
 			return true;
 		case KEYBINDING:
-			Client.openInterfaceID = CustomisableHotKeys.interfaceID;
+			Keybinding.updateInterface();
+			Client.openInterfaceID = Keybinding.interfaceID;
 			return true;
 		case ADVANCED_OPTIONS + 4:
 			ClientSettings.setDefaults();
@@ -397,8 +395,8 @@ public class SettingsWidget extends RSInterface {
 		interfaceCache[MOUSE_BUTTONS].active = Client.instance.variousSettings[170] == 1;
 		interfaceCache[MOUSE_CAMERA].active = !Configuration.enableMouseCamera;
 		interfaceCache[SHIFT_CLICK_DROP].active = !Configuration.enableShiftClickDrop;
-		interfaceCache[PLAYER_ATTACK_DROPDOWN].setDropdownValue(Configuration.playerAttackOptionPriority);
-		interfaceCache[NPC_ATTACK_DROPDOWN].setDropdownValue(Configuration.npcAttackOptionPriority);
+		interfaceCache[PLAYER_ATTACK_DROPDOWN].dropdown.setSelected(interfaceCache[PLAYER_ATTACK_DROPDOWN].dropdown.getOptions()[Configuration.playerAttackOptionPriority]);
+        interfaceCache[NPC_ATTACK_DROPDOWN].dropdown.setSelected(interfaceCache[NPC_ATTACK_DROPDOWN].dropdown.getOptions()[Configuration.npcAttackOptionPriority]);
 	}
 
 	/**
