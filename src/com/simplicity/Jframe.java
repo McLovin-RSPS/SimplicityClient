@@ -1,6 +1,7 @@
 package com.simplicity;
 
 import com.simplicity.client.Client;
+import com.simplicity.client.ClientSettings;
 import com.simplicity.client.ResourceLoader;
 import com.simplicity.client.signlink;
 
@@ -64,6 +65,7 @@ public class Jframe extends Client implements ActionListener {
 		        	if(!Configuration.LOCALHOST) {
 						//openURL("http://simplicityps.org/forums");
 					}
+		        	ClientSettings.save();
 					System.exit(-1);
 		            System.exit(0);
 		        } else {
