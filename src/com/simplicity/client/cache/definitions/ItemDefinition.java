@@ -1079,6 +1079,7 @@ public final class ItemDefinition {
         	
 		case 22008:
 			itemDef.copy(forID(15000));
+            itemDef.name = "@red@Scythe of Vitur DSI";
 			itemDef.modelID = 17;
 			itemDef.maleEquip1 = 16;
 			itemDef.femaleEquip1 = 16;
@@ -2078,6 +2079,11 @@ public final class ItemDefinition {
                 itemDef.copy(forID(6199));
                 itemDef.name = "Elite Wizard Box";
                 itemDef.newModelColor[0] = 3060;
+                break;
+            case 19726:
+                itemDef.copy(forID(6199));
+                itemDef.name = "Superior Combat Box";
+                itemDef.newModelColor[0] = 689484;
                 break;
             case 19717:
                 itemDef.copy(forID(6199));

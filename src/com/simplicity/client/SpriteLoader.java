@@ -94,15 +94,6 @@ public class SpriteLoader {
 	 * @param sprite
 	 */
 	public static void createSprite(SpriteLoader sprite, boolean second) {
-		File directory = new File(signlink.findcachedir() + "dump");
-		if (!directory.exists()) {
-			directory.mkdir();
-		}
-		FileOperations.WriteFile(
-				directory.getAbsolutePath() + System.getProperty("file.separator") + sprite.id + ".png",
-				sprite.spriteData);
-		// System.out.print("Successfuly Dumped Sprites");
-
 		if (!second) {
 			sprites[sprite.id] = new Sprite(sprite.spriteData, sprite.id);
 			sprites[sprite.id].drawOffsetX = sprite.drawOffsetX;

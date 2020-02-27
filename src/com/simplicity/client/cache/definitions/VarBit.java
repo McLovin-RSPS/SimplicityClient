@@ -10,7 +10,7 @@ public final class VarBit {
 		Stream stream = new Stream(streamLoader.getDataForName("varbit.dat"));
 		int cacheSize = stream.readUnsignedWord();
 		if (cache == null)
-			cache = new VarBit[cacheSize];
+			cache = new VarBit[cacheSize + 100];
 		for (int j = 0; j < cacheSize; j++) {
 			if (cache[j] == null)
 				cache[j] = new VarBit();
