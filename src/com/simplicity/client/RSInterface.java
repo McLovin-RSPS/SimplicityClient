@@ -6408,7 +6408,7 @@ public class RSInterface {
             y += 14;
             k++;
             if (i == 26716 || i == 26717 || i == 26715 || i == 26744 || i == 26745 || i == 26746 || i == 26747
-                    || i == 26750 || i == 26751) {
+                    || i == 26748 || i == 26750 || i == 26751 || i == 26752) {
                 addClickableText(i, "test", "Open", fonts, 0, 0xff0000, 167, 13);
             } else {
 
