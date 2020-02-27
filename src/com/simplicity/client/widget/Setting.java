@@ -301,6 +301,18 @@ public enum Setting {
 		public boolean enabled() {
 			return Configuration.enableItemStats;
 		}
+	},
+
+	TILE_MARKERS() {
+		@Override
+		public void handle() {
+			Configuration.enableTileMarkers = !Configuration.enableTileMarkers;
+		}
+
+		@Override
+		public boolean enabled() {
+			return Configuration.enableTileMarkers;
+		}
 	};
 
 	/**

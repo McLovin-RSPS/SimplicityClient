@@ -202,5 +202,10 @@ public class Configuration {
 	 * Indicates whether the hover stats are enabled or not.
 	 */
 	public static boolean enableItemStats = true;
+	
+	/**
+	 * Indicates whether the tile markers are enabled or not.
+	 */
+	public static boolean enableTileMarkers = true;
     
 }

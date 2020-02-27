@@ -650,12 +650,12 @@ public class DrawingArea extends QueueNode {
 		}
 	}
 
-	public static void fillPixels(int i, int j, int k, int l, int i1)
+	public static void fillPixels(int x, int width, int y, int color, int height)
 	{
-		drawLine(i1, l, j, i);
-		drawLine((i1 + k) - 1, l, j, i);
-		drawLineVertical(i1, l, k, i);
-		drawLineVertical(i1, l, k, (i + j) - 1);
+		drawLine(height, color, width, x);
+		drawLine((height + y) - 1, color, width, x);
+		drawLineVertical(height, color, y, x);
+		drawLineVertical(height, color, y, (x + width) - 1);
 	}
 
 	public static void drawRectangle(int y, int height, int opacity, int color, int width, int x)

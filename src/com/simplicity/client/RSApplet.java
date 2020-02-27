@@ -507,10 +507,6 @@ WindowListener {
 			mouseReleased = LEFT;
 			mouseDown = LEFT;
 		}
-		
-		if (e.isShiftDown()) {
-			shiftDown = true;
-		}
 	}
 
 	public final void mouseReleased(MouseEvent e) {
@@ -699,6 +695,10 @@ WindowListener {
 		
 		if (i == KeyEvent.VK_CONTROL) {
 			Client.getClient().controlIsDown = true;
+		}
+		
+		if (keyevent.isShiftDown()) {
+			shiftDown = true;
 		}
 	}
 

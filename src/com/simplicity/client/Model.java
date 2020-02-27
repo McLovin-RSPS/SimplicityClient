@@ -1,8 +1,6 @@
 package com.simplicity.client;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -3437,65 +3435,75 @@ public class Model extends Animable {
         }
     }
 
-    public void renderAtPoint(int i, int j, int k, int l, int i1, int j1, int k1, int l1, int i2, int id) {
-        renderAtPointX = j1 + Client.instance.xCameraPos;
-        renderAtPointY = l1 + Client.instance.yCameraPos;
-        renderAtPointZ = k1 + Client.instance.zCameraPos;
+    public void renderAtPoint(int i, int cos_y, int sin_y, int sin_x, int cos_x, int start_x, int start_y, int depth, int i2, int id) {
+        renderAtPointX = start_x + Client.instance.xCameraPos;
+        renderAtPointY = depth + Client.instance.yCameraPos;
+        renderAtPointZ = start_y + Client.instance.zCameraPos;
         lastRenderedRotation = i;
-        int j2 = l1 * i1 - j1 * l >> 16;
-        int k2 = k1 * j + j2 * k >> 16;
-        int l2 = anInt1650 * k >> 16;
-        int i3 = k2 + l2;
+        int scene_x = depth * cos_x - start_x * sin_x >> 16;
+        int scene_y = start_y * cos_y + scene_x * sin_y >> 16;
+        int dimension_sin_y = anInt1650 * sin_y >> 16;
+        int pos = scene_y + dimension_sin_y;
 
-        if (i3 <= 50 || k2 >= DRAW_DISTANCE)
+        if (pos <= 50 || scene_y >= DRAW_DISTANCE)
             return;
-        int j3 = l1 * l + j1 * i1 >> 16;
-        int k3 = j3 - anInt1650 << WorldController.viewDistance;
-        if (k3 / i3 >= DrawingArea.viewport_centerX)
+        
+        int x_rot = depth * sin_x + start_x * cos_x >> 16;
+        int obj_x = x_rot - anInt1650 << WorldController.viewDistance;
+        if (obj_x / pos >= DrawingArea.viewport_centerX)
             return;
-        int l3 = j3 + anInt1650 << WorldController.viewDistance;
-        if (l3 / i3 <= -DrawingArea.viewport_centerX)
+        
+        int obj_width = x_rot + anInt1650 << WorldController.viewDistance;
+        if (obj_width / pos <= -DrawingArea.viewport_centerX)
             return;
-        int i4 = k1 * k - j2 * j >> 16;
-        int j4 = anInt1650 * j >> 16;
-        int k4 = i4 + j4 << WorldController.viewDistance;
-        if (k4 / i3 <= -DrawingArea.viewport_centerY)
+        
+        int y_rot = start_y * sin_y - scene_x * cos_y >> 16;
+        int j4 = anInt1650 * cos_y >> 16;
+        int obj_height = y_rot + j4 << WorldController.viewDistance;
+        if (obj_height / pos <= -DrawingArea.viewport_centerY)
             return;
-        int l4 = j4 + (super.modelHeight * k >> 16);
-        int i5 = i4 - l4 << WorldController.viewDistance;
-        if (i5 / i3 >= DrawingArea.viewport_centerY)
+        
+        int l4 = j4 + (super.modelHeight * sin_y >> 16);
+        int obj_y = y_rot - l4 << WorldController.viewDistance;
+        if (obj_y / pos >= DrawingArea.viewport_centerY)
             return;
-        int j5 = l2 + (super.modelHeight * j >> 16);
-        boolean flag = false;
-        if (k2 - j5 <= 50)
-            flag = true;
-        boolean flag1 = false;
+        
+        int size = dimension_sin_y + (super.modelHeight * cos_y >> 16);
+        
+        boolean near_sight = false;
+        if (scene_y - size <= 50)
+            near_sight = true;
+        boolean highlighted = false;
+        
+        int color = 0xffffff;
+        
         if (i2 > 0 && objectExists) {
-            int k5 = k2 - l2;
-            if (k5 <= 50)
-                k5 = 50;
-            if (j3 > 0) {
-                k3 /= i3;
-                l3 /= k5;
+            int obj_height_offset = scene_y - dimension_sin_y;
+            if (obj_height_offset <= 50)
+                obj_height_offset = 50;
+            if (x_rot > 0) {
+                obj_x /= pos;
+                obj_width /= obj_height_offset;
             } else {
-                l3 /= i3;
-                k3 /= k5;
+                obj_width /= pos;
+                obj_x /= obj_height_offset;
             }
-            if (i4 > 0) {
-                i5 /= i3;
-                k4 /= k5;
+            if (y_rot > 0) {
+                obj_y /= pos;
+                obj_height /= obj_height_offset;
             } else {
-                k4 /= i3;
-                i5 /= k5;
+                obj_height /= pos;
+                obj_y /= obj_height_offset;
             }
-            int i6 = currentCursorX - Rasterizer.textureInt1;
-            int k6 = currentCursorY - Rasterizer.textureInt2;
-            if (i6 > k3 && i6 < l3 && k6 > i5 && k6 < k4)
+            int mouse_x = currentCursorX - Rasterizer.textureInt1;
+            int mouse_y = currentCursorY - Rasterizer.textureInt2;
+            if (mouse_x > obj_x && mouse_x < obj_width && mouse_y > obj_y && mouse_y < obj_height)
                 if (rendersWithinOneTile) {
                     mapObjectIds[objectsRendered] = id;
                     objectsInCurrentRegion[objectsRendered++] = i2;
-                } else
-                    flag1 = true;
+                } else {
+                    highlighted = true;
+                }
         }
         int l5 = Rasterizer.textureInt1;
         int j6 = Rasterizer.textureInt2;
@@ -3514,25 +3522,25 @@ public class Model extends Animable {
                 i8 = i8 * i7 - k7 * l6 >> 16;
                 k7 = j8;
             }
-            k7 += j1;
-            l7 += k1;
-            i8 += l1;
-            int k8 = i8 * l + k7 * i1 >> 16;
-            i8 = i8 * i1 - k7 * l >> 16;
+            k7 += start_x;
+            l7 += start_y;
+            i8 += depth;
+            int k8 = i8 * sin_x + k7 * cos_x >> 16;
+            i8 = i8 * cos_x - k7 * sin_x >> 16;
             k7 = k8;
-            k8 = l7 * k - i8 * j >> 16;
-            i8 = l7 * j + i8 * k >> 16;
+            k8 = l7 * sin_y - i8 * cos_y >> 16;
+            i8 = l7 * cos_y + i8 * sin_y >> 16;
             l7 = k8;
-            anIntArray1667[j7] = i8 - k2;
+            anIntArray1667[j7] = i8 - scene_y;
             if (i8 >= 50) {
                 projected_vertex_x[j7] = l5 + (k7 << WorldController.viewDistance) / i8;
                 projected_vertex_y[j7] = j6 + (l7 << WorldController.viewDistance) / i8;
                 projected_vertex_z[j7] = i8;
             } else {
                 projected_vertex_x[j7] = -5000;
-                flag = true;
+                near_sight = true;
             }
-            if (flag || numberOfTexturesFaces > 0) {
+            if (near_sight || numberOfTexturesFaces > 0) {
                 camera_vertex_y[j7] = k7;
                 camera_vertex_x[j7] = l7;
                 camera_vertex_z[j7] = i8;
@@ -3540,7 +3548,7 @@ public class Model extends Animable {
         }
 
         try {
-            translateToScreen(flag, flag1, i2, id);
+            translateToScreen(near_sight, highlighted, i2, id);
             return;
         } catch (Exception _ex) {
             return;

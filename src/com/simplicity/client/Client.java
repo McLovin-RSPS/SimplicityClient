@@ -104,6 +104,7 @@ import com.simplicity.client.content.PlayerRights;
 import com.simplicity.client.content.RichPresence;
 import com.simplicity.client.content.dropdownmenu.DropDownAction;
 import com.simplicity.client.content.dropdownmenu.DropDownMenu;
+import com.simplicity.client.entity.Position;
 import com.simplicity.client.particles.Particle;
 import com.simplicity.client.particles.ParticleDefinition;
 import com.simplicity.client.widget.CollectionLogWidget;
@@ -7201,6 +7202,11 @@ public class Client extends RSApplet {
                 crossIndex = 0;
             }
         }
+        if (WorldController.tracedMarkTileX != -1) {
+        	worldController.markTile(WorldController.tracedMarkTileX, WorldController.tracedMarkTileY, plane);
+        	WorldController.tracedMarkTileX = -1;
+        	WorldController.tracedMarkTileY = -1;
+        }
         if (super.clickMode3 == 1 && aString844 != null) {
             aString844 = null;
             inputTaken = true;
@@ -8464,6 +8470,10 @@ public class Client extends RSApplet {
             else
                 worldController.request2DTrace(interfaceId - 4, slot - 4);
         }
+        
+        if (l == 517) {
+        	worldController.requestMarkTile(interfaceId - 4, slot - 4);
+        }
 
         if (l == 1062) {
             anInt924 += baseX;
@@ -9435,6 +9445,14 @@ public class Client extends RSApplet {
 
     private void build3dScreenMenu() {
         if (itemSelected == 0 && spellSelected == 0) {
+        	if (Configuration.enableTileMarkers && shiftDown) {
+	            menuActionName[menuActionRow] = "Mark tile";
+	            menuActionID[menuActionRow] = 517;
+	            menuActionCmd2[menuActionRow] = super.mouseX;
+	            menuActionCmd3[menuActionRow] = super.mouseY;
+	            menuActionRow++;
+        	}
+            
             menuActionName[menuActionRow] = "Walk here";
             menuActionID[menuActionRow] = 516;
             menuActionCmd2[menuActionRow] = super.mouseX;
@@ -15802,8 +15820,8 @@ public class Client extends RSApplet {
 
             drawingArea.method385(0xffff00, "Mem: " + j1 + "k", 299 - minus, 5);
             drawingArea.method385(0xffff00, "Mouse X: " + super.mouseX + " , Mouse Y: " + super.mouseY, 314 - minus, 5);
-            drawingArea.method385(0xffff00, "Coords: " + x + ", " + y + " " + myPlayer.x + " " + myPlayer.y,
-                    329 - minus, 5);
+			drawingArea.method385(0xffff00, "Coords: " + x + ", " + y + " " + myPlayer.x + " " + myPlayer.y,
+					329 - minus, 5);
             drawingArea.method385(0xffff00, "Client resolution: " + clientWidth + "x" + clientHeight, 344 - minus, 5);
             drawingArea.method385(0xffff00, "RegionIndex, Terrain, Landscape: " + regionIndex + " " + (regionIndex >= 0
                     ? (onDemandFetcher.landscapeMapIds[regionIndex] + ", " + onDemandFetcher.objectMapIds[regionIndex])
@@ -20338,6 +20356,7 @@ public class Client extends RSApplet {
         }
         DrawingArea.resetImage();
         worldController.render(xCameraPos, yCameraPos, xCameraCurve, zCameraPos, j, yCameraCurve);
+        worldController.renderTileMarkers();
         if (Configuration.enableFog) {
             int baseFogDistance = (int) Math.sqrt(Math.pow(zCameraPos, 2));
             int fogStart = baseFogDistance + 1100;
@@ -23666,6 +23685,14 @@ public class Client extends RSApplet {
 	 */
 	private boolean shouldDrawHpOverlay() {
 		return getRegionId() != 12611;
+	}
+	
+	public Position getPlayerPos() {
+        int x = baseX + (myPlayer.x - 6 >> 7);
+        
+        int y = baseY + (myPlayer.y - 6 >> 7);
+        
+        return new Position(x, y, plane);
 	}
 
 }

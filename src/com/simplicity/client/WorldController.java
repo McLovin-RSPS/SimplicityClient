@@ -1,10 +1,23 @@
 package com.simplicity.client;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Polygon;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.simplicity.Configuration;
 import com.simplicity.client.cache.node.Deque;
+import com.simplicity.client.entity.Position;
 
 @SuppressWarnings("all")
-final class WorldController {
+public final class WorldController {
 	
 	public static final int TILE_DRAW_DISTANCE = 50;
 	
@@ -1081,6 +1094,14 @@ final class WorldController {
 		anInt470 = -1;
 		anInt471 = -1;
 	}
+	
+	public void requestMarkTile(int x, int y) {
+		requestMarkTile = true;
+		requestedMarkTileX = !Client.antialiasing ? y : y << 1;
+		requestedMarkTileY = !Client.antialiasing ? x : x << 1;
+		tracedMarkTileX = -1;
+		tracedMarkTileY = -1;
+	}
 
 	public void render(int xCam, int yCam, int xCurve, int zCam, int plane, int yCurve) {
 		if (xCam < 0)
@@ -1122,7 +1143,7 @@ final class WorldController {
 			for (int x_ = anInt449; x_ < anInt450; x_++) {
 				for (int y_ = anInt451; y_ < anInt452; y_++) {
 					Tile tile = tiles[x_][y_];
-					if (tile != null)
+					if (tile != null) {
 						if (tile.logicHeight > plane || !tile_visibility_map[(x_ - xCamPosTile)+ TILE_DRAW_DISTANCE][(y_ - yCamPosTile)+ TILE_DRAW_DISTANCE] && anIntArrayArrayArray440[k1][x_][y_] - zCam < 3000) {
 							tile.aBoolean1322 = false;
 							tile.aBoolean1323 = false;
@@ -1133,6 +1154,7 @@ final class WorldController {
 							tile.aBoolean1324 = tile.entityCount > 0;
 							anInt446++;
 						}
+					}
 				}
 
 			}
@@ -1151,29 +1173,37 @@ final class WorldController {
 						if (i3 >= anInt449) {
 							if (k4 >= anInt451) {
 								Tile class30_sub3_1 = aclass30_sub3_1[i3][k4];
-								if (class30_sub3_1 != null && class30_sub3_1.aBoolean1322)
+								if (class30_sub3_1 != null && class30_sub3_1.aBoolean1322) {
 									renderTile(class30_sub3_1, true);
+								}
 							}
 							if (i5 < anInt452) {
 								Tile class30_sub3_2 = aclass30_sub3_1[i3][i5];
-								if (class30_sub3_2 != null && class30_sub3_2.aBoolean1322)
+								if (class30_sub3_2 != null && class30_sub3_2.aBoolean1322) {
 									renderTile(class30_sub3_2, true);
+								}
 							}
 						}
 						if (k3 < anInt450) {
 							if (k4 >= anInt451) {
 								Tile class30_sub3_3 = aclass30_sub3_1[k3][k4];
-								if (class30_sub3_3 != null && class30_sub3_3.aBoolean1322)
+								if (class30_sub3_3 != null && class30_sub3_3.aBoolean1322) {
 									renderTile(class30_sub3_3, true);
+								}
 							}
 							if (i5 < anInt452) {
 								Tile class30_sub3_4 = aclass30_sub3_1[k3][i5];
-								if (class30_sub3_4 != null && class30_sub3_4.aBoolean1322)
+								if (class30_sub3_4 != null && class30_sub3_4.aBoolean1322) {
 									renderTile(class30_sub3_4, true);
+								}
 							}
 						}
+						
+						
+						
 						if (anInt446 == 0) {
 							aBoolean467 = false;
+							requestMarkTile = false;
 							return;
 						}
 					}
@@ -1182,7 +1212,7 @@ final class WorldController {
 			}
 
 		}
-
+		
 		for (int j2 = currentHL; j2 < zMapSize; j2++) {
 			Tile aclass30_sub3_2[][] = tileArray[j2];
 			for (int j3 = -TILE_DRAW_DISTANCE; j3 <= 0; j3++) {
@@ -1195,29 +1225,34 @@ final class WorldController {
 						if (l3 >= anInt449) {
 							if (j5 >= anInt451) {
 								Tile class30_sub3_5 = aclass30_sub3_2[l3][j5];
-								if (class30_sub3_5 != null && class30_sub3_5.aBoolean1322)
+								if (class30_sub3_5 != null && class30_sub3_5.aBoolean1322) {
 									renderTile(class30_sub3_5, false);
+								}
 							}
 							if (k5 < anInt452) {
 								Tile class30_sub3_6 = aclass30_sub3_2[l3][k5];
-								if (class30_sub3_6 != null && class30_sub3_6.aBoolean1322)
+								if (class30_sub3_6 != null && class30_sub3_6.aBoolean1322) {
 									renderTile(class30_sub3_6, false);
+								}
 							}
 						}
 						if (j4 < anInt450) {
 							if (j5 >= anInt451) {
 								Tile class30_sub3_7 = aclass30_sub3_2[j4][j5];
-								if (class30_sub3_7 != null && class30_sub3_7.aBoolean1322)
+								if (class30_sub3_7 != null && class30_sub3_7.aBoolean1322) {
 									renderTile(class30_sub3_7, false);
+								}
 							}
 							if (k5 < anInt452) {
 								Tile tile = aclass30_sub3_2[j4][k5];
-								if (tile != null && tile.aBoolean1322)
+								if (tile != null && tile.aBoolean1322) {
 									renderTile(tile, false);
+								}
 							}
 						}
 						if (anInt446 == 0) {
 							aBoolean467 = false;
+							requestMarkTile = false;
 							return;
 						}
 					}
@@ -1225,7 +1260,73 @@ final class WorldController {
 				}
 			}
 		}
+		
 		aBoolean467 = false;
+		requestMarkTile = false;
+	}
+	
+	private Map<Integer, List<Position>> markedTiles = new HashMap<>();
+	
+	public boolean isMarked(Tile tile) {
+		Position pos = new Position(Client.instance.getBaseX() + tile.tileX, Client.instance.getBaseY() + tile.tileY, tile.plane);
+		
+		if (!Client.instance.getPlayerPos().isWithinDistance(pos)) {
+			return false;
+		}
+
+		if (!markedTiles.containsKey(pos.getRegionID())) {
+			return false;
+		}
+		
+		return markedTiles.get(pos.getRegionID()).contains(pos);
+	}
+	
+	public void markTile(int x, int y, int z) {
+		Position pos = new Position(Client.instance.getBaseX() + x, Client.instance.getBaseY() + y, z);
+		
+		if (!Client.instance.getPlayerPos().isWithinDistance(pos)) {
+			Client.instance.pushMessage("You are too far away to do that.", 0, "");
+			return;
+		}
+		
+		if (markedTiles.containsKey(pos.getRegionID())) {
+			List<Position> list = markedTiles.get(pos.getRegionID());
+			
+			if (list.contains(pos)) {
+				list.remove(pos);
+				
+				if (list.isEmpty()) {
+					markedTiles.remove(pos.getRegionID());
+				}
+			} else {
+				if (list.size() >= 50) {
+					Client.instance.pushMessage("You have reached the limit of marking tiles.", 0, "");
+					return;
+				}
+				
+				list.add(pos);
+			}
+			
+			markedTiles.put(pos.getRegionID(), list);
+		} else {
+			markedTiles.put(pos.getRegionID(), new ArrayList<>(Arrays.asList(pos)));
+		}
+	}
+	
+	public void renderTileMarkers() {
+		for (int k1 = currentHL; k1 < zMapSize; k1++) {
+			Tile tiles[][] = tileArray[k1];
+			for (int x_ = anInt449; x_ < anInt450; x_++) {
+				for (int y_ = anInt451; y_ < anInt452; y_++) {
+					Tile tile = tiles[x_][y_];
+					if (tile != null && isMarked(tile)) {
+						drawTileMarker(tile.plane, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, tile.tileX, tile.tileY);
+					}
+				}
+
+			}
+
+		}
 	}
 
 	private void renderTile(Tile mainTile, boolean flag) {
@@ -1237,35 +1338,35 @@ final class WorldController {
 				if (tempTile == null)
 					return;
 			} while (!tempTile.aBoolean1323);
-			int i = tempTile.tileX;
-			int j = tempTile.tileY;
+			int camera_x = tempTile.tileX;
+			int camera_y = tempTile.tileY;
 			int k = tempTile.tileZ;
-			int l = tempTile.plane;
+			int plane = tempTile.plane;
 			Tile tiles[][] = tileArray[k];
 			if (tempTile.aBoolean1322) {
 				if (flag) {
 					if (k > 0) {
-						Tile tile = tileArray[k - 1][i][j];
+						Tile tile = tileArray[k - 1][camera_x][camera_y];
 						if (tile != null && tile.aBoolean1323)
 							continue;
 					}
-					if (i <= xCamPosTile && i > anInt449) {
-						Tile tile = tiles[i - 1][j];
+					if (camera_x <= xCamPosTile && camera_x > anInt449) {
+						Tile tile = tiles[camera_x - 1][camera_y];
 						if (tile != null && tile.aBoolean1323 && (tile.aBoolean1322 || (tempTile.anInt1320 & 1) == 0))
 							continue;
 					}
-					if (i >= xCamPosTile && i < anInt450 - 1) {
-						Tile tile = tiles[i + 1][j];
+					if (camera_x >= xCamPosTile && camera_x < anInt450 - 1) {
+						Tile tile = tiles[camera_x + 1][camera_y];
 						if (tile != null && tile.aBoolean1323 && (tile.aBoolean1322 || (tempTile.anInt1320 & 4) == 0))
 							continue;
 					}
-					if (j <= yCamPosTile && j > anInt451) {
-						Tile class30_sub3_5 = tiles[i][j - 1];
+					if (camera_y <= yCamPosTile && camera_y > anInt451) {
+						Tile class30_sub3_5 = tiles[camera_x][camera_y - 1];
 						if (class30_sub3_5 != null && class30_sub3_5.aBoolean1323 && (class30_sub3_5.aBoolean1322 || (tempTile.anInt1320 & 8) == 0))
 							continue;
 					}
-					if (j >= yCamPosTile && j < anInt452 - 1) {
-						Tile class30_sub3_6 = tiles[i][j + 1];
+					if (camera_y >= yCamPosTile && camera_y < anInt452 - 1) {
+						Tile class30_sub3_6 = tiles[camera_x][camera_y + 1];
 						if (class30_sub3_6 != null && class30_sub3_6.aBoolean1323 && (class30_sub3_6.aBoolean1322 || (tempTile.anInt1320 & 2) == 0))
 							continue;
 					}
@@ -1276,10 +1377,10 @@ final class WorldController {
 				if (tempTile.tileBelowThisTile != null) {
 					Tile lowerTile = tempTile.tileBelowThisTile;
 					if (lowerTile.plainTile != null) {
-						if (!method320(0, i, j))
-							drawPlainTile(lowerTile.plainTile, 0, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, i, j);
-					} else if (lowerTile.shapedTile != null && !method320(0, i, j))
-						drawShapedTile(i, yCurveSin, xCurveSin, lowerTile.shapedTile, yCUrveCos, j, xCurveCos);
+						if (!method320(0, camera_x, camera_y))
+							drawPlainTile(lowerTile.plainTile, 0, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, camera_x, camera_y);
+					} else if (lowerTile.shapedTile != null && !method320(0, camera_x, camera_y))
+						drawShapedTile(camera_x, yCurveSin, xCurveSin, lowerTile.shapedTile, yCUrveCos, camera_y, xCurveCos);
 					WallObject wallObject = lowerTile.wallObject;
 					if (wallObject != null)
 						wallObject.node1.renderAtPoint(0, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, wallObject.xPos - anInt455, wallObject.zPos - anInt456, wallObject.yPos - anInt457, wallObject.uid, wallObject.wallObjUID);
@@ -1292,26 +1393,27 @@ final class WorldController {
 				}
 				boolean flag1 = false;
 				if (tempTile.plainTile != null) {
-					if (!method320(l, i, j)) {
+					if (!method320(plane, camera_x, camera_y)) {
 						flag1 = true;
-						drawPlainTile(tempTile.plainTile, l, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, i, j);
+						drawPlainTile(tempTile.plainTile, plane, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, camera_x, camera_y);
 					}
-				} else if (tempTile.shapedTile != null && !method320(l, i, j)) {
+				} else if (tempTile.shapedTile != null && !method320(plane, camera_x, camera_y)) {
 					flag1 = true;
-					drawShapedTile(i, yCurveSin, xCurveSin, tempTile.shapedTile, yCUrveCos, j, xCurveCos);
+					drawShapedTile(camera_x, yCurveSin, xCurveSin, tempTile.shapedTile, yCUrveCos, camera_y, xCurveCos);
 				}
+				
 				int j1 = 0;
 				int j2 = 0;
 				WallObject class10_3 = tempTile.wallObject;
 				WallDecoration class26_1 = tempTile.wallDecoration;
 				if (class10_3 != null || class26_1 != null) {
-					if (xCamPosTile == i)
+					if (xCamPosTile == camera_x)
 						j1++;
-					else if (xCamPosTile < i)
+					else if (xCamPosTile < camera_x)
 						j1 += 2;
-					if (yCamPosTile == j)
+					if (yCamPosTile == camera_y)
 						j1 += 3;
-					else if (yCamPosTile > j)
+					else if (yCamPosTile > camera_y)
 						j1 += 6;
 					j2 = anIntArray478[j1];
 					tempTile.anInt1328 = anIntArray480[j1];
@@ -1338,12 +1440,12 @@ final class WorldController {
 					} else {
 						tempTile.anInt1325 = 0;
 					}
-					if ((class10_3.orientation & j2) != 0 && !method321(l, i, j, class10_3.orientation))
+					if ((class10_3.orientation & j2) != 0 && !method321(plane, camera_x, camera_y, class10_3.orientation))
 						class10_3.node1.renderAtPoint(0, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, class10_3.xPos - anInt455, class10_3.zPos - anInt456, class10_3.yPos - anInt457, class10_3.uid, class10_3.wallObjUID);
-					if ((class10_3.orientation1 & j2) != 0 && !method321(l, i, j, class10_3.orientation1))
+					if ((class10_3.orientation1 & j2) != 0 && !method321(plane, camera_x, camera_y, class10_3.orientation1))
 						class10_3.node2.renderAtPoint(0, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, class10_3.xPos - anInt455, class10_3.zPos - anInt456, class10_3.yPos - anInt457, class10_3.uid, class10_3.wallObjUID);
 				}
-				if (class26_1 != null && !method322(l, i, j, class26_1.node.modelHeight))
+				if (class26_1 != null && !method322(plane, camera_x, camera_y, class26_1.node.modelHeight))
 					if ((class26_1.configurationBits & j2) != 0)
 						class26_1.node.renderAtPoint(class26_1.rotation, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, class26_1.xPos - anInt455, class26_1.zPos - anInt456, class26_1.yPos - anInt457, class26_1.uid, class26_1.wallDecorUID);
 					else if ((class26_1.configurationBits & 0x300) != 0) {
@@ -1386,25 +1488,26 @@ final class WorldController {
 							object4_1.firstGroundItem.renderAtPoint(0, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, object4_1.xPos - anInt455, object4_1.zPos - anInt456, object4_1.yPos - anInt457, object4_1.uid, object4_1.newuid);
 					}
 				}
+				
 				int k4 = tempTile.anInt1320;
 				if (k4 != 0) {
-					if (i < xCamPosTile && (k4 & 4) != 0) {
-						Tile class30_sub3_17 = tiles[i + 1][j];
+					if (camera_x < xCamPosTile && (k4 & 4) != 0) {
+						Tile class30_sub3_17 = tiles[camera_x + 1][camera_y];
 						if (class30_sub3_17 != null && class30_sub3_17.aBoolean1323)
 							tileDeque.insertBack(class30_sub3_17);
 					}
-					if (j < yCamPosTile && (k4 & 2) != 0) {
-						Tile class30_sub3_18 = tiles[i][j + 1];
+					if (camera_y < yCamPosTile && (k4 & 2) != 0) {
+						Tile class30_sub3_18 = tiles[camera_x][camera_y + 1];
 						if (class30_sub3_18 != null && class30_sub3_18.aBoolean1323)
 							tileDeque.insertBack(class30_sub3_18);
 					}
-					if (i > xCamPosTile && (k4 & 1) != 0) {
-						Tile class30_sub3_19 = tiles[i - 1][j];
+					if (camera_x > xCamPosTile && (k4 & 1) != 0) {
+						Tile class30_sub3_19 = tiles[camera_x - 1][camera_y];
 						if (class30_sub3_19 != null && class30_sub3_19.aBoolean1323)
 							tileDeque.insertBack(class30_sub3_19);
 					}
-					if (j > yCamPosTile && (k4 & 8) != 0) {
-						Tile class30_sub3_20 = tiles[i][j - 1];
+					if (camera_y > yCamPosTile && (k4 & 8) != 0) {
+						Tile class30_sub3_20 = tiles[camera_x][camera_y - 1];
 						if (class30_sub3_20 != null && class30_sub3_20.aBoolean1323)
 							tileDeque.insertBack(class30_sub3_20);
 					}
@@ -1421,7 +1524,7 @@ final class WorldController {
 
 				if (flag2) {
 					WallObject class10_1 = tempTile.wallObject;
-					if (!method321(l, i, j, class10_1.orientation))
+					if (!method321(plane, camera_x, camera_y, class10_1.orientation))
 						class10_1.node1.renderAtPoint(0, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, class10_1.xPos - anInt455, class10_1.zPos - anInt456, class10_1.yPos - anInt457, class10_1.uid, class10_1.wallObjUID);
 					tempTile.anInt1325 = 0;
 				}
@@ -1497,14 +1600,14 @@ final class WorldController {
 							break;
 						InteractableObject class28_3 = aClass28Array462[l3];
 						class28_3.height = anInt448;
-						if (!method323(l, class28_3.tileLeft, class28_3.tileRight, class28_3.tileTop, class28_3.tileBottom, class28_3.node.modelHeight))
+						if (!method323(plane, class28_3.tileLeft, class28_3.tileRight, class28_3.tileTop, class28_3.tileBottom, class28_3.node.modelHeight))
 							class28_3.node.renderAtPoint(class28_3.rotation, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, class28_3.worldX - anInt455, class28_3.worldZ - anInt456, class28_3.worldY - anInt457, class28_3.uid, class28_3.interactiveObjUID);
 						for (int k7 = class28_3.tileLeft; k7 <= class28_3.tileRight; k7++) {
 							for (int l8 = class28_3.tileTop; l8 <= class28_3.tileBottom; l8++) {
 								Tile class30_sub3_22 = tiles[k7][l8];
 								if (class30_sub3_22.anInt1325 != 0)
 									tileDeque.insertBack(class30_sub3_22);
-								else if ((k7 != i || l8 != j) && class30_sub3_22.aBoolean1323)
+								else if ((k7 != camera_x || l8 != camera_y) && class30_sub3_22.aBoolean1323)
 									tileDeque.insertBack(class30_sub3_22);
 							}
 
@@ -1519,23 +1622,23 @@ final class WorldController {
 				}
 			if (!tempTile.aBoolean1323 || tempTile.anInt1325 != 0)
 				continue;
-			if (i <= xCamPosTile && i > anInt449) {
-				Tile class30_sub3_8 = tiles[i - 1][j];
+			if (camera_x <= xCamPosTile && camera_x > anInt449) {
+				Tile class30_sub3_8 = tiles[camera_x - 1][camera_y];
 				if (class30_sub3_8 != null && class30_sub3_8.aBoolean1323)
 					continue;
 			}
-			if (i >= xCamPosTile && i < anInt450 - 1) {
-				Tile class30_sub3_9 = tiles[i + 1][j];
+			if (camera_x >= xCamPosTile && camera_x < anInt450 - 1) {
+				Tile class30_sub3_9 = tiles[camera_x + 1][camera_y];
 				if (class30_sub3_9 != null && class30_sub3_9.aBoolean1323)
 					continue;
 			}
-			if (j <= yCamPosTile && j > anInt451) {
-				Tile class30_sub3_10 = tiles[i][j - 1];
+			if (camera_y <= yCamPosTile && camera_y > anInt451) {
+				Tile class30_sub3_10 = tiles[camera_x][camera_y - 1];
 				if (class30_sub3_10 != null && class30_sub3_10.aBoolean1323)
 					continue;
 			}
-			if (j >= yCamPosTile && j < anInt452 - 1) {
-				Tile class30_sub3_11 = tiles[i][j + 1];
+			if (camera_y >= yCamPosTile && camera_y < anInt452 - 1) {
+				Tile class30_sub3_11 = tiles[camera_x][camera_y + 1];
 				if (class30_sub3_11 != null && class30_sub3_11.aBoolean1323)
 					continue;
 			}
@@ -1552,7 +1655,7 @@ final class WorldController {
 			}
 			if (tempTile.anInt1328 != 0) {
 				WallDecoration class26 = tempTile.wallDecoration;
-				if (class26 != null && !method322(l, i, j, class26.node.modelHeight))
+				if (class26 != null && !method322(plane, camera_x, camera_y, class26.node.modelHeight))
 					if ((class26.configurationBits & tempTile.anInt1328) != 0)
 						class26.node.renderAtPoint(class26.rotation, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, class26.xPos - anInt455, class26.zPos - anInt456, class26.yPos - anInt457, class26.uid, class26.wallDecorUID);
 					else if ((class26.configurationBits & 0x300) != 0) {
@@ -1583,34 +1686,34 @@ final class WorldController {
 					}
 				WallObject class10_2 = tempTile.wallObject;
 				if (class10_2 != null) {
-					if ((class10_2.orientation1 & tempTile.anInt1328) != 0 && !method321(l, i, j, class10_2.orientation1))
+					if ((class10_2.orientation1 & tempTile.anInt1328) != 0 && !method321(plane, camera_x, camera_y, class10_2.orientation1))
 						class10_2.node2.renderAtPoint(0, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, class10_2.xPos - anInt455, class10_2.zPos - anInt456, class10_2.yPos - anInt457, class10_2.uid, class10_2.wallObjUID);
-					if ((class10_2.orientation & tempTile.anInt1328) != 0 && !method321(l, i, j, class10_2.orientation))
+					if ((class10_2.orientation & tempTile.anInt1328) != 0 && !method321(plane, camera_x, camera_y, class10_2.orientation))
 						class10_2.node1.renderAtPoint(0, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, class10_2.xPos - anInt455, class10_2.zPos - anInt456, class10_2.yPos - anInt457, class10_2.uid, class10_2.wallObjUID);
 				}
 			}
 			if (k < zMapSize - 1) {
-				Tile class30_sub3_12 = tileArray[k + 1][i][j];
+				Tile class30_sub3_12 = tileArray[k + 1][camera_x][camera_y];
 				if (class30_sub3_12 != null && class30_sub3_12.aBoolean1323)
 					tileDeque.insertBack(class30_sub3_12);
 			}
-			if (i < xCamPosTile) {
-				Tile class30_sub3_13 = tiles[i + 1][j];
+			if (camera_x < xCamPosTile) {
+				Tile class30_sub3_13 = tiles[camera_x + 1][camera_y];
 				if (class30_sub3_13 != null && class30_sub3_13.aBoolean1323)
 					tileDeque.insertBack(class30_sub3_13);
 			}
-			if (j < yCamPosTile) {
-				Tile class30_sub3_14 = tiles[i][j + 1];
+			if (camera_y < yCamPosTile) {
+				Tile class30_sub3_14 = tiles[camera_x][camera_y + 1];
 				if (class30_sub3_14 != null && class30_sub3_14.aBoolean1323)
 					tileDeque.insertBack(class30_sub3_14);
 			}
-			if (i > xCamPosTile) {
-				Tile class30_sub3_15 = tiles[i - 1][j];
+			if (camera_x > xCamPosTile) {
+				Tile class30_sub3_15 = tiles[camera_x - 1][camera_y];
 				if (class30_sub3_15 != null && class30_sub3_15.aBoolean1323)
 					tileDeque.insertBack(class30_sub3_15);
 			}
-			if (j > yCamPosTile) {
-				Tile class30_sub3_16 = tiles[i][j - 1];
+			if (camera_y > yCamPosTile) {
+				Tile class30_sub3_16 = tiles[camera_x][camera_y - 1];
 				if (class30_sub3_16 != null && class30_sub3_16.aBoolean1323)
 					tileDeque.insertBack(class30_sub3_16);
 			}
@@ -1621,118 +1724,197 @@ final class WorldController {
 	private void drawPlainTile(PlainTile class43, int i, int j, int k, int l, int i1, int j1, int k1) {
 		int l1;
 		int i2 = l1 = (j1 << 7) - anInt455;
-		int j2;
-		int k2 = j2 = (k1 << 7) - anInt457;
+		int depth_b;
+		int depth_a = depth_b = (k1 << 7) - anInt457;
 		int l2;
 		int i3 = l2 = i2 + 128;
-		int j3;
-		int k3 = j3 = k2 + 128;
+		int depth_d;
+		int depth_c = depth_d = depth_a + 128;
 		int l3 = anIntArrayArrayArray440[i][j1][k1] - anInt456;
 		int i4 = anIntArrayArrayArray440[i][j1 + 1][k1] - anInt456;
 		int j4 = anIntArrayArrayArray440[i][j1 + 1][k1 + 1] - anInt456;
 		int k4 = anIntArrayArrayArray440[i][j1][k1 + 1] - anInt456;
-		int l4 = k2 * l + i2 * i1 >> 16;
-		k2 = k2 * i1 - i2 * l >> 16;
+		int l4 = depth_a * l + i2 * i1 >> 16;
+		depth_a = depth_a * i1 - i2 * l >> 16;
 		i2 = l4;
-		l4 = l3 * k - k2 * j >> 16;
-		k2 = l3 * j + k2 * k >> 16;
+		l4 = l3 * k - depth_a * j >> 16;
+		depth_a = l3 * j + depth_a * k >> 16;
 		l3 = l4;
-		if (k2 < 50) {
+		if (depth_a < 50) {
 			return;
 		}
-		l4 = j2 * l + i3 * i1 >> 16;
-		j2 = j2 * i1 - i3 * l >> 16;
+		l4 = depth_b * l + i3 * i1 >> 16;
+		depth_b = depth_b * i1 - i3 * l >> 16;
 		i3 = l4;
-		l4 = i4 * k - j2 * j >> 16;
-		j2 = i4 * j + j2 * k >> 16;
+		l4 = i4 * k - depth_b * j >> 16;
+		depth_b = i4 * j + depth_b * k >> 16;
 		i4 = l4;
-		if (j2 < 50) {
+		if (depth_b < 50) {
 			return;
 		}
-		l4 = k3 * l + l2 * i1 >> 16;
-		k3 = k3 * i1 - l2 * l >> 16;
+		l4 = depth_c * l + l2 * i1 >> 16;
+		depth_c = depth_c * i1 - l2 * l >> 16;
 		l2 = l4;
-		l4 = j4 * k - k3 * j >> 16;
-		k3 = j4 * j + k3 * k >> 16;
+		l4 = j4 * k - depth_c * j >> 16;
+		depth_c = j4 * j + depth_c * k >> 16;
 		j4 = l4;
-		if (k3 < 50) {
+		if (depth_c < 50) {
 			return;
 		}
-		l4 = j3 * l + l1 * i1 >> 16;
-		j3 = j3 * i1 - l1 * l >> 16;
+		l4 = depth_d * l + l1 * i1 >> 16;
+		depth_d = depth_d * i1 - l1 * l >> 16;
 		l1 = l4;
-		l4 = k4 * k - j3 * j >> 16;
-		j3 = k4 * j + j3 * k >> 16;
+		l4 = k4 * k - depth_d * j >> 16;
+		depth_d = k4 * j + depth_d * k >> 16;
 		k4 = l4;
-		if (j3 < 50) {
+		if (depth_d < 50) {
 			return;
 		}
-		int i5 = Rasterizer.textureInt1 + (i2 << viewDistance) / k2;
-		int j5 = Rasterizer.textureInt2 + (l3 << viewDistance) / k2;
-		int k5 = Rasterizer.textureInt1 + (i3 << viewDistance) / j2;
-		int l5 = Rasterizer.textureInt2 + (i4 << viewDistance) / j2;
-		int i6 = Rasterizer.textureInt1 + (l2 << viewDistance) / k3;
-		int j6 = Rasterizer.textureInt2 + (j4 << viewDistance) / k3;
-		int k6 = Rasterizer.textureInt1 + (l1 << viewDistance) / j3;
-		int l6 = Rasterizer.textureInt2 + (k4 << viewDistance) / j3;
+		int x_a = Rasterizer.textureInt1 + (i2 << viewDistance) / depth_a;
+		int y_a = Rasterizer.textureInt2 + (l3 << viewDistance) / depth_a;
+		int x_b = Rasterizer.textureInt1 + (i3 << viewDistance) / depth_b;
+		int y_b = Rasterizer.textureInt2 + (i4 << viewDistance) / depth_b;
+		int x_c = Rasterizer.textureInt1 + (l2 << viewDistance) / depth_c;
+		int y_c = Rasterizer.textureInt2 + (j4 << viewDistance) / depth_c;
+		int x_d = Rasterizer.textureInt1 + (l1 << viewDistance) / depth_d;
+		int y_d = Rasterizer.textureInt2 + (k4 << viewDistance) / depth_d;
 		Rasterizer.anInt1465 = 0;
-		if ((i6 - k6) * (l5 - l6) - (j6 - l6) * (k5 - k6) > 0) {
-			Rasterizer.aBoolean1462 = i6 < 0 || k6 < 0 || k5 < 0 || i6 > DrawingArea.viewportRX || k6 > DrawingArea.viewportRX || k5 > DrawingArea.viewportRX;
-			if (aBoolean467 && method318(anInt468, anInt469, j6, l6, l5, i6, k6, k5)) {
+		if ((x_c - x_d) * (y_b - y_d) - (y_c - y_d) * (x_b - x_d) > 0) {
+			Rasterizer.aBoolean1462 = x_c < 0 || x_d < 0 || x_b < 0 || x_c > DrawingArea.viewportRX || x_d > DrawingArea.viewportRX || x_b > DrawingArea.viewportRX;
+			if (aBoolean467 && method318(anInt468, anInt469, y_c, y_d, y_b, x_c, x_d, x_b)) {
 				anInt470 = j1;
 				anInt471 = k1;
+			}
+			if (requestMarkTile && method318(requestedMarkTileX, requestedMarkTileY, y_c, y_d, y_b, x_c, x_d, x_b)) {
+				tracedMarkTileX = j1;
+				tracedMarkTileY = k1;
 			}
 			if (class43.anInt720 == -1 || class43.anInt720 > 50) {
 				if (class43.anInt718 != 0xbc614e) {
 					if (Configuration.enableHDTextures && class43.anInt720 != -1) {
 						if (class43.aBoolean721) {
-							Rasterizer.drawMaterializedTriangle(j6, l6, l5, i6, k6, k5, class43.anInt718, class43.anInt719, class43.anInt717, i2, i3, l1, l3, i4, k4, k2, j2, j3, class43.anInt720, k3, j3, j2);
+							Rasterizer.drawMaterializedTriangle(y_c, y_d, y_b, x_c, x_d, x_b, class43.anInt718, class43.anInt719, class43.anInt717, i2, i3, l1, l3, i4, k4, depth_a, depth_b, depth_d, class43.anInt720, depth_c, depth_d, depth_b);
 						} else {
-							Rasterizer.drawMaterializedTriangle(j6, l6, l5, i6, k6, k5, class43.anInt718, class43.anInt719, class43.anInt717, l2, l1, i3, j4, k4, i4, k3, j3, j2, class43.anInt720, k3, j3, j2);
+							Rasterizer.drawMaterializedTriangle(y_c, y_d, y_b, x_c, x_d, x_b, class43.anInt718, class43.anInt719, class43.anInt717, l2, l1, i3, j4, k4, i4, depth_c, depth_d, depth_b, class43.anInt720, depth_c, depth_d, depth_b);
 						}
 					} else {
-						Rasterizer.drawGouraudTriangle(j6, l6, l5, i6, k6, k5, class43.anInt718, class43.anInt719, class43.anInt717, k3, j3, j2);
+						Rasterizer.drawGouraudTriangle(y_c, y_d, y_b, x_c, x_d, x_b, class43.anInt718, class43.anInt719, class43.anInt717, depth_c, depth_d, depth_b);
 					}
 				}
 			} else if (!lowMem) {
 				if (class43.aBoolean721) {
-					Rasterizer.drawTexturedTriangle(j6, l6, l5, i6, k6, k5, class43.anInt718, class43.anInt719, class43.anInt717, i2, i3, l1, l3, i4, k4, k2, j2, j3, class43.anInt720, k3, j3, j2);
+					Rasterizer.drawTexturedTriangle(y_c, y_d, y_b, x_c, x_d, x_b, class43.anInt718, class43.anInt719, class43.anInt717, i2, i3, l1, l3, i4, k4, depth_a, depth_b, depth_d, class43.anInt720, depth_c, depth_d, depth_b);
 				} else {
-					Rasterizer.drawTexturedTriangle(j6, l6, l5, i6, k6, k5, class43.anInt718, class43.anInt719, class43.anInt717, l2, l1, i3, j4, k4, i4, k3, j3, j2, class43.anInt720, k3, j3, j2);
+					Rasterizer.drawTexturedTriangle(y_c, y_d, y_b, x_c, x_d, x_b, class43.anInt718, class43.anInt719, class43.anInt717, l2, l1, i3, j4, k4, i4, depth_c, depth_d, depth_b, class43.anInt720, depth_c, depth_d, depth_b);
 				}
 			} else {
 				int i7 = anIntArray485[class43.anInt720];
-				Rasterizer.drawGouraudTriangle(j6, l6, l5, i6, k6, k5, method317(i7, class43.anInt718), method317(i7, class43.anInt719), method317(i7, class43.anInt717), k3, j3, j2);
+				Rasterizer.drawGouraudTriangle(y_c, y_d, y_b, x_c, x_d, x_b, method317(i7, class43.anInt718), method317(i7, class43.anInt719), method317(i7, class43.anInt717), depth_c, depth_d, depth_b);
 			}
 		}
-		if ((i5 - k5) * (l6 - l5) - (j5 - l5) * (k6 - k5) > 0) {
-			Rasterizer.aBoolean1462 = i5 < 0 || k5 < 0 || k6 < 0 || i5 > DrawingArea.viewportRX || k5 > DrawingArea.viewportRX || k6 > DrawingArea.viewportRX;
-			if (aBoolean467 && method318(anInt468, anInt469, j5, l5, l6, i5, k5, k6)) {
+		if ((x_a - x_b) * (y_d - y_b) - (y_a - y_b) * (x_d - x_b) > 0) {
+			Rasterizer.aBoolean1462 = x_a < 0 || x_b < 0 || x_d < 0 || x_a > DrawingArea.viewportRX || x_b > DrawingArea.viewportRX || x_d > DrawingArea.viewportRX;
+			if (aBoolean467 && method318(anInt468, anInt469, y_a, y_b, y_d, x_a, x_b, x_d)) {
 				anInt470 = j1;
 				anInt471 = k1;
+			}
+			if (requestMarkTile && method318(requestedMarkTileX, requestedMarkTileY, y_a, y_b, y_d, x_a, x_b, x_d)) {
+				tracedMarkTileX = j1;
+				tracedMarkTileY = k1;
 			}
 			if (class43.anInt720 == -1 || class43.anInt720 > 50) {
 				if (class43.anInt716 != 0xbc614e) {
 					if (Configuration.enableHDTextures && class43.anInt720 != -1) {
-						Rasterizer.drawMaterializedTriangle(j5, l5, l6, i5, k5, k6, class43.anInt716, class43.anInt717, class43.anInt719, i2, i3, l1, l3, i4, k4, k2, j2, j3, class43.anInt720, k2, j2, j3);
+						Rasterizer.drawMaterializedTriangle(y_a, y_b, y_d, x_a, x_b, x_d, class43.anInt716, class43.anInt717, class43.anInt719, i2, i3, l1, l3, i4, k4, depth_a, depth_b, depth_d, class43.anInt720, depth_a, depth_b, depth_d);
 					} else {
-						Rasterizer.drawGouraudTriangle(j5, l5, l6, i5, k5, k6, class43.anInt716, class43.anInt717, class43.anInt719, k2, j2, j3);
+						Rasterizer.drawGouraudTriangle(y_a, y_b, y_d, x_a, x_b, x_d, class43.anInt716, class43.anInt717, class43.anInt719, depth_a, depth_b, depth_d);
 					}
 				}
 			} else {
 				if(!lowMem) {
-					Rasterizer.drawTexturedTriangle(j5, l5, l6, i5, k5, k6, class43.anInt716, class43.anInt717, class43.anInt719, i2, i3, l1, l3, i4, k4, k2, j2, j3, class43.anInt720, k2, j2, j3);
+					Rasterizer.drawTexturedTriangle(y_a, y_b, y_d, x_a, x_b, x_d, class43.anInt716, class43.anInt717, class43.anInt719, i2, i3, l1, l3, i4, k4, depth_a, depth_b, depth_d, class43.anInt720, depth_a, depth_b, depth_d);
 					return;
 				}
 				int j7 = anIntArray485[class43.anInt720];
-				Rasterizer.drawGouraudTriangle(j5, l5, l6, i5, k5, k6, method317(j7, class43.anInt716), method317(j7, class43.anInt717), method317(j7, class43.anInt719), k2, j2, j3);
+				Rasterizer.drawGouraudTriangle(y_a, y_b, y_d, x_a, x_b, x_d, method317(j7, class43.anInt716), method317(j7, class43.anInt717), method317(j7, class43.anInt719), depth_a, depth_b, depth_d);
 			}
 		}
 	}
 
+	private void drawTileMarker(int plane, int sin_y, int cos_y, int sin_x, int cos_x, int camera_x, int camera_y) {
+		int l1;
+		int i2 = l1 = (camera_x << 7) - anInt455;
+		int depth_b;
+		int depth_a = depth_b = (camera_y << 7) - anInt457;
+		int l2;
+		int i3 = l2 = i2 + 128;
+		int depth_d;
+		int depth_c = depth_d = depth_a + 128;
+		int l3 = anIntArrayArrayArray440[plane][camera_x][camera_y] - anInt456;
+		int i4 = anIntArrayArrayArray440[plane][camera_x + 1][camera_y] - anInt456;
+		int j4 = anIntArrayArrayArray440[plane][camera_x + 1][camera_y + 1] - anInt456;
+		int k4 = anIntArrayArrayArray440[plane][camera_x][camera_y + 1] - anInt456;
+		int l4 = depth_a * sin_x + i2 * cos_x >> 16;
+		depth_a = depth_a * cos_x - i2 * sin_x >> 16;
+		i2 = l4;
+		l4 = l3 * cos_y - depth_a * sin_y >> 16;
+		depth_a = l3 * sin_y + depth_a * cos_y >> 16;
+		l3 = l4;
+		
+		
+		l4 = depth_b * sin_x + i3 * cos_x >> 16;
+		depth_b = depth_b * cos_x - i3 * sin_x >> 16;
+		i3 = l4;
+		l4 = i4 * cos_y - depth_b * sin_y >> 16;
+		depth_b = i4 * sin_y + depth_b * cos_y >> 16;
+		i4 = l4;
+		
+		
+		l4 = depth_c * sin_x + l2 * cos_x >> 16;
+		depth_c = depth_c * cos_x - l2 * sin_x >> 16;
+		l2 = l4;
+		l4 = j4 * cos_y - depth_c * sin_y >> 16;
+		depth_c = j4 * sin_y + depth_c * cos_y >> 16;
+		j4 = l4;
+		
+		
+		l4 = depth_d * sin_x + l1 * cos_x >> 16;
+		depth_d = depth_d * cos_x - l1 * sin_x >> 16;
+		l1 = l4;
+		l4 = k4 * cos_y - depth_d * sin_y >> 16;
+		depth_d = k4 * sin_y + depth_d * cos_y >> 16;
+		k4 = l4;
+		
+		
+		int x_a = Rasterizer.textureInt1 + (i2 << viewDistance) / depth_a;
+		int y_a = Rasterizer.textureInt2 + (l3 << viewDistance) / depth_a;
+		int x_b = Rasterizer.textureInt1 + (i3 << viewDistance) / depth_b;
+		int y_b = Rasterizer.textureInt2 + (i4 << viewDistance) / depth_b;
+		int x_c = Rasterizer.textureInt1 + (l2 << viewDistance) / depth_c;
+		int y_c = Rasterizer.textureInt2 + (j4 << viewDistance) / depth_c;
+		int x_d = Rasterizer.textureInt1 + (l1 << viewDistance) / depth_d;
+		int y_d = Rasterizer.textureInt2 + (k4 << viewDistance) / depth_d;
+		
+		Graphics2D g2d = DrawingArea.createGraphics(true);
+		g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+		g2d.setColor(new Color(0xffff00));
+		
+		g2d.drawLine(x_c, y_c, x_d, y_d);
+		g2d.drawLine(x_c, y_c - 1, x_d, y_d - 1);
+		
+		g2d.drawLine(x_b, y_b, x_c, y_c);
+		g2d.drawLine(x_b, y_b, x_c, y_c - 1);
+		
+		g2d.drawLine(x_b, y_b, x_a, y_a);
+		g2d.drawLine(x_b, y_b - 1, x_a, y_a - 1);
+		
+		g2d.drawLine(x_d, y_d, x_a, y_a);
+		g2d.drawLine(x_d, y_d - 1, x_a, y_a - 1);
+	}
+	
 	private void drawShapedTile(int i, int j, int k, ShapedTile class40, int l, int i1, int j1) {
-		int k1 = class40.anIntArray673.length;
-		for (int l1 = 0; l1 < k1; l1++) {
+		int vertices = class40.anIntArray673.length;
+		for (int l1 = 0; l1 < vertices; l1++) {
 			int i2 = class40.anIntArray673[l1] - anInt455;
 			int k2 = class40.anIntArray674[l1] - anInt456;
 			int i3 = class40.anIntArray675[l1] - anInt457;
@@ -1756,44 +1938,48 @@ final class WorldController {
 		}
 
 		Rasterizer.anInt1465 = 0;
-		k1 = class40.anIntArray679.length;
-		for (int j2 = 0; j2 < k1; j2++) {
-			int l2 = class40.anIntArray679[j2];
-			int j3 = class40.anIntArray680[j2];
-			int l3 = class40.anIntArray681[j2];
-			int i4 = ShapedTile.anIntArray688[l2];
-			int j4 = ShapedTile.anIntArray688[j3];
-			int k4 = ShapedTile.anIntArray688[l3];
-			int l4 = ShapedTile.anIntArray689[l2];
-			int i5 = ShapedTile.anIntArray689[j3];
-			int j5 = ShapedTile.anIntArray689[l3];
-			if ((i4 - j4) * (j5 - i5) - (l4 - i5) * (k4 - j4) > 0) {
-				Rasterizer.aBoolean1462 = i4 < 0 || j4 < 0 || k4 < 0 || i4 > DrawingArea.viewportRX || j4 > DrawingArea.viewportRX || k4 > DrawingArea.viewportRX;
-				if (aBoolean467 && method318(anInt468, anInt469, l4, i5, j5, i4, j4, k4)) {
+		vertices = class40.anIntArray679.length;
+		for (int face = 0; face < vertices; face++) {
+			int tri_a = class40.anIntArray679[face];
+			int tri_b = class40.anIntArray680[face];
+			int tri_c = class40.anIntArray681[face];
+			int x_a = ShapedTile.anIntArray688[tri_a];
+			int x_b = ShapedTile.anIntArray688[tri_b];
+			int x_c = ShapedTile.anIntArray688[tri_c];
+			int y_a = ShapedTile.anIntArray689[tri_a];
+			int y_b = ShapedTile.anIntArray689[tri_b];
+			int y_c = ShapedTile.anIntArray689[tri_c];
+			if ((x_a - x_b) * (y_c - y_b) - (y_a - y_b) * (x_c - x_b) > 0) {
+				Rasterizer.aBoolean1462 = x_a < 0 || x_b < 0 || x_c < 0 || x_a > DrawingArea.viewportRX || x_b > DrawingArea.viewportRX || x_c > DrawingArea.viewportRX;
+				if (aBoolean467 && method318(anInt468, anInt469, y_a, y_b, y_c, x_a, x_b, x_c)) {
 					anInt470 = i;
 					anInt471 = i1;
 				}
-				if (class40.anIntArray682 == null || class40.anIntArray682[j2] == -1 || class40.anIntArray682[j2] > 50) {
-					if (class40.anIntArray676[j2] != 0xbc614e) {
-						if (Configuration.enableHDTextures && class40.anIntArray682 != null && class40.anIntArray682[j2] != -1) {
-							if (class40.aBoolean683 || class40.anIntArray682[j2] == 505) {
-								Rasterizer.drawMaterializedTriangle(l4, i5, j5, i4, j4, k4, class40.anIntArray676[j2], class40.anIntArray677[j2], class40.anIntArray678[j2], ShapedTile.anIntArray690[0], ShapedTile.anIntArray690[1], ShapedTile.anIntArray690[3], ShapedTile.anIntArray691[0], ShapedTile.anIntArray691[1], ShapedTile.anIntArray691[3], ShapedTile.anIntArray692[0], ShapedTile.anIntArray692[1], ShapedTile.anIntArray692[3], class40.anIntArray682[j2], ShapedTile.screenZ[l2], ShapedTile.screenZ[j3], ShapedTile.screenZ[l3]);
+				if (requestMarkTile && method318(requestedMarkTileX, requestedMarkTileY, y_a, y_b, y_c, x_a, x_b, x_c)) {
+					tracedMarkTileX = i;
+					tracedMarkTileY = i1;
+				}
+				if (class40.anIntArray682 == null || class40.anIntArray682[face] == -1 || class40.anIntArray682[face] > 50) {
+					if (class40.anIntArray676[face] != 0xbc614e) {
+						if (Configuration.enableHDTextures && class40.anIntArray682 != null && class40.anIntArray682[face] != -1) {
+							if (class40.aBoolean683 || class40.anIntArray682[face] == 505) {
+								Rasterizer.drawMaterializedTriangle(y_a, y_b, y_c, x_a, x_b, x_c, class40.anIntArray676[face], class40.anIntArray677[face], class40.anIntArray678[face], ShapedTile.anIntArray690[0], ShapedTile.anIntArray690[1], ShapedTile.anIntArray690[3], ShapedTile.anIntArray691[0], ShapedTile.anIntArray691[1], ShapedTile.anIntArray691[3], ShapedTile.anIntArray692[0], ShapedTile.anIntArray692[1], ShapedTile.anIntArray692[3], class40.anIntArray682[face], ShapedTile.screenZ[tri_a], ShapedTile.screenZ[tri_b], ShapedTile.screenZ[tri_c]);
 							} else {
-								Rasterizer.drawMaterializedTriangle(l4, i5, j5, i4, j4, k4, class40.anIntArray676[j2], class40.anIntArray677[j2], class40.anIntArray678[j2], ShapedTile.anIntArray690[l2], ShapedTile.anIntArray690[j3], ShapedTile.anIntArray690[l3], ShapedTile.anIntArray691[l2], ShapedTile.anIntArray691[j3], ShapedTile.anIntArray691[l3], ShapedTile.anIntArray692[l2], ShapedTile.anIntArray692[j3], ShapedTile.anIntArray692[l3], class40.anIntArray682[j2], ShapedTile.screenZ[l2], ShapedTile.screenZ[j3], ShapedTile.screenZ[l3]);
+								Rasterizer.drawMaterializedTriangle(y_a, y_b, y_c, x_a, x_b, x_c, class40.anIntArray676[face], class40.anIntArray677[face], class40.anIntArray678[face], ShapedTile.anIntArray690[tri_a], ShapedTile.anIntArray690[tri_b], ShapedTile.anIntArray690[tri_c], ShapedTile.anIntArray691[tri_a], ShapedTile.anIntArray691[tri_b], ShapedTile.anIntArray691[tri_c], ShapedTile.anIntArray692[tri_a], ShapedTile.anIntArray692[tri_b], ShapedTile.anIntArray692[tri_c], class40.anIntArray682[face], ShapedTile.screenZ[tri_a], ShapedTile.screenZ[tri_b], ShapedTile.screenZ[tri_c]);
 							}
 						} else {
-							Rasterizer.drawGouraudTriangle(l4, i5, j5, i4, j4, k4, class40.anIntArray676[j2], class40.anIntArray677[j2], class40.anIntArray678[j2], ShapedTile.screenZ[l2], ShapedTile.screenZ[j3], ShapedTile.screenZ[l3]);
+							Rasterizer.drawGouraudTriangle(y_a, y_b, y_c, x_a, x_b, x_c, class40.anIntArray676[face], class40.anIntArray677[face], class40.anIntArray678[face], ShapedTile.screenZ[tri_a], ShapedTile.screenZ[tri_b], ShapedTile.screenZ[tri_c]);
 						}
 					}
 				} else if (!lowMem) {
 					if (class40.aBoolean683) {
-						Rasterizer.drawTexturedTriangle(l4, i5, j5, i4, j4, k4, class40.anIntArray676[j2], class40.anIntArray677[j2], class40.anIntArray678[j2], ShapedTile.anIntArray690[0], ShapedTile.anIntArray690[1], ShapedTile.anIntArray690[3], ShapedTile.anIntArray691[0], ShapedTile.anIntArray691[1], ShapedTile.anIntArray691[3], ShapedTile.anIntArray692[0], ShapedTile.anIntArray692[1], ShapedTile.anIntArray692[3], class40.anIntArray682[j2], ShapedTile.screenZ[l2], ShapedTile.screenZ[j3], ShapedTile.screenZ[l3]);
+						Rasterizer.drawTexturedTriangle(y_a, y_b, y_c, x_a, x_b, x_c, class40.anIntArray676[face], class40.anIntArray677[face], class40.anIntArray678[face], ShapedTile.anIntArray690[0], ShapedTile.anIntArray690[1], ShapedTile.anIntArray690[3], ShapedTile.anIntArray691[0], ShapedTile.anIntArray691[1], ShapedTile.anIntArray691[3], ShapedTile.anIntArray692[0], ShapedTile.anIntArray692[1], ShapedTile.anIntArray692[3], class40.anIntArray682[face], ShapedTile.screenZ[tri_a], ShapedTile.screenZ[tri_b], ShapedTile.screenZ[tri_c]);
 					} else {
-						Rasterizer.drawTexturedTriangle(l4, i5, j5, i4, j4, k4, class40.anIntArray676[j2], class40.anIntArray677[j2], class40.anIntArray678[j2], ShapedTile.anIntArray690[l2], ShapedTile.anIntArray690[j3], ShapedTile.anIntArray690[l3], ShapedTile.anIntArray691[l2], ShapedTile.anIntArray691[j3], ShapedTile.anIntArray691[l3], ShapedTile.anIntArray692[l2], ShapedTile.anIntArray692[j3], ShapedTile.anIntArray692[l3], class40.anIntArray682[j2], ShapedTile.screenZ[l2], ShapedTile.screenZ[j3], ShapedTile.screenZ[l3]);
+						Rasterizer.drawTexturedTriangle(y_a, y_b, y_c, x_a, x_b, x_c, class40.anIntArray676[face], class40.anIntArray677[face], class40.anIntArray678[face], ShapedTile.anIntArray690[tri_a], ShapedTile.anIntArray690[tri_b], ShapedTile.anIntArray690[tri_c], ShapedTile.anIntArray691[tri_a], ShapedTile.anIntArray691[tri_b], ShapedTile.anIntArray691[tri_c], ShapedTile.anIntArray692[tri_a], ShapedTile.anIntArray692[tri_b], ShapedTile.anIntArray692[tri_c], class40.anIntArray682[face], ShapedTile.screenZ[tri_a], ShapedTile.screenZ[tri_b], ShapedTile.screenZ[tri_c]);
 					}
 				} else {
-					int k5 = anIntArray485[class40.anIntArray682[j2]];
-					Rasterizer.drawGouraudTriangle(l4, i5, j5, i4, j4, k4, method317(k5, class40.anIntArray676[j2]), method317(k5, class40.anIntArray677[j2]), method317(k5, class40.anIntArray678[j2]), ShapedTile.screenZ[l2], ShapedTile.screenZ[j3], ShapedTile.screenZ[l3]);
+					int k5 = anIntArray485[class40.anIntArray682[face]];
+					Rasterizer.drawGouraudTriangle(y_a, y_b, y_c, x_a, x_b, x_c, method317(k5, class40.anIntArray676[face]), method317(k5, class40.anIntArray677[face]), method317(k5, class40.anIntArray678[face]), ShapedTile.screenZ[tri_a], ShapedTile.screenZ[tri_b], ShapedTile.screenZ[tri_c]);
 				}
 			}
 		}
@@ -2168,8 +2354,13 @@ final class WorldController {
 	private static final int[] faceXOffset3 = { -45, 45, 45, -45 };
 	private static final int[] faceYOffset3 = { 45, 45, -45, -45 };
 	private static boolean aBoolean467;
+	private static boolean requestMarkTile;
+	private static int requestedMarkTileX;
+	private static int requestedMarkTileY;
 	private static int anInt468;
 	private static int anInt469;
+	public static int tracedMarkTileX;
+	public static int tracedMarkTileY;
 	public static int anInt470 = -1;
 	public static int anInt471 = -1;
 	private static final int amountOfCullingClusters;
