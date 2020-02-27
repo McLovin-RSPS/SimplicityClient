@@ -6,6 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -17,6 +19,7 @@ import com.simplicity.client.content.CustomisableHotKeys;
 import com.simplicity.client.content.CustomisableHotKeys.HotKey;
 import com.simplicity.client.content.LoginScreen;
 import com.simplicity.client.content.LoginScreen.CharacterFile;
+import com.simplicity.client.entity.Position;
 
 /**
  * A class that handles the client settings saving & loading for the player.
@@ -183,6 +186,10 @@ public class ClientSettings {
 				Client.instance.setQuickCurses(builder.fromJson(reader.get("quick-curses"), int[].class));
 			}
 			
+			if (reader.has("tile-markers")) {
+				WorldController.markedTiles = builder.fromJson(reader.get("tile-markers"), new TypeToken<Map<Integer, List<Position>>>() { }.getType());
+			}
+			
 			fileReader.close();
 		} catch (Exception e) {
 			System.out.println("An error occurred whilst trying to load client settings...");
@@ -245,6 +252,7 @@ public class ClientSettings {
 			object.add("keybindings", builder.toJsonTree(CustomisableHotKeys.getHotKeys().subList(0, CustomisableHotKeys.hotKeys.size())));
 			object.add("quick-prayers", builder.toJsonTree(Client.instance.getQuickPrayers()));
 			object.add("quick-curses", builder.toJsonTree(Client.instance.getQuickCurses()));
+			object.add("tile-markers", builder.toJsonTree(WorldController.markedTiles));
 
 			writer.write(builder.toJson(object));
 			writer.close();

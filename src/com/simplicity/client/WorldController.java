@@ -1265,7 +1265,7 @@ public final class WorldController {
 		requestMarkTile = false;
 	}
 	
-	private Map<Integer, List<Position>> markedTiles = new HashMap<>();
+	public static Map<Integer, List<Position>> markedTiles = new HashMap<>();
 	
 	public boolean isMarked(Tile tile) {
 		Position pos = new Position(Client.instance.getBaseX() + tile.tileX, Client.instance.getBaseY() + tile.tileY, tile.plane);
