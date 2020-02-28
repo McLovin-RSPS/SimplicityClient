@@ -9449,7 +9449,7 @@ public class Client extends RSApplet {
 
     private void build3dScreenMenu() {
         if (itemSelected == 0 && spellSelected == 0) {
-        	if (Configuration.enableTileMarkers && shiftDown) {
+        	if (Configuration.enableTileMarkers) {
 	            menuActionName[menuActionRow] = "Mark tile";
 	            menuActionID[menuActionRow] = 517;
 	            menuActionCmd2[menuActionRow] = super.mouseX;
