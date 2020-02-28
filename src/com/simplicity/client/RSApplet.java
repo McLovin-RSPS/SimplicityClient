@@ -532,7 +532,6 @@ WindowListener {
 		idleTime = 0;
 		mouseDown = NONE;
 		mouseWheelDown = false;
-		shiftDown = false;
 
 		//System.out.println("x="+x+",y="+y);
 
@@ -767,6 +766,8 @@ WindowListener {
 		if (i == KeyEvent.VK_CONTROL) {
 			Client.getClient().controlIsDown = false;
 		}
+		
+		shiftDown = false;
 	}
 
 	public final void keyTyped(KeyEvent keyevent) {
