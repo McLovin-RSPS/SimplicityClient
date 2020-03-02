@@ -14,11 +14,20 @@ public final class Varp {
 			cache = new Varp[cacheSize + 50];
 		if (idLinkTable == null)
 			idLinkTable = new int[cacheSize];
+
 		for (int j = 0; j < cacheSize; j++) {
 			if (cache[j] == null)
 				cache[j] = new Varp();
+
+			cache[j].id = j;
 			cache[j].readValues(stream, j);
 		}
+
+		Varp followerIndex = new Varp();
+		followerIndex.id = 725;
+		followerIndex.usage = 10;
+		cache[725] = followerIndex;
+
 		if (stream.currentOffset != stream.buffer.length)
 			System.out.println("varptype load mismatch");
 	}
@@ -57,6 +66,7 @@ public final class Varp {
 	private Varp() {
 	}
 
+	public int id;
 	public static Varp cache[];
 	private static int cacheSize;
 	private static int[] idLinkTable;
