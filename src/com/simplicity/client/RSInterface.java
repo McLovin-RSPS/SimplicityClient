@@ -1781,18 +1781,33 @@ public class RSInterface {
         setBounds(35556, 0, 0, 0, rsi);
     }
 
-    /*
-     * Spellbook interfaces redone
-     *
-     * @author levi patton AuguryPS @r-s 7/16/2016
-     */
     public static void ancientMagicTab(TextDrawingArea[] tda) {
         RSInterface tab = addInterface(12855);
 
-        addButton(1195, 430, "Cast @gre@Home Teleport", 19, 19);
+        addButton(11001, 430, "Cast @gre@Home Teleport", 19, 19);
+        //addTooltip(11002, "Home Teleport\nTeleport to set home location.");
 
-        int[] itfChildren = {1195, 12939, 12987, 13035, 12901, 12861, 13045, 12963, 13011, 13053, 12919, 12881, 13061,
-                12951, 12999, 13069, 12911, 12871, 13079, 12975, 13023, 13087, 12929, 12891, 13095, 1196, 12940, 12988,
+        addHoverButtonWSpriteLoader(11004, 907, 18, 18, "Select", -1, 11005, 1);
+//        addTooltip(11005, "Skills Teleport\nOpen options of different \nskilling teleports.");
+
+        addHoverButtonWSpriteLoader(11008, 908, 18, 18, "Select", -1, 11009, 1);
+//        addTooltip(11009, "Training Teleport\nOpen options of different \ntraining teleports.");
+
+        addHoverButtonWSpriteLoader(11011, 909, 18, 18, "Select", -1, 11012, 1);
+//        addTooltip(11012, "Dungeon Teleport\nOpen options of different\ndungeon teleports.");
+
+        addHoverButtonWSpriteLoader(11014, 910, 18, 18, "Select", -1, 11015, 1);
+//        addTooltip(11015, "Boss Teleport\nOpen options of different\nboss teleports.");
+
+        addHoverButtonWSpriteLoader(11017, 911, 18, 18, "Select", -1, 11018, 1);
+//        addTooltip(11018, "Minigame Teleport\nOpen options of different\nminigame teleports.");
+
+        addHoverButtonWSpriteLoader(11020, 912, 18, 18, "Select", -1, 11021, 1);
+//        addTooltip(11021, "Wilderness Teleport\nOpen options of different\nWilderness teleports.");
+
+
+        int[] itfChildren = {11001, 12939, 12987, 11004, 12901, 12861, 11008, 12963, 13011, 11011, 12919, 12881, 11014,
+                12951, 12999, 11017, 12911, 12871, 11020, 12975, 13023, 13087, 12929, 13095, 12891, 12940, 12988,
                 13036, 12902, 12862, 13046, 12964, 13012, 13054, 12920, 12882, 13062, 12952, 13000, 13070, 12912, 12872,
                 13080, 12976, 13024, 13088, 12930, 12892, 13096};
         tab.totalChildren(itfChildren.length);
@@ -4277,7 +4292,7 @@ public class RSInterface {
         equipmentScreenInterface();
         itemsKeptOnDeathInterface();
         clanChatTabInterface();
-        redoSpellBooks();
+        redoSpellBooks(textDrawingAreas);
         shopInterface(textDrawingAreas);
         newShopInterface(textDrawingAreas);
         bankInterface();
@@ -15233,7 +15248,7 @@ public class RSInterface {
         rsinterface.textColor(id, color);
     }
 
-    public static void redoSpellBooks() {
+    public static void redoSpellBooks(TextDrawingArea[] tda) {
         RSInterface newInterface = addTabInterface(11000);
         RSInterface spellButtons = interfaceCache[1151];
         newInterface.totalChildren(15);
@@ -15327,7 +15342,7 @@ public class RSInterface {
         /**
          * Ancient spellbook
          */
-        newInterface = addTabInterface(11500);
+        /*newInterface = addTabInterface(11500);
         spellButtons = interfaceCache[12855];
         newInterface.totalChildren(15);
         spellButtons.scrollMax = 0;
@@ -15355,11 +15370,11 @@ public class RSInterface {
         removeSpell(interfaceCache[13087]);
         removeSpell(interfaceCache[12929]);
         removeSpell(interfaceCache[12891]);
-        removeSpell(interfaceCache[13095]);
+        removeSpell(interfaceCache[13095]);*/
         /**
          * Add teleports
          */
-        addHoverButtonWSpriteLoader(11001, 906, 18, 18, "Select", -1, 11002, 1);
+        /*addHoverButtonWSpriteLoader(11001, 906, 18, 18, "Select", -1, 11002, 1);
         addTooltip(11002, "Home Teleport\nTeleport to set home location.");
         newInterface.child(1, 11001, 8, 16);
         newInterface.child(2, 11002, 10, 39);
@@ -15386,12 +15401,14 @@ public class RSInterface {
         addHoverButtonWSpriteLoader(11020, 912, 18, 18, "Select", -1, 11021, 1);
         addTooltip(11021, "Wilderness Teleport\nOpen options of different\nWilderness teleports.");
         newInterface.child(13, 11020, 164, 16);
-        newInterface.child(14, 11021, 40, 39);
+        newInterface.child(14, 11021, 40, 39);*/
 
         /**
          * Lunar
          */
         lunarSpellbookInterface();
+
+        ancientMagicTab(tda);
     }
 
     private static void removeSpell(RSInterface rsInterface) {

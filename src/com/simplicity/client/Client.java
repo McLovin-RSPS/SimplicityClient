@@ -5077,6 +5077,8 @@ public class Client extends RSApplet {
         if (action == 9) {
             anInt913 = config;
         }
+        if (action == 10)
+            npcFollowerIndex = variousSettings[configID] & 0xFFFF;
     }
 
     private void updateEntities() {
@@ -12784,12 +12786,14 @@ public class Client extends RSApplet {
         if (!entityDef.clickable) {
             return;
         }
+
+        final boolean follower = npcFollowerIndex == i;
         String s = entityDef.name;
         if (entityDef.combatLevel != 0) {
             s = s + combatDiffColor(myPlayer.combatLevel, entityDef.combatLevel) + " (level: " + entityDef.combatLevel
                     + ")";
         }
-        if (itemSelected == 1) {
+        if (follower && itemSelected == 1) {
             menuActionName[menuActionRow] = "Use " + selectedItemName + " with @yel@" + s;
             menuActionID[menuActionRow] = 582;
             menuActionCmd1[menuActionRow] = i;
@@ -12798,6 +12802,7 @@ public class Client extends RSApplet {
             menuActionRow++;
             return;
         }
+
         if (spellSelected == 1) {
             if ((spellUsableOn & 2) == 2) {
                 menuActionName[menuActionRow] = spellTooltip + " @yel@" + s;
@@ -12810,7 +12815,23 @@ public class Client extends RSApplet {
         } else {
             if (entityDef.actions != null) {
                 for (int l = 4; l >= 0; l--) {
-                    if (entityDef.actions[l] != null && !entityDef.actions[l].equalsIgnoreCase("attack")) {
+                    if (follower) {
+                        if (l == 1 || l == 3 || l == 4)
+                            continue;
+                        if (l == 0) {
+                            menuActionID[menuActionRow] = 20;
+                            menuActionName[menuActionRow] = "Interact @yel@"+ s;
+                        }
+                        if (l == 2) {
+                            menuActionID[menuActionRow] = 225;
+                            menuActionName[menuActionRow] = "Talk-to @yel@"+ s;
+                        }
+
+                        menuActionCmd1[menuActionRow] = i;
+                        menuActionCmd2[menuActionRow] = k;
+                        menuActionCmd3[menuActionRow] = j;
+                        menuActionRow++;
+                    } else if (entityDef.actions[l] != null && !entityDef.actions[l].equalsIgnoreCase("attack")) {
                         menuActionName[menuActionRow] = entityDef.actions[l] + " @yel@" + s;
                         if (l == 0) {
                             menuActionID[menuActionRow] = 20;
@@ -23660,6 +23681,7 @@ public class Client extends RSApplet {
     private int currentActionMenu;
 	public Sprite[] smallSkillSprites = new Sprite[Skills.SKILL_COUNT];
 	public Sprite[] bigSkillSprites = new Sprite[Skills.SKILL_COUNT];
+	public static int npcFollowerIndex;
 
 	public boolean controlIsDown;
 
