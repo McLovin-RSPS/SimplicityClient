@@ -15625,12 +15625,7 @@ public class RSInterface {
 	 *            If the border is modern.
 	 */
 	public static void addWindow(int id, int width, int height, boolean modernBorder) {
-		RSInterface rsi = addInterface(id);
-		rsi.id = id;
-		rsi.type = 24;
-		rsi.width = width;
-		rsi.height = height;
-		rsi.modernWindow = modernBorder;
+		addWindow(id, width, height, modernBorder, false, false);
 	}
 
 	/**
