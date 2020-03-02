@@ -15128,9 +15128,9 @@ public class Client extends RSApplet {
     									flag ? child.disabledMouseOverColor : child.disabledColor, 0);
 						}
 					} else if (child.type == 24) {
-						DrawingArea.setDrawingArea(child.height + childY, childX, child.width + childX, childY);
-
-						cacheSprite[1270].repeatBoth(childX, childY, child.width, child.height);
+						if (!child.isTransparentWindow()) {
+							cacheSprite[1270].repeatBoth(childX, childY, child.width, child.height);
+						}
 
 						cacheSprite[child.isModernWindow() ? 1283 : 1275].repeatX(childX, childY, child.width);
 

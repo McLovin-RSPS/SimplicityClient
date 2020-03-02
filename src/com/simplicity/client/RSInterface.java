@@ -9075,6 +9075,15 @@ public class RSInterface {
         rsi.height = 334;
         return rsi;
     }
+    
+	public static RSInterface addInterface(int id, int width, int height) {
+		RSInterface rsinterface = interfaceCache[id] = new RSInterface();
+		rsinterface.id = id;
+		rsinterface.parentID = id;
+		rsinterface.width = width;
+		rsinterface.height = height;
+		return rsinterface;
+	}
 
     public static void addText(int id, String text, TextDrawingArea tda[], int idx, int color, boolean centered) {
         RSInterface rsi = interfaceCache[id] = new RSInterface();
@@ -15579,6 +15588,12 @@ public class RSInterface {
 	public boolean isModernWindow() {
 		return modernWindow;
 	}
+	
+	public boolean transparentWindow;
+
+	public boolean isTransparentWindow() {
+		return transparentWindow;
+	}
     
 	/**
 	 * Adds a window with the specified width and height.
@@ -15602,6 +15617,28 @@ public class RSInterface {
 	}
 
 	/**
+	 * Adds a window with the specified width and height.
+	 * 
+	 * @param id           The id.
+	 * @param width        The width.
+	 * @param height       The height.
+	 * @param modernBorder If the border is modern.
+	 * @param transparent  If the background is transparent.
+	 * @param wrap         Whether to wrap this interface by the specified bounds or
+	 *                     not.
+	 */
+	public static void addWindow(int id, int width, int height, boolean modernBorder, boolean transparentWindow,
+			boolean wrap) {
+		RSInterface rsi = wrap ? addWrapper(id, width, height, id + 1) : addInterface(id);
+		rsi.id = id;
+		rsi.type = 24;
+		rsi.width = width;
+		rsi.height = height;
+		rsi.modernWindow = modernBorder;
+		rsi.transparentWindow = transparentWindow;
+	}
+
+	/**
 	 * Adds a closable window with the specified width, height and title.
 	 * 
 	 * @param id
@@ -15616,7 +15653,7 @@ public class RSInterface {
 	 *            If the border is modern.
 	 */
 	public static void addClosableWindow(int id, int width, int height, boolean modernBorder, String title) {
-		RSInterface rsi = addInterface(id);
+		RSInterface rsi = addInterface(id, width, height);
 		
 		addWindow(id + 1, width, height, modernBorder);
 		addText(id + 2, title, defaultFont, 2, 0xFF981F, true);

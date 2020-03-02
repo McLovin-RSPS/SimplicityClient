@@ -30,7 +30,7 @@ public class StarterWidget extends RSInterface {
 		
 		int child = 0;
 		
-		addWindow(id, 500, 304, true);
+		addWindow(id, 500, 304, true, false, true);
 		rsi.child(child++, id, 6, 16);
 		id += 9;
 		
