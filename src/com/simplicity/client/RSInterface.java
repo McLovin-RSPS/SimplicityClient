@@ -1782,6 +1782,7 @@ public class RSInterface {
     }
 
     public static void ancientMagicTab(TextDrawingArea[] tda) {
+        final int spellPadding = 20;
         RSInterface tab = addInterface(12855);
 
         addButton(11001, 430, "Cast @gre@Home Teleport", 19, 19);
@@ -1810,8 +1811,15 @@ public class RSInterface {
                 12951, 12999, 11017, 12911, 12871, 11020, 12975, 13023, 13087, 12929, 13095, 12891, 12940, 12988,
                 13036, 12902, 12862, 13046, 12964, 13012, 13054, 12920, 12882, 13062, 12952, 13000, 13070, 12912, 12872,
                 13080, 12976, 13024, 13088, 12930, 12892, 13096};
+
+        int[] combatSpellWidgets = new int[] {
+                12939, 12987, 12901, 12861, 12963, 13011, 12919, 12881, 12951,
+                12999, 12911, 12871, 12975, 13023, 12929, 12891
+        };
+
         tab.totalChildren(itfChildren.length);
         for (int i1 = 0, xPos = 18, yPos = 8; i1 < itfChildren.length; i1++, xPos += 45) {
+            RSInterface widget = interfaceCache[itfChildren[i1]];
             if (xPos > 175) {
                 xPos = 18;
                 yPos += 28;
@@ -1822,6 +1830,11 @@ public class RSInterface {
             if (i1 > 24) {
                 yPos = i1 < 41 ? 181 : 1;
                 tab.child(i1, itfChildren[i1], 4, yPos);
+            }
+
+            for (int combatSpellId : combatSpellWidgets) {
+                if (widget.id == combatSpellId)
+                    widget.width += spellPadding;
             }
         }
     }
