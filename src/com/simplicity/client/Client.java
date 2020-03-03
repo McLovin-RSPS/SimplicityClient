@@ -106,6 +106,7 @@ import com.simplicity.client.entity.Position;
 import com.simplicity.client.particles.Particle;
 import com.simplicity.client.particles.ParticleDefinition;
 import com.simplicity.client.widget.CollectionLogWidget;
+import com.simplicity.client.widget.QuestTab;
 import com.simplicity.client.widget.SettingsWidget;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.tools.ItemDefinitionLookup;
@@ -4266,9 +4267,12 @@ public class Client extends RSApplet {
                             child.scrollMax);
                 }
             } else {
-                if (child.atActionType == 1 && hover) {
+            	boolean clickable = child.atActionType == 1 || child.message != null && child.message.contains(":clickable:");
+            	
+                if (clickable && hover) {
                     boolean flag = false;
                     boolean flag1 = false;
+                    
                     if (child.contentType != 0) {
                         flag = buildFriendsListMenu(child);
                     }
@@ -4285,7 +4289,9 @@ public class Client extends RSApplet {
                                 }
                             }
                         }
-                        String tooltip = child.tooltip;
+                        
+                        String tooltip = clickable ? "Select" : child.tooltip;
+                        
                         if (tooltip != null) {
                         	if (class9.id == 68018 && child.message != null && child.message.contains("<font=2>")) { // Skip tooltips for categories on KnowledgeBase
                         		continue;
@@ -5789,6 +5795,7 @@ public class Client extends RSApplet {
         toggleSize(0);
         RSInterface.interfaceCache[3322].deleteOnDrag2 = false;
         RSInterface.handleConfigHover(RSInterface.interfaceCache[71021]);
+        RSInterface.handleConfigHover(RSInterface.interfaceCache[QuestTab.INFO_BUTTON_ID]);
     }
 
     private void setMyAppearance() {
@@ -14607,6 +14614,10 @@ public class Client extends RSApplet {
                         int imageDraw = 0;
                         final String INITIAL_MESSAGE = s;
                         
+                        if (QuestTab.isQuestTabId(rsInterface.id) && s.contains(":clickable:")) {
+    	                    s = s.replaceAll(":clickable:", "");
+                        }
+                        
                         if (s.contains("<font=")) {
                         	int prefix = s.indexOf("<font=");
                         	int suffix = s.indexOf(">");
@@ -14623,8 +14634,8 @@ public class Client extends RSApplet {
                         }
                         
                         RSFontSystem font = null;
-                    	
-                    	boolean useNewFonts = rsInterface.id == 68069 || child.id == 70025;
+                        
+                    	boolean useNewFonts = QuestTab.isQuestTabId(rsInterface.id) || rsInterface.id == 68069 || child.id == 70025;
 
 						if (useNewFonts) {
 							if (textDrawingArea == smallText) {
@@ -18155,9 +18166,20 @@ public class Client extends RSApplet {
         if (i < RSInterface.interfaceCache.length && RSInterface.interfaceCache[i] == null) {
             return;
         }
+        
+		RSInterface rsi = RSInterface.interfaceCache[i];
+
+		if (rsi == null) {
+			return;
+		}
+        
+        if (QuestTab.isQuestTabId(rsi.id) && str.contains(":clickable:")) {
+			rsi.width = rsi.textDrawingAreas.getTextWidth(str);
+		}
+        
         try {
-            RSInterface.interfaceCache[i].message = str;
-            if (RSInterface.interfaceCache[i].parentID == tabInterfaceIDs[tabID]) {
+            rsi.message = str;
+            if (rsi.parentID == tabInterfaceIDs[tabID]) {
                 needDrawTabArea = true;
             }
         } catch (Exception e) {
