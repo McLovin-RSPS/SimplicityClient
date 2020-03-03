@@ -182,7 +182,7 @@ public class RSFontSystem extends DrawingArea {
 	public void drawBasicString(String string, int drawX, int drawY) {
 		drawY -= baseCharacterHeight;
 		int startIndex = -1;
-		//string = handleOldSyntax(string);
+		string = handleOldSyntax(string);
 		for (int currentCharacter = 0; currentCharacter < string.length(); currentCharacter++) {
 			int character = string.charAt(currentCharacter);
 			if (character > 255) {

@@ -7,6 +7,7 @@ import com.simplicity.client.content.Keybinding;
 import com.simplicity.client.widget.AchievementsWidget;
 import com.simplicity.client.widget.CollectionLogWidget;
 import com.simplicity.client.widget.KnowledgeBaseWidget;
+import com.simplicity.client.widget.QuestTab;
 import com.simplicity.client.widget.SettingsWidget;
 import com.simplicity.client.widget.StarterWidget;
 import com.simplicity.client.widget.Widget;
@@ -4437,6 +4438,8 @@ public class RSInterface {
         raidsHealth(textDrawingAreas);
         
         StarterWidget.unpack(textDrawingAreas);
+        
+        QuestTab.unpack(textDrawingAreas);
         
         Widget.init();
         spriteCache = null;
