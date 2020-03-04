@@ -23800,7 +23800,7 @@ public class Client extends RSApplet {
 	/**
 	 * A hash collection of region ids where roofs should not be toggled.
 	 */
-    private static final Set<Integer> NON_TOGGLABLE_ROOF_REGIONS = new HashSet<>(Arrays.asList(10644, 10645, 10646, 10647, 10899, 10900, 10901, 11416, 11417, 11671, 11672, 11673));
+    private static final Set<Integer> NON_TOGGLABLE_ROOF_REGIONS = new HashSet<>(Arrays.asList(10057, 10644, 10645, 10646, 10647, 10899, 10900, 10901, 11416, 11417, 11601, 11671, 11672, 11673));
     
     public boolean canRemoveRoofs() {
     	return !NON_TOGGLABLE_ROOF_REGIONS.contains(getRegionId());
