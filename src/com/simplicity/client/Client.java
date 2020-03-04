@@ -14379,6 +14379,12 @@ public class Client extends RSApplet {
                 if (child.invisible) {
                     continue;
                 }
+                /**
+                 * Shifting BH itf children when XP counter is shown.
+                 */
+                if (rsInterface.id == 25347 && child.id != 25355 && showXP) {
+                	childY += 25;
+                }
                 childX += child.xOffset;
                 childY += child.yOffset;
                 if (child.contentType > 0) {
