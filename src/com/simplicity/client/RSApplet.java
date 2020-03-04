@@ -28,6 +28,7 @@ import javax.swing.SwingUtilities;
 import com.simplicity.Configuration;
 import com.simplicity.Jframe;
 import com.simplicity.client.content.Keybinding;
+import com.simplicity.client.widget.AchievementsWidget;
 
 @SuppressWarnings("all")
 public class RSApplet extends Applet implements Runnable, MouseListener,
@@ -394,6 +395,10 @@ WindowListener {
 		
 		if (tabInterfaceID == 11000) {
 			tabInterfaceID = 1151;
+		}
+		
+		if (tabInterfaceID == 73300) {
+			tabInterfaceID = AchievementsWidget.INTERFACE_ID;
 		}
 		
 		if (tabInterfaceID != -1) {
