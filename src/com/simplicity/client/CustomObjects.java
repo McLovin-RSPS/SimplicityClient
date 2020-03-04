@@ -263,6 +263,10 @@ public class CustomObjects {
             
             /* 2020 savior */
 			{44111, 2340, 9796, 0, 0},
+			
+            /* Rees zone */
+			//{3479, 2911, 5471, 0, 0},
+			{-1, 2911, 5471, 0, 0},
             
             // Arthur's dream 2
             {129316, 1626, 3980, 0, 0}, // Objects Arthur's dream II
