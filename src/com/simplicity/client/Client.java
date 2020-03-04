@@ -5051,6 +5051,8 @@ public class Client extends RSApplet {
                 adjustVolume(musicEnabled, 300);
             }
             if (musicEnabled != music) {
+				stream.createFrame(185);
+				stream.putInt(musicEnabled ? 930 : 931);
             	ClientSettings.save();
                 if (musicEnabled) {
                     nextSong = currentSong;
@@ -5065,6 +5067,8 @@ public class Client extends RSApplet {
         if (action == 4) {
             SoundPlayer.setVolume(config);
             soundEnabled = config != 4;
+			stream.createFrame(185);
+			stream.putInt(soundEnabled ? 942 : 941);
             ClientSettings.save();
         }
         if (action == 5) {
@@ -8336,6 +8340,7 @@ public class Client extends RSApplet {
 				if (SettingsWidget.handleButton(interfaceId)) {
 					return;
 				}
+				
                 switch (interfaceId) {
 				case SettingsWidget.DISPLAY_BUTTON:
 				case SettingsWidget.AUDIO_BUTTON:
@@ -8357,32 +8362,6 @@ public class Client extends RSApplet {
                         totalItemResults = 0;
                         buttonclicked = inputDialogState == 3 ? false : true;
                         inputDialogState = inputDialogState == 3 ? 0 : 3;
-                        break;
-                    case 39172:
-                        boolean disabled = SoundPlayer.getVolume() == 4;
-                        SoundPlayer.setVolume(disabled ? 3 : 4);
-                        variousSettings[169] = SoundPlayer.getVolume();
-                        stream.createFrame(185);
-                        stream.putInt(disabled ? 942 : 941);
-                        ClientSettings.save();
-                        break;
-                    case 39171:
-                        musicEnabled = !musicEnabled;
-                        variousSettings[168] = (musicEnabled ? 3 : 4);
-                        stream.createFrame(185);
-                        stream.putInt(!musicEnabled ? 930 : 931);
-                        ClientSettings.save();
-                        if (musicEnabled) {
-                            if (currentSong == -1) {
-                                currentSong = 3;
-                            }
-                            nextSong = currentSong;
-                            songChanging = true;
-                            onDemandFetcher.requestFileData(2, nextSong);
-                        } else {
-                            stopMidi();
-                        }
-                        prevSong = 0;
                         break;
                     case 17231:// Quick prayr confirm
                         saveQuickSelection();
