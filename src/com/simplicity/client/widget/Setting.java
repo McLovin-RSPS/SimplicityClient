@@ -313,6 +313,20 @@ public enum Setting {
 		public boolean enabled() {
 			return Configuration.enableTileMarkers;
 		}
+	},
+	
+	W_A_S_D() {
+		@Override
+		public void handle() {
+			Configuration.enableWASDCamera = !Configuration.enableWASDCamera;
+			
+			Client.instance.chatboxInFocus = !Configuration.enableWASDCamera;
+		}
+
+		@Override
+		public boolean enabled() {
+			return Configuration.enableWASDCamera;
+		}
 	};
 
 	/**

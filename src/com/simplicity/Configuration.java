@@ -207,5 +207,10 @@ public class Configuration {
 	 * Indicates whether the tile markers are enabled or not.
 	 */
 	public static boolean enableTileMarkers = true;
+	
+	/**
+	 * Indicates whether the WASD camera is enabled or not.
+	 */
+	public static boolean enableWASDCamera = false;
     
 }

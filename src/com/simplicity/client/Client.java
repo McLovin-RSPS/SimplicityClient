@@ -118,6 +118,8 @@ import com.simplicity.util.StringUtils;
 @SuppressWarnings("all")
 public class Client extends RSApplet {
 	
+	public boolean chatboxInFocus = true;
+	
 	private static final int ENTITY_DRAW_DISTANCE = 20;
 
     private boolean showUpdates = true;
@@ -931,7 +933,7 @@ public class Client extends RSApplet {
             // yPosOffset, clientSize == 0 ? 255 : 0x7FA9FF, clientSize == 0
             // ? -1 : 0);
 
-            newRegularFont.drawBasicString2(inputString + "*", 24 + newRegularFont.getTextWidth(name + ": ") + offsetX,
+            newRegularFont.drawBasicString2((chatboxInFocus ? (inputString + "*") : "[Click here to chat]"), 24 + newRegularFont.getTextWidth(name + ": ") + offsetX,
                     133 + offsetY, clientSize == 0 ? 255 : 0x7FA9FF, clientSize == 0 ? -1 : 0);
 
             if (clientSize == 0) {
@@ -3642,6 +3644,8 @@ public class Client extends RSApplet {
             }
             return true;
         } else {
+        	processInterfaceClick(j);
+        	
             if (Configuration.enableShiftClickDrop && mouseClickInventory() && j == LEFT && shiftDown) {
                 stream.createFrame(87);
                 stream.method432((RSInterface.interfaceCache[3214].inv[mouseInvInterfaceIndex] - 1));
@@ -3687,7 +3691,30 @@ public class Client extends RSApplet {
         }
     }
 
-    private boolean mouseClickInventory() {
+	/**
+	 * Processes mouse clicking on an interface.
+	 * 
+	 * @param clickMode
+	 *            The clicking mode.
+	 */
+    private void processInterfaceClick(int clickMode) {
+    	/**
+    	 * Mouse pressed.
+    	 */
+    	if (super.clickMode3 == 1) {
+			if (mouseInChatArea()) {
+				if (!chatboxInFocus) {
+					chatboxInFocus = true;
+				}
+			} else if (Configuration.enableWASDCamera) {
+				if (chatboxInFocus) {
+					chatboxInFocus = false;
+				}
+			}
+		}
+	}
+
+	private boolean mouseClickInventory() {
         final int yOffset = clientSize == 0 ? 0 : clientHeight - 503;
 
         final int xOffset = clientSize == 0 ? 0 : clientWidth - 765;
@@ -9817,6 +9844,10 @@ public class Client extends RSApplet {
                 break;
             }
             if (openInterfaceID == 32600) {
+            	if (Configuration.enableWASDCamera) {
+					chatboxInFocus = true;
+				}
+            	
                 if (oksearchingplayers) {
                     RSInterface k = RSInterface.interfaceCache[32612];
                     String msg = k.message;
@@ -9855,6 +9886,10 @@ public class Client extends RSApplet {
                 return;
             }
             if (consoleOpen) {
+            	if (Configuration.enableWASDCamera) {
+					chatboxInFocus = true;
+				}
+            	
                 if (key == 8 && consoleInput.length() > 0) {
                     consoleInput = consoleInput.substring(0, consoleInput.length() - 1);
                 }
@@ -9871,6 +9906,10 @@ public class Client extends RSApplet {
                 return;
             }
             if (openInterfaceID == 10000) {
+            	if (Configuration.enableWASDCamera) {
+					chatboxInFocus = true;
+				}
+            	
                 if (key == 8) {
                     if (!reportBox2Selected) {
                         if (playerReporting.length() > 0) {
@@ -9947,6 +9986,10 @@ public class Client extends RSApplet {
                 }
             }
             if (openInterfaceID != -1 && openInterfaceID == reportAbuseInterfaceID) {
+            	if (Configuration.enableWASDCamera) {
+					chatboxInFocus = true;
+				}
+            	
                 if (key == 8 && reportAbuseInput.length() > 0) {
                     reportAbuseInput = reportAbuseInput.substring(0, reportAbuseInput.length() - 1);
                 }
@@ -9955,6 +9998,10 @@ public class Client extends RSApplet {
                     reportAbuseInput += (char) key;
                 }
             } else if (showInput) {
+            	if (Configuration.enableWASDCamera) {
+					chatboxInFocus = true;
+				}
+            	
                 if (key >= 32 && key <= 122 && promptInput.length() < 80) {
                     if (promptMessage != null && promptMessage == "Enter a name for the clan chat:") {
                         boolean validKey = false;
@@ -10087,6 +10134,10 @@ public class Client extends RSApplet {
                     }
                 }
             } else if (inputDialogState == 1) {
+            	if (Configuration.enableWASDCamera) {
+					chatboxInFocus = true;
+				}
+            	
                 try {
 
                     if (key >= 48 && key <= 57 && amountOrNameInput.length() < 10) {
@@ -10251,6 +10302,10 @@ public class Client extends RSApplet {
                 }
 
             } else if (inputDialogState == 3) {
+            	if (Configuration.enableWASDCamera) {
+					chatboxInFocus = true;
+				}
+            	
                 if (key == 10) {
                     totalItemResults = 0;
                     amountOrNameInput = "";
@@ -10272,6 +10327,10 @@ public class Client extends RSApplet {
                     inputTaken = true;
                 }
             } else if (inputDialogState == 2) {
+            	if (Configuration.enableWASDCamera) {
+					chatboxInFocus = true;
+				}
+            	
                 if (key >= 32 && key <= 122 && amountOrNameInput.length() < 40) {
                     amountOrNameInput += (char) key;
                     inputTaken = true;
@@ -10294,6 +10353,10 @@ public class Client extends RSApplet {
                     inputTaken = true;
                 }
             } else if (inputDialogState == 5) {
+            	if (Configuration.enableWASDCamera) {
+					chatboxInFocus = true;
+				}
+            	
                 int max = 12;
                 if (playerCommand == 1) {
                     max = 1;
@@ -10319,6 +10382,10 @@ public class Client extends RSApplet {
                     inputTaken = true;
                 }
             } else if (backDialogID == -1) {
+            	if (Configuration.enableWASDCamera) {
+					chatboxInFocus = true;
+				}
+            	
                 if (key == 9) {
                     tabToReplyPm();
                 }
@@ -23838,6 +23905,69 @@ public class Client extends RSApplet {
 				resetWidgetDropDowns(child.id);
 			}
 		}
+	}
+    
+	/**
+	 * Checks if the mouse in in the game screen area bounds.
+	 * 
+	 * @return <code>true</code> if in bounds.
+	 */
+    public boolean mouseInGameArea() {
+    	if (clientSize == 0) {
+    		return mouseX >= 4 && mouseX < 4 + gameAreaWidth && mouseY >= 4 && mouseY < 4 + gameAreaHeight;
+    	}
+    	
+    	return !mouseInChatArea() && !mouseInMinimapArea() && !mouseInTabArea();
+    }
+    
+	/**
+	 * Checks if the mouse in in the chat area bounds.
+	 * 
+	 * @return <code>true</code> if in bounds.
+	 */
+    public boolean mouseInChatArea() {
+    	if (chatAreaIP == null) {
+    		return false;
+    	}
+    	
+    	if (clientSize == 0) {
+    		return mouseX >= 4 && mouseX < 4 + chatAreaIP.width && mouseY >= 4 + gameAreaHeight && mouseY < 4 + gameAreaHeight + chatAreaIP.height;
+    	}
+    	
+    	return inImageProducerBounds(chatAreaIP, 0, gameAreaHeight - chatAreaIP.height - 4);
+    }
+
+	/**
+	 * Checks if the mouse in in the minimap area bounds.
+	 * 
+	 * @return <code>true</code> if in bounds.
+	 */
+	public boolean mouseInMinimapArea() {
+		return inImageProducerBounds(mapAreaIP, 519, 0);
+	}
+
+	/**
+	 * Checks if the mouse in in the tab area bounds.
+	 * 
+	 * @return <code>true</code> if in bounds.
+	 */
+    public boolean mouseInTabArea() {
+        return inImageProducerBounds(tabAreaIP, clientSize != 0 ? clientWidth - 240 : 0, clientSize != 0 ? clientHeight - 337 : 0);
+    }
+    
+	/**
+	 * Checks if the mouse in in the specified {@link RSImageProducer}'s bounds.
+	 * 
+	 * @param r
+	 *            The image producer.
+	 * @param x
+	 *            The x.
+	 * @param y
+	 *            The y.
+	 * @return <code>true</code> if in bounds.
+	 */
+	public boolean inImageProducerBounds(RSImageProducer r, int x, int y) {
+		return mouseX >= x && mouseX <= x + r.width && mouseY >= y && mouseY <= y + r.height;
 	}
 
 }

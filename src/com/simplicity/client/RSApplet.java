@@ -377,6 +377,10 @@ WindowListener {
 
 				Client.getClient().drawZoomDelay = 100;
 			}
+			
+			if (Configuration.enableWASDCamera && Client.instance.chatboxInFocus) {
+				Client.instance.chatboxInFocus = false;
+			}
 		}
 	}
 
@@ -507,6 +511,10 @@ WindowListener {
 			mouseWheelDown = true;
 			mouseWheelX = x;
 			mouseWheelY = y;
+			
+			if (Configuration.enableWASDCamera && Client.instance.chatboxInFocus) {
+				Client.instance.chatboxInFocus = false;
+			}
 			return;
 		}
 		
@@ -666,13 +674,13 @@ WindowListener {
 		}*/
 		if (j < 30)
 			j = 0;
-		if (i == 37)
+		if (i == 37 || Configuration.enableWASDCamera && !Client.instance.chatboxInFocus && i == KeyEvent.VK_A)
 			j = 1;
-		if (i == 39)
+		if (i == 39 || Configuration.enableWASDCamera && !Client.instance.chatboxInFocus && i == KeyEvent.VK_D)
 			j = 2;
-		if (i == 38)
+		if (i == 38 || Configuration.enableWASDCamera && !Client.instance.chatboxInFocus && i == KeyEvent.VK_W)
 			j = 3;
-		if (i == 40)
+		if (i == 40 || Configuration.enableWASDCamera && !Client.instance.chatboxInFocus && i == KeyEvent.VK_S)
 			j = 4;
 		if (i == 17)
 			j = 5;
@@ -737,16 +745,16 @@ WindowListener {
 		if (c < '\036') {
 			c = '\0';
 		}
-		if (i == 37) {
+		if (i == 37 || Configuration.enableWASDCamera && !Client.instance.chatboxInFocus && i == KeyEvent.VK_A) {
 			c = '\001';
 		}
-		if (i == 39) {
+		if (i == 39 || Configuration.enableWASDCamera && !Client.instance.chatboxInFocus && i == KeyEvent.VK_D) {
 			c = '\002';
 		}
-		if (i == 38) {
+		if (i == 38 || Configuration.enableWASDCamera && !Client.instance.chatboxInFocus && i == KeyEvent.VK_W) {
 			c = '\003';
 		}
-		if (i == 40) {
+		if (i == 40 || Configuration.enableWASDCamera && !Client.instance.chatboxInFocus && i == KeyEvent.VK_S) {
 			c = '\004';
 		}
 		if (i == 17) {
