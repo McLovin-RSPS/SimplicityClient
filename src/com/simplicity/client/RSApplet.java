@@ -431,7 +431,7 @@ WindowListener {
 	}
 	
 	public boolean handleScrolling(RSInterface rsi, int rotation, int offsetX, int offsetY) {
-		if (rsi.children == null) {
+		if (rsi == null || rsi.children == null) {
 			return false;
 		}
 		
