@@ -1090,6 +1090,22 @@ public final class ItemDefinition {
 			itemDef.modelOffsetY = 0;
 			itemDef.dataType = DataType.CUSTOM;
 			break;
+			
+		case 22009:
+			itemDef.copy(forID(15000));
+            itemDef.name = "Scythe of Vitur Rainbow";
+			itemDef.modelID = 19;
+			itemDef.maleEquip1 = 18;
+			itemDef.femaleEquip1 = 18;
+			itemDef.rotationX = 0;
+			itemDef.rotationY = 0;
+			itemDef.modelOffset1 = 0;
+			itemDef.modelOffsetX = 0;
+			itemDef.modelOffsetY = 0;
+			itemDef.dataType = DataType.CUSTOM;
+			itemDef.editedModelColor = new int[] { 69 };
+        	itemDef.newModelColor = new int[] { 70 };
+			break;
         
         case 17273:
         	itemDef.femaleYOffset += 7;

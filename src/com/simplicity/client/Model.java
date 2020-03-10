@@ -159,7 +159,9 @@ public class Model extends Animable {
         
 		applyTexture(69, 16, 17);
 		
-		applyTexture(58, 10, 11, 12, 13, 14, 15); 
+		applyTexture(58, 10, 11, 12, 13, 14, 15);
+		
+        applyTexture(70, 18, 19);
     }
 
     public static Model fetchModel(int j) {
