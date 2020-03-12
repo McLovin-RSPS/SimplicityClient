@@ -520,7 +520,7 @@ public final class Animation {
 				// 176, 178, 180, 182, 183, 185, 191, 192, 9999999, };
 				anims[j].forcedPriority = 6;
 				anims[j].leftHandItem = 0;
-				anims[j].rightHandItem = 13438;
+				anims[j].rightHandItem = 13439;
 				anims[j].delayType = 1;
 				anims[j].loopDelay = -1;
 				anims[j].oneSquareAnimation = false;

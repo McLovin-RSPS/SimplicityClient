@@ -14085,7 +14085,7 @@ public class Client extends RSApplet {
 	            }
 	            entity.nextAnimationFrame = entity.currentAnimFrame + 1;
 	            if (entity.nextAnimationFrame >= animation_3.frameCount) {
-					entity.nextAnimationFrame = 0;
+					entity.nextAnimationFrame = getNextFrame(entity);
 				}
 	            
 	            entity.aBoolean1541 = animation_3.oneSquareAnimation;
@@ -14096,6 +14096,14 @@ public class Client extends RSApplet {
     	} catch (Exception e) {
     		
     	}
+    }
+    
+    private int getNextFrame(Entity entity) {
+    	if (entity.anim == 11786) {
+    		return entity.currentAnimFrame;
+    	}
+    	
+    	return 0;
     }
 
     private void drawGameScreen() {
