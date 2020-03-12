@@ -281,7 +281,8 @@ public final class Player extends Entity {
 			}
 			if(animation.rightHandItem >= 0)
 			{
-				k1 = animation.rightHandItem;
+				k1 = getRightHandItem(animation);
+				
 				l += k1 - equipment[3] << 48;
 			}
 		} else
@@ -388,6 +389,14 @@ public final class Player extends Entity {
 		model_2.triangleSkin = null;
 		model_2.vertexSkin = null;
 		return model_2;
+	}
+	
+	private int getRightHandItem(Animation animation) {
+		if (super.anim == 5061 && equipment[3] == 13439) {
+			return 13439;
+		}
+		
+		return animation.rightHandItem;
 	}
 	
 
