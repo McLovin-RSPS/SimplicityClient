@@ -109,6 +109,7 @@ import com.simplicity.client.widget.CollectionLogWidget;
 import com.simplicity.client.widget.QuestTab;
 import com.simplicity.client.widget.SettingsWidget;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
+import com.simplicity.tools.InterfaceDebugger;
 import com.simplicity.tools.ItemDefinitionLookup;
 import com.simplicity.tools.ObjectDefinitionLookup;
 import com.simplicity.util.MiscUtils;
@@ -10413,6 +10414,10 @@ public class Client extends RSApplet {
                         inputString = "";
                         return;
                     }
+                    if (inputString.equals("::rsi")) {
+						InterfaceDebugger debug = new InterfaceDebugger();
+						debug.setVisible(true);
+					}
                     if (inputString.equals("::itemdef")) {
                     	ItemDefinitionLookup lookup = new ItemDefinitionLookup();
 						lookup.setVisible(true);
