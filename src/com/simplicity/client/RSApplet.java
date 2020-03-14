@@ -354,11 +354,11 @@ WindowListener {
 				int min = Client.clientSize == 0 ? 150 : 250;
 				
 				if (Client.cameraZoom > min) {
-					Client.cameraZoom -= 60;
+					Client.cameraZoom -= 50;
 				}
 			} else {
 				if (Client.cameraZoom < 1800) {
-					Client.cameraZoom += 60;
+					Client.cameraZoom += 50;
 				}
 			}
 			
