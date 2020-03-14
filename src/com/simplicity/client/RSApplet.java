@@ -351,31 +351,15 @@ WindowListener {
 				return;
 			}
 			if (rotation == -1) {
-				if (Client.cameraZoom > 200) {
-					Client.cameraZoom -= 45;
+				int min = Client.clientSize == 0 ? 150 : 250;
+				
+				if (Client.cameraZoom > min) {
+					Client.cameraZoom -= 60;
 				}
 			} else {
-				if (Client.cameraZoom < 1100) {
-					Client.cameraZoom += 45;
+				if (Client.cameraZoom < 1800) {
+					Client.cameraZoom += 60;
 				}
-			}
-
-			if (event.isControlDown()) {
-				if (rotation == -1) {
-					int min = Client.clientSize == 0 ? -600 : -420;
-
-					if (Client.clientZoom > min) {
-						Client.clientZoom -= 30;
-					}
-				} else {
-					int max = Client.clientSize == 0 ? 1200 : 1800;
-
-					if (Client.clientZoom < max) {
-						Client.clientZoom += 30;
-					}
-				}
-
-				Client.getClient().drawZoomDelay = 100;
 			}
 			
 			if (Configuration.enableWASDCamera && Client.instance.chatboxInFocus) {
