@@ -14090,7 +14090,12 @@ public class Client extends RSApplet {
 	            }
 	            entity.nextAnimationFrame = entity.currentAnimFrame + 1;
 	            if (entity.nextAnimationFrame >= animation_3.frameCount) {
-					entity.nextAnimationFrame = getNextFrame(entity);
+	            	if (entity.anInt1530 >= animation_3.frameCount) {
+	                    entity.nextAnimationFrame = getNextFrame(entity);
+	                }
+	                if (entity.nextAnimationFrame < 0 || entity.nextAnimationFrame >= animation_3.frameCount) {
+	                    entity.nextAnimationFrame = getNextFrame(entity);
+	                }
 				}
 	            
 	            entity.aBoolean1541 = animation_3.oneSquareAnimation;
