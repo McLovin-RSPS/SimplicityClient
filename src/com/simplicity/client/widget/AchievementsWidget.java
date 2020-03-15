@@ -31,22 +31,22 @@ public class AchievementsWidget extends RSInterface {
 		
 		RSInterface tab = addTabInterface(id++);
 		
-		tab.totalChildren(14);
+		tab.totalChildren(15);
 		
-		int scrollHeight = 201 - 7;
+		int scrollHeight = 201;
 		
 		int child = 0;
 		
-		addText(id, "", tda, 2, 0xFF9900);
-		tab.child(child++, id, /*32*/9, 0);
+		addText(id, "Achievements", tda, 2, 0xFF9900);
+		tab.child(child++, id, /*32*/4, 4);
 		id++;
 		
 		addText(id, "(0/106)", tda, 1, 0xFF9900, true, true);
-		tab.child(child++, id, 163, 5);
+		tab.child(child++, id, 163, 4);
 		id++;
 		
-		/*addSpriteLoader(id, 723); // Background
-		tab.child(child++, id, 0, 25);*/
+		addSpriteLoader(id, 723); // Background
+		tab.child(child++, id, 0, 25);
 		id++;
 		
 		int separator = id;
@@ -58,11 +58,11 @@ public class AchievementsWidget extends RSInterface {
 		tab.child(child++, separator, 0, 37 + 5); // Middle separator
 		id++;
 		
-		int startX = 9;
+		int startX = 8;
 		
 		int startY = 28;
 		
-		int rectWidth = 47;
+		int rectWidth = 48;
 		
 		for (int i = 0; i < 4; i++) {
 			addRectangleClickable(id, 50, 0x50483d, true, rectWidth, 17);

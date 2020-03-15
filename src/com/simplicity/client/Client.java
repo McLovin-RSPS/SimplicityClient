@@ -2469,16 +2469,10 @@ public class Client extends RSApplet {
                         draw = 16;
 
                     }
+                    
+                    int spriteId = index == 2 ? getQuestTabIcon() : Configuration.enableOldFrame ? 972 + draw : 657 + draw;
 
-                    if (Configuration.enableOldFrame) {
-
-                        SpriteLoader.sprites[972 + draw].drawSprite(x, y);
-
-                    } else {
-                        SpriteLoader.sprites[657 + draw].drawSprite(x, y);
-
-                    }
-                    // TODO make sideicons diff for old gameframe
+                    SpriteLoader.sprites[spriteId].drawSprite(x, y);
                 }
             }
         } else {
@@ -2496,13 +2490,27 @@ public class Client extends RSApplet {
                     if (index == 2 && doingDung) {
                         i = 16;
                     }
-                    SpriteLoader.sprites[657 + i].drawSprite((clientWidth - offsetX) + positionX[index],
+                    int spriteId = index == 2 ? getQuestTabIcon() : 657 + i;
+                    SpriteLoader.sprites[spriteId].drawSprite((clientWidth - offsetX) + positionX[index],
                             (clientHeight - offsetY) + positionY[index]);
                 }
             }
         }
     }
     
+	private int getQuestTabIcon() {
+		switch (tabInterfaceIDs[2]) {
+		case QuestTab.QUEST_TAB_ID:
+			return 22;
+		case QuestTab.ACTIVITY_TAB_ID:
+			return 1337;
+		case QuestTab.MISC_TAB_ID:
+			return 1335;
+		default:
+			return 1334;
+		}
+	}
+
 	/**
 	 * Draws the skill status bar on the screen.
 	 * 

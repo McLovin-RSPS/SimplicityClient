@@ -15,7 +15,7 @@ public class QuestTab extends RSInterface {
 	
 	public static final int FIRST_SCROLL_ID = INFORMATION_TAB_ID + 1;
 	
-	public static final int ACHIEVEMENT_TAB_ID = INTERFACE_ID + 300;
+	public static final int QUEST_TAB_ID = INTERFACE_ID + 300;
 	
 	public static final int ACTIVITY_TAB_ID = INTERFACE_ID + 500;
 	
@@ -23,8 +23,8 @@ public class QuestTab extends RSInterface {
 
 	public static void unpack(TextDrawingArea[] tda) {
 		navigation(tda);
+		informationTab(tda);
 		questTab(tda);
-		achievementsTab(tda);
 		activityTab(tda);
 		miscTab(tda);
 	}
@@ -60,11 +60,11 @@ public class QuestTab extends RSInterface {
 		
 		id += 4;
 		
-		addSprite(id, 1327);
+		addSprite(id, 1330);
 		rsi.child(child++, id, 19, 5);
 		id++;
 		
-		addSprite(id, 1328);
+		addSprite(id, 1327);
 		rsi.child(child++, id, 63, 5);
 		id++;
 		
@@ -72,14 +72,14 @@ public class QuestTab extends RSInterface {
 		rsi.child(child++, id, 107, 5);
 		id++;
 		
-		addSprite(id, 1330);
+		addSprite(id, 1336);
 		rsi.child(child++, id, 151, 5);
 		id++;
 		
 		addRectangle(73221, 150, 0, true, 156, 195);
 	}
 	
-	private static void questTab(TextDrawingArea[] tda) {
+	private static void informationTab(TextDrawingArea[] tda) {
 		int id = INFORMATION_TAB_ID;
 		
 		RSInterface tab = addTab(id++, 2);
@@ -113,13 +113,38 @@ public class QuestTab extends RSInterface {
 		id+=8;
 	}
 	
-	private static void achievementsTab(TextDrawingArea[] tda) {
-		int id = ACHIEVEMENT_TAB_ID;
+	private static void questTab(TextDrawingArea[] tda) {
+		int id = QUEST_TAB_ID;
 		
-		RSInterface tab = addTabInterface(id);
-		tab.totalChildren(2);
-		tab.child(0, INTERFACE_ID, 0, 0);
-		tab.child(1, 67_000, 0, 21);
+		RSInterface tab = addTab(id++, 2);
+		
+		int child = 2;
+		
+		int width = 164 + 5;
+		
+		int height = 232 - 25;
+		
+		RSInterface scroll = addInterface(id++);
+		scroll.totalChildren(15);
+		scroll.width = width - 7;
+		scroll.height = height;
+		scroll.scrollMax = scroll.children.length * 20 + 9;
+		
+		int y = 9;
+		
+		for (int i = 0; i < scroll.children.length; i++) {
+			addText(id, "" + id, tda, 0, 0xFFB000);
+			scroll.child(i, id, 0, y);
+			y += 17;
+			id++;
+		}
+		
+		y = 37 + 8;
+		tab.child(child++, scroll.id, 9, y);
+		
+		addWindow(id, width - 1, height, false, true, true);
+		tab.child(child++, id, 3, y);
+		id+=8;
 	}
 	
 	private static void activityTab(TextDrawingArea[] tda) {
