@@ -12968,7 +12968,7 @@ public class Client extends RSApplet {
             s = s + combatDiffColor(myPlayer.combatLevel, entityDef.combatLevel) + " (level: " + entityDef.combatLevel
                     + ")";
         }
-        if (follower && itemSelected == 1) {
+        if (itemSelected == 1) {
             menuActionName[menuActionRow] = "Use " + selectedItemName + " with @yel@" + s;
             menuActionID[menuActionRow] = 582;
             menuActionCmd1[menuActionRow] = i;
