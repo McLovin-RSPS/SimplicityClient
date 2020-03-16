@@ -36,6 +36,8 @@ public class SettingsWidget extends RSInterface {
 	public static final int FIXED = DISPLAY_SETTINGS + 1;
 	public static final int RESIZABLE = DISPLAY_SETTINGS + 2;
 	public static final int ADVANCED = DISPLAY_SETTINGS + 4;
+	public static final int TOGGLE_ZOOM = DISPLAY_SETTINGS + 6;
+	public static final int ZOOM_SLIDER = DISPLAY_SETTINGS + 8;
 	
 	public static final int MOUSE_CAMERA = CONTROL_SETTINGS + 1;
 	public static final int FOLLOWER_OPTIONS = CONTROL_SETTINGS + 3;
@@ -102,7 +104,7 @@ public class SettingsWidget extends RSInterface {
 
 		RSInterface tab = addTabInterface(id++);
 		
-		tab.totalChildren(9);
+		tab.totalChildren(11);
 		
 		int child = 0;
 		
@@ -119,11 +121,22 @@ public class SettingsWidget extends RSInterface {
 		tab.child(child++, id + 1, 28, 187 - 5);
 		id += 2;
 		
+		configHoverButton(TOGGLE_ZOOM, "Toggle Zooming", new String[] { "Restore Default Zoom" }, 1343, 1344, 1342, 1341, false, new int[] {TOGGLE_ZOOM});
+		tab.child(child++, TOGGLE_ZOOM, 13, 50);
+		id+=3;
+		
+		slider(ZOOM_SLIDER, 0, -1800, -50, 128, 1340, 1338, 1);
+		tab.child(child++, id, 48, 58);
+		
 		tab.child(child++, 905, 13, 88 - 5);
 		tab.child(child++, 906, 48, 100 - 5);
 		tab.child(child++, 908, 80, 100 - 5);
 		tab.child(child++, 910, 112, 100 - 5);
 		tab.child(child++, 912, 144, 100 - 5);
+		
+		if (!Configuration.enableZooming) {
+			configHoverButtonSwitch(interfaceCache[TOGGLE_ZOOM]);
+		}
 	}
 	
 	private static void audioSettings(TextDrawingArea[] tda) {
@@ -334,7 +347,7 @@ public class SettingsWidget extends RSInterface {
 	 *            The button id.
 	 * @return <code>true</code> if handled.
 	 */
-	public static boolean handleButton(int button) {
+	public static boolean handleButton(int button, int index) {
 		if (TOGGLES.containsKey(button)) {
 			TOGGLES.get(button).handle();
 			ClientSettings.save();
@@ -342,6 +355,17 @@ public class SettingsWidget extends RSInterface {
 		}
 		
 		switch (button) {
+		case TOGGLE_ZOOM:
+			if (index == 0) {
+				Configuration.enableZooming = !Configuration.enableZooming;
+				configHoverButtonSwitch(interfaceCache[TOGGLE_ZOOM]);
+				ClientSettings.save();
+			} else if (index == 1) {
+				Client.cameraZoom = Client.instance.getDefaultCameraZoom();
+				
+				interfaceCache[ZOOM_SLIDER].slider.setValue(Math.negateExact(1800 - Client.cameraZoom));
+			}
+			return true;
 		case FIXED:
 			Client.instance.toggleSize(0);
 			return true;

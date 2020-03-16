@@ -18,6 +18,8 @@ import com.simplicity.client.content.Keybinding;
 import com.simplicity.client.content.LoginScreen;
 import com.simplicity.client.content.LoginScreen.CharacterFile;
 import com.simplicity.client.entity.Position;
+import com.simplicity.client.widget.QuestTab;
+import com.simplicity.client.widget.SettingsWidget;
 
 /**
  * A class that handles the client settings saving & loading for the player.
@@ -172,6 +174,10 @@ public class ClientSettings {
 				Configuration.enableItemStats = reader.get("item-stats").getAsBoolean();
 			}
 			
+			if (reader.has("zooming")) {
+				Configuration.enableZooming = reader.get("zooming").getAsBoolean();
+			}
+			
 			if (reader.has("keybindings")) {
 				Keybinding.KEYBINDINGS = builder.fromJson(reader.get("keybindings"), int[].class);
 			}
@@ -247,6 +253,7 @@ public class ClientSettings {
 			object.addProperty("mouse-camera", Configuration.enableMouseCamera);
 			object.addProperty("esc-closes-interface", Configuration.escapeClosesInterface);
 			object.addProperty("item-stats", Configuration.enableItemStats);
+			object.addProperty("zooming", Configuration.enableZooming);
 			object.add("keybindings", builder.toJsonTree(Keybinding.KEYBINDINGS));
 			object.add("quick-prayers", builder.toJsonTree(Client.instance.getQuickPrayers()));
 			object.add("quick-curses", builder.toJsonTree(Client.instance.getQuickCurses()));

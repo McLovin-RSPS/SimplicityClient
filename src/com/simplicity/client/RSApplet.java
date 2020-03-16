@@ -29,6 +29,7 @@ import com.simplicity.Configuration;
 import com.simplicity.Jframe;
 import com.simplicity.client.content.Keybinding;
 import com.simplicity.client.widget.AchievementsWidget;
+import com.simplicity.client.widget.SettingsWidget;
 
 @SuppressWarnings("all")
 public class RSApplet extends Applet implements Runnable, MouseListener,
@@ -350,16 +351,26 @@ WindowListener {
 			if (mouseX > 0 && mouseX < 512 && mouseY > Client.clientHeight - 165 && mouseY < Client.clientHeight - 25) {
 				return;
 			}
-			if (rotation == -1) {
-				int min = Client.clientSize == 0 ? 150 : 250;
+
+			if (Configuration.enableZooming) {
 				
-				if (Client.cameraZoom > min) {
-					Client.cameraZoom -= 50;
+				int minZoom = 50;
+				
+				int maxZoom = 1800;
+				
+				if (rotation == -1) {
+					if (Client.cameraZoom > minZoom) {
+						Client.cameraZoom -= 50;
+					}
+				} else {
+					if (Client.cameraZoom < maxZoom) {
+						Client.cameraZoom += 50;
+					}
 				}
-			} else {
-				if (Client.cameraZoom < 1800) {
-					Client.cameraZoom += 50;
-				}
+				
+				int value = Math.negateExact(1800 - Client.cameraZoom);
+				
+				RSInterface.interfaceCache[SettingsWidget.ZOOM_SLIDER].slider.setValue(value);
 			}
 			
 			if (Configuration.enableWASDCamera && Client.instance.chatboxInFocus) {

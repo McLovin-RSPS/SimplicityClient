@@ -212,5 +212,10 @@ public class Configuration {
 	 * Indicates whether the WASD camera is enabled or not.
 	 */
 	public static boolean enableWASDCamera = false;
+	
+	/**
+	 * Indicates whether zooming is enabled or not.
+	 */
+	public static boolean enableZooming = true; 
     
 }

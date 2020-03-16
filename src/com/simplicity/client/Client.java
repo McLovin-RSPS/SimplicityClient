@@ -108,6 +108,7 @@ import com.simplicity.client.particles.ParticleDefinition;
 import com.simplicity.client.widget.CollectionLogWidget;
 import com.simplicity.client.widget.QuestTab;
 import com.simplicity.client.widget.SettingsWidget;
+import com.simplicity.client.widget.Slider;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.tools.InterfaceDebugger;
 import com.simplicity.tools.ItemDefinitionLookup;
@@ -470,6 +471,14 @@ public class Client extends RSApplet {
                 mainFrame.setClientIcon();
             }
         }
+    }
+    
+    public int getDefaultCameraZoom() {
+    	if (clientSize != 0) {
+    		return 900;
+    	}
+    	
+    	return 600;
     }
 
     public boolean isWebclient() {
@@ -3709,6 +3718,8 @@ public class Client extends RSApplet {
     	 * Mouse pressed.
     	 */
     	if (super.clickMode3 == 1) {
+    		handleInterfaceClick();
+    		
 			if (mouseInChatArea()) {
 				if (!chatboxInFocus) {
 					chatboxInFocus = true;
@@ -3717,6 +3728,106 @@ public class Client extends RSApplet {
 				if (chatboxInFocus) {
 					chatboxInFocus = false;
 				}
+			}
+		}
+    	
+    	/**
+    	 * Mouse released.
+    	 */
+		if (super.mouseDown == 0) {
+			if (Slider.getSelectedSlider() != null) {
+				Slider.setSelected(null, -1, -1);
+				//playSound(2266);
+			}
+		}
+		
+		if (Slider.getSelectedSlider() != null) {
+			Slider.handleDragging();
+		}
+	}
+
+	public void handleInterfaceClick() {
+
+		int offsetX = 0;
+		int offsetY = 0;
+		int tabInterfaceID = tabInterfaceIDs[tabID];
+		int x = (clientWidth / 2) - 240;
+		int y = (clientHeight / 2) - 167;
+
+		if (tabInterfaceID != -1) {
+			RSInterface tab = RSInterface.interfaceCache[tabInterfaceID];
+
+			if (tab != null) {
+				offsetX = clientSize == 0 ? 516 + 31 : clientWidth - 200;
+				offsetY = clientSize == 0 ? 168 + 37 : clientHeight - 305;
+				
+				if (clientSize == 1 && clientWidth < smallTabs) {
+					offsetY -= 37;
+				}
+				
+				handleClick(tab, offsetX, offsetY);
+			}
+		}
+
+		if (Client.openInterfaceID != -1) {
+			int w = 512, h = 334;
+			int count = 4;
+			if (clientSize != 0) {
+				for (int i = 0; i < count; i++) {
+					if (x + w > (clientWidth - 225)) {
+						x = x - 30;
+						if (x < 0) {
+							x = 0;
+						}
+					}
+					if (y + h > (clientHeight - 182)) {
+						y = y - 30;
+						if (y < 0) {
+							y = 0;
+						}
+					}
+				}
+			}
+
+			RSInterface tab = RSInterface.interfaceCache[openInterfaceID];
+
+			if (tab != null) {
+				offsetX = clientSize == 0 ? 4 : x;
+				offsetY = clientSize == 0 ? 4 : y;
+
+				handleClick(tab, offsetX, offsetY);
+			}
+		}
+
+	}
+	
+	public void handleClick(RSInterface widget, int offsetX, int offsetY) {
+		if (widget.children == null) {
+			return;
+		}
+
+		int positionX = 0;
+		int positionY = 0;
+
+		for (int index = 0; index < widget.children.length; index++) {
+			RSInterface child = RSInterface.interfaceCache[widget.children[index]];
+
+			if (child == null)
+				continue;
+
+			positionX = widget.childX[index] + child.xOffset;
+			positionY = widget.childY[index] + child.yOffset;
+
+			if (super.mouseX > offsetX + positionX && super.mouseY > offsetY + positionY && super.mouseX < offsetX + positionX + child.width && super.mouseY < offsetY + positionY + child.height) {
+				// Process sliders
+				if (child.type == 14) {
+					Slider.setSelected(child, offsetX + positionX, super.mouseX);
+					return;
+				}
+			}
+
+			if (child.children != null) {
+				handleClick(child, offsetX + widget.childX[index] + child.xOffset, offsetY + widget.childY[index] + child.yOffset);
 			}
 		}
 	}
@@ -6840,8 +6951,6 @@ public class Client extends RSApplet {
 
     public int otherPlayerId = 0, otherPlayerX = 0, otherPlayerY = 0;
 
-    public long drawZoomDelay;
-
     private void mainGameProcessor() throws ClassNotFoundException, InstantiationException, IllegalAccessException,
             UnsupportedLookAndFeelException {
         if (Configuration.DISCO_ITEMS && myPlayer.updateColor) {
@@ -7020,9 +7129,6 @@ public class Client extends RSApplet {
              */
         }
         processShadow();
-        if (drawZoomDelay > 0) {
-            drawZoomDelay--;
-        }
         if (anInt1016 > 0) {
             anInt1016--;
         }
@@ -8335,6 +8441,10 @@ public class Client extends RSApplet {
             }
         }
         if (l == 222) {
+			if (SettingsWidget.handleButton(interfaceId, currentActionMenu)) {
+				return;
+			}
+        	 
             stream.createFrame(222);
             stream.writeWord(interfaceId);
             stream.writeByte(currentActionMenu);
@@ -8369,10 +8479,10 @@ public class Client extends RSApplet {
 			if (class9.type == 20) {
 				RSInterface.handleConfigHover(class9);
 			}
-            
+			
             if (flag8) {
             	
-				if (SettingsWidget.handleButton(interfaceId)) {
+				if (SettingsWidget.handleButton(interfaceId, slot)) {
 					return;
 				}
 				
@@ -15190,6 +15300,12 @@ public class Client extends RSApplet {
                         }
                     } else if (child.type == 13) {
                         drawColorBox(child.enabledColor, childX, childY, child.width, child.height);
+    				} else if (child.type == 14) {
+    					Slider slider = child.slider;
+    					
+    					if (slider != null) {
+    						slider.draw(childX, childY);
+    					}
                     } else if (child.type == 18) {
                         if (child instanceof DrawLine) {
                             DrawLine inter = (DrawLine) child;
@@ -15798,22 +15914,6 @@ public class Client extends RSApplet {
             XpDrops.draw();
         }
         
-        if (drawZoomDelay > 0) {
-            int x = 22;
-            int y = 22;
-            DrawingArea.drawRectangle(y, 27, 200, 0, 102, x);
-            DrawingArea.drawAlphaPixels(x + 1, y + 1, 100, 25, 0, 100);
-
-            int curr = clientSize == 0 ? (clientZoom + 600) : (clientZoom + 420);
-
-            float max = clientSize == 0 ? 1800f : 2200f;
-
-            int defaultZoom = clientSize == 0 ? 33 : 46;
-
-            DrawingArea.drawAlphaPixels(x + 1, y + 1, (int) (curr / max * 100), 25, 0xff0000, 200);
-            DrawingArea.drawVerticalLine(x + defaultZoom, y + 1, 25, 0x00ff00, 100);
-            smallText.drawText(0xffffff, "Zoom: " + clientZoom, y + 18, x + 51);
-        }
         if (screenOpacity != 0 && screenOpacity != 255) {
             RSInterface.interfaceCache[35556].width = clientWidth;
             RSInterface.interfaceCache[35556].height = clientHeight;
@@ -18168,7 +18268,7 @@ public class Client extends RSApplet {
         int i2 = 2048 - j1 & 0x7ff;
         int j2 = 0;
         int k2 = 0;
-        int l2 = j;
+        int l2 = j + clientZoom;
         if (l1 != 0) {
             int i3 = Model.SINE[l1];
             int k3 = Model.COSINE[l1];
@@ -20498,7 +20598,7 @@ public class Client extends RSApplet {
                 	extraZoom = 700;
                 }
                 
-                setCameraPos(extraZoom + cameraZoom + (clientSize > 0 ? i + cameraZoom - clientHeight / 200 : i) * (WorldController.viewDistance == 10 ? 1 : 3), i, anInt1014, getFloorDrawHeight(plane, myPlayer.y, myPlayer.x) - 50, k, anInt1015);
+                setCameraPos(extraZoom + cameraZoom + (clientSize > 0 ? i + 300 : i) * (WorldController.viewDistance == 10 ? 1 : 3), i, anInt1014, getFloorDrawHeight(plane, myPlayer.y, myPlayer.x) - 50, k, anInt1015);
             }
             if (!inCutScene) {
                 j = getCameraHeight();

@@ -9,6 +9,7 @@ import com.simplicity.client.widget.CollectionLogWidget;
 import com.simplicity.client.widget.KnowledgeBaseWidget;
 import com.simplicity.client.widget.QuestTab;
 import com.simplicity.client.widget.SettingsWidget;
+import com.simplicity.client.widget.Slider;
 import com.simplicity.client.widget.StarterWidget;
 import com.simplicity.client.widget.Widget;
 import com.simplicity.client.widget.dropdown.Dropdown;
@@ -13011,6 +13012,7 @@ public class RSInterface {
 	public boolean hovered = false;
 	public RSInterface dropdownOpen;
 	public int dropdownHover = -1;
+	public Slider slider;
 	public boolean inverted;
     public boolean inventoryHover;
     public boolean greyScale;
@@ -15858,6 +15860,24 @@ public class RSInterface {
 		tab.spriteOpacity = 255;
 	}
 	
+	public static void configHoverButton(int id, String tooltip, String[] actions, int enabledSprite, int disabledSprite,
+			int enabledAltSprite, int disabledAltSprite, boolean active, int... buttonsToDisable) {
+		RSInterface tab = addInterface(id);
+		tab.tooltip = tooltip;
+		tab.actions = actions;
+		tab.atActionType = 1;
+		tab.type = 20;
+		tab.enabledSprite = Client.cacheSprite[enabledSprite];
+		tab.disabledSprite = Client.cacheSprite[disabledSprite];
+		tab.width = tab.enabledSprite.myWidth;
+		tab.height = tab.disabledSprite.myHeight;
+		tab.enabledAltSprite = Client.cacheSprite[enabledAltSprite];
+		tab.disabledAltSprite = Client.cacheSprite[disabledAltSprite];
+		tab.buttonsToDisable = buttonsToDisable;
+		tab.active = active;
+		tab.spriteOpacity = 255;
+	}
+	
 	public static void handleConfigHover(RSInterface widget) {
 		if (widget.active) {
 			return;
@@ -15891,6 +15911,20 @@ public class RSInterface {
 				configHoverButtonSwitch(btnWidget);
 			}
 		}
+	}
+	
+	public static void slider(int id, double min, double max, int width, int icon, int background, int contentType) {
+		slider(id, min, min, max, width, icon, background, contentType);
+	}
+
+	public static void slider(int id, double value, double min, double max, int width, int icon, int background,
+			int contentType) {
+		RSInterface widget = addInterface(id);
+		widget.width = width;
+		widget.height = 14;
+		widget.slider = new Slider(Client.cacheSprite[icon], Client.cacheSprite[background], value, min, max);
+		widget.type = 14;
+		widget.contentType = contentType;
 	}
 
     public static void addInAreaHover(int i, String imageName, int sId, int sId2, int w, int h, String text,
