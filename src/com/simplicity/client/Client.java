@@ -8369,6 +8369,7 @@ public class Client extends RSApplet {
             stream.createFrame(185);
             stream.putInt(15008);
         }
+        System.out.println("ACTION type ? "+ l);
         if (l == 582) {
             NPC npc = npcArray[entityId];
             if (npc != null) {
@@ -12968,7 +12969,7 @@ public class Client extends RSApplet {
             s = s + combatDiffColor(myPlayer.combatLevel, entityDef.combatLevel) + " (level: " + entityDef.combatLevel
                     + ")";
         }
-        if (follower && itemSelected == 1) {
+        if (itemSelected == 1) {
             menuActionName[menuActionRow] = "Use " + selectedItemName + " with @yel@" + s;
             menuActionID[menuActionRow] = 582;
             menuActionCmd1[menuActionRow] = i;
