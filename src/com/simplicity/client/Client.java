@@ -4324,7 +4324,7 @@ public class Client extends RSApplet {
                             }
                         }
                         
-                        String tooltip = clickable ? "Select" : child.tooltip;
+                        String tooltip = child.message != null && child.message.contains(":clickable:") ? "Select" : child.tooltip;
                         
                         if (tooltip != null) {
                         	if (class9.id == 68018 && child.message != null && child.message.contains("<font=2>")) { // Skip tooltips for categories on KnowledgeBase
@@ -4339,6 +4339,7 @@ public class Client extends RSApplet {
                             }
                             menuActionName[menuActionRow] = tooltip;
                             menuActionID[menuActionRow] = 315;
+                            menuActionCmd2[menuActionRow] = 0;
                             menuActionCmd3[menuActionRow] = child.id;
                             menuActionRow++;
                         }
