@@ -2470,7 +2470,7 @@ public class Client extends RSApplet {
 
                     }
                     
-                    int spriteId = index == 2 ? getQuestTabIcon() : Configuration.enableOldFrame ? 972 + draw : 657 + draw;
+                    int spriteId = index == 2 ? (doingDung ? 657 + draw : getQuestTabIcon()) : Configuration.enableOldFrame ? 972 + draw : 657 + draw;
 
                     SpriteLoader.sprites[spriteId].drawSprite(x, y);
                 }
@@ -2486,11 +2486,9 @@ public class Client extends RSApplet {
                     if (index == 8) {
                         tabInterfaceIDs[tab[index]] = 54017;
                     }
-                    int i = index;
-                    if (index == 2 && doingDung) {
-                        i = 16;
-                    }
-                    int spriteId = index == 2 ? getQuestTabIcon() : 657 + i;
+                    
+                    int spriteId = index == 2 ? (doingDung ? 657 + 16 : getQuestTabIcon()) : 657 + index;
+                    
                     SpriteLoader.sprites[spriteId].drawSprite((clientWidth - offsetX) + positionX[index],
                             (clientHeight - offsetY) + positionY[index]);
                 }
