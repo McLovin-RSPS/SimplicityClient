@@ -8369,7 +8369,6 @@ public class Client extends RSApplet {
             stream.createFrame(185);
             stream.putInt(15008);
         }
-        System.out.println("ACTION type ? "+ l);
         if (l == 582) {
             NPC npc = npcArray[entityId];
             if (npc != null) {
