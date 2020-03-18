@@ -227,7 +227,7 @@ public class Client extends RSApplet {
     
     public void drawEffectTimers() {
         int yDraw = clientHeight - 185;
-        int xDraw = clientWidth - 335;
+        int xDraw = clientSize == 0 ? clientWidth - 336 : clientWidth - 339;
 		int fillColor = 0x453e34;
     	int width = 40 * effects_list.size();
 		int height = 40;
@@ -280,7 +280,7 @@ public class Client extends RSApplet {
         	
         	chatTextDrawingArea.drawRectangle(yDraw - 25, height, 255, 0, 15, xDraw + 63);
     		chatTextDrawingArea.fillRectangle(0x1e1e1f, yDraw - 25 + 1, 15, height - 2, 255, xDraw + 63 + 1);
-    		chatTextDrawingArea.drawLineVertical(294, 0, yDraw - 280, xDraw + 63 + 15);
+    		chatTextDrawingArea.drawVerticalLine(xDraw + 63 + 15, yDraw - 24, 38, 0);
     		
         	cacheSprite[effectTimersVisible ? 1304 : 1305].drawAdvancedSprite(xDraw + 63 + 3 + (effectTimersVisible ? 2 : 1), yDraw - 11);
         	
