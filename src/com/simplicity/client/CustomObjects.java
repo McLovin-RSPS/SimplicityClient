@@ -293,7 +293,7 @@ public class CustomObjects {
 
             {28194, 3099, 3506, 0, 0}, // Comp orb
             
-            {13292, 3083, 3499, 0, 1}, // Magic chest
+            {13292, 3077, 3497, 0, 2}, // Magic chest
             //{54408, 3089, 3483, 0, 0}, // Halloween chest
             
             {0, 1625, 3978, 0, 0}, // Objects Arthur's dream II
@@ -648,7 +648,7 @@ public class CustomObjects {
 
             // Teleport to new slayer dung
 
-            {10780, 3080, 3510, 0, 0},
+            {10780, 3105, 3507, 0, 0},
             
             
             

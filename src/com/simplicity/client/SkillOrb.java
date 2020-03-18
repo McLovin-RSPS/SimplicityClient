@@ -219,7 +219,7 @@ public class SkillOrb {
     }
 
     private int currentLevel() {
-    	if (skill == 3) {
+    	if (skill == 3 || skill == 5) {
     		return Client.instance.currentMaxStats[skill] / 100;
     	}
     	
