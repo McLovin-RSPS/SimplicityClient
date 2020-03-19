@@ -5,9 +5,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.simplicity.Configuration;
 import com.simplicity.client.CacheArchive;
@@ -24,6 +27,11 @@ import com.simplicity.client.cache.definitions.custom.CustomItems;
 import com.simplicity.client.cache.definitions.custom.CustomRecolor;
 
 public final class ItemDefinition {
+	
+    /**
+     * A hash collection of item ids which should be forced to load using OSRS data yet retain their ids.
+     */
+    private static final Set<Integer> FORCE_OSRS_ITEMS = new HashSet<>(Arrays.asList(1704, 1706, 1708, 1710, 1712));
 	
 	/**
 	 * A hash collection of custom recolored items.
@@ -607,7 +615,11 @@ public final class ItemDefinition {
 
     public static ItemDefinition forID(int itemId) {
        // System.out.println("item id: "+itemId+", OSRS_ITEMS_OFFSET="+OSRS_ITEMS_OFFSET+", OSRS_ITEMS_START="+OSRS_ITEMS_START);
-        if (itemId >= OSRS_ITEMS_OFFSET + OSRS_ITEMS_START) {
+    	if (FORCE_OSRS_ITEMS.contains(itemId)) {
+    		itemId += OSRS_ITEMS_OFFSET;
+    	}
+    	
+        if (itemId >= OSRS_ITEMS_OFFSET) {
             itemId -= OSRS_ITEMS_OFFSET;
 
             for (int j = 0; j < 10; j++) {
@@ -652,6 +664,10 @@ public final class ItemDefinition {
             }
 
             //itemDef.value = prices[itemDef.id];
+            
+            if (FORCE_OSRS_ITEMS.contains(itemId)) {
+            	itemDef.id -= OSRS_ITEMS_OFFSET;
+            }
             
             
             switch(itemDef.id) {
