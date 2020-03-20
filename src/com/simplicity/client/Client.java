@@ -94,6 +94,7 @@ import com.simplicity.client.cache.maps.OldschoolMaps;
 import com.simplicity.client.cache.node.Deque;
 import com.simplicity.client.cache.node.Node;
 import com.simplicity.client.content.EffectTimer;
+import com.simplicity.client.content.EffectTimer.Type;
 import com.simplicity.client.content.FlashingSprite;
 import com.simplicity.client.content.ItemStatsPanel;
 import com.simplicity.client.content.Keybinding;
@@ -211,7 +212,7 @@ public class Client extends RSApplet {
     public void addEffectTimer(EffectTimer et) {
 
         for (EffectTimer timer : effects_list) {
-            if (timer.getSprite() == et.getSprite()) {
+            if (timer.getType() == et.getType()) {
                 timer.setSeconds(et.getSecondsTimer().secondsRemaining());
                 return;
             }
@@ -242,10 +243,9 @@ public class Client extends RSApplet {
 	            if (timer.getSecondsTimer().finished()) {
 	                effects_list.remove(timer);
 	                continue;
-	
 	            }
 	            
-	            boolean isItem = timer.getSprite() > cacheSprite.length;
+	            boolean isItem = timer.isItem();
 	            
 	            Sprite sprite = isItem ? ItemDefinition.getSprite(timer.getSprite(), 10, -1) : cacheSprite[timer.getSprite()]; 
 	            
@@ -20181,16 +20181,18 @@ public class Client extends RSApplet {
                         int timer = inStream.readInt();
                         int sprite = inStream.readShort();
                         boolean isItem = inStream.readByte() == 1;
+                        int ordinal = inStream.readByte();
+                        Type t = Type.values()[ordinal];
 
                         if (timer == 0) {
                             for (EffectTimer et : effects_list) {
-                                if (sprite == et.getSprite()) {
+                                if (t == et.getType()) {
                                     effects_list.remove(et);
                                     break;
                                 }
                             }
                         } else if (Configuration.enableTimers) {
-                            addEffectTimer(new EffectTimer(timer, sprite, isItem));
+                            addEffectTimer(new EffectTimer(timer, sprite, isItem, t));
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
