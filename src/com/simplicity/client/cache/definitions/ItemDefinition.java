@@ -495,6 +495,15 @@ public final class ItemDefinition {
         priorityModels.add(36324); //devout boots
         priorityModels.add(36333); //devout boots
         
+        priorityModels.add(28285); //elder chaos hood
+        priorityModels.add(32073); //elder chaos hood
+        
+        priorityModels.add(32063); //elder chaos hood
+        priorityModels.add(32066); //elder chaos hood
+        
+        priorityModels.add(32062); //elder chaos hood
+        priorityModels.add(32066); //elder chaos hood
+        
         // Neitiznot faceguard
         priorityModels.add(38857);
         priorityModels.add(38858);

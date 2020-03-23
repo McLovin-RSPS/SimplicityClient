@@ -41,6 +41,9 @@ public class OldschoolMaps {
 
             //tournament
             13133,
+            
+            4922, // Farming Guild
+            6967, // Zeah
 
             //ffa
             12621, 12622, 12623, 6729,
