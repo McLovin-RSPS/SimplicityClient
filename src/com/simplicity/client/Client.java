@@ -100,6 +100,7 @@ import com.simplicity.client.content.ItemStatsPanel;
 import com.simplicity.client.content.Keybinding;
 import com.simplicity.client.content.LoginScreen;
 import com.simplicity.client.content.LoginScreen.CharacterFile;
+import com.simplicity.client.content.MagicItems;
 import com.simplicity.client.content.PetSystem;
 import com.simplicity.client.content.PlayerRights;
 import com.simplicity.client.content.RichPresence;
@@ -13546,6 +13547,7 @@ public class Client extends RSApplet {
                     return;
                 }
             }
+            MagicItems.init();
             handleSettings();
             clearMemoryCaches();
             setLoadingText(99, "");
@@ -16687,34 +16689,35 @@ public class Client extends RSApplet {
                     RSInterface interfaceToCheckOn = RSInterface.interfaceCache[myValues[valueIdx++]];
                     int itemId = myValues[valueIdx++];
 
-                    boolean hasRunePouch = false;
+					for (int j3 = 0; j3 < interfaceToCheckOn.inv.length; j3++) {
+						int checkItemId = interfaceToCheckOn.inv[j3];
 
-                    for (int j3 = 0; j3 < interfaceToCheckOn.inv.length; j3++) {
-                        int checkItemId = interfaceToCheckOn.inv[j3];
+						if (checkItemId - 1 == itemId) {
+							returnValue += interfaceToCheckOn.invStackSizes[j3];
+						} else if (checkItemId - 1 == 42791) {
+							returnValue += MagicItems.RUNE_POUCH.getReturnValue(itemId);
+						}
+						
+						if (returnValue < 0 || returnValue > MagicItems.UNLIMITED) {
+            				returnValue = MagicItems.UNLIMITED;
+            			}
+					}
 
-                        if (checkItemId == itemId + 1) {
-                            returnValue += interfaceToCheckOn.invStackSizes[j3];
-                        }
-                        if(checkItemId == 42791 + 1) {
-                            hasRunePouch = true;
-                        }
-                    }
-                    RSInterface runePouchRunes = RSInterface.interfaceCache[49010];
-                    if(runePouchRunes != null && hasRunePouch) {
-                        if(runePouchRunes.inv != null && runePouchRunes.invStackSizes != null) {
-                            for (int j3 = 0; j3 < runePouchRunes.inv.length; j3++) {
-                                int checkItemId = runePouchRunes.inv[j3];
-                                if (checkItemId == itemId + 1) {
-                                    returnValue += runePouchRunes.invStackSizes[j3];
-                                }
-                            }
-                        }
-                    }
-                    if(myPlayer.equipment != null) {
+                    if (myPlayer.equipment != null) {
                         for (int id : myPlayer.equipment) {
+                        	
                             id -= 512;
-                            if (id == 18346 && itemId == 554 + 1) { // Tome of frost.
-                                returnValue += 999999999;
+                            
+                            if (MagicItems.EQUIPMENT.containsKey(id)) {
+                            	MagicItems eq = MagicItems.EQUIPMENT.get(id);
+                            	
+                            	if (id == eq.getItemId() && itemId == eq.getRuneId()) {
+                        			returnValue += eq.getReturnValue(itemId);
+                        			
+                        			if (returnValue < 0 || returnValue > MagicItems.UNLIMITED) {
+                        				returnValue = MagicItems.UNLIMITED;
+                        			}
+                            	}
                             }
                         }
                     }
