@@ -939,9 +939,6 @@ public final class ItemDefinition {
                 case 52296:
                     itemDef.name = "Staff of Demonic";
                     break;
-                case 50368:
-                    itemDef.name = "Demonic armadyl godsword";
-                    break;
                 case 41860:
                     itemDef.name = "Angelic Boots";
                     break;
