@@ -360,11 +360,11 @@ WindowListener {
 				
 				if (rotation == -1) {
 					if (Client.cameraZoom > minZoom) {
-						Client.cameraZoom -= 50;
+						Client.cameraZoom -= 70;
 					}
 				} else {
 					if (Client.cameraZoom < maxZoom) {
-						Client.cameraZoom += 50;
+						Client.cameraZoom += 70;
 					}
 				}
 				
