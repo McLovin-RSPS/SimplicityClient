@@ -327,6 +327,18 @@ public enum Setting {
 		public boolean enabled() {
 			return Configuration.enableWASDCamera;
 		}
+	},
+	
+	BOUNTY_TARGET() {
+		@Override
+		public void handle() {
+			Configuration.enableBountyTarget = !Configuration.enableBountyTarget;
+		}
+
+		@Override
+		public boolean enabled() {
+			return Configuration.enableBountyTarget;
+		}
 	};
 
 	/**

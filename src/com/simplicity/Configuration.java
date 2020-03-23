@@ -216,6 +216,11 @@ public class Configuration {
 	/**
 	 * Indicates whether zooming is enabled or not.
 	 */
-	public static boolean enableZooming = true; 
+	public static boolean enableZooming = true;
+	
+	/**
+	 * Indicates whether bounty target is enabled or not.
+	 */
+	public static boolean enableBountyTarget = true;
     
 }

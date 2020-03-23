@@ -14537,6 +14537,9 @@ public class Client extends RSApplet {
             if (rsInterface.id == 41020 && !shouldDrawHpOverlay()) {
             	return;
             }
+            if (rsInterface.id == 25347 && !Configuration.enableBountyTarget) {
+            	return;
+            }
             int origTopX = DrawingArea.topX;
             int origTopY = DrawingArea.topY;
             int origBottomX = DrawingArea.bottomX;

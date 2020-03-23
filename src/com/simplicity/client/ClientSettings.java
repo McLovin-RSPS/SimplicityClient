@@ -178,6 +178,10 @@ public class ClientSettings {
 				Configuration.enableZooming = reader.get("zooming").getAsBoolean();
 			}
 			
+			if (reader.has("bounty-target")) {
+				Configuration.enableBountyTarget = reader.get("bounty-target").getAsBoolean();
+			}
+			
 			if (reader.has("keybindings")) {
 				Keybinding.KEYBINDINGS = builder.fromJson(reader.get("keybindings"), int[].class);
 			}
@@ -254,6 +258,7 @@ public class ClientSettings {
 			object.addProperty("esc-closes-interface", Configuration.escapeClosesInterface);
 			object.addProperty("item-stats", Configuration.enableItemStats);
 			object.addProperty("zooming", Configuration.enableZooming);
+			object.addProperty("bounty-target", Configuration.enableBountyTarget);
 			object.add("keybindings", builder.toJsonTree(Keybinding.KEYBINDINGS));
 			object.add("quick-prayers", builder.toJsonTree(Client.instance.getQuickPrayers()));
 			object.add("quick-curses", builder.toJsonTree(Client.instance.getQuickCurses()));
@@ -292,6 +297,10 @@ public class ClientSettings {
 		Configuration.enableXpOrbs = true;
 		Configuration.enableMipmapping = false;
 		Configuration.enableItemStats = true;
+		Configuration.enableTileMarkers = true;
+		Configuration.enableWASDCamera = false;
+		Configuration.enableZooming = true;
+		Configuration.enableBountyTarget = true;
 		Client.instance.musicEnabled = false;
 		SoundPlayer.setVolume(4);
 	}
