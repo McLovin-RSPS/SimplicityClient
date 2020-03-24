@@ -435,7 +435,20 @@ public final class ItemDefinition {
         infernalModels.add(33145);
         infernalModels.add(33102);
         infernalModels.add(33114);
-
+        
+        
+        //Imbued god capes
+        priorityModels.add(34261);
+        priorityModels.add(33145); 
+        priorityModels.add(34149);
+        priorityModels.add(34151);
+        priorityModels.add(34167);
+        priorityModels.add(34146);
+        priorityModels.add(34150);
+        priorityModels.add(34166);
+        priorityModels.add(34148);
+        priorityModels.add(34150);
+        
         /**
          * Master capes
          */
@@ -463,6 +476,7 @@ public final class ItemDefinition {
         priorityModels.add(65530);
         priorityModels.add(65532);
         priorityModels.add(65534);
+        priorityModels.add(65533);
 
         // Spiritbloom hood
         priorityModels.add(55748);
@@ -938,9 +952,6 @@ public final class ItemDefinition {
                     break;
                 case 52296:
                     itemDef.name = "Staff of Demonic";
-                    break;
-                case 50368:
-                    itemDef.name = "Demonic armadyl godsword";
                     break;
                 case 41860:
                     itemDef.name = "Angelic Boots";
@@ -3297,35 +3308,43 @@ public final class ItemDefinition {
             case 2714:
                 itemDef.name = "Casket";
                 break;
+                
             case 6183:
                 itemDef.name = "@red@Donation Box";
                 break;
+                
             case 6828:
                 itemDef.name = "@red@Bronze Mystery Box";
                 itemDef.actions = new String[5];
                 itemDef.actions[0] = "Open";
                 break;
+                
             case 6829:
                 itemDef.name = "@red@Gold Mystery Box";
                 itemDef.actions = new String[5];
                 itemDef.actions[0] = "Open";
                 break;
+                
             case 6833:
                 itemDef.name = "@red@Diamond Mystery Box";
                 itemDef.actions = new String[5];
                 itemDef.actions[0] = "Open";
                 break;
+                
             case 3157:
                 itemDef.name = "@red@Anglerfish vessel";
                 break;
+                
             case 12632:
                 itemDef.name = "100m Note";
                 itemDef.actions = new String[]{"Claim", null, null, null, "Drop"};
                 break;
+                
             case 6798:
                 itemDef.name = "Superior Scroll";
                 itemDef.actions = new String[]{"Claim", null, null, null, "Drop"};
                 break;
+                
             case 4202:
                 itemDef.name = "Ring of Coins";
                 break;
@@ -3959,10 +3978,12 @@ public final class ItemDefinition {
                 itemDef.certID = 17401;
                 itemDef.certTemplateID = 799;
                 break;
+                
             case 15009:
                 itemDef.name = "Gold Ring";
                 itemDef.actions = new String[]{null, null, null, null, null, null};
                 break;
+                
             case 20787:
                 itemDef.modelID = 35118;
                 itemDef.name = "Golden mining gloves";
@@ -3979,6 +4000,7 @@ public final class ItemDefinition {
                 itemDef.actions[1] = "Wear";
                 itemDef.actions[4] = "Drop";
                 break;
+                
             case 20788:
                 itemDef.modelID = 35121;
                 itemDef.name = "Golden mining boots";
@@ -3995,6 +4017,7 @@ public final class ItemDefinition {
                 itemDef.actions[1] = "Wear";
                 itemDef.actions[4] = "Drop";
                 break;
+                
             case 20789:
                 itemDef.modelID = 35124;
                 itemDef.name = "Golden mining helmet";
@@ -4011,6 +4034,7 @@ public final class ItemDefinition {
                 itemDef.actions[1] = "Wear";
                 itemDef.actions[4] = "Drop";
                 break;
+                
             case 15001:
                 itemDef.modelID = 35739;
                 itemDef.actions = new String[5];
@@ -4024,6 +4048,7 @@ public final class ItemDefinition {
                 itemDef.maleEquip1 = 35374;
                 itemDef.femaleEquip1 = 35369;
                 break;
+                
             case 15000:
                 itemDef.modelID = 35742;
                 itemDef.actions = new String[5];
@@ -4054,6 +4079,7 @@ public final class ItemDefinition {
                 itemDef.actions[1] = "Wear";
                 itemDef.actions[4] = "Drop";
                 break;
+                
             case 13356:
                 itemDef.actions = new String[5];
                 itemDef.actions[1] = "Wear";
@@ -4069,6 +4095,7 @@ public final class ItemDefinition {
                 itemDef.name = "Master agility cape";
                 itemDef.description = "Master agility cape";
                 break;
+                
             case 11350:
                 ItemDefinition itemDef21 = forID(11732);
                 itemDef.modelID = itemDef21.modelID;
@@ -4082,13 +4109,11 @@ public final class ItemDefinition {
                 itemDef.modelZoom = itemDef21.modelZoom;
                 itemDef.name = "Green Dragon boots ";
                 itemDef.actions = itemDef21.actions;
-
                 itemDef.editedModelColor = new int[] { 926 };
                 itemDef.newModelColor = new int[] { 419770 };
-
                 itemDef.stackable = false;
-
                 break;
+                
             case 11352:
                 ItemDefinition itemDef2111 = forID(11732);
                 itemDef.modelID = itemDef2111.modelID;
@@ -4714,7 +4739,7 @@ public final class ItemDefinition {
             case 13322:
                 itemDef.name = "Beaver";
                 itemDef.groundActions = new String[]{null, null, "Take", null, null};
-                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.actions = new String[]{"Summon", null, null, null, null, "Drop"};
                 itemDef.modelZoom = 1872;
                 itemDef.rotationX = 333;
                 itemDef.rotationY = 195;
