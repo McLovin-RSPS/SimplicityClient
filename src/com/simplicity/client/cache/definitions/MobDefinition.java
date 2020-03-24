@@ -87,6 +87,7 @@ public final class MobDefinition {
                     npc.actions = new String[5];
                     npc.actions[1] = "Attack";
                     break;
+                    
                 case 2669:
                     npc.copy(forID(17668));
                     npc.name = "Muhammad Ali";
@@ -96,17 +97,20 @@ public final class MobDefinition {
                     npc.sizeY *= 3;
                     npc.squaresNeeded = 4;
                     break;
+                    
                 case 7413:
                     npc.name = "Undead Combat dummy";
                     npc.actions = new String[5];
                     npc.actions[1] = "Attack";
                     break;
+                    
                 case 7519:
                     npc.name = "Superior Olmlet";
                     npc.actions = new String[5];
                     npc.actions[0] = "Pick-up";
                     npc.actions[2] = "Toggle Special";
                     break;
+                    
                 case 8390:
                     npc.name = "Blood money dealer";
                     npc.standAnim = 22313;
@@ -344,6 +348,13 @@ public final class MobDefinition {
                 npc.squaresNeeded = 2;
                 npc.destColours = new int[]{127, 127, 127, 127};
                 npc.originalColours = new int[]{65214, 65200, 65186, 62995};
+                break;
+                
+            case 9999:
+                npc.copy(forID(23060));
+                npc.name = "Wild Vorkath";
+                npc.actions = new String[5];
+                npc.actions[1] = "Attack";
                 break;
 
             case 1337:
