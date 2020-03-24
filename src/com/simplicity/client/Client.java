@@ -6881,7 +6881,13 @@ public class Client extends RSApplet {
             return;
         }
         
-        double percentage = (int) ((double) currentEntityHealth / maximumEntityHealth * 119);
+        int current = currentEntityHealth;
+        
+        if (current > maximumEntityHealth) {
+        	current = maximumEntityHealth;
+        }
+        
+        double percentage = (int) ((double) current / maximumEntityHealth * 119);
         
         DrawingArea.drawPixels(16, iface.y + 30, iface.x + 2, 0x00b300, (int) percentage);
 
@@ -6889,19 +6895,6 @@ public class Client extends RSApplet {
 
         RSInterface text = RSInterface.interfaceCache[41023];
         newSmallFont.drawCenteredString(iface.message, 63, 52, 0xffffff, 1);
-    }
-
-    private void drawNexBar() {
-        RSInterface iface2 = RSInterface.interfaceCache[7799];
-        float percentage = ((float) currentEntityHealth / (float) maximumEntityHealth) * (float) 450;
-        DrawingArea.drawPixels(22, iface2.y + 300, iface2.x + 15, 0x0ACC00, (int) percentage);
-        // drawPixels(int height_, int yPos, int xPos, int color, int width_)
-
-        TextDrawingArea.drawAlphaFilledPixels(iface2.x + 15, iface2.y + 300, 450, 22, 0xF5000C, 50);
-
-        RSInterface text = RSInterface.interfaceCache[7802];
-        newSmallFont.drawCenteredString(iface2.message, 150, 305, 0xffffff, 0);
-
     }
 
     private void drawHeadIcon() {
@@ -20857,7 +20850,6 @@ public class Client extends RSApplet {
         }
         if (loggedIn && shouldDrawHpOverlay()) {
             drawHpBar();
-            // drawNexBar();
         }
         if (loggedIn) {
             gameScreenIP.drawGraphics(clientSize == 0 ? 4 : 0, super.graphics, clientSize == 0 ? 4 : 0);
