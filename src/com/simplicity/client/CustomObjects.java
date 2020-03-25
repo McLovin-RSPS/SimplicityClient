@@ -861,7 +861,8 @@ public class CustomObjects {
             {-1, 3108, 3931, 0, 0},
             
             /**Edgeville**/
-            {409, 3088, 3483, 0, 0},
+            {409, 3088, 3483, 0, 0},	// prayer altar
+            {409, 3090, 3510, 0, 1},	// prayer altar 
             {6552, 3092, 3506, 0, 2}, 	// ancient altar
             {13179, 3096, 3506, 0, 0},	// lunar altar
             {411, 3085, 3483, 0, 0},
