@@ -372,6 +372,10 @@ public final class ObjectDefinition {
             objectDef.actions = new String[]{"Touch", null, null, null, null};
             objectDef.name = "@yel@Statue of Risen Siren";
         }
+        if (i == 42601) {
+            objectDef.actions = new String[]{"Jump-in", null, null, null, null};
+            objectDef.name = "@yel@Elite Dungeon";
+        }
         if (i == 53979) {
             objectDef.actions = new String[]{"Teleport", null, null, null, null};
             objectDef.name = "@yel@Crystal Boss Zone";
