@@ -21,6 +21,7 @@ public class EffectTimer {
 	    SPECIAL_RESTORE_FLASK(14385, true),
 	    PRAYER_RENEWAL(21630, true),
 	    ANTI_VENOM(42905, true),
+	    FAMILIAR_SPECIAL(327),
 	    
 	    ;
 		

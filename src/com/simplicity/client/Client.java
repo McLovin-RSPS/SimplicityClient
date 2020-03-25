@@ -254,7 +254,16 @@ public class Client extends RSApplet {
 	            	if (isItem) {
 	            		sprite.drawSprite(xDraw + 39 + 6, yDraw - 27);
 	            	} else {
-	            		sprite.drawAdvancedSprite(xDraw + 37 + 6 + sprite.myWidth / 2, yDraw - 20);
+	            		int spriteX = xDraw + 43 + sprite.myWidth / 2;
+	            		int spriteY = yDraw - 20;
+	            		
+	            		if (timer.getType().getSprite() == 327) {
+	            			sprite = Sprite.getResizedSprite(sprite, 24, 24);
+	            			spriteX -= 10;
+	            			spriteY -= 2;
+	            		}
+	            		
+	            		sprite.drawAdvancedSprite(spriteX, spriteY);
 	            	}
 	
 	                int seconds = timer.getSecondsTimer().secondsRemaining();
