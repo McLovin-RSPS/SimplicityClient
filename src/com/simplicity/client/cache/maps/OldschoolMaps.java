@@ -31,6 +31,9 @@ public class OldschoolMaps {
             10894, // Monkey skeletons
             11150, // Monkey skeletons
 
+            6715, // Elite zone
+            6714, // Elite zone
+            
             9619,
             14386, 14642,
             4919, 5022, 5023, 5279, 5280, 5535, 5945,
