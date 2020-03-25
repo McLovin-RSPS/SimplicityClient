@@ -5,39 +5,52 @@ import com.simplicity.util.SecondsTimer;
 public class EffectTimer {
 	
 	public enum Type {
-	    EXPERIENCE,
-	    BARRAGE,
-	    VENGEANCE,
+		EXPERIENCE(15389, true),
+		BARRAGE(1307),
+	    VENGEANCE(1306),
 	    
-	    DOUBLE_DONATION,
-	    OVERLOAD, 
-	    OVERLOAD_FLASK,
-	    ANTIFIRE_POTION,
-	    SUPER_ANTIFIRE_POTION,
-	    ANTIPOISON_POTION,
-	    SUPER_ANTIPOISON_POTION,
-	    SPECIAL_RESTORE_POTION,
-	    SPECIAL_RESTORE_FLASK,
-	    PRAYER_RENEWAL,
+	    DOUBLE_DONATION(1057),
+	    OVERLOAD(15332, true),
+	    OVERLOAD_FLASK(14301, true),
+	    ANTIFIRE_POTION(2452, true),
+	    SUPER_ANTIFIRE_POTION(15304, true),
+	    ANTIPOISON_POTION(2446, true),
+	    SUPER_ANTIPOISON_POTION(2448, true),
+	    SPECIAL_RESTORE_POTION(15300, true),
+	    SPECIAL_RESTORE_FLASK(14385, true),
+	    PRAYER_RENEWAL(21630, true),
 	    
-	    TELE_BLOCK,
-	    ANTI_VENOM;
+	    TELE_BLOCK(1333),
+	    ANTI_VENOM(42905, true);
+		
+	    private int sprite;
+	    
+	    private boolean isItem;
+	    
+	    Type(int sprite) {
+	    	this(sprite, false);
+	    }
+
+	    Type(int sprite, boolean isItem) {
+	        this.sprite = sprite;
+	        this.isItem = isItem;
+	    }
+	    
+	    public int getSprite() {
+	        return sprite;
+	    }
+	    
+	    public boolean isItem() {
+	    	return isItem;
+	    }
 	}
 	
 	private Type type;
-    private final int sprite;
     private final SecondsTimer secondsTimer;
-    private boolean isItem;
 
-    public EffectTimer(int seconds, int sprite, boolean isItem, Type type) {
+    public EffectTimer(int seconds, Type type) {
         this.secondsTimer = new SecondsTimer(seconds);
-        this.sprite = sprite;
-        this.isItem = isItem;
         this.type = type;
-    }
-
-    public int getSprite() {
-        return sprite;
     }
 
     public void setSeconds(int seconds) {
@@ -46,10 +59,6 @@ public class EffectTimer {
 
     public SecondsTimer getSecondsTimer() {
         return secondsTimer;
-    }
-    
-    public boolean isItem() {
-    	return isItem;
     }
     
     public Type getType() {

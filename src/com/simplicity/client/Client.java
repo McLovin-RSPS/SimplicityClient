@@ -246,9 +246,9 @@ public class Client extends RSApplet {
 	                continue;
 	            }
 	            
-	            boolean isItem = timer.isItem();
+	            boolean isItem = timer.getType().isItem();
 	            
-	            Sprite sprite = isItem ? ItemDefinition.getSprite(timer.getSprite(), 10, -1) : cacheSprite[timer.getSprite()]; 
+	            Sprite sprite = isItem ? ItemDefinition.getSprite(timer.getType().getSprite(), 10, -1) : cacheSprite[timer.getType().getSprite()]; 
 	            
 	            if (sprite != null) {
 	            	if (isItem) {
@@ -20213,10 +20213,9 @@ public class Client extends RSApplet {
 
                 case 54:
                     try {
-                        int timer = inStream.readInt();
-                        int sprite = inStream.readShort();
-                        boolean isItem = inStream.readByte() == 1;
+                        int timer = inStream.readShort();
                         int ordinal = inStream.readByte();
+                        
                         Type t = Type.values()[ordinal];
 
                         if (timer == 0) {
@@ -20227,7 +20226,7 @@ public class Client extends RSApplet {
                                 }
                             }
                         } else if (Configuration.enableTimers) {
-                            addEffectTimer(new EffectTimer(timer, sprite, isItem, t));
+                            addEffectTimer(new EffectTimer(timer, t));
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
