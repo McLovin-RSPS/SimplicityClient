@@ -1165,11 +1165,12 @@ public final class ItemDefinition {
 			itemDef.modelID = 17;
 			itemDef.maleEquip1 = 16;
 			itemDef.femaleEquip1 = 16;
-			itemDef.rotationX = 0;
-			itemDef.rotationY = 0;
-			itemDef.modelOffset1 = 0;
+			itemDef.rotationX = 1925;
+			itemDef.rotationY = 1260;
+			itemDef.modelZoom = 3200;
+			itemDef.modelOffset1 = 27;
 			itemDef.modelOffsetX = 0;
-			itemDef.modelOffsetY = 0;
+			itemDef.modelOffsetY = 28;
 			itemDef.dataType = DataType.CUSTOM;
 			break;
         
