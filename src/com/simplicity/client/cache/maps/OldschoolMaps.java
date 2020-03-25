@@ -48,8 +48,11 @@ public class OldschoolMaps {
             //tournament
             13133,
             
+            10063,// tzhaar inferno
+            
             4922, // Farming Guild
             6967, // Zeah
+            6556, 6557, 6813, 6812, // Cataboms of Kourand
 
             //ffa
             12621, 12622, 12623, 6729,
