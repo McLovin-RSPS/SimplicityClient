@@ -5,11 +5,12 @@ import com.simplicity.util.SecondsTimer;
 public class EffectTimer {
 	
 	public enum Type {
+		DOUBLE_DONATION(1057),
 		EXPERIENCE(15389, true),
 		BARRAGE(1307),
 	    VENGEANCE(1306),
+	    TELE_BLOCK(1333),
 	    
-	    DOUBLE_DONATION(1057),
 	    OVERLOAD(15332, true),
 	    OVERLOAD_FLASK(14301, true),
 	    ANTIFIRE_POTION(2452, true),
@@ -19,9 +20,9 @@ public class EffectTimer {
 	    SPECIAL_RESTORE_POTION(15300, true),
 	    SPECIAL_RESTORE_FLASK(14385, true),
 	    PRAYER_RENEWAL(21630, true),
+	    ANTI_VENOM(42905, true),
 	    
-	    TELE_BLOCK(1333),
-	    ANTI_VENOM(42905, true);
+	    ;
 		
 	    private int sprite;
 	    
