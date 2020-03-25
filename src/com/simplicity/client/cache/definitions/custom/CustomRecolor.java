@@ -90,6 +90,8 @@ public enum CustomRecolor {
 	BLACK_BUNNY_PAWS(56016, 43665, "Black Bunny paws", new int[] { 2370, 2378, 2382 }, new int[] { 10, 10, 10 }),
 	BLACK_BUNNY_BOOTS(56017, 43182, "Black Bunny boots", new int[] { 2370, 2378, 2382 }, new int[] { 10, 10, 10 }),
 	
+	SCYTHE_OF_VITUR_INFERNAL(56018, 22011, "Scythe of Vitur Infernal", new int[] { 69 }, new int[] { 59 })
+	
 	
 	;
 	/**
