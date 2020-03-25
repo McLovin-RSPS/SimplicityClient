@@ -8,6 +8,11 @@ import java.util.Locale;
 import com.simplicity.util.SecondsTimer;
 
 public class SkillOrb {
+	
+	/**
+	 * The orb size.
+	 */
+    public static final int ORB_SIZE = 42;
 
     /**
      * The skill this orb is intended for.
@@ -84,10 +89,10 @@ public class SkillOrb {
             alpha = 0;
         }
         
-        int size = 20;
+        int size = ORB_SIZE / 2;
 
         // Draw inner semi-transparent circle
-        DrawingArea.drawFilledCircle(x + size + 4, y + size + 4, size, 0x504a41, alpha < 180 ? alpha : 180);
+        DrawingArea.drawFilledCircle(x + size + 2, y + size + 2, size - 2, 0x504a41, alpha < 180 ? alpha : 180);
         
         calculateAngleStep();
 
@@ -100,8 +105,9 @@ public class SkillOrb {
         drawRing(xpRing, new Color(0, 0, 0, alpha));
         drawRing(progressRing, new Color(255, 200, 0, alpha));
 
-        icon.drawAdvancedSprite(x + size + 5 - icon.myWidth / 2, size + 4 - icon.myHeight / 2 + y, alpha);
+        icon.drawAdvancedSprite(x + size + 2 - icon.myWidth / 2, size + 2 - icon.myHeight / 2 + y, alpha);
     }
+    
 
     /**
      * Create a Ring Shape objet
@@ -111,10 +117,9 @@ public class SkillOrb {
      * @param angle
      * @return
      */
-
     public Shape createRing(int x, int y, int angle) {
-        Shape sector = DrawingArea.createSector(x + 2, y + 1, 55 - 8, angle);
-        Shape innerCircle = DrawingArea.createCircle(x + 7, y + 6, 45 - 8);
+        Shape sector = DrawingArea.createSector(x + 2, y + 1, ORB_SIZE, angle);
+        Shape innerCircle = DrawingArea.createCircle(x + 7, y + 6, ORB_SIZE - 10);
 
         return DrawingArea.createRing(sector, innerCircle);
     }

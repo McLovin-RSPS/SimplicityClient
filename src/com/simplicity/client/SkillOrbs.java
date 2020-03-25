@@ -36,9 +36,9 @@ public class SkillOrbs {
             }
         }
 
-        int y = 12;
+        int y = 1;
         
-        int x = Client.clientSize == 0 ? (int) (Client.clientWidth / 3.1) - (totalOrbs * 30) : (Client.clientWidth / 2) - (totalOrbs * 30);
+        int x = Client.clientSize == 0 ? (int) (Client.clientWidth / 3) - (totalOrbs * SkillOrb.ORB_SIZE / 2) - 6 : (Client.clientWidth / 2) - (totalOrbs * 30);
         
         if (x < 5) {
             x = 5;
@@ -55,11 +55,11 @@ public class SkillOrbs {
 
                 orb.draw(x, y);
                 
-                if (Client.instance.inCircle(x + 4, y + 4, Client.instance.mouseX, Client.instance.mouseY, 24)) {
+                if (Client.instance.inCircle(x + 4, y + 4, Client.instance.mouseX, Client.instance.mouseY, SkillOrb.ORB_SIZE / 2)) {
                     hover = orb;
                 }
 
-                x += 62;
+                x += SkillOrb.ORB_SIZE + 6;
 
                 int xLimit = Client.clientSize == 0 ? 300 : Client.clientWidth - 203;
                 if (x > xLimit + 160) {
