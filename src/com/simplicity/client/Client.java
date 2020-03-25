@@ -10547,6 +10547,42 @@ public class Client extends RSApplet {
                         RSInterface.unpack(streamLoader_1, allFonts, streamLoader_2);
                         pushMessage("Reloaded interface configurations.", 0, "");
                     }
+                    if (inputString.startsWith("::searchrsi")) {
+                        try {
+                            String[] data = inputString.split(" ");
+                            
+                            String s = String.join(" ", Arrays.copyOfRange(data, 1, data.length)).toLowerCase();
+                            
+                            for (int interfaceId = 0; interfaceId < RSInterface.interfaceCache.length; interfaceId++) {
+                            	
+                                RSInterface rsi = RSInterface.interfaceCache[interfaceId];
+                                
+                                if (rsi == null) {
+                                	continue;
+                                }
+                                
+                                if (rsi.spellName != null && (rsi.spellName.toLowerCase().equals(s) || rsi.spellName.toLowerCase().contains(s))) {
+                                	System.out.println("id: " + interfaceId + ", spell: " + rsi.spellName + " parentID: " + rsi.parentID);
+                                	System.out.println("requiredValues: " + Arrays.toString(rsi.requiredValues));
+                                	for (int i = 0; i < rsi.valueIndexArray.length; i++) {
+										System.out.println("valueIndexArray[" + i + "] = "
+												+ Arrays.toString(rsi.valueIndexArray[i]));
+                                	}
+                                	System.out.println("" + Arrays.toString(rsi.valueCompareType));
+                                }
+                                
+                                if (rsi.enabledMessage != null && rsi.enabledMessage.toLowerCase().equals(s) || rsi.message != null && rsi.message.toLowerCase().equals(s)) {
+                                	System.out.println("id: " + interfaceId + " message: " + rsi.message + ", enabled: " + rsi.enabledMessage + " parentID: " + rsi.parentID);
+                                }
+                                
+                            }
+                            
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            e.printStackTrace();
+                        } catch (NumberFormatException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     if (inputString.startsWith("::nullrsi")) {
                         int id = 0;
                         int offset = 0;
