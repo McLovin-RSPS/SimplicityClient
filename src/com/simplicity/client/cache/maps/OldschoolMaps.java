@@ -20,6 +20,7 @@ public class OldschoolMaps {
             8280, // Demonic gorillas
             8789,
             6457, // Great Kourand
+            5179,  //Mount karuulm
             
             5789, // CHASM OF FIRE
             
@@ -42,6 +43,8 @@ public class OldschoolMaps {
             /* Cerberus regions */
             4626, 4627, 46728, 4882, 4883, 4884, 5138, 5139, 5140,
 
+            6198, 6454, // Woodcutting guild
+            
             //tournament
             13133,
             
