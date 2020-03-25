@@ -11,11 +11,17 @@ public class EffectTimer {
 	    
 	    DOUBLE_DONATION,
 	    OVERLOAD, 
+	    OVERLOAD_FLASK,
+	    ANTIFIRE_POTION,
+	    SUPER_ANTIFIRE_POTION,
+	    ANTIPOISON_POTION,
+	    SUPER_ANTIPOISON_POTION,
 	    SPECIAL_RESTORE_POTION,
 	    SPECIAL_RESTORE_FLASK,
 	    PRAYER_RENEWAL,
 	    
-	    TELE_BLOCK;
+	    TELE_BLOCK,
+	    ANTI_VENOM;
 	}
 	
 	private Type type;
