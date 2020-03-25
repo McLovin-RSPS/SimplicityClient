@@ -95,6 +95,12 @@ public class CustomObjects {
             {-1, 3281, 3941, 0, 0},
 
             {-1, 3158, 3951, 0, 0}, // Web
+            
+            {46984, 1489, 3698, 0, 0},
+            
+            //special altar elite
+            {42601, 1684, 3753, 0, 1}, // Portal elite boss dungeon
+            {28698, 1686, 3739, 0, 0},
 
             {-1, 1695, 4703, 0, 0}, // ffa portal
             {-1, 1698, 4702, 0, 0}, // ffa portal
@@ -861,7 +867,8 @@ public class CustomObjects {
             {-1, 3108, 3931, 0, 0},
             
             /**Edgeville**/
-            {409, 3088, 3483, 0, 0},
+            {409, 3088, 3483, 0, 0},	// prayer altar
+            {409, 3090, 3510, 0, 1},	// prayer altar 
             {6552, 3092, 3506, 0, 2}, 	// ancient altar
             {13179, 3096, 3506, 0, 0},	// lunar altar
             {411, 3085, 3483, 0, 0},
