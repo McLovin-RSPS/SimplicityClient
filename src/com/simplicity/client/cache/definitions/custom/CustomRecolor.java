@@ -82,7 +82,13 @@ public enum CustomRecolor {
 	
 	DARK_PRIMAL_GLOVES(3063, 16293, "Dark Primal Gauntlents",
 			new int[] { 2839, 2848, 2826 },
-            new int[] {  2049, 2049, 2049 });
+            new int[] {  2049, 2049, 2049 }),
+	
+	BLACK_BUNNY_EARS(56013, 1037, "Black Bunny ears", new int[] { 220 }, new int[] { 10 }),
+	BLACK_BUNNY_TOP(56014, 43663, "Black Bunny top", new int[] { 2370, 2378, 2382 }, new int[] { 10, 10, 10 }),
+	BLACK_BUNNY_LEGS(56015, 43664, "Black Bunny legs", new int[] { 2370, 2378, 2382 }, new int[] { 10, 10, 10 }),
+	BLACK_BUNNY_PAWS(56016, 43665, "Black Bunny paws", new int[] { 2370, 2378, 2382 }, new int[] { 10, 10, 10 }),
+	BLACK_BUNNY_BOOTS(56017, 43182, "Black Bunny boots", new int[] { 2370, 2378, 2382 }, new int[] { 10, 10, 10 }),
 	
 	
 	;
