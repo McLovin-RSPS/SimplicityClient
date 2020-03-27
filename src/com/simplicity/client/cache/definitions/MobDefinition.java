@@ -1,5 +1,8 @@
 package com.simplicity.client.cache.definitions;
 
+import java.io.PrintWriter;
+import java.util.Arrays;
+
 import com.simplicity.client.CacheArchive;
 import com.simplicity.client.Client;
 import com.simplicity.client.FrameReader;
@@ -7,8 +10,6 @@ import com.simplicity.client.MemCache;
 import com.simplicity.client.Model;
 import com.simplicity.client.Stream;
 import com.simplicity.client.cache.DataType;
-
-import java.io.PrintWriter;
 
 public final class MobDefinition {
 
@@ -355,6 +356,7 @@ public final class MobDefinition {
                 npc.name = "Wild Vorkath";
                 npc.actions = new String[5];
                 npc.actions[1] = "Attack";
+                npc.models = new int[] { 60000 };
                 break;
 
             case 1337:
