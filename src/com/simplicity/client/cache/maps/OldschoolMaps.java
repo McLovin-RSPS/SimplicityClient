@@ -64,6 +64,9 @@ public class OldschoolMaps {
             // Ironman Guild
             8773,
             
+            // Charcoal burners & Tithe farm
+           6709, 6965, 7221, 6710, 6966, 7222,
+            
             // KBD Lever Room
             12192
     };
