@@ -238,7 +238,7 @@ public class Model extends Animable {
 
     public static void initialise(int i, OnDemandFetcherParent onDemandFetcher) {
         modelHeaderRegular = new ModelHeader[80000];
-        modelHeaderOldschool = new ModelHeader[40000];
+        modelHeaderOldschool = new ModelHeader[65000];
         modelHeaderCustom = new ModelHeader[10000];
         newmodel = new boolean[100000];
         resourceManager = onDemandFetcher;
