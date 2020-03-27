@@ -7,8 +7,9 @@ import java.io.InputStreamReader;
 
 public class CreateUID {
 
-	public static String getWMIValue(String wmiQueryStr, String wmiCommaSeparatedFieldName) throws Exception
+	public static String getWMIValue(String wmiQueryStr, String wmiCommaSeparatedFieldName)
 	{
+		try {
 		String vbScript = getVBScript(wmiQueryStr, wmiCommaSeparatedFieldName);
 		String tmpDirName = getEnvVar("TEMP").trim();
 		String tmpFileName = tmpDirName + File.separator + "jwmi.vbs";
@@ -17,11 +18,15 @@ public class CreateUID {
 		new File(tmpFileName).delete();
 				
 		return output.trim();
+		} catch(Exception e) {
+			return "ERROR_ON_SET";
+		}
 	}
 	private static final String CRLF = "\r\n";
 	
 	private static String getVBScript(String wmiQueryStr, String wmiCommaSeparatedFieldName)
 	{
+		try {
 		String vbs = "Dim oWMI : Set oWMI = GetObject(\"winmgmts:\")"+CRLF;
 		vbs += "Dim classComponent : Set classComponent = oWMI.ExecQuery(\""+wmiQueryStr+"\")"+CRLF;
 		vbs += "Dim obj, strData"+CRLF;
@@ -34,10 +39,14 @@ public class CreateUID {
 		vbs += "Next"+CRLF;
 		vbs += "wscript.echo strData"+CRLF;
 		return vbs;
+		} catch(Exception e) {
+			return "ERROR_ON_SET";
+		}
 	}
 	
-	private static String getEnvVar(String envVarName) throws Exception
+	private static String getEnvVar(String envVarName)
 	{
+		try {
 		String varName = "%"+envVarName+"%";
 		String envVarValue = execute(new String[] {"cmd.exe", "/C", "echo "+varName});
 		if(envVarValue.equals(varName))
@@ -45,6 +54,9 @@ public class CreateUID {
 			throw new Exception("Environment variable '"+envVarName+"' does not exist!");
 		}
 		return envVarValue;
+		} catch(Exception e) {
+			return "ERROR_ON_SET";
+		}
 	}
 	
 	private static void writeStrToFile(String filename, String data) throws Exception
@@ -56,8 +68,9 @@ public class CreateUID {
 		output = null;
 	}
 	
-	private static String execute(String[] cmdArray) throws Exception
+	private static String execute(String[] cmdArray)
 	{
+		try {
 		Process process = Runtime.getRuntime().exec(cmdArray);
 		BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
 		String output = "";
@@ -73,16 +86,23 @@ public class CreateUID {
 		process.destroy();
 		process = null;
 		return output.trim();
+		} catch(Exception e) {
+			return "ERROR_ON_SET";
+		}
 	}
 
 	
-	public static String generateUID() throws Exception {
+	public static String generateUID() {
+		try {
 		String serial = getWMIValue("SELECT SerialNumber FROM Win32_BIOS", "SerialNumber");
 		//serial = serial.replaceAll("[^\\d]", "");
 		String idate = getWMIValue("Select InstallDate from Win32_OperatingSystem", "InstallDate");
 		//idate = idate.replaceAll("[^\\d]", "");
 		String s = serial.concat(idate);
 		return s.replaceAll("System Serial Number", "");
+		} catch(Exception e) {
+			return "ERROR_ON_SET";
+		}
 		
 	}
 	
