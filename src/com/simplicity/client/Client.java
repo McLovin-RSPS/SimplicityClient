@@ -5956,6 +5956,10 @@ public class Client extends RSApplet {
         RSInterface.interfaceCache[3322].deleteOnDrag2 = false;
         RSInterface.handleConfigHover(RSInterface.interfaceCache[71021]);
         RSInterface.handleConfigHover(RSInterface.interfaceCache[QuestTab.INFO_BUTTON_ID]);
+        inCutScene = false;
+        for (int l = 0; l < 5; l++) {
+            aBooleanArray876[l] = false;
+        }
     }
 
     private void setMyAppearance() {
