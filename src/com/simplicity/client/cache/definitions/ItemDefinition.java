@@ -513,6 +513,11 @@ public final class ItemDefinition {
         priorityModels.add(31510);
         priorityModels.add(31228);
         priorityModels.add(31232);
+        
+        //Dragon boots (g)
+        priorityModels.add(34486);
+        priorityModels.add(12783);
+        priorityModels.add(12818);
 
         priorityModels.add(36324); //devout boots
         priorityModels.add(36333); //devout boots
