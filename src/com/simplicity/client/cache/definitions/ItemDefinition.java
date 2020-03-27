@@ -505,6 +505,14 @@ public final class ItemDefinition {
         //Necklace of anguish (or)
         priorityModels.add(12778);
         priorityModels.add(12817);
+        
+        //Necklaces
+        priorityModels.add(31524);
+        priorityModels.add(31227);
+        priorityModels.add(31233);
+        priorityModels.add(31510);
+        priorityModels.add(31228);
+        priorityModels.add(31232);
 
         priorityModels.add(36324); //devout boots
         priorityModels.add(36333); //devout boots
@@ -706,6 +714,18 @@ public final class ItemDefinition {
 	            	itemDef.maleYOffset -= 10;
 	            	itemDef.femaleZOffset += 4;
 	            	itemDef.femaleYOffset -= 6;
+	            	break;
+	            	
+	            // OSRS necklaces
+	            case 49553:
+	            case 49547:
+	            case 52249:
+	            case 49535:
+	            case 1704:
+	            	itemDef.maleZOffset += 4;
+	            	itemDef.maleYOffset -= 10;
+	            	itemDef.femaleYOffset -= 10;
+	            	itemDef.modelOffsetY = 16;
 	            	break;
             	
             	// Team cape x and i
