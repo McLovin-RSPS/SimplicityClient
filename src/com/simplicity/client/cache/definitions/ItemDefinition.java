@@ -1204,6 +1204,13 @@ public final class ItemDefinition {
 			itemDef.modelOffsetY = 28;
 			itemDef.dataType = DataType.CUSTOM;
 			break;
+			
+		case 22012:
+			itemDef.copy(forID(51295));
+            itemDef.name = "Infernal Rainbow cape";
+			itemDef.editedModelColor = new int[] { 59 };
+        	itemDef.newModelColor = new int[] { 71 };
+			break;
         
         case 17273:
         	itemDef.femaleYOffset += 7;
