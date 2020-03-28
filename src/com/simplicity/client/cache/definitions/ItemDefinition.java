@@ -506,6 +506,10 @@ public final class ItemDefinition {
         priorityModels.add(12778);
         priorityModels.add(12817);
         
+        //Staff of light
+        priorityModels.add(34508);
+        priorityModels.add(34507);
+        
         //Necklaces
         priorityModels.add(31524);
         priorityModels.add(31227);
@@ -543,9 +547,26 @@ public final class ItemDefinition {
         priorityModels.add(38960);
         priorityModels.add(38970);
         
-        // Corp's graceful cape
+        // Graceful set
         priorityModels.add(31005);
         priorityModels.add(31012);
+        
+        priorityModels.add(31023);
+        priorityModels.add(31009);
+        priorityModels.add(31008);
+        
+        priorityModels.add(31021);
+        priorityModels.add(31015);
+        priorityModels.add(31012);
+        
+        priorityModels.add(31007);
+        priorityModels.add(31014);
+        
+        priorityModels.add(31022);
+        priorityModels.add(31006);
+        
+        priorityModels.add(31024);
+        priorityModels.add(31010);
         
         // Team cape x
         priorityModels.add(31773);
@@ -732,6 +753,7 @@ public final class ItemDefinition {
 	            	itemDef.femaleYOffset -= 10;
 	            	itemDef.modelOffsetY = 16;
 	            	break;
+	            	
             	
             	// Team cape x and i
 	            case 50214:
@@ -975,9 +997,6 @@ public final class ItemDefinition {
                 case 52316:
                     itemDef.name = "Emerald rapier";
                     break;
-                case 52296:
-                    itemDef.name = "Staff of Demonic";
-                    break;
                 case 41860:
                     itemDef.name = "Angelic Boots";
                     break;
@@ -988,19 +1007,6 @@ public final class ItemDefinition {
                 case 52410:
                     itemDef.name = "1000m Note";
                     itemDef.actions = new String[]{"Claim", null, null, null, "Drop"};
-                    break;
-                case 52324:
-                    itemDef.modelID = 35739;
-                    itemDef.actions = new String[5];
-                    itemDef.actions[1] = "Wield";
-                    itemDef.name = "Ghrazi rapier (r)";
-                    itemDef.description = "It is the replica Ghrazi Rapier.";
-                    itemDef.modelZoom = 2200;
-                    itemDef.stackable = false;
-                    itemDef.rotationX = 1603;
-                    itemDef.rotationY = 552;
-                    itemDef.maleEquip1 = 35374;
-                    itemDef.femaleEquip1 = 35369;
                     break;
             }
             return itemDef;
