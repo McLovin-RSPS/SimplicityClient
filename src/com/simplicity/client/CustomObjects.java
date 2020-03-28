@@ -48,7 +48,7 @@ public class CustomObjects {
 
             {-1, 3158, 3951, 0, 0}, // Web
             
-            {46984, 1489, 3698, 0, 0},
+            {46984, 3038, 4534, 0, 0}, // Hellraty crystal
             
             //special altar elite
             {42601, 1684, 3753, 0, 1}, // Portal elite boss dungeon
@@ -323,7 +323,7 @@ public class CustomObjects {
             {129314, 1620, 4015, 0, 0}, // Brazier Arthur's dream II
             {129314, 1620, 3997, 0, 0}, // Brazier Arthur's dream II
             
-            {46984, 1630, 3990, 0, 0}, // Statue of Arthur
+            //{46984, 1630, 3990, 0, 0}, // Statue of Arthur
             
             {0, 1623, 3994, 0, 0}, // Objects Arthur's dream II
             {0, 1624, 3994, 0, 0}, // Objects Arthur's dream II
@@ -397,8 +397,8 @@ public class CustomObjects {
             
             // MMA ZONE 2
             
-            {46984, 1993, 4529, 0, 0},
-            {46984, 1996, 4529, 0, 0},
+            //{46984, 1993, 4529, 0, 0},
+            //{46984, 1996, 4529, 0, 0},
             {-1, 1993, 4528, 0, 0},
             {-1, 1993, 4527, 0, 0},
             {-1, 1995, 4527, 0, 0},

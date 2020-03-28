@@ -367,7 +367,7 @@ public final class ObjectDefinition {
         }
         if (i == 46984) {
             objectDef.actions = new String[]{"Pray-at", null, null, null, null};
-            objectDef.name = "@yel@Statue of Arthur";
+            objectDef.name = "@yel@Statue of Hellraty";
         }
         if (i == 49653) {
             objectDef.actions = new String[]{"Touch", null, null, null, null};
