@@ -1207,7 +1207,7 @@ public final class ItemDefinition {
 			
 		case 22012:
 			itemDef.copy(forID(51295));
-            itemDef.name = "Infernal Rainbow cape";
+            itemDef.name = "Rainbow Infernal cape";
 			itemDef.editedModelColor = new int[] { 59 };
         	itemDef.newModelColor = new int[] { 71 };
 			break;
