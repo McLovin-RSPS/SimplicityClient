@@ -619,7 +619,11 @@ public class Client extends RSApplet {
             newBoldFont.drawCenteredString("Click to continue", 259 + offsetX, 80 + offsetY, 128, -1);
         } else if (backDialogID != -1) {
             cacheSprite[64].drawSprite(0 + offsetX, 0 + offsetY);
-            drawInterface(0, 20 + offsetX, RSInterface.interfaceCache[backDialogID], 20 + offsetY);
+            
+            int xPos = 20;
+            int yPos = 23;
+            
+            drawInterface(0, xPos + offsetX, RSInterface.interfaceCache[backDialogID], yPos + offsetY);
         } else if (dialogID != -1) {
             cacheSprite[64].drawSprite(0 + offsetX, 0 + offsetY);
             drawInterface(0, 20 + offsetX, RSInterface.interfaceCache[dialogID], 20 + offsetY);
