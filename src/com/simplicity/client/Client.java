@@ -10551,14 +10551,7 @@ public class Client extends RSApplet {
 						lookup.setVisible(true);
                     }
                     if (inputString.equals("::packrsi") || inputString.equals("::repack")) {
-                        CacheArchive streamLoader_1 = streamLoaderForName(3, "interface", "interface", expectedCRCs[3],
-                                35);
-                        CacheArchive streamLoader_2 = streamLoaderForName(4, "2d graphics", "media", expectedCRCs[4],
-                                40);
-                        TextDrawingArea allFonts[] = {smallText, drawingArea, chatTextDrawingArea,
-                                aTextDrawingArea_1273, fancyTextLarge};
-                        RSInterface.unpack(streamLoader_1, allFonts, streamLoader_2);
-                        pushMessage("Reloaded interface configurations.", 0, "");
+                        reloadInterfaces();
                     }
                     if (inputString.startsWith("::searchrsi")) {
                         try {
@@ -10779,7 +10772,18 @@ public class Client extends RSApplet {
         } while (true);
     }
 
-    /**
+    public void reloadInterfaces() {
+    	CacheArchive streamLoader_1 = streamLoaderForName(3, "interface", "interface", expectedCRCs[3],
+                35);
+        CacheArchive streamLoader_2 = streamLoaderForName(4, "2d graphics", "media", expectedCRCs[4],
+                40);
+        TextDrawingArea allFonts[] = {smallText, drawingArea, chatTextDrawingArea,
+                aTextDrawingArea_1273, fancyTextLarge};
+        RSInterface.unpack(streamLoader_1, allFonts, streamLoader_2);
+        pushMessage("Reloaded interface configurations.", 0, "");
+	}
+
+	/**
      * Dumps the item images for all items in the cache.
      *
      * @param dumpByName
