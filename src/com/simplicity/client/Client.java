@@ -4534,7 +4534,7 @@ public class Client extends RSApplet {
 				if (child.atActionType == 7) {
 
 					boolean flag = false;
-					child.hovered = false;
+					child.dropdownHovered = false;
 					child.dropdownHover = -1;
 
 					if (child.dropdown.isOpen()) {
@@ -4589,7 +4589,7 @@ public class Client extends RSApplet {
 					if (super.mouseX >= childX && super.mouseY >= childY
 							&& super.mouseX < childX + child.dropdown.getWidth()
 							&& super.mouseY < childY + 24 && menuActionRow == 1) {
-						child.hovered = true;
+						child.dropdownHovered = true;
 						menuActionName [menuActionRow] = child.dropdown.isOpen() ? "Hide" : "Show";
 						menuActionID[menuActionRow] = 769;
 						menuActionCmd3[menuActionRow] = child.id;
@@ -15494,7 +15494,7 @@ public class Client extends RSApplet {
     					int downArrow = white ? 55 : 1036;
     					int upArrow = white ? 54 : 1035;
 
-    					if (child.hovered || d.isOpen()) {
+    					if (child.dropdownHovered || d.isOpen()) {
     						fontColour = 0xffb83f;
     						bgColour = child.dropdownColours[3];
     					}

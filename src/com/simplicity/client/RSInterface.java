@@ -13009,7 +13009,7 @@ public class RSInterface {
     public int childY[];
 	public DropdownMenu dropdown;
 	public int[] dropdownColours;
-	public boolean hovered = false;
+	public boolean dropdownHovered = false;
 	public RSInterface dropdownOpen;
 	public int dropdownHover = -1;
 	public Slider slider;
