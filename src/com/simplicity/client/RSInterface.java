@@ -1118,6 +1118,31 @@ public class RSInterface {
         rsi.height = height;
         rsi.width = width;
     }
+    
+	public static void addItemModel(int id, int item, int w, int h, int zoom) {
+		addItemModel(id, item, w, h, zoom, 0, 0);
+	}
+
+	public static void addItemModel(int id, int item, int w, int h, int zoom, int rotationOffsetX, int rotationOffsetY) {
+		RSInterface rsi = interfaceCache[id] = new RSInterface();
+		rsi.contentType = 329;
+		rsi.type = 6;
+		rsi.mediaType = 4;
+		rsi.mediaID = item;
+		rsi.width = w;
+		rsi.height = h;
+		if (rsi.mediaID != -1) {
+			ItemDefinition itemDef = ItemDefinition.forID(item);
+
+			if (itemDef == null) {
+				return;
+			}
+
+			rsi.modelRotation1 = itemDef.rotationY + rotationOffsetY;
+			rsi.modelRotation2 = itemDef.rotationX + rotationOffsetX;
+			rsi.modelZoom = (itemDef.modelZoom * 100) / zoom;
+		}
+	}
 
     public static final int purchase_options = 9;
 
