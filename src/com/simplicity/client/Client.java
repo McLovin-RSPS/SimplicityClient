@@ -15165,7 +15165,12 @@ public class Client extends RSApplet {
                     	boolean draw = true;
                     	
                     	if (rsInterface.id == SkillQuantityWidget.INTERFACE_ID) {
-                    		draw = !SkillQuantityWidget.clickedSkillButton(child.id - 15);
+                    		
+                    		draw = child.mediaType != 0;
+                    		
+                    		if (draw) {
+                    			draw = !SkillQuantityWidget.clickedSkillButton(child.id - 15);
+                    		}
                     	}
                     	
                     	if (draw) {

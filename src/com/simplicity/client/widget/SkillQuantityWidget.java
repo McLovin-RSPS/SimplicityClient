@@ -40,6 +40,16 @@ public class SkillQuantityWidget extends RSInterface {
 	 * The quantity string start id.
 	 */
 	private static int QUANTITY_STRING_START;
+	
+	/**
+	 * The item model start id.
+	 */
+	public static int ITEM_MODEL_START;
+	
+	/**
+	 * The item child start.
+	 */
+	public static int ITEM_CHILD_START;
 
 	/**
 	 * Unpacks the {@link SkillQuantityWidget} interface.
@@ -119,8 +129,11 @@ public class SkillQuantityWidget extends RSInterface {
 		startX = 6;
 		startY = 32;
 		
+		ITEM_MODEL_START = id;
+		ITEM_CHILD_START = child;
+		
 		for (int i = 0; i < 5; i++) {
-			addItemModel(id, 857, 93, 72, 185);
+			addItemModel(id, 0, 93, 72, 185);
 			rsi.child(child++, id, startX + (93 * i + 7 * i), startY);
 			id++;
 		}
@@ -140,6 +153,30 @@ public class SkillQuantityWidget extends RSInterface {
 	
 	public static void onInit() {
 		interfaceCache[INTERFACE_ID].clickedChildId = -1;
+		
+		int amount = 0;
+		
+		for (int i = 0; i < 5; i++) {
+			if (interfaceCache[ITEM_MODEL_START + i].mediaType == 0) {
+				interfaceCache[BUTTON_START + i].hidden = true;
+				interfaceCache[BUTTON_STRING_START + i].hidden = true;
+				continue;
+			}
+			
+			interfaceCache[BUTTON_START + i].hidden = false;
+			interfaceCache[BUTTON_STRING_START + i].hidden = false;
+			amount++;
+		}
+		
+		shift(amount);
+	}
+	
+	private static void shift(int amount) {
+		for (int i = 0; i < amount; i++) {
+			interfaceCache[ITEM_MODEL_START + i].xOffset = (5 - amount) * 99 / 2;
+			interfaceCache[BUTTON_START + i].xOffset = (5 - amount) * 99 / 2;
+			interfaceCache[BUTTON_STRING_START + i].xOffset = (5 - amount) * 99 / 2;
+		}
 	}
 	
 	public static boolean clickedSkillButton(int id) {
@@ -154,6 +191,10 @@ public class SkillQuantityWidget extends RSInterface {
 		return interfaceCache[id - 5].selected;
 	}
 	
+	public static boolean isItemModel(int id) {
+		return id >= ITEM_MODEL_START && id < ITEM_MODEL_START + 5;
+	}
+	
 	private static boolean isQuantityString(int id) {
 		for (int i = QUANTITY_STRING_START; i < QUANTITY_STRING_START + 5; i++) {
 			if (id == i) {
@@ -163,5 +204,5 @@ public class SkillQuantityWidget extends RSInterface {
 		
 		return false;
 	}
-
+	
 }
