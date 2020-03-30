@@ -14617,6 +14617,21 @@ public class Client extends RSApplet {
                 if (child.drawInterface(this, interfaceX, interfaceY, childX, childY)) {
                     continue;
                 }
+                
+            	boolean childHovered = false;
+            	
+            	boolean hoverGameInterface = openInterfaceID != -1 && mouseInGameArea();
+                
+            	boolean hoverChatInterface = backDialogID != -1 && mouseInChatArea();
+                
+            	int hoverX = mouseX;
+            	
+            	int hoverY = mouseY - (hoverChatInterface && clientSize == 0 ? gameAreaHeight - 4 : 0);
+            	
+            	if (hoverChatInterface || hoverGameInterface) {
+            		childHovered = hoverX >= childX && hoverX <= childX + child.width && hoverY >= childY && hoverY <= childY + child.height;
+            	}
+                
                 for (int m5 = 0; m5 < IDs.length; m5++) {
                     if (child.id == IDs[m5] + 1) {
                         if (m5 > 61) {
