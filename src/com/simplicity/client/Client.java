@@ -4396,9 +4396,6 @@ public class Client extends RSApplet {
             if (child.invisible) {
                 continue;
             }
-
-            if(child.id == 30000)
-                System.out.println(child.type);
             
 			boolean hover = mouseX >= childX && mouseY >= childY
                     && mouseX <= childX + child.width && mouseY <= childY + child.height;
