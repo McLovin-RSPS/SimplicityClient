@@ -110,6 +110,7 @@ import com.simplicity.client.particles.ParticleDefinition;
 import com.simplicity.client.widget.CollectionLogWidget;
 import com.simplicity.client.widget.QuestTab;
 import com.simplicity.client.widget.SettingsWidget;
+import com.simplicity.client.widget.SkillQuantityWidget;
 import com.simplicity.client.widget.Slider;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.tools.InterfaceDebugger;
@@ -623,9 +624,15 @@ public class Client extends RSApplet {
             int xPos = 20;
             int yPos = 23;
             
+            if (backDialogID == SkillQuantityWidget.INTERFACE_ID) {
+            	xPos -= 7;
+            	yPos -= 8;
+            }
+            
             drawInterface(0, xPos + offsetX, RSInterface.interfaceCache[backDialogID], yPos + offsetY);
         } else if (dialogID != -1) {
             cacheSprite[64].drawSprite(0 + offsetX, 0 + offsetY);
+            
             drawInterface(0, 20 + offsetX, RSInterface.interfaceCache[dialogID], 20 + offsetY);
         } else if (!quickChat && showChat) {
             int messageY = -3;
@@ -11959,8 +11966,17 @@ public class Client extends RSApplet {
         if (super.mouseX > 0 && super.mouseY > (clientSize == 0 ? 338 : clientHeight - 165) && super.mouseX < 512
                 && super.mouseY < (clientSize == 0 ? 480 : clientHeight - 40) && (showChat || backDialogID != -1)) {
             if (backDialogID != -1) {
-                buildInterfaceMenu(20, RSInterface.interfaceCache[backDialogID], super.mouseX,
-                        (clientSize == 0 ? 358 : clientHeight - 145), super.mouseY, 0);
+            	int xPos = 20;
+                
+                int mouseYOff = clientSize == 0 ? 361 : clientHeight - 145;
+                
+                if (backDialogID == SkillQuantityWidget.INTERFACE_ID) {
+                	xPos -= 7;
+                	mouseYOff -= 8;
+                }
+                
+                buildInterfaceMenu(xPos, RSInterface.interfaceCache[backDialogID], super.mouseX,
+                        mouseYOff, super.mouseY, 0);
             } else if (super.mouseY < (clientSize == 0 ? 463 : clientHeight - 40) && super.mouseX < 490) {
                 buildChatAreaMenu(super.mouseY - (clientSize == 0 ? 338 : clientHeight - 165));
             }
@@ -14590,6 +14606,7 @@ public class Client extends RSApplet {
             if (rsInterface.id == 25347 && !Configuration.enableBountyTarget) {
             	return;
             }
+            
             int origTopX = DrawingArea.topX;
             int origTopY = DrawingArea.topY;
             int origBottomX = DrawingArea.bottomX;
@@ -14974,6 +14991,9 @@ public class Client extends RSApplet {
                                     color = 0xAF6A1A;
                                     break;
                             }
+                        }
+                        if (SkillQuantityWidget.isQuantitySelected(child.id)) {
+                    		color = child.enabledColor;
                         }
                         for (int l6 = childY + textDrawingArea.anInt1497; s
                                 .length() > 0; l6 += textDrawingArea.anInt1497) {
@@ -15620,6 +15640,26 @@ public class Client extends RSApplet {
     					} else {
     						RSInterface.interfaceCache[child.id - 1].active = false;
     					}
+                    } else if (child.type == 38) {
+                    	DrawingArea.fillRectangle((childHovered || child.selected ? 0x89785e : 0xb29d7b), childY + 3, child.width - 5, child.height - 3, childHovered || child.selected ? 255 : 255, childX + 3);
+                    	
+                    	int hoverSpriteOffset = childHovered || child.selected ? 8 : 0;
+                    	
+                    	cacheSprite[1350 + hoverSpriteOffset].repeatY(childX, childY + 9, child.height - 9 * 2);
+                    	
+                    	cacheSprite[1351 + hoverSpriteOffset].repeatX(childX + 9, childY, child.width - 9 * 2);
+                    	
+                    	cacheSprite[1352 + hoverSpriteOffset].repeatY(childX + child.width - 9, childY + 9, child.height - 9 * 2);
+                    	
+                    	cacheSprite[1353 + hoverSpriteOffset].repeatX(childX + 9, childY + child.height - 9, child.width - 9 * 2);
+                    	
+                    	cacheSprite[1346 + hoverSpriteOffset].drawSprite(childX, childY);
+                    	
+                    	cacheSprite[1347 + hoverSpriteOffset].drawSprite(childX + child.width - 9, childY);
+                    	
+                    	cacheSprite[1348 + hoverSpriteOffset].drawSprite(childX, childY + child.height - 9);
+                    	
+                    	cacheSprite[1349 + hoverSpriteOffset].drawSprite(childX + child.width - 9, childY + child.height - 9);
                     }
                 }
                 if (openInterfaceID == 10000) {

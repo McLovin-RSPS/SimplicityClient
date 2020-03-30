@@ -9,6 +9,7 @@ import com.simplicity.client.widget.CollectionLogWidget;
 import com.simplicity.client.widget.KnowledgeBaseWidget;
 import com.simplicity.client.widget.QuestTab;
 import com.simplicity.client.widget.SettingsWidget;
+import com.simplicity.client.widget.SkillQuantityWidget;
 import com.simplicity.client.widget.Slider;
 import com.simplicity.client.widget.StarterWidget;
 import com.simplicity.client.widget.Widget;
@@ -4466,6 +4467,8 @@ public class RSInterface {
         StarterWidget.unpack(textDrawingAreas);
         
         QuestTab.unpack(textDrawingAreas);
+        
+        SkillQuantityWidget.unpack(textDrawingAreas);
         
         Widget.init();
         spriteCache = null;
@@ -15692,7 +15695,7 @@ public class RSInterface {
 		rsi.modernWindow = modernBorder;
 		rsi.transparentWindow = transparentWindow;
 	}
-
+	
 	/**
 	 * Adds a closable window with the specified width, height and title.
 	 * 
@@ -16096,13 +16099,12 @@ public class RSInterface {
     	if (selectable.selected) {
     		return;
     	}
-        
+    	
         if (selectable.selectableInterfaces != null) {
             for (int s : selectable.selectableInterfaces) {
             	if (s == interfaceId) {
             		continue;
             	}
-            	
             	RSInterface.interfaceCache[s].selected = false;
             }
         }
@@ -16152,6 +16154,18 @@ public class RSInterface {
 		widget.dropdown = new DropdownMenu(width, true, defaultOption, options, d);
 		widget.atActionType = 7;
 		widget.inverted = inverted;
+	}
+	
+	public static void addDynamicButton(int id, int width, int height) {
+		RSInterface rsi = addInterface(id, width, height);
+		rsi.id = id;
+		rsi.type = 38;
+		rsi.width = width;
+		rsi.height = height;
+        rsi.atActionType = 1;
+        rsi.contentType = 0;
+        rsi.tooltip = "Select";
+        rsi.hovers = true;
 	}
 
     public static int summoningItemRequirements[][] = {{12158, 2859, -1}, // Wolf pouch
