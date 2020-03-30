@@ -11948,8 +11948,8 @@ public class Client extends RSApplet {
         }
         hoveredInterface = 0;
         anInt1315 = 0;
-        if (super.mouseX > 0 && super.mouseY > (clientSize == 0 ? 338 : clientHeight - 165) && super.mouseX < 490
-                && super.mouseY < (clientSize == 0 ? 463 : clientHeight - 40) && (showChat || backDialogID != -1)) {
+        if (super.mouseX > 0 && super.mouseY > (clientSize == 0 ? 338 : clientHeight - 165) && super.mouseX < 512
+                && super.mouseY < (clientSize == 0 ? 480 : clientHeight - 40) && (showChat || backDialogID != -1)) {
             if (backDialogID != -1) {
                 buildInterfaceMenu(20, RSInterface.interfaceCache[backDialogID], super.mouseX,
                         (clientSize == 0 ? 358 : clientHeight - 145), super.mouseY, 0);
