@@ -1126,6 +1126,7 @@ public class RSInterface {
 
 	public static void addItemModel(int id, int item, int w, int h, int zoom, int rotationOffsetX, int rotationOffsetY) {
 		RSInterface rsi = interfaceCache[id] = new RSInterface();
+		rsi.id = id;
 		rsi.contentType = 329;
 		rsi.type = 6;
 		rsi.mediaType = 4;
@@ -16439,5 +16440,7 @@ public class RSInterface {
     public static TextDrawingArea defaultFont[];
     
     public int textColor;
+    
+    public int clickedChildId = -1;
 
 }
