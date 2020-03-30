@@ -4394,7 +4394,7 @@ public class Client extends RSApplet {
                 System.out.println(child.type);
             
 			boolean hover = mouseX >= childX && mouseY >= childY
-                    && mouseX < childX + child.width && mouseY < childY + child.height;
+                    && mouseX <= childX + child.width && mouseY <= childY + child.height;
 			
 			if (child.id == SettingsWidget.ADVANCED) {
 				hover = mouseX >= childX && mouseY >= childY + 7 - child.height / 2 && mouseX < childX + child.width && mouseY < childY - 9 + child.height;
@@ -4475,7 +4475,7 @@ public class Client extends RSApplet {
 					}
                 }
                 if (child.atActionType == 2 && spellSelected == 0 && mouseX >= childX && mouseY >= childY
-                        && mouseX < childX + child.width && mouseY < childY + child.height) {
+                        && mouseX <= childX + child.width && mouseY <= childY + child.height) {
                     String s = child.selectedActionName;
                     if (s.indexOf(" ") != -1) {
                         s = s.substring(0, s.indexOf(" "));
@@ -4496,15 +4496,15 @@ public class Client extends RSApplet {
                     menuActionCmd3[menuActionRow] = child.id;
                     menuActionRow++;
                 }
-                if (child.atActionType == 3 && mouseX >= childX && mouseY >= childY && mouseX < childX + child.width
-                        && mouseY < childY + child.height) {
+                if (child.atActionType == 3 && mouseX >= childX && mouseY >= childY && mouseX <= childX + child.width
+                        && mouseY <= childY + child.height) {
                     menuActionName[menuActionRow] = "Close";
                     menuActionID[menuActionRow] = 200;
                     menuActionCmd3[menuActionRow] = child.id;
                     menuActionRow++;
                 }
-                if (child.atActionType == 4 && mouseX >= childX && mouseY >= childY && mouseX < childX + child.width
-                        && mouseY < childY + child.height) {
+                if (child.atActionType == 4 && mouseX >= childX && mouseY >= childY && mouseX <= childX + child.width
+                        && mouseY <= childY + child.height) {
                     // System.out.println("2"+class9_1.tooltip + ", " +
                     // class9_1.interfaceID);
                     menuActionName[menuActionRow] = child.tooltip + ", " + child.id;
@@ -4512,8 +4512,8 @@ public class Client extends RSApplet {
                     menuActionCmd3[menuActionRow] = child.id;
                     menuActionRow++;
                 }
-                if (child.atActionType == 5 && mouseX >= childX && mouseY >= childY && mouseX < childX + child.width
-                        && mouseY < childY + child.height) {
+                if (child.atActionType == 5 && mouseX >= childX && mouseY >= childY && mouseX <= childX + child.width
+                        && mouseY <= childY + child.height) {
                     if (child.tooltip2 != null) {
                         menuActionName[menuActionRow] = child.tooltip2
                                 + ((myRights != 0) ? ", @gre@(@whi@" + (child.id + 1) + "@gre@)" : "");
@@ -4528,7 +4528,7 @@ public class Client extends RSApplet {
                     menuActionRow++;
                 }
                 if (child.atActionType == 6 && !dialogOptionsShowing && mouseX >= childX && mouseY >= childY
-                        && mouseX < childX + child.width && mouseY < childY + child.height) {
+                        && mouseX <= childX + child.width && mouseY <= childY + child.height) {
                     menuActionName[menuActionRow] = child.tooltip + ", " + child.id;
                     menuActionID[menuActionRow] = 679;
                     menuActionCmd3[menuActionRow] = child.id;
@@ -14634,7 +14634,7 @@ public class Client extends RSApplet {
                 
             	int hoverX = mouseX;
             	
-            	int hoverY = mouseY - (hoverChatInterface && clientSize == 0 ? gameAreaHeight - 4 : 0);
+            	int hoverY = mouseY - (hoverChatInterface && clientSize == 0 ? gameAreaHeight + 4: 0);
             	
             	if (hoverChatInterface || hoverGameInterface) {
             		childHovered = hoverX >= childX && hoverX <= childX + child.width && hoverY >= childY && hoverY <= childY + child.height;
