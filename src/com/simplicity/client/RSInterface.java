@@ -9,6 +9,7 @@ import com.simplicity.client.widget.CollectionLogWidget;
 import com.simplicity.client.widget.KnowledgeBaseWidget;
 import com.simplicity.client.widget.QuestTab;
 import com.simplicity.client.widget.SettingsWidget;
+import com.simplicity.client.widget.SkillQuantityWidget;
 import com.simplicity.client.widget.Slider;
 import com.simplicity.client.widget.StarterWidget;
 import com.simplicity.client.widget.Widget;
@@ -1118,6 +1119,32 @@ public class RSInterface {
         rsi.height = height;
         rsi.width = width;
     }
+    
+	public static void addItemModel(int id, int item, int w, int h, int zoom) {
+		addItemModel(id, item, w, h, zoom, 0, 0);
+	}
+
+	public static void addItemModel(int id, int item, int w, int h, int zoom, int rotationOffsetX, int rotationOffsetY) {
+		RSInterface rsi = interfaceCache[id] = new RSInterface();
+		rsi.id = id;
+		rsi.contentType = 329;
+		rsi.type = 6;
+		rsi.mediaType = 4;
+		rsi.mediaID = item;
+		rsi.width = w;
+		rsi.height = h;
+		if (rsi.mediaID != -1) {
+			ItemDefinition itemDef = ItemDefinition.forID(item);
+
+			if (itemDef == null) {
+				return;
+			}
+
+			rsi.modelRotation1 = itemDef.rotationY + rotationOffsetY;
+			rsi.modelRotation2 = itemDef.rotationX + rotationOffsetX;
+			rsi.modelZoom = (itemDef.modelZoom * 100) / zoom;
+		}
+	}
 
     public static final int purchase_options = 9;
 
@@ -4441,6 +4468,8 @@ public class RSInterface {
         StarterWidget.unpack(textDrawingAreas);
         
         QuestTab.unpack(textDrawingAreas);
+        
+        SkillQuantityWidget.unpack(textDrawingAreas);
         
         Widget.init();
         spriteCache = null;
@@ -13009,7 +13038,7 @@ public class RSInterface {
     public int childY[];
 	public DropdownMenu dropdown;
 	public int[] dropdownColours;
-	public boolean hovered = false;
+	public boolean dropdownHovered = false;
 	public RSInterface dropdownOpen;
 	public int dropdownHover = -1;
 	public Slider slider;
@@ -15667,7 +15696,7 @@ public class RSInterface {
 		rsi.modernWindow = modernBorder;
 		rsi.transparentWindow = transparentWindow;
 	}
-
+	
 	/**
 	 * Adds a closable window with the specified width, height and title.
 	 * 
@@ -16071,13 +16100,12 @@ public class RSInterface {
     	if (selectable.selected) {
     		return;
     	}
-        
+    	
         if (selectable.selectableInterfaces != null) {
             for (int s : selectable.selectableInterfaces) {
             	if (s == interfaceId) {
             		continue;
             	}
-            	
             	RSInterface.interfaceCache[s].selected = false;
             }
         }
@@ -16127,6 +16155,18 @@ public class RSInterface {
 		widget.dropdown = new DropdownMenu(width, true, defaultOption, options, d);
 		widget.atActionType = 7;
 		widget.inverted = inverted;
+	}
+	
+	public static void addDynamicButton(int id, int width, int height) {
+		RSInterface rsi = addInterface(id, width, height);
+		rsi.id = id;
+		rsi.type = 38;
+		rsi.width = width;
+		rsi.height = height;
+        rsi.atActionType = 1;
+        rsi.contentType = 0;
+        rsi.tooltip = "Select";
+        rsi.hovers = true;
 	}
 
     public static int summoningItemRequirements[][] = {{12158, 2859, -1}, // Wolf pouch
@@ -16400,5 +16440,7 @@ public class RSInterface {
     public static TextDrawingArea defaultFont[];
     
     public int textColor;
+    
+    public int clickedChildId = -1;
 
 }

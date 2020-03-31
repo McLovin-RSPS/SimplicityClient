@@ -110,6 +110,7 @@ import com.simplicity.client.particles.ParticleDefinition;
 import com.simplicity.client.widget.CollectionLogWidget;
 import com.simplicity.client.widget.QuestTab;
 import com.simplicity.client.widget.SettingsWidget;
+import com.simplicity.client.widget.SkillQuantityWidget;
 import com.simplicity.client.widget.Slider;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.tools.InterfaceDebugger;
@@ -619,9 +620,19 @@ public class Client extends RSApplet {
             newBoldFont.drawCenteredString("Click to continue", 259 + offsetX, 80 + offsetY, 128, -1);
         } else if (backDialogID != -1) {
             cacheSprite[64].drawSprite(0 + offsetX, 0 + offsetY);
-            drawInterface(0, 20 + offsetX, RSInterface.interfaceCache[backDialogID], 20 + offsetY);
+            
+            int xPos = 20;
+            int yPos = 23;
+            
+            if (backDialogID == SkillQuantityWidget.INTERFACE_ID) {
+            	xPos -= 7;
+            	yPos -= 8;
+            }
+            
+            drawInterface(0, xPos + offsetX, RSInterface.interfaceCache[backDialogID], yPos + offsetY);
         } else if (dialogID != -1) {
             cacheSprite[64].drawSprite(0 + offsetX, 0 + offsetY);
+            
             drawInterface(0, 20 + offsetX, RSInterface.interfaceCache[dialogID], 20 + offsetY);
         } else if (!quickChat && showChat) {
             int messageY = -3;
@@ -4371,7 +4382,7 @@ public class Client extends RSApplet {
             int childY = (class9.childY[frameID] + interfaceY) - scrollOffset;
             RSInterface child = RSInterface.interfaceCache[class9.children[frameID]];
             
-            if (child == null) {
+            if (child == null || child.hidden) {
             	continue;
             }
             
@@ -4385,12 +4396,9 @@ public class Client extends RSApplet {
             if (child.invisible) {
                 continue;
             }
-
-            if(child.id == 30000)
-                System.out.println(child.type);
             
 			boolean hover = mouseX >= childX && mouseY >= childY
-                    && mouseX < childX + child.width && mouseY < childY + child.height;
+                    && mouseX <= childX + child.width && mouseY <= childY + child.height;
 			
 			if (child.id == SettingsWidget.ADVANCED) {
 				hover = mouseX >= childX && mouseY >= childY + 7 - child.height / 2 && mouseX < childX + child.width && mouseY < childY - 9 + child.height;
@@ -4471,7 +4479,7 @@ public class Client extends RSApplet {
 					}
                 }
                 if (child.atActionType == 2 && spellSelected == 0 && mouseX >= childX && mouseY >= childY
-                        && mouseX < childX + child.width && mouseY < childY + child.height) {
+                        && mouseX <= childX + child.width && mouseY <= childY + child.height) {
                     String s = child.selectedActionName;
                     if (s.indexOf(" ") != -1) {
                         s = s.substring(0, s.indexOf(" "));
@@ -4492,15 +4500,15 @@ public class Client extends RSApplet {
                     menuActionCmd3[menuActionRow] = child.id;
                     menuActionRow++;
                 }
-                if (child.atActionType == 3 && mouseX >= childX && mouseY >= childY && mouseX < childX + child.width
-                        && mouseY < childY + child.height) {
+                if (child.atActionType == 3 && mouseX >= childX && mouseY >= childY && mouseX <= childX + child.width
+                        && mouseY <= childY + child.height) {
                     menuActionName[menuActionRow] = "Close";
                     menuActionID[menuActionRow] = 200;
                     menuActionCmd3[menuActionRow] = child.id;
                     menuActionRow++;
                 }
-                if (child.atActionType == 4 && mouseX >= childX && mouseY >= childY && mouseX < childX + child.width
-                        && mouseY < childY + child.height) {
+                if (child.atActionType == 4 && mouseX >= childX && mouseY >= childY && mouseX <= childX + child.width
+                        && mouseY <= childY + child.height) {
                     // System.out.println("2"+class9_1.tooltip + ", " +
                     // class9_1.interfaceID);
                     menuActionName[menuActionRow] = child.tooltip + ", " + child.id;
@@ -4508,8 +4516,8 @@ public class Client extends RSApplet {
                     menuActionCmd3[menuActionRow] = child.id;
                     menuActionRow++;
                 }
-                if (child.atActionType == 5 && mouseX >= childX && mouseY >= childY && mouseX < childX + child.width
-                        && mouseY < childY + child.height) {
+                if (child.atActionType == 5 && mouseX >= childX && mouseY >= childY && mouseX <= childX + child.width
+                        && mouseY <= childY + child.height) {
                     if (child.tooltip2 != null) {
                         menuActionName[menuActionRow] = child.tooltip2
                                 + ((myRights != 0) ? ", @gre@(@whi@" + (child.id + 1) + "@gre@)" : "");
@@ -4524,7 +4532,7 @@ public class Client extends RSApplet {
                     menuActionRow++;
                 }
                 if (child.atActionType == 6 && !dialogOptionsShowing && mouseX >= childX && mouseY >= childY
-                        && mouseX < childX + child.width && mouseY < childY + child.height) {
+                        && mouseX <= childX + child.width && mouseY <= childY + child.height) {
                     menuActionName[menuActionRow] = child.tooltip + ", " + child.id;
                     menuActionID[menuActionRow] = 679;
                     menuActionCmd3[menuActionRow] = child.id;
@@ -4534,7 +4542,7 @@ public class Client extends RSApplet {
 				if (child.atActionType == 7) {
 
 					boolean flag = false;
-					child.hovered = false;
+					child.dropdownHovered = false;
 					child.dropdownHover = -1;
 
 					if (child.dropdown.isOpen()) {
@@ -4589,7 +4597,7 @@ public class Client extends RSApplet {
 					if (super.mouseX >= childX && super.mouseY >= childY
 							&& super.mouseX < childX + child.dropdown.getWidth()
 							&& super.mouseY < childY + 24 && menuActionRow == 1) {
-						child.hovered = true;
+						child.dropdownHovered = true;
 						menuActionName [menuActionRow] = child.dropdown.isOpen() ? "Hide" : "Show";
 						menuActionID[menuActionRow] = 769;
 						menuActionCmd3[menuActionRow] = child.id;
@@ -8494,6 +8502,8 @@ public class Client extends RSApplet {
 					return;
 				}
 				
+				SkillQuantityWidget.handleSkillButton(interfaceId);
+				
                 switch (interfaceId) {
 				case SettingsWidget.DISPLAY_BUTTON:
 				case SettingsWidget.AUDIO_BUTTON:
@@ -10589,14 +10599,7 @@ public class Client extends RSApplet {
 						lookup.setVisible(true);
                     }
                     if (inputString.equals("::packrsi") || inputString.equals("::repack")) {
-                        CacheArchive streamLoader_1 = streamLoaderForName(3, "interface", "interface", expectedCRCs[3],
-                                35);
-                        CacheArchive streamLoader_2 = streamLoaderForName(4, "2d graphics", "media", expectedCRCs[4],
-                                40);
-                        TextDrawingArea allFonts[] = {smallText, drawingArea, chatTextDrawingArea,
-                                aTextDrawingArea_1273, fancyTextLarge};
-                        RSInterface.unpack(streamLoader_1, allFonts, streamLoader_2);
-                        pushMessage("Reloaded interface configurations.", 0, "");
+                        reloadInterfaces();
                     }
                     if (inputString.startsWith("::searchrsi")) {
                         try {
@@ -10817,7 +10820,18 @@ public class Client extends RSApplet {
         } while (true);
     }
 
-    /**
+    public void reloadInterfaces() {
+    	CacheArchive streamLoader_1 = streamLoaderForName(3, "interface", "interface", expectedCRCs[3],
+                35);
+        CacheArchive streamLoader_2 = streamLoaderForName(4, "2d graphics", "media", expectedCRCs[4],
+                40);
+        TextDrawingArea allFonts[] = {smallText, drawingArea, chatTextDrawingArea,
+                aTextDrawingArea_1273, fancyTextLarge};
+        RSInterface.unpack(streamLoader_1, allFonts, streamLoader_2);
+        pushMessage("Reloaded interface configurations.", 0, "");
+	}
+
+	/**
      * Dumps the item images for all items in the cache.
      *
      * @param dumpByName
@@ -11986,11 +12000,20 @@ public class Client extends RSApplet {
         }
         hoveredInterface = 0;
         anInt1315 = 0;
-        if (super.mouseX > 0 && super.mouseY > (clientSize == 0 ? 338 : clientHeight - 165) && super.mouseX < 490
-                && super.mouseY < (clientSize == 0 ? 463 : clientHeight - 40) && (showChat || backDialogID != -1)) {
+        if (super.mouseX > 0 && super.mouseY > (clientSize == 0 ? 338 : clientHeight - 165) && super.mouseX < 512
+                && super.mouseY < (clientSize == 0 ? 480 : clientHeight - 40) && (showChat || backDialogID != -1)) {
             if (backDialogID != -1) {
-                buildInterfaceMenu(20, RSInterface.interfaceCache[backDialogID], super.mouseX,
-                        (clientSize == 0 ? 358 : clientHeight - 145), super.mouseY, 0);
+            	int xPos = 20;
+                
+                int mouseYOff = clientSize == 0 ? 361 : clientHeight - 145;
+                
+                if (backDialogID == SkillQuantityWidget.INTERFACE_ID) {
+                	xPos -= 7;
+                	mouseYOff -= 8;
+                }
+                
+                buildInterfaceMenu(xPos, RSInterface.interfaceCache[backDialogID], super.mouseX,
+                        mouseYOff, super.mouseY, 0);
             } else if (super.mouseY < (clientSize == 0 ? 463 : clientHeight - 40) && super.mouseX < 490) {
                 buildChatAreaMenu(super.mouseY - (clientSize == 0 ? 338 : clientHeight - 165));
             }
@@ -14646,6 +14669,7 @@ public class Client extends RSApplet {
             if (rsInterface.id == 25347 && !Configuration.enableBountyTarget) {
             	return;
             }
+            
             int origTopX = DrawingArea.topX;
             int origTopY = DrawingArea.topY;
             int origBottomX = DrawingArea.bottomX;
@@ -14681,6 +14705,21 @@ public class Client extends RSApplet {
                 if (child.drawInterface(this, interfaceX, interfaceY, childX, childY)) {
                     continue;
                 }
+                
+            	boolean childHovered = false;
+            	
+            	boolean hoverGameInterface = openInterfaceID != -1 && mouseInGameArea();
+                
+            	boolean hoverChatInterface = backDialogID != -1 && mouseInChatArea();
+                
+            	int hoverX = mouseX;
+            	
+            	int hoverY = mouseY - (hoverChatInterface && clientSize == 0 ? gameAreaHeight + 4: 0);
+            	
+            	if (hoverChatInterface || hoverGameInterface) {
+            		childHovered = hoverX >= childX && hoverX <= childX + child.width && hoverY >= childY && hoverY <= childY + child.height;
+            	}
+                
                 for (int m5 = 0; m5 < IDs.length; m5++) {
                     if (child.id == IDs[m5] + 1) {
                         if (m5 > 61) {
@@ -15016,6 +15055,9 @@ public class Client extends RSApplet {
                                     break;
                             }
                         }
+                        if (SkillQuantityWidget.isQuantitySelected(child.id)) {
+                    		color = child.enabledColor;
+                        }
                         for (int l6 = childY + textDrawingArea.anInt1497; s
                                 .length() > 0; l6 += textDrawingArea.anInt1497) {
                             if (s.indexOf("%") != -1) {
@@ -15184,65 +15226,78 @@ public class Client extends RSApplet {
                             }
                         }
                     } else if (child.type == 6) {
-                        int k3 = Rasterizer.textureInt1;
-                        int j4 = Rasterizer.textureInt2;
-                        Rasterizer.textureInt1 = childX + child.width / 2;
-                        Rasterizer.textureInt2 = childY + child.height / 2;
-                        int i5 = Rasterizer.anIntArray1470[child.modelRotation1] * child.modelZoom >> 16;
-                        int l5 = Rasterizer.anIntArray1471[child.modelRotation1] * child.modelZoom >> 16;
-                        boolean selected = interfaceIsSelected(child);
-                        int animId;
-                        if (selected)
-                            animId = child.enabledAnimationId;
-                        else
-                            animId = child.disabledAnimationId;
-                        Model model;
-                        if (child.id == 60003) {
-                            if (animId == -1) {
-                                model = child.getAnimatedModel2(-1, -1, selected);
-                            } else {
-                                Animation animation = Animation.anims[animId];
-
-                                model = child.getAnimatedModel2(animation.frameIDs2[child.currentFrame],
-                                        animation.frameIDs[child.currentFrame], selected);
-                            }
-                        } else {
-                            if (animId == -1) {
-                                model = child.getAnimatedModel(-1, -1, selected);
-                            } else {
-                                Animation animation = Animation.anims[animId];
-
-                                model = child.getAnimatedModel(animation.frameIDs2[child.currentFrame],
-                                        animation.frameIDs[child.currentFrame], selected);
-                            }
-                        }
-                        if (model != null) {
+                    	boolean draw = true;
+                    	
+                    	if (rsInterface.id == SkillQuantityWidget.INTERFACE_ID) {
+                    		
+                    		draw = child.mediaType != 0;
+                    		
+                    		if (draw) {
+                    			draw = !SkillQuantityWidget.clickedSkillButton(child.id - 15);
+                    		}
+                    	}
+                    	
+                    	if (draw) {
+                            int k3 = Rasterizer.textureInt1;
+                            int j4 = Rasterizer.textureInt2;
+                            Rasterizer.textureInt1 = childX + child.width / 2;
+                            Rasterizer.textureInt2 = childY + child.height / 2;
+                            int i5 = Rasterizer.anIntArray1470[child.modelRotation1] * child.modelZoom >> 16;
+                            int l5 = Rasterizer.anIntArray1471[child.modelRotation1] * child.modelZoom >> 16;
+                            boolean selected = interfaceIsSelected(child);
+                            int animId;
+                            if (selected)
+                                animId = child.enabledAnimationId;
+                            else
+                                animId = child.disabledAnimationId;
+                            Model model;
                             if (child.id == 60003) {
-                                // System.out.println(child.id+" - "+childX+" -
-                                // "+childY+" - "+child.modelRotation2+" -
-                                // "+child.modelRotation1+" - "+i5+" - "+l5);
-                                if (maxCapeColors != null) {
-                                    ItemDefinition def = ItemDefinition.forID(currentCape);
-                                    // System.out.println(Arrays.toString(maxCapeColors));
-                                    if (maxCapeColor != null && maxCapeSlot != -1 && maxCapeSlot != -1) {
-                                        Client.this.previousMaxCapeColors[maxCapeSlot] = Client.this.maxCapeColors[maxCapeSlot];
-                                        int hash = JagexColor.toHSB(maxCapeColor.getRed(), maxCapeColor.getGreen(),
-                                                maxCapeColor.getBlue());
-                                        Client.this.maxCapeColors[maxCapeSlot] = hash;
-                                        RSInterface.interfaceCache[maxCapeInterfaceId].enabledColor = maxCapeColor
-                                                .getRGB();
-                                        maxCapeColor = null;
-                                    }
-                                    for (int i11 = 0; i11 < previousMaxCapeColors.length; i11++)
-                                        model.recolour(currentCape, previousMaxCapeColors[i11], maxCapeColors[i11]);
+                                if (animId == -1) {
+                                    model = child.getAnimatedModel2(-1, -1, selected);
+                                } else {
+                                    Animation animation = Animation.anims[animId];
+
+                                    model = child.getAnimatedModel2(animation.frameIDs2[child.currentFrame],
+                                            animation.frameIDs[child.currentFrame], selected);
+                                }
+                            } else {
+                                if (animId == -1) {
+                                    model = child.getAnimatedModel(-1, -1, selected);
+                                } else {
+                                    Animation animation = Animation.anims[animId];
+
+                                    model = child.getAnimatedModel(animation.frameIDs2[child.currentFrame],
+                                            animation.frameIDs[child.currentFrame], selected);
                                 }
                             }
-                            model.renderSingle(child.modelRotation2, 0, child.modelRotation1, 0, i5, l5);
-                        }
-                        // model.reset();
-                        // model = null;
-                        Rasterizer.textureInt1 = k3;
-                        Rasterizer.textureInt2 = j4;
+                            if (model != null) {
+                                if (child.id == 60003) {
+                                    // System.out.println(child.id+" - "+childX+" -
+                                    // "+childY+" - "+child.modelRotation2+" -
+                                    // "+child.modelRotation1+" - "+i5+" - "+l5);
+                                    if (maxCapeColors != null) {
+                                        ItemDefinition def = ItemDefinition.forID(currentCape);
+                                        // System.out.println(Arrays.toString(maxCapeColors));
+                                        if (maxCapeColor != null && maxCapeSlot != -1 && maxCapeSlot != -1) {
+                                            Client.this.previousMaxCapeColors[maxCapeSlot] = Client.this.maxCapeColors[maxCapeSlot];
+                                            int hash = JagexColor.toHSB(maxCapeColor.getRed(), maxCapeColor.getGreen(),
+                                                    maxCapeColor.getBlue());
+                                            Client.this.maxCapeColors[maxCapeSlot] = hash;
+                                            RSInterface.interfaceCache[maxCapeInterfaceId].enabledColor = maxCapeColor
+                                                    .getRGB();
+                                            maxCapeColor = null;
+                                        }
+                                        for (int i11 = 0; i11 < previousMaxCapeColors.length; i11++)
+                                            model.recolour(currentCape, previousMaxCapeColors[i11], maxCapeColors[i11]);
+                                    }
+                                }
+                                model.renderSingle(child.modelRotation2, 0, child.modelRotation1, 0, i5, l5);
+                            }
+                            // model.reset();
+                            // model = null;
+                            Rasterizer.textureInt1 = k3;
+                            Rasterizer.textureInt2 = j4;
+                    	}
                     } else if (child.type == 7) {
                         TextDrawingArea textDrawingArea_1 = child.textDrawingAreas;
                         int k4 = 0;
@@ -15558,7 +15613,7 @@ public class Client extends RSApplet {
     					int downArrow = white ? 55 : 1036;
     					int upArrow = white ? 54 : 1035;
 
-    					if (child.hovered || d.isOpen()) {
+    					if (child.dropdownHovered || d.isOpen()) {
     						fontColour = 0xffb83f;
     						bgColour = child.dropdownColours[3];
     					}
@@ -15661,6 +15716,34 @@ public class Client extends RSApplet {
     					} else {
     						RSInterface.interfaceCache[child.id - 1].active = false;
     					}
+                    } else if (child.type == 38) {
+                    	boolean clicked = SkillQuantityWidget.clickedSkillButton(child.id);
+                    	
+                    	boolean hover = childHovered || child.selected || clicked;
+                    	
+                    	DrawingArea.fillRectangle((hover ? 0x89785e : 0xb29d7b), childY + 3, child.width - 5, child.height - 3, hover ? 255 : 255, childX + 3);
+                    	
+                    	int hoverSpriteOffset = hover ? 8 : 0;
+                    	
+                    	cacheSprite[1350 + hoverSpriteOffset].repeatY(childX, childY + 9, child.height - 9 * 2);
+                    	
+                    	cacheSprite[1351 + hoverSpriteOffset].repeatX(childX + 9, childY, child.width - 9 * 2);
+                    	
+                    	cacheSprite[1352 + hoverSpriteOffset].repeatY(childX + child.width - 9, childY + 9, child.height - 9 * 2);
+                    	
+                    	cacheSprite[1353 + hoverSpriteOffset].repeatX(childX + 9, childY + child.height - 9, child.width - 9 * 2);
+                    	
+                    	cacheSprite[1346 + hoverSpriteOffset].drawSprite(childX, childY);
+                    	
+                    	cacheSprite[1347 + hoverSpriteOffset].drawSprite(childX + child.width - 9, childY);
+                    	
+                    	cacheSprite[1348 + hoverSpriteOffset].drawSprite(childX, childY + child.height - 9);
+                    	
+                    	cacheSprite[1349 + hoverSpriteOffset].drawSprite(childX + child.width - 9, childY + child.height - 9);
+                    	
+                    	if (clicked) {
+                    		cacheSprite[1362].drawSprite(childX + 36, childY + 19);
+                    	}
                     }
                 }
                 if (openInterfaceID == 10000) {
@@ -20574,6 +20657,9 @@ public class Client extends RSApplet {
                         invOverlayInterfaceID = -1;
                         needDrawTabArea = true;
                         tabAreaAltered = true;
+                    }
+                    if (j9 == SkillQuantityWidget.INTERFACE_ID) {
+                    	SkillQuantityWidget.onInit();
                     }
                     backDialogID = j9;
                     inputTaken = true;
