@@ -19921,6 +19921,10 @@ public class Client extends RSApplet {
                     	String[] args = text.split(" ");
                         int selectedItf = Integer.parseInt(args[1]);
                         RSInterface.setSelectedInterface(selectedItf);
+                    } else if (text.startsWith("sq_quantity")) {
+                    	String[] args = text.split(" ");
+                        int quantity = Integer.parseInt(args[1]);
+                    	SkillQuantityWidget.shiftQuantities(quantity);
                     } else if (text.startsWith("closedialogue")) {
                         backDialogID = -1;
                         inputTaken = true;
