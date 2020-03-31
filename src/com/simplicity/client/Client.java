@@ -8161,10 +8161,11 @@ public class Client extends RSApplet {
             sendPacket185(l);
             return;
         }
+
+        // Wtf is this? took me 1 hour to figure out why the heck I get diff Ids every time
         if (l >= 2000) {
             l -= 2000;
         }
-
         // Placeholder releasing
         if (l == 633) {
             if (menuOpen) {
@@ -9260,6 +9261,43 @@ public class Client extends RSApplet {
                 stream.writeUnsignedWordBigEndian(entityId);
             }
         }
+        if (l == 839) { // kick
+            Player class30_sub2_sub4_sub1_sub2_4 = playerArray[entityId];
+            if (class30_sub2_sub4_sub1_sub2_4 != null) {
+                crossX = super.saveClickX;
+                crossY = super.saveClickY;
+                crossType = 2;
+                crossIndex = 0;
+                stream.createFrame(199);
+                stream.writeByte(0);
+                stream.writeUnsignedWordBigEndian(entityId);
+            }
+        }
+        if (l == 829) { // mute
+            Player class30_sub2_sub4_sub1_sub2_4 = playerArray[entityId];
+            if (class30_sub2_sub4_sub1_sub2_4 != null) {
+                crossX = super.saveClickX;
+                crossY = super.saveClickY;
+                crossType = 2;
+                crossIndex = 0;
+                stream.createFrame(199);
+                stream.writeByte(1);
+                stream.writeUnsignedWordBigEndian(entityId);
+            }
+        }
+        if (l == 929) { // jail
+            Player class30_sub2_sub4_sub1_sub2_4 = playerArray[entityId];
+            if (class30_sub2_sub4_sub1_sub2_4 != null) {
+                crossX = super.saveClickX;
+                crossY = super.saveClickY;
+                crossType = 2;
+                crossIndex = 0;
+                stream.createFrame(199);
+                stream.writeByte(2);
+                stream.writeUnsignedWordBigEndian(entityId);
+            }
+        }
+
         if (l == 577) {
             Player class30_sub2_sub4_sub1_sub2_5 = playerArray[entityId];
             if (class30_sub2_sub4_sub1_sub2_5 != null) {
@@ -13160,14 +13198,20 @@ public class Client extends RSApplet {
             donator = "@yel@[$]@whi@ ";
         }
         s += donator;
+
+        String combatTitle = "";
+
         if (player.playerTitle == null || player.playerTitle.length() <= 0
                 || player.playerTitle.equalsIgnoreCase("null")) {
-            s += player.name + combatDiffColor(myPlayer.combatLevel, player.combatLevel) + " (level-"
+            combatTitle = player.name + combatDiffColor(myPlayer.combatLevel, player.combatLevel) + " (level-"
                     + player.combatLevel + ")";
         } else {
-            s += player.playerTitle + "@whi@ " + player.name + combatDiffColor(myPlayer.combatLevel, player.combatLevel)
+            combatTitle = player.playerTitle + "@whi@ " + player.name + combatDiffColor(myPlayer.combatLevel, player.combatLevel)
                     + " (level-" + player.combatLevel + ")";
         }
+
+        s += combatTitle;
+
         if (itemSelected == 1) {
             menuActionName[menuActionRow] = "Use " + selectedItemName + " with @whi@" + s;
             menuActionID[menuActionRow] = 491;
@@ -13185,10 +13229,19 @@ public class Client extends RSApplet {
                 menuActionRow++;
             }
         } else {
-            for (int l = 4; l >= 0; l--) {
+            for (int l = 7; l >= 0; l--) {
                 if (atPlayerActions[l] != null) {
                     menuActionName[menuActionRow] = atPlayerActions[l] + " @whi@" + s;
+
                     char c = '\0';
+
+                    if (atPlayerActions[l].equalsIgnoreCase("jail") || atPlayerActions[l].equalsIgnoreCase("kick") || atPlayerActions[l].equalsIgnoreCase("mute")) {
+                        menuActionName[menuActionRow] = "@yel@" + atPlayerActions[l] + " @whi@" + player.name;
+                    }
+                    else {
+                        menuActionName[menuActionRow] = atPlayerActions[l] + " @whi@" + s;
+                    }
+
                     if (atPlayerActions[l].equalsIgnoreCase("attack")) {
 
 						if (Configuration.playerAttackOptionPriority == 0) {
@@ -13211,6 +13264,7 @@ public class Client extends RSApplet {
                     } else if (atPlayerArray[l]) {
                         c = '\u07D0';
                     }
+
                     if (l == 0) {
                         menuActionID[menuActionRow] = 561 + c;
                     }
@@ -13224,7 +13278,17 @@ public class Client extends RSApplet {
                         menuActionID[menuActionRow] = 577 + c;
                     }
                     if (l == 4) {
-                        menuActionID[menuActionRow] = 729 + c;
+                        if (atPlayerActions[l].equalsIgnoreCase("kick")) {
+                            menuActionID[menuActionRow] = 839 + c;
+                        } else {
+                            menuActionID[menuActionRow] = 729 + c;
+                        }
+                    }
+                    if (l == 5) {
+                        menuActionID[menuActionRow] = 829 + c;
+                    }
+                    if (l == 6) {
+                        menuActionID[menuActionRow] = 929 + c;
                     }
                     menuActionCmd1[menuActionRow] = j;
                     menuActionCmd2[menuActionRow] = i;
@@ -19414,7 +19478,7 @@ public class Client extends RSApplet {
                     int optionId = inStream.nglb();
                     int i12 = inStream.method426();
                     String ptionContent = inStream.readString();
-                    if (optionId >= 1 && optionId <= 5) {
+                    if (optionId >= 1 && optionId <= 8) {
                         if (ptionContent.equalsIgnoreCase("null")) {
                             ptionContent = null;
                         }
@@ -20326,6 +20390,7 @@ public class Client extends RSApplet {
                                 }
                             }
                         } else if (Configuration.enableTimers) {
+                            System.out.println("timer recieved for effect " + timer);
                             addEffectTimer(new EffectTimer(timer, t));
                         }
                     } catch (Exception e) {
@@ -21393,8 +21458,8 @@ public class Client extends RSApplet {
         headIconsHint = new Sprite[20];
         tabAreaAltered = false;
         promptMessage = "";
-        atPlayerActions = new String[5];
-        atPlayerArray = new boolean[5];
+        atPlayerActions = new String[8];
+        atPlayerArray = new boolean[8];
         constructRegionData = new int[4][13][13];
         anInt1132 = 2;
         currentMapFunctionSprites = new Sprite[1000];
