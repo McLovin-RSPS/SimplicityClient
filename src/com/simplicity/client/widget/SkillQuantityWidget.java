@@ -29,7 +29,7 @@ public class SkillQuantityWidget extends RSInterface {
 	/**
 	 * The button start id.
 	 */
-	private static int BUTTON_START;
+	public static int BUTTON_START;
 	
 	/**
 	 * The quantity button start id.
@@ -97,7 +97,7 @@ public class SkillQuantityWidget extends RSInterface {
 		BUTTON_START = id;
 		
 		for (int i = 0; i < 5; i++) {
-			addDynamicButton(id, width, height);
+			addDynamicButton(id, "Make", width, height);
 			rsi.child(child++, id, startX + (width * i + 7 * i), startY);
 			id++;
 		}
@@ -109,7 +109,7 @@ public class SkillQuantityWidget extends RSInterface {
 		QUANTITY_BUTTON_START = id;
 		
 		for (int i = 0; i < 5; i++) {
-			addDynamicButton(id, width, height);
+			addDynamicButton(id, "Select", width, height);
 			interfaceCache[id].selectableInterfaces = new int[] { QUANTITY_BUTTON_START, QUANTITY_BUTTON_START + 1, QUANTITY_BUTTON_START + 2, QUANTITY_BUTTON_START + 3, QUANTITY_BUTTON_START + 4 };
 			rsi.child(child++, id, startX + (width * i + 5 * i), startY);
 			id++;

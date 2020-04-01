@@ -16157,7 +16157,7 @@ public class RSInterface {
 		widget.inverted = inverted;
 	}
 	
-	public static void addDynamicButton(int id, int width, int height) {
+	public static void addDynamicButton(int id, String tooltip, int width, int height) {
 		RSInterface rsi = addInterface(id, width, height);
 		rsi.id = id;
 		rsi.type = 38;
@@ -16165,7 +16165,7 @@ public class RSInterface {
 		rsi.height = height;
         rsi.atActionType = 1;
         rsi.contentType = 0;
-        rsi.tooltip = "Select";
+        rsi.tooltip = tooltip;
         rsi.hovers = true;
 	}
 

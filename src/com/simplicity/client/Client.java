@@ -4459,6 +4459,9 @@ public class Client extends RSApplet {
                         	if (class9.id == 68018 && child.message != null && child.message.contains("<font=2>")) { // Skip tooltips for categories on KnowledgeBase
                         		continue;
                         	}
+                        	if (SkillQuantityWidget.isSkillButton(child.id)) {
+                        		tooltip += " " + SkillQuantityWidget.getItemName(child.id);
+                        	}
                             if (myRights == PlayerRights.OWNER.ordinal()
                                     || myRights == PlayerRights.DEVELOPER.ordinal()) {
                                 tooltip += " - Id: " + child.id;
