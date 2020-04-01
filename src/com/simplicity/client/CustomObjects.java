@@ -160,7 +160,7 @@ public class CustomObjects {
             {31427, 3109, 4354, 0, 0},
 
             //Treasure island chests
-            {18804, 3039, 2912, 0, 2},
+            {46243, 3039, 2912, 0, 2},
 
             /**Donator Zone**/
             {11758, 3035, 4413, 0, 0},//bank

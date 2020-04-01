@@ -724,7 +724,7 @@ public final class ObjectDefinition {
                 objectDef.actions = new String[]{"Search", null, null, null, null};
                 break;
             case 29577:
-            case 18804:
+            case 46243:
                 objectDef.name = "Treasure chest";
                 objectDef.actions = new String[]{"Open", null, null, null, null};
                 break;
