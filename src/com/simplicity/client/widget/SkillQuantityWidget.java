@@ -2,6 +2,7 @@ package com.simplicity.client.widget;
 
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.TextDrawingArea;
+import com.simplicity.client.cache.definitions.ItemDefinition;
 
 /**
  * A class that handles the skilling quantity interface.
@@ -224,6 +225,14 @@ public class SkillQuantityWidget extends RSInterface {
 	
 	public static boolean isItemModel(int id) {
 		return id >= ITEM_MODEL_START && id < ITEM_MODEL_START + 5;
+	}
+	
+	public static String getItemName(int childId) {
+		int index = 15 - (ITEM_MODEL_START - childId);
+		
+		int itemId = interfaceCache[ITEM_MODEL_START + index].mediaID;
+		
+		return ItemDefinition.forID(itemId).name;
 	}
 	
 	private static boolean isQuantityString(int id) {
