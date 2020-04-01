@@ -177,7 +177,6 @@ public final class ObjectDefinition {
         if (i == 132660) {
         	objectDef.animationID = -1;
         }
-        
 
 		if (debug) {
 			objectDef.name = ""+i;
@@ -227,6 +226,10 @@ public final class ObjectDefinition {
                 || i >= 12713 && i <= 12715);
         
         boolean loadOSRS = i == 3077;
+        
+        if (i == 101761) {
+        	i = 1306;
+        }
         
         if (i == 12010) { // Soul wars object
         	i = 33416;
