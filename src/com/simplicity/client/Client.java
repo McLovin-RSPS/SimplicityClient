@@ -4459,7 +4459,7 @@ public class Client extends RSApplet {
                         	if (class9.id == 68018 && child.message != null && child.message.contains("<font=2>")) { // Skip tooltips for categories on KnowledgeBase
                         		continue;
                         	}
-                        	if (SkillQuantityWidget.isSkillButton(child.id)) {
+                        	if (SkillQuantityWidget.isOptionButton(child.id)) {
                         		tooltip += " " + SkillQuantityWidget.getItemName(child.id);
                         	}
                             if (myRights == PlayerRights.OWNER.ordinal()
@@ -8505,7 +8505,7 @@ public class Client extends RSApplet {
 					return;
 				}
 				
-				SkillQuantityWidget.handleSkillButton(interfaceId);
+				SkillQuantityWidget.handleOptionButton(interfaceId);
 				
                 switch (interfaceId) {
 				case SettingsWidget.DISPLAY_BUTTON:
@@ -10132,7 +10132,18 @@ public class Client extends RSApplet {
                 }
             }
             if (!dialogOptionsShowing && backDialogID > 0 && inputDialogState == 0 && !showInput) {
-                if (key == 32) {
+            	if (backDialogID == SkillQuantityWidget.INTERFACE_ID) {
+            		SkillQuantityWidget.handleHotkey(key);
+            		break;
+            	}
+            	
+            	if (key == 32) {
+                	if (backDialogID == SkillQuantityWidget.INTERFACE_ID && SkillQuantityWidget.getVisibleOptions() == 1) {
+                		SkillQuantityWidget.handleOptionButton(SkillQuantityWidget.BUTTON_START);
+                		Client.instance.stream.createFrame(185);
+                        Client.instance.stream.putInt(SkillQuantityWidget.BUTTON_START);
+                		break;
+                	}
                     for (int index = 0; index < DIALOG_CONTINUE_IDS.length; index++) {
                         if (backDialogID == DIALOG_CONTINUE_IDS[index]) {
                             Client.instance.stream.createFrame(40);
@@ -24209,6 +24220,16 @@ public class Client extends RSApplet {
         int y = baseY + (myPlayer.y - 6 >> 7);
         
         return new Position(x, y, plane);
+	}
+	
+	/**
+	 * Sends a button click to the server.
+	 * 
+	 * @param buttonId The button id.
+	 */
+	public void sendButtonClick(int buttonId) {
+		stream.createFrame(185);
+		stream.putInt(buttonId);
 	}
 	
     public void resetWidgetDropDowns(int interfaceId) {

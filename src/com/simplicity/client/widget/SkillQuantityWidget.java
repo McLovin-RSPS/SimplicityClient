@@ -1,5 +1,8 @@
 package com.simplicity.client.widget;
 
+import java.awt.event.KeyEvent;
+
+import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.TextDrawingArea;
 import com.simplicity.client.cache.definitions.ItemDefinition;
@@ -140,18 +143,9 @@ public class SkillQuantityWidget extends RSInterface {
 		}
 	}
 	
-	public static boolean isSkillButton(int id) {
-		return id >= BUTTON_START && id < BUTTON_START + 5;
-	}
-	
-	public static void handleSkillButton(int id) {
-		if (!isSkillButton(id) || interfaceCache[INTERFACE_ID].clickedChildId != -1) {
-			return;
-		}
-		
-		interfaceCache[INTERFACE_ID].clickedChildId = id;
-	}
-	
+	/**
+	 * Called upon the initialization of this interface.
+	 */
 	public static void onInit() {
 		interfaceCache[INTERFACE_ID].clickedChildId = -1;
 		
@@ -169,10 +163,38 @@ public class SkillQuantityWidget extends RSInterface {
 			amount++;
 		}
 		
-		shiftSkillButtons(amount);
+		shiftOptionButtons(amount);
 	}
-	
-	private static void shiftSkillButtons(int amount) {
+
+	/**
+	 * Checks if the specified id is of an option button.
+	 * 
+	 * @param id The id.
+	 * @return <code>true</code> if is.
+	 */
+	public static boolean isOptionButton(int id) {
+		return id >= BUTTON_START && id < BUTTON_START + 5;
+	}
+
+	/**
+	 * Handles the option buttons.
+	 * 
+	 * @param id The id.
+	 */
+	public static void handleOptionButton(int id) {
+		if (!isOptionButton(id) || interfaceCache[INTERFACE_ID].clickedChildId != -1) {
+			return;
+		}
+
+		interfaceCache[INTERFACE_ID].clickedChildId = id;
+	}
+
+	/**
+	 * Shifts the option buttons based on the amount of material available.
+	 * 
+	 * @param amount The amount.
+	 */
+	private static void shiftOptionButtons(int amount) {
 		for (int i = 0; i < amount; i++) {
 			interfaceCache[ITEM_MODEL_START + i].xOffset = (5 - amount) * 99 / 2;
 			interfaceCache[BUTTON_START + i].xOffset = (5 - amount) * 99 / 2;
@@ -180,6 +202,11 @@ public class SkillQuantityWidget extends RSInterface {
 		}
 	}
 	
+	/**
+	 * Shifts the quantity buttons based on the amount of material available.
+	 * 
+	 * @param amount The amount.
+	 */
 	public static void shiftQuantities(int amount) {
 		toggleQuantity(1, amount >= 5);
 		
@@ -206,15 +233,33 @@ public class SkillQuantityWidget extends RSInterface {
 		interfaceCache[INTERFACE_ID + 3].xOffset = shift * 21;
 	}
 	
+	/**
+	 * Toggles the specified quantity by it's index.
+	 * 
+	 * @param index   The index.
+	 * @param visible The visibility flag.
+	 */
 	private static void toggleQuantity(int index, boolean visible) {
 		interfaceCache[QUANTITY_STRING_START + index].hidden = !visible;
 		interfaceCache[QUANTITY_BUTTON_START + index].hidden = !visible;
 	}
-	
+
+	/**
+	 * Checks if the specified skill button has been clicked on.
+	 * 
+	 * @param id
+	 * @return <code>true</code> if clicked.
+	 */
 	public static boolean clickedSkillButton(int id) {
 		return interfaceCache[INTERFACE_ID].clickedChildId == id;
 	}
-	
+
+	/**
+	 * Checks if the specified quantity is selected.
+	 * 
+	 * @param id The id.
+	 * @return <code>true</code> if is.
+	 */
 	public static boolean isQuantitySelected(int id) {
 		if (!isQuantityString(id)) {
 			return false;
@@ -223,10 +268,22 @@ public class SkillQuantityWidget extends RSInterface {
 		return interfaceCache[id - 5].selected;
 	}
 	
+	/**
+	 * Checks if the specified id is an item model.
+	 * 
+	 * @param id The id.
+	 * @return <code>true</code> if is.
+	 */
 	public static boolean isItemModel(int id) {
 		return id >= ITEM_MODEL_START && id < ITEM_MODEL_START + 5;
 	}
 	
+	/**
+	 * Gets the item name of the model for the specified button id.
+	 * 
+	 * @param childId The child id.
+	 * @return The item name.
+	 */
 	public static String getItemName(int childId) {
 		int index = 15 - (ITEM_MODEL_START - childId);
 		
@@ -235,6 +292,53 @@ public class SkillQuantityWidget extends RSInterface {
 		return ItemDefinition.forID(itemId).name;
 	}
 	
+	/**
+	 * Gets the visible options.
+	 * 
+	 * @return The visible options.
+	 */
+	public static int getVisibleOptions() {
+		int amount = 0;
+		
+		for (int i = 0; i < 5; i++) {
+			if (!interfaceCache[BUTTON_START + i].hidden) {
+				amount++;
+			}
+		}
+		
+		return amount;
+	}
+	
+	/**
+	 * Handles the hotkeys.
+	 * 
+	 * @param key The key.
+	 */
+	public static void handleHotkey(int key) {
+		if (key != 32 && (key < KeyEvent.VK_0 || key > KeyEvent.VK_9)) {
+			return;
+		}
+		
+		if (key == KeyEvent.VK_SPACE && getVisibleOptions() == 1) {
+			handleOptionButton(SkillQuantityWidget.BUTTON_START);
+			Client.instance.sendButtonClick(SkillQuantityWidget.BUTTON_START);
+			return;
+		} else {
+			int index = key - 49;
+			
+			if (index <= getVisibleOptions()) {
+				handleOptionButton(SkillQuantityWidget.BUTTON_START + index);
+				Client.instance.sendButtonClick(SkillQuantityWidget.BUTTON_START + index);
+			}
+		}
+	}
+	
+	/**
+	 * Checks if the specified string is of a quantity string.
+	 * 
+	 * @param id The id.
+	 * @return <code>true</code> if is.
+	 */
 	private static boolean isQuantityString(int id) {
 		for (int i = QUANTITY_STRING_START; i < QUANTITY_STRING_START + 5; i++) {
 			if (id == i) {
