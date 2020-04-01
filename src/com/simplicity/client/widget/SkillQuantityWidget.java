@@ -102,7 +102,7 @@ public class SkillQuantityWidget extends RSInterface {
 			id++;
 		}
 		
-		startX = 308;
+		startX = 315;
 		startY = 0;
 		width = height = 30;
 		
@@ -111,7 +111,7 @@ public class SkillQuantityWidget extends RSInterface {
 		for (int i = 0; i < 5; i++) {
 			addDynamicButton(id, width, height);
 			interfaceCache[id].selectableInterfaces = new int[] { QUANTITY_BUTTON_START, QUANTITY_BUTTON_START + 1, QUANTITY_BUTTON_START + 2, QUANTITY_BUTTON_START + 3, QUANTITY_BUTTON_START + 4 };
-			rsi.child(child++, id, startX + (width * i + 7 * i), startY);
+			rsi.child(child++, id, startX + (width * i + 5 * i), startY);
 			id++;
 		}
 		
@@ -122,7 +122,7 @@ public class SkillQuantityWidget extends RSInterface {
 		for (int i = 0; i < 5; i++) {
 			addText(id, text[i], tda, 0, TEXT_COLOR, true, false);
 			interfaceCache[id].enabledColor = 0xffffff;
-			rsi.child(child++, id, startX + (width * i + 7 * i) + 14, startY + 10);
+			rsi.child(child++, id, startX + (width * i + 5 * i) + 14, startY + 10);
 			id++;
 		}
 		
@@ -168,15 +168,46 @@ public class SkillQuantityWidget extends RSInterface {
 			amount++;
 		}
 		
-		shift(amount);
+		shiftSkillButtons(amount);
 	}
 	
-	private static void shift(int amount) {
+	private static void shiftSkillButtons(int amount) {
 		for (int i = 0; i < amount; i++) {
 			interfaceCache[ITEM_MODEL_START + i].xOffset = (5 - amount) * 99 / 2;
 			interfaceCache[BUTTON_START + i].xOffset = (5 - amount) * 99 / 2;
 			interfaceCache[BUTTON_STRING_START + i].xOffset = (5 - amount) * 99 / 2;
 		}
+	}
+	
+	public static void shiftQuantities(int amount) {
+		toggleQuantity(1, amount >= 5);
+		
+		toggleQuantity(2, amount >= 10);
+		
+		toggleQuantity(3, amount >= 2);
+		
+		int total = 0;
+		
+		for (int i = 0; i < 4; i++) {
+			if (!interfaceCache[QUANTITY_BUTTON_START + i].hidden) {
+				total++;
+			}
+		}
+		
+		int shift = 4 - total;
+		
+		for (int i = 0; i < 4 - shift; i++) {
+			interfaceCache[QUANTITY_BUTTON_START + i].xOffset = shift * 35; 
+			interfaceCache[QUANTITY_STRING_START + i].xOffset = shift * 35; 
+		}
+		
+		interfaceCache[INTERFACE_ID + 1].xOffset = shift * 21;
+		interfaceCache[INTERFACE_ID + 3].xOffset = shift * 21;
+	}
+	
+	private static void toggleQuantity(int index, boolean visible) {
+		interfaceCache[QUANTITY_STRING_START + index].hidden = !visible;
+		interfaceCache[QUANTITY_BUTTON_START + index].hidden = !visible;
 	}
 	
 	public static boolean clickedSkillButton(int id) {
