@@ -116,14 +116,14 @@ public class SkillQuantityWidget extends RSInterface {
 		
 		QUANTITY_BUTTON_START = id;
 		
+		String[] text = new String[] { "1", "5", "10", "X", "All" };
+		
 		for (int i = 0; i < 5; i++) {
-			addDynamicButton(id, "Select", width, height);
+			addDynamicButton(id, text[i], width, height);
 			interfaceCache[id].selectableInterfaces = new int[] { QUANTITY_BUTTON_START, QUANTITY_BUTTON_START + 1, QUANTITY_BUTTON_START + 2, QUANTITY_BUTTON_START + 3, QUANTITY_BUTTON_START + 4 };
 			rsi.child(child++, id, startX + (width * i + 5 * i), startY);
 			id++;
 		}
-		
-		String[] text = new String[] { "1", "5", "10", "X", "All" };
 		
 		QUANTITY_STRING_START = id;
 		
