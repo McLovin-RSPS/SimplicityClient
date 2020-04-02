@@ -182,7 +182,7 @@ public class SkillQuantityWidget extends RSInterface {
 		
 		if (name != null) {
 			if (name.startsWith("Uncut")) {
-				return new int[] { 0, 8 };
+				return new int[] { -4, 8 };
 			}
 			
 			if (name.contains("potion")) {
