@@ -29,6 +29,11 @@ import com.simplicity.client.cache.definitions.custom.CustomRecolor;
 public final class ItemDefinition {
 	
     /**
+     * A hash collection of item names accessed by item ids.
+     */
+    public static final Map<Integer, String> items = new HashMap<>();
+	
+    /**
      * A hash collection of item ids which should be forced to load using OSRS data yet retain their ids.
      */
     private static final Set<Integer> FORCE_OSRS_ITEMS = new HashSet<>(Arrays.asList(554, 555, 556, 560, 565, 566, 1704, 1706, 1708, 1710, 1712));
@@ -307,11 +312,11 @@ public final class ItemDefinition {
 
     public static void unpackConfig(CacheArchive streamLoader) {
         stream = new Stream(streamLoader.getDataForName("obj.dat"));
-        Stream stream = new Stream(streamLoader.getDataForName("obj.idx"));
+        Stream streamIdx = new Stream(streamLoader.getDataForName("obj.idx"));
         streamOSRS = new Stream(streamLoader.getDataForName("obj3.dat"));
         Stream streamOSRS = new Stream(streamLoader.getDataForName("obj3.idx"));
 
-        totalItems = stream.readUnsignedWord();
+        totalItems = streamIdx.readUnsignedWord();
         int totalItemsOSRS = streamOSRS.readUnsignedWord();
 
         streamIndices = new int[totalItems + 2000];
@@ -321,7 +326,7 @@ public final class ItemDefinition {
 
         for (int j = 0; j < totalItems; j++) {
             streamIndices[j] = i;
-            i += stream.readUnsignedWord();
+            i += streamIdx.readUnsignedWord();
         }
 
         i = 2;
@@ -338,7 +343,30 @@ public final class ItemDefinition {
             cache[k] = new ItemDefinition();
             cacheOSRS[k] = new ItemDefinition();
         }
+        
+		for (int i1 = 1; i1 < totalItems; i1++) {
+			try {
+				stream.currentOffset = streamIndices[i1];
+				ItemDefinition def = new ItemDefinition();
+				def.setDefaults();
+				def.id = i1;
+				def.readValues(stream);
 
+				if (def.lentItemID != -1 || def.certTemplateID != -1) {
+					continue;
+				}
+
+				if (def.name == null) {
+					continue;
+				}
+
+				items.put(def.id, def.name);
+				
+			} catch (Exception e) {
+				System.out.println("Error loading: " + i1);
+			}
+		}
+        
         setSettings();
 
         osrsModels.add(34148);
