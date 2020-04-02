@@ -18,7 +18,7 @@ public class SkillQuantityWidget extends RSInterface {
 	/**
 	 * The interface id.
 	 */
-	public static final int INTERFACE_ID = 34_000;
+	public static final int INTERFACE_ID = 53_000;
 	
 	/**
 	 * The primary text color.
