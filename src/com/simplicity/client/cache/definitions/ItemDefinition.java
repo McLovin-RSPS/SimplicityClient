@@ -506,6 +506,19 @@ public final class ItemDefinition {
         priorityModels.add(12778);
         priorityModels.add(12817);
         
+        //Serp helm
+        priorityModels.add(14395);
+        priorityModels.add(14398);
+        
+        //Magma helm
+        priorityModels.add(14424);
+        priorityModels.add(14398);
+        
+        
+        //Infernal max hood
+        priorityModels.add(33101);
+        priorityModels.add(33110);
+        
         //Staff of light
         priorityModels.add(34508);
         priorityModels.add(34507);
