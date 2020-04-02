@@ -227,6 +227,18 @@ public final class Rasterizer extends DrawingArea {
 					textureEnabled[index] = false;
 				} else {
 					aBackgroundArray1474s[index] = new Background(streamLoader, String.valueOf(index), 0);
+					
+					/**
+					 * Cheaphax for the textures index loading incorrect sizes.
+					 */
+					if (aBackgroundArray1474s[index].libWidth > 128) {
+						aBackgroundArray1474s[index].libWidth = 128;
+					}
+					
+					if (aBackgroundArray1474s[index].libHeight > 128) {
+						aBackgroundArray1474s[index].libHeight = 128;
+					}
+						
 					aBackgroundArray1474s[index].setOffset();
 					textureEnabled[index] = true;
 				}

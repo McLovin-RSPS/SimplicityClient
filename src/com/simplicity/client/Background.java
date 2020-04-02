@@ -301,5 +301,5 @@ public final class Background extends DrawingArea {
 	public int xDrawOffset;
 	public int yDrawOffset;
 	public int libWidth;
-	private int libHeight;
+	public int libHeight;
 }
