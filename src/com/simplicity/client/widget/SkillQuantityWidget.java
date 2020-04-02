@@ -1,11 +1,15 @@
 package com.simplicity.client.widget;
 
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
+import com.simplicity.client.Sprite;
 import com.simplicity.client.TextDrawingArea;
 import com.simplicity.client.cache.definitions.ItemDefinition;
+import com.simplicity.client.entity.Position;
 
 /**
  * A class that handles the skilling quantity interface.
@@ -160,10 +164,37 @@ public class SkillQuantityWidget extends RSInterface {
 			
 			interfaceCache[BUTTON_START + i].hidden = false;
 			interfaceCache[BUTTON_STRING_START + i].hidden = false;
+			
 			amount++;
 		}
 		
 		shiftOptionButtons(amount);
+	}
+	
+	/**
+	 * Gets the model offsets for the specified model's child id.
+	 * 
+	 * @param childId The child id.
+	 * @return The offsets.
+	 */
+	public static int[] getModelOffsets(int childId) {
+		String name = ItemDefinition.items.get(interfaceCache[childId].mediaID);
+		
+		if (name != null) {
+			if (name.startsWith("Uncut")) {
+				return new int[] { 0, 8 };
+			}
+			
+			if (name.contains("potion")) {
+				return new int[] { -4, 25 };
+			}
+			
+			if (name.contains("bolt tips")) {
+				return new int[] { -4, 2 };
+			}
+		}
+		
+		return new int[] { 0, 0 };
 	}
 
 	/**

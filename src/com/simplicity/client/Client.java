@@ -15252,10 +15252,20 @@ public class Client extends RSApplet {
                     	}
                     	
                     	if (draw) {
+                    		int x = childX;
+                    		int y = childY;
+                    		
+                    		if (rsInterface.id == SkillQuantityWidget.INTERFACE_ID && SkillQuantityWidget.isItemModel(child.id)) {
+                    			int[] offsets = SkillQuantityWidget.getModelOffsets(child.id);
+                    			
+                    			x += offsets[0];
+                    			y += offsets[1];
+                    		}
+                    		
                             int k3 = Rasterizer.textureInt1;
                             int j4 = Rasterizer.textureInt2;
-                            Rasterizer.textureInt1 = childX + child.width / 2;
-                            Rasterizer.textureInt2 = childY + child.height / 2;
+                            Rasterizer.textureInt1 = x + child.width / 2;
+                            Rasterizer.textureInt2 = y + child.height / 2;
                             int i5 = Rasterizer.anIntArray1470[child.modelRotation1] * child.modelZoom >> 16;
                             int l5 = Rasterizer.anIntArray1471[child.modelRotation1] * child.modelZoom >> 16;
                             boolean selected = interfaceIsSelected(child);
