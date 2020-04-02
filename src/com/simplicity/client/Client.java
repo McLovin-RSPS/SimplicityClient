@@ -15260,10 +15260,15 @@ public class Client extends RSApplet {
                             int l5 = Rasterizer.anIntArray1471[child.modelRotation1] * child.modelZoom >> 16;
                             boolean selected = interfaceIsSelected(child);
                             int animId;
-                            if (selected)
-                                animId = child.enabledAnimationId;
-                            else
-                                animId = child.disabledAnimationId;
+                            if (rsInterface.id != SkillQuantityWidget.INTERFACE_ID) {
+                                if (selected)
+                                    animId = child.enabledAnimationId;
+                                else
+                                    animId = child.disabledAnimationId;
+                            } else {
+                            	animId = -1;
+                            }
+   
                             Model model;
                             if (child.id == 60003) {
                                 if (animId == -1) {
