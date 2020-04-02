@@ -4460,11 +4460,11 @@ public class Client extends RSApplet {
                         		continue;
                         	}
                         	if (SkillQuantityWidget.isOptionButton(child.id)) {
-                        		tooltip += " " + SkillQuantityWidget.getItemName(child.id);
+                        		tooltip += " @lre@" + SkillQuantityWidget.getItemName(child.id);
                         	}
                             if (myRights == PlayerRights.OWNER.ordinal()
                                     || myRights == PlayerRights.DEVELOPER.ordinal()) {
-                                tooltip += " - Id: " + child.id;
+                                tooltip += "@whi@ - Id: " + child.id;
                             }
                             if (tooltip.contains("[GE")) {
                                 continue;
