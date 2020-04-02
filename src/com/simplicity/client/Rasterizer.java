@@ -231,12 +231,14 @@ public final class Rasterizer extends DrawingArea {
 					/**
 					 * Cheaphax for the textures index loading incorrect sizes.
 					 */
-					if (aBackgroundArray1474s[index].libWidth > 128) {
-						aBackgroundArray1474s[index].libWidth = 128;
-					}
-					
-					if (aBackgroundArray1474s[index].libHeight > 128) {
-						aBackgroundArray1474s[index].libHeight = 128;
+					if (index > 60) {
+						if (aBackgroundArray1474s[index].libWidth > 128) {
+							aBackgroundArray1474s[index].libWidth = 128;
+						}
+						
+						if (aBackgroundArray1474s[index].libHeight > 128) {
+							aBackgroundArray1474s[index].libHeight = 128;
+						}
 					}
 						
 					aBackgroundArray1474s[index].setOffset();
