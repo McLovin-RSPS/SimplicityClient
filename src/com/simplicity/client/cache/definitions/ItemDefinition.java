@@ -8963,11 +8963,15 @@ public final class ItemDefinition {
             model.scaleT(sizeX, sizeZ, sizeY);
         }
         if (Configuration.debuggingModels) {
-            String colours = id + " Model colours: ";
+        	Set<Integer> colors = new HashSet<>();
+        	
             for (int i : model.face_color) {
-                colours = colours + ", " + i;
+                colors.add(i);
             }
-            System.out.println(colours);
+            
+            System.out.print(id + " Model colours: ");
+            colors.forEach(c -> System.out.print(c + ", "));
+            System.out.println();
         }
         if (editedModelColor != null) {
             for (int l = 0; l < editedModelColor.length; l++) {
