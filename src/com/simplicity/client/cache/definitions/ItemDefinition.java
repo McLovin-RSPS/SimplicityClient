@@ -534,6 +534,11 @@ public final class ItemDefinition {
         priorityModels.add(12778);
         priorityModels.add(12817);
         
+        
+        //Assembler max cape
+        priorityModels.add(34629);
+        priorityModels.add(34641);
+        
         //Serp helm
         priorityModels.add(14395);
         priorityModels.add(14398);
