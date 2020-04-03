@@ -2291,6 +2291,32 @@ public final class ItemDefinition {
                 itemDef.femaleEquip1 = def.femaleEquip1;
                 //	System.out.print("model "+def.maleEquip1);
                 break;
+                
+                /**
+                 * Model switch to OSRS
+                 */                
+            case 15001:
+                itemDef.copy(forID(52324));
+                break;
+                
+            case 14484:
+                itemDef.copy(forID(43652));
+                break;
+                
+            case 15486:
+                itemDef.copy(forID(52296));
+                break;
+                
+            case 15492:
+                itemDef.copy(forID(41864));
+                break;
+                
+            case 12284:
+                itemDef.copy(forID(42904));
+                break;
+                
+                // Spirit shield models
+
 
             /**
              * Treasure Island Keys
@@ -3354,24 +3380,6 @@ public final class ItemDefinition {
                 itemDef.maleDialogue = -1;
                 itemDef.femaleDialogue = -1;
                 break;
-            case 12284:
-                itemDef.name = "Toxic staff of the dead";
-                itemDef.modelID = 19224;
-                itemDef.modelZoom = 2150;
-                itemDef.rotationX = 1010;
-                itemDef.rotationY = 512;
-                itemDef.femaleEquip1 = 49001;
-                itemDef.maleEquip1 = 49001;
-                itemDef.actions = new String[5];
-                itemDef.actions[1] = "Wield";
-                itemDef.actions[2] = "Check";
-                itemDef.actions[4] = "Uncharge";
-                itemDef.groundActions = new String[]{null, null, "Take", null, null};
-                itemDef.editedModelColor = new int[1];
-                itemDef.editedModelColor[0] = 17467;
-                itemDef.newModelColor = new int[1];
-                itemDef.newModelColor[0] = 21947;
-                break;
             case 12605:
                 itemDef.name = "Treasonous ring";
                 itemDef.modelZoom = 750;
@@ -4113,20 +4121,6 @@ public final class ItemDefinition {
                 itemDef.actions = new String[5];
                 itemDef.actions[1] = "Wear";
                 itemDef.actions[4] = "Drop";
-                break;
-                
-            case 15001:
-                itemDef.modelID = 35739;
-                itemDef.actions = new String[5];
-                itemDef.actions[1] = "Wield";
-                itemDef.name = "Ghrazi rapier";
-                itemDef.description = "It is the Ghrazi Rapier";
-                itemDef.modelZoom = 2200;
-                itemDef.stackable = false;
-                itemDef.rotationX = 1603;
-                itemDef.rotationY = 552;
-                itemDef.maleEquip1 = 35374;
-                itemDef.femaleEquip1 = 35369;
                 break;
                 
             case 15000:

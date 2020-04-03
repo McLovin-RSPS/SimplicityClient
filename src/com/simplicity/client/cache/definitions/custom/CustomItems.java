@@ -305,6 +305,23 @@ public class CustomItems {
                 itemDef.newModelColor = new int[]{3024, 4024, 3024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024};
                 break;
                 
+            case 15100:
+                itemDef.copy(ItemDefinition.forID(52324));
+                itemDef.actions[1] = "Wield";
+                itemDef.name = "Ghrazi rapier X";
+                itemDef.description = "It is the Ghrazi Rapier X";
+                itemDef.editedModelColor = new int[] { 64414, 43150, 43034, 43047, 43059, 43090, 43113, 43030, 43047 };
+                itemDef.newModelColor = new int[] { 64414, 43150, 43034, 43047, 43059, -1253, -1253, -1253, 43047 };
+                break;
+                
+            case 14444:
+                itemDef.copy(ItemDefinition.forID(19640));
+                itemDef.name = "Blood orb";
+                itemDef.description = "It is Verzik's blood orb";
+                itemDef.editedModelColor = new int[] { 36048, 36977, 37208 };
+                itemDef.newModelColor = new int[] { -1253, -1253, -1253 };
+                break;
+                
             case 4736:
             case 17215:
                 itemDef.femaleEquip1 = itemDef.maleEquip1;
