@@ -222,5 +222,6 @@ public class Configuration {
 	 * Indicates whether bounty target is enabled or not.
 	 */
 	public static boolean enableBountyTarget = true;
-    
+
+	public static boolean enableModerationMenu = true;
 }

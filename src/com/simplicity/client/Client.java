@@ -13246,6 +13246,9 @@ public class Client extends RSApplet {
             }
         } else {
             for (int l = 7; l >= 0; l--) {
+                if (!Configuration.enableModerationMenu && l > 3) {
+                    continue;
+                }
                 if (atPlayerActions[l] != null) {
                     menuActionName[menuActionRow] = atPlayerActions[l] + " @whi@" + s;
 
@@ -23235,6 +23238,15 @@ public class Client extends RSApplet {
 
                     }
                 }
+            }
+        } else if (commandStart.equalsIgnoreCase("modmenu")) {
+            if (Configuration.enableModerationMenu) {
+                Configuration.enableModerationMenu = false;
+                sendConsoleMessage("You disabled moderation menu.", false);
+            }
+            else {
+                Configuration.enableModerationMenu = true;
+                sendConsoleMessage("You enabled moderation menu.", false);
             }
         } else if (commandStart.equals("debug")) {
             entityDebug = !entityDebug;
