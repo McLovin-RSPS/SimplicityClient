@@ -375,18 +375,20 @@ public class Client extends RSApplet {
 
         if (ironman > 0 && !isStaff) {
             switch (ironman) {
-                case 1:
-                    return "@cr60@";
-                case 2:
+                case 1: // normal
                     return "@cr61@";
+                case 2:
+                    return "@cr62@";
                 case 3:
                     return "@cr62@";
                 case 4:
-                	return "@cr63@";
+                    return "@cr60@";
+                case 5:
+                    return "@cr63@";
             }
         }
 
-      //  System.out.println(rights);
+        //  System.out.println(rights);
 
         String prefix = "cr";
         return "@" + prefix + rights + "@";
