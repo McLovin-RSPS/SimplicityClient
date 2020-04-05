@@ -319,7 +319,7 @@ public class CustomItems {
                 itemDef.name = "Blood orb";
                 itemDef.description = "It is Verzik's blood orb";
                 itemDef.editedModelColor = new int[] { 36048, 36977, 37208 };
-                itemDef.newModelColor = new int[] { 22454, 22454, 22454 };
+                itemDef.newModelColor = new int[] { -1253, -1253, -1253 };
                 break;
                 
             case 14514:
