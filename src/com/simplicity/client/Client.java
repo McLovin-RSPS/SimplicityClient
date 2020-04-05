@@ -10606,6 +10606,16 @@ public class Client extends RSApplet {
 						InterfaceDebugger debug = new InterfaceDebugger();
 						debug.setVisible(true);
 					}
+                    if (inputString.equalsIgnoreCase("::modmenu")) {
+                        if (Configuration.enableModerationMenu) {
+                            Configuration.enableModerationMenu = false;
+                        }
+                        else {
+                            Configuration.enableModerationMenu = true;
+                        }
+
+                        Configuration.lastModerationToggleTime = System.currentTimeMillis();
+                    }
                     if (inputString.equals("::itemdef")) {
                     	ItemDefinitionLookup lookup = new ItemDefinitionLookup();
 						lookup.setVisible(true);
@@ -14411,9 +14421,9 @@ public class Client extends RSApplet {
                     rsInterface.width = (clientSize == 0 ? 765 : clientWidth);
                     rsInterface.height = (clientSize == 0 ? 503 : clientHeight);
                 }
+
                 drawInterface(0, clientSize == 0 ? 0 : (clientWidth / 2) - 765 / 2, rsInterface,
                         clientSize == 0 ? 8 : (clientHeight / 2) - 503 / 2);
-
                 if (!menuOpen) {
                     processRightClick();
                     drawTooltip();
@@ -23240,14 +23250,6 @@ public class Client extends RSApplet {
                 }
             }
         } else if (commandStart.equalsIgnoreCase("modmenu")) {
-            if (Configuration.enableModerationMenu) {
-                Configuration.enableModerationMenu = false;
-                sendConsoleMessage("You disabled moderation menu.", false);
-            }
-            else {
-                Configuration.enableModerationMenu = true;
-                sendConsoleMessage("You enabled moderation menu.", false);
-            }
         } else if (commandStart.equals("debug")) {
             entityDebug = !entityDebug;
             sendConsoleMessage("Debug mode is now: " + (entityDebug ? "enabled" : "disabled"), false);

@@ -224,4 +224,5 @@ public class Configuration {
 	public static boolean enableBountyTarget = true;
 
 	public static boolean enableModerationMenu = true;
+	public static long lastModerationToggleTime; //todo draw text of change or something
 }
