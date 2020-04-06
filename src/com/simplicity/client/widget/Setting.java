@@ -192,6 +192,18 @@ public enum Setting {
 		}
 	},
 	
+	AMMUNITION() {
+		@Override
+		public void handle() {
+			Configuration.enableAmmunitionOverlay = !Configuration.enableAmmunitionOverlay;
+		}
+
+		@Override
+		public boolean enabled() {
+			return Configuration.enableAmmunitionOverlay;
+		}
+	},
+	
 	TOGGLES(true),
 	
 	SPECIAL_BUTTON() {

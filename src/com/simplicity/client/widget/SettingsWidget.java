@@ -310,7 +310,7 @@ public class SettingsWidget extends RSInterface {
 		tab = addInterface(id++);
 		tab.totalChildren(Setting.size());
 		tab.height = 228;
-		tab.scrollMax = scrollbar ? 400 : tab.height;
+		tab.scrollMax = scrollbar ? 420 : tab.height;
 		tab.width = 477;
 		
 		int x = 22;

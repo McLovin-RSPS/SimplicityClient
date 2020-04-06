@@ -186,6 +186,10 @@ public class ClientSettings {
 				Configuration.enableBountyTarget = reader.get("bounty-target").getAsBoolean();
 			}
 			
+			if (reader.has("ammunition-overlay")) {
+				Configuration.enableAmmunitionOverlay = reader.get("ammunition-overlay").getAsBoolean();
+			}
+			
 			if (reader.has("keybindings")) {
 				Keybinding.KEYBINDINGS = builder.fromJson(reader.get("keybindings"), int[].class);
 			}
@@ -264,6 +268,7 @@ public class ClientSettings {
 			object.addProperty("moderation-menu-enabled", Configuration.enableModerationMenu);
 			object.addProperty("zooming", Configuration.enableZooming);
 			object.addProperty("bounty-target", Configuration.enableBountyTarget);
+			object.addProperty("ammunition-overlay", Configuration.enableAmmunitionOverlay);
 			object.add("keybindings", builder.toJsonTree(Keybinding.KEYBINDINGS));
 			object.add("quick-prayers", builder.toJsonTree(Client.instance.getQuickPrayers()));
 			object.add("quick-curses", builder.toJsonTree(Client.instance.getQuickCurses()));
@@ -307,6 +312,7 @@ public class ClientSettings {
 		Configuration.enableZooming = true;
 		Configuration.enableBountyTarget = true;
 		Configuration.enableModerationMenu = true;
+		Configuration.enableAmmunitionOverlay = true;
 		Client.instance.musicEnabled = false;
 		SoundPlayer.setVolume(4);
 	}

@@ -104,6 +104,8 @@ import com.simplicity.client.content.MagicItems;
 import com.simplicity.client.content.PetSystem;
 import com.simplicity.client.content.PlayerRights;
 import com.simplicity.client.content.RichPresence;
+import com.simplicity.client.content.overlay.ScreenOverlay;
+import com.simplicity.client.content.overlay.ScreenOverlayManager;
 import com.simplicity.client.entity.Position;
 import com.simplicity.client.particles.Particle;
 import com.simplicity.client.particles.ParticleDefinition;
@@ -6920,11 +6922,11 @@ public class Client extends RSApplet {
     private int MaxHealth = 300;
     private int CurrentHealth = 300;
 
-    private void drawHpBar() {
+    public boolean drawHpBar() {
         RSInterface iface = RSInterface.interfaceCache[41020];
 
         if (!parallelWidgetList.contains(iface)) {
-            return;
+            return false;
         }
         
         int current = currentEntityHealth;
@@ -6941,6 +6943,7 @@ public class Client extends RSApplet {
 
         RSInterface text = RSInterface.interfaceCache[41023];
         newSmallFont.drawCenteredString(iface.message, 63, 52, 0xffffff, 1);
+        return true;
     }
 
     private void drawHeadIcon() {
@@ -13804,6 +13807,7 @@ public class Client extends RSApplet {
                 }
             }
             SkillOrbs.init();
+            ScreenOverlayManager.init();
             setSkillSprites();
             setLoadingText(100, "");
             isLoading = false;
@@ -21083,6 +21087,8 @@ public class Client extends RSApplet {
             drawBlackPane();
         }
         if (loggedIn) {
+        	ScreenOverlayManager.process();
+        	
             if (type2 > -1) {
                 drawArrow(title, information, drawX, drawY, speed, pause, type2);
             }
@@ -21115,9 +21121,7 @@ public class Client extends RSApplet {
                 }
             }
         }
-        if (loggedIn && shouldDrawHpOverlay()) {
-            drawHpBar();
-        }
+        
         if (loggedIn) {
             gameScreenIP.drawGraphics(clientSize == 0 ? 4 : 0, super.graphics, clientSize == 0 ? 4 : 0);
             xCameraPos = l;
