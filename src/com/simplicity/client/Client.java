@@ -21129,6 +21129,30 @@ public class Client extends RSApplet {
     }
     
 	/**
+	 * Returns an item from the equipment container by the specified slot.
+	 * 
+	 * @param slot The slot.
+	 * @return The item.
+	 */
+	public Item getEquipment(int slot) {
+		RSInterface equipment = RSInterface.interfaceCache[1688];
+
+		if (equipment == null || slot > equipment.inv.length) {
+			return null;
+		}
+		
+		int itemId = equipment.inv[slot] - 1;
+		
+		if (itemId < 0) {
+			return null;
+		}
+		
+		int amount = equipment.invStackSizes[slot];
+		
+		return new Item(itemId, amount);
+	}
+    
+	/**
 	 * If toggled, render ground item names and lootbeams
 	 */
 	private void renderGroundItemNames() {
