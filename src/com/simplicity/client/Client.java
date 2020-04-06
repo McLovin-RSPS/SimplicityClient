@@ -4222,33 +4222,47 @@ public class Client extends RSApplet {
             return;
         }
         
-        long k = -Integer.MAX_VALUE;
+        long minimum = -Integer.MAX_VALUE;
         
-        Object toSpawn = null;
+        Object onTop = null;
+        Object bloodMoney = null;
+        boolean containsBm = false;
         
         for (Item item = (Item) itemDeque.getFront(); item != null; item = (Item) itemDeque.getNext()) {
             ItemDefinition itemDef = ItemDefinition.forID(item.ID);
             
-            long l = itemDef.value;
+            long value = itemDef.value;
             
             if (itemDef.stackable) {
-                l *= (long) (item.amount + (long) 1);
+                value *= (long) (item.amount + (long) 1);
             }
             
-            if (l > k) {
-                k = l;
-                toSpawn = item;
+            if (value > minimum) {
+                minimum = value;
+                onTop = item;
+            }
+            
+            /**
+             * Prioritizing blood money over the others.
+             */
+            if (item.ID == 43307) {
+            	containsBm = true;
+            	bloodMoney = item;
             }
         }
+        
+        if (containsBm && ((Item)onTop).ID != 43307) {
+        	onTop = bloodMoney;
+        }
 
-        itemDeque.insertFront(((Node) (toSpawn)));
+        itemDeque.insertFront(((Node) (onTop)));
         Object firstItem = null;
         Object secondItem = null;
         for (Item item_1 = (Item) itemDeque.getFront(); item_1 != null; item_1 = (Item) itemDeque.getNext()) {
-            if (item_1.ID != ((Item) (toSpawn)).ID && firstItem == null) {
+            if (item_1.ID != ((Item) (onTop)).ID && firstItem == null) {
                 firstItem = item_1;
             }
-            if (item_1.ID != ((Item) (toSpawn)).ID && item_1.ID != ((Item) (firstItem)).ID && secondItem == null) {
+            if (item_1.ID != ((Item) (onTop)).ID && item_1.ID != ((Item) (firstItem)).ID && secondItem == null) {
                 secondItem = item_1;
             }
         }
@@ -4256,7 +4270,7 @@ public class Client extends RSApplet {
         int i1 = i + (j << 7) + 0x60000000;
         worldController.addGroundItemTile(i, i1, ((Animable) (firstItem)),
                 getFloorDrawHeight(plane, j * 128 + 64, i * 128 + 64), ((Animable) (secondItem)),
-                ((Animable) (toSpawn)), plane, j);
+                ((Animable) (onTop)), plane, j);
     }
 
     private void processNpcs(boolean flag) {
