@@ -12,9 +12,20 @@ public final class Item extends Animable {
 
 	public Item() {
 	}
-
+	
+	public Item(int itemId, int amount) {
+		this.ID = itemId;
+		this.amount = amount;
+	}
+	
+	public ItemDefinition getDefinition() {
+		return ItemDefinition.forID(ID);
+	}
+	
+	public Sprite getSprite() {
+		return ItemDefinition.getSprite(ID, amount, 0);
+	}
+	
 	public int ID;
-	public int x;
-	public int y;
 	public int amount;
 }
