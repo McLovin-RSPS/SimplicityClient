@@ -4221,14 +4221,20 @@ public class Client extends RSApplet {
             worldController.removeGroundItemFromTIle(plane, i, j);
             return;
         }
-        int k = 0xfa0a1f01;
+        
+        long k = -Integer.MAX_VALUE;
+        
         Object toSpawn = null;
+        
         for (Item item = (Item) itemDeque.getFront(); item != null; item = (Item) itemDeque.getNext()) {
             ItemDefinition itemDef = ItemDefinition.forID(item.ID);
-            int l = itemDef.value;
+            
+            long l = itemDef.value;
+            
             if (itemDef.stackable) {
-                l *= item.amount + 1;
+                l *= (long) (item.amount + (long) 1);
             }
+            
             if (l > k) {
                 k = l;
                 toSpawn = item;
