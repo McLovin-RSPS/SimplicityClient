@@ -214,6 +214,11 @@ public class Configuration {
 	public static boolean enableWASDCamera = false;
 	
 	/**
+	 * Indicates whether tweening is enabled or not.
+	 */
+	public static boolean enableTweening = true;
+	
+	/**
 	 * Indicates whether zooming is enabled or not.
 	 */
 	public static boolean enableZooming = true;
