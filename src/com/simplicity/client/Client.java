@@ -6922,12 +6922,17 @@ public class Client extends RSApplet {
     private int MaxHealth = 300;
     private int CurrentHealth = 300;
 
-    public boolean drawHpBar() {
+    public boolean drawHpBar(int x, int y) {
         RSInterface iface = RSInterface.interfaceCache[41020];
-
+        
         if (!parallelWidgetList.contains(iface)) {
             return false;
         }
+        
+        RSInterface.interfaceCache[41021].yOffset = y;
+        RSInterface.interfaceCache[41022].yOffset = y;
+        RSInterface.interfaceCache[41025].yOffset = y;
+        iface.yOffset = y;
         
         int current = currentEntityHealth;
         
@@ -6937,12 +6942,11 @@ public class Client extends RSApplet {
         
         double percentage = (int) ((double) current / maximumEntityHealth * 119);
         
-        DrawingArea.drawPixels(16, iface.y + 30, iface.x + 2, 0x00b300, (int) percentage);
+        DrawingArea.drawPixels(16, iface.y + 30 + y, iface.x + 2 + x, 0x00b300, (int) percentage);
 
-        TextDrawingArea.drawAlphaFilledPixels(iface.x + 2, iface.y + 30, 119, 16, 0xff000d, 50);
+        TextDrawingArea.drawAlphaFilledPixels(iface.x + 2 + x, iface.y + y + 30, 119, 16, 0xff000d, 50);
 
-        RSInterface text = RSInterface.interfaceCache[41023];
-        newSmallFont.drawCenteredString(iface.message, 63, 52, 0xffffff, 1);
+        newSmallFont.drawCenteredString(iface.message, 63 + x, 52 + y, 0xffffff, 1);
         return true;
     }
 

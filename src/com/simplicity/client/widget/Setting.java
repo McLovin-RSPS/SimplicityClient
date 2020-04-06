@@ -204,6 +204,18 @@ public enum Setting {
 		}
 	},
 	
+	KDR() {
+		@Override
+		public void handle() {
+			Configuration.enableKDROverlay = !Configuration.enableKDROverlay;
+		}
+
+		@Override
+		public boolean enabled() {
+			return Configuration.enableKDROverlay;
+		}
+	},
+	
 	TOGGLES(true),
 	
 	SPECIAL_BUTTON() {

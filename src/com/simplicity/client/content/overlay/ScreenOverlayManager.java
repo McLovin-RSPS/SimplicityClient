@@ -6,6 +6,7 @@ import java.util.List;
 import com.simplicity.client.Client;
 import com.simplicity.client.content.overlay.impl.AmmunitionOverlay;
 import com.simplicity.client.content.overlay.impl.HitpointsOverlay;
+import com.simplicity.client.content.overlay.impl.KDROverlay;
 
 /**
  * A class that handles the processing of {@link ScreenOverlay}'s.
@@ -55,6 +56,7 @@ public class ScreenOverlayManager {
 	 * Initializes the overlays.
 	 */
 	public static void init() {
+		OVERLAYS.add(new KDROverlay());
 		OVERLAYS.add(new HitpointsOverlay());
 		OVERLAYS.add(new AmmunitionOverlay());
 	}

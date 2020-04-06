@@ -6121,7 +6121,7 @@ public class RSInterface {
         //addTransparentSpriteWSpriteLoader(41021, 947, 0);
         addText(41022, " ", wid, 1, 0xffffff, true, true);
         
-        addRectangle(41025, 200, 0, true, 122 - 3, height - 5);
+        addRectangle(41025, 200, 0, true, 122 - 3, height - 20);
         
         tab.message = " ";
         tab.x = 2;

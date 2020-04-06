@@ -39,7 +39,7 @@ public class AmmunitionOverlay extends ScreenOverlay {
 		}
 
 		DrawingArea.drawBox(x + 1, y + 1, getWidth(), getHeight(), 2, 0x383023, 0x5a5245, 250);
-		DrawingArea.fillRectangle(0, y + 2, getWidth() - 2, getHeight() - 2, 100, x + 2);
+		DrawingArea.fillRectangle(0, y + 2, getWidth() - 1, getHeight() - 3, 100, x + 2);
 
 		sprite.drawSprite(x + 3, y + 2);
 

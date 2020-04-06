@@ -229,9 +229,14 @@ public class Configuration {
 	public static boolean enableBountyTarget = true;
 	
 	/**
-	 * Indicates whether to enable the ammunition overlay or not.
+	 * Indicates whether ammunition overlay is enabled or not.
 	 */
 	public static boolean enableAmmunitionOverlay = true;
+	
+	/**
+	 * Indicates whether kdr overlay is enabled or not.
+	 */
+	public static boolean enableKDROverlay = true;
 
 	public static boolean enableModerationMenu = true;
 	public static long lastModerationToggleTime; //todo draw text of change or something

@@ -13,12 +13,12 @@ import com.simplicity.client.content.overlay.ScreenOverlayGroup;
 public class HitpointsOverlay extends ScreenOverlay {
 
 	public HitpointsOverlay() {
-		super(0, 0, 200, 38);
+		super(0, 0, 200, 36);
 	}
 
 	@Override
 	public boolean draw(Client client, int x, int y) throws Exception {
-		return client.drawHpBar();
+		return client.drawHpBar(x, y);
 	}
 
 	@Override
