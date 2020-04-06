@@ -36,11 +36,17 @@ public class ScreenOverlayManager {
 
 			int x = overlay.getX() + positionX[group.ordinal()];
 			int y = overlay.getY() + positionY[group.ordinal()];
-
-			if (overlay.draw(Client.instance, x, y)) {
-				if (group == ScreenOverlayGroup.TOP_LEFT) {
-					positionY[group.ordinal()] += overlay.getHeight() + 2;
+			
+			try {
+				if (overlay.draw(Client.instance, x, y)) {
+					if (group == ScreenOverlayGroup.TOP_LEFT) {
+						positionY[group.ordinal()] += overlay.getHeight() + 2;
+					}
 				}
+			} catch (Exception e) {
+				System.out.println("Error drawing overlay: " + overlay.getClass().getSimpleName());
+				
+				e.printStackTrace();
 			}
 		}
 	}
