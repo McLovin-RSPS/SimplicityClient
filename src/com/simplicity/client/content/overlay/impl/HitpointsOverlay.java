@@ -17,7 +17,7 @@ public class HitpointsOverlay extends ScreenOverlay {
 	}
 
 	@Override
-	public boolean draw(Client client, int x, int y) {
+	public boolean draw(Client client, int x, int y) throws Exception {
 		return client.drawHpBar();
 	}
 

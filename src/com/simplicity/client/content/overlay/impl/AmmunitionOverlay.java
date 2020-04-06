@@ -25,7 +25,7 @@ public class AmmunitionOverlay extends ScreenOverlay {
 	}
 
 	@Override
-	public boolean draw(Client client, int x, int y) {
+	public boolean draw(Client client, int x, int y) throws Exception {
 		Item ammo = client.getEquipment(13);
 
 		if (ammo == null) {

@@ -88,8 +88,9 @@ public abstract class ScreenOverlay {
 	 * @param x      The x-coordinate.
 	 * @param y      The y-coordinate.
 	 * @return <code>true</code> if the overlay was drawn.
+	 * @throws Exception
 	 */
-	public abstract boolean draw(Client client, int x, int y);
+	public abstract boolean draw(Client client, int x, int y) throws Exception;
 
 	/**
 	 * Gets the overlay's group.
