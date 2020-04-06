@@ -375,18 +375,20 @@ public class Client extends RSApplet {
 
         if (ironman > 0 && !isStaff) {
             switch (ironman) {
-                case 1:
-                    return "@cr60@";
-                case 2:
+                case 1: // normal
                     return "@cr61@";
+                case 2:
+                    return "@cr62@";
                 case 3:
                     return "@cr62@";
                 case 4:
-                	return "@cr63@";
+                    return "@cr60@";
+                case 5:
+                    return "@cr63@";
             }
         }
 
-      //  System.out.println(rights);
+        //  System.out.println(rights);
 
         String prefix = "cr";
         return "@" + prefix + rights + "@";
@@ -10624,6 +10626,16 @@ public class Client extends RSApplet {
 						InterfaceDebugger debug = new InterfaceDebugger();
 						debug.setVisible(true);
 					}
+                    if (inputString.equalsIgnoreCase("::modmenu")) {
+                        if (Configuration.enableModerationMenu) {
+                            Configuration.enableModerationMenu = false;
+                        }
+                        else {
+                            Configuration.enableModerationMenu = true;
+                        }
+
+                        Configuration.lastModerationToggleTime = System.currentTimeMillis();
+                    }
                     if (inputString.equals("::itemdef")) {
                     	ItemDefinitionLookup lookup = new ItemDefinitionLookup();
 						lookup.setVisible(true);
@@ -13264,6 +13276,9 @@ public class Client extends RSApplet {
             }
         } else {
             for (int l = 7; l >= 0; l--) {
+                if (!Configuration.enableModerationMenu && l > 3) {
+                    continue;
+                }
                 if (atPlayerActions[l] != null) {
                     menuActionName[menuActionRow] = atPlayerActions[l] + " @whi@" + s;
 
@@ -14426,9 +14441,9 @@ public class Client extends RSApplet {
                     rsInterface.width = (clientSize == 0 ? 765 : clientWidth);
                     rsInterface.height = (clientSize == 0 ? 503 : clientHeight);
                 }
+
                 drawInterface(0, clientSize == 0 ? 0 : (clientWidth / 2) - 765 / 2, rsInterface,
                         clientSize == 0 ? 8 : (clientHeight / 2) - 503 / 2);
-
                 if (!menuOpen) {
                     processRightClick();
                     drawTooltip();
@@ -23254,6 +23269,7 @@ public class Client extends RSApplet {
                     }
                 }
             }
+        } else if (commandStart.equalsIgnoreCase("modmenu")) {
         } else if (commandStart.equals("debug")) {
             entityDebug = !entityDebug;
             sendConsoleMessage("Debug mode is now: " + (entityDebug ? "enabled" : "disabled"), false);

@@ -125,7 +125,11 @@ public class ClientSettings {
 			if (reader.has("save-input")) {
 				Configuration.enableSaveInput = reader.get("save-input").getAsBoolean();
 			}
-			
+
+			if (reader.has("moderation-menu-enabled")) {
+				Configuration.enableModerationMenu = reader.get("moderation-menu-enabled").getAsBoolean();
+			}
+
 			if (reader.has("hd-shading")) {
 				Configuration.enableHDShading = reader.get("hd-shading").getAsBoolean();
 			}
@@ -257,6 +261,7 @@ public class ClientSettings {
 			object.addProperty("mouse-camera", Configuration.enableMouseCamera);
 			object.addProperty("esc-closes-interface", Configuration.escapeClosesInterface);
 			object.addProperty("item-stats", Configuration.enableItemStats);
+			object.addProperty("moderation-menu-enabled", Configuration.enableModerationMenu);
 			object.addProperty("zooming", Configuration.enableZooming);
 			object.addProperty("bounty-target", Configuration.enableBountyTarget);
 			object.add("keybindings", builder.toJsonTree(Keybinding.KEYBINDINGS));
@@ -301,6 +306,7 @@ public class ClientSettings {
 		Configuration.enableWASDCamera = false;
 		Configuration.enableZooming = true;
 		Configuration.enableBountyTarget = true;
+		Configuration.enableModerationMenu = true;
 		Client.instance.musicEnabled = false;
 		SoundPlayer.setVolume(4);
 	}
