@@ -16,7 +16,9 @@ import com.simplicity.util.StringUtils;
  *
  */
 public enum Setting {
-
+	
+	GRAPHICS(true),
+	
 	PARTICLES() {
 
 		@Override
@@ -84,7 +86,114 @@ public enum Setting {
 			return enableHDTextures;
 		}
 	},
+	
+	MIP_MAPPING() {
+		@Override
+		public void handle() {
+			enableMipmapping = !enableMipmapping;
+			Rasterizer.enableMipmapping = enableMipmapping;
+		}
 
+		@Override
+		public boolean enabled() {
+			return enableMipmapping;
+		}
+	},
+	
+	ANTI_ALIASING() {
+
+		@Override
+		public void handle() {
+			enableAntiAliasing = !enableAntiAliasing;
+		}
+
+		@Override
+		public boolean enabled() {
+			return enableAntiAliasing;
+		}
+	},
+	
+	OVERLAYS(true),
+	
+	TOOLTIP_HOVERS() {
+
+		@Override
+		public void handle() {
+			enableTooltipHover = !enableTooltipHover;
+		}
+
+		@Override
+		public boolean enabled() {
+			return enableTooltipHover;
+		}
+	},
+
+	SKILL_STATUS_BARS() {
+
+		@Override
+		public void handle() {
+			enableSkillStatusBars = !enableSkillStatusBars;
+		}
+
+		@Override
+		public boolean enabled() {
+			return enableSkillStatusBars;
+		}
+	},
+
+	XP_ORBS() {
+
+		@Override
+		public void handle() {
+			enableXpOrbs = !enableXpOrbs;
+		}
+
+		@Override
+		public boolean enabled() {
+			return enableXpOrbs;
+		}
+	},
+
+	ITEM_STATS_ON_HOVER() {
+		@Override
+		public void handle() {
+			Configuration.enableItemStats = !Configuration.enableItemStats;
+		}
+
+		@Override
+		public boolean enabled() {
+			return Configuration.enableItemStats;
+		}
+	},
+
+	TILE_MARKERS() {
+		@Override
+		public void handle() {
+			Configuration.enableTileMarkers = !Configuration.enableTileMarkers;
+		}
+
+		@Override
+		public boolean enabled() {
+			return Configuration.enableTileMarkers;
+		}
+	},
+	
+	EFFECT_TIMERS() {
+
+		@Override
+		public void handle() {
+			enableTimers = !enableTimers;
+			Client.timersEnabled = enableTimers;
+		}
+
+		@Override
+		public boolean enabled() {
+			return enableTimers;
+		}
+	},
+	
+	TOGGLES(true),
+	
 	SPECIAL_BUTTON() {
 
 		@Override
@@ -109,21 +218,7 @@ public enum Setting {
 			return enableSpecialButton;
 		}
 	},
-
-	EFFECT_TIMERS() {
-
-		@Override
-		public void handle() {
-			enableTimers = !enableTimers;
-			Client.timersEnabled = enableTimers;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableTimers;
-		}
-	},
-
+	
 	OLD_HITMARKERS() {
 
 		@Override
@@ -160,19 +255,6 @@ public enum Setting {
 		}
 	},
 	
-	TOOLTIP_HOVERS() {
-
-		@Override
-		public void handle() {
-			enableTooltipHover = !enableTooltipHover;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableTooltipHover;
-		}
-	},
-
 	CONSTITUTION() {
 
 		@Override
@@ -226,19 +308,6 @@ public enum Setting {
 		}
 	},
 
-	ANTI_ALIASING() {
-
-		@Override
-		public void handle() {
-			enableAntiAliasing = !enableAntiAliasing;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableAntiAliasing;
-		}
-	},
-
 	SAVE_INPUT() {
 
 		@Override
@@ -249,69 +318,6 @@ public enum Setting {
 		@Override
 		public boolean enabled() {
 			return enableSaveInput;
-		}
-	},
-
-	SKILL_STATUS_BARS() {
-
-		@Override
-		public void handle() {
-			enableSkillStatusBars = !enableSkillStatusBars;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableSkillStatusBars;
-		}
-	},
-
-	XP_ORBS() {
-
-		@Override
-		public void handle() {
-			enableXpOrbs = !enableXpOrbs;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableXpOrbs;
-		}
-	},
-
-	MIP_MAPPING() {
-		@Override
-		public void handle() {
-			enableMipmapping = !enableMipmapping;
-			Rasterizer.enableMipmapping = enableMipmapping;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableMipmapping;
-		}
-	},
-
-	ITEM_STATS_ON_HOVER() {
-		@Override
-		public void handle() {
-			Configuration.enableItemStats = !Configuration.enableItemStats;
-		}
-
-		@Override
-		public boolean enabled() {
-			return Configuration.enableItemStats;
-		}
-	},
-
-	TILE_MARKERS() {
-		@Override
-		public void handle() {
-			Configuration.enableTileMarkers = !Configuration.enableTileMarkers;
-		}
-
-		@Override
-		public boolean enabled() {
-			return Configuration.enableTileMarkers;
 		}
 	},
 	
@@ -340,18 +346,43 @@ public enum Setting {
 			return Configuration.enableBountyTarget;
 		}
 	};
-
+	
+	Setting() {
+		
+	}
+	
+	Setting(boolean category) {
+		this.category = category;
+	}
+	
+	/**
+	 * A flag which indicates if this setting is a category.
+	 */
+	private boolean category;
+	
+	/**
+	 * Checks if the setting is a category.
+	 * @return <code>true</code> if category.
+	 */
+	public boolean isCategory() {
+		return category;
+	}
+	
 	/**
 	 * Handles the setting.
 	 */
-	public abstract void handle();
+	public void handle() {
+		
+	}
 
 	/**
 	 * Checks if the toggle is enabled.
 	 * 
 	 * @return <code>true</code> if enabled.
 	 */
-	public abstract boolean enabled();
+	public boolean enabled() {
+		return false;
+	}
 
 	/**
 	 * Gets the name of this setting.
@@ -360,6 +391,16 @@ public enum Setting {
 	 */
 	public String getName() {
 		return StringUtils.capitalizeWords(name().toLowerCase().replaceAll("_", " "));
+	}
+	
+	public static int size() {
+		int size = 0;
+		
+		for (Setting s : values()) {
+			size += s.isCategory() ? 1 : 4;
+		}
+		
+		return size;
 	}
 
 }

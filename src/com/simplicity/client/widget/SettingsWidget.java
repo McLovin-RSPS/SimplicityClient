@@ -1,5 +1,6 @@
 package com.simplicity.client.widget;
 
+import java.awt.Color;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -265,6 +266,7 @@ public class SettingsWidget extends RSInterface {
 		
 		for (Setting setting : Setting.values()) {
 			TOGGLES.put(button, setting);
+			
 			button += 4;
 		}
 	}
@@ -290,7 +292,7 @@ public class SettingsWidget extends RSInterface {
 		tab.child(child++, id, 58, 42);
 		id++;
 		
-		boolean scrollbar = TOGGLES.size() > 21;
+		boolean scrollbar = Setting.size() > 21;
 
 		addHoverText(id, "Restore defaults", "Restore defaults", tda, 1, 0xebe0bc, true, true, 100, 16);
 		tab.child(child++, id, 205, scrollbar ? 64 : 62);
@@ -306,10 +308,9 @@ public class SettingsWidget extends RSInterface {
 		/** Scroll start **/
 		child = 0;
 		tab = addInterface(id++);
-		
-		tab.totalChildren(TOGGLES.size() * 4);
+		tab.totalChildren(Setting.size());
 		tab.height = 228;
-		tab.scrollMax = scrollbar ? 310 : tab.height;
+		tab.scrollMax = scrollbar ? 400 : tab.height;
 		tab.width = 477;
 		
 		int x = 22;
@@ -320,7 +321,24 @@ public class SettingsWidget extends RSInterface {
 		int height = 29;
 		
 		int col = 0;
-		for (Setting s : TOGGLES.values()) {
+		for (Setting s : Setting.values()) {
+			if (s.isCategory()) {
+				x = 22;
+				
+				addText(id, s.getName(), tda, 1, Color.YELLOW.getRGB(), true);
+				
+				if (s.ordinal() != 0) { // Skip first category shifting
+					y += col != 0 ? 32 : 4;
+				}
+				
+				tab.child(child++, id, x + 220, y);
+				
+				y += 32;
+				id += 4;
+				col = 0;
+				continue;
+			}
+			
 			addRectangle(id, 0, 0x80786d, false, width + 3, height + 4);
 			addRectangle(id + 1, 255, 0x383530, true, width, height);
 			addText(id + 2, s.getName(), tda, 0, 0xebe0bc);
@@ -432,7 +450,13 @@ public class SettingsWidget extends RSInterface {
 			
 			Setting setting = toggle.getValue();
 			
-			interfaceCache[button].active = setting.enabled();
+			if (!setting.isCategory()) {
+				try {
+					interfaceCache[button].active = setting.enabled();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	
