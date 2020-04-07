@@ -229,6 +229,11 @@ public class Configuration {
 	public static boolean enableBountyTarget = true;
 	
 	/**
+	 * Indicates whether moderation menu is enabled or not.
+	 */
+	public static boolean enableModerationMenu = true;
+	
+	/**
 	 * Indicates whether ammunition overlay is enabled or not.
 	 */
 	public static boolean enableAmmunitionOverlay = true;
@@ -237,7 +242,11 @@ public class Configuration {
 	 * Indicates whether kdr overlay is enabled or not.
 	 */
 	public static boolean enableKDROverlay = true;
+	
+	/**
+	 * Indicates whether rune pouch overlay is enabled or not.
+	 */
+	public static boolean enableRunePouchOverlay = false;
 
-	public static boolean enableModerationMenu = true;
 	public static long lastModerationToggleTime; //todo draw text of change or something
 }

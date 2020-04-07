@@ -194,6 +194,10 @@ public class ClientSettings {
 				Configuration.enableKDROverlay = reader.get("kdr-overlay").getAsBoolean();
 			}
 			
+			if (reader.has("runepouch-overlay")) {
+				Configuration.enableRunePouchOverlay = reader.get("runepouch-overlay").getAsBoolean();
+			}
+			
 			if (reader.has("keybindings")) {
 				Keybinding.KEYBINDINGS = builder.fromJson(reader.get("keybindings"), int[].class);
 			}
@@ -274,6 +278,7 @@ public class ClientSettings {
 			object.addProperty("bounty-target", Configuration.enableBountyTarget);
 			object.addProperty("ammunition-overlay", Configuration.enableAmmunitionOverlay);
 			object.addProperty("kdr-overlay", Configuration.enableKDROverlay);
+			object.addProperty("runepouch-overlay", Configuration.enableRunePouchOverlay);
 			object.add("keybindings", builder.toJsonTree(Keybinding.KEYBINDINGS));
 			object.add("quick-prayers", builder.toJsonTree(Client.instance.getQuickPrayers()));
 			object.add("quick-curses", builder.toJsonTree(Client.instance.getQuickCurses()));
@@ -319,6 +324,7 @@ public class ClientSettings {
 		Configuration.enableModerationMenu = true;
 		Configuration.enableAmmunitionOverlay = true;
 		Configuration.enableKDROverlay = false;
+		Configuration.enableRunePouchOverlay = false;
 		Client.instance.musicEnabled = false;
 		SoundPlayer.setVolume(4);
 	}

@@ -14899,6 +14899,28 @@ public class Client extends RSApplet {
                                             	int opacity = child.id == 70228 && itemAmount == 0 ? 100 : 255;
                                             	
                                                 sprite_2.drawSprite1(itemSpriteX, itemSpriteY, opacity);
+                                                
+                                                if (Configuration.enableRunePouchOverlay && rsInterface.id == 3213 && j9 == 42791) {
+                                                	RSInterface runePouchRunes = RSInterface.interfaceCache[49010];
+
+                                        			if (runePouchRunes != null && runePouchRunes.inv != null && runePouchRunes.invStackSizes != null) {
+                                        				for (int j3 = 0; j3 < runePouchRunes.inv.length; j3++) {
+                                        					int id = runePouchRunes.inv[j3];
+
+                                        					int amount = runePouchRunes.invStackSizes[j3];
+                                        					
+                                        					if (id > 0) {
+                                        						Sprite rune = ItemDefinition.getSprite(id - 1, amount, -1, 55);
+                                        						
+                                        						if (rune != null) {
+                                        							rune.drawSprite(itemSpriteX - 13, itemSpriteY - 10 + (j3 * 10));
+                                        						}
+                                        					}
+                                        					
+                                        					newSmallFont.drawBasicString(MiscUtils.formatCoins(amount), itemSpriteX + 10, itemSpriteY + 11 + (j3 * 10), 0xffff00, 0);
+                                        				}
+                                        			}
+                                                }
                                             }
                                             if (sprite_2.maxWidth == 33 || itemAmount != 1 || rsInterface.id == 33213) {
                                                 boolean bankTab = child.id >= 22035 && child.id <= 22042;

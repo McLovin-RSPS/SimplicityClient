@@ -216,6 +216,18 @@ public enum Setting {
 		}
 	},
 	
+	RUNE_POUCH() {
+		@Override
+		public void handle() {
+			Configuration.enableRunePouchOverlay = !Configuration.enableRunePouchOverlay;
+		}
+
+		@Override
+		public boolean enabled() {
+			return Configuration.enableRunePouchOverlay;
+		}
+	},
+	
 	TOGGLES(true),
 	
 	SPECIAL_BUTTON() {
