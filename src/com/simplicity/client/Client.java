@@ -578,6 +578,7 @@ public class Client extends RSApplet {
     private String inputTitle = null;
 
     public void drawChatArea() {
+    	boolean transparentChat = false;
         int offsetX = 0;
         int offsetY = clientSize != 0 ? clientHeight - 165 : 0;
         if (clientSize == 0) {
@@ -700,7 +701,7 @@ public class Client extends RSApplet {
 
                                 if (message != null && message.length > 1 && message[0] != null) {
                                     newRegularFont.drawBasicString(message[0], xPos + offsetX, yPos - 14 + offsetY,
-                                            clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
+                                            !transparentChat ? 0 : 0xffffff, !transparentChat ? -1 : 0);
                                     xPos -= 3;
 
                                     String colorCode = "";
@@ -729,12 +730,12 @@ public class Client extends RSApplet {
                                     }
 
                                     newRegularFont.drawBasicString(colorCode + message[1], xPos + offsetX, yPos + offsetY,
-                                            clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
+                                    		!transparentChat ? 0 : 0xffffff, !transparentChat ? -1 : 0);
                                     messageY++;
                                 } else {
                                     newRegularFont.drawBasicString(chatMessages[index], xPos + offsetX,
-                                            positionY + offsetY, clientSize == 0 ? 0 : 0xffffff,
-                                            clientSize == 0 ? -1 : 0);
+                                            positionY + offsetY, !transparentChat ? 0 : 0xffffff,
+                                            !transparentChat ? -1 : 0);
                                 }
 
                             }
@@ -778,18 +779,19 @@ public class Client extends RSApplet {
                                     }
 
                                 }
+                                
                                 if (title != null && title.length() > 0 && !title.equalsIgnoreCase("null")) {
                                     newRegularFont.drawBasicString(title, xPos - 1, positionY + offsetY,
-                                            clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
+                                    		!transparentChat ? 0 : 0xffffff, !transparentChat ? -1 : 0);
                                     xPos += newRegularFont.getTextWidth(title) + 1;
                                 }
 
                                 newRegularFont.drawBasicString(name + ":", xPos + offsetX, positionY + offsetY,
-                                        clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
+                                		!transparentChat ? 0 : 0xffffff, !transparentChat ? -1 : 0);
                                 xPos += newRegularFont.getTextWidth(name) + 7;
                                 newRegularFont.drawBasicString2(chatMessages[index], xPos + offsetX,
-                                        positionY + offsetY, clientSize == 0 ? 255 : 0x7FA9FF,
-                                        clientSize == 0 ? -1 : 0);
+                                        positionY + offsetY, !transparentChat ? 255 : 0x7FA9FF,
+                                		!transparentChat ? -1 : 0);
                             }
                             scrollPosition++;
                             messageY++;
@@ -802,7 +804,7 @@ public class Client extends RSApplet {
                             if (positionY > 0 && positionY < 210) {
                                 int xPos = 11;
                                 newRegularFont.drawBasicString("From", xPos + offsetX, positionY + offsetY,
-                                        clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
+                                		!transparentChat ? 0 : 0xffffff, !transparentChat ? -1 : 0);
                                 xPos += newRegularFont.getTextWidth("From ");
                                 if (playerRights > 0 || ironman2 > 0) {
 
@@ -835,10 +837,10 @@ public class Client extends RSApplet {
                                     }
                                 }
                                 newRegularFont.drawBasicString(name + ":", xPos + offsetX, positionY + offsetY,
-                                        clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
+                                		!transparentChat ? 0 : 0xffffff, !transparentChat ? -1 : 0);
                                 xPos += newRegularFont.getTextWidth(name) + 8;
                                 newRegularFont.drawBasicString(chatMessages[index], xPos + offsetX, positionY + offsetY,
-                                        clientSize == 0 ? 0x800000 : 0xFF5256, clientSize == 0 ? -1 : 0);
+                                		!transparentChat ? 0x800000 : 0xFF5256, !transparentChat ? -1 : 0);
                             }
                             scrollPosition++;
                             messageY++;
@@ -848,8 +850,8 @@ public class Client extends RSApplet {
                         if (chatTypeView == 3 || chatTypeView == 0) {
                             if (positionY > 0 && positionY < 210) {
                                 newRegularFont.drawBasicString(name + " " + chatMessages[index], 11 + offsetX,
-                                        positionY + offsetY, clientSize == 0 ? 0x800080 : 0xFF00D4,
-                                        clientSize == 0 ? -1 : 0);
+                                        positionY + offsetY, !transparentChat ? 0x800080 : 0xFF00D4,
+                                		!transparentChat ? -1 : 0);
                             }
                             scrollPosition++;
                             messageY++;
@@ -859,7 +861,7 @@ public class Client extends RSApplet {
                         if (chatTypeView == 2 || chatTypeView == 0) {
                             if (positionY > 0 && positionY < 210) {
                                 newRegularFont.drawBasicString(chatMessages[index], 11 + offsetX, positionY + offsetY,
-                                        clientSize == 0 ? 0x800000 : 0xFF5256, clientSize == 0 ? -1 : 0);
+                                		!transparentChat ? 0x800000 : 0xFF5256, !transparentChat ? -1 : 0);
                             }
                             scrollPosition++;
                             messageY++;
@@ -869,11 +871,11 @@ public class Client extends RSApplet {
                         if (chatTypeView == 2 || chatTypeView == 0) {
                             if (positionY > 0 && positionY < 210) {
                                 newRegularFont.drawBasicString("To " + name + ":", 11 + offsetX, positionY + offsetY,
-                                        clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
+                                		!transparentChat ? 0 : 0xffffff, !transparentChat ? -1 : 0);
                                 newRegularFont.drawBasicString(chatMessages[index],
                                         15 + newRegularFont.getTextWidth("To :" + name) + offsetX + offsetX,
-                                        positionY + offsetY, clientSize == 0 ? 0x800000 : 0xFF5256,
-                                        clientSize == 0 ? -1 : 0);
+                                        positionY + offsetY, !transparentChat ? 0x800000 : 0xFF5256,
+                                		!transparentChat ? -1 : 0);
                             }
                             scrollPosition++;
                             messageY++;
@@ -894,10 +896,10 @@ public class Client extends RSApplet {
                         if (chatTypeView == 11 || chatTypeView == 0) {
                             if (positionY > 0 && positionY < 210) {
                                 int positionX = 11;
-                                String message = (clientSize == 0 ? "<col=800000>" : "<col=FF5256>")
+                                String message = (!transparentChat ? "<col=800000>" : "<col=FF5256>")
                                         + chatMessages[index] + "</col>";
                                 newRegularFont.drawBasicString("" + message, positionX, positionY + offsetY,
-                                        clientSize == 0 ? 0 : 0xffffff, clientSize == 0 ? -1 : 0);
+                                		!transparentChat ? 0 : 0xffffff, !transparentChat ? -1 : 0);
                             }
                             scrollPosition++;
                             messageY++;
@@ -952,16 +954,16 @@ public class Client extends RSApplet {
 
             if (myPlayer.playerTitle != null && myPlayer.playerTitle.length() > 0
                     && !myPlayer.playerTitle.equalsIgnoreCase("null")) {
-                textDrawingArea.drawRegularText(clientSize == 0 ? false : true, 10 + offsetX,
-                        clientSize == 0 ? 0 : 0xffffff, myPlayer.playerTitle, 133 + offsetY);
+                textDrawingArea.drawRegularText(!transparentChat ? false : true, 10 + offsetX,
+                		!transparentChat ? 0 : 0xffffff, myPlayer.playerTitle, 133 + offsetY);
                 offsetX += textDrawingArea.getTextWidth(myPlayer.playerTitle) + 1;
             }
 
-            textDrawingArea.drawRegularText(clientSize == 0 ? false : true, 11 + offsetX,
-                    clientSize == 0 ? 0 : 0xffffff, name, 133 + offsetY);
+            textDrawingArea.drawRegularText(!transparentChat ? false : true, 11 + offsetX,
+            		!transparentChat ? 0 : 0xffffff, name, 133 + offsetY);
             cacheSprite[14].drawSprite(textDrawingArea.getTextWidth(name) + 11 + offsetX, 123 + offsetY);
-            textDrawingArea.drawRegularText(clientSize == 0 ? false : true,
-                    textDrawingArea.getTextWidth(name) + 24 + offsetX, clientSize == 0 ? 0 : 0xffffff, ": ",
+            textDrawingArea.drawRegularText(!transparentChat ? false : true,
+                    textDrawingArea.getTextWidth(name) + 24 + offsetX, !transparentChat ? 0 : 0xffffff, ": ",
                     133 + offsetY);
             // newRegularFont.drawRAString(inputString + "*", 24 +
             // newRegularFont.getTextWidth(s + ": ") + xPosOffset, 133 +
@@ -969,10 +971,10 @@ public class Client extends RSApplet {
             // ? -1 : 0);
 
             newRegularFont.drawBasicString2((chatboxInFocus ? (inputString + "*") : "[Click here to chat]"), 24 + newRegularFont.getTextWidth(name + ": ") + offsetX,
-                    133 + offsetY, clientSize == 0 ? 255 : 0x7FA9FF, clientSize == 0 ? -1 : 0);
+                    133 + offsetY, !transparentChat ? 255 : 0x7FA9FF, !transparentChat ? -1 : 0);
 
-            if (clientSize == 0) {
-                DrawingArea.drawHorizontalLine(121 + offsetY, clientSize == 0 ? 0x807660 : 0xffffff, 505, 7);
+            if (!transparentChat) {
+                DrawingArea.drawHorizontalLine(121 + offsetY, !transparentChat ? 0x807660 : 0xffffff, 505, 7);
             }
         } else if (quickChat) {
             cacheSprite[64].drawSprite(0 + offsetX, 0 + offsetY);
