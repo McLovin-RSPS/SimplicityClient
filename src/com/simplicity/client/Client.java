@@ -4505,7 +4505,7 @@ public class Client extends RSApplet {
                         }
                     }
                     
-                    if (child.type == 20) {
+                    if (child.type == 20 || child.type == 39) {
 						child.toggled = true;
 					}
                 }
@@ -15824,6 +15824,33 @@ public class Client extends RSApplet {
                     	if (clicked) {
                     		cacheSprite[1362].drawSprite(childX + 36, childY + 19);
                     	}
+                    } else if (child.type == 39) {
+                    	// Draw sprite
+    					boolean flag = false;
+
+    					if (child.toggled) {
+    						child.disabledSprite.drawARGBSprite(childX, childY, child.spriteOpacity);
+    						flag = true;
+    						child.toggled = false;
+    					} else {
+    						child.enabledSprite.drawARGBSprite(childX, childY, child.spriteOpacity);
+    					}
+
+    					// Draw text
+    					if (child.message == null) {
+    						continue;
+    					}
+    					
+    					if (child.centerText) {
+    						child.rsFont.drawCenteredString(child.message, childX + child.msgX,
+    								childY + child.msgY,
+    								flag ? child.disabledMouseOverColor : child.disabledColor, 0);
+    					} else {
+    						if (child.rsFont != null)
+    							child.rsFont.drawBasicString(child.message, childX + 5,
+    									childY + child.msgY,
+    									flag ? child.disabledMouseOverColor : child.disabledColor, 0);
+						}
                     }
                 }
                 if (openInterfaceID == 10000) {

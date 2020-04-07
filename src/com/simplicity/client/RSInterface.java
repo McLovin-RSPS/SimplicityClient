@@ -15907,6 +15907,19 @@ public class RSInterface {
 		tab.spriteOpacity = 255;
 	}
 	
+	public static void hoverButton(int id, String tooltip, String[] actions, int enabledSprite, int disabledSprite) {
+		RSInterface tab = addInterface(id);
+		tab.tooltip = tooltip;
+		tab.actions = actions;
+		tab.atActionType = 1;
+		tab.type = 39;
+		tab.enabledSprite = Client.cacheSprite[enabledSprite];
+		tab.disabledSprite = Client.cacheSprite[disabledSprite];
+		tab.width = tab.enabledSprite.myWidth;
+		tab.height = tab.disabledSprite.myHeight;
+		tab.spriteOpacity = 255;
+	}
+	
 	public static void handleConfigHover(RSInterface widget) {
 		if (widget.active) {
 			return;
