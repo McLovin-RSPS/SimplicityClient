@@ -7256,8 +7256,8 @@ public class Client extends RSApplet {
                     // int x = 0; int y = clientSize == 0 ? 40 : clientHeight -
                     // (211 * 2);
                     bankItemDragSprite = null;
-                    int x = clientSize == 0 ? 0 : (clientWidth / 2) - 256;
-                    int y = clientSize == 0 ? 40 : 40 + (clientHeight / 2) - 167;
+                    int x = clientSize == 0 ? 0 : (clientWidth / 2) - getInterfaceOffX();
+                    int y = clientSize == 0 ? 40 : 40 + (clientHeight / 2) - getInterfaceOffY();
                     if (anInt1084 == 5382 && super.mouseY >= y && super.mouseY <= y + 37) {// check
                         // if
                         // bank
@@ -11998,11 +11998,11 @@ public class Client extends RSApplet {
                 }
             } else if (clientSize >= 1) {
                 if (canClick()) {
-                    if (super.mouseX > (clientWidth / 2) - 256 && super.mouseY > (clientHeight / 2) - 167
-                            && super.mouseX < ((clientWidth / 2) + 256) && super.mouseY < (clientHeight / 2) + 167
+                    if (super.mouseX > (clientWidth / 2) - getInterfaceOffX() && super.mouseY > (clientHeight / 2) - getInterfaceOffY()
+                            && super.mouseX < ((clientWidth / 2) + getInterfaceOffX()) && super.mouseY < (clientHeight / 2) + getInterfaceOffY()
                             && openInterfaceID != -1) {
-                        buildInterfaceMenu((clientWidth / 2) - 256, RSInterface.interfaceCache[openInterfaceID],
-                                super.mouseX, (clientHeight / 2) - 167, super.mouseY, 0);
+                        buildInterfaceMenu((clientWidth / 2) - getInterfaceOffX(), RSInterface.interfaceCache[openInterfaceID],
+                                super.mouseX, (clientHeight / 2) - getInterfaceOffY(), super.mouseY, 0);
                     } else {
                         build3dScreenMenu();
                     }
@@ -16273,8 +16273,8 @@ public class Client extends RSApplet {
         }
         if (openInterfaceID != -1) {
             processInterfaceAnimation(cycleTimer, openInterfaceID);
-            drawInterface(0, clientSize == 0 ? 0 : (clientWidth / 2) - 256, RSInterface.interfaceCache[openInterfaceID],
-                    clientSize == 0 ? 0 : (clientHeight / 2) - 167);
+            drawInterface(0, clientSize == 0 ? 0 : (clientWidth / 2) - getInterfaceOffX(), RSInterface.interfaceCache[openInterfaceID],
+                    clientSize == 0 ? 0 : (clientHeight / 2) - getInterfaceOffY());
             if (openInterfaceID == 5292) {
                 if (bankItemDragSprite != null) {
                     bankItemDragSprite.drawSprite(bankItemDragSpriteX, bankItemDragSpriteY);
@@ -16415,6 +16415,14 @@ public class Client extends RSApplet {
 
         }
         
+    }
+    
+    public int getInterfaceOffX() {
+    	return 368;
+    }
+    
+    public int getInterfaceOffY() {
+    	return 248;
     }
 
     public int getRegionId() {
@@ -22151,8 +22159,8 @@ public class Client extends RSApplet {
         }
         int x = 0;
         int y = 0;
-        x = (clientSize == 0) ? 71 : (71 + (clientWidth / 2 - 256));
-        y = (clientSize == 0) ? 303 : (clientHeight / 2 + 136);
+        x = (clientSize == 0) ? 71 : (71 + (clientWidth / 2 - getInterfaceOffX()));
+        y = (clientSize == 0) ? 303 : (clientHeight / 2 + getInterfaceOffY());
         if (openInterfaceID == 54700) {
             SpriteCache.fetchIfNeeded(647);
             SpriteCache.fetchIfNeeded(648);
@@ -22196,8 +22204,8 @@ public class Client extends RSApplet {
                 }
             }
         }
-        x = (clientSize == 0) ? 71 : (71 + (clientWidth / 2 - 256));
-        y = (clientSize == 0) ? 303 : (clientHeight / 2 + 136);
+        x = (clientSize == 0) ? 71 : (71 + (clientWidth / 2 - getInterfaceOffX()));
+        y = (clientSize == 0) ? 303 : (clientHeight / 2 + getInterfaceOffY());
         if (openInterfaceID == 53700) {
             SpriteCache.fetchIfNeeded(647);
             SpriteCache.fetchIfNeeded(648);
