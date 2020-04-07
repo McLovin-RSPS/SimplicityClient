@@ -744,7 +744,7 @@ public class RSInterface {
         teleportsList.height = 236;
         teleportsList.scrollMax = totalTeleports * 40 + 5;
 
-        teleportsList.totalChildren(totalTeleports * 4);
+        teleportsList.totalChildren(totalTeleports * 4 - 30);
 
         teleportListId++;
 
@@ -752,13 +752,9 @@ public class RSInterface {
 
         int increaseY = 0;
         for (int i = 0; i < totalTeleports; i++) {
-            addHoverButtonWSpriteLoader(teleportListId, 1139, 145, 35, "Select", 0, teleportListId + 1, 5, "Favorite");
+        	hoverButton(teleportListId, "Select", new String[] { "Favorite" }, 1139, 1140);
             teleportsList.child(index++, teleportListId++, 7, 7 + increaseY); //teleport
-
-            addHoveredImageWSpriteLoader(teleportListId, 1140, 145, 35, teleportListId + 1);
-            teleportsList.child(index++, teleportListId++, 7, 7 + increaseY); //teleport hover
-
-            teleportListId++;
+            teleportListId+=2;
 
             RSInterface.addText(teleportListId, "Teleport Text", tda, 1, 0xc8aa64, true);
             teleportsList.child(index++, teleportListId++, 7 + (145 / 2), 16 + increaseY);
@@ -776,7 +772,7 @@ public class RSInterface {
         favoritesList.height = 236;
         favoritesList.scrollMax = totalTeleports * 80 + 5;
 
-        favoritesList.totalChildren(totalTeleports * 4);
+        favoritesList.totalChildren(totalTeleports * 4 - 30);
 
         favoritesListId++;
 
@@ -784,13 +780,9 @@ public class RSInterface {
 
         increaseY = 0;
         for (int i = 0; i < totalTeleports; i++) {
-            addHoverButtonWSpriteLoader(favoritesListId, 1139, 145, 35, "Select", 0, favoritesListId + 1, 5, "Remove");
-            favoritesList.child(index++, favoritesListId++, 7, 7 + increaseY); //teleport
-
-            addHoveredImageWSpriteLoader(favoritesListId, 1140, 145, 35, favoritesListId + 1);
-            favoritesList.child(index++, favoritesListId++, 7, 7 + increaseY); //teleport hover
-
-            favoritesListId++;
+        	hoverButton(favoritesListId, "Select", new String[] { "Remove" }, 1139, 1140);
+        	favoritesList.child(index++, favoritesListId++, 7, 7 + increaseY); //teleport
+        	favoritesListId+=2;
 
             RSInterface.addText(favoritesListId, "Teleport Text", tda, 1, 0xc8aa64, true);
             favoritesList.child(index++, favoritesListId++, 7 + (145 / 2), 16 + increaseY);
