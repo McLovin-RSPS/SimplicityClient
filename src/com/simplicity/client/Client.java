@@ -8495,7 +8495,7 @@ public class Client extends RSApplet {
 			}
         	 
             stream.createFrame(222);
-            stream.writeWord(interfaceId);
+            stream.writeDWord(interfaceId);
             stream.writeByte(currentActionMenu);
         }
         if (l == 315) {
