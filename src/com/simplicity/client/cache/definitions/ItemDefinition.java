@@ -534,6 +534,12 @@ public final class ItemDefinition {
         priorityModels.add(12778);
         priorityModels.add(12817);
         
+        //Slayer helmets
+        priorityModels.add(36006);
+        priorityModels.add(36007);
+        priorityModels.add(20860);
+        priorityModels.add(20862);
+        priorityModels.add(14395);
         
         //Assembler max cape
         priorityModels.add(34629);
@@ -2308,6 +2314,10 @@ public final class ItemDefinition {
                 itemDef.copy(forID(43652));
                 break;
                 
+            case 12282:
+                itemDef.copy(forID(42931));
+                break;
+                
             case 15486:
                 itemDef.copy(forID(52296));
                 break;
@@ -3138,19 +3148,6 @@ public final class ItemDefinition {
                 itemDef.actions[4] = "Drop";
                 itemDef.maleEquip1 = 9347;
                 itemDef.femaleEquip1 = 9347;
-                break;
-            case 12282:
-                itemDef.name = "Serpentine helm";
-                itemDef.modelID = 19220;
-                itemDef.modelZoom = 700;
-                itemDef.rotationX = 1724;
-                itemDef.rotationY = 215;
-                itemDef.modelOffsetX = 17;
-                itemDef.femaleEquip1 = 14398;
-                itemDef.maleEquip1 = 14395;
-                itemDef.groundActions = new String[]{null, null, "Take", null, null};
-                itemDef.actions[1] = "Wear";
-                itemDef.actions[4] = "Drop";
                 break;
             case 12279:
                 itemDef.name = "Magma helm";
