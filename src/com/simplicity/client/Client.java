@@ -11962,7 +11962,7 @@ public class Client extends RSApplet {
 
         for (RSInterface widget : parallelWidgetList) {
 
-            if (widget != null && widget.id == 41005) {
+            if (widget != null && (widget.id == 41005 || widget.id == 25347)) {
                 int positionX = widget.positionX;
                 int positionY = widget.positionY;
 
@@ -11976,9 +11976,18 @@ public class Client extends RSApplet {
                     width = child.width;
                     height = child.height;
                 }
+                
+                if (widget.id == 25347) {
+                	RSInterface child = RSInterface.interfaceCache[25356];
+                	positionX = clientWidth - 765 + child.positionX;
+                    positionY = child.positionY;
+                    width = child.width;
+                    height = child.height;
+                    DrawingArea.drawBox(positionX, positionY, width, height, 1, 0xff000, 200);
+                }
 
                 if (mouseInRegion(positionX, positionY, positionX + (width), positionY + (height))) {
-                    buildInterfaceMenu(4, widget, super.mouseX, 4, super.mouseY, 0);
+                    buildInterfaceMenu(4 + clientWidth - 765, widget, super.mouseX, 4, super.mouseY, 0);
                     found = true;
                     break;
                 }
@@ -11986,7 +11995,6 @@ public class Client extends RSApplet {
             }
 
         }
-
         if (!found) {
             if (clientSize == 0) {
 
@@ -16133,8 +16141,8 @@ public class Client extends RSApplet {
                         yPosition = clientSize == 0 ? 280 : 180;
                         break;
                     case 25347:
-                        yPosition += 185;
-                        xPosition = clientWidth - 770;
+                        //yPosition += 185;
+                        xPosition = clientWidth - 765;
                         break;
                     case 197:
                         yPosition = 10;

@@ -5934,24 +5934,40 @@ public class RSInterface {
      * Wilderness interface
      */
     private static void wildernessInterface() {
-        RSInterface tab = RSInterface.addTabInterface(25347);
-        tab.totalChildren(7);
-//        addTransparentSpriteWSpriteLoader(25348, 742, 150);
-        addText(25349, "Target:", fonts, 0, 0xCCCBCB, true, true);
-        addText(25350, "None", fonts, 0, 0xCCCBCB, true, true);
-        addText(25351, "Wilderness Level:", fonts, 0, 0xCCCBCB, false, true);
-        addText(25352, "18", fonts, 0, 0xCCCBCB, true, true);
-        addText(25353, "Target Percentage:", fonts, 0, 0xCCCBCB, false, true);
-        addText(25354, "99%", fonts, 0, 0xCCCBCB, true, true);
-        addText(25355, "Levels: 114 - 126", fonts, 1, 0xff9040, false, true);
-//        tab.child(0, 25348, 334, 2);
-        tab.child(0, 25349, 356, 10);
-        tab.child(1, 25350, 445, 10);
-        tab.child(2, 25351, 340, 28);
-        tab.child(3, 25352, 492, 28);
-        tab.child(4, 25353, 340, 46);
-        tab.child(5, 25354, 492, 46);
-        tab.child(6, 25355, 411, 315);
+    	int id = 25347;
+        RSInterface tab = addInterface(id++);
+        tab.totalChildren(9);
+        
+        int child = 0;
+        
+        drawBox(id, 175, 65, 2, 0x69605b, 0x383023, 50);
+        tab.child(child++, id++, 334, 2);
+        
+        addText(id, "Target:", fonts, 0, 0xCCCBCB, true, true);
+        tab.child(child++, id++, 356, 10);
+        
+        addText(id, "None", fonts, 0, 0xCCCBCB, true, true);
+        tab.child(child++, id++, 445, 10);
+        
+        addText(id, "Wilderness Level:", fonts, 0, 0xCCCBCB, false, true);
+        tab.child(child++, id++, 340, 28);
+        
+        addText(id, "18", fonts, 0, 0xCCCBCB, true, true);
+        tab.child(child++, id++, 492, 28);
+        
+        addText(id, "Target Percentage:", fonts, 0, 0xCCCBCB, false, true);
+        tab.child(child++, id++, 340, 46);
+        
+        addText(id, "99%", fonts, 0, 0xCCCBCB, true, true);
+        tab.child(child++, id++, 492, 46);
+        
+        addText(id, "Levels: 114 - 126", fonts, 1, 0xff9040, false, true);
+        tab.child(child++, id++, 411, 315);
+        
+        hoverButton(id, "Skip target", new String[] {  }, 1365, 1366);
+        interfaceCache[id].positionX = 445 + 39;
+        interfaceCache[id].positionY = 10;
+        tab.child(child++, id++, 445 + 39, 10);
     }
 
     /*
