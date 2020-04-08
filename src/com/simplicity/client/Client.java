@@ -1675,13 +1675,13 @@ public class Client extends RSApplet {
     public int getOrbX(int orb) {
         switch (orb) {
             case 0:
-                return clientSize != 0 ? clientWidth - 212 : Configuration.enableSpecialButton ? 167 : 172;
+                return clientSize != 0 ? clientWidth - 212 : Configuration.enableSpecialOrb ? 167 : 172;
             case 1:
-                return clientSize != 0 ? clientWidth - 215 : Configuration.enableSpecialButton ? 179 : 188;
+                return clientSize != 0 ? clientWidth - 215 : Configuration.enableSpecialOrb ? 179 : 188;
             case 2:
-                return clientSize != 0 ? clientWidth - 206 : Configuration.enableSpecialButton ? 181 : 188;
+                return clientSize != 0 ? clientWidth - 206 : Configuration.enableSpecialOrb ? 181 : 188;
             case 3:
-                return clientSize != 0 ? clientWidth - 188 : Configuration.enableSpecialButton ? 174 : 172;
+                return clientSize != 0 ? clientWidth - 188 : Configuration.enableSpecialOrb ? 174 : 172;
             case 4:
             	return clientSize != 0 ? clientWidth - 155 : 156;
         }
@@ -1691,13 +1691,13 @@ public class Client extends RSApplet {
     public int getOrbY(int orb) {
         switch (orb) {
             case 0:
-                return clientSize != 0 ? 39 : Configuration.enableSpecialButton ? 10 : 15;
+                return clientSize != 0 ? 39 : Configuration.enableSpecialOrb ? 10 : 15;
             case 1:
-                return clientSize != 0 ? 73 : Configuration.enableSpecialButton ? 43 : 54;
+                return clientSize != 0 ? 73 : Configuration.enableSpecialOrb ? 43 : 54;
             case 2:
-                return clientSize != 0 ? 106 : Configuration.enableSpecialButton ? 76 : 93;
+                return clientSize != 0 ? 106 : Configuration.enableSpecialOrb ? 76 : 93;
             case 3:
-                return clientSize != 0 ? 135 : Configuration.enableSpecialButton ? 107 : 128;
+                return clientSize != 0 ? 135 : Configuration.enableSpecialOrb ? 107 : 128;
             case 4:
             	return clientSize != 0 ? 159 : 134;
         }
@@ -1854,7 +1854,7 @@ public class Client extends RSApplet {
     private double fillSpec;
 
     public void drawSpecOrb() {
-    	if (!Configuration.enableSpecialButton) {
+    	if (!Configuration.enableSpecialOrb) {
     		return;
     	}
         int spec = (int) (((double) currentSpec / (double) 100) * 100D);
@@ -8493,7 +8493,7 @@ public class Client extends RSApplet {
 			if (SettingsWidget.handleButton(interfaceId, currentActionMenu)) {
 				return;
 			}
-        	 
+			
             stream.createFrame(222);
             stream.writeDWord(interfaceId);
             stream.writeByte(currentActionMenu);

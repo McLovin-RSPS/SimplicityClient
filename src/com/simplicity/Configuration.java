@@ -114,9 +114,9 @@ public class Configuration {
 	public static boolean enableHDTextures;
 	
     /**
-     * Indicates whether the special button is enabled or not.
+     * Indicates whether the special orb is enabled or not.
      */
-	public static boolean enableSpecialButton;
+	public static boolean enableSpecialOrb;
 	
     /**
      * Indicates whether the timers are enabled or not.

@@ -78,8 +78,8 @@ public class ClientSettings {
 				Configuration.enableHDTextures = reader.get("hd-textures").getAsBoolean();
 			}
 			
-			if (reader.has("special-button")) {
-				Configuration.enableSpecialButton = reader.get("special-button").getAsBoolean();
+			if (reader.has("special-orb")) {
+				Configuration.enableSpecialOrb = reader.get("special-orb").getAsBoolean();
 			}
 			
 			if (reader.has("veng-timer")) {
@@ -249,7 +249,7 @@ public class ClientSettings {
 			object.addProperty("sound-volume", SoundPlayer.getVolume());
 			object.addProperty("brightness", Client.instance.shadowIndex);
 			object.addProperty("hd-textures", Configuration.enableHDTextures);
-			object.addProperty("special-button", Configuration.enableSpecialButton);
+			object.addProperty("special-orb", Configuration.enableSpecialOrb);
 			object.addProperty("veng-timer", Configuration.enableTimers);
 			object.addProperty("tooltip-hover", Configuration.enableTooltipHover);
 			object.addProperty("old-hits", Configuration.enableOldHitmarkers);
@@ -299,7 +299,7 @@ public class ClientSettings {
 	public static void setDefaults() {
 		Configuration.enableGroundItemNames = false;
 		Configuration.enableHDTextures = false;
-		Configuration.enableSpecialButton = false;
+		Configuration.enableSpecialOrb = true;
 		Configuration.enableTimers = true;
 		Configuration.enableTooltipHover = false;
 		Configuration.enableOldHitmarkers = false;

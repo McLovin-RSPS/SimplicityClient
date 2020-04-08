@@ -230,15 +230,15 @@ public enum Setting {
 	
 	TOGGLES(true),
 	
-	SPECIAL_BUTTON() {
+	SPECIAL_ORB() {
 
 		@Override
 		public void handle() {
-			enableSpecialButton = !enableSpecialButton;
+			enableSpecialOrb = !enableSpecialOrb;
 			
             RSInterface iface2 = RSInterface.interfaceCache[41005];
             
-            if (enableSpecialButton) {
+            if (enableSpecialOrb) {
                 if (!Client.instance.parallelWidgetList.contains(iface2)) {
                     Client.instance.parallelWidgetList.add(iface2);
                 }
@@ -251,7 +251,7 @@ public enum Setting {
 
 		@Override
 		public boolean enabled() {
-			return enableSpecialButton;
+			return enableSpecialOrb;
 		}
 	},
 	
