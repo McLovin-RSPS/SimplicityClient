@@ -9,7 +9,6 @@ public enum Dropdown {
 	ITEM_STATS() {
 		@Override
         public void selectOption(int selected, RSInterface dropdown) {
-			System.out.println("selected: " + selected);
 			if (selected == 0) {
 				Configuration.enableItemStats = 2;
 			} else if (selected == 1) {
