@@ -859,7 +859,7 @@ public class CustomObjects {
             /**Chaos altar wilderness**/
             {411, 3239, 3608, 0, 0},
             
-            //{30205, 3085, 3509, 0, 3},
+            {30205, 3085, 3509, 0, 3},
             
 
 
