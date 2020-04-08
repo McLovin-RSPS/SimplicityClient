@@ -11986,7 +11986,7 @@ public class Client extends RSApplet {
                 }
 
                 if (mouseInRegion(positionX, positionY, positionX + (width), positionY + (height))) {
-                    buildInterfaceMenu(4 + clientWidth - 765, widget, super.mouseX, 4, super.mouseY, 0);
+                    buildInterfaceMenu(clientSize == 0 ? 4 : clientWidth - 765, widget, super.mouseX, clientSize == 0 ? 4 : 0, super.mouseY, 0);
                     found = true;
                     break;
                 }
