@@ -11983,7 +11983,6 @@ public class Client extends RSApplet {
                     positionY = child.positionY;
                     width = child.width;
                     height = child.height;
-                    DrawingArea.drawBox(positionX, positionY, width, height, 1, 0xff000, 200);
                 }
 
                 if (mouseInRegion(positionX, positionY, positionX + (width), positionY + (height))) {
