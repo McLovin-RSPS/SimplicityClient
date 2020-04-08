@@ -2636,7 +2636,7 @@ public class Client extends RSApplet {
             }
         }
         
-        if (Configuration.enableItemStats && controlIsDown && tabInterfaceIDs[tabID] == 3213 && tabID == 3 && itemStatsId > 0 && hoverInventory()) {
+        if (Configuration.enableItemStats && tabInterfaceIDs[tabID] == 3213 && tabID == 3 && itemStatsId > 0 && hoverInventory()) {
         	drawItemStats(itemStatsId);
         }
         
@@ -4751,7 +4751,7 @@ public class Client extends RSApplet {
                                                 if (itemDef.actions[i4] != null) {
                                                 	if (child.id == 3214) {
 	                                                	if (itemDef.actions[i4].equals("Wield") || itemDef.actions[i4].equals("Wear")) {
-		                                                	if (Configuration.enableItemStats && controlIsDown) {
+		                                                	if (Configuration.enableItemStats) {
 		                                                    	itemStatsId = itemDef.id;
 		                                                    	itemStatsIndex = ptr;
 		                                                    	drawStats = true;
