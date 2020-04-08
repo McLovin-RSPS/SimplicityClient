@@ -175,7 +175,7 @@ public class ClientSettings {
 			}
 			
 			if (reader.has("item-stats")) {
-				Configuration.enableItemStats = reader.get("item-stats").getAsBoolean();
+				Configuration.enableItemStats = reader.get("item-stats").getAsInt();
 			}
 			
 			if (reader.has("zooming")) {
@@ -316,7 +316,7 @@ public class ClientSettings {
 		Configuration.enableSkillStatusBars = true;
 		Configuration.enableXpOrbs = true;
 		Configuration.enableMipmapping = false;
-		Configuration.enableItemStats = true;
+		Configuration.enableItemStats = 1;
 		Configuration.enableTileMarkers = true;
 		Configuration.enableWASDCamera = false;
 		Configuration.enableZooming = true;

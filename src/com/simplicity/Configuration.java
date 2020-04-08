@@ -199,9 +199,9 @@ public class Configuration {
 	public static boolean enableMipmapping;
 	
 	/**
-	 * Indicates whether the hover stats are enabled or not.
+	 * Indicates the state of item stats.
 	 */
-	public static boolean enableItemStats = true;
+	public static int enableItemStats = 0;
 	
 	/**
 	 * Indicates whether the tile markers are enabled or not.

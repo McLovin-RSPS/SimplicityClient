@@ -6,6 +6,8 @@ import com.simplicity.Configuration;
 import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.Rasterizer;
+import com.simplicity.client.widget.dropdown.Dropdown;
+import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.util.StringUtils;
 
 /**
@@ -154,17 +156,7 @@ public enum Setting {
 		}
 	},
 
-	ITEM_STATS_ON_HOVER() {
-		@Override
-		public void handle() {
-			Configuration.enableItemStats = !Configuration.enableItemStats;
-		}
-
-		@Override
-		public boolean enabled() {
-			return Configuration.enableItemStats;
-		}
-	},
+	ITEM_STATS(new DropdownMenu(75, false, 1, new String[] { "On Hover", "Hold Ctrl", "Disabled" }, Dropdown.ITEM_STATS)) { },
 
 	TILE_MARKERS() {
 		@Override
@@ -387,8 +379,36 @@ public enum Setting {
 		
 	}
 	
+	/**
+	 * Constructs a new {@link Setting}.
+	 * 
+	 * @param category A flag which indicates if the setting is a category or not.
+	 */
 	Setting(boolean category) {
 		this.category = category;
+	}
+
+	/**
+	 * Constructs a new {@link Setting}.
+	 * 
+	 * @param dropdownMenu The drop down menu.
+	 */
+	Setting(DropdownMenu dropdownMenu) {
+		this.dropdownMenu = dropdownMenu;
+	}
+	
+	/**
+	 * The drop down menu.
+	 */
+	public DropdownMenu dropdownMenu;
+	
+	/**
+	 * Gets the {@link DropdownMenu}.
+	 * 
+	 * @return The drop down menu.
+	 */
+	public DropdownMenu getDropdownMenu() {
+		return dropdownMenu;
 	}
 	
 	/**

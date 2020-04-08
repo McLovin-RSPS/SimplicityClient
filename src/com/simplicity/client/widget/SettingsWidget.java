@@ -310,7 +310,7 @@ public class SettingsWidget extends RSInterface {
 		tab = addInterface(id++);
 		tab.totalChildren(Setting.size());
 		tab.height = 228;
-		tab.scrollMax = scrollbar ? 420 : tab.height;
+		tab.scrollMax = scrollbar ? 425 : tab.height;
 		tab.width = 477;
 		
 		int x = 22;
@@ -321,6 +321,9 @@ public class SettingsWidget extends RSInterface {
 		int height = 29;
 		
 		int col = 0;
+		
+		child = tab.children.length - 1;
+		
 		for (Setting s : Setting.values()) {
 			if (s.isCategory()) {
 				x = 22;
@@ -331,7 +334,7 @@ public class SettingsWidget extends RSInterface {
 					y += col != 0 ? 32 : 4;
 				}
 				
-				tab.child(child++, id, x + 220, y);
+				tab.child(child--, id, x + 220, y);
 				
 				y += 32;
 				id += 4;
@@ -342,11 +345,20 @@ public class SettingsWidget extends RSInterface {
 			addRectangle(id, 0, 0x80786d, false, width + 3, height + 4);
 			addRectangle(id + 1, 255, 0x383530, true, width, height);
 			addText(id + 2, s.getName(), tda, 0, 0xebe0bc);
-			configButton(id + 3, "Toggle " + s.getName(), 1040, 1039);
-			tab.child(child++, id, x - 12, y - 7);
-			tab.child(child++, id + 1, x - 10, y - 5);
-			tab.child(child++, id + 2, x, y + 5);
-			tab.child(child++, id + 3, x + 120, y + 3);
+			
+			boolean dropdown = s.getDropdownMenu() != null;
+			
+			if (dropdown) {
+				dropdownMenu(id + 3, s.getDropdownMenu());
+			} else {
+				configButton(id + 3, "Toggle " + s.getName(), 1040, 1039);
+			}
+			
+			tab.child(child--, id + 3, dropdown ? x + 63 : x + 120, dropdown ? y : y + 3);
+			tab.child(child--, id + 2, x, y + 5);
+			tab.child(child--, id + 1, x - 10, y - 5);
+			tab.child(child--, id, x - 12, y - 7);
+			
 			id += 4;
 			if (col++ % 3 == 2) {
 				y += 32;

@@ -5,7 +5,20 @@ import com.simplicity.client.RSInterface;
 import com.simplicity.client.content.Keybinding;
 
 public enum Dropdown {
-
+	
+	ITEM_STATS() {
+		@Override
+        public void selectOption(int selected, RSInterface dropdown) {
+			System.out.println("selected: " + selected);
+			if (selected == 0) {
+				Configuration.enableItemStats = 2;
+			} else if (selected == 1) {
+				Configuration.enableItemStats = 1;
+			} else if (selected == 2) {
+				Configuration.enableItemStats = 0;
+			}
+        }
+	},
 
     KEYBIND_SELECTION() {
         @Override
