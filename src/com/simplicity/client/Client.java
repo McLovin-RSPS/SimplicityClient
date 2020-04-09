@@ -1713,6 +1713,10 @@ public class Client extends RSApplet {
         if (!Configuration.enableConstitution) {
             currentHp = (currentHp / 10);
         }
+        if(health == 0 && (currentStats[3] > 0 && currentStats[3] < 100) && !Configuration.enableConstitution) {
+            currentHp = 1;
+            health = 1;
+        }
         int x = getOrbX(0);
         int y = getOrbY(0);
         orbs[clientSize == 0 ? 0 : 11].drawSprite(x, y);
