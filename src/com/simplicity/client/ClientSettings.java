@@ -174,8 +174,8 @@ public class ClientSettings {
 				Configuration.escapeClosesInterface = reader.get("esc-closes-interface").getAsBoolean();
 			}
 			
-			if (reader.has("item-stats")) {
-				Configuration.enableItemStats = reader.get("item-stats").getAsInt();
+			if (reader.has("item-stats-hover")) {
+				Configuration.enableItemStats = reader.get("item-stats-hover").getAsInt();
 			}
 			
 			if (reader.has("zooming")) {
@@ -272,7 +272,7 @@ public class ClientSettings {
 			object.addProperty("mouse-buttons", Client.instance.variousSettings[170] == 1);
 			object.addProperty("mouse-camera", Configuration.enableMouseCamera);
 			object.addProperty("esc-closes-interface", Configuration.escapeClosesInterface);
-			object.addProperty("item-stats", Configuration.enableItemStats);
+			object.addProperty("item-stats-hover", Configuration.enableItemStats);
 			object.addProperty("moderation-menu-enabled", Configuration.enableModerationMenu);
 			object.addProperty("zooming", Configuration.enableZooming);
 			object.addProperty("bounty-target", Configuration.enableBountyTarget);
