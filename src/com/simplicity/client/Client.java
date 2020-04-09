@@ -114,6 +114,7 @@ import com.simplicity.client.widget.QuestTab;
 import com.simplicity.client.widget.SettingsWidget;
 import com.simplicity.client.widget.SkillQuantityWidget;
 import com.simplicity.client.widget.Slider;
+import com.simplicity.client.widget.WildernessWidget;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.tools.InterfaceDebugger;
 import com.simplicity.tools.ItemDefinitionLookup;
@@ -8537,6 +8538,11 @@ public class Client extends RSApplet {
 				
 				SkillQuantityWidget.handleOptionButton(interfaceId);
 				
+				if (interfaceId == WildernessWidget.MINIMIZE_ID) {
+					WildernessWidget.toggle();
+					return;
+				}
+				
                 switch (interfaceId) {
 				case SettingsWidget.DISPLAY_BUTTON:
 				case SettingsWidget.AUDIO_BUTTON:
@@ -11929,6 +11935,8 @@ public class Client extends RSApplet {
             return true;
         }
     }
+    
+    private Set<Integer> clickableParallelWidgets = new HashSet<>(Arrays.asList(41005, WildernessWidget.INTERFACE_ID));
 
     public void processRightClick() {
         if (activeInterfaceType != 0) {
@@ -11959,39 +11967,47 @@ public class Client extends RSApplet {
         anInt1315 = 0;
 
         boolean found = false;
-
+        
         for (RSInterface widget : parallelWidgetList) {
-
-            if (widget != null && (widget.id == 41005 || widget.id == 25347)) {
-                int positionX = widget.positionX;
-                int positionY = widget.positionY;
-
-                int width = widget.width;
-                int height = widget.height;
-
-                if (widget.id == 41005) {
-                    RSInterface child = RSInterface.interfaceCache[41006];
-                    positionX = child.positionX;
-                    positionY = child.positionY;
-                    width = child.width;
-                    height = child.height;
+        	
+        	if (widget == null || widget.children == null || !clickableParallelWidgets.contains(widget.id)) {
+        		continue;
+        	}
+        	
+        	for (int childId : widget.children) {
+        		RSInterface child = RSInterface.interfaceCache[childId];
+        		
+        		if (child == null) {
+        			continue;
+        		}
+        		
+        		if (widget.id == 41005 && childId != 41006) {
+        			continue;
+        		}
+        		
+        		if (widget.id == WildernessWidget.INTERFACE_ID && childId != WildernessWidget.SKIP_TARGET_ID && childId != WildernessWidget.MINIMIZE_ID) {
+        			continue;
+        		}
+        		
+                int positionX = (clientSize == 0 ? 4 : clientWidth - 765) + child.positionX;
+                int positionY = child.positionY;
+                
+                int width = child.width;
+                int height = child.height + (clientSize == 0 ? 4 : 0);
+                
+                int interfaceX = (clientSize == 0 ? 4 : clientWidth - 765);
+                int interfaceY = clientSize == 0 ? 4 : 0;
+                
+                if (widget.id == WildernessWidget.INTERFACE_ID && WildernessWidget.isHidden()) {
+                	interfaceX += 158;
                 }
                 
-                if (widget.id == 25347) {
-                	RSInterface child = RSInterface.interfaceCache[25356];
-                	positionX = clientWidth - 765 + child.positionX;
-                    positionY = child.positionY;
-                    width = child.width;
-                    height = child.height;
-                }
-
                 if (mouseInRegion(positionX, positionY, positionX + (width), positionY + (height))) {
-                    buildInterfaceMenu(clientSize == 0 ? 4 : clientWidth - 765, widget, super.mouseX, clientSize == 0 ? 4 : 0, super.mouseY, 0);
+                    buildInterfaceMenu(interfaceX, widget, super.mouseX, interfaceY, super.mouseY, 0);
                     found = true;
                     break;
                 }
-
-            }
+        	}
 
         }
         if (!found) {
@@ -14716,7 +14732,7 @@ public class Client extends RSApplet {
             if (rsInterface.id == 41020 && !shouldDrawHpOverlay()) {
             	return;
             }
-            if (rsInterface.id == 25347 && !Configuration.enableBountyTarget) {
+            if (rsInterface.id == WildernessWidget.INTERFACE_ID && !Configuration.enableBountyTarget) {
             	return;
             }
             
@@ -14741,11 +14757,14 @@ public class Client extends RSApplet {
                 if (child.invisible) {
                     continue;
                 }
-                /**
-                 * Shifting BH itf children when XP counter is shown.
-                 */
-                if (rsInterface.id == 25347 && child.id != 25355 && showXP) {
-                	childY += 25;
+                if (rsInterface.id == WildernessWidget.INTERFACE_ID) {
+                    if (child.id == WildernessWidget.MINIMIZE_ID && WildernessWidget.isHidden()) {
+                    	childX += 158;
+                    }
+                    
+                    if (!effects_list.isEmpty() && (child.id == 197 || child.id == WildernessWidget.LEVELS_RANGE)) {
+                    	childY -= 7;
+                    }
                 }
                 childX += child.xOffset;
                 childY += child.yOffset;
@@ -15040,7 +15059,7 @@ public class Client extends RSApplet {
                         
                         RSFontSystem font = null;
                         
-                    	boolean useNewFonts = QuestTab.isQuestTabId(rsInterface.id) || rsInterface.id == 68069 || child.id == 70025;
+                    	boolean useNewFonts = QuestTab.isQuestTabId(rsInterface.id) || rsInterface.id == 68069 || child.id == 70025 || child.id == WildernessWidget.TARGET_NAME;
 
 						if (useNewFonts) {
 							if (textDrawingArea == smallText) {
@@ -15684,6 +15703,10 @@ public class Client extends RSApplet {
     					}
                     } else if (child.type == 34) {
                     	DrawingArea.drawBox(childX, childY, child.width, child.height, child.borderWidth, child.borderColor, child.disabledColor, child.transparency);
+                    	
+                    	if (child.filled) {
+                    		DrawingArea.fillRectangle(child.fillColor, childY + child.borderWidth, child.width - child.borderWidth * 2 + 1, child.height - child.borderWidth * 2 - 1, child.customOpacity, childX + child.borderWidth);
+                    	}
                     } else if (child.type == 35) {
                     	int tabLength = child.width - 44;
                     	//DrawingArea.setDrawingArea(child.height + childY, childX, child.width + childX, childY);
@@ -16139,8 +16162,7 @@ public class Client extends RSApplet {
                         xPosition = clientSize == 0 ? 392 : clientWidth - 150; // 392
                         yPosition = clientSize == 0 ? 280 : 180;
                         break;
-                    case 25347:
-                        //yPosition += 185;
+                    case WildernessWidget.INTERFACE_ID:
                         xPosition = clientWidth - 765;
                         break;
                     case 197:
@@ -16300,7 +16322,7 @@ public class Client extends RSApplet {
                     interfaceX = (int) (clientWidth / 1.3
                             - (clientWidth <= 919 ? 400 : clientWidth < 1357 ? 300 : 200));
                     interfaceY = (clientHeight / 4 - 120);
-                } else if (walkableInterfaceId == 25347) {
+                } else if (walkableInterfaceId == WildernessWidget.INTERFACE_ID) {
                     interfaceX = (int) (clientWidth - clientWidth - 330) - (1);
                     interfaceY = (clientHeight - clientHeight) + (30);
                 }
@@ -16363,7 +16385,7 @@ public class Client extends RSApplet {
             if (clientSize == 0) {
                 y = /* gravestoneInterface ? 275 : */ 296;
             }
-            if (walkableInterfaceId == 25347) {
+            if (walkableInterfaceId == WildernessWidget.INTERFACE_ID) {
                 y -= 16;
             }
             SpriteLoader.sprites[652].drawSprite(clientSize == 0 ? 472 : clientWidth - 40, y);

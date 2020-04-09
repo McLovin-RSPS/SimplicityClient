@@ -13,6 +13,7 @@ import com.simplicity.client.widget.SkillQuantityWidget;
 import com.simplicity.client.widget.Slider;
 import com.simplicity.client.widget.StarterWidget;
 import com.simplicity.client.widget.Widget;
+import com.simplicity.client.widget.WildernessWidget;
 import com.simplicity.client.widget.dropdown.Dropdown;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 
@@ -51,6 +52,8 @@ public class RSInterface {
         component.height = height;
         component.tooltip = s;
     }
+
+	public int fillColor;
 
     public boolean drawInterface(final Client client, int widgetDrawX, int widgetDrawY, int subWidgetDrawX,
                                  int subWidgetDrawY) {
@@ -3374,6 +3377,28 @@ public class RSInterface {
 		tab.disabledColor = color;
 		tab.transparency = transparency;
 	}
+	
+	/**
+	 * Draws a rectangle on the interface.
+	 * @param interfaceId
+	 * @param width
+	 * @param height
+	 * @param color
+	 * @param transparency
+	 */
+	public static void drawBox(int interfaceId, int width, int height, int border, int borderColor, int color, int transparency, int fillColor, int fillTransparency) {
+		RSInterface tab = addInterface(interfaceId);
+		tab.type = 34;
+		tab.width = width;
+		tab.height = height;
+		tab.borderWidth = border;
+		tab.borderColor = borderColor;
+		tab.disabledColor = color;
+		tab.transparency = transparency;
+		tab.fillColor = fillColor;
+		tab.customOpacity = fillTransparency;
+		tab.filled = true;
+	}
 
     public static void addItemContainer(int id, int[] padding,
                                         int[] dimensions, String[] actions, boolean examine) {
@@ -4339,7 +4364,6 @@ public class RSInterface {
         priceCheckerInterface();
         achievementsInterface();
         loyaltyShop();
-        wildernessInterface();
         Sidebar0(textDrawingAreas);
         optionTab(textDrawingAreas);
         emoteTab();
@@ -4462,6 +4486,8 @@ public class RSInterface {
         QuestTab.unpack(textDrawingAreas);
         
         SkillQuantityWidget.unpack(textDrawingAreas);
+        
+        WildernessWidget.unpack();
         
         Widget.init();
         spriteCache = null;
@@ -5928,46 +5954,6 @@ public class RSInterface {
         addTooltipBox(id + 1, text);
         rsinterface.totalChildren(1);
         rsinterface.child(0, id + 1, 0, 0);
-    }
-
-    /*
-     * Wilderness interface
-     */
-    private static void wildernessInterface() {
-    	int id = 25347;
-        RSInterface tab = addInterface(id++);
-        tab.totalChildren(9);
-        
-        int child = 0;
-        
-        drawBox(id, 175, 65, 2, 0x69605b, 0x383023, 50);
-        tab.child(child++, id++, 334, 2);
-        
-        addText(id, "Target:", fonts, 0, 0xCCCBCB, true, true);
-        tab.child(child++, id++, 356, 10);
-        
-        addText(id, "None", fonts, 0, 0xCCCBCB, true, true);
-        tab.child(child++, id++, 445, 10);
-        
-        addText(id, "Wilderness Level:", fonts, 0, 0xCCCBCB, false, true);
-        tab.child(child++, id++, 340, 28);
-        
-        addText(id, "18", fonts, 0, 0xCCCBCB, true, true);
-        tab.child(child++, id++, 492, 28);
-        
-        addText(id, "Target Percentage:", fonts, 0, 0xCCCBCB, false, true);
-        tab.child(child++, id++, 340, 46);
-        
-        addText(id, "99%", fonts, 0, 0xCCCBCB, true, true);
-        tab.child(child++, id++, 492, 46);
-        
-        addText(id, "Levels: 114 - 126", fonts, 1, 0xff9040, false, true);
-        tab.child(child++, id++, 411, 315);
-        
-        hoverButton(id, "Skip target", new String[] {  }, 1365, 1366);
-        interfaceCache[id].positionX = 445 + 39;
-        interfaceCache[id].positionY = 10;
-        tab.child(child++, id++, 445 + 39, 10);
     }
 
     /*
@@ -15923,6 +15909,21 @@ public class RSInterface {
 		tab.type = 39;
 		tab.enabledSprite = Client.cacheSprite[enabledSprite];
 		tab.disabledSprite = Client.cacheSprite[disabledSprite];
+		tab.width = tab.enabledSprite.myWidth;
+		tab.height = tab.disabledSprite.myHeight;
+		tab.spriteOpacity = 255;
+	}
+	
+	public static void hoverButton(int id, String tooltip, String[] actions, int enabledSprite, int disabledSprite, int enabledAltSprite, int disabledAltSprite) {
+		RSInterface tab = addInterface(id);
+		tab.tooltip = tooltip;
+		tab.actions = actions;
+		tab.atActionType = 1;
+		tab.type = 39;
+		tab.enabledSprite = Client.cacheSprite[enabledSprite];
+		tab.disabledSprite = Client.cacheSprite[disabledSprite];
+		tab.enabledAltSprite = Client.cacheSprite[enabledAltSprite];
+		tab.disabledAltSprite = Client.cacheSprite[disabledAltSprite];
 		tab.width = tab.enabledSprite.myWidth;
 		tab.height = tab.disabledSprite.myHeight;
 		tab.spriteOpacity = 255;
