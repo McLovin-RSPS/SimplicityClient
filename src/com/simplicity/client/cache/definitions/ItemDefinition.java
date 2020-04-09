@@ -534,6 +534,10 @@ public final class ItemDefinition {
         priorityModels.add(12778);
         priorityModels.add(12817);
         
+        //Bunnyman mask
+        priorityModels.add(21860);
+        priorityModels.add(37215);
+        
         //Slayer helmets
         priorityModels.add(36006);
         priorityModels.add(36007);

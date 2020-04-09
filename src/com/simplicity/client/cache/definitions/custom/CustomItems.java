@@ -321,6 +321,48 @@ public class CustomItems {
                 itemDef.newModelColor = new int[] { 64414, 43150, 43034, 43047, 43059, -1253, -1253, -1253, 43047 };
                 break;
                 
+            case 20202:
+                itemDef.copy(ItemDefinition.forID(11046));
+                itemDef.name = "Dark rope";
+                itemDef.editedModelColor = new int[] { 6806, 6558 };
+                itemDef.newModelColor = new int[] { 6806, 1024 };
+                break;
+                
+            case 20203:
+                itemDef.copy(ItemDefinition.forID(11046));
+                itemDef.name = "Bandit rope";
+                itemDef.editedModelColor = new int[] { 6806, 6558 };
+                itemDef.newModelColor = new int[] { 6806, 32883 };
+                break;
+                
+            case 20204:
+                itemDef.copy(ItemDefinition.forID(11046));
+                itemDef.name = "Kurask rope";
+                itemDef.editedModelColor = new int[] { 6806, 6558 };
+                itemDef.newModelColor = new int[] { 6806, -1253 };
+                break;
+                
+            case 20205:
+                itemDef.copy(ItemDefinition.forID(11046));
+                itemDef.name = "Mole rope";
+                itemDef.editedModelColor = new int[] { 6806, 6558 };
+                itemDef.newModelColor = new int[] { 6806, -1053 };
+                break;
+                
+            case 20206:
+                itemDef.copy(ItemDefinition.forID(11046));
+                itemDef.name = "Corp rope";
+                itemDef.editedModelColor = new int[] { 6806, 6558 };
+                itemDef.newModelColor = new int[] { -1253, 37208 };
+                break;
+                
+            case 20207:
+                itemDef.copy(ItemDefinition.forID(11046));
+                itemDef.name = "Bunny rope";
+                itemDef.editedModelColor = new int[] { 6806, 6558 };
+                itemDef.newModelColor = new int[] { 40090, 40090 };
+                break;
+                
             case 14444:
                 itemDef.copy(ItemDefinition.forID(19640));
                 itemDef.name = "Blood orb";

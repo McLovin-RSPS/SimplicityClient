@@ -358,6 +358,16 @@ public final class MobDefinition {
                 npc.actions[1] = "Attack";
                 npc.models = new int[] { 60000 };
                 break;
+                
+            case 13212:
+                npc.copy(forID(1321));
+                npc.combatLevel = 1337;
+                npc.name = "Evil Bunny";
+                npc.actions = new String[5];
+                npc.actions[1] = "Attack";
+                npc.sizeXZ = 825;
+                npc.sizeY = 820;
+                break;
 
             case 1337:
                 npc.name = "Superior Arthur";
