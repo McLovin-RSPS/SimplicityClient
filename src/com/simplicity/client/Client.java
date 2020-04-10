@@ -16392,7 +16392,7 @@ public class Client extends RSApplet {
             if (walkableInterfaceId == WildernessWidget.INTERFACE_ID) {
                 y -= 16;
             }
-            SpriteLoader.sprites[652].drawSprite(clientSize == 0 ? 472 : clientWidth - 40, y);
+            SpriteLoader.sprites[1372].drawSprite(clientSize == 0 ? 472 : clientWidth - 40, y);
         }
         // Effect timers
         try {
