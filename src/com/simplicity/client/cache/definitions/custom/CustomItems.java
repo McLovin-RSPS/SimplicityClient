@@ -307,7 +307,7 @@ public class CustomItems {
                 
             case 2022:
                 itemDef.copy(ItemDefinition.forID(4565));
-                itemDef.name = "Easter Basket of eggs";
+                itemDef.name = "Evil Basket of eggs";
                 itemDef.editedModelColor = new int[]{960, 0, 22464, 55232, 33728, 43968, 9672, 476, 127};
                 itemDef.newModelColor = new int[]{960, 4024, 3024, 4024, 3024, 43968, 4361, 476, 127};
                 break;
