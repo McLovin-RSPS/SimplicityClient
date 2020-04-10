@@ -12,6 +12,7 @@ import com.simplicity.client.RSInterface;
 import com.simplicity.client.TextDrawingArea;
 import com.simplicity.client.content.Keybinding;
 import com.simplicity.client.widget.dropdown.Dropdown;
+import com.simplicity.client.widget.dropdown.DropdownMenu;
 
 /**
  * A class that handles all of the client's settings.
@@ -463,8 +464,14 @@ public class SettingsWidget extends RSInterface {
 			Setting setting = toggle.getValue();
 			
 			if (!setting.isCategory()) {
+				DropdownMenu menu = setting.getDropdownMenu();
+				
 				try {
-					interfaceCache[button].active = setting.enabled();
+					if (menu != null) {
+						menu.getDrop().selectOption(menu.getSelectedIndex(), null);
+					} else {
+						interfaceCache[button].active = setting.enabled();
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
