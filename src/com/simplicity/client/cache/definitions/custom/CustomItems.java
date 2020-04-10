@@ -307,7 +307,7 @@ public class CustomItems {
                 
             case 2022:
                 itemDef.copy(ItemDefinition.forID(4565));
-                itemDef.name = "Easter Basket of eggs";
+                itemDef.name = "Evil Basket of eggs";
                 itemDef.editedModelColor = new int[]{960, 0, 22464, 55232, 33728, 43968, 9672, 476, 127};
                 itemDef.newModelColor = new int[]{960, 4024, 3024, 4024, 3024, 43968, 4361, 476, 127};
                 break;
@@ -319,6 +319,48 @@ public class CustomItems {
                 itemDef.description = "It is the Ghrazi Rapier X";
                 itemDef.editedModelColor = new int[] { 64414, 43150, 43034, 43047, 43059, 43090, 43113, 43030, 43047 };
                 itemDef.newModelColor = new int[] { 64414, 43150, 43034, 43047, 43059, -1253, -1253, -1253, 43047 };
+                break;
+                
+            case 20202:
+                itemDef.copy(ItemDefinition.forID(11046));
+                itemDef.name = "Dark rope";
+                itemDef.editedModelColor = new int[] { 6806, 6558 };
+                itemDef.newModelColor = new int[] { 6806, 1024 };
+                break;
+                
+            case 20203:
+                itemDef.copy(ItemDefinition.forID(11046));
+                itemDef.name = "Bandit rope";
+                itemDef.editedModelColor = new int[] { 6806, 6558 };
+                itemDef.newModelColor = new int[] { 6806, 32883 };
+                break;
+                
+            case 20204:
+                itemDef.copy(ItemDefinition.forID(11046));
+                itemDef.name = "Kurask rope";
+                itemDef.editedModelColor = new int[] { 6806, 6558 };
+                itemDef.newModelColor = new int[] { 6806, -1253 };
+                break;
+                
+            case 20205:
+                itemDef.copy(ItemDefinition.forID(11046));
+                itemDef.name = "Mole rope";
+                itemDef.editedModelColor = new int[] { 6806, 6558 };
+                itemDef.newModelColor = new int[] { 6806, -1053 };
+                break;
+                
+            case 20206:
+                itemDef.copy(ItemDefinition.forID(11046));
+                itemDef.name = "Corp rope";
+                itemDef.editedModelColor = new int[] { 6806, 6558 };
+                itemDef.newModelColor = new int[] { -1253, 37208 };
+                break;
+                
+            case 20207:
+                itemDef.copy(ItemDefinition.forID(11046));
+                itemDef.name = "Bunny rope";
+                itemDef.editedModelColor = new int[] { 6806, 6558 };
+                itemDef.newModelColor = new int[] { 40090, 40090 };
                 break;
                 
             case 14444:
