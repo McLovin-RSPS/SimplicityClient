@@ -27,7 +27,7 @@ public class KDROverlay extends ScreenOverlay {
 	private static final int DEATHS_STRING = 73034;
 
 	public KDROverlay() {
-		super(1, 12, 50, 12);
+		super(1, 28, 50, 28);
 	}
 
 	@Override
