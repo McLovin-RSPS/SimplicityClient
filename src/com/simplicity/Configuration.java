@@ -201,7 +201,7 @@ public class Configuration {
 	/**
 	 * Indicates the state of item stats.
 	 */
-	public static int enableItemStats = 0;
+	public static int enableItemStats = 1;
 	
 	/**
 	 * Indicates whether the tile markers are enabled or not.
