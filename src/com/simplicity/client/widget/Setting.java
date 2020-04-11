@@ -459,7 +459,13 @@ public enum Setting {
 	 * @return The name.
 	 */
 	public String getName() {
-		return StringUtils.capitalizeWords(name().toLowerCase().replaceAll("_", " "));
+		String name = StringUtils.capitalizeWords(name().toLowerCase().replaceAll("_", " "));
+		
+		if (name.contains("Osrs")) {
+			name = name.replace("Osrs", "OSRS");
+		}
+		
+		return name;
 	}
 	
 	public static int size() {
