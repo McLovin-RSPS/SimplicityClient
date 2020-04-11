@@ -244,6 +244,11 @@ public class Configuration {
 	public static boolean enableKDROverlay = true;
 	
 	/**
+	 * Indicates whether new hp bars are enabled or not.
+	 */
+	public static boolean enableNewHpBars = true;
+	
+	/**
 	 * Indicates whether rune pouch overlay is enabled or not.
 	 */
 	public static boolean enableRunePouchOverlay = false;

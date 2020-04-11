@@ -259,6 +259,19 @@ public enum Setting {
 			return enableOldHitmarkers;
 		}
 	},
+	
+	OSRS_HP_BARS() {
+
+		@Override
+		public void handle() {
+			enableNewHpBars = !enableNewHpBars;
+		}
+
+		@Override
+		public boolean enabled() {
+			return !enableNewHpBars;
+		}
+	},
 
 	OLD_GAMEFRAME() {
 

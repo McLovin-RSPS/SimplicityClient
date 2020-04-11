@@ -5421,48 +5421,54 @@ public class Client extends RSApplet {
                         }
                     }
                 }
-                if (((Entity) (obj)).loopCycleStatus > loopCycle) {
+                
+                boolean drawHpBar = !(((Entity) (obj)) instanceof NPC && ((NPC) obj).desc != null && ((NPC) obj).desc.type == 17668);
+                
+                if (drawHpBar && ((Entity) (obj)).loopCycleStatus > loopCycle) {
                     try {
                         npcScreenPos(((Entity) (obj)), ((Entity) (obj)).height + 15);
+                        
                         if (spriteDrawX > -1) {
                             int HpPercent;
+                            
+                            int current = (((Entity) (obj)).currentHealth * 30) / ((Entity) (obj)).maxHealth;
+                            
+                            if (current > 30) {
+                                current = 30;
+                            }
+                            
                             if (((Entity) (obj)).currentHealth > 0) {
-                                int i1 = (((Entity) (obj)).currentHealth * 30) / ((Entity) (obj)).maxHealth;
-                                if (i1 > 30) {
-                                    i1 = 30;
-                                }
+                                
                                 int hpPercent = (((Entity) (obj)).currentHealth * 90) / ((Entity) (obj)).maxHealth;
+                                
                                 if (hpPercent > 90) {
                                     hpPercent = 90;
                                 }
+                                
                                 HpPercent = (((Entity) (obj)).currentHealth * 56) / ((Entity) (obj)).maxHealth;
+                                
                                 if (HpPercent > 56) {
                                     HpPercent = 56;
                                 }
                             } else {
                                 HpPercent = 0;
                             }
-                            // markhereaj
-                            /**
-                             * MobDefinition entityDef_1 = ((NPC) obj).desc;
-                             *
-                             * TargetInformation( spriteDrawX - 30, spriteDrawY - 21, "@whi@"+
-                             * entityDef_1.name +"", ""+ combatDiffColor(myPlayer.combatLevel,
-                             * entityDef_1.combatLevel) + "" + entityDef_1.combatLevel + "", spriteDrawX -
-                             * 30, spriteDrawY - 28);
-                             **/
-                            SpriteCache.spriteCache[34].drawSprite(spriteDrawX - 28, spriteDrawY - 5);
-                            Sprite s = Sprite.getCutted(SpriteCache.spriteCache[33], HpPercent,
-                                    SpriteCache.spriteCache[33].myHeight);
-                            s.drawSprite(spriteDrawX - 28, spriteDrawY - 5);
-                            /*
-                             * if (obj instanceof NPC && ((NPC) obj).maxHealth >= 2500) {
-                             * SpriteCache.spriteCache[35].drawSprite( spriteDrawX - 44, spriteDrawY - 5);
-                             * SpriteCache.spriteCache[33] = Sprite.getResizedSprite
-                             * (SpriteCache.spriteCache[33], HpPercent-2,
-                             * SpriteCache.spriteCache[33].myHeight); SpriteCache
-                             * .spriteCache[33].drawSprite(spriteDrawX - 44, spriteDrawY - 5); }
-                             */
+                            
+                            if (!Configuration.enableNewHpBars) {
+                            	int multiplier = !(obj instanceof Player) && ((Entity) (obj)).maxHealth >= 5000 ? 4 : 1;
+        						
+        						int max = 30 * multiplier;
+        						
+        						current *= multiplier;
+        						
+        						DrawingArea.drawPixels(5, spriteDrawY - 3, spriteDrawX - max / 2, 65280, current);
+        						DrawingArea.drawPixels(5, spriteDrawY - 3, (spriteDrawX - max / 2) + current, 0xff0000, max - current);
+                            } else {
+                            	SpriteCache.spriteCache[34].drawSprite(spriteDrawX - 28, spriteDrawY - 5);
+                                Sprite s = Sprite.getCutted(SpriteCache.spriteCache[33], HpPercent,
+                                        SpriteCache.spriteCache[33].myHeight);
+                                s.drawSprite(spriteDrawX - 28, spriteDrawY - 5);
+                            }
                         }
                     } catch (Exception e) {
                         // e.printStackTrace();

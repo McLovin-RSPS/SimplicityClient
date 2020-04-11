@@ -198,6 +198,10 @@ public class ClientSettings {
 				Configuration.enableRunePouchOverlay = reader.get("runepouch-overlay").getAsBoolean();
 			}
 			
+			if (reader.has("new-hp-bars")) {
+				Configuration.enableNewHpBars = reader.get("new-hp-bars").getAsBoolean();
+			}
+			
 			if (reader.has("keybindings")) {
 				Keybinding.KEYBINDINGS = builder.fromJson(reader.get("keybindings"), int[].class);
 			}
@@ -279,6 +283,7 @@ public class ClientSettings {
 			object.addProperty("ammunition-overlay", Configuration.enableAmmunitionOverlay);
 			object.addProperty("kdr-overlay", Configuration.enableKDROverlay);
 			object.addProperty("runepouch-overlay", Configuration.enableRunePouchOverlay);
+			object.addProperty("new-hp-bars", Configuration.enableNewHpBars);
 			object.add("keybindings", builder.toJsonTree(Keybinding.KEYBINDINGS));
 			object.add("quick-prayers", builder.toJsonTree(Client.instance.getQuickPrayers()));
 			object.add("quick-curses", builder.toJsonTree(Client.instance.getQuickCurses()));
@@ -325,6 +330,7 @@ public class ClientSettings {
 		Configuration.enableAmmunitionOverlay = true;
 		Configuration.enableKDROverlay = false;
 		Configuration.enableRunePouchOverlay = false;
+		Configuration.enableNewHpBars = true;
 		Client.instance.musicEnabled = false;
 		SoundPlayer.setVolume(4);
 	}
