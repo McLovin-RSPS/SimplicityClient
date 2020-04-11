@@ -5511,10 +5511,12 @@ public class Client extends RSApplet {
                                             dmg = 1;
                                         }
                                     }
-                                    SpriteLoader.sprites[654].drawSprite(spriteDrawX - 11, spriteDrawY - 12);
+                                    hitMarks[1].drawSprite(spriteDrawX - 12, spriteDrawY - 12);
                                 } else {
-                                    SpriteLoader.sprites[655].drawSprite(spriteDrawX - 12, spriteDrawY - 13);
+                                	hitMarks[0].drawSprite(spriteDrawX - 12, spriteDrawY - 12);
                                 }
+                                
+                                
                                 smallText.drawText(0, String.valueOf(dmg), spriteDrawY + 4, spriteDrawX);
                                 smallText.drawText(0xffffff, String.valueOf(dmg), spriteDrawY + 3, spriteDrawX - 1);
                             }
@@ -13644,6 +13646,12 @@ public class Client extends RSApplet {
             for (int l3 = 0; l3 < 70; l3++) {
                 mapFunctions[l3] = new Sprite(mediaArchives, "mapfunction", l3);
             }
+            
+            try {
+				for (int i4 = 0; i4 < 20; i4++)
+					hitMarks[i4] = new Sprite(mediaArchives, "hitmarks", i4);
+			} catch (Exception _ex) {
+			}
 
             for (int index = 0; index < 20; index++) {
                 if (index < 17) {
@@ -21545,6 +21553,7 @@ public class Client extends RSApplet {
         aStringArray983 = new String[anInt975];
         lastKnownPlane = -1;
         compass = new Sprite[2];
+        hitMarks = new Sprite[20];
         // hitMark = new Sprite[50];
         // hitIcon = new Sprite[20];
         myAppearanceColors = new int[5];
@@ -21768,6 +21777,7 @@ public class Client extends RSApplet {
     private int anInt984;
     private int lastKnownPlane;
     private static int anInt986;
+    private Sprite[] hitMarks;
     // public Sprite[] hitMark;
     // public Sprite[] hitIcon;
     private Sprite[] scrollBar;

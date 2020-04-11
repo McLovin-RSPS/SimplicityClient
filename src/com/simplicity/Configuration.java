@@ -129,7 +129,7 @@ public class Configuration {
 	public static boolean enableTooltipHover;
 	
     /**
-     * Indicates whether old hitmarkers are enabled or not.
+     * Indicates whether osrs hitmarkers are enabled or not.
      */
 	public static boolean enableOldHitmarkers;
 	

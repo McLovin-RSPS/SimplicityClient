@@ -247,7 +247,7 @@ public enum Setting {
 		}
 	},
 	
-	OLD_HITMARKERS() {
+	OSRS_HITMARKERS() {
 
 		@Override
 		public void handle() {
