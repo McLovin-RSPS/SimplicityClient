@@ -247,31 +247,9 @@ public enum Setting {
 		}
 	},
 	
-	OSRS_HITMARKERS() {
-
-		@Override
-		public void handle() {
-			enableOldHitmarkers = !enableOldHitmarkers;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableOldHitmarkers;
-		}
-	},
+	HITMARKERS(new DropdownMenu(75, false, 0, new String[] { "562", "OSRS" }, Dropdown.HITMARKERS)) { },
 	
-	OSRS_HP_BARS() {
-
-		@Override
-		public void handle() {
-			enableNewHpBars = !enableNewHpBars;
-		}
-
-		@Override
-		public boolean enabled() {
-			return !enableNewHpBars;
-		}
-	},
+	HP_BARS(new DropdownMenu(75, false, 0, new String[] { "562", "OSRS" }, Dropdown.HPBARS)) { },
 
 	OLD_GAMEFRAME() {
 
@@ -459,13 +437,7 @@ public enum Setting {
 	 * @return The name.
 	 */
 	public String getName() {
-		String name = StringUtils.capitalizeWords(name().toLowerCase().replaceAll("_", " "));
-		
-		if (name.contains("Osrs")) {
-			name = name.replace("Osrs", "OSRS");
-		}
-		
-		return name;
+		return StringUtils.capitalizeWords(name().toLowerCase().replaceAll("_", " "));
 	}
 	
 	public static int size() {
