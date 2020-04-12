@@ -247,18 +247,9 @@ public enum Setting {
 		}
 	},
 	
-	OLD_HITMARKERS() {
-
-		@Override
-		public void handle() {
-			enableOldHitmarkers = !enableOldHitmarkers;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableOldHitmarkers;
-		}
-	},
+	HITMARKERS(new DropdownMenu(75, false, 0, new String[] { "562", "OSRS" }, Dropdown.HITMARKERS)) { },
+	
+	HP_BARS(new DropdownMenu(75, false, 0, new String[] { "562", "OSRS" }, Dropdown.HPBARS)) { },
 
 	OLD_GAMEFRAME() {
 

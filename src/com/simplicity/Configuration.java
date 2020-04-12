@@ -129,7 +129,7 @@ public class Configuration {
 	public static boolean enableTooltipHover;
 	
     /**
-     * Indicates whether old hitmarkers are enabled or not.
+     * Indicates whether osrs hitmarkers are enabled or not.
      */
 	public static boolean enableOldHitmarkers;
 	
@@ -242,6 +242,11 @@ public class Configuration {
 	 * Indicates whether kdr overlay is enabled or not.
 	 */
 	public static boolean enableKDROverlay = true;
+	
+	/**
+	 * Indicates whether new hp bars are enabled or not.
+	 */
+	public static boolean enableNewHpBars = true;
 	
 	/**
 	 * Indicates whether rune pouch overlay is enabled or not.

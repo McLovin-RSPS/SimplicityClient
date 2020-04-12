@@ -19,6 +19,28 @@ public enum Dropdown {
         }
 	},
 
+	HITMARKERS() {
+		@Override
+        public void selectOption(int selected, RSInterface dropdown) {
+			if (selected == 0) {
+				Configuration.enableOldHitmarkers = false;
+			} else if (selected == 1) {
+				Configuration.enableOldHitmarkers = true;
+			}
+        }
+	},
+	
+	HPBARS() {
+		@Override
+        public void selectOption(int selected, RSInterface dropdown) {
+			if (selected == 0) {
+				Configuration.enableNewHpBars = true;
+			} else if (selected == 1) {
+				Configuration.enableNewHpBars = false;
+			}
+        }
+	},
+
     KEYBIND_SELECTION() {
         @Override
         public void selectOption(int selected, RSInterface dropdown) {
