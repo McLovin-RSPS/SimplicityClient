@@ -784,8 +784,10 @@ public final class ItemDefinition {
             
             
             switch(itemDef.id) {
-            
+
             	// Crystal halberd full
+                case 10033://chin
+                case 10034://red chin
 	            case 43081:
 	            	itemDef.actions = new String[] { null, "Wield", null, null, null };
 	            	break;
