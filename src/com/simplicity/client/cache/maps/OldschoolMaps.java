@@ -68,7 +68,9 @@ public class OldschoolMaps {
            6709, 6965, 7221, 6710, 6966, 7222,
             
             // KBD Lever Room
-            12192
+            12192,
+            
+            13136, 13137, 13138, 13139, 13140 // Chambers of Xeric
     };
     static {
         for(Integer region : OLDSCHOOL_REGION_IDS) {
