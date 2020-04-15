@@ -1377,10 +1377,10 @@ public final class ObjectDefinition {
 			} else if (opcode == 81) {
 				stream.readUnsignedByte();
 			} else if (opcode == 82) {
-				int minimapFunction = stream.readUnsignedWord();
+				mapFunctionID = stream.readUnsignedWord();
 
-				if (minimapFunction == 0xFFFF) {
-					minimapFunction = -1;
+				if (mapFunctionID == 0xFFFF) {
+					mapFunctionID = -1;
 				}
 			} else if (opcode == 77 || opcode == 92) {
 				varbitIndex = stream.readUnsignedWord();
