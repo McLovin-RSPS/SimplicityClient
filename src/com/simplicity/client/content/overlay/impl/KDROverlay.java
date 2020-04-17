@@ -42,7 +42,7 @@ public class KDROverlay extends ScreenOverlay {
 		String kdr = deaths == 0 ? "0.00" : String.format(Locale.US, "%.2f", (double) kills / (double) deaths);
 		
 		client.newSmallFont.drawBasicString("Kills: " + kills, x, y, 0xffff00, 0);
-		client.newSmallFont.drawBasicString("Deaths: " + kills, x, y + 10, 0xffff00, 0);
+		client.newSmallFont.drawBasicString("Deaths: " + deaths, x, y + 10, 0xffff00, 0);
 		client.newSmallFont.drawBasicString("K/D Ratio: " + kdr, x, y + 20, 0xffff00, 0);
 		return true;
 	}
