@@ -303,21 +303,6 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
         setMapData(currentCount++, 8773, 4000, 4001, true);
         
         /**
-         * Skotizo lair
-         */
-        setMapData(currentCount++, 6810, 10000, 10001, false);
-
-        /**
-         * Revenant cave
-         */
-        setMapData(currentCount++, 12701, 10002, 10003, false);
-        setMapData(currentCount++, 12702, 10004, 10005, false);
-        setMapData(currentCount++, 12703, 10006, 10007, false);
-        setMapData(1346, 12957, 10008, 10009, false);
-        setMapData(currentCount++, 12958, 10010, 10011, false);
-        setMapData(currentCount++, 12959, 10012, 10013, false);
-
-        /**
          * Abyssal sire
          */
         setMapData(currentCount++, 11850, 10014, 10015, false);
@@ -346,11 +331,11 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
         /**
          * Hydra.
          */
-        setMapData(currentCount++, 5022, 10028, 10029, false);
+        /*setMapData(currentCount++, 5022, 10028, 10029, false);
         setMapData(currentCount++, 5023, 10022, 10023, false);
         setMapData(currentCount++, 5279, 10026, 10027, false);
         setMapData(currentCount++, 5280, 10024, 10025, false);
-        setMapData(currentCount++, 5535, 10030, 10031, false);
+        setMapData(currentCount++, 5535, 10030, 10031, false);*/
 
         /**
          * Great Olm

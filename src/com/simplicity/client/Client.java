@@ -4190,10 +4190,20 @@ public class Client extends RSApplet {
                 int uid = worldController.fetchGroundDecorationNewUID(plane, xTile, yTIle);
                 if (uid != 0) {
                     // uid = uid >> 14 & 0x7fff;
-                    int functionId = ObjectDefinition.forID(uid).mapFunctionID;
+                	ObjectDefinition def = ObjectDefinition.forID(uid);
+                    int functionId = def.mapFunctionID;
                     if (functionId >= 0) {
                         int k3 = xTile;
                         int l3 = yTIle;
+                        
+                        if (def.dataType == DataType.OLDSCHOOL) {
+	                        if (functionId >= 15 && functionId <= 67) {
+	                        	functionId -= 2;
+	        				} else if (functionId >= 68 && functionId <= 84) {
+	        					functionId -= 1;
+	        				}
+                        }
+                        
                         if (functionId != 22 && functionId != 29 && functionId != 34 && functionId != 36
                                 && functionId != 46 && functionId != 47 && functionId != 48) {
                             byte byte0 = 104;
