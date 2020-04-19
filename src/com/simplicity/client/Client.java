@@ -6967,7 +6967,7 @@ public class Client extends RSApplet {
         if (current > maximumEntityHealth) {
         	current = maximumEntityHealth;
         }
-        
+
         double percentage = (int) ((double) current / maximumEntityHealth * 119);
         
         DrawingArea.drawPixels(16, iface.y + 30 + y, iface.x + 2 + x, 0x00b300, (int) percentage);
@@ -18951,7 +18951,7 @@ public class Client extends RSApplet {
 					int[] bonus = new int[12];
 	
 					for (int b = 0; b < bonus.length; b++) {
-						bonus[b] = inStream.readByte();
+						bonus[b] = inStream.readShort();
 					}
 	
 					ItemDefinition def = ItemDefinition.forID(itemId);
