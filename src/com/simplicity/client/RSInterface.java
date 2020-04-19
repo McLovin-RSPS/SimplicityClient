@@ -11870,7 +11870,7 @@ public class RSInterface {
         rsInterface.hoverType = -1;
         rsInterface.valueCompareType = new int[1];
         rsInterface.requiredValues = new int[1];
-        rsInterface.valueCompareType[0] = 3;
+        rsInterface.valueCompareType[0] = 10;
         rsInterface.requiredValues[0] = runeAmount;
         rsInterface.valueIndexArray = new int[1][4];
         rsInterface.valueIndexArray[0][0] = 4;
