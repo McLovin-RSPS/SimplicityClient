@@ -16107,8 +16107,8 @@ public class RSInterface {
         setBounds(63474, xPos + 29, yPos + 10, 2, rsinterface);
         setBounds(63475, xPos + 79, yPos + 9, 3, rsinterface);
         setBounds(63476, xPos + 106, yPos + 10, 4, rsinterface);
-        setBounds(63450, xPos + 460, yPos + 8, 5, rsinterface);
-        setBounds(63451, xPos + 460, yPos + 8, 6, rsinterface);
+        setBounds(63450, xPos + 461, yPos + 10, 5, rsinterface);
+        setBounds(63451, xPos + 461, yPos + 10, 6, rsinterface);
         setBounds(63478, 0, yPos + 39, 7, rsinterface);
     }
     
