@@ -148,7 +148,7 @@ public final class ObjectDefinition {
         objectDef.setDefaults();
         objectDef.dataType = DataType.OLDSCHOOL;
         try {
-            objectDef.readValues(streamOSRS);
+            objectDef.readValuesOSRS(streamOSRS);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -177,7 +177,6 @@ public final class ObjectDefinition {
         if (i == 132660) {
         	objectDef.animationID = -1;
         }
-        
 
 		if (debug) {
 			objectDef.name = ""+i;
@@ -227,6 +226,10 @@ public final class ObjectDefinition {
                 || i >= 12713 && i <= 12715);
         
         boolean loadOSRS = i == 3077;
+        
+        if (i == 101761) {
+        	i = 1306;
+        }
         
         if (i == 12010) { // Soul wars object
         	i = 33416;
@@ -357,6 +360,10 @@ public final class ObjectDefinition {
             objectDef.actions = new String[]{"Touch", null, null, null, null};
             objectDef.name = "@yel@Statue of Arthur";
         }
+        if (i == 29826) {
+            objectDef.actions = new String[]{"Jump-into", null, null, null, null};
+            objectDef.name = "@yel@Rabbit hole";
+        }
         if (i == 59956) {
             objectDef.actions = new String[]{"Touch", null, null, null, null};
             objectDef.name = "@yel@Statue of Supreme";
@@ -367,7 +374,7 @@ public final class ObjectDefinition {
         }
         if (i == 46984) {
             objectDef.actions = new String[]{"Pray-at", null, null, null, null};
-            objectDef.name = "@yel@Statue of Arthur";
+            objectDef.name = "@yel@Statue of Hellraty";
         }
         if (i == 49653) {
             objectDef.actions = new String[]{"Touch", null, null, null, null};
@@ -724,6 +731,7 @@ public final class ObjectDefinition {
                 objectDef.actions = new String[]{"Search", null, null, null, null};
                 break;
             case 29577:
+            case 46243:
                 objectDef.name = "Treasure chest";
                 objectDef.actions = new String[]{"Open", null, null, null, null};
                 break;
@@ -1328,9 +1336,7 @@ public final class ObjectDefinition {
 					modifiedModelTexture[i2] = (short) stream.readUnsignedWord();
 					originalModelTexture[i2] = (short) stream.readUnsignedWord();
 				}
-			} else if (opcode == 82)
-				mapFunctionID = stream.readUnsignedWord();
-			else if (opcode == 62)
+			} else if (opcode == 62)
 				aBoolean751 = true;
 			else if (opcode == 64)
 				aBoolean779 = false;
@@ -1371,10 +1377,10 @@ public final class ObjectDefinition {
 			} else if (opcode == 81) {
 				stream.readUnsignedByte();
 			} else if (opcode == 82) {
-				int minimapFunction = stream.readUnsignedWord();
+				mapFunctionID = stream.readUnsignedWord();
 
-				if (minimapFunction == 0xFFFF) {
-					minimapFunction = -1;
+				if (mapFunctionID == 0xFFFF) {
+					mapFunctionID = -1;
 				}
 			} else if (opcode == 77 || opcode == 92) {
 				varbitIndex = stream.readUnsignedWord();

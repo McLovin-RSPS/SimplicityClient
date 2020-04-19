@@ -6,6 +6,12 @@ public class CustomItems {
 
     public static void loadDefinition(ItemDefinition itemDef) {
         switch (itemDef.id) {
+            case 10033:
+            case 10034:
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wear";
+                itemDef.actions[4] = "Drop";
+                break;
         	case 21024:
         		itemDef.copy(ItemDefinition.forID(14601));
         		itemDef.editedModelColor = new int[] { 940, 933, 928, 924 };
@@ -305,6 +311,114 @@ public class CustomItems {
                 itemDef.newModelColor = new int[]{3024, 4024, 3024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024};
                 break;
                 
+            case 2022:
+                itemDef.copy(ItemDefinition.forID(4565));
+                itemDef.name = "Evil Basket of eggs";
+                itemDef.editedModelColor = new int[]{960, 0, 22464, 55232, 33728, 43968, 9672, 476, 127};
+                itemDef.newModelColor = new int[]{960, 4024, 3024, 4024, 3024, 43968, 4361, 476, 127};
+                break;
+                
+            case 15100:
+                itemDef.copy(ItemDefinition.forID(52324));
+                itemDef.actions[1] = "Wield";
+                itemDef.name = "Ghrazi rapier X";
+                itemDef.description = "It is the Ghrazi Rapier X";
+                itemDef.editedModelColor = new int[] { 64414, 43150, 43034, 43047, 43059, 43090, 43113, 43030, 43047 };
+                itemDef.newModelColor = new int[] { 64414, 43150, 43034, 43047, 43059, -1253, -1253, -1253, 43047 };
+                break;
+                
+            case 20202:
+                itemDef.copy(ItemDefinition.forID(11046));
+                itemDef.name = "Dark rope";
+                itemDef.editedModelColor = new int[] { 6806, 6558 };
+                itemDef.newModelColor = new int[] { 6806, 1024 };
+                break;
+                
+            case 20203:
+                itemDef.copy(ItemDefinition.forID(11046));
+                itemDef.name = "Bandit rope";
+                itemDef.editedModelColor = new int[] { 6806, 6558 };
+                itemDef.newModelColor = new int[] { 6806, 32883 };
+                break;
+                
+            case 20204:
+                itemDef.copy(ItemDefinition.forID(11046));
+                itemDef.name = "Kurask rope";
+                itemDef.editedModelColor = new int[] { 6806, 6558 };
+                itemDef.newModelColor = new int[] { 6806, -1253 };
+                break;
+                
+            case 20205:
+                itemDef.copy(ItemDefinition.forID(11046));
+                itemDef.name = "Mole rope";
+                itemDef.editedModelColor = new int[] { 6806, 6558 };
+                itemDef.newModelColor = new int[] { 6806, -1053 };
+                break;
+                
+            case 20206:
+                itemDef.copy(ItemDefinition.forID(11046));
+                itemDef.name = "Corp rope";
+                itemDef.editedModelColor = new int[] { 6806, 6558 };
+                itemDef.newModelColor = new int[] { -1253, 37208 };
+                break;
+                
+            case 20207:
+                itemDef.copy(ItemDefinition.forID(11046));
+                itemDef.name = "Bunny rope";
+                itemDef.editedModelColor = new int[] { 6806, 6558 };
+                itemDef.newModelColor = new int[] { 40090, 40090 };
+                break;
+                
+            case 14444:
+                itemDef.copy(ItemDefinition.forID(19640));
+                itemDef.name = "Blood orb";
+                itemDef.description = "It is Verzik's blood orb";
+                itemDef.editedModelColor = new int[] { 36048, 36977, 37208 };
+                itemDef.newModelColor = new int[] { -1253, -1253, -1253 };
+                break;
+                
+            case 14514:
+                itemDef.copy(ItemDefinition.forID(14415));
+                itemDef.name = "Super combat flask (6)";
+                itemDef.editedModelColor = new int[] { 650, 656, 663, 40090, 40091, 667, 39964, 668, 40094, 40095, 40096, 673, 674, 676, 42149, 40101, 40102, 679, 680, 40104, 681, 40105, 40107, 40108, 40109, 41134, 40110, 41135, 40111, 40112, 40113, 41137, 41138, 40115, 33715, 41140, 40117, 41141, 40118, 41142, 40119, 40120, 41144, 40121, 41147, 40124, 41148, 40125, 40127, 40129, 41154, 40137, 40138, 40141, 40142 };
+                itemDef.newModelColor = new int[] { 650, 656, 663, 40090, 40091, 667, 39964, 668, 40094, 40095, 40096, 673, 674, 676, 42149, 40101, 40102, 679, 680, 40104, 681, 40105, 40107, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 41142, 40119, 40120, 41144, 40121, 41147, 40124, 41148, 40125, 40127, 40129, 41154, 40137, 40138, 40141, 40142 };
+                break;
+                
+            case 14512:
+                itemDef.copy(ItemDefinition.forID(14413));
+                itemDef.name = "Super combat flask (5)";
+                itemDef.editedModelColor = new int[] { 650, 656, 663, 40090, 40091, 667, 39964, 668, 40094, 40095, 40096, 673, 674, 676, 42149, 40101, 40102, 679, 680, 40104, 681, 40105, 40107, 40108, 40109, 41134, 40110, 41135, 40111, 40112, 40113, 41137, 41138, 40115, 33715, 41140, 40117, 41141, 40118, 41142, 40119, 40120, 41144, 40121, 41147, 40124, 41148, 40125, 40127, 40129, 41154, 40137, 40138, 40141, 40142, 42095 };
+                itemDef.newModelColor = new int[] { 650, 656, 663, 40090, 40091, 667, 39964, 668, 40094, 40095, 40096, 673, 674, 676, 42149, 40101, 40102, 679, 680, 40104, 681, 40105, 40107, 40108, 40109, 41134, 40110, 41135, 40111, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 41142, 40119, 40120, 41144, 40121, 41147, 40124, 41148, 40125, 40127, 40129, 41154, 40137, 40138, 40141, 40142, 42095 };
+                break;
+                
+            case 14510:
+                itemDef.copy(ItemDefinition.forID(14411));
+                itemDef.name = "Super combat flask (4)";
+                itemDef.editedModelColor = new int[] { 650, 656, 663, 40090, 40091, 667, 39964, 668, 40094, 40095, 40096, 673, 674, 676, 42149, 40101, 40102, 679, 680, 40104, 681, 40105, 40107, 40108, 40109, 41134, 40110, 41135, 40111, 40112, 40113, 41137, 41138, 40115, 33715, 41140, 40117, 41141, 40118, 41142, 40119, 40120, 41144, 40121, 41147, 40124, 41148, 40125, 40127, 40129, 41154, 40137, 40138, 40141, 40142, 42111 };
+                itemDef.newModelColor = new int[] { 650, 656, 663, 40090, 40091, 667, 39964, 668, 40094, 40095, 40096, 673, 674, 676, 42149, 40101, 40102, 679, 680, 40104, 681, 40105, 40107, 40108, 40109, 41134, 40110, 41135, 40111, 40112, 40113, 41137, 41138, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 41144, 40121, 41147, 40124, 41148, 40125, 40127, 40129, 41154, 40137, 40138, 40141, 40142, 42111 };
+                break;
+                
+            case 14508:
+                itemDef.copy(ItemDefinition.forID(14409));
+                itemDef.name = "Super combat flask (3)";
+                itemDef.editedModelColor = new int[] { 650, 656, 663, 40090, 40091, 667, 39964, 668, 40094, 40095, 40096, 673, 674, 676, 42149, 40101, 40102, 679, 680, 40104, 681, 40105, 40107, 40108, 40109, 41134, 40110, 41135, 40111, 40112, 40113, 41137, 41138, 33715, 40115, 41140, 40117, 41141, 40118, 41142, 40119, 40120, 41144, 40121, 41147, 40124, 41148, 40125, 40127, 40129, 41154, 40137, 40138, 40141, 40142, 42095 };
+                itemDef.newModelColor = new int[] { 650, 656, 663, 40090, 40091, 667, 39964, 668, 40094, 40095, 40096, 673, 674, 676, 42149, 40101, 40102, 679, 680, 40104, 681, 40105, 40107, 40108, 40109, 41134, 40110, 41135, 40111, 40112, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 40120, 41144, 40121, 41147, 40124, 41148, 40125, 40127, 40129, 41154, 40137, 40138, 40141, 40142, 42095, };
+                break;
+                
+            case 14506:
+                itemDef.copy(ItemDefinition.forID(14407));
+                itemDef.name = "Super combat flask (2)";
+                itemDef.editedModelColor = new int[] { 650, 656, 663, 40090, 40091, 667, 39964, 668, 40094, 40095, 40096, 673, 674, 676, 42149, 40101, 40102, 679, 680, 40104, 681, 40105, 40107, 40108, 40109, 41134, 40110, 41135, 40111, 40112, 40113, 41137, 41138, 33715, 40115, 41140, 40117, 41141, 40118, 41142, 40119, 40120, 41144, 40121, 41147, 40124, 41148, 40125, 40127, 40129, 41154, 40137, 40138, 40141, 40142, 42095 };
+                itemDef.newModelColor = new int[] { 650, 656, 663, 40090, 40091, 667, 39964, 668, 40094, 40095, 40096, 673, 674, 676, 42149, 40101, 40102, 679, 680, 40104, 681, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 40113, 22454, 22454, 22454, 22454, 22454, 22454, 41141, 40118, 41142, 40119, 40120, 41144, 40121, 41147, 40124, 41148, 40125, 40127, 40129, 41154, 40137, 40138, 40141, 40142, 42095 };
+                break;
+                
+            case 14504:
+                itemDef.copy(ItemDefinition.forID(14405));
+                itemDef.name = "Super combat flask (1)";
+                itemDef.editedModelColor = new int[] { 650, 656, 663, 40090, 40091, 667, 39964, 668, 40094, 40095, 40096, 673, 674, 676, 42149, 40101, 40102, 679, 680, 40104, 681, 40105, 40107, 40108, 40109, 41134, 40110, 41135, 40111, 40112, 40113, 41137, 41138, 40115, 33715, 41140, 40117, 41141, 40118, 41142, 40119, 40120, 41144, 40121, 41147, 40124, 41148, 40125, 40127, 40129, 41154, 40137, 40138, 40141, 40142, 42095 };
+                itemDef.newModelColor = new int[] { 650, 656, 663, 40090, 40091, 667, 39964, 668, 40094, 40095, 40096, 673, 674, 676, 42149, 40101, 40102, 679, 680, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 22454, 40118, 41142, 40119, 40120, 41144, 40121, 41147, 40124, 41148, 40125, 40127, 40129, 41154, 40137, 40138, 40141, 40142, 42095 };
+                break;
+                
             case 4736:
             case 17215:
                 itemDef.femaleEquip1 = itemDef.maleEquip1;
@@ -537,13 +651,6 @@ public class CustomItems {
                 itemDef.newModelColor = new int[]{ 4024, 4024, 4024};
                 itemDef.name = "Halloween " + itemDef.name;
                 break;
-
-            /*case 14921:
-                itemDef.copy(ItemDefinition.forID(52978));
-                itemDef.editedModelColor = new int[]{12484, 16, 12475, 12, 28, 20, 37, 41, 30643, 13493, 0, 29601, 24, 33, 29609};
-                itemDef.newModelColor = new int[]{32883, 0, 32883, 0, 0, 0, 0, 0, 32883, 32883, 0, 32883, 0, 0, 32883};
-                itemDef.name = "Dark " + itemDef.name;
-                break; */
 
             case 14922:
                 itemDef.copy(ItemDefinition.forID(51003));

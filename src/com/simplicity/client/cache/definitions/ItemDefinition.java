@@ -29,6 +29,11 @@ import com.simplicity.client.cache.definitions.custom.CustomRecolor;
 public final class ItemDefinition {
 	
     /**
+     * A hash collection of item names accessed by item ids.
+     */
+    public static final Map<Integer, String> items = new HashMap<>();
+	
+    /**
      * A hash collection of item ids which should be forced to load using OSRS data yet retain their ids.
      */
     private static final Set<Integer> FORCE_OSRS_ITEMS = new HashSet<>(Arrays.asList(554, 555, 556, 560, 565, 566, 1704, 1706, 1708, 1710, 1712));
@@ -307,11 +312,11 @@ public final class ItemDefinition {
 
     public static void unpackConfig(CacheArchive streamLoader) {
         stream = new Stream(streamLoader.getDataForName("obj.dat"));
-        Stream stream = new Stream(streamLoader.getDataForName("obj.idx"));
+        Stream streamIdx = new Stream(streamLoader.getDataForName("obj.idx"));
         streamOSRS = new Stream(streamLoader.getDataForName("obj3.dat"));
         Stream streamOSRS = new Stream(streamLoader.getDataForName("obj3.idx"));
 
-        totalItems = stream.readUnsignedWord();
+        totalItems = streamIdx.readUnsignedWord();
         int totalItemsOSRS = streamOSRS.readUnsignedWord();
 
         streamIndices = new int[totalItems + 2000];
@@ -321,7 +326,7 @@ public final class ItemDefinition {
 
         for (int j = 0; j < totalItems; j++) {
             streamIndices[j] = i;
-            i += stream.readUnsignedWord();
+            i += streamIdx.readUnsignedWord();
         }
 
         i = 2;
@@ -338,7 +343,30 @@ public final class ItemDefinition {
             cache[k] = new ItemDefinition();
             cacheOSRS[k] = new ItemDefinition();
         }
+        
+		for (int i1 = 1; i1 < totalItems; i1++) {
+			try {
+				stream.currentOffset = streamIndices[i1];
+				ItemDefinition def = new ItemDefinition();
+				def.setDefaults();
+				def.id = i1;
+				def.readValues(stream);
 
+				if (def.lentItemID != -1 || def.certTemplateID != -1) {
+					continue;
+				}
+
+				if (def.name == null) {
+					continue;
+				}
+
+				items.put(def.id, def.name);
+				
+			} catch (Exception e) {
+				System.out.println("Error loading: " + i1);
+			}
+		}
+        
         setSettings();
 
         osrsModels.add(34148);
@@ -506,6 +534,38 @@ public final class ItemDefinition {
         priorityModels.add(12778);
         priorityModels.add(12817);
         
+        //Bunnyman mask
+        priorityModels.add(21860);
+        priorityModels.add(37215);
+        
+        //Slayer helmets
+        priorityModels.add(36006);
+        priorityModels.add(36007);
+        priorityModels.add(20860);
+        priorityModels.add(20862);
+        priorityModels.add(14395);
+        
+        //Assembler max cape
+        priorityModels.add(34629);
+        priorityModels.add(34641);
+        
+        //Serp helm
+        priorityModels.add(14395);
+        priorityModels.add(14398);
+        
+        //Magma helm
+        priorityModels.add(14424);
+        priorityModels.add(14398);
+        
+        
+        //Infernal max hood
+        priorityModels.add(33101);
+        priorityModels.add(33110);
+        
+        //Staff of light
+        priorityModels.add(34508);
+        priorityModels.add(34507);
+        
         //Necklaces
         priorityModels.add(31524);
         priorityModels.add(31227);
@@ -543,9 +603,26 @@ public final class ItemDefinition {
         priorityModels.add(38960);
         priorityModels.add(38970);
         
-        // Corp's graceful cape
+        // Graceful set
         priorityModels.add(31005);
         priorityModels.add(31012);
+        
+        priorityModels.add(31023);
+        priorityModels.add(31009);
+        priorityModels.add(31008);
+        
+        priorityModels.add(31021);
+        priorityModels.add(31015);
+        priorityModels.add(31012);
+        
+        priorityModels.add(31007);
+        priorityModels.add(31014);
+        
+        priorityModels.add(31022);
+        priorityModels.add(31006);
+        
+        priorityModels.add(31024);
+        priorityModels.add(31010);
         
         // Team cape x
         priorityModels.add(31773);
@@ -707,8 +784,10 @@ public final class ItemDefinition {
             
             
             switch(itemDef.id) {
-            
+
             	// Crystal halberd full
+                case 10033://chin
+                case 10034://red chin
 	            case 43081:
 	            	itemDef.actions = new String[] { null, "Wield", null, null, null };
 	            	break;
@@ -732,6 +811,7 @@ public final class ItemDefinition {
 	            	itemDef.femaleYOffset -= 10;
 	            	itemDef.modelOffsetY = 16;
 	            	break;
+	            	
             	
             	// Team cape x and i
 	            case 50214:
@@ -975,9 +1055,6 @@ public final class ItemDefinition {
                 case 52316:
                     itemDef.name = "Emerald rapier";
                     break;
-                case 52296:
-                    itemDef.name = "Staff of Demonic";
-                    break;
                 case 41860:
                     itemDef.name = "Angelic Boots";
                     break;
@@ -988,19 +1065,6 @@ public final class ItemDefinition {
                 case 52410:
                     itemDef.name = "1000m Note";
                     itemDef.actions = new String[]{"Claim", null, null, null, "Drop"};
-                    break;
-                case 52324:
-                    itemDef.modelID = 35739;
-                    itemDef.actions = new String[5];
-                    itemDef.actions[1] = "Wield";
-                    itemDef.name = "Ghrazi rapier (r)";
-                    itemDef.description = "It is the replica Ghrazi Rapier.";
-                    itemDef.modelZoom = 2200;
-                    itemDef.stackable = false;
-                    itemDef.rotationX = 1603;
-                    itemDef.rotationY = 552;
-                    itemDef.maleEquip1 = 35374;
-                    itemDef.femaleEquip1 = 35369;
                     break;
             }
             return itemDef;
@@ -1197,6 +1261,13 @@ public final class ItemDefinition {
 			itemDef.modelOffsetX = 0;
 			itemDef.modelOffsetY = 28;
 			itemDef.dataType = DataType.CUSTOM;
+			break;
+			
+		case 22012:
+			itemDef.copy(forID(51295));
+            itemDef.name = "Rainbow Infernal cape";
+			itemDef.editedModelColor = new int[] { 59 };
+        	itemDef.newModelColor = new int[] { 71 };
 			break;
         
         case 17273:
@@ -2237,6 +2308,36 @@ public final class ItemDefinition {
                 itemDef.femaleEquip1 = def.femaleEquip1;
                 //	System.out.print("model "+def.maleEquip1);
                 break;
+                
+                /**
+                 * Model switch to OSRS
+                 */                
+            case 15001:
+                itemDef.copy(forID(52324));
+                break;
+                
+            case 14484:
+                itemDef.copy(forID(43652));
+                break;
+                
+            case 12282:
+                itemDef.copy(forID(42931));
+                break;
+                
+            case 15486:
+                itemDef.copy(forID(52296));
+                break;
+                
+            case 15492:
+                itemDef.copy(forID(41864));
+                break;
+                
+            case 12284:
+                itemDef.copy(forID(42904));
+                break;
+                
+                // Spirit shield models
+
 
             /**
              * Treasure Island Keys
@@ -3054,19 +3155,6 @@ public final class ItemDefinition {
                 itemDef.maleEquip1 = 9347;
                 itemDef.femaleEquip1 = 9347;
                 break;
-            case 12282:
-                itemDef.name = "Serpentine helm";
-                itemDef.modelID = 19220;
-                itemDef.modelZoom = 700;
-                itemDef.rotationX = 1724;
-                itemDef.rotationY = 215;
-                itemDef.modelOffsetX = 17;
-                itemDef.femaleEquip1 = 14398;
-                itemDef.maleEquip1 = 14395;
-                itemDef.groundActions = new String[]{null, null, "Take", null, null};
-                itemDef.actions[1] = "Wear";
-                itemDef.actions[4] = "Drop";
-                break;
             case 12279:
                 itemDef.name = "Magma helm";
                 itemDef.modelID = 29205;
@@ -3299,24 +3387,6 @@ public final class ItemDefinition {
                 //itemDef.anInt164 = -1;
                 itemDef.maleDialogue = -1;
                 itemDef.femaleDialogue = -1;
-                break;
-            case 12284:
-                itemDef.name = "Toxic staff of the dead";
-                itemDef.modelID = 19224;
-                itemDef.modelZoom = 2150;
-                itemDef.rotationX = 1010;
-                itemDef.rotationY = 512;
-                itemDef.femaleEquip1 = 49001;
-                itemDef.maleEquip1 = 49001;
-                itemDef.actions = new String[5];
-                itemDef.actions[1] = "Wield";
-                itemDef.actions[2] = "Check";
-                itemDef.actions[4] = "Uncharge";
-                itemDef.groundActions = new String[]{null, null, "Take", null, null};
-                itemDef.editedModelColor = new int[1];
-                itemDef.editedModelColor[0] = 17467;
-                itemDef.newModelColor = new int[1];
-                itemDef.newModelColor[0] = 21947;
                 break;
             case 12605:
                 itemDef.name = "Treasonous ring";
@@ -4059,20 +4129,6 @@ public final class ItemDefinition {
                 itemDef.actions = new String[5];
                 itemDef.actions[1] = "Wear";
                 itemDef.actions[4] = "Drop";
-                break;
-                
-            case 15001:
-                itemDef.modelID = 35739;
-                itemDef.actions = new String[5];
-                itemDef.actions[1] = "Wield";
-                itemDef.name = "Ghrazi rapier";
-                itemDef.description = "It is the Ghrazi Rapier";
-                itemDef.modelZoom = 2200;
-                itemDef.stackable = false;
-                itemDef.rotationX = 1603;
-                itemDef.rotationY = 552;
-                itemDef.maleEquip1 = 35374;
-                itemDef.femaleEquip1 = 35369;
                 break;
                 
             case 15000:
@@ -8909,11 +8965,15 @@ public final class ItemDefinition {
             model.scaleT(sizeX, sizeZ, sizeY);
         }
         if (Configuration.debuggingModels) {
-            String colours = id + " Model colours: ";
+        	Set<Integer> colors = new HashSet<>();
+        	
             for (int i : model.face_color) {
-                colours = colours + ", " + i;
+                colors.add(i);
             }
-            System.out.println(colours);
+            
+            System.out.print(id + " Model colours: ");
+            colors.forEach(c -> System.out.print(c + ", "));
+            System.out.println();
         }
         if (editedModelColor != null) {
             for (int l = 0; l < editedModelColor.length; l++) {

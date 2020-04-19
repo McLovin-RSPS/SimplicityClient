@@ -50,7 +50,7 @@ public class Configuration {
 			4, 5, 0, 0, 2, 0, 6, 0, 0, 0, // 160
 			// 0, 3, /*0*/ -1, 0, 5, 7, 10, 6, 5, 1, //170
 			0, 3, -2, -2, 5, 5, 10, 6, 5, -2, // 170
-			0, 16, 0, 0, 0, 2, 0, -1, 0, 0, // 180
+			0, 28, 0, 0, 0, 2, 0, -1, 0, 0, // 180
 			0, 0, 0, 0, 0, 2, -1, 0, -1, 0, // 190
 			4, 0, 0, 0, 0, -1, 3, 10, 6, 4, // 200
 			0, 0, 0, 0, -1, 7, 0, -2, 2, 0, // 210
@@ -114,9 +114,9 @@ public class Configuration {
 	public static boolean enableHDTextures;
 	
     /**
-     * Indicates whether the special button is enabled or not.
+     * Indicates whether the special orb is enabled or not.
      */
-	public static boolean enableSpecialButton;
+	public static boolean enableSpecialOrb;
 	
     /**
      * Indicates whether the timers are enabled or not.
@@ -129,7 +129,7 @@ public class Configuration {
 	public static boolean enableTooltipHover;
 	
     /**
-     * Indicates whether old hitmarkers are enabled or not.
+     * Indicates whether osrs hitmarkers are enabled or not.
      */
 	public static boolean enableOldHitmarkers;
 	
@@ -199,9 +199,9 @@ public class Configuration {
 	public static boolean enableMipmapping;
 	
 	/**
-	 * Indicates whether the hover stats are enabled or not.
+	 * Indicates the state of item stats.
 	 */
-	public static boolean enableItemStats = true;
+	public static int enableItemStats = 1;
 	
 	/**
 	 * Indicates whether the tile markers are enabled or not.
@@ -214,6 +214,11 @@ public class Configuration {
 	public static boolean enableWASDCamera = false;
 	
 	/**
+	 * Indicates whether tweening is enabled or not.
+	 */
+	public static boolean enableTweening = true;
+	
+	/**
 	 * Indicates whether zooming is enabled or not.
 	 */
 	public static boolean enableZooming = true;
@@ -222,5 +227,31 @@ public class Configuration {
 	 * Indicates whether bounty target is enabled or not.
 	 */
 	public static boolean enableBountyTarget = true;
-    
+	
+	/**
+	 * Indicates whether moderation menu is enabled or not.
+	 */
+	public static boolean enableModerationMenu = true;
+	
+	/**
+	 * Indicates whether ammunition overlay is enabled or not.
+	 */
+	public static boolean enableAmmunitionOverlay = true;
+	
+	/**
+	 * Indicates whether kdr overlay is enabled or not.
+	 */
+	public static boolean enableKDROverlay = true;
+	
+	/**
+	 * Indicates whether new hp bars are enabled or not.
+	 */
+	public static boolean enableNewHpBars = true;
+	
+	/**
+	 * Indicates whether rune pouch overlay is enabled or not.
+	 */
+	public static boolean enableRunePouchOverlay = false;
+
+	public static long lastModerationToggleTime; //todo draw text of change or something
 }

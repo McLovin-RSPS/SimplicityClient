@@ -9,9 +9,11 @@ import com.simplicity.client.widget.CollectionLogWidget;
 import com.simplicity.client.widget.KnowledgeBaseWidget;
 import com.simplicity.client.widget.QuestTab;
 import com.simplicity.client.widget.SettingsWidget;
+import com.simplicity.client.widget.SkillQuantityWidget;
 import com.simplicity.client.widget.Slider;
 import com.simplicity.client.widget.StarterWidget;
 import com.simplicity.client.widget.Widget;
+import com.simplicity.client.widget.WildernessWidget;
 import com.simplicity.client.widget.dropdown.Dropdown;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 
@@ -50,6 +52,8 @@ public class RSInterface {
         component.height = height;
         component.tooltip = s;
     }
+
+	public int fillColor;
 
     public boolean drawInterface(final Client client, int widgetDrawX, int widgetDrawY, int subWidgetDrawX,
                                  int subWidgetDrawY) {
@@ -743,7 +747,7 @@ public class RSInterface {
         teleportsList.height = 236;
         teleportsList.scrollMax = totalTeleports * 40 + 5;
 
-        teleportsList.totalChildren(totalTeleports * 4);
+        teleportsList.totalChildren(totalTeleports * 4 - 30);
 
         teleportListId++;
 
@@ -751,13 +755,9 @@ public class RSInterface {
 
         int increaseY = 0;
         for (int i = 0; i < totalTeleports; i++) {
-            addHoverButtonWSpriteLoader(teleportListId, 1139, 145, 35, "Select", 0, teleportListId + 1, 5, "Favorite");
+        	hoverButton(teleportListId, "Select", new String[] { "Favorite" }, 1139, 1140);
             teleportsList.child(index++, teleportListId++, 7, 7 + increaseY); //teleport
-
-            addHoveredImageWSpriteLoader(teleportListId, 1140, 145, 35, teleportListId + 1);
-            teleportsList.child(index++, teleportListId++, 7, 7 + increaseY); //teleport hover
-
-            teleportListId++;
+            teleportListId+=2;
 
             RSInterface.addText(teleportListId, "Teleport Text", tda, 1, 0xc8aa64, true);
             teleportsList.child(index++, teleportListId++, 7 + (145 / 2), 16 + increaseY);
@@ -775,7 +775,7 @@ public class RSInterface {
         favoritesList.height = 236;
         favoritesList.scrollMax = totalTeleports * 80 + 5;
 
-        favoritesList.totalChildren(totalTeleports * 4);
+        favoritesList.totalChildren(totalTeleports * 4 - 30);
 
         favoritesListId++;
 
@@ -783,13 +783,9 @@ public class RSInterface {
 
         increaseY = 0;
         for (int i = 0; i < totalTeleports; i++) {
-            addHoverButtonWSpriteLoader(favoritesListId, 1139, 145, 35, "Select", 0, favoritesListId + 1, 5, "Remove");
-            favoritesList.child(index++, favoritesListId++, 7, 7 + increaseY); //teleport
-
-            addHoveredImageWSpriteLoader(favoritesListId, 1140, 145, 35, favoritesListId + 1);
-            favoritesList.child(index++, favoritesListId++, 7, 7 + increaseY); //teleport hover
-
-            favoritesListId++;
+        	hoverButton(favoritesListId, "Select", new String[] { "Remove" }, 1139, 1140);
+        	favoritesList.child(index++, favoritesListId++, 7, 7 + increaseY); //teleport
+        	favoritesListId+=2;
 
             RSInterface.addText(favoritesListId, "Teleport Text", tda, 1, 0xc8aa64, true);
             favoritesList.child(index++, favoritesListId++, 7 + (145 / 2), 16 + increaseY);
@@ -1118,6 +1114,32 @@ public class RSInterface {
         rsi.height = height;
         rsi.width = width;
     }
+    
+	public static void addItemModel(int id, int item, int w, int h, int zoom) {
+		addItemModel(id, item, w, h, zoom, 0, 0);
+	}
+
+	public static void addItemModel(int id, int item, int w, int h, int zoom, int rotationOffsetX, int rotationOffsetY) {
+		RSInterface rsi = interfaceCache[id] = new RSInterface();
+		rsi.id = id;
+		rsi.contentType = 329;
+		rsi.type = 6;
+		rsi.mediaType = 4;
+		rsi.mediaID = item;
+		rsi.width = w;
+		rsi.height = h;
+		if (rsi.mediaID != -1) {
+			ItemDefinition itemDef = ItemDefinition.forID(item);
+
+			if (itemDef == null) {
+				return;
+			}
+
+			rsi.modelRotation1 = itemDef.rotationY + rotationOffsetY;
+			rsi.modelRotation2 = itemDef.rotationX + rotationOffsetX;
+			rsi.modelZoom = (itemDef.modelZoom * 100) / zoom;
+		}
+	}
 
     public static final int purchase_options = 9;
 
@@ -3355,6 +3377,28 @@ public class RSInterface {
 		tab.disabledColor = color;
 		tab.transparency = transparency;
 	}
+	
+	/**
+	 * Draws a rectangle on the interface.
+	 * @param interfaceId
+	 * @param width
+	 * @param height
+	 * @param color
+	 * @param transparency
+	 */
+	public static void drawBox(int interfaceId, int width, int height, int border, int borderColor, int color, int transparency, int fillColor, int fillTransparency) {
+		RSInterface tab = addInterface(interfaceId);
+		tab.type = 34;
+		tab.width = width;
+		tab.height = height;
+		tab.borderWidth = border;
+		tab.borderColor = borderColor;
+		tab.disabledColor = color;
+		tab.transparency = transparency;
+		tab.fillColor = fillColor;
+		tab.customOpacity = fillTransparency;
+		tab.filled = true;
+	}
 
     public static void addItemContainer(int id, int[] padding,
                                         int[] dimensions, String[] actions, boolean examine) {
@@ -4320,7 +4364,6 @@ public class RSInterface {
         priceCheckerInterface();
         achievementsInterface();
         loyaltyShop();
-        wildernessInterface();
         Sidebar0(textDrawingAreas);
         optionTab(textDrawingAreas);
         emoteTab();
@@ -4441,6 +4484,10 @@ public class RSInterface {
         StarterWidget.unpack(textDrawingAreas);
         
         QuestTab.unpack(textDrawingAreas);
+        
+        SkillQuantityWidget.unpack(textDrawingAreas);
+        
+        WildernessWidget.unpack();
         
         Widget.init();
         spriteCache = null;
@@ -5910,30 +5957,6 @@ public class RSInterface {
     }
 
     /*
-     * Wilderness interface
-     */
-    private static void wildernessInterface() {
-        RSInterface tab = RSInterface.addTabInterface(25347);
-        tab.totalChildren(7);
-//        addTransparentSpriteWSpriteLoader(25348, 742, 150);
-        addText(25349, "Target:", fonts, 0, 0xCCCBCB, true, true);
-        addText(25350, "None", fonts, 0, 0xCCCBCB, true, true);
-        addText(25351, "Wilderness Level:", fonts, 0, 0xCCCBCB, false, true);
-        addText(25352, "18", fonts, 0, 0xCCCBCB, true, true);
-        addText(25353, "Target Percentage:", fonts, 0, 0xCCCBCB, false, true);
-        addText(25354, "99%", fonts, 0, 0xCCCBCB, true, true);
-        addText(25355, "Levels: 114 - 126", fonts, 1, 0xff9040, false, true);
-//        tab.child(0, 25348, 334, 2);
-        tab.child(0, 25349, 356, 10);
-        tab.child(1, 25350, 445, 10);
-        tab.child(2, 25351, 340, 28);
-        tab.child(3, 25352, 492, 28);
-        tab.child(4, 25353, 340, 46);
-        tab.child(5, 25354, 492, 46);
-        tab.child(6, 25355, 411, 315);
-    }
-
-    /*
      * Emote Tab Interface
      */
     private static void emoteTabInterface() {
@@ -6092,7 +6115,7 @@ public class RSInterface {
         //addTransparentSpriteWSpriteLoader(41021, 947, 0);
         addText(41022, " ", wid, 1, 0xffffff, true, true);
         
-        addRectangle(41025, 200, 0, true, 122 - 3, height - 5);
+        addRectangle(41025, 200, 0, true, 122 - 3, height - 20);
         
         tab.message = " ";
         tab.x = 2;
@@ -13009,7 +13032,7 @@ public class RSInterface {
     public int childY[];
 	public DropdownMenu dropdown;
 	public int[] dropdownColours;
-	public boolean hovered = false;
+	public boolean dropdownHovered = false;
 	public RSInterface dropdownOpen;
 	public int dropdownHover = -1;
 	public Slider slider;
@@ -15667,7 +15690,7 @@ public class RSInterface {
 		rsi.modernWindow = modernBorder;
 		rsi.transparentWindow = transparentWindow;
 	}
-
+	
 	/**
 	 * Adds a closable window with the specified width, height and title.
 	 * 
@@ -15878,6 +15901,34 @@ public class RSInterface {
 		tab.spriteOpacity = 255;
 	}
 	
+	public static void hoverButton(int id, String tooltip, String[] actions, int enabledSprite, int disabledSprite) {
+		RSInterface tab = addInterface(id);
+		tab.tooltip = tooltip;
+		tab.actions = actions;
+		tab.atActionType = 1;
+		tab.type = 39;
+		tab.enabledSprite = Client.cacheSprite[enabledSprite];
+		tab.disabledSprite = Client.cacheSprite[disabledSprite];
+		tab.width = tab.enabledSprite.myWidth;
+		tab.height = tab.disabledSprite.myHeight;
+		tab.spriteOpacity = 255;
+	}
+	
+	public static void hoverButton(int id, String tooltip, String[] actions, int enabledSprite, int disabledSprite, int enabledAltSprite, int disabledAltSprite) {
+		RSInterface tab = addInterface(id);
+		tab.tooltip = tooltip;
+		tab.actions = actions;
+		tab.atActionType = 1;
+		tab.type = 39;
+		tab.enabledSprite = Client.cacheSprite[enabledSprite];
+		tab.disabledSprite = Client.cacheSprite[disabledSprite];
+		tab.enabledAltSprite = Client.cacheSprite[enabledAltSprite];
+		tab.disabledAltSprite = Client.cacheSprite[disabledAltSprite];
+		tab.width = tab.enabledSprite.myWidth;
+		tab.height = tab.disabledSprite.myHeight;
+		tab.spriteOpacity = 255;
+	}
+	
 	public static void handleConfigHover(RSInterface widget) {
 		if (widget.active) {
 			return;
@@ -16071,13 +16122,12 @@ public class RSInterface {
     	if (selectable.selected) {
     		return;
     	}
-        
+    	
         if (selectable.selectableInterfaces != null) {
             for (int s : selectable.selectableInterfaces) {
             	if (s == interfaceId) {
             		continue;
             	}
-            	
             	RSInterface.interfaceCache[s].selected = false;
             }
         }
@@ -16127,6 +16177,18 @@ public class RSInterface {
 		widget.dropdown = new DropdownMenu(width, true, defaultOption, options, d);
 		widget.atActionType = 7;
 		widget.inverted = inverted;
+	}
+	
+	public static void addDynamicButton(int id, String tooltip, int width, int height) {
+		RSInterface rsi = addInterface(id, width, height);
+		rsi.id = id;
+		rsi.type = 38;
+		rsi.width = width;
+		rsi.height = height;
+        rsi.atActionType = 1;
+        rsi.contentType = 0;
+        rsi.tooltip = tooltip;
+        rsi.hovers = true;
 	}
 
     public static int summoningItemRequirements[][] = {{12158, 2859, -1}, // Wolf pouch
@@ -16400,5 +16462,7 @@ public class RSInterface {
     public static TextDrawingArea defaultFont[];
     
     public int textColor;
+    
+    public int clickedChildId = -1;
 
 }

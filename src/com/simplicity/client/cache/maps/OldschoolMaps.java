@@ -68,7 +68,13 @@ public class OldschoolMaps {
            6709, 6965, 7221, 6710, 6966, 7222,
             
             // KBD Lever Room
-            12192
+            12192,
+            
+            8751, 9007, 9008, // Zulrah
+            
+            5022, 5023, 5279, 5280, 5535, // Alchemical Hydra
+            
+            13393, 13394, 13395, 13397, 13136, 13137, 13138, 13139, 13140, 13141 // Chambers of Xeric
     };
     static {
         for(Integer region : OLDSCHOOL_REGION_IDS) {

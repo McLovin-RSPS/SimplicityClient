@@ -78,8 +78,8 @@ public class ClientSettings {
 				Configuration.enableHDTextures = reader.get("hd-textures").getAsBoolean();
 			}
 			
-			if (reader.has("special-button")) {
-				Configuration.enableSpecialButton = reader.get("special-button").getAsBoolean();
+			if (reader.has("special-orb")) {
+				Configuration.enableSpecialOrb = reader.get("special-orb").getAsBoolean();
 			}
 			
 			if (reader.has("veng-timer")) {
@@ -125,7 +125,11 @@ public class ClientSettings {
 			if (reader.has("save-input")) {
 				Configuration.enableSaveInput = reader.get("save-input").getAsBoolean();
 			}
-			
+
+			if (reader.has("moderation-menu-enabled")) {
+				Configuration.enableModerationMenu = reader.get("moderation-menu-enabled").getAsBoolean();
+			}
+
 			if (reader.has("hd-shading")) {
 				Configuration.enableHDShading = reader.get("hd-shading").getAsBoolean();
 			}
@@ -170,8 +174,8 @@ public class ClientSettings {
 				Configuration.escapeClosesInterface = reader.get("esc-closes-interface").getAsBoolean();
 			}
 			
-			if (reader.has("item-stats")) {
-				Configuration.enableItemStats = reader.get("item-stats").getAsBoolean();
+			if (reader.has("item-stats-hover")) {
+				Configuration.enableItemStats = reader.get("item-stats-hover").getAsInt();
 			}
 			
 			if (reader.has("zooming")) {
@@ -180,6 +184,22 @@ public class ClientSettings {
 			
 			if (reader.has("bounty-target")) {
 				Configuration.enableBountyTarget = reader.get("bounty-target").getAsBoolean();
+			}
+			
+			if (reader.has("ammunition-overlay")) {
+				Configuration.enableAmmunitionOverlay = reader.get("ammunition-overlay").getAsBoolean();
+			}
+			
+			if (reader.has("kdr-overlay")) {
+				Configuration.enableKDROverlay = reader.get("kdr-overlay").getAsBoolean();
+			}
+			
+			if (reader.has("runepouch-overlay")) {
+				Configuration.enableRunePouchOverlay = reader.get("runepouch-overlay").getAsBoolean();
+			}
+			
+			if (reader.has("new-hp-bars")) {
+				Configuration.enableNewHpBars = reader.get("new-hp-bars").getAsBoolean();
 			}
 			
 			if (reader.has("keybindings")) {
@@ -233,7 +253,7 @@ public class ClientSettings {
 			object.addProperty("sound-volume", SoundPlayer.getVolume());
 			object.addProperty("brightness", Client.instance.shadowIndex);
 			object.addProperty("hd-textures", Configuration.enableHDTextures);
-			object.addProperty("special-button", Configuration.enableSpecialButton);
+			object.addProperty("special-orb", Configuration.enableSpecialOrb);
 			object.addProperty("veng-timer", Configuration.enableTimers);
 			object.addProperty("tooltip-hover", Configuration.enableTooltipHover);
 			object.addProperty("old-hits", Configuration.enableOldHitmarkers);
@@ -256,9 +276,14 @@ public class ClientSettings {
 			object.addProperty("mouse-buttons", Client.instance.variousSettings[170] == 1);
 			object.addProperty("mouse-camera", Configuration.enableMouseCamera);
 			object.addProperty("esc-closes-interface", Configuration.escapeClosesInterface);
-			object.addProperty("item-stats", Configuration.enableItemStats);
+			object.addProperty("item-stats-hover", Configuration.enableItemStats);
+			object.addProperty("moderation-menu-enabled", Configuration.enableModerationMenu);
 			object.addProperty("zooming", Configuration.enableZooming);
 			object.addProperty("bounty-target", Configuration.enableBountyTarget);
+			object.addProperty("ammunition-overlay", Configuration.enableAmmunitionOverlay);
+			object.addProperty("kdr-overlay", Configuration.enableKDROverlay);
+			object.addProperty("runepouch-overlay", Configuration.enableRunePouchOverlay);
+			object.addProperty("new-hp-bars", Configuration.enableNewHpBars);
 			object.add("keybindings", builder.toJsonTree(Keybinding.KEYBINDINGS));
 			object.add("quick-prayers", builder.toJsonTree(Client.instance.getQuickPrayers()));
 			object.add("quick-curses", builder.toJsonTree(Client.instance.getQuickCurses()));
@@ -279,7 +304,7 @@ public class ClientSettings {
 	public static void setDefaults() {
 		Configuration.enableGroundItemNames = false;
 		Configuration.enableHDTextures = false;
-		Configuration.enableSpecialButton = false;
+		Configuration.enableSpecialOrb = true;
 		Configuration.enableTimers = true;
 		Configuration.enableTooltipHover = false;
 		Configuration.enableOldHitmarkers = false;
@@ -296,11 +321,16 @@ public class ClientSettings {
 		Configuration.enableSkillStatusBars = true;
 		Configuration.enableXpOrbs = true;
 		Configuration.enableMipmapping = false;
-		Configuration.enableItemStats = true;
+		Configuration.enableItemStats = 1;
 		Configuration.enableTileMarkers = true;
 		Configuration.enableWASDCamera = false;
 		Configuration.enableZooming = true;
 		Configuration.enableBountyTarget = true;
+		Configuration.enableModerationMenu = true;
+		Configuration.enableAmmunitionOverlay = true;
+		Configuration.enableKDROverlay = false;
+		Configuration.enableRunePouchOverlay = false;
+		Configuration.enableNewHpBars = true;
 		Client.instance.musicEnabled = false;
 		SoundPlayer.setVolume(4);
 	}

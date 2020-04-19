@@ -6,6 +6,8 @@ import com.simplicity.Configuration;
 import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.Rasterizer;
+import com.simplicity.client.widget.dropdown.Dropdown;
+import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.util.StringUtils;
 
 /**
@@ -16,7 +18,9 @@ import com.simplicity.util.StringUtils;
  *
  */
 public enum Setting {
-
+	
+	GRAPHICS(true),
+	
 	PARTICLES() {
 
 		@Override
@@ -84,32 +88,88 @@ public enum Setting {
 			return enableHDTextures;
 		}
 	},
-
-	SPECIAL_BUTTON() {
-
+	
+	MIP_MAPPING() {
 		@Override
 		public void handle() {
-			enableSpecialButton = !enableSpecialButton;
-			
-            RSInterface iface2 = RSInterface.interfaceCache[41005];
-            
-            if (enableSpecialButton) {
-                if (!Client.instance.parallelWidgetList.contains(iface2)) {
-                    Client.instance.parallelWidgetList.add(iface2);
-                }
-            } else {
-                if (Client.instance.parallelWidgetList.contains(iface2)) {
-                	Client.instance.parallelWidgetList.remove(iface2);
-                }
-            }
+			enableMipmapping = !enableMipmapping;
+			Rasterizer.enableMipmapping = enableMipmapping;
 		}
 
 		@Override
 		public boolean enabled() {
-			return enableSpecialButton;
+			return enableMipmapping;
+		}
+	},
+	
+	ANTI_ALIASING() {
+
+		@Override
+		public void handle() {
+			enableAntiAliasing = !enableAntiAliasing;
+		}
+
+		@Override
+		public boolean enabled() {
+			return enableAntiAliasing;
+		}
+	},
+	
+	OVERLAYS(true),
+	
+	TOOLTIP_HOVERS() {
+
+		@Override
+		public void handle() {
+			enableTooltipHover = !enableTooltipHover;
+		}
+
+		@Override
+		public boolean enabled() {
+			return enableTooltipHover;
 		}
 	},
 
+	SKILL_STATUS_BARS() {
+
+		@Override
+		public void handle() {
+			enableSkillStatusBars = !enableSkillStatusBars;
+		}
+
+		@Override
+		public boolean enabled() {
+			return enableSkillStatusBars;
+		}
+	},
+
+	XP_ORBS() {
+
+		@Override
+		public void handle() {
+			enableXpOrbs = !enableXpOrbs;
+		}
+
+		@Override
+		public boolean enabled() {
+			return enableXpOrbs;
+		}
+	},
+
+	ITEM_STATS(new DropdownMenu(75, false, 1, new String[] { "On Hover", "Hold Ctrl", "Disabled" }, Dropdown.ITEM_STATS)) { },
+
+	TILE_MARKERS() {
+		@Override
+		public void handle() {
+			Configuration.enableTileMarkers = !Configuration.enableTileMarkers;
+		}
+
+		@Override
+		public boolean enabled() {
+			return Configuration.enableTileMarkers;
+		}
+	},
+	
 	EFFECT_TIMERS() {
 
 		@Override
@@ -123,19 +183,73 @@ public enum Setting {
 			return enableTimers;
 		}
 	},
-
-	OLD_HITMARKERS() {
-
+	
+	AMMUNITION() {
 		@Override
 		public void handle() {
-			enableOldHitmarkers = !enableOldHitmarkers;
+			Configuration.enableAmmunitionOverlay = !Configuration.enableAmmunitionOverlay;
 		}
 
 		@Override
 		public boolean enabled() {
-			return enableOldHitmarkers;
+			return Configuration.enableAmmunitionOverlay;
 		}
 	},
+	
+	KDR() {
+		@Override
+		public void handle() {
+			Configuration.enableKDROverlay = !Configuration.enableKDROverlay;
+		}
+
+		@Override
+		public boolean enabled() {
+			return Configuration.enableKDROverlay;
+		}
+	},
+	
+	RUNE_POUCH() {
+		@Override
+		public void handle() {
+			Configuration.enableRunePouchOverlay = !Configuration.enableRunePouchOverlay;
+		}
+
+		@Override
+		public boolean enabled() {
+			return Configuration.enableRunePouchOverlay;
+		}
+	},
+	
+	TOGGLES(true),
+	
+	SPECIAL_ORB() {
+
+		@Override
+		public void handle() {
+			enableSpecialOrb = !enableSpecialOrb;
+			
+            RSInterface iface2 = RSInterface.interfaceCache[41005];
+            
+            if (enableSpecialOrb) {
+                if (!Client.instance.parallelWidgetList.contains(iface2)) {
+                    Client.instance.parallelWidgetList.add(iface2);
+                }
+            } else {
+                if (Client.instance.parallelWidgetList.contains(iface2)) {
+                	Client.instance.parallelWidgetList.remove(iface2);
+                }
+            }
+		}
+
+		@Override
+		public boolean enabled() {
+			return enableSpecialOrb;
+		}
+	},
+	
+	HITMARKERS(new DropdownMenu(75, false, 0, new String[] { "562", "OSRS" }, Dropdown.HITMARKERS)) { },
+	
+	HP_BARS(new DropdownMenu(75, false, 0, new String[] { "562", "OSRS" }, Dropdown.HPBARS)) { },
 
 	OLD_GAMEFRAME() {
 
@@ -160,19 +274,6 @@ public enum Setting {
 		}
 	},
 	
-	TOOLTIP_HOVERS() {
-
-		@Override
-		public void handle() {
-			enableTooltipHover = !enableTooltipHover;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableTooltipHover;
-		}
-	},
-
 	CONSTITUTION() {
 
 		@Override
@@ -226,19 +327,6 @@ public enum Setting {
 		}
 	},
 
-	ANTI_ALIASING() {
-
-		@Override
-		public void handle() {
-			enableAntiAliasing = !enableAntiAliasing;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableAntiAliasing;
-		}
-	},
-
 	SAVE_INPUT() {
 
 		@Override
@@ -249,69 +337,6 @@ public enum Setting {
 		@Override
 		public boolean enabled() {
 			return enableSaveInput;
-		}
-	},
-
-	SKILL_STATUS_BARS() {
-
-		@Override
-		public void handle() {
-			enableSkillStatusBars = !enableSkillStatusBars;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableSkillStatusBars;
-		}
-	},
-
-	XP_ORBS() {
-
-		@Override
-		public void handle() {
-			enableXpOrbs = !enableXpOrbs;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableXpOrbs;
-		}
-	},
-
-	MIP_MAPPING() {
-		@Override
-		public void handle() {
-			enableMipmapping = !enableMipmapping;
-			Rasterizer.enableMipmapping = enableMipmapping;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableMipmapping;
-		}
-	},
-
-	ITEM_STATS_ON_HOVER() {
-		@Override
-		public void handle() {
-			Configuration.enableItemStats = !Configuration.enableItemStats;
-		}
-
-		@Override
-		public boolean enabled() {
-			return Configuration.enableItemStats;
-		}
-	},
-
-	TILE_MARKERS() {
-		@Override
-		public void handle() {
-			Configuration.enableTileMarkers = !Configuration.enableTileMarkers;
-		}
-
-		@Override
-		public boolean enabled() {
-			return Configuration.enableTileMarkers;
 		}
 	},
 	
@@ -340,18 +365,71 @@ public enum Setting {
 			return Configuration.enableBountyTarget;
 		}
 	};
+	
+	Setting() {
+		
+	}
+	
+	/**
+	 * Constructs a new {@link Setting}.
+	 * 
+	 * @param category A flag which indicates if the setting is a category or not.
+	 */
+	Setting(boolean category) {
+		this.category = category;
+	}
 
+	/**
+	 * Constructs a new {@link Setting}.
+	 * 
+	 * @param dropdownMenu The drop down menu.
+	 */
+	Setting(DropdownMenu dropdownMenu) {
+		this.dropdownMenu = dropdownMenu;
+	}
+	
+	/**
+	 * The drop down menu.
+	 */
+	public DropdownMenu dropdownMenu;
+	
+	/**
+	 * Gets the {@link DropdownMenu}.
+	 * 
+	 * @return The drop down menu.
+	 */
+	public DropdownMenu getDropdownMenu() {
+		return dropdownMenu;
+	}
+	
+	/**
+	 * A flag which indicates if this setting is a category.
+	 */
+	private boolean category;
+	
+	/**
+	 * Checks if the setting is a category.
+	 * @return <code>true</code> if category.
+	 */
+	public boolean isCategory() {
+		return category;
+	}
+	
 	/**
 	 * Handles the setting.
 	 */
-	public abstract void handle();
+	public void handle() {
+		
+	}
 
 	/**
 	 * Checks if the toggle is enabled.
 	 * 
 	 * @return <code>true</code> if enabled.
 	 */
-	public abstract boolean enabled();
+	public boolean enabled() {
+		return false;
+	}
 
 	/**
 	 * Gets the name of this setting.
@@ -360,6 +438,16 @@ public enum Setting {
 	 */
 	public String getName() {
 		return StringUtils.capitalizeWords(name().toLowerCase().replaceAll("_", " "));
+	}
+	
+	public static int size() {
+		int size = 0;
+		
+		for (Setting s : values()) {
+			size += s.isCategory() ? 1 : 4;
+		}
+		
+		return size;
 	}
 
 }

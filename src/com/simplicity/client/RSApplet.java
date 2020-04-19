@@ -414,8 +414,8 @@ WindowListener {
 		/* Main interface scrolling */
 		if (Client.openInterfaceID != -1) {
 			RSInterface rsi = RSInterface.interfaceCache[Client.openInterfaceID];
-			offsetX = Client.getClient().clientSize == 0 ? 4 : (Client.getClient().clientWidth / 2) - 256;
-			offsetY = Client.getClient().clientSize == 0 ? 4 : (Client.getClient().clientHeight / 2) - 167;
+			offsetX = Client.getClient().clientSize == 0 ? 4 : (Client.getClient().clientWidth / 2) - Client.getClient().getInterfaceOffX();
+			offsetY = Client.getClient().clientSize == 0 ? 4 : (Client.getClient().clientHeight / 2) - Client.getClient().getInterfaceOffY();
 			
 			if (handleScrolling(rsi, rotation, offsetX, offsetY)) {
 				return true;
