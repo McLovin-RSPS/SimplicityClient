@@ -4370,6 +4370,7 @@ public class RSInterface {
         vidOptions(textDrawingAreas);
         prayerTab();
         pouchCreation();
+        scrollCreation(textDrawingAreas);
         opacityInterface();
         levelUpInterfaces();
         entityInterface(textDrawingAreas);
