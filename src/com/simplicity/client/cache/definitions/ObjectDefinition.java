@@ -148,7 +148,7 @@ public final class ObjectDefinition {
         objectDef.setDefaults();
         objectDef.dataType = DataType.OLDSCHOOL;
         try {
-            objectDef.readValuesOSRS(streamOSRS);
+        	objectDef.readValues(streamOSRS);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1189,6 +1189,7 @@ public final class ObjectDefinition {
                         originalModelColors[i2] = stream.readUnsignedWord();
                     }
                 } else if (opcode == 60)
+                } else if (opcode == 60 && !osrs)
                     mapFunctionID = stream.readUnsignedWord();
                 else if (opcode == 62)
                     aBoolean751 = true;
@@ -1214,6 +1215,11 @@ public final class ObjectDefinition {
                     aBoolean736 = true;
                 else if (opcode == 74) {
                     isSolidObject = true;
+    				mapFunctionID = stream.readUnsignedWord();
+
+    				if (mapFunctionID == 0xFFFF) {
+    					mapFunctionID = -1;
+    				}
                 } else {
                     if (opcode != 75)
                         continue;
