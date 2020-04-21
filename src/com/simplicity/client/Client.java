@@ -19356,13 +19356,14 @@ public class Client extends RSApplet {
                             int region = regionIds[idx] = totalChunks[idx];
                             int l30 = region >> 8 & 0xff;
                             int l31 = region & 0xff;
+                            int index = OldschoolMaps.isOldschoolRegion(region) ? OSRS_MAP_IDX - 1 : MAP_IDX - 1;
                             int terrainMapId = terrainIndices[idx] = onDemandFetcher.getMapIdForRegions(0, l31, l30);
                             if (terrainMapId != -1) {
-                                onDemandFetcher.requestFileData(3, terrainMapId);
+                                onDemandFetcher.requestFileData(index, terrainMapId);
                             }
                             int objectMapId = objectIndices[idx] = onDemandFetcher.getMapIdForRegions(1, l31, l30);
                             if (objectMapId != -1) {
-                                onDemandFetcher.requestFileData(3, objectMapId);
+                                onDemandFetcher.requestFileData(index, objectMapId);
                             }
                         }
                     }
