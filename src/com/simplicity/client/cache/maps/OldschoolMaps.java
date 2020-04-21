@@ -45,6 +45,8 @@ public class OldschoolMaps {
 
             6198, 6454, // Woodcutting guild
             
+            11157, // Brimhaven Agility Arena
+            
             //tournament
             13133,
             

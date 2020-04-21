@@ -4370,6 +4370,7 @@ public class RSInterface {
         vidOptions(textDrawingAreas);
         prayerTab();
         pouchCreation();
+        scrollCreation(textDrawingAreas);
         opacityInterface();
         levelUpInterfaces();
         entityInterface(textDrawingAreas);
@@ -11870,7 +11871,7 @@ public class RSInterface {
         rsInterface.hoverType = -1;
         rsInterface.valueCompareType = new int[1];
         rsInterface.requiredValues = new int[1];
-        rsInterface.valueCompareType[0] = 3;
+        rsInterface.valueCompareType[0] = 10;
         rsInterface.requiredValues[0] = runeAmount;
         rsInterface.valueIndexArray = new int[1][4];
         rsInterface.valueIndexArray[0][0] = 4;
@@ -16107,8 +16108,8 @@ public class RSInterface {
         setBounds(63474, xPos + 29, yPos + 10, 2, rsinterface);
         setBounds(63475, xPos + 79, yPos + 9, 3, rsinterface);
         setBounds(63476, xPos + 106, yPos + 10, 4, rsinterface);
-        setBounds(63450, xPos + 460, yPos + 8, 5, rsinterface);
-        setBounds(63451, xPos + 460, yPos + 8, 6, rsinterface);
+        setBounds(63450, xPos + 461, yPos + 10, 5, rsinterface);
+        setBounds(63451, xPos + 461, yPos + 10, 6, rsinterface);
         setBounds(63478, 0, yPos + 39, 7, rsinterface);
     }
     
