@@ -1188,7 +1188,6 @@ public final class ObjectDefinition {
                         modifiedModelColors[i2] = stream.readUnsignedWord();
                         originalModelColors[i2] = stream.readUnsignedWord();
                     }
-                } else if (opcode == 60)
                 } else if (opcode == 60 && !osrs)
                     mapFunctionID = stream.readUnsignedWord();
                 else if (opcode == 62)
@@ -1215,6 +1214,7 @@ public final class ObjectDefinition {
                     aBoolean736 = true;
                 else if (opcode == 74) {
                     isSolidObject = true;
+                } else if (osrs && opcode == 82) {
     				mapFunctionID = stream.readUnsignedWord();
 
     				if (mapFunctionID == 0xFFFF) {
