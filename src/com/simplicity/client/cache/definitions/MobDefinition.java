@@ -351,6 +351,11 @@ public final class MobDefinition {
                 npc.originalColours = new int[]{65214, 65200, 65186, 62995};
                 break;
                 
+            case 777:
+                npc.copy(forID(23360));
+                npc.name = "The Maiden Of Sugadinti (comp)";
+                break;
+            	
             case 9999:
                 npc.copy(forID(23060));
                 npc.name = "Wild Vorkath";
