@@ -811,6 +811,13 @@ public class CustomItems {
                 itemDef.editedModelColor = new int[]{40023, 40036, 1822, 36, 25, 34243, 9230, 40040, 10348, 48, 34251, 0, 43335, 6218, 23, 11013};
                 itemDef.newModelColor = new int[]{90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 70};
                 itemDef.name = "Angelic Cape";
+                break;  
+                
+            case 10164:
+                itemDef.copy(ItemDefinition.forID(6585));
+                itemDef.editedModelColor = new int[]{ 0, 43074, 43026, 43164, 43086};
+                itemDef.newModelColor = new int[]{0, 926, 9152, 9152, 41};
+                itemDef.name = "Amulet of Fury";
                 break;
                 
             case 10170:
