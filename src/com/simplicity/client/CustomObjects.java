@@ -48,6 +48,9 @@ public class CustomObjects {
 
             {-1, 3158, 3951, 0, 0}, // Web
             
+			// Edge south
+            {0, 3089, 3475, 0, 0},
+            
             {46984, 3038, 4534, 0, 0}, // Hellraty crystal
             
             //special altar elite
@@ -164,14 +167,14 @@ public class CustomObjects {
             
             /**Easter 2020 Zone**/
             
-            {42651, 2453, 5273, 0, 0},
-            {42651, 2454, 5273, 0, 0},
-            {42650, 2446, 5276, 0, 0},
-            {42650, 2446, 5277, 0, 0},
-            {42650, 2441, 5281, 0, 0},
-            {42651, 2440, 5281, 0, 0},
-            {42651, 2472, 5276, 0, 0},
-            {42650, 2473, 5276, 0, 0},
+            //{42651, 2453, 5273, 0, 0},
+            //{42651, 2454, 5273, 0, 0},
+            //{42650, 2446, 5276, 0, 0},
+            //{42650, 2446, 5277, 0, 0},
+            //{42650, 2441, 5281, 0, 0},
+            //{42651, 2440, 5281, 0, 0},
+            //{42651, 2472, 5276, 0, 0},
+            //{42650, 2473, 5276, 0, 0},
 
             /**Donator Zone**/
             {11758, 3035, 4413, 0, 0},//bank
@@ -263,7 +266,7 @@ public class CustomObjects {
             
             
             /* Easter 2020 */
-			{29826, 3099, 3485, 0, 0},
+			//{29826, 3099, 3485, 0, 0},
             
             /* 2020 savior */
 			{44111, 2340, 9796, 0, 0},
@@ -273,89 +276,15 @@ public class CustomObjects {
 			{-1, 2911, 5471, 0, 0},
             
             // Arthur's dream 2
-            {129316, 1626, 3980, 0, 0}, // Objects Arthur's dream II
-            {129320, 1626, 3982, 0, 0}, // Objects Arthur's dream II
-            {129318, 1626, 3984, 0, 0}, // Objects Arthur's dream II
-            
-            {129317, 1634, 3980, 0, 0}, // Objects Arthur's dream II
-            {129320, 1634, 3982, 0, 0}, // Objects Arthur's dream II
-            {129319, 1634, 3984, 0, 0}, // Objects Arthur's dream II
-            
-            {129301, 1635, 3987, 0, 0}, // Objects Arthur's dream II
-            {129305, 1635, 3988, 0, 0}, // Objects Arthur's dream II
-            {129303, 1636, 3989, 0, 0}, // Objects Arthur's dream II
-            {129301, 1636, 3988, 0, 0}, // Objects Arthur's dream II
-            {129301, 1637, 3988, 0, 0}, // Objects Arthur's dream II
-            
-            {129311, 1639, 3988, 0, 1}, // Bruma roots Arthur's dream II
-            
-            {129301, 1625, 3987, 0, 0}, // Objects Arthur's dream II
-            {129305, 1624, 3988, 0, 0}, // Objects Arthur's dream II
-            {129303, 1623, 3988, 0, 0}, // Objects Arthur's dream II
-            
-            {129311, 1620, 3988, 0, 1}, // Bruma roots Arthur's dream II
 
             {28194, 3099, 3506, 0, 0}, // Comp orb
             
             {13292, 3077, 3497, 0, 2}, // Magic chest
             //{54408, 3089, 3483, 0, 0}, // Halloween chest
             
-            {0, 1625, 3978, 0, 0}, // Objects Arthur's dream II
-            {0, 1626, 3978, 0, 0}, // Objects Arthur's dream II
-            {0, 1627, 3978, 0, 0}, // Objects Arthur's dream II
-            {0, 1628, 3978, 0, 0}, // Objects Arthur's dream II
-            {0, 1629, 3978, 0, 0}, // Objects Arthur's dream II
-            {0, 1630, 3978, 0, 0}, // Objects Arthur's dream II
-            {0, 1631, 3978, 0, 0}, // Objects Arthur's dream II
-            {0, 1632, 3978, 0, 0}, // Objects Arthur's dream II
-            {0, 1633, 3978, 0, 0}, // Objects Arthur's dream II
-            {0, 1634, 3978, 0, 0}, // Objects Arthur's dream II
-            {0, 1635, 3978, 0, 0}, // Objects Arthur's dream II
-            
-            {0, 1635, 3979, 0, 0}, // Objects Arthur's dream II
-            {0, 1635, 3980, 0, 0}, // Objects Arthur's dream II
-            {0, 1635, 3981, 0, 0}, // Objects Arthur's dream II
-            {0, 1635, 3982, 0, 0}, // Objects Arthur's dream II
-            {0, 1635, 3983, 0, 0}, // Objects Arthur's dream II
-            {0, 1635, 3984, 0, 0}, // Objects Arthur's dream II
-            {0, 1635, 3985, 0, 0}, // Objects Arthur's dream II
-            {0, 1635, 3986, 0, 0}, // Objects Arthur's dream II
-            
-            {0, 1625, 3979, 0, 0}, // Objects Arthur's dream II
-            {0, 1625, 3980, 0, 0}, // Objects Arthur's dream II
-            {0, 1625, 3981, 0, 0}, // Objects Arthur's dream II
-            {0, 1625, 3982, 0, 0}, // Objects Arthur's dream II
-            {0, 1625, 3983, 0, 0}, // Objects Arthur's dream II
-            {0, 1625, 3984, 0, 0}, // Objects Arthur's dream II
-            {0, 1625, 3985, 0, 0}, // Objects Arthur's dream II
-            {0, 1625, 3986, 0, 0}, // Objects Arthur's dream II
-            
-            {0, 1622, 3988, 0, 0}, // Objects Arthur's dream II
-            {0, 1638, 3988, 0, 0}, // Objects Arthur's dream II
-            
-            {129314, 1638, 3997, 0, 0}, // Brazier Arthur's dream II
-            {129314, 1638, 4015, 0, 0}, // Brazier Arthur's dream II
-            {129314, 1620, 4015, 0, 0}, // Brazier Arthur's dream II
-            {129314, 1620, 3997, 0, 0}, // Brazier Arthur's dream II
             
             //{46984, 1630, 3990, 0, 0}, // Statue of Arthur
-            
-            {0, 1623, 3994, 0, 0}, // Objects Arthur's dream II
-            {0, 1624, 3994, 0, 0}, // Objects Arthur's dream II
-            {0, 1625, 3994, 0, 0}, // Objects Arthur's dream II
-            {0, 1626, 3994, 0, 0}, // Objects Arthur's dream II
-            {0, 1627, 3994, 0, 0}, // Objects Arthur's dream II
-            {0, 1628, 3994, 0, 0}, // Objects Arthur's dream II
-            {0, 1629, 3994, 0, 0}, // Objects Arthur's dream II
-            {0, 1630, 3994, 0, 0}, // Objects Arthur's dream II
-            {0, 1631, 3994, 0, 0}, // Objects Arthur's dream II
-            {0, 1632, 3994, 0, 0}, // Objects Arthur's dream II
-            {0, 1633, 3994, 0, 0}, // Objects Arthur's dream II
-            {0, 1634, 3994, 0, 0}, // Objects Arthur's dream II
-            {0, 1635, 3994, 0, 0}, // Objects Arthur's dream II
-            {0, 1636, 3994, 0, 0}, // Objects Arthur's dream II
-            {0, 1637, 3994, 0, 0}, // Objects Arthur's dream II
-            
+         
             // Edge rune ores
             
             {14859, 3099, 3499, 0, 0}, // rune ore edge bank
@@ -796,7 +725,6 @@ public class CustomObjects {
             {2274, 2918, 5274, 0, 0},
             //{2274, 3001, 3931, 0, 0}, agility teleport
             {-1, 2884, 9797, 0, 2},
-            {29942, 3090, 3507, 0, 2}, // summoning obelisk
             {4483, 2444, 3083, 0, 1}, // Castle-wars Gamble
             {4483, 2909, 4832, 0, 3},
             {4483, 2901, 5201, 0, 2},
@@ -851,7 +779,7 @@ public class CustomObjects {
             /**New Member Zone end*/
             {-1, 3098, 3496, 0, 1},
             {-1, 3095, 3498, 0, 1},
-            {-1, 3088, 3509, 0, 0},
+            //{-1, 3088, 3509, 0, 0},
             {-1, 3095, 3499, 0, 1},
             //{-1, 3085, 3506, 0, 1},
 
@@ -875,9 +803,11 @@ public class CustomObjects {
             {411, 3239, 3608, 0, 0},
             
             //{30205, 3085, 3509, 0, 3},
-            {409, 3085, 3509, 0, 3},	// prayer altar 
             
-
+            /**Edgeville north**/
+            {409, 3085, 3509, 0, 3},
+            {29942, 3085, 3512, 0, 0}, // summoning obelisk edge
+            {130087, 3090, 3513, 0, 3}, // bank chest
 
             {4875, 3094, 3500, 0, 0},
             {4874, 3095, 3500, 0, 0},
@@ -990,12 +920,6 @@ public class CustomObjects {
 
             // END cleaning objects edgeville 2
 
-            {0, 3089, 3474, 0, 0},
-            {0, 3089, 3475, 0, 0},
-            {0, 3089, 3476, 0, 0},
-            {0, 3089, 3476, 0, 0},
-            {0, 3089, 3479, 0, 0},
-            {0, 3089, 3480, 0, 0},
             //{0, 3090, 3474, 0, 0},
             {0, 3090, 3473, 0, 0},
 
