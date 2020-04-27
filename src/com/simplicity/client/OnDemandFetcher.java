@@ -423,9 +423,6 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
         regionIds[129] = 9007;
         landscapeMapIds[129] = 1938;
         objectMapIds[129] = 1939;
-        regionIds[130] = 9008;
-        landscapeMapIds[130] = 946;
-        objectMapIds[130] = 947;
         regionIds[149] = 9263;
         landscapeMapIds[149] = 1210;
         objectMapIds[149] = 1211;
