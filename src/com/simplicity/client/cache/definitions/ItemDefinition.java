@@ -1099,6 +1099,7 @@ public final class ItemDefinition {
             itemDef.untradeable = true;
         }
         itemDef.value = prices[itemDef.id];
+
         switch (itemId) {
         
         case 18346:
@@ -3046,7 +3047,7 @@ public final class ItemDefinition {
                 itemDef.actions[0] = "Teleport";
                 break;
                 /* END */
-            case 12426:
+            /*case 12426:
                 itemDef.modelID = 28633;
                 itemDef.name = "3rd age longsword";
                 itemDef.description = "3rd age longsword";
@@ -3080,7 +3081,7 @@ public final class ItemDefinition {
                 itemDef.groundActions = new String[5];
                 itemDef.groundActions[2] = "Take";
                 itemDef.actions = new String[]{null, "Wear", null, null, null, null};
-                break;
+                break;*/
             case 11295:
                 itemDef.name = "White Santa Hat";
                 itemDef.modelID = 2537;
