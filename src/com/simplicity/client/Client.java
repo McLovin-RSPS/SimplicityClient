@@ -13146,11 +13146,11 @@ public class Client extends RSApplet {
         if (entityDef == null) {
             return;
         }
-        if (!entityDef.clickable) {
+        final boolean follower = npcFollowerIndex == i;
+        if (!entityDef.clickable || (entityDef.pet && !follower)) {
             return;
         }
 
-        final boolean follower = npcFollowerIndex == i;
         String s = entityDef.name;
         if (entityDef.combatLevel != 0) {
             s = s + combatDiffColor(myPlayer.combatLevel, entityDef.combatLevel) + " (level: " + entityDef.combatLevel
@@ -13178,23 +13178,7 @@ public class Client extends RSApplet {
         } else {
             if (entityDef.actions != null) {
                 for (int l = 4; l >= 0; l--) {
-                    if (follower) {
-                        if (l == 1 || l == 3 || l == 4)
-                            continue;
-                        if (l == 0) {
-                            menuActionID[menuActionRow] = 20;
-                            menuActionName[menuActionRow] = "Interact @yel@"+ s;
-                        }
-                        if (l == 2) {
-                            menuActionID[menuActionRow] = 225;
-                            menuActionName[menuActionRow] = "Talk-to @yel@"+ s;
-                        }
-
-                        menuActionCmd1[menuActionRow] = i;
-                        menuActionCmd2[menuActionRow] = k;
-                        menuActionCmd3[menuActionRow] = j;
-                        menuActionRow++;
-                    } else if (entityDef.actions[l] != null && !entityDef.actions[l].equalsIgnoreCase("attack")) {
+                    if (entityDef.actions[l] != null && !entityDef.actions[l].equalsIgnoreCase("attack")) {
                         menuActionName[menuActionRow] = entityDef.actions[l] + " @yel@" + s;
                         if (l == 0) {
                             menuActionID[menuActionRow] = 20;
