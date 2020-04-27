@@ -622,6 +622,10 @@ WindowListener {
 			return;
 		}
 		
+		if (Configuration.LOCALHOST && i == KeyEvent.VK_F12) {
+			Client.getClient().reloadInterfaces();
+		}
+		
 		if (Keybinding.isBound(i)) {
 			return;
 		}
