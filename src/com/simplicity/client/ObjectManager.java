@@ -709,7 +709,10 @@ final class ObjectManager {
 			int playerY = Client.instance.getBaseY() + (Client.instance.myPlayer.y - 6 >> 7);
 			
 			if (objectX == playerX && objectY == playerY) {
-				System.out.println("Id at player's position: " + objId);
+				ObjectDefinition objectDef = ObjectDefinition.forID(objId);
+				
+				if (objectDef != null)
+					System.out.println("Id at player's position: " + objId + " - " + objectDef.name);
 			}
 		}
 		
