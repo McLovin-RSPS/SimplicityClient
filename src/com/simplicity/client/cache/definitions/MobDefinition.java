@@ -13,6 +13,19 @@ import com.simplicity.client.cache.DataType;
 
 public final class MobDefinition {
 
+    /** Hardcoded until we pack another byte into npc definitions to flag followers such as pets and familiars/bobs. **/
+    private static final int[] FOLLOWER_IDS = new int[] {
+            6830, 6825, 6841, 6806, 6796, 7331, 6831, 6837, 7361, 6847, 6994, 6872, 7353, 6835, 6845, 6808,
+            7370, 7333, 7351, 7367, 6853, 6867, 6851, 6833, 6875, 6877, 6879, 6881, 6883, 6885, 6887, 6855, 7377,
+            6824, 6843, 6794, 6818, 6992, 6857, 6991, 7365, 7337, 7363, 6809, 6865, 6820, 6802, 6827, 6859, 6889, 6815,
+            6813, 6817, 7372, 6839, 8575, 7345, 6849, 6798, 6861, 7335, 7347, 6800, 7355, 7357, 7359, 9488, 6804, 7341,
+            7329, 6863, 6822, 7339, 6869, 7349, 7375, 6873, 7343, 3033, 3030, 3031, 3032, 3034, 3035, 3036, 3037, 3038,
+            3039, 3040, 3047, 3048, 21637, 21638, 3051, 3052, 3053, 3054, 3055, 3056, 3057, 3058, 3059, 3060, 3061,
+            3063, 3064, 3066, 3067, 3068, 3070, 3069, 3065, 6723, 6724, 6726, 6727, 6728, 6729, 6730, 963, 6640, 5781,
+            6731, 22519, 23025, 154, 23009, 153, 23492, 23493, 23494, 23495, 621, 622, 623, 624, 625, 626, 23202,
+            23337, 18481, 3062
+    };
+
     public int frontLight = 68;
     public int backLight = 820;
     public int rightLight = 0;
@@ -132,7 +145,6 @@ public final class MobDefinition {
         stream.currentOffset = streamIndices[i];
         npc.type = i;
         npc.readValues(stream);
-
         if (npc.name != null && npc.name.toLowerCase().contains("bank")) {
             if (npc.actions != null) {
                 for (int l = 0; l < npc.actions.length; l++) {
@@ -142,7 +154,7 @@ public final class MobDefinition {
             }
         }
         npc.id = i;
-
+        npc.postLoad();
         switch (i) {
 
             case 621:
@@ -1995,6 +2007,15 @@ public final class MobDefinition {
         return animatedModel;
     }
 
+    private void postLoad() {
+        for (int id : FOLLOWER_IDS) {
+            if (this.id == id) {
+                this.pet = true;
+                break;
+            }
+        }
+    }
+
     public void readValues(Stream stream) {
         boolean osrs = stream == streamOSRS;
         do {
@@ -2128,6 +2149,7 @@ public final class MobDefinition {
         hasRenderPriority = false;
     }
 
+    public boolean pet;
     public int turn90CCWAnimIndex;
     public static int cacheIndex;
     public static int cacheIndexOSRS;
