@@ -2110,6 +2110,24 @@ public final class ItemDefinition {
             itemDef.editedModelColor = new int[] { 16, 24, 33, 43223, 44236 };
             itemDef.newModelColor = new int[] { 9024, 9024, 7937, 9024, 9024 };
             break;
+            
+        case 21030:
+            itemDef.actions = new String[5];
+            itemDef.actions[1] = "Wear";
+            itemDef.actions[4] = "Drop";
+            itemDef.modelID = 32799;
+            itemDef.name = "Ice twisted bow";
+            itemDef.modelZoom = 2000;
+            itemDef.rotationY = 720;
+            itemDef.rotationX = 1500;
+            itemDef.modelOffset1 = 3;
+            itemDef.modelOffsetY = 1;
+            itemDef.femaleEquip1 = 32674;
+            itemDef.maleEquip1 = 32674;
+            itemDef.description = "A mystical bow carved from the twisted remains of higher dimensions.";
+            itemDef.editedModelColor = new int[] { 16, 24, 33, 43223, 44236 };
+            itemDef.newModelColor = new int[] { 689484, 689484, 689484, 689484, 689484 };
+            break;
 
         case 21008:
         	def2 = forID(9774);

@@ -370,7 +370,7 @@ public final class MobDefinition {
             	
             case 9999:
                 npc.copy(forID(23060));
-                npc.name = "Wild Vorkath";
+                npc.name = "Workath";
                 npc.actions = new String[5];
                 npc.actions[1] = "Attack";
                 npc.models = new int[] { 60000 };

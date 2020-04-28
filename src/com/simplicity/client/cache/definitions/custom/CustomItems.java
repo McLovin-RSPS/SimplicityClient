@@ -327,6 +327,43 @@ public class CustomItems {
                 itemDef.newModelColor = new int[] { 64414, 43150, 43034, 43047, 43059, -1253, -1253, -1253, 43047 };
                 break;
                 
+            case 21031:
+                itemDef.copy(ItemDefinition.forID(1481));
+                itemDef.name = "Orb of ice";
+                itemDef.editedModelColor = new int[] { 1500 };
+                itemDef.newModelColor = new int[] { 689484 };
+                break;
+                
+            case 11222:
+                itemDef.name = "Frost fire arrow";
+                itemDef.editedModelColor = new int[] { 929, 914, 788, 68, 918, 937, 7081, 922, 924};
+                itemDef.newModelColor = new int[] {  929, 914, 788, 689484, 918, 689484, 689484, 922, 924};
+                break;
+                
+            case 11223:
+                itemDef.name = "Frost fire arrow";
+                itemDef.editedModelColor = new int[] { 929, 914, 788, 68, 918, 937, 7081, 922, 924};
+                itemDef.newModelColor = new int[] {  929, 914, 788, 689484, 918, 689484, 689484, 922, 924};
+                break;
+                
+            case 11224:
+                itemDef.name = "Frost fire arrow";
+                itemDef.editedModelColor = new int[] { 929, 914, 788, 68, 918, 937, 7081, 922, 924};
+                itemDef.newModelColor = new int[] {  929, 914, 788, 689484, 918, 689484, 689484, 922, 924};
+                break;
+                
+            case 11225:
+                itemDef.name = "Frost fire arrow";
+                itemDef.editedModelColor = new int[] { 929, 914, 788, 68, 918, 937, 7081, 922, 924};
+                itemDef.newModelColor = new int[] {  929, 914, 788, 689484, 918, 689484, 689484, 922, 924};
+                break;
+                
+            case 11226:
+                itemDef.name = "Frost fire arrow";
+                itemDef.editedModelColor = new int[] { 929, 914, 788, 68, 918, 937, 7081, 922, 924};
+                itemDef.newModelColor = new int[] {  929, 914, 788, 689484, 918, 689484, 689484, 922, 924};
+                break;
+                
             case 20202:
                 itemDef.copy(ItemDefinition.forID(11046));
                 itemDef.name = "Dark rope";
