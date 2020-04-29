@@ -18250,7 +18250,7 @@ public class Client extends RSApplet {
             int tileData = stream.method426();
             int tileX = bigRegionX + (tileData >> 4 & 7);
             int tileY = bigRegionY + (tileData & 7);
-            int objID = stream.ig2();
+            int objID = stream.readInt();
             int typeAndFaceBits = stream.readByteS();
             int obType = typeAndFaceBits >> 2;
             int obFace = typeAndFaceBits & 3;
