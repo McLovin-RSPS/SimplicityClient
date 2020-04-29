@@ -533,6 +533,48 @@ public final class ItemDefinition {
         //Necklace of anguish (or)
         priorityModels.add(12778);
         priorityModels.add(12817);
+               
+        //Tuxedo jackets
+        priorityModels.add(31810);
+        priorityModels.add(31801);
+        priorityModels.add(31873);
+        priorityModels.add(31865);
+        
+        priorityModels.add(31812);
+        priorityModels.add(31799);
+        priorityModels.add(31872);
+        priorityModels.add(31871);
+        
+        priorityModels.add(28507);
+        priorityModels.add(28507);
+        priorityModels.add(31871);
+        // Mummy outfit
+        priorityModels.add(31808);
+        priorityModels.add(31803);
+        priorityModels.add(31878);
+        priorityModels.add(31871);
+        priorityModels.add(31853);
+        priorityModels.add(31853);
+        priorityModels.add(31784);
+        priorityModels.add(31855);
+        priorityModels.add(31815);
+        // Wizard outfit (g)
+        priorityModels.add(10984);
+        priorityModels.add(11348);
+        priorityModels.add(11359);
+        
+        priorityModels.add(10979);
+        priorityModels.add(11331);
+        priorityModels.add(11354);
+        
+        //Hood of darkness + set
+        priorityModels.add(31752);
+        priorityModels.add(31836);
+        
+        priorityModels.add(31814);
+        priorityModels.add(31802);
+        priorityModels.add(31836);
+        priorityModels.add(31865);
         
         //Bunnyman mask
         priorityModels.add(21860);
