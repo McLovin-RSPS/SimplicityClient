@@ -539,6 +539,7 @@ public final class ItemDefinition {
         priorityModels.add(31801);
         priorityModels.add(31873);
         priorityModels.add(31865);
+        priorityModels.add(31867);
         
         priorityModels.add(31812);
         priorityModels.add(31799);
@@ -558,6 +559,9 @@ public final class ItemDefinition {
         priorityModels.add(31784);
         priorityModels.add(31855);
         priorityModels.add(31815);
+        priorityModels.add(31758);
+        priorityModels.add(31831);
+        
         // Wizard outfit (g)
         priorityModels.add(10984);
         priorityModels.add(11348);
