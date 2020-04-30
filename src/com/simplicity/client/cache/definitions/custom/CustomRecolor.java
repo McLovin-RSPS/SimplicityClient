@@ -91,9 +91,11 @@ public enum CustomRecolor {
 	BLACK_BUNNY_BOOTS(56017, 43182, "Black Bunny boots", new int[] { 2370, 2378, 2382 }, new int[] { 10, 10, 10 }),
 	EVIL_BUNNY_BOOTS(20208, 43182, "Evil Bunny boots", new int[] { 2370, 2378, 2382 }, new int[] { 16026, 16026, 16026 }),
 	
-	SCYTHE_OF_VITUR_INFERNAL(56018, 22011, "Scythe of Vitur Infernal", new int[] { 69 }, new int[] { 59 })
+	SCYTHE_OF_VITUR_INFERNAL(56018, 22011, "Scythe of Vitur Infernal", new int[] { 69 }, new int[] { 59 }),
 	
-	
+	SEZY_SPOOKY_CAPE(8475, 11614, "Sezy's Spooky Cape",
+			new int[] { 40023, 40036, 1822, 36, 25, 34243, 9230, 40040, 10348, 48, 34251, 0, 43335, 6218, 23, 11013 },
+			new int[] { 1024, 1024, 1024, 461770, 461770, 1024, 461770, 1024, 1024, 461770, 1024, 1024, 1024, 1024, 461770, 1024 })
 	;
 	/**
 	 * Constructs a new {@link CustomRecolor}.
