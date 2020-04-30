@@ -334,6 +334,13 @@ public class CustomItems {
                 itemDef.newModelColor = new int[] { 689484 };
                 break;
                 
+            case 21032:
+                itemDef.copy(ItemDefinition.forID(4825));
+                itemDef.name = "Unstrung ice bow";
+                itemDef.editedModelColor = new int[] { 5681, 10580, 5797, 5557, 5673, 5561};
+                itemDef.newModelColor = new int[] { 689484, 10580, 689484, 689484, 689484, 689484};
+                break;
+                
             case 11222:
                 itemDef.name = "Frost fire arrow";
                 itemDef.editedModelColor = new int[] { 929, 914, 788, 68, 918, 937, 7081, 922, 924};
