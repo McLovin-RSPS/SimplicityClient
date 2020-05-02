@@ -19262,10 +19262,32 @@ public class Client extends RSApplet {
                         opCode = -1;
                         return true;
                     }
+                    
                     currentRegionX = regionX;
                     currentRegionY = regionY;
                     baseX = (currentRegionX - 6) * 8;
                     baseY = (currentRegionY - 6) * 8;
+                    
+                    try {
+                    	boolean update = false;
+                    	
+						if (getRegionId() == 12611 && WorldController.MAX_RENDER_DISTANCE != 5000) {
+							WorldController.MAX_RENDER_DISTANCE = 5000;
+							Model.DRAW_DISTANCE = 6000;
+							update = true;
+						} else if (WorldController.MAX_RENDER_DISTANCE != WorldController.DEFAULT_RENDER_DISTANCE) {
+							Model.DRAW_DISTANCE = Model.DEFAULT_DRAW_DISTANCE;
+							WorldController.MAX_RENDER_DISTANCE = WorldController.DEFAULT_RENDER_DISTANCE;
+							update = true;
+						}
+						
+						if (update) {
+							updateGameArea();
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+                    
                     loadingStage = 1;
                     mapLoadingTime = System.currentTimeMillis();
                     gameScreenIP.initDrawingArea();
@@ -19379,6 +19401,7 @@ public class Client extends RSApplet {
                             player.y -= j21 * 128;
                         }
                     }
+                    
                     loadingMap = true;
                     byte minX = 0;
                     byte endX = 104;
@@ -20905,11 +20928,14 @@ public class Client extends RSApplet {
                 
                 int extraZoom = 0;
 
+                int drawHeight = 50;
+                
                 if (getRegionId() == 12611) {
-                	extraZoom = 700;
+                	extraZoom = clientSize == 0 ? 600 : 400;
+                	drawHeight = clientSize == 0 ? 500 : 100;
                 }
                 
-                setCameraPos(extraZoom + cameraZoom + (clientSize > 0 ? i + 300 : i) * (WorldController.viewDistance == 10 ? 1 : 3), i, anInt1014, getFloorDrawHeight(plane, myPlayer.y, myPlayer.x) - 50, k, anInt1015);
+                setCameraPos(extraZoom + cameraZoom + (clientSize > 0 ? i + 300 : i) * (WorldController.viewDistance == 10 ? 1 : 3), i, anInt1014, getFloorDrawHeight(plane, myPlayer.y, myPlayer.x) - drawHeight, k, anInt1015);
             }
             if (!inCutScene) {
                 j = getCameraHeight();

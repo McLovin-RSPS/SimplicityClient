@@ -21,7 +21,9 @@ public final class WorldController {
 	
 	public static final int TILE_DRAW_DISTANCE = 50;
 	
-	public static final int MAX_RENDER_DISTANCE = 4500;
+	public static final int DEFAULT_RENDER_DISTANCE = 3500;
+	
+	public static int MAX_RENDER_DISTANCE = DEFAULT_RENDER_DISTANCE;
 
 	public WorldController(int ai[][][]) {
 		int height = 104;// was parameter

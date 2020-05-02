@@ -40,8 +40,10 @@ public class Model extends Animable {
     	
     	texturedModels.put(textureId, models);
     }
+    
+    public static final int DEFAULT_DRAW_DISTANCE = 5000;
 	
-	private final int DRAW_DISTANCE = 5000; //3500 default
+	public static int DRAW_DISTANCE = DEFAULT_DRAW_DISTANCE; //3500 default
 
     public static int MAX_POLYGON = 10000;
 
