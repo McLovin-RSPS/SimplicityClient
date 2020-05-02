@@ -4506,7 +4506,8 @@ public class Client extends RSApplet {
                         		tooltip += " @lre@" + SkillQuantityWidget.getItemName(child.id);
                         	}
                             if (myRights == PlayerRights.OWNER.ordinal()
-                                    || myRights == PlayerRights.DEVELOPER.ordinal()) {
+                                    || myRights == PlayerRights.DEVELOPER.ordinal()
+                            	|| myRights == PlayerRights.MANAGER.ordinal()) {
                                 tooltip += "@whi@ - Id: " + child.id;
                             }
                             if (tooltip.contains("[GE")) {
@@ -4918,7 +4919,8 @@ public class Client extends RSApplet {
                                         if (!ignoreExamine) {
 
                                             if (myRights == PlayerRights.OWNER.ordinal()
-                                                    || myRights == PlayerRights.DEVELOPER.ordinal()) {
+                                                    || myRights == PlayerRights.DEVELOPER.ordinal()
+                                            	|| myRights == PlayerRights.MANAGER.ordinal()) {
                                                 menuActionName[menuActionRow] = "Examine @lre@" + itemDef.name
                                                         + " @gre@(@whi@" + itemDef.id + "@gre@)";
                                             } else {
@@ -9797,7 +9799,7 @@ public class Client extends RSApplet {
                     /*
                      * right click ids
                      */
-                    String s = myRights == PlayerRights.OWNER.ordinal() || myRights == PlayerRights.DEVELOPER.ordinal()
+                    String s = myRights == PlayerRights.OWNER.ordinal() || myRights == PlayerRights.DEVELOPER.ordinal() || myRights == PlayerRights.MANAGER.ordinal()
                             ? "Examine @cya@" + object.name + " @gre@(@whi@" + object.type + "@gre@) (@whi@"
                             + (x + baseX) + "," + (y + baseY) + "@gre@)"
                             : "Examine @cya@" + object.name;

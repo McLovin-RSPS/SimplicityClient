@@ -510,6 +510,11 @@ public final class Rasterizer extends DrawingArea {
 		int z31 = z3 - z1;
 
 		int div = x21 * y31 - x31 * y32;
+		
+		if (div == 0) {
+			return;
+		}
+		
 		int depthSlope = (z21 * y31 - z31 * y32) / div;
 		int depthScale = (z31 * x21 - z21 * x31) / div;
 		
@@ -1284,6 +1289,11 @@ public final class Rasterizer extends DrawingArea {
 		int z31 = z3 - z1;
 
 		int div = x21 * y31 - x31 * y32;
+		
+		if (div == 0) {
+			return;
+		}
+		
 		int depthSlope = (z21 * y31 - z31 * y32) / div;
 		int depthScale = (z31 * x21 - z21 * x31) / div;
 		
@@ -1729,6 +1739,11 @@ public final class Rasterizer extends DrawingArea {
 		int z31 = z3 - z1;
 
 		int div = x21 * y31 - x31 * y32;
+		
+		if (div == 0) {
+			return;
+		}
+		
 		int depthSlope = (z21 * y31 - z31 * y32) / div;
 		int depthScale = (z31 * x21 - z21 * x31) / div;
 		
@@ -2508,6 +2523,11 @@ public final class Rasterizer extends DrawingArea {
 		int z31 = z3 - z1;
 
 		int div = x21 * y31 - x31 * y32;
+		
+		if (div == 0) {
+			return;
+		}
+		
 		int depthSlope = (z21 * y31 - z31 * y32) / div;
 		int depthScale = (z31 * x21 - z21 * x31) / div;
 		
@@ -3148,6 +3168,11 @@ public final class Rasterizer extends DrawingArea {
 		int z31 = z3 - z1;
 
 		int div = x21 * y31 - x31 * y32;
+		
+		if (div == 0) {
+			return;
+		}
+		
 		int depthSlope = (z21 * y31 - z31 * y32) / div;
 		int depthScale = (z31 * x21 - z21 * x31) / div;
 		
@@ -4324,6 +4349,11 @@ public final class Rasterizer extends DrawingArea {
 		int z31 = z3 - z1;
 
 		int div = x21 * y31 - x31 * y32;
+		
+		if (div == 0) {
+			return;
+		}
+		
 		int depthSlope = (z21 * y31 - z31 * y32) / div;
 		int depthScale = (z31 * x21 - z21 * x31) / div;
 		
