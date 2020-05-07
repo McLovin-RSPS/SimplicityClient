@@ -56,6 +56,14 @@ public class CustomObjects {
             //special altar elite
             {42601, 1684, 3753, 0, 1}, // Portal elite boss dungeon
             {28698, 1686, 3739, 0, 0},
+            //{127882, 1693, 3746, 0, 1}, // Crystal
+            {127882, 1693, 3744, 0, 1}, // Crystal
+            //{127886, 1692, 3745, 0, 1}, // Crystal
+            //{127886, 1692, 3747, 0, 1}, // Crystal
+            //{127886, 1692, 3743, 0, 1}, // Crystal
+            
+            {127886, 1691, 3747, 0, 1}, // Crystal
+            {127886, 1691, 3743, 0, 1}, // Crystal
 
             {-1, 1695, 4703, 0, 0}, // ffa portal
             {-1, 1698, 4702, 0, 0}, // ffa portal
