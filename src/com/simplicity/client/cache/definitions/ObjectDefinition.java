@@ -152,6 +152,12 @@ public final class ObjectDefinition {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if (i == 129878) {
+        	objectDef.modelSizeX = 128;
+        	objectDef.modelSizeY = 128;
+        	objectDef.modelSizeH = 128;
+        	objectDef.animationID = -1;
+        }
         if (i == 116553) {
         	objectDef.mapSceneID = -1;
         }
