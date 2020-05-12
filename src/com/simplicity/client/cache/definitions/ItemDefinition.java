@@ -534,6 +534,10 @@ public final class ItemDefinition {
         priorityModels.add(12778);
         priorityModels.add(12817);
                
+        //Hween mask skyblue
+        priorityModels.add(3188);
+        priorityModels.add(3192);
+        
         //Tuxedo jackets
         priorityModels.add(31810);
         priorityModels.add(31801);
