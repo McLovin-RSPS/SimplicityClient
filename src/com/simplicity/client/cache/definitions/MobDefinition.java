@@ -15,6 +15,8 @@ public final class MobDefinition {
 
     /** Hardcoded until we pack another byte into npc definitions to flag followers such as pets and familiars/bobs. **/
     private static final int[] FOLLOWER_IDS = new int[] {
+            17130, 17131, 17132,
+
             6830, 6825, 6841, 6806, 6796, 7331, 6831, 6837, 7361, 6847, 6994, 6872, 7353, 6835, 6845, 6808, 153, 154, 7519,
             23492, 23493, 23494, 23495, 23495,
             7370, 7333, 7351, 7367, 6853, 6867, 6851, 6833, 6875, 6877, 6879, 6881, 6883, 6885, 6887, 6855, 7377, 22519,
@@ -74,6 +76,12 @@ public final class MobDefinition {
 				npc.actions[0] = "Pick-up";
 				npc.actions[3] = null;
 				break;
+                case 17130:
+                case 17131:
+                case 17132:
+                    npc.actions = new String[5];
+                    npc.actions[0] = "Pick-up";
+                    break;
 				
                 case 6332:
                     npc.name = "Dracula";
