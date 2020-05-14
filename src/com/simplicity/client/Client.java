@@ -118,6 +118,7 @@ import com.simplicity.client.widget.WildernessWidget;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.tools.InterfaceDebugger;
 import com.simplicity.tools.ItemDefinitionLookup;
+import com.simplicity.tools.NpcDefinitionLookup;
 import com.simplicity.tools.ObjectDefinitionLookup;
 import com.simplicity.util.MiscUtils;
 import com.simplicity.util.Stopwatch;
@@ -10680,6 +10681,10 @@ public class Client extends RSApplet {
                     }
                     if (inputString.equals("::objectdef")) {
                     	ObjectDefinitionLookup lookup = new ObjectDefinitionLookup();
+						lookup.setVisible(true);
+                    }
+                    if (inputString.equals("::npcdef")) {
+                    	NpcDefinitionLookup lookup = new NpcDefinitionLookup();
 						lookup.setVisible(true);
                     }
                     if (inputString.equals("::packrsi") || inputString.equals("::repack")) {

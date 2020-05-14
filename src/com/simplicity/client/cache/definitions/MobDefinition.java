@@ -1,7 +1,6 @@
 package com.simplicity.client.cache.definitions;
 
 import java.io.PrintWriter;
-import java.util.Arrays;
 
 import com.simplicity.client.CacheArchive;
 import com.simplicity.client.Client;
@@ -32,7 +31,7 @@ public final class MobDefinition {
     public int rightLight = 0;
     public int middleLight = -1; // Cannot be 0
     public int leftLight = 0;
-    private static final int OSRS_NPCS_OFFSET = 15000;
+    public static final int OSRS_NPCS_OFFSET = 15000;
 
     public static MobDefinition forID(int i) {
         if (i >= OSRS_NPCS_OFFSET) {
@@ -1855,6 +1854,8 @@ public final class MobDefinition {
     }
 
     public static int NPCAMOUNT = 11599;
+    
+    public static int totalOSRSNPCs;
 
     public static void unpackConfig(CacheArchive streamLoader) {
         stream = new Stream(streamLoader.getDataForName("npc.dat"));
@@ -1863,7 +1864,7 @@ public final class MobDefinition {
         Stream stream3 = new Stream(streamLoader.getDataForName("npc3.idx"));
 
         int totalNPCs = stream2.readUnsignedWord();
-        int totalOSRSNPCs = stream3.readUnsignedWord();
+        totalOSRSNPCs = stream3.readUnsignedWord();
         streamIndices = new int[totalNPCs];
         streamIndicesOSRS = new int[totalOSRSNPCs];
 
