@@ -14,8 +14,10 @@ public final class MobDefinition {
 
     /** Hardcoded until we pack another byte into npc definitions to flag followers such as pets and familiars/bobs. **/
     private static final int[] FOLLOWER_IDS = new int[] {
+            17130, 17131, 17132,
+
             6830, 6825, 6841, 6806, 6796, 7331, 6831, 6837, 7361, 6847, 6994, 6872, 7353, 6835, 6845, 6808, 153, 154, 7519,
-            23492, 23493, 23494, 23495, 23495,
+            23492, 23493, 23494, 23495, 23495, 2775, 2776,
             7370, 7333, 7351, 7367, 6853, 6867, 6851, 6833, 6875, 6877, 6879, 6881, 6883, 6885, 6887, 6855, 7377, 22519,
             6824, 6843, 6794, 6818, 6992, 6857, 6991, 7365, 7337, 7363, 6809, 6865, 6820, 6802, 6827, 6859, 6889, 6815,
             6813, 6817, 7372, 6839, 8575, 7345, 6849, 6798, 6861, 7335, 7347, 6800, 7355, 7357, 7359, 9488, 6804, 7341,
@@ -73,6 +75,12 @@ public final class MobDefinition {
 				npc.actions[0] = "Pick-up";
 				npc.actions[3] = null;
 				break;
+                case 17130:
+                case 17131:
+                case 17132:
+                    npc.actions = new String[5];
+                    npc.actions[0] = "Pick-up";
+                    break;
 				
                 case 6332:
                     npc.name = "Dracula";
@@ -80,6 +88,7 @@ public final class MobDefinition {
                     npc.sizeXZ = 180;
                     npc.combatLevel = 1031;
                     break;
+                    
                 case 3481:
                     npc.name = "Pet Dracula";
                     npc.sizeY = 80;
@@ -87,6 +96,8 @@ public final class MobDefinition {
                     npc.actions = new String[5];
                     npc.actions[0] = "Pick-up";
                     break;
+                  
+                    
                 case 3113:
                     npc.name = "The Pet Tradesman";
                     break;
@@ -376,6 +387,22 @@ public final class MobDefinition {
                 npc.models = new int[] { 60000 };
                 break;
                 
+            case 2775:
+                npc.copy(forID(12841));
+                npc.name = "Warmi";
+                npc.sizeXZ = 120;
+                npc.sizeY = 120;
+                break;
+                
+            case 2776:
+                npc.copy(forID(22405));
+                npc.name = "Kura";
+                npc.sizeXZ = 20;
+                npc.sizeY = 20;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                break;
+                
             case 13212:
                 npc.copy(forID(1321));
                 npc.combatLevel = 1337;
@@ -462,7 +489,7 @@ public final class MobDefinition {
                 npc.destColours = new int[]{226770, 34503, 34503, 34503, 34503};
                 npc.originalColours = new int[]{926, 65214, 65200, 65186, 62995};
                 break;
-
+                
             case 23611:
                 npc.name = "Draconic Wyrm";
                 npc.combatLevel = 399;
@@ -1567,8 +1594,8 @@ public final class MobDefinition {
                 npc.sizeY = 22;
                 npc.squaresNeeded = 1;
                 break;
+                
             case 3065:
-
                 npc.name = "Lizardman Shaman";
                 npc.description = "It's a lizardman.";
                 npc.combatLevel = 150;

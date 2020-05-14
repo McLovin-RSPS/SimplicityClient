@@ -534,6 +534,10 @@ public final class ItemDefinition {
         priorityModels.add(12778);
         priorityModels.add(12817);
                
+        //Hween mask skyblue
+        priorityModels.add(3188);
+        priorityModels.add(3192);
+        
         //Tuxedo jackets
         priorityModels.add(31810);
         priorityModels.add(31801);
@@ -867,12 +871,29 @@ public final class ItemDefinition {
 	            	itemDef.maleYOffset -= 7;
 	            	itemDef.femaleZOffset += 4;
 	            	break;
+	            	
                 case 43300:
                     itemDef.name = "Pet Dracula";
                     itemDef.groundActions = new String[]{null, null, "Take", null, null};
                     itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
                     itemDef.modelID = MobDefinition.forID(21332).models[0];
                     itemDef.modelZoom = 1200;
+                    break;
+                    
+                case 43301:
+                    itemDef.name = "Warmi";
+                    itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                    itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                    itemDef.modelID = MobDefinition.forID(12841).models[0];
+                    itemDef.modelZoom = 10000;
+                    break;
+                    
+                case 43299:
+                    itemDef.name = "Kura";
+                    itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                    itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                    itemDef.modelID = MobDefinition.forID(22405).models[0];
+                    itemDef.modelZoom = 10000;
                     break;
 
                 case 51791:
