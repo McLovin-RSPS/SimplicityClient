@@ -36,7 +36,7 @@ public class NpcDefinitionLookup extends JFrame {
 	public NpcDefinitionLookup() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("NPC Definition Lookup");
-		setSize(550, 600);
+		setSize(600, 600);
 		setVisible(true);
 		
 		npcs = new DefaultMutableTreeNode("Npcs");
@@ -66,7 +66,7 @@ public class NpcDefinitionLookup extends JFrame {
 		});
 		
 		JScrollPane treeView = new JScrollPane(tree);
-		treeView.setPreferredSize(new Dimension(200, 500));
+		treeView.setPreferredSize(new Dimension(250, 500));
 		
 		JPanel left = new JPanel();
 		left.add(treeView);
