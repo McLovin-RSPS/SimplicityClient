@@ -19,14 +19,16 @@ public final class ObjectDefinition {
 
     public static void dump(int totalObjects, int totalObjects667, int totalObjectsOSRS) {
         try {
-            PrintWriter writer = new PrintWriter("../667objects.txt");
+            PrintWriter writer = new PrintWriter("./667objects.txt");
             for (int i = 0; i < totalObjects667; i++) {
                 ObjectDefinition entityDef = forID(i);
-
-                if (entityDef == null || entityDef.name == null)
+                
+                String name = entityDef.name == null ? "null" : entityDef.name;
+                
+                if (entityDef == null)
                     continue;
 
-                String build = i + " " + entityDef.name + " ";
+                String build = i + " " + name + " ";
 
                 if (entityDef.actions != null && entityDef.actions.length > 0) {
                     build += "[Actions=";
@@ -75,14 +77,16 @@ public final class ObjectDefinition {
         }
 
         try {
-            PrintWriter writer = new PrintWriter("../osrsobjects.txt");
-            for (int i = 0; i < totalObjectsOSRS; i++) {
+            PrintWriter writer = new PrintWriter("./osrsobjects.txt");
+            for (int i = 100_000; i < 100_000 + totalObjectsOSRS; i++) {
                 ObjectDefinition entityDef = getDefOldschool(i);
+                
+                String name = entityDef.name == null ? "null" : entityDef.name;
 
-                if (entityDef == null || entityDef.name == null)
+                if (entityDef == null)
                     continue;
 
-                String build = i + " " + entityDef.name + " ";
+                String build = i + " " + name + " ";
 
                 if (entityDef.actions != null && entityDef.actions.length > 0) {
                     build += "[Actions=";
