@@ -10661,6 +10661,33 @@ public class Client extends RSApplet {
                         inputString = "";
                         return;
                     }
+					if (inputString.startsWith("::findobj")) { // OSRS
+                        try {
+                        	String[] data = inputString.split(" ");
+                        	
+                            String name = String.join(" ", Arrays.copyOfRange(data, 1, data.length)).toLowerCase();
+                            
+                            int results = 0;
+                            
+							for (int i = 100_000; i < 100_000 + 34649; i++) {
+								ObjectDefinition def = ObjectDefinition.getDefOldschool(i);
+								
+								if (def == null || def.objectModelIDs == null) {
+									continue;
+								}
+								
+								if (def.name != null && (def.name.equalsIgnoreCase(name) || def.name.toLowerCase().contains(name))) {
+									pushMessage(i + " - " + def.name, 0, "");
+									results++;
+								}
+							}
+							
+							pushMessage("@red@" + (results > 0 ? results : "No") + " results for '" + name + "'.", 0, "");
+					
+                        } catch (Exception e) {
+                        	e.printStackTrace();
+                        }
+					}
                     if (inputString.equals("::rsi")) {
 						InterfaceDebugger debug = new InterfaceDebugger();
 						debug.setVisible(true);
