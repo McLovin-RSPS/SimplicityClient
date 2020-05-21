@@ -16,8 +16,6 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeSelectionModel;
 
-import com.simplicity.client.RSInterface;
-import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.client.cache.definitions.ObjectDefinition;
 
 public class ObjectDefinitionLookup extends JFrame {
@@ -30,7 +28,7 @@ public class ObjectDefinitionLookup extends JFrame {
 	
 	private JTable details;
 	
-	private List<String> detailsData = new ArrayList<String>(Arrays.asList(new String[] { "Id", "Name", "Description", "HasActions", "Actions", "ObjectModelIDs", "ObjectModelTypes", "AdjustToTerrain", "SizeX", "SizeY", "ABoolean736", "ABoolean751", "ABoolean757", "ABoolean764", "ABoolean779", "AnInt775", "ConfigID", "ConfigObjectIDs", "IsUnwalkable", "VarbitIndex", "DataType" }));
+	private List<String> detailsData = new ArrayList<String>(Arrays.asList(new String[] { "Id", "Name", "Description", "HasActions", "Actions", "ObjectModelIDs", "ObjectModelTypes", "Animation ID", "AdjustToTerrain", "SizeX", "SizeY", "ABoolean736", "ABoolean751", "ABoolean757", "ABoolean764", "ABoolean779", "AnInt775", "ConfigID", "ConfigObjectIDs", "IsUnwalkable", "VarbitIndex", "DataType" }));
 	
 	public ObjectDefinitionLookup() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -106,6 +104,7 @@ public class ObjectDefinitionLookup extends JFrame {
 		details.getModel().setValueAt(Arrays.toString(def.actions), column++, 1);
 		details.getModel().setValueAt(Arrays.toString(def.objectModelIDs), column++, 1);
 		details.getModel().setValueAt(Arrays.toString(def.objectModelTypes), column++, 1);
+		details.getModel().setValueAt(def.animationID, column++, 1);
 		details.getModel().setValueAt(def.adjustToTerrain, column++, 1);
 		details.getModel().setValueAt(def.sizeX, column++, 1);
 		details.getModel().setValueAt(def.sizeY, column++, 1);
@@ -123,7 +122,7 @@ public class ObjectDefinitionLookup extends JFrame {
 	}
 	
 	public void loadItems() {
-		for (int i = 0; i < 60_000; i++) {
+		/*for (int i = 0; i < 60_000; i++) {
 			ObjectDefinition def = ObjectDefinition.forID(i);
 			
 			if (def == null) {
@@ -134,8 +133,8 @@ public class ObjectDefinitionLookup extends JFrame {
 			
 			objects.add(itemNode);
 		
-		}
-		/*for (int i = 100_000; i < 100_000 + 34649; i++) {
+		}*/
+		for (int i = 100_000; i < 100_000 + 34649; i++) {
 			ObjectDefinition def = ObjectDefinition.getDefOldschool(i);
 			
 			if (def == null) {
@@ -146,7 +145,7 @@ public class ObjectDefinitionLookup extends JFrame {
 			
 			objects.add(itemNode);
 			
-		}*/
+		}
 		
 		tree.expandPath(tree.getPathForRow(0));
 	}
