@@ -10672,15 +10672,47 @@ public class Client extends RSApplet {
 							for (int i = 100_000; i < 100_000 + 34649; i++) {
 								ObjectDefinition def = ObjectDefinition.getDefOldschool(i);
 								
-								if (def == null || def.objectModelIDs == null) {
+								if (def == null || def.name == null) {
 									continue;
 								}
 								
-								if (def.name != null && (def.name.equalsIgnoreCase(name) || def.name.toLowerCase().contains(name))) {
+								if (def.name.equalsIgnoreCase(name) || def.name.toLowerCase().contains(name)) {
 									pushMessage(i + " - " + def.name, 0, "");
 									results++;
 								}
 							}
+							
+							pushMessage("@red@" + (results > 0 ? results : "No") + " results for '" + name + "'.", 0, "");
+					
+                        } catch (Exception e) {
+                        	e.printStackTrace();
+                        }
+					}
+					if (inputString.startsWith("::findnpc")) { // OSRS
+                        try {
+                        	String[] data = inputString.split(" ");
+                        	
+                            String name = String.join(" ", Arrays.copyOfRange(data, 1, data.length)).toLowerCase();
+                            
+                            int results = 0;
+                            
+                    		for (int i = MobDefinition.OSRS_NPCS_OFFSET; i < MobDefinition.OSRS_NPCS_OFFSET + MobDefinition.totalOSRSNPCs; i++) {
+                    			MobDefinition def = MobDefinition.forID(i);
+                    			
+                    			if (def == null || def.name == null) {
+									continue;
+								}
+								
+								if (def.name.equalsIgnoreCase(name) || def.name.toLowerCase().contains(name)) {
+									pushMessage(i + " - " + def.name, 0, "");
+									results++;
+									
+									if (results >= 100) {
+										break;
+									}
+								}
+                    			
+                    		}
 							
 							pushMessage("@red@" + (results > 0 ? results : "No") + " results for '" + name + "'.", 0, "");
 					
