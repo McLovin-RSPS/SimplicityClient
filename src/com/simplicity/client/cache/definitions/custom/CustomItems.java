@@ -1,5 +1,6 @@
 package com.simplicity.client.cache.definitions.custom;
 
+import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.ItemDefinition;
 
 public class CustomItems {
@@ -345,8 +346,8 @@ public class CustomItems {
                 itemDef.copy(ItemDefinition.forID(962));
                 itemDef.name = "Dynamite box";
                 itemDef.actions[0] = "Open";
-                itemDef.editedModelColor = new int[] { 11200, 57, 127};
-                itemDef.newModelColor = new int[] { 1024, 538, 924};
+                itemDef.modelID = 29;
+                itemDef.dataType = DataType.CUSTOM;
                 break;
                 
             case 11222:
