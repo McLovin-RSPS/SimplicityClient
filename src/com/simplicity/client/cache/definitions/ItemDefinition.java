@@ -1337,7 +1337,74 @@ public final class ItemDefinition {
 			itemDef.editedModelColor = new int[] { 59 };
         	itemDef.newModelColor = new int[] { 71 };
 			break;
-        
+			
+        case 22014:
+        	itemDef.copy(forID(14008));
+        	itemDef.name = "Elite sirenic helm";
+        	itemDef.maleEquip1 = 21;
+        	itemDef.femaleEquip1 = 21;
+        	itemDef.modelID = 20;
+        	itemDef.dataType = DataType.CUSTOM;
+        	itemDef.editedModelColor = new int[0];
+        	itemDef.newModelColor = new int[0];
+        	itemDef.rotationY = 50;
+        	break;
+        	
+        case 22016:
+        	itemDef.copy(forID(14009));
+        	itemDef.name = "Elite sirenic platebody";
+        	itemDef.maleEquip1 = 23;
+        	itemDef.femaleEquip1 = 23;
+        	itemDef.modelID = 22;
+        	itemDef.dataType = DataType.CUSTOM;
+        	itemDef.modelOffsetY = 8;
+        	itemDef.editedModelColor = new int[0];
+        	itemDef.newModelColor = new int[0];
+        	break;
+        	
+        case 22018:
+        	itemDef.copy(forID(14010));
+        	itemDef.name = "Elite sirenic platelegs";
+        	itemDef.maleEquip1 = 25;
+        	itemDef.femaleEquip1 = 25;
+        	itemDef.modelID = 24;
+        	itemDef.dataType = DataType.CUSTOM;
+        	itemDef.modelZoom = 1800;
+        	itemDef.modelOffsetY = 8;
+        	itemDef.editedModelColor = new int[0];
+        	itemDef.newModelColor = new int[0];
+        	break;
+        	
+        case 22020:
+        	itemDef.copy(forID(11732));
+        	itemDef.name = "Elite sirenic boots";
+        	itemDef.maleEquip1 = 28;
+        	itemDef.femaleEquip1 = 28;
+        	itemDef.modelID = 28;
+        	itemDef.modelZoom = 890;
+        	itemDef.rotationX = 320;
+        	itemDef.rotationY = 290;
+        	itemDef.modelOffsetX = 100;
+        	itemDef.modelOffset1 = 5;
+        	itemDef.modelOffsetY = 15;
+        	itemDef.dataType = DataType.CUSTOM;
+        	break;
+        	
+        case 22022:
+        	itemDef.copy(forID(7462));
+        	itemDef.name = "Elite sirenic gloves";
+        	itemDef.maleEquip1 = 27;
+        	itemDef.femaleEquip1 = 27;
+        	itemDef.modelID = 26;
+        	itemDef.modelZoom = 700;
+        	itemDef.modelOffset1 = 5;
+        	itemDef.modelOffsetX = 180;
+        	itemDef.modelOffsetY = 30;
+        	itemDef.rotationX = 390;
+        	itemDef.rotationY = 290;
+        	itemDef.dataType = DataType.CUSTOM;
+        	break;
+        	
         case 17273:
         	itemDef.femaleYOffset += 7;
         	itemDef.femaleZOffset -= 6;
