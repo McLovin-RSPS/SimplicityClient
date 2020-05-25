@@ -3729,8 +3729,8 @@ public class Model extends Animable {
                 faceLists[k5][depthListIndices[k5]++] = triangleId;
             }
         }
-
-        if (face_render_priorities == null) {
+        
+        if (/*face_render_priorities == null*/true) {
             for (int i1 = diagonal3D - 1; i1 >= 0; i1--) {
                 int l1 = depthListIndices[i1];
                 if (l1 > 0) {
