@@ -457,6 +457,7 @@ public class Model extends Animable {
     public int vertexSkin[][];
     public int triangleSkin[][];
     public boolean rendersWithinOneTile;
+    private boolean usingDepthBuffer;
     VertexNormal vertexNormalOffset[];
 
     public Model() {
@@ -692,7 +693,19 @@ public class Model extends Animable {
                 }
             }
         }
+        
+        if (dataType == DataType.CUSTOM) {
+        	setUseDepthBuffer();
+        }
     }
+    
+	/**
+	 * Sets this model to use depth buffering for rendering instead of priorities.
+	 */
+	private void setUseDepthBuffer() {
+		usingDepthBuffer = true;
+		face_render_priorities = null;
+	}
 
     public Model(int i, Model amodel[]) {
         aBoolean1618 = true;
@@ -763,7 +776,7 @@ public class Model extends Animable {
                                 k1 += l << 2;
                             face_render_type[numberOfTriangleFaces] = k1;
                         }
-                    if (flag1)
+                    if (flag1 && !model_1.usingDepthBuffer)
                         if (model_1.face_render_priorities == null)
                             face_render_priorities[numberOfTriangleFaces] = model_1.face_priority;
                         else
@@ -882,7 +895,7 @@ public class Model extends Animable {
                                 j2 += i1 << 2;
                             face_render_type[numberOfTriangleFaces] = j2;
                         }
-                    if (flag2)
+                    if (flag2 && !model_1.usingDepthBuffer)
                         if (model_1.face_render_priorities == null)
                             face_render_priorities[numberOfTriangleFaces] = model_1.face_priority;
                         else
@@ -2053,6 +2066,7 @@ public class Model extends Animable {
         face_c = facePoint3;
         filterTriangles();
         convertTexturesTo317(modelID, D, texTrianglesPoint1, texTrianglesPoint2, texTrianglesPoint3, x);
+        setUseDepthBuffer();
     }
 
     public void readNewModel(byte data[], int modelId) {
@@ -2354,6 +2368,7 @@ public class Model extends Animable {
         }
         nc1.currentOffset = pos;
         face = nc1.readUnsignedByte();
+        setUseDepthBuffer();
     }
 
     public void readOSRSOldModel(byte[] data, int modelId) {
@@ -2995,6 +3010,7 @@ public class Model extends Animable {
         face_c = facePoint3;
         filterTriangles();
         convertTexturesTo317(modelID, D, texTrianglesPoint1, texTrianglesPoint2, texTrianglesPoint3, x);
+        setUseDepthBuffer();
     }
 
     private void readOldModel(int i, DataType dataType) {
@@ -3730,7 +3746,7 @@ public class Model extends Animable {
             }
         }
         
-        if (/*face_render_priorities == null*/true) {
+        if (face_render_priorities == null) {
             for (int i1 = diagonal3D - 1; i1 >= 0; i1--) {
                 int l1 = depthListIndices[i1];
                 if (l1 > 0) {
