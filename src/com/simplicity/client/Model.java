@@ -15,6 +15,11 @@ import com.simplicity.client.particles.ParticleVector;
 
 @SuppressWarnings("all")
 public class Model extends Animable {
+
+	/**
+	 * The id of which depth buffered models start at.
+	 */
+	public static int DEPTH_BUFFER_MODEL_START = 15_000;
 	
     /**
      * A hash collection of textured models per texture id.
@@ -614,30 +619,18 @@ public class Model extends Animable {
         } else {
             is = modelHeaderRegular[modelId].modelData;
         }
-
+        
         boolean osrsModel = ItemDefinition.osrsModels.contains(modelId) || dataType == DataType.OLDSCHOOL;
 
-        if (osrsModel) {
-            if (face_render_priorities != null) {
-                for (int j = 0; j < face_render_priorities.length; j++) {
-                    face_render_priorities[j] = 10;
-                }
-            }
+        if (osrsModel && modelId > DEPTH_BUFFER_MODEL_START) {
+            setUseDepthBuffer();
         }
 
         if (is[is.length - 1] == -1 && is[is.length - 2] == -1)
             read622Model(is, modelId, dataType);
         else
             readOldModel(modelId, dataType);
-
-        if (ItemDefinition.priorityModels.contains(modelId)) {
-            if (face_render_priorities != null) {
-                for (int j = 0; j < face_render_priorities.length; j++) {
-                    face_render_priorities[j] = 10;
-                }
-            }
-        }
-
+        
         if (!osrsModel) {
             if (newmodel[modelId]) {
                 if ((Configuration.upscaling)) {
@@ -646,10 +639,6 @@ public class Model extends Animable {
                 }
                 if (!(modelId == 19176 || modelId == 19192 || modelId == 19174 || modelId == 19190 || modelId == 19178 || modelId == 19194 || modelId == 19183 || modelId == 19199 || modelId == 19172 || modelId == 19188 || modelId == 19180 || modelId == 19196)) {
                     recolour(0, 255);
-                }
-                if (face_render_priorities != null) { // rofl
-                    for (int j = 0; j < face_render_priorities.length; j++)
-                        face_render_priorities[j] = 10;
                 }
             }
             if (modelId == 48841 || modelId == 48825 || modelId == 48817 || modelId == 48802 || modelId == 48840
@@ -2067,7 +2056,7 @@ public class Model extends Animable {
         filterTriangles();
         convertTexturesTo317(modelID, D, texTrianglesPoint1, texTrianglesPoint2, texTrianglesPoint3, x);
         
-        if (modelID > 25_000) {
+        if (modelID > DEPTH_BUFFER_MODEL_START) {
         	setUseDepthBuffer();
         }
     }
