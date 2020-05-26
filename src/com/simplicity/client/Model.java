@@ -2066,6 +2066,10 @@ public class Model extends Animable {
         face_c = facePoint3;
         filterTriangles();
         convertTexturesTo317(modelID, D, texTrianglesPoint1, texTrianglesPoint2, texTrianglesPoint3, x);
+        
+        if (modelID > 25_000) {
+        	setUseDepthBuffer();
+        }
     }
 
     public void readNewModel(byte data[], int modelId) {
