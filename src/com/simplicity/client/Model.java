@@ -621,8 +621,8 @@ public class Model extends Animable {
         }
         
         boolean osrsModel = ItemDefinition.osrsModels.contains(modelId) || dataType == DataType.OLDSCHOOL;
-
-        if (osrsModel && modelId > DEPTH_BUFFER_MODEL_START) {
+        
+        if (modelId > DEPTH_BUFFER_MODEL_START) {
             setUseDepthBuffer();
         }
 
@@ -683,7 +683,7 @@ public class Model extends Animable {
             }
         }
         
-        if (dataType == DataType.CUSTOM) {
+        if (ItemDefinition.usingDepthBuffer(dataType, modelId) || dataType == DataType.CUSTOM) {
         	setUseDepthBuffer();
         }
     }
