@@ -897,10 +897,8 @@ public class CustomItems {
                 break;  
                 
             case 10164:
-                itemDef.copy(ItemDefinition.forID(6585));
-                itemDef.editedModelColor = new int[]{ 0, 43074, 43026, 43164, 43086};
-                itemDef.newModelColor = new int[]{0, 926, 9152, 9152, 41};
-                itemDef.name = "Amulet of Fury";
+                itemDef.copy(ItemDefinition.forID(50366));
+                itemDef.name = "Amulet of torture (or)";
                 break;
                 
             case 10170:
