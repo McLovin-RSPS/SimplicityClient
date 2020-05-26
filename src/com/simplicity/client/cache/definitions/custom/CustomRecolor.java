@@ -9,7 +9,11 @@ import com.simplicity.client.cache.definitions.ItemDefinition;
  *
  */
 public enum CustomRecolor {
-
+	
+	// Blade only colors: 90, 90, 90, 56220, 90, 90, 56220, 90, 90, 90, 90, 90, 90, 56220
+	// Blade and crystal colors: 90, 90, 90, 56220, 90, 56220, 56220, 90, 56220, 90, 56220, 56220, 90, 56220
+	// Blade only and crystal only, no further changes: 933, 933, 933, 933, 933, 933, 933
+	
 	BLACK_DRAGONSTONE_HELM(56000, 54034, "Dragonstone full helm", new int[] { 36252, 36257, 36133, 37165, 43059, 43067 }, new int[] { 15, 15, 15, 15, 15, 15 }),
 	BLACK_DRAGONSTONE_PLATE(56001, 54037, "Dragonstone platebody", new int[] { 36252, 36257, 36133, 37165, 43059, 43067 }, new int[] { 15, 15, 15, 15, 15, 15 }),
 	BLACK_DRAGONSTONE_LEGS(56002, 54040, "Dragonstone platelegs", new int[] { 36252, 36257, 36133, 37165, 43059, 43067 }, new int[] { 15, 15, 15, 15, 15, 15 }),
@@ -35,9 +39,13 @@ public enum CustomRecolor {
 			new int[]{ 40023, 40036, 1822, 36, 25, 34243, 9230, 40040, 10348, 48, 34251, 0, 43335, 6218, 23, 11013 },
             new int[]{ 1024, 1024, 1024, 933, 933, 1024, 933, 1024, 1024, 933, 1024, 1024, 1024, 1024, 933, 1024 }),
 	
-	ORANGE_ICE_TBOW(13991, 52323, "Sezy Ice Twisted Bow", 
+	ORANGE_ICE_TBOW(15660, 20998, "@or1@Spooky Twisted Bow", 
 			new int[] { 16, 24, 33, 13223, 14236 }, 
 			new int[] { 4024, 4024, 0, 4024, 4024 }),
+	
+	JOURNEY_SCYTHE(19620, 15000, "Journey", 
+			new int[] { 33, 37, 41, 78, 16, 784, 49, 20, 790, 24, 536, 796, 28, 61 },
+			new int[] { 90, 90, 90, 56220, 90, 56220, 56220, 90, 56220, 90, 56220, 56220, 90, 56220 }),
 	
 	EMAN_SCYTHE_X(11207, 15000, "USA Dragonstone Scythe",
 			new int[] { 784, 790, 796, 536, 61, 78, 49 },
