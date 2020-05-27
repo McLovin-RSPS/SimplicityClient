@@ -33,7 +33,7 @@ public class OldschoolMaps {
             6715, // Elite zone
             6714, // Elite zone
             
-            12613, 12612, 12869, 13125, 13123, 12611, 13122,  // Tob
+            12613, 12612, 12869, 13125, 13123, 12611, 13122,
             12867, // Tob treasure
             
             9619, 9363, // Elite dungeon
