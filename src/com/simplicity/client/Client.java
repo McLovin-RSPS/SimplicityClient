@@ -19789,6 +19789,9 @@ public class Client extends RSApplet {
 						fadeAlphaEnd = Integer.parseInt(vars[2]);
 						fadeAlphaStep = Integer.parseInt(vars[3]);
 						fadeVisible = true;
+                    } else if (s.startsWith(":fade_reset:")) {
+						fadeColor = fadeAlpha = fadeAlphaEnd = fadeAlphaStep = 0;
+						fadeVisible = false;
                     } else if (s.startsWith("showPet:")) {
                         if (s.length() > 8) {
                             String[] ids = s.substring(8).split(":");
