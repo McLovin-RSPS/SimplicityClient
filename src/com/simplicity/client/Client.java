@@ -10661,6 +10661,36 @@ public class Client extends RSApplet {
                         inputString = "";
                         return;
                     }
+					if (inputString.startsWith("::findobjmodel")) { // OSRS
+                        try {
+                        	String[] data = inputString.split(" ");
+                        	
+                            int id = Integer.parseInt(data[1]);
+                            
+                            int results = 0;
+                            
+							for (int i = 100_000; i < 100_000 + 34649; i++) {
+								ObjectDefinition def = ObjectDefinition.getDefOldschool(i);
+								
+								if (def == null || def.objectModelTypes == null) {
+									continue;
+								}
+								
+								for (int model : def.objectModelTypes) {
+									if (model == id) {
+										pushMessage(i + " - " + def.name, 0, "");
+										results++;
+										break;
+									}
+								}
+							}
+							
+							pushMessage("@red@" + (results > 0 ? results : "No") + " results for '" + id + "'.", 0, "");
+					
+                        } catch (Exception e) {
+                        	e.printStackTrace();
+                        }
+					}
 					if (inputString.startsWith("::findobj")) { // OSRS
                         try {
                         	String[] data = inputString.split(" ");
