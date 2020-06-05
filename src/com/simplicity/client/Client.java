@@ -10691,6 +10691,37 @@ public class Client extends RSApplet {
                         inputString = "";
                         return;
                     }
+                    if (inputString.startsWith("::gfxinfo")) {
+                    	try {
+                        	String[] data = inputString.split(" ");
+                        	
+                            int id = Integer.parseInt(data[1]);
+                            
+                            boolean osrs = false;
+                            
+                            if (data.length > 2) {
+                            	osrs = Boolean.parseBoolean(data[2]);
+                            }
+                            
+                            if (id >= SpotAnimDefinition.cache.length) {
+                            	pushMessage("Invalid gfx.", 0, "");
+                            	inputString = "";
+                            	return;
+                            }
+                            
+                            SpotAnimDefinition def = SpotAnimDefinition.cache[osrs ? id + SpotAnimDefinition.OSRS_GFX_OFFSET : id];
+                            
+                            pushMessage("# Information for GFX: @red@" + id, 0, "");
+                            pushMessage("Model ID: @red@" + def.getModelId(), 0, "");
+                            pushMessage("Animation ID: @red@" + def.getAnimationId(), 0, "");
+                            pushMessage("OSRS: @red@" + osrs, 0, "");
+                    	} catch (Exception e) {
+                    		e.printStackTrace();
+                    		
+                    		pushMessage("Error looking up gfx.", 0, "");
+                    	}
+                    }
+                    
 					if (inputString.startsWith("::findobjmodel")) { // OSRS
                         try {
                         	String[] data = inputString.split(" ");
