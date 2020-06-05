@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.simplicity.client.Client;
 import com.simplicity.client.content.overlay.impl.AmmunitionOverlay;
+import com.simplicity.client.content.overlay.impl.FadeOverlay;
 import com.simplicity.client.content.overlay.impl.HitpointsOverlay;
 import com.simplicity.client.content.overlay.impl.KDROverlay;
 
@@ -59,6 +60,8 @@ public class ScreenOverlayManager {
 		OVERLAYS.add(new KDROverlay());
 		OVERLAYS.add(new HitpointsOverlay());
 		OVERLAYS.add(new AmmunitionOverlay());
+		
+		OVERLAYS.add(new FadeOverlay());
 	}
 
 }

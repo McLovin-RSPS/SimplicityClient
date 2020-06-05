@@ -432,6 +432,14 @@ public class Client extends RSApplet {
     public int appletWidth = 765, appletHeight = 503;
     private static final int resizableWidth = 766;
     private static final int resizableHeight = 559;
+    
+    public int getGameAreaWidth() {
+		return gameAreaWidth;
+	}
+    
+    public int getGameAreaHeight() {
+		return gameAreaHeight;
+	}
 
     public static int getMaxWidth() {
         return (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
@@ -6018,6 +6026,7 @@ public class Client extends RSApplet {
         nextSong = -1;
         prevSong = 0;
         alertBoxTimer = 0;
+        fadeVisible = false;
         toggleSize(0);
         RSInterface.interfaceCache[3322].deleteOnDrag2 = false;
         RSInterface.handleConfigHover(RSInterface.interfaceCache[71021]);
@@ -7074,6 +7083,27 @@ public class Client extends RSApplet {
         if (alertBoxTimer > 0) {
             alertBoxTimer--;
         }
+        
+        if (fadeVisible) {
+			if (fadeAlpha < fadeAlphaEnd) {
+				fadeAlpha += fadeAlphaStep;
+				
+				if (fadeAlpha > fadeAlphaEnd) {
+					fadeAlpha = fadeAlphaEnd;
+				}
+			} else if (fadeAlpha > fadeAlphaEnd) {
+				fadeAlpha -= fadeAlphaStep;
+				
+				if (fadeAlpha < fadeAlphaEnd) {
+					fadeAlpha = fadeAlphaEnd;
+				}
+				
+				if (fadeAlpha == 0) {
+					fadeVisible = false;
+				}
+			}
+        }
+        
         for (int j = 0; j < 100; j++) {
             if (!parsePacket()) {
                 break;
@@ -10750,6 +10780,7 @@ public class Client extends RSApplet {
                         	e.printStackTrace();
                         }
 					}
+					
                     if (inputString.equals("::rsi")) {
 						InterfaceDebugger debug = new InterfaceDebugger();
 						debug.setVisible(true);
@@ -19751,10 +19782,13 @@ public class Client extends RSApplet {
                             alertColour = 0x4286f4;
                             alertText = s.substring(7).split(":n:");
                         }
-                    } else if (s.startsWith(":fade_start")) {
-                        String[] vars = s.split(":");
-
-                        Arrays.stream(vars).forEach(System.out::println);
+                    } else if (s.startsWith(":fade:")) {
+                    	String[] vars = s.substring(6).split(":");
+                    	fadeColor = Integer.decode(vars[0]);
+						fadeAlpha = Integer.parseInt(vars[1]);
+						fadeAlphaEnd = Integer.parseInt(vars[2]);
+						fadeAlphaStep = Integer.parseInt(vars[3]);
+						fadeVisible = true;
                     } else if (s.startsWith("showPet:")) {
                         if (s.length() > 8) {
                             String[] ids = s.substring(8).split(":");
@@ -23351,6 +23385,9 @@ public class Client extends RSApplet {
     private int alertBoxTimer;
     private String[] alertText;
     private int alertColour = 0x4286f4;
+    
+    public boolean fadeVisible;
+    public int fadeColor, fadeAlpha, fadeAlphaEnd, fadeAlphaStep;
 
     /**
      * Console
