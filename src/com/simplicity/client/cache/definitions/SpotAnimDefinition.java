@@ -9,6 +9,8 @@ import com.simplicity.client.cache.DataType;
 public final class SpotAnimDefinition {
 	
 	private static Stream streamOSRS;
+	
+	public static int OSRS_GFX_OFFSET;
 
 	public static void unpackConfig(CacheArchive streamLoader) {
 		Stream stream = new Stream(streamLoader.getDataForName("spotanim.dat"));
@@ -21,6 +23,8 @@ public final class SpotAnimDefinition {
 		if (cache == null) {
 			cache = new SpotAnimDefinition[length + lengthOSRS];
 		}
+		
+		OSRS_GFX_OFFSET = length;
 		
 		for (int j = 0; j < length + lengthOSRS; j++) {
 			if (cache[j] == null) {
@@ -113,6 +117,14 @@ public final class SpotAnimDefinition {
 		destColours = new int[6];
 		sizeXY = 128;
 		sizeZ = 128;
+	}
+	
+	public int getModelId() {
+		return modelId;
+	}
+	
+	public int getAnimationId() {
+		return animationId;
 	}
 
 	public int anInt400;
