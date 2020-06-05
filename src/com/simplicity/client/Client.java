@@ -19751,6 +19751,10 @@ public class Client extends RSApplet {
                             alertColour = 0x4286f4;
                             alertText = s.substring(7).split(":n:");
                         }
+                    } else if (s.startsWith(":fade_start")) {
+                        String[] vars = s.split(":");
+
+                        Arrays.stream(vars).forEach(System.out::println);
                     } else if (s.startsWith("showPet:")) {
                         if (s.length() > 8) {
                             String[] ids = s.substring(8).split(":");

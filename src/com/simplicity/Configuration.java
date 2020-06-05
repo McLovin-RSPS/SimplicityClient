@@ -7,7 +7,7 @@ public class Configuration {
 	 */
 	public final static boolean LOCALHOST = true;
 	public final static boolean BETA = false;
-	public static String HOST = LOCALHOST ? "127.0.0.1" : BETA ? "51.75.160.14" : "142.44.136.172"; // TEST
+	public static String HOST = LOCALHOST ? "127.0.0.1" : BETA ? "beta.simplicity-data.com" : "142.44.136.172"; // TEST
 	public static int PORT = 43594;
 
 	/**
