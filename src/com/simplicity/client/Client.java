@@ -10706,7 +10706,7 @@ public class Client extends RSApplet {
 									continue;
 								}
 								
-								for (int model : def.objectModelTypes) {
+								for (int model : def.objectModelIDs) {
 									if (model == id) {
 										pushMessage(i + " - " + def.name, 0, "");
 										results++;
