@@ -37,7 +37,7 @@ final class Projectile extends Animable {
 		if(j != -1)
 		{
 			model_1.createBones();
-			model_1.applyTransform(j);
+			model_1.applyTransform(j, gfx.dataType);
 			model_1.triangleSkin = null;
 			model_1.vertexSkin = null;
 		}
