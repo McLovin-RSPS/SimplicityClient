@@ -3693,7 +3693,7 @@ public class RSInterface {
         setBounds(38321, 336, 301, 48, rsi);
         addText(38322, "lvl8", wid, 0, 0xff981f, false);
         setBounds(38322, 284, 297, 49, rsi);
-        addButton(38323, -1, "", 16, 16, "Close", 5);
+        addButton(38323, -1, "", 16, 16, "Close", 3);
         setBounds(38323, 460, 25, 50, rsi);
 
         addFornitureX(38324);
