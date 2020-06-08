@@ -28,7 +28,7 @@ public class ObjectDefinitionLookup extends JFrame {
 	
 	private JTable details;
 	
-	private List<String> detailsData = new ArrayList<String>(Arrays.asList(new String[] { "Id", "Name", "Description", "HasActions", "Actions", "ObjectModelIDs", "ObjectModelTypes", "Animation ID", "AdjustToTerrain", "SizeX", "SizeY", "ABoolean736", "ABoolean751", "ABoolean757", "ABoolean764", "ABoolean779", "AnInt775", "ConfigID", "ConfigObjectIDs", "IsUnwalkable", "VarbitIndex", "DataType" }));
+	private List<String> detailsData = new ArrayList<String>(Arrays.asList(new String[] { "Id", "Name", "Description", "HasActions", "Actions", "ObjectModelIDs", "ObjectModelTypes", "Animation ID", "AdjustToTerrain", "SizeX", "SizeY", "ABoolean736", "ABoolean751", "ABoolean757", "ABoolean764", "ABoolean779", "AnInt775", "ConfigID", "ConfigObjectIDs", "IsUnwalkable", "VarbitIndex", "Brightness", "Contrast", "DataType" }));
 	
 	public ObjectDefinitionLookup() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -118,6 +118,8 @@ public class ObjectDefinitionLookup extends JFrame {
 		details.getModel().setValueAt(Arrays.toString(def.configObjectIDs), column++, 1);
 		details.getModel().setValueAt(def.isUnwalkable, column++, 1);
 		details.getModel().setValueAt(def.varbitIndex, column++, 1);
+		details.getModel().setValueAt(def.brightness, column++, 1);
+		details.getModel().setValueAt(def.contrast, column++, 1);
 		details.getModel().setValueAt(def.dataType, column++, 1);
 	}
 	

@@ -1450,12 +1450,12 @@ public final class ObjectDefinition {
     }
 
     public boolean aBoolean736;
-    private byte brightness;
+    public byte brightness;
     private int offsetX;
     public String name;
     private int modelSizeY;
     private static final Model[] modelParts = new Model[4];
-    private byte contrast;
+    public byte contrast;
     public int sizeX;
     private int offsetH;
     public int mapFunctionID;
