@@ -1274,32 +1274,23 @@ public final class ObjectDefinition {
 			if (opcode == 1) {
 				int len = stream.readUnsignedByte();
 				if (len > 0) {
-					if (objectModelIDs == null /*|| lowMem*/) {
-						objectModelTypes = new int[len];
-						objectModelIDs = new int[len];
-						for (int k1 = 0; k1 < len; k1++) {
-							objectModelIDs[k1] = stream.readUnsignedWord();
-							objectModelTypes[k1] = stream.readUnsignedByte();
-						}
-					} else {
-						stream.currentOffset += len * 3;
+					objectModelTypes = new int[len];
+					objectModelIDs = new int[len];
+						
+					for (int k1 = 0; k1 < len; k1++) {
+						objectModelIDs[k1] = stream.readUnsignedWord();
+						objectModelTypes[k1] = stream.readUnsignedByte();
 					}
 				}
 			} else if (opcode == 2)
 				name = stream.readString();
-			else if (opcode == 3)
-				description = stream.readString().getBytes();
 			else if (opcode == 5) {
 				int len = stream.readUnsignedByte();
 				if (len > 0) {
-					if (objectModelIDs == null /*|| lowMem*/) {
-						objectModelTypes = null;
-						objectModelIDs = new int[len];
-						for (int l1 = 0; l1 < len; l1++)
-							objectModelIDs[l1] = stream.readUnsignedWord();
-					} else {
-						stream.currentOffset += len * 2;
-					}
+					objectModelTypes = null;
+					objectModelIDs = new int[len];
+					for (int l1 = 0; l1 < len; l1++)
+						objectModelIDs[l1] = stream.readUnsignedWord();
 				}
 			} else if (opcode == 14)
 				sizeX = stream.readUnsignedByte();
@@ -1314,7 +1305,7 @@ public final class ObjectDefinition {
 			else if (opcode == 21)
 				adjustToTerrain = true;
 			else if (opcode == 22)
-				nonFlatShading = true;
+				nonFlatShading = false;
 			else if (opcode == 23)
 				aBoolean764 = true;
 			else if (opcode == 24) {
@@ -1324,12 +1315,14 @@ public final class ObjectDefinition {
 				
 				if (animationID == 65535)
 					animationID = -1;
+			} else if (opcode == 27) {
+				
 			} else if (opcode == 28)
 				anInt775 = stream.readUnsignedByte();
 			else if (opcode == 29)
 				brightness = stream.readSignedByte();
 			else if (opcode == 39)
-				contrast = stream.readSignedByte();
+				contrast = (byte) (stream.readSignedByte() * 25);
 			else if (opcode >= 30 && opcode < 35) {
 				if (actions == null)
 					actions = new String[5];
@@ -1391,7 +1384,7 @@ public final class ObjectDefinition {
 					stream.readUnsignedWord();
 				}
 			} else if (opcode == 81) {
-				stream.readUnsignedByte();
+				int adjustToTerrain = stream.readUnsignedByte() * 256; // adjustToTerrain?
 			} else if (opcode == 82) {
 				mapFunctionID = stream.readUnsignedWord();
 
@@ -1430,6 +1423,8 @@ public final class ObjectDefinition {
 				}
 				
 				configObjectIDs[len + 1] = value;
+			} else if (opcode == 249) {
+				
 			}
 		} while (true);
 		if (flag == -1 && name != "null" && name != null) {
