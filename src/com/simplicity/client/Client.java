@@ -10722,6 +10722,39 @@ public class Client extends RSApplet {
                     	}
                     }
                     
+                    if (inputString.startsWith("::findgfxmodel")) {
+                    	try {
+                        	String[] data = inputString.split(" ");
+                        	
+                            int id = Integer.parseInt(data[1]);
+                            
+                            boolean osrs = false;
+                            
+                            if (data.length > 2) {
+                            	osrs = Boolean.parseBoolean(data[2]);
+                            }
+                            
+                            for (int i = 0; i < SpotAnimDefinition.cache.length; i++) {
+                            	SpotAnimDefinition def = SpotAnimDefinition.cache[i];
+                            	
+                            	if (def == null || osrs && def.dataType != DataType.OLDSCHOOL || def.getModelId() != id) {
+                            		continue;
+                            	}
+                            	
+                        		int gfxId = (def.dataType == DataType.OLDSCHOOL ? i - SpotAnimDefinition.OSRS_GFX_OFFSET : i);
+                        		pushMessage("# GFX: @red@" + gfxId, 0, "");
+                                pushMessage("Model ID: @red@" + def.getModelId(), 0, "");
+                                pushMessage("Animation ID: @red@" + def.getAnimationId(), 0, "");
+                                pushMessage("OSRS: @red@" + (def.dataType == DataType.OLDSCHOOL), 0, "");
+                                pushMessage("----------", 0, "");
+                            }
+                    	} catch (Exception e) {
+                    		e.printStackTrace();
+                    		
+                    		pushMessage("Error looking up gfx.", 0, "");
+                    	}
+                    }
+                    
 					if (inputString.startsWith("::findobjmodel")) { // OSRS
                         try {
                         	String[] data = inputString.split(" ");
