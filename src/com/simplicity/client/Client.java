@@ -4244,7 +4244,6 @@ public class Client extends RSApplet {
             }
 
         }
-
     }
 
     private void spawnGroundItem(int i, int j) {
@@ -7091,6 +7090,7 @@ public class Client extends RSApplet {
 				if (fadeAlpha > fadeAlphaEnd) {
 					fadeAlpha = fadeAlphaEnd;
 				}
+				
 			} else if (fadeAlpha > fadeAlphaEnd) {
 				fadeAlpha -= fadeAlphaStep;
 				
@@ -10721,6 +10721,30 @@ public class Client extends RSApplet {
                     		pushMessage("Error looking up gfx.", 0, "");
                     	}
                     }
+                    
+					if (inputString.startsWith("::mapimage")) {
+						final String path = signlink.findcachedir() + "MapImageDumps/";
+						
+						File directory = new File(path);
+						
+						if (!directory.exists()) {
+							directory.mkdir();
+						}
+						
+						BufferedImage bufferedimage = new BufferedImage(miniMap.myWidth, miniMap.myHeight, 1);
+						bufferedimage.setRGB(0, 0, miniMap.myWidth, miniMap.myHeight, miniMap.myPixels, 0,
+								miniMap.myWidth);
+						Graphics2D graphics2d = bufferedimage.createGraphics();
+						graphics2d.dispose();
+						
+						try {
+							File file1 = new File(path + (directory.listFiles().length + 1) + ".png");
+							ImageIO.write(bufferedimage, "png", file1);
+							pushMessage("Success!", 0, "");
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
                     
                     if (inputString.startsWith("::findgfxmodel")) {
                     	try {
