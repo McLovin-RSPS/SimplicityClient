@@ -1269,6 +1269,8 @@ public final class WorldController {
 	
 	public static Map<Integer, List<Position>> markedTiles = new HashMap<>();
 	
+	public static Map<Integer, List<Position>> highlighted = new HashMap<>();
+	
 	public boolean isMarked(Tile tile) {
 		Position pos = new Position(Client.instance.getBaseX() + tile.tileX, Client.instance.getBaseY() + tile.tileY, tile.plane);
 		
@@ -1281,6 +1283,20 @@ public final class WorldController {
 		}
 		
 		return markedTiles.get(pos.getRegionID()).contains(pos);
+	}
+	
+	public boolean isHighlighted(Tile tile) {
+		Position pos = new Position(Client.instance.getBaseX() + tile.tileX, Client.instance.getBaseY() + tile.tileY, tile.plane);
+		
+		if (!Client.instance.getPlayerPos().isWithinDistance(pos)) {
+			return false;
+		}
+
+		if (!highlighted.containsKey(pos.getRegionID())) {
+			return false;
+		}
+		
+		return highlighted.get(pos.getRegionID()).contains(pos);
 	}
 	
 	public void markTile(int x, int y, int z) {
@@ -1315,6 +1331,38 @@ public final class WorldController {
 		}
 	}
 	
+	public void highlight(int x, int y, int z, boolean local) {
+		Position pos = new Position(local ? Client.instance.getBaseX() : 0 + x, local ? Client.instance.getBaseY() : 0 + y, z);
+		
+		if (!Client.instance.getPlayerPos().isWithinDistance(pos)) {
+			Client.instance.pushMessage("You are too far away to do that.", 0, "");
+			return;
+		}
+		
+		if (highlighted.containsKey(pos.getRegionID())) {
+			List<Position> list = highlighted.get(pos.getRegionID());
+			
+			if (list.contains(pos)) {
+				list.remove(pos);
+				
+				if (list.isEmpty()) {
+					highlighted.remove(pos.getRegionID());
+				}
+			} else {
+				if (list.size() >= 50) {
+					Client.instance.pushMessage("You have reached the limit of marking tiles.", 0, "");
+					return;
+				}
+				
+				list.add(pos);
+			}
+			
+			highlighted.put(pos.getRegionID(), list);
+		} else {
+			highlighted.put(pos.getRegionID(), new ArrayList<>(Arrays.asList(pos)));
+		}
+	}
+	
 	public void renderTileMarkers() {
 		for (int k1 = currentHL; k1 < zMapSize; k1++) {
 			Tile tiles[][] = tileArray[k1];
@@ -1330,11 +1378,15 @@ public final class WorldController {
 						continue;
 					}
 					
-					if (!isMarked(tile)) {
+					boolean highlighted = isHighlighted(tile);
+					
+					if (!isMarked(tile) && !highlighted) {
 						continue;
 					}
 					
-					drawTileMarker(tile.plane, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, tile.tileX, tile.tileY);
+					int color = highlighted ? 0x0000ff : 0xffff00;
+					
+					drawTileMarker(tile.plane, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, tile.tileX, tile.tileY, color);
 				}
 
 			}
@@ -1854,7 +1906,7 @@ public final class WorldController {
 		}
 	}
 
-	private void drawTileMarker(int plane, int sin_y, int cos_y, int sin_x, int cos_x, int camera_x, int camera_y) {
+	private void drawTileMarker(int plane, int sin_y, int cos_y, int sin_x, int cos_x, int camera_x, int camera_y, int color) {
 		int l1;
 		int i2 = l1 = (camera_x << 7) - anInt455;
 		int depth_b;
@@ -1910,7 +1962,7 @@ public final class WorldController {
 		
 		Graphics2D g2d = DrawingArea.createGraphics(true);
 		g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
-		g2d.setColor(new Color(0xffff00));
+		g2d.setColor(new Color(color));
 		
 		g2d.drawLine(x_c, y_c, x_d, y_d);
 		g2d.drawLine(x_c, y_c - 1, x_d, y_d - 1);
