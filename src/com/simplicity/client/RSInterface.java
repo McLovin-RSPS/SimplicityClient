@@ -4,16 +4,7 @@ import com.simplicity.client.DrawLine.LineType;
 import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.client.cache.definitions.MobDefinition;
 import com.simplicity.client.content.Keybinding;
-import com.simplicity.client.widget.AchievementsWidget;
-import com.simplicity.client.widget.CollectionLogWidget;
-import com.simplicity.client.widget.KnowledgeBaseWidget;
-import com.simplicity.client.widget.QuestTab;
-import com.simplicity.client.widget.SettingsWidget;
-import com.simplicity.client.widget.SkillQuantityWidget;
-import com.simplicity.client.widget.Slider;
-import com.simplicity.client.widget.StarterWidget;
-import com.simplicity.client.widget.Widget;
-import com.simplicity.client.widget.WildernessWidget;
+import com.simplicity.client.widget.*;
 import com.simplicity.client.widget.dropdown.Dropdown;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 
@@ -4489,7 +4480,8 @@ public class RSInterface {
         SkillQuantityWidget.unpack(textDrawingAreas);
         
         WildernessWidget.unpack();
-        
+
+        BossDisplayConfiguration.init(textDrawingAreas);
         Widget.init();
         spriteCache = null;
     }

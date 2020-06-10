@@ -20182,7 +20182,7 @@ public class Client extends RSApplet {
                     opCode = -1;
                     return true;
                 case 246:
-                    int i6 = inStream.ig2();
+                    int i6 = inStream.readInt();
                     int i13 = inStream.readUnsignedWord();
                     int k18 = inStream.readUnsignedWord();
                     if (k18 == 65535) {

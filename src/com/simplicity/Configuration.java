@@ -60,6 +60,10 @@ public class Configuration {
 			-1, 0, 0, -1, 6, 0, 0// 250
 
 	};
+
+	static {
+		packetSizes[246] = 8;
+	}
 	
     /**
      * Exp counter
