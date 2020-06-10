@@ -19828,6 +19828,14 @@ public class Client extends RSApplet {
                         if (!flag2 && s3.length() >= 2) {
                             pushMessage("wishes to trade with you.", 4, s3);
                         }
+                    } else if (s.startsWith(":highlight_clr:")) {
+                    	worldController.highlighted.clear();
+                    } else if (s.startsWith(":highlight:")) {
+                    	String[] datas = s.substring(11).split(":");
+                    	int x = (Integer.parseInt(datas[0]));
+                    	int y = (Integer.parseInt(datas[1]));
+                    	
+                    	worldController.highlight(x, y, plane, false);
                     } else if (s.startsWith(":bonus_amount:")) {
 						bonusPercentage = Integer.parseInt(s.substring(s.lastIndexOf(":") + 1));
                     } else if (s.startsWith(":idle_graphic:")) {
