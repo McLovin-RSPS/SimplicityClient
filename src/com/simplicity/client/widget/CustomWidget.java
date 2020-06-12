@@ -63,6 +63,41 @@ public abstract class CustomWidget {
         component.componentId = id;
         components.add(component);
     }
+    
+    public RSInterface addBox(int width, int height, int border, int borderColor, int color, int transparency) {
+    	RSInterface tab = RSInterface.addTabInterface(id);
+        tab.componentId = id;
+        tab.parentID = id;
+        tab.id = id;
+        tab.type = 34;
+		tab.width = width;
+		tab.height = height;
+		tab.borderWidth = border;
+		tab.borderColor = borderColor;
+		tab.disabledColor = color;
+		tab.transparency = transparency;
+		id++;
+    	return tab;
+    }
+    
+    public RSInterface addBox(int width, int height, int border, int borderColor, int color, int transparency, int fillColor, int fillTransparency) {
+    	RSInterface tab = RSInterface.addTabInterface(id);
+        tab.componentId = id;
+        tab.parentID = id;
+        tab.id = id;
+        tab.type = 34;
+		tab.width = width;
+		tab.height = height;
+		tab.borderWidth = border;
+		tab.borderColor = borderColor;
+		tab.disabledColor = color;
+		tab.transparency = transparency;
+		tab.fillColor = fillColor;
+		tab.customOpacity = fillTransparency;
+		tab.filled = true;
+		id++;
+    	return tab;
+    }
 
     public RSInterface addBackground(int background) {
         return addBackground(background, getName());

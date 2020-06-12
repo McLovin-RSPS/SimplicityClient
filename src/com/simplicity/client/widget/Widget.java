@@ -15,6 +15,7 @@ public class Widget {
         init(new DealBoardWidget());
         init(new ItemDealBoardWidget());
         init(new MultipleItemDealBoxWidget());
+        init(new RaidPointsWidget());
     }
 
     public static void init(CustomWidget widget) {
