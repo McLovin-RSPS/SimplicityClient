@@ -12967,6 +12967,7 @@ public class RSInterface {
     public String tooltip2 = null;
     public String selectedActionName;
     public boolean centerText;
+    public boolean rightAlignText;
     public int scrollPosition;
     public String actions[];
     public int valueIndexArray[][];

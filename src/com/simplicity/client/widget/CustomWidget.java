@@ -424,8 +424,16 @@ public abstract class CustomWidget {
     public RSInterface addCenteredText(String text, int size) {
         return addText(text, size, CustomWidget.OR1, true, false, false, true);
     }
+    
+    public RSInterface addRightAlignedText(String text, int size) {
+        return addText(text, size, CustomWidget.OR1, true, true, false, true);
+    }
+    
+    public RSInterface addRightAlignedText(String text, int size, int color) {
+        return addText(text, size, color, false, true, false, true);
+    }
 
-    public RSInterface addText(String text, int idx, int color, boolean center, boolean rightAligned,
+    private RSInterface addText(String text, int idx, int color, boolean center, boolean rightAligned,
                                boolean rollingText, boolean shadow) {
         RSInterface tab = RSInterface.addTabInterface(id);
         tab.parentID = id;
@@ -439,6 +447,7 @@ public abstract class CustomWidget {
         tab.opacity = 0;
         tab.hoverType = -1;
         tab.centerText = center;
+        tab.rightAlignText = rightAligned;
         tab.shadowed = shadow;
         tab.textDrawingAreas = RSInterface.fonts[idx];
         tab.message = text.contains("#") ? text + ":" + id : text;

@@ -15443,22 +15443,26 @@ public class Client extends RSApplet {
                                 }
                                 newRegularFont.drawBasicString("<img=" + imageDraw + ">", childX, drawImageY);
                             }
-                            if (child.id == 70025) {
-                            	font.drawRightAlignedString(s1, childX + child.width / 2, l6 + yOffset, color, child.shadowed ? 0 : -1);
+                            boolean rightAlign = child.id == 70025 || child.rightAlignText;
+                            
+                            if (rightAlign) {
+                            	if (font != null) {
+                            		font.drawRightAlignedString(s1, childX + child.width / 2, l6 + yOffset, color, child.shadowed ? 0 : -1);
+                            	} else {
+                            		textDrawingArea.drawRightAlignedText(color, childX + child.width / 2, s1, l6 + yOffset, child.shadowed);
+                            	}
+                            } else if (child.centerText) {
+                            	if (font != null) {
+                            		font.drawCenteredString(s1, childX + child.width / 2, l6 + yOffset, color, child.shadowed ? 0 : -1);
+								} else {
+									textDrawingArea.drawCenteredText(color, childX + child.width / 2 + xOffset, s1, l6 + yOffset, child.shadowed);
+								}
                             } else {
-                            	if (child.centerText) {
-                                	if (font != null) {
-                                		font.drawCenteredString(s1, childX + child.width / 2, l6 + yOffset, color, child.shadowed ? 0 : -1);
-    								} else {
-    									textDrawingArea.drawCenteredText(color, childX + child.width / 2 + xOffset, s1, l6 + yOffset, child.shadowed);
-    								}
-                                } else {
-                                	if (font != null) {
-                                		font.drawBasicString(s1, childX + xOffset, l6 + yOffset);
-                                	} else {
-                                		textDrawingArea.drawRegularText(child.shadowed, childX + xOffset, color, s1, l6 + yOffset);
-                                	}
-                                }
+                            	if (font != null) {
+                            		font.drawBasicString(s1, childX + xOffset, l6 + yOffset);
+                            	} else {
+                            		textDrawingArea.drawRegularText(child.shadowed, childX + xOffset, color, s1, l6 + yOffset);
+                            	}
                             }
                         }
                     } else if (child.type == 5) {

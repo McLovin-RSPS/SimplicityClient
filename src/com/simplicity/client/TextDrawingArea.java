@@ -216,8 +216,12 @@ public final class TextDrawingArea extends DrawingArea {
 		drawTransparentText(color, text, yCoord, 822, xCoord - method384(text) / 2, alpha);
 	}
 
-	public void drawCenteredText(int colour, int x, String text, int y, boolean center) {
-		drawRegularText(center, x - getTextWidth(text) / 2, colour, text, y);
+	public void drawCenteredText(int colour, int x, String text, int y, boolean shadowed) {
+		drawRegularText(shadowed, x - getTextWidth(text) / 2, colour, text, y);
+	}
+	
+	public void drawRightAlignedText(int colour, int x, String text, int y, boolean shadowed) {
+		drawRegularText(shadowed, x - getTextWidth(text), colour, text, y);
 	}
 
 	public void drawChatInput(int i, int j, String s, int l, boolean flag) {
@@ -313,7 +317,7 @@ public final class TextDrawingArea extends DrawingArea {
 		}
 	}
 
-	public void drawRegularText(boolean flag1, int i, int j, String s, int k) {
+	public void drawRegularText(boolean shadowed, int i, int j, String s, int k) {
 		aBoolean1499 = false;
 		int l = i;
 		if (s == null)
@@ -328,7 +332,7 @@ public final class TextDrawingArea extends DrawingArea {
 			} else {
 				char c = s.charAt(i1);
 				if (c != ' ') {
-					if (flag1)
+					if (shadowed)
 						method392(aByteArrayArray1491[c], i + anIntArray1494[c] + 1, k + anIntArray1495[c] + 1, anIntArray1492[c], anIntArray1493[c], 0);
 					method392(aByteArrayArray1491[c], i + anIntArray1494[c], k + anIntArray1495[c], anIntArray1492[c], anIntArray1493[c], j);
 				}
