@@ -53,7 +53,10 @@ public class RaidPointsWidget extends CustomWidget {
 		x += 5;
 		y += 5;
 		
-		add(addText("Total: @whi@1,234,567", 1, 0xff9040), x, y += 12);
+		add(addText("Total: @whi@1,234,567", 1, 0xff9040), x, y);
+		
+		y += 12;
+		
 		add(addText("Blake: @whi@234,567", 1, 0xff9040), x, y);
 	}
 	
