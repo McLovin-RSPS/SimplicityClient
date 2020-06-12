@@ -77,7 +77,9 @@ public class OldschoolMaps {
             8751, 9007, 9008, // Zulrah
             
             5022, 5023, 5279, 5280, 5535, // Alchemical Hydra
-            
+
+            13379,
+
             13393, 13394, 13395, 13397, 13136, 13137, 13138, 13139, 13140, 13141, 13145 // Chambers of Xeric
     };
     static {
