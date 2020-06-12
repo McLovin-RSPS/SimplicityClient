@@ -104,7 +104,6 @@ import com.simplicity.client.content.MagicItems;
 import com.simplicity.client.content.PetSystem;
 import com.simplicity.client.content.PlayerRights;
 import com.simplicity.client.content.RichPresence;
-import com.simplicity.client.content.overlay.ScreenOverlay;
 import com.simplicity.client.content.overlay.ScreenOverlayManager;
 import com.simplicity.client.entity.Position;
 import com.simplicity.client.particles.Particle;
@@ -6987,6 +6986,10 @@ public class Client extends RSApplet {
 
         newSmallFont.drawCenteredString(iface.message, 63 + x, 52 + y, 0xffffff, 1);
         return true;
+    }
+    
+    public void drawInterface(RSInterface rsi, int x, int y) {
+    	drawInterface(0, x, rsi, y);
     }
 
     private void drawHeadIcon() {
@@ -14962,7 +14965,6 @@ public class Client extends RSApplet {
             if (rsInterface.id == WildernessWidget.INTERFACE_ID && !Configuration.enableBountyTarget) {
             	return;
             }
-            
             int origTopX = DrawingArea.topX;
             int origTopY = DrawingArea.topY;
             int origBottomX = DrawingArea.bottomX;

@@ -53,6 +53,15 @@ public abstract class ScreenOverlay {
 	public int getWidth() {
 		return width;
 	}
+	
+	/**
+	 * Sets the width.
+	 * 
+	 * @param width The width.
+	 */
+	public void setWidth(int width) {
+		this.width = width;
+	}
 
 	/**
 	 * Gets the height.
@@ -61,6 +70,15 @@ public abstract class ScreenOverlay {
 	 */
 	public int getHeight() {
 		return height;
+	}
+
+	/**
+	 * Sets the height.
+	 * 
+	 * @param height The height.
+	 */
+	public void setHeight(int height) {
+		this.height = height;
 	}
 
 	/**
