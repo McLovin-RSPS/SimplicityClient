@@ -49,7 +49,7 @@ public class KDROverlay extends ScreenOverlay {
 
 	@Override
 	public ScreenOverlayGroup getOverlayGroup() {
-		return ScreenOverlayGroup.TOP_LEFT;
+		return ScreenOverlayGroup.TOP_LEFT_VERTICAL;
 	}
 
 	@Override

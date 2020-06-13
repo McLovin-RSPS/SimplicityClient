@@ -49,7 +49,7 @@ public class AmmunitionOverlay extends ScreenOverlay {
 
 	@Override
 	public ScreenOverlayGroup getOverlayGroup() {
-		return ScreenOverlayGroup.TOP_LEFT;
+		return ScreenOverlayGroup.TOP_LEFT_VERTICAL;
 	}
 
 	@Override
