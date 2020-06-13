@@ -48,7 +48,7 @@ public class RaidPointsWidget extends CustomWidget {
 		int x = 0;
 		int y = 0;
 		
-		add(addBox(102, 40, 2, 0x5a5245, 0x383023, 255, 0x494034, 255), 0, 0);
+		add(addBox(102, 52, 2, 0x5a5245, 0x383023, 255, 0x494034, 255), 0, 0);
 		
 		x += 5;
 		y += 5;
@@ -58,6 +58,10 @@ public class RaidPointsWidget extends CustomWidget {
 		y += 12;
 		
 		add(addText("Blake: @whi@234,567", 1, 0xff9040), x, y);
+		
+		y += 12;
+		
+		add(addText("Time: @whi@0", 1, 0xff9040), x, y);
 	}
 	
 	/**
