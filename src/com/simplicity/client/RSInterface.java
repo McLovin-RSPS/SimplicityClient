@@ -4495,7 +4495,7 @@ public class RSInterface {
 		
 		int x = 100;
 		
-		int y = 32;
+		int y = 18;
 		
 		int width = 300;
 		
