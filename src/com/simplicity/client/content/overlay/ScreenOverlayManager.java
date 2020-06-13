@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.simplicity.client.Client;
+import com.simplicity.client.DrawingArea;
 import com.simplicity.client.content.overlay.impl.AmmunitionOverlay;
 import com.simplicity.client.content.overlay.impl.FadeOverlay;
 import com.simplicity.client.content.overlay.impl.HitpointsOverlay;
@@ -29,23 +30,29 @@ public class ScreenOverlayManager {
 	public static void process() {
 		int[] positionX = new int[ScreenOverlayGroup.values().length];
 		int[] positionY = new int[ScreenOverlayGroup.values().length];
-
+		
+		int minX = 2;
+		
+		int minY = 20;
+		
 		for (ScreenOverlay overlay : OVERLAYS) {
 			if (!overlay.enabled()) {
 				continue;
 			}
-
+			
 			ScreenOverlayGroup group = overlay.getOverlayGroup();
-
-			int x = overlay.getX() + positionX[group.ordinal()];
-			int y = overlay.getY() + positionY[group.ordinal()];
+			
+			int drawX = overlay.getX() + positionX[group.ordinal()];
+			int drawY = overlay.getY() + positionY[group.ordinal()];
 			
 			try {
-				if (overlay.draw(Client.instance, x, y)) {
+				if (overlay.draw(Client.instance, minX + drawX, minY + drawY)) {
+					
 					if (group == ScreenOverlayGroup.TOP_LEFT) {
-						positionY[group.ordinal()] += overlay.getHeight() + 2;
+						positionY[group.ordinal()] += overlay.getHeight() + 1;
 					}
 				}
+				
 			} catch (Exception e) {
 				System.out.println("Error drawing overlay: " + overlay.getClass().getSimpleName());
 				
@@ -61,9 +68,9 @@ public class ScreenOverlayManager {
 		OVERLAYS.add(new KDROverlay());
 		OVERLAYS.add(new HitpointsOverlay());
 		OVERLAYS.add(new AmmunitionOverlay());
+		OVERLAYS.add(new RaidPointsOverlay());
 		
 		OVERLAYS.add(new FadeOverlay());
-		OVERLAYS.add(new RaidPointsOverlay());
 	}
 
 }

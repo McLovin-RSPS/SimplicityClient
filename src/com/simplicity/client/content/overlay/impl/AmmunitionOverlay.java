@@ -21,7 +21,7 @@ public class AmmunitionOverlay extends ScreenOverlay {
 	 * Constructs a new {@link AmmunitionOverlay}.
 	 */
 	public AmmunitionOverlay() {
-		super(1, 20, 35, 35);
+		super(0, 0, 35, 35);
 	}
 
 	@Override
@@ -38,12 +38,12 @@ public class AmmunitionOverlay extends ScreenOverlay {
 			return false;
 		}
 
-		DrawingArea.drawBox(x + 1, y + 1, getWidth(), getHeight(), 2, 0x383023, 0x5a5245, 250);
-		DrawingArea.fillRectangle(0, y + 2, getWidth() - 1, getHeight() - 3, 100, x + 2);
+		DrawingArea.drawBox(x, y + 1, getWidth(), getHeight(), 2, 0x383023, 0x5a5245, 250);
+		DrawingArea.fillRectangle(0, y + 2, getWidth() - 1, getHeight() - 3, 100, x + 1);
 
-		sprite.drawSprite(x + 3, y + 2);
+		sprite.drawSprite(x + 2, y + 2);
 
-		client.newRegularFont.drawCenteredString(MiscUtils.formatCoins(ammo.amount), x + 18, y + 30, 0xffffff, 0);
+		client.newRegularFont.drawCenteredString(MiscUtils.formatCoins(ammo.amount), x + 17, y + 30, 0xffffff, 0);
 		return true;
 	}
 

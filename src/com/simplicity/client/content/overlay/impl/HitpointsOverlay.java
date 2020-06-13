@@ -13,7 +13,7 @@ import com.simplicity.client.content.overlay.ScreenOverlayGroup;
 public class HitpointsOverlay extends ScreenOverlay {
 
 	public HitpointsOverlay() {
-		super(0, 0, 200, 36);
+		super(0, 0, 124, 38);
 	}
 
 	@Override

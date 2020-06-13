@@ -6967,10 +6967,10 @@ public class Client extends RSApplet {
             return false;
         }
         
-        RSInterface.interfaceCache[41021].yOffset = y;
-        RSInterface.interfaceCache[41022].yOffset = y;
-        RSInterface.interfaceCache[41025].yOffset = y;
-        iface.yOffset = y;
+        RSInterface.interfaceCache[41021].yOffset = y - 19;
+        RSInterface.interfaceCache[41022].yOffset = y - 19;
+        RSInterface.interfaceCache[41025].yOffset = y - 19;
+        iface.yOffset = y - 19;
         
         int current = currentEntityHealth;
         
@@ -6980,11 +6980,11 @@ public class Client extends RSApplet {
 
         double percentage = (int) ((double) current / maximumEntityHealth * 119);
         
-        DrawingArea.drawPixels(16, iface.y + 30 + y, iface.x + 2 + x, 0x00b300, (int) percentage);
+        DrawingArea.drawPixels(16, iface.y + y + 12, iface.x + x, 0x00b300, (int) percentage);
 
-        TextDrawingArea.drawAlphaFilledPixels(iface.x + 2 + x, iface.y + y + 30, 119, 16, 0xff000d, 50);
+        TextDrawingArea.drawAlphaFilledPixels(iface.x + x, iface.y + y + 12, 119, 16, 0xff000d, 50);
 
-        newSmallFont.drawCenteredString(iface.message, 63 + x, 52 + y, 0xffffff, 1);
+        newSmallFont.drawCenteredString(iface.message, 63 + x, y + 33, 0xffffff, 1);
         return true;
     }
     

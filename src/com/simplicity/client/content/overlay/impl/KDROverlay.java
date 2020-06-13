@@ -27,7 +27,7 @@ public class KDROverlay extends ScreenOverlay {
 	private static final int DEATHS_STRING = 73034;
 
 	public KDROverlay() {
-		super(1, 28, 50, 28);
+		super(0, 0, 80, 32);
 	}
 
 	@Override
@@ -41,9 +41,9 @@ public class KDROverlay extends ScreenOverlay {
 		
 		String kdr = deaths == 0 ? "0.00" : String.format(Locale.US, "%.2f", (double) kills / (double) deaths);
 		
-		client.newSmallFont.drawBasicString("Kills: " + kills, x, y, 0xffff00, 0);
-		client.newSmallFont.drawBasicString("Deaths: " + deaths, x, y + 10, 0xffff00, 0);
-		client.newSmallFont.drawBasicString("K/D Ratio: " + kdr, x, y + 20, 0xffff00, 0);
+		client.newSmallFont.drawBasicString("Kills: " + kills, x, y + 10, 0xffff00, 0);
+		client.newSmallFont.drawBasicString("Deaths: " + deaths, x, y + 20, 0xffff00, 0);
+		client.newSmallFont.drawBasicString("K/D Ratio: " + kdr, x, y + 30, 0xffff00, 0);
 		return true;
 	}
 

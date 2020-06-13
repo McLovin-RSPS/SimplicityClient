@@ -18,15 +18,15 @@ public class RaidPointsOverlay extends ScreenOverlay {
 	 * Constructs a new {@link RaidPointsOverlay}.
 	 */
 	public RaidPointsOverlay() {
-		super(2, 2, 102, 50);
+		super(0, 0, 102, 38);
 	}
 
 	@Override
 	public boolean draw(Client client, int x, int y) throws Exception {
 		RaidPointsWidget.setBounds();
 		
-		if (getWidth() != getX() + RSInterface.interfaceCache[RaidPointsWidget.BOX_ID].width) {
-			setWidth(getX() + RSInterface.interfaceCache[RaidPointsWidget.BOX_ID].width);
+		if (getWidth() != RSInterface.interfaceCache[RaidPointsWidget.BOX_ID].width) {
+			setWidth(RSInterface.interfaceCache[RaidPointsWidget.BOX_ID].width);
 		}
 		
 		client.drawInterface(RSInterface.interfaceCache[RaidPointsWidget.WIDGET_ID], x, y);
