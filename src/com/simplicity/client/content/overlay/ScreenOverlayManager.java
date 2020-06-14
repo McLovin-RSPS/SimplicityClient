@@ -45,7 +45,9 @@ public class ScreenOverlayManager {
 			
 			try {
 				if (overlay.draw(Client.instance, baseX + drawX, baseY + drawY)) {
-					positionY[group.ordinal()] += overlay.getHeight() + 1;
+					if (group.equals(ScreenOverlayGroup.TOP_LEFT_VERTICAL) || group.equals(ScreenOverlayGroup.TOP_RIGHT_VERTICAL)) {
+						positionY[group.ordinal()] += overlay.getHeight() + 1;
+					}
 				}
 				
 			} catch (Exception e) {
@@ -64,7 +66,7 @@ public class ScreenOverlayManager {
 	 */
 	public static int getBaseX(ScreenOverlay overlay) {
 		if (overlay.getOverlayGroup().equals(ScreenOverlayGroup.TOP_RIGHT_VERTICAL)) {
-			if (Client.instance.clientSize == 0) {
+			if (Client.clientSize == 0) {
 				return Client.instance.getGameAreaWidth() - overlay.getWidth() - 3;
 			}
 			
