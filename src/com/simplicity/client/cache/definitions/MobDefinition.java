@@ -378,6 +378,11 @@ public final class MobDefinition {
                 npc.copy(forID(23360));
                 npc.name = "The Maiden Of Sugadinti (comp)";
                 break;
+                
+            case 8888:
+                npc.copy(forID(23388));
+                npc.name = "Sotetseg (comp)";
+                break;
             	
             case 9999:
                 npc.copy(forID(23060));
