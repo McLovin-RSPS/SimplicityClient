@@ -4493,9 +4493,9 @@ public class RSInterface {
 		
 		widget.totalChildren(3);
 		
-		int x = 100;
+		int x = 90;
 		
-		int y = 18;
+		int y = 11;
 		
 		int width = 300;
 		
