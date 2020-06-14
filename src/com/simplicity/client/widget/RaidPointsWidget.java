@@ -53,15 +53,15 @@ public class RaidPointsWidget extends CustomWidget {
 		x += 5;
 		y += 5;
 		
-		add(addText("Total: @whi@1,234,567", 1, 0xff9040), x, y);
+		add(addText("Total: @whi@0", 1, 0xff9040), x, y);
 		
 		y += 12;
 		
-		add(addText("Blake: @whi@234,567", 1, 0xff9040), x, y);
+		add(addText("Blake: @whi@0", 1, 0xff9040), x, y);
 		
 		y += 12;
 		
-		add(addText("Time: @whi@0", 1, 0xff9040), x, y);
+		add(addText("Time: @whi@0:00", 1, 0xff9040), x, y);
 	}
 	
 	/**
@@ -72,9 +72,9 @@ public class RaidPointsWidget extends CustomWidget {
 		
 		int playerWidth = Client.instance.newRegularFont.getTextWidth(RSInterface.interfaceCache[PLAYER_POINTS_ID].message);
 		
-		int max = Math.max(totalWidth, playerWidth) - 34;
+		int max = Math.max(totalWidth, playerWidth) - 20;
 		
-		if (max <= 102) {
+		if (max <= 50) {
 			return;
 		}
 		
