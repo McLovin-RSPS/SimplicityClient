@@ -1073,9 +1073,11 @@ public final class ItemDefinition {
                 	itemDef.editedModelColor = defVorki.editedModelColor;
                 	itemDef.newModelColor = defVorki.newModelColor;
                     break;
+                    
                 case 50884:
                     itemDef.name = "@or2@Great Olm's crystal";
                     break;
+
                 case 51427:
                     itemDef.name = "@or2@Gold logs";
                     break;
@@ -7660,6 +7662,10 @@ public final class ItemDefinition {
                 itemDef.modelID = 44574;
                 itemDef.maleEquip1 = 43693;
                 itemDef.femaleEquip1 = 43693;
+                break;               
+            case 3069:
+            	itemDef.copy(forID(50884));
+                itemDef.name = "Keystone crystal";
                 break;
             case 11949:
                 itemDef.name = "Santa's Globe";
