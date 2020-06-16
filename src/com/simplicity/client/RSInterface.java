@@ -4493,9 +4493,9 @@ public class RSInterface {
 		
 		widget.totalChildren(3);
 		
-		int x = 100;
+		int x = 90;
 		
-		int y = 18;
+		int y = 11;
 		
 		int width = 300;
 		
@@ -16184,7 +16184,33 @@ public class RSInterface {
         rsi.tooltip = tooltip;
         rsi.hovers = true;
 	}
+	
+	/**
+	 * Gets if the specified interface id is valid.
+	 * 
+	 * @param interfaceId The interface id.
+	 * @return <code>true</code> if valid.
+	 */
+	public static boolean isValid(int interfaceId) {
+		return interfaceId < interfaceCache.length && interfaceCache[interfaceId] != null;
+	}
+	
+	/**
+	 * Gets the width of the message of the specified interface.
+	 * 
+	 * @param interfaceId The interface id.
+	 * @return The message width.
+	 */
+	public static int getMessageWidth(int interfaceId) {
+		if (!isValid(interfaceId)) {
+			return 0;
+		}
+		
+		String message = interfaceCache[interfaceId].message;
 
+		return interfaceCache[interfaceId].textDrawingAreas.getTextWidth(message);
+	}
+	
     public static int summoningItemRequirements[][] = {{12158, 2859, -1}, // Wolf pouch
             {12158, 2138, -1}, // Dreadfowl pouch
             {12158, 6291, -1}, // Spider pouch

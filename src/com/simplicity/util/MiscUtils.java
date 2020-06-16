@@ -38,5 +38,18 @@ public class MiscUtils {
     public static int ensureRange(int value, int min, int max) {
         return Math.min(Math.max(value, min), max);
     }
+    
+	public static double max(double... n) {
+		int i = 0;
+		double max = n[i];
+
+		while (++i < n.length) {
+			if (n[i] > max) {
+				max = n[i];
+			}
+		}
+
+		return max;
+	}
 
 }

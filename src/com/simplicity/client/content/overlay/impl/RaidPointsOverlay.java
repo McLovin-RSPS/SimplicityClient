@@ -18,7 +18,7 @@ public class RaidPointsOverlay extends ScreenOverlay {
 	 * Constructs a new {@link RaidPointsOverlay}.
 	 */
 	public RaidPointsOverlay() {
-		super(0, 0, 102, 38);
+		super(0, 0, 102, 50);
 	}
 
 	@Override
