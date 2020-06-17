@@ -18453,19 +18453,16 @@ public class Client extends RSApplet {
             }
         }
         if (j == 151) {
-            int height = stream.method426();
-            if (height >= 4) {
-                height = plane;
-            }
-            int l4 = bigRegionX + (height >> 4 & 7);
-            int k7 = bigRegionY + (height & 7);
+            int positionOffset = stream.method426();
+            int l4 = bigRegionX + (positionOffset >> 4 & 7);
+            int k7 = bigRegionY + (positionOffset & 7);
             int objID = stream.readInt();
             int typeAndFaceBits = stream.readByteS();
             int obType = typeAndFaceBits >> 2;
             int obFace = typeAndFaceBits & 3;
             int l17 = anIntArray1177[obType];
             if (l4 >= 0 && k7 >= 0 && l4 < 104 && k7 < 104) {
-                createObjectSpawnRequest(-1, objID, obFace, l17, k7, obType, height, l4, 0);
+                createObjectSpawnRequest(-1, objID, obFace, l17, k7, obType, plane, l4, 0);
             }
             return;
         }
