@@ -18546,8 +18546,8 @@ public class Client extends RSApplet {
             }
             int i11 = anIntArray1177[k5];
             int height = stream.readUnsignedByte() % 4;
-            int k15 = bigRegionX;
-            int l16 = bigRegionY;
+            int k15 = bigRegionX + (height >> 4 & 7);
+            int l16 = bigRegionY + (height & 7);
 
             if (k15 >= 0 && l16 >= 0 && k15 < 104 && l16 < 104) {
                 createObjectSpawnRequest(-1, -1, j8, i11, l16, k5, height, k15, 0);
