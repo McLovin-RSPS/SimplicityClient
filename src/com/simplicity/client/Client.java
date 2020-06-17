@@ -18344,8 +18344,8 @@ public class Client extends RSApplet {
         }
         if (j == 160) {
             int k1 = stream.readByteS();
-            int j4 = bigRegionX + (k1 >> 4 & 7);
-            int i7 = bigRegionY + (k1 & 7);
+            int j4 = bigRegionX;
+            int i7 = bigRegionY;
             int l9 = stream.readByteS();
             int j12 = l9 >> 2;
             int k14 = l9 & 3;
