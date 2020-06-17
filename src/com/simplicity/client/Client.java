@@ -18457,8 +18457,8 @@ public class Client extends RSApplet {
             if (height >= 4) {
                 height = plane;
             }
-            int l4 = bigRegionX + (height >> 4 & 7);
-            int k7 = bigRegionY + (height & 7);
+            int l4 = bigRegionX;
+            int k7 = bigRegionY;
             int objID = stream.readInt();
             int typeAndFaceBits = stream.readByteS();
             int obType = typeAndFaceBits >> 2;
