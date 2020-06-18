@@ -3505,9 +3505,10 @@ public class RSInterface {
                 "Combat room: Lvl 32", "Hall - Quest trophies: Lvl 35", "Menagarie: Lvl 37", "Study: Lvl 40",
                 "Costume room: Lvl 42", "Chapel: Lvl 45", "Portal chamber: Lvl 50", "Formal garden: Lvl 55",
                 "Throne room: Lvl 60", "Oubliette: Lvl 65", "Dungeon - corridor: Lvl 70", "Dungeon - junction: Lvl 70",
-                "Dungeon - stairs: Lvl 70", "Dungeon - pit: Lvl 70", "Treasure room: Lvl 75", "Superior Garden: Lv", "Achievement Gallery: Lv"};
+                "Dungeon - stairs: Lvl 70", "Dungeon - pit: Lvl 70", "Treasure room: Lvl 75", "Superior Garden: Lv 65",
+                "Achievement Gallery: Lv 80"};
         int[] money = new int[]{1000, 1000, 5000, 5000, 10000, 10000, 15000, 25000, 25000, 25000, 30000, 50000, 50000,
-                50000, 100000, 75000, 150000, 150000, 7500, 7500, 7500, 10000, 250000, 1, 1};
+                50000, 100000, 75000, 150000, 150000, 7500, 7500, 7500, 10000, 250000, 75000, 200000};
         int y = 8, x = 4, bounds = 0, id = 28647;
         setChildren(totalRooms * 4, tab);
         for (int i = 0; i < names.length; i++) {
