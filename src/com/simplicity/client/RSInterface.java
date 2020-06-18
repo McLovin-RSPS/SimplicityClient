@@ -4479,7 +4479,8 @@ public class RSInterface {
         raidsHealth(textDrawingAreas);
         
         StarterWidget.unpack(textDrawingAreas);
-        
+        TobPlayerOrbsWidget.unpack(textDrawingAreas);
+
         QuestTab.unpack(textDrawingAreas);
         
         SkillQuantityWidget.unpack(textDrawingAreas);

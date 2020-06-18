@@ -108,13 +108,7 @@ import com.simplicity.client.content.overlay.ScreenOverlayManager;
 import com.simplicity.client.entity.Position;
 import com.simplicity.client.particles.Particle;
 import com.simplicity.client.particles.ParticleDefinition;
-import com.simplicity.client.widget.CollectionLogWidget;
-import com.simplicity.client.widget.QuestTab;
-import com.simplicity.client.widget.RaidPointsWidget;
-import com.simplicity.client.widget.SettingsWidget;
-import com.simplicity.client.widget.SkillQuantityWidget;
-import com.simplicity.client.widget.Slider;
-import com.simplicity.client.widget.WildernessWidget;
+import com.simplicity.client.widget.*;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.tools.InterfaceDebugger;
 import com.simplicity.tools.ItemDefinitionLookup;
@@ -16116,6 +16110,51 @@ public class Client extends RSApplet {
     									childY + child.msgY,
     									flag ? child.disabledMouseOverColor : child.disabledColor, 0);
 						}
+                    } else if (child.type == 50) { // TOB ORBS
+                        if (child.message.isEmpty()) {
+                            continue;
+                        }
+
+                        // The orb's data (Containg player name, flag if hes inside tob or not, and his health)
+                        String[] data = child.message.split(":");
+
+                        String playerName = data[0]; // Player name
+                        boolean isInside = Boolean.parseBoolean(data[1]); // If inside, draw red health, if not, draw yellow orb
+                        int health = Integer.parseInt(data[2]); // The health of the player
+
+                        // Draw base border of the orb
+                        Sprite orb = cacheSprite[TobPlayerOrbsWidget.BASE_ORB];
+                        orb.drawSprite(childX, childY);
+
+                        Sprite healthOrb;
+
+                        // Decide what orb filling to draw
+                        if (isInside) {
+                            healthOrb = cacheSprite[TobPlayerOrbsWidget.HEALTH_ORB];
+                        } else {
+                            healthOrb = cacheSprite[TobPlayerOrbsWidget.AWAITING_ENTER_ORB];
+                        }
+
+                        // Draw orb filling
+                        healthOrb.drawSprite(childX + 4, childY + 4);
+
+                        // If inside, draw empty dark orb over it to create the illusion of an health bar
+                        if (isInside) {
+                            Sprite empty = cacheSprite[TobPlayerOrbsWidget.EMPTY_ORB];
+
+                            int healthPercent = (int) ((double) (TobPlayerOrbsWidget.HEALTH_ORB_HEIGHT / 100D) * (double) health);
+                            empty.myHeight = TobPlayerOrbsWidget.HEALTH_ORB_HEIGHT - healthPercent;
+
+                            empty.drawSprite(childX + 4, childY + 4);
+                        }
+
+                        if (playerName.equalsIgnoreCase(myPlayer.name)) {
+                            newFancyFontLarge.drawBasicString2("Me", childX + 6, childY + 37, 0xFFFFFF,0);
+                        } else {
+                            newFancyFontLarge.drawBasicString2(String.valueOf(playerName.charAt(0)),
+                                    childX + 13, childY + 37, 0xFFFFFF,0);
+                        }
+
                     }
                 }
                 if (openInterfaceID == 10000) {
@@ -16709,7 +16748,7 @@ public class Client extends RSApplet {
         }
         
     }
-    
+
     public int getInterfaceOffX() {
     	return 368;
     }
@@ -18518,7 +18557,7 @@ public class Client extends RSApplet {
         }
         if (j == 44) {
             int k2 = stream.readWordBigEndian();
-            int j5 = stream.readInt();
+            int j5 = stream.readUnsignedWord();
             int i8 = stream.readUnsignedByte();
             int l10 = bigRegionX + (i8 >> 4 & 7);
             int i13 = bigRegionY + (i8 & 7);
@@ -19043,7 +19082,8 @@ public class Client extends RSApplet {
             // opCode = -1;
             // return true;
             // }
-            // System.out.println("Packet: "+opCode);
+             // System.out.println("Packet: "+opCode);
+
             switch (opCode) {
                 case 81:
                     updatePlayers(pktSize, inStream);
@@ -19437,6 +19477,7 @@ public class Client extends RSApplet {
 
                 case 109:
                     resetLogout();
+                    System.out.println("LOG OUT");
                     opCode = -1;
                     return false;
 
@@ -20785,12 +20826,12 @@ public class Client extends RSApplet {
 
                 case 177:
                     inCutScene = true;
-                    anInt995 = inStream.readUnsignedByte();
-                    anInt996 = inStream.readUnsignedByte();
-                    anInt997 = inStream.readUnsignedWord();
-                    anInt998 = inStream.readUnsignedByte();
-                    anInt999 = inStream.readUnsignedByte();
-                    if (anInt999 >= 100) {
+                    anInt995 = inStream.readUnsignedByte(); // x
+                    anInt996 = inStream.readUnsignedByte(); // y
+                    anInt997 = inStream.readUnsignedWord(); // level
+                    anInt998 = inStream.readUnsignedByte(); // speed
+                    anInt999 = inStream.readUnsignedByte(); // angle
+                   // if (anInt999 >= 100) {
                         int k7 = anInt995 * 128 + 64;
                         int k14 = anInt996 * 128 + 64;
                         int i20 = getFloorDrawHeight(plane, k14, k7) - anInt997;
@@ -20798,15 +20839,27 @@ public class Client extends RSApplet {
                         int k25 = i20 - zCameraPos;
                         int j28 = k14 - yCameraPos;
                         int i30 = (int) Math.sqrt(l22 * l22 + j28 * j28);
+
+                        System.out.println("k7" + k7);
+                        System.out.println("k14" + k14);
+                        System.out.println("i20" + i20);
+                        System.out.println("l22" + l22);
+                        System.out.println("k25" + k25);
+                        System.out.println("j28" + j28);
+                        System.out.println("i30" + i30);
+
                         yCameraCurve = (int) (Math.atan2(k25, i30) * 325.94900000000001D) & 0x7ff;
                         xCameraCurve = (int) (Math.atan2(l22, j28) * -325.94900000000001D) & 0x7ff;
+
+                    System.out.println("yCameraCurve" + yCameraCurve);
+                    System.out.println("xCameraCurve" + xCameraCurve);
                         if (yCameraCurve < 128) {
                             yCameraCurve = 128;
                         }
                         if (yCameraCurve > 383) {
                             yCameraCurve = 383;
                         }
-                    }
+                   // }
                     opCode = -1;
                     return true;
 
