@@ -1,11 +1,11 @@
 package com.simplicity.client.widget;
 
-import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.TextDrawingArea;
-import com.simplicity.client.cache.definitions.Varp;
 
 public class BossDisplayConfiguration extends RSInterface {
+
+    private static final int OPTION_LEN = 8;
 
     public static void init(TextDrawingArea[] tda) {
         int parentId = 80200;
@@ -17,33 +17,52 @@ public class BossDisplayConfiguration extends RSInterface {
         parent.child(0, widgetId, 8, 16);
 
         RSInterface selection = createSelection(tda);
-        parent.child(1, selection.id, 24,56);
+        parent.child(1, selection.id, 32,80);
     }
 
     private static RSInterface createSelection(TextDrawingArea[] tda) {
         int widgetId = 80300;
+
         RSInterface selection = addInterface(widgetId);
-        selection.children(8 * 3);
-        selection.width = 460;
-        selection.height = 256;
-        selection.scrollMax = 64 * 8;
-        ++widgetId;
+        selection.children(2);
 
-        for (int i = 0; i < 8; i++) {
-            int color = i % 2 == 0 ? 0x564c42 : 0x483f33;
-            int rectWidgetId = widgetId + i;
-            int textWidgetId = widgetId + (i + 8);
-            int itemWidgetId = widgetId + (i + 16);
+        selection.width = 430;
+        selection.height = 215;
+        selection.scrollMax = 64 * OPTION_LEN;
 
-            addRectangleClickable(rectWidgetId, 0, color, true, 460, 64);
-            addText(textWidgetId, "---", tda, 2, 0xff981f);
-            addItemModel(itemWidgetId, 0, 32, 32, 150);
+        widgetId++;
+
+        drawBox(widgetId, selection.width + 5, selection.height + 5, 2, 0x333333, 0x333333, 150);
+        selection.child(1, widgetId, 0, 0);
+
+        RSInterface container = createContainer(tda);
+        selection.child(0, container.id, 2, 2);
+
+        return selection;
+    }
+
+    private static RSInterface createContainer(TextDrawingArea[] tda) {
+        int widgetId = 80302;
+        RSInterface container = addTabInterface(widgetId);
+        widgetId++;
+        container.children(OPTION_LEN * 3);
+        int childId = 0;
+        for (int i = 0; i < OPTION_LEN; i++) {
+            final int color = i % 2 == 0 ? 0x564c42 : 0x483f33;
+            final int rectWidgetId = widgetId + i;
+            final int textWidgetId = widgetId + (i + 8);
+            final int itemWidgetId = widgetId + (i + 16);
+
+            addRectangleClickable(rectWidgetId, 0, color, true, 428, 64);
+            addText(textWidgetId, "---", tda, 1, 0xff981f);
+            addItemModel(itemWidgetId, 0, 32, 32, 125);
 
             int topY = 64 * i;
-            selection.child(i, rectWidgetId, 0, topY);
-            selection.child(i + 8, textWidgetId, 200, topY + 20);
-            selection.child(i + 16, itemWidgetId, 32, topY + 16);
+            container.child(childId, rectWidgetId, 0, topY);
+            container.child(childId + 8, textWidgetId, 128, topY + 20);
+            container.child(childId + 16, itemWidgetId, 32, topY + 16);
+            childId++;
         }
-        return selection;
+        return container;
     }
 }
