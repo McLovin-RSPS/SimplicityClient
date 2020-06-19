@@ -5,7 +5,7 @@ public class Configuration {
 	/**
 	 * Connection information
 	 */
-	public final static boolean LOCALHOST = true;
+	public final static boolean LOCALHOST = false;
 	public final static boolean BETA = false;
 	public static String HOST = LOCALHOST ? "127.0.0.1" : BETA ? "beta.simplicity-data.com" : "142.44.136.172"; // TEST
 	public static int PORT = 43594;
@@ -84,8 +84,8 @@ public class Configuration {
 	 * 2: Left-click where available
 	 * 3: Hidden
 	 */
-	public static int playerAttackOptionPriority = 0;
-	public static int npcAttackOptionPriority = 0;
+	public static int playerAttackOptionPriority = 2;
+	public static int npcAttackOptionPriority = 2;
     
 	/**
 	 * Indicates whether the shift click drop function is enabled or not.
@@ -245,7 +245,7 @@ public class Configuration {
 	/**
 	 * Indicates whether kdr overlay is enabled or not.
 	 */
-	public static boolean enableKDROverlay = true;
+	public static boolean enableKDROverlay = false;
 	
 	/**
 	 * Indicates whether new hp bars are enabled or not.
@@ -255,7 +255,7 @@ public class Configuration {
 	/**
 	 * Indicates whether rune pouch overlay is enabled or not.
 	 */
-	public static boolean enableRunePouchOverlay = false;
+	public static boolean enableRunePouchOverlay = true;
 
 	public static long lastModerationToggleTime; //todo draw text of change or something
 }
