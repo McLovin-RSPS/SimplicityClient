@@ -20300,17 +20300,26 @@ public class Client extends RSApplet {
                     int i6 = inStream.readInt();
                     int i13 = inStream.readUnsignedWord();
                     int k18 = inStream.readUnsignedWord();
+                    boolean sprite = inStream.readByte() == 1;
                     if (k18 == 65535) {
                         RSInterface.interfaceCache[i6].mediaType = 0;
                         opCode = -1;
                         return true;
                     } else {
+                        RSInterface rsInterface = RSInterface.interfaceCache[i6];
                         ItemDefinition itemDef = ItemDefinition.forID(k18);
-                        RSInterface.interfaceCache[i6].mediaType = 4;
-                        RSInterface.interfaceCache[i6].mediaID = k18;
-                        RSInterface.interfaceCache[i6].modelRotation1 = itemDef.rotationY;
-                        RSInterface.interfaceCache[i6].modelRotation2 = itemDef.rotationX;
-                        RSInterface.interfaceCache[i6].modelZoom = (itemDef.modelZoom * 100) / i13;
+                        rsInterface.mediaType = 4;
+                        rsInterface.mediaID = k18;
+                        if (rsInterface.type == 5) {
+                            rsInterface.itemSpriteId1 = k18;
+                            rsInterface.itemSpriteId2 = k18;
+                            rsInterface.itemSpriteZoom1 = i13;
+                            rsInterface.itemSpriteZoom2 = i13;
+                        } else {
+                            rsInterface.modelRotation1 = itemDef.rotationY;
+                            rsInterface.modelRotation2 = itemDef.rotationX;
+                            rsInterface.modelZoom = (itemDef.modelZoom * 100) / i13;
+                        }
                         opCode = -1;
                         return true;
                     }

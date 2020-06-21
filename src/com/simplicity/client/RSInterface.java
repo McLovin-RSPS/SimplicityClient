@@ -10669,6 +10669,7 @@ public class RSInterface {
     public boolean advancedSprite = false;
     public int summonReq;
 
+
     public static void addHDSprite(int id, int spriteId, int sprite2) {
         RSInterface tab = interfaceCache[id] = new RSInterface();
         tab.id = id;

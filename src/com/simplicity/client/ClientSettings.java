@@ -329,7 +329,7 @@ public class ClientSettings {
 		Configuration.enableModerationMenu = true;
 		Configuration.enableAmmunitionOverlay = true;
 		Configuration.enableKDROverlay = false;
-		Configuration.enableRunePouchOverlay = false;
+		Configuration.enableRunePouchOverlay = true;
 		Configuration.enableNewHpBars = true;
 		Client.instance.musicEnabled = false;
 		SoundPlayer.setVolume(4);
