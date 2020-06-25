@@ -4,6 +4,7 @@ import com.simplicity.client.RSInterface;
 import com.simplicity.client.widget.deals.DealBoardWidget;
 import com.simplicity.client.widget.deals.ItemDealBoardWidget;
 import com.simplicity.client.widget.deals.MultipleItemDealBoxWidget;
+import com.simplicity.client.widget.raids.XericPointsWidget;
 
 import java.util.HashMap;
 
@@ -15,7 +16,7 @@ public class Widget {
         init(new DealBoardWidget());
         init(new ItemDealBoardWidget());
         init(new MultipleItemDealBoxWidget());
-        init(new RaidPointsWidget());
+        init(new XericPointsWidget());
     }
 
     public static void init(CustomWidget widget) {

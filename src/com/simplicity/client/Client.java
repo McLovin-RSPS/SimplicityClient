@@ -110,12 +110,12 @@ import com.simplicity.client.particles.Particle;
 import com.simplicity.client.particles.ParticleDefinition;
 import com.simplicity.client.widget.CollectionLogWidget;
 import com.simplicity.client.widget.QuestTab;
-import com.simplicity.client.widget.RaidPointsWidget;
 import com.simplicity.client.widget.SettingsWidget;
 import com.simplicity.client.widget.SkillQuantityWidget;
 import com.simplicity.client.widget.Slider;
 import com.simplicity.client.widget.WildernessWidget;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
+import com.simplicity.client.widget.raids.XericPointsWidget;
 import com.simplicity.tools.InterfaceDebugger;
 import com.simplicity.tools.ItemDefinitionLookup;
 import com.simplicity.tools.NpcDefinitionLookup;
@@ -6030,7 +6030,7 @@ public class Client extends RSApplet {
         RSInterface.interfaceCache[3322].deleteOnDrag2 = false;
         RSInterface.handleConfigHover(RSInterface.interfaceCache[71021]);
         RSInterface.handleConfigHover(RSInterface.interfaceCache[QuestTab.INFO_BUTTON_ID]);
-        parallelWidgetList.remove(RSInterface.interfaceCache[RaidPointsWidget.WIDGET_ID]);
+        parallelWidgetList.remove(RSInterface.interfaceCache[XericPointsWidget.WIDGET_ID]);
         inCutScene = false;
         for (int l = 0; l < 5; l++) {
             aBooleanArray876[l] = false;

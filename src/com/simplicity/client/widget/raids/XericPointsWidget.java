@@ -1,15 +1,16 @@
-package com.simplicity.client.widget;
+package com.simplicity.client.widget.raids;
 
 import com.simplicity.client.RSInterface;
+import com.simplicity.client.widget.CustomWidget;
 import com.simplicity.util.MiscUtils;
 
 /**
- * A class that represents the raid points widget.
+ * A class that represents the points widget for the Chambers of Xeric.
  * 
  * @author Blake
  *
  */
-public class RaidPointsWidget extends CustomWidget {
+public class XericPointsWidget extends CustomWidget {
 	
 	/**
 	 * The widget id.
@@ -52,15 +53,15 @@ public class RaidPointsWidget extends CustomWidget {
 	public static final int TIME_AMOUNT_ID = WIDGET_ID + 7;
 
 	/**
-	 * Constructs a new {@link RaidPointsWidget}.
+	 * Constructs a new {@link XericPointsWidget}.
 	 */
-	public RaidPointsWidget() {
+	public XericPointsWidget() {
 		super(WIDGET_ID);
 	}
 
 	@Override
 	public String getName() {
-		return "Raid Points Widget";
+		return "Xeric Points Widget";
 	}
 
 	@Override
