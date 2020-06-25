@@ -113,6 +113,7 @@ import com.simplicity.client.widget.QuestTab;
 import com.simplicity.client.widget.SettingsWidget;
 import com.simplicity.client.widget.SkillQuantityWidget;
 import com.simplicity.client.widget.Slider;
+import com.simplicity.client.widget.TobPlayerOrbsWidget;
 import com.simplicity.client.widget.WildernessWidget;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.client.widget.raids.XericPointsWidget;
