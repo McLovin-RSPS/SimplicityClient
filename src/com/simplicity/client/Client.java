@@ -118,6 +118,7 @@ import com.simplicity.client.widget.WildernessWidget;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.client.widget.raids.TobPartyOverlayWidget;
 import com.simplicity.client.widget.raids.XericPointsWidget;
+import com.simplicity.tools.AnimDefinitionLookup;
 import com.simplicity.tools.InterfaceDebugger;
 import com.simplicity.tools.ItemDefinitionLookup;
 import com.simplicity.tools.NpcDefinitionLookup;
@@ -10901,6 +10902,10 @@ public class Client extends RSApplet {
                     }
                     if (inputString.equals("::npcdef")) {
                     	NpcDefinitionLookup lookup = new NpcDefinitionLookup();
+						lookup.setVisible(true);
+                    }
+                    if (inputString.equals("::animdef")) {
+                    	AnimDefinitionLookup lookup = new AnimDefinitionLookup();
 						lookup.setVisible(true);
                     }
                     if (inputString.equals("::packrsi") || inputString.equals("::repack")) {
