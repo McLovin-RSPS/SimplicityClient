@@ -10792,10 +10792,10 @@ public class Client extends RSApplet {
                             
                             int results = 0;
                             
-							for (int i = 100_000; i < 100_000 + 34649; i++) {
+							for (int i = 100_000; i < 100_000 + 37958; i++) {
 								ObjectDefinition def = ObjectDefinition.getDefOldschool(i);
 								
-								if (def == null || def.objectModelTypes == null) {
+								if (def == null || def.objectModelIDs == null) {
 									continue;
 								}
 								
