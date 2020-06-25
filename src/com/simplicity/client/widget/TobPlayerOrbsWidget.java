@@ -16,7 +16,7 @@ public class TobPlayerOrbsWidget extends RSInterface {
 	/**
 	 * The interface id.
 	 */
-	public static final int INTERFACE_ID = 80_000;
+	public static final int INTERFACE_ID = 81_000;
 
 	public static final int HEALTH_ORB = 1413;
 	public static final int AWAITING_ENTER_ORB = 1414;
