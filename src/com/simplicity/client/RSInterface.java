@@ -15630,7 +15630,7 @@ public class RSInterface {
 	/**
 	 * Indicates whether to use the modern window or not.
 	 */
-	private boolean modernWindow;
+	public boolean modernWindow;
 
 	/**
 	 * Gets if the modern window.
@@ -15646,21 +15646,18 @@ public class RSInterface {
 	public boolean isTransparentWindow() {
 		return transparentWindow;
 	}
-    
+
 	/**
 	 * Adds a window with the specified width and height.
 	 * 
-	 * @param id
-	 *            The id.
-	 * @param width
-	 *            The width.
-	 * @param height
-	 *            The height.
-	 * @param modernBorder
-	 *            If the border is modern.
+	 * @param id           The id.
+	 * @param width        The width.
+	 * @param height       The height.
+	 * @param modernBorder If the border is modern.
+	 * @return RSInterface for chaining.
 	 */
-	public static void addWindow(int id, int width, int height, boolean modernBorder) {
-		addWindow(id, width, height, modernBorder, false, false);
+	public static RSInterface addWindow(int id, int width, int height, boolean modernBorder) {
+		return addWindow(id, width, height, modernBorder, false, false);
 	}
 
 	/**
@@ -15673,8 +15670,9 @@ public class RSInterface {
 	 * @param transparent  If the background is transparent.
 	 * @param wrap         Whether to wrap this interface by the specified bounds or
 	 *                     not.
+	 * @return RSInterface for chaining.
 	 */
-	public static void addWindow(int id, int width, int height, boolean modernBorder, boolean transparentWindow,
+	public static RSInterface addWindow(int id, int width, int height, boolean modernBorder, boolean transparentWindow,
 			boolean wrap) {
 		RSInterface rsi = wrap ? addWrapper(id, width, height, id + 1) : addInterface(id);
 		rsi.id = id;
@@ -15683,6 +15681,7 @@ public class RSInterface {
 		rsi.height = height;
 		rsi.modernWindow = modernBorder;
 		rsi.transparentWindow = transparentWindow;
+		return rsi;
 	}
 	
 	/**

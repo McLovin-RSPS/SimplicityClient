@@ -137,7 +137,83 @@ public abstract class CustomWidget {
         id++;
         return tab;
     }
+    
+	/**
+	 * Adds a closable window
+	 * 
+	 * @param width        The width.
+	 * @param height       The height.
+	 * @param modernBorder Whether to use a modern border or not.
+	 * @param title        The title.
+	 * @return The closable window.
+	 */
+    public RSInterface addClosableWindow(int width, int height, boolean modernBorder, String title) {
+    	RSInterface tab = RSInterface.addInterface(id, width, height);
+    	tab.componentId = id++;
+    	
+    	tab.totalChildren(4);
+    	
+    	int child = 0;
+    	
+    	RSInterface window = addWindow(width, height, false);
+    	RSInterface titles = addCenteredText(title, 2, 0xFF981F);
+    	RSInterface close = addButton(1068, 1069, "Close Window", 250, 3);
+    	RSInterface separator = addHorizontalSeparator(width - 10, modernBorder);
+    	
+    	tab.child(child++, window.id, 0, 0);
+    	tab.child(child++, titles.id, width / 2, 10);
+    	tab.child(child++, close.id, width - (modernBorder ? 26 : 28), modernBorder ? 10 : 7);
+    	tab.child(child++, separator.id, 5, 29);
+    	return tab;
+    }
+    
+	/**
+	 * Adds a window.
+	 * 
+	 * @param width        The width.
+	 * @param height       The height.
+	 * @param modernBorder Whether to use the modern border or not.
+	 * @return The window inside a wrapper.
+	 */
+    public RSInterface addWindow(int width, int height, boolean modernBorder) {
+    	RSInterface window = RSInterface.addWindow(id, width, height, modernBorder);
+    	window.componentId = id++;
+    	return addWrapper(width, height, window);
+    }
 
+	/**
+	 * Adds a horizontal separator.
+	 * 
+	 * @param width        The width.
+	 * @param modernBorder Whether to use the modern border or not.
+	 * @return The separator inside a wrapper.
+	 */
+    public RSInterface addHorizontalSeparator(int width, boolean modernBorder) {
+    	RSInterface rsi = RSInterface.addInterface(id);
+    	rsi.componentId = id++;
+    	rsi.type = 25;
+    	rsi.width = width;
+    	rsi.height = 6;
+    	rsi.modernWindow = modernBorder;
+    	return addWrapper(width, 6, rsi);
+    }
+    
+	/**
+	 * Adds a wrapper around the specified interface.
+	 * 
+	 * @param width  The width.
+	 * @param height The height.
+	 * @param rsi    The interface.
+	 * @return The wrapper.
+	 */
+    public RSInterface addWrapper(int width, int height, RSInterface rsi) {
+    	RSInterface wrapper = RSInterface.addInterface(id, width, height);
+    	wrapper.componentId = id++;
+    	wrapper.totalChildren(1);
+    	wrapper.child(0, rsi.componentId, 0, 0);
+    	return wrapper;
+    }
+    
     public RSInterface addRectangleClickable(int opacity, int color, boolean filled, int width, int height,
                                              String... actions) {
         RSInterface tab = RSInterface.addTabInterface(id);
@@ -279,6 +355,31 @@ public abstract class CustomWidget {
         }
         tab.type = 2;
         id++;
+        return tab;
+    }
+    
+    public RSInterface addButton(int disabledSprite, int enabledSprite, String tooltip, int contentType, int actionType) {
+    	RSInterface tab = RSInterface.addTabInterface(id);
+    	tab.componentId = id;
+    	id++;
+    	
+    	int frame = 0;
+    	tab.totalChildren(2);
+    	
+        Sprite sprite = Client.cacheSprite[disabledSprite];
+
+        int width = sprite.myWidth;
+        int height = sprite.myHeight;
+
+        tab.width = width;
+        tab.height = height;
+        
+        RSInterface.addHoverButton(id, disabledSprite, width, height, tooltip, contentType, id + 1, actionType);
+        RSInterface.addHoveredButton(id + 1, enabledSprite, width, height, id + 2);
+        tab.child(frame++, id, 0, 0);
+        tab.child(frame++, id + 1, 0, 0);
+        id += 3;
+        
         return tab;
     }
 
