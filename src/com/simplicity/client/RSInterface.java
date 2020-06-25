@@ -3496,7 +3496,7 @@ public class RSInterface {
         setBoundry(2, 28646, BASEX + 51, BASEY + 60, tab);
 
         tab = addTabInterface(28646);
-        int totalRooms = 23;
+        int totalRooms = 25;
         tab.scrollMax = totalRooms * 65;
         tab.width = 330;
         tab.height = 220;
@@ -3505,17 +3505,22 @@ public class RSInterface {
                 "Combat room: Lvl 32", "Hall - Quest trophies: Lvl 35", "Menagarie: Lvl 37", "Study: Lvl 40",
                 "Costume room: Lvl 42", "Chapel: Lvl 45", "Portal chamber: Lvl 50", "Formal garden: Lvl 55",
                 "Throne room: Lvl 60", "Oubliette: Lvl 65", "Dungeon - corridor: Lvl 70", "Dungeon - junction: Lvl 70",
-                "Dungeon - stairs: Lvl 70", "Dungeon - pit: Lvl 70", "Treasure room: Lvl 75"};
+                "Dungeon - stairs: Lvl 70", "Dungeon - pit: Lvl 70", "Treasure room: Lvl 75", "Superior Garden: Lv 65",
+                "Achievement Gallery: Lv 80"};
         int[] money = new int[]{1000, 1000, 5000, 5000, 10000, 10000, 15000, 25000, 25000, 25000, 30000, 50000, 50000,
-                50000, 100000, 75000, 150000, 150000, 7500, 7500, 7500, 10000, 250000};
+                50000, 100000, 75000, 150000, 150000, 7500, 7500, 7500, 10000, 250000, 75000, 200000};
         int y = 8, x = 4, bounds = 0, id = 28647;
         setChildren(totalRooms * 4, tab);
         for (int i = 0; i < names.length; i++) {
-            addRectangleClickable(id, 0, 0x333333, false, 238, 61);
+            final int color = i % 2 == 0 ? 0x564c42 : 0x483f33;
+            addRectangleClickable(id, 0, color, false, 238, 61);
             setBoundry(bounds++, id++, x, y, tab);
-            addHDSprite(id, i + 4, -1);
+            if (i >= 23) {
+                addHDSprite(id, 4, -1);
+            } else {
+                addHDSprite(id, i + 4, -1);
+            }
             setBoundry(bounds++, id++, x + 13, y + 5, tab);
-
             addText(id, names[i], names[i], 0xCCCCFF, 0xCCCCFF, false, true, 0, 1);
             setBoundry(bounds++, id++, x + 78, y + 22, tab);
             addText(id, money[i] + " Coins", money[i] + " Coins", 0xC80000, 0x00C800, false, true, 0, 1);
@@ -4474,7 +4479,8 @@ public class RSInterface {
         raidsHealth(textDrawingAreas);
         
         StarterWidget.unpack(textDrawingAreas);
-        
+        TobPlayerOrbsWidget.unpack(textDrawingAreas);
+
         QuestTab.unpack(textDrawingAreas);
         
         SkillQuantityWidget.unpack(textDrawingAreas);
@@ -10663,6 +10669,7 @@ public class RSInterface {
     public boolean advancedSprite = false;
     public int summonReq;
 
+
     public static void addHDSprite(int id, int spriteId, int sprite2) {
         RSInterface tab = interfaceCache[id] = new RSInterface();
         tab.id = id;
@@ -13034,6 +13041,7 @@ public class RSInterface {
     public boolean inventoryHover;
     public boolean greyScale;
     public boolean hidden;
+    public Runnable onLoad;
     
 	public Sprite enabledAltSprite;
 	public Sprite disabledAltSprite;
