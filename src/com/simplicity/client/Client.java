@@ -116,6 +116,7 @@ import com.simplicity.client.widget.Slider;
 import com.simplicity.client.widget.TobPlayerOrbsWidget;
 import com.simplicity.client.widget.WildernessWidget;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
+import com.simplicity.client.widget.raids.TobPartyOverlayWidget;
 import com.simplicity.client.widget.raids.XericPointsWidget;
 import com.simplicity.tools.InterfaceDebugger;
 import com.simplicity.tools.ItemDefinitionLookup;
@@ -6032,6 +6033,7 @@ public class Client extends RSApplet {
         RSInterface.handleConfigHover(RSInterface.interfaceCache[71021]);
         RSInterface.handleConfigHover(RSInterface.interfaceCache[QuestTab.INFO_BUTTON_ID]);
         parallelWidgetList.remove(RSInterface.interfaceCache[XericPointsWidget.WIDGET_ID]);
+        parallelWidgetList.remove(RSInterface.interfaceCache[TobPartyOverlayWidget.WIDGET_ID]);
         inCutScene = false;
         for (int l = 0; l < 5; l++) {
             aBooleanArray876[l] = false;

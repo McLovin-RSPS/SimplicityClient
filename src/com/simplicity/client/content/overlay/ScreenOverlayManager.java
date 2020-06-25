@@ -9,6 +9,7 @@ import com.simplicity.client.content.overlay.impl.FadeOverlay;
 import com.simplicity.client.content.overlay.impl.HitpointsOverlay;
 import com.simplicity.client.content.overlay.impl.KDROverlay;
 import com.simplicity.client.content.overlay.impl.XericPointsOverlay;
+import com.simplicity.client.content.overlay.impl.TobPartyOverlay;
 
 /**
  * A class that handles the processing of {@link ScreenOverlay}'s.
@@ -94,6 +95,7 @@ public class ScreenOverlayManager {
 	 * Initializes the overlays.
 	 */
 	public static void init() {
+		OVERLAYS.add(new TobPartyOverlay());
 		OVERLAYS.add(new KDROverlay());
 		OVERLAYS.add(new HitpointsOverlay());
 		OVERLAYS.add(new AmmunitionOverlay());
