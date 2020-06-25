@@ -28,7 +28,7 @@ public class AnimDefinitionLookup extends JFrame {
 	
 	private JTable details;
 	
-	private List<String> detailsData = new ArrayList<String>(Arrays.asList(new String[] { "Id", "Frame IDs", "Frame IDs 2", "Delays", "Framestep", "Framecount", "ForcedPriority", "DelayType", "DataType" }));
+	private List<String> detailsData = new ArrayList<String>(Arrays.asList(new String[] { "Id", "Frame IDs", "Frame IDs 2", "Delays", "Framestep", "Framecount", "ForcedPriority", "DelayType", "Loopdelay", "DataType" }));
 	
 	public AnimDefinitionLookup() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -107,6 +107,7 @@ public class AnimDefinitionLookup extends JFrame {
 		details.getModel().setValueAt(animation.frameCount, column++, 1);
 		details.getModel().setValueAt(animation.forcedPriority, column++, 1);
 		details.getModel().setValueAt(animation.delayType, column++, 1);
+		details.getModel().setValueAt(animation.loopDelay, column++, 1);
 		details.getModel().setValueAt(animation.dataType, column++, 1);
 	}
 	
