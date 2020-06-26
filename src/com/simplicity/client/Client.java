@@ -15022,7 +15022,7 @@ public class Client extends RSApplet {
                 
             	int hoverX = mouseX;
             	
-            	int hoverY = mouseY - (hoverChatInterface && clientSize == 0 ? gameAreaHeight + 4: 0);
+            	int hoverY = mouseY - (hoverChatInterface && clientSize == 0 ? gameAreaHeight + 4: 4);
             	
             	if (hoverChatInterface || hoverGameInterface) {
             		childHovered = hoverX >= childX && hoverX <= childX + child.width && hoverY >= childY && hoverY <= childY + child.height;
@@ -15231,7 +15231,8 @@ public class Client extends RSApplet {
                         }
                         int j3;
                         int opacity;
-                        if (interfaceIsSelected(child) || (hovered(child))) {
+                        
+                        if (interfaceIsSelected(child) || (childHovered && hovers(child))) {
                             j3 = child.disabledColor;
                             if (flag && child.enabledMouseOverColor != 0) {
                                 j3 = child.enabledMouseOverColor;
@@ -17651,7 +17652,7 @@ public class Client extends RSApplet {
         newRequest.removeTime = j;
     }
 
-    private boolean hovered(RSInterface rsi) {
+    private boolean hovers(RSInterface rsi) {
         return (rsi.id == this.hoverSpriteId) && (rsi.hovers);
     }
 
