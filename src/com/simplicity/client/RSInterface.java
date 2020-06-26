@@ -1,6 +1,7 @@
 package com.simplicity.client;
 
 import com.simplicity.client.DrawLine.LineType;
+import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.client.cache.definitions.MobDefinition;
 import com.simplicity.client.content.Keybinding;
@@ -1104,6 +1105,20 @@ public class RSInterface {
         rsi.modelRotation2 = 1020;
         rsi.height = height;
         rsi.width = width;
+    }
+    
+    public static RSInterface addModel(int interfaceId, int modelID, int zoom, int rotation1, int rotation2, DataType dataType) {
+    	RSInterface rsi = RSInterface.addInterface(interfaceId);
+    	rsi.type = 6;
+    	rsi.mediaType = DRAW_REGULAR_MODEL;
+    	rsi.mediaID = modelID;
+    	rsi.modelZoom = zoom;
+    	rsi.modelRotation1 = rotation1;
+    	rsi.modelRotation2 = rotation2;
+    	rsi.width = 1;
+    	rsi.height = 1;
+    	rsi.dataType = dataType;
+    	return rsi;
     }
     
 	public static void addItemModel(int id, int item, int w, int h, int zoom) {
@@ -3448,7 +3463,7 @@ public class RSInterface {
         tab.tooltip = tooltip;
     }
 
-    public static void addRectangleClickable(int id, int opacity, int color, boolean filled, int width, int height,
+    public static RSInterface addRectangleClickable(int id, int opacity, int color, boolean filled, int width, int height,
                                              String... actions) {
         RSInterface tab = interfaceCache[id] = new RSInterface();
         tab.disabledColor = color;
@@ -3463,6 +3478,8 @@ public class RSInterface {
         tab.height = height;
         tab.atActionType = 1;
         tab.actions = actions;
+        
+        return tab;
     }
 
     public static void setSelectableValues(int frame, int configId, int requiredValue) {
@@ -12447,7 +12464,7 @@ public class RSInterface {
         if (model != null)
             return model;
         if (drawType == DRAW_REGULAR_MODEL)
-            model = Model.fetchModel(mediaId);
+            model = Model.fetchModel(mediaId, dataType);
         if (drawType == DRAW_NPC_MODEL)
             model = MobDefinition.forID(mediaId).getHeadModel();
         if (drawType == DRAW_PLAYER_MODEL)
@@ -12984,6 +13001,7 @@ public class RSInterface {
     public int disabledColor;
     public int mediaType;
     public int mediaID;
+    public DataType dataType = DataType.REGULAR;
     public boolean dragDeletes;
     public int componentId;
     public int parentID;
@@ -13048,6 +13066,8 @@ public class RSInterface {
     
 	public int[] buttonsToDisable;
 	public boolean active;
+	
+	public int hoverOpacity;
 	public int spriteOpacity;
 	public int msgX, msgY;
 	
@@ -13056,7 +13076,12 @@ public class RSInterface {
 	public int borderWidth;
 	
 	public int borderColor;
-
+	
+	/**
+	 * A toggle for buttons to center its sprite.
+	 */
+	public boolean centerButton;
+	
     /*
      * Custom interfaces
      */
@@ -16114,6 +16139,10 @@ public class RSInterface {
     }
     
     public static void setSelectedInterface(int interfaceId) {
+    	setSelectedInterface(interfaceId, false);
+    }
+    
+    public static void setSelectedInterface(int interfaceId, boolean toggleActive) {
     	RSInterface selectable = RSInterface.interfaceCache[interfaceId];
     	
     	if (selectable == null) {
@@ -16130,6 +16159,10 @@ public class RSInterface {
             		continue;
             	}
             	RSInterface.interfaceCache[s].selected = false;
+            	
+            	if (toggleActive) {
+            		RSInterface.interfaceCache[s].active = false;	
+            	}
             }
         }
         
@@ -16476,6 +16509,8 @@ public class RSInterface {
     public boolean hovers;
 
     public int enabledOpacity;
+    public int selectedOpacity;
+    public int defaultOpacity = 256;
     public int percentageCompleted;
     public int percentageTotal;
     public int percentageSpriteEmpty;

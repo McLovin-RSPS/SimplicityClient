@@ -8581,10 +8581,14 @@ public class Client extends RSApplet {
             }
             
 			/**
-			 * Config button toggle.
+			 * Config button toggles.
 			 */
 			if (class9.type == 19) {
 				class9.active = !class9.active;
+			} else if (class9.type == 40) {
+				if (class9.selected) {
+					class9.active = !class9.active;
+				}
 			}
 			
 			/**
@@ -8608,7 +8612,14 @@ public class Client extends RSApplet {
 				}
 				
                 switch (interfaceId) {
-				case SettingsWidget.DISPLAY_BUTTON:
+                case 76080:
+                case 76081:
+                case 76082:
+                case 76083:
+                case 76084:
+                	RSInterface.setSelectedInterface(interfaceId, true);
+                	break;
+                case SettingsWidget.DISPLAY_BUTTON:
 				case SettingsWidget.AUDIO_BUTTON:
 				case SettingsWidget.CHAT_BUTTON:
 				case SettingsWidget.CONTROL_BUTTON:
@@ -16125,6 +16136,22 @@ public class Client extends RSApplet {
     									childY + child.msgY,
     									flag ? child.disabledMouseOverColor : child.disabledColor, 0);
 						}
+                    } else if (child.type == 40) { // Selectable config button
+                    	Sprite sprite = child.active ? child.enabledSprite : child.disabledSprite;
+                    	
+                    	int opacity = child.defaultOpacity;
+                    	
+                    	if (child.hoverOpacity != 0 && childHovered && hovers(child)) {
+                    		opacity = child.hoverOpacity;
+                    	} else if (child.selected && child.selectedOpacity != 0) {
+                    		opacity = child.selectedOpacity;
+                    	}
+                    	
+                    	int drawX = child.centerButton ? (childX + child.width / 2 - sprite.myWidth / 2) : childX;
+                    	
+                    	int drawY = child.centerButton ? (childY + child.height / 2 - sprite.myHeight / 2) : childY;
+                    	
+    					sprite.drawAdvancedSprite(drawX, drawY, opacity);
                     } else if (child.type == 50) { // TOB ORBS
                         if (child.message.isEmpty()) {
                             continue;
