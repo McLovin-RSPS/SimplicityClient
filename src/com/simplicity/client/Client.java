@@ -16212,6 +16212,10 @@ public class Client extends RSApplet {
                         sendFrame126("" + playerReporting, 10004);
                     }
                 }
+                
+                if (childHovered && child.tooltipBox != null) {
+    				drawTooltip(childX + 5, childY + child.height + 5, child.tooltipBox);
+    			}
             }
             DrawingArea.setDrawingArea(origBottomY, origTopX, origBottomX, origTopY);
         } catch (Exception e) {

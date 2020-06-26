@@ -12990,6 +12990,7 @@ public class RSInterface {
     public String tooltip;
     public String tooltip2 = null;
     public String selectedActionName;
+    public String tooltipBox;
     public boolean centerText;
     public boolean rightAlignText;
     public int scrollPosition;
