@@ -366,7 +366,7 @@ public abstract class CustomWidget {
     	return rsi;
     }
     
-   public RSInterface addConfigButton(String tooltip, int enabledSprite, int disabledSprite) {
+   public RSInterface addToggleButton(String tooltip, int enabledSprite, int disabledSprite) {
 		RSInterface tab = RSInterface.addTabInterface(id);
 		tab.componentId = id;
 		tab.tooltip = tooltip;
@@ -381,7 +381,7 @@ public abstract class CustomWidget {
 		return tab;
     }
    
-	public RSInterface addConfigButton(String tooltip, int enabledSprite, int disabledSprite, int width, int height,
+	public RSInterface addToggleButton(String tooltip, int enabledSprite, int disabledSprite, int width, int height,
 			boolean center) {
 		RSInterface tab = RSInterface.addTabInterface(id);
 		tab.componentId = id;
@@ -398,6 +398,24 @@ public abstract class CustomWidget {
 		return tab;
 	}
 	
+	public RSInterface addSelectableToggleButton(String tooltip, int enabledSprite, int disabledSprite, int width, int height,
+			boolean center, boolean active, boolean selected) {
+		RSInterface tab = RSInterface.addTabInterface(id);
+		tab.componentId = id;
+		tab.tooltip = tooltip;
+		tab.atActionType = 1;
+		tab.type = 40;
+		tab.enabledSprite = Client.cacheSprite[enabledSprite];
+		tab.disabledSprite = Client.cacheSprite[disabledSprite];
+		tab.centerButton = center;
+		tab.width = width;
+		tab.height = height;
+		tab.active = active;
+		tab.selected = selected;
+		id++;
+		return tab;
+	}
+    
     public RSInterface addButton(int disabledSprite, int enabledSprite, String tooltip, int contentType, int actionType) {
     	RSInterface tab = RSInterface.addTabInterface(id);
     	tab.componentId = id;
