@@ -1,11 +1,12 @@
 package com.simplicity.client.widget;
 
+import java.awt.Point;
+import java.util.ArrayList;
+
 import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.Sprite;
-
-import java.awt.*;
-import java.util.ArrayList;
+import com.simplicity.client.cache.DataType;
 
 public abstract class CustomWidget {
     public static final int OR1 = 0xFFB000;
@@ -358,6 +359,45 @@ public abstract class CustomWidget {
         return tab;
     }
     
+    public RSInterface addModel(int modelID, int zoom, int rotation1, int rotation2, DataType dataType) {
+    	RSInterface rsi = RSInterface.addModel(id, modelID, zoom, rotation1, rotation2, dataType);
+    	rsi.componentId = id;
+    	id++;
+    	return rsi;
+    }
+    
+   public RSInterface addConfigButton(String tooltip, int enabledSprite, int disabledSprite) {
+		RSInterface tab = RSInterface.addTabInterface(id);
+		tab.componentId = id;
+		tab.tooltip = tooltip;
+		tab.atActionType = 1;
+		tab.type = 19;
+		tab.enabledSprite = Client.cacheSprite[enabledSprite];
+		tab.disabledSprite = Client.cacheSprite[disabledSprite];
+		tab.width = tab.enabledSprite.myWidth;
+		tab.height = tab.enabledSprite.myHeight;
+		tab.active = false;
+		id++;
+		return tab;
+    }
+   
+	public RSInterface addConfigButton(String tooltip, int enabledSprite, int disabledSprite, int width, int height,
+			boolean center) {
+		RSInterface tab = RSInterface.addTabInterface(id);
+		tab.componentId = id;
+		tab.tooltip = tooltip;
+		tab.atActionType = 1;
+		tab.type = 19;
+		tab.enabledSprite = Client.cacheSprite[enabledSprite];
+		tab.disabledSprite = Client.cacheSprite[disabledSprite];
+		tab.centerButton = center;
+		tab.width = width;
+		tab.height = height;
+		tab.active = false;
+		id++;
+		return tab;
+	}
+	
     public RSInterface addButton(int disabledSprite, int enabledSprite, String tooltip, int contentType, int actionType) {
     	RSInterface tab = RSInterface.addTabInterface(id);
     	tab.componentId = id;
@@ -421,7 +461,7 @@ public abstract class CustomWidget {
         id++;
         return tab;
     }
-
+    
     public RSInterface addButtonList(String[] list, int sprite1, int sprite2, int textSize, int colour, int offset,
                                      boolean verticle) {
         RSInterface tab = RSInterface.addTabInterface(id);
@@ -452,7 +492,7 @@ public abstract class CustomWidget {
         id++;
         return tab;
     }
-
+    
     public RSInterface addScrollbarWithText(String text, String tooltip, int size, int colour, int scrollHeight,
                                             int scrollWidth, int lineAmount) {
         RSInterface scroll = RSInterface.addInterface(id);
