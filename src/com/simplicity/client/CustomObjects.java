@@ -60,14 +60,15 @@ public class CustomObjects {
             
             // elite zone            
             {131618, 1670, 3748, 0, 1}, // Elite Raids            
-            {131626, 1684, 3754, 0, 0}, // Sezy Statue Portal
+            {131626, 1685, 3754, 0, 0}, // Sezy Statue Portal
             {127882, 1693, 3744, 0, 1}, // Crystal
-            {131957, 1680, 3751, 0, 0}, // Cyan crystal
+            {-1, 1680, 3751, 0, 0}, // Cyan crystal
             {-1, 1679, 3749, 0, 0}, // free
             {-1, 1679, 3750, 0, 0}, // free
             {-1, 1678, 3749, 0, 0}, // free
             {-1, 1678, 3750, 0, 0}, // free
-            
+            {133124, 1677, 3748, 0, 0}, // Deadman chest elite 
+            {133013, 1680, 3740, 0, 2}, // Justiciar statue
             
             //special altar elite
             {28698, 1686, 3739, 0, 0},
