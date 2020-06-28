@@ -16527,5 +16527,7 @@ public class RSInterface {
     public int textColor;
     
     public int clickedChildId = -1;
+    
+    public boolean buttonDown;
 
 }

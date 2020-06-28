@@ -123,13 +123,16 @@ public class TheatrePerformersWidget extends CustomWidget implements WidgetButto
 	@Override
 	public void onClick(int id) {
 		if (id == MAKE_PARTY_BUTTON_ID) {
+			RSInterface button = RSInterface.interfaceCache[MAKE_PARTY_BUTTON_ID];
 			RSInterface text = RSInterface.interfaceCache[MAKE_PARTY_BUTTON_ID + 1];
 			String cached = new String(text.message);
-			text.message = "---";
+			text.message = "...";
+			button.buttonDown = true;
 			Client.getTaskManager().submit(new Task(2, false) {
 				
 				@Override
 				protected void execute() {
+					button.buttonDown = false;
 					text.message = cached;
 					stop();
 				}

@@ -16164,7 +16164,7 @@ public class Client extends RSApplet {
                     	
     					sprite.drawAdvancedSprite(drawX, drawY, opacity);
                     } else if (child.type == 41) {
-                    	boolean hover = childHovered || child.selected;
+                    	boolean hover = child.buttonDown || childHovered || child.selected;
                     	
                     	DrawingArea.fillRectangle((hover ? 0x3c3329 : 0x534a3e), childY + 3, child.width - 5, child.height - 3, hover ? 255 : 255, childX + 3);
                     	
