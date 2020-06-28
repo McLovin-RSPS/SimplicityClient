@@ -1,4 +1,4 @@
-package com.simplicity.client.widget.raids;
+package com.simplicity.client.widget.raids.tob;
 
 import com.simplicity.client.widget.CustomWidget;
 

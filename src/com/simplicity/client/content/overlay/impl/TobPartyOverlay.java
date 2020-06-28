@@ -4,7 +4,7 @@ import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.content.overlay.ScreenOverlay;
 import com.simplicity.client.content.overlay.ScreenOverlayGroup;
-import com.simplicity.client.widget.raids.TobPartyOverlayWidget;
+import com.simplicity.client.widget.raids.tob.TobPartyOverlayWidget;
 
 /**
  * A class that represents the party overlay for the Theatre of Blood.

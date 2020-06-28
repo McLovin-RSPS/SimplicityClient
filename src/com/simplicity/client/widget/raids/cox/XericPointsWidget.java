@@ -1,4 +1,4 @@
-package com.simplicity.client.widget.raids;
+package com.simplicity.client.widget.raids.cox;
 
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.widget.CustomWidget;

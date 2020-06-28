@@ -7,8 +7,7 @@ import com.simplicity.client.RSInterface;
 import com.simplicity.client.widget.deals.DealBoardWidget;
 import com.simplicity.client.widget.deals.ItemDealBoardWidget;
 import com.simplicity.client.widget.deals.MultipleItemDealBoxWidget;
-import com.simplicity.client.widget.raids.TobPartyOverlayWidget;
-import com.simplicity.client.widget.raids.XericPointsWidget;
+import com.simplicity.client.widget.raids.cox.XericPointsWidget;
 
 public class Widget {
 	

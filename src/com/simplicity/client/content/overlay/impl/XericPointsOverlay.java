@@ -4,7 +4,7 @@ import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.content.overlay.ScreenOverlay;
 import com.simplicity.client.content.overlay.ScreenOverlayGroup;
-import com.simplicity.client.widget.raids.XericPointsWidget;
+import com.simplicity.client.widget.raids.cox.XericPointsWidget;
 
 /**
  * A class that handles the points overlay for the Chambers of Xeric.
