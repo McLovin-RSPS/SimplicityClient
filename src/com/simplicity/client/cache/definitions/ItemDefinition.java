@@ -1370,6 +1370,20 @@ public final class ItemDefinition {
         	itemDef.newModelColor = new int[] { 71 };
 			break;
 			
+		case 22035:
+		    itemDef.copy(forID(51295));
+		    itemDef.modelID = 49;
+		    itemDef.maleEquip1 = 50;
+		    itemDef.femaleEquip1 = 50;
+		    itemDef.modelZoom = 2500;
+		    itemDef.rotationX = 0;
+		    itemDef.rotationY = 520;
+		    itemDef.modelOffsetY = 9;
+		    itemDef.actions = new String[] { null, "Wield", null, null, null };
+		    itemDef.dataType = DataType.CUSTOM;
+		    itemDef.name = "Cursed Reaver wings";
+		    break;
+			
         case 22014:
         	itemDef.copy(forID(14008));
         	itemDef.name = "Elite sirenic helm";

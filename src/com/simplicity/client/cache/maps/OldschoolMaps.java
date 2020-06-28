@@ -33,6 +33,7 @@ public class OldschoolMaps {
             6715, // Elite zone
             6714, // Elite zone
             10835, 10834, // New MMA
+            13372, // Fountain of rune
             
             12613, 12612, 12869, 13125, 13123, 12611, 13122,
             12867, // Tob treasure

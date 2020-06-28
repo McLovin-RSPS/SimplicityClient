@@ -16188,7 +16188,6 @@ public class Client extends RSApplet {
 
                         // Draw base border of the orb
                         Sprite orb = cacheSprite[TobPlayerOrbsWidget.BASE_ORB];
-                        orb = orb.getResizedSprite(orb, 40, 40);
                         orb.drawSprite(childX, childY);
 
                         Sprite healthOrb;
@@ -16200,16 +16199,12 @@ public class Client extends RSApplet {
                             healthOrb = cacheSprite[TobPlayerOrbsWidget.AWAITING_ENTER_ORB];
                         }
 
-                        healthOrb = healthOrb.getResizedSprite(healthOrb, 32, 32);
-
                         // Draw orb filling
                         healthOrb.drawSprite(childX + 4, childY + 4);
 
                         // If inside, draw empty dark orb over it to create the illusion of an health bar
                         if (isInside) {
                             Sprite empty = cacheSprite[TobPlayerOrbsWidget.EMPTY_ORB];
-                            empty = empty.getResizedSprite(empty, 32, 32);
-
                             int healthPercent = (int) ((double) (TobPlayerOrbsWidget.HEALTH_ORB_HEIGHT / 100D) * (double) health);
                             empty.myHeight = TobPlayerOrbsWidget.HEALTH_ORB_HEIGHT - healthPercent;
 
@@ -16217,10 +16212,10 @@ public class Client extends RSApplet {
                         }
 
                         if (playerName.equalsIgnoreCase(myPlayer.name)) {
-                            newFancyFont.drawBasicString2("Me", childX + 8, childY + 28, 0xFFFFFF,0);
+                            newFancyFont.drawBasicString2("Me", childX + 5, childY + 24, 0xFFFFFF,0);
                         } else {
                             newFancyFont.drawBasicString2(String.valueOf(playerName.charAt(0)),
-                                    childX + 14, childY + 28, 0xFFFFFF,0);
+                                    childX + 12, childY + 24, 0xFFFFFF,0);
                         }
 
                     }

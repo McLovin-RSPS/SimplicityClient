@@ -32,6 +32,11 @@ public class CustomObjects {
             */
             {130087, 3675, 3222, 0, 2},
             {132655, 3662, 3218, 0, 1},
+            
+            /**
+             * Fountain of rune
+            */
+            {131941, 3373, 3892, 0, 0}, 
 
             /**
              * Arthurs Dream II
@@ -53,11 +58,21 @@ public class CustomObjects {
             
             {46984, 3038, 4534, 0, 0}, // Hellraty crystal
             
-            //special altar elite
-            {42601, 1684, 3753, 0, 1}, // Portal elite boss dungeon
-            {28698, 1686, 3739, 0, 0},
-            //{127882, 1693, 3746, 0, 1}, // Crystal
+            // elite zone            
+            {131618, 1670, 3748, 0, 1}, // Elite Raids            
+            {131626, 1685, 3754, 0, 0}, // Sezy Statue Portal
             {127882, 1693, 3744, 0, 1}, // Crystal
+            {-1, 1680, 3751, 0, 0}, // Cyan crystal
+            {-1, 1679, 3749, 0, 0}, // free
+            {-1, 1679, 3750, 0, 0}, // free
+            {-1, 1678, 3749, 0, 0}, // free
+            {-1, 1678, 3750, 0, 0}, // free
+            {133124, 1677, 3748, 0, 0}, // Deadman chest elite 
+            {133013, 1680, 3740, 0, 2}, // Justiciar statue
+            
+            //special altar elite
+            {28698, 1686, 3739, 0, 0},
+            
             //{127886, 1692, 3745, 0, 1}, // Crystal
             //{127886, 1692, 3747, 0, 1}, // Crystal
             //{127886, 1692, 3743, 0, 1}, // Crystal
