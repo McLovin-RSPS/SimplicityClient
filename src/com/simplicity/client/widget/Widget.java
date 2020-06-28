@@ -10,6 +10,7 @@ import com.simplicity.client.widget.deals.MultipleItemDealBoxWidget;
 import com.simplicity.client.widget.raids.cox.XericPointsWidget;
 import com.simplicity.client.widget.raids.tob.PerformersContainerWidget;
 import com.simplicity.client.widget.raids.tob.TheatrePerformersWidget;
+import com.simplicity.client.widget.raids.tob.TobPartyOverlayWidget;
 
 public class Widget {
 	
