@@ -121,6 +121,7 @@ import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.client.widget.raids.cox.XericPointsWidget;
 import com.simplicity.client.widget.raids.tob.TheatrePerformersWidget;
 import com.simplicity.client.widget.raids.tob.TobPartyOverlayWidget;
+import com.simplicity.task.TaskManager;
 import com.simplicity.tools.AnimDefinitionLookup;
 import com.simplicity.tools.InterfaceDebugger;
 import com.simplicity.tools.ItemDefinitionLookup;
@@ -132,6 +133,12 @@ import com.simplicity.util.StringUtils;
 
 @SuppressWarnings("all")
 public class Client extends RSApplet {
+	
+	private static final TaskManager TASK_MANAGER = new TaskManager();
+	
+	public static TaskManager getTaskManager() {
+		return TASK_MANAGER;
+	}
 	
 	public boolean chatboxInFocus = true;
 	
