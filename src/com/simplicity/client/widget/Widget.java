@@ -25,42 +25,24 @@ public class Widget {
     public static Map<Integer, CustomWidget> widgets = new HashMap<>();
 
 	/**
-	 * Gets if the specified id is a widget component.
-	 * 
-	 * @param id The id.
-	 * @return <code>true</code> if a component.
+	 * Initializes the widgets.
 	 */
-	public static boolean isWidgetComponent(int id) {
-    	return id > 0 && componentForMain.containsKey(id);
-    }
-    
-	/**
-	 * Returns the parent widget for the specified component id.
-	 * 
-	 * @param componentId The component id.
-	 * @return The parent widget.
-	 */
-	public static CustomWidget mainForComponent(int componentId) {
-		if (!isWidgetComponent(componentId)) {
-			return null;
-		}
-		
-		int mainId = componentForMain.get(componentId);
-
-		return widgets.get(mainId);
+	public static void init() {
+		componentForMain.clear();
+		init(new DealBoardWidget());
+		init(new ItemDealBoardWidget());
+		init(new MultipleItemDealBoxWidget());
+		init(new XericPointsWidget());
+		init(new TobPartyOverlayWidget());
+		init(new TheatrePerformersWidget());
+		init(new PerformersContainerWidget());
 	}
 
-    public static void init() {
-        componentForMain.clear();
-        init(new DealBoardWidget());
-        init(new ItemDealBoardWidget());
-        init(new MultipleItemDealBoxWidget());
-        init(new XericPointsWidget());
-        init(new TobPartyOverlayWidget());
-        init(new TheatrePerformersWidget());
-        init(new PerformersContainerWidget());
-    }
-
+	/**
+	 * Initializes the specified widget.
+	 * 
+	 * @param widget The widget.
+	 */
     public static void init(CustomWidget widget) {
 
         RSInterface tab = RSInterface.addTabInterface(widget.mainId);
@@ -85,4 +67,30 @@ public class Widget {
         System.out.println("CustomWidget: " + widget.getName() + " id: " + widget.mainId + " to " + lastId + " ("
                 + difference + " interfaces ("+widget.id+")) with " + widget.components.size() + " components.");
     }
+    
+	/**
+	 * Gets if the specified id is a widget component.
+	 * 
+	 * @param id The id.
+	 * @return <code>true</code> if a component.
+	 */
+	public static boolean isWidgetComponent(int id) {
+    	return id > 0 && componentForMain.containsKey(id);
+    }
+    
+	/**
+	 * Returns the parent widget for the specified component id.
+	 * 
+	 * @param componentId The component id.
+	 * @return The parent widget.
+	 */
+	public static CustomWidget mainForComponent(int componentId) {
+		if (!isWidgetComponent(componentId)) {
+			return null;
+		}
+		
+		int mainId = componentForMain.get(componentId);
+
+		return widgets.get(mainId);
+	}
 }
