@@ -480,6 +480,40 @@ public abstract class CustomWidget {
         return tab;
     }
     
+	/**
+	 * Adds a dynamic button with a text attached to it.
+	 * 
+	 * @param name      The name.
+	 * @param textSize  The text size.
+	 * @param textColor The text color.
+	 * @param width     The width.
+	 * @param height    The height.
+	 * @return RSInterface for chaining.
+	 */
+    public RSInterface addDynamicButton(String name, int textSize, int textColor, int width, int height) {
+    	RSInterface rsi = RSInterface.addInterface(id, width, height);
+    	rsi.componentId = id++;
+    	rsi.totalChildren(2);
+    	
+    	RSInterface button = RSInterface.addInterface(id, width, height);
+    	button.componentId = id++;
+    	button.type = 41;
+    	button.atActionType = 1;
+    	button.contentType = 0;
+    	button.tooltip = name;
+    	button.hovers = true;
+    	
+    	int textHeight = 13 + textSize;
+    	
+    	int textDecrease = textSize > 1 ? -1 : 1;
+    	
+    	RSInterface text = addText(name, textSize, textColor, true, false, false, true);
+    	rsi.child(0, button.id, 0, 0);
+    	rsi.child(1, text.id, width / 2, ((height / 2) - (textHeight / 2)) + (textSize == 0 ? +textDecrease : -textDecrease));
+    	
+    	return rsi;
+    }
+    
     public RSInterface addButtonList(String[] list, int sprite1, int sprite2, int textSize, int colour, int offset,
                                      boolean verticle) {
         RSInterface tab = RSInterface.addTabInterface(id);

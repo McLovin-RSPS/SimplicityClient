@@ -109,13 +109,16 @@ import com.simplicity.client.entity.Position;
 import com.simplicity.client.particles.Particle;
 import com.simplicity.client.particles.ParticleDefinition;
 import com.simplicity.client.widget.CollectionLogWidget;
+import com.simplicity.client.widget.CustomWidget;
 import com.simplicity.client.widget.QuestTab;
 import com.simplicity.client.widget.SettingsWidget;
 import com.simplicity.client.widget.SkillQuantityWidget;
 import com.simplicity.client.widget.Slider;
 import com.simplicity.client.widget.TobPlayerOrbsWidget;
+import com.simplicity.client.widget.Widget;
 import com.simplicity.client.widget.WildernessWidget;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
+import com.simplicity.client.widget.raids.TheatrePerformersWidget;
 import com.simplicity.client.widget.raids.TobPartyOverlayWidget;
 import com.simplicity.client.widget.raids.XericPointsWidget;
 import com.simplicity.tools.AnimDefinitionLookup;
@@ -8611,14 +8614,9 @@ public class Client extends RSApplet {
 					return;
 				}
 				
+				TheatrePerformersWidget.clickButton(interfaceId);
+				
                 switch (interfaceId) {
-                case 76080:
-                case 76081:
-                case 76082:
-                case 76083:
-                case 76084:
-                	RSInterface.setSelectedInterface(interfaceId, true);
-                	break;
                 case SettingsWidget.DISPLAY_BUTTON:
 				case SettingsWidget.AUDIO_BUTTON:
 				case SettingsWidget.CHAT_BUTTON:
@@ -16152,6 +16150,30 @@ public class Client extends RSApplet {
                     	int drawY = child.centerButton ? (childY + child.height / 2 - sprite.myHeight / 2) : childY;
                     	
     					sprite.drawAdvancedSprite(drawX, drawY, opacity);
+                    } else if (child.type == 41) {
+                    	boolean hover = childHovered || child.selected;
+                    	
+                    	DrawingArea.fillRectangle((hover ? 0x3c3329 : 0x534a3e), childY + 3, child.width - 5, child.height - 3, hover ? 255 : 255, childX + 3);
+                    	
+                    	int hoverSpriteOffset = hover ? 8 : 0;
+                    	
+                    	int hoverSpriteOffset2 = hover ? 8 : 0;
+                    	
+                    	cacheSprite[1422 + hoverSpriteOffset2].repeatY(childX, childY + 9, child.height - 9 * 2);
+                    	
+                    	cacheSprite[1423 + hoverSpriteOffset2].repeatX(childX + 9, childY, child.width - 9 * 2);
+                    	
+                    	cacheSprite[1424 + hoverSpriteOffset2].repeatY(childX + child.width - 9, childY + 9, child.height - 9 * 2);
+                    	
+                    	cacheSprite[1425 + hoverSpriteOffset2].repeatX(childX + 9, childY + child.height - 9, child.width - 9 * 2);
+                    	
+                    	cacheSprite[1418 + hoverSpriteOffset].drawSprite(childX, childY);
+                    	
+                    	cacheSprite[1419 + hoverSpriteOffset].drawSprite(childX + child.width - 9, childY);
+                    	
+                    	cacheSprite[1420 + hoverSpriteOffset].drawSprite(childX, childY + child.height - 9);
+                    	
+                    	cacheSprite[1421 + hoverSpriteOffset].drawSprite(childX + child.width - 9, childY + child.height - 9);
                     } else if (child.type == 50) { // TOB ORBS
                         if (child.message.isEmpty()) {
                             continue;
@@ -16217,6 +16239,7 @@ public class Client extends RSApplet {
     				drawTooltip(childX + 5, childY + child.height + 5, child.tooltipBox);
     			}
             }
+            
             DrawingArea.setDrawingArea(origBottomY, origTopX, origBottomX, origTopY);
         } catch (Exception e) {
             e.printStackTrace();
