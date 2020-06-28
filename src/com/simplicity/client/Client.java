@@ -21026,6 +21026,13 @@ public class Client extends RSApplet {
                         if (interfaceID == 56_000) {
                         	SettingsWidget.updateAdvancedOptions();
                         }
+                        
+                        CustomWidget w = Widget.mainForComponent(interfaceID);
+                        
+                        if (w != null && w.stateListener != null) {
+                        	w.stateListener.onDisplay();
+                        }
+                        
                         openInterfaceID = interfaceID;
                         bankItemDragSprite = null;
                         dialogOptionsShowing = false;
