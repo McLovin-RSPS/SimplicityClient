@@ -1,8 +1,11 @@
 package com.simplicity.client.widget.raids.tob;
 
+import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.cache.DataType;
 import com.simplicity.client.widget.CustomWidget;
+import com.simplicity.client.widget.listener.WidgetButtonListener;
+import com.simplicity.task.Task;
 
 /**
  * A class that handles the Theatre performers widget.
@@ -10,12 +13,17 @@ import com.simplicity.client.widget.CustomWidget;
  * @author Blake
  *
  */
-public class TheatrePerformersWidget extends CustomWidget {
+public class TheatrePerformersWidget extends CustomWidget implements WidgetButtonListener {
 	
 	/**
 	 * The widget id.
 	 */
 	public static final int WIDGET_ID = 76_050;
+	
+	/**
+	 * The make party button id.
+	 */
+	public static int MAKE_PARTY_BUTTON_ID;
 	
 	/**
 	 * The sort button start id.
@@ -46,11 +54,16 @@ public class TheatrePerformersWidget extends CustomWidget {
 
 	@Override
 	public void init() {
+		addButtonListener(this);
 		int xoff = 6;
 		int yoff = 4;
 		add(addClosableWindow(420, 325, false, getName()), 45, 4);
 		add(addDynamicButton("Refresh", 1, 0xff981f, 100, 25), 45 + 85, 293);
-		add(addDynamicButton("Make Party", 1, 0xff981f, 100, 25), 135 + 140, 293);
+		RSInterface makeParty = addDynamicButton("Make Party", 1, 0xff981f, 100, 25);
+		
+		MAKE_PARTY_BUTTON_ID = makeParty.id + 1;
+		
+		add(makeParty, 135 + 140, 293);
 		add(addBox(398, 14, 2, 4671301, 0, 250), 61 - xoff, 49 - yoff);
 		add(addBox(398, 243, 2, 4671301, 0, 250), 61 - xoff, 49 - yoff);
 		add(addModel(1048, 600, 512, 0, DataType.OLDSCHOOL), 143 - xoff, 95 - yoff + 2);
@@ -71,11 +84,6 @@ public class TheatrePerformersWidget extends CustomWidget {
 		add(addSortButton(115, 9, false, "Sort by age"), 63 - xoff + 269, 51 - yoff);
 	}
 	
-	@Override
-	public void onStringUpdate(int id, String str) {
-		
-	}
-
 	/**
 	 * Handles the button clicking for this interface.
 	 * 
@@ -110,6 +118,24 @@ public class TheatrePerformersWidget extends CustomWidget {
 		
 		button.selectableInterfaces = selectable;
 		return button;
+	}
+
+	@Override
+	public void onClick(int id) {
+		if (id == MAKE_PARTY_BUTTON_ID) {
+			RSInterface text = RSInterface.interfaceCache[MAKE_PARTY_BUTTON_ID + 1];
+			String cached = new String(text.message);
+			text.message = "---";
+			Client.getTaskManager().submit(new Task(2, false) {
+				
+				@Override
+				protected void execute() {
+					text.message = cached;
+					stop();
+				}
+				
+			});
+		}
 	}
 
 }

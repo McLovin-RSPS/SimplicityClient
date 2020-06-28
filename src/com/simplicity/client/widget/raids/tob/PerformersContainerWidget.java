@@ -8,6 +8,8 @@ import java.util.Set;
 
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.widget.CustomWidget;
+import com.simplicity.client.widget.Widget;
+import com.simplicity.client.widget.listener.WidgetStringListener;
 
 /**
  * A class that handles the container for the {@link TheatrePerformersWidget}.
@@ -15,7 +17,7 @@ import com.simplicity.client.widget.CustomWidget;
  * @author Blake
  *
  */
-public class PerformersContainerWidget extends CustomWidget {
+public class PerformersContainerWidget extends CustomWidget implements WidgetStringListener {
 	
 	/**
 	 * The widget id.
@@ -65,45 +67,8 @@ public class PerformersContainerWidget extends CustomWidget {
 	public static final int ROWS = 20;
 	
 	@Override
-	public void onStringUpdate(int id, String str) {
-		if (!ids.contains(id)) {
-			return;
-		}
-		
-		int index = id - START_ID;
-		
-		if (index > 0) {
-			index %= 5;
-		}
-		
-		RSInterface rect = interfaceCache[id - 3];
-		
-		if (!str.isEmpty()) {
-			rect.actions = new String[] { "View party: @lre@" + str };
-		}
-		
-		rect.hidden = str.isEmpty();
-		
-		if (rect.hidden) {
-			boolean visible = false;
-			
-			for (int i : ids) {
-				if (!interfaceCache[i - 3].hidden) {
-					visible = true;
-					break;
-				}
-			}
-			
-			interfaceCache[CENTER_STRING_ID].hidden = visible;
-			
-			if (!visible) {
-				getInterface().scrollMax = HEIGHT + 1;
-			}
-		}
-	}
-	
-	@Override
 	public void init() {
+		addStringListener(this);
 		getInterface().width = WIDTH;
 		getInterface().height = HEIGHT;
 		getInterface().scrollMax = Math.max(HEIGHT + 1, ROWS * (RECT_HEIGHT + 1));
@@ -128,6 +93,44 @@ public class PerformersContainerWidget extends CustomWidget {
     		add(addCenteredText("", 1, 0x9f9f9f), 18 + 138 + 94, 1 + y);
     		add(addCenteredText("", 0, 0x9f9f9f), 18 + 139 + 94 + 77, 3 + y);
 			y += RECT_HEIGHT + 1;
+		}
+	}
+
+	@Override
+	public void onStringUpdate(int id, String string) {
+		if (!ids.contains(id)) {
+			return;
+		}
+		
+		int index = id - START_ID;
+		
+		if (index > 0) {
+			index %= 5;
+		}
+		
+		RSInterface rect = interfaceCache[id - 3];
+		
+		if (!string.isEmpty()) {
+			rect.actions = new String[] { "View party: @lre@" + string };
+		}
+		
+		rect.hidden = string.isEmpty();
+		
+		if (rect.hidden) {
+			boolean visible = false;
+			
+			for (int i : ids) {
+				if (!interfaceCache[i - 3].hidden) {
+					visible = true;
+					break;
+				}
+			}
+			
+			interfaceCache[CENTER_STRING_ID].hidden = visible;
+			
+			if (!visible) {
+				getInterface().scrollMax = HEIGHT + 1;
+			}
 		}
 	}
 	

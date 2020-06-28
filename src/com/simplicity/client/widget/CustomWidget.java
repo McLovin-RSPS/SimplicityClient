@@ -48,10 +48,6 @@ public abstract class CustomWidget {
 
     public abstract void init();
     
-    public void onStringUpdate(int id, String str) {
-    	
-    }
-
     public void add(RSInterface widget, int x, int y) {
 
         if (RSInterface.interfaceCache[widget.componentId] != null) {
@@ -73,6 +69,11 @@ public abstract class CustomWidget {
         component.componentId = widget.componentId;
         component.parentId = mainId;
         components.add(component);
+    }
+    
+    public void add(WidgetComponent component, int x, int y) {
+    	Widget.componentForMain.put(component.componentId, mainId);
+    	components.add(component);
     }
 
     public void addCenteredX(RSInterface widget, int y) {
@@ -520,6 +521,7 @@ public abstract class CustomWidget {
     	rsi.componentId = id++;
     	rsi.totalChildren(2);
     	
+    	Widget.componentForMain.put(id, mainId);
     	RSInterface button = RSInterface.addInterface(id, width, height);
     	button.componentId = id++;
     	button.type = 41;
