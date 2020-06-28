@@ -175,5 +175,11 @@ public abstract class Task {
      */
     public void stop() {
         running = false;
+        
+        onStop();
+    }
+    
+    public void onStop() {
+    	
     }
 }
