@@ -7,6 +7,9 @@ import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.Sprite;
 import com.simplicity.client.cache.DataType;
+import com.simplicity.client.widget.listener.WidgetButtonListener;
+import com.simplicity.client.widget.listener.WidgetStateListener;
+import com.simplicity.client.widget.listener.WidgetStringListener;
 
 public abstract class CustomWidget {
     public static final int OR1 = 0xFFB000;
@@ -14,7 +17,11 @@ public abstract class CustomWidget {
     public int frame;
 
     public int id;
-
+    
+    public WidgetButtonListener buttonListener;
+    public WidgetStateListener stateListener;
+    public WidgetStringListener stringListener;
+    
     public ArrayList<WidgetComponent> components;
 
     public int mainId;
@@ -24,7 +31,19 @@ public abstract class CustomWidget {
         this.id = id + 1;
         this.components = new ArrayList<WidgetComponent>();
     }
-
+    
+    public void addButtonListener(WidgetButtonListener listener) {
+    	this.buttonListener = listener;
+    }
+    
+    public void addStateListener(WidgetStateListener listener) {
+    	this.stateListener = listener;
+    }
+    
+    public void addStringListener(WidgetStringListener listener) {
+    	this.stringListener = listener;
+    }
+    
     public abstract String getName();
 
     public abstract void init();

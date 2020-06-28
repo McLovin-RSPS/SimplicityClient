@@ -8623,6 +8623,12 @@ public class Client extends RSApplet {
 				
 				TheatrePerformersWidget.clickButton(interfaceId);
 				
+				CustomWidget w = Widget.mainForComponent(interfaceId);
+				
+				if (w != null && w.buttonListener != null) {
+					w.buttonListener.onClick(interfaceId);
+				}
+				
                 switch (interfaceId) {
                 case SettingsWidget.DISPLAY_BUTTON:
 				case SettingsWidget.AUDIO_BUTTON:
@@ -18989,15 +18995,11 @@ public class Client extends RSApplet {
                 needDrawTabArea = true;
             }
             
-            if (rsi.componentId > 0 && Widget.componentForMain.containsKey(rsi.componentId)) {
-            	int mainId = Widget.componentForMain.get(rsi.componentId);
-            	
-            	CustomWidget w = Widget.widgets.get(mainId);
-            	
-            	if (w != null) {
-            		w.onStringUpdate(i, str);
-            	}
-            }
+        	CustomWidget w = Widget.mainForComponent(rsi.componentId);
+        	
+        	if (w != null && w.stringListener != null) {
+        		w.stringListener.onStringUpdate(rsi.componentId, str);
+        	}
             
         } catch (Exception e) {
 

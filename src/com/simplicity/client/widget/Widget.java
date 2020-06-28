@@ -24,6 +24,32 @@ public class Widget {
      */
     public static Map<Integer, CustomWidget> widgets = new HashMap<>();
 
+	/**
+	 * Gets if the specified id is a widget component.
+	 * 
+	 * @param id The id.
+	 * @return <code>true</code> if a component.
+	 */
+	public static boolean isWidgetComponent(int id) {
+    	return id > 0 && componentForMain.containsKey(id);
+    }
+    
+	/**
+	 * Returns the parent widget for the specified component id.
+	 * 
+	 * @param componentId The component id.
+	 * @return The parent widget.
+	 */
+	public static CustomWidget mainForComponent(int componentId) {
+		if (!isWidgetComponent(componentId)) {
+			return null;
+		}
+		
+		int mainId = componentForMain.get(componentId);
+
+		return widgets.get(mainId);
+	}
+
     public static void init() {
         componentForMain.clear();
         init(new DealBoardWidget());
