@@ -119,6 +119,8 @@ import com.simplicity.client.widget.Widget;
 import com.simplicity.client.widget.WildernessWidget;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.client.widget.raids.cox.XericPointsWidget;
+import com.simplicity.client.widget.raids.tob.TheatrePerformersWidget;
+import com.simplicity.client.widget.raids.tob.TobPartyOverlayWidget;
 import com.simplicity.tools.AnimDefinitionLookup;
 import com.simplicity.tools.InterfaceDebugger;
 import com.simplicity.tools.ItemDefinitionLookup;

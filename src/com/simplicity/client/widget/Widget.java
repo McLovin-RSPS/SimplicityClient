@@ -8,6 +8,8 @@ import com.simplicity.client.widget.deals.DealBoardWidget;
 import com.simplicity.client.widget.deals.ItemDealBoardWidget;
 import com.simplicity.client.widget.deals.MultipleItemDealBoxWidget;
 import com.simplicity.client.widget.raids.cox.XericPointsWidget;
+import com.simplicity.client.widget.raids.tob.PerformersContainerWidget;
+import com.simplicity.client.widget.raids.tob.TheatrePerformersWidget;
 
 public class Widget {
 	
@@ -28,6 +30,8 @@ public class Widget {
         init(new MultipleItemDealBoxWidget());
         init(new XericPointsWidget());
         init(new TobPartyOverlayWidget());
+        init(new TheatrePerformersWidget());
+        init(new PerformersContainerWidget());
     }
 
     public static void init(CustomWidget widget) {
