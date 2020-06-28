@@ -28,6 +28,10 @@ public abstract class CustomWidget {
     public abstract String getName();
 
     public abstract void init();
+    
+    public void onStringUpdate(int id, String str) {
+    	
+    }
 
     public void add(RSInterface widget, int x, int y) {
 
@@ -44,10 +48,11 @@ public abstract class CustomWidget {
             // return;
         }
 
-        Widget.componentForMain.put(widget.componentId, getName());
+        Widget.componentForMain.put(widget.componentId, mainId);
 
         WidgetComponent component = new WidgetComponent(new Point(x, y), widget);
         component.componentId = widget.componentId;
+        component.parentId = mainId;
         components.add(component);
     }
 
@@ -58,10 +63,11 @@ public abstract class CustomWidget {
     }
 
     public void addWidget(int id, int x, int y) {
-        Widget.componentForMain.put(id, getName());
+        Widget.componentForMain.put(id, mainId);
 
         WidgetComponent component = new WidgetComponent(new Point(x, y), RSInterface.interfaceCache[id]);
         component.componentId = id;
+        component.parentId = mainId;
         components.add(component);
     }
     

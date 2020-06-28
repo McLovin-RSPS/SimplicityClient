@@ -10,6 +10,8 @@ public class WidgetComponent {
     public RSInterface component;
 
     public int componentId;
+    
+    public int parentId;
 
     public WidgetComponent(Point point, RSInterface component) {
         this.point = point;

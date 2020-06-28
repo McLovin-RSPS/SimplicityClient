@@ -18986,6 +18986,17 @@ public class Client extends RSApplet {
             if (rsi.parentID == tabInterfaceIDs[tabID]) {
                 needDrawTabArea = true;
             }
+            
+            if (rsi.componentId > 0 && Widget.componentForMain.containsKey(rsi.componentId)) {
+            	int mainId = Widget.componentForMain.get(rsi.componentId);
+            	
+            	CustomWidget w = Widget.widgets.get(mainId);
+            	
+            	if (w != null) {
+            		w.onStringUpdate(i, str);
+            	}
+            }
+            
         } catch (Exception e) {
 
         }
