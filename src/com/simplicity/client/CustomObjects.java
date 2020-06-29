@@ -69,6 +69,9 @@ public class CustomObjects {
             {-1, 1678, 3750, 0, 0}, // free
             {133124, 1677, 3748, 0, 0}, // Deadman chest elite 
             {133013, 1680, 3740, 0, 2}, // Justiciar statue
+            {132754, 1691, 3751, 0, 1}, // Mercenary
+            {132968, 1691, 3740, 0, 1}, // Mercenary
+            
             
             //special altar elite
             {28698, 1686, 3739, 0, 0},
