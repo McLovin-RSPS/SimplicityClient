@@ -46,7 +46,7 @@ public class BossDisplayConfiguration extends RSInterface {
 
             int topY = 64 * i;
             selection.child(childId, rectWidgetId, 0, topY);
-            selection.child(childId + 8, textWidgetId, 128, topY + 20);
+            selection.child(childId + 8, textWidgetId, 128, topY + 22);
             selection.child(childId + 16, itemWidgetId, 32, topY + 16);
             childId++;
         }

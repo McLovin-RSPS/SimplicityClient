@@ -107,11 +107,6 @@ public final class MobDefinition {
                     npc.actions[0] = "Trade";
                     npc.combatLevel = 1337;
                     break;
-                case 2668:
-                    npc.name = "Combat dummy";
-                    npc.actions = new String[5];
-                    npc.actions[1] = "Attack";
-                    break;
                     
                 case 2669:
                     npc.copy(forID(17668));
@@ -121,12 +116,6 @@ public final class MobDefinition {
                     npc.sizeXZ *= 3;
                     npc.sizeY *= 3;
                     npc.squaresNeeded = 4;
-                    break;
-                    
-                case 7413:
-                    npc.name = "Undead Combat dummy";
-                    npc.actions = new String[5];
-                    npc.actions[1] = "Attack";
                     break;
                     
                 case 7519:
