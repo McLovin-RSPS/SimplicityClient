@@ -140,7 +140,7 @@ public final class SpotAnimDefinition {
 	public int rotation;
 	public int shadow;
 	public int lightness;
-	public DataType dataType;
+	public DataType dataType = DataType.REGULAR;
 	public static MemCache modelCache = new MemCache(30);
 
 }
