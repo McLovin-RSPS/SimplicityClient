@@ -34,15 +34,18 @@ public class JewelleryBoxTeleport extends RSInterface {
             drawBox(currentWidgetId, boxWidth + 1, boxHeight + 1, 1, 0, 0, 255);
             parent.child(currentChildId++, currentWidgetId++, x, y);
 
-            addSprite(currentWidgetId, 4155 + i, null, 160, 160);
+            addSprite(currentWidgetId, 0, null, 160, 160);
             parent.child(currentChildId++, currentWidgetId++, x + 25, y + 15);
 
-            addText(currentWidgetId, "Widget - "+ currentWidgetId, fonts, 0, 0xffffff);
+            addText(currentWidgetId, "---", fonts, 0, 0xffffff);
             parent.child(currentChildId++, currentWidgetId++, x + 15, y + 47 + 6);
 
             for (int option = 0; option < 5; option++) {
-                addClickableText(currentWidgetId, "Widget - "+ currentWidgetId, "Teleport", fonts, 0,
-                        0xff981f, false, true, 128);
+                addClickableText(currentWidgetId, "---", "Teleport", fonts, 0,
+                        0xff981f, false, true, 82);
+
+                RSInterface.interfaceCache[currentWidgetId].disabledMouseOverColor = 0xffffff;
+
                 parent.child(currentChildId++, currentWidgetId++, x + 130, y + 8 + (option * 13));
             }
         }
