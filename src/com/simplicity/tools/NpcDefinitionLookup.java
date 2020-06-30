@@ -279,7 +279,7 @@ public class NpcDefinitionLookup extends JFrame {
 				continue;
 			}
 			
-			if (type == TYPE_ID && i != id || type == TYPE_ANIM && def.walkAnim != id) {
+			if (type == TYPE_ID && i != id || type == TYPE_ANIM && def.walkAnim != id && def.standAnim != id) {
 				continue;
 			}
 			
