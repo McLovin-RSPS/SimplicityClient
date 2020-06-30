@@ -51,7 +51,7 @@ public class GraphicDefinitionLookup extends JFrame {
 	private JRadioButton rdbtnAnimation;
 	
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private List<String> detailsData = new ArrayList<String>(Arrays.asList(new String[] { "Id", "Animation ID", "Model ID", "Rotation", "Lightness", "Shadow", "SizeXY", "SizeZ", "DataType" }));
+	private List<String> detailsData = new ArrayList<String>(Arrays.asList(new String[] { "Id", "Animation ID", "Model ID", "Rotation", "Lightness", "Shadow", "SizeXY", "SizeZ", "Original colors", "Dest colors", "DataType" }));
 	
 	private static final int TYPE_ID = 0;
 	private static final int TYPE_MODEL = 1;
@@ -192,6 +192,8 @@ public class GraphicDefinitionLookup extends JFrame {
 		details.getModel().setValueAt(gfx.shadow, column++, 1);
 		details.getModel().setValueAt(gfx.sizeXY, column++, 1);
 		details.getModel().setValueAt(gfx.sizeZ, column++, 1);
+		details.getModel().setValueAt(Arrays.toString(gfx.originalColours), column++, 1);
+		details.getModel().setValueAt(Arrays.toString(gfx.destColours), column++, 1);
 		details.getModel().setValueAt(gfx.dataType, column++, 1);
 	}
 	

@@ -104,8 +104,7 @@ public final class SpotAnimDefinition {
 		if (model == null)
 			return null;
 		for (int i = 0; i < 6; i++)
-			if (originalColours[0] != 0)
-				model.recolour(originalColours[i], destColours[i]);
+			model.recolour(originalColours[i], destColours[i]);
 		modelCache.put(model, id);
 		return model;
 	}
@@ -133,8 +132,8 @@ public final class SpotAnimDefinition {
 	private int modelId;
 	private int animationId;
 	public Animation animation;
-	private final int[] originalColours;
-	private final int[] destColours;
+	public final int[] originalColours;
+	public final int[] destColours;
 	public int sizeXY;
 	public int sizeZ;
 	public int rotation;
