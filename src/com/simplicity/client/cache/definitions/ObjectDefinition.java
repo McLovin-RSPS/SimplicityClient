@@ -180,6 +180,14 @@ public final class ObjectDefinition {
             objectDef.actions[0] = "Use";
             objectDef.actions[1] = "View-presets";
         }
+        if (i == 131626) {
+            objectDef.actions = new String[]{"Touch", null, null, null, null};
+            objectDef.name = "@yel@Statue of Sezy";
+        }
+        if (i == 126073) {
+            objectDef.actions = new String[]{"Pray-at", null, null, null, null};
+            objectDef.name = "@yel@Statue of Sezy";
+        }
         if (i == 134573) {
             objectDef.isUnwalkable = false;
         }
@@ -374,10 +382,6 @@ public final class ObjectDefinition {
         if (i == 48661) {
             objectDef.actions = new String[]{"Touch", null, null, null, null};
             objectDef.name = "@yel@Statue of Arthur";
-        }
-        if (i == 131626) {
-            objectDef.actions = new String[]{"Touch", null, null, null, null};
-            objectDef.name = "@yel@Statue of Sezy";
         }
         if (i == 29826) {
             objectDef.actions = new String[]{"Jump-into", null, null, null, null};

@@ -57,6 +57,7 @@ public class CustomObjects {
             {0, 3089, 3475, 0, 0},
             
             {46984, 3038, 4534, 0, 0}, // Hellraty crystal
+            {126073, 3038, 4529, 0, 2}, // Sezy crystal
             
             // elite zone            
             {131618, 1670, 3748, 0, 1}, // Elite Raids            

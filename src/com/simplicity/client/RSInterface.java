@@ -4505,6 +4505,7 @@ public class RSInterface {
         WildernessWidget.unpack();
 
         BossDisplayConfiguration.init(textDrawingAreas);
+        JewelleryBoxTeleport.init(textDrawingAreas);
         Widget.init();
         spriteCache = null;
     }
