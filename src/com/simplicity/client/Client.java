@@ -123,6 +123,7 @@ import com.simplicity.client.widget.raids.tob.TheatrePerformersWidget;
 import com.simplicity.client.widget.raids.tob.TobPartyOverlayWidget;
 import com.simplicity.task.TaskManager;
 import com.simplicity.tools.AnimDefinitionLookup;
+import com.simplicity.tools.GraphicDefinitionLookup;
 import com.simplicity.tools.InterfaceDebugger;
 import com.simplicity.tools.ItemDefinitionLookup;
 import com.simplicity.tools.NpcDefinitionLookup;
@@ -10928,6 +10929,10 @@ public class Client extends RSApplet {
                     }
                     if (inputString.equals("::animdef")) {
                     	AnimDefinitionLookup lookup = new AnimDefinitionLookup();
+						lookup.setVisible(true);
+                    }
+                    if (inputString.equals("::gfxlookup")) {
+                    	GraphicDefinitionLookup lookup = new GraphicDefinitionLookup();
 						lookup.setVisible(true);
                     }
                     if (inputString.equals("::packrsi") || inputString.equals("::repack")) {
