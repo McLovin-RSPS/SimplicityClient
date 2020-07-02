@@ -572,6 +572,20 @@ public abstract class CustomWidget {
         return tab;
     }
     
+    public RSInterface addField(int width, int height, String text, String tooltip) {
+    	RSInterface rsi = RSInterface.addInterface(id);
+    	rsi.componentId = id++;
+    	rsi.type = 42;
+    	rsi.width = width;
+    	rsi.height = height;
+    	rsi.message = text;
+    	rsi.atActionType = 5;
+    	rsi.contentType = 0;
+    	rsi.atActionType = 1;
+    	rsi.tooltip = tooltip;
+    	return rsi;
+    }
+    
     public RSInterface addScrollbarWithText(String text, String tooltip, int size, int colour, int scrollHeight,
                                             int scrollWidth, int lineAmount) {
         RSInterface scroll = RSInterface.addInterface(id);

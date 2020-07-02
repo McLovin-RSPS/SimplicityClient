@@ -16187,6 +16187,14 @@ public class Client extends RSApplet {
                     	cacheSprite[1420 + hoverSpriteOffset].drawSprite(childX, childY + child.height - 9);
                     	
                     	cacheSprite[1421 + hoverSpriteOffset].drawSprite(childX + child.width - 9, childY + child.height - 9);
+                    } else if (child.type == 42) {
+                    	Sprite left = cacheSprite[1441];
+                    	Sprite mid = cacheSprite[1442];
+                    	Sprite right = cacheSprite[1443];
+                    	left.drawSprite(childX, childY);
+                    	mid.repeatX(childX + left.myWidth, childY, child.width - (right.myWidth + mid.myWidth));
+                    	right.drawSprite(childX + child.width - right.myWidth + (child.width % 2 == 0 ? 0 : 1), childY);
+                    	newSmallFont.drawCenteredString(child.message, childX + child.width / 2, childY + child.height / 2 + 4, 0xff9800, 1);
                     } else if (child.type == 50) { // TOB ORBS
                         if (child.message.isEmpty()) {
                             continue;
