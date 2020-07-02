@@ -20496,6 +20496,12 @@ public class Client extends RSApplet {
                     } else if (text.startsWith("closedialogue")) {
                         backDialogID = -1;
                         inputTaken = true;
+                    } else if (text.startsWith("itfactions")) {
+                        System.out.println(text);
+                        String[] args = text.split(":");
+                        interfaceId = Integer.parseInt(args[1]);
+                        String[] actions = args[2].split("#");
+                        RSInterface.interfaceCache[interfaceId].actions = actions;
                     } else if (text.startsWith("interfaceactions")) {
                         System.out.println(text);
                         String[] args = text.split("&");
