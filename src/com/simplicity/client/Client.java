@@ -10453,11 +10453,6 @@ public class Client extends RSApplet {
                     if (key >= 48 && key <= 57 && amountOrNameInput.length() < 10) {
                         amountOrNameInput += (char) key;
                         inputTaken = true;
-                        long l = Long.valueOf(amountOrNameInput);
-                        if (l == 0) {
-                            amountOrNameInput = "";
-                            inputTaken = true;
-                        }
                     }
                     if ((amountOrNameInput.length() > 0 && !amountOrNameInput.toLowerCase().contains("k")
                             && !amountOrNameInput.toLowerCase().contains("m")
