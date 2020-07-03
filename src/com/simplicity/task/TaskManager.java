@@ -1,54 +1,58 @@
 package com.simplicity.task;
 
-
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
-public final class TaskManager implements Runnable {
+import com.simplicity.client.Client;
 
-	private final ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-	
-	private final Queue<Task> pendingTasks = new LinkedList<Task>();
+/**
+ * A class that handles and schedules a {@link Task}.
+ * 
+ * @author Blake
+ *
+ */
+public class TaskManager {
 
-	private final List<Task> activeTasks = new LinkedList<Task>();
+	/**
+	 * The logic service used to schedule the tasks.
+	 */
+	private final static ScheduledExecutorService logicService = Executors.newScheduledThreadPool(1);
 
-	public TaskManager() {
-		service.scheduleAtFixedRate(this, 0, 600, TimeUnit.MILLISECONDS);
-	}
+	/**
+	 * Submits a new task.
+	 *
+	 * @param task The task to submit.
+	 */
+	public static void submit(final Task task) {
+		logicService.schedule(new Runnable() {
+			public void run() {
+				long start = System.currentTimeMillis();
 
-	@Override
-	public void run() {
-		try {
-			Task t;
-			while ((t = pendingTasks.poll()) != null) {
-				if (t.isRunning()) {
-					activeTasks.add(t);
+				if (!task.isRunning()) {
+					return;
 				}
-			}
 
-			Iterator<Task> it = activeTasks.iterator();
+				try {
+					if (!Client.loggedIn) {
+						task.stop();
+						return;
+					}
+					
+					task.execute();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 
-			while (it.hasNext()) {
-				t = it.next();
-				if (!t.tick())
-					it.remove();
+				long elapsed = System.currentTimeMillis() - start;
+				long remaining = task.getDelay() - elapsed;
+
+				if (remaining <= 0) {
+					remaining = 0;
+				}
+
+				submit(task);
 			}
-		} catch(Throwable e) {
-			e.printStackTrace();
-		}
+		}, task.getDelay(), task.getUnit());
 	}
 
-	public void submit(Task task) {
-		if(!task.isRunning())
-			return;
-		if (task.isImmediate()) {
-			task.execute();
-		}
-		pendingTasks.add(task);
-	}
 }
