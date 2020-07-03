@@ -1,11 +1,14 @@
 package com.simplicity.client.widget.raids.tob;
 
+import java.io.IOException;
+
 import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.cache.DataType;
 import com.simplicity.client.widget.CustomWidget;
 import com.simplicity.client.widget.listener.WidgetButtonListener;
 import com.simplicity.task.Task;
+import com.simplicity.task.TaskManager;
 
 /**
  * A class that handles the Theatre performers widget.
@@ -19,6 +22,11 @@ public class TheatrePerformersWidget extends CustomWidget implements WidgetButto
 	 * The widget id.
 	 */
 	public static final int WIDGET_ID = 76_050;
+	
+	/**
+	 * The refresh button id.
+	 */
+	public static int REFRESH_BUTTON_ID;
 	
 	/**
 	 * The make party button id.
@@ -35,11 +43,6 @@ public class TheatrePerformersWidget extends CustomWidget implements WidgetButto
 	 */
 	public static int CENTER_STRING_ID;
 	
-	/**
-	 * The no parties message.
-	 */
-	public static final String NO_PARTIES = "No parties are currently listed.";
-
 	/**
 	 * Constructs a new {@link TheatrePerformersWidget}.
 	 */
@@ -58,6 +61,8 @@ public class TheatrePerformersWidget extends CustomWidget implements WidgetButto
 		int xoff = 6;
 		int yoff = 4;
 		add(addClosableWindow(420, 325, false, getName()), 45, 4);
+		
+		REFRESH_BUTTON_ID = id + 1;
 		add(addDynamicButton("Refresh", 1, 0xff981f, 100, 25), 45 + 85, 293);
 		RSInterface makeParty = addDynamicButton("Make Party", 1, 0xff981f, 100, 25);
 		
@@ -121,24 +126,41 @@ public class TheatrePerformersWidget extends CustomWidget implements WidgetButto
 	}
 
 	@Override
-	public void onClick(int id) {
-		if (id == MAKE_PARTY_BUTTON_ID) {
-			RSInterface button = RSInterface.interfaceCache[MAKE_PARTY_BUTTON_ID];
-			RSInterface text = RSInterface.interfaceCache[MAKE_PARTY_BUTTON_ID + 1];
+	public boolean onClick(int id) {
+		if (id == REFRESH_BUTTON_ID || id == MAKE_PARTY_BUTTON_ID) {
+			RSInterface button = RSInterface.interfaceCache[id];
+			
+			if (button.buttonDown) {
+				return true;
+			}
+			
+			RSInterface text = RSInterface.interfaceCache[id + 1];
 			String cached = new String(text.message);
 			text.message = "...";
 			button.buttonDown = true;
-			Client.getTaskManager().submit(new Task(2, false) {
+			TaskManager.submit(new Task(id == REFRESH_BUTTON_ID ? 300 : 600) {
 				
+				int count = 0;
+
 				@Override
-				protected void execute() {
-					button.buttonDown = false;
-					text.message = cached;
-					stop();
+				public void execute() throws IOException {
+					if (count == 0) {
+						Client.instance.sendButtonClick(id);
+					} else if (count == 1) {
+						button.buttonDown = false;
+						text.message = cached;
+						stop();
+					}
+					
+					count++;
 				}
 				
 			});
+			
+			return true;
 		}
+		
+		return false;
 	}
 
 }

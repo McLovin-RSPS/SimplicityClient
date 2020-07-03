@@ -8,7 +8,10 @@ import com.simplicity.client.widget.deals.DealBoardWidget;
 import com.simplicity.client.widget.deals.ItemDealBoardWidget;
 import com.simplicity.client.widget.deals.MultipleItemDealBoxWidget;
 import com.simplicity.client.widget.raids.cox.XericPointsWidget;
+import com.simplicity.client.widget.raids.tob.ApplicantsContainerWidget;
+import com.simplicity.client.widget.raids.tob.PartyContainerWidget;
 import com.simplicity.client.widget.raids.tob.PerformersContainerWidget;
+import com.simplicity.client.widget.raids.tob.TheatrePartyWidget;
 import com.simplicity.client.widget.raids.tob.TheatrePerformersWidget;
 import com.simplicity.client.widget.raids.tob.TobPartyOverlayWidget;
 
@@ -36,6 +39,9 @@ public class Widget {
 		init(new TobPartyOverlayWidget());
 		init(new TheatrePerformersWidget());
 		init(new PerformersContainerWidget());
+		init(new TheatrePartyWidget());
+		init(new PartyContainerWidget());
+		init(new ApplicantsContainerWidget());
 	}
 
 	/**

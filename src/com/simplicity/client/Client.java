@@ -119,6 +119,7 @@ import com.simplicity.client.widget.Widget;
 import com.simplicity.client.widget.WildernessWidget;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.client.widget.raids.cox.XericPointsWidget;
+import com.simplicity.client.widget.raids.tob.TheatrePartyWidget;
 import com.simplicity.client.widget.raids.tob.TheatrePerformersWidget;
 import com.simplicity.client.widget.raids.tob.TobPartyOverlayWidget;
 import com.simplicity.tools.AnimDefinitionLookup;
@@ -15317,7 +15318,7 @@ public class Client extends RSApplet {
                         
                         RSFontSystem font = null;
                         
-                    	boolean useNewFonts = child.useNewFonts || QuestTab.isQuestTabId(rsInterface.id) || rsInterface.id == 68069 || child.id == 70025 || child.id == WildernessWidget.TARGET_NAME;
+                    	boolean useNewFonts = child.useNewFonts || child.id == TheatrePartyWidget.WIDGET_ID + 28 || QuestTab.isQuestTabId(rsInterface.id) || rsInterface.id == 68069 || child.id == 70025 || child.id == WildernessWidget.TARGET_NAME;
                     	
                     	
 
