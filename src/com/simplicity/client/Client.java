@@ -20452,6 +20452,17 @@ public class Client extends RSApplet {
                     }
                     opCode = -1;
                     return true;
+                    
+                case 232:
+                    boolean hidden = inStream.readUnsignedByte() == 1;
+                    int interface_ = inStream.readInt();
+                    
+                	if (RSInterface.isValid(interface_)) {
+                		RSInterface.interfaceCache[interface_].hidden = hidden;
+                	}
+                	
+                    opCode = -1;
+                    return true;
 
                 case 142:
                     int j6 = inStream.ig2();
