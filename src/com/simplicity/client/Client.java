@@ -11146,6 +11146,8 @@ public class Client extends RSApplet {
     }
 
     public void reloadInterfaces() {
+    	int cached = Client.openInterfaceID;
+    	Client.openInterfaceID = -1;
     	CacheArchive streamLoader_1 = streamLoaderForName(3, "interface", "interface", expectedCRCs[3],
                 35);
         CacheArchive streamLoader_2 = streamLoaderForName(4, "2d graphics", "media", expectedCRCs[4],
@@ -11154,6 +11156,7 @@ public class Client extends RSApplet {
                 aTextDrawingArea_1273, fancyTextLarge};
         RSInterface.unpack(streamLoader_1, allFonts, streamLoader_2);
         pushMessage("Reloaded interface configurations.", 0, "");
+        Client.openInterfaceID = cached;
 	}
 
 	/**
