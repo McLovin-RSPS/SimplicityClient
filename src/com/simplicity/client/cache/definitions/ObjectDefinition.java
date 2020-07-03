@@ -156,6 +156,9 @@ public final class ObjectDefinition {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if(i == 134512) {
+            objectDef.animationID = 23328;
+        }
         if (i == 129878) {
         	objectDef.modelSizeX = 128;
         	objectDef.modelSizeY = 128;

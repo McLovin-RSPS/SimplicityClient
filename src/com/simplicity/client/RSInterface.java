@@ -4506,6 +4506,7 @@ public class RSInterface {
 
         BossDisplayConfiguration.init(textDrawingAreas);
         JewelleryBoxTeleport.init(textDrawingAreas);
+        PetHouse.init();
         Widget.init();
         spriteCache = null;
     }
