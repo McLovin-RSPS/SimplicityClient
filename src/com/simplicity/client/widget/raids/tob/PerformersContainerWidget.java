@@ -86,11 +86,17 @@ public class PerformersContainerWidget extends CustomWidget implements WidgetStr
     		rect.enabledMouseOverColor = 0xffffff;
     		rect.hidden = true;
     		add(rect, x, y);
-    		add(addCenteredText("", 1, 0xff981f), 18, 1 + y);
-    		add(addCenteredText("", 1, 0xff981f), 18 + 42, 1 + y);
+    		RSInterface members = addCenteredText("", 1, 0xff981f);
+    		members.useNewFonts = true;
+    		add(members, 18, 1 + y);
+    		RSInterface targetSize = addCenteredText("", 1, 0x9f9f9f);
+    		targetSize.useNewFonts = true;
+    		add(targetSize, 18 + 42, 1 + y);
     		ids.add(id);
     		add(addCenteredText("", 1, 0xffffff), 18 + 137, 1 + y);
-    		add(addCenteredText("", 1, 0x9f9f9f), 18 + 138 + 94, 1 + y);
+    		RSInterface preferredLevel = addCenteredText("", 1, 0x9f9f9f);
+    		preferredLevel.useNewFonts = true;
+    		add(preferredLevel, 18 + 138 + 94, 1 + y);
     		add(addCenteredText("", 0, 0x9f9f9f), 18 + 139 + 94 + 77, 3 + y);
 			y += RECT_HEIGHT + 1;
 		}
