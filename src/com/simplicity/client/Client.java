@@ -15321,7 +15321,9 @@ public class Client extends RSApplet {
                         
                         RSFontSystem font = null;
                         
-                    	boolean useNewFonts = QuestTab.isQuestTabId(rsInterface.id) || rsInterface.id == 68069 || child.id == 70025 || child.id == WildernessWidget.TARGET_NAME;
+                    	boolean useNewFonts = child.useNewFonts || QuestTab.isQuestTabId(rsInterface.id) || rsInterface.id == 68069 || child.id == 70025 || child.id == WildernessWidget.TARGET_NAME;
+                    	
+                    	
 
 						if (useNewFonts) {
 							if (textDrawingArea == smallText) {

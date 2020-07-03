@@ -16545,5 +16545,6 @@ public class RSInterface {
     public int clickedChildId = -1;
     
     public boolean buttonDown;
+    public boolean useNewFonts;
 
 }
