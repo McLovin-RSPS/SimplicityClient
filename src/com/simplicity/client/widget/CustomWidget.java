@@ -538,7 +538,6 @@ public abstract class CustomWidget {
     	rsi.componentId = id++;
     	rsi.totalChildren(2);
     	
-    	Widget.componentForMain.put(id, mainId);
     	RSInterface button = RSInterface.addInterface(id, width, height);
     	button.componentId = id++;
     	button.type = 41;
@@ -554,7 +553,9 @@ public abstract class CustomWidget {
     	RSInterface text = addText(name, textSize, textColor, true, false, false, true);
     	rsi.child(0, button.id, 0, 0);
     	rsi.child(1, text.id, width / 2, ((height / 2) - (textHeight / 2)) + (textSize == 0 ? +textDecrease : -textDecrease));
-    	
+
+    	Widget.componentForMain.put(button.id, mainId);
+    	Widget.componentForMain.put(text.id, mainId);
     	return rsi;
     }
     
