@@ -392,6 +392,17 @@ public abstract class CustomWidget {
     	return rsi;
     }
     
+    public RSInterface addTooltip(String message, int width, int height, int offsetX, int offsetY) {
+    	RSInterface rsi = RSInterface.addInterface(id);
+    	rsi.componentId = id++;
+    	rsi.tooltipBox = message;
+    	rsi.tooltipOffsetX = offsetX;
+    	rsi.tooltipOffsetY = offsetY;
+    	rsi.width = width;
+    	rsi.height = height;
+    	return rsi;
+    }
+    
    public RSInterface addToggleButton(String tooltip, int enabledSprite, int disabledSprite) {
 		RSInterface tab = RSInterface.addTabInterface(id);
 		tab.componentId = id;

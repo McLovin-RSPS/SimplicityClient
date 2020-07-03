@@ -16252,7 +16252,7 @@ public class Client extends RSApplet {
                 }
                 
                 if (childHovered && child.tooltipBox != null) {
-    				drawTooltip(childX + 5, childY + child.height + 5, child.tooltipBox);
+    				drawTooltip(childX + child.tooltipOffsetX, childY + child.height + child.tooltipOffsetY, child.tooltipBox);
     			}
             }
             
