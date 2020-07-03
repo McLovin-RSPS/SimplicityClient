@@ -8619,8 +8619,8 @@ public class Client extends RSApplet {
 				
 				CustomWidget w = Widget.mainForComponent(interfaceId);
 				
-				if (w != null && w.buttonListener != null) {
-					w.buttonListener.onClick(interfaceId);
+				if (w != null && w.buttonListener != null && w.buttonListener.onClick(interfaceId)) {
+					return;
 				}
 				
                 switch (interfaceId) {
