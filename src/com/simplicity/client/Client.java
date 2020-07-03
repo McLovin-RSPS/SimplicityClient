@@ -16195,6 +16195,32 @@ public class Client extends RSApplet {
                     	mid.repeatX(childX + left.myWidth, childY, child.width - (right.myWidth + mid.myWidth));
                     	right.drawSprite(childX + child.width - right.myWidth + (child.width % 2 == 0 ? 0 : 1), childY);
                     	newSmallFont.drawCenteredString(child.message, childX + child.width / 2, childY + child.height / 2 + 4, 0xff9800, 1);
+                    } else if (child.type == 43) {
+                    	try {
+    						String progress = RSInterface.interfaceCache[child.id].message;
+    						
+    						if (progress.indexOf("/") == -1) {
+    							continue;
+    						}
+    						
+    						int current = Integer.parseInt(progress.substring(0, progress.indexOf("/")));
+    						
+    						int maximum = Integer.parseInt(progress.substring(progress.indexOf("/") + 1, progress.length()));
+    						
+    						int width = child.width;
+    						
+    						int height = child.height;
+    						
+    						DrawingArea.drawAlphaPixels(childX, childY, width, height, 0, 185);
+    						
+    						DrawingArea.drawAlphaPixels(childX, childY, (int) ((double) current / maximum * width), height, 0x561109, 255);
+    						
+							Sprite background = child.disabledSprite;
+							
+    						background.drawSprite(childX, childY);
+    					} catch (Exception e) {
+    						e.printStackTrace();
+    					}
                     } else if (child.type == 50) { // TOB ORBS
                         if (child.message.isEmpty()) {
                             continue;

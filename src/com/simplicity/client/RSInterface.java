@@ -16063,6 +16063,19 @@ public class RSInterface {
 		rsi.textColor = textColor;
 		rsi.transparency = transparency;
 	}
+    
+    public static RSInterface addProgressSprite(int id, int backgroundSprite, int fillSprite, int current, int max) {
+		RSInterface rsi = addInterface(id);
+		rsi.id = id;
+		rsi.type = 43;
+		rsi.disabledSprite = Client.cacheSprite[backgroundSprite];
+		rsi.enabledSprite = Client.cacheSprite[fillSprite];
+		rsi.width = rsi.disabledSprite.myWidth;
+		rsi.height = rsi.disabledSprite.myHeight;
+		rsi.message = current + "/" + max;
+		rsi.enabledMessage = current + "/" + max;
+		return rsi;
+	}
 
     public static void addSummoningText(int i, String s, int k, boolean l, boolean m, int a, TextDrawingArea[] TDA,
                                         int j) {

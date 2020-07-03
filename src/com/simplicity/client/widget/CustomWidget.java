@@ -357,6 +357,12 @@ public abstract class CustomWidget {
         id++;
         return tab;
     }
+    
+    public RSInterface addProgressSprite(int backgroundSprite, int fillSprite, int current, int max) {
+    	RSInterface rsi = RSInterface.addProgressSprite(id, backgroundSprite, fillSprite, current, max);
+    	rsi.componentId = id++;
+    	return rsi;
+    }
 
     public RSInterface addItemContainer(int w, int h, int x, int y, String[] actions, String string) {
         System.out.println(getName() + " container: " + string + ": " + id);
@@ -825,7 +831,7 @@ public abstract class CustomWidget {
         }
         return scroll;
     }
-
+    
     public RSInterface getInterface() {
         return RSInterface.interfaceCache[mainId];
     }
