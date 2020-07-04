@@ -154,11 +154,9 @@ public class TheatrePartyWidget extends CustomWidget implements WidgetButtonList
 		add(addSortButton(9, 9, false, "Sort by prayer"), x + 70 + 189 + 101, y + 99);
 		add(addSortButton(9, 9, false, "Sort by completed"), x + 70 + 189 + 165, y + 99);
 		
-		System.out.println("PREFFERED " + id);
 		PREFERRED_SIZE_ID = id;
 		add(addField(104, 20, "Preferred size: ---", "Set @lre@Preferred size"), x + 160, y + 253);
 		
-		System.out.println("PREFFERED lvl " + id);
 		PREFERRED_LEVEL_ID = id;
 		add(addField(119, 20, "Preferred level: ---", "Set @lre@Preferred level"), x + 270, y + 253);
 

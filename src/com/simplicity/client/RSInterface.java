@@ -575,7 +575,7 @@ public class RSInterface {
         extend_scroll.scrollMax = 680;
     }
 
-    public static void addRectangle(int id, int width, int height, int colour, int alpha, boolean filled) {
+    public static RSInterface addRectangle(int id, int width, int height, int colour, int alpha, boolean filled) {
         RSInterface tab = interfaceCache[id] = new RSInterface();
         tab.disabledColor = colour;
         tab.filled = filled;
@@ -587,6 +587,7 @@ public class RSInterface {
         tab.opacity = (byte) alpha;
         tab.width = width;
         tab.height = height;
+        return tab;
     }
 
     /* 7612: */

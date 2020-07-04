@@ -49,11 +49,6 @@ public class PerformersContainerWidget extends CustomWidget implements WidgetStr
 	public static final Set<Integer> ids = new HashSet<>();
 	
 	/**
-	 * The ids of the timers.
-	 */
-	public static final Set<Integer> timerIds = new HashSet<>();
-	
-	/**
 	 * Constructs a new {@link PerformersContainerWidget}.
 	 */
 	public PerformersContainerWidget() {
@@ -101,7 +96,6 @@ public class PerformersContainerWidget extends CustomWidget implements WidgetStr
     		RSInterface preferredLevel = addCenteredText("", 1, 0x9f9f9f);
     		preferredLevel.useNewFonts = true;
     		add(preferredLevel, 18 + 138 + 94, 1 + y);
-    		timerIds.add(id);
     		add(addTimer(25, 14, 0, 0x9f9f9f, ""), 18 + 139 + 94 + 77, 3 + y);
 			y += RECT_HEIGHT + 1;
 		}
@@ -109,7 +103,7 @@ public class PerformersContainerWidget extends CustomWidget implements WidgetStr
 	
 	@Override
 	public void onStringUpdate(int id, String string) {
-		if (!ids.contains(id) && !timerIds.contains(id)) {
+		if (!ids.contains(id)) {
 			return;
 		}
 		

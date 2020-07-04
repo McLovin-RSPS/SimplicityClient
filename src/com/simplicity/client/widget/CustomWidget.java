@@ -131,6 +131,12 @@ public abstract class CustomWidget {
 		id++;
     	return tab;
     }
+    
+    public RSInterface addRectangle(int width, int height, int colour, int alpha, boolean filled) {
+    	RSInterface rsi = RSInterface.addRectangle(id, width, height, colour, alpha, filled);
+    	rsi.componentId = id++;
+    	return rsi;
+    }
 
     public RSInterface addBackground(int background) {
         return addBackground(background, getName());
