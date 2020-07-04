@@ -16291,7 +16291,7 @@ public class Client extends RSApplet {
                     }
                 }
                 
-                if (childHovered && child.tooltipBox != null) {
+                if (childHovered && child.tooltipBox != null && mouseInGameArea()) {
     				drawTooltip(childX + child.tooltipOffsetX, childY + child.height + child.tooltipOffsetY, child.tooltipBox);
     			}
             }
