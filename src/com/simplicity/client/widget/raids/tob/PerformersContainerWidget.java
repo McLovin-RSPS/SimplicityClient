@@ -8,7 +8,6 @@ import java.util.Set;
 
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.widget.CustomWidget;
-import com.simplicity.client.widget.Widget;
 import com.simplicity.client.widget.listener.WidgetStringListener;
 
 /**
@@ -48,6 +47,11 @@ public class PerformersContainerWidget extends CustomWidget implements WidgetStr
 	 * The ids of the names.
 	 */
 	public static final Set<Integer> ids = new HashSet<>();
+	
+	/**
+	 * The ids of the timers.
+	 */
+	public static final Set<Integer> timerIds = new HashSet<>();
 	
 	/**
 	 * Constructs a new {@link PerformersContainerWidget}.
@@ -97,21 +101,16 @@ public class PerformersContainerWidget extends CustomWidget implements WidgetStr
     		RSInterface preferredLevel = addCenteredText("", 1, 0x9f9f9f);
     		preferredLevel.useNewFonts = true;
     		add(preferredLevel, 18 + 138 + 94, 1 + y);
-    		add(addCenteredText("", 0, 0x9f9f9f), 18 + 139 + 94 + 77, 3 + y);
+    		timerIds.add(id);
+    		add(addTimer(25, 14, 0, 0x9f9f9f, ""), 18 + 139 + 94 + 77, 3 + y);
 			y += RECT_HEIGHT + 1;
 		}
 	}
-
+	
 	@Override
 	public void onStringUpdate(int id, String string) {
-		if (!ids.contains(id)) {
+		if (!ids.contains(id) && !timerIds.contains(id)) {
 			return;
-		}
-		
-		int index = id - START_ID;
-		
-		if (index > 0) {
-			index %= 5;
 		}
 		
 		RSInterface rect = interfaceCache[id - 3];

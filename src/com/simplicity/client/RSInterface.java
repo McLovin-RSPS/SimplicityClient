@@ -16243,6 +16243,17 @@ public class RSInterface {
         rsi.hovers = true;
 	}
 	
+	public static RSInterface addTimer(int id, int width, int height, int fontId, int textColor, String defaultText) {
+    	RSInterface rsi = addInterface(id);
+    	rsi.type = 44;
+    	rsi.textDrawingAreas = fonts[fontId];
+    	rsi.textColor = textColor;
+    	rsi.enabledMessage = defaultText;
+    	rsi.message = "";
+    	rsi.shadowed = true;
+    	return rsi;
+	}
+	
 	/**
 	 * Gets if the specified interface id is valid.
 	 * 

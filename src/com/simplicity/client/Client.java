@@ -16220,6 +16220,21 @@ public class Client extends RSApplet {
     					} catch (Exception e) {
     						e.printStackTrace();
     					}
+                    } else if (child.type == 44) { // Timer
+                    	String string = null;
+                    	
+                    	if (!child.message.isEmpty()) {
+                    		long created = Long.parseLong(child.message);
+                    		long ms = System.currentTimeMillis() - created;
+                        	long min = (ms / 1000) / 60;
+                        	long seconds = (ms / 1000) % 60;
+                        	
+                        	string = String.format("%d:%02d", min, seconds);
+                    	} else {
+                    		string = child.enabledMessage;
+                    	}
+                    	
+                    	child.textDrawingAreas.drawCenteredText(child.textColor, childX, string, childY + 10, child.shadowed);
                     } else if (child.type == 50) { // TOB ORBS
                         if (child.message.isEmpty()) {
                             continue;

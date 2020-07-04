@@ -91,6 +91,12 @@ public abstract class CustomWidget {
         components.add(component);
     }
     
+    public RSInterface addTimer(int width, int height, int fontId, int textColor, String defaultText) {
+    	RSInterface rsi = RSInterface.addTimer(id, width, height, fontId, textColor, defaultText);
+    	rsi.componentId = id++;
+    	return rsi;
+    }
+    
     public RSInterface addBox(int width, int height, int border, int borderColor, int color, int transparency) {
     	RSInterface tab = RSInterface.addTabInterface(id);
         tab.componentId = id;
