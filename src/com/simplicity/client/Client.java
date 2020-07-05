@@ -16276,7 +16276,7 @@ public class Client extends RSApplet {
                             newFancyFont.drawBasicString2("Me", childX + 5, childY + 24, 0xFFFFFF,0);
                         } else {
                             newFancyFont.drawBasicString2(String.valueOf(playerName.charAt(0)),
-                                    childX + 12, childY + 24, 0xFFFFFF,0);
+                                    childX + 9, childY + 24, 0xFFFFFF,0);
                         }
 
                     }
