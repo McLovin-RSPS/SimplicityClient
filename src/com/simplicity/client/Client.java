@@ -15038,8 +15038,10 @@ public class Client extends RSApplet {
             	boolean hoverGameInterface = openInterfaceID != -1 && mouseInGameArea();
                 
             	boolean hoverChatInterface = backDialogID != -1 && mouseInChatArea();
+            	
+            	int hoverXOff = hoverGameInterface && clientSize == 0 ? -4 : 0;
                 
-            	int hoverX = mouseX;
+            	int hoverX = mouseX + hoverXOff;
             	
             	int hoverY = mouseY - (hoverChatInterface && clientSize == 0 ? gameAreaHeight + 4: 4);
             	
