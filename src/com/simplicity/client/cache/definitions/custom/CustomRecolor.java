@@ -1,5 +1,8 @@
 package com.simplicity.client.cache.definitions.custom;
 
+import java.awt.Color;
+import java.util.Arrays;
+
 import com.simplicity.client.cache.definitions.ItemDefinition;
 
 /**
@@ -8,6 +11,7 @@ import com.simplicity.client.cache.definitions.ItemDefinition;
  * @author Blake
  *
  */
+
 public enum CustomRecolor {
 	
 	// Blade only colors: 90, 90, 90, 56220, 90, 90, 56220, 90, 90, 90, 90, 90, 90, 56220
@@ -194,7 +198,36 @@ public enum CustomRecolor {
 						350770, 0, 0, 350770, 0, 0, 350770, 0, 0, 350770, 0, 0, 350770, 0, 0, 0, 0, 
 						350770, 0, 0, 350770, 0, 0, 350770, 0, 0, 350770, 0, 0, 350770, 0, 0, 0, 0, 
 						350770, 0, 0, 350770, 0, 0, 350770, 0, 0, 350770, 0, 0, 350770, 0, 0, 0, 0, 
-						350770, 0, 0, 350770, 0, 0, 350770, 0, 0, 350770 })
+						350770, 0, 0, 350770, 0, 0, 350770, 0, 0, 350770 }),
+	
+	SEZY_MASTERWORK_CAPE(3320, 11614, "Masterwork Angelic Cape",
+			new int[] { 40023, 40036, 1822, 36, 25, 34243, 9230, 40040, 10348, 48, 34251, 0, 43335, 6218, 23, 11013 },
+			getCustomCapeColor(-27430, -26464)),
+	SEZY_SIRENIC_CAPE(3321, 11614, "Sirenic Angelic Cape",
+			new int[] { 40023, 40036, 1822, 36, 25, 34243, 9230, 40040, 10348, 48, 34251, 0, 43335, 6218, 23, 11013 },
+			getCustomCapeColor(-24161, 32217)),
+	SEZY_ROSEBLOOD_CAPE(3322, 11614, "Roseblood Angelic Cape",
+			new int[] { 40023, 40036, 1822, 36, 25, 34243, 9230, 40040, 10348, 48, 34251, 0, 43335, 6218, 23, 11013 },
+			getCustomCapeColor(2328, 1587)),
+	SEZY_BLACKRED_CAPE(3323, 11614, "Hell Cape",
+			new int[] { 40023, 40036, 1822, 36, 25, 34243, 9230, 40040, 10348, 48, 34251, 0, 43335, 6218, 23, 11013 },
+			getCustomCapeColor(1024, 926)),
+	SEZY_PINK_ROSEBLOOD_TOP(22031, 17223, "Pink Roseblood robe top",
+			new int[] { 6, 7207, 10, 7211, 14, 7215, 1296, 18, 1301, 22, 1305, 7227, 1590, 1311, 1568, 1578 },
+			new int[] { 29, 10308, 49, 10328, 70, 10348, 80, 90, 105, 110, 125, 10280, 57300, 57300, 57300, 57300}),
+	SEZY_PINK_ROSEBLOOD_HOOD(22030, 16851, "Pink Roseblood hood",
+			new int[] { 6, 7207, 10, 7211, 14, 7215, 1296, 18, 1301, 22, 1305, 7227, 1590, 1311, 1568, 1578 },
+			new int[] { 29, 10308, 49, 10328, 70, 10348, 80, 90, 105, 110, 125, 10280, 57300, 57300, 57300, 57300}),
+			// getModifiedColors(new int[] {1568, 6, 7207, 1578, 10, 7211, 14, 7215, 1296, 18, 1301, 1590, 22, 1305, 7227}, 400)),
+	SEZY_PINK_ROSEBLOOD_BOTTOMS(22032, 16741, "Pink Roseblood robe bottom",
+			new int[] { 6, 7207, 10, 7211, 14, 7215, 1296, 18, 1301, 22, 1305, 7227, 1590, 1311, 1568, 1578 },
+			new int[] { 29, 10308, 49, 10328, 70, 10348, 80, 90, 105, 110, 125, 10280, 57300, 57300, 57300, 57300}),
+	SEZY_PINK_ROSEBLOOD_GLOVES(22033, 17157, "Pink Roseblood gloves",
+			new int[] { 6, 7207, 10, 7211, 14, 7215, 1296, 18, 1301, 22, 1305, 7227, 1590, 1311, 1568, 1578 },
+			new int[] { 29, 10308, 49, 10328, 70, 10348, 80, 90, 105, 110, 125, 10280, 57300, 57300, 57300, 57300}),
+	SEZY_PINK_ROSEBLOOD_BOOTS(22034, 16917, "Pink Roseblood shoes",
+			new int[] { 1305, 1297, 7219, 262, 1319 },
+			new int[] { 125, 57300, 57300, 57300, 57300 }),
 	
 	;
 	/**
@@ -206,6 +239,31 @@ public enum CustomRecolor {
 	 * @param editedModelColor The edited model colors.
 	 * @param newModelColor    The new model colors.
 	 */
+
+	private static int[] appendArr(int[] a, int e) {
+	    a  = Arrays.copyOf(a, a.length + 1);
+	    a[a.length - 1] = e;
+	    return a;
+	}
+	
+	private static int[] getModifiedColors(int[] id, int change) {
+		int[] colors = {};
+		for(int i = 0; i < id.length; i++) {
+			colors = appendArr(colors, modifyColor(id[i], 0, 0, 500));
+		}
+		System.out.println("Original: " + Arrays.toString(id));
+		System.out.println("Modified: " + Arrays.toString(colors));
+		return colors;
+	}
+	
+	public static int modifyColor(int c, int hue, int sat, int bright) {
+		Color colorRGB = ItemDefinition.RS2HSB_to_RGB_MODIFIED(c, hue, sat, bright);
+		return ItemDefinition.RGB_to_RS2HSB(colorRGB.getRed(), colorRGB.getGreen(), colorRGB.getBlue());
+	}
+	
+	private static int[] getCustomCapeColor(int main, int accent) {
+		return new int[] { main, main, main, accent, accent, main, accent, main, main, accent, main, main, main, main, accent, main };
+	}
 	private CustomRecolor(int itemId, int copyFromId, String name, int[] editedModelColor, int[] newModelColor) {
 		ItemDefinition def = new ItemDefinition();
 
