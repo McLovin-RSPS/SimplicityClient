@@ -1,5 +1,6 @@
 package com.simplicity.client.cache.definitions;
 
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -9175,7 +9176,11 @@ public final class ItemDefinition {
             }
             
             System.out.print(id + " Model colours: ");
-            colors.forEach(c -> System.out.print(c + ", "));
+            // colors.forEach(c -> System.out.print((c + ":#" +Integer.toHexString(RS2HSB_to_RGB(c)).substring(2) + ", ")));
+        colors.forEach(c -> System.out.print((c + ", ")));
+        System.out.println();
+        System.out.print(id + " Modified colours: ");
+        colors.forEach(c -> System.out.print((RGB_to_RS2HSB(RS2HSB_to_RGB_MODIFIED(c, 0, 0, 200).getRed(), RS2HSB_to_RGB_MODIFIED(c, 0, 0, 200).getGreen(), RS2HSB_to_RGB_MODIFIED(c, 0, 0, 200).getBlue()) + ", ")));
             System.out.println();
         }
         if (editedModelColor != null) {
@@ -9218,7 +9223,35 @@ public final class ItemDefinition {
         }
         return model;
     }
-
+    
+    /* COLOR MODIFIER TOOLS */
+    public static int RS2HSB_to_RGB(int RS2HSB) {
+		int decode_hue = (RS2HSB >> 10) & 0x3f;
+		int decode_saturation = (RS2HSB >> 7) & 0x07;
+		int decode_brightness = (RS2HSB & 0x7f);
+		// System.out.println((float)decode_brightness/127*(50.0f/100.0f) + "");
+		return Color.HSBtoRGB((float)decode_hue/63, (float)decode_saturation/7, ((float)decode_brightness/127));
+	}
+    
+    public static Color RS2HSB_to_RGB_MODIFIED(int RS2HSB, int cHue, int cSaturation, int cBrightness) {
+		int decode_hue = (RS2HSB >> 10) & 0x3f;
+		int decode_saturation = (RS2HSB >> 7) & 0x07;
+		int decode_brightness = (RS2HSB & 0x7f);
+		// System.out.println((float)decode_brightness/127*(50.0f/100.0f) + "");
+		return Color.getHSBColor((float)decode_hue/63*((float)cHue/100.0f), (float)decode_saturation/7*((float)cSaturation/100.0f), ((float)decode_brightness/127)*((float)cBrightness/100.0f));
+	}
+    
+    public static int RGB_to_RS2HSB(int red, int green, int blue)
+    {
+      float[] HSB = Color.RGBtoHSB(red, green, blue, null);
+      float hue = HSB[0];
+      float saturation = HSB[1];
+      float brightness = HSB[2];
+      int encode_hue = (int)(hue * 63.0F);
+      int encode_saturation = (int)(saturation * 7.0F);
+      int encode_brightness = (int)(brightness * 127.0F);
+      return (encode_hue << 10) + (encode_saturation << 7) + encode_brightness;
+    }
 	/**
 	 * Gets the custom recolors.
 	 * 
