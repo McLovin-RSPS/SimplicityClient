@@ -13073,6 +13073,8 @@ public class RSInterface {
 	public int[] buttonsToDisable;
 	public boolean active;
 	
+	public int hoverIconX;
+	public int hoverIconY;
 	public int hoverOpacity;
 	public int spriteOpacity;
 	public int msgX, msgY;
@@ -16559,5 +16561,7 @@ public class RSInterface {
     
     public boolean buttonDown;
     public boolean useNewFonts;
+    
+    public Sprite secondaryButtonSprite;
 
 }

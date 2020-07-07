@@ -16237,6 +16237,10 @@ public class Client extends RSApplet {
                     	}
                     	
                     	child.textDrawingAreas.drawCenteredText(child.textColor, childX, string, childY + 10, child.shadowed);
+                    } else if (child.type == 45) {
+                    	child.disabledSprite.drawSprite(childX, childY);
+                    	
+                    	child.enabledSprite.drawAdvancedSprite(childX + child.hoverIconX, childY + child.hoverIconY, hoverSpriteId == child.hoverType ? child.hoverOpacity : 256);
                     } else if (child.type == 50) { // TOB ORBS
                         if (child.message.isEmpty()) {
                             continue;

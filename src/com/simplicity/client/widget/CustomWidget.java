@@ -318,6 +318,37 @@ public abstract class CustomWidget {
         id++;
         return tab;
     }
+    
+	/**
+	 * Adds a button with an opaque icon on it when hovered.
+	 * 
+	 * @param backgroundSprite The background sprite id.
+	 * @param iconId           The icon sprite id.
+	 * @param iconX            The icon x.
+	 * @param iconY            The icon y.
+	 * @param hoverOpacity     The hover opacity.
+	 * @param tooltip          The tooltip.
+	 * @return The RSInterface.
+	 */
+    public RSInterface addHoverOpacityButton(int backgroundSprite, int iconId, int iconX, int iconY, int hoverOpacity, String tooltip) {
+    	RSInterface rsi = RSInterface.addInterface(id);
+    	rsi.componentId = id;
+    	rsi.id = id;
+    	rsi.type = 45;
+    	rsi.disabledSprite = Client.cacheSprite[backgroundSprite];
+    	rsi.enabledSprite = Client.cacheSprite[iconId];
+    	rsi.width = rsi.disabledSprite.myWidth;
+    	rsi.height = rsi.disabledSprite.myHeight;
+    	rsi.hoverIconX = iconX;
+    	rsi.hoverIconY = iconY;
+    	rsi.hoverOpacity = hoverOpacity;
+    	rsi.hoverType = id++;
+    	rsi.tooltip = tooltip;
+    	rsi.contentType = 0;
+    	rsi.atActionType = 1;
+    	return rsi;
+    }
+    
 
     public RSInterface addConfigButton(String tooltip, int sprite1, int sprite2, int aT, int configSlot, int configId) {
         RSInterface tab = RSInterface.addInterface(id);
