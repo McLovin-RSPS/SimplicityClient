@@ -46,25 +46,41 @@ public class TobPlayerOrbsWidget extends RSInterface {
 
 		addOrb(id);
 		rsi.child(child++, id++, 10, y);
-		y += 48;
+		y += 35;
 
 		addOrb(id);
 		rsi.child(child++, id++, 10, y);
-		y += 48;
+		y += 35;
 
 		addOrb(id);
 		rsi.child(child++, id++, 10, y);
-		y += 48;
+		y += 35;
 
 		addOrb(id);
 		rsi.child(child++, id++, 10, y);
-		y += 48;
+		y += 35;
 
 		addOrb(id);
 		rsi.child(child, id, 10, y);
 
 	}
+	
+	/**
+	 * Gets the amount of active orbs.
+	 * 
+	 * @return The amount of active orbs.
+	 */
+	public static int getActiveOrbs() {
+		int active = 0;
 
+		for (int i = INTERFACE_ID + 1; i <= INTERFACE_ID + 5; i++) {
+			if (!RSInterface.interfaceCache[i].message.isEmpty()) {
+				active++;
+			}
+		}
+
+		return active;
+	}
 
 	private static RSInterface addOrb(int id) {
 		Random random = new Random();

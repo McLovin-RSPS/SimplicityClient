@@ -8,6 +8,7 @@ import com.simplicity.client.content.overlay.impl.AmmunitionOverlay;
 import com.simplicity.client.content.overlay.impl.FadeOverlay;
 import com.simplicity.client.content.overlay.impl.HitpointsOverlay;
 import com.simplicity.client.content.overlay.impl.KDROverlay;
+import com.simplicity.client.content.overlay.impl.TobOrbsOverlay;
 import com.simplicity.client.content.overlay.impl.XericPointsOverlay;
 import com.simplicity.client.content.overlay.impl.TobPartyOverlay;
 
@@ -84,6 +85,10 @@ public class ScreenOverlayManager {
 	 * @return The base y-coordinate.
 	 */
 	public static int getBaseY(ScreenOverlay overlay) {
+		if (overlay instanceof TobOrbsOverlay) {
+			return 4;
+		}
+		
 		if (overlay.getOverlayGroup().equals(ScreenOverlayGroup.TOP_RIGHT_VERTICAL)) {
 			return Client.instance.showXP ? 35 : 2;
 		}
@@ -95,6 +100,7 @@ public class ScreenOverlayManager {
 	 * Initializes the overlays.
 	 */
 	public static void init() {
+		OVERLAYS.add(new TobOrbsOverlay());
 		OVERLAYS.add(new TobPartyOverlay());
 		OVERLAYS.add(new KDROverlay());
 		OVERLAYS.add(new HitpointsOverlay());
