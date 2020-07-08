@@ -6039,6 +6039,7 @@ public class Client extends RSApplet {
         RSInterface.handleConfigHover(RSInterface.interfaceCache[71021]);
         RSInterface.handleConfigHover(RSInterface.interfaceCache[QuestTab.INFO_BUTTON_ID]);
         parallelWidgetList.remove(RSInterface.interfaceCache[XericPointsWidget.WIDGET_ID]);
+        parallelWidgetList.remove(RSInterface.interfaceCache[TobPlayerOrbsWidget.INTERFACE_ID]);
         parallelWidgetList.remove(RSInterface.interfaceCache[TobPartyOverlayWidget.WIDGET_ID]);
         inCutScene = false;
         for (int l = 0; l < 5; l++) {
