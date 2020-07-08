@@ -16278,14 +16278,14 @@ public class Client extends RSApplet {
 
                             empty.drawSprite(childX + 4, childY + 4);
                         }
-
-                        if (playerName.equalsIgnoreCase(myPlayer.name)) {
-                            newFancyFont.drawBasicString2("Me", childX + 5, childY + 24, 0xFFFFFF,0);
-                        } else {
-                            newFancyFont.drawBasicString2(String.valueOf(playerName.charAt(0)),
-                                    childX + 9, childY + 24, 0xFFFFFF,0);
+                        
+                        String text = playerName.equalsIgnoreCase(myPlayer.name) ? "Me" : String.valueOf(playerName.charAt(0));
+                        
+                        if (text.equals("I")) {
+                        	text = text.toLowerCase();
                         }
-
+                        
+                        newFancyFont.drawCenteredString(text, childX + 16, childY + 23, 0xFFFFFF, 0);
                     }
                 }
                 if (openInterfaceID == 10000) {
