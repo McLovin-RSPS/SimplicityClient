@@ -19,9 +19,11 @@ public class FadeOverlay extends ScreenOverlay {
 
 	@Override
 	public boolean draw(Client client, int x, int y) throws Exception {
+		int width = Client.instance.getGameAreaWidth();
+		int height = Client.instance.getGameAreaHeight();
 		Graphics2D g2d = DrawingArea.createGraphics(true);
 		g2d.setColor(getColor());
-		g2d.fillRect(getX(), getY(), getWidth(), getHeight());
+		g2d.fillRect(getX(), getY(), width, height);
 		return true;
 	}
 
