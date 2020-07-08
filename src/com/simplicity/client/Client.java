@@ -121,6 +121,7 @@ import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.client.widget.raids.cox.XericPointsWidget;
 import com.simplicity.client.widget.raids.tob.TheatrePartyWidget;
 import com.simplicity.client.widget.raids.tob.TheatrePerformersWidget;
+import com.simplicity.client.widget.raids.tob.TobFadeText;
 import com.simplicity.client.widget.raids.tob.TobPartyOverlayWidget;
 import com.simplicity.tools.AnimDefinitionLookup;
 import com.simplicity.tools.GraphicDefinitionLookup;
@@ -6041,6 +6042,7 @@ public class Client extends RSApplet {
         parallelWidgetList.remove(RSInterface.interfaceCache[XericPointsWidget.WIDGET_ID]);
         parallelWidgetList.remove(RSInterface.interfaceCache[TobPlayerOrbsWidget.INTERFACE_ID]);
         parallelWidgetList.remove(RSInterface.interfaceCache[TobPartyOverlayWidget.WIDGET_ID]);
+        parallelWidgetList.remove(RSInterface.interfaceCache[TobFadeText.WIDGET_ID]);
         inCutScene = false;
         for (int l = 0; l < 5; l++) {
             aBooleanArray876[l] = false;
@@ -16565,6 +16567,10 @@ public class Client extends RSApplet {
                 int xPosition = 512 / 2 - widget.width / 2;
                 int yPosition = 334 / 2 - widget.height / 2;
                 switch (widget.id) {
+					case TobFadeText.WIDGET_ID:
+						xPosition = clientSize == 0 ? clientWidth - 810 : clientWidth / 2 - 256;
+						yPosition = clientSize == 0 ? 150 : clientHeight / 2 - 156;
+						break;
                     case 28710:
                         if (RSInterface.interfaceCache[28714].message.length() < 1) {
                             continue;
