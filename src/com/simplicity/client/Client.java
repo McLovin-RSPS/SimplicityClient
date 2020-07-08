@@ -16565,10 +16565,6 @@ public class Client extends RSApplet {
                 int xPosition = 512 / 2 - widget.width / 2;
                 int yPosition = 334 / 2 - widget.height / 2;
                 switch (widget.id) {
-					case TobPlayerOrbsWidget.INTERFACE_ID:
-					case TobPartyOverlayWidget.WIDGET_ID:
-					case XericPointsWidget.WIDGET_ID:
-						return;
                     case 28710:
                         if (RSInterface.interfaceCache[28714].message.length() < 1) {
                             continue;
@@ -16587,7 +16583,10 @@ public class Client extends RSApplet {
                     	xPosition = clientSize == 0 ? 0 : clientWidth / 2 - 300; // 392
                     	break;
                 }
-                drawInterface(0, xPosition, widget, yPosition);
+                
+                if (widget.id != TobPlayerOrbsWidget.INTERFACE_ID && widget.id != TobPartyOverlayWidget.WIDGET_ID && widget.id != XericPointsWidget.WIDGET_ID) {
+                	drawInterface(0, xPosition, widget, yPosition);
+                }
             }
         }
     }
