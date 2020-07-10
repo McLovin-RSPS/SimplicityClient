@@ -14687,7 +14687,7 @@ public class Client extends RSApplet {
     private int getNextFrame(Entity entity) {
     	Animation anim = Animation.anims[entity.anim];
     	
-    	if (anim.loopDelay > 0) {
+    	if (anim.loopDelay != -1) {
     		return entity.nextAnimationFrame - anim.loopDelay;
     	}
     	
