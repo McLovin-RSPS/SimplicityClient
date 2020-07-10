@@ -1093,7 +1093,7 @@ public final class Animation {
 	public int frameIDs[];
 	public int frameIDs2[];
 	public int[] delays;
-	public int loopDelay;
+	public int loopDelay; // The frame this animation continues to loop from
 	public int animationFlowControl[];
 	public boolean oneSquareAnimation;
 	public int forcedPriority;

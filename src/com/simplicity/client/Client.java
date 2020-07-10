@@ -14685,6 +14685,12 @@ public class Client extends RSApplet {
     }
     
     private int getNextFrame(Entity entity) {
+    	Animation anim = Animation.anims[entity.anim];
+    	
+    	if (anim.loopDelay > 0) {
+    		return entity.nextAnimationFrame - anim.loopDelay;
+    	}
+    	
     	if (entity.anim == 11786 || entity.anim == 7409 + Animation.OSRS_ANIM_OFFSET) {
     		return entity.currentAnimFrame;
     	}
