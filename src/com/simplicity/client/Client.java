@@ -9670,7 +9670,7 @@ public class Client extends RSApplet {
             return;
         }
         if (l == 1226) {
-            ObjectDefinition class46 = ObjectDefinition.forID(id);
+            ObjectDefinition class46 = ObjectDefinition.forID(cmd4);
             String s10;
             if (class46.description != null) {
                 s10 = new String(class46.description);

@@ -191,6 +191,18 @@ public final class ObjectDefinition {
             objectDef.actions = new String[]{"Pray-at", null, null, null, null};
             objectDef.name = "@yel@Statue of Sezy";
         }
+        if (i == 132957) {
+            objectDef.description = new String("Chamber").getBytes();
+        }
+        if (i == 132968) {
+            objectDef.description = new String("Arthur promised to come safe him one day..").getBytes();
+        }
+        if (i == 132938) {
+            objectDef.description = new String("Enter the Theatre they said.. It will be fun they said..").getBytes();
+        }
+        if (i == 132755) {
+            objectDef.description = new String("The barriers").getBytes();
+        }
         if (i == 134573) {
             objectDef.isUnwalkable = false;
         }
