@@ -2473,6 +2473,11 @@ public final class ItemDefinition {
                 itemDef.actions = new String[5];
                 itemDef.actions[0] = "Open";
                 break;
+            case 8473:
+            	itemDef.copy(forID(6199));
+                itemDef.name = "Verzik's Mystery Box";
+                itemDef.newModelColor[0] = 46383;
+                break;
             case 8421:
                 itemDef.setDefaults();
                 itemDef.name = "Demonic spirit shield";
