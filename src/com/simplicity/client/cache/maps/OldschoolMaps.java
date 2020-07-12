@@ -76,6 +76,7 @@ public class OldschoolMaps {
             12192,
             7513,
             7514,
+            7769,
             8751, 9007, 9008, // Zulrah
             
             5022, 5023, 5279, 5280, 5535, // Alchemical Hydra
