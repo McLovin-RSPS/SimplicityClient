@@ -17,6 +17,7 @@ import com.simplicity.client.widget.raids.tob.TheatrePerformersWidget;
 import com.simplicity.client.widget.raids.tob.TheatreRewardsWidget;
 import com.simplicity.client.widget.raids.tob.TobFadeText;
 import com.simplicity.client.widget.raids.tob.TobPartyOverlayWidget;
+import com.simplicity.client.widget.raids.tob.TobSuppliesWidget;
 
 public class Widget {
 	
@@ -48,6 +49,7 @@ public class Widget {
 		init(new PerformanceDetails());
 		init(new TheatreRewardsWidget());
 		init(new TobFadeText());
+		init(new TobSuppliesWidget());
 	}
 
 	/**
