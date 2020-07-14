@@ -19,7 +19,6 @@ import javax.swing.tree.TreeSelectionModel;
 import com.simplicity.client.Client;
 import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.Animation;
-import com.simplicity.client.cache.definitions.SpotAnimDefinition;
 
 public class AnimDefinitionLookup extends JFrame {
 	
@@ -118,7 +117,6 @@ public class AnimDefinitionLookup extends JFrame {
 			DefaultMutableTreeNode itemNode = new DefaultMutableTreeNode(id);
 			
 			if (anim.dataType == DataType.REGULAR) {
-				System.out.println("adding regular node");
 				regular.add(itemNode);
 			} else if (anim.dataType == DataType.OLDSCHOOL) {
 				osrs.add(itemNode);
