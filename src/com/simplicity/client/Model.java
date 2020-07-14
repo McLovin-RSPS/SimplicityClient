@@ -623,7 +623,7 @@ public class Model extends Animable {
         boolean osrsModel = ItemDefinition.osrsModels.contains(modelId) || dataType == DataType.OLDSCHOOL;
         
         if (modelId > DEPTH_BUFFER_MODEL_START) {
-            setUseDepthBuffer();
+            setUseDepthBuffer(modelId, dataType);
         }
 
         if (is[is.length - 1] == -1 && is[is.length - 2] == -1)
@@ -684,14 +684,23 @@ public class Model extends Animable {
         }
         
         if (ItemDefinition.usingDepthBuffer(dataType, modelId) || dataType == DataType.CUSTOM) {
-        	setUseDepthBuffer();
+        	setUseDepthBuffer(modelId, dataType);
         }
     }
     
 	/**
 	 * Sets this model to use depth buffering for rendering instead of priorities.
+	 * 
+	 * @param modelID The model id.
+	 * @param type    The data type.
 	 */
-	private void setUseDepthBuffer() {
+	private void setUseDepthBuffer(int modelID, DataType type) {
+		if (type.equals(DataType.OLDSCHOOL)) {
+			if (modelID == 35448) { // Monumental chest
+				return;
+			}
+		}
+		
 		usingDepthBuffer = true;
 		face_render_priorities = null;
 	}
@@ -2057,11 +2066,11 @@ public class Model extends Animable {
         convertTexturesTo317(modelID, D, texTrianglesPoint1, texTrianglesPoint2, texTrianglesPoint3, x);
         
         if (modelID > DEPTH_BUFFER_MODEL_START) {
-        	setUseDepthBuffer();
+        	setUseDepthBuffer(modelID, dataType);
         }
     }
 
-    public void readNewModel(byte data[], int modelId) {
+    public void readNewModel(byte data[], int modelId, DataType dataType) {
         Stream nc1 = new Stream(data);
         Stream nc2 = new Stream(data);
         Stream nc3 = new Stream(data);
@@ -2360,7 +2369,7 @@ public class Model extends Animable {
         }
         nc1.currentOffset = pos;
         face = nc1.readUnsignedByte();
-        setUseDepthBuffer();
+        setUseDepthBuffer(modelId, dataType);
     }
 
     public void readOSRSOldModel(byte[] data, int modelId) {
@@ -3002,7 +3011,7 @@ public class Model extends Animable {
         face_c = facePoint3;
         filterTriangles();
         convertTexturesTo317(modelID, D, texTrianglesPoint1, texTrianglesPoint2, texTrianglesPoint3, x);
-        setUseDepthBuffer();
+        setUseDepthBuffer(modelID, dataType);
     }
 
     private void readOldModel(int i, DataType dataType) {
