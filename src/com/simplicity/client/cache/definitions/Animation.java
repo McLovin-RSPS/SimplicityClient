@@ -1103,6 +1103,6 @@ public final class Animation {
 	public int resetWhenWalk;
 	public int priority;
 	public int delayType;
-	public DataType dataType;
+	public DataType dataType = DataType.REGULAR;
 	public static int anInt367;
 }
