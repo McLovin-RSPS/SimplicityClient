@@ -24834,6 +24834,30 @@ public class Client extends RSApplet {
         return new Position(x, y, plane);
 	}
 	
+	public void playAnim(int animationID) {
+		try {
+	        myPlayer.anim = animationID;
+	        myPlayer.currentAnimFrame = 0;
+	        myPlayer.anInt1528 = 0;
+	        myPlayer.animationDelay = 0;
+	        myPlayer.anInt1530 = 0;
+	        myPlayer.anInt1542 = myPlayer.pathLength;
+
+            if (Animation.anims[animationID].dataType == DataType.OLDSCHOOL) {
+                if (FrameReader.animationListOldschool[Integer.parseInt(Integer.toHexString(Animation.anims[animationID].frameIDs[0]).substring(0, Integer.toHexString(Animation.anims[animationID].frameIDs[0]).length() - 4), 16)].length == 0) {
+                    onDemandFetcher.requestFileData(Client.OSRS_ANIM_IDX - 1, Integer.parseInt(Integer.toHexString(Animation.anims[animationID].frameIDs[0]).substring(0, Integer.toHexString(Animation.anims[animationID].frameIDs[0]).length() - 4), 16));
+                }
+            } else {
+                if (FrameReader.animationListOldschool[Integer.parseInt(Integer.toHexString(Animation.anims[animationID].frameIDs[0]).substring(0, Integer.toHexString(Animation.anims[animationID].frameIDs[0]).length() - 4), 16)].length == 0) {
+                    onDemandFetcher.requestFileData(Client.ANIM_IDX - 1, Integer.parseInt(Integer.toHexString(Animation.anims[animationID].frameIDs[0]).substring(0, Integer.toHexString(Animation.anims[animationID].frameIDs[0]).length() - 4), 16));
+                }
+            }
+
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
+	}
+	
 	/**
 	 * Sends a button click to the server.
 	 * 

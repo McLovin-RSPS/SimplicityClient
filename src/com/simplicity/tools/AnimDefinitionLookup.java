@@ -16,13 +16,18 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeSelectionModel;
 
+import com.simplicity.client.Client;
+import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.Animation;
+import com.simplicity.client.cache.definitions.SpotAnimDefinition;
 
 public class AnimDefinitionLookup extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 
 	private DefaultMutableTreeNode objects;
+	private DefaultMutableTreeNode regular;
+	private DefaultMutableTreeNode osrs;
 	
 	private JTree tree;
 	
@@ -47,7 +52,7 @@ public class AnimDefinitionLookup extends JFrame {
 			public void valueChanged(TreeSelectionEvent e) {
 				DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
 				
-				if (node == null) {
+				if (node == null || node.getParent() == null || node.getParent().equals(objects)) {
 					return;
 				}
 				
@@ -55,6 +60,10 @@ public class AnimDefinitionLookup extends JFrame {
 					String s = node.getUserObject().toString();
 					
 					int objectId = Integer.parseInt(s);
+					
+					if (node.getParent().equals(osrs)) {
+						objectId += Animation.OSRS_ANIM_OFFSET;
+					}
 					
 					loadDetails(objectId);
 				}
@@ -91,10 +100,45 @@ public class AnimDefinitionLookup extends JFrame {
 		getContentPane().add(left);
 		getContentPane().add(right);
 		
-		loadAnimations();
+		init();
+	}
+	
+	private void init() {
+		createNodes(objects);
+		
+		for (int i = 0; i < Animation.anims.length; i++) {
+			Animation anim = Animation.anims[i];
+			
+			if (anim == null) {
+				continue;
+			}
+			
+			int id = anim.dataType == DataType.OLDSCHOOL ? i - Animation.OSRS_ANIM_OFFSET : i;
+			
+			DefaultMutableTreeNode itemNode = new DefaultMutableTreeNode(id);
+			
+			if (anim.dataType == DataType.REGULAR) {
+				System.out.println("adding regular node");
+				regular.add(itemNode);
+			} else if (anim.dataType == DataType.OLDSCHOOL) {
+				osrs.add(itemNode);
+			}
+		}
+		
+		tree.expandPath(tree.getPathForRow(0));
+	}
+
+	public void createNodes(DefaultMutableTreeNode root) {
+		regular = new DefaultMutableTreeNode("Regular");
+		root.add(regular);
+		
+		osrs = new DefaultMutableTreeNode("OSRS");
+		root.add(osrs);
 	}
 	
 	public void loadDetails(int id) {
+		resetDetails();
+		
 		int column = 0;
 		
 		Animation animation = Animation.anims[id];
@@ -109,22 +153,20 @@ public class AnimDefinitionLookup extends JFrame {
 		details.getModel().setValueAt(animation.delayType, column++, 1);
 		details.getModel().setValueAt(animation.loopDelay, column++, 1);
 		details.getModel().setValueAt(animation.dataType, column++, 1);
+		
+		Client.instance.playAnim(id);
 	}
 	
-	public void loadAnimations() {
-		for (int i = 0; i < Animation.anims.length; i++) {
-			Animation anim = Animation.anims[i];
-			
-			if (anim == null) {
-				continue;
-			}
-			
-			DefaultMutableTreeNode itemNode = new DefaultMutableTreeNode(i);
-			
-			objects.add(itemNode);
+	public void resetDetails() {
+		details.clearSelection();
+		
+		if (details.getCellEditor() != null) {
+			details.getCellEditor().stopCellEditing();
 		}
 		
-		tree.expandPath(tree.getPathForRow(0));
+		for (int i = 0; i < detailsData.size(); i++) {
+			details.getModel().setValueAt("", i, 1);
+		}
 	}
 
 }
