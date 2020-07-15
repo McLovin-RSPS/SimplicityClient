@@ -696,7 +696,7 @@ public class Model extends Animable {
 	 */
 	private void setUseDepthBuffer(int modelID, DataType type) {
 		if (type.equals(DataType.OLDSCHOOL)) {
-			if (modelID == 35448) { // Monumental chest
+			if (modelID == 35439 || modelID == 35425 || modelID == 35446 || modelID == 35448 || modelID == 35414) { // Monumental chest
 				return;
 			}
 		}
