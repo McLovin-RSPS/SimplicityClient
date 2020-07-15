@@ -30,13 +30,13 @@ public class TobSuppliesWidget extends CustomWidget {
 
 	@Override
 	public void init() {
-		int x = 64;
-		int y = 40;
+		int x = 74;
+		int y = 54;
 		
 		add(addClosableWindow(366, 220, false, getName()), x, y);
 		add(addModel(1048, 600, 512, 450, DataType.OLDSCHOOL), x + 92 + 56, y + 102);
 		add(addModel(1070, 780, 512, 800, DataType.OLDSCHOOL), x + 89, y + 145);
-		RSInterface container = addItemContainer(4, 2, 18, 36, new String[] { "Buy", "Buy 1", "Buy 5", "Buy All", "Buy X" }, getName() + " #");
+		RSInterface container = addItemContainer(4, 2, 18, 36, new String[] { "Value", "Buy 1", "Buy 5", "Buy 10", "Buy X" }, getName() + " #");
 		
 		for (int i = 0; i < container.inv.length; i++) {
 			add(addCenteredText("1", 0, 0xFF981F), x + 46 + (i % 4 * 50), y + 88 + (i > 3 ? 72 : 0));
