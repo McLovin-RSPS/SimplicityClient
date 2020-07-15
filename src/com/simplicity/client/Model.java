@@ -953,7 +953,13 @@ public class Model extends Animable {
         try {
             if (vertexSkin != null && firstFrame != -1) {
                 FrameReader currentAnimation = FrameReader.forID(firstFrame, dataType);
+                if (currentAnimation == null) {
+                	return;
+                }
                 SkinList list1 = currentAnimation.mySkinList;
+                if (list1 == null) {
+                	return;
+                }
                 anInt1681 = 0;
                 anInt1682 = 0;
                 anInt1683 = 0;
