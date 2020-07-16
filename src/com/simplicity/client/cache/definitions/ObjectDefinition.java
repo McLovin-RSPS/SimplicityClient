@@ -156,6 +156,9 @@ public final class ObjectDefinition {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if (i == 132688) {
+        	objectDef.canRandomAnimStart = false;
+        }
         if(i == 134512) {
             objectDef.animationID = 23328;
         }
@@ -1524,6 +1527,7 @@ public final class ObjectDefinition {
     private int[] modifiedModelColors;
     public static MemCache modelCache = new MemCache(500);
     public static MemCache osrsModelCache = new MemCache(500);
+    public boolean canRandomAnimStart = true;
     public String actions[];
     public DataType dataType = DataType.REGULAR;
 

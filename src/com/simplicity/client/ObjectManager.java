@@ -771,7 +771,7 @@ final class ObjectManager {
 			if (objectDef.animationID == -1 && objectDef.configObjectIDs == null)
 				obj = objectDef.renderObject(22, face, k1, l1, i2, j2, -1);
 			else
-				obj = new ObjectOnTile(objId, face, 22, l1, i2, k1, j2, objectDef.animationID, true);
+				obj = new ObjectOnTile(objId, face, 22, l1, i2, k1, j2, objectDef.animationID, objectDef.canRandomAnimStart);
 			worldController.addGroundDecoration(z, k2, y, ((Animable) (obj)), byte0, l2, x, objId);
 			if (objectDef.isUnwalkable && objectDef.hasActions && class11 != null)
 				class11.appendSolidFlag(y, x);
@@ -782,7 +782,7 @@ final class ObjectManager {
 			if (objectDef.animationID == -1 && objectDef.configObjectIDs == null)
 				obj1 = objectDef.renderObject(10, face, k1, l1, i2, j2, -1);
 			else
-				obj1 = new ObjectOnTile(objId, face, 10, l1, i2, k1, j2, objectDef.animationID, true);
+				obj1 = new ObjectOnTile(objId, face, 10, l1, i2, k1, j2, objectDef.animationID, objectDef.canRandomAnimStart);
 			if (obj1 != null) {
 				int i5 = 0;
 				if (j == 11)
@@ -827,7 +827,7 @@ final class ObjectManager {
 			if (objectDef.animationID == -1 && objectDef.configObjectIDs == null)
 				obj2 = objectDef.renderObject(j, face, k1, l1, i2, j2, -1);
 			else
-				obj2 = new ObjectOnTile(objId, face, j, l1, i2, k1, j2, objectDef.animationID, true);
+				obj2 = new ObjectOnTile(objId, face, j, l1, i2, k1, j2, objectDef.animationID, objectDef.canRandomAnimStart);
 			worldController.addInteractableEntity(l2, byte0, k2, 1, ((Animable) (obj2)), 1, z, 0, y, x, objId);
 			if (j >= 12 && j <= 17 && j != 13 && z > 0)
 				anIntArrayArrayArray135[z][x][y] |= 0x924;
@@ -840,7 +840,7 @@ final class ObjectManager {
 			if (objectDef.animationID == -1 && objectDef.configObjectIDs == null)
 				obj3 = objectDef.renderObject(0, face, k1, l1, i2, j2, -1);
 			else
-				obj3 = new ObjectOnTile(objId, face, 0, l1, i2, k1, j2, objectDef.animationID, true);
+				obj3 = new ObjectOnTile(objId, face, 0, l1, i2, k1, j2, objectDef.animationID, objectDef.canRandomAnimStart);
 			worldController.addWallObject(anIntArray152[face], ((Animable) (obj3)), l2, y, byte0, x, null, k2, 0, z, objId);
 			if (face == 0) {
 				if (objectDef.aBoolean779) {
@@ -882,7 +882,7 @@ final class ObjectManager {
 			if (objectDef.animationID == -1 && objectDef.configObjectIDs == null)
 				obj4 = objectDef.renderObject(1, face, k1, l1, i2, j2, -1);
 			else
-				obj4 = new ObjectOnTile(objId, face, 1, l1, i2, k1, j2, objectDef.animationID, true);
+				obj4 = new ObjectOnTile(objId, face, 1, l1, i2, k1, j2, objectDef.animationID, objectDef.canRandomAnimStart);
 			worldController.addWallObject(anIntArray140[face], ((Animable) (obj4)), l2, y, byte0, x, null, k2, 0, z, objId);
 			if (objectDef.aBoolean779)
 				if (face == 0)
@@ -905,8 +905,8 @@ final class ObjectManager {
 				obj11 = objectDef.renderObject(2, 4 + face, k1, l1, i2, j2, -1);
 				obj12 = objectDef.renderObject(2, i3, k1, l1, i2, j2, -1);
 			} else {
-				obj11 = new ObjectOnTile(objId, 4 + face, 2, l1, i2, k1, j2, objectDef.animationID, true);
-				obj12 = new ObjectOnTile(objId, i3, 2, l1, i2, k1, j2, objectDef.animationID, true);
+				obj11 = new ObjectOnTile(objId, 4 + face, 2, l1, i2, k1, j2, objectDef.animationID, objectDef.canRandomAnimStart);
+				obj12 = new ObjectOnTile(objId, i3, 2, l1, i2, k1, j2, objectDef.animationID, objectDef.canRandomAnimStart);
 			}
 			worldController.addWallObject(anIntArray152[face], ((Animable) (obj11)), l2, y, byte0, x, ((Animable) (obj12)), k2, anIntArray152[i3], z, objId);
 			if (objectDef.aBoolean764)
@@ -934,7 +934,7 @@ final class ObjectManager {
 			if (objectDef.animationID == -1 && objectDef.configObjectIDs == null)
 				obj5 = objectDef.renderObject(3, face, k1, l1, i2, j2, -1);
 			else
-				obj5 = new ObjectOnTile(objId, face, 3, l1, i2, k1, j2, objectDef.animationID, true);
+				obj5 = new ObjectOnTile(objId, face, 3, l1, i2, k1, j2, objectDef.animationID, objectDef.canRandomAnimStart);
 			worldController.addWallObject(anIntArray140[face], ((Animable) (obj5)), l2, y, byte0, x, null, k2, 0, z, objId);
 			if (objectDef.aBoolean779)
 				if (face == 0)
@@ -954,7 +954,7 @@ final class ObjectManager {
 			if (objectDef.animationID == -1 && objectDef.configObjectIDs == null)
 				obj6 = objectDef.renderObject(j, face, k1, l1, i2, j2, -1);
 			else
-				obj6 = new ObjectOnTile(objId, face, j, l1, i2, k1, j2, objectDef.animationID, true);
+				obj6 = new ObjectOnTile(objId, face, j, l1, i2, k1, j2, objectDef.animationID, objectDef.canRandomAnimStart);
 			worldController.addInteractableEntity(l2, byte0, k2, 1, ((Animable) (obj6)), 1, z, 0, y, x, objId);
 			if (objectDef.isUnwalkable && class11 != null)
 				class11.method212(objectDef.aBoolean757, objectDef.sizeX, objectDef.sizeY, x, y, face);
@@ -986,7 +986,7 @@ final class ObjectManager {
 			if (objectDef.animationID == -1 && objectDef.configObjectIDs == null)
 				obj7 = objectDef.renderObject(4, 0, k1, l1, i2, j2, -1);
 			else
-				obj7 = new ObjectOnTile(objId, 0, 4, l1, i2, k1, j2, objectDef.animationID, true);
+				obj7 = new ObjectOnTile(objId, 0, 4, l1, i2, k1, j2, objectDef.animationID, objectDef.canRandomAnimStart);
 			worldController.addWallDecoration(l2, y, face * 512, z, 0, k2, ((Animable) (obj7)), x, byte0, 0, anIntArray152[face], objId);
 			return;
 		}
@@ -999,7 +999,7 @@ final class ObjectManager {
 			if (objectDef.animationID == -1 && objectDef.configObjectIDs == null)
 				obj13 = objectDef.renderObject(4, 0, k1, l1, i2, j2, -1);
 			else
-				obj13 = new ObjectOnTile(objId, 0, 4, l1, i2, k1, j2, objectDef.animationID, true);
+				obj13 = new ObjectOnTile(objId, 0, 4, l1, i2, k1, j2, objectDef.animationID, objectDef.canRandomAnimStart);
 			worldController.addWallDecoration(l2, y, face * 512, z, anIntArray137[face] * i4, k2, ((Animable) (obj13)), x, byte0, anIntArray144[face]  * i4, anIntArray152[face], objId);
 			return;
 		}
@@ -1008,7 +1008,7 @@ final class ObjectManager {
 			if (objectDef.animationID == -1 && objectDef.configObjectIDs == null)
 				obj8 = objectDef.renderObject(4, 0, k1, l1, i2, j2, -1);
 			else
-				obj8 = new ObjectOnTile(objId, 0, 4, l1, i2, k1, j2, objectDef.animationID, true);
+				obj8 = new ObjectOnTile(objId, 0, 4, l1, i2, k1, j2, objectDef.animationID, objectDef.canRandomAnimStart);
 			worldController.addWallDecoration(l2, y, face, z, 0, k2, ((Animable) (obj8)), x, byte0, 0, 256, objId);
 			return;
 		}
@@ -1017,7 +1017,7 @@ final class ObjectManager {
 			if (objectDef.animationID == -1 && objectDef.configObjectIDs == null)
 				obj9 = objectDef.renderObject(4, 0, k1, l1, i2, j2, -1);
 			else
-				obj9 = new ObjectOnTile(objId, 0, 4, l1, i2, k1, j2, objectDef.animationID, true);
+				obj9 = new ObjectOnTile(objId, 0, 4, l1, i2, k1, j2, objectDef.animationID, objectDef.canRandomAnimStart);
 			worldController.addWallDecoration(l2, y, face, z, 0, k2, ((Animable) (obj9)), x, byte0, 0, 512, objId);
 			return;
 		}
@@ -1026,7 +1026,7 @@ final class ObjectManager {
 			if (objectDef.animationID == -1 && objectDef.configObjectIDs == null)
 				obj10 = objectDef.renderObject(4, 0, k1, l1, i2, j2, -1);
 			else
-				obj10 = new ObjectOnTile(objId, 0, 4, l1, i2, k1, j2, objectDef.animationID, true);
+				obj10 = new ObjectOnTile(objId, 0, 4, l1, i2, k1, j2, objectDef.animationID, objectDef.canRandomAnimStart);
 			worldController.addWallDecoration(l2, y, face, z, 0, k2, ((Animable) (obj10)), x, byte0, 0, 768, objId);
 		}
 		} catch(ArrayIndexOutOfBoundsException e)
@@ -1307,7 +1307,7 @@ final class ObjectManager {
             if(class46.animationID == -1 && class46.configObjectIDs == null)
                 obj = class46.renderObject(22, i, l1, i2, j2, k2, -1);
             else
-                obj = new ObjectOnTile(j1, i, 22, i2, j2, l1, k2, class46.animationID, true);
+                obj = new ObjectOnTile(j1, i, 22, i2, j2, l1, k2, class46.animationID, class46.canRandomAnimStart);
             worldController.addGroundDecoration(k1, l2, j, ((Animable) (obj)), byte1, i3, i1, j1);
             if(class46.isUnwalkable && class46.hasActions)
                 class11.appendSolidFlag(j, i1);
@@ -1319,7 +1319,7 @@ final class ObjectManager {
             if(class46.animationID == -1 && class46.configObjectIDs == null)
                 obj1 = class46.renderObject(10, i, l1, i2, j2, k2, -1);
             else
-                obj1 = new ObjectOnTile(j1, i, 10, i2, j2, l1, k2, class46.animationID, true);
+                obj1 = new ObjectOnTile(j1, i, 10, i2, j2, l1, k2, class46.animationID, class46.canRandomAnimStart);
             if(obj1 != null)
             {
                 int j5 = 0;
@@ -1348,7 +1348,7 @@ final class ObjectManager {
             if(class46.animationID == -1 && class46.configObjectIDs == null)
                 obj2 = class46.renderObject(k, i, l1, i2, j2, k2, -1);
             else
-                obj2 = new ObjectOnTile(j1, i, k, i2, j2, l1, k2, class46.animationID, true);
+                obj2 = new ObjectOnTile(j1, i, k, i2, j2, l1, k2, class46.animationID, class46.canRandomAnimStart);
             worldController.addInteractableEntity(i3, byte1, l2, 1, ((Animable) (obj2)), 1, k1, 0, j, i1, j1);
             if(class46.isUnwalkable)
                 class11.method212(class46.aBoolean757, class46.sizeX, class46.sizeY, i1, j, i);
@@ -1360,7 +1360,7 @@ final class ObjectManager {
             if(class46.animationID == -1 && class46.configObjectIDs == null)
                 obj3 = class46.renderObject(0, i, l1, i2, j2, k2, -1);
             else
-                obj3 = new ObjectOnTile(j1, i, 0, i2, j2, l1, k2, class46.animationID, true);
+                obj3 = new ObjectOnTile(j1, i, 0, i2, j2, l1, k2, class46.animationID, class46.canRandomAnimStart);
             worldController.addWallObject(anIntArray152[i], ((Animable) (obj3)), i3, j, byte1, i1, null, l2, 0, k1, j1);
             if(class46.isUnwalkable)
                 class11.method211(j, i, i1, k, class46.aBoolean757);
@@ -1372,7 +1372,7 @@ final class ObjectManager {
             if(class46.animationID == -1 && class46.configObjectIDs == null)
                 obj4 = class46.renderObject(1, i, l1, i2, j2, k2, -1);
             else
-                obj4 = new ObjectOnTile(j1, i, 1, i2, j2, l1, k2, class46.animationID, true);
+                obj4 = new ObjectOnTile(j1, i, 1, i2, j2, l1, k2, class46.animationID, class46.canRandomAnimStart);
             worldController.addWallObject(anIntArray140[i], ((Animable) (obj4)), i3, j, byte1, i1, null, l2, 0, k1, j1);
             if(class46.isUnwalkable)
                 class11.method211(j, i, i1, k, class46.aBoolean757);
@@ -1389,8 +1389,8 @@ final class ObjectManager {
                 obj12 = class46.renderObject(2, j3, l1, i2, j2, k2, -1);
             } else
             {
-                obj11 = new ObjectOnTile(j1, 4 + i, 2, i2, j2, l1, k2, class46.animationID, true);
-                obj12 = new ObjectOnTile(j1, j3, 2, i2, j2, l1, k2, class46.animationID, true);
+                obj11 = new ObjectOnTile(j1, 4 + i, 2, i2, j2, l1, k2, class46.animationID, class46.canRandomAnimStart);
+                obj12 = new ObjectOnTile(j1, j3, 2, i2, j2, l1, k2, class46.animationID, class46.canRandomAnimStart);
             }
             worldController.addWallObject(anIntArray152[i], ((Animable) (obj11)), i3, j, byte1, i1, ((Animable) (obj12)), l2, anIntArray152[j3], k1, j1);
             if(class46.isUnwalkable)
@@ -1403,7 +1403,7 @@ final class ObjectManager {
             if(class46.animationID == -1 && class46.configObjectIDs == null)
                 obj5 = class46.renderObject(3, i, l1, i2, j2, k2, -1);
             else
-                obj5 = new ObjectOnTile(j1, i, 3, i2, j2, l1, k2, class46.animationID, true);
+                obj5 = new ObjectOnTile(j1, i, 3, i2, j2, l1, k2, class46.animationID, class46.canRandomAnimStart);
             worldController.addWallObject(anIntArray140[i], ((Animable) (obj5)), i3, j, byte1, i1, null, l2, 0, k1, j1);
             if(class46.isUnwalkable)
                 class11.method211(j, i, i1, k, class46.aBoolean757);
@@ -1415,7 +1415,7 @@ final class ObjectManager {
             if(class46.animationID == -1 && class46.configObjectIDs == null)
                 obj6 = class46.renderObject(k, i, l1, i2, j2, k2, -1);
             else
-                obj6 = new ObjectOnTile(j1, i, k, i2, j2, l1, k2, class46.animationID, true);
+                obj6 = new ObjectOnTile(j1, i, k, i2, j2, l1, k2, class46.animationID, class46.canRandomAnimStart);
             worldController.addInteractableEntity(i3, byte1, l2, 1, ((Animable) (obj6)), 1, k1, 0, j, i1, j1);
             if(class46.isUnwalkable)
                 class11.method212(class46.aBoolean757, class46.sizeX, class46.sizeY, i1, j, i);
@@ -1453,7 +1453,7 @@ final class ObjectManager {
             if(class46.animationID == -1 && class46.configObjectIDs == null)
                 obj7 = class46.renderObject(4, 0, l1, i2, j2, k2, -1);
             else
-                obj7 = new ObjectOnTile(j1, 0, 4, i2, j2, l1, k2, class46.animationID, true);
+                obj7 = new ObjectOnTile(j1, 0, 4, i2, j2, l1, k2, class46.animationID, class46.canRandomAnimStart);
             worldController.addWallDecoration(i3, j, i * 512, k1, 0, l2, ((Animable) (obj7)), i1, byte1, 0, anIntArray152[i], j1);
             return;
         }
@@ -1467,7 +1467,7 @@ final class ObjectManager {
             if(class46.animationID == -1 && class46.configObjectIDs == null)
                 obj13 = class46.renderObject(4, 0, l1, i2, j2, k2, -1);
             else
-                obj13 = new ObjectOnTile(j1, 0, 4, i2, j2, l1, k2, class46.animationID, true);
+                obj13 = new ObjectOnTile(j1, 0, 4, i2, j2, l1, k2, class46.animationID, class46.canRandomAnimStart);
             worldController.addWallDecoration(i3, j, i * 512, k1, anIntArray137[i] * j4, l2, ((Animable) (obj13)), i1, byte1, anIntArray144[i] * j4, anIntArray152[i], j1);
             return;
         }
@@ -1477,7 +1477,7 @@ final class ObjectManager {
             if(class46.animationID == -1 && class46.configObjectIDs == null)
                 obj8 = class46.renderObject(4, 0, l1, i2, j2, k2, -1);
             else
-                obj8 = new ObjectOnTile(j1, 0, 4, i2, j2, l1, k2, class46.animationID, true);
+                obj8 = new ObjectOnTile(j1, 0, 4, i2, j2, l1, k2, class46.animationID, class46.canRandomAnimStart);
             worldController.addWallDecoration(i3, j, i, k1, 0, l2, ((Animable) (obj8)), i1, byte1, 0, 256, j1);
             return;
         }
@@ -1487,7 +1487,7 @@ final class ObjectManager {
             if(class46.animationID == -1 && class46.configObjectIDs == null)
                 obj9 = class46.renderObject(4, 0, l1, i2, j2, k2, -1);
             else
-                obj9 = new ObjectOnTile(j1, 0, 4, i2, j2, l1, k2, class46.animationID, true);
+                obj9 = new ObjectOnTile(j1, 0, 4, i2, j2, l1, k2, class46.animationID, class46.canRandomAnimStart);
             worldController.addWallDecoration(i3, j, i, k1, 0, l2, ((Animable) (obj9)), i1, byte1, 0, 512, j1);
             return;
         }
@@ -1497,7 +1497,7 @@ final class ObjectManager {
             if(class46.animationID == -1 && class46.configObjectIDs == null)
                 obj10 = class46.renderObject(4, 0, l1, i2, j2, k2, -1);
             else
-                obj10 = new ObjectOnTile(j1, 0, 4, i2, j2, l1, k2, class46.animationID, true);
+                obj10 = new ObjectOnTile(j1, 0, 4, i2, j2, l1, k2, class46.animationID, class46.canRandomAnimStart);
             worldController.addWallDecoration(i3, j, i, k1, 0, l2, ((Animable) (obj10)), i1, byte1, 0, 768, j1);
         }
     }
