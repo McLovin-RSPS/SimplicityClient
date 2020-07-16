@@ -23,7 +23,7 @@ public class TobPlayerOrbsWidget extends RSInterface {
 	public static final int EMPTY_ORB = 1415;
 	public static final int BASE_ORB = 1412;
 
-	public static final int HEALTH_ORB_HEIGHT = 32;
+	public static final int HEALTH_ORB_HEIGHT = 26;
 
 	public static boolean isClosed = false;
 	public static boolean isClosing = false;
