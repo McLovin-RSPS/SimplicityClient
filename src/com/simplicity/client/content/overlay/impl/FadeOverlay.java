@@ -22,6 +22,9 @@ public class FadeOverlay extends ScreenOverlay {
 	
 	@Override
 	public boolean draw(Client client, int x, int y) throws Exception {
+		int width = Client.instance.getGameAreaWidth();
+		int height = Client.instance.getGameAreaHeight();
+		
 		Graphics2D g2d = DrawingArea.createGraphics(true);
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
@@ -37,8 +40,8 @@ public class FadeOverlay extends ScreenOverlay {
 		if (hex == 0x4c0b01 && fadeIn) {
 			int alpha = Client.instance.fadeAlpha;
 			
-	        float cx = getWidth();
-	        float cy = getHeight();
+	        float cx = width;
+	        float cy = height;
 	        float radius = 100 + (Client.instance.fadeAlpha);
 	        
 			Color col1 = new Color(70, 18, 5, alpha);
@@ -49,23 +52,23 @@ public class FadeOverlay extends ScreenOverlay {
 			
 	        Paint paint = new RadialGradientPaint(cx / 2, cy / 2, radius, new float[] { 0.0f, 1.0f }, new Color[] { col1, col2 });
 	        g2d.setPaint(paint);
-	    	g2d.fillRect(0, 0, getWidth(), getHeight());
+	    	g2d.fillRect(0, 0, width, height);
 	    	
 	    	hex = 0x200000;
 	    	col1 = new Color((hex & 0xFF0000) >> 16, (hex & 0xFF00) >> 8, (hex & 0xFF), 200);
 	    	paint = new RadialGradientPaint(cx / 2, cy / 2, radius * 2, new float[] { 0.2f, 1.0f }, new Color[] { col1, col2 });
 	        g2d.setPaint(paint);
-	    	g2d.fillRect(0, 0, getWidth(), getHeight());
+	    	g2d.fillRect(0, 0, width, height);
 	    	
 	    	if (radius < 270) {
 	    		hex = 0x100000;
 		    	col1 = new Color((hex & 0xFF0000) >> 16, (hex & 0xFF00) >> 8, (hex & 0xFF), 100);
 	    		paint = new RadialGradientPaint(cx / 2, cy / 2, radius / 4, new float[] { 0.2f, 1.0f }, new Color[] { col1, col2 });
 	        	g2d.setPaint(paint);
-	    		g2d.fillRect(0, 0, getWidth(), getHeight());
+	    		g2d.fillRect(0, 0, width, height);
 	    	}
 		} else {
-			g2d.fillRect(0, 0, getWidth(), getHeight());
+			g2d.fillRect(0, 0, width, height);
 		}
 		
         g2d.setPaint(oldPaint);
