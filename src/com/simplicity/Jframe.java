@@ -232,7 +232,7 @@ public class Jframe extends Client implements ActionListener {
 		JButton voteButton = createButton("Vote", "Small-checkmark.png", "Open the official Simplicity voting page.");
 		JButton scoresButton = createButton("Hiscores", "hiscores.png", "Open the official Simplicity Hiscores");
 
-		JButton tsButton = createButton("Join Discord", "discord.png", "Join the Rune Vision discord.");
+		JButton discordButton = createButton("Join Discord", "discord.png", "Join the Rune Vision discord.");
 
 		
 		/*
@@ -244,7 +244,7 @@ public class Jframe extends Client implements ActionListener {
 		menuPanel.add(storeButton);
 		menuPanel.add(voteButton);
 		menuPanel.add(scoresButton);
-//		menuPanel.add(tsButton);
+		menuPanel.add(discordButton);
 
 		/*
 		 * Add our menu panel to our frame
@@ -311,19 +311,26 @@ public class Jframe extends Client implements ActionListener {
 			if (cmd != null) {
 				switch(cmd) {
 					case "Home":
-						openURL("http://www.simplicityps.org/");
+						openURL("https://www.simplicityps.org/");
+						break;
 					case "Forums":
-						openURL("http://www.simplicityps.org/forums");
+						openURL("https://www.simplicityps.org/forums");
+						break;
 					case "Wiki":
-						openURL("http://simplicityps.org/forums/index.php?/forum/103-knowledge-base/");
+						openURL("https://simplicityps.wikia.com");
+						break;
 					case "Store":
-						openURL("http://www.simplicityps.org/store/");
+						openURL("https://www.simplicityps.org/store/");
+						break;
 					case "Vote":
-						openURL("http://www.simplicityps.org/vote/");
+						openURL("https://www.simplicityps.org/vote/");
+						break;
 					case "Hiscores":
-						openURL("http://www.simplicityps.org/hiscores/");
+						openURL("https://www.simplicityps.org/hiscores/");
+						break;
 					case "Join Discord":
 						openURL("https://discord.gg/VJy7QAH");
+						break;
 				}
 			}
 		} catch (Exception e) {
