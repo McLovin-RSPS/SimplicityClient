@@ -227,7 +227,7 @@ public class Jframe extends Client implements ActionListener {
 		JButton homeButton = createButton("Home", "House_icon.png", "Open the official Simplicity homepage.");
 		JButton forumsButton = createButton("Forums", "forums.png", "Open the official Simplicity forums.");
 
-		JButton knowledgeBaseButton = createButton("Knowledge Base", "3366503.gif", "Open the Simplicity Knowledge Base on the forums.");
+		JButton knowledgeBaseButton = createButton("Wiki", "3366503.gif", "Open the Simplicity Wiki.");
 		JButton storeButton = createButton("Store", "cart_icon.gif", "Open the official Simplicity store.");
 		JButton voteButton = createButton("Vote", "Small-checkmark.png", "Open the official Simplicity voting page.");
 		JButton scoresButton = createButton("Hiscores", "hiscores.png", "Open the official Simplicity Hiscores");
@@ -309,20 +309,21 @@ public class Jframe extends Client implements ActionListener {
 		String cmd = evt.getActionCommand();
 		try {
 			if (cmd != null) {
-				if (cmd.equals("Home")) {
-					openURL("http://www.simplicityps.org/");
-				} else if (cmd.equals("Forums")) {
-					openURL("http://www.simplicityps.org/forums");
-				} else if (cmd.equals("Knowledge Base")) {
-					openURL("http://simplicityps.org/forums/index.php?/forum/103-knowledge-base/");
-				} else if (cmd.equals("Store")) {
-					openURL("http://www.simplicityps.org/store/");
-				} else if (cmd.equals("Vote")) {
-					openURL("http://www.simplicityps.org/vote/");
-				} else if (cmd.equals("Hiscores")) {
-					openURL("http://www.simplicityps.org/hiscores/");
-				} else if (cmd.equals("Join Discord")) {
-					openURL("https://discord.gg/VJy7QAH");
+				switch(cmd) {
+					case "Home":
+						openURL("http://www.simplicityps.org/");
+					case "Forums":
+						openURL("http://www.simplicityps.org/forums");
+					case "Wiki":
+						openURL("http://simplicityps.org/forums/index.php?/forum/103-knowledge-base/");
+					case "Store":
+						openURL("http://www.simplicityps.org/store/");
+					case "Vote":
+						openURL("http://www.simplicityps.org/vote/");
+					case "Hiscores":
+						openURL("http://www.simplicityps.org/hiscores/");
+					case "Join Discord":
+						openURL("https://discord.gg/VJy7QAH");
 				}
 			}
 		} catch (Exception e) {
