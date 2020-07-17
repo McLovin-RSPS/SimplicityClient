@@ -5,9 +5,9 @@ import com.simplicity.client.RSInterface;
 public class PetHouse extends RSInterface {
 
     public static void init() {
-        RSInterface parent = addInterface(56005);
+        RSInterface parent = addInterface(43215);
         parent.children(3);
-        int currentWidgetId = 56007;
+        int currentWidgetId = 43217;
 
         addClosableWindow(currentWidgetId, 300, 280, true, "Pet house");
         parent.child(0, currentWidgetId, 112, 16);
