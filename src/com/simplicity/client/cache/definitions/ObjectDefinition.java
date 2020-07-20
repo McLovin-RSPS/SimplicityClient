@@ -1223,7 +1223,7 @@ public final class ObjectDefinition {
                     if (actions == null)
                         actions = new String[10];
                     actions[opcode - 30] = stream.readString();
-                    if (actions[opcode - 30].equalsIgnoreCase("hidden"))
+					if (actions[opcode - 30] != null && actions[opcode - 30].equalsIgnoreCase("hidden"))
                         actions[opcode - 30] = null;
                 } else if (opcode == 40) {
                     int i1 = stream.readUnsignedByte();
