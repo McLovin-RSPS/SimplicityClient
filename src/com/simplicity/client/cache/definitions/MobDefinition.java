@@ -1028,7 +1028,10 @@ public final class MobDefinition {
             case 4249:
                 npc.name = "Gambler";
                 break;
-
+            case 4247:
+                npc.actions[0] = "Talk-to";
+                npc.actions[2] = "Trade";
+                break;
             case 710:
                 npc.actions = new String[]{"Open", null, null, null, null};
                 npc.name = "Donator Shop 3";
