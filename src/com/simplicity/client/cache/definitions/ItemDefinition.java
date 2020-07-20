@@ -67,8 +67,8 @@ public final class ItemDefinition {
      */
     public static List<Integer> infernalModels = new ArrayList<>();
 
-    private static final int OSRS_ITEMS_START = 10603;
-    private static final int OSRS_ITEMS_OFFSET = 30_000;
+    public static final int OSRS_ITEMS_START = 10603;
+    public static final int OSRS_ITEMS_OFFSET = 30_000;
 
     public static void nullLoader() {
         modelCache = null;
@@ -332,7 +332,7 @@ public final class ItemDefinition {
         Stream streamOSRS = new Stream(streamLoader.getDataForName("obj3.idx"));
 
         totalItems = streamIdx.readUnsignedWord();
-        int totalItemsOSRS = streamOSRS.readUnsignedWord();
+        totalItemsOSRS = streamOSRS.readUnsignedWord();
 
         streamIndices = new int[totalItems + 2000];
         streamIndicesOSRS = new int[totalItemsOSRS];
@@ -9438,6 +9438,7 @@ public final class ItemDefinition {
     public int[] stackAmounts;
     public int team;
     public static int totalItems;
+    public static int totalItemsOSRS;
     public int modelOffsetX;
     public byte maleYOffset;
     public byte maleXOffset;
