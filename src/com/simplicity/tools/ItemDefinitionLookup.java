@@ -61,7 +61,7 @@ public class ItemDefinitionLookup extends JFrame {
 	public ItemDefinitionLookup() {
 		setTitle("Item Definition Lookup");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(475, 468);
+		setSize(475, 518);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -110,7 +110,7 @@ public class ItemDefinitionLookup extends JFrame {
 		contentPane.add(btnSubmit);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 36, 131, 383);
+		scrollPane.setBounds(10, 36, 131, 431);
 		contentPane.add(scrollPane);
 		
 		tree = new JTree(objects);
@@ -154,7 +154,7 @@ public class ItemDefinitionLookup extends JFrame {
 		
 		details = new JTable(rowData, columnNames);
 		details.setTableHeader(null);
-		details.setBounds(151, 37, 298, 383);
+		details.setBounds(151, 37, 298, 431);
 		
 		contentPane.add(details);
 		
