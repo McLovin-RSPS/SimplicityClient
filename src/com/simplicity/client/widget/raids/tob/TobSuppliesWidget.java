@@ -43,7 +43,7 @@ public class TobSuppliesWidget extends CustomWidget {
 		}
 		
 		add(container, x + 32, y + 50);
-		add(addCenteredText("Points Available: @whi@11", 0, 0xFF981F), x + 180, y + 197);
+		add(addCenteredText("Points Available: @whi@0", 0, 0xFF981F), x + 180, y + 197);
 		add(addSprite(1452), x + 230, y + 44);
 		
 	}
