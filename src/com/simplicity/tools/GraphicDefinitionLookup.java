@@ -63,7 +63,8 @@ public class GraphicDefinitionLookup extends JFrame {
 	public GraphicDefinitionLookup() {
 		setTitle("GFX Lookup");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 475, 375);
+		setSize(475, 375);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

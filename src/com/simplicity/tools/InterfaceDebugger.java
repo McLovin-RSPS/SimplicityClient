@@ -34,6 +34,7 @@ public class InterfaceDebugger extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Interface Debugger");
 		setSize(550, 600);
+		setLocationRelativeTo(null);
 		setVisible(true);
 		
 		interfaces = new DefaultMutableTreeNode("Interfaces");
