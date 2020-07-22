@@ -55,12 +55,6 @@ public final class ItemDefinition {
      * The models the need priority fix.
      */
     public static List<Integer> priorityModels = new ArrayList<>();
-    
-	/**
-	 * A hash collection of models that should use depth buffering instead of
-	 * priorities for rendering.
-	 */
-	public static Map<DataType, List<Integer>> usingDepthBuffer = new HashMap<>();
 
     /**
      * The models that need the infernal texture.
@@ -81,15 +75,6 @@ public final class ItemDefinition {
         stream = null;
         streamOSRS = null;
     }
-    
-    public static boolean usingDepthBuffer(DataType type, int modelId) {
-    	if (!usingDepthBuffer.containsKey(type)) {
-    		return false;
-    	}
-    	
-    	return usingDepthBuffer.get(type).contains(modelId);
-    }
-
 
     public boolean dialogueModelFetched(int j) {
         int k = maleDialogue;
@@ -706,23 +691,7 @@ public final class ItemDefinition {
         //writeOutOsrsItems(totalItems, totalItemsOSRS);
         //dumpInterface(totalItems, totalItemsOSRS);
         
-        setDepthBuffer(DataType.REGULAR, 3287); // Angel cape
-        
         CustomRecolor.values();
-    }
-    
-    public static void setDepthBuffer(DataType type, int...models) {
-    	List<Integer> list = usingDepthBuffer.get(type);
-    	
-    	if (list == null) {
-    		list = new ArrayList<Integer>();
-    	}
-    	
-    	for (int i : models) {
-			list.add(i);
-		}
-    	
-    	usingDepthBuffer.put(type, list);
     }
     
     /*public static void dumpInterface(int totalItems, int totalItemsOSRS) {
