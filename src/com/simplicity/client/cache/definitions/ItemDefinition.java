@@ -37,7 +37,7 @@ public final class ItemDefinition {
     /**
      * A hash collection of item ids which should be forced to load using OSRS data yet retain their ids.
      */
-    private static final Set<Integer> FORCE_OSRS_ITEMS = new HashSet<>(Arrays.asList(554, 555, 556, 560, 565, 566, 1704, 1706, 1708, 1710, 1712));
+    private static final Set<Integer> FORCE_OSRS_ITEMS = new HashSet<>(Arrays.asList(554, 555, 556, 560, 565, 566));
 	
 	/**
 	 * A hash collection of custom recolored items.
