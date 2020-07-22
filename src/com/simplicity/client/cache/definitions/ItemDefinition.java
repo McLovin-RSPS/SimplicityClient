@@ -9128,14 +9128,26 @@ public final class ItemDefinition {
                 return forID(stackId).getItemModelFinalised(1);
             }
         }
+        
+        int modelId = modelID;
+        DataType type = dataType;
+        
+        /**
+         * Override amulet of glory inv model.
+         */
+        if (id == 1704 || id == 1706 || id == 1708 || id == 1710 || id == 1712) {
+        	modelId = 2796;
+        	type = DataType.OLDSCHOOL;
+        }
+        
         int itemForModel = id;
-
-        Model model = dataType == DataType.CUSTOM ? (Model) modelCacheCustom.get(itemForModel) : (Model) modelCache.get(itemForModel);
+        
+        Model model = type == DataType.CUSTOM ? (Model) modelCacheCustom.get(itemForModel) : (Model) modelCache.get(itemForModel);
         if (model != null) {
             return model;
         }
 
-        model = Model.fetchModel(modelID, dataType);
+        model = Model.fetchModel(modelId, type);
         if (model == null) {
             return null;
         }
@@ -9164,7 +9176,7 @@ public final class ItemDefinition {
         }
         model.light(64 + shadow, 768 + lightness, -50, -10, -50, true);
         model.rendersWithinOneTile = true;
-        if (dataType == DataType.CUSTOM) {
+        if (type == DataType.CUSTOM) {
         	modelCacheCustom.put(model, id);
         } else {
         	if (id != 5572 && id != 5573 && id != 640 && id != 650 && id != 630) {
