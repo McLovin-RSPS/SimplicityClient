@@ -194,6 +194,7 @@ public class Model extends Animable {
         
         addDepthBufferModel(DataType.REGULAR, 9347); // Toktz-ket-xil
         addDepthBufferModel(DataType.REGULAR, 3287); // Angel cape
+        addDepthBufferModel(DataType.REGULAR, 13700); // Dragon kiteshield
         addDepthBufferModel(DataType.OLDSCHOOL, 164, 218, 268, 344, 394, 432, 452, 3379, 3383, 4206, 4207); // (t) armor
         
 		applyTexture(69, 16, 17);
