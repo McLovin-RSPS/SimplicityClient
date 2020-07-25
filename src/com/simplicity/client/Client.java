@@ -13319,7 +13319,7 @@ public class Client extends RSApplet {
                     npc.updateHitData(j2, j1, loopCycle, icon, 0);
                     int visibleTicks = 300;
                     if (npc.desc.type == 22535) {
-                    	visibleTicks = 2000;
+                    	visibleTicks = 5000;
                     }
                     npc.loopCycleStatus = loopCycle + visibleTicks;
                     npc.currentHealth = inStream.readDWord();
