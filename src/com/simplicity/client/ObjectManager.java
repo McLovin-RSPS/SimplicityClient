@@ -699,6 +699,13 @@ final class ObjectManager {
 			objId = 4410;
 		}
 		
+		/**
+		 * COX Object adjustments.
+		 */
+		if (regionId == 13138 && objId == 129789 && face == 1) { // Vasa Nistirio passage object
+			x--;
+		}
+		
 		boolean debug = false;
 		
 		if (debug) { // Debug's the object at player's position...
