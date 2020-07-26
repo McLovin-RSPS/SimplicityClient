@@ -153,7 +153,7 @@ public class Client extends RSApplet {
     public static boolean enableParticles = false;
 
     public static boolean angel_devil_enabled = false;
-    
+	    
     public static final boolean RENDER_DEBUG = false;
 
     public static boolean timersEnabled = true;
@@ -5348,8 +5348,42 @@ public class Client extends RSApplet {
                 if (j < playerCount) {
                     int l = 30;
                     Player player = (Player) obj;
-
-                    if (player.halloweenTeam > 0 && player.halloweenTeam < 3 && spriteDrawX > -1 && angel_devil_enabled) {
+                    if(player.hiding == 1) {
+                    	npcScreenPos(((Entity) (obj)), ((Entity) (obj)).height + 15);
+                    	
+                    	Graphics2D g = DrawingArea.createGraphics(true);
+                    	
+                    	int outerRadius = 12;
+                    	
+                    	int radius = 8;
+                    	
+                    	int xOff = -19;
+                    	
+                    	int yOff = (player.headIcon >= 0 && player.headIcon < 20 || player.bountyHunterIcon >= 0 && player.bountyHunterIcon <= 4 || player.skulled) ? -30 : 0;
+                    	
+                		Shape outerCircle = DrawingArea.createCircle((spriteDrawX - outerRadius / 2) - 1 + xOff, spriteDrawY - outerRadius / 2 - 15 + yOff, outerRadius);
+            			
+            			Shape circle = DrawingArea.createCircle((spriteDrawX - radius / 2) - 1 + xOff, spriteDrawY - radius / 2 - 15 + yOff, radius);
+            			
+            			Shape finalShape = DrawingArea.createRing(outerCircle, circle);
+            			
+						Color border = new Color(168, 35, 25);
+						
+						Color fill = new Color(235, 64, 52);
+						
+						g.setColor(border);
+						
+                    	g.fill(finalShape);
+                    	
+                    	g.setColor(fill);
+						
+                    	g.fill(circle);
+                    	
+						//
+						//newSmallFont.drawCenteredString("Hiding", 3, spriteDrawY - 10 + yOff, 0xffffff, 1);
+						 newSmallFont.drawCenteredString("Hidden", spriteDrawX + (7), spriteDrawY - 10 + yOff, 0xffffff, 1);
+                    }
+                    if (player.halloweenTeam > 0 && player.halloweenTeam <= 3 && spriteDrawX > -1 && angel_devil_enabled) {
                     	npcScreenPos(((Entity) (obj)), ((Entity) (obj)).height + 15);
                     	
                     	Graphics2D g = DrawingArea.createGraphics(true);
@@ -5382,7 +5416,9 @@ public class Client extends RSApplet {
 						
                     	g.fill(circle);
                     	
-                    	newSmallFont.drawCenteredString(devil ? "Devil" : "Angel", spriteDrawX + (devil ? 3 : 7), spriteDrawY - 10 + yOff, 0xffffff, 1);
+						//
+						//newSmallFont.drawCenteredString("Hiding", 3, spriteDrawY - 10 + yOff, 0xffffff, 1);
+						 newSmallFont.drawCenteredString("Hidden", spriteDrawX + (7), spriteDrawY - 10 + yOff, 0xffffff, 1);
                     }
                     
                     if (player.headIcon >= 0) {

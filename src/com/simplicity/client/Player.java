@@ -96,7 +96,8 @@ public final class Player extends Entity {
 
 	public int constitution, maxConstitution;
 	public int halloweenTeam;
-
+	public int hiding;
+	
 	public void updatePlayerAppearance(Stream stream) {
 		stream.currentOffset = 0;
 		myGender = stream.readUnsignedByte();
@@ -182,6 +183,7 @@ public final class Player extends Entity {
 		playerRights = stream.readUnsignedWord();
 		playerTitle = stream.readString();
 		halloweenTeam  = stream.readUnsignedByte();
+		hiding = stream.readUnsignedByte();
 		visible = true;
 		aLong1718 = 0L;
 
