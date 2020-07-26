@@ -37,7 +37,7 @@ public final class ItemDefinition {
     /**
      * A hash collection of item ids which should be forced to load using OSRS data yet retain their ids.
      */
-    private static final Set<Integer> FORCE_OSRS_ITEMS = new HashSet<>(Arrays.asList(554, 555, 556, 560, 565, 566, 1704, 1706, 1708, 1710, 1712));
+    private static final Set<Integer> FORCE_OSRS_ITEMS = new HashSet<>(Arrays.asList(554, 555, 556, 560, 565, 566));
 	
 	/**
 	 * A hash collection of custom recolored items.
@@ -55,20 +55,14 @@ public final class ItemDefinition {
      * The models the need priority fix.
      */
     public static List<Integer> priorityModels = new ArrayList<>();
-    
-	/**
-	 * A hash collection of models that should use depth buffering instead of
-	 * priorities for rendering.
-	 */
-	public static Map<DataType, List<Integer>> usingDepthBuffer = new HashMap<>();
 
     /**
      * The models that need the infernal texture.
      */
     public static List<Integer> infernalModels = new ArrayList<>();
 
-    private static final int OSRS_ITEMS_START = 10603;
-    private static final int OSRS_ITEMS_OFFSET = 30_000;
+    public static final int OSRS_ITEMS_START = 10603;
+    public static final int OSRS_ITEMS_OFFSET = 30_000;
 
     public static void nullLoader() {
         modelCache = null;
@@ -81,15 +75,6 @@ public final class ItemDefinition {
         stream = null;
         streamOSRS = null;
     }
-    
-    public static boolean usingDepthBuffer(DataType type, int modelId) {
-    	if (!usingDepthBuffer.containsKey(type)) {
-    		return false;
-    	}
-    	
-    	return usingDepthBuffer.get(type).contains(modelId);
-    }
-
 
     public boolean dialogueModelFetched(int j) {
         int k = maleDialogue;
@@ -332,7 +317,7 @@ public final class ItemDefinition {
         Stream streamOSRS = new Stream(streamLoader.getDataForName("obj3.idx"));
 
         totalItems = streamIdx.readUnsignedWord();
-        int totalItemsOSRS = streamOSRS.readUnsignedWord();
+        totalItemsOSRS = streamOSRS.readUnsignedWord();
 
         streamIndices = new int[totalItems + 2000];
         streamIndicesOSRS = new int[totalItemsOSRS];
@@ -706,23 +691,7 @@ public final class ItemDefinition {
         //writeOutOsrsItems(totalItems, totalItemsOSRS);
         //dumpInterface(totalItems, totalItemsOSRS);
         
-        setDepthBuffer(DataType.REGULAR, 3287); // Angel cape
-        
         CustomRecolor.values();
-    }
-    
-    public static void setDepthBuffer(DataType type, int...models) {
-    	List<Integer> list = usingDepthBuffer.get(type);
-    	
-    	if (list == null) {
-    		list = new ArrayList<Integer>();
-    	}
-    	
-    	for (int i : models) {
-			list.add(i);
-		}
-    	
-    	usingDepthBuffer.put(type, list);
     }
     
     /*public static void dumpInterface(int totalItems, int totalItemsOSRS) {
@@ -9159,14 +9128,26 @@ public final class ItemDefinition {
                 return forID(stackId).getItemModelFinalised(1);
             }
         }
+        
+        int modelId = modelID;
+        DataType type = dataType;
+        
+        /**
+         * Override amulet of glory inv model.
+         */
+        if (id == 1704 || id == 1706 || id == 1708 || id == 1710 || id == 1712) {
+        	modelId = 2796;
+        	type = DataType.OLDSCHOOL;
+        }
+        
         int itemForModel = id;
-
-        Model model = dataType == DataType.CUSTOM ? (Model) modelCacheCustom.get(itemForModel) : (Model) modelCache.get(itemForModel);
+        
+        Model model = type == DataType.CUSTOM ? (Model) modelCacheCustom.get(itemForModel) : (Model) modelCache.get(itemForModel);
         if (model != null) {
             return model;
         }
 
-        model = Model.fetchModel(modelID, dataType);
+        model = Model.fetchModel(modelId, type);
         if (model == null) {
             return null;
         }
@@ -9195,7 +9176,7 @@ public final class ItemDefinition {
         }
         model.light(64 + shadow, 768 + lightness, -50, -10, -50, true);
         model.rendersWithinOneTile = true;
-        if (dataType == DataType.CUSTOM) {
+        if (type == DataType.CUSTOM) {
         	modelCacheCustom.put(model, id);
         } else {
         	if (id != 5572 && id != 5573 && id != 640 && id != 650 && id != 630) {
@@ -9438,6 +9419,7 @@ public final class ItemDefinition {
     public int[] stackAmounts;
     public int team;
     public static int totalItems;
+    public static int totalItemsOSRS;
     public int modelOffsetX;
     public byte maleYOffset;
     public byte maleXOffset;

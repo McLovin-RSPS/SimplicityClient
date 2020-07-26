@@ -683,6 +683,13 @@ public class CustomItems {
                 itemDef.name = "Owner's ultra box";
                 break;
                 
+            case 14482:
+                itemDef.copy(ItemDefinition.forID(6830));
+                itemDef.editedModelColor = new int[]{127, 11187};
+                itemDef.newModelColor = new int[]{689184, 689484};
+                itemDef.name = "Kevin's owner box";
+                break;
+                
             case 6835:
                 itemDef.copy(ItemDefinition.forID(6830));
                 itemDef.editedModelColor = new int[]{127, 11187};

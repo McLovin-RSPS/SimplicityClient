@@ -38,6 +38,7 @@ public class AnimDefinitionLookup extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Animation Definition Lookup");
 		setSize(550, 600);
+		setLocationRelativeTo(null);
 		setVisible(true);
 		
 		objects = new DefaultMutableTreeNode("Animations");

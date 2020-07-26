@@ -1,9 +1,12 @@
 package com.simplicity.client;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.simplicity.Configuration;
 import com.simplicity.client.cache.DataType;
@@ -21,10 +24,35 @@ public class Model extends Animable {
 	 */
 	public static int DEPTH_BUFFER_MODEL_START = 15_000;
 	
+	/**
+	 * A hash collection of depth buffered models.
+	 */
+	public static Map<DataType, HashSet<Integer>> DEPTH_BUFFER_MODELS = new HashMap<>();
+	
     /**
      * A hash collection of textured models per texture id.
      */
     public static Map<Integer, List<Integer>> texturedModels = new HashMap<>();
+
+	/**
+	 * Adds a depth buffered model.
+	 * 
+	 * @param dataType The data type.
+	 * @param modelIds The model ids.
+	 */
+	public static void addDepthBufferModel(DataType dataType, int... modelIds) {
+		HashSet<Integer> models = DEPTH_BUFFER_MODELS.get(dataType);
+
+		if (models == null) {
+			models = new HashSet<>();
+		}
+
+		for (int id : modelIds) {
+			models.add(id);
+		}
+
+		DEPTH_BUFFER_MODELS.put(dataType, models);
+	}
     
 	/**
 	 * Allows the specified model to be textured by the texture id.
@@ -164,12 +192,16 @@ public class Model extends Animable {
         hsl2rgb = Rasterizer.anIntArray1482;
         lightDecay = Rasterizer.anIntArray1469;
         
-		applyTexture(69, 16, 17);
-		
-		applyTexture(58, 10, 11, 12, 13, 14, 15);
-		
-        applyTexture(70, 18, 19);
+        addDepthBufferModel(DataType.REGULAR, 9347); // Toktz-ket-xil
+        addDepthBufferModel(DataType.REGULAR, 3287); // Angel cape
+        addDepthBufferModel(DataType.REGULAR, 13700); // Dragon kiteshield
+        addDepthBufferModel(DataType.REGULAR, 4037, 4038); // Dragon warhammer
+        addDepthBufferModel(DataType.OLDSCHOOL, 10423, 10424, 10425, 10426, 10427, 10428, 10456, 10457); // Cow outfit
+        addDepthBufferModel(DataType.OLDSCHOOL, 164, 218, 268, 344, 394, 432, 452, 3379, 3383, 4206, 4207); // (t) armor
         
+		applyTexture(69, 16, 17);
+		applyTexture(58, 10, 11, 12, 13, 14, 15);
+        applyTexture(70, 18, 19);
         applyTexture(71, 33144, 33103, 33111);
     }
 
@@ -622,7 +654,7 @@ public class Model extends Animable {
         
         boolean osrsModel = ItemDefinition.osrsModels.contains(modelId) || dataType == DataType.OLDSCHOOL;
         
-        if (modelId > DEPTH_BUFFER_MODEL_START) {
+        if (isDepthBuffered(modelId, dataType)) {
             setUseDepthBuffer(modelId, dataType);
         }
 
@@ -682,12 +714,23 @@ public class Model extends Animable {
                 }
             }
         }
-        
-        if (ItemDefinition.usingDepthBuffer(dataType, modelId) || dataType == DataType.CUSTOM) {
-        	setUseDepthBuffer(modelId, dataType);
-        }
     }
     
+	/**
+	 * Gets if the model of the specified datatype should use depth buffering.
+	 * 
+	 * @param modelId  The model id.
+	 * @param dataType The datatype.
+	 * @return <code>true</code> if should.
+	 */
+	private boolean isDepthBuffered(int modelId, DataType dataType) {
+		if (DEPTH_BUFFER_MODELS.containsKey(dataType) && DEPTH_BUFFER_MODELS.get(dataType).contains(modelId)) {
+			return true;
+		}
+		
+		return dataType == DataType.CUSTOM || modelId > DEPTH_BUFFER_MODEL_START;
+	}
+
 	/**
 	 * Sets this model to use depth buffering for rendering instead of priorities.
 	 * 
@@ -696,7 +739,7 @@ public class Model extends Animable {
 	 */
 	private void setUseDepthBuffer(int modelID, DataType type) {
 		if (type.equals(DataType.OLDSCHOOL)) {
-			if (modelID == 35439 || modelID == 35425 || modelID == 35446 || modelID == 35448 || modelID == 35414) { // Monumental chest
+			if (modelID == 35439 || modelID == 35425 || modelID == 35446 || modelID == 35448 || modelID == 35414) { // Exclude monumental chest
 				return;
 			}
 		}
@@ -2071,7 +2114,7 @@ public class Model extends Animable {
         filterTriangles();
         convertTexturesTo317(modelID, D, texTrianglesPoint1, texTrianglesPoint2, texTrianglesPoint3, x);
         
-        if (modelID > DEPTH_BUFFER_MODEL_START) {
+        if (isDepthBuffered(modelID, dataType)) {
         	setUseDepthBuffer(modelID, dataType);
         }
     }

@@ -13353,7 +13353,11 @@ public class Client extends RSApplet {
                     int j2 = stream.nglb();
                     int icon = stream.readUnsignedByte();
                     npc.updateHitData(j2, j1, loopCycle, icon, 0);
-                    npc.loopCycleStatus = loopCycle + 300;
+                    int visibleTicks = 300;
+                    if (npc.desc.type == 22535) {
+                    	visibleTicks = 5000;
+                    }
+                    npc.loopCycleStatus = loopCycle + visibleTicks;
                     npc.currentHealth = inStream.readDWord();
                     npc.maxHealth = inStream.readDWord();
                 }

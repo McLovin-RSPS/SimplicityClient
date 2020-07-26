@@ -924,6 +924,10 @@ public final class ObjectDefinition {
         stream667 = null;
         streamOSRS = null;
     }
+    
+    public static int totalObjects;
+    public static int totalObjects667;
+    public static int totalObjectsOSRS;
 
     public static void unpackConfig(CacheArchive streamLoader) {
         stream = new Stream(streamLoader.getDataForName("loc.dat"));
@@ -938,9 +942,9 @@ public final class ObjectDefinition {
         //FileOperations.WriteFile("C:\\Users\\te12ga8\\Dropbox\\Source\\data\\clipping\\objects\\loc2.dat", stream667.buffer);
         //FileOperations.WriteFile("C:\\Users\\te12ga8\\Dropbox\\Source\\data\\clipping\\objects\\loc2.idx", streamIdx667.buffer);
 
-        int totalObjects = stream.readUnsignedWord();
-        int totalObjects667 = streamIdx667.readUnsignedWord();
-        int totalObjectsOSRS = streamIdxOSRS.readUnsignedWord();
+        totalObjects = stream.readUnsignedWord();
+        totalObjects667 = streamIdx667.readUnsignedWord();
+        totalObjectsOSRS = streamIdxOSRS.readUnsignedWord();
 
         streamIndices = new int[totalObjects];
         streamIndices667 = new int[totalObjects667];
@@ -1219,7 +1223,7 @@ public final class ObjectDefinition {
                     if (actions == null)
                         actions = new String[10];
                     actions[opcode - 30] = stream.readString();
-                    if (actions[opcode - 30].equalsIgnoreCase("hidden"))
+					if (actions[opcode - 30] != null && actions[opcode - 30].equalsIgnoreCase("hidden"))
                         actions[opcode - 30] = null;
                 } else if (opcode == 40) {
                     int i1 = stream.readUnsignedByte();
