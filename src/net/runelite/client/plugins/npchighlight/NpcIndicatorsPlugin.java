@@ -380,7 +380,7 @@ public class NpcIndicatorsPlugin extends Plugin
 
 	private static WorldPoint getWorldLocationBehind(NPC npc)
 	{
-		final int orientation = npc.getOrientation() / 256;
+		final int orientation = npc.turnDirection / 256;
 		int dx = 0, dy = 0;
 
 		switch (orientation)
