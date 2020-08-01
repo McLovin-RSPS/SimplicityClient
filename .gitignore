@@ -10,3 +10,4 @@ SimplicityClientNew.iml
 *.class
 *.classpath
 *.project
+/target/
