@@ -3645,7 +3645,7 @@ public class Model extends Animable {
 
 		for (Vertex v : vertices) {
 			// Compute canvas location of vertex
-			Point p = Perspective.localToCanvas(RuneLite.getRunelite().getClient(), localX - v.getX(),
+			Point p = Perspective.localToCanvas(RuneLite.getClient(), localX - v.getX(),
 					localY - v.getZ(), tileHeight + v.getY());
 			if (p != null) {
 				points.add(p);

@@ -137,9 +137,6 @@ public class RuneLite
 	@Getter
 	private static Injector injector;
 	
-	@Getter
-	private static RuneLite runelite;
-
 	@Inject
 	public PluginManager pluginManager;
 
@@ -205,7 +202,7 @@ public class RuneLite
 	//private Client client;
 	
 	@Getter
-	private final Client client = new ClientRuneLite();
+	private static final Client client = new ClientRuneLite();
 	
 	public static void main(String[] args) throws Exception
 	{
@@ -274,9 +271,7 @@ public class RuneLite
 			options.valueOf(updateMode),
 			developerMode));
 		
-		runelite = injector.getInstance(RuneLite.class);
-
-		runelite.start();
+		injector.getInstance(RuneLite.class).start();
 	}
 
 	public void start() throws Exception

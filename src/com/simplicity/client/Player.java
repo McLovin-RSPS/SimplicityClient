@@ -474,7 +474,7 @@ public final class Player extends Entity {
 			return null;
 		}
 
-		net.runelite.api.Client client = RuneLite.getRunelite().getClient();
+		net.runelite.api.Client client = RuneLite.getClient();
 		int tileHeight = Perspective.getTileHeight(client, new LocalPoint(x, y), client.getPlane());
 		return model.getConvexHull(x, y, turnDirection, tileHeight);
 	}

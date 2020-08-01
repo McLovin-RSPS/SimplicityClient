@@ -96,7 +96,7 @@ public final class NPC extends Entity
 				size * Perspective.LOCAL_HALF_TILE_SIZE - Perspective.LOCAL_HALF_TILE_SIZE + x,
 				size * Perspective.LOCAL_HALF_TILE_SIZE - Perspective.LOCAL_HALF_TILE_SIZE + y);
 
-		net.runelite.api.Client c = RuneLite.getRunelite().getClient();
+		net.runelite.api.Client c = RuneLite.getClient();
 		int tileHeight = Perspective.getTileHeight(c, tileHeightPoint, c.getPlane());
 		return model.getConvexHull(x, y, turnDirection, tileHeight);
 	}

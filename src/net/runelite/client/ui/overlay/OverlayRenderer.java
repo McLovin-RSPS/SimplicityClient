@@ -115,7 +115,7 @@ public class OverlayRenderer extends MouseListener implements KeyListener
 
 	public void render(Graphics2D graphics, final OverlayLayer layer)
 	{
-		final Client client = RuneLite.getRunelite().getClient();
+		final Client client = RuneLite.getClient();
 		final List<Overlay> overlays = overlayManager.getLayer(layer);
 		
 		if (overlays == null
@@ -402,7 +402,7 @@ public class OverlayRenderer extends MouseListener implements KeyListener
 
 	private boolean shouldInvalidateBounds()
 	{
-		final Client client = RuneLite.getRunelite().getClient();
+		final Client client = RuneLite.getClient();
 		final Widget chatbox = client.getWidget(WidgetInfo.CHATBOX_MESSAGES);
 		final boolean resizeableChanged = isResizeable != client.isResized();
 		boolean changed = false;

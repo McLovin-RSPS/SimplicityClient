@@ -96,7 +96,7 @@ public class NpcSceneOverlay extends Overlay
 	@Inject
 	NpcSceneOverlay(@Nullable Client client, NpcIndicatorsConfig config, NpcIndicatorsPlugin plugin)
 	{
-		this.client = RuneLite.getRunelite().getClient();
+		this.client = RuneLite.getClient();
 		this.config = config;
 		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);

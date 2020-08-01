@@ -447,7 +447,7 @@ public class PluginManager
 		try
 		{
 			plugin = clazz.newInstance();
-			plugin.client = RuneLite.getRunelite().getClient();
+			plugin.client = RuneLite.getClient();
 			System.out.println("plugin client = " + plugin.client);
 		}
 		catch (InstantiationException | IllegalAccessException ex)
