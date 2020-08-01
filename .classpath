@@ -32,4 +32,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
+	<classpathentry kind="lib" path="deps/jgoodies-forms-1.8.0.jar"/>
+	<classpathentry kind="lib" path="deps/miglayout15-swing.jar"/>
 </classpath>
