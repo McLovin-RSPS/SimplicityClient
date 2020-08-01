@@ -3666,24 +3666,6 @@ public class Model extends Animable {
 
 		return p;
 	}
-	
-	public Polygon getConvexHull(int localX, int localY, int orientation, int tileHeight, Animable animable) {
-		List<Point> points = new ArrayList<Point>();
-
-		// Run Jarvis march algorithm
-		points = Jarvis.convexHull(animable.vertices);
-		if (points == null) {
-			return null;
-		}
-
-		// Convert to a polygon
-		Polygon p = new Polygon();
-		for (Point point : points) {
-			p.addPoint(point.getX(), point.getY());
-		}
-
-		return p;
-	}
     
 	public List<Vertex> getVertices() {
 		int[] verticesX = verticesXCoordinate;
