@@ -1,11 +1,18 @@
 package com.simplicity.client;
 
 
+import java.awt.Polygon;
+
 // Decompiled by Jad v1.5.8f. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
 import com.simplicity.client.cache.definitions.Animation;
+
+import net.runelite.api.Perspective;
+import net.runelite.api.coords.LocalPoint;
+import net.runelite.api.coords.WorldPoint;
+import net.runelite.client.RuneLite;
 
 public class Entity extends Animable {
 
@@ -191,12 +198,23 @@ public class Entity extends Animable {
 	int turnInfo;
 	public int x;
 	public int y;
+	public int z;
 	int anInt1552;
 	final boolean[] aBooleanArray1553;
 	int anInt1554;
 	int anInt1555;
 	int anInt1556;
 	int anInt1557;
+	
+	public LocalPoint getLocalLocation() {
+		return new LocalPoint(x, y);
+	}
+	
+	public WorldPoint getWorldLocation() {
+		int baseX = Client.getBaseX();
+		int baseY = Client.getBaseY();
+		return new WorldPoint(baseX, baseY, z);
+	}
 	
 	public int nextAnimationFrame;
 	public int nextGraphicsAnimationFrame;

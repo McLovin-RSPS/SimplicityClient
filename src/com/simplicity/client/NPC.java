@@ -1,9 +1,15 @@
 package com.simplicity.client;
 
 
+import java.awt.Polygon;
+
 import com.simplicity.client.cache.definitions.Animation;
 import com.simplicity.client.cache.definitions.MobDefinition;
 import com.simplicity.client.cache.definitions.SpotAnimDefinition;
+
+import net.runelite.api.Perspective;
+import net.runelite.api.coords.LocalPoint;
+import net.runelite.client.RuneLite;
 
 public final class NPC extends Entity
 {
@@ -74,6 +80,25 @@ public final class NPC extends Entity
 		if(desc.squaresNeeded == 1)
 			model.rendersWithinOneTile = true;
 		return model;
+	}
+	
+	@Override
+	public Polygon getConvexHull() {
+		Model model = getRotatedModel();
+		
+		if (model == null) {
+			return null;
+		}
+
+		int size = desc.squaresNeeded;
+		
+		LocalPoint tileHeightPoint = new LocalPoint(
+				size * Perspective.LOCAL_HALF_TILE_SIZE - Perspective.LOCAL_HALF_TILE_SIZE + x,
+				size * Perspective.LOCAL_HALF_TILE_SIZE - Perspective.LOCAL_HALF_TILE_SIZE + y);
+
+		net.runelite.api.Client c = RuneLite.getRunelite().getClient();
+		int tileHeight = Perspective.getTileHeight(c, tileHeightPoint, c.getPlane());
+		return model.getConvexHull(x, y, turnDirection, tileHeight);
 	}
 
 	public boolean isVisible()

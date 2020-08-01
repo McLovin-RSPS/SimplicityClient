@@ -1,12 +1,11 @@
 package com.simplicity.client;
 
+import java.awt.Polygon;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.simplicity.Configuration;
 import com.simplicity.client.cache.DataType;
@@ -15,6 +14,12 @@ import com.simplicity.client.particles.Particle;
 import com.simplicity.client.particles.ParticleAttachment;
 import com.simplicity.client.particles.ParticleDefinition;
 import com.simplicity.client.particles.ParticleVector;
+
+import net.runelite.api.Perspective;
+import net.runelite.api.Point;
+import net.runelite.api.model.Jarvis;
+import net.runelite.api.model.Vertex;
+import net.runelite.client.RuneLite;
 
 @SuppressWarnings("all")
 public class Model extends Animable {
@@ -180,7 +185,7 @@ public class Model extends Animable {
 
     static int lightDecay[];
 
-    private int lastRenderedRotation = 0;
+    public int lastRenderedRotation = 0;
     private int renderAtPointX;
     public int renderAtPointZ = 0;
     public int renderAtPointY = 0;
@@ -3626,7 +3631,75 @@ public class Model extends Animable {
             return;
         }
     }
+    
+	public Polygon getConvexHull(int localX, int localY, int orientation, int tileHeight) {
+		List<Vertex> vertices = getVertices();
 
+		// rotate vertices
+		for (int i = 0; i < vertices.size(); ++i) {
+			Vertex v = vertices.get(i);
+			vertices.set(i, v.rotate(orientation));
+		}
+
+		List<Point> points = new ArrayList<Point>();
+
+		for (Vertex v : vertices) {
+			// Compute canvas location of vertex
+			Point p = Perspective.localToCanvas(RuneLite.getRunelite().getClient(), localX - v.getX(),
+					localY - v.getZ(), tileHeight + v.getY());
+			if (p != null) {
+				points.add(p);
+			}
+		}
+
+		// Run Jarvis march algorithm
+		points = Jarvis.convexHull(points);
+		if (points == null) {
+			return null;
+		}
+
+		// Convert to a polygon
+		Polygon p = new Polygon();
+		for (Point point : points) {
+			p.addPoint(point.getX(), point.getY());
+		}
+
+		return p;
+	}
+	
+	public Polygon getConvexHull(int localX, int localY, int orientation, int tileHeight, Animable animable) {
+		List<Point> points = new ArrayList<Point>();
+
+		// Run Jarvis march algorithm
+		points = Jarvis.convexHull(animable.vertices);
+		if (points == null) {
+			return null;
+		}
+
+		// Convert to a polygon
+		Polygon p = new Polygon();
+		for (Point point : points) {
+			p.addPoint(point.getX(), point.getY());
+		}
+
+		return p;
+	}
+    
+	public List<Vertex> getVertices() {
+		int[] verticesX = verticesXCoordinate;
+		int[] verticesY = verticesYCoordinate;
+		int[] verticesZ = verticesZCoordinate;
+
+		List<Vertex> vertices = new ArrayList<Vertex>(numberOfVerticeCoordinates);
+
+		for (int i = 0; i < numberOfVerticeCoordinates; ++i) {
+			Vertex v = new Vertex(verticesX[i], verticesY[i], verticesZ[i]);
+			vertices.add(v);
+		}
+
+		return vertices;
+	}
+	
     public void renderSingle(int rotation_2, int offsetX, int rotation_1, int offsetY, int zoom_sine, int zoom_cosine) {
         try {
             int i = 0;

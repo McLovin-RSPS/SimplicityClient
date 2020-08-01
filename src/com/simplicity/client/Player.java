@@ -1,5 +1,8 @@
 package com.simplicity.client;
 
+import java.awt.Polygon;
+import java.util.Arrays;
+
 import com.simplicity.Configuration;
 import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.Animation;
@@ -7,7 +10,9 @@ import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.client.cache.definitions.MobDefinition;
 import com.simplicity.client.cache.definitions.SpotAnimDefinition;
 
-import java.util.Arrays;
+import net.runelite.api.Perspective;
+import net.runelite.api.coords.LocalPoint;
+import net.runelite.client.RuneLite;
 
 @SuppressWarnings("all")
 public final class Player extends Entity {
@@ -460,6 +465,20 @@ public final class Player extends Entity {
 
 		return model;
 	}
+	
+	@Override
+	public Polygon getConvexHull() {
+		Model model = getRotatedModel();
+		
+		if (model == null) {
+			return null;
+		}
+
+		net.runelite.api.Client client = RuneLite.getRunelite().getClient();
+		int tileHeight = Perspective.getTileHeight(client, new LocalPoint(x, y), client.getPlane());
+		return model.getConvexHull(x, y, turnDirection, tileHeight);
+	}
+
 
 	Player() {
 		aLong1697 = -1L;
@@ -487,7 +506,6 @@ public final class Player extends Entity {
 	public int SummonLevel;
 	public int startTimeTransform;
 	int transformedTimer;
-	int z;
 	boolean visible;
 	int resizeX;
 	int resizeZ;

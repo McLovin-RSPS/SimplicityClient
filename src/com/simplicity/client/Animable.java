@@ -1,6 +1,9 @@
 package com.simplicity.client;
-public class Animable extends QueueNode {
 
+import java.awt.Polygon;
+
+public class Animable extends QueueNode {
+	
 	public void renderAtPoint(int i, int j, int k, int l, int i1, int j1,
 			int k1, int l1, int i2, int newuid) {
 		Model model = getRotatedModel();
@@ -16,6 +19,10 @@ public class Animable extends QueueNode {
 	}
 
 	public Model getRotatedModelHD() {
+		return null;
+	}
+	
+	public Polygon getConvexHull() {
 		return null;
 	}
 

@@ -75,6 +75,7 @@ import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import com.google.inject.Injector;
 import com.simplicity.Configuration;
 import com.simplicity.Jframe;
 import com.simplicity.client.DrawLine.LineType;
@@ -133,8 +134,20 @@ import com.simplicity.util.MiscUtils;
 import com.simplicity.util.Stopwatch;
 import com.simplicity.util.StringUtils;
 
+import net.runelite.api.GameState;
+import net.runelite.api.events.GameStateChanged;
+import net.runelite.api.events.GameTick;
+import net.runelite.client.RuneLite;
+import net.runelite.client.plugins.PluginManager;
+import net.runelite.client.ui.overlay.OverlayLayer;
+import net.runelite.client.ui.overlay.OverlayRenderer;
+
 @SuppressWarnings("all")
 public class Client extends RSApplet {
+	
+	private static final Injector injector = RuneLite.getInjector();
+	private static RuneLite runelite;
+	private static PluginManager pluginManager;
 	
 	public boolean chatboxInFocus = true;
 	
@@ -463,9 +476,6 @@ public class Client extends RSApplet {
 
     public void toggleSize(int size) {
         if (clientSize != size) {
-            if (isWebclient() && Jframe.frame == null) {
-                return;
-            }
             clientSize = size;
             int width = 765;
             int height = 503;
@@ -544,7 +554,27 @@ public class Client extends RSApplet {
             gameAreaHeight = (size == 0) ? 334 : height;
             clientWidth = width;
             clientHeight = height;
-            instance.rebuildFrame(size == 2, width, height, size == 1, size != 0);
+            
+            if (runelite != null) {
+            	resize(width, height);
+            	
+				if (size == 1) {
+
+				} else if (size == 0) {
+					int w = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+					int h = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+					runelite.clientUI.frame.setBounds((w / 2) - (765 / 2), (h / 2) - (503 / 2), 765, 503);
+				}
+
+				runelite.clientUI.container.revalidate();
+				runelite.clientUI.frame.revalidate();
+				
+				resetImageProducers2();
+            	
+            } else {
+            	instance.rebuildFrame(size == 2, width, height, size == 1, size != 0);
+            }
+            
             updateGameArea();
             super.mouseX = super.mouseY = -1;
         } catch (Exception e) {
@@ -3552,6 +3582,11 @@ public class Client extends RSApplet {
 
     public void init() {
         try {
+        	if (injector != null) {
+        		runelite = injector.getInstance(RuneLite.class);
+        		pluginManager = injector.getInstance(PluginManager.class);
+        	}
+        	
             webclient = true;
             nodeID = 10;
             portOff = 0;
@@ -6056,6 +6091,11 @@ public class Client extends RSApplet {
             socketStream = null;
         }
         loggedIn = false;
+		if (runelite != null) {
+			GameStateChanged gameStateChange = new GameStateChanged();
+			gameStateChange.setGameState(GameState.LOGIN_SCREEN);
+			runelite.post(gameStateChange);
+		}
         previousScreenState = 0;
         loginScreenState = 0;
         loginCode = 0;
@@ -6185,6 +6225,10 @@ public class Client extends RSApplet {
             }
         }
         processOnDemandQueue();
+        
+        if (runelite != null) {
+        	runelite.post(new GameTick());
+        }
     }
 
     private void showPrioritizedPlayers() {
@@ -12731,6 +12775,11 @@ public class Client extends RSApplet {
                 super.awtFocus = true;
                 aBoolean954 = true;
                 loggedIn = true;
+                if (runelite != null) {
+        			GameStateChanged gameStateChange = new GameStateChanged();
+        			gameStateChange.setGameState(GameState.LOGGED_IN);
+        			runelite.post(gameStateChange);
+        		}
                 stream.currentOffset = 0;
                 inStream.currentOffset = 0;
                 opCode = -1;
@@ -12749,8 +12798,12 @@ public class Client extends RSApplet {
                 for (int j1 = 0; j1 < 100; j1++) {
                     chatMessages[j1] = null;
                 }
-                RICH_PRESENCE.updateState("[ Logged In: " + username + " ]");
-                RICH_PRESENCE.updateDetails("SIMPLICITYPS.ORG");
+                try {
+                	RICH_PRESENCE.updateState("[ Logged In: " + username + " ]");
+                    RICH_PRESENCE.updateDetails("SIMPLICITYPS.ORG");
+                } catch (Exception e) {
+                	e.printStackTrace();
+                }
                 itemSelected = 0;
                 spellSelected = 0;
                 loadingStage = 0;
@@ -21678,6 +21731,13 @@ public class Client extends RSApplet {
         if (loggedIn) {
         	ScreenOverlayManager.process();
         	
+        	try {
+            	OverlayRenderer renderer = injector.getInstance(OverlayRenderer.class);
+            	renderer.render(DrawingArea.createGraphics(true), OverlayLayer.ABOVE_SCENE);
+            } catch (Exception e) {
+            	//e.printStackTrace();
+            }
+        	
             if (type2 > -1) {
                 drawArrow(title, information, drawX, drawY, speed, pause, type2);
             }
@@ -24996,6 +25056,18 @@ public class Client extends RSApplet {
 	 */
 	public boolean inImageProducerBounds(RSImageProducer r, int x, int y) {
 		return mouseX >= x && mouseX <= x + r.width && mouseY >= y && mouseY <= y + r.height;
+	}
+	
+	public NPC[] getNpcs() {
+		return npcArray;
+	}
+	
+	public byte[][][] getTileSettings() {
+		return byteGroundArray;
+	}
+	
+	public int[][][] getTileHeights() {
+		return intGroundArray;
 	}
 
 }
