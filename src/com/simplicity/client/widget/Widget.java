@@ -8,16 +8,7 @@ import com.simplicity.client.widget.deals.DealBoardWidget;
 import com.simplicity.client.widget.deals.ItemDealBoardWidget;
 import com.simplicity.client.widget.deals.MultipleItemDealBoxWidget;
 import com.simplicity.client.widget.raids.cox.XericPointsWidget;
-import com.simplicity.client.widget.raids.tob.ApplicantsContainerWidget;
-import com.simplicity.client.widget.raids.tob.PartyContainerWidget;
-import com.simplicity.client.widget.raids.tob.PerformanceDetails;
-import com.simplicity.client.widget.raids.tob.PerformersContainerWidget;
-import com.simplicity.client.widget.raids.tob.TheatrePartyWidget;
-import com.simplicity.client.widget.raids.tob.TheatrePerformersWidget;
-import com.simplicity.client.widget.raids.tob.TheatreRewardsWidget;
-import com.simplicity.client.widget.raids.tob.TobFadeText;
-import com.simplicity.client.widget.raids.tob.TobPartyOverlayWidget;
-import com.simplicity.client.widget.raids.tob.TobSuppliesWidget;
+import com.simplicity.client.widget.raids.tob.*;
 
 public class Widget {
 	
@@ -47,6 +38,8 @@ public class Widget {
 		init(new PartyContainerWidget());
 		init(new ApplicantsContainerWidget());
 		init(new PerformanceDetails());
+		init(new PartyHiscores());
+		init(new PartyHiscoresContainer());
 		init(new TheatreRewardsWidget());
 		init(new TobFadeText());
 		init(new TobSuppliesWidget());
