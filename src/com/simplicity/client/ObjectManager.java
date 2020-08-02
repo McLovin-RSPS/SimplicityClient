@@ -702,8 +702,13 @@ final class ObjectManager {
 		/**
 		 * COX Object adjustments.
 		 */
-		if (regionId == 13138 && objId == 129789 && face == 1) { // Vasa Nistirio passage object
-			x--;
+		if (objId == 129789) {
+			if (regionId == 13395 && face == 2) { // Gem grabs
+				x -= 2;
+			}
+			if (regionId == 13138 && face == 1) { // Vasa Nistirio
+				x--;
+			}
 		}
 		
 		boolean debug = false;
