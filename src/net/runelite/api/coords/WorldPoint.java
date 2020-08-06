@@ -25,10 +25,15 @@
  */
 package net.runelite.api.coords;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import lombok.Value;
 import net.runelite.api.Client;
+import static net.runelite.api.Constants.CHUNK_SIZE;
+import static net.runelite.api.Constants.REGION_SIZE;
 import net.runelite.api.Perspective;
-import net.runelite.api.Point;
 
 /**
  * A three-dimensional point representing the coordinate of a Tile.
@@ -37,7 +42,8 @@ import net.runelite.api.Point;
  * instance.
  */
 @Value
-public class WorldPoint {
+public class WorldPoint
+{
 	/**
 	 * X-axis coordinate.
 	 */
@@ -61,7 +67,8 @@ public class WorldPoint {
 	 * @param dx the offset
 	 * @return new instance
 	 */
-	public WorldPoint dx(int dx) {
+	public WorldPoint dx(int dx)
+	{
 		return new WorldPoint(x + dx, y, plane);
 	}
 
@@ -71,7 +78,8 @@ public class WorldPoint {
 	 * @param dy the offset
 	 * @return new instance
 	 */
-	public WorldPoint dy(int dy) {
+	public WorldPoint dy(int dy)
+	{
 		return new WorldPoint(x, y + dy, plane);
 	}
 
@@ -81,7 +89,8 @@ public class WorldPoint {
 	 * @param dz the offset
 	 * @return new instance
 	 */
-	public WorldPoint dz(int dz) {
+	public WorldPoint dz(int dz)
+	{
 		return new WorldPoint(x, y, plane + dz);
 	}
 
@@ -89,11 +98,12 @@ public class WorldPoint {
 	 * Checks whether a tile is located in the current scene.
 	 *
 	 * @param client the client
-	 * @param x      the tiles x coordinate
-	 * @param y      the tiles y coordinate
+	 * @param x the tiles x coordinate
+	 * @param y the tiles y coordinate
 	 * @return true if the tile is in the scene, false otherwise
 	 */
-	public static boolean isInScene(Client client, int x, int y) {
+	public static boolean isInScene(Client client, int x, int y)
+	{
 		int baseX = client.getBaseX();
 		int baseY = client.getBaseY();
 
@@ -109,7 +119,8 @@ public class WorldPoint {
 	 * @param client the client
 	 * @return true if this tile is in the scene, false otherwise
 	 */
-	public boolean isInScene(Client client) {
+	public boolean isInScene(Client client)
+	{
 		return client.getPlane() == plane && isInScene(client, x, y);
 	}
 
@@ -117,10 +128,11 @@ public class WorldPoint {
 	 * Gets the coordinate of the tile that contains the passed local point.
 	 *
 	 * @param client the client
-	 * @param local  the local coordinate
+	 * @param local the local coordinate
 	 * @return the tile coordinate containing the local point
 	 */
-	public static WorldPoint fromLocal(Client client, LocalPoint local) {
+	public static WorldPoint fromLocal(Client client, LocalPoint local)
+	{
 		return fromLocal(client, local.getX(), local.getY(), client.getPlane());
 	}
 
@@ -128,14 +140,125 @@ public class WorldPoint {
 	 * Gets the coordinate of the tile that contains the passed local point.
 	 *
 	 * @param client the client
-	 * @param x      the local x-axis coordinate
-	 * @param y      the local x-axis coordinate
-	 * @param plane  the plane
+	 * @param x the local x-axis coordinate
+	 * @param y the local x-axis coordinate
+	 * @param plane the plane
 	 * @return the tile coordinate containing the local point
 	 */
-	public static WorldPoint fromLocal(Client client, int x, int y, int plane) {
-		return new WorldPoint((x >>> Perspective.LOCAL_COORD_BITS) + client.getBaseX(),
-				(y >>> Perspective.LOCAL_COORD_BITS) + client.getBaseY(), plane);
+	public static WorldPoint fromLocal(Client client, int x, int y, int plane)
+	{
+		return new WorldPoint(
+			(x >>> Perspective.LOCAL_COORD_BITS) + client.getBaseX(),
+			(y >>> Perspective.LOCAL_COORD_BITS) + client.getBaseY(),
+			plane
+		);
+	}
+
+	/**
+	 * Gets the coordinate of the tile that contains the passed local point,
+	 * accounting for instances.
+	 *
+	 * @param client the client
+	 * @param localPoint the local coordinate
+	 * @return the tile coordinate containing the local point
+	 */
+	public static WorldPoint fromLocalInstance(Client client, LocalPoint localPoint)
+	{
+		if (client.isInInstancedRegion())
+		{
+			// get position in the scene
+			int sceneX = localPoint.getSceneX();
+			int sceneY = localPoint.getSceneY();
+
+			// get chunk from scene
+			int chunkX = sceneX / CHUNK_SIZE;
+			int chunkY = sceneY / CHUNK_SIZE;
+
+			// get the template chunk for the chunk
+			int[][][] instanceTemplateChunks = client.getInstanceTemplateChunks();
+			int templateChunk = instanceTemplateChunks[client.getPlane()][chunkX][chunkY];
+
+			int rotation = templateChunk >> 1 & 0x3;
+			int templateChunkY = (templateChunk >> 3 & 0x7FF) * CHUNK_SIZE;
+			int templateChunkX = (templateChunk >> 14 & 0x3FF) * CHUNK_SIZE;
+			int plane = templateChunk >> 24 & 0x3;
+
+			// calculate world point of the template
+			int x = templateChunkX + (sceneX & (CHUNK_SIZE - 1));
+			int y = templateChunkY + (sceneY & (CHUNK_SIZE - 1));
+
+			// create and rotate point back to 0, to match with template
+			return rotate(new WorldPoint(x, y, plane), 4 - rotation);
+		}
+		else
+		{
+			return fromLocal(client, localPoint);
+		}
+	}
+
+	/**
+	 * Get occurrences of a tile on the scene, accounting for instances. There may be
+	 * more than one if the same template chunk occurs more than once on the scene.
+	 * @param client
+	 * @param worldPoint
+	 * @return
+	 */
+	public static Collection<WorldPoint> toLocalInstance(Client client, WorldPoint worldPoint)
+	{
+		if (!client.isInInstancedRegion())
+		{
+			return Collections.singleton(worldPoint);
+		}
+
+		// find instance chunks using the template point. there might be more than one.
+		List<WorldPoint> worldPoints = new ArrayList<>();
+		final int z = worldPoint.getPlane();
+		int[][][] instanceTemplateChunks = client.getInstanceTemplateChunks();
+		for (int x = 0; x < instanceTemplateChunks[z].length; ++x)
+		{
+			for (int y = 0; y < instanceTemplateChunks[z][x].length; ++y)
+			{
+				int chunkData = instanceTemplateChunks[z][x][y];
+				int rotation = chunkData >> 1 & 0x3;
+				int templateChunkY = (chunkData >> 3 & 0x7FF) * CHUNK_SIZE;
+				int templateChunkX = (chunkData >> 14 & 0x3FF) * CHUNK_SIZE;
+				if (worldPoint.getX() >= templateChunkX && worldPoint.getX() < templateChunkX + CHUNK_SIZE
+					&& worldPoint.getY() >= templateChunkY && worldPoint.getY() < templateChunkY + CHUNK_SIZE)
+				{
+					WorldPoint p = new WorldPoint(client.getBaseX() + x * CHUNK_SIZE + (worldPoint.getX() & (CHUNK_SIZE - 1)),
+						client.getBaseY() + y * CHUNK_SIZE + (worldPoint.getY() & (CHUNK_SIZE - 1)),
+						worldPoint.getPlane());
+					p = rotate(p, rotation);
+					worldPoints.add(p);
+				}
+			}
+		}
+		return worldPoints;
+	}
+
+	/**
+	 * Rotate the coordinates in the chunk according to chunk rotation
+	 *
+	 * @param point point
+	 * @param rotation rotation
+	 * @return world point
+	 */
+	private static WorldPoint rotate(WorldPoint point, int rotation)
+	{
+		int chunkX = point.getX() & ~(CHUNK_SIZE - 1);
+		int chunkY = point.getY() & ~(CHUNK_SIZE - 1);
+		int x = point.getX() & (CHUNK_SIZE - 1);
+		int y = point.getY() & (CHUNK_SIZE - 1);
+		switch (rotation)
+		{
+			case 1:
+				return new WorldPoint(chunkX + y, chunkY + (CHUNK_SIZE - 1 - x), point.getPlane());
+			case 2:
+				return new WorldPoint(chunkX + (CHUNK_SIZE - 1 - x), chunkY + (CHUNK_SIZE - 1 - y), point.getPlane());
+			case 3:
+				return new WorldPoint(chunkX + (CHUNK_SIZE - 1 - y), chunkY + x, point.getPlane());
+		}
+		return point;
 	}
 
 	/**
@@ -144,7 +267,8 @@ public class WorldPoint {
 	 * @param other the world area
 	 * @return the shortest distance
 	 */
-	public int distanceTo(WorldArea other) {
+	public int distanceTo(WorldArea other)
+	{
 		return new WorldArea(this, 1, 1).distanceTo(other);
 	}
 
@@ -158,8 +282,10 @@ public class WorldPoint {
 	 * @param other other point
 	 * @return the distance
 	 */
-	public int distanceTo(WorldPoint other) {
-		if (other.plane != plane) {
+	public int distanceTo(WorldPoint other)
+	{
+		if (other.plane != plane)
+		{
 			return Integer.MAX_VALUE;
 		}
 
@@ -169,26 +295,27 @@ public class WorldPoint {
 	/**
 	 * Find the distance from this point to another point.
 	 * <p>
-	 * This method disregards the plane value of the two tiles and returns the
-	 * simple distance between the X-Z coordinate pairs.
+	 * This method disregards the plane value of the two tiles and returns
+	 * the simple distance between the X-Z coordinate pairs.
 	 *
 	 * @param other other point
 	 * @return the distance
 	 */
-	public int distanceTo2D(WorldPoint other) {
+	public int distanceTo2D(WorldPoint other)
+	{
 		return Math.max(Math.abs(getX() - other.getX()), Math.abs(getY() - other.getY()));
 	}
 
 	/**
 	 * Converts the passed scene coordinates to a world space
 	 */
-	public static WorldPoint fromScene(Client client, int x, int y, int plane) {
-		return new WorldPoint(x + client.getBaseX(), y + client.getBaseY(), plane);
-	}
-
-	@Deprecated
-	public Point toPoint() {
-		return new Point(x, y);
+	public static WorldPoint fromScene(Client client, int x, int y, int plane)
+	{
+		return new WorldPoint(
+			x + client.getBaseX(),
+			y + client.getBaseY(),
+			plane
+		);
 	}
 
 	/**
@@ -196,7 +323,41 @@ public class WorldPoint {
 	 *
 	 * @return the region ID
 	 */
-	public int getRegionID() {
+	public int getRegionID()
+	{
 		return ((x >> 6) << 8) | (y >> 6);
 	}
+
+	/**
+	 * Converts the passed region ID and coordinates to a world coordinate
+	 */
+	public static WorldPoint fromRegion(int regionId, int regionX, int regionY, int plane)
+	{
+		return new WorldPoint(
+			((regionId >>> 8) << 6) + regionX,
+			((regionId & 0xff) << 6) + regionY,
+			plane);
+	}
+
+	/**
+	 * Gets the X-axis coordinate of the region coordinate
+	 */
+	public int getRegionX()
+	{
+		return getRegionOffset(x);
+	}
+
+	/**
+	 * Gets the Y-axis coordinate of the region coordinate
+	 */
+	public int getRegionY()
+	{
+		return getRegionOffset(y);
+	}
+
+	private static int getRegionOffset(final int position)
+	{
+		return position & (REGION_SIZE - 1);
+	}
 }
+
