@@ -103,7 +103,7 @@ public class SceneTileManager
 	 */
 	public void simulateObjectSpawns(Object subscriber)
 	{
-		eventBus.register(subscriber);
+		/*eventBus.register(subscriber);
 
 		forEachTile((tile) ->
 		{
@@ -157,6 +157,6 @@ public class SceneTileManager
 			});
 		});
 
-		eventBus.unregister(subscriber);
+		eventBus.unregister(subscriber);*/
 	}
 }
