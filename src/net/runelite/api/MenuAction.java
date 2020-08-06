@@ -129,11 +129,6 @@ public enum MenuAction
 	GROUND_ITEM_FIFTH_OPTION(22),
 
 	/**
-	 * Menu action for walking.
-	 */
-	WALK(23),
-
-	/**
 	 * Interaction with widget (type 1).
 	 */
 	WIDGET_TYPE_1(24),
@@ -234,6 +229,16 @@ public enum MenuAction
 	 * Casting a spell / op target on a widget
 	 */
 	SPELL_CAST_ON_WIDGET(58),
+	
+	/**
+	 * Menu action for walking.
+	 */
+	WALK(516),
+	
+	/**
+	 * Menu action triggered by tile marker.
+	 */
+	TILE_MARK(517),
 
 	/**
 	 * Menu action triggered by examining an object.
