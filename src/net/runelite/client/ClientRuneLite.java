@@ -9,6 +9,8 @@ import java.util.Map;
 
 import com.simplicity.client.NPC;
 import com.simplicity.client.Player;
+import com.simplicity.client.Tile;
+import com.simplicity.client.WorldController;
 
 import ch.qos.logback.classic.Logger;
 import net.runelite.api.Area;
@@ -40,7 +42,6 @@ import net.runelite.api.RenderOverview;
 import net.runelite.api.Scene;
 import net.runelite.api.Skill;
 import net.runelite.api.SpritePixels;
-import net.runelite.api.Tile;
 import net.runelite.api.VarClientInt;
 import net.runelite.api.VarClientStr;
 import net.runelite.api.VarPlayer;
@@ -373,8 +374,7 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public boolean isKeyPressed(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
+		return client().isKeyPressed(keycode);
 	}
 	
 	@Override
@@ -736,7 +736,7 @@ public class ClientRuneLite implements Client {
 	@Override
 	public Point getMouseCanvasPosition() {
 		// TODO Auto-generated method stub
-		return null;
+		return new Point(client().mouseX, client().mouseY);
 	}
 	
 	@Override
