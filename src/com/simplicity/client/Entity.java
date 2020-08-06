@@ -207,13 +207,15 @@ public class Entity extends Animable {
 	int anInt1557;
 	
 	public LocalPoint getLocalLocation() {
-		return new LocalPoint(x, y);
+		return new LocalPoint((x - 6 >> 7), (y - 6 >> 7));
 	}
 	
 	public WorldPoint getWorldLocation() {
 		int baseX = Client.getBaseX();
 		int baseY = Client.getBaseY();
-		return new WorldPoint(baseX, baseY, z);
+		int z = Client.instance.plane;
+		
+		return new WorldPoint(baseX + (x - 6 >> 7), baseY + (y - 6 >> 7), z);
 	}
 	
 	public int nextAnimationFrame;
