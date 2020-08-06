@@ -31,6 +31,8 @@ import com.simplicity.client.content.Keybinding;
 import com.simplicity.client.widget.AchievementsWidget;
 import com.simplicity.client.widget.SettingsWidget;
 
+import net.runelite.api.KeyCode;
+
 @SuppressWarnings("all")
 public class RSApplet extends Applet implements Runnable, MouseListener,
 MouseMotionListener, MouseWheelListener, KeyListener, FocusListener,
@@ -780,6 +782,15 @@ WindowListener {
 		}
 		
 		shiftDown = false;
+	}
+	
+	public boolean isKeyPressed(int keycode) {
+		
+		if (keycode == KeyCode.KC_SHIFT) {
+			return shiftDown;
+		}
+		
+		return keyArray[keycode] == 1;
 	}
 
 	public final void keyTyped(KeyEvent keyevent) {

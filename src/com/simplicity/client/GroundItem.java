@@ -1,8 +1,10 @@
 package com.simplicity.client;
 
+import net.runelite.api.coords.LocalPoint;
+import net.runelite.api.coords.WorldPoint;
+import net.runelite.client.RuneLite;
 
-
-final class GroundItem {
+public final class GroundItem {
 
 	GroundItem()
 	{
@@ -17,4 +19,9 @@ final class GroundItem {
 	int uid;
 	int newuid;
 	int topItem;
+	
+	public int getHeight() {
+		return zPos;
+	}
+	
 }

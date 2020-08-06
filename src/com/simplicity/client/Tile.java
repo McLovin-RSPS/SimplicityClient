@@ -3,6 +3,10 @@ package com.simplicity.client;
 
 import com.simplicity.client.cache.node.Node;
 
+import net.runelite.api.coords.LocalPoint;
+import net.runelite.api.coords.WorldPoint;
+import net.runelite.client.RuneLite;
+
 public final class Tile extends Node {
 
 	public Tile(int i, int j, int k)
@@ -37,4 +41,13 @@ public final class Tile extends Node {
 	int anInt1327;
 	int anInt1328;
 	public Tile tileBelowThisTile;
+	
+	public LocalPoint getLocalLocation() {
+		return LocalPoint.fromScene(tileX, tileY);
+	}
+	
+	public WorldPoint getWorldLocation() {
+		return WorldPoint.fromScene(RuneLite.getClient(), tileX, tileY, tileZ);
+	}
+	
 }
