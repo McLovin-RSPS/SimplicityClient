@@ -530,6 +530,10 @@ public final class WorldController {
 			tile.groundItem = null;
 		}
 	}
+	
+	public Tile getTile(int z, int x, int y) {
+		return tileArray[z][x][y];
+	}
 
 	public WallObject getWallObject(int z, int x, int y) {
 		Tile tile = tileArray[z][x][y];
@@ -1097,12 +1101,10 @@ public final class WorldController {
 		anInt471 = -1;
 	}
 	
-	public void requestMarkTile(int x, int y) {
-		requestMarkTile = true;
-		requestedMarkTileX = !Client.antialiasing ? y : y << 1;
-		requestedMarkTileY = !Client.antialiasing ? x : x << 1;
-		tracedMarkTileX = -1;
-		tracedMarkTileY = -1;
+	public void requestTileTrace(int x, int y) {
+		requestTileTrace = true;
+		requestedTraceX = !Client.antialiasing ? x : x << 1;
+		requestedTraceY = !Client.antialiasing ? y : y << 1;
 	}
 
 	public void render(int xCam, int yCam, int xCurve, int zCam, int plane, int yCurve) {
@@ -1205,7 +1207,7 @@ public final class WorldController {
 						
 						if (anInt446 == 0) {
 							aBoolean467 = false;
-							requestMarkTile = false;
+							requestTileTrace = false;
 							return;
 						}
 					}
@@ -1254,7 +1256,7 @@ public final class WorldController {
 						}
 						if (anInt446 == 0) {
 							aBoolean467 = false;
-							requestMarkTile = false;
+							requestTileTrace = false;
 							return;
 						}
 					}
@@ -1264,7 +1266,7 @@ public final class WorldController {
 		}
 		
 		aBoolean467 = false;
-		requestMarkTile = false;
+		requestTileTrace = false;
 	}
 	
 	public static Map<Integer, List<Position>> markedTiles = new HashMap<>();
@@ -1846,13 +1848,14 @@ public final class WorldController {
 		Rasterizer.anInt1465 = 0;
 		if ((x_c - x_d) * (y_b - y_d) - (y_c - y_d) * (x_b - x_d) > 0) {
 			Rasterizer.aBoolean1462 = x_c < 0 || x_d < 0 || x_b < 0 || x_c > DrawingArea.viewportRX || x_d > DrawingArea.viewportRX || x_b > DrawingArea.viewportRX;
+			
 			if (aBoolean467 && method318(anInt468, anInt469, y_c, y_d, y_b, x_c, x_d, x_b)) {
 				anInt470 = j1;
 				anInt471 = k1;
 			}
-			if (requestMarkTile && method318(requestedMarkTileX, requestedMarkTileY, y_c, y_d, y_b, x_c, x_d, x_b)) {
-				tracedMarkTileX = j1;
-				tracedMarkTileY = k1;
+			if (requestTileTrace && method318(requestedTraceX, requestedTraceY, y_c, y_d, y_b, x_c, x_d, x_b)) {
+				tracedTileX = j1;
+				tracedTileY = k1;
 			}
 			if (class43.anInt720 == -1 || class43.anInt720 > 50) {
 				if (class43.anInt718 != 0xbc614e) {
@@ -1879,13 +1882,14 @@ public final class WorldController {
 		}
 		if ((x_a - x_b) * (y_d - y_b) - (y_a - y_b) * (x_d - x_b) > 0) {
 			Rasterizer.aBoolean1462 = x_a < 0 || x_b < 0 || x_d < 0 || x_a > DrawingArea.viewportRX || x_b > DrawingArea.viewportRX || x_d > DrawingArea.viewportRX;
+			
 			if (aBoolean467 && method318(anInt468, anInt469, y_a, y_b, y_d, x_a, x_b, x_d)) {
 				anInt470 = j1;
 				anInt471 = k1;
 			}
-			if (requestMarkTile && method318(requestedMarkTileX, requestedMarkTileY, y_a, y_b, y_d, x_a, x_b, x_d)) {
-				tracedMarkTileX = j1;
-				tracedMarkTileY = k1;
+			if (requestTileTrace && method318(requestedTraceX, requestedTraceY, y_a, y_b, y_d, x_a, x_b, x_d)) {
+				tracedTileX = j1;
+				tracedTileY = k1;
 			}
 			if (class43.anInt720 == -1 || class43.anInt720 > 50) {
 				if (class43.anInt716 != 0xbc614e) {
@@ -2016,13 +2020,14 @@ public final class WorldController {
 			int y_c = ShapedTile.anIntArray689[tri_c];
 			if ((x_a - x_b) * (y_c - y_b) - (y_a - y_b) * (x_c - x_b) > 0) {
 				Rasterizer.aBoolean1462 = x_a < 0 || x_b < 0 || x_c < 0 || x_a > DrawingArea.viewportRX || x_b > DrawingArea.viewportRX || x_c > DrawingArea.viewportRX;
+				
 				if (aBoolean467 && method318(anInt468, anInt469, y_a, y_b, y_c, x_a, x_b, x_c)) {
 					anInt470 = i;
 					anInt471 = i1;
 				}
-				if (requestMarkTile && method318(requestedMarkTileX, requestedMarkTileY, y_a, y_b, y_c, x_a, x_b, x_c)) {
-					tracedMarkTileX = i;
-					tracedMarkTileY = i1;
+				if (requestTileTrace && method318(requestedTraceX, requestedTraceY, y_a, y_b, y_c, x_a, x_b, x_c)) {
+					tracedTileX = i;
+					tracedTileY = i1;
 				}
 				if (class40.anIntArray682 == null || class40.anIntArray682[face] == -1 || class40.anIntArray682[face] > 50) {
 					if (class40.anIntArray676[face] != 0xbc614e) {
@@ -2419,13 +2424,13 @@ public final class WorldController {
 	private static final int[] faceXOffset3 = { -45, 45, 45, -45 };
 	private static final int[] faceYOffset3 = { 45, 45, -45, -45 };
 	private static boolean aBoolean467;
-	private static boolean requestMarkTile;
-	private static int requestedMarkTileX;
-	private static int requestedMarkTileY;
+	private static boolean requestTileTrace;
+	private static int requestedTraceX;
+	private static int requestedTraceY;
 	private static int anInt468;
 	private static int anInt469;
-	public static int tracedMarkTileX;
-	public static int tracedMarkTileY;
+	public static int tracedTileX;
+	public static int tracedTileY;
 	public static int anInt470 = -1;
 	public static int anInt471 = -1;
 	private static final int amountOfCullingClusters;
@@ -2456,7 +2461,15 @@ public final class WorldController {
 	private static int right;
 	private static int bottom;
 	public static int viewDistance = 9;
-
+	
+	public Tile getSelectedTile() {
+		if (tracedTileX < 0 || tracedTileY < 0) {
+			return null;
+		}
+		
+		return getTile(Client.instance.plane, tracedTileX, tracedTileY);
+	}
+	
 	static {
 		amountOfCullingClusters = 4;
 		cullingClusterPointer = new int[amountOfCullingClusters];

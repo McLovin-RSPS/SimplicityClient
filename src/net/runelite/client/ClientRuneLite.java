@@ -619,8 +619,7 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public Tile getSelectedSceneTile() {
-		// TODO Auto-generated method stub
-		return null;
+		return client().worldController.getSelectedTile();
 	}
 	
 	@Override
