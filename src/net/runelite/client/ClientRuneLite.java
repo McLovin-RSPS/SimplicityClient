@@ -759,8 +759,7 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public int[] getMapRegions() {
-		// TODO Auto-generated method stub
-		return null;
+		return client().getRegions();
 	}
 	
 	@Override
