@@ -25119,7 +25119,7 @@ public class Client extends RSApplet {
 	}
 	
 	public int getMinimapRotation() {
-		return minimapRotation;
+		return viewRotation + minimapRotation & 0x7ff;
 	}
 	
 	public int[][][] getConstructRegionData() {
