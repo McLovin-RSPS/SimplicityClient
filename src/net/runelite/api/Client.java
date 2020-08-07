@@ -1394,13 +1394,6 @@ public interface Client extends GameEngine
 	int getTickCount();
 
 	/**
-	 * Sets the current server tick count.
-	 *
-	 * @param tickCount the new tick count
-	 */
-	void setTickCount(int tickCount);
-
-	/**
 	 * Sets the inventory drag delay in client game cycles (20ms).
 	 *
 	 * @param delay the number of game cycles to delay dragging

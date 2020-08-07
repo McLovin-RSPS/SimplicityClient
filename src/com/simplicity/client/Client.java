@@ -5216,6 +5216,11 @@ public class Client extends RSApplet {
 
     private void updateNPCs(Stream stream, int i) {
     	gameTick++;
+    	
+    	if (runelite != null) {
+    		callbacks.onGameTick();
+    	}
+    	
         anInt839 = 0;
         playersToUpdateCount = 0;
         try {
@@ -6101,11 +6106,7 @@ public class Client extends RSApplet {
             socketStream = null;
         }
         loggedIn = false;
-		if (runelite != null) {
-			GameStateChanged gameStateChange = new GameStateChanged();
-			gameStateChange.setGameState(GameState.LOGIN_SCREEN);
-			runelite.post(gameStateChange);
-		}
+        setGameState(GameState.LOGIN_SCREEN);
         previousScreenState = 0;
         loginScreenState = 0;
         loginCode = 0;
@@ -6237,7 +6238,7 @@ public class Client extends RSApplet {
         processOnDemandQueue();
         
         if (runelite != null) {
-        	runelite.post(new GameTick());
+        	callbacks.clientMainLoop();
         }
     }
 
@@ -6778,8 +6779,8 @@ public class Client extends RSApplet {
 
                 gameScreenIP.drawGraphics(clientSize == 0 ? 4 : 0, super.graphics, clientSize == 0 ? 4 : 0);
                 loadingStage = 1;
+                setGameState(GameState.LOADING);
                 mapLoadingTime = System.currentTimeMillis();
-
             }
             if (loadingStage == 1) {
                 /*
@@ -6853,6 +6854,7 @@ public class Client extends RSApplet {
             if (loggedIn) {
                 stream.createFrame(121);
             }
+            setGameState(GameState.LOGGED_IN);
             return 0;
         }
     }
@@ -8176,7 +8178,7 @@ public class Client extends RSApplet {
         	option.setMenuTarget("");
         	option.setActionParam(slot);
         	option.setWidgetId(interfaceId);
-        	runelite.post(option);
+        	callbacks.post(option);
         }
 
         if (openInterfaceID == 60000) {
@@ -9864,7 +9866,7 @@ public class Client extends RSApplet {
             
             if (!menuOpen) {
 	            if (runelite != null) {
-	            	runelite.post(new MenuEntryAdded(menuActionName[menuActionRow - 1], "", menuActionID[menuActionRow - 1], 0, menuActionCmd2[menuActionRow - 1], menuActionCmd3[menuActionRow - 1]));
+	            	callbacks.post(new MenuEntryAdded(menuActionName[menuActionRow - 1], "", menuActionID[menuActionRow - 1], 0, menuActionCmd2[menuActionRow - 1], menuActionCmd3[menuActionRow - 1]));
 	            }
             }
         }
@@ -12731,11 +12733,7 @@ public class Client extends RSApplet {
                 loginCode = socketStream.read();
                 showTwoFactorAuth = false;
                 currentPinCode = "";
-                if (runelite != null) {
-        			GameStateChanged gameStateChange = new GameStateChanged();
-        			gameStateChange.setGameState(GameState.LOGGING_IN);
-        			runelite.post(gameStateChange);
-        		}
+    			setGameState(GameState.LOGGED_IN);
             } // Look at this
             if (loginCode == 1) {
                 try {
@@ -12794,11 +12792,6 @@ public class Client extends RSApplet {
                 super.awtFocus = true;
                 aBoolean954 = true;
                 loggedIn = true;
-                if (runelite != null) {
-        			GameStateChanged gameStateChange = new GameStateChanged();
-        			gameStateChange.setGameState(GameState.LOGGED_IN);
-        			runelite.post(gameStateChange);
-        		}
                 stream.currentOffset = 0;
                 inStream.currentOffset = 0;
                 opCode = -1;
@@ -13936,6 +13929,7 @@ public class Client extends RSApplet {
 
     public void load() {
         try {
+        	setGameState(GameState.STARTING);
             titleStreamLoader = streamLoaderForName(1, "title screen", "title", expectedCRCs[1], 25);
             smallText = new TextDrawingArea(false, "p11_full", titleStreamLoader);
             smallHit = new TextDrawingArea(false, "hit_full", titleStreamLoader);
@@ -18642,7 +18636,7 @@ public class Client extends RSApplet {
 	                        Tile tile = worldController.getTile(plane, i4, l6);
 	                        
 	                        if (tile != null) {
-	                        	runelite.post(new ItemDespawned(tile, item));
+	                        	callbacks.post(new ItemDespawned(tile, item));
 	                        }
 	                        
                         }
@@ -18850,7 +18844,7 @@ public class Client extends RSApplet {
                 if (runelite != null) {
 	                Tile tile = worldController.getTile(plane, l10, i13);
 	                
-            		runelite.post(new ItemSpawned(tile, item));
+	                callbacks.post(new ItemSpawned(tile, item));
                 }
                 
                 spawnGroundItem(l10, i13);
@@ -19839,6 +19833,8 @@ public class Client extends RSApplet {
 					}
                     
                     loadingStage = 1;
+                    setGameState(GameState.LOADING);
+                    
                     mapLoadingTime = System.currentTimeMillis();
                     gameScreenIP.initDrawingArea();
                     if (opCode == 73) {
@@ -25129,6 +25125,16 @@ public class Client extends RSApplet {
 	
 	public boolean[] getPlayerOptionPriorities() {
 		return atPlayerArray;
+	}
+	
+	public void setGameState(GameState state) {
+		if (runelite == null) {
+			return;
+		}
+		
+		GameStateChanged gameStateChange = new GameStateChanged();
+		gameStateChange.setGameState(state);
+		callbacks.post(gameStateChange);
 	}
 	
 }

@@ -169,7 +169,7 @@ public class ItemManager
 	@Subscribe
 	public void onGameStateChanged(final GameStateChanged event)
 	{
-		if (event.getGameState() == GameState.HOPPING || event.getGameState() == GameState.LOGIN_SCREEN)
+		if (event.getGameState() == GameState.LOGIN_SCREEN)
 		{
 			itemCompositions.invalidateAll();
 		}

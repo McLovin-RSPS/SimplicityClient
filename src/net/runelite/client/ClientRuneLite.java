@@ -572,8 +572,7 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public int getTickCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return client().gameTick;
 	}
 	
 	@Override
@@ -1000,7 +999,7 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public Callbacks getCallbacks() {
-		return null;
+		return RuneLite.getInjector().getInstance(Hooks.class);
 	}
 	
 	@Override

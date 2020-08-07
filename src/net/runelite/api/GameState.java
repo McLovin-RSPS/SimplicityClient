@@ -37,6 +37,16 @@ public enum GameState
 	 * The client is starting.
 	 */
 	STARTING(0),
+	
+	/**
+	 * The game is being loaded.
+	 */
+	LOADING(1),
+	/**
+	 * The user has successfully logged in.
+	 */
+	LOGGED_IN(2),
+	
 	/**
 	 * The client is at the login screen.
 	 */
@@ -45,22 +55,11 @@ public enum GameState
 	 * There is a player logging in.
 	 */
 	LOGGING_IN(20),
-	/**
-	 * The game is being loaded.
-	 */
-	LOADING(25),
-	/**
-	 * The user has successfully logged in.
-	 */
-	LOGGED_IN(30),
+
 	/**
 	 * Connection to the server was lost.
 	 */
-	CONNECTION_LOST(40),
-	/**
-	 * A world hop is taking place.
-	 */
-	HOPPING(45);
+	CONNECTION_LOST(40);
 
 	/**
 	 * The raw state value.

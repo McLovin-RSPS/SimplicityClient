@@ -51,6 +51,7 @@ import net.runelite.api.Client;
 import net.runelite.api.MainBufferProvider;
 import net.runelite.api.RenderOverview;
 import net.runelite.api.WorldMapManager;
+import net.runelite.api.events.ClientTick;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.hooks.Callbacks;
 import net.runelite.api.widgets.Widget;
@@ -82,8 +83,9 @@ public class Hooks implements Callbacks
 	private static final Client client = injector.getInstance(Client.class);
 	private static final OverlayRenderer renderer = injector.getInstance(OverlayRenderer.class);
 
+	private static final ClientTick CLIENT_TICK = new ClientTick();
 	private static final GameTick GAME_TICK = new GameTick();
-
+	
 	@Inject
 	private EventBus eventBus;
 
@@ -122,7 +124,6 @@ public class Hooks implements Callbacks
 	private Graphics2D stretchedGraphics;
 
 	private long lastCheck;
-	private boolean shouldProcessGameTick;
 
 	@Override
 	public void post(Object event)
@@ -139,18 +140,8 @@ public class Hooks implements Callbacks
 	@Override
 	public void clientMainLoop()
 	{
-		if (shouldProcessGameTick)
-		{
-			shouldProcessGameTick = false;
-
-			deferredEventBus.replay();
-
-			eventBus.post(GAME_TICK);
-
-			int tick = client.getTickCount();
-			client.setTickCount(tick + 1);
-		}
-
+		post(CLIENT_TICK);
+		
 		clientThread.invoke();
 
 		long now = System.currentTimeMillis();
@@ -408,13 +399,10 @@ public class Hooks implements Callbacks
 			graphics2d.dispose();
 		}
 	}
-
+	
 	@Override
-	public void updateNpcs()
-	{
-		// The NPC update event seem to run every server tick,
-		// but having the game tick event after all packets
-		// have been processed is typically more useful.
-		shouldProcessGameTick = true;
+	public void onGameTick() {
+		eventBus.post(GAME_TICK);
 	}
+
 }

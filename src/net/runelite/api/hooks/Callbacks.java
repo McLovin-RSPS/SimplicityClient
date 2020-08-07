@@ -53,11 +53,11 @@ public interface Callbacks {
 	 * Called each client cycle.
 	 */
 	void clientMainLoop();
-
+	
 	/**
-	 * Called after receiving update NPCs packet from server.
+	 * Called each game tick.
 	 */
-	void updateNpcs();
+	void onGameTick();
 
 	/**
 	 * Called after the scene is drawn.
