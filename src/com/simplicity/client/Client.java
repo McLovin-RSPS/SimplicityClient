@@ -12728,6 +12728,11 @@ public class Client extends RSApplet {
                 loginCode = socketStream.read();
                 showTwoFactorAuth = false;
                 currentPinCode = "";
+                if (runelite != null) {
+        			GameStateChanged gameStateChange = new GameStateChanged();
+        			gameStateChange.setGameState(GameState.LOGGING_IN);
+        			runelite.post(gameStateChange);
+        		}
             } // Look at this
             if (loginCode == 1) {
                 try {
