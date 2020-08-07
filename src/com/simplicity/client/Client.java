@@ -154,6 +154,7 @@ public class Client extends RSApplet {
 	
 	private static final Injector injector = RuneLite.getInjector();
 	private static RuneLite runelite;
+	private static Callbacks callbacks;
 	private static PluginManager pluginManager;
 	
 	public boolean chatboxInFocus = true;
@@ -3591,6 +3592,7 @@ public class Client extends RSApplet {
         try {
         	if (injector != null) {
         		runelite = injector.getInstance(RuneLite.class);
+        		callbacks = runelite.getClient().getCallbacks();
         		pluginManager = injector.getInstance(PluginManager.class);
         	}
         	
