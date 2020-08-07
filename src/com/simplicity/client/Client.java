@@ -75,6 +75,7 @@ import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import com.google.common.primitives.Ints;
 import com.google.inject.Injector;
 import com.simplicity.Configuration;
 import com.simplicity.Jframe;
@@ -136,16 +137,17 @@ import com.simplicity.util.StringUtils;
 
 import net.runelite.api.GameState;
 import net.runelite.api.MenuAction;
+import net.runelite.api.events.ClientTick;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.ItemDespawned;
 import net.runelite.api.events.ItemSpawned;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.hooks.Callbacks;
 import net.runelite.client.RuneLite;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginManager;
-import net.runelite.client.plugins.groundmarkers.GroundMarkerPlugin;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayRenderer;
 
@@ -180,7 +182,7 @@ public class Client extends RSApplet {
     public static boolean timersEnabled = true;
 
     public static final RichPresence RICH_PRESENCE = new RichPresence();
-
+    
     public static void drawBorder(Sprite backTexture, int x, int y, int width, int height, int alpha, int backColour,
                                   boolean filled, boolean shadow) {
         final int pieceWidth = SpriteLoader.sprites[623].myWidth;
@@ -4350,7 +4352,7 @@ public class Client extends RSApplet {
                 secondItem = item_1;
             }
         }
-
+        
         int i1 = i + (j << 7) + 0x60000000;
         worldController.addGroundItemTile(i, i1, ((Animable) (firstItem)),
                 getFloorDrawHeight(plane, j * 128 + 64, i * 128 + 64), ((Animable) (secondItem)),
@@ -7148,6 +7150,7 @@ public class Client extends RSApplet {
 
     private void mainGameProcessor() throws ClassNotFoundException, InstantiationException, IllegalAccessException,
             UnsupportedLookAndFeelException {
+    	
         if (Configuration.DISCO_ITEMS && myPlayer.updateColor) {
             RandomColor.process();
             ItemDefinition.spriteCache.clear();
@@ -9855,7 +9858,7 @@ public class Client extends RSApplet {
 
         return null;
     }
-
+    
     private void build3dScreenMenu() {
         if (itemSelected == 0 && spellSelected == 0) {
             menuActionName[menuActionRow] = "Walk here";
@@ -12310,9 +12313,11 @@ public class Client extends RSApplet {
         if (activeInterfaceType != 0) {
             return;
         }
+        
         menuActionName[0] = "Cancel";
         menuActionID[0] = 1107;
         menuActionRow = 1;
+        
         if (clientSize >= 1) {
             if (fullscreenInterfaceID != -1) {
                 hoveredInterface = 0;
@@ -13884,7 +13889,7 @@ public class Client extends RSApplet {
     void startUp() {
 
         drawLoadingText(0, "Starting up");
-
+        
         try {
             hash = ClassCheck.generate();
         } catch (Throwable e1) {
@@ -16722,7 +16727,7 @@ public class Client extends RSApplet {
         if (!loggedIn) {
             drawLoginScreen();
         } else {
-            drawGameScreen();
+    		drawGameScreen();
         }
         anInt1213 = 0;
     }
@@ -18614,6 +18619,7 @@ public class Client extends RSApplet {
                     groundArray[plane][k6][j9] = new Deque();
                 }
                 groundArray[plane][k6][j9].insertBack(class30_sub2_sub4_sub2_2);
+                
                 spawnGroundItem(k6, j9);
             }
             return;
@@ -18630,6 +18636,7 @@ public class Client extends RSApplet {
                         if (item.ID != k9) {
                             continue;
                         }
+                        
                         item.unlink();
                         
                         if (runelite != null) {
@@ -18638,7 +18645,6 @@ public class Client extends RSApplet {
 	                        if (tile != null) {
 	                        	callbacks.post(new ItemDespawned(tile, item));
 	                        }
-	                        
                         }
                         
                         break;
@@ -18647,6 +18653,7 @@ public class Client extends RSApplet {
                     if (deque.getFront() == null) {
                         groundArray[plane][i4][l6] = null;
                     }
+                    
                     spawnGroundItem(i4, l6);
                 }
             }
@@ -21441,7 +21448,7 @@ public class Client extends RSApplet {
         return true;
     }
 
-    private void requestGfxFile(int gfxId) {
+	private void requestGfxFile(int gfxId) {
     	try {
             SpotAnimDefinition spotAnim = SpotAnimDefinition.cache[gfxId];
 

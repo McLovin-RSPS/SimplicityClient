@@ -11,7 +11,6 @@ import com.simplicity.client.CollisionDetection;
 import com.simplicity.client.NPC;
 import com.simplicity.client.Player;
 import com.simplicity.client.Tile;
-import com.simplicity.client.WorldController;
 
 import ch.qos.logback.classic.Logger;
 import net.runelite.api.Area;
@@ -20,7 +19,6 @@ import net.runelite.api.ChatLineBuffer;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.ClanMember;
 import net.runelite.api.Client;
-import net.runelite.api.CollisionData;
 import net.runelite.api.Friend;
 import net.runelite.api.GameState;
 import net.runelite.api.GrandExchangeOffer;
@@ -56,7 +54,9 @@ import net.runelite.api.hooks.Callbacks;
 import net.runelite.api.vars.AccountType;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
+import net.runelite.client.callback.Hooks;
 
+@SuppressWarnings({ "static-access", "unused" })
 public class ClientRuneLite implements Client {
 	
 	public static com.simplicity.client.Client client() {
@@ -65,13 +65,12 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public boolean isClientThread() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	
 	@Override
 	public Thread getClientThread() {
-		return null;
+		return Thread.currentThread();
 	}
 	
 	@Override
@@ -100,12 +99,6 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public void setUsername(String name) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void setTickCount(int tickCount) {
 		// TODO Auto-generated method stub
 		
 	}
