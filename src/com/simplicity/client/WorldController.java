@@ -2,6 +2,7 @@ package com.simplicity.client;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
@@ -15,6 +16,8 @@ import java.util.Map;
 import com.simplicity.Configuration;
 import com.simplicity.client.cache.node.Deque;
 import com.simplicity.client.entity.Position;
+
+import net.runelite.api.events.ItemSpawned;
 
 @SuppressWarnings("all")
 public final class WorldController {
