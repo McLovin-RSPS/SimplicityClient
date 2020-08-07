@@ -623,7 +623,7 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public int getScale() {
-		return 512;
+		return isResized() ? 1024 : 512;
 	}
 	
 	@Override
