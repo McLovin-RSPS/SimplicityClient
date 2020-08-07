@@ -216,7 +216,7 @@ public class OverlayManager
 		for (final Overlay overlay : overlays)
 		{
 			OverlayLayer layer = overlay.getLayer();
-
+			
 			if (overlay.getPreferredLocation() != null && overlay.getPreferredPosition() == null)
 			{
 				// When UNDER_WIDGET overlays are in preferred locations, move to

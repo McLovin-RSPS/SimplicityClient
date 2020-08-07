@@ -10,6 +10,7 @@ import java.util.Map;
 import com.simplicity.client.CollisionDetection;
 import com.simplicity.client.NPC;
 import com.simplicity.client.Player;
+import com.simplicity.client.RSImageProducer;
 import com.simplicity.client.Tile;
 
 import ch.qos.logback.classic.Logger;
@@ -1006,9 +1007,8 @@ public class ClientRuneLite implements Client {
 	}
 	
 	@Override
-	public BufferProvider getBufferProvider() {
-		// TODO Auto-generated method stub
-		return null;
+	public RSImageProducer getBufferProvider() {
+		return client().getGameScreenIP();
 	}
 	
 	@Override

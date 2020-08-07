@@ -37,6 +37,7 @@ import org.slf4j.Logger;
 import com.simplicity.client.CollisionDetection;
 import com.simplicity.client.NPC;
 import com.simplicity.client.Player;
+import com.simplicity.client.RSImageProducer;
 import com.simplicity.client.Tile;
 
 import net.runelite.api.annotations.VisibleForDevtools;
@@ -905,8 +906,8 @@ public interface Client extends GameEngine
 	 *
 	 * @return the buffer provider
 	 */
-	BufferProvider getBufferProvider();
-
+	RSImageProducer getBufferProvider();
+	
 	/**
 	 * Gets the amount of ticks since the last mouse movement occurred.
 	 *

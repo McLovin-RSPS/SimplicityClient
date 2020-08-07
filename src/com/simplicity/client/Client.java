@@ -146,6 +146,7 @@ import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.hooks.Callbacks;
 import net.runelite.client.RuneLite;
+import net.runelite.client.callback.Hooks;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.ui.overlay.OverlayLayer;
@@ -156,7 +157,7 @@ public class Client extends RSApplet {
 	
 	private static final Injector injector = RuneLite.getInjector();
 	private static RuneLite runelite;
-	private static Callbacks callbacks;
+	private static Hooks callbacks;
 	private static PluginManager pluginManager;
 	
 	public boolean chatboxInFocus = true;
@@ -631,6 +632,13 @@ public class Client extends RSApplet {
             drawChatArea();
             drawTabArea();
             drawMinimap();
+            
+            if (mapAreaIP != null) {
+            	 
+                if (mapAreaIP != null) {
+                	mapAreaIP.image.getGraphics().drawString("test", clientWidth - 105, 45);
+            	}
+        	}
         }
 
     }
@@ -1977,6 +1985,15 @@ public class Client extends RSApplet {
             hoverPos = -1;
         }
     }
+    
+    public net.runelite.api.Point getMinimapCanvasLocation() {
+    	int x = clientSize == 0 ? 109 : clientWidth - 86;
+    	
+		int y = clientSize == 0 ? 84 : 81;
+		
+    	return new net.runelite.api.Point(x, y);
+    }
+    
 
     public boolean choosingLeftClick;
     public int leftClick;
@@ -3595,7 +3612,7 @@ public class Client extends RSApplet {
         try {
         	if (injector != null) {
         		runelite = injector.getInstance(RuneLite.class);
-        		callbacks = runelite.getClient().getCallbacks();
+        		callbacks = (Hooks) runelite.getClient().getCallbacks();
         		pluginManager = injector.getInstance(PluginManager.class);
         	}
         	
@@ -9868,10 +9885,8 @@ public class Client extends RSApplet {
             menuActionCmd3[menuActionRow] = super.mouseY;
             menuActionRow++;
             
-            if (!menuOpen) {
-	            if (runelite != null) {
-	            	callbacks.post(new MenuEntryAdded(menuActionName[menuActionRow - 1], "", menuActionID[menuActionRow - 1], 0, menuActionCmd2[menuActionRow - 1], menuActionCmd3[menuActionRow - 1]));
-	            }
+            if (runelite != null && !menuOpen) {
+            	callbacks.post(new MenuEntryAdded(menuActionName[menuActionRow - 1], "", menuActionID[menuActionRow - 1], 0, menuActionCmd2[menuActionRow - 1], menuActionCmd3[menuActionRow - 1]));
             }
         }
         int lastUID = -1;
@@ -14976,6 +14991,11 @@ public class Client extends RSApplet {
         if (loadingStage == 2) {
             if (clientSize == 0) {
                 drawMinimap();
+                
+                if (runelite != null) {
+                	callbacks.drawAfterWidgets();
+                }
+                
                 mapAreaIP.drawGraphics(0, super.graphics, 765 - 246);
             }
         }
@@ -21769,21 +21789,29 @@ public class Client extends RSApplet {
             drawBlackPane();
         }
         if (loggedIn) {
+        	if (runelite != null && getGameScreenIP() != null) {
+        		callbacks.draw(getGameScreenIP(), getGameScreenIP().image.getGraphics(), clientSize == 0 ? 4 : 0, clientSize == 0 ? 4 : 0);
+        	}
+        	
         	ScreenOverlayManager.process();
         	
-        	try {
+        	/*try {
             	OverlayRenderer renderer = injector.getInstance(OverlayRenderer.class);
             	renderer.render(DrawingArea.createGraphics(true), OverlayLayer.ABOVE_SCENE);
             } catch (Exception e) {
             	//e.printStackTrace();
-            }
+            }*/
         	
             if (type2 > -1) {
                 drawArrow(title, information, drawX, drawY, speed, pause, type2);
             }
+            
+            if (runelite != null && gameScreenIP != null) {
+        		callbacks.drawScene();
+        	}
+            
             drawUnfixedGame();
             draw3dScreen();
-
         }
         if (consoleOpen && loggedIn) {
             drawConsole();
@@ -21812,6 +21840,10 @@ public class Client extends RSApplet {
         }
         
         if (loggedIn) {
+        	if (runelite != null && clientSize != 0) {
+            	callbacks.drawAfterWidgets();
+            }
+        	
             gameScreenIP.drawGraphics(clientSize == 0 ? 4 : 0, super.graphics, clientSize == 0 ? 4 : 0);
             xCameraPos = l;
             zCameraPos = i1;
@@ -25143,6 +25175,14 @@ public class Client extends RSApplet {
 		GameStateChanged gameStateChange = new GameStateChanged();
 		gameStateChange.setGameState(state);
 		callbacks.post(gameStateChange);
+	}
+	
+	public RSImageProducer getGameScreenIP() {
+		return gameScreenIP;
+	}
+	
+	public RSImageProducer getMapAreaIP() {
+		return mapAreaIP;
 	}
 	
 }

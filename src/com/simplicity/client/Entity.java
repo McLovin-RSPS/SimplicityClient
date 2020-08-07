@@ -10,6 +10,7 @@ import java.awt.Polygon;
 import com.simplicity.client.cache.definitions.Animation;
 
 import net.runelite.api.Perspective;
+import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.RuneLite;
@@ -206,7 +207,18 @@ public class Entity extends Animable {
 	int anInt1556;
 	int anInt1557;
 	
+	/**
+	 * Gets a point on the canvas of where this actors mini-map indicator
+	 * should appear.
+	 *
+	 * @return mini-map location on canvas
+	 */
+	public Point getMinimapLocation() {
+		return Perspective.localToMinimap(RuneLite.getClient(), getLocalLocation());
+	}
+	
 	public LocalPoint getLocalLocation() {
+		// OLD (x - 6 >> 7), (y - 6 >> 7)
 		return new LocalPoint(x, y);
 	}
 	

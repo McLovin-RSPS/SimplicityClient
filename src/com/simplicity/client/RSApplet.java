@@ -1020,5 +1020,9 @@ WindowListener {
 				graphics.drawString(s, (myWidth - fontmetrics.stringWidth(s)) / 2, j + 22);
 			}
 	}
+	
+	public RSImageProducer getImageProducer() {
+		return fullGameScreen;
+	}
 
 }

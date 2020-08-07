@@ -1,7 +1,6 @@
 package net.runelite.client.plugins.npchighlight;
 
 import java.awt.BasicStroke;
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -10,65 +9,20 @@ import java.awt.Shape;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.Instant;
-import java.util.EnumSet;
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
-import org.slf4j.Logger;
-
 import com.simplicity.client.NPC;
 import com.simplicity.client.cache.definitions.MobDefinition;
 
-import net.runelite.api.Area;
-import net.runelite.api.BufferProvider;
-import net.runelite.api.ChatLineBuffer;
-import net.runelite.api.ChatMessageType;
-import net.runelite.api.ClanMember;
 import net.runelite.api.Client;
-import net.runelite.api.CollisionData;
 import net.runelite.api.Constants;
-import net.runelite.api.Friend;
-import net.runelite.api.GameState;
-import net.runelite.api.GrandExchangeOffer;
-import net.runelite.api.GraphicsObject;
-import net.runelite.api.HashTable;
-import net.runelite.api.HintArrowType;
-import net.runelite.api.IndexDataBase;
-import net.runelite.api.IndexedSprite;
-import net.runelite.api.InventoryID;
-import net.runelite.api.ItemComposition;
-import net.runelite.api.ItemContainer;
-import net.runelite.api.MenuEntry;
-import net.runelite.api.NPCComposition;
-import net.runelite.api.ObjectComposition;
 import net.runelite.api.Perspective;
-import net.runelite.api.Player;
 import net.runelite.api.Point;
-import net.runelite.api.Prayer;
-import net.runelite.api.Preferences;
-import net.runelite.api.Projectile;
-import net.runelite.api.RenderOverview;
-import net.runelite.api.Scene;
-import net.runelite.api.Skill;
-import net.runelite.api.SpritePixels;
-import net.runelite.api.Tile;
-import net.runelite.api.VarClientInt;
-import net.runelite.api.VarClientStr;
-import net.runelite.api.VarPlayer;
-import net.runelite.api.Varbits;
-import net.runelite.api.WidgetNode;
-import net.runelite.api.World;
-import net.runelite.api.WorldType;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
-import net.runelite.api.hooks.Callbacks;
-import net.runelite.api.vars.AccountType;
-import net.runelite.api.widgets.Widget;
-import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.RuneLite;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
@@ -106,7 +60,6 @@ public class NpcSceneOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		
 		if (config.showRespawnTimer())
 		{
 			plugin.getDeadNpcsToDisplay().forEach((id, npc) -> renderNpcRespawn(npc, graphics));

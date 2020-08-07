@@ -45,6 +45,7 @@ import javax.inject.Singleton;
 import net.runelite.client.eventbus.EventBus;
 import com.google.inject.Injector;
 import com.simplicity.client.DrawingArea;
+import com.simplicity.client.RSImageProducer;
 
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
@@ -80,8 +81,12 @@ public class Hooks implements Callbacks
 	private static final long CHECK = 600; // ms - how often to run checks
 
 	private static final Injector injector = RuneLite.getInjector();
-	private static final Client client = injector.getInstance(Client.class);
+	private static final Client client = RuneLite.getClient();
 	private static final OverlayRenderer renderer = injector.getInstance(OverlayRenderer.class);
+	
+	static com.simplicity.client.Client client() {
+		return com.simplicity.client.Client.instance;
+	}
 
 	private static final ClientTick CLIENT_TICK = new ClientTick();
 	private static final GameTick GAME_TICK = new GameTick();
@@ -272,14 +277,14 @@ public class Hooks implements Callbacks
 	}
 
 	@Override
-	public void draw(MainBufferProvider mainBufferProvider, Graphics graphics, int x, int y)
+	public void draw(RSImageProducer mainBufferProvider, Graphics graphics, int x, int y)
 	{
 		if (graphics == null)
 		{
 			return;
 		}
-
-		Image image = mainBufferProvider.getImage();
+		
+		Image image = mainBufferProvider.image;
 		final Graphics2D graphics2d = (Graphics2D) image.getGraphics();
 
 		try
@@ -292,7 +297,7 @@ public class Hooks implements Callbacks
 		}
 
 		notifier.processFlash(graphics2d);
-
+		
 		// Stretch the game image if the user has that enabled
 		if (!client.isResized() && client.isStretchedEnabled())
 		{
@@ -330,9 +335,9 @@ public class Hooks implements Callbacks
 
 			image = stretchedImage;
 		}
-
+		
 		// Draw the image onto the game canvas
-		graphics.drawImage(image, 0, 0, client.getCanvas());
+		graphics.drawImage(image, 0, 0, mainBufferProvider.component);
 
 		drawManager.processDrawComplete(image);
 	}
@@ -340,14 +345,13 @@ public class Hooks implements Callbacks
 	@Override
 	public void drawScene()
 	{
-		MainBufferProvider bufferProvider = (MainBufferProvider) client.getBufferProvider();
-		BufferedImage image = (BufferedImage) bufferProvider.getImage();
-		Graphics2D graphics2d = DrawingArea.createGraphics(true)/*image.createGraphics()*/;
+		RSImageProducer bufferProvider = client().getGameScreenIP();
+		BufferedImage image = bufferProvider.image;
+		Graphics2D graphics2d = image.createGraphics();
 
 		try
 		{
 			renderer.render(graphics2d, OverlayLayer.ABOVE_SCENE);
-			System.out.println("rendering");
 		}
 		catch (Exception ex)
 		{
@@ -362,8 +366,8 @@ public class Hooks implements Callbacks
 	@Override
 	public void drawAboveOverheads()
 	{
-		MainBufferProvider bufferProvider = (MainBufferProvider) client.getBufferProvider();
-		BufferedImage image = (BufferedImage) bufferProvider.getImage();
+		RSImageProducer bufferProvider = client.getBufferProvider();
+		BufferedImage image = bufferProvider.image;
 		Graphics2D graphics2d = image.createGraphics();
 
 		try
@@ -382,8 +386,8 @@ public class Hooks implements Callbacks
 
 	public static void drawAfterWidgets()
 	{
-		MainBufferProvider bufferProvider = (MainBufferProvider) client.getBufferProvider();
-		BufferedImage image = (BufferedImage) bufferProvider.getImage();
+		RSImageProducer bufferProvider = client.isResized() ? client().getGameScreenIP() : client().getMapAreaIP();
+		BufferedImage image = bufferProvider.image;
 		Graphics2D graphics2d = image.createGraphics();
 
 		try

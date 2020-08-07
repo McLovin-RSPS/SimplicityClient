@@ -26,6 +26,8 @@ package net.runelite.rs.api;
 
 import java.util.Map;
 
+import com.simplicity.client.RSImageProducer;
+
 import net.runelite.api.Client;
 import net.runelite.api.IndexDataBase;
 import net.runelite.api.SpritePixels;
@@ -433,7 +435,7 @@ public interface RSClient extends RSGameEngine, Client
 
 	@Import("rasterProvider")
 	@Override
-	RSBufferProvider getBufferProvider();
+	RSImageProducer getBufferProvider();
 
 	@Import("mouseIdleTicks")
 	@Override

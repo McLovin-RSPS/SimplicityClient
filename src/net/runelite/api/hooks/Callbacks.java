@@ -29,6 +29,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
+import com.simplicity.client.RSImageProducer;
+
 import net.runelite.api.MainBufferProvider;
 
 /**
@@ -77,7 +79,7 @@ public interface Callbacks {
 	 * @param x                  the x
 	 * @param y                  the y
 	 */
-	void draw(MainBufferProvider mainBufferProvider, Graphics graphics, int x, int y);
+	void draw(RSImageProducer mainBufferProvider, Graphics graphics, int x, int y);
 
 	/**
 	 * Mouse pressed event. If this event will be consumed it will not be propagated

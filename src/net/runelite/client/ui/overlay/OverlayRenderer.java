@@ -39,7 +39,6 @@ import javax.inject.Singleton;
 import javax.swing.SwingUtilities;
 
 import com.google.common.base.MoreObjects;
-import net.runelite.client.eventbus.Subscribe;
 
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
@@ -49,10 +48,10 @@ import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.RuneLite;
 import net.runelite.client.config.RuneLiteConfig;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.input.KeyListener;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.input.MouseAdapter;
-import net.runelite.client.input.MouseListener;
 import net.runelite.client.input.MouseManager;
 import net.runelite.client.ui.FontManager;
 
@@ -171,7 +170,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 				// drawing over each other.
 				overlayPosition = OverlayPosition.BOTTOM_RIGHT;
 			}
-
+			
 			if (overlayPosition == OverlayPosition.DYNAMIC || overlayPosition == OverlayPosition.TOOLTIP)
 			{
 				safeRender(client, overlay, layer, graphics, new Point());
@@ -394,7 +393,6 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		{
 			subGraphics.setFont(FontManager.getRunescapeFont());
 		}
-
 		subGraphics.translate(point.x, point.y);
 		final Dimension dimension = MoreObjects.firstNonNull(overlay.render(subGraphics), new Dimension());
 		subGraphics.dispose();

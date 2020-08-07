@@ -252,28 +252,6 @@ public class Perspective
 		int dist = x * x + y * y;
 		if (dist < distance)
 		{
-			Widget minimapDrawWidget;
-			if (client.isResized())
-			{
-				if (client.getVar(Varbits.SIDE_PANELS) == 1)
-				{
-					minimapDrawWidget = client.getWidget(WidgetInfo.RESIZABLE_MINIMAP_DRAW_AREA);
-				}
-				else
-				{
-					minimapDrawWidget = client.getWidget(WidgetInfo.RESIZABLE_MINIMAP_STONES_DRAW_AREA);
-				}
-			}
-			else
-			{
-				minimapDrawWidget = client.getWidget(WidgetInfo.FIXED_VIEWPORT_MINIMAP_DRAW_AREA);
-			}
-
-			if (minimapDrawWidget == null || minimapDrawWidget.isHidden())
-			{
-				return null;
-			}
-
 			final int angle = client.getMapAngle() & 0x7FF;
 
 			final int sin = SINE[angle];
@@ -281,10 +259,12 @@ public class Perspective
 
 			final int xx = y * sin + cos * x >> 16;
 			final int yy = sin * x - y * cos >> 16;
-
-			Point loc = minimapDrawWidget.getCanvasLocation();
-			int miniMapX = loc.getX() + xx + minimapDrawWidget.getWidth() / 2;
-			int miniMapY = minimapDrawWidget.getHeight() / 2 + loc.getY() + yy;
+			
+			Point loc = com.simplicity.client.Client.instance.getMinimapCanvasLocation();
+			
+			int miniMapX = loc.getX() + xx;
+			int miniMapY = loc.getY() + yy;
+			
 			return new Point(miniMapX, miniMapY);
 		}
 

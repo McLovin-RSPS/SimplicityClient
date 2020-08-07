@@ -6,9 +6,10 @@ import java.awt.Graphics2D;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
+
+import com.simplicity.client.cache.definitions.MobDefinition;
+
 import net.runelite.api.Client;
-import net.runelite.api.NPC;
-import net.runelite.api.NPCComposition;
 import net.runelite.api.Point;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
@@ -17,6 +18,7 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 
 public class NpcMinimapOverlay extends Overlay
 {
+	@SuppressWarnings("unused")
 	private final Client client;
 	private final NpcIndicatorsConfig config;
 	private final NpcIndicatorsPlugin plugin;
@@ -36,7 +38,9 @@ public class NpcMinimapOverlay extends Overlay
 	{
 		for (com.simplicity.client.NPC npc : plugin.getHighlightedNpcs())
 		{
-			renderNpcOverlay(graphics, npc, npc.desc.name, config.getHighlightColor());
+			String name = npc.desc == null ? "Invalid name" : npc.desc.name;
+			
+			renderNpcOverlay(graphics, npc, name, config.getHighlightColor());
 		}
 
 		return null;
@@ -44,14 +48,14 @@ public class NpcMinimapOverlay extends Overlay
 
 	private void renderNpcOverlay(Graphics2D graphics, com.simplicity.client.NPC actor, String name, Color color)
 	{
-		/*NPCComposition npcComposition = actor.getTransformedComposition();
-		if (npcComposition == null || !npcComposition.isInteractible()
-			|| (actor.isDead() && config.ignoreDeadNpcs()))
-		{
+		MobDefinition def = actor.desc;
+		
+		if (def == null || !def.clickable) {
 			return;
-		}*/
-
-		/*Point minimapLocation = actor.getMinimapLocation();
+		}
+		
+		Point minimapLocation = actor.getMinimapLocation();
+		
 		if (minimapLocation != null)
 		{
 			OverlayUtil.renderMinimapLocation(graphics, minimapLocation, color.darker());
@@ -60,6 +64,6 @@ public class NpcMinimapOverlay extends Overlay
 			{
 				OverlayUtil.renderTextLocation(graphics, minimapLocation, name, color);
 			}
-		}*/
+		}
 	}
 }
