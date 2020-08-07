@@ -497,6 +497,7 @@ public class Client extends RSApplet {
                 showTab = true;
                 clientZoom = 0;
                 WorldController.viewDistance = 9;
+                welcomeScreenRaised = true;
             } else if (size == 1) {
                 size = 1;
                 width = 786;
