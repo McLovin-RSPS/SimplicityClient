@@ -176,10 +176,6 @@ public interface RSClient extends RSGameEngine, Client
 	@Import("npcIndices")
 	int[] getNpcIndices();
 
-
-	@Import("collisionMaps")
-	RSCollisionData[] getCollisionMaps();
-
 	@Import("playerIndexesCount")
 	int getPlayerIndexesCount();
 

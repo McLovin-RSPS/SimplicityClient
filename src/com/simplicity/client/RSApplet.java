@@ -44,7 +44,7 @@ WindowListener {
 	private int delayTime;
 	int minDelay;
 	private final long aLongArray7[] = new long[10];
-	int fps;
+	public int fps;
 	boolean shouldDebug;
 	int myWidth;
 	int myHeight;
@@ -53,7 +53,7 @@ WindowListener {
 	RSFrame mainFrame;
 	private boolean shouldClearScreen;
 	boolean awtFocus;
-	int idleTime;
+	public int idleTime;
 	public int mouseX;
 	public int mouseY;
 	public int mouseReleased;

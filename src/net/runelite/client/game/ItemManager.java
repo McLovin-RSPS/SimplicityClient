@@ -50,6 +50,7 @@ import net.runelite.api.GameState;
 import net.runelite.api.ItemComposition;
 import net.runelite.api.SpritePixels;
 import net.runelite.api.events.GameStateChanged;
+import net.runelite.client.RuneLite;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.http.api.item.ItemClient;
 import net.runelite.http.api.item.ItemPrice;
@@ -75,7 +76,7 @@ public class ItemManager
 		private final Color outlineColor;
 	}
 
-	private final Client client;
+	private final Client client = RuneLite.getClient();
 	private final ScheduledExecutorService scheduledExecutorService;
 	private final ClientThread clientThread;
 
@@ -87,9 +88,8 @@ public class ItemManager
 	private final LoadingCache<OutlineKey, BufferedImage> itemOutlines;
 
 	@Inject
-	public ItemManager(Client client, ScheduledExecutorService executor, ClientThread clientThread)
+	public ItemManager(ScheduledExecutorService executor, ClientThread clientThread)
 	{
-		this.client = client;
 		this.scheduledExecutorService = executor;
 		this.clientThread = clientThread;
 

@@ -7,6 +7,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 
+import com.simplicity.client.CollisionDetection;
 import com.simplicity.client.NPC;
 import com.simplicity.client.Player;
 import com.simplicity.client.Tile;
@@ -647,14 +648,12 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public int[] getRealSkillLevels() {
-		// TODO Auto-generated method stub
-		return null;
+		return client().currentMaxStats;
 	}
 	
 	@Override
 	public int getRealSkillLevel(Skill skill) {
-		// TODO Auto-generated method stub
-		return 0;
+		return client().currentMaxStats[skill.ordinal()];
 	}
 	
 	@Override
@@ -677,20 +676,17 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public List<Player> getPlayers() {
-		// TODO Auto-generated method stub
-		return null;
+		return Arrays.asList(client().getPlayers());
 	}
 	
 	@Override
 	public boolean[] getPlayerOptionsPriorities() {
-		// TODO Auto-generated method stub
-		return null;
+		return client().getPlayerOptionPriorities();
 	}
 	
 	@Override
 	public String[] getPlayerOptions() {
-		// TODO Auto-generated method stub
-		return null;
+		return client().getPlayerOptions();
 	}
 	
 	@Override
@@ -723,8 +719,7 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public int getMouseIdleTicks() {
-		// TODO Auto-generated method stub
-		return 0;
+		return client().idleTime;
 	}
 	
 	@Override
@@ -782,8 +777,7 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public int getMapAngle() {
-		// TODO Auto-generated method stub
-		return 0;
+		return client().getMinimapRotation();
 	}
 	
 	@Override
@@ -805,8 +799,7 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public int getKeyboardIdleTicks() {
-		// TODO Auto-generated method stub
-		return 0;
+		return client().idleTime;
 	}
 	
 	@Override
@@ -841,8 +834,7 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public int[][][] getInstanceTemplateChunks() {
-		// TODO Auto-generated method stub
-		return null;
+		return client().getConstructRegionData();
 	}
 	
 	@Override
@@ -904,8 +896,7 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public int getGameCycle() {
-		// TODO Auto-generated method stub
-		return 0;
+		return client().loopCycle;
 	}
 	
 	@Override
@@ -916,14 +907,12 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public int getFPS() {
-		// TODO Auto-generated method stub
-		return 0;
+		return client().fps;
 	}
 	
 	@Override
 	public int getEnergy() {
-		// TODO Auto-generated method stub
-		return 0;
+		return client().currentEnergy;
 	}
 	
 	@Override
@@ -945,9 +934,8 @@ public class ClientRuneLite implements Client {
 	}
 	
 	@Override
-	public CollisionData[] getCollisionMaps() {
-		// TODO Auto-generated method stub
-		return null;
+	public CollisionDetection[] getCollisionMaps() {
+		return client().clippingPlanes;
 	}
 	
 	@Override
@@ -976,8 +964,7 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public int[] getChangedSkills() {
-		// TODO Auto-generated method stub
-		return null;
+		return client().currentStats;
 	}
 	
 	@Override
@@ -1018,14 +1005,12 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public Player[] getCachedPlayers() {
-		// TODO Auto-generated method stub
-		return null;
+		return client().getPlayers();
 	}
 	
 	@Override
 	public NPC[] getCachedNPCs() {
-		// TODO Auto-generated method stub
-		return null;
+		return client().getNpcs();
 	}
 	
 	@Override
@@ -1036,8 +1021,7 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public int[] getBoostedSkillLevels() {
-		// TODO Auto-generated method stub
-		return null;
+		return client().currentStats;
 	}
 	
 	@Override

@@ -1,7 +1,7 @@
 package com.simplicity.client;
 
 
-final class CollisionDetection {
+public final class CollisionDetection {
 
 	public CollisionDetection() {
 		sizeX = 104;

@@ -34,6 +34,11 @@ import javax.annotation.Nullable;
 
 import org.slf4j.Logger;
 
+import com.simplicity.client.CollisionDetection;
+import com.simplicity.client.NPC;
+import com.simplicity.client.Player;
+import com.simplicity.client.Tile;
+
 import net.runelite.api.annotations.VisibleForDevtools;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
@@ -41,8 +46,6 @@ import net.runelite.api.hooks.Callbacks;
 import net.runelite.api.vars.AccountType;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
-import com.simplicity.client.NPC;
-import com.simplicity.client.Player;
 
 /**
  * Represents the RuneScape client.
@@ -1336,7 +1339,7 @@ public interface Client extends GameEngine
 	 *
 	 * @return the collision data
 	 */
-	CollisionData[] getCollisionMaps();
+	CollisionDetection[] getCollisionMaps();
 
 	@VisibleForDevtools
 	int[] getBoostedSkillLevels();

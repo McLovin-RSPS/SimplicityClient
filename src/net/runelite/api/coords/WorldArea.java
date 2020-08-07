@@ -28,9 +28,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
+import com.simplicity.client.CollisionDetection;
+
 import lombok.Getter;
 import net.runelite.api.Client;
-import net.runelite.api.CollisionData;
 import net.runelite.api.CollisionDataFlag;
 import net.runelite.api.Constants;
 import net.runelite.api.Point;
@@ -263,8 +264,8 @@ public class WorldArea {
 			xyFlags |= CollisionDataFlag.BLOCK_MOVEMENT_SOUTH_WEST;
 		}
 
-		CollisionData[] collisionData = client.getCollisionMaps();
-		int[][] collisionDataFlags = collisionData[plane].getFlags();
+		CollisionDetection[] collisionData = client.getCollisionMaps();
+		int[][] collisionDataFlags = collisionData[plane].clipData;
 
 		if (dx != 0) {
 			// Check that the area doesn't bypass a wall

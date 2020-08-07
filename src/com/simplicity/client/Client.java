@@ -22492,11 +22492,11 @@ public class Client extends RSApplet {
     private int anInt1088;
     public static int anInt1089;
     private final int[] expectedCRCs;
-    private int[] menuActionCmd2;
-    private int[] menuActionCmd3;
+    public int[] menuActionCmd2;
+    public int[] menuActionCmd3;
     public int[] menuActionCmd4;
-    private int[] menuActionID;
-    private int[] menuActionCmd1;
+    public int[] menuActionID;
+    public int[] menuActionCmd1;
     private Sprite[] headIcons;
     private Sprite[] skullIcons;
     private Sprite[] headIconsHint;
@@ -22522,7 +22522,7 @@ public class Client extends RSApplet {
     public final int[] tabInterfaceIDs = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
     private int cameraOffsetY;
     private int anInt1132;
-    private int menuActionRow;
+    public int menuActionRow;
     private static int anInt1134;
     private int spellSelected;
     private int selectedSpellId;
@@ -22581,7 +22581,7 @@ public class Client extends RSApplet {
     private Background mapBack;
     /* Gameframe update */
     // public Sprite newMapBack;
-    private String[] menuActionName;
+    public String[] menuActionName;
     private final int[] anIntArray1203;
     static final int[] anIntArray1204 = {9104, 10275, 7595, 3610, 7975, 8526, 918, 38802, 24466, 10145, 58654, 5027,
             1457, 16565, 34991, 25486};
@@ -22606,7 +22606,7 @@ public class Client extends RSApplet {
     private int nextSong;
     private boolean songChanging;
     private final int[] minimapYPosArray;
-    static CollisionDetection[] clippingPlanes;
+    public static CollisionDetection[] clippingPlanes;
     public static int anIntArray1232[];
     private int[] regionIds;
     private int[] terrainIndices;
@@ -25062,6 +25062,10 @@ public class Client extends RSApplet {
 		return npcArray;
 	}
 	
+	public Player[] getPlayers() {
+		return playerArray;
+	}
+	
 	public byte[][][] getTileSettings() {
 		return byteGroundArray;
 	}
@@ -25070,4 +25074,24 @@ public class Client extends RSApplet {
 		return intGroundArray;
 	}
 
+	public int[] getRegions() {
+		return regionIds;
+	}
+	
+	public int getMinimapRotation() {
+		return minimapRotation;
+	}
+	
+	public int[][][] getConstructRegionData() {
+		return constructRegionData;
+	}
+	
+	public String[] getPlayerOptions() {
+		return atPlayerActions;
+	}
+	
+	public boolean[] getPlayerOptionPriorities() {
+		return atPlayerArray;
+	}
+	
 }
