@@ -5213,6 +5213,7 @@ public class Client extends RSApplet {
     }
 
     private void updateNPCs(Stream stream, int i) {
+    	gameTick++;
         anInt839 = 0;
         playersToUpdateCount = 0;
         try {
@@ -22577,6 +22578,7 @@ public class Client extends RSApplet {
     private boolean requestMapReconstruct;
     private boolean inCutScene;
     public static int loopCycle;
+    public static int gameTick;
     private static final String VALID_AUTH_KEYS = "0123456789";
     private static final String VALID_CC_NAME_KEYS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 ";
     public static final String validUserPassChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"\243$%^&*()-_=+[{]};:'@#~,<.>/?\\| ";
