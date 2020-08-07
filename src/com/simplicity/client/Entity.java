@@ -207,7 +207,7 @@ public class Entity extends Animable {
 	int anInt1557;
 	
 	public LocalPoint getLocalLocation() {
-		return new LocalPoint((x - 6 >> 7), (y - 6 >> 7));
+		return new LocalPoint(x, y);
 	}
 	
 	public WorldPoint getWorldLocation() {
