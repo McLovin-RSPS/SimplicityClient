@@ -45,8 +45,6 @@ import javax.swing.SwingUtilities;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Lists;
-import net.runelite.client.eventbus.EventBus;
-import net.runelite.client.eventbus.Subscribe;
 import com.google.common.graph.Graph;
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.Graphs;
@@ -66,12 +64,15 @@ import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.config.RuneLiteConfig;
+import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.PluginChanged;
 import net.runelite.client.plugins.config.ConfigPlugin;
 import net.runelite.client.plugins.discord.DiscordPlugin;
 import net.runelite.client.plugins.donate.DonatePlugin;
 import net.runelite.client.plugins.forum.ForumPlugin;
-import net.runelite.client.plugins.ground_items.GroundItemsPlugin;
+import net.runelite.client.plugins.grounditems.GroundItemsPlugin;
+import net.runelite.client.plugins.groundmarkers.GroundMarkerPlugin;
 import net.runelite.client.plugins.notes.NotesPlugin;
 import net.runelite.client.plugins.npchighlight.NpcIndicatorsPlugin;
 import net.runelite.client.plugins.screenshot.ScreenshotPlugin;
@@ -80,7 +81,6 @@ import net.runelite.client.task.Schedule;
 import net.runelite.client.task.ScheduledMethod;
 import net.runelite.client.task.Scheduler;
 import net.runelite.client.util.GameEventManager;
-import net.runelite.client.util.SceneTileManager;
 
 @Singleton
 @Slf4j
@@ -243,7 +243,8 @@ public class PluginManager
 				VotePlugin.class,
 				ScreenshotPlugin.class,
 				GroundItemsPlugin.class,
-				NpcIndicatorsPlugin.class
+				NpcIndicatorsPlugin.class,
+				GroundMarkerPlugin.class
 		};
 		
 		for (Class<?> clazz : plugins)
@@ -448,7 +449,6 @@ public class PluginManager
 		{
 			plugin = clazz.newInstance();
 			plugin.client = RuneLite.getClient();
-			System.out.println("plugin client = " + plugin.client);
 		}
 		catch (InstantiationException | IllegalAccessException ex)
 		{

@@ -1,9 +1,5 @@
-package net.runelite.api.events;
-import com.simplicity.client.Item;
-import com.simplicity.client.Tile;
-
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,16 +22,24 @@ import com.simplicity.client.Tile;
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import lombok.Value;
+package net.runelite.api;
 
 /**
- * Called when the quantity of an item pile changes.
+ * Represents an item inside an {@link ItemLayer}.
  */
-@Value
-public class ItemQuantityChanged
+public interface TileItem extends Renderable
 {
-	private final Item item;
-	private final Tile tile;
-	private final int oldQuantity;
-	private final int newQuantity;
+	/**
+	 * @return the ID of the item
+	 * @see ItemID
+	 */
+	int getId();
+
+	int getQuantity();
+
+	/**
+	 * Time in game ticks when the item spawned (relative to us)
+	 * @return
+	 */
+	int getSpawnTime();
 }

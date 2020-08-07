@@ -1,9 +1,5 @@
-package net.runelite.api.events;
-import com.simplicity.client.Item;
-import com.simplicity.client.Tile;
-
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2019, Abel Briggs <https://github.com/abelbriggs1>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,16 +22,25 @@ import com.simplicity.client.Tile;
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import lombok.Value;
 
-/**
- * Called when the quantity of an item pile changes.
- */
-@Value
-public class ItemQuantityChanged
+package net.runelite.client.plugins.grounditems.config;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Getter
+@RequiredArgsConstructor
+public enum ValueCalculationMode
 {
-	private final Item item;
-	private final Tile tile;
-	private final int oldQuantity;
-	private final int newQuantity;
+	HA("High Alchemy"), // calc highlight by HA value
+	GE("Grand Exchange"), // calc by GE
+	HIGHEST("Highest"); // use whatever is highest.
+
+	private final String name;
+
+	@Override
+	public String toString()
+	{
+		return name;
+	}
 }

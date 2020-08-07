@@ -1,8 +1,5 @@
-package net.runelite.api.events;
-import com.simplicity.client.Item;
-import com.simplicity.client.Tile;
-
 /*
+ * Copyright (c) 2018, TheLonelyDev <https://github.com/TheLonelyDev>
  * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
@@ -26,16 +23,45 @@ import com.simplicity.client.Tile;
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import lombok.Value;
+package net.runelite.client.plugins.groundmarkers;
 
-/**
- * Called when the quantity of an item pile changes.
- */
-@Value
-public class ItemQuantityChanged
+import java.awt.Color;
+import net.runelite.client.config.Alpha;
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
+
+@ConfigGroup("groundMarker")
+public interface GroundMarkerConfig extends Config
 {
-	private final Item item;
-	private final Tile tile;
-	private final int oldQuantity;
-	private final int newQuantity;
+	@Alpha
+	@ConfigItem(
+		keyName = "markerColor",
+		name = "Color of the tile",
+		description = "Configures the color of marked tile"
+	)
+	default Color markerColor()
+	{
+		return Color.YELLOW;
+	}
+
+	@ConfigItem(
+		keyName = "rememberTileColors",
+		name = "Remember color per tile",
+		description = "Color tiles using the color from time of placement"
+	)
+	default boolean rememberTileColors()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+		keyName = "drawOnMinimap",
+		name = "Draw tiles on minimap",
+		description = "Configures whether marked tiles should be drawn on minimap"
+	)
+	default boolean drawTileOnMinimmap()
+	{
+		return false;
+	}
 }

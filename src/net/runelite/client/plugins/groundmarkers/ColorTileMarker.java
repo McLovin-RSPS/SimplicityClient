@@ -1,9 +1,5 @@
-package net.runelite.api.events;
-import com.simplicity.client.Item;
-import com.simplicity.client.Tile;
-
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2019, Jordan Atwood <nightfirecat@protonmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,16 +22,19 @@ import com.simplicity.client.Tile;
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.client.plugins.groundmarkers;
+
+import java.awt.Color;
 import lombok.Value;
+import net.runelite.api.coords.WorldPoint;
 
 /**
- * Called when the quantity of an item pile changes.
+ * Used to denote marked tiles and their colors.
+ * Note: This is not used for serialization of ground markers; see {@link GroundMarkerPoint}
  */
 @Value
-public class ItemQuantityChanged
+class ColorTileMarker
 {
-	private final Item item;
-	private final Tile tile;
-	private final int oldQuantity;
-	private final int newQuantity;
+	private WorldPoint worldPoint;
+	private Color color;
 }

@@ -1,9 +1,5 @@
-package net.runelite.api.events;
-import com.simplicity.client.Item;
-import com.simplicity.client.Tile;
-
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020, dekvall <https://github.com/dekvall>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,16 +22,20 @@ import com.simplicity.client.Tile;
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.client.plugins.grounditems;
+
+import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
-/**
- * Called when the quantity of an item pile changes.
- */
 @Value
-public class ItemQuantityChanged
+@RequiredArgsConstructor
+class NamedQuantity
 {
-	private final Item item;
-	private final Tile tile;
-	private final int oldQuantity;
-	private final int newQuantity;
+	private final String name;
+	private final int quantity;
+
+	NamedQuantity(GroundItem groundItem)
+	{
+		this(groundItem.getName(), groundItem.getQuantity());
+	}
 }

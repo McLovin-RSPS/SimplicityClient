@@ -135,10 +135,17 @@ import com.simplicity.util.Stopwatch;
 import com.simplicity.util.StringUtils;
 
 import net.runelite.api.GameState;
+import net.runelite.api.MenuAction;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
+import net.runelite.api.events.ItemDespawned;
+import net.runelite.api.events.ItemSpawned;
+import net.runelite.api.events.MenuEntryAdded;
+import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.client.RuneLite;
+import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginManager;
+import net.runelite.client.plugins.groundmarkers.GroundMarkerPlugin;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayRenderer;
 
@@ -7566,11 +7573,11 @@ public class Client extends RSApplet {
                 crossIndex = 0;
             }
         }
-        if (WorldController.tracedMarkTileX != -1) {
+        /*if (WorldController.tracedMarkTileX != -1) {
         	worldController.markTile(WorldController.tracedMarkTileX, WorldController.tracedMarkTileY, plane);
         	WorldController.tracedMarkTileX = -1;
         	WorldController.tracedMarkTileY = -1;
-        }
+        }*/
         if (super.clickMode3 == 1 && aString844 != null) {
             aString844 = null;
             inputTaken = true;
@@ -8157,6 +8164,16 @@ public class Client extends RSApplet {
         
         if (l == 477) {
         	effectTimersVisible = !effectTimersVisible;
+        }
+        
+        if (runelite != null && MenuAction.of(l) != MenuAction.UNKNOWN) {
+        	MenuOptionClicked option = new MenuOptionClicked();
+        	option.setMenuAction(MenuAction.of(l));
+        	option.setMenuOption(menuActionName[i]);
+        	option.setMenuTarget("");
+        	option.setActionParam(slot);
+        	option.setWidgetId(interfaceId);
+        	runelite.post(option);
         }
 
         if (openInterfaceID == 60000) {
@@ -8806,10 +8823,6 @@ public class Client extends RSApplet {
                 worldController.request2DTrace(interfaceId - 4, slot - 4);
         }
         
-        if (l == 517) {
-        	worldController.requestMarkTile(interfaceId - 4, slot - 4);
-        }
-
         if (l == 1062) {
             anInt924 += baseX;
             if (anInt924 >= 113) {
@@ -9840,19 +9853,17 @@ public class Client extends RSApplet {
 
     private void build3dScreenMenu() {
         if (itemSelected == 0 && spellSelected == 0) {
-        	if (Configuration.enableTileMarkers) {
-	            menuActionName[menuActionRow] = "Mark tile";
-	            menuActionID[menuActionRow] = 517;
-	            menuActionCmd2[menuActionRow] = super.mouseX;
-	            menuActionCmd3[menuActionRow] = super.mouseY;
-	            menuActionRow++;
-        	}
-            
             menuActionName[menuActionRow] = "Walk here";
             menuActionID[menuActionRow] = 516;
             menuActionCmd2[menuActionRow] = super.mouseX;
             menuActionCmd3[menuActionRow] = super.mouseY;
             menuActionRow++;
+            
+            if (!menuOpen) {
+	            if (runelite != null) {
+	            	runelite.post(new MenuEntryAdded(menuActionName[menuActionRow - 1], "", menuActionID[menuActionRow - 1], 0, menuActionCmd2[menuActionRow - 1], menuActionCmd3[menuActionRow - 1]));
+	            }
+            }
         }
         int lastUID = -1;
         for (int index = 0; index < Model.objectsRendered; index++) {
@@ -18618,6 +18629,16 @@ public class Client extends RSApplet {
                             continue;
                         }
                         item.unlink();
+                        
+                        if (runelite != null) {
+	                        Tile tile = worldController.getTile(plane, i4, l6);
+	                        
+	                        if (tile != null) {
+	                        	runelite.post(new ItemDespawned(tile, item));
+	                        }
+	                        
+                        }
+                        
                         break;
                     }
 
@@ -18817,6 +18838,13 @@ public class Client extends RSApplet {
                     groundArray[plane][l10][i13] = new Deque();
                 }
                 groundArray[plane][l10][i13].insertBack(item);
+                
+                if (runelite != null) {
+	                Tile tile = worldController.getTile(plane, l10, i13);
+	                
+            		runelite.post(new ItemSpawned(tile, item));
+                }
+                
                 spawnGroundItem(l10, i13);
             }
             return;

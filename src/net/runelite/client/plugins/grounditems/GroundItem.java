@@ -1,9 +1,5 @@
-package net.runelite.api.events;
-import com.simplicity.client.Item;
-import com.simplicity.client.Tile;
-
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2018, Tomas Slusny <slusnucky@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,16 +22,55 @@ import com.simplicity.client.Tile;
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import lombok.Value;
+package net.runelite.client.plugins.grounditems;
 
-/**
- * Called when the quantity of an item pile changes.
- */
-@Value
-public class ItemQuantityChanged
+import java.time.Instant;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Value;
+import net.runelite.api.coords.WorldPoint;
+
+@Data
+@Builder
+class GroundItem
 {
-	private final Item item;
-	private final Tile tile;
-	private final int oldQuantity;
-	private final int newQuantity;
+	private int id;
+	private int itemId;
+	private String name;
+	private int quantity;
+	private WorldPoint location;
+	private int height;
+	private int haPrice;
+	private int gePrice;
+	private int offset;
+	private boolean tradeable;
+	@Nonnull
+	private LootType lootType;
+	@Nullable
+	private Instant spawnTime;
+	private boolean stackable;
+
+	int getHaPrice()
+	{
+		return haPrice * quantity;
+	}
+
+	int getGePrice()
+	{
+		return gePrice * quantity;
+	}
+
+	boolean isMine()
+	{
+		return lootType != LootType.UNKNOWN;
+	}
+
+	@Value
+	static class GroundItemKey
+	{
+		private int itemId;
+		private WorldPoint location;
+	}
 }

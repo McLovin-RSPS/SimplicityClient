@@ -1,4 +1,7 @@
 package net.runelite.api.events;
+import com.simplicity.client.Item;
+import com.simplicity.client.Tile;
+
 /*
  * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * All rights reserved.
@@ -24,8 +27,6 @@ package net.runelite.api.events;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 import lombok.Value;
-import net.runelite.api.Item;
-import net.runelite.api.Tile;
 
 /**
  * Called when an item pile spawns on the ground. When the client loads a new scene,
