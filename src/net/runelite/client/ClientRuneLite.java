@@ -1024,12 +1024,12 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public int getBaseY() {
-		return com.simplicity.client.Client.getBaseX();
+		return com.simplicity.client.Client.getBaseY();
 	}
 	
 	@Override
 	public int getBaseX() {
-		return com.simplicity.client.Client.getBaseY();
+		return com.simplicity.client.Client.getBaseX();
 	}
 	
 	@Override
