@@ -1421,6 +1421,76 @@ public final class ItemDefinition {
         	itemDef.dataType = DataType.CUSTOM;
         	break;
         	
+        case 22036:
+        	itemDef.copy(forID(14008));
+        	itemDef.name = "Elite tectonic helm";
+        	itemDef.maleEquip1 = 31;
+        	itemDef.femaleEquip1 = 31;
+        	itemDef.modelID = 30;
+        	itemDef.dataType = DataType.CUSTOM;
+        	itemDef.editedModelColor = new int[0];
+        	itemDef.newModelColor = new int[0];
+        	itemDef.rotationY = 50;
+        	itemDef.modelZoom += 200;
+        	break;
+        	
+        case 22037:
+        	itemDef.copy(forID(14009));
+        	itemDef.name = "Elite tectonic platebody";
+        	itemDef.maleEquip1 = 33;
+        	itemDef.femaleEquip1 = 33;
+        	itemDef.modelID = 32;
+        	itemDef.dataType = DataType.CUSTOM;
+        	itemDef.modelOffsetY = 8;
+        	itemDef.editedModelColor = new int[0];
+        	itemDef.newModelColor = new int[0];
+        	itemDef.modelZoom += 30;
+        	break;
+        	
+        case 22038:
+        	itemDef.copy(forID(14010));
+        	itemDef.name = "Elite tectonic platelegs";
+        	itemDef.maleEquip1 = 35;
+        	itemDef.femaleEquip1 = 35;
+        	itemDef.modelID = 34;
+        	itemDef.dataType = DataType.CUSTOM;
+        	itemDef.modelZoom = 1800;
+        	itemDef.modelOffsetY = 8;
+        	itemDef.editedModelColor = new int[0];
+        	itemDef.newModelColor = new int[0];
+        	itemDef.modelZoom += 100;
+        	break;
+        	
+        case 22039:
+        	itemDef.copy(forID(11732));
+        	itemDef.name = "Elite tectonic boots";
+        	itemDef.maleEquip1 = 38;
+        	itemDef.femaleEquip1 = 38;
+        	itemDef.modelID = 38;
+        	itemDef.modelZoom = 890;
+        	itemDef.rotationX = 320;
+        	itemDef.rotationY = 290;
+        	itemDef.modelOffsetX = 100;
+        	itemDef.modelOffset1 = 5;
+        	itemDef.modelOffsetY = 15;
+        	itemDef.dataType = DataType.CUSTOM;
+        	break;
+        	
+        case 22040:
+        	itemDef.copy(forID(7462));
+        	itemDef.name = "Elite tectonic gloves";
+        	itemDef.maleEquip1 = 37;
+        	itemDef.femaleEquip1 = 37;
+        	itemDef.modelID = 36;
+        	itemDef.modelZoom = 700;
+        	itemDef.modelOffset1 = 5;
+        	itemDef.modelOffsetX = 180;
+        	itemDef.modelOffsetY = 30;
+        	itemDef.rotationX = 390;
+        	itemDef.rotationY = 290;
+        	itemDef.dataType = DataType.CUSTOM;
+        	break;
+        	
         case 17273:
         	itemDef.femaleYOffset += 7;
         	itemDef.femaleZOffset -= 6;
