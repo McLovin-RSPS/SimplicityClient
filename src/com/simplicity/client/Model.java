@@ -192,7 +192,8 @@ public class Model extends Animable {
         hsl2rgb = Rasterizer.anIntArray1482;
         lightDecay = Rasterizer.anIntArray1469;
 
-        addDepthBufferModel(DataType.REGULAR, 6701); // Vorkath's vine whip
+        addDepthBufferModel(DataType.REGULAR, 6700); // Vorkath's vine whip
+        addDepthBufferModel(DataType.REGULAR, 14403); // Blowpipe
         addDepthBufferModel(DataType.REGULAR, 9347); // Toktz-ket-xil
         addDepthBufferModel(DataType.REGULAR, 3287); // Angel cape
         addDepthBufferModel(DataType.REGULAR, 13700); // Dragon kiteshield
