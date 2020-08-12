@@ -191,13 +191,17 @@ public class Model extends Animable {
         COSINE = Rasterizer.anIntArray1471;
         hsl2rgb = Rasterizer.anIntArray1482;
         lightDecay = Rasterizer.anIntArray1469;
-        
+
+        addDepthBufferModel(DataType.REGULAR, 6700); // Vorkath's vine whip
+        addDepthBufferModel(DataType.REGULAR, 14403); // Blowpipe
         addDepthBufferModel(DataType.REGULAR, 9347); // Toktz-ket-xil
         addDepthBufferModel(DataType.REGULAR, 3287); // Angel cape
         addDepthBufferModel(DataType.REGULAR, 13700); // Dragon kiteshield
         addDepthBufferModel(DataType.REGULAR, 4037, 4038); // Dragon warhammer
         addDepthBufferModel(DataType.OLDSCHOOL, 10423, 10424, 10425, 10426, 10427, 10428, 10456, 10457); // Cow outfit
         addDepthBufferModel(DataType.OLDSCHOOL, 164, 218, 268, 344, 394, 432, 452, 3379, 3383, 4206, 4207); // (t) armor
+        addDepthBufferModel(DataType.OLDSCHOOL, 36325, 36335); // Ferocious gloves
+        addDepthBufferModel(DataType.OLDSCHOOL, 10420, 10421); // Dragon defender
         
 		applyTexture(69, 16, 17);
 		applyTexture(58, 10, 11, 12, 13, 14, 15);
