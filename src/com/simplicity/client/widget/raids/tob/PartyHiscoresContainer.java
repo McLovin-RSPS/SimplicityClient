@@ -69,7 +69,7 @@ public class PartyHiscoresContainer extends CustomWidget implements WidgetString
 		addStringListener(this);
 		getInterface().width = WIDTH;
 		getInterface().height = HEIGHT;
-		getInterface().scrollMax = Math.max(HEIGHT + 1, ROWS * (RECT_HEIGHT + 1));
+		getInterface().scrollMax = Math.max(HEIGHT + 1, ROWS * (RECT_HEIGHT + 10));
 
 		int x = 0;
 		int y = 0;
@@ -77,7 +77,7 @@ public class PartyHiscoresContainer extends CustomWidget implements WidgetString
 		START_ID = id;
 
 		for (int i = 0; i < ROWS; i++) {
-			RSInterface rect = addRectangleClickable(255, 0, true, WIDTH - 1, RECT_HEIGHT, new String[] { "View party: @lre@Blake" });
+			RSInterface rect = addRectangleClickable(255, 0, true, WIDTH - 1, RECT_HEIGHT, new String[]{"View party: @lre@Blake"});
 			rect.hovers = true;
 			rect.hoverType = id - 1;
 			rect.enabledOpacity = 220;
@@ -87,16 +87,16 @@ public class PartyHiscoresContainer extends CustomWidget implements WidgetString
 			RSInterface members = addCenteredText("N. 1", 1, 0xff981f);
 			members.useNewFonts = true;
 			add(members, 18, 1 + y);
-			RSInterface targetSize = addCenteredText("Benberi545's Party", 1, 0x9f9f9f);
+			RSInterface targetSize = addText("Benberi545's Party", 1, 0x9f9f9f);
 			targetSize.useNewFonts = true;
-			add(targetSize, 18 + 42, 1 + y);
+			add(targetSize, 18 + 38, 1 + y);
 			ids.add(id);
 			add(addCenteredText("", 1, 0xffffff), 18 + 137, 1 + y);
-			RSInterface preferredLevel = addCenteredText("32:58", 1, 0x9f9f9f);
+			RSInterface preferredLevel = addText("32:58", 1, 0x9f9f9f);
 			preferredLevel.useNewFonts = true;
-			add(preferredLevel, 18 + 138 + 94, 1 + y);
-			add(addTimer(25, 14, 0, 0x9f9f9f, "Party Details"), 18 + 139 + 94 + 77, 3 + y);
-			y += RECT_HEIGHT + 1;
+			add(preferredLevel, 18 + 90 + 100, 1 + y);
+			add(addClickText("Party Details", 1, 0xFFBD6C, true, false), 18 + 90 + 94 + 77, 3 + y);
+			y += RECT_HEIGHT + 10;
 		}
 	}
 
