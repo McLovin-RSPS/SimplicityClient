@@ -834,6 +834,11 @@ public final class ItemDefinition {
             
             
             switch(itemDef.id) {
+            
+            case 52981:
+            	itemDef.maleYOffset += 5;
+            	itemDef.femaleYOffset += 5;
+            	break;
 
             	// Crystal halberd full
                 case 10033://chin
