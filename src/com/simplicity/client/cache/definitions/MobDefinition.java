@@ -56,6 +56,9 @@ public final class MobDefinition {
             	npc.copy(forID(18836));
             	npc.sizeXZ /= 5;
                 npc.sizeY /= 5;
+                npc.squaresNeeded = 1;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up"; 
             	return npc;
             }
 
