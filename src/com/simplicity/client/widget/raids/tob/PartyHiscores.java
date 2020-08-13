@@ -33,7 +33,9 @@ public class PartyHiscores extends CustomWidget {
 		int y = 16;
 		int width = 175;
 		add(addClosableWindow(457, 301, false, getName()), x, y);
-		addWidget(PartyHiscoresContainer.WIDGET_ID, 56, 58);
+		add(addText("No.", 1, 0xbcad98), 60, 60);
+		add(addText("Party Name", 1, 0xbcad98), 60 + 52, 60);
+		add(addText("Total Duration", 1, 0xbcad98), 60 + 185, 60);
+		addWidget(PartyHiscoresContainer.WIDGET_ID, 56, 80);
 	}
-	
 }
