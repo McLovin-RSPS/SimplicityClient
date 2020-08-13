@@ -1561,6 +1561,20 @@ public final class ItemDefinition {
         	itemDef.dataType = DataType.CUSTOM;
         	break;
         	
+        case 22046:
+        	itemDef.modelID = 16737;
+        	itemDef.modelZoom = 1300;
+        	itemDef.rotationX = 100;
+        	itemDef.rotationY = 30;
+        	itemDef.sizeX /= 5;
+        	itemDef.sizeY /= 5;
+        	itemDef.sizeZ /= 5;
+        	itemDef.dataType = DataType.OLDSCHOOL;
+        	itemDef.name = "Pet House";
+        	itemDef.groundActions = new String[] { null, null, "Take", null, null };
+			itemDef.actions = new String[] { null, null, null, null, "Drop" };
+        	break;
+        	
         case 17273:
         	itemDef.femaleYOffset += 7;
         	itemDef.femaleZOffset -= 6;

@@ -48,6 +48,16 @@ public final class MobDefinition {
             cacheIndexOSRS = (cacheIndexOSRS + 1) % 20;
 
             MobDefinition npc = cacheOSRS[cacheIndexOSRS] = new MobDefinition();
+            
+            if (i == 15_000) { // OSRS House pet
+            	npc.id = OSRS_NPCS_OFFSET + i;
+            	npc.type = OSRS_NPCS_OFFSET + i;
+            	npc.dataType = DataType.OLDSCHOOL;
+            	npc.copy(forID(18836));
+            	npc.sizeXZ /= 5;
+                npc.sizeY /= 5;
+            	return npc;
+            }
 
             if (i >= streamIndicesOSRS.length) {
                 return npc;
