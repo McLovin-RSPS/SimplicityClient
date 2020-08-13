@@ -15883,8 +15883,13 @@ public class Client extends RSApplet {
                             textDrawingArea_2.drawRegularText(false, xPos + 3, 0, s5, j11);
                         }
                     } else if (child.type == 11) {
-                        DrawingArea.fillRectangle(child.disabledColor, 0, clientWidth, clientHeight,
-                                256 - (child.opacity & 0xff), 0);
+                    	int r = (child.disabledColor >> 16) & 0xFF;
+                    	int g = (child.disabledColor >> 8) & 0xFF;
+                    	int b = child.disabledColor & 0xFF;
+                    	
+                    	Graphics2D g2d = DrawingArea.createGraphics(true);
+                    	g2d.setColor(new Color(r, g, b, 255 - (child.opacity & 0xff)));
+                    	g2d.fillRect(0, 0, gameAreaWidth, gameAreaHeight);
                     } else if (child.type == 12) {
                         try {
                             drawHoverBox(childX, childY, child.message);
