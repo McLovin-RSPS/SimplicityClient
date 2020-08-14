@@ -1575,6 +1575,45 @@ public final class ItemDefinition {
 			itemDef.actions = new String[] { null, null, null, null, "Drop" };
         	break;
         	
+        case 22047:
+        	itemDef.copy(forID(14008));
+        	itemDef.name = "Necrolord hood";
+        	itemDef.maleEquip1 = 52;
+        	itemDef.femaleEquip1 = 52;
+        	itemDef.modelID = 51;
+        	itemDef.dataType = DataType.CUSTOM;
+        	itemDef.editedModelColor = new int[0];
+        	itemDef.newModelColor = new int[0];
+        	itemDef.modelZoom += 50;
+        	break;
+        	
+        case 22048:
+        	itemDef.copy(forID(14009));
+        	itemDef.name = "Necrolord robe top";
+        	itemDef.maleEquip1 = 54;
+        	itemDef.femaleEquip1 = 54;
+        	itemDef.modelID = 53;
+        	itemDef.dataType = DataType.CUSTOM;
+        	itemDef.modelOffsetY = 8;
+        	itemDef.editedModelColor = new int[0];
+        	itemDef.newModelColor = new int[0];
+        	itemDef.modelZoom += 30;
+        	break;
+        	
+        case 22049:
+        	itemDef.copy(forID(14010));
+        	itemDef.name = "Necrolord robe bottoms";
+        	itemDef.maleEquip1 = 56;
+        	itemDef.femaleEquip1 = 56;
+        	itemDef.modelID = 55;
+        	itemDef.dataType = DataType.CUSTOM;
+        	itemDef.modelZoom = 1800;
+        	itemDef.modelOffsetY = 8;
+        	itemDef.editedModelColor = new int[0];
+        	itemDef.newModelColor = new int[0];
+        	itemDef.modelZoom += 350;
+        	break;
+        	
         case 17273:
         	itemDef.femaleYOffset += 7;
         	itemDef.femaleZOffset -= 6;
