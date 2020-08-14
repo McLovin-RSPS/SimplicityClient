@@ -331,7 +331,13 @@ public class ItemDefinitionLookup extends JFrame {
 				break;
 			}
 			
-			ItemDefinition def = ItemDefinition.forID(i);
+			ItemDefinition def = null;
+			
+			try {
+				def = ItemDefinition.forID(i);
+			} catch (Exception e) {
+				
+			}
 			
 			if (def == null) {
 				continue;
