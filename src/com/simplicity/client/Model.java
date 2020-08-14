@@ -202,6 +202,7 @@ public class Model extends Animable {
         addDepthBufferModel(DataType.OLDSCHOOL, 164, 218, 268, 344, 394, 432, 452, 3379, 3383, 4206, 4207); // (t) armor
         addDepthBufferModel(DataType.OLDSCHOOL, 36325, 36335); // Ferocious gloves
         addDepthBufferModel(DataType.OLDSCHOOL, 10420, 10421); // Dragon defender
+        addDepthBufferModel(DataType.OLDSCHOOL, 12778, 12817); // Necklace of Anguish (or)
         
 		applyTexture(69, 16, 17);
 		applyTexture(58, 10, 11, 12, 13, 14, 15);

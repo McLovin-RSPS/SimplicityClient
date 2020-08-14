@@ -408,6 +408,7 @@ public final class MobDefinition {
                 npc.sizeY = 20;
                 npc.actions = new String[5];
                 npc.actions[0] = "Pick-up";
+                npc.squaresNeeded = 1;
                 break;
                 
             case 13212:
