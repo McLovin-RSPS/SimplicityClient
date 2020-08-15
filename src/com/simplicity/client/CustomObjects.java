@@ -101,8 +101,9 @@ public class CustomObjects {
             //Well for upgradable at home and gold bars
             {3485, 3089, 3495, 0, 0},
 
-            //Xmass tree for december
-            {47748, 3107, 3498, 0, 0},
+            //Xmass tree for december OR Summer tree
+            //{47748, 3107, 3498, 0, 0},
+            {15969, 3097, 3503, 0, 0},
             
             // BBA            
             // Statues removed
