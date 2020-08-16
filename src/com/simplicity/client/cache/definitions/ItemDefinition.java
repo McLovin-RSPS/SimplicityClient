@@ -310,6 +310,317 @@ public final class ItemDefinition {
         }
     }
 
+    private static void postOsrsItemDef(ItemDefinition itemDef) {
+        switch(itemDef.id) {
+
+            case 52981:
+                itemDef.maleYOffset += 5;
+                itemDef.femaleYOffset += 5;
+                break;
+
+            // Crystal halberd full
+            case 10033://chin
+            case 10034://red chin
+            case 43081:
+                itemDef.actions = new String[] { null, "Wield", null, null, null };
+                break;
+
+            // Rainbow partyhat
+            case 41863:
+                itemDef.maleZOffset += 4;
+                itemDef.maleYOffset -= 10;
+                itemDef.femaleZOffset += 4;
+                itemDef.femaleYOffset -= 6;
+                break;
+
+            // OSRS necklaces
+            case 49553:
+            case 49547:
+            case 52249:
+            case 49535:
+            case 1704:
+                itemDef.maleZOffset += 4;
+                itemDef.maleYOffset -= 10;
+                itemDef.femaleYOffset -= 10;
+                itemDef.modelOffsetY = 16;
+                break;
+
+
+            // Team cape x and i
+            case 50214:
+            case 50217:
+                itemDef.femaleYOffset -= 7;
+                itemDef.femaleZOffset += 4;
+                itemDef.maleYOffset -= 7;
+                itemDef.femaleZOffset += 4;
+                break;
+
+            case 43300:
+                itemDef.name = "Pet Dracula";
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelID = MobDefinition.forID(21332).models[0];
+                itemDef.modelZoom = 1200;
+                break;
+
+            case 43301:
+                itemDef.name = "Warmi";
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelID = MobDefinition.forID(12841).models[0];
+                itemDef.modelZoom = 10000;
+                break;
+
+            case 43299:
+                itemDef.name = "Kura";
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelID = MobDefinition.forID(22405).models[0];
+                itemDef.modelZoom = 10000;
+                break;
+
+            case 51791:
+            case 51793:
+            case 51795:
+            case 52954:
+                itemDef.maleZOffset += 4;
+                itemDef.femaleZOffset += 4;
+                itemDef.femaleYOffset -= 7;
+                itemDef.maleYOffset -= 7;
+                break;
+
+            case 51400: // Red Inf cape
+                itemDef.copy(forID(51295));
+                itemDef.maleZOffset += 3;
+                itemDef.femaleZOffset += 3;
+                itemDef.femaleYOffset -= 3;
+                itemDef.maleYOffset -= 3;
+                itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
+                itemDef.newModelColor = new int[] { 61, 946, 946, 946, 946 };
+                break;
+            case 51401: // Bloody cape
+                itemDef.copy(forID(51295));
+                itemDef.maleZOffset += 3;
+                itemDef.femaleZOffset += 3;
+                itemDef.femaleYOffset -= 3;
+                itemDef.maleYOffset -= 3;
+                itemDef.name = "Bloody cape";
+                itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
+                itemDef.newModelColor = new int[] { 62, 921, 921, 921, 0 };
+                break;
+            case 51402: // Stone Cape
+                itemDef.copy(forID(51295));
+                itemDef.maleZOffset += 3;
+                itemDef.femaleZOffset += 3;
+                itemDef.femaleYOffset -= 3;
+                itemDef.maleYOffset -= 3;
+                itemDef.name = "Stone cape";
+                itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
+                itemDef.newModelColor = new int[] { 63, 25, 25, 25, 25 };
+                break;
+            case 51403: // Ocean Cape
+                itemDef.copy(forID(51295));
+                itemDef.maleZOffset += 3;
+                itemDef.femaleZOffset += 3;
+                itemDef.femaleYOffset -= 3;
+                itemDef.maleYOffset -= 3;
+                itemDef.name = "Ocean cape";
+                itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
+                itemDef.newModelColor = new int[] { 64, 32665, 32665, 32665, 32665 };
+                break;
+            case 51404: // Pink Inf Cape
+                itemDef.copy(forID(51295));
+                itemDef.maleZOffset += 3;
+                itemDef.femaleZOffset += 3;
+                itemDef.femaleYOffset -= 3;
+                itemDef.maleYOffset -= 3;
+                itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
+                itemDef.newModelColor = new int[] { 65, 54194, 54194, 54194, 54194 };
+                break;
+            case 51405: // Green inf Cape
+                itemDef.copy(forID(51295));
+                itemDef.maleZOffset += 3;
+                itemDef.femaleZOffset += 3;
+                itemDef.femaleYOffset -= 3;
+                itemDef.maleYOffset -= 3;
+                itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
+                itemDef.newModelColor = new int[] { 66, 16306, 16306, 16306, 16306 };
+                break;
+            case 51406: // Frozen cape
+                itemDef.copy(forID(51295));
+                itemDef.maleZOffset += 3;
+                itemDef.femaleZOffset += 3;
+                itemDef.femaleYOffset -= 3;
+                itemDef.maleYOffset -= 3;
+                itemDef.name = "Frozen cape";
+                itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
+                itemDef.newModelColor = new int[] { 67, 43263, 43263, 43263, 37247 };
+                break;
+            case 51407: // Yellow inf Cape
+                itemDef.copy(forID(51295));
+                itemDef.maleZOffset += 3;
+                itemDef.femaleZOffset += 3;
+                itemDef.femaleYOffset -= 3;
+                itemDef.maleYOffset -= 3;
+                itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
+                itemDef.newModelColor = new int[] { 68, 11212, 11212, 11212, 11212 };
+                break;
+            case 51295:
+            case 51285:
+            case 51776:
+            case 51780:
+            case 51784:
+            case 51898:
+            case 43280:
+            case 43282:
+            case 43329:
+            case 43331:
+            case 43333:
+            case 43335:
+            case 43337:
+            case 43342:
+            case 50760:
+            case 51186:
+                itemDef.maleZOffset += 3;
+                itemDef.femaleZOffset += 3;
+                itemDef.femaleYOffset -= 3;
+                itemDef.maleYOffset -= 3;
+            case 51296:
+                break;
+            case 51018:
+                itemDef.maleYOffset -= 10;
+                break;
+            case 50851:
+                itemDef.name = "Superior Olmlet";
+                break;
+            case 50852:
+                ItemDefinition def2 = forID(52319);
+                itemDef.name = "Superior " + def2.name;
+                itemDef.modelID = def2.modelID;
+                itemDef.modelOffset1 = def2.modelOffset1;
+                itemDef.modelOffsetX = def2.modelOffsetX;
+                itemDef.modelOffsetY = def2.modelOffsetY;
+                itemDef.modelZoom = def2.modelZoom;
+                break;
+            case 50854:
+                ItemDefinition defVorki = forID(51992);
+                itemDef.name = "Superior " + defVorki.name;
+                itemDef.modelID = defVorki.modelID;
+                itemDef.modelOffset1 = defVorki.modelOffset1;
+                itemDef.modelOffsetX = defVorki.modelOffsetX;
+                itemDef.modelOffsetY = defVorki.modelOffsetY;
+                itemDef.sizeX = defVorki.sizeX;
+                itemDef.sizeY = defVorki.sizeY;
+                itemDef.sizeZ = defVorki.sizeZ;
+                itemDef.rotationX = defVorki.rotationX;
+                itemDef.rotationY = defVorki.rotationY;
+                itemDef.actions = defVorki.actions;
+                itemDef.modelID = defVorki.modelID;
+                itemDef.sizeX = defVorki.sizeX;
+                itemDef.sizeY = defVorki.sizeY;
+                itemDef.sizeZ = defVorki.sizeZ;
+                itemDef.maleEquip1 = defVorki.maleEquip1;
+                itemDef.femaleEquip1 = defVorki.femaleEquip1;
+                itemDef.modelZoom = defVorki.modelZoom;
+                itemDef.modelOffsetY = defVorki.modelOffsetY;
+                itemDef.editedModelColor = defVorki.editedModelColor;
+                itemDef.newModelColor = defVorki.newModelColor;
+                break;
+
+            case 50884:
+                itemDef.name = "@or2@Great Olm's crystal";
+                break;
+
+            case 51427:
+                itemDef.name = "@or2@Gold logs";
+                break;
+            case 51802:
+                itemDef.name = "Revenant teleport";
+                itemDef.actions[0] = "Break";
+                break;
+            case 51803:
+                ItemDefinition def = forID(51802);
+                itemDef.dataType = DataType.OLDSCHOOL;
+                itemDef.modelID = def.modelID;
+                itemDef.modelOffset1 = def.modelOffset1;
+                itemDef.modelOffsetX = def.modelOffsetX;
+                itemDef.modelOffsetY = def.modelOffsetY;
+                itemDef.modelZoom = def.modelZoom;
+                itemDef.rotationX = def.rotationX;
+                itemDef.rotationY = def.rotationY;
+                itemDef.description = def.description;
+                itemDef.actions = def.actions;
+                itemDef.name = "Lava dragon teleport";
+                break;
+            case 42603:
+                itemDef.name = "Ring of Bosses";
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Wield";
+                itemDef.actions[2] = "Check";
+                itemDef.actions[3] = "Toggle Config";
+                break;
+            case 52993:
+                itemDef.copy(forID(6199));
+                itemDef.name = "Raids Mystery Box";
+                itemDef.newModelColor[0] = 27570;
+                break;
+            case 49480:
+                itemDef.copy(forID(6199));
+                itemDef.name = "Infinity Box";
+                itemDef.newModelColor[0] = 35260;
+                break;
+            case 49485:
+                itemDef.copy(forID(6199));
+                itemDef.name = "One Year Box";
+                itemDef.newModelColor[0] = 25560;
+                break;
+            case 52191:
+                itemDef.name = "Master Stone";
+                itemDef.actions = new String[5];
+                itemDef.actions[1] = "Hold";
+                break;
+            case 52609:
+                itemDef.name = "Olm's Fire";
+                break;
+            case 49473:
+                itemDef.name = "Six Month Anniversary Bag";
+                itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
+                break;
+            case 42789:
+                itemDef.name = "@gre@Runelocus Box";
+                itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
+                break;
+            case 51695:
+                itemDef.name = "Simpfest shield";
+                break;
+            case 49643:
+                itemDef.copy(forID(8467));
+                itemDef.name = "Great Olm's slayer helmet";
+                break;
+            case 42897:
+                itemDef.name = "Christmas Mystery Box";
+                itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
+                break;
+            case 52316:
+                itemDef.name = "Emerald rapier";
+                break;
+            case 41860:
+                itemDef.name = "Angelic Boots";
+                break;
+            case 52325:
+                itemDef.name = "Scythe of vitur";
+                itemDef.actions = new String[]{"Drink",null, null, null, "Drop"};
+                break;
+            case 52410:
+                itemDef.name = "1000m Note";
+                itemDef.actions = new String[]{"Claim", null, null, null, "Drop"};
+                break;
+        }
+    }
+
     public static void unpackConfig(CacheArchive streamLoader) {
         stream = new Stream(streamLoader.getDataForName("obj.dat"));
         Stream streamIdx = new Stream(streamLoader.getDataForName("obj.idx"));
@@ -832,315 +1143,7 @@ public final class ItemDefinition {
             	itemDef.id -= OSRS_ITEMS_OFFSET;
             }
             
-            
-            switch(itemDef.id) {
-            
-            case 52981:
-            	itemDef.maleYOffset += 5;
-            	itemDef.femaleYOffset += 5;
-            	break;
-
-            	// Crystal halberd full
-                case 10033://chin
-                case 10034://red chin
-	            case 43081:
-	            	itemDef.actions = new String[] { null, "Wield", null, null, null };
-	            	break;
-            
-            	// Rainbow partyhat
-	            case 41863:
-	            	itemDef.maleZOffset += 4;
-	            	itemDef.maleYOffset -= 10;
-	            	itemDef.femaleZOffset += 4;
-	            	itemDef.femaleYOffset -= 6;
-	            	break;
-	            	
-	            // OSRS necklaces
-	            case 49553:
-	            case 49547:
-	            case 52249:
-	            case 49535:
-	            case 1704:
-	            	itemDef.maleZOffset += 4;
-	            	itemDef.maleYOffset -= 10;
-	            	itemDef.femaleYOffset -= 10;
-	            	itemDef.modelOffsetY = 16;
-	            	break;
-	            	
-            	
-            	// Team cape x and i
-	            case 50214:
-	            case 50217:
-	            	itemDef.femaleYOffset -= 7;
-	            	itemDef.femaleZOffset += 4;
-	            	itemDef.maleYOffset -= 7;
-	            	itemDef.femaleZOffset += 4;
-	            	break;
-	            	
-                case 43300:
-                    itemDef.name = "Pet Dracula";
-                    itemDef.groundActions = new String[]{null, null, "Take", null, null};
-                    itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
-                    itemDef.modelID = MobDefinition.forID(21332).models[0];
-                    itemDef.modelZoom = 1200;
-                    break;
-                    
-                case 43301:
-                    itemDef.name = "Warmi";
-                    itemDef.groundActions = new String[]{null, null, "Take", null, null};
-                    itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
-                    itemDef.modelID = MobDefinition.forID(12841).models[0];
-                    itemDef.modelZoom = 10000;
-                    break;
-                    
-                case 43299:
-                    itemDef.name = "Kura";
-                    itemDef.groundActions = new String[]{null, null, "Take", null, null};
-                    itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
-                    itemDef.modelID = MobDefinition.forID(22405).models[0];
-                    itemDef.modelZoom = 10000;
-                    break;
-
-                case 51791:
-                case 51793:
-                case 51795:
-                case 52954:
-                    itemDef.maleZOffset += 4;
-                    itemDef.femaleZOffset += 4;
-                    itemDef.femaleYOffset -= 7;
-                    itemDef.maleYOffset -= 7;
-                    break;
-
-                case 51400: // Red Inf cape
-                	itemDef.copy(forID(51295));
-                	itemDef.maleZOffset += 3;
-                    itemDef.femaleZOffset += 3;
-                    itemDef.femaleYOffset -= 3;
-                    itemDef.maleYOffset -= 3;
-                    itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
-                    itemDef.newModelColor = new int[] { 61, 946, 946, 946, 946 };
-                	break;
-                case 51401: // Bloody cape
-                	itemDef.copy(forID(51295));
-                	itemDef.maleZOffset += 3;
-                    itemDef.femaleZOffset += 3;
-                    itemDef.femaleYOffset -= 3;
-                    itemDef.maleYOffset -= 3;
-                    itemDef.name = "Bloody cape";
-                    itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
-                    itemDef.newModelColor = new int[] { 62, 921, 921, 921, 0 };
-                	break;
-                case 51402: // Stone Cape
-                	itemDef.copy(forID(51295));
-                	itemDef.maleZOffset += 3;
-                    itemDef.femaleZOffset += 3;
-                    itemDef.femaleYOffset -= 3;
-                    itemDef.maleYOffset -= 3;
-                    itemDef.name = "Stone cape";
-                    itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
-                    itemDef.newModelColor = new int[] { 63, 25, 25, 25, 25 };
-                	break;
-                case 51403: // Ocean Cape
-                	itemDef.copy(forID(51295));
-                	itemDef.maleZOffset += 3;
-                    itemDef.femaleZOffset += 3;
-                    itemDef.femaleYOffset -= 3;
-                    itemDef.maleYOffset -= 3;
-                    itemDef.name = "Ocean cape";
-                    itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
-                    itemDef.newModelColor = new int[] { 64, 32665, 32665, 32665, 32665 };
-                	break;
-                case 51404: // Pink Inf Cape
-                	itemDef.copy(forID(51295));
-                	itemDef.maleZOffset += 3;
-                    itemDef.femaleZOffset += 3;
-                    itemDef.femaleYOffset -= 3;
-                    itemDef.maleYOffset -= 3;
-                    itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
-                    itemDef.newModelColor = new int[] { 65, 54194, 54194, 54194, 54194 };
-                	break;
-                case 51405: // Green inf Cape
-                	itemDef.copy(forID(51295));
-                	itemDef.maleZOffset += 3;
-                    itemDef.femaleZOffset += 3;
-                    itemDef.femaleYOffset -= 3;
-                    itemDef.maleYOffset -= 3;
-                    itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
-                    itemDef.newModelColor = new int[] { 66, 16306, 16306, 16306, 16306 };
-                	break;
-                case 51406: // Frozen cape
-                	itemDef.copy(forID(51295));
-                	itemDef.maleZOffset += 3;
-                    itemDef.femaleZOffset += 3;
-                    itemDef.femaleYOffset -= 3;
-                    itemDef.maleYOffset -= 3;
-                    itemDef.name = "Frozen cape";
-                    itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
-                    itemDef.newModelColor = new int[] { 67, 43263, 43263, 43263, 37247 };
-                	break;
-                case 51407: // Yellow inf Cape
-                	itemDef.copy(forID(51295));
-                	itemDef.maleZOffset += 3;
-                    itemDef.femaleZOffset += 3;
-                    itemDef.femaleYOffset -= 3;
-                    itemDef.maleYOffset -= 3;
-                    itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
-                    itemDef.newModelColor = new int[] { 68, 11212, 11212, 11212, 11212 };
-                	break;
-                case 51295:
-                case 51285:
-                case 51776:
-                case 51780:
-                case 51784:
-                case 51898:
-                case 43280:
-                case 43282:
-                case 43329:
-                case 43331:
-                case 43333:
-                case 43335:
-                case 43337:
-                case 43342:
-                case 50760:
-                case 51186:
-                    itemDef.maleZOffset += 3;
-                    itemDef.femaleZOffset += 3;
-                    itemDef.femaleYOffset -= 3;
-                    itemDef.maleYOffset -= 3;
-                case 51296:
-                    break;
-                case 51018:
-                    itemDef.maleYOffset -= 10;
-                    break;
-                case 50851:
-                    itemDef.name = "Superior Olmlet";
-                    break;
-                case 50852:
-                	ItemDefinition def2 = forID(52319);
-                    itemDef.name = "Superior " + def2.name;
-                    itemDef.modelID = def2.modelID;
-                    itemDef.modelOffset1 = def2.modelOffset1;
-                    itemDef.modelOffsetX = def2.modelOffsetX;
-                    itemDef.modelOffsetY = def2.modelOffsetY;
-                    itemDef.modelZoom = def2.modelZoom;
-                    break;
-                case 50854:
-                	ItemDefinition defVorki = forID(51992);
-                    itemDef.name = "Superior " + defVorki.name;
-                    itemDef.modelID = defVorki.modelID;
-                    itemDef.modelOffset1 = defVorki.modelOffset1;
-                    itemDef.modelOffsetX = defVorki.modelOffsetX;
-                    itemDef.modelOffsetY = defVorki.modelOffsetY;
-                    itemDef.sizeX = defVorki.sizeX;
-                    itemDef.sizeY = defVorki.sizeY;
-                    itemDef.sizeZ = defVorki.sizeZ;
-                    itemDef.rotationX = defVorki.rotationX;
-                    itemDef.rotationY = defVorki.rotationY;
-                	itemDef.actions = defVorki.actions;
-                	itemDef.modelID = defVorki.modelID;
-                	itemDef.sizeX = defVorki.sizeX;
-                	itemDef.sizeY = defVorki.sizeY;
-                	itemDef.sizeZ = defVorki.sizeZ;
-                	itemDef.maleEquip1 = defVorki.maleEquip1;
-                	itemDef.femaleEquip1 = defVorki.femaleEquip1;
-                	itemDef.modelZoom = defVorki.modelZoom;
-                	itemDef.modelOffsetY = defVorki.modelOffsetY;
-                	itemDef.editedModelColor = defVorki.editedModelColor;
-                	itemDef.newModelColor = defVorki.newModelColor;
-                    break;
-                    
-                case 50884:
-                    itemDef.name = "@or2@Great Olm's crystal";
-                    break;
-
-                case 51427:
-                    itemDef.name = "@or2@Gold logs";
-                    break;
-                case 51802:
-                    itemDef.name = "Revenant teleport";
-                    itemDef.actions[0] = "Break";
-                    break;
-                case 51803:
-                	ItemDefinition def = forID(51802);
-                	itemDef.dataType = DataType.OLDSCHOOL;
-                	itemDef.modelID = def.modelID;
-                	itemDef.modelOffset1 = def.modelOffset1;
-                	itemDef.modelOffsetX = def.modelOffsetX;
-                	itemDef.modelOffsetY = def.modelOffsetY;
-                	itemDef.modelZoom = def.modelZoom;
-                	itemDef.rotationX = def.rotationX;
-                	itemDef.rotationY = def.rotationY;
-                	itemDef.description = def.description;
-                	itemDef.actions = def.actions;
-                	itemDef.name = "Lava dragon teleport";
-                	break;
-                case 42603:
-                    itemDef.name = "Ring of Bosses";
-                    itemDef.actions = new String[5];
-                    itemDef.actions[1] = "Wield";
-                    itemDef.actions[2] = "Check";
-                    itemDef.actions[3] = "Toggle Config";
-                    break;
-                case 52993:
-                	itemDef.copy(forID(6199));
-                    itemDef.name = "Raids Mystery Box";
-                    itemDef.newModelColor[0] = 27570;
-                    break;
-                case 49480:
-                    itemDef.copy(forID(6199));
-                    itemDef.name = "Infinity Box";
-                    itemDef.newModelColor[0] = 35260;
-                    break; 
-                case 49485:
-                    itemDef.copy(forID(6199));
-                    itemDef.name = "One Year Box";
-                    itemDef.newModelColor[0] = 25560;
-                    break; 
-                case 52191:
-                    itemDef.name = "Master Stone";
-                    itemDef.actions = new String[5];
-                    itemDef.actions[1] = "Hold";
-                    break;
-                case 52609:
-                    itemDef.name = "Olm's Fire";
-                    break;
-                case 49473:
-                    itemDef.name = "Six Month Anniversary Bag";
-                    itemDef.actions = new String[5];
-                    itemDef.actions[0] = "Open";
-                    break;
-                case 42789:
-                    itemDef.name = "@gre@Runelocus Box";
-                    itemDef.actions = new String[5];
-                    itemDef.actions[0] = "Open";
-                    break;
-                case 51695:
-                    itemDef.name = "Simpfest shield";
-                    break;
-                case 49643:
-                    itemDef.copy(forID(8467));
-                    itemDef.name = "Great Olm's slayer helmet";
-                    break;
-                case 42897:
-                    itemDef.name = "Christmas Mystery Box";
-                    itemDef.actions = new String[5];
-                    itemDef.actions[0] = "Open";
-                    break;
-                case 52316:
-                    itemDef.name = "Emerald rapier";
-                    break;
-                case 41860:
-                    itemDef.name = "Angelic Boots";
-                    break;
-                case 52325:
-                    itemDef.name = "Scythe of vitur";
-                    itemDef.actions = new String[]{"Drink",null, null, null, "Drop"};
-                    break;
-                case 52410:
-                    itemDef.name = "1000m Note";
-                    itemDef.actions = new String[]{"Claim", null, null, null, "Drop"};
-                    break;
-            }
+            postOsrsItemDef(itemDef);
             return itemDef;
         }
 
