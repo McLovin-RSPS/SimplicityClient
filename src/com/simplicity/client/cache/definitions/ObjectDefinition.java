@@ -179,8 +179,9 @@ public final class ObjectDefinition {
         if (i == 131923) {
             objectDef.actions = new String[5];
             objectDef.actions[0] = "Venerate";
-            objectDef.actions[1] = "Ancient";
-            objectDef.actions[2] = "Lunar";
+            objectDef.actions[1] = "Standard";
+            objectDef.actions[2] = "Ancient";
+            objectDef.actions[3] = "Lunar";
         }
         if (i == 122819) {
             objectDef.actions = new String[5];
