@@ -5,9 +5,9 @@ import com.simplicity.client.RSInterface;
 public class StorageContainer extends RSInterface {
 
     public static void init() {
-        RSInterface parent = addInterface(38215);
+        RSInterface parent = addInterface(42125);
         parent.children(3);
-        int currentWidgetId = 38217;
+        int currentWidgetId = 42127;
 
         addClosableWindow(currentWidgetId, 500, 304, true, "Costume Storage");
         parent.child(0, currentWidgetId, 8, 16);

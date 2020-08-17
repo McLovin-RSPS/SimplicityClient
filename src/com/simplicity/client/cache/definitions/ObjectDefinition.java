@@ -183,6 +183,9 @@ public final class ObjectDefinition {
             objectDef.actions[2] = "Ancient";
             objectDef.actions[3] = "Lunar";
         }
+        if (i == 129146) {
+            objectDef.actions[3] = "Empty";
+        }
         if (i == 122819) {
             objectDef.actions = new String[5];
             objectDef.actions[0] = "Use";
