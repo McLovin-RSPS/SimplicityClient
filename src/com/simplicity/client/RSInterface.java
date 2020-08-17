@@ -4506,6 +4506,7 @@ public class RSInterface {
         WildernessWidget.unpack();
 
         BossDisplayConfiguration.init(textDrawingAreas);
+        StorageContainer.init();
         JewelleryBoxTeleport.init(textDrawingAreas);
         PetHouse.init();
         Widget.init();
