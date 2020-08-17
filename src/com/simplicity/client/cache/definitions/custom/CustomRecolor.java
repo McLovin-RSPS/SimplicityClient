@@ -276,8 +276,19 @@ public enum CustomRecolor {
 	SEZY_PINK_ROSEBLOOD_BOOTS(22034, 16917, "Pink Roseblood shoes",
 			new int[] { 1305, 1297, 7219, 262, 1319 },
 			new int[] { 125, 57300, 57300, 57300, 57300 }),
-	
-	
+	WHITE_BLACK_DS_SCYTHE(12149, 15000, "@whi@NSX",
+			new int[] { 33, 37, 41, 78, 16, 784, 49, 20, 790, 24, 536, 796, 28, 61 },
+			new int[] { 127, 127, 127, 127, 127, 127, 0, 127, 127, 127, 127, 127, 127, 0 }),
+	STRAWBERRY_SANG_X(12150, 52323, "@red@Strawberry Sang X",
+			new int[] { 836, 156, 3127, 142, 3140, 24, 20, 28, 836, 37, 49, 41, 57, 33, 16, 284 }, 
+			new int[] { 933, 127, 933, 933, 127, 127, 127, 127, 127, 127, 933, 933, 933, 127, 127, 127 }),
+	ROADMAN_ANGELIC_CAPE(12151, 11614, "@whi@Roadman Angelic Cape",
+			new int[] { 40023, 40036, 1822, 36, 25, 34243, 9230, 40040, 10348, 48, 34251, 0, 43335, 6218, 23, 11013 },
+			getCustomCapeColor(51136, 127)),
+	TRILL_SCYTHE(12152, 15000, "@whi@Trill's Scythe",
+			new int[] { 33, 37, 41, 78, 16, 784, 49, 20, 790, 24, 536, 796, 28, 61 },
+			new int[] { 90, 90, 90, 0, 90, 0, 0, 90, 0, 90, 0, 0, 90, 0 }),
+
 	;
 	/**
 	 * Constructs a new {@link CustomRecolor}.
