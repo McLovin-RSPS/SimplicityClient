@@ -438,7 +438,7 @@ public class CustomObjects {
             {52709, 1824, 5161, 2, 0}, // arthur's dream campfire
             
             // Edge arthur's dream teleporter
-            {48661, 3083, 3488, 0, 3}, // Arthur's dream teleporter edgeville
+            {48661, 3083, 3487, 0, 3}, // Arthur's dream teleporter edgeville
             {27254, 1831, 5163, 2, 0}, // Dark portal arthur's dream
             
             
