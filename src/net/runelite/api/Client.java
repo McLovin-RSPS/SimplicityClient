@@ -39,6 +39,7 @@ import com.simplicity.client.NPC;
 import com.simplicity.client.Player;
 import com.simplicity.client.RSImageProducer;
 import com.simplicity.client.Tile;
+import com.simplicity.client.container.item.ItemContainer;
 
 import net.runelite.api.annotations.VisibleForDevtools;
 import net.runelite.api.coords.LocalPoint;
@@ -931,14 +932,12 @@ public interface Client extends GameEngine
 	void changeMemoryMode(boolean lowMemory);
 
 	/**
-	 * Get the item container for an inventory.
-	 *
-	 * @param inventory the inventory type
+	 * Gets the item container for the equipment.
+	 * 
 	 * @return the item container
 	 */
-	@Nullable
-	ItemContainer getItemContainer(InventoryID inventory);
-
+	ItemContainer getEquipment();
+	
 	/**
 	 * Gets the index of the last integer added to the
 	 * {@link #getIntStack()} array.
@@ -1429,5 +1428,5 @@ public interface Client extends GameEngine
 	 * @see KeyCode
 	 */
 	boolean isKeyPressed(int keycode);
-	
+
 }

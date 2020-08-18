@@ -226,7 +226,7 @@ public class OverlayManager
 					layer = OverlayLayer.ABOVE_WIDGETS;
 				}
 			}
-
+			
 			overlayLayers.get(layer).add(overlay);
 		}
 

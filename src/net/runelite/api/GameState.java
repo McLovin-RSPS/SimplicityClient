@@ -39,15 +39,6 @@ public enum GameState
 	STARTING(0),
 	
 	/**
-	 * The game is being loaded.
-	 */
-	LOADING(1),
-	/**
-	 * The user has successfully logged in.
-	 */
-	LOGGED_IN(2),
-	
-	/**
 	 * The client is at the login screen.
 	 */
 	LOGIN_SCREEN(10),
@@ -55,6 +46,16 @@ public enum GameState
 	 * There is a player logging in.
 	 */
 	LOGGING_IN(20),
+	
+	/**
+	 * The game is being loaded.
+	 */
+	LOADING(25),
+	
+	/**
+	 * The user has successfully logged in.
+	 */
+	LOGGED_IN(30),
 
 	/**
 	 * Connection to the server was lost.

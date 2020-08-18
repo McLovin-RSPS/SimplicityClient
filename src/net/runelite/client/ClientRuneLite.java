@@ -8,10 +8,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.simplicity.client.CollisionDetection;
+import com.simplicity.client.Item;
 import com.simplicity.client.NPC;
 import com.simplicity.client.Player;
 import com.simplicity.client.RSImageProducer;
+import com.simplicity.client.RSInterface;
 import com.simplicity.client.Tile;
+import com.simplicity.client.container.item.ItemContainer;
 
 import ch.qos.logback.classic.Logger;
 import net.runelite.api.Area;
@@ -30,9 +33,9 @@ import net.runelite.api.IndexDataBase;
 import net.runelite.api.IndexedSprite;
 import net.runelite.api.InventoryID;
 import net.runelite.api.ItemComposition;
-import net.runelite.api.ItemContainer;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.NPCComposition;
+import net.runelite.api.Node;
 import net.runelite.api.ObjectComposition;
 import net.runelite.api.Point;
 import net.runelite.api.Prayer;
@@ -651,8 +654,7 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public Dimension getRealDimensions() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Dimension(client().getClientWidth(), client().getClientHeight());
 	}
 	
 	@Override
@@ -802,9 +804,8 @@ public class ClientRuneLite implements Client {
 	}
 	
 	@Override
-	public ItemContainer getItemContainer(InventoryID inventory) {
-		// TODO Auto-generated method stub
-		return null;
+	public ItemContainer getEquipment() {
+		return client().getEquipment();
 	}
 	
 	@Override

@@ -24,8 +24,6 @@
  */
 package net.runelite.client.game;
 
-import static net.runelite.api.Constants.CLIENT_DEFAULT_ZOOM;
-
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -41,7 +39,8 @@ import javax.inject.Singleton;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import net.runelite.client.eventbus.Subscribe;
+import com.simplicity.client.Item;
+import com.simplicity.client.Sprite;
 
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
@@ -52,6 +51,7 @@ import net.runelite.api.SpritePixels;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.client.RuneLite;
 import net.runelite.client.callback.ClientThread;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.http.api.item.ItemClient;
 import net.runelite.http.api.item.ItemPrice;
 import net.runelite.http.api.item.SearchResult;
@@ -63,8 +63,7 @@ public class ItemManager
 	@Value
 	private static class ImageKey
 	{
-		private final int itemId;
-		private final int itemQuantity;
+		private final Item item;
 		private final boolean stackable;
 	}
 
@@ -115,7 +114,7 @@ public class ItemManager
 				@Override
 				public AsyncBufferedImage load(ImageKey key) throws Exception
 				{
-					return loadImage(key.itemId, key.itemQuantity, key.stackable);
+					return loadImage(key.item, key.stackable);
 				}
 			});
 
@@ -217,27 +216,29 @@ public class ItemManager
 	 * @param itemId
 	 * @return
 	 */
-	private AsyncBufferedImage loadImage(int itemId, int quantity, boolean stackable)
+	private AsyncBufferedImage loadImage(Item item, boolean stackable)
 	{
-		AsyncBufferedImage img = new AsyncBufferedImage(36, 32, BufferedImage.TYPE_INT_ARGB);
+		Sprite sprite = item.getSprite();
+		
+		if (sprite == null) {
+			return null;
+		}
+		
+		AsyncBufferedImage img = new AsyncBufferedImage(sprite.myWidth, sprite.myHeight, BufferedImage.TYPE_INT_ARGB);
 		clientThread.invokeLater(() ->
 		{
 			if (client.getGameState().ordinal() < GameState.LOGIN_SCREEN.ordinal())
 			{
 				return false;
 			}
-			SpritePixels sprite = client.createItemSprite(itemId, quantity, 1, SpritePixels.DEFAULT_SHADOW_COLOR,
-				stackable ? 1 : 0, false, CLIENT_DEFAULT_ZOOM);
-			if (sprite == null)
-			{
-				return false;
-			}
+			
 			sprite.toBufferedImage(img);
 			img.changed();
 			return true;
 		});
 		return img;
 	}
+
 
 	/**
 	 * Get item sprite image as BufferedImage.
@@ -269,7 +270,7 @@ public class ItemManager
 	{
 		try
 		{
-			return itemImages.get(new ImageKey(itemId, quantity, stackable));
+			return itemImages.get(new ImageKey(new Item(itemId, quantity), stackable));
 		}
 		catch (ExecutionException ex)
 		{

@@ -24,6 +24,8 @@
  */
 package net.runelite.api;
 
+import com.simplicity.client.Item;
+
 /**
  * Represents an inventory that contains items.
  */

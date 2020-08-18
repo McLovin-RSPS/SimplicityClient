@@ -84,7 +84,7 @@ public class InfoBoxOverlay extends Overlay
 		{
 			return null;
 		}
-
+		
 		panelComponent.getChildren().clear();
 		panelComponent.setWrapping(config.infoBoxWrap());
 		panelComponent.setOrientation(config.infoBoxVertical()

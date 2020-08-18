@@ -135,7 +135,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		// Create copy of snap corners because overlays will modify them
 		OverlayBounds snapCorners = new OverlayBounds(this.snapCorners);
 		OverlayUtil.setGraphicProperties(graphics);
-
+		
 		// Draw snap corners
 		if (layer == OverlayLayer.UNDER_WIDGETS && movedOverlay != null && movedOverlay.getPosition() != OverlayPosition.DETACHED)
 		{

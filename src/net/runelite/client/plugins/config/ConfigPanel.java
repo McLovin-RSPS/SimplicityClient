@@ -70,7 +70,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import com.google.common.base.Splitter;
-import com.google.common.base.Strings;import com.google.common.base.Strings;
+import com.google.common.base.Strings;
+import com.google.common.primitives.Ints;
 
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.config.ChatColorConfig;
@@ -81,7 +82,9 @@ import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.ConfigItemDescriptor;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.config.Keybind;
+import net.runelite.client.config.Range;
 import net.runelite.client.config.RuneLiteConfig;
+import net.runelite.client.config.Units;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginInstantiationException;
@@ -361,6 +364,18 @@ public class ConfigPanel extends PluginPanel
 			if (cid.getType() == int.class)
 			{
 				int value = Integer.parseInt(configManager.getConfiguration(cd.getGroup().value(), cid.getItem().keyName()));
+				
+				Range range = cid.getRange();
+				int min = 0, max = Integer.MAX_VALUE;
+				if (range != null)
+				{
+					min = range.min();
+					max = range.max();
+				}
+				
+				// Config may previously have been out of range
+				value = Ints.constrainToRange(value, min, max);
+				
 
 				SpinnerModel model = new SpinnerNumberModel(value, 0, Integer.MAX_VALUE, 1);
 				JSpinner spinner = new JSpinner(model);
@@ -368,6 +383,12 @@ public class ConfigPanel extends PluginPanel
 				JFormattedTextField spinnerTextField = ((JSpinner.DefaultEditor) editor).getTextField();
 				spinnerTextField.setColumns(SPINNER_FIELD_WIDTH);
 				spinner.addChangeListener(ce -> changeConfiguration(listItem, config, spinner, cd, cid));
+				
+				Units units = cid.getUnits();
+				if (units != null)
+				{
+					spinnerTextField.setFormatterFactory(new UnitFormatterFactory(units));
+				}
 
 				item.add(spinner, BorderLayout.EAST);
 			}

@@ -30,19 +30,18 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
-
+import java.util.function.Supplier;
 import javax.inject.Singleton;
-
 import lombok.extern.slf4j.Slf4j;
 
 @Singleton
 @Slf4j
 public class DrawManager
 {
-	private final List<Consumer<Image>> everyFrame = new CopyOnWriteArrayList<>();
+	private final List<Runnable> everyFrame = new CopyOnWriteArrayList<>();
 	private final Queue<Consumer<Image>> nextFrame = new ConcurrentLinkedQueue<>();
 
-	public void registerEveryFrameListener(Consumer<Image> everyFrameListener)
+	public void registerEveryFrameListener(Runnable everyFrameListener)
 	{
 		if (!everyFrame.contains(everyFrameListener))
 		{
@@ -50,7 +49,7 @@ public class DrawManager
 		}
 	}
 
-	public void unregisterEveryFrameListener(Consumer<Image> everyFrameListener)
+	public void unregisterEveryFrameListener(Runnable everyFrameListener)
 	{
 		everyFrame.remove(everyFrameListener);
 	}
@@ -60,13 +59,13 @@ public class DrawManager
 		nextFrame.add(nextFrameListener);
 	}
 
-	public void processDrawComplete(Image image)
+	public void processDrawComplete(Supplier<Image> imageSupplier)
 	{
-		for (Consumer<Image> everyFrameListener : everyFrame)
+		for (Runnable everyFrameListener : everyFrame)
 		{
 			try
 			{
-				everyFrameListener.accept(image);
+				everyFrameListener.run();
 			}
 			catch (Exception e)
 			{
@@ -75,8 +74,27 @@ public class DrawManager
 		}
 
 		Consumer<Image> nextFrameListener = nextFrame.poll();
+		Image image = null;
 		while (nextFrameListener != null)
 		{
+			if (image == null)
+			{
+				try
+				{
+					image = imageSupplier.get();
+				}
+				catch (Exception ex)
+				{
+					log.warn("error getting screenshot", ex);
+				}
+			}
+
+			if (image == null)
+			{
+				nextFrame.clear();
+				break;
+			}
+
 			try
 			{
 				nextFrameListener.accept(image);

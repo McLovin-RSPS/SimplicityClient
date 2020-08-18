@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2019 Hydrox6 <ikada@protonmail.ch>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,48 +22,36 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.client.plugins.ammo;
 
-/**
- * An enumeration of equipment slots in the inventory {@link ItemContainer}.
- * <p>
- * These values are intended for use with the local players equipment
- * {@link ItemContainer} corresponding. For obtaining information about equipment
- * in the {@link PlayerComposition}, use {@link net.runelite.api.kit.KitType}.
- *
- * @see Client#getItemContainer(InventoryID)
- * @see InventoryID#EQUIPMENT
- */
-public enum EquipmentInventorySlot
+import java.awt.image.BufferedImage;
+import lombok.Getter;
+import net.runelite.client.plugins.Plugin;
+import net.runelite.client.ui.overlay.infobox.Counter;
+import net.runelite.client.util.QuantityFormatter;
+
+class AmmoCounter extends Counter
 {
-	HEAD(0),
-	CAPE(1),
-	AMULET(2),
-	WEAPON(3),
-	BODY(4),
-	SHIELD(5),
-	LEGS(7),
-	GLOVES(9),
-	BOOTS(10),
-	RING(12),
-	AMMO(13);
+	@Getter
+	private final int itemID;
+	private final String name;
 
-	private final int slotIdx;
-
-	EquipmentInventorySlot(int slotIdx)
+	AmmoCounter(Plugin plugin, int itemID, int count, String name, BufferedImage image)
 	{
-		this.slotIdx = slotIdx;
+		super(image, plugin, count);
+		this.itemID = itemID;
+		this.name = name;
 	}
 
-	/**
-	 * Gets the index into the item array obtained from
-	 * {@link ItemContainer#getItems()}.
-	 *
-	 * @return the raw index
-	 */
-	public int getSlotIdx()
+	@Override
+	public String getText()
 	{
-		return slotIdx;
+		return QuantityFormatter.quantityToRSDecimalStack(getCount());
 	}
 
+	@Override
+	public String getTooltip()
+	{
+		return name;
+	}
 }

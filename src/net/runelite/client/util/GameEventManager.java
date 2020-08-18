@@ -91,15 +91,15 @@ public class GameEventManager
 
 			eventBus.register(subscriber);
 
-			for (final InventoryID inventory : InventoryID.values())
+			/*for (final InventoryID inventory : InventoryID.values())
 			{
 				final ItemContainer itemContainer = client.getItemContainer(inventory);
 
 				if (itemContainer != null)
 				{
-					//eventBus.post(new ItemContainerChanged(inventory.getId(), itemContainer));
+					eventBus.post(new ItemContainerChanged(inventory.getId(), itemContainer));
 				}
-			}
+			}*/
 
 			for (NPC npc : client.getCachedNPCs())
 			{

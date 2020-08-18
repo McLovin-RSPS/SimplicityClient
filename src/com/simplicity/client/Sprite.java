@@ -31,7 +31,7 @@ public class Sprite extends DrawingArea {
 	public static Image scale(Image image, int width, int height) {
 		return image.getScaledInstance(width, height, Image.SCALE_DEFAULT);
 	}
-
+	
 	public static BufferedImage getScaledImage(Image loadingSprites, int w, int h, int origW, int origH) {
 		BufferedImage resizedImage = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = resizedImage.createGraphics();
@@ -1527,5 +1527,81 @@ public class Sprite extends DrawingArea {
 		
 		return y2;
 	}
+	
+	public void toBufferedImage(BufferedImage img)
+	{
+		int width = myWidth;
+		int height = myHeight;
+		
+		if (img.getWidth() != width || img.getHeight() != height)
+		{
+			throw new IllegalArgumentException("Image bounds do not match SpritePixels");
+		}
+
+		int[] pixels = myPixels;
+		int[] transPixels = new int[pixels.length];
+
+		for (int i = 0; i < pixels.length; i++)
+		{
+			if (pixels[i] != 0)
+			{
+				transPixels[i] = pixels[i] | 0xff000000;
+			}
+		}
+
+		img.setRGB(0, 0, width, height, transPixels, 0, width);
+	}
+	
+	public BufferedImage toBufferedOutline(Color color) {
+		BufferedImage img = new BufferedImage(myWidth, myHeight, BufferedImage.TYPE_INT_ARGB);
+
+		toBufferedOutline(img, color.getRGB());
+
+		return img;
+	}
+
+	
+	public void toBufferedOutline(BufferedImage img, int color) {
+		int width = myWidth;
+		int height = myHeight;
+
+		if (img.getWidth() != width || img.getHeight() != height) {
+			throw new IllegalArgumentException("Image bounds do not match SpritePixels");
+		}
+
+		int[] pixels = myPixels;
+		int[] newPixels = new int[width * height];
+		int pixelIndex = 0;
+
+		for (int y = 0; y < height; ++y) {
+			for (int x = 0; x < width; ++x) {
+				int pixel = pixels[pixelIndex];
+				if (pixel == 16777215 || pixel == 0) {
+					// W
+					if (x > 0 && pixels[pixelIndex - 1] != 0) {
+						pixel = color;
+					}
+					// N
+					else if (y > 0 && pixels[pixelIndex - width] != 0) {
+						pixel = color;
+					}
+					// E
+					else if (x < width - 1 && pixels[pixelIndex + 1] != 0) {
+						pixel = color;
+					}
+					// S
+					else if (y < height - 1 && pixels[pixelIndex + width] != 0) {
+						pixel = color;
+					}
+					newPixels[pixelIndex] = pixel;
+				}
+
+				pixelIndex++;
+			}
+		}
+
+		img.setRGB(0, 0, width, height, newPixels, 0, width);
+	}
+
 	
 }

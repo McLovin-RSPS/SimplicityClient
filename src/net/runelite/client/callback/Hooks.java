@@ -42,14 +42,12 @@ import java.awt.image.VolatileImage;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import net.runelite.client.eventbus.EventBus;
 import com.google.inject.Injector;
 import com.simplicity.client.DrawingArea;
 import com.simplicity.client.RSImageProducer;
 
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
-import net.runelite.api.MainBufferProvider;
 import net.runelite.api.RenderOverview;
 import net.runelite.api.WorldMapManager;
 import net.runelite.api.events.ClientTick;
@@ -59,6 +57,7 @@ import net.runelite.api.widgets.Widget;
 import net.runelite.client.Notifier;
 import net.runelite.client.RuneLite;
 import net.runelite.client.chat.ChatMessageManager;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.input.MouseManager;
 import net.runelite.client.task.Scheduler;
@@ -285,6 +284,7 @@ public class Hooks implements Callbacks
 		}
 		
 		Image image = mainBufferProvider.image;
+		final Image finalImage;
 		final Graphics2D graphics2d = (Graphics2D) image.getGraphics();
 
 		try
@@ -333,14 +333,33 @@ public class Hooks implements Callbacks
 					: RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 			stretchedGraphics.drawImage(image, 0, 0, stretchedDimensions.width, stretchedDimensions.height, null);
 
-			image = stretchedImage;
+			finalImage = stretchedImage;
+		} else {
+			finalImage = image;
 		}
 		
 		// Draw the image onto the game canvas
-		graphics.drawImage(image, 0, 0, mainBufferProvider.component);
-
-		drawManager.processDrawComplete(image);
+		graphics.drawImage(finalImage, 0, 0, mainBufferProvider.component);
+		
+		drawManager.processDrawComplete(() -> copy(finalImage));
 	}
+	
+	/**
+	 * Copy an image
+	 * @param src
+	 * @return
+	 */
+	private static Image copy(Image src)
+	{
+		final int width = src.getWidth(null);
+		final int height = src.getHeight(null);
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		Graphics graphics = image.getGraphics();
+		graphics.drawImage(src, 0, 0, width, height, null);
+		graphics.dispose();
+		return image;
+	}
+
 
 	@Override
 	public void drawScene()
@@ -366,7 +385,7 @@ public class Hooks implements Callbacks
 	@Override
 	public void drawAboveOverheads()
 	{
-		RSImageProducer bufferProvider = client.getBufferProvider();
+		RSImageProducer bufferProvider = client().getGameScreenIP();
 		BufferedImage image = bufferProvider.image;
 		Graphics2D graphics2d = image.createGraphics();
 
@@ -384,10 +403,10 @@ public class Hooks implements Callbacks
 		}
 	}
 
-	public static void drawAfterWidgets()
+	public static void drawAfterWidgets(RSImageProducer bufferProvider)
 	{
-		RSImageProducer bufferProvider = client.isResized() ? client().getGameScreenIP() : client().getMapAreaIP();
 		BufferedImage image = bufferProvider.image;
+		
 		Graphics2D graphics2d = image.createGraphics();
 
 		try
@@ -401,6 +420,23 @@ public class Hooks implements Callbacks
 		finally
 		{
 			graphics2d.dispose();
+		}
+	}
+	
+	public static void drawAfterWidgets(Graphics graphics2d)
+	{
+		try
+		{
+			renderer.render((Graphics2D) graphics2d, OverlayLayer.ABOVE_WIDGETS);
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+			log.warn("Error during overlay rendering", ex);
+		}
+		finally
+		{
+			//graphics2d.dispose();
 		}
 	}
 	

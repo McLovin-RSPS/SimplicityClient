@@ -50,6 +50,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.ImmutableMap;
 
 import lombok.extern.slf4j.Slf4j;
@@ -57,6 +58,7 @@ import net.runelite.client.RuneLite;
 import net.runelite.client.account.AccountSession;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.ConfigChanged;
+import net.runelite.client.plugins.config.ConfigSectionDescriptor;
 import net.runelite.http.api.config.ConfigClient;
 import net.runelite.http.api.config.ConfigEntry;
 import net.runelite.http.api.config.Configuration;
@@ -339,7 +341,7 @@ public class ConfigManager
 		eventBus.post(configChanged);
 	}
 
-	public ConfigDescriptor getConfigDescriptor(Object configurationProxy)
+	public ConfigDescriptor getConfigDescriptor(Config configurationProxy)
 	{
 		Class<?> inter = configurationProxy.getClass().getInterfaces()[0];
 		ConfigGroup group = inter.getAnnotation(ConfigGroup.class);
@@ -349,15 +351,46 @@ public class ConfigManager
 			throw new IllegalArgumentException("Not a config group");
 		}
 
-		List<ConfigItemDescriptor> items = Arrays.stream(inter.getMethods())
-			.filter(m -> m.getParameterCount() == 0)
-			.sorted(Comparator.comparingInt(m -> m.getDeclaredAnnotation(ConfigItem.class).position()))
+		final List<ConfigSectionDescriptor> sections = Arrays.stream(inter.getDeclaredFields())
+			.filter(m -> m.isAnnotationPresent(ConfigSection.class) && m.getType() == String.class)
+			.map(m ->
+			{
+				try
+				{
+					return new ConfigSectionDescriptor(
+						String.valueOf(m.get(inter)),
+						m.getDeclaredAnnotation(ConfigSection.class)
+					);
+				}
+				catch (IllegalAccessException e)
+				{
+					log.warn("Unable to load section {}::{}", inter.getSimpleName(), m.getName());
+					return null;
+				}
+			})
+			.filter(Objects::nonNull)
+			.sorted((a, b) -> ComparisonChain.start()
+				.compare(a.getSection().position(), b.getSection().position())
+				.compare(a.getSection().name(), b.getSection().name())
+				.result())
+			.collect(Collectors.toList());
+
+		final List<ConfigItemDescriptor> items = Arrays.stream(inter.getMethods())
+			.filter(m -> m.getParameterCount() == 0 && m.isAnnotationPresent(ConfigItem.class))
 			.map(m -> new ConfigItemDescriptor(
 				m.getDeclaredAnnotation(ConfigItem.class),
-				m.getReturnType()
+				m.getReturnType(),
+				m.getDeclaredAnnotation(Range.class),
+				m.getDeclaredAnnotation(Alpha.class),
+				m.getDeclaredAnnotation(Units.class)
 			))
+			.sorted((a, b) -> ComparisonChain.start()
+				.compare(a.getItem().position(), b.getItem().position())
+				.compare(a.getItem().name(), b.getItem().name())
+				.result())
 			.collect(Collectors.toList());
-		return new ConfigDescriptor(group, items);
+
+		return new ConfigDescriptor(group, sections, items);
 	}
 
 	/**
@@ -367,70 +400,75 @@ public class ConfigManager
 	 */
 	public void setDefaultConfiguration(Object proxy, boolean override)
 	{
-		Class<?> clazz = proxy.getClass().getInterfaces()[0];
-		ConfigGroup group = clazz.getAnnotation(ConfigGroup.class);
+	Class<?> clazz = proxy.getClass().getInterfaces()[0];
+	ConfigGroup group = clazz.getAnnotation(ConfigGroup.class);
 
-		if (group == null)
+	if (group == null)
+	{
+		return;
+	}
+
+	for (Method method : clazz.getDeclaredMethods())
+	{
+		ConfigItem item = method.getAnnotation(ConfigItem.class);
+
+		// only apply default configuration for methods which read configuration (0 args)
+		if (item == null || method.getParameterCount() != 0)
 		{
-			return;
+			continue;
 		}
 
-		for (Method method : clazz.getDeclaredMethods())
+		if (!method.isDefault())
 		{
-			ConfigItem item = method.getAnnotation(ConfigItem.class);
-
-			// only apply default configuration for methods which read configuration (0 args)
-			if (item == null || method.getParameterCount() != 0)
-			{
-				continue;
-			}
-
-			if (!method.isDefault())
-			{
-				if (override)
-				{
-					String current = getConfiguration(group.value(), item.keyName());
-					// only unset if already set
-					if (current != null)
-					{
-						unsetConfiguration(group.value(), item.keyName());
-					}
-				}
-				continue;
-			}
-
-			if (!override)
+			if (override)
 			{
 				String current = getConfiguration(group.value(), item.keyName());
+				// only unset if already set
 				if (current != null)
 				{
-					continue; // something else is already set
+					unsetConfiguration(group.value(), item.keyName());
 				}
 			}
-
-			Object defaultValue;
-			try
-			{
-				defaultValue = ConfigInvocationHandler.callDefaultMethod(proxy, method, null);
-			}
-			catch (Throwable ex)
-			{
-				log.warn(null, ex);
-				continue;
-			}
-
-			String current = getConfiguration(group.value(), item.keyName());
-			String valueString = objectToString(defaultValue);
-			if (Objects.equals(current, valueString))
-			{
-				continue; // already set to the default value
-			}
-
-			log.debug("Setting default configuration value for {}.{} to {}", group.value(), item.keyName(), defaultValue);
-
-			setConfiguration(group.value(), item.keyName(), valueString);
+			continue;
 		}
+
+		if (!override)
+		{
+			// This checks if it is set and is also unmarshallable to the correct type; so
+			// we will overwrite invalid config values with the default
+			Object current = getConfiguration(group.value(), item.keyName(), method.getReturnType());
+			if (current != null)
+			{
+				continue; // something else is already set
+			}
+		}
+
+		Object defaultValue;
+		try
+		{
+			defaultValue = ConfigInvocationHandler.callDefaultMethod(proxy, method, null);
+		}
+		catch (Throwable ex)
+		{
+			log.warn(null, ex);
+			continue;
+		}
+
+		String current = getConfiguration(group.value(), item.keyName());
+		String valueString = objectToString(defaultValue);
+		// null and the empty string are treated identically in sendConfig and treated as an unset
+		// If a config value defaults to "" and the current value is null, it will cause an extra
+		// unset to be sent, so treat them as equal
+		if (Objects.equals(current, valueString) || (Strings.isNullOrEmpty(current) && Strings.isNullOrEmpty(valueString)))
+		{
+			continue; // already set to the default value
+		}
+
+		log.debug("Setting default configuration value for {}.{} to {}", group.value(), item.keyName(), defaultValue);
+
+		setConfiguration(group.value(), item.keyName(), valueString);
 	}
+}
 
 	static Object stringToObject(String str, Class<?> type)
 	{

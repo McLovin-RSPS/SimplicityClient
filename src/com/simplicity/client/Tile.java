@@ -42,6 +42,10 @@ public final class Tile extends Node {
 	int anInt1328;
 	public Tile tileBelowThisTile;
 	
+	public int getZ() {
+		return logicHeight;
+	}
+	
 	public LocalPoint getLocalLocation() {
 		return LocalPoint.fromScene(tileX, tileY);
 	}

@@ -52,6 +52,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -95,6 +96,7 @@ import com.simplicity.client.cache.definitions.Varp;
 import com.simplicity.client.cache.maps.OldschoolMaps;
 import com.simplicity.client.cache.node.Deque;
 import com.simplicity.client.cache.node.Node;
+import com.simplicity.client.container.item.ItemContainer;
 import com.simplicity.client.content.EffectTimer;
 import com.simplicity.client.content.EffectTimer.Type;
 import com.simplicity.client.content.FlashingSprite;
@@ -137,20 +139,16 @@ import com.simplicity.util.StringUtils;
 
 import net.runelite.api.GameState;
 import net.runelite.api.MenuAction;
-import net.runelite.api.events.ClientTick;
 import net.runelite.api.events.GameStateChanged;
-import net.runelite.api.events.GameTick;
+import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.ItemDespawned;
 import net.runelite.api.events.ItemSpawned;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
-import net.runelite.api.hooks.Callbacks;
 import net.runelite.client.RuneLite;
 import net.runelite.client.callback.Hooks;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginManager;
-import net.runelite.client.ui.overlay.OverlayLayer;
-import net.runelite.client.ui.overlay.OverlayRenderer;
 
 @SuppressWarnings("all")
 public class Client extends RSApplet {
@@ -159,6 +157,10 @@ public class Client extends RSApplet {
 	private static RuneLite runelite;
 	private static Hooks callbacks;
 	private static PluginManager pluginManager;
+	
+	public static Hooks getCallbacks() {
+		return callbacks;
+	}
 	
 	public boolean chatboxInFocus = true;
 	
@@ -632,13 +634,6 @@ public class Client extends RSApplet {
             drawChatArea();
             drawTabArea();
             drawMinimap();
-            
-            if (mapAreaIP != null) {
-            	 
-                if (mapAreaIP != null) {
-                	mapAreaIP.image.getGraphics().drawString("test", clientWidth - 105, 45);
-            	}
-        	}
         }
 
     }
@@ -1994,6 +1989,9 @@ public class Client extends RSApplet {
     	return new net.runelite.api.Point(x, y);
     }
     
+    public int getMinimapDrawX() {
+    	return clientWidth - (clientSize == 0 ? 249 : 217);
+    }
 
     public boolean choosingLeftClick;
     public int leftClick;
@@ -2277,7 +2275,7 @@ public class Client extends RSApplet {
         if (menuOpen && menuScreenArea == 3) {
             drawMenu();
         }
-
+        
         gameScreenIP.initDrawingArea();
     }
     
@@ -2293,7 +2291,7 @@ public class Client extends RSApplet {
 		}
 
 		Graphics2D g2d = DrawingArea.createGraphics(true);
-
+		
 		int radius = 35;
 
 		int borderRadius = 2;
@@ -14993,7 +14991,7 @@ public class Client extends RSApplet {
                 drawMinimap();
                 
                 if (runelite != null) {
-                	callbacks.drawAfterWidgets();
+                	callbacks.drawAfterWidgets(mapAreaIP);
                 }
                 
                 mapAreaIP.drawGraphics(0, super.graphics, 765 - 246);
@@ -15015,7 +15013,7 @@ public class Client extends RSApplet {
             GraphicsBuffer_1125.initDrawingArea();
             gameScreenIP.initDrawingArea();
         }
-
+        
         cycleTimer = 0;
     }
 
@@ -21107,6 +21105,11 @@ public class Client extends RSApplet {
                             rsi_1.inv[idx] = 0;
                             rsi_1.invStackSizes[idx] = 0;
                         }
+                        
+                        if (runelite != null && rsi_frame == 1688) {
+                        	callbacks.post(new ItemContainerChanged(getEquipment()));
+                        }
+                        
                         if (rsi_frame == 24680) {
                             currentGEItem = it;
                         }
@@ -21808,10 +21811,15 @@ public class Client extends RSApplet {
             
             if (runelite != null && gameScreenIP != null) {
         		callbacks.drawScene();
+        		callbacks.drawAboveOverheads();
         	}
             
             drawUnfixedGame();
             draw3dScreen();
+            
+            if (runelite != null) {
+            	callbacks.drawAfterWidgets(mapAreaIP);
+            }
         }
         if (consoleOpen && loggedIn) {
             drawConsole();
@@ -21841,7 +21849,7 @@ public class Client extends RSApplet {
         
         if (loggedIn) {
         	if (runelite != null && clientSize != 0) {
-            	callbacks.drawAfterWidgets();
+            	callbacks.drawAfterWidgets(gameScreenIP);
             }
         	
             gameScreenIP.drawGraphics(clientSize == 0 ? 4 : 0, super.graphics, clientSize == 0 ? 4 : 0);
@@ -21876,7 +21884,29 @@ public class Client extends RSApplet {
 		
 		return new Item(itemId, amount);
 	}
-    
+	
+	private ItemContainer equipment = new ItemContainer() {
+		public Item[] getItems() {
+			RSInterface equipment = RSInterface.interfaceCache[1688];
+
+			if (equipment == null) {
+				return null;
+			}
+			
+			Item[] items = new Item[equipment.inv.length];
+			
+			for (int i = 0; i < items.length; i++) {
+				items[i] = new Item(equipment.inv[i] - 1, equipment.invStackSizes[i]);
+			}
+			
+			return items;
+		}
+	};
+	
+	public ItemContainer getEquipment() {
+		return equipment;
+	}
+	
 	/**
 	 * If toggled, render ground item names and lootbeams
 	 */

@@ -1,4 +1,6 @@
 package net.runelite.api.events;
+import com.simplicity.client.container.item.ItemContainer;
+
 /*
  * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * All rights reserved.
@@ -24,7 +26,6 @@ package net.runelite.api.events;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 import lombok.Value;
-import net.runelite.api.ItemContainer;
 
 /**
  * An event called whenever the stack size of an {@link net.runelite.api.Item}
