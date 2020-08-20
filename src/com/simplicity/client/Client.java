@@ -4215,12 +4215,11 @@ public class Client extends RSApplet {
                         int l3 = yTIle;
                         
                         if (def.dataType == DataType.OLDSCHOOL) {
-                        	if (functionId == 13) {
-                        		functionId--;
-                        	}
-	                        if (functionId >= 15 && functionId <= 67) {
+                    		if (functionId == 13) { // Manhole, cave etc
+                    			functionId = 86;
+                        	} else if (functionId >= 15 && functionId <= 67) {
 	                        	functionId -= 2;
-	        				} else if (functionId >= 68 && functionId <= 87) {
+	        				} else if (functionId >= 68 && functionId < mapFunctions.length) {
 	        					functionId -= 1;
 	        				}
                         }
@@ -4247,7 +4246,42 @@ public class Client extends RSApplet {
                             }
 
                         }
-                        currentMapFunctionSprites[mapFunctionsLoadedAmt] = mapFunctions[functionId];
+                        
+                        Sprite sprite = null;
+                        
+                        if (functionId > mapFunctions.length) {
+                        	switch (functionId) {
+                        	case 572:
+                        		functionId = 15;
+                        		break;
+                        	case 596:
+                        		functionId = 24;
+                        		break;
+                        	case 586:
+                        		functionId = 11;
+                        		break;
+                        	case 589:
+                        		functionId = 14;
+                        		break;
+                        	case 274:
+                        		functionId = 0;
+                        		break;
+                    		default:
+                    			if (functionId > 500) {
+                    				functionId -= 575;
+                    			} else if (functionId > 100) {
+                            		functionId %= 100;
+                    			}
+                            		
+                    			break;
+                        	}
+                        	
+                        	sprite = mapFunctionsOSRS[functionId];
+                        } else {
+                        	sprite = mapFunctions[functionId];
+                        }
+                        
+                        currentMapFunctionSprites[mapFunctionsLoadedAmt] = sprite;
                         mapFunctionTileX[mapFunctionsLoadedAmt] = k3;
                         mapFunctionTileY[mapFunctionsLoadedAmt] = l3;
                         mapFunctionsLoadedAmt++;
@@ -10089,6 +10123,7 @@ public class Client extends RSApplet {
         mapDotTeam = null;
         mapScenes = null;
         mapFunctions = null;
+        mapFunctionsOSRS = null;
         anIntArrayArray929 = null;
         playerArray = null;
         playerIndices = null;
@@ -13936,8 +13971,12 @@ public class Client extends RSApplet {
                 mapScenes[k3] = new Background(mediaArchives, "mapscene", k3);
             }
 
-            for (int l3 = 0; l3 < 91; l3++) {
+            for (int l3 = 0; l3 < 87; l3++) {
                 mapFunctions[l3] = new Sprite(mediaArchives, "mapfunction", l3);
+            }
+            
+            for (int l3 = 0; l3 < 35; l3++) {
+                mapFunctionsOSRS[l3] = new Sprite(mediaArchives, "mapfunction_osrs", l3);
             }
             
             try {
@@ -22128,6 +22167,7 @@ public class Client extends RSApplet {
         anIntArray1030 = new int[5];
         aBoolean1031 = false;
         mapFunctions = new Sprite[100];
+        mapFunctionsOSRS = new Sprite[100];
         dialogID = -1;
         currentMaxStats = new int[Skills.SKILL_COUNT];
         varbitConfigs = new int[9000];
@@ -22383,6 +22423,7 @@ public class Client extends RSApplet {
     private final int[] anIntArray1030;
     private boolean aBoolean1031;
     public Sprite[] mapFunctions;
+    public Sprite[] mapFunctionsOSRS;
     private static int baseX;
     private static int baseY;
 
