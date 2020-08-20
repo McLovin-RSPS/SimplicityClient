@@ -159,6 +159,9 @@ public final class ObjectDefinition {
         if (i == 132688) {
         	objectDef.canRandomAnimStart = false;
         }
+        if (i == 114108) {
+        	objectDef.mapFunctionID = 87;
+        }
         if(i == 134512) {
             objectDef.animationID = 23328;
         }
