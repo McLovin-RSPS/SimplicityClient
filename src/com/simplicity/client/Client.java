@@ -4215,9 +4215,12 @@ public class Client extends RSApplet {
                         int l3 = yTIle;
                         
                         if (def.dataType == DataType.OLDSCHOOL) {
+                        	if (functionId == 13) {
+                        		functionId--;
+                        	}
 	                        if (functionId >= 15 && functionId <= 67) {
 	                        	functionId -= 2;
-	        				} else if (functionId >= 68 && functionId <= 84) {
+	        				} else if (functionId >= 68 && functionId <= 87) {
 	        					functionId -= 1;
 	        				}
                         }
@@ -13933,7 +13936,7 @@ public class Client extends RSApplet {
                 mapScenes[k3] = new Background(mediaArchives, "mapscene", k3);
             }
 
-            for (int l3 = 0; l3 < 70; l3++) {
+            for (int l3 = 0; l3 < 91; l3++) {
                 mapFunctions[l3] = new Sprite(mediaArchives, "mapfunction", l3);
             }
             
