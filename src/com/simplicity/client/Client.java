@@ -4250,33 +4250,32 @@ public class Client extends RSApplet {
                         Sprite sprite = null;
                         
                         if (functionId > mapFunctions.length) {
-                        	switch (functionId) {
-                        	case 572:
-                        		functionId = 15;
-                        		break;
-                        	case 596:
-                        		functionId = 24;
-                        		break;
-                        	case 586:
-                        		functionId = 11;
-                        		break;
-                        	case 589:
-                        		functionId = 14;
-                        		break;
-                        	case 274:
-                        		functionId = 0;
-                        		break;
-                    		default:
-                    			if (functionId > 500) {
+                        	int cached = functionId;
+                        	
+                        	if (functionId == 274) {
+                        		functionId -= 274;
+                        	} else if (functionId >= 576 && functionId <= 588) {
+                        		functionId -= 575; // 1 - 13
+                        	} else if (functionId == 589) {
+                        		functionId -= 574; // 15
+                        	} else if (functionId >= 591 && functionId <= 593) {
+                        		functionId -= 573; // 18 - 20
+                        	} else if (functionId >= 596 && functionId <= 597) {
+                        		functionId -= 572; // 24 - 25
+                        	} else if (functionId == 599) {
+                        		functionId = 28;
+                        	} else if (functionId == 590) {
+                        		functionId = 27;
+                        	} else {
+                        		if (cached > 500) {
                     				functionId -= 575;
                     			} else if (functionId > 100) {
                             		functionId %= 100;
                     			}
-                            		
-                    			break;
                         	}
                         	
-                        	sprite = mapFunctionsOSRS[functionId];
+                        	if (functionId < mapFunctionsOSRS.length)
+                        		sprite = mapFunctionsOSRS[functionId];
                         } else {
                         	sprite = mapFunctions[functionId];
                         }
