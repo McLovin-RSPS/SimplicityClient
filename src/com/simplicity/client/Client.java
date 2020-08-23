@@ -14784,7 +14784,7 @@ public class Client extends RSApplet {
     		return entity.currentAnimFrame;
     	}
     	
-    	if (entity.anim == 11786 || entity.anim == 7409 + Animation.OSRS_ANIM_OFFSET) {
+    	if (entity.anim == 11788 || entity.anim == 11786 || entity.anim == 7409 + Animation.OSRS_ANIM_OFFSET) {
     		return entity.currentAnimFrame;
     	}
     	
