@@ -204,6 +204,7 @@ public class Model extends Animable {
         addDepthBufferModel(DataType.OLDSCHOOL, 10420, 10421); // Dragon defender
         addDepthBufferModel(DataType.OLDSCHOOL, 12778, 12817); // Necklace of Anguish (or)
         addDepthBufferModel(DataType.OLDSCHOOL, 14402); // Toxic staff
+        addDepthBufferModel(DataType.OLDSCHOOL, 14395, 14398); // Serpentine helmet
         
 		applyTexture(69, 16, 17);
 		applyTexture(58, 10, 11, 12, 13, 14, 15);
