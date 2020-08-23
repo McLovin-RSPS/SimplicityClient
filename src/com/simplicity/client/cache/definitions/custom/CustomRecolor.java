@@ -156,10 +156,10 @@ public enum CustomRecolor {
 	
 	SCYTHE_OF_VITUR_INFERNAL(56018, 22011, "Scythe of Vitur Infernal", new int[] { 69 }, new int[] { 59 }),
 	
-	SEZY_ANGELIC_BOOTS(3324, 16917, "Can still see your sock",
-			new int[]{4497, 4491, 4500, 4383, 4514, 4510, 4523, 4361, 4513, 4505, 4373},
-			new int[]{1024, 1024, 1024, 1024, 1024, 1024, 926, 1024, 926, 926, 926}),
-
+	SEZY_ANGELIC_BOOTS(3324, 41860, "Can still see your sock",
+			new int[]{8396, 8417, 5293, 20},
+			new int[]{1024, 1024, 926, 926}),
+	
 	SEZY_SPOOKY_CAPE(8475, 11614, "Sezy's Spooky Cape",
 			new int[] { 40023, 40036, 1822, 36, 25, 34243, 9230, 40040, 10348, 48, 34251, 0, 43335, 6218, 23, 11013 },
 			new int[] { 1024, 1024, 1024, 461770, 461770, 1024, 461770, 1024, 1024, 461770, 1024, 1024, 1024, 1024, 461770, 1024 }),
