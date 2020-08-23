@@ -39,6 +39,10 @@ public final class Animation {
 			} else {
 				anims[j].readValuesNew(stream);
 			}
+			
+			if (j == 16918) { // 1658 osrs whip anim
+				anims[j].dataType = DataType.REGULAR;
+			}
 
 			if (j == 884) {
 				anims[j].leftHandItem = -1;
