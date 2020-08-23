@@ -6712,6 +6712,14 @@ public class Client extends RSApplet {
             if (args.length > 0) {
                 Configuration.HOST = args[0];
                 fromLauncher = true;
+                
+                if (args.length > 1) {
+                	try {
+                		fromLauncher = Boolean.parseBoolean(args[1]);
+                	} catch (Exception e) {
+                		
+                	}
+                }
             }
 
             nodeID = 10;
