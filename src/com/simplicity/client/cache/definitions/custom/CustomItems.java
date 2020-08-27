@@ -762,6 +762,13 @@ public class CustomItems {
                 itemDef.newModelColor = new int[]{32883, 51484};
                 itemDef.name = "Verzik's crystal shard (t)";
                 break;
+                
+            case 16510:
+                itemDef.copy(ItemDefinition.forID(50911));
+                itemDef.name = "Endarkened juice";
+                itemDef.editedModelColor = new int[]{66, 106, 74, 82, 10335, };
+                itemDef.newModelColor = new int[]{10335, 10335, 74, 10335, 10335, };
+                break;
 
             case 14924:
                 itemDef.copy(ItemDefinition.forID(13740));

@@ -378,6 +378,10 @@ public final class ItemDefinition {
                 itemDef.modelID = MobDefinition.forID(22405).models[0];
                 itemDef.modelZoom = 10000;
                 break;
+                
+            case 50911:
+                itemDef.name = "Endarkened juice";
+                break;
 
             case 51791:
             case 51793:
