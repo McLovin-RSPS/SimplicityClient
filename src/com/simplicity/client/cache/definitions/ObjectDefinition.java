@@ -156,6 +156,13 @@ public final class ObjectDefinition {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if (i == 129771) {
+        	objectDef.actions = new String[5];
+        	objectDef.actions[0] = "Take";
+        	objectDef.actions[1] = "Take Rake";
+        	objectDef.actions[2] = "Take Spade";
+        	objectDef.actions[3] = "Take Seed Dibber";
+        }
         if (i == 132688) {
         	objectDef.canRandomAnimStart = false;
         }
