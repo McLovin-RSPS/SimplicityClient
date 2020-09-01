@@ -7,6 +7,7 @@ import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.Sprite;
 import com.simplicity.client.cache.DataType;
+import com.simplicity.client.widget.listener.WidgetAnimationListener;
 import com.simplicity.client.widget.listener.WidgetButtonListener;
 import com.simplicity.client.widget.listener.WidgetStateListener;
 import com.simplicity.client.widget.listener.WidgetStringListener;
@@ -21,6 +22,7 @@ public abstract class CustomWidget {
     public WidgetButtonListener buttonListener;
     public WidgetStateListener stateListener;
     public WidgetStringListener stringListener;
+    public WidgetAnimationListener animListener;
     
     public ArrayList<WidgetComponent> components;
 
@@ -42,6 +44,10 @@ public abstract class CustomWidget {
     
     public void addStringListener(WidgetStringListener listener) {
     	this.stringListener = listener;
+    }
+    
+    public void addAnimListener(WidgetAnimationListener listener) {
+    	this.animListener = listener;
     }
     
     public abstract String getName();

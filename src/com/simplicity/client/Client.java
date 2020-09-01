@@ -17329,6 +17329,13 @@ public class Client extends RSApplet {
                         child.currentFrame++;
                         if (child.currentFrame >= animation.frameCount) {
                             child.currentFrame -= animation.loopDelay;
+                            
+							CustomWidget w = Widget.mainForComponent(child.componentId);
+
+							if (w != null && w.animListener != null) {
+								w.animListener.onAnimFinish(child.componentId, l);
+							}
+                            
                             if (child.currentFrame < 0 || child.currentFrame >= animation.frameCount) {
                                 child.currentFrame = 0;
                             }
