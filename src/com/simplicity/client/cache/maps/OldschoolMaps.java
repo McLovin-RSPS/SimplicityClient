@@ -85,6 +85,8 @@ public class OldschoolMaps {
             13393, 13394, 13395, 13397, 13136, 13137, 13138, 13139, 13140, 13141, 13145, // Chambers of Xeric
             13379,
             10645, 10644, 10900, 10901, // Brimhaven Dungeon
+            12183, 12184,
+            14936
     };
     static {
         for(Integer region : OLDSCHOOL_REGION_IDS) {
