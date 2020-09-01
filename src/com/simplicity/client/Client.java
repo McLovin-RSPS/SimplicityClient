@@ -16348,6 +16348,14 @@ public class Client extends RSApplet {
                     	child.disabledSprite.drawSprite(childX, childY);
                     	
                     	child.enabledSprite.drawAdvancedSprite(childX + child.hoverIconX, childY + child.hoverIconY, hoverSpriteId == child.hoverType ? child.hoverOpacity : 256);
+                    } else if (child.type == 46) {
+                    	boolean selected = interfaceIsSelected(child);
+                    	
+                        Sprite sprite = child.modelToSprite(child.width, child.height, selected);
+                        
+                        if (sprite != null) {
+                        	sprite.drawSprite(childX, childY);
+                        }
                     } else if (child.type == 50) { // TOB ORBS
                         if (child.message.isEmpty()) {
                             continue;
@@ -17306,7 +17314,7 @@ public class Client extends RSApplet {
             if (child.type == 1) {
                 flag1 |= processInterfaceAnimation(i, child.id);
             }
-            if (child.type == 6 && (child.disabledAnimationId != -1 || child.enabledAnimationId != -1)) {
+            if ((child.type == 6 || child.type == 46) && (child.disabledAnimationId != -1 || child.enabledAnimationId != -1)) {
                 boolean flag2 = interfaceIsSelected(child);
                 int l;
                 if (flag2) {

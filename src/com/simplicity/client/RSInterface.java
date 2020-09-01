@@ -2,6 +2,7 @@ package com.simplicity.client;
 
 import com.simplicity.client.DrawLine.LineType;
 import com.simplicity.client.cache.DataType;
+import com.simplicity.client.cache.definitions.Animation;
 import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.client.cache.definitions.MobDefinition;
 import com.simplicity.client.content.Keybinding;
@@ -1118,6 +1119,20 @@ public class RSInterface {
     	rsi.modelRotation2 = rotation2;
     	rsi.width = 1;
     	rsi.height = 1;
+    	rsi.dataType = dataType;
+    	return rsi;
+    }
+    
+    public static RSInterface addModelSprite(int interfaceId, int width, int height, int modelID, int zoom, int rotation1, int rotation2, DataType dataType) {
+    	RSInterface rsi = RSInterface.addInterface(interfaceId);
+    	rsi.type = 46;
+    	rsi.mediaType = DRAW_REGULAR_MODEL;
+    	rsi.mediaID = modelID;
+    	rsi.modelZoom = zoom;
+    	rsi.modelRotation1 = rotation1;
+    	rsi.modelRotation2 = rotation2;
+    	rsi.width = width;
+    	rsi.height = height;
     	rsi.dataType = dataType;
     	return rsi;
     }
@@ -4098,6 +4113,7 @@ public class RSInterface {
                               CacheArchive streamLoader_1) {
         fonts = textDrawingAreas;
         spriteCache = new MemCache(50000);
+        modelSpriteCache = new MemCache(5000);
         Stream stream = new Stream(streamLoader.getDataForName("data"));
         int parentId = -1;
         int totalInterfaces = stream.readUnsignedWord();
@@ -12554,6 +12570,105 @@ public class RSInterface {
         model_1.light(64, 768, -50, -10, -50, true);
         return model_1;
     }
+    
+	/**
+	 * Converts a model of this interface to a sprite.
+	 * 
+	 * @param width    The width.
+	 * @param height   The height.
+	 * @param selected A flag which determines if this interface is selected.
+	 * @return The sprite.
+	 */
+    public Sprite modelToSprite(int width, int height, boolean selected) {
+    	Model model = null;
+    	
+    	int animId = selected ? enabledAnimationId : disabledAnimationId;
+    	
+    	if (animId == -1) {
+    		model = getAnimatedModel(-1, -1, selected);
+    	} else {
+    		Animation animation = Animation.anims[animId];
+
+            model = getAnimatedModel(animation.frameIDs2[currentFrame],
+                    animation.frameIDs[currentFrame], selected);
+    	}
+    	
+    	if (model == null) {
+    		return null;
+    	}
+    	
+    	long hash = selected ? enabledMediaID : mediaID;
+    	
+    	Sprite sprite = null;
+    	
+    	if (animId == -1) {
+    		sprite = (Sprite) modelSpriteCache.get(hash);
+    		
+    		if (sprite != null) {
+    			return sprite;
+    		}
+    	}
+    	
+        sprite = new Sprite(width, height);
+        int k1 = Rasterizer.textureInt1;
+        int l1 = Rasterizer.textureInt2;
+        int ai[] = Rasterizer.anIntArray1472;
+        float depthBuffer[] = DrawingArea.depthBuffer;
+        int ai1[] = DrawingArea.pixels;
+        int i2 = DrawingArea.width;
+        int j2 = DrawingArea.height;
+        int k2 = DrawingArea.topX;
+        int l2 = DrawingArea.bottomX;
+        int i3 = DrawingArea.topY;
+        int j3 = DrawingArea.bottomY;
+        Rasterizer.aBoolean1464 = false;
+        DrawingArea.initDrawingArea(height, width, sprite.myPixels, new float[height * width]);
+        DrawingArea.drawPixels(height, 0, 0, 0, width);
+        Rasterizer.setDefaultBounds();
+        
+        int k3 = modelZoom;
+        int sine = Rasterizer.anIntArray1470[modelRotation1] * k3 >> 16;
+        int cosine = Rasterizer.anIntArray1471[modelRotation1] * k3 >> 16;
+        model.renderSingle(modelRotation2, 0, modelRotation1, 0, sine + model.modelHeight / 2, cosine);
+        
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				if (sprite.myPixels[(x) + (y) * width] == 0) {
+					if (x < width - 1 && sprite.myPixels[(x + 1) + ((y) * width)] > 0 && sprite.myPixels[(x + 1) + ((y) * width)] != 0xffffff) {
+						sprite.myPixels[(x) + (y) * width] = 0;
+					}
+					if (x > 0 && sprite.myPixels[(x - 1) + ((y) * width)] > 0 && sprite.myPixels[(x - 1) + ((y) * width)] != 0xffffff) {
+						sprite.myPixels[(x) + (y) * width] = 0;
+					}
+					if (y < height - 1 && sprite.myPixels[(x) + ((y + 1) * width)] > 0 && sprite.myPixels[(x) + ((y + 1) * width)] != 0xffffff) {
+						sprite.myPixels[(x) + (y) * width] = 0;
+					}
+					if (y > 0 && sprite.myPixels[(x) + ((y - 1) * width)] > 0 && sprite.myPixels[(x) + ((y - 1) * width)] != 0xffffff) {
+						sprite.myPixels[(x) + (y) * width] = 0;
+					}
+				}
+			}
+		}
+        
+        DrawingArea.initDrawingArea(j2, i2, ai1, depthBuffer);
+        DrawingArea.setDrawingArea(j3, k2, l2, i3);
+        Rasterizer.textureInt1 = k1;
+        Rasterizer.textureInt2 = l1;
+        Rasterizer.anIntArray1472 = ai;
+        Rasterizer.aBoolean1464 = true;
+        sprite.maxWidth = width;
+        sprite.maxHeight = height;
+        
+        if (animId == -1) {
+	        try {
+	        	modelSpriteCache.put(sprite, hash);
+	        } catch (Exception exception) {
+	            return null;
+	        }
+        }
+        
+        return sprite;
+    }
 
     public Model getAnimatedModel2(int firstFrame, int secondFrame, boolean selected) {
         Model model;
@@ -13014,6 +13129,7 @@ public class RSInterface {
     public int parentID;
     public int spellUsableOn;
     private static MemCache spriteCache;
+    private static MemCache modelSpriteCache;
     public int enabledMouseOverColor;
     public Sprite savedSprite[] = new Sprite[10];
     public int children[];

@@ -441,6 +441,13 @@ public abstract class CustomWidget {
     	return rsi;
     }
     
+    public RSInterface addModelSprite(int width, int height, int modelID, int zoom, int rotation1, int rotation2, DataType dataType) {
+    	RSInterface rsi = RSInterface.addModelSprite(id, width, height, modelID, zoom, rotation1, rotation2, dataType);
+    	rsi.componentId = id;
+    	id++;
+    	return rsi;
+    }
+    
     public RSInterface addTooltip(String message, int width, int height, int offsetX, int offsetY) {
     	RSInterface rsi = RSInterface.addInterface(id);
     	rsi.componentId = id++;
