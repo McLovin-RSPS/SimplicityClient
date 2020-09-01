@@ -23,7 +23,7 @@ public final class MobDefinition {
             3031, 3032, 3034, 3035, 3036, 3037, 3038, 3039, 3040, 3047, 3048, 21637, 21638, 3051, 3052, 3053, 3054,
             3055, 3056, 3057, 3058, 3059, 3060, 3061, 3063, 3064, 3066, 3067, 3068, 3070, 3069, 3065, 6723, 6724, 6726,
             6727, 6728, 6729, 6730, 963, 6640, 5781, 6731, 22519, 23025, 154, 23009, 153, 621, 622, 623, 624, 625, 626,
-            23202, 23337, 18481, 3062
+            23202, 23337, 18481, 3062, 1821
     };
 
     public int frontLight = 68;
@@ -1701,6 +1701,7 @@ public final class MobDefinition {
             case 154:
                 npc.copy(forID(23025));
                 npc.name = "Superior Vorki";
+                npc.pet = true;
                 break;
 		/*  		     
 		case 1265:
@@ -1833,7 +1834,6 @@ public final class MobDefinition {
         }
 
         actions = new String[def.actions.length];
-
         for (int i = 0; i < actions.length; i++) {
             actions[i] = def.actions[i];
         }
@@ -1888,6 +1888,7 @@ public final class MobDefinition {
         degreesToTurn = def.degreesToTurn;
         varbitId = def.varbitId;
         varSettingsId = def.varSettingsId;
+        pet = def.pet;
     }
 
     public static int NPCAMOUNT = 11599;
