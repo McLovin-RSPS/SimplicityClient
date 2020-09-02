@@ -4525,6 +4525,7 @@ public class RSInterface {
         StorageContainer.init();
         JewelleryBoxTeleport.init(textDrawingAreas);
         PetHouse.init();
+        MotherlodeMineHud.init();
         Widget.init();
         spriteCache = null;
     }

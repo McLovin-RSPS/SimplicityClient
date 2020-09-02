@@ -186,6 +186,11 @@ public final class ObjectDefinition {
             objectDef.actions[0] = "Use";
             objectDef.actions[1] = "View-presets";
         }
+        if (i == 112396) {
+            objectDef.actions = new String[5];
+            objectDef.actions[0] = "Search";
+            objectDef.actions[1] = "Check";
+        }
         if (i == 131923) {
             objectDef.actions = new String[5];
             objectDef.actions[0] = "Venerate";
