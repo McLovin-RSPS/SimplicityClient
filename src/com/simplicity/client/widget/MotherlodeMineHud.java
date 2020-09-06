@@ -18,7 +18,6 @@ public class MotherlodeMineHud extends RSInterface {
         final int boxWidth = box.width - 5;
         final int boxHeight = box.height;
 
-        //0x383023
         drawBox(widgetId, boxWidth, boxHeight, 0x564c42, 0x383023, 0x564c42, 128);
         box.child(childId++, widgetId++, 0, 0);
 
