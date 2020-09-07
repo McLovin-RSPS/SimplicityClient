@@ -192,6 +192,7 @@ public class Model extends Animable {
         hsl2rgb = Rasterizer.anIntArray1482;
         lightDecay = Rasterizer.anIntArray1469;
 
+        addDepthBufferModel(DataType.REGULAR, 1052); // Trident of the seas
         addDepthBufferModel(DataType.REGULAR, 6700); // Vorkath's vine whip
         addDepthBufferModel(DataType.REGULAR, 14403); // Blowpipe
         addDepthBufferModel(DataType.REGULAR, 9347); // Toktz-ket-xil
