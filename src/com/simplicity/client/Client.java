@@ -9355,6 +9355,16 @@ public class Client extends RSApplet {
 			d.dropdown.getDrop().selectOption(slot, d);
 			p.dropdownOpen = null;
 		}
+		if (l == 86) {
+		    if (broadcastUrl == null) {
+                pushMessage("This broadcast message has no valid link to open.", 0, null);
+		        return;
+            }
+		    launchURL(broadcastUrl);
+        }
+		if (l == 85) {
+		    pushMessage("Link opens to: "+ (broadcastUrl == null ? "nowhere" : broadcastUrl), 0, null);
+        }
         if (l == 646) {
             stream.createFrame(185);
             stream.putInt(interfaceId);
@@ -20094,6 +20104,12 @@ public class Client extends RSApplet {
                         opCode = -1;
                         return true;
                     }
+                    String url = inStream.readString();
+                    if (url.equalsIgnoreCase("null")) {
+                        broadcastUrl = null;
+                    } else {
+                        broadcastUrl = url;
+                    }
                     broadcastText = temp;
                     final int tokenIdx = broadcastText.indexOf(":");
                     if (tokenIdx != -1) {
@@ -22548,6 +22564,7 @@ public class Client extends RSApplet {
     public static boolean tabAreaAltered;
     private int updateMinutes;
     private String broadcastText;
+    public String broadcastUrl;
     private RSImageProducer titleScreen;
     private static int anInt1117;
     private int membersInt;
