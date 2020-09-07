@@ -14766,12 +14766,12 @@ public class RSInterface {
         RSInterface.interfaceCache[25113].enabledSpriteId = -1;
         RSInterface.interfaceCache[25115].disabledSpriteId = -1;
         RSInterface.interfaceCache[25115].enabledSpriteId = -1;
-        RSInterface.interfaceCache[25111].disabledSprite = SpriteLoader.sprites[1454];
-        RSInterface.interfaceCache[25111].enabledSprite = SpriteLoader.sprites[1453];
-        RSInterface.interfaceCache[25113].disabledSprite = SpriteLoader.sprites[1457];
-        RSInterface.interfaceCache[25113].enabledSprite = SpriteLoader.sprites[1455];
-        RSInterface.interfaceCache[25115].disabledSprite = SpriteLoader.sprites[1458];
-        RSInterface.interfaceCache[25115].enabledSprite = SpriteLoader.sprites[1456];
+        RSInterface.interfaceCache[25111].disabledSprite = SpriteLoader.sprites[1453];
+        RSInterface.interfaceCache[25111].enabledSprite = SpriteLoader.sprites[1454];
+        RSInterface.interfaceCache[25113].disabledSprite = SpriteLoader.sprites[1455];
+        RSInterface.interfaceCache[25113].enabledSprite = SpriteLoader.sprites[1457];
+        RSInterface.interfaceCache[25115].disabledSprite = SpriteLoader.sprites[1456];
+        RSInterface.interfaceCache[25115].enabledSprite = SpriteLoader.sprites[1458];
 
         addTooltip(25052, "Level 01\nThick Skin\nIncreases your Defence by 5%");
         addTooltip(25054, "Level 04\nBurst of Strength\nIncreases your Strength by 5%");

@@ -693,7 +693,7 @@ public class Client extends RSApplet {
                         	ironman2 = 4;
                         }
 
-                      //  System.out.println(name);
+//                        System.out.println(name);
 
                         playerRights = getRights(name);
 
@@ -762,8 +762,8 @@ public class Client extends RSApplet {
                             messageY++;
                         }
                     }
-                    if ((chatType == 1 || chatType == 2)
-                            && (chatType == 1 || publicChatMode == 0 || publicChatMode == 1 && isFriendOrSelf(name) || ((publicChatMode >= 1 && publicChatMode <= 3) && isStaff(playerRights)))) {
+                    if (chatType == 1337 || ((chatType == 1 || chatType == 2)
+                            && (chatType == 1 || publicChatMode == 0 || publicChatMode == 1 && isFriendOrSelf(name) || ((publicChatMode >= 1 && publicChatMode <= 3) && isStaff(playerRights))))) {
                         if (chatTypeView == 1 || chatTypeView == 0) {
                             if (positionY > 0 && positionY < 210) {
                                 int xPos = 11;
@@ -806,11 +806,21 @@ public class Client extends RSApplet {
                                 }
 
                                 newRegularFont.drawBasicString(name + ":", xPos + offsetX, positionY + offsetY,
-                                		!transparentChat ? 0 : 0xffffff, !transparentChat ? -1 : 0);
+                                        !transparentChat ? 0 : 0xffffff, !transparentChat ? -1 : 0);
                                 xPos += newRegularFont.getTextWidth(name) + 7;
-                                newRegularFont.drawBasicString2(chatMessages[index], xPos + offsetX,
-                                        positionY + offsetY, !transparentChat ? 255 : 0x7FA9FF,
-                                		!transparentChat ? -1 : 0);
+
+                                if (chatType == 1337) {
+                                    final int j = super.mouseY - (clientSize == 0 ? 338 : clientHeight - 165);
+                                    final int k1 = (70 - index * 14 + 42) + anInt1089 + 4 + 5;
+                                    final boolean hoveringChatMessage = j > k1 - 14 && j <= k1;
+                                    final int color = hoveringChatMessage ? 255 : 0;
+                                    newRegularFont.drawBasicString(chatMessages[index], xPos + offsetX,
+                                            positionY + offsetY, color, !transparentChat ? -1 : 0);
+                                } else {
+                                    newRegularFont.drawBasicString2(chatMessages[index], xPos + offsetX,
+                                            positionY + offsetY, !transparentChat ? 255 : 0x7FA9FF,
+                                            !transparentChat ? -1 : 0);
+                                }
                             }
                             scrollPosition++;
                             messageY++;
@@ -11541,9 +11551,23 @@ public class Client extends RSApplet {
             if (j1 == 0) {
                 l++;
             }
+            final boolean hoveringChatMessage = j > k1 - 14 && j <= k1;
+            if (j1 == 1337) {
+                if (hoveringChatMessage) {
+                    menuActionName[menuActionRow] = "Clear history @or2@Notification";
+                    menuActionID[menuActionRow] = 84;
+                    menuActionRow++;
+                    menuActionName[menuActionRow] = "Check @or2@Notification";
+                    menuActionID[menuActionRow] = 85;
+                    menuActionRow++;
+                    menuActionName[menuActionRow] = "Open @or2@Notification";
+                    menuActionID[menuActionRow] = 86;
+                    menuActionRow++;
+                }
+            }
             if ((j1 == 1 || j1 == 2)
                     && (j1 == 1 || publicChatMode == 0 || publicChatMode == 1 && isFriendOrSelf(name))) {
-                if (j > k1 - 14 && j <= k1 && !name.equals(myPlayer.name)) {
+                if (hoveringChatMessage && !name.equals(myPlayer.name)) {
                     if (isStaff(myRights)) {
                         menuActionName[menuActionRow] = "Reply @whi@" + name;
                         menuActionID[menuActionRow] = 606;
@@ -12184,7 +12208,7 @@ public class Client extends RSApplet {
             chatMessages[j] = chatMessages[j - 1];
             chatRights[j] = chatRights[j - 1];
         }
-        if (i == 16 || i == 0 || i == 2) {
+        if (i == 1337 || i == 16 || i == 0 || i == 2) {
             if (i != 2) {
                 s = RSFontSystem.handleOldSyntax(s);
             }
@@ -20071,7 +20095,11 @@ public class Client extends RSApplet {
                         return true;
                     }
                     broadcastText = temp;
-
+                    final int tokenIdx = broadcastText.indexOf(":");
+                    if (tokenIdx != -1) {
+                        String chatMsg = "<spr=1260:2>"+ broadcastText.substring(tokenIdx + 1) +"";
+                        pushMessage(chatMsg, 1337, "<col=004f00>Broadcast</col>");
+                    }
 //                    System.out.println("broad cast received: " + broadcastText);
 
                     opCode = -1;
