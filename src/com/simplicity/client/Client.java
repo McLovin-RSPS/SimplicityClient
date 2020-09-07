@@ -20101,6 +20101,7 @@ public class Client extends RSApplet {
                     String temp = inStream.readString();
                     if (temp.substring(1, temp.length() - 1).equalsIgnoreCase("clear")) {
                         broadcastText = null;
+                        broadcastUrl = null;
                         opCode = -1;
                         return true;
                     }
