@@ -9052,7 +9052,7 @@ public class Client extends RSApplet {
             RSInterface class9_1 = RSInterface.interfaceCache[interfaceId];
             int childId = interfaceId;
             spellSelected = 1;
-            spellUsableOn = Integer.parseInt(MagicInterfaces.getSpellData(childId, "spellUsableOn"));
+            spellUsableOn = class9_1.spellUsableOn; /*Integer.parseInt(MagicInterfaces.getSpellData(childId, "spellUsableOn"));*/
             itemSelected = 0;
             needDrawTabArea = true;
             spellID = childId;
