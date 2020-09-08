@@ -98,7 +98,7 @@ public class RaidingPartiesContainer extends CustomWidget implements WidgetStrin
     		preferredLevel.useNewFonts = true;
     		add(preferredLevel, 18 + 138 + 94, 1 + y);
     		
-    		add(addSprite(1453), 18 + 138 + 94 + 41 + 26, 1 + y);
+    		add(addSprite(1459), 18 + 138 + 94 + 41 + 26, 1 + y);
     		
     		RSInterface preferredTotalLevel = addCenteredText("-", 1, 0x9f9f9f);
     		preferredTotalLevel.useNewFonts = true;
