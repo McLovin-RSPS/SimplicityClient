@@ -8748,7 +8748,7 @@ public class Client extends RSApplet {
                         inputTaken = true;
                         break;
                     default:
-                        if (interfaceId >= 17202 && interfaceId <= 17227 || interfaceId == 17279 || interfaceId == 17280) {
+                        if (interfaceId >= 17202 && interfaceId <= 17227 || interfaceId >= 17279 && interfaceId <= 17281) {
                             try {
                                 togglePrayerState(interfaceId);
                             } catch (Exception e) {
@@ -24173,7 +24173,7 @@ public class Client extends RSApplet {
         return amount;
     }
 
-    private int[] quickPrayers = new int[28];
+    private int[] quickPrayers = new int[29];
     
     public int[] getQuickPrayers() {
     	return quickPrayers;
@@ -24226,7 +24226,8 @@ public class Client extends RSApplet {
     }
 
     public void togglePrayerState(int button) {
-        int index = button == 17279 ? 26 : button == 17280 ? 27 : button - 17202;
+        int index = button == 17279 ? 26 : button == 17280 ? 27 : button == 17281 ? 28 : button - 17202;
+        System.out.println("Button clicked "+ button + " - "+ index);
         if (prayerInterfaceType == 5608) {
             if ((currentMaxStats[5] / 10) >= prayerLevelRequirements[index]) {
                 int[] types = getPrayerTypeForIndex(index);
@@ -24238,7 +24239,7 @@ public class Client extends RSApplet {
                     }
                     for (int i = 0; i < types.length; i++) {
                         if (index != types[i]) {
-                            if (index == 24 || index == 25) {
+                            if (index == 25 || index == 26) {
                                 types = superiorPray;
                             }
                             quickPrayers[types[i]] = 0;
@@ -24334,21 +24335,21 @@ public class Client extends RSApplet {
             "Leech Ranged", "Leech Magic", "Leech Defence", "Leech Strength", "Leech Energy", "Leech Special Attack",
             "Wrath", "Soul Split", "Turmoil"};
     public int[] quickConfigIDs = {630, 631, 632, 633, 634, 635, 636, 637, 638, 639, 640, 641, 642, 643, 644, 645, 646,
-            647, 648, 649, 650, 651, 652, 653, 654, 655, 658, 659};
+            647, 648, 649, 650, 651, 652, 653, 654, 655, 658, 659, 660};
     public final int[] prayerLevelRequirements = {1, 4, 7, 8, 9, 10, 13, 16, 19, 22, 25, 26, 27, 28, 31, 34, 37, 40,
-            43, 44, 45, 46, 49, 52, 60, 70, 80, 80};
+            43, 44, 45, 46, 49, 52, 55, 60, 70, 74, 77};
     public final String[] prayerName = {"Thick Skin", "Burst of Strength", "Clarity of Thought", "Sharp Eye",
             "Mystic Will", "Rock Skin", "Superhuman Strength", "Improved Reflexes", "Rapid Restore", "Rapid Heal",
             "Protect Item", "Hawk Eye", "Mystic Lore", "Steel Skin", "Ultimate Strength", "Incredible Reflexes",
             "Protect from Magic", "Protect from Missiles", "Protect from Melee", "Eagle Eye", "Mystic Might",
-            "Retribution", "Redemption", "Smite", "Chivalry", "Piety", "Rigour", "Augury"};
+            "Retribution", "Redemption", "Smite", "Preserve", "Chivalry", "Piety", "Rigour", "Augury"};
     private int[] defPray = {0, 5, 13, 24, 25, 26, 27};
-    private int[] strPray = {1, 3, 4, 6, 11, 12, 14, 19, 20, 24, 25, 26, 27};
-    private int[] atkPray = {2, 3, 4, 7, 11, 12, 15, 19, 20, 24, 25, 26, 27};
-    private int[] rangeAndMagePray = {3, 4, 11, 12, 19, 20, 24, 25, 26, 27};
-    private int[] rangeAndMagePrayOff = {1, 2, 3, 4, 6, 7, 11, 12, 14, 15, 19, 20, 24, 25, 26, 27};
+    private int[] strPray = {1, 3, 4, 6, 11, 12, 14, 19, 20, 25, 26, 27, 28};
+    private int[] atkPray = {2, 3, 4, 7, 11, 12, 15, 19, 20, 25, 26, 27, 28};
+    private int[] rangeAndMagePray = {3, 4, 11, 12, 19, 20, 25, 26, 27, 28};
+    private int[] rangeAndMagePrayOff = {1, 2, 3, 4, 6, 7, 11, 12, 14, 15, 19, 20, 25, 26, 27, 28};
     private int[] headPray = {16, 17, 18, 21, 22, 23};
-    private int[] superiorPray = {0, 1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 14, 15, 19, 20, 24, 25, 26, 27};
+    private int[] superiorPray = {0, 1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 14, 15, 19, 20, 25, 26, 27, 28};
     private int[][] prayer = {defPray, strPray, atkPray, rangeAndMagePray, headPray};
 
     private int[] getPrayerTypeForIndex(int index) {

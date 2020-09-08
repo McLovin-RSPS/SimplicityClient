@@ -14800,7 +14800,7 @@ public class RSInterface {
         addTooltip(25098, "Level 52\nSmite\n1/4 of damage dealt is\nalso removed from\nopponent's Prayer");
         addTooltip(25100, "Level 60\nChivalry\nIncreases your Defence by 20%,\nStrength by 18%, and Attack by\n15%");
         addTooltip(25102, "Level 70\nPiety\nIncreases your Defence by 25%,\nStrength by 23%, and Attack by\n20%");
-        addTooltip(25116, "Level 55\nPreserve\nBoosted stats last 20% longer.");
+        addTooltip(25116, "Level 55\nPreserve\nBoosted stats last 50% longer.");
         addTooltip(25118, "Level 74\nRigour\nIncrease your ranged\nattack by 20%, and damage\nby 23% and your defence\nby 25%.");
         addTooltip(25120, "Level 77\nAugury\nIncrease your magical attack\nand defence by 25%, and your\ndefence by 25%.");
         setChildren(89, prayerMenu);
@@ -14968,7 +14968,7 @@ public class RSInterface {
         addText(17230, "Select your quick prayers:", fonts, 0, 0xff981f, false, true);
         addTransparentSpriteWSpriteLoader(17229, 936, 50);
         int i = 17202;
-        for (int j = 630; j <= 659; j++) {
+        for (int j = 630; j <= 660; j++) {
             addConfigButtonWSpriteLoader(i, 17200, 938, 937, 14, 15, "Select", 0, 1, j);
             i += i == 17229 ? 50 : 1;
         }
@@ -14976,7 +14976,7 @@ public class RSInterface {
         addHoverButtonWSpriteLoader(17231, 939, 190, 24, "Confirm Selection", -1, 17232, 1);
         addHoveredImageWSpriteLoader(17232, 940, 190, 24, 17233);
 
-        setChildren(62, tab);
+        setChildren(65, tab);
         setBounds(25001, 5, 28, frame++, tab);
         setBounds(25003, 44, 28, frame++, tab);
         setBounds(25005, 79, 31, frame++, tab);
@@ -15001,13 +15001,16 @@ public class RSInterface {
         setBounds(25043, 41, 178, frame++, tab);
         setBounds(25045, 79, 183, frame++, tab);
         setBounds(25047, 116, 178, frame++, tab);
-        setBounds(25049, 161, 180, frame++, tab);
-        setBounds(25051, 4, 219, frame++, tab);
+        setBounds(25111, 153, 176, frame++, tab);
+        setBounds(25049, 11, 216, frame++, tab);
+        setBounds(25051, 41, 223, frame++, tab);
+        setBounds(25113, 79, 216, frame++, tab);
+        setBounds(25115, 116, 216, frame++, tab);
         setBounds(18019, 44, 214, frame++, tab);
         setBounds(18026, 80, 214, frame++, tab);
         setBounds(17229, 0, 25, frame++, tab);
         setBounds(17201, 0, 22, frame++, tab);
-        setBounds(17201, 0, 237, frame++, tab);
+//        setBounds(17201, 0, 237, frame++, tab);
         setBounds(17202, 2, 25, frame++, tab);
         setBounds(17203, 41, 25, frame++, tab);
         setBounds(17204, 76, 25, frame++, tab);
@@ -15039,6 +15042,7 @@ public class RSInterface {
         setBounds(17232, 0, 237, frame++, tab);
         setBounds(17279, 41, 211, frame++, tab);
         setBounds(17280, 76, 211, frame++, tab);
+        setBounds(17281, 113, 211, frame++, tab);
     }
 
     /*

@@ -207,7 +207,10 @@ public class ClientSettings {
 			}
 			
 			if (reader.has("quick-prayers")) {
-				Client.instance.setQuickPrayers(builder.fromJson(reader.get("quick-prayers"), int[].class));
+				int[] prayers = builder.fromJson(reader.get("quick-prayers"), int[].class);
+				if (prayers.length < Client.instance.prayerLevelRequirements.length)
+					prayers = new int[Client.instance.prayerLevelRequirements.length];
+				Client.instance.setQuickPrayers(prayers);
 			}
 			
 			if (reader.has("quick-curses")) {
