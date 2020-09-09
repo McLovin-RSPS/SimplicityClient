@@ -4498,6 +4498,7 @@ public class RSInterface {
          * }
          */
 
+        magicFiltering(textDrawingAreas);
         makeAllSkilling(textDrawingAreas);
         
         SettingsWidget.unpack(textDrawingAreas);
@@ -11400,6 +11401,60 @@ public class RSInterface {
         list.height = 174;
         list.width = 174;
         list.scrollMax = 1360 * (max_slots / 100);
+    }
+
+    private static void magicFiltering(TextDrawingArea[] tda) {
+        RSInterface parent = addInterface(29566);
+        parent.children(1);
+        int widgetId = 29568;
+        RSInterface container = addInterface(widgetId);
+        parent.child(0, container.id, 0, 0);
+        container.height = 260;
+        container.width = 190;
+        container.children(10);
+        widgetId += 2;
+        int childId = 0;
+
+        addSpriteLoader(widgetId, 935);
+        container.child(childId++, widgetId++, 0, 20);
+
+        addText(widgetId, "Spell Filters", fonts, 1, 0xff981f, true, true);
+        container.child(childId++, widgetId++, 95, 0);
+
+        RSInterface combatFilter = createToggleButton(widgetId, "@or1@Show @whi@Combat @or1@spells", 670);
+        container.child(childId++, combatFilter.id, 0, 40);
+        widgetId += 4;
+        RSInterface teleportFilter = createToggleButton(widgetId, "@or1@Show @whi@Teleport @or1@spells", 671);
+        container.child(childId++, teleportFilter.id, 0, 60);
+        widgetId += 4;
+        RSInterface utilityFilter = createToggleButton(widgetId, "@or1@Show @whi@Utility @or1@spells", 672);
+        container.child(childId++, utilityFilter.id, 0, 80);
+        widgetId += 4;
+        RSInterface levelFilter = createToggleButton(widgetId, "@or1@Show spells you lack the level to cast", 673);
+        container.child(childId++, levelFilter.id, 0, 100);
+        widgetId += 4;
+        RSInterface materialFilter = createToggleButton(widgetId, "@or1@Show spells you lack the runes to cast", 674);
+        container.child(childId++, materialFilter.id, 0, 120);
+        widgetId += 4;
+        addHoverButton_sprite_loader(widgetId, 1313, 90 + 18, 28, "Confirm", -1, widgetId + 1, 5);
+        container.child(childId++, widgetId, 55, 220);
+        widgetId++;
+        addHoveredImageWSpriteLoader(widgetId, 1314, 90 + 18, 28, widgetId + 2);
+        container.child(childId++, widgetId, 55, 220);
+        widgetId += 3;
+        addText(widgetId, "Confirm", tda, 3, 0x00ff00, false, true);
+        container.child(childId, widgetId, 73, 224);
+    }
+
+    private static RSInterface createToggleButton(int widgetId, String text, int configId) {
+        RSInterface parent = addInterface(widgetId);
+        parent.children(2);
+        widgetId += 2;
+        addText(widgetId, text, fonts, 1, 0xff981f);
+        parent.child(0, widgetId++, 20, 0);
+        addToggleButton(widgetId, 132, configId, 15, 15, "Toggle");
+        parent.child(1, widgetId, 0, 0);
+        return parent;
     }
 
     public static void addText(int childId, String text, int color, boolean center, boolean shadow,
