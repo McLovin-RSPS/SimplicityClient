@@ -2284,6 +2284,7 @@ public class Client extends RSApplet {
     	return alpha / 2 + (int) (alpha / 2 * Math.sin(loopCycle / rate));
     }
 
+    public int activeMagicBookInterfaceId;
     public int tabHover = -1;
     public boolean showTab = true;
     private int smallTabs = 1000;
@@ -8167,6 +8168,12 @@ public class Client extends RSApplet {
         
         if (l == 477) {
         	effectTimersVisible = !effectTimersVisible;
+        }
+
+        if (interfaceId == 31332 || interfaceId == 29592) {
+            tabInterfaceIDs[6] = interfaceId == 29592 ? activeMagicBookInterfaceId : 29566;
+            needDrawTabArea = true;
+            tabAreaAltered = true;
         }
 
         if (openInterfaceID == 60000) {
@@ -19750,6 +19757,9 @@ public class Client extends RSApplet {
                         needDrawTabArea = true;
                         tabAreaAltered = true;
                         prayerInterfaceType = tabInterfaceIDs[5];
+                        if (j10 == 6) {
+                            activeMagicBookInterfaceId = tabInterfaceIDs[6];
+                        }
                     }
                     opCode = -1;
                     return true;
