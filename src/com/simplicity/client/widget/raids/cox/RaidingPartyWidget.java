@@ -121,6 +121,7 @@ public class RaidingPartyWidget extends CustomWidget implements WidgetButtonList
 		add(addDynamicButton("Advertise (15)", 1, 0xff981f, 110, 29), 260, 261);
 		DISBAND_BUTTON_ID = id + 1;
 		add(addDynamicButton("Disband", 1, 0xff0000, 110, 29), 372, 261);
+		addWidget(RaidingPartiesWidgetContainer.WIDGET_ID, x + 20, y + 17);
 		
 		int containerFrameX = 38 - 4;
 		int containerFrameY = 51 - 4;
@@ -130,21 +131,19 @@ public class RaidingPartyWidget extends CustomWidget implements WidgetButtonList
 		SORT_BOX_ID = id;
 		add(addBox(218 - 1, 14, 2, 4671301, 0, 250, 0, 0), containerFrameX, containerFrameY);
 		
-		SORT_BUTTON_START = id;
-		add(addSortButton(102, 9, true, "Sort by name"), containerFrameX, containerFrameY + 2);
-		add(addSortButton(30, 9, false, "Sort by combat level"), containerFrameX + 102, containerFrameY + 2);
-		add(addSortButton(30, 9, false, "Sort by skill total"), containerFrameX + 102 + 30, containerFrameY + 2);
-		add(addSortButton(40, 9, false, "Sort by kill count"), containerFrameX + 102 + 30 + 30, containerFrameY + 2);
-		
 		PREFERRED_SIZE_ID = id;
 		add(addField(222, 20, "Preferred party size: ---", "Set @lre@Preferred party size"), 260 - 4, containerFrameY);
 		
 		PREFERRED_LEVEL_ID = id;
 		add(addField(222, 20, "Preferred combat level: ---", "Set @lre@Preferred combat level"), 260 - 4, containerFrameY + 22);
-		
 		add(addField(222, 20, "Preferred skill total: ---", "Set @lre@Preferred skill total"), 260 - 4, containerFrameY + 44);
-		
 		add(addField(222, 20, "Challenge mode", "Set @lre@Challenge mode"), 260 - 4, containerFrameY + 66);
+		
+		SORT_BUTTON_START = id;
+		add(addSortButton(102, 9, true, "Sort by name"), containerFrameX, containerFrameY + 2);
+		add(addSortButton(30, 9, false, "Sort by combat level"), containerFrameX + 102, containerFrameY + 2);
+		add(addSortButton(30, 9, false, "Sort by skill total"), containerFrameX + 102 + 30, containerFrameY + 2);
+		add(addSortButton(40, 9, false, "Sort by kill count"), containerFrameX + 102 + 30 + 30, containerFrameY + 2);
 
 		RSInterface remains = addModel(32506, 1630, 0, 1536, DataType.OLDSCHOOL);
 		remains.enabledAnimationId = -1;

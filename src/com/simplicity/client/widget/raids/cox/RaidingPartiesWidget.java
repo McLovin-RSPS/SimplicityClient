@@ -58,15 +58,17 @@ public class RaidingPartiesWidget extends CustomWidget implements WidgetButtonLi
 		add(addClosableWindow(464, 320, false, getName()), 25, 6);
 		
 		REFRESH_BUTTON_ID = id + 1;
+		System.out.println("refresh id: " + REFRESH_BUTTON_ID);
 		add(addDynamicButton("Refresh", 1, 0xff981f, 100, 25), 119, 291);
 		RSInterface makeParty = addDynamicButton("Make Party", 1, 0xff981f, 100, 25);
 		
 		MAKE_PARTY_BUTTON_ID = makeParty.id + 1;
+		System.out.println("PARTY BUTTON:  " + MAKE_PARTY_BUTTON_ID);
 		
 		add(makeParty, 303, 291);
 		add(addBox(443, 14, 2, 4671301, 0, 250), 41 - xoff, 49 - yoff);
 		add(addBox(443, 243, 2, 4671301, 0, 250), 41 - xoff, 49 - yoff);
-		addWidget(RaidingPartiesContainer.WIDGET_ID, xoff + 31, 58);
+		addWidget(RaidingPartyContainer.WIDGET_ID, xoff + 31, 58);
 		
 		CENTER_STRING_ID = id;
 		add(addCenteredText("No parties are currently listed.", 1, 16750623), 250, 160);
