@@ -16,7 +16,7 @@ import com.simplicity.client.widget.listener.WidgetStringListener;
  * @author Blake
  *
  */
-public class RaidingPartyContainer extends CustomWidget implements WidgetStringListener {
+public class RaidingPartyContainerWidget extends CustomWidget implements WidgetStringListener {
 	
 	/**
 	 * The widget id.
@@ -44,15 +44,15 @@ public class RaidingPartyContainer extends CustomWidget implements WidgetStringL
 	public static final Set<Integer> ids = new HashSet<>();
 	
 	/**
-	 * Constructs a new {@link RaidingPartyContainer}.
+	 * Constructs a new {@link RaidingPartyContainerWidget}.
 	 */
-	public RaidingPartyContainer() {
+	public RaidingPartyContainerWidget() {
 		super(WIDGET_ID);
 	}
 
 	@Override
 	public String getName() {
-		return "Performers container widget";
+		return "Raiding party container";
 	}
 	
 	/**

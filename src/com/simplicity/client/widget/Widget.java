@@ -7,9 +7,9 @@ import com.simplicity.client.RSInterface;
 import com.simplicity.client.widget.deals.DealBoardWidget;
 import com.simplicity.client.widget.deals.ItemDealBoardWidget;
 import com.simplicity.client.widget.deals.MultipleItemDealBoxWidget;
-import com.simplicity.client.widget.raids.cox.RaidingPartyContainer;
+import com.simplicity.client.widget.raids.cox.RaidingPartyContainerWidget;
 import com.simplicity.client.widget.raids.cox.RaidingPartiesWidget;
-import com.simplicity.client.widget.raids.cox.RaidingPartiesWidgetContainer;
+import com.simplicity.client.widget.raids.cox.RaidingPartiesContainerWidget;
 import com.simplicity.client.widget.raids.cox.RaidingPartyWidget;
 import com.simplicity.client.widget.raids.cox.XericPointsWidget;
 import com.simplicity.client.widget.raids.tob.*;
@@ -48,9 +48,9 @@ public class Widget {
 		init(new TobFadeText());
 		init(new TobSuppliesWidget());
 		init(new RaidingPartiesWidget());
-		init(new RaidingPartyContainer());
+		init(new RaidingPartyContainerWidget());
 		init(new RaidingPartyWidget());
-		init(new RaidingPartiesWidgetContainer());
+		init(new RaidingPartiesContainerWidget());
 	}
 
 	/**

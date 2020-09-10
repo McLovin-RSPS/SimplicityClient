@@ -121,7 +121,7 @@ public class RaidingPartyWidget extends CustomWidget implements WidgetButtonList
 		add(addDynamicButton("Advertise (15)", 1, 0xff981f, 110, 29), 260, 261);
 		DISBAND_BUTTON_ID = id + 1;
 		add(addDynamicButton("Disband", 1, 0xff0000, 110, 29), 372, 261);
-		addWidget(RaidingPartiesWidgetContainer.WIDGET_ID, x + 20, y + 17);
+		addWidget(RaidingPartiesContainerWidget.WIDGET_ID, x + 20, y + 17);
 		
 		int containerFrameX = 38 - 4;
 		int containerFrameY = 51 - 4;
