@@ -9,9 +9,9 @@ import com.simplicity.client.widget.deals.ItemDealBoardWidget;
 import com.simplicity.client.widget.deals.MultipleItemDealBoxWidget;
 import com.simplicity.client.widget.raids.cox.RaidingPartiesContainerWidget;
 import com.simplicity.client.widget.raids.cox.RaidingPartiesWidget;
-import com.simplicity.client.widget.raids.cox.RaidingPartyContainerWidget;
-import com.simplicity.client.widget.raids.cox.RaidingPartyWidget;
 import com.simplicity.client.widget.raids.cox.XericPointsWidget;
+import com.simplicity.client.widget.raids.cox.party.RaidingPartyContainerWidget;
+import com.simplicity.client.widget.raids.cox.party.RaidingPartyWidget;
 import com.simplicity.client.widget.raids.tob.*;
 
 public class Widget {

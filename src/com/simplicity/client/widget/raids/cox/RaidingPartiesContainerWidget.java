@@ -9,6 +9,7 @@ import java.util.Set;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.widget.CustomWidget;
 import com.simplicity.client.widget.listener.WidgetStringListener;
+import com.simplicity.client.widget.raids.cox.party.RaidingPartyWidget;
 
 /**
  * A class that handles the container for the {@link RaidingPartyWidget}.

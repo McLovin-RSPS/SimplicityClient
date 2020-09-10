@@ -1,4 +1,4 @@
-package com.simplicity.client.widget.raids.cox;
+package com.simplicity.client.widget.raids.cox.party;
 
 import java.io.IOException;
 

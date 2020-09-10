@@ -1,4 +1,4 @@
-package com.simplicity.client.widget.raids.cox;
+package com.simplicity.client.widget.raids.cox.party;
 
 import static com.simplicity.client.RSInterface.interfaceCache;
 
@@ -8,6 +8,7 @@ import java.util.Set;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.widget.CustomWidget;
 import com.simplicity.client.widget.listener.WidgetStringListener;
+import com.simplicity.client.widget.raids.cox.RaidingPartiesWidget;
 
 /**
  * A class that handles the container for the {@link RaidingPartiesWidget}.
