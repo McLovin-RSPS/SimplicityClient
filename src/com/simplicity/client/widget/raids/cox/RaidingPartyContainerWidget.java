@@ -1,7 +1,6 @@
 package com.simplicity.client.widget.raids.cox;
 
 import static com.simplicity.client.RSInterface.interfaceCache;
-import static com.simplicity.client.widget.raids.cox.RaidingPartiesWidget.CENTER_STRING_ID;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,127 +10,107 @@ import com.simplicity.client.widget.CustomWidget;
 import com.simplicity.client.widget.listener.WidgetStringListener;
 
 /**
- * A class that handles the container for the {@link RaidingPartyWidget}.
+ * A class that handles the container for the {@link RaidingPartiesWidget}.
  * 
  * @author Blake
  *
  */
-public class RaidingPartyContainerWidget extends CustomWidget implements WidgetStringListener {
+public class RaidingPartyContainerWidget extends CustomWidget implements WidgetStringListener  {
 	
 	/**
 	 * The widget id.
 	 */
-	public static final int WIDGET_ID = 78_400;
+	public static final int WIDGET_ID = 78_700;
 	
 	/**
 	 * The rectangle height.
 	 */
-	private static final int RECT_HEIGHT = 18;
+	private static final int RECT_HEIGHT = 13;
 	
 	/**
 	 * The width of the container.
 	 */
-	private static final int WIDTH = 424;
+	private static final int WIDTH = 214;
 	
 	/**
 	 * The height of the container.
 	 */
-	private static final int HEIGHT = 227;
-	
-	/**
-	 * The ids of the names.
-	 */
-	public static final Set<Integer> ids = new HashSet<>();
-	
-	/**
-	 * Constructs a new {@link RaidingPartyContainerWidget}.
-	 */
-	public RaidingPartyContainerWidget() {
-		super(WIDGET_ID);
-	}
-
-	@Override
-	public String getName() {
-		return "Raiding party container";
-	}
+	private static final int HEIGHT = 65;
 	
 	/**
 	 * The size of the container.
 	 */
 	public static final int ROWS = 20;
 	
+	/**
+	 * The start id.
+	 */
+	private static int START_ID;
+	
+	/**
+	 * The ids of the names.
+	 */
+	public static final Set<Integer> ids = new HashSet<>();
+	
+	@Override
+	public String getName() {
+		return "Raiding party container";
+	}
+
+	public RaidingPartyContainerWidget() {
+		super(WIDGET_ID);
+	}
+	
 	@Override
 	public void init() {
 		addStringListener(this);
 		getInterface().width = WIDTH;
 		getInterface().height = HEIGHT;
-		getInterface().scrollMax = Math.max(HEIGHT + 1, ROWS * (RECT_HEIGHT + 1));
 		
 		int x = 0;
 		int y = 0;
 		
+		START_ID = id;
+		
+		System.out.println("party cont start: " + id);
+		
 		for (int i = 0; i < ROWS; i++) {
-			RSInterface rect = addRectangleClickable(255, 0, true, WIDTH - 1, RECT_HEIGHT, new String[] { "View party: @lre@Blake" });
-			rect.hovers = true;
+			boolean odd = i % 2 == 0;
+			RSInterface rect = addRectangleClickable(odd ? 235 : 255, odd ? 0 : 0x534a3f, true, WIDTH, RECT_HEIGHT, new String[2]);
+			rect.hovers = false;
     		rect.hoverType = id - 1;
-    		rect.enabledOpacity = 220;
-    		rect.enabledMouseOverColor = 0xffffff;
-    		rect.hidden = true;
+    		rect.enabledOpacity = odd ? 225 : 225;
+    		rect.enabledMouseOverColor = odd ? 0 : 0xffffff;
     		add(rect, x, y);
-    		RSInterface members = addCenteredText("", 1, 0xff981f);
-    		members.useNewFonts = true;
-    		add(members, 18, 1 + y);
-    		RSInterface targetSize = addCenteredText("", 1, 0x9f9f9f);
-    		targetSize.useNewFonts = true;
-    		add(targetSize, 18 + 42, 1 + y);
     		ids.add(id);
-    		add(addCenteredText("", 1, 0xffffff), 18 + 137, 1 + y);
-    		
-    		RSInterface preferredLevel = addCenteredText("", 1, 0x9f9f9f);
-    		preferredLevel.useNewFonts = true;
-    		add(preferredLevel, 18 + 138 + 94, 1 + y);
-    		
-    		RSInterface preferredTotalLevel = addCenteredText("", 1, 0x9f9f9f);
-    		preferredTotalLevel.useNewFonts = true;
-    		add(preferredTotalLevel, 18 + 138 + 94 + 41, 1 + y);
-    		
-    		add(addText("", 0), 18 + 138 + 94 + 41 + 26, 1 + y);
-    		
-    		add(addTimer(25, 14, 0, 0x9f9f9f, ""), 18 + 139 + 94 + 77 + 53, 3 + y);
-			y += RECT_HEIGHT + 1;
+    		add(addCenteredText("", 0, 0x9f9f9f), 5 + 45, 1 + y);
+    		add(addCenteredText("", 0, 0x9f9f9f), 5 + 45 + 65, 1 + y);
+    		add(addCenteredText("", 0, 0x9f9f9f), 5 + 45 + 95, 1 + y);
+    		add(addCenteredText("", 0, 0x9f9f9f), 5 + 45 + 130, 1 + y);
+			y += RECT_HEIGHT;
 		}
 	}
-	
+
 	@Override
 	public void onStringUpdate(int id, String string) {
 		if (!ids.contains(id)) {
 			return;
 		}
 		
-		RSInterface rect = interfaceCache[id - 3];
+		int index = id - START_ID;
 		
-		if (!string.isEmpty()) {
-			rect.actions = new String[] { "View party: @lre@" + string };
+		if (index > 0) {
+			index %= 5;
 		}
 		
-		rect.hidden = string.isEmpty();
+		RSInterface rect = interfaceCache[id - 1];
 		
-		if (rect.hidden) {
-			boolean visible = false;
-			
-			for (int i : ids) {
-				if (!interfaceCache[i - 3].hidden) {
-					visible = true;
-					break;
-				}
-			}
-			
-			interfaceCache[CENTER_STRING_ID].hidden = visible;
-			
-			if (!visible) {
-				getInterface().scrollMax = HEIGHT + 1;
-			}
+		if (string.isEmpty()) {
+			rect.actions = null;
+		} else if (string.contains("@whi@")) {
+			rect.actions = new String[] { "Stats" };
 		}
+		rect.hovers = !string.isEmpty();
 	}
-	
+
 }

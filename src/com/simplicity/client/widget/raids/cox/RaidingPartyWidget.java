@@ -121,7 +121,7 @@ public class RaidingPartyWidget extends CustomWidget implements WidgetButtonList
 		add(addDynamicButton("Advertise (15)", 1, 0xff981f, 110, 29), 260, 261);
 		DISBAND_BUTTON_ID = id + 1;
 		add(addDynamicButton("Disband", 1, 0xff0000, 110, 29), 372, 261);
-		addWidget(RaidingPartiesContainerWidget.WIDGET_ID, x + 20, y + 17);
+		addWidget(RaidingPartyContainerWidget.WIDGET_ID, x + 20, y + 17);
 		
 		int containerFrameX = 38 - 4;
 		int containerFrameY = 51 - 4;
@@ -155,6 +155,11 @@ public class RaidingPartyWidget extends CustomWidget implements WidgetButtonList
 		model.disabledAnimationId = 7385 + Animation.OSRS_ANIM_OFFSET;
 		model.enabledAnimationId = 7385 + Animation.OSRS_ANIM_OFFSET;
 		add(model, 452 - 5, 148 + 15);
+		
+		UNBLOCK_BUTTON_ID = id + 1;
+		RSInterface join = addDynamicButton("@gre@Join", 1, 0xff981f, 222, 29);
+		join.hidden = false;
+		add(join, 260, 261);
 	}
 	
 	public RSInterface addSortButton(int width, int height, boolean isActive, String tooltipBox) {

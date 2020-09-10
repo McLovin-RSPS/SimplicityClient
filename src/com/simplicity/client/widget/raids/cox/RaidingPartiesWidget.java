@@ -67,7 +67,7 @@ public class RaidingPartiesWidget extends CustomWidget implements WidgetButtonLi
 		add(makeParty, 303, 291);
 		add(addBox(443, 14, 2, 4671301, 0, 250), 41 - xoff, 49 - yoff);
 		add(addBox(443, 243, 2, 4671301, 0, 250), 41 - xoff, 49 - yoff);
-		addWidget(RaidingPartyContainerWidget.WIDGET_ID, xoff + 31, 58);
+		addWidget(RaidingPartiesContainerWidget.WIDGET_ID, xoff + 31, 58);
 		
 		CENTER_STRING_ID = id;
 		add(addCenteredText("No parties are currently listed.", 1, 16750623), 250, 160);
