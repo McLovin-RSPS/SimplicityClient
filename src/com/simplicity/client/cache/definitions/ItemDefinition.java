@@ -379,6 +379,46 @@ public final class ItemDefinition {
                 itemDef.modelZoom = 10000;
                 break;
                 
+            case 43305:
+                itemDef.name = "Sugi";
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelID = MobDefinition.forID(23360).models[0];
+                itemDef.modelZoom = 10000;
+                break;
+                
+            case 43306:
+                itemDef.name = "Blo";
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelID = MobDefinition.forID(23359).models[0];
+                itemDef.modelZoom = 10000;
+                break;
+                
+            case 21504:
+                itemDef.name = "Nylo";
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelID = MobDefinition.forID(23355).models[0];
+                itemDef.modelZoom = 10000;
+                break;
+                
+            case 21505:
+                itemDef.name = "Tet";
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelID = MobDefinition.forID(23388).models[0];
+                itemDef.modelZoom = 10000;
+                break;
+                
+            case 21506:
+                itemDef.name = "Arpus";
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelID = MobDefinition.forID(23338).models[0];
+                itemDef.modelZoom = 10000;
+                break;
+                
             case 50911:
                 itemDef.name = "Endarkened juice";
                 break;
