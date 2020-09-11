@@ -398,6 +398,7 @@ public final class MobDefinition {
                 npc.name = "Warmi";
                 npc.sizeXZ = 120;
                 npc.sizeY = 120;
+                npc.pet = true;
                 break;
                 
             case 2776:
@@ -408,6 +409,7 @@ public final class MobDefinition {
                 npc.actions = new String[5];
                 npc.actions[0] = "Pick-up";
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
                 
             case 2576:
@@ -418,6 +420,7 @@ public final class MobDefinition {
                 npc.actions = new String[5];
                 npc.actions[0] = "Pick-up";
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
                 
             case 2530:
@@ -428,6 +431,7 @@ public final class MobDefinition {
                 npc.actions = new String[5];
                 npc.actions[0] = "Pick-up";
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
 
             case 2532:
