@@ -14195,12 +14195,12 @@ public class Client extends RSApplet {
             } catch (Exception _ex) {
             }
             updateGameArea();
+            mouseDetection = new MouseDetection(this);
+            startRunnable(mouseDetection, 10);
             ObjectOnTile.clientInstance = this;
             ObjectDefinition.clientInstance = this;
             MobDefinition.clientInstance = this;
             setCursor(Configuration.enableCursors ? 0 : -1);
-            mouseDetection = new MouseDetection(this);
-            startRunnable(mouseDetection, 10);
             handleShadow();
             try {
                 serial = CreateUID.generateUID();
