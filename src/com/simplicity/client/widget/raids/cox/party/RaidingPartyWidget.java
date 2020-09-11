@@ -257,6 +257,9 @@ public class RaidingPartyWidget extends CustomWidget implements WidgetButtonList
 		RSInterface.interfaceCache[BACK_BUTTON_ID].buttonDown = false;
 		RSInterface.interfaceCache[BACK_BUTTON_ID + 1].message = "Back";
 		
+		RSInterface.interfaceCache[DISBAND_BUTTON_ID].buttonDown = false;
+		RSInterface.interfaceCache[DISBAND_BUTTON_ID + 1].message = "Disband";
+		
 		boolean hidden = RSInterface.interfaceCache[UNBLOCK_BUTTON_ID - 1].hidden;
 		RSInterface.interfaceCache[PREFERRED_SIZE_ID].tooltip = hidden ? null : "Set @lre@Preffered size";
 		RSInterface.interfaceCache[PREFERRED_LEVEL_ID].tooltip = hidden ? null : "Set @lre@Preffered level";
