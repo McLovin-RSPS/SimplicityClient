@@ -1697,6 +1697,7 @@ public final class MobDefinition {
             case 153:
                 npc.copy(forID(23009));
                 npc.name = "Superior TzRek-Zuk";
+                npc.pet = true;
                 break;
             case 154:
                 npc.copy(forID(23025));

@@ -4485,12 +4485,16 @@ public class Client extends RSApplet {
                 || mouseY > interfaceY + class9.height) {
             return;
         }
-        int totalChildrens = class9.children.length;
+
+        int[] children = isSpellBook(class9.id) ? filteredSpells() : class9.children;
+        int totalChildrens = children.length;
         for (int frameID = 0; frameID < totalChildrens; frameID++) {
             int childX = class9.childX[frameID] + interfaceX;
             int childY = (class9.childY[frameID] + interfaceY) - scrollOffset;
-            RSInterface child = RSInterface.interfaceCache[class9.children[frameID]];
-            
+            int interfaceId = children[frameID];
+            if (interfaceId == -1)
+                continue;
+            RSInterface child = RSInterface.interfaceCache[interfaceId];
             if (child == null || child.hidden) {
             	continue;
             }
@@ -4941,8 +4945,6 @@ public class Client extends RSApplet {
 	                                                            menuActionRow++;
 	                                                        }
 	                                                    }
-	
-	                                                    int interfaceId = child.id;
 	
 	                                                    if (child.parentID == 3321 && openInterfaceID == 42000) {
 	                                                        s = s.replaceAll("Offer", "Pricecheck");
@@ -15146,14 +15148,17 @@ public class Client extends RSApplet {
             DrawingArea.setDrawingArea(interfaceY + rsInterface.height, interfaceX, interfaceX + rsInterface.width,
                     interfaceY);
 
-            int totalChildrens = rsInterface.children.length;
+            int[] children = isSpellBook(rsInterface.id) ? filteredSpells() : rsInterface.children;
+            int[] childrenX = rsInterface.childX;
+            int[] childrenY = rsInterface.childY;
+            int totalChildrens = children.length;
             for (int childID = 0; childID < totalChildrens; childID++) {
-                int childX = rsInterface.childX[childID] + interfaceX;
-                int childY = (rsInterface.childY[childID] + interfaceY) - scrollOffset;
-                if (rsInterface.children[childID] == -1) {
+                int childX = childrenX[childID] + interfaceX;
+                int childY = (childrenY[childID] + interfaceY) - scrollOffset;
+                if (children[childID] == -1) {
                     continue;
                 }
-                RSInterface child = RSInterface.interfaceCache[rsInterface.children[childID]];
+                RSInterface child = RSInterface.interfaceCache[children[childID]];
                 if (child == null || child.hidden) {
                     continue;
                 }
@@ -22146,6 +22151,66 @@ public class Client extends RSApplet {
         if (openInterfaceID != -1) {
 			resetWidgetDropDowns(openInterfaceID);
 		}
+    }
+
+    private int[] filteredSpells() {
+        RSInterface[] interfaces = RSInterface.interfaceCache;
+        RSInterface magicBook = activeMagicBookInterfaceId == 11000 ? interfaces[12424] :
+                interfaces[activeMagicBookInterfaceId];
+        final int[] children = magicBook.children;
+        final int[] filtered = new int[children.length];
+        Arrays.fill(filtered, -1);
+        final int[] pointX = magicBook.childX;
+        final int[] pointY = magicBook.childY;
+        final boolean showCombat = variousSettings[670] == 1;
+        final boolean showTeleport = variousSettings[671] == 1;
+        final boolean showUtility = variousSettings[672] == 1;
+        final boolean showLevels = variousSettings[673] == 1;
+        final boolean showMissingMaterials = variousSettings[674] == 1;
+        int slot = 0;
+        for (int index = 0; index < children.length; index++) {
+            RSInterface child = interfaces[children[index]];
+            if (child == null)
+                continue;
+
+            if (child.spellUsableOn == 10 && !showCombat) {
+                child.hidden = true;
+                continue;
+            }
+
+            if (child.requiredValues != null && child.valueIndexArray != null) {
+                if (!showLevels && currentStats[6] < child.requiredValues[2]) {
+                    child.hidden = true;
+                    continue;
+                }
+
+                if (!showMissingMaterials) {
+                    boolean missing = false;
+                    for (int i = 0; i < child.requiredValues.length; i++) {
+                        if (extractInterfaceValues(child, 0) < child.requiredValues[i]) {
+                            child.hidden = true;
+                            missing = true;
+                            break;
+                        }
+                    }
+                    if (missing)
+                        continue;
+                }
+            }
+
+            if (child.hidden)
+                child.hidden = false;
+
+            filtered[slot] = child.id;
+            slot++;
+        }
+        return filtered;
+    }
+
+    private boolean isSpellBook(int interfaceId) {
+        return /*(interfaceId == 11000 ||
+                interfaceId == 12855 ||
+                interfaceId == 11800)*/false;
     }
 
     private ArrayList<Particle> displayedParticles;
