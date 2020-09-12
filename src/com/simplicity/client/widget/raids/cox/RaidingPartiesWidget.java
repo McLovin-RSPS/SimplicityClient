@@ -3,6 +3,7 @@ package com.simplicity.client.widget.raids.cox;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.widget.CustomWidget;
 import com.simplicity.client.widget.listener.WidgetButtonListener;
+import com.simplicity.task.TaskManager;
 
 /**
  * A class that handles the Raiding parties widget.
@@ -107,8 +108,14 @@ public class RaidingPartiesWidget extends CustomWidget implements WidgetButtonLi
 	
 	@Override
 	public boolean onClick(int id) {
-		if (id >= SORT_BUTTON_START && id <= SORT_BUTTON_START + 6) {
-			RSInterface.setSelectedInterface(id, true);
+		if (id == REFRESH_BUTTON_ID || id == MAKE_PARTY_BUTTON_ID) {
+			RSInterface button = RSInterface.interfaceCache[id];
+			
+			if (button.buttonDown) {
+				return true;
+			}
+			
+			TaskManager.submit(new RaidButtonTask(button, 300));
 			return true;
 		}
 		

@@ -11,6 +11,7 @@ import com.simplicity.client.widget.listener.WidgetAnimationListener;
 import com.simplicity.client.widget.listener.WidgetButtonListener;
 import com.simplicity.client.widget.listener.WidgetStateListener;
 import com.simplicity.client.widget.listener.WidgetStringListener;
+import com.simplicity.client.widget.raids.cox.RaidButtonTask;
 import com.simplicity.task.Task;
 import com.simplicity.task.TaskManager;
 
@@ -196,47 +197,18 @@ public class RaidingPartyWidget extends CustomWidget implements WidgetButtonList
 				return true;
 			}
 			
-			RSInterface text = RSInterface.interfaceCache[id + 1];
-			String cached = new String(text.message);
-			text.message = "...";
-			button.buttonDown = true;
-			
-			TaskManager.submit(new Task(id == REFRESH_BUTTON_ID || id == BACK_BUTTON_ID ? 300 : 600) {
-				
-				int count = 0;
-
+			TaskManager.submit(new RaidButtonTask(button, id == REFRESH_BUTTON_ID || id == BACK_BUTTON_ID ? 300 : 600, id != DISBAND_BUTTON_ID && id != BACK_BUTTON_ID) {
 				@Override
-				public void execute() throws IOException {
-					if (count == 0) {
-						Client.instance.sendButtonClick(id);
+				public void clicked() {
+					if (id == REFRESH_BUTTON_ID) {
+						RSInterface.interfaceCache[TIMER_ID].currentFrame = 0;
 						
-						
-					} else if (count == 1) {
-						if (id == REFRESH_BUTTON_ID) {
-							RSInterface.interfaceCache[TIMER_ID].currentFrame = 0;
-							if (hourGlassReset) {
-								hourGlassReset = false;
-							}
+						if (hourGlassReset) {
+							hourGlassReset = false;
 						}
-						
-						if (id != DISBAND_BUTTON_ID && id != BACK_BUTTON_ID) {
-							button.buttonDown = false;
-							
-							if (text.message.equals("...")) {
-								text.message = cached;
-							}
-						}
-						
-					} else if (count == 2) {
-						
-						stop();						
 					}
-					
-					count++;
 				}
-				
 			});
-			
 			return true;
 		}
 		
@@ -259,6 +231,9 @@ public class RaidingPartyWidget extends CustomWidget implements WidgetButtonList
 		
 		RSInterface.interfaceCache[DISBAND_BUTTON_ID].buttonDown = false;
 		RSInterface.interfaceCache[DISBAND_BUTTON_ID + 1].message = "Disband";
+		
+		RSInterface.interfaceCache[REFRESH_BUTTON_ID].buttonDown = false;
+		RSInterface.interfaceCache[REFRESH_BUTTON_ID + 1].message = "Refresh";
 		
 		boolean hidden = RSInterface.interfaceCache[UNBLOCK_BUTTON_ID - 1].hidden;
 		RSInterface.interfaceCache[PREFERRED_SIZE_ID].tooltip = hidden ? null : "Set @lre@Preffered size";
