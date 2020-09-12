@@ -1,8 +1,5 @@
 package com.simplicity.client.widget.raids.cox.party;
 
-import java.io.IOException;
-
-import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.Animation;
@@ -12,7 +9,6 @@ import com.simplicity.client.widget.listener.WidgetButtonListener;
 import com.simplicity.client.widget.listener.WidgetStateListener;
 import com.simplicity.client.widget.listener.WidgetStringListener;
 import com.simplicity.client.widget.raids.cox.RaidButtonTask;
-import com.simplicity.task.Task;
 import com.simplicity.task.TaskManager;
 
 /**

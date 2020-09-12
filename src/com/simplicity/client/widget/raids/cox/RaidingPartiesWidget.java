@@ -3,6 +3,8 @@ package com.simplicity.client.widget.raids.cox;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.widget.CustomWidget;
 import com.simplicity.client.widget.listener.WidgetButtonListener;
+import com.simplicity.client.widget.listener.WidgetStateListener;
+import com.simplicity.client.widget.listener.WidgetStringListener;
 import com.simplicity.task.TaskManager;
 
 /**
@@ -11,7 +13,7 @@ import com.simplicity.task.TaskManager;
  * @author Blake
  *
  */
-public class RaidingPartiesWidget extends CustomWidget implements WidgetButtonListener {
+public class RaidingPartiesWidget extends CustomWidget implements WidgetButtonListener, WidgetStringListener, WidgetStateListener {
 	
 	/**
 	 * The widget id.
@@ -53,6 +55,8 @@ public class RaidingPartiesWidget extends CustomWidget implements WidgetButtonLi
 	@Override
 	public void init() {
 		addButtonListener(this);
+		addStateListener(this);
+		addStringListener(this);
 		
 		int xoff = 6;
 		int yoff = 4;
@@ -115,11 +119,24 @@ public class RaidingPartiesWidget extends CustomWidget implements WidgetButtonLi
 				return true;
 			}
 			
-			TaskManager.submit(new RaidButtonTask(button, 300));
+			TaskManager.submit(new RaidButtonTask(button, 300, id != MAKE_PARTY_BUTTON_ID));
 			return true;
 		}
 		
 		return false;
 	}
+	
+	@Override
+	public void onStringUpdate(int id, String string) {
+		if (id == MAKE_PARTY_BUTTON_ID + 1) {
+			RSInterface.interfaceCache[id - 1].buttonDown = false;
+		}
+	}
 
+	@Override
+	public void onDisplay() {
+		RSInterface.interfaceCache[MAKE_PARTY_BUTTON_ID].buttonDown = false;
+		RSInterface.interfaceCache[REFRESH_BUTTON_ID].buttonDown = false;
+	}
+	
 }
