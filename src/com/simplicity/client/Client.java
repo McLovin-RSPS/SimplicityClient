@@ -2577,6 +2577,8 @@ public class Client extends RSApplet {
 			return 1337;
 		case QuestTab.MISC_TAB_ID:
 			return 1335;
+		case QuestTab.RAID_TAB_ID:
+			return 1461;
 		default:
 			return 1334;
 		}
@@ -16413,6 +16415,8 @@ public class Client extends RSApplet {
                         if (sprite != null) {
                         	sprite.drawSprite(childX, childY);
                         }
+                    } else if (child.type == 47) {
+                		child.disabledSprite.drawAdvancedSprite(childX, childY, childHovered ? child.hoverOpacity : child.defaultOpacity);
                     } else if (child.type == 50) { // TOB ORBS
                         if (child.message.isEmpty()) {
                             continue;
