@@ -4510,8 +4510,10 @@ public class Client extends RSApplet {
                 continue;
             }
             
+            int hoverYOff = clientSize != 0 && mouseInTabArea() ? -3 : 0;
+            
 			boolean hover = mouseX >= childX && mouseY >= childY
-                    && mouseX <= childX + child.width && mouseY <= childY + child.height;
+                    && mouseX <= childX + child.width && mouseY <= childY + child.height + hoverYOff;
 			
 			if (child.id == SettingsWidget.ADVANCED) {
 				hover = mouseX >= childX && mouseY >= childY + 7 - child.height / 2 && mouseX < childX + child.width && mouseY < childY - 9 + child.height;
@@ -15189,16 +15191,25 @@ public class Client extends RSApplet {
                 
             	boolean hoverChatInterface = backDialogID != -1 && mouseInChatArea();
             	
+            	boolean hoverTabInterface = mouseInTabArea();
+            	
             	int hoverXOff = hoverGameInterface && clientSize == 0 ? -4 : 0;
+            	
+            	int hoverYOff = hoverTabInterface ? 4 : 0;
                 
             	int hoverX = mouseX + hoverXOff;
             	
-            	int hoverY = mouseY - (hoverChatInterface && clientSize == 0 ? gameAreaHeight + 4: 4);
+            	int hoverY = mouseY - (hoverChatInterface && clientSize == 0 ? gameAreaHeight + 4 : 4) + hoverYOff;
             	
-            	if (hoverChatInterface || hoverGameInterface) {
+            	if (clientSize == 0 && hoverTabInterface) {
+            		hoverX -= 519;
+            		hoverY -= 168;
+            	}
+            	
+            	if (hoverChatInterface || hoverGameInterface || hoverTabInterface) {
             		childHovered = hoverX >= childX && hoverX <= childX + child.width && hoverY >= childY && hoverY <= childY + child.height;
             	}
-                
+            	
                 for (int m5 = 0; m5 < IDs.length; m5++) {
                     if (child.id == IDs[m5] + 1) {
                         if (m5 > 61) {
@@ -25176,7 +25187,7 @@ public class Client extends RSApplet {
 	 * @return <code>true</code> if in bounds.
 	 */
     public boolean mouseInTabArea() {
-        return inImageProducerBounds(tabAreaIP, clientSize != 0 ? clientWidth - 240 : 0, clientSize != 0 ? clientHeight - 337 : 0);
+        return inImageProducerBounds(tabAreaIP, clientSize != 0 ? clientWidth - 240 : 519, clientSize != 0 ? clientHeight - 337 : 168);
     }
     
 	/**
