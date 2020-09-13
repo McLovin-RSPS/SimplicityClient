@@ -20271,6 +20271,9 @@ public class Client extends RSApplet {
                             int id12322 = Integer.parseInt(ids[0]);
                             PetSystem.petSelected = id12322;
                         }
+                    } else if (s.startsWith(":set_quest_tab:")) {
+                    	int buttonId = Integer.parseInt(s.substring(s.lastIndexOf(":") + 1));
+                    	RSInterface.handleConfigHover(RSInterface.interfaceCache[buttonId]);
                     } else if (s.startsWith("setTeleportOptions:")) {
                         String[] ids = s.split(":")[1].split(",");
                        // RSInterface.???
