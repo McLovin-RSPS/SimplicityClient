@@ -596,6 +596,7 @@ public final class MobDefinition {
                 npc.description = "Its a Rock Golem.";
                 npc.squaresNeeded = 1;
                 npc.sizeXZ = npc.sizeY = 110;
+                npc.pet = true;
                 break;
             case 6724:
                 npc.name = "Heron";
@@ -608,6 +609,7 @@ public final class MobDefinition {
                 npc.standAnim = 6772;
                 npc.description = "Its a Heron.";
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
 
             case 568:
@@ -626,6 +628,7 @@ public final class MobDefinition {
                 npc.standAnim = 7177;
                 npc.description = "Its a Beaver.";
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
 
             case 6640:
@@ -655,6 +658,7 @@ public final class MobDefinition {
                 npc.actions[0] = "Pick-up";
                 npc.combatLevel = 0;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
 
             case 5781:
@@ -670,6 +674,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.sizeXZ = 80;
                 npc.sizeY = 80;
+                npc.pet = true;
                 break;
 
             case 6727:
