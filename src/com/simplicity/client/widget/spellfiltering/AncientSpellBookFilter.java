@@ -19,8 +19,8 @@ public class AncientSpellBookFilter extends SpellBookFilter {
         int slot = 1;
         final int[] filtered = new int[spells.length];
         Arrays.fill(filtered, -1);
-        for (int spellId : spells) {
-            RSInterface widget = RSInterface.interfaceCache[spellId];
+        for (int index = 1; index < spells.length; index++) {
+            RSInterface widget = RSInterface.interfaceCache[spells[index]];
             if (canFilter(widget)) {
                 widget.hidden = true;
                 continue;

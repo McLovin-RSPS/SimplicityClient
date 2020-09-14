@@ -1865,7 +1865,7 @@ public class RSInterface {
 
         int index = 0;
         tab.totalChildren(itfChildren.length + 1);
-        tab.child(index, 31330, 50, 220);
+        tab.child(index, 31330, 65, 235);
         for (int i1 = 0, xPos = 18, yPos = 8; i1 < itfChildren.length; i1++, xPos += 45) {
             ++index;
             RSInterface widget = interfaceCache[itfChildren[i1]];
@@ -11424,39 +11424,36 @@ public class RSInterface {
         parent.child(0, container.id, 0, 0);
         container.height = 260;
         container.width = 190;
-        container.children(10);
+        container.children(9);
         widgetId += 2;
         int childId = 0;
 
-        addSpriteLoader(widgetId, 935);
-        container.child(childId++, widgetId++, 0, 20);
+        addSpriteLoader(widgetId, 1462);
+        container.child(childId++, widgetId++, 5, 20);
 
         addText(widgetId, "Spell Filters", fonts, 1, 0xff981f, true, true);
-        container.child(childId++, widgetId++, 95, 2);
+        container.child(childId++, widgetId++, 95, 24);
 
         RSInterface combatFilter = createToggleButton(widgetId, "@or1@Show @whi@Combat @or1@spells", 670);
-        container.child(childId++, combatFilter.id, 5, 40);
+        container.child(childId++, combatFilter.id, 10, 50);
         widgetId += 4;
         RSInterface teleportFilter = createToggleButton(widgetId, "@or1@Show @whi@Teleport @or1@spells", 671);
-        container.child(childId++, teleportFilter.id, 5, 60);
+        container.child(childId++, teleportFilter.id, 10, 70);
         widgetId += 4;
         RSInterface utilityFilter = createToggleButton(widgetId, "@or1@Show @whi@Utility @or1@spells", 672);
-        container.child(childId++, utilityFilter.id, 5, 80);
+        container.child(childId++, utilityFilter.id, 10, 90);
         widgetId += 4;
         RSInterface levelFilter = createToggleButton(widgetId, "@or1@Show spells you lack the\\n@or1@level to cast", 673);
-        container.child(childId++, levelFilter.id, 5, 100);
+        container.child(childId++, levelFilter.id, 10, 110);
         widgetId += 4;
         RSInterface materialFilter = createToggleButton(widgetId, "@or1@Show spells you lack the\\n@or1@runes to cast", 674);
-        container.child(childId++, materialFilter.id, 5, 130);
+        container.child(childId++, materialFilter.id, 10, 140);
         widgetId += 4;
-        addHoverButton_sprite_loader(widgetId, 1313, 90 + 18, 28, "Confirm", -1, widgetId + 1, 5);
-        container.child(childId++, widgetId, 55, 220);
+        addHoverButton_sprite_loader(widgetId, 1467, 46, 17, "Confirm", -1, widgetId + 1, 5);
+        container.child(childId++, widgetId, 65, 235);
         widgetId++;
-        addHoveredImageWSpriteLoader(widgetId, 1314, 90 + 18, 28, widgetId + 2);
-        container.child(childId++, widgetId, 55, 220);
-        widgetId += 3;
-        addText(widgetId, "Confirm", tda, 3, 0x00ff00, false, true);
-        container.child(childId, widgetId, 73, 224);
+        addHoveredImageWSpriteLoader(widgetId, 1468, 46, 17, widgetId + 2);
+        container.child(childId++, widgetId, 65, 235);
     }
 
     private static RSInterface createToggleButton(int widgetId, String text, int configId) {
@@ -11465,7 +11462,25 @@ public class RSInterface {
         widgetId += 2;
         addText(widgetId, text, fonts, 1, 0xff981f);
         parent.child(0, widgetId++, 20, 0);
-        addToggleButton(widgetId, 132, configId, 15, 15, "Toggle");
+        RSInterface button = addInterface(widgetId);
+        button.disabledSprite = SpriteLoader.sprites[1465];
+        button.enabledSprite = SpriteLoader.sprites[1466];
+        button.requiredValues = new int[1];
+        button.requiredValues[0] = 1;
+        button.valueCompareType = new int[1];
+        button.valueCompareType[0] = 1;
+        button.valueIndexArray = new int[1][3];
+        button.valueIndexArray[0][0] = 5;
+        button.valueIndexArray[0][1] = configId;
+        button.valueIndexArray[0][2] = 0;
+        button.atActionType = 4;
+        button.width = 12;
+        button.hoverType = -1;
+        button.parentID = widgetId;
+        button.id = widgetId;
+        button.type = 5;
+        button.height = 12;
+        button.tooltip = text;
         parent.child(1, widgetId, 0, 0);
         return parent;
     }
@@ -12344,7 +12359,7 @@ public class RSInterface {
         }
 
         RSInterface filterButton = addInterface(31330);
-        filterButton.children(3);
+        filterButton.children(2);
 
         // Hover related info.
         int index = 24;
@@ -12390,14 +12405,11 @@ public class RSInterface {
 
         int widgetId = 31332;
         int buttonChild = 0;
-        addHoverButton_sprite_loader(widgetId, 1313, 90 + 18, 24, "Filter", -1, widgetId + 1, 5);
+        addHoverButton_sprite_loader(widgetId, 1463, 46, 17, "Confirm", -1, widgetId + 1, 5);
         filterButton.child(buttonChild++, widgetId, 0, 0);
         widgetId++;
-        addHoveredImageWSpriteLoader(widgetId, 1314, 90 + 18, 24, widgetId + 2);
-        filterButton.child(buttonChild++, widgetId, 0, 0);
-        widgetId += 3;
-        addText(widgetId, "Filter", tda, 1, 0x00ff00, false, true);
-        filterButton.child(buttonChild, widgetId, 30, 6);
+        addHoveredImageWSpriteLoader(widgetId, 1464, 46, 17, widgetId + 1);
+        filterButton.child(buttonChild, widgetId, 0, 0);
 
         RSInterface newInterface = addInterface(11800);
         RSInterface spellButtons = interfaceCache[29999];
@@ -12410,7 +12422,7 @@ public class RSInterface {
         spellButtons.height = 260;
         spellButtons.width = 190;
         int widgetIndex = 0;
-        newInterface.child(widgetIndex++, filterButton.id, 50, 215);
+        newInterface.child(widgetIndex++, filterButton.id, 65, 235);
         newInterface.child(widgetIndex++, 29999, 0, 55);
         /**
          * Add teleports
@@ -15579,7 +15591,7 @@ public class RSInterface {
     public static void redoSpellBooks(TextDrawingArea[] tda) {
         RSInterface newInterface = addTabInterface(11000);
         RSInterface spellButtons = interfaceCache[1151];
-        newInterface.totalChildren(16);
+        newInterface.totalChildren(15);
 
         /**
          * Modern spellbook
@@ -15588,7 +15600,7 @@ public class RSInterface {
         spellButtons.height = 260;
         spellButtons.width = 190;
         int childId = 0;
-        newInterface.child(childId++, 31330, 50, 228);
+//        newInterface.child(childId++, 31330, 50, 228);
         newInterface.child(childId++, 1151, 5, 34);
 
         RSInterface.interfaceCache[12424].scrollMax = 0;
