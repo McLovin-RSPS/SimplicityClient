@@ -143,7 +143,35 @@ public abstract class CustomWidget {
     	rsi.componentId = id++;
     	return rsi;
     }
+    
+	public RSInterface addVerticalLine(int h, int color, int transparency) {
+		RSInterface r = RSInterface.addInterface(id);
+		r.componentId = id;
+		r.id = id;
+		r.parentID = id;
+		r.type = 27;
+		r.width = 1;
+		r.height = h;
+		r.disabledColor = color;
+		r.transparency = transparency;
+		id++;
+		return r;
+	}
 
+	public RSInterface addHorizontalLine(int w, int color, int transparency) {
+		RSInterface r = RSInterface.addInterface(id);
+		r.componentId = id;
+		r.id = id;
+		r.parentID = id;
+		r.type = 28;
+		r.width = w;
+		r.height = 1;
+		r.disabledColor = color;
+		r.transparency = transparency;
+		id++;
+		return r;
+	}
+    
     public RSInterface addBackground(int background) {
         return addBackground(background, getName());
     }
@@ -323,6 +351,31 @@ public abstract class CustomWidget {
         tab.height = 334;
         id++;
         return tab;
+    }
+    
+	/**
+	 * Adds an opaque hover button.
+	 * 
+	 * @param iconId           The icon sprite id.
+	 * @param hoverOpacity     The hover opacity.
+	 * @param tooltip          The tooltip.
+	 * @return The RSInterface.
+	 */
+    public RSInterface addHoverOpacityButton(int spriteId, int hoverOpacity, String tooltip) {
+    	RSInterface rsi = RSInterface.addInterface(id);
+    	rsi.componentId = id;
+    	rsi.id = id;
+    	rsi.type = 47;
+    	rsi.disabledSprite = Client.cacheSprite[spriteId];
+    	rsi.enabledSprite = Client.cacheSprite[spriteId];
+    	rsi.width = rsi.disabledSprite.myWidth;
+    	rsi.height = rsi.disabledSprite.myHeight;
+    	rsi.hoverOpacity = hoverOpacity;
+    	rsi.hoverType = id;
+    	rsi.tooltip = tooltip;
+    	rsi.contentType = 0;
+    	rsi.atActionType = 1;
+    	return rsi;
     }
     
 	/**
@@ -892,4 +945,5 @@ public abstract class CustomWidget {
     public RSInterface getInterface() {
         return RSInterface.interfaceCache[mainId];
     }
+    
 }

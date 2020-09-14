@@ -2579,6 +2579,8 @@ public class Client extends RSApplet {
 			return 1337;
 		case QuestTab.MISC_TAB_ID:
 			return 1335;
+		case QuestTab.RAID_TAB_ID:
+			return 1461;
 		default:
 			return 1334;
 		}
@@ -4517,9 +4519,10 @@ public class Client extends RSApplet {
                 continue;
             }
 
-			boolean hover = mouseX >= childX && mouseY >= childY
-                    && mouseX <= childX + child.width && mouseY <= childY + child.height;
+            int hoverYOff = clientSize != 0 && mouseInTabArea() ? -3 : 0;
 
+			boolean hover = mouseX >= childX && mouseY >= childY
+                    && mouseX <= childX + child.width && mouseY <= childY + child.height + hoverYOff;
 			if (child.id == SettingsWidget.ADVANCED) {
 				hover = mouseX >= childX && mouseY >= childY + 7 - child.height / 2 && mouseX < childX + child.width && mouseY < childY - 9 + child.height;
 			}
@@ -14202,12 +14205,12 @@ public class Client extends RSApplet {
             } catch (Exception _ex) {
             }
             updateGameArea();
+            mouseDetection = new MouseDetection(this);
             startRunnable(mouseDetection, 10);
             ObjectOnTile.clientInstance = this;
             ObjectDefinition.clientInstance = this;
             MobDefinition.clientInstance = this;
             setCursor(Configuration.enableCursors ? 0 : -1);
-            mouseDetection = new MouseDetection(this);
             handleShadow();
             try {
                 serial = CreateUID.generateUID();
@@ -15196,13 +15199,22 @@ public class Client extends RSApplet {
 
             	boolean hoverChatInterface = backDialogID != -1 && mouseInChatArea();
 
+            	boolean hoverTabInterface = mouseInTabArea();
+
             	int hoverXOff = hoverGameInterface && clientSize == 0 ? -4 : 0;
+
+            	int hoverYOff = hoverTabInterface ? 4 : 0;
 
             	int hoverX = mouseX + hoverXOff;
 
-            	int hoverY = mouseY - (hoverChatInterface && clientSize == 0 ? gameAreaHeight + 4: 4);
+            	int hoverY = mouseY - (hoverChatInterface && clientSize == 0 ? gameAreaHeight + 4 : 4) + hoverYOff;
 
-            	if (hoverChatInterface || hoverGameInterface) {
+            	if (clientSize == 0 && hoverTabInterface) {
+            		hoverX -= 519;
+            		hoverY -= 168;
+            	}
+
+            	if (hoverChatInterface || hoverGameInterface || hoverTabInterface) {
             		childHovered = hoverX >= childX && hoverX <= childX + child.width && hoverY >= childY && hoverY <= childY + child.height;
             	}
 
@@ -16411,6 +16423,8 @@ public class Client extends RSApplet {
                         if (sprite != null) {
                         	sprite.drawSprite(childX, childY);
                         }
+                    } else if (child.type == 47) {
+                		child.disabledSprite.drawAdvancedSprite(childX, childY, childHovered ? child.hoverOpacity : child.defaultOpacity);
                     } else if (child.type == 50) { // TOB ORBS
                         if (child.message.isEmpty()) {
                             continue;
@@ -20284,6 +20298,9 @@ public class Client extends RSApplet {
                             int id12322 = Integer.parseInt(ids[0]);
                             PetSystem.petSelected = id12322;
                         }
+                    } else if (s.startsWith(":set_quest_tab:")) {
+                    	int buttonId = Integer.parseInt(s.substring(s.lastIndexOf(":") + 1));
+                    	RSInterface.handleConfigHover(RSInterface.interfaceCache[buttonId]);
                     } else if (s.startsWith("setTeleportOptions:")) {
                         String[] ids = s.split(":")[1].split(",");
                        // RSInterface.???
@@ -25130,7 +25147,7 @@ public class Client extends RSApplet {
 	 * @return <code>true</code> if in bounds.
 	 */
     public boolean mouseInTabArea() {
-        return inImageProducerBounds(tabAreaIP, clientSize != 0 ? clientWidth - 240 : 0, clientSize != 0 ? clientHeight - 337 : 0);
+        return inImageProducerBounds(tabAreaIP, clientSize != 0 ? clientWidth - 240 : 519, clientSize != 0 ? clientHeight - 337 : 168);
     }
     
 	/**

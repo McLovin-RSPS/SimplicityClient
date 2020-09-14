@@ -12,6 +12,8 @@ import com.simplicity.client.widget.raids.cox.RaidingPartiesWidget;
 import com.simplicity.client.widget.raids.cox.XericPointsWidget;
 import com.simplicity.client.widget.raids.cox.party.RaidingPartyContainerWidget;
 import com.simplicity.client.widget.raids.cox.party.RaidingPartyWidget;
+import com.simplicity.client.widget.raids.cox.tab.RaidingTab;
+import com.simplicity.client.widget.raids.cox.tab.RaidingTabContainerWidget;
 import com.simplicity.client.widget.raids.tob.*;
 
 public class Widget {
@@ -51,6 +53,8 @@ public class Widget {
 		init(new RaidingPartiesContainerWidget());
 		init(new RaidingPartyWidget());
 		init(new RaidingPartyContainerWidget());
+		init(new RaidingTab());
+		init(new RaidingTabContainerWidget());
 	}
 
 	/**
@@ -108,4 +112,5 @@ public class Widget {
 
 		return widgets.get(mainId);
 	}
+	
 }

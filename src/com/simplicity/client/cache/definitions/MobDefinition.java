@@ -398,6 +398,7 @@ public final class MobDefinition {
                 npc.name = "Warmi";
                 npc.sizeXZ = 120;
                 npc.sizeY = 120;
+                npc.pet = true;
                 break;
                 
             case 2776:
@@ -405,6 +406,59 @@ public final class MobDefinition {
                 npc.name = "Kura";
                 npc.sizeXZ = 20;
                 npc.sizeY = 20;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                npc.squaresNeeded = 1;
+                npc.pet = true;
+                break;
+                
+            case 2576:
+                npc.copy(forID(23360));
+                npc.name = "Sugi";
+                npc.sizeXZ = 20;
+                npc.sizeY = 20;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                npc.squaresNeeded = 1;
+                npc.pet = true;
+                break;
+                
+            case 2530:
+                npc.copy(forID(23359));
+                npc.name = "Blo";
+                npc.sizeXZ = 20;
+                npc.sizeY = 20;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                npc.squaresNeeded = 1;
+                npc.pet = true;
+                break;
+
+            case 2532:
+                npc.copy(forID(23355));
+                npc.name = "Nylo";
+                npc.sizeXZ = 20;
+                npc.sizeY = 20;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                npc.squaresNeeded = 1;
+                break;
+                
+            case 2533:
+                npc.copy(forID(23388));
+                npc.name = "Tet";
+                npc.sizeXZ = 20;
+                npc.sizeY = 20;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                npc.squaresNeeded = 1;
+                break;
+                
+            case 2534:
+                npc.copy(forID(23338));
+                npc.name = "Arpus";
+                npc.sizeXZ = 40;
+                npc.sizeY = 40;
                 npc.actions = new String[5];
                 npc.actions[0] = "Pick-up";
                 npc.squaresNeeded = 1;

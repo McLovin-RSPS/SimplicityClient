@@ -2,6 +2,7 @@ package com.simplicity.client.widget;
 
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.TextDrawingArea;
+import com.simplicity.client.widget.raids.cox.tab.RaidingTab;
 
 public class QuestTab extends RSInterface {
 	
@@ -20,6 +21,8 @@ public class QuestTab extends RSInterface {
 	public static final int ACTIVITY_TAB_ID = INTERFACE_ID + 500;
 	
 	public static final int MISC_TAB_ID = INTERFACE_ID + 700;
+	
+	public static final int RAID_TAB_ID = INTERFACE_ID + 800;
 
 	public static void unpack(TextDrawingArea[] tda) {
 		navigation(tda);
@@ -27,6 +30,7 @@ public class QuestTab extends RSInterface {
 		questTab(tda);
 		activityTab(tda);
 		miscTab(tda);
+		raidTab(tda);
 	}
 
 	private static void navigation(TextDrawingArea[] tda) {
@@ -213,6 +217,13 @@ public class QuestTab extends RSInterface {
 		addWindow(id, width - 1, height, false, true, true);
 		tab.child(child++, id, 3, y);
 		id+=8;
+	}
+	
+	private static void raidTab(TextDrawingArea[] tda) {
+		RSInterface tab = addTabInterface(RAID_TAB_ID);
+		tab.totalChildren(2 + 0);
+		tab.child(0, INTERFACE_ID, 0, 0);
+		tab.child(1, RaidingTab.WIDGET_ID, 4, 26);
 	}
 	
 	private static RSInterface addTab(int id, int children) {
