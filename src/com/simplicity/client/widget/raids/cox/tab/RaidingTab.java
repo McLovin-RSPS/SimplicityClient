@@ -52,6 +52,7 @@ public class RaidingTab extends CustomWidget {
 		add(addBox(boxWidth - 1, 50, 2, 4671301, 0, 256, 0x483e33, 256), x, y);
 		add(addCenteredText("Party size: 0", 0, 0xff981f), x + 87, y + 4);
 		add(addDynamicButton("Start raid", 1, 0xff981f, 74, 25), x + 50, y + 18);
+		add(addCenteredText("Waiting for your leader to\\nbegin the raid...", 1, 0xff981f), x + 88, y + 18);
 	}
 	
 	public RSInterface addSortButton(int width, int height, boolean isActive, String tooltipBox) {
