@@ -73,8 +73,6 @@ public class RaidingPartyContainerWidget extends CustomWidget implements WidgetS
 		
 		START_ID = id;
 		
-		System.out.println("party cont start: " + id);
-		
 		for (int i = 0; i < ROWS; i++) {
 			boolean odd = i % 2 == 0;
 			RSInterface rect = addRectangleClickable(odd ? 235 : 255, odd ? 0 : 0x534a3f, true, WIDTH, RECT_HEIGHT, new String[2]);
@@ -84,7 +82,9 @@ public class RaidingPartyContainerWidget extends CustomWidget implements WidgetS
     		rect.enabledMouseOverColor = odd ? 0 : 0xffffff;
     		add(rect, x, y);
     		ids.add(id);
-    		add(addCenteredText("", 0, 0x9f9f9f), 5 + 45, 1 + y);
+    		RSInterface name = addCenteredText("", 0, 0x9f9f9f);
+    		name.useNewFonts = true;
+    		add(name, 5 + 45, 1 + y);
     		add(addCenteredText("", 0, 0x9f9f9f), 5 + 45 + 65, 1 + y);
     		add(addCenteredText("", 0, 0x9f9f9f), 5 + 45 + 95, 1 + y);
     		add(addCenteredText("", 0, 0x9f9f9f), 5 + 45 + 130, 1 + y);

@@ -1,5 +1,6 @@
 package com.simplicity.client.widget.raids.cox.tab;
 
+import com.simplicity.client.RSInterface;
 import com.simplicity.client.widget.CustomWidget;
 
 public class RaidingTabContainerWidget extends CustomWidget {
@@ -31,7 +32,9 @@ public class RaidingTabContainerWidget extends CustomWidget {
 		int y = 0;
 		
 		for (int i = 0; i < AMOUNT; i++) {
-			add(addCenteredText("", 0, 0xff981f), 43, y);
+			RSInterface name = addCenteredText("", 0, 0xff981f);
+			name.useNewFonts = true;
+			add(name, 43, y);
 			add(addCenteredText("", 0, 0xff981f), 43 + 61, y);
 			add(addCenteredText("", 0, 0xff981f), 43 + 96, y);
 			y += 12;
