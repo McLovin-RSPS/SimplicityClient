@@ -12888,7 +12888,7 @@ public class Client extends RSApplet {
                 inputTextType = 0;
                 friendsCount = 0;
                 dialogID = -1;
-                backDialogID = -1;
+                resetDialogue();
                 openInterfaceID = -1;
                 invOverlayInterfaceID = -1;
                 walkableInterfaceId = -1;
@@ -19335,7 +19335,7 @@ public class Client extends RSApplet {
             tabAreaAltered = true;
         }
         if (backDialogID != -1) {
-            backDialogID = -1;
+            resetDialogue();
             inputTaken = true;
         }
         if (inputDialogState != 0) {
@@ -19348,7 +19348,7 @@ public class Client extends RSApplet {
 
     public void sendFrame248(int interfaceID, int sideInterfaceID) {
         if (backDialogID != -1) {
-            backDialogID = -1;
+            resetDialogue();
             inputTaken = true;
         }
         if (inputDialogState != 0) {
@@ -20510,7 +20510,7 @@ public class Client extends RSApplet {
                     int i5 = inStream.readDWord();
                     int k12 = inStream.readUnsignedWord();
                     if (backDialogID != -1) {
-                        backDialogID = -1;
+                        resetDialogue();
                         inputTaken = true;
                     }
                     if (inputDialogState != 0) {
@@ -20700,7 +20700,7 @@ public class Client extends RSApplet {
                     int j6 = inStream.ig2();
                     resetInterfaceAnimation(j6);
                     if (backDialogID != -1) {
-                        backDialogID = -1;
+                        resetDialogue();
                         inputTaken = true;
                     }
                     if (inputDialogState != 0) {
@@ -20741,6 +20741,7 @@ public class Client extends RSApplet {
                 case 126:
                     String text = inStream.readString();
                     int frame = inStream.getInt();
+                    
                     if (text.equals("scrollreset")) {
                         if (frame == 5385) {
                             RSInterface.interfaceCache[5385].scrollPosition = 0;
@@ -20766,7 +20767,7 @@ public class Client extends RSApplet {
                         int quantity = Integer.parseInt(args[1]);
                     	SkillQuantityWidget.shiftQuantities(quantity);
                     } else if (text.startsWith("closedialogue")) {
-                        backDialogID = -1;
+                        resetDialogue();
                         inputTaken = true;
                     } else if (text.startsWith("itfactions")) {
                         System.out.println(text);
@@ -21073,6 +21074,9 @@ public class Client extends RSApplet {
                     if (frame >= 18144 && frame <= 18244) {
                         clanList[frame - 18144] = text;
                     }
+                    if (isDialogueTitleFrame(frame)) {
+                		formatDialogueTitle(frame);
+                    }
                     opCode = -1;
                     return true;
 
@@ -21290,7 +21294,7 @@ public class Client extends RSApplet {
                             tabAreaAltered = true;
                         }
                         if (backDialogID != -1) {
-                            backDialogID = -1;
+                            resetDialogue();
                             inputTaken = true;
                         }
                         if (inputDialogState != 0) {
@@ -21398,7 +21402,7 @@ public class Client extends RSApplet {
                         tabAreaAltered = true;
                     }
                     if (backDialogID != -1) {
-                        backDialogID = -1;
+                        resetDialogue();
                         inputTaken = true;
                     }
                     if (inputDialogState != 0) {
@@ -21466,7 +21470,7 @@ public class Client extends RSApplet {
                     if (j9 == SkillQuantityWidget.INTERFACE_ID) {
                     	SkillQuantityWidget.onInit();
                     }
-                    backDialogID = j9;
+                    setDialogue(j9);
                     inputTaken = true;
                     dialogOptionsShowing = false;
                     withdrawingMoneyFromPouch = false;
@@ -21503,7 +21507,60 @@ public class Client extends RSApplet {
         return true;
     }
 
-    private void requestGfxFile(int gfxId) {
+	/**
+	 * Determines if the specified frame is a dialogue title frame.
+	 * 
+	 * @param frame The frame.
+	 * @return <code>true</code> if determined as a dialogue title frame.
+	 */
+	private boolean isDialogueTitleFrame(int frame) {
+		return frame == 2460 || frame == 2470 || frame == 2481 || frame == 2493;
+	}
+	
+	/**
+	 * Formats the dialogue's title.
+	 * 
+	 * @param titleFrame The title frame id.
+	 * @param text       The text.
+	 */
+	private void formatDialogueTitle(int titleFrame) {
+		int textWidth = fancyText.getTextWidth(RSInterface.interfaceCache[titleFrame].message);
+		int spriteId = getDialogueSpriteId(titleFrame);
+
+		RSInterface.interfaceCache[spriteId].xOffset = Math.min(textWidth, 247);
+		RSInterface.interfaceCache[spriteId + 1].xOffset = Math.max(-(textWidth / 2), -122);
+	}
+	
+	/**
+	 * Resets the dialogues title frame.
+	 * @param frameId The frame id.
+	 */
+	private void resetDialogueTitle(int frameId) {
+		RSInterface.interfaceCache[frameId].message = "Select an Option";
+	}
+
+	/**
+	 * Gets the dialogue sprite id.
+	 * 
+	 * @param dialogueId The dialogue id.
+	 * @return The sprite id.
+	 */
+	private int getDialogueSpriteId(int dialogueId) {
+		switch (dialogueId) {
+		case 2460:
+			return 2464;
+		case 2470:
+			return 2475;
+		case 2481:
+			return 2487;
+		case 2493:
+			return 2500;
+		default:
+			return -1;
+		}
+	}
+
+	private void requestGfxFile(int gfxId) {
     	try {
             SpotAnimDefinition spotAnim = SpotAnimDefinition.cache[gfxId];
 
@@ -22159,7 +22216,7 @@ public class Client extends RSApplet {
             tabAreaAltered = true;
         }
         if (backDialogID != -1) {
-            backDialogID = -1;
+            resetDialogue();
             inputTaken = true;
             dialogOptionsShowing = false;
         }
@@ -22169,6 +22226,29 @@ public class Client extends RSApplet {
         if (openInterfaceID != -1) {
 			resetWidgetDropDowns(openInterfaceID);
 		}
+    }
+    
+    /**
+     * Sets the current dialogue.
+     * @param dialogueId The dialogue id.
+     */
+	private void setDialogue(int dialogueId) {
+		backDialogID = dialogueId;
+		
+		if (isDialogueTitleFrame(dialogueId + 1)) {
+        	formatDialogueTitle(dialogueId + 1);
+        }
+	}
+    
+    /**
+     * Resets the current dialogue.
+     */
+    private void resetDialogue() {
+    	if (isDialogueTitleFrame(backDialogID + 1) ) {
+    		resetDialogueTitle(backDialogID + 1);
+    	}
+    	
+    	backDialogID = -1;
     }
 
     private int[] filteredSpells() {
@@ -22397,7 +22477,7 @@ public class Client extends RSApplet {
         welcomeScreenRaised = false;
         showInput = false;
         inputTitle = null;
-        backDialogID = -1;
+        resetDialogue();
         anInt1279 = 2;
         bigX = new int[4000];
         bigY = new int[4000];

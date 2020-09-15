@@ -4501,7 +4501,8 @@ public class RSInterface {
          *
          * }
          */
-
+        optionDialogues();
+        
         magicFiltering(textDrawingAreas);
         makeAllSkilling(textDrawingAreas);
         
@@ -4534,6 +4535,24 @@ public class RSInterface {
         Widget.init();
         spriteCache = null;
     }
+
+	private static void optionDialogues() {
+		RSInterface.interfaceCache[2464].xOffset = 247;
+		RSInterface.interfaceCache[2465].width = 485;
+		RSInterface.interfaceCache[2465].xOffset = -122;
+		
+		RSInterface.interfaceCache[2475].xOffset = 247;
+		RSInterface.interfaceCache[2476].width = 485;
+		RSInterface.interfaceCache[2476].xOffset = -122;
+		
+		RSInterface.interfaceCache[2487].xOffset = 247;
+		RSInterface.interfaceCache[2488].width = 485;
+		RSInterface.interfaceCache[2488].xOffset = -122;
+		
+		RSInterface.interfaceCache[2500].xOffset = 247;
+		RSInterface.interfaceCache[2501].width = 485;
+		RSInterface.interfaceCache[2501].xOffset = -122;
+	}
 
 	private static void raidsHealth(TextDrawingArea[] textDrawingAreas2) {
 		int id = 61500;
