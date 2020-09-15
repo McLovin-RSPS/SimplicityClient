@@ -66,6 +66,9 @@ public class OldschoolMaps {
             //zalcano
             12126,
             
+            9116, // Kraken
+            13900, // Elite minigame
+            
             // Ironman Guild
             8773,
             
