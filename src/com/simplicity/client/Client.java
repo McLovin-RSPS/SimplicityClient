@@ -22264,6 +22264,7 @@ public class Client extends RSApplet {
     		resetDialogueTitle(backDialogID + 1);
     	}
     	
+    	RSInterface.interfaceCache[358].hidden = false;
     	backDialogID = -1;
     }
 
