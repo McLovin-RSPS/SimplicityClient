@@ -22260,11 +22260,14 @@ public class Client extends RSApplet {
      * Resets the current dialogue.
      */
     private void resetDialogue() {
-    	if (isDialogueTitleFrame(backDialogID + 1) ) {
-    		resetDialogueTitle(backDialogID + 1);
+    	if (RSInterface.interfaceCache != null) {
+	    	if (isDialogueTitleFrame(backDialogID + 1) ) {
+	    		resetDialogueTitle(backDialogID + 1);
+	    	}
+    	
+    		RSInterface.interfaceCache[358].hidden = false;
     	}
     	
-    	RSInterface.interfaceCache[358].hidden = false;
     	backDialogID = -1;
     }
 
