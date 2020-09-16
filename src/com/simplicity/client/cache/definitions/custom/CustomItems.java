@@ -956,7 +956,7 @@ public class CustomItems {
                 itemDef.copy(ItemDefinition.forID(15241));
                 itemDef.editedModelColor = new int[]{35868, 35895, 35912, 35865, 35882, 35875, 35888, 35905, 35856, 35873, 35866, 6303, 35840, 35862, 35855, 6317, 35886, 2566, 2566, 2566, 1097, 54, 49, 39, 32, 64, 59, 45, 31, 40, 50, 23, 85, 6303};
                 itemDef.newModelColor = new int[]{90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 32, 90, 90, 45, 31, 40, 90, 90, 90, 90};
-                itemDef.name = "Hand cannon X";
+                itemDef.name = "Hand cannon XI";
                 break;
                 
             case 15045:

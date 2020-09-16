@@ -1405,6 +1405,16 @@ public final class ItemDefinition {
 		    itemDef.dataType = DataType.CUSTOM;
 		    itemDef.name = "Cursed Reaver wings";
 		    break;
+		    
+        case 21040:
+		    itemDef.copy(forID(50997));
+            itemDef.actions[1] = "Wear";
+            itemDef.actions[4] = "Drop";
+            itemDef.name = "Sirenic twisted bow";
+            itemDef.description = "A mystical bow carved from the twisted remains of higher dimensions.";
+            itemDef.editedModelColor = new int[] { 16, 24, 33, 43223, 44236 };
+            itemDef.newModelColor = new int[] { 90, 90, 90, 90, 90 };
+            break;
 			
         case 22014:
         	itemDef.copy(forID(14008));
