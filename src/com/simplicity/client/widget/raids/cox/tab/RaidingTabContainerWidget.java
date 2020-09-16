@@ -1,5 +1,6 @@
 package com.simplicity.client.widget.raids.cox.tab;
 
+import com.simplicity.client.RSInterface;
 import com.simplicity.client.widget.CustomWidget;
 
 public class RaidingTabContainerWidget extends CustomWidget {
@@ -8,6 +9,11 @@ public class RaidingTabContainerWidget extends CustomWidget {
 	 * The widget id.
 	 */
 	public static final int WIDGET_ID = 73_850;
+	
+	/**
+	 * The amount of members.
+	 */
+	private static final int AMOUNT = 20;
 	
 	/**
 	 * Constructs a new {@link RaidingTabContainerWidget}.
@@ -25,14 +31,16 @@ public class RaidingTabContainerWidget extends CustomWidget {
 	public void init() {
 		int y = 0;
 		
-		for (int i = 0; i < 20; i++) {
-			add(addCenteredText("Gold Lining", 0, 0xff981f), 43, y);
-			add(addCenteredText("63", 0, 0xff981f), 43 + 61, y);
-			add(addCenteredText("1076", 0, 0xff981f), 43 + 96, y);
+		for (int i = 0; i < AMOUNT; i++) {
+			RSInterface name = addCenteredText("", 0, 0xff981f);
+			name.useNewFonts = true;
+			add(name, 43, y);
+			add(addCenteredText("", 0, 0xff981f), 43 + 61, y);
+			add(addCenteredText("", 0, 0xff981f), 43 + 96, y);
 			y += 12;
 		}
 		
-		getInterface().scrollMax = 144 + (20 * 11);
+		getInterface().scrollMax = 145;
 		getInterface().width = 156;
 		getInterface().height = 144;
 	}
