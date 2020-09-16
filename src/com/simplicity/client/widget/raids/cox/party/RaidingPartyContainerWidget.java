@@ -75,19 +75,20 @@ public class RaidingPartyContainerWidget extends CustomWidget implements WidgetS
 		
 		for (int i = 0; i < ROWS; i++) {
 			boolean odd = i % 2 == 0;
-			RSInterface rect = addRectangleClickable(odd ? 235 : 255, odd ? 0 : 0x534a3f, true, WIDTH, RECT_HEIGHT, new String[2]);
+			RSInterface rect = addRectangleClickable(odd ? 250 : 235, odd ? 0 : 0xffffff, true, WIDTH, RECT_HEIGHT, new String[2]);
 			rect.hovers = false;
     		rect.hoverType = id - 1;
-    		rect.enabledOpacity = odd ? 225 : 225;
-    		rect.enabledMouseOverColor = odd ? 0 : 0xffffff;
+    		rect.enabledOpacity = odd ? 210 : 210;
+    		rect.enabledMouseOverColor = odd ? 0xffffff : 0xffffff;
+    		rect.hidden = true;
     		add(rect, x, y);
     		ids.add(id);
-    		RSInterface name = addCenteredText("", 0, 0x9f9f9f);
+    		RSInterface name = addCenteredText("", 0, 0xff981f);
     		name.useNewFonts = true;
     		add(name, 5 + 45, 1 + y);
-    		add(addCenteredText("", 0, 0x9f9f9f), 5 + 45 + 65, 1 + y);
-    		add(addCenteredText("", 0, 0x9f9f9f), 5 + 45 + 95, 1 + y);
-    		add(addCenteredText("", 0, 0x9f9f9f), 5 + 45 + 130, 1 + y);
+    		add(addCenteredText("", 0, 0xff981f), 5 + 45 + 65, 1 + y);
+    		add(addCenteredText("", 0, 0xff981f), 5 + 45 + 95, 1 + y);
+    		add(addCenteredText("", 0, 0xff981f), 5 + 45 + 130, 1 + y);
 			y += RECT_HEIGHT;
 		}
 	}
@@ -112,6 +113,7 @@ public class RaidingPartyContainerWidget extends CustomWidget implements WidgetS
 			rect.actions = new String[] { "Stats" };
 		}
 		rect.hovers = !string.isEmpty();
+		rect.hidden = string.isEmpty();
 	}
 
 }
