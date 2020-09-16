@@ -2,8 +2,9 @@ package com.simplicity.client.widget.raids.cox.tab;
 
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.widget.CustomWidget;
+import com.simplicity.client.widget.listener.WidgetStateListener;
 
-public class RaidingTab extends CustomWidget {
+public class RaidingTab extends CustomWidget implements WidgetStateListener {
 	
 	/**
 	 * The widget id.
@@ -14,6 +15,11 @@ public class RaidingTab extends CustomWidget {
 	 * The sort button start id.
 	 */
 	public static int SORT_BUTTON_START;
+	
+	/**
+	 * The text string id.
+	 */
+	private static int TEXT_ID;
 
 	/**
 	 * Constructs a new {@link RaidingTab}.
@@ -52,6 +58,7 @@ public class RaidingTab extends CustomWidget {
 		add(addBox(boxWidth - 1, 50, 2, 4671301, 0, 256, 0x483e33, 256), x, y);
 		add(addCenteredText("Party size: 0", 0, 0xff981f), x + 87, y + 4);
 		add(addDynamicButton("Start raid", 1, 0xff981f, 74, 25), x + 50, y + 18);
+		TEXT_ID = id;
 		add(addCenteredText("Waiting for your leader to\\nbegin the raid...", 1, 0xff981f), x + 88, y + 18);
 	}
 	
@@ -78,6 +85,11 @@ public class RaidingTab extends CustomWidget {
 		
 		button.selectableInterfaces = selectable;
 		return button;
+	}
+
+	@Override
+	public void onDisplay() {
+		RSInterface.interfaceCache[TEXT_ID].message = "Waiting for your leader to\\\\nbegin the raid...";
 	}
 
 }

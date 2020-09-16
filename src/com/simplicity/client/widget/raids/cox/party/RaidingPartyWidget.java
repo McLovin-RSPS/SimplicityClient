@@ -118,15 +118,16 @@ public class RaidingPartyWidget extends CustomWidget implements WidgetButtonList
 		add(addDynamicButton("Advertise (15)", 1, 0xff981f, 110, 29), 260, 261);
 		DISBAND_BUTTON_ID = id + 1;
 		add(addDynamicButton("Disband", 1, 0xff0000, 110, 29), 372, 261);
-		addWidget(RaidingPartyContainerWidget.WIDGET_ID, x + 20, y + 17);
 		
 		int containerFrameX = 38 - 4;
 		int containerFrameY = 51 - 4;
 		
-		add(addBox(218 - 1, 268, 2, 4671301, 0, 250, 0, 0), containerFrameX, containerFrameY);
+		add(addBox(218 - 1, 268, 2, 4671301, 0, 250, 0x3e3529, 256), containerFrameX, containerFrameY);
 		
 		SORT_BOX_ID = id;
 		add(addBox(218 - 1, 14, 2, 4671301, 0, 250, 0, 0), containerFrameX, containerFrameY);
+		
+		addWidget(RaidingPartyContainerWidget.WIDGET_ID, x + 20, y + 17);
 		
 		PREFERRED_SIZE_ID = id;
 		add(addField(222, 20, "Preferred party size: ---", "Set @lre@Preferred party size"), 260 - 4, containerFrameY);
