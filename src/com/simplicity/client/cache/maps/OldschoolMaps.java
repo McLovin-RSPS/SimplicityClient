@@ -86,7 +86,8 @@ public class OldschoolMaps {
             13379,
             10645, 10644, 10900, 10901, // Brimhaven Dungeon
             12183, 12184,
-            14936
+            14936,
+            12948
     };
     static {
         for(Integer region : OLDSCHOOL_REGION_IDS) {
