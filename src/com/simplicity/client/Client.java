@@ -8184,8 +8184,8 @@ public class Client extends RSApplet {
         	effectTimersVisible = !effectTimersVisible;
         }
 
-        if (interfaceId == 31332 || interfaceId == 29592) {
-            tabInterfaceIDs[6] = interfaceId == 29592 ? activeMagicBookInterfaceId : 29566;
+        if (interfaceId == 31332 || interfaceId == 34238) {
+            tabInterfaceIDs[6] = interfaceId == 29592 ? activeMagicBookInterfaceId : 34212;
             needDrawTabArea = true;
             tabAreaAltered = true;
         }
