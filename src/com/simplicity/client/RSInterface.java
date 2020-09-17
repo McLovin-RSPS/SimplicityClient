@@ -11436,9 +11436,9 @@ public class RSInterface {
     }
 
     private static void magicFiltering(TextDrawingArea[] tda) {
-        RSInterface parent = addInterface(29566);
+        RSInterface parent = addInterface(34212);
         parent.children(1);
-        int widgetId = 29568;
+        int widgetId = 34214;
         RSInterface container = addInterface(widgetId);
         parent.child(0, container.id, 0, 0);
         container.height = 260;
