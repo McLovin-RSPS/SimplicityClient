@@ -33,6 +33,11 @@ public class RaidingPartyWidget extends CustomWidget implements WidgetButtonList
 	 * The progress sprite id.
 	 */
 	public static int PROGRESS_SPRITE_ID;
+
+	/**
+	 * The advertise button id.
+	 */
+	public static int ADVERTISE_BUTTON_ID;
 	
 	/**
 	 * The refresh button id.
@@ -114,7 +119,7 @@ public class RaidingPartyWidget extends CustomWidget implements WidgetButtonList
 		add(addDynamicButton("Refresh", 1, 0xff981f, 110, 29), 372, 292);
 		BACK_BUTTON_ID = id + 1;
 		add(addDynamicButton("Back", 1, 0xff981f, 110, 29), 260, 292);
-		UNBLOCK_BUTTON_ID = id + 1;
+		ADVERTISE_BUTTON_ID = id + 1;
 		add(addDynamicButton("Advertise (15)", 1, 0xff981f, 110, 29), 260, 261);
 		DISBAND_BUTTON_ID = id + 1;
 		add(addDynamicButton("Disband", 1, 0xff0000, 110, 29), 372, 261);
@@ -187,14 +192,14 @@ public class RaidingPartyWidget extends CustomWidget implements WidgetButtonList
 	
 	@Override
 	public boolean onClick(int id) {
-		if (id == REFRESH_BUTTON_ID || id == BACK_BUTTON_ID || id == UNBLOCK_BUTTON_ID || id == DISBAND_BUTTON_ID) {
+		if (id == ADVERTISE_BUTTON_ID || id == REFRESH_BUTTON_ID || id == BACK_BUTTON_ID || id == UNBLOCK_BUTTON_ID || id == DISBAND_BUTTON_ID) {
 			RSInterface button = RSInterface.interfaceCache[id];
 			
 			if (button.buttonDown) {
 				return true;
 			}
 			
-			TaskManager.submit(new RaidButtonTask(button, id == REFRESH_BUTTON_ID || id == BACK_BUTTON_ID ? 300 : 600, id != DISBAND_BUTTON_ID && id != BACK_BUTTON_ID) {
+			TaskManager.submit(new RaidButtonTask(button, id == REFRESH_BUTTON_ID || id == BACK_BUTTON_ID ? 300 : 600, id != ADVERTISE_BUTTON_ID && id != DISBAND_BUTTON_ID && id != BACK_BUTTON_ID) {
 				@Override
 				public void clicked() {
 					if (id == REFRESH_BUTTON_ID) {
@@ -214,8 +219,8 @@ public class RaidingPartyWidget extends CustomWidget implements WidgetButtonList
 	
 	@Override
 	public void onStringUpdate(int id, String string) {
-		if (id == DISBAND_BUTTON_ID + 1) { // Disband string updated
-			RSInterface button = RSInterface.interfaceCache[DISBAND_BUTTON_ID];
+		if (id == ADVERTISE_BUTTON_ID + 1 || id == DISBAND_BUTTON_ID + 1) { // Disband string updated
+			RSInterface button = RSInterface.interfaceCache[id - 1];
 			
 			button.buttonDown = false;
 		}
@@ -235,6 +240,8 @@ public class RaidingPartyWidget extends CustomWidget implements WidgetButtonList
 		boolean hidden = RSInterface.interfaceCache[UNBLOCK_BUTTON_ID - 1].hidden;
 		RSInterface.interfaceCache[PREFERRED_SIZE_ID].tooltip = hidden ? null : "Set @lre@Preffered size";
 		RSInterface.interfaceCache[PREFERRED_LEVEL_ID].tooltip = hidden ? null : "Set @lre@Preffered level";
+		
+		RSInterface.interfaceCache[ADVERTISE_BUTTON_ID].buttonDown = false;
 	}
 	
 	/**

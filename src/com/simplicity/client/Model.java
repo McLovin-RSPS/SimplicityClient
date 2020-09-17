@@ -3734,20 +3734,39 @@ public class Model extends Animable {
             verticesYCoordinate[i1] = j1;
         }
     }
-
-    public void scale2(int i, int j, int k) {
-        for (int i1 = 0; i1 < numberOfVerticeCoordinates; i1++) {
-            verticesXCoordinate[i1] = verticesXCoordinate[i1] * i >> 7;
-            verticesYCoordinate[i1] = verticesYCoordinate[i1] * j >> 7;
-            verticesZCoordinate[i1] = verticesZCoordinate[i1] * k >> 7;
+    
+    public void translateO(int i, int i123, int i124) {
+        for (int i125 = 0; i125 < numberOfVerticeCoordinates; i125++) {
+        	verticesXCoordinate[i125] += i;
+            verticesYCoordinate[i125] += i123;
+            verticesZCoordinate[i125] += i124;
         }
     }
 
-    public void scaleT(int i, int j, int l) {
+    public void scaleO(int i, int i123, int i124) {
+        for (int i125 = 0; i125 < numberOfVerticeCoordinates; i125++) {
+        	verticesXCoordinate[i125] *= i;
+        	verticesYCoordinate[i125] *= i123;
+        	verticesZCoordinate[i125] *= i124;
+            verticesXCoordinate[i125] /= 128;
+            verticesYCoordinate[i125] /= 128;
+            verticesZCoordinate[i125] /= 128;
+        }
+    }
+
+    public void scale2(int x, int y, int z) {
         for (int i1 = 0; i1 < numberOfVerticeCoordinates; i1++) {
-            verticesXCoordinate[i1] = (verticesXCoordinate[i1] * i) / 128;
-            verticesYCoordinate[i1] = (verticesYCoordinate[i1] * l) / 128;
-            verticesZCoordinate[i1] = (verticesZCoordinate[i1] * j) / 128;
+            verticesXCoordinate[i1] = verticesXCoordinate[i1] * x >> 7;
+            verticesYCoordinate[i1] = verticesYCoordinate[i1] * y >> 7;
+            verticesZCoordinate[i1] = verticesZCoordinate[i1] * z >> 7;
+        }
+    }
+
+    public void scaleT(int x, int z, int y) {
+        for (int i1 = 0; i1 < numberOfVerticeCoordinates; i1++) {
+            verticesXCoordinate[i1] = (verticesXCoordinate[i1] * x) / 128;
+            verticesYCoordinate[i1] = (verticesYCoordinate[i1] * y) / 128;
+            verticesZCoordinate[i1] = (verticesZCoordinate[i1] * z) / 128;
         }
 
     }
