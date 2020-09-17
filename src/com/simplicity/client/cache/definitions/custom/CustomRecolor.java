@@ -372,10 +372,13 @@ public enum CustomRecolor {
 			new int[] { 127, 127, 127, 51136, 127, 127, 51136, 127, 127, 127, 127, 127, 127, 51136 }),
 	SEZY_GREENBLACK_ANGELIC_CAPE(11162, 11614, "Angelic Master Work", 
 			new int[]{ 40023, 40036, 1822, 36, 25, 34243, 9230, 40040, 10348, 48, 34251, 0, 43335, 6218, 23, 11013 },
-			getCustomCapeColor(0, 350770)),
+			getCustomCapeColor(0, 20158)),
 	SEZY_PINKWHITE_ANGELIC_CAPE(11163, 11614, "@whi@Angelic Roseblood Pink", 
 			new int[]{ 40023, 40036, 1822, 36, 25, 34243, 9230, 40040, 10348, 48, 34251, 0, 43335, 6218, 23, 11013 },
 			getCustomCapeColor(125, 57300)),
+	MULTICOLOR_SCYTHE(13404, 15000, "@pur@Royal DS Scythe", 
+			new int[] { 33, 37, 41, 78, 16, 784, 49, 20, 790, 24, 536, 796, 28, 61 },
+			new int[] { 127, 127, 127, 51136, 9087, 9087, 51136, 127, 127, 127, 9087, 9087, 127, 51136 }),
 	;
 	/**
 	 * Constructs a new {@link CustomRecolor}.
