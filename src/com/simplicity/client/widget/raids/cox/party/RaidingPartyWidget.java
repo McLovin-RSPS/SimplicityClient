@@ -143,7 +143,7 @@ public class RaidingPartyWidget extends CustomWidget implements WidgetButtonList
 		add(addField(222, 20, "Challenge mode", "Set @lre@Challenge mode"), 260 - 4, containerFrameY + 66);
 		
 		SORT_BUTTON_START = id;
-		add(addSortButton(102, 9, true, "Sort by name"), containerFrameX, containerFrameY + 2);
+		add(addSortButton(102, 9, false, "Sort by name"), containerFrameX, containerFrameY + 2);
 		add(addSortButton(30, 9, false, "Sort by combat level"), containerFrameX + 102, containerFrameY + 2);
 		add(addSortButton(30, 9, false, "Sort by skill total"), containerFrameX + 102 + 30, containerFrameY + 2);
 		add(addSortButton(40, 9, false, "Sort by kill count"), containerFrameX + 102 + 30 + 30, containerFrameY + 2);
@@ -178,9 +178,9 @@ public class RaidingPartyWidget extends CustomWidget implements WidgetButtonList
 		button.tooltipOffsetX = 5;
 		button.tooltipOffsetY = 5;
 		
-		int[] selectable = new int[9];
+		int[] selectable = new int[3];
 		
-		for (int i = SORT_BUTTON_START, ptr = 0; i <= SORT_BUTTON_START + 9; i++) {
+		for (int i = SORT_BUTTON_START, ptr = 0; i <= SORT_BUTTON_START + 3; i++) {
 			if (i != id - 1) {
 				selectable[ptr++] = i;
 			}
@@ -192,6 +192,10 @@ public class RaidingPartyWidget extends CustomWidget implements WidgetButtonList
 	
 	@Override
 	public boolean onClick(int id) {
+		if (id >= SORT_BUTTON_START && id <= SORT_BUTTON_START + 3) {
+			RSInterface.setSelectedInterface(id, true);
+		}
+		
 		if (id == ADVERTISE_BUTTON_ID || id == REFRESH_BUTTON_ID || id == BACK_BUTTON_ID || id == UNBLOCK_BUTTON_ID || id == DISBAND_BUTTON_ID) {
 			RSInterface button = RSInterface.interfaceCache[id];
 			
@@ -242,6 +246,9 @@ public class RaidingPartyWidget extends CustomWidget implements WidgetButtonList
 		RSInterface.interfaceCache[PREFERRED_LEVEL_ID].tooltip = hidden ? null : "Set @lre@Preffered level";
 		
 		RSInterface.interfaceCache[ADVERTISE_BUTTON_ID].buttonDown = false;
+		
+		RSInterface.setSelectedInterface(SORT_BUTTON_START);
+		RSInterface.interfaceCache[SORT_BUTTON_START].active = false;
 	}
 	
 	/**

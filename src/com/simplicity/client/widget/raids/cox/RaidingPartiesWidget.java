@@ -112,6 +112,10 @@ public class RaidingPartiesWidget extends CustomWidget implements WidgetButtonLi
 	
 	@Override
 	public boolean onClick(int id) {
+		if (id >= SORT_BUTTON_START && id <= SORT_BUTTON_START + 6) {
+			RSInterface.setSelectedInterface(id, true);
+		}
+		
 		if (id == REFRESH_BUTTON_ID || id == MAKE_PARTY_BUTTON_ID) {
 			RSInterface button = RSInterface.interfaceCache[id];
 			
@@ -137,6 +141,9 @@ public class RaidingPartiesWidget extends CustomWidget implements WidgetButtonLi
 	public void onDisplay() {
 		RSInterface.interfaceCache[MAKE_PARTY_BUTTON_ID].buttonDown = false;
 		RSInterface.interfaceCache[REFRESH_BUTTON_ID].buttonDown = false;
+		
+		RSInterface.setSelectedInterface(SORT_BUTTON_START);
+		RSInterface.interfaceCache[SORT_BUTTON_START].active = true;
 	}
 	
 }
