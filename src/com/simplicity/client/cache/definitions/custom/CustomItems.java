@@ -216,6 +216,41 @@ public class CustomItems {
                 itemDef.newModelColor = new int[]{14573, 1024, 1024, 1024, 14573, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 14573};
                 break;
                 
+            case 17931:
+                itemDef.copy(ItemDefinition.forID(22014));
+                itemDef.name = "Light sirenic helm";
+                itemDef.editedModelColor = new int[]{39329, 32197, 38057, 41226, 33066, 40202, 41232, 40084, 41237, 40085, 40344, 40345, 40090, 32060, 40349};
+                itemDef.newModelColor = new int[]{90, 32197, 90, 41226, 90, 40202, 90, 40084, 90, 90, 90, 90, 90, 90, 90};
+                break;
+                
+            case 17932:
+                itemDef.copy(ItemDefinition.forID(22016));
+                itemDef.name = "Light sirenic platebody";
+                itemDef.editedModelColor = new int[]{39329, 32197, 33066, 43149, 41232, 43153, 42131, 41237, 42133, 40344, 40345, 32060, 40349, 20158};
+                itemDef.newModelColor = new int[]{90, 32197, 90, 43149, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90};
+                break;
+                
+            case 17933:
+                itemDef.copy(ItemDefinition.forID(22018));
+                itemDef.name = "Light sirenic platelegs";
+                itemDef.editedModelColor = new int[]{39329, 32197, 33066, 43149, 41232, 43153, 42131, 41237, 42133, 40344, 40345, 32060, 40349};
+                itemDef.newModelColor = new int[]{90, 32197, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90};
+                break;
+
+            case 17934:
+                itemDef.copy(ItemDefinition.forID(22022));
+                itemDef.name = "Light sirenic gloves";
+                itemDef.editedModelColor = new int[]{40608, 33201, 43283, 40596, 43285, 43276};
+                itemDef.newModelColor = new int[]{90, 90, 90, 90, 90, 90};
+                break;
+
+            case 17935:
+                itemDef.copy(ItemDefinition.forID(22020));
+                itemDef.name = "Light sirenic boots";
+                itemDef.editedModelColor = new int[]{35104, 2, 35092, 35109, 38422, 43275, 38412};
+                itemDef.newModelColor = new int[]{35104, 90, 35092, 35109, 90, 90, 90};
+                break;
+                
             case 14548:
                 itemDef.copy(ItemDefinition.forID(17061));
                 itemDef.name = "Light Sagittarian coif";
@@ -916,6 +951,20 @@ public class CustomItems {
                 itemDef.newModelColor = new int[]{90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 70};
                 itemDef.name = "Angelic Cape";
                 break;  
+                
+            case 11620:
+                itemDef.copy(ItemDefinition.forID(15241));
+                itemDef.editedModelColor = new int[]{35868, 35895, 35912, 35865, 35882, 35875, 35888, 35905, 35856, 35873, 35866, 6303, 35840, 35862, 35855, 6317, 35886, 2566, 2566, 2566, 1097, 54, 49, 39, 32, 64, 59, 45, 31, 40, 50, 23, 85, 6303};
+                itemDef.newModelColor = new int[]{90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 32, 90, 90, 45, 31, 40, 90, 90, 90, 90};
+                itemDef.name = "Hand cannon XI";
+                break;
+                
+            case 15045:
+                itemDef.copy(ItemDefinition.forID(15243));
+                itemDef.editedModelColor = new int[]{7223, 7467, 6430, 6798};
+                itemDef.newModelColor = new int[]{7223, 90, 90, 6798};
+                itemDef.name = "Hand cannon XI shot";
+                break;
                 
             case 10164:
                 itemDef.copy(ItemDefinition.forID(50366));
