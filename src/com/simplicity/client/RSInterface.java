@@ -4531,6 +4531,8 @@ public class RSInterface {
         JewelleryBoxTeleport.init(textDrawingAreas);
         PetHouse.init();
         MotherlodeMineHud.init();
+        PortalNexusConfigure.init();
+        PortalNexusConfirm.init();
         Widget.init();
         for (RSInterface widget : interfaceCache) {
             if (widget == null || widget.children == null)
