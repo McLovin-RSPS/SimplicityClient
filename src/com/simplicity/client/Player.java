@@ -357,7 +357,7 @@ public final class Player extends Entity {
 								updateColor = true;
 							}
 							
-							if (currentPart == 3 || currentPart == 4 || currentPart == 5 || currentPart == 9) {
+							if (currentPart == 0 || currentPart == 3 || currentPart == 4 || currentPart == 5 || currentPart == 9) {
 								scaleOldEquipment(model_4, currentPart);
 							}
 							
