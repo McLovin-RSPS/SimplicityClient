@@ -12419,8 +12419,13 @@ public class Client extends RSApplet {
 
                 if (super.mouseX > 0 && super.mouseY > 0 && super.mouseX < 516 && super.mouseY < 338) {
                     if (openInterfaceID != -1) {
-                        buildInterfaceMenu(4, RSInterface.interfaceCache[openInterfaceID], super.mouseX, 4,
-                                super.mouseY, 0);
+                        if (secondaryOpenInterfaceID != -1) {
+                            buildInterfaceMenu(4, RSInterface.interfaceCache[secondaryOpenInterfaceID], super.mouseX, 4,
+                                    super.mouseY, 0);
+                        } else {
+                            buildInterfaceMenu(4, RSInterface.interfaceCache[openInterfaceID], super.mouseX, 4,
+                                    super.mouseY, 0);
+                        }
                     } else {
                         build3dScreenMenu();
                     }

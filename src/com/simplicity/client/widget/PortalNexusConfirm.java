@@ -4,17 +4,16 @@ import com.simplicity.client.RSInterface;
 
 public class PortalNexusConfirm extends RSInterface {
 
-    public static final int PARENT_ID = 79975;
+    public static final int PARENT_ID = 85400;
 
     public static void init() {
         RSInterface parent = addInterface(PARENT_ID);
-        parent.height = 50;
         parent.children(1);
         parent.child(0, infoBox().id, 15, 50);
     }
 
     private static RSInterface infoBox() {
-        int widget = 79977;
+        int widget = 85402;
         RSInterface container = addInterface(widget);
         container.children(10);
         final int boxWidth = 485;
@@ -34,16 +33,14 @@ public class PortalNexusConfirm extends RSInterface {
 
         addHoverButton_sprite_loader(widget, 1313, 90 + 18, 28, "Confirm", -1, widget + 1, 5);
         container.child(currentChildId++, widget,  20, 200);
-        widget++;
-        addHoveredImageWSpriteLoader(widget, 1314, 90 + 18, 28, widget + 1);
-        container.child(currentChildId++, widget,  20, 200);
-        widget++;
+        addHoveredImageWSpriteLoader(widget + 1, 1314, 90 + 18, 28, widget + 2);
+        container.child(currentChildId++, widget + 1,  20, 200);
+        widget += 2;
         addHoverButton_sprite_loader(widget, 1313, 90 + 18, 28, "Decline", -1, widget + 1, 5);
         container.child(currentChildId++, widget,  158, 200);
-        widget++;
-        addHoveredImageWSpriteLoader(widget, 1314, 90 + 18, 28, widget + 1);
-        container.child(currentChildId++, widget++,  158, 200);
-
+        addHoveredImageWSpriteLoader(widget + 1, 1314, 90 + 18, 28, widget + 2);
+        container.child(currentChildId++, widget + 1,  158, 200);
+        widget += 2;
         addText(widget, "Confirm", fonts, 3, 0xff981f, false, true);
         container.child(currentChildId++, widget++,  38, 204);
 
