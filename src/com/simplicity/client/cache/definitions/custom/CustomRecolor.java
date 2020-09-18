@@ -379,6 +379,10 @@ public enum CustomRecolor {
 	MULTICOLOR_SCYTHE(13404, 15000, "@pur@Royal DS Scythe", 
 			new int[] { 33, 37, 41, 78, 16, 784, 49, 20, 790, 24, 536, 796, 28, 61 },
 			new int[] { 127, 127, 127, 51136, 9087, 9087, 51136, 127, 127, 127, 9087, 9087, 127, 51136 }),
+	BLACK_GOLD_ICE_TBOW(16441, 20998, "@yel@BLING BLING",
+			new int[] { 16, 24, 33, 13223, 14236, 8, 41, 10318, 10334 }, 
+			new int[] { 9087, 9087, 1024, 9087, 9087, 1024, 9087, 1024, 1024 }),
+	
 	;
 	/**
 	 * Constructs a new {@link CustomRecolor}.
