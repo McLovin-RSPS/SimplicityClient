@@ -108,15 +108,7 @@ import com.simplicity.client.content.overlay.ScreenOverlayManager;
 import com.simplicity.client.entity.Position;
 import com.simplicity.client.particles.Particle;
 import com.simplicity.client.particles.ParticleDefinition;
-import com.simplicity.client.widget.CollectionLogWidget;
-import com.simplicity.client.widget.CustomWidget;
-import com.simplicity.client.widget.QuestTab;
-import com.simplicity.client.widget.SettingsWidget;
-import com.simplicity.client.widget.SkillQuantityWidget;
-import com.simplicity.client.widget.Slider;
-import com.simplicity.client.widget.TobPlayerOrbsWidget;
-import com.simplicity.client.widget.Widget;
-import com.simplicity.client.widget.WildernessWidget;
+import com.simplicity.client.widget.*;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.client.widget.raids.cox.XericPointsWidget;
 import com.simplicity.client.widget.raids.tob.TheatrePartyWidget;
@@ -8184,8 +8176,12 @@ public class Client extends RSApplet {
         	effectTimersVisible = !effectTimersVisible;
         }
 
+        if (interfaceId == 89596) {
+            secondaryOpenInterfaceID = PortalNexusConfirm.PARENT_ID;
+        }
+
         if (interfaceId == 31332 || interfaceId == 34238) {
-            tabInterfaceIDs[6] = interfaceId == 29592 ? activeMagicBookInterfaceId : 34212;
+            tabInterfaceIDs[6] = interfaceId == 34238 ? activeMagicBookInterfaceId : 34212;
             needDrawTabArea = true;
             tabAreaAltered = true;
         }
@@ -14868,6 +14864,12 @@ public class Client extends RSApplet {
                     }
                     drawInterface(0, clientSize == 0 ? 0 : (clientWidth / 2) - 765 / 2, rsInterface_1,
                             clientSize == 0 ? 8 : (clientHeight / 2) - 503 / 2);
+                    if (secondaryOpenInterfaceID != -1) {
+                        System.out.println("Drawing secondary");
+                        RSInterface secondary = RSInterface.interfaceCache[secondaryOpenInterfaceID];
+                        drawInterface(0, clientSize == 0 ? 0 : (clientWidth / 2) - 765 / 2, secondary,
+                                clientSize == 0 ? 8 : (clientHeight / 2) - 503 / 2);
+                    }
                 }
                 RSInterface rsInterface = RSInterface.interfaceCache[fullscreenInterfaceID];
                 if (rsInterface.width == 512 && rsInterface.height == 334 && rsInterface.type == 0) {
@@ -16937,6 +16939,10 @@ public class Client extends RSApplet {
                 if (bankItemDragSprite != null) {
                     bankItemDragSprite.drawSprite(bankItemDragSpriteX, bankItemDragSpriteY);
                 }
+            }
+            if (secondaryOpenInterfaceID != -1) {
+                drawInterface(0, clientSize == 0 ? 0 : (clientWidth / 2) - getInterfaceOffX(), RSInterface.interfaceCache[secondaryOpenInterfaceID],
+                        clientSize == 0 ? 0 : (clientHeight / 2) - getInterfaceOffY());
             }
         } /*
          * if(gravestoneInterface) { drawInterface(0, clientSize == 0 ? 0 : (clientWidth
@@ -20530,6 +20536,7 @@ public class Client extends RSApplet {
                         inputTaken = true;
                     }
                     openInterfaceID = i5;
+                    secondaryOpenInterfaceID = -1;
                     invOverlayInterfaceID = k12;
                     needDrawTabArea = true;
                     tabAreaAltered = true;
@@ -20724,6 +20731,7 @@ public class Client extends RSApplet {
                     tabAreaAltered = true;
                     bankItemDragSprite = null;
                     openInterfaceID = -1;
+                    secondaryOpenInterfaceID = -1;
                     dialogOptionsShowing = false;
                     opCode = -1;
                     return true;
@@ -21328,6 +21336,7 @@ public class Client extends RSApplet {
                         }
                         
                         openInterfaceID = interfaceID;
+                        secondaryOpenInterfaceID = -1;
                         bankItemDragSprite = null;
                         dialogOptionsShowing = false;
                     } catch (Exception e) {
@@ -21426,6 +21435,7 @@ public class Client extends RSApplet {
                         inputTaken = true;
                     }
                     openInterfaceID = -1;
+                    secondaryOpenInterfaceID = -1;
                     bankItemDragSprite = null;
                     dialogOptionsShowing = false;
                     withdrawingMoneyFromPouch = false;
@@ -22237,6 +22247,7 @@ public class Client extends RSApplet {
             dialogOptionsShowing = false;
         }
         openInterfaceID = -1;
+        secondaryOpenInterfaceID = -1;
         fullscreenInterfaceID = -1;
         
         if (openInterfaceID != -1) {
@@ -22308,6 +22319,7 @@ public class Client extends RSApplet {
         aStream_847 = Stream.create();
         soundEnabled = true;
         openInterfaceID = -1;
+        secondaryOpenInterfaceID = -1;
         currentExp = new int[Skills.SKILL_COUNT];
 
         anIntArray873 = new int[5];
@@ -22485,6 +22497,7 @@ public class Client extends RSApplet {
     private static int anInt849;
     private int anInt855;
     public static int openInterfaceID;
+    public static int secondaryOpenInterfaceID;
     public int xCameraPos;
     public int zCameraPos;
     public int yCameraPos;
