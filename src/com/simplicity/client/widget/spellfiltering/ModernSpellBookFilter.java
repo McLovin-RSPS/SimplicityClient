@@ -17,6 +17,11 @@ public class ModernSpellBookFilter extends SpellBookFilter {
             return;
         }
         // TODO Disabled for now.
+        for (int id : TELEPORT_SPELL_WIDGET_IDS) {
+            RSInterface widget = RSInterface.interfaceCache[id];
+            if (widget.hidden)
+                widget.hidden = false;
+        }
         RSInterface parent = RSInterface.interfaceCache[PARENT_ID];
         /*if (varp == 671) {
             final boolean show = showTeleports();
