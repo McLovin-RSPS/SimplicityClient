@@ -2742,7 +2742,8 @@ public final class ItemDefinition {
                 
             case 14484:
                 itemDef.copy(forID(43652));
-                break;
+                break; 
+             
                 
             case 12282:
                 itemDef.copy(forID(42931));
@@ -3967,17 +3968,11 @@ public final class ItemDefinition {
                 itemDef.actions = new String[]{null, "Wear", null, null, "Drop"};
                 itemDef.modelID = 28823;
                 break;
+                
             case 20555:
-                itemDef.name = "Dragon warhammer";
-                itemDef.modelID = 4041;
-                itemDef.rotationY = 1450;
-                itemDef.rotationX = 1900;
-                itemDef.modelZoom = 1605;
-                itemDef.groundActions = new String[]{null, null, "Take", null, null};
-                itemDef.actions = new String[]{null, "Wield", null, null, "Drop"};
-                itemDef.maleEquip1 = 4037;
-                itemDef.femaleEquip1 = 4038;
+                itemDef.copy(forID(43576));
                 break;
+                
             case 11613:
                 itemDef.actions = new String[5];
                 itemDef.actions[1] = "Wield";
