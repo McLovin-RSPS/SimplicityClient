@@ -8176,9 +8176,13 @@ public class Client extends RSApplet {
         	effectTimersVisible = !effectTimersVisible;
         }
 
-        /*if (interfaceId == 89596) {
+        if (interfaceId == 89596) {
             secondaryOpenInterfaceID = PortalNexusConfirm.PARENT_ID;
-        }*/
+        }
+
+        if (interfaceId == 85411) {
+            secondaryOpenInterfaceID = -1;
+        }
 
         if (interfaceId == 31332 || interfaceId == 34238) {
             tabInterfaceIDs[6] = interfaceId == 34238 ? activeMagicBookInterfaceId : 34212;
