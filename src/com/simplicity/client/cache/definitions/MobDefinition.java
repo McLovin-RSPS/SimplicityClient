@@ -1263,6 +1263,7 @@ public final class MobDefinition {
             case 3590: // war tortoise
             case 3596: // terrorbird
                 npc.actions = new String[]{"Store", null, null, null, null};
+                npc.pet = true;
                 break;
             case 548:
                 npc.actions = new String[]{"Trade", null, null, null, null};
