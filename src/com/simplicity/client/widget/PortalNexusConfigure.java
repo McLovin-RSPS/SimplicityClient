@@ -62,7 +62,7 @@ public class PortalNexusConfigure extends RSInterface {
             addRectangleClickable(rectWidgetId, 0, color, true, 123, boxHeight);
             addText(textWidgetId, "---", fonts, 1, 0xff981f);
             parent.child(i, rectWidgetId, 0, topY);
-            parent.child(i + listingSize, textWidgetId, (parent.width / 2) - 12, topY + (boxHeight / 2) - 6);
+            parent.child(i + listingSize, textWidgetId, (parent.width / 2) - 32, topY + (boxHeight / 2) - 6);
         }
         return parent;
     }
