@@ -4533,6 +4533,7 @@ public class RSInterface {
         MotherlodeMineHud.init();
         PortalNexusConfigure.init();
         PortalNexusConfirm.init();
+        PortalNexusTeleportMenu.init();
         Widget.init();
         for (RSInterface widget : interfaceCache) {
             if (widget == null || widget.children == null)
