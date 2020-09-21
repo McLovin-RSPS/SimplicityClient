@@ -156,6 +156,12 @@ public final class ObjectDefinition {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if (i == 133122) {
+            objectDef.name = "Champions chest";
+            objectDef.hasActions = true;
+            objectDef.actions = new String[5];
+            objectDef.actions[0] = "Loot";
+        }
         if (i == 129771) {
         	objectDef.actions = new String[5];
         	objectDef.actions[0] = "Take";
