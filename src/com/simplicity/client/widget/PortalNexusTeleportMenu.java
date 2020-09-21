@@ -5,6 +5,8 @@ import com.simplicity.client.cache.DataType;
 
 public class PortalNexusTeleportMenu extends RSInterface {
 
+    private static int nexusModelWidgetId;
+
     public static void init() {
         int widgetId = 46380;
         RSInterface parent = addInterface(widgetId);
@@ -18,6 +20,7 @@ public class PortalNexusTeleportMenu extends RSInterface {
         widgetId += 50;
 
         addModel(widgetId, 36050, 1360, 0, 0, DataType.OLDSCHOOL);
+        nexusModelWidgetId = widgetId;
         parent.child(childId++, widgetId++, 410, 235);
 
         RSInterface menu = createListing(widgetId);
@@ -54,5 +57,20 @@ public class PortalNexusTeleportMenu extends RSInterface {
             container.child(i + listingSize, textWidgetId, (container.width / 2) - 12, topY + (boxHeight / 2) - 6);
         }
         return parent;
+    }
+
+    public static void onVarpChange(int varpId, int value) {
+        if (varpId == 791) {
+            RSInterface nexusModel = RSInterface.interfaceCache[nexusModelWidgetId];
+            int modelId;
+            if (value == 2) {
+                modelId = 36053;
+            } else if (value == 3) {
+                modelId = 36052;
+            } else {
+                modelId = 36050;
+            }
+            nexusModel.mediaID = modelId;
+        }
     }
 }

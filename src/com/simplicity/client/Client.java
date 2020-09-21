@@ -21372,6 +21372,7 @@ public class Client extends RSApplet {
                     }
                     if (variousSettings[settingIdx] != settingValue) {
                         variousSettings[settingIdx] = settingValue;
+                        PortalNexusTeleportMenu.onVarpChange(settingIdx, settingValue);
                         handleActions(settingIdx);
                         needDrawTabArea = true;
                         if (dialogID != -1) {
