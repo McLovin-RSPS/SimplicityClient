@@ -20882,6 +20882,12 @@ public class Client extends RSApplet {
                         opCode = -1;
                         return true;
                     }
+                    if (text.startsWith("scroll_reset")) {
+                    	String[] args = text.split(" ");
+                      	RSInterface.interfaceCache[Integer.parseInt(args[1])].scrollPosition = 0;
+                      	opCode = -1;
+                      	return true;
+                    }
                     if (text.startsWith("[CUSTOMIZATION]")) {
                         text = text.replaceAll("\\[CUSTOMIZATION\\]", "");
                         String[] split = text.split(",");
