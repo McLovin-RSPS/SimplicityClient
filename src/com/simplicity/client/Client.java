@@ -4813,6 +4813,7 @@ public class Client extends RSApplet {
                                             }
 
                                         }
+
                                         if (child.usableItemInterface) {
                                             if (openInterfaceID == 24700) {
                                                 menuActionName[menuActionRow] = "Offer @lre@" + itemDef.name;
@@ -4822,6 +4823,10 @@ public class Client extends RSApplet {
                                             } else if (openInterfaceID == 2700) {
                                                 menuActionName[menuActionRow] = "Store @lre@" + itemDef.name;
                                                 menuActionID[menuActionRow] = 2700;
+                                                menuActionCmd1[menuActionRow] = itemDef.id;
+                                            } else if (openInterfaceID == 21172) {
+                                                menuActionName[menuActionRow] = "Compare @lre@" + itemDef.name;
+                                                menuActionID[menuActionRow] = 301;
                                                 menuActionCmd1[menuActionRow] = itemDef.id;
                                             } else {
 
@@ -9032,10 +9037,12 @@ public class Client extends RSApplet {
             stream.createFrame(53);
             stream.writeWord(slot);
             stream.writeUnsignedWordA(lastItemSelectedSlot);
-            stream.writeSignedBigEndian(entityId);
+            stream.writeUnsignedWordBigEndian(entityId);
             stream.writeWord(lastItemSelectedInterface);
             stream.writeUnsignedWordBigEndian(selectedItemId);
             stream.writeWord(interfaceId);
+            if (interfaceId == 1688 || interfaceId == 3214)
+                secondaryOpenInterfaceID = 48480;
             atInventoryLoopCycle = 0;
             atInventoryInterface = interfaceId;
             atInventoryIndex = slot;
@@ -9780,7 +9787,7 @@ public class Client extends RSApplet {
                 needDrawTabArea = true;
             }
         }
-        if (l == 447) {
+        if (l == 447 || l == 301) {
             itemSelected = 1;
             lastItemSelectedSlot = slot;
             lastItemSelectedInterface = interfaceId;
@@ -20881,6 +20888,12 @@ public class Client extends RSApplet {
                         clanMembers.remove(clan_name[1]);
                         opCode = -1;
                         return true;
+                    }
+                    if (text.startsWith("scroll_reset")) {
+                    	String[] args = text.split(" ");
+                      	RSInterface.interfaceCache[Integer.parseInt(args[1])].scrollPosition = 0;
+                      	opCode = -1;
+                      	return true;
                     }
                     if (text.startsWith("[CUSTOMIZATION]")) {
                         text = text.replaceAll("\\[CUSTOMIZATION\\]", "");

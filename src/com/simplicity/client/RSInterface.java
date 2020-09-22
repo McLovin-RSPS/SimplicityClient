@@ -4534,6 +4534,7 @@ public class RSInterface {
         PortalNexusConfigure.init();
         PortalNexusConfirm.init();
         PortalNexusTeleportMenu.init();
+        ItemStatComparePanel.init();
         Widget.init();
         for (RSInterface widget : interfaceCache) {
             if (widget == null || widget.children == null)
@@ -13354,6 +13355,7 @@ public class RSInterface {
     }
 
     private static void equipmentScreenInterface() {
+        interfaceCache[1688].usableItemInterface = true;
         RSInterface tab = addTabInterface(21172);
         addSpriteLoader(21173, 857);
         addCloseButton(15210, 15215, 15216);
