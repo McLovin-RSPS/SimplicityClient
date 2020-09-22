@@ -221,6 +221,10 @@ public final class ObjectDefinition {
             objectDef.actions = new String[]{"Touch", null, null, null, null};
             objectDef.name = "@yel@Statue of Sezy";
         }
+        if (i == 133124) {
+            objectDef.actions = new String[]{"Loot", null, null, null, null};
+            objectDef.name = "@yel@Elite chest";
+        }        
         if (i == 126073) {
             objectDef.actions = new String[]{"Pray-at", null, null, null, null};
             objectDef.name = "@yel@Statue of Sezy";
@@ -422,15 +426,15 @@ public final class ObjectDefinition {
         }
         if (i == 13292) {
             objectDef.actions = new String[]{"Search", null, null, null, null};
-            objectDef.name = "@yel@Magic Chest";
+            objectDef.name = "@yel@Magic chest";
         }
         if (i == 40960) {
             objectDef.actions = new String[]{"Search", null, null, null, null};
-            objectDef.name = "@gre@Prize Chest";
+            objectDef.name = "@gre@Prize chest";
         }
         if (i == 54408) {
             objectDef.actions = new String[]{"Search", null, null, null, null};
-            objectDef.name = "@gre@Halloween Chest";
+            objectDef.name = "@gre@Halloween chest";
         }
         if (i == 48661) {
             objectDef.actions = new String[]{"Touch", null, null, null, null};
@@ -466,7 +470,7 @@ public final class ObjectDefinition {
         }
         if (i == 53979) {
             objectDef.actions = new String[]{"Teleport", null, null, null, null};
-            objectDef.name = "@yel@Crystal Boss Zone";
+            objectDef.name = "@yel@Crystal Boss zone";
         }
         if (i == 16284) {
             objectDef.actions = new String[]{"Mine", null, null, null, null};
