@@ -9040,7 +9040,6 @@ public class Client extends RSApplet {
             stream.writeUnsignedWordBigEndian(entityId);
             stream.writeWord(lastItemSelectedInterface);
             stream.writeUnsignedWordBigEndian(selectedItemId);
-            System.out.println(entityId +", "+ selectedItemId +", "+ lastItemSelectedInterface +", "+ interfaceId);
             stream.writeWord(interfaceId);
             if (interfaceId == 1688 || interfaceId == 3214)
                 secondaryOpenInterfaceID = 48480;
