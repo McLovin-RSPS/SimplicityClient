@@ -29,7 +29,4 @@ import net.runelite.mapping.Import;
 
 public interface RSTextureProvider extends TextureProvider
 {
-	@Override
-	@Import("checkTextures")
-	void checkTextures(int var1);
 }

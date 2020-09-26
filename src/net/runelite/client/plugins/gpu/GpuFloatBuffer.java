@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Abex
+ * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,35 +22,51 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.client.plugins.gpu;
 
-import java.awt.Canvas;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
 
-/**
- * Represents the client game engine.
- */
-public interface GameEngine
+class GpuFloatBuffer
 {
-	/**
-	 * Gets the canvas that contains everything.
-	 *
-	 * @return the game canvas
-	 */
-	Canvas getCanvas();
+	private FloatBuffer buffer = allocateDirect(65536);
 
-	/**
-	 * Gets the client main thread.
-	 *
-	 * @return the main thread
-	 */
-	Thread getClientThread();
+	void put(float texture, float u, float v, float pad)
+	{
+		buffer.put(texture).put(u).put(v).put(pad);
+	}
 
-	/**
-	 * Checks whether this code is executing on the client main thread.
-	 *
-	 * @return true if on the main thread, false otherwise
-	 */
-	boolean isClientThread();
-	
-	void resizeCanvas();
+	void flip()
+	{
+		buffer.flip();
+	}
+
+	void clear()
+	{
+		buffer.clear();
+	}
+
+	void ensureCapacity(int size)
+	{
+		while (buffer.remaining() < size)
+		{
+			FloatBuffer newB = allocateDirect(buffer.capacity() * 2);
+			buffer.flip();
+			newB.put(buffer);
+			buffer = newB;
+		}
+	}
+
+	FloatBuffer getBuffer()
+	{
+		return buffer;
+	}
+
+	static FloatBuffer allocateDirect(int size)
+	{
+		return ByteBuffer.allocateDirect(size * Float.BYTES)
+			.order(ByteOrder.nativeOrder())
+			.asFloatBuffer();
+	}
 }

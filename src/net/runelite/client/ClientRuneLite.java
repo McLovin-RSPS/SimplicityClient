@@ -34,8 +34,10 @@ import net.runelite.api.IndexedSprite;
 import net.runelite.api.InventoryID;
 import net.runelite.api.ItemComposition;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.Model;
 import net.runelite.api.NPCComposition;
 import net.runelite.api.Node;
+import net.runelite.api.NodeCache;
 import net.runelite.api.ObjectComposition;
 import net.runelite.api.Point;
 import net.runelite.api.Prayer;
@@ -45,6 +47,7 @@ import net.runelite.api.RenderOverview;
 import net.runelite.api.Scene;
 import net.runelite.api.Skill;
 import net.runelite.api.SpritePixels;
+import net.runelite.api.TextureProvider;
 import net.runelite.api.VarClientInt;
 import net.runelite.api.VarClientStr;
 import net.runelite.api.VarPlayer;
@@ -55,6 +58,7 @@ import net.runelite.api.WorldType;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.hooks.Callbacks;
+import net.runelite.api.hooks.DrawCallbacks;
 import net.runelite.api.vars.AccountType;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
@@ -1090,6 +1094,139 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public void addChatMessage(ChatMessageType type, String name, String message, String sender) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public DrawCallbacks getDrawCallbacks() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setDrawCallbacks(DrawCallbacks drawCallbacks) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getCanvasHeight() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getCanvasWidth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean isGpu() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setGpu(boolean gpu) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int get3dZoom() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getCenterX() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getCenterY() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getCameraX2() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getCameraY2() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getCameraZ2() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public TextureProvider getTextureProvider() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getRasterizer3D_clipMidX2() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getRasterizer3D_clipNegativeMidX() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getRasterizer3D_clipNegativeMidY() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getRasterizer3D_clipMidY2() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void checkClickbox(Model model, int orientation, int pitchSin, int pitchCos, int yawSin, int yawCos, int x,
+			int y, int z, long hash) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setSkyboxColor(int skyboxColor) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getSkyboxColor() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public NodeCache getCachedModels2() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void resizeCanvas() {
 		// TODO Auto-generated method stub
 		
 	}

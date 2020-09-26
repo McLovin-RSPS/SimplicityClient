@@ -4356,6 +4356,8 @@ public class Client extends RSApplet {
         if (containsBm && ((Item)onTop).ID != 43307) {
         	onTop = bloodMoney;
         }
+        
+        Item current = (Item) (onTop);
 
         itemDeque.insertFront(((Node) (onTop)));
         Object firstItem = null;

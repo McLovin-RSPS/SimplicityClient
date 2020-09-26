@@ -45,6 +45,7 @@ import net.runelite.api.annotations.VisibleForDevtools;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.hooks.Callbacks;
+import net.runelite.api.hooks.DrawCallbacks;
 import net.runelite.api.vars.AccountType;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
@@ -59,6 +60,14 @@ public interface Client extends GameEngine
 	 * @return
 	 */
 	Callbacks getCallbacks();
+	
+	/**
+	 * The injected client invokes these callbacks for scene drawing, which is
+	 * used by the gpu plugin to override the client's normal scene drawing code
+	 */
+	DrawCallbacks getDrawCallbacks();
+	
+	void setDrawCallbacks(DrawCallbacks drawCallbacks);
 
 	/**
 	 * Retrieve a global logger for the client.
@@ -212,6 +221,20 @@ public interface Client extends GameEngine
 	 * @return the logged in world number
 	 */
 	int getWorld();
+
+	/**
+	 * Gets the canvas height
+	 * 
+	 * @return
+	 */
+	int getCanvasHeight();
+
+	/**
+	 * Gets the canvas width
+	 * 
+	 * @return
+	 */
+	int getCanvasWidth();
 
 	/**
 	 * Gets the height of the viewport.
@@ -1428,5 +1451,38 @@ public interface Client extends GameEngine
 	 * @see KeyCode
 	 */
 	boolean isKeyPressed(int keycode);
+	
+	/**
+	 * Sets the RGB color of the skybox
+	 */
+	void setSkyboxColor(int skyboxColor);
+
+	/**
+	 * Gets the RGB color of the skybox
+	 */
+	int getSkyboxColor();
+	
+	boolean isGpu();
+
+	void setGpu(boolean gpu);
+	
+	int get3dZoom();
+	int getCenterX();
+	int getCenterY();
+
+	int getCameraX2();
+	int getCameraY2();
+	int getCameraZ2();
+	
+	TextureProvider getTextureProvider();
+	
+	NodeCache getCachedModels2();
+	
+	int getRasterizer3D_clipMidX2();
+	int getRasterizer3D_clipNegativeMidX();
+	int getRasterizer3D_clipNegativeMidY();
+	int getRasterizer3D_clipMidY2();
+	
+	void checkClickbox(Model model, int orientation, int pitchSin, int pitchCos, int yawSin, int yawCos, int x, int y, int z, long hash);
 
 }
