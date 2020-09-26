@@ -248,7 +248,7 @@ public class PluginManager
 				NpcIndicatorsPlugin.class,
 				GroundMarkerPlugin.class,
 				AmmoPlugin.class,
-				FpsPlugin.class
+				FpsPlugin.class,
 		};
 		
 		for (Class<?> clazz : plugins)
