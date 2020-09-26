@@ -29,7 +29,9 @@ import com.simplicity.Configuration;
 import com.simplicity.Jframe;
 import com.simplicity.client.content.Keybinding;
 import com.simplicity.client.widget.AchievementsWidget;
+import com.simplicity.client.widget.QuestTab;
 import com.simplicity.client.widget.SettingsWidget;
+import com.simplicity.client.widget.raids.cox.tab.RaidingTab;
 
 import net.runelite.api.KeyCode;
 
@@ -400,6 +402,14 @@ WindowListener {
 		
 		if (tabInterfaceID == 73300) {
 			tabInterfaceID = AchievementsWidget.INTERFACE_ID;
+		}
+		
+		if (tabInterfaceID == 67000) {
+			tabInterfaceID = QuestTab.QUEST_TAB_ID;
+		}
+		
+		if (tabInterfaceID == 73800) {
+			tabInterfaceID = RaidingTab.WIDGET_ID;
 		}
 		
 		if (tabInterfaceID != -1) {

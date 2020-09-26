@@ -27,6 +27,7 @@ public final class Varp {
 		followerIndex.id = 725;
 		followerIndex.usage = 10;
 		cache[725] = followerIndex;
+		cache[726] = new Varp();
 
 		if (stream.currentOffset != stream.buffer.length)
 			System.out.println("varptype load mismatch");

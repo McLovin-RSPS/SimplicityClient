@@ -22,7 +22,7 @@ public class MagicInterfaces {
 	 */
 	public static String getSpellData(int childId, String type) {
 		String spellName = "";
-		String spellUsableOn = "10";
+		String spellUsableOn = "8";
 		String selectedActionName = "Cast on";
 		switch(childId) {
 		case 1152:

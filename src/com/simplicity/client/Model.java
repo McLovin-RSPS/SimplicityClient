@@ -196,13 +196,22 @@ public class Model extends Animable {
         COSINE = Rasterizer.anIntArray1471;
         hsl2rgb = Rasterizer.anIntArray1482;
         lightDecay = Rasterizer.anIntArray1469;
-        
+
+        addDepthBufferModel(DataType.REGULAR, 1052); // Trident of the seas
+        addDepthBufferModel(DataType.REGULAR, 6700); // Vorkath's vine whip
+        addDepthBufferModel(DataType.REGULAR, 14403); // Blowpipe
         addDepthBufferModel(DataType.REGULAR, 9347); // Toktz-ket-xil
         addDepthBufferModel(DataType.REGULAR, 3287); // Angel cape
         addDepthBufferModel(DataType.REGULAR, 13700); // Dragon kiteshield
         addDepthBufferModel(DataType.REGULAR, 4037, 4038); // Dragon warhammer
         addDepthBufferModel(DataType.OLDSCHOOL, 10423, 10424, 10425, 10426, 10427, 10428, 10456, 10457); // Cow outfit
         addDepthBufferModel(DataType.OLDSCHOOL, 164, 218, 268, 344, 394, 432, 452, 3379, 3383, 4206, 4207); // (t) armor
+        addDepthBufferModel(DataType.OLDSCHOOL, 36325, 36335); // Ferocious gloves
+        addDepthBufferModel(DataType.OLDSCHOOL, 10420, 10421); // Dragon defender
+        addDepthBufferModel(DataType.OLDSCHOOL, 12778, 12817); // Necklace of Anguish (or)
+        addDepthBufferModel(DataType.OLDSCHOOL, 14402); // Toxic staff
+        addDepthBufferModel(DataType.OLDSCHOOL, 4037, 4038); // Dragon warhammer
+        addDepthBufferModel(DataType.OLDSCHOOL, 14395, 14398); // Serpentine helmet
         
 		applyTexture(69, 16, 17);
 		applyTexture(58, 10, 11, 12, 13, 14, 15);
@@ -3781,20 +3790,39 @@ public class Model extends Animable {
             verticesYCoordinate[i1] = j1;
         }
     }
-
-    public void scale2(int i, int j, int k) {
-        for (int i1 = 0; i1 < numberOfVerticeCoordinates; i1++) {
-            verticesXCoordinate[i1] = verticesXCoordinate[i1] * i >> 7;
-            verticesYCoordinate[i1] = verticesYCoordinate[i1] * j >> 7;
-            verticesZCoordinate[i1] = verticesZCoordinate[i1] * k >> 7;
+    
+    public void translateO(int i, int i123, int i124) {
+        for (int i125 = 0; i125 < numberOfVerticeCoordinates; i125++) {
+        	verticesXCoordinate[i125] += i;
+            verticesYCoordinate[i125] += i123;
+            verticesZCoordinate[i125] += i124;
         }
     }
 
-    public void scaleT(int i, int j, int l) {
+    public void scaleO(int i, int i123, int i124) {
+        for (int i125 = 0; i125 < numberOfVerticeCoordinates; i125++) {
+        	verticesXCoordinate[i125] *= i;
+        	verticesYCoordinate[i125] *= i123;
+        	verticesZCoordinate[i125] *= i124;
+            verticesXCoordinate[i125] /= 128;
+            verticesYCoordinate[i125] /= 128;
+            verticesZCoordinate[i125] /= 128;
+        }
+    }
+
+    public void scale2(int x, int y, int z) {
         for (int i1 = 0; i1 < numberOfVerticeCoordinates; i1++) {
-            verticesXCoordinate[i1] = (verticesXCoordinate[i1] * i) / 128;
-            verticesYCoordinate[i1] = (verticesYCoordinate[i1] * l) / 128;
-            verticesZCoordinate[i1] = (verticesZCoordinate[i1] * j) / 128;
+            verticesXCoordinate[i1] = verticesXCoordinate[i1] * x >> 7;
+            verticesYCoordinate[i1] = verticesYCoordinate[i1] * y >> 7;
+            verticesZCoordinate[i1] = verticesZCoordinate[i1] * z >> 7;
+        }
+    }
+
+    public void scaleT(int x, int z, int y) {
+        for (int i1 = 0; i1 < numberOfVerticeCoordinates; i1++) {
+            verticesXCoordinate[i1] = (verticesXCoordinate[i1] * x) / 128;
+            verticesYCoordinate[i1] = (verticesYCoordinate[i1] * y) / 128;
+            verticesZCoordinate[i1] = (verticesZCoordinate[i1] * z) / 128;
         }
 
     }

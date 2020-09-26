@@ -101,8 +101,9 @@ public class CustomObjects {
             //Well for upgradable at home and gold bars
             {3485, 3089, 3495, 0, 0},
 
-            //Xmass tree for december
-            {47748, 3107, 3498, 0, 0},
+            //Xmass tree for december OR Summer tree
+            //{47748, 3107, 3498, 0, 0},
+            {15969, 3097, 3503, 0, 0},
             
             // BBA            
             // Statues removed
@@ -437,7 +438,7 @@ public class CustomObjects {
             {52709, 1824, 5161, 2, 0}, // arthur's dream campfire
             
             // Edge arthur's dream teleporter
-            {48661, 3083, 3488, 0, 3}, // Arthur's dream teleporter edgeville
+            {48661, 3083, 3487, 0, 3}, // Arthur's dream teleporter edgeville
             {27254, 1831, 5163, 2, 0}, // Dark portal arthur's dream
             
             
@@ -893,7 +894,6 @@ public class CustomObjects {
 
             {-1, 3213, 3430, 0, 0},
             {-1, 3213, 3426, 0, 0},
-            {13405, 3083, 3492, 0, 1},
 
             {2274, 2912, 5300, 2, 0},
             {2274, 2914, 5300, 1, 0},

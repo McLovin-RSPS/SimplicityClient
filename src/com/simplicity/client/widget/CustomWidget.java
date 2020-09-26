@@ -7,6 +7,7 @@ import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.Sprite;
 import com.simplicity.client.cache.DataType;
+import com.simplicity.client.widget.listener.WidgetAnimationListener;
 import com.simplicity.client.widget.listener.WidgetButtonListener;
 import com.simplicity.client.widget.listener.WidgetStateListener;
 import com.simplicity.client.widget.listener.WidgetStringListener;
@@ -21,6 +22,7 @@ public abstract class CustomWidget {
     public WidgetButtonListener buttonListener;
     public WidgetStateListener stateListener;
     public WidgetStringListener stringListener;
+    public WidgetAnimationListener animListener;
     
     public ArrayList<WidgetComponent> components;
 
@@ -42,6 +44,10 @@ public abstract class CustomWidget {
     
     public void addStringListener(WidgetStringListener listener) {
     	this.stringListener = listener;
+    }
+    
+    public void addAnimListener(WidgetAnimationListener listener) {
+    	this.animListener = listener;
     }
     
     public abstract String getName();
@@ -137,7 +143,35 @@ public abstract class CustomWidget {
     	rsi.componentId = id++;
     	return rsi;
     }
+    
+	public RSInterface addVerticalLine(int h, int color, int transparency) {
+		RSInterface r = RSInterface.addInterface(id);
+		r.componentId = id;
+		r.id = id;
+		r.parentID = id;
+		r.type = 27;
+		r.width = 1;
+		r.height = h;
+		r.disabledColor = color;
+		r.transparency = transparency;
+		id++;
+		return r;
+	}
 
+	public RSInterface addHorizontalLine(int w, int color, int transparency) {
+		RSInterface r = RSInterface.addInterface(id);
+		r.componentId = id;
+		r.id = id;
+		r.parentID = id;
+		r.type = 28;
+		r.width = w;
+		r.height = 1;
+		r.disabledColor = color;
+		r.transparency = transparency;
+		id++;
+		return r;
+	}
+    
     public RSInterface addBackground(int background) {
         return addBackground(background, getName());
     }
@@ -320,6 +354,31 @@ public abstract class CustomWidget {
     }
     
 	/**
+	 * Adds an opaque hover button.
+	 * 
+	 * @param iconId           The icon sprite id.
+	 * @param hoverOpacity     The hover opacity.
+	 * @param tooltip          The tooltip.
+	 * @return The RSInterface.
+	 */
+    public RSInterface addHoverOpacityButton(int spriteId, int hoverOpacity, String tooltip) {
+    	RSInterface rsi = RSInterface.addInterface(id);
+    	rsi.componentId = id;
+    	rsi.id = id;
+    	rsi.type = 47;
+    	rsi.disabledSprite = Client.cacheSprite[spriteId];
+    	rsi.enabledSprite = Client.cacheSprite[spriteId];
+    	rsi.width = rsi.disabledSprite.myWidth;
+    	rsi.height = rsi.disabledSprite.myHeight;
+    	rsi.hoverOpacity = hoverOpacity;
+    	rsi.hoverType = id;
+    	rsi.tooltip = tooltip;
+    	rsi.contentType = 0;
+    	rsi.atActionType = 1;
+    	return rsi;
+    }
+    
+	/**
 	 * Adds a button with an opaque icon on it when hovered.
 	 * 
 	 * @param backgroundSprite The background sprite id.
@@ -436,6 +495,13 @@ public abstract class CustomWidget {
     
     public RSInterface addModel(int modelID, int zoom, int rotation1, int rotation2, DataType dataType) {
     	RSInterface rsi = RSInterface.addModel(id, modelID, zoom, rotation1, rotation2, dataType);
+    	rsi.componentId = id;
+    	id++;
+    	return rsi;
+    }
+    
+    public RSInterface addModelSprite(int width, int height, int modelID, int zoom, int rotation1, int rotation2, DataType dataType) {
+    	RSInterface rsi = RSInterface.addModelSprite(id, width, height, modelID, zoom, rotation1, rotation2, dataType);
     	rsi.componentId = id;
     	id++;
     	return rsi;
@@ -879,4 +945,5 @@ public abstract class CustomWidget {
     public RSInterface getInterface() {
         return RSInterface.interfaceCache[mainId];
     }
+    
 }

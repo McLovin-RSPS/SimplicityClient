@@ -15,17 +15,15 @@ public final class MobDefinition {
     /** Hardcoded until we pack another byte into npc definitions to flag followers such as pets and familiars/bobs. **/
     private static final int[] FOLLOWER_IDS = new int[] {
             17130, 17131, 17132,
-
             6830, 6825, 6841, 6806, 6796, 7331, 6831, 6837, 7361, 6847, 6994, 6872, 7353, 6835, 6845, 6808, 153, 154, 7519,
-            23492, 23493, 23494, 23495, 23495, 2775, 2776,
-            7370, 7333, 7351, 7367, 6853, 6867, 6851, 6833, 6875, 6877, 6879, 6881, 6883, 6885, 6887, 6855, 7377, 22519,
-            6824, 6843, 6794, 6818, 6992, 6857, 6991, 7365, 7337, 7363, 6809, 6865, 6820, 6802, 6827, 6859, 6889, 6815,
-            6813, 6817, 7372, 6839, 8575, 7345, 6849, 6798, 6861, 7335, 7347, 6800, 7355, 7357, 7359, 9488, 6804, 7341,
-            7329, 6863, 6822, 7339, 6869, 7349, 7375, 6873, 7343, 3033, 3030, 3031, 3032, 3034, 3035, 3036, 3037, 3038,
-            3039, 3040, 3047, 3048, 21637, 21638, 3051, 3052, 3053, 3054, 3055, 3056, 3057, 3058, 3059, 3060, 3061,
-            3063, 3064, 3066, 3067, 3068, 3070, 3069, 3065, 6723, 6724, 6726, 6727, 6728, 6729, 6730, 963, 6640, 5781,
-            6731, 22519, 23025, 154, 23009, 153, 23492, 23493, 23494, 23495, 621, 622, 623, 624, 625, 626, 23202,
-            23337, 18481, 3062
+            23492, 23493, 23494, 23495, 2775, 2776, 7370, 7333, 7351, 7367, 6853, 6867, 6851, 6833, 6875, 6877, 6879,
+            6881, 6883, 6885, 6887, 6855, 7377, 22519, 6824, 6843, 6794, 6818, 6992, 6857, 6991, 7365, 7337, 7363, 6809,
+            6865, 6820, 6802, 6827, 6859, 6889, 6815, 6813, 6817, 7372, 6839, 8575, 7345, 6849, 6798, 6861, 7335, 7347,
+            6800, 7355, 7357, 7359, 9488, 6804, 7341, 7329, 6863, 6822, 7339, 6869, 7349, 7375, 6873, 7343, 3033, 3030,
+            3031, 3032, 3034, 3035, 3036, 3037, 3038, 3039, 3040, 3047, 3048, 21637, 21638, 3051, 3052, 3053, 3054,
+            3055, 3056, 3057, 3058, 3059, 3060, 3061, 3063, 3064, 3066, 3067, 3068, 3070, 3069, 3065, 6723, 6724, 6726,
+            6727, 6728, 6729, 6730, 963, 6640, 5781, 6731, 22519, 23025, 154, 23009, 153, 621, 622, 623, 624, 625, 626,
+            23202, 23337, 18481, 3062, 1821
     };
 
     public int frontLight = 68;
@@ -48,6 +46,19 @@ public final class MobDefinition {
             cacheIndexOSRS = (cacheIndexOSRS + 1) % 20;
 
             MobDefinition npc = cacheOSRS[cacheIndexOSRS] = new MobDefinition();
+            
+            if (i == 15_000) { // OSRS House pet
+            	npc.id = OSRS_NPCS_OFFSET + i;
+            	npc.type = OSRS_NPCS_OFFSET + i;
+            	npc.dataType = DataType.OLDSCHOOL;
+            	npc.copy(forID(18836));
+            	npc.sizeXZ /= 5;
+                npc.sizeY /= 5;
+                npc.squaresNeeded = 1;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up"; 
+            	return npc;
+            }
 
             if (i >= streamIndicesOSRS.length) {
                 return npc;
@@ -58,6 +69,7 @@ public final class MobDefinition {
             npc.type = OSRS_NPCS_OFFSET + i;
             npc.dataType = DataType.OLDSCHOOL;
             npc.readValues(streamOSRS);
+            npc.postLoad();
             if (npc.name != null && npc.name.contains("Ket-Keh")) {
                 npc.name = "Inferno";
                 npc.actions = new String[5];
@@ -144,7 +156,7 @@ public final class MobDefinition {
             return npc;
         stream.currentOffset = streamIndices[i];
         npc.type = i;
-        npc.readValues(stream);
+        npc.postLoad();
         if (npc.name != null && npc.name.toLowerCase().contains("bank")) {
             if (npc.actions != null) {
                 for (int l = 0; l < npc.actions.length; l++) {
@@ -154,7 +166,7 @@ public final class MobDefinition {
             }
         }
         npc.id = i;
-        npc.postLoad();
+        npc.readValues(stream);
         switch (i) {
 
             case 621:
@@ -386,6 +398,7 @@ public final class MobDefinition {
                 npc.name = "Warmi";
                 npc.sizeXZ = 120;
                 npc.sizeY = 120;
+                npc.pet = true;
                 break;
                 
             case 2776:
@@ -395,6 +408,60 @@ public final class MobDefinition {
                 npc.sizeY = 20;
                 npc.actions = new String[5];
                 npc.actions[0] = "Pick-up";
+                npc.squaresNeeded = 1;
+                npc.pet = true;
+                break;
+                
+            case 2576:
+                npc.copy(forID(23360));
+                npc.name = "Sugi";
+                npc.sizeXZ = 20;
+                npc.sizeY = 20;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                npc.squaresNeeded = 1;
+                npc.pet = true;
+                break;
+                
+            case 2530:
+                npc.copy(forID(23359));
+                npc.name = "Blo";
+                npc.sizeXZ = 20;
+                npc.sizeY = 20;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                npc.squaresNeeded = 1;
+                npc.pet = true;
+                break;
+
+            case 2532:
+                npc.copy(forID(23355));
+                npc.name = "Nylo";
+                npc.sizeXZ = 20;
+                npc.sizeY = 20;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                npc.squaresNeeded = 1;
+                break;
+                
+            case 2533:
+                npc.copy(forID(23388));
+                npc.name = "Tet";
+                npc.sizeXZ = 20;
+                npc.sizeY = 20;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                npc.squaresNeeded = 1;
+                break;
+                
+            case 2534:
+                npc.copy(forID(23338));
+                npc.name = "Arpus";
+                npc.sizeXZ = 40;
+                npc.sizeY = 40;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                npc.squaresNeeded = 1;
                 break;
                 
             case 13212:
@@ -529,6 +596,7 @@ public final class MobDefinition {
                 npc.description = "Its a Rock Golem.";
                 npc.squaresNeeded = 1;
                 npc.sizeXZ = npc.sizeY = 110;
+                npc.pet = true;
                 break;
             case 6724:
                 npc.name = "Heron";
@@ -541,6 +609,7 @@ public final class MobDefinition {
                 npc.standAnim = 6772;
                 npc.description = "Its a Heron.";
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
 
             case 568:
@@ -559,6 +628,7 @@ public final class MobDefinition {
                 npc.standAnim = 7177;
                 npc.description = "Its a Beaver.";
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
 
             case 6640:
@@ -588,6 +658,7 @@ public final class MobDefinition {
                 npc.actions[0] = "Pick-up";
                 npc.combatLevel = 0;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
 
             case 5781:
@@ -603,6 +674,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.sizeXZ = 80;
                 npc.sizeY = 80;
+                npc.pet = true;
                 break;
 
             case 6727:
@@ -1191,6 +1263,7 @@ public final class MobDefinition {
             case 3590: // war tortoise
             case 3596: // terrorbird
                 npc.actions = new String[]{"Store", null, null, null, null};
+                npc.pet = true;
                 break;
             case 548:
                 npc.actions = new String[]{"Trade", null, null, null, null};
@@ -1249,6 +1322,7 @@ public final class MobDefinition {
                 npc.sizeY = 40;
                 npc.sizeXZ = 40;
                 npc.squaresNeeded = 3;
+                npc.pet = true;
                 break;
 
             case 3031:
@@ -1261,6 +1335,7 @@ public final class MobDefinition {
                 npc.walkAnim = 7058;
                 npc.sizeY = 29;
                 npc.sizeXZ = 33;
+                npc.pet = true;
                 break;
 
             case 3032:
@@ -1274,6 +1349,7 @@ public final class MobDefinition {
                 npc.sizeY = 25;
                 npc.sizeXZ = 27;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
 
             case 3033:
@@ -1286,6 +1362,7 @@ public final class MobDefinition {
                 npc.walkAnim = 3145;
                 npc.sizeY = 49;
                 npc.sizeXZ = 45;
+                npc.pet = true;
                 break;
 
             case 3034:
@@ -1299,6 +1376,7 @@ public final class MobDefinition {
                 npc.sizeY = 24;
                 npc.sizeXZ = 25;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
 
             case 3035:
@@ -1312,6 +1390,7 @@ public final class MobDefinition {
                 npc.sizeY = 23;
                 npc.sizeXZ = 23;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
 
             case 3036:
@@ -1325,6 +1404,7 @@ public final class MobDefinition {
                 npc.sizeY = 24;
                 npc.sizeXZ = 24;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
             case 3037:
                 npc.name = "Commander zilyana";
@@ -1337,6 +1417,7 @@ public final class MobDefinition {
                 npc.sizeY = 60;
                 npc.sizeXZ = 60;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
             case 3038:
                 npc.name = "Dagannoth supreme";
@@ -1349,6 +1430,7 @@ public final class MobDefinition {
                 npc.sizeY = 60;
                 npc.sizeXZ = 60;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
 
             case 3039:
@@ -1364,6 +1446,7 @@ public final class MobDefinition {
                 npc.sizeY = 60;
                 npc.sizeXZ = 60;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
 
             case 3040:
@@ -1379,6 +1462,7 @@ public final class MobDefinition {
                 npc.sizeY = 60;
                 npc.sizeXZ = 60;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
             case 3047:
                 npc.name = "Frost dragon";
@@ -1396,6 +1480,7 @@ public final class MobDefinition {
                 npc.sizeY = 45;
                 npc.sizeXZ = 45;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
 
             case 3048:
@@ -1414,6 +1499,7 @@ public final class MobDefinition {
                 npc.sizeY = 40;
                 npc.sizeXZ = 40;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
             case 3051:
                 npc.models = new int[]{46141};
@@ -1426,6 +1512,7 @@ public final class MobDefinition {
                 npc.sizeY = 45;
                 npc.sizeXZ = 45;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
             case 3052:
                 npc.models = new int[]{45412};
@@ -1438,6 +1525,7 @@ public final class MobDefinition {
                 npc.sizeY = 45;
                 npc.sizeXZ = 45;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
             case 3053:
                 npc.models = new int[]{46058, 46057};
@@ -1450,6 +1538,7 @@ public final class MobDefinition {
                 npc.sizeY = 45;
                 npc.sizeXZ = 45;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
             case 3054:
                 npc.models = new int[]{62717};
@@ -1462,6 +1551,7 @@ public final class MobDefinition {
                 npc.sizeY = 55;
                 npc.sizeXZ = 55;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
             case 3055:
                 npc.models = new int[]{51852, 51853};
@@ -1474,6 +1564,7 @@ public final class MobDefinition {
                 npc.sizeY = 39;
                 npc.sizeXZ = 35;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
             case 3056:
                 npc.models = new int[]{51848, 51850};
@@ -1486,6 +1577,7 @@ public final class MobDefinition {
                 npc.sizeY = 39;
                 npc.sizeXZ = 35;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
 
             case 3057:
@@ -1499,6 +1591,7 @@ public final class MobDefinition {
                 npc.sizeY = 39;
                 npc.sizeXZ = 35;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
             case 3058:
                 npc.models = new int[]{49142, 49144};
@@ -1511,6 +1604,7 @@ public final class MobDefinition {
                 npc.sizeY = 40;
                 npc.sizeXZ = 40;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
             case 3059:
                 npc.models = new int[]{57937};
@@ -1523,6 +1617,7 @@ public final class MobDefinition {
                 npc.sizeY = 70;
                 npc.sizeXZ = 70;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
             case 3060:
                 npc.models = new int[]{49137, 49144};
@@ -1535,7 +1630,9 @@ public final class MobDefinition {
                 npc.sizeY = 45;
                 npc.sizeXZ = 45;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
+                
             case 3061:
                 npc.models = new int[]{14294, 49144};
                 npc.name = "Black dragon";
@@ -1547,7 +1644,9 @@ public final class MobDefinition {
                 npc.sizeY = 45;
                 npc.sizeXZ = 45;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
+                
             case 3062:
                 npc.models = new int[2];
                 npc.models[0] = 28294;
@@ -1562,7 +1661,9 @@ public final class MobDefinition {
                 npc.walkAnim = ven2.walkAnim;
                 npc.combatLevel = 464;
                 npc.squaresNeeded = 2;
+                npc.pet = true;
                 break;
+                
             case 3063:
                 npc.models = new int[1];
                 npc.models[0] = 28293;
@@ -1576,7 +1677,9 @@ public final class MobDefinition {
                 npc.sizeY = 55;
                 npc.combatLevel = 464;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
+                
             case 3064:
                 npc.name = "Skotizo";
                 npc.combatLevel = 321;
@@ -1590,6 +1693,7 @@ public final class MobDefinition {
                 npc.sizeXZ = 22;
                 npc.sizeY = 22;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
                 
             case 3065:
@@ -1605,6 +1709,7 @@ public final class MobDefinition {
                 npc.sizeXZ = 38;
                 npc.sizeY = 38;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
 
             case 3066:
@@ -1619,9 +1724,11 @@ public final class MobDefinition {
                 npc.sizeXZ = 30;
                 npc.sizeY = 40;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 //npc.sizeXZ = 35;
                 //npc.sizeY = 75;
                 break;
+                
             case 3067:
                 npc.name = "Bork";
                 npc.models = new int[]{40590};
@@ -1634,6 +1741,7 @@ public final class MobDefinition {
                 npc.sizeXZ = 40;
                 npc.sizeY = 40;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 //npc.sizeXZ = 35;
                 //npc.sizeY = 75;
                 break;
@@ -1650,7 +1758,9 @@ public final class MobDefinition {
                 npc.sizeXZ = 40;
                 npc.sizeY = 40;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
+                
             case 3069:
                 npc.name = "Rock Crab";
                 npc.models = new int[2];
@@ -1665,7 +1775,9 @@ public final class MobDefinition {
                 npc.sizeXZ = 80;
                 npc.sizeY = 80;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
+                
             case 3070:
                 npc.name = "Abyssal Sire";
                 npc.description = "It's an abyssal sire.";
@@ -1679,15 +1791,19 @@ public final class MobDefinition {
                 npc.sizeXZ = 28;
                 npc.sizeY = 28;
                 npc.squaresNeeded = 1;
+                npc.pet = true;
                 break;
                 
             case 153:
                 npc.copy(forID(23009));
                 npc.name = "Superior TzRek-Zuk";
+                npc.pet = true;
                 break;
+                
             case 154:
                 npc.copy(forID(23025));
                 npc.name = "Superior Vorki";
+                npc.pet = true;
                 break;
 		/*  		     
 		case 1265:
@@ -1820,7 +1936,6 @@ public final class MobDefinition {
         }
 
         actions = new String[def.actions.length];
-
         for (int i = 0; i < actions.length; i++) {
             actions[i] = def.actions[i];
         }
@@ -1875,6 +1990,7 @@ public final class MobDefinition {
         degreesToTurn = def.degreesToTurn;
         varbitId = def.varbitId;
         varSettingsId = def.varSettingsId;
+        pet = def.pet;
     }
 
     public static int NPCAMOUNT = 11599;

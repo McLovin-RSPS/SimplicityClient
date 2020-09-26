@@ -72,7 +72,7 @@ public class SettingsWidget extends RSInterface {
 		addSpriteLoader(905, 1222);
 		addSpriteLoader(907, 1223); // zoom
 		addSpriteLoader(909, 88);
-		addConfigButtonWSpriteLoader(12464, 904, 1219, 1220, 40, 40, "Toggle-Accept Aid", 0, 5, 427);
+		addConfigButtonWSpriteLoader(12464, 904, 1220, 1219, 40, 40, "Toggle-Accept Aid", 0, 5, 427);
 		addSpriteLoader(949, 1248);
 		
 		addConfigButtonWSpriteLoader(152, 904, 1219, 1220, 40, 40, "Toggle-run", 1, 5, 173);

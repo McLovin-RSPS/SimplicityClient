@@ -66,6 +66,9 @@ public class OldschoolMaps {
             //zalcano
             12126,
             
+            9116, // Kraken
+            13900, // Elite minigame
+            
             // Ironman Guild
             8773,
             
@@ -77,13 +80,17 @@ public class OldschoolMaps {
             7513,
             7514,
             7769,
+            7770,
             8751, 9007, 9008, // Zulrah
             
             5022, 5023, 5279, 5280, 5535, // Alchemical Hydra
 
+            13393, 13394, 13395, 13397, 13136, 13137, 13138, 13139, 13140, 13141, 13145, // Chambers of Xeric
             13379,
-
-            13393, 13394, 13395, 13397, 13136, 13137, 13138, 13139, 13140, 13141, 13145 // Chambers of Xeric
+            10645, 10644, 10900, 10901, // Brimhaven Dungeon
+            12183, 12184,
+            14936,
+            12948
     };
     static {
         for(Integer region : OLDSCHOOL_REGION_IDS) {

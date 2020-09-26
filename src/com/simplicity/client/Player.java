@@ -342,8 +342,13 @@ public final class Player extends Entity {
 					Model model_3 = null;
 					if((i3 - 256) < IDK.cache.length)
 						model_3 = IDK.cache[i3 - 256].fetchBodyModel();
-					if (model_3 != null)
+					if (model_3 != null) {
+						if (currentPart == 9) { // Bare hands adjustment
+							scaleOldEquipment(model_3, 9);
+						}
+						
 						bodyPartModels[j2++] = model_3;
+					}
 				}
 				if (i3 >= 512) {
 					ItemDefinition def = ItemDefinition.forID(i3 - 512);
@@ -356,10 +361,16 @@ public final class Player extends Entity {
 							if(Configuration.DISCO_ITEMS && def != null && discoItems(i3 - 512)) {
 								updateColor = true;
 							}
+							
+							if (currentPart == 0 || currentPart == 3 || currentPart == 4 || currentPart == 5 || currentPart == 9) {
+								scaleOldEquipment(model_4, currentPart);
+							}
+							
 							bodyPartModels[j2++] = model_4;
 						}
-					}
 				}
+			}
+			
 			model_1 = new Model(j2, bodyPartModels);
 			for (int j3 = 0; j3 < 5; j3++)
 				if (anIntArray1700[j3] != 0) {
@@ -396,6 +407,30 @@ public final class Player extends Entity {
 		model_2.triangleSkin = null;
 		model_2.vertexSkin = null;
 		return model_2;
+	}
+
+	/**
+	 * Scales old equipment models to fit on the newer character model.
+	 * 
+	 * @param model         The model to scale.
+	 * @param equipmentSlot The equipment slot.
+	 */
+	private void scaleOldEquipment(Model model, int equipmentSlot) {
+		if (equipment[4] >= 512) { // Scale when wearing body
+			ItemDefinition bodyDef = ItemDefinition.forID(equipment[4] - 512);
+			
+			if (bodyDef != null && bodyDef.dataType == DataType.OLDSCHOOL) {
+				if (equipmentSlot == 9) { // Adjust hands
+					model.scale2(128 - 15, 128, 128);
+					model.translateO(0, -8, -0);
+				} else if (equipmentSlot == 4) { // Scale and adjust the body itself
+					model.scale2(128, 128 + 17, 128 + 25);
+					model.translateO(0, 16, 0);
+				} else if (equipmentSlot == 3 || equipmentSlot == 5) { // Adjust weapon & shield
+					model.translateO(0, -8, -0);
+				}
+			}
+		}
 	}
 	
 	private int getRightHandItem(Animation animation) {

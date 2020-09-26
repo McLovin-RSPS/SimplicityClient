@@ -356,5 +356,5 @@ public class Jframe extends Client implements ActionListener {
 	Dimension screenSize = toolkit.getScreenSize();
 	int screenWidth = (int) screenSize.getWidth();
 	int screenHeight = (int) screenSize.getHeight();
-	
+	//SUICIDE
 }
