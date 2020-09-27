@@ -128,7 +128,6 @@ public class XpTrackerPlugin extends Plugin
 	@Setter(AccessLevel.PACKAGE)
 	@VisibleForTesting
 	private XpPanel xpPanel;
-	private XpWorldType lastWorldType;
 	private String lastUsername;
 	private long lastTickMillis = 0;
 	private boolean fetchXp; // fetch lastXp for the online xp tracker
@@ -193,20 +192,15 @@ public class XpTrackerPlugin extends Plugin
 		{
 			// LOGGED_IN is triggered between region changes too.
 			// Check that the username changed or the world type changed.
-			XpWorldType type = worldSetToType(client.getWorldType());
-
-			if (!Objects.equals(client.getUsername(), lastUsername) || lastWorldType != type)
+			if (!Objects.equals(client.getUsername(), lastUsername))
 			{
 				// Reset
 				log.debug("World change: {} -> {}, {} -> {}",
-					lastUsername, client.getUsername(),
-					firstNonNull(lastWorldType, "<unknown>"),
-					firstNonNull(type, "<unknown>"));
+					lastUsername, client.getUsername());
 
 				lastUsername = client.getUsername();
 				// xp is not available until after login is finished, so fetch it on the next gametick
 				fetchXp = true;
-				lastWorldType = type;
 				resetState();
 				// Must be set from hitting the LOGGING_IN or HOPPING case below
 				assert initializeTracker;

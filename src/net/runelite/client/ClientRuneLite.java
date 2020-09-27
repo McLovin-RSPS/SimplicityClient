@@ -434,12 +434,6 @@ public class ClientRuneLite implements Client {
 	}
 	
 	@Override
-	public EnumSet<WorldType> getWorldType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
 	public World[] getWorldList() {
 		// TODO Auto-generated method stub
 		return null;

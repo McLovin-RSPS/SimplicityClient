@@ -1431,13 +1431,6 @@ public interface Client extends GameEngine
 	void setInventoryDragDelay(int delay);
 
 	/**
-	 * Gets a set of current world types that apply to the logged in world.
-	 *
-	 * @return the types for current world
-	 */
-	EnumSet<WorldType> getWorldType();
-
-	/**
 	 * Sets the enabled state for the Oculus orb state
 	 *
 	 * @param state boolean enabled value
