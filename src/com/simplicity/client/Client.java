@@ -143,6 +143,10 @@ import net.runelite.api.events.ItemDespawned;
 import net.runelite.api.events.ItemSpawned;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.events.NpcDespawned;
+import net.runelite.api.events.NpcSpawned;
+import net.runelite.api.events.PlayerDespawned;
+import net.runelite.api.events.PlayerSpawned;
 import net.runelite.api.events.StatChanged;
 import net.runelite.client.RuneLite;
 import net.runelite.client.callback.Hooks;
@@ -5318,6 +5322,10 @@ public class Client extends RSApplet {
                 continue;
             }
             if (npcArray[l].loopCycle != loopCycle) {
+            	if (runelite != null) {
+            		callbacks.post(new NpcDespawned(npcArray[l]));
+                }
+            	
                 npcArray[l].desc = null;
                 npcArray[l] = null;
             }
@@ -6287,6 +6295,10 @@ public class Client extends RSApplet {
                 }
 
                 npc.setPos(myPlayer.pathX[0] + i1 - offsetPosX, myPlayer.pathY[0] + l - offsetPosY, j1 == 1);
+                
+                if (runelite != null) {
+                	callbacks.post(new NpcSpawned(npc));
+                }
             }
             stream.finishBitAccess();
     }
@@ -14411,6 +14423,10 @@ public class Client extends RSApplet {
                 j1 -= 64;
             }
             player.setPos(myPlayer.pathX[0] + j1, myPlayer.pathY[0] + i1, l == 1);
+            
+            if (runelite != null) {
+            	callbacks.post(new PlayerSpawned(player));
+            }
         }
         stream.finishBitAccess();
     }
@@ -16737,13 +16753,13 @@ public class Client extends RSApplet {
                 player.interactingEntity = -1;
                 
                 if (runelite != null) {
-                	runelite.post(new InteractingChanged(player, null));
+                	callbacks.post(new InteractingChanged(player, null));
                 }
             } else if (runelite != null) {
 				if (player.interactingEntity < 32768) {
-					runelite.post(new InteractingChanged(player, npcArray[player.interactingEntity]));
+					callbacks.post(new InteractingChanged(player, npcArray[player.interactingEntity]));
 				} else {
-					runelite.post(new InteractingChanged(player, playerArray[player.interactingEntity - 32768]));
+					callbacks.post(new InteractingChanged(player, playerArray[player.interactingEntity - 32768]));
 				}
             }
         }
@@ -19284,6 +19300,10 @@ public class Client extends RSApplet {
         for (int k = 0; k < anInt839; k++) {
             int l = anIntArray840[k];
             if (playerArray[l].loopCycle != loopCycle) {
+            	if (runelite != null) {
+            		callbacks.post(new PlayerDespawned(playerArray[l]));
+                }
+            	
                 playerArray[l] = null;
             }
         }
@@ -19898,7 +19918,7 @@ public class Client extends RSApplet {
 						}
 						
 						if (runelite != null) {
-	                		runelite.post(new StatChanged(Skill.values()[id], exp, maxLevel, level));
+							callbacks.post(new StatChanged(Skill.values()[id], exp, maxLevel, level));
 	                    }
                     }
                     if (id == 23) {
