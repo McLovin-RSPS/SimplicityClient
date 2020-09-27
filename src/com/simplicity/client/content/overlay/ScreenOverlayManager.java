@@ -103,7 +103,7 @@ public class ScreenOverlayManager {
 		OVERLAYS.add(new TobOrbsOverlay());
 		OVERLAYS.add(new TobPartyOverlay());
 		OVERLAYS.add(new KDROverlay());
-		OVERLAYS.add(new HitpointsOverlay());
+		// OVERLAYS.add(new HitpointsOverlay());
 		OVERLAYS.add(new AmmunitionOverlay());
 		OVERLAYS.add(new XericPointsOverlay());
 		

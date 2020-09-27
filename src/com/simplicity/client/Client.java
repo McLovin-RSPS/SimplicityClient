@@ -7147,8 +7147,8 @@ public class Client extends RSApplet {
         return (clickX > sX && clickX < eX && clickY > sY && clickY < eY);
     }
 
-    private int currentEntityHealth = 100;
-    private int maximumEntityHealth = 100;
+    public int currentEntityHealth = 100;
+    public int maximumEntityHealth = 100;
     private int MaxHealth = 300;
     private int CurrentHealth = 300;
 
@@ -20244,14 +20244,12 @@ public class Client extends RSApplet {
                     currentEntityHealth = currentHealth;
                     maximumEntityHealth = maxHealth;
 
-                    RSInterface entityInterface = RSInterface.interfaceCache[41020];
-                    // RSInterface entityInterface =
-                    // RSInterface.interfaceCache[7799];
+                    /*RSInterface entityInterface = RSInterface.interfaceCache[41020];
                     if (!Configuration.enableConstitution) {
                         entityInterface.message = currentHealth / 10 + " / " + maxHealth / 10;
                     } else {
                         entityInterface.message = currentHealth + " / " + maxHealth;
-                    }
+                    }*/
 
                     opCode = -1;
                     return true;
