@@ -8076,6 +8076,7 @@ public final class ItemDefinition {
                 itemDef.actions = new String[5];
                 itemDef.actions[1] = "Wear";
                 itemDef.actions[2] = "Customize";
+                itemDef.actions[3] = "Toggle ROL";
                 itemDef.editedModelColor = new int[4];
                 itemDef.newModelColor = new int[4];
                 itemDef.editedModelColor[0] = 65214; //red
@@ -8117,6 +8118,10 @@ public final class ItemDefinition {
                 itemDef.actions = new String[5];
                 itemDef.actions[1] = "Wear";
                 break;
+            case 9753:
+            case 9754:
+                itemDef.actions[3] = "Toggle ROL";
+                break;
             case 14022:
                 itemDef.modelID = 65270;
                 itemDef.name = "Completionist Cape";
@@ -8132,9 +8137,8 @@ public final class ItemDefinition {
                 itemDef.groundActions[2] = "Take";
                 itemDef.actions = new String[5];
                 itemDef.actions[1] = "Wear";
-                itemDef.actions = new String[5];
-                itemDef.actions[1] = "Wear";
                 itemDef.actions[2] = "Customize";
+                itemDef.actions[3] = "Toggle ROL";
                 itemDef.editedModelColor = new int[4];
                 itemDef.newModelColor = new int[4];
                 itemDef.editedModelColor[0] = 65214; //red

@@ -4961,6 +4961,15 @@ public class Client extends RSApplet {
 	                                                        interfaceId = 2700;
 	                                                    }
 	                                                    menuActionName[menuActionRow] = s;
+                                                        if (child.parentID == 1644) {
+                                                            if (itemDef.id == 9753 || itemDef.id == 9754 ||
+                                                                    itemDef.id == 14019 || itemDef.id == 14022) {
+                                                                if (j4 == 2) {
+                                                                    menuActionName[menuActionRow] = "Toggle ROL @lre@"
+                                                                            + itemDef.name;
+                                                                }
+                                                            }
+                                                        }
 	                                                    if (j4 == 0) {
 	                                                        menuActionID[menuActionRow] = 632;
 	                                                    }
