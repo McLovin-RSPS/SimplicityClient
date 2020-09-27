@@ -33,8 +33,6 @@ import net.runelite.api.Client;
 public abstract class Plugin implements Module
 {
 	
-	protected Client client;
-	
 	protected Injector injector;
 
 	@Override

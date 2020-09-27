@@ -114,8 +114,8 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 	static final int MAX_DISTANCE = 90;
 	static final int MAX_FOG_DEPTH = 100;
 
-	/*@Inject
-	private Client client;*/
+	@Inject
+	private Client client;
 
 	@Inject
 	private ClientThread clientThread;

@@ -41,7 +41,7 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.ui.NavigationButton;
-import net.runelite.client.ui.PluginToolbar;
+import net.runelite.client.ui.ClientToolbar;
 
 @PluginDescriptor(
 	name = "Configuration",
@@ -51,7 +51,7 @@ import net.runelite.client.ui.PluginToolbar;
 public class ConfigPlugin extends Plugin
 {
 	@Inject
-	private PluginToolbar pluginToolbar;
+	private ClientToolbar pluginToolbar;
 
 	@Inject
 	private ConfigManager configManager;

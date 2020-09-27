@@ -72,6 +72,9 @@ public class BoostsPlugin extends Plugin
 
 	@Inject
 	private Notifier notifier;
+	
+	@Inject
+	private Client client;
 
 	@Inject
 	private InfoBoxManager infoBoxManager;

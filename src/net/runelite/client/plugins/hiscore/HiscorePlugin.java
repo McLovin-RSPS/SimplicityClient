@@ -52,7 +52,7 @@ import net.runelite.client.menus.MenuManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.NavigationButton;
-import net.runelite.client.ui.PluginToolbar;
+import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.util.Text;
 
 @PluginDescriptor(
@@ -74,7 +74,7 @@ public class HiscorePlugin extends Plugin
 	private Client client;
 
 	@Inject
-	private PluginToolbar pluginToolbar;
+	private ClientToolbar pluginToolbar;
 
 	@Inject
 	private MenuManager menuManager;

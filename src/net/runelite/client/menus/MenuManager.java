@@ -312,7 +312,6 @@ public class MenuManager
 	@Subscribe
 	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
-		System.out.println("event");
 		if (event.getMenuAction() != MenuAction.RUNELITE)
 		{
 			return; // not a player menu

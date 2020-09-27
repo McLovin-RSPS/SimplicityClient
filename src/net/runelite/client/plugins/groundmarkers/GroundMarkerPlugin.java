@@ -74,6 +74,9 @@ public class GroundMarkerPlugin extends Plugin
 
 	@Getter(AccessLevel.PACKAGE)
 	private final List<ColorTileMarker> points = new ArrayList<>();
+	
+	@Inject
+	private Client client;
 
 	@Inject
 	private GroundMarkerConfig config;

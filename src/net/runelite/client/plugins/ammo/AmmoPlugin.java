@@ -32,6 +32,7 @@ import com.simplicity.client.Item;
 import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.client.container.item.ItemContainer;
 
+import net.runelite.api.Client;
 import net.runelite.api.EquipmentInventorySlot;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.client.callback.ClientThread;
@@ -48,6 +49,9 @@ import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 )
 public class AmmoPlugin extends Plugin
 {
+	@Inject
+	private Client client;
+	
 	@Inject
 	private ClientThread clientThread;
 

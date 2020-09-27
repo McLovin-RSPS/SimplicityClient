@@ -45,7 +45,7 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.task.Schedule;
 import net.runelite.client.ui.NavigationButton;
-import net.runelite.client.ui.PluginToolbar;
+import net.runelite.client.ui.ClientToolbar;
 import net.runelite.http.api.feed.FeedClient;
 import net.runelite.http.api.feed.FeedResult;
 
@@ -60,7 +60,7 @@ import net.runelite.http.api.feed.FeedResult;
 public class FeedPlugin extends Plugin
 {
 	@Inject
-	private PluginToolbar pluginToolbar;
+	private ClientToolbar pluginToolbar;
 
 	@Inject
 	private FeedConfig config;

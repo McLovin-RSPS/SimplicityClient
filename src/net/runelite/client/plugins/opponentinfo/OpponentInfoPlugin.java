@@ -35,6 +35,7 @@ import com.simplicity.client.Entity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
@@ -54,6 +55,9 @@ import net.runelite.http.api.hiscore.HiscoreEndpoint;
 public class OpponentInfoPlugin extends Plugin
 {
 	private static final Duration WAIT = Duration.ofSeconds(5);
+	
+	@Inject
+	private Client client;
 
 	@Inject
 	private OpponentInfoConfig config;

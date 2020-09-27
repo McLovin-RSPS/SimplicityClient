@@ -116,7 +116,8 @@ public class RuneLiteModule extends AbstractModule
 	@Singleton
 	Client provideClient(@Nullable Applet applet)
 	{
-		return applet instanceof Client ? (Client) applet : null;
+		//return applet instanceof Client ? (Client) applet : null;
+		return RuneLite.getClient();
 	}
 
 	@Provides

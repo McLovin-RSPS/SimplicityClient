@@ -42,6 +42,7 @@ import com.google.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.SpritePixels;
+import net.runelite.client.RuneLite;
 import net.runelite.client.callback.ClientThread;
 
 @Singleton

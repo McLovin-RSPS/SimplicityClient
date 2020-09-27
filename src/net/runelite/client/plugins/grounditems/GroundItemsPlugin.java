@@ -25,20 +25,15 @@
  */
 package net.runelite.client.plugins.grounditems;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.LoadingCache;
-import com.google.common.collect.EvictingQueue;
-import com.google.common.collect.ImmutableList;
-import com.google.inject.Provides;
-import com.simplicity.client.Item;
-import com.simplicity.client.Player;
-import com.simplicity.client.Tile;
-import com.simplicity.client.cache.definitions.ItemDefinition;
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
+import static net.runelite.client.plugins.grounditems.config.ItemHighlightMode.OVERLAY;
+import static net.runelite.client.plugins.grounditems.config.MenuHighlightMode.BOTH;
+import static net.runelite.client.plugins.grounditems.config.MenuHighlightMode.NAME;
+import static net.runelite.client.plugins.grounditems.config.MenuHighlightMode.OPTION;
 
 import java.awt.Color;
 import java.awt.Rectangle;
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -50,14 +45,25 @@ import java.util.Queue;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
+
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.LoadingCache;
+import com.google.common.collect.EvictingQueue;
+import com.google.common.collect.ImmutableList;
+import com.google.inject.Provides;
+import com.simplicity.client.Item;
+import com.simplicity.client.Player;
+import com.simplicity.client.Tile;
+import com.simplicity.client.cache.definitions.ItemDefinition;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.Value;
-import net.runelite.api.Constants;
+import net.runelite.api.Client;
 import net.runelite.api.GameState;
-import net.runelite.api.ItemComposition;
 import net.runelite.api.ItemID;
 import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
@@ -83,11 +89,7 @@ import net.runelite.client.input.MouseManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.grounditems.config.HighlightTier;
-import static net.runelite.client.plugins.grounditems.config.ItemHighlightMode.OVERLAY;
 import net.runelite.client.plugins.grounditems.config.MenuHighlightMode;
-import static net.runelite.client.plugins.grounditems.config.MenuHighlightMode.BOTH;
-import static net.runelite.client.plugins.grounditems.config.MenuHighlightMode.NAME;
-import static net.runelite.client.plugins.grounditems.config.MenuHighlightMode.OPTION;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.QuantityFormatter;
@@ -166,6 +168,9 @@ public class GroundItemsPlugin extends Plugin
 
 	@Inject
 	private Notifier notifier;
+	
+	@Inject
+	private Client client;
 
 	@Inject
 	private ScheduledExecutorService executor;
