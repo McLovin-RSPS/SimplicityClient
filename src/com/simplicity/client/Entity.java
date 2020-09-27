@@ -1,8 +1,6 @@
 package com.simplicity.client;
 
 
-import java.awt.Polygon;
-
 // Decompiled by Jad v1.5.8f. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
@@ -235,4 +233,20 @@ public class Entity extends Animable {
 	public int nextIdleAnimationFrame;
 	
 	public int idleGraphicId = -1;
+
+	public String getName() {
+		if (this instanceof Player) {
+			return ((Player) this).getName();
+		} else if (this instanceof NPC) {
+			NPC n = (NPC) this;
+			
+			if (n.desc == null) {
+				return null;
+			}
+			
+			return n.desc.name;
+		}
+		
+		return null;
+	}
 }

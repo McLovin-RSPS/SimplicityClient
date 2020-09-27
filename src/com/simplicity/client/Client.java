@@ -135,12 +135,15 @@ import com.simplicity.util.StringUtils;
 
 import net.runelite.api.GameState;
 import net.runelite.api.MenuAction;
+import net.runelite.api.Skill;
 import net.runelite.api.events.GameStateChanged;
+import net.runelite.api.events.InteractingChanged;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.ItemDespawned;
 import net.runelite.api.events.ItemSpawned;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.events.StatChanged;
 import net.runelite.client.RuneLite;
 import net.runelite.client.callback.Hooks;
 import net.runelite.client.plugins.Plugin;
@@ -16729,8 +16732,19 @@ public class Client extends RSApplet {
         }
         if ((i & 1) != 0) {
             player.interactingEntity = stream.ig2();
+
             if (player.interactingEntity == 65535) {
                 player.interactingEntity = -1;
+                
+                if (runelite != null) {
+                	runelite.post(new InteractingChanged(player, null));
+                }
+            } else if (runelite != null) {
+				if (player.interactingEntity < 32768) {
+					runelite.post(new InteractingChanged(player, npcArray[player.interactingEntity]));
+				} else {
+					runelite.post(new InteractingChanged(player, playerArray[player.interactingEntity - 32768]));
+				}
             }
         }
         if ((i & 0x10) != 0) {
@@ -19875,6 +19889,9 @@ public class Client extends RSApplet {
                     currentExp[id] = exp;
                     currentStats[id] = level;
                     currentMaxStats[id] = maxLevel;
+                    if (runelite != null) {
+                		runelite.post(new StatChanged(Skill.values()[id], exp, maxLevel, level));
+                    }
                     if (!blockXPGain && gainedExperience > 0) {
 						SkillOrbs.orbs[id].receivedExperience();
 						XpDrops.add(id, gainedExperience);

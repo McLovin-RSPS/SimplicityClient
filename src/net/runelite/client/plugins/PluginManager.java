@@ -68,6 +68,7 @@ import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.PluginChanged;
 import net.runelite.client.plugins.ammo.AmmoPlugin;
+import net.runelite.client.plugins.boosts.BoostsPlugin;
 import net.runelite.client.plugins.config.ConfigPlugin;
 import net.runelite.client.plugins.discord.DiscordPlugin;
 import net.runelite.client.plugins.donate.DonatePlugin;
@@ -77,6 +78,7 @@ import net.runelite.client.plugins.grounditems.GroundItemsPlugin;
 import net.runelite.client.plugins.groundmarkers.GroundMarkerPlugin;
 import net.runelite.client.plugins.notes.NotesPlugin;
 import net.runelite.client.plugins.npchighlight.NpcIndicatorsPlugin;
+import net.runelite.client.plugins.opponentinfo.OpponentInfoPlugin;
 import net.runelite.client.plugins.screenshot.ScreenshotPlugin;
 import net.runelite.client.plugins.vote.VotePlugin;
 import net.runelite.client.task.Schedule;
@@ -249,6 +251,8 @@ public class PluginManager
 				GroundMarkerPlugin.class,
 				AmmoPlugin.class,
 				FpsPlugin.class,
+				OpponentInfoPlugin.class,
+				BoostsPlugin.class
 		};
 		
 		for (Class<?> clazz : plugins)

@@ -1023,8 +1023,7 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public int getBoostedSkillLevel(Skill skill) {
-		// TODO Auto-generated method stub
-		return 0;
+		return client().currentStats[skill.ordinal()];
 	}
 	
 	@Override

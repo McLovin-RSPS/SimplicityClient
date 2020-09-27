@@ -10,8 +10,10 @@ import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.client.cache.definitions.MobDefinition;
 import com.simplicity.client.cache.definitions.SpotAnimDefinition;
 
+import net.runelite.api.Actor;
 import net.runelite.api.Perspective;
 import net.runelite.api.coords.LocalPoint;
+import net.runelite.api.events.InteractingChanged;
 import net.runelite.client.RuneLite;
 
 @SuppressWarnings("all")
@@ -554,5 +556,17 @@ public final class Player extends Entity {
 	int extendedXMax;
 	int extendedYMax;
 	boolean updateColor = true;
+
+	public Entity getInteracting() {
+		if (interactingEntity == -1) {
+			return null;
+		}
+
+		if (interactingEntity < 32768) {
+			return Client.instance.getNpcs()[interactingEntity];
+		} else {
+			return Client.instance.getPlayers()[interactingEntity - 32768];
+		}
+	}
 }
 

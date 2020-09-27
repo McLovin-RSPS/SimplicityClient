@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2019, Sean Dewar <https://github.com/seandewar>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,58 +22,11 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.client.plugins.opponentinfo;
 
-package net.runelite.api;
-
-/**
- * An enumeration of skills that a player can level.
- */
-public enum Skill
+public enum HitpointsDisplayStyle
 {
-	ATTACK("Attack"),
-	DEFENCE("Defence"),
-	STRENGTH("Strength"),
-	HITPOINTS("Hitpoints"),
-	RANGED("Ranged"),
-	PRAYER("Prayer"),
-	MAGIC("Magic"),
-	COOKING("Cooking"),
-	WOODCUTTING("Woodcutting"),
-	FLETCHING("Fletching"),
-	FISHING("Fishing"),
-	FIREMAKING("Firemaking"),
-	CRAFTING("Crafting"),
-	SMITHING("Smithing"),
-	MINING("Mining"),
-	HERBLORE("Herblore"),
-	AGILITY("Agility"),
-	THIEVING("Thieving"),
-	SLAYER("Slayer"),
-	FARMING("Farming"),
-	RUNECRAFT("Runecraft"),
-	CONSTRUCTION("Construction"),
-	HUNTER("Hunter"),
-	SUMMONING("Summoning"),
-	DUNGEONEERING("Dungeoneering"),
-	/**
-	 * The level of all skills added together.
-	 */
-	OVERALL("Overall");
-
-	private final String name;
-
-	Skill(String name)
-	{
-		this.name = name;
-	}
-
-	/**
-	 * Gets the name of the skill.
-	 *
-	 * @return the skill name
-	 */
-	public String getName()
-	{
-		return name;
-	}
+	HITPOINTS,
+	PERCENTAGE,
+	BOTH;
 }

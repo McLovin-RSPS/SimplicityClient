@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2018, Seth <http://github.com/sethtroll>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,58 +22,45 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.client.plugins.boosts;
 
-package net.runelite.api;
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import net.runelite.client.ui.overlay.infobox.InfoBox;
+import net.runelite.client.ui.overlay.infobox.InfoBoxPriority;
 
-/**
- * An enumeration of skills that a player can level.
- */
-public enum Skill
+public class StatChangeIndicator extends InfoBox
 {
-	ATTACK("Attack"),
-	DEFENCE("Defence"),
-	STRENGTH("Strength"),
-	HITPOINTS("Hitpoints"),
-	RANGED("Ranged"),
-	PRAYER("Prayer"),
-	MAGIC("Magic"),
-	COOKING("Cooking"),
-	WOODCUTTING("Woodcutting"),
-	FLETCHING("Fletching"),
-	FISHING("Fishing"),
-	FIREMAKING("Firemaking"),
-	CRAFTING("Crafting"),
-	SMITHING("Smithing"),
-	MINING("Mining"),
-	HERBLORE("Herblore"),
-	AGILITY("Agility"),
-	THIEVING("Thieving"),
-	SLAYER("Slayer"),
-	FARMING("Farming"),
-	RUNECRAFT("Runecraft"),
-	CONSTRUCTION("Construction"),
-	HUNTER("Hunter"),
-	SUMMONING("Summoning"),
-	DUNGEONEERING("Dungeoneering"),
-	/**
-	 * The level of all skills added together.
-	 */
-	OVERALL("Overall");
+	private final boolean up;
+	private final BoostsPlugin plugin;
+	private final BoostsConfig config;
 
-	private final String name;
-
-	Skill(String name)
+	StatChangeIndicator(boolean up, BufferedImage image, BoostsPlugin plugin, BoostsConfig config)
 	{
-		this.name = name;
+		super(image, plugin);
+		this.up = up;
+		this.plugin = plugin;
+		this.config = config;
+		setPriority(InfoBoxPriority.MED);
+		setTooltip(up ? "Next debuff change" : "Next buff change");
 	}
 
-	/**
-	 * Gets the name of the skill.
-	 *
-	 * @return the skill name
-	 */
-	public String getName()
+	@Override
+	public String getText()
 	{
-		return name;
+		return String.format("%02d", plugin.getChangeTime(up ? plugin.getChangeUpTicks() : plugin.getChangeDownTicks()));
+	}
+
+	@Override
+	public Color getTextColor()
+	{
+		return (up ? plugin.getChangeUpTicks() : plugin.getChangeDownTicks()) < 10 ? Color.RED.brighter() : Color.WHITE;
+	}
+
+	@Override
+	public boolean render()
+	{
+		final int time = up ? plugin.getChangeUpTicks() : plugin.getChangeDownTicks();
+		return config.displayInfoboxes() && time != -1;
 	}
 }

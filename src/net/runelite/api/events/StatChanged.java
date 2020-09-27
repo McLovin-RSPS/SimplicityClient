@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2017-2019, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,58 +22,19 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.api.events;
 
-package net.runelite.api;
+import lombok.Value;
+import net.runelite.api.Skill;
 
 /**
- * An enumeration of skills that a player can level.
+ * An event where the experience, level, or boosted level of a {@link Skill} has been modified.
  */
-public enum Skill
+@Value
+public class StatChanged
 {
-	ATTACK("Attack"),
-	DEFENCE("Defence"),
-	STRENGTH("Strength"),
-	HITPOINTS("Hitpoints"),
-	RANGED("Ranged"),
-	PRAYER("Prayer"),
-	MAGIC("Magic"),
-	COOKING("Cooking"),
-	WOODCUTTING("Woodcutting"),
-	FLETCHING("Fletching"),
-	FISHING("Fishing"),
-	FIREMAKING("Firemaking"),
-	CRAFTING("Crafting"),
-	SMITHING("Smithing"),
-	MINING("Mining"),
-	HERBLORE("Herblore"),
-	AGILITY("Agility"),
-	THIEVING("Thieving"),
-	SLAYER("Slayer"),
-	FARMING("Farming"),
-	RUNECRAFT("Runecraft"),
-	CONSTRUCTION("Construction"),
-	HUNTER("Hunter"),
-	SUMMONING("Summoning"),
-	DUNGEONEERING("Dungeoneering"),
-	/**
-	 * The level of all skills added together.
-	 */
-	OVERALL("Overall");
-
-	private final String name;
-
-	Skill(String name)
-	{
-		this.name = name;
-	}
-
-	/**
-	 * Gets the name of the skill.
-	 *
-	 * @return the skill name
-	 */
-	public String getName()
-	{
-		return name;
-	}
+	private final Skill skill;
+	private final int xp;
+	private final int level;
+	private final int boostedLevel;
 }

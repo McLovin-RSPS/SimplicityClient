@@ -62,7 +62,7 @@ public class HiscoreManager
 	private final LoadingCache<HiscoreKey, HiscoreResult> hiscoreCache;
 
 	@Inject
-	public HiscoreManager(Client client, ScheduledExecutorService executor, ClientThread clientThread)
+	public HiscoreManager(ScheduledExecutorService executor, ClientThread clientThread)
 	{
 		hiscoreCache = CacheBuilder.newBuilder()
 			.maximumSize(128L)
