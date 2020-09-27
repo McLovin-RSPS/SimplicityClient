@@ -25334,7 +25334,7 @@ public class Client extends RSApplet {
 	 * @return <code>true</code> if drawn.
 	 */
 	private boolean shouldDrawHpOverlay() {
-		return getRegionId() != 12611;
+		return false;
 	}
 	
 	public Position getPlayerPos() {
