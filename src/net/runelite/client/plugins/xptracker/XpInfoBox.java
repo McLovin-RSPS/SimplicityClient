@@ -258,7 +258,7 @@ class XpInfoBox extends JPanel
 			progressBar.setCenterLabel(xpTrackerConfig.progressBarLabel().getValueFunc().apply(xpSnapshotSingle));
 			progressBar.setLeftLabel("Lvl. " + xpSnapshotSingle.getStartLevel());
 			progressBar.setRightLabel(xpSnapshotSingle.getEndGoalXp() == Experience.MAX_SKILL_XP
-				? "200M"
+				? "2B"
 				: "Lvl. " + xpSnapshotSingle.getEndLevel());
 
 			// Add intermediate level positions to progressBar
