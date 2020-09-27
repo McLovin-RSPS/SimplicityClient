@@ -757,6 +757,13 @@ public interface Client extends GameEngine
 	 * @return the experience
 	 */
 	int getSkillExperience(Skill skill);
+	
+	/**
+	 * Get the total experience of the player
+	 *
+	 * @return
+	 */
+	long getOverallExperience();
 
 	/**
 	 * Gets the game drawing mode.

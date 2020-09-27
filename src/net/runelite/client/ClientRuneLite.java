@@ -1230,5 +1230,10 @@ public class ClientRuneLite implements Client {
 		
 	}
 
+	@Override
+	public long getOverallExperience() {
+		return 0;
+	}
+
 
 }

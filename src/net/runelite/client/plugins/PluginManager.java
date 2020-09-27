@@ -81,6 +81,7 @@ import net.runelite.client.plugins.npchighlight.NpcIndicatorsPlugin;
 import net.runelite.client.plugins.opponentinfo.OpponentInfoPlugin;
 import net.runelite.client.plugins.screenshot.ScreenshotPlugin;
 import net.runelite.client.plugins.vote.VotePlugin;
+import net.runelite.client.plugins.xptracker.XpTrackerPlugin;
 import net.runelite.client.task.Schedule;
 import net.runelite.client.task.ScheduledMethod;
 import net.runelite.client.task.Scheduler;
@@ -252,7 +253,8 @@ public class PluginManager
 				AmmoPlugin.class,
 				FpsPlugin.class,
 				OpponentInfoPlugin.class,
-				BoostsPlugin.class
+				BoostsPlugin.class,
+				XpTrackerPlugin.class
 		};
 		
 		for (Class<?> clazz : plugins)
