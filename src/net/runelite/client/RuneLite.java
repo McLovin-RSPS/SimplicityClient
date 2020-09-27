@@ -110,6 +110,7 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.discord.DiscordService;
 import net.runelite.client.game.ClanManager;
 import net.runelite.client.game.ItemManager;
+import net.runelite.client.game.LootManager;
 import net.runelite.client.menus.MenuManager;
 import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.rs.ClientUpdateCheckMode;
@@ -193,6 +194,9 @@ public class RuneLite
 
 	@Inject
 	private WorldMapOverlay worldMapOverlay;
+	
+	@Inject
+	private Provider<LootManager> lootManager;
 	
 	@Inject
 	private Provider<Hooks> hooks;
@@ -365,6 +369,7 @@ public class RuneLite
 				eventBus.register(menuManager);
 				eventBus.register(chatMessageManager);
 				eventBus.register(commandManager);
+				eventBus.register(lootManager.get());
 				eventBus.register(clanManager);
 				eventBus.register(infoBoxManager);
 				eventBus.register(hooks.get());
