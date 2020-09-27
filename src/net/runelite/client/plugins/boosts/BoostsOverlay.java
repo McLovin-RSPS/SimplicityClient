@@ -33,7 +33,6 @@ import javax.inject.Inject;
 
 import net.runelite.api.Client;
 import net.runelite.api.Skill;
-import net.runelite.client.RuneLite;
 import net.runelite.client.ui.overlay.OverlayPanel;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
@@ -42,15 +41,16 @@ import net.runelite.client.util.ColorUtil;
 
 class BoostsOverlay extends OverlayPanel
 {
-	private final Client client = RuneLite.getClient();
+	private final Client client;
 	private final BoostsConfig config;
 	private final BoostsPlugin plugin;
 
 	@Inject
-	private BoostsOverlay(BoostsConfig config, BoostsPlugin plugin)
+	private BoostsOverlay(Client client, BoostsConfig config, BoostsPlugin plugin)
 	{
 		super(plugin);
 		this.plugin = plugin;
+		this.client = client;
 		this.config = config;
 		setPosition(OverlayPosition.TOP_LEFT);
 		setPriority(OverlayPriority.MED);

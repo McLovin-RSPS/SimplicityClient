@@ -80,7 +80,7 @@ public class Hooks implements Callbacks
 	private static final long CHECK = 600; // ms - how often to run checks
 
 	private static final Injector injector = RuneLite.getInjector();
-	private static final Client client = RuneLite.getClient();
+	
 	private static final OverlayRenderer renderer = injector.getInstance(OverlayRenderer.class);
 	
 	static com.simplicity.client.Client client() {
@@ -89,6 +89,9 @@ public class Hooks implements Callbacks
 
 	private static final ClientTick CLIENT_TICK = new ClientTick();
 	private static final GameTick GAME_TICK = new GameTick();
+	
+	@Inject
+	private Client client;
 	
 	@Inject
 	private EventBus eventBus;
