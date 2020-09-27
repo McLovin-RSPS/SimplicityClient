@@ -19889,9 +19889,6 @@ public class Client extends RSApplet {
                     currentExp[id] = exp;
                     currentStats[id] = level;
                     currentMaxStats[id] = maxLevel;
-                    if (runelite != null) {
-                		runelite.post(new StatChanged(Skill.values()[id], exp, maxLevel, level));
-                    }
                     if (!blockXPGain && gainedExperience > 0) {
 						SkillOrbs.orbs[id].receivedExperience();
 						XpDrops.add(id, gainedExperience);
@@ -19899,6 +19896,10 @@ public class Client extends RSApplet {
 						if (id != 3) {
 							currentSkill = id;
 						}
+						
+						if (runelite != null) {
+	                		runelite.post(new StatChanged(Skill.values()[id], exp, maxLevel, level));
+	                    }
                     }
                     if (id == 23) {
                         sendFrame126("" + maxLevel + "", 28171);
