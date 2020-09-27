@@ -70,9 +70,8 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import static net.runelite.client.plugins.xptracker.XpWorldType.NORMAL;
 import net.runelite.client.task.Schedule;
-import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
-import net.runelite.client.ui.PluginToolbar;
+import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.Text;
@@ -104,10 +103,10 @@ public class XpTrackerPlugin extends Plugin
 		Skill.MAGIC);
 
 	@Inject
-	private PluginToolbar clientToolbar;
+	private ClientToolbar clientToolbar;
 
-	/*@Inject
-	private Client client;*/
+	@Inject
+	private Client client;
 
 	@Inject
 	private SkillIconManager skillIconManager;
