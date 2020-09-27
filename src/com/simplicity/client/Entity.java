@@ -236,7 +236,7 @@ public class Entity extends Animable {
 
 	public String getName() {
 		if (this instanceof Player) {
-			return ((Player) this).getName();
+			return ((Player) this).name;
 		} else if (this instanceof NPC) {
 			NPC n = (NPC) this;
 			
