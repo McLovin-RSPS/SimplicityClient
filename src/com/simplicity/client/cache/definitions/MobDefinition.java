@@ -156,7 +156,6 @@ public final class MobDefinition {
             return npc;
         stream.currentOffset = streamIndices[i];
         npc.type = i;
-        npc.postLoad();
         if (npc.name != null && npc.name.toLowerCase().contains("bank")) {
             if (npc.actions != null) {
                 for (int l = 0; l < npc.actions.length; l++) {
@@ -167,6 +166,7 @@ public final class MobDefinition {
         }
         npc.id = i;
         npc.readValues(stream);
+        npc.postLoad();
         switch (i) {
 
             case 621:
@@ -1305,7 +1305,7 @@ public final class MobDefinition {
                 break;
             case 494:
             case 1360:
-                npc.actions = new String[]{"Talk-to", null, null, null, null};
+                npc.actions = new String[]{"Talk-to", null, "Load prev. preset", null, null};
                 break;
             case 1685:
                 npc.name = "Pure";
