@@ -1,8 +1,10 @@
 package net.runelite.client.events;
 
 import java.util.Collection;
+
+import com.simplicity.client.Player;
+
 import lombok.Value;
-import net.runelite.api.Player;
 import net.runelite.client.game.ItemStack;
 
 @Value
