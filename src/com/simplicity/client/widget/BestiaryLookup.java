@@ -2,7 +2,6 @@ package com.simplicity.client.widget;
 
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.TextDrawingArea;
-import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.client.cache.definitions.MobDefinition;
 import com.simplicity.client.content.PetSystem;
@@ -199,7 +198,11 @@ public class BestiaryLookup extends RSInterface {
             final int maxQuantity = (Integer) entry[2];
             final int rarity = (Integer) entry[3];
 
-            RSInterface.interfaceCache[itemNameWidgetId].message = ItemDefinition.forID(itemId).name;
+            String itemName = ItemDefinition.forID(itemId).name;
+            if (itemName.length() >= 16) {
+                itemName = itemName.subSequence(0, 16) + "...";
+            }
+            RSInterface.interfaceCache[itemNameWidgetId].message = itemName;
             RSInterface.interfaceCache[itemSpriteId].itemSpriteId1 = itemId;
             RSInterface.interfaceCache[itemSpriteId].disabledSprite = null;
             RSInterface.interfaceCache[itemSpriteId].itemSpriteZoom1 = 150;
