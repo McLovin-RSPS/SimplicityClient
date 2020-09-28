@@ -164,7 +164,7 @@ public class BestiaryLookup extends RSInterface {
 
             addRectangleClickable(rectWidgetId, 0, color, true, boxWidth, BOX_HEIGHT);
             addSprite(itemSpriteId, 0, null, 150, 150);
-            addText(itemNameWidgetId, ItemDefinition.forID(4151).name, fonts, 1, 0xff981f);
+            addText(itemNameWidgetId, "???", fonts, 1, 0xff981f);
             addText(quantityWidgetId, "1", fonts, 1, 0xff981f);
             addText(rarityWidgetId, "1/256", fonts, 1, 0xff981f);
             drawBox(boxWidgetId, boxWidth + 1, BOX_HEIGHT + 1, 2, 0, 0, 255);
@@ -196,7 +196,8 @@ public class BestiaryLookup extends RSInterface {
             final int itemId = (Integer) entry[0];
             final int minQuantity = (Integer) entry[1];
             final int maxQuantity = (Integer) entry[2];
-            final int rarity = (Integer) entry[3];
+            final int occurrences = (Integer) entry[3];
+            final int rarity = (Integer) entry[4];
 
             String itemName = ItemDefinition.forID(itemId).name;
             if (itemName.length() >= 16) {
@@ -211,7 +212,7 @@ public class BestiaryLookup extends RSInterface {
 
             RSInterface.interfaceCache[quantityWidgetId].message = minQuantity == maxQuantity ?
                     Integer.toString(minQuantity) : minQuantity +"-"+ maxQuantity;
-            RSInterface.interfaceCache[rarityWidgetId].message = "1/"+ rarity;
+            RSInterface.interfaceCache[rarityWidgetId].message = occurrences +"/"+ rarity;
         }
     }
 }

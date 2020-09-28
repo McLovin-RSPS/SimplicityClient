@@ -19510,13 +19510,14 @@ public class Client extends RSApplet {
                     int size = inStream.readUnsignedWord();
                     Object[][] list = null;
                     if (size > 0) {
-                        list = new Object[size][4];
+                        list = new Object[size][5];
                         int index = 0;
                         while (inStream.currentOffset < pktSize) {
                             list[index][0] = inStream.readUnsignedWord();
                             list[index][1] = inStream.readUnsignedWord();
                             list[index][2] = inStream.readUnsignedWord();
-                            list[index++][3] = inStream.readUnsignedWord();
+                            list[index][3]= inStream.readUnsignedWord();
+                            list[index++][4] = inStream.readUnsignedWord();
                         }
                     }
                     BestiaryLookup.rebuild(npcId, list);
