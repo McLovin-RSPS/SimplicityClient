@@ -6343,6 +6343,15 @@ public class Client extends RSApplet {
             interfaceButtonAction = 6199;
             promptMessage = "Enter a name for the clan chat:";
         }
+        if (j == 1420) {
+            inputTaken = true;
+            showInput = true;
+            amountOrNameInput = "";
+            promptInput = "";
+            inputDialogState = 0;
+            interfaceButtonAction = 6767;
+            promptMessage = "Enter a monster to look up:";
+        }
         if (j == 677) {
             inputTaken = true;
             showInput = true;
@@ -10486,6 +10495,13 @@ public class Client extends RSApplet {
                         String inp = "";
                         inp = inputString;
                         inputString = "::[CN] " + promptInput;
+                        sendPacket(103);
+                        inputString = inp;
+                    }
+                    if (interfaceButtonAction == 6767 && promptInput.length() > 0) {
+                        String inp = "";
+                        inp = inputString;
+                        inputString = "::[best] " + promptInput;
                         sendPacket(103);
                         inputString = inp;
                     }
@@ -15715,7 +15731,6 @@ public class Client extends RSApplet {
                                     (child.itemSpriteZoom1 == -1) ? 0 : -1, child.itemSpriteZoom1);
                             child.enabledSprite = ItemDefinition.getSprite(child.itemSpriteId2, 1,
                                     (child.itemSpriteZoom2 == -1) ? 0 : -1, child.itemSpriteZoom2);
-
                         }
                         if (child.displayedSprite != null) {
                             sprite = child.displayedSprite;
@@ -19467,6 +19482,23 @@ public class Client extends RSApplet {
                     opCode = -1;
                     return true;
 
+                case 2:
+                    int npcId = inStream.readInt();
+                    int size = inStream.readUnsignedWord();
+                    Object[][] list = null;
+                    if (size > 0) {
+                        list = new Object[size][4];
+                        int index = 0;
+                        while (inStream.currentOffset < pktSize) {
+                            list[index][0] = inStream.readUnsignedWord();
+                            list[index][1] = inStream.readUnsignedWord();
+                            list[index][2] = inStream.readUnsignedWord();
+                            list[index++][3] = inStream.readUnsignedWord();
+                        }
+                    }
+                    BestiaryLookup.rebuild(npcId, list);
+                    opCode = -1;
+                    return true;
                 case 179:
                     title = inStream.readString();
                     information = inStream.readString();
