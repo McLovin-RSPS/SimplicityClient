@@ -4535,6 +4535,7 @@ public class RSInterface {
         PortalNexusConfirm.init();
         PortalNexusTeleportMenu.init();
         ItemStatComparePanel.init();
+        BestiaryLookup.init();
         Widget.init();
         for (RSInterface widget : interfaceCache) {
             if (widget == null || widget.children == null)
