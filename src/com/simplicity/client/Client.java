@@ -11924,8 +11924,7 @@ public class Client extends RSApplet {
                     return;
                 }
 
-                int scale = (int) (petDef.getSizeXZ() / 2);
-
+                int scale = (int) (petDef.getSizeXZ() / mobDefinition.squaresNeeded);
                 switch (PetSystem.petSelected) {
                 case 4540:
                 	scale = 100;
