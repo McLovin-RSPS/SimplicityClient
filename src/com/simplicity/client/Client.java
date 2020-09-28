@@ -11901,8 +11901,8 @@ public class Client extends RSApplet {
         }
         if (j == 3291) {
             try {
-                MobDefinition mobDefinition = MobDefinition.forID(PetSystem.petSelected);
-
+                int npcId = PetSystem.petSelected;
+                MobDefinition mobDefinition = MobDefinition.forID(npcId);
                 PetSystem petDef = new PetSystem(mobDefinition);
                 RSInterface rsInterface = rsi;
                 int verticleTilt = 150;

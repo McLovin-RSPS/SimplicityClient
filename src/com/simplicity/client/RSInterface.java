@@ -1108,6 +1108,29 @@ public class RSInterface {
         rsi.height = height;
         rsi.width = width;
     }
+
+    public static RSInterface addNpc(int widgetId, int entityId) {
+        RSInterface tab = RSInterface.addInterface(widgetId);
+        tab.componentId = widgetId;
+        tab.id = widgetId;
+        tab.parentID = widgetId;
+        tab.type = 6;
+        tab.atActionType = 0;
+        tab.contentType = 3291;
+        tab.mediaType = 5;
+        tab.enabledMediaType = 2;
+        tab.mediaID = entityId;
+        tab.width = 136;
+        tab.height = 168;
+        tab.opacity = 0;
+        tab.hoverType = 0;
+        tab.modelZoom = 575;
+        tab.modelRotation1 = 150;
+        tab.modelRotation2 = 0;
+        tab.disabledAnimationId = -1;
+        tab.enabledAnimationId = -1;
+        return tab;
+    }
     
     public static RSInterface addModel(int interfaceId, int modelID, int zoom, int rotation1, int rotation2, DataType dataType) {
     	RSInterface rsi = RSInterface.addInterface(interfaceId);

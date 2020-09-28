@@ -5,6 +5,7 @@ import com.simplicity.client.TextDrawingArea;
 import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.client.cache.definitions.MobDefinition;
+import com.simplicity.client.content.PetSystem;
 
 public class BestiaryLookup extends RSInterface {
 
@@ -47,15 +48,15 @@ public class BestiaryLookup extends RSInterface {
         addText(widgetId, "Chance", fonts, 2, 0xff981f);
         parent.child(childId++, widgetId++, x, y);
 
-        x = 55;
-        x += 25;
-        y += 100;
-        addModel(widgetId, 5065, 1000, 0, 0, DataType.REGULAR);
+        x = 25;
+        y += 50;
+        addNpc(widgetId, 0);
+        PetSystem.petSelected = 0;
         npcModelWidgetId = widgetId;
         parent.child(childId++, widgetId++, x, y);
 
         x = 28;
-        y += 20;
+        y += 70;
         addText(widgetId, "Combat level:", fonts, 0, 0xff981f);
         parent.child(childId++, widgetId++, x, y);
 
@@ -180,7 +181,7 @@ public class BestiaryLookup extends RSInterface {
     }
 
     public static void rebuild(int npcId, Object[][] dropList) {
-        RSInterface.interfaceCache[npcModelWidgetId].mediaID = MobDefinition.forID(npcId).models[0];
+        PetSystem.petSelected = npcId;
         RSInterface.interfaceCache[npcNameWidgetId].message = MobDefinition.forID(npcId).name;
 
         final int listingSize = dropList == null ? 0 : dropList.length;
