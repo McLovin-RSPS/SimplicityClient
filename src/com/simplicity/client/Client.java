@@ -9483,6 +9483,20 @@ public class Client extends RSApplet {
                 }
             }
         }
+        if (l == 1202) {
+            NPC class30_sub2_sub4_sub1_sub1_5 = npcArray[entityId];
+            if (class30_sub2_sub4_sub1_sub1_5 != null) {
+                MobDefinition entityDef = class30_sub2_sub4_sub1_sub1_5.desc;
+                if (entityDef.childrenIDs != null) {
+                    entityDef = entityDef.getAlteredNPCDef();
+                }
+                if (entityDef != null) {
+                    inputString = "::[best] " + entityDef.name;
+                    sendPacket(103);
+                    inputString = "";
+                }
+            }
+        }
         if (l == 900) {
             reachedClickedObject(entityId, y, x, id);
             stream.createFrame(252);
@@ -13669,6 +13683,7 @@ public class Client extends RSApplet {
                 }
 
             }
+
             menuActionName[menuActionRow] = !entityDebug ? "Examine @yel@" + s
                     : "Examine @yel@" + s + " @gre@(@whi@" + entityDef.type + "@gre@)";
             menuActionID[menuActionRow] = 1025;
@@ -13676,6 +13691,15 @@ public class Client extends RSApplet {
             menuActionCmd2[menuActionRow] = k;
             menuActionCmd3[menuActionRow] = j;
             menuActionRow++;
+
+            if (entityDef.combatLevel > 0) {
+                menuActionName[menuActionRow] = "Lookup @yel@" + s;
+                menuActionID[menuActionRow] = 1202;
+                menuActionCmd1[menuActionRow] = i;
+                menuActionCmd2[menuActionRow] = k;
+                menuActionCmd3[menuActionRow] = j;
+                menuActionRow++;
+            }
         }
     }
 
