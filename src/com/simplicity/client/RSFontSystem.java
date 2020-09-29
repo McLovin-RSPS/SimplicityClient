@@ -806,10 +806,10 @@ public class RSFontSystem extends DrawingArea {
 	public static String handleOldSyntax(String text) {
 
 		text = replace(text, "@red@", "<col=ff0000>");
-		text = replace(text, "@gre@", "<col=65280>");
+		text = replace(text, "@gre@", "<col=00ff00>");
 		text = replace(text, "@blu@", "<col=255>");
 		text = replace(text, "@yel@", "<col=ffff00>");
-		text = replace(text, "@cya@", "<col=65535>");
+		text = replace(text, "@cya@", "<col=00FFFF>");
 		text = replace(text, "@mag@", "<col=ff00ff>");
 		text = replace(text, "@whi@", "<col=ffffff>");
 		text = replace(text, "@lre@", "<col=ff9040>");
