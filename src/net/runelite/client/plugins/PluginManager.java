@@ -76,11 +76,14 @@ import net.runelite.client.plugins.forum.ForumPlugin;
 import net.runelite.client.plugins.fps.FpsPlugin;
 import net.runelite.client.plugins.grounditems.GroundItemsPlugin;
 import net.runelite.client.plugins.groundmarkers.GroundMarkerPlugin;
+import net.runelite.client.plugins.loottracker.LootTrackerPlugin;
 import net.runelite.client.plugins.mousehighlight.MouseHighlightPlugin;
 import net.runelite.client.plugins.notes.NotesPlugin;
 import net.runelite.client.plugins.npchighlight.NpcIndicatorsPlugin;
 import net.runelite.client.plugins.opponentinfo.OpponentInfoPlugin;
+import net.runelite.client.plugins.playerindicators.PlayerIndicatorsPlugin;
 import net.runelite.client.plugins.screenshot.ScreenshotPlugin;
+import net.runelite.client.plugins.tileindicators.TileIndicatorsPlugin;
 import net.runelite.client.plugins.vote.VotePlugin;
 import net.runelite.client.plugins.xptracker.XpTrackerPlugin;
 import net.runelite.client.task.Schedule;
@@ -256,7 +259,10 @@ public class PluginManager
 				OpponentInfoPlugin.class,
 				BoostsPlugin.class,
 				XpTrackerPlugin.class,
-				MouseHighlightPlugin.class
+				LootTrackerPlugin.class,
+				MouseHighlightPlugin.class,
+				PlayerIndicatorsPlugin.class,
+				TileIndicatorsPlugin.class
 		};
 		
 		for (Class<?> clazz : plugins)
