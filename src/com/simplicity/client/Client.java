@@ -22870,6 +22870,10 @@ public class Client extends RSApplet {
     public static int getBaseY() {
         return baseY;
     }
+    
+    public boolean isMenuOpen() {
+    	return menuOpen;
+    }
 
     private int anInt1036;
     private int anInt1037;
