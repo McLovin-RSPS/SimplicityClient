@@ -367,10 +367,10 @@ public class RuneLite
 				eventBus.register(overlayManager);
 				eventBus.register(drawManager);
 				eventBus.register(menuManager);
-				eventBus.register(chatMessageManager);
-				eventBus.register(commandManager);
+				//eventBus.register(chatMessageManager);
+				//eventBus.register(commandManager);
 				eventBus.register(lootManager.get());
-				eventBus.register(clanManager);
+				//eventBus.register(clanManager);
 				eventBus.register(infoBoxManager);
 				eventBus.register(hooks.get());
 			}
