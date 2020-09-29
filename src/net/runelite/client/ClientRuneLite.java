@@ -817,6 +817,11 @@ public class ClientRuneLite implements Client {
 	}
 	
 	@Override
+	public ItemContainer getInventory() {
+		return client().getInventory();
+	}
+	
+	@Override
 	public int[] getIntVarcs() {
 		// TODO Auto-generated method stub
 		return null;

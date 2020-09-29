@@ -22206,6 +22206,28 @@ public class Client extends RSApplet {
 		}
 	};
 	
+	public ItemContainer getInventory() {
+		return equipment;
+	}
+	
+	private ItemContainer inventory = new ItemContainer() {
+		public Item[] getItems() {
+			RSInterface inventory = RSInterface.interfaceCache[3214];
+
+			if (inventory == null) {
+				return null;
+			}
+			
+			Item[] items = new Item[inventory.inv.length];
+			
+			for (int i = 0; i < items.length; i++) {
+				items[i] = new Item(inventory.inv[i] - 1, inventory.invStackSizes[i]);
+			}
+			
+			return items;
+		}
+	};
+	
 	public ItemContainer getEquipment() {
 		return equipment;
 	}

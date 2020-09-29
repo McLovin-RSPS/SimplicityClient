@@ -969,6 +969,13 @@ public interface Client extends GameEngine
 	ItemContainer getEquipment();
 	
 	/**
+	 * Gets the item container for the inventory.
+	 * 
+	 * @return the item container
+	 */
+	ItemContainer getInventory();
+	
+	/**
 	 * Gets the index of the last integer added to the
 	 * {@link #getIntStack()} array.
 	 *
