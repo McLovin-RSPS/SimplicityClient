@@ -140,7 +140,6 @@ class MouseHighlightOverlay extends Overlay
 
 		if (WIDGET_MENU_ACTIONS.contains(type))
 		{
-			System.out.println("contains type: " + type);
 			final int widgetId = menuEntry.getParam1();
 			final int groupId = WidgetInfo.TO_GROUP(widgetId);
 
