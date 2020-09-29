@@ -86,6 +86,9 @@ public class NpcIndicatorsPlugin extends Plugin
 
 	@Inject
 	private KeyManager keyManager;
+	
+	@Inject
+	private ClientThread clientThread;
 
 	/**
 	 * NPCs to highlight
@@ -162,11 +165,11 @@ public class NpcIndicatorsPlugin extends Plugin
 		overlayManager.add(npcSceneOverlay);
 		overlayManager.add(npcMinimapOverlay);
 		highlights = getHighlights();
-		/*clientThread.invoke(() ->
+		clientThread.invoke(() ->
 		{
 			skipNextSpawnCheck = true;
 			rebuildAllNpcs();
-		});*/
+		});
 	}
 
 	@Override
