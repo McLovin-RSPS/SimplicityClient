@@ -11939,6 +11939,8 @@ public class Client extends RSApplet {
                 }
 
                 int scale = (int) (petDef.getSizeXZ() / mobDefinition.squaresNeeded);
+                if (mobDefinition.squaresNeeded == 1)
+                    scale -= 25;
                 switch (PetSystem.petSelected) {
                 case 4540:
                 	scale = 100;

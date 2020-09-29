@@ -9,7 +9,7 @@ import com.simplicity.client.content.PetSystem;
 public class BestiaryLookup extends RSInterface {
 
     public static final int ID = 90450;
-    private static final int BOX_HEIGHT = 48;
+    private static final int BOX_HEIGHT = 32;
     private static int npcModelWidgetId;
     private static int npcNameWidgetId;
     private static final int MAX_LIST_SIZE = 100;
@@ -206,8 +206,8 @@ public class BestiaryLookup extends RSInterface {
             RSInterface.interfaceCache[itemNameWidgetId].message = itemName;
             RSInterface.interfaceCache[itemSpriteId].itemSpriteId1 = itemId;
             RSInterface.interfaceCache[itemSpriteId].disabledSprite = null;
-            RSInterface.interfaceCache[itemSpriteId].itemSpriteZoom1 = 150;
-            RSInterface.interfaceCache[itemSpriteId].itemSpriteZoom2 = 150;
+            RSInterface.interfaceCache[itemSpriteId].itemSpriteZoom1 = 128;
+            RSInterface.interfaceCache[itemSpriteId].itemSpriteZoom2 = 128;
             RSInterface.interfaceCache[itemSpriteId].itemSpriteId2 = itemId;
 
             RSInterface.interfaceCache[quantityWidgetId].message = minQuantity == maxQuantity ?
