@@ -14,6 +14,7 @@ import com.simplicity.client.Player;
 import com.simplicity.client.RSImageProducer;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.Tile;
+import com.simplicity.client.WorldController;
 import com.simplicity.client.container.item.ItemContainer;
 
 import ch.qos.logback.classic.Logger;
@@ -796,7 +797,13 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public LocalPoint getLocalDestinationLocation() {
-		// TODO Auto-generated method stub
+		int sceneX = client().getDestX();
+		int sceneY = client().getDestY();
+		
+		if (sceneX != 0 && sceneY != 0) {
+			return LocalPoint.fromScene(sceneX, sceneY);
+		}
+		
 		return null;
 	}
 	
