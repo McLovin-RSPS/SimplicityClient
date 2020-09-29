@@ -14931,7 +14931,6 @@ public class Client extends RSApplet {
                     drawInterface(0, clientSize == 0 ? 0 : (clientWidth / 2) - 765 / 2, rsInterface_1,
                             clientSize == 0 ? 8 : (clientHeight / 2) - 503 / 2);
                     if (secondaryOpenInterfaceID != -1) {
-                        System.out.println("Drawing secondary");
                         RSInterface secondary = RSInterface.interfaceCache[secondaryOpenInterfaceID];
                         drawInterface(0, clientSize == 0 ? 0 : (clientWidth / 2) - 765 / 2, secondary,
                                 clientSize == 0 ? 8 : (clientHeight / 2) - 503 / 2);

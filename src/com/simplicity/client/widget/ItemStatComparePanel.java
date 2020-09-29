@@ -7,21 +7,13 @@ public class ItemStatComparePanel extends RSInterface {
     public static void init() {
         int widget = 48480;
         RSInterface parent = addInterface(widget);
-        parent.children(2);
+        parent.children(3);
         widget += 2;
         drawBox(widget, parent.width, parent.height, 200, 0x0E0E0E, 0x0E0E0E, 200);
         parent.child(0, widget++, 0, 0);
-        RSInterface panel = statPanel(widget);
-        parent.child(1, panel.id, 102, 18);
-    }
-
-    private static RSInterface statPanel(int widget) {
-        RSInterface parent = addInterface(widget);
-        parent.children(2);
-
         widget += 2;
         addClosableWindow(widget, 315, 300, false, "Item Comparison");
-        parent.child(0, widget, 0, 0);
+        parent.child(1, widget, 102, 18);
         widget += 50;
 
         final String[] attackBonusNames = new String[] {
@@ -37,12 +29,12 @@ public class ItemStatComparePanel extends RSInterface {
         };
 
         RSInterface container = addInterface(widget);
-        parent.child(1, container.id, 10, 35);
         container.children(1 + 1 + 1 + 1 + 1 +
                 (attackBonusNames.length * 3) + (defenceBonusNames.length * 3) + (otherBonusNames.length * 3));
         container.width = 283;
         container.height = 258;
         container.scrollMax = 485;
+        parent.child(2, container.id, (parent.width - container.width) / 2, 18 + 35);
         widget += 2;
         int compareWidgetId = widget + 50;
         int column = 2;
@@ -97,7 +89,5 @@ public class ItemStatComparePanel extends RSInterface {
             }
             yPos += 18;
         }
-
-        return parent;
     }
 }
