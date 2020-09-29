@@ -5302,10 +5302,6 @@ public class Client extends RSApplet {
     private void updateNPCs(Stream stream, int i) {
     	gameTick++;
     	
-    	if (runelite != null) {
-    		callbacks.onGameTick();
-    	}
-    	
         anInt839 = 0;
         playersToUpdateCount = 0;
         try {
@@ -5342,7 +5338,10 @@ public class Client extends RSApplet {
                 throw new RuntimeException("eek");
             }
         }
-
+        
+    	if (runelite != null) {
+    		callbacks.onGameTick();
+    	}
     }
 
     private int cButtonHPos;
