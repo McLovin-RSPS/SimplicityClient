@@ -29,6 +29,7 @@ import java.awt.image.BufferedImage;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
@@ -43,6 +44,7 @@ import javax.inject.Inject;
 import javax.swing.SwingUtilities;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.collect.HashMultiset;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableSet;
@@ -51,6 +53,7 @@ import com.google.common.collect.Multiset;
 import com.google.inject.Provides;
 import com.simplicity.client.NPC;
 import com.simplicity.client.Player;
+import com.simplicity.client.container.item.ItemContainer;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -58,11 +61,11 @@ import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.ItemComposition;
-import net.runelite.api.ItemContainer;
 import net.runelite.api.ObjectID;
 import net.runelite.api.SpriteID;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.ItemContainerChanged;
+import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.WidgetLoaded;
 import net.runelite.client.account.SessionManager;
@@ -300,7 +303,7 @@ public class LootTrackerPlugin extends Plugin
 		ignoredItems = Text.fromCSV(config.getIgnoredItems());
 		ignoredEvents = Text.fromCSV(config.getIgnoredEvents());
 		panel = new LootTrackerPanel(this, itemManager, config);
-		//spriteManager.getSpriteAsync(SpriteID.TAB_INVENTORY, 0, panel::loadHeaderIcon);
+		spriteManager.getSpriteAsync(0, SpriteID.TAB_INVENTORY, panel::loadHeaderIcon);
 
 		final BufferedImage icon = ImageUtil.getResourceStreamFromClass(getClass(), "panel_icon.png");
 
@@ -640,7 +643,7 @@ public class LootTrackerPlugin extends Plugin
 		}*/
 	}
 
-	/*@Subscribe
+	@Subscribe
 	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
 		// There are some pickpocket targets who show up in the chat box with a different name (e.g. H.A.M. members -> man/woman)
@@ -650,11 +653,11 @@ public class LootTrackerPlugin extends Plugin
 			lastPickpocketTarget = Text.removeTags(event.getMenuTarget());
 		}
 
-		if (event.getMenuOption().equals("Take") && event.getId() == ItemID.SEED_PACK)
+		/*if (event.getMenuOption().equals("Take") && event.getId() == ItemID.SEED_PACK)
 		{
 			setEvent(LootRecordType.EVENT, SEEDPACK_EVENT);
 			takeInventorySnapshot();
-		}
+		}*/
 
 		if (event.getMenuOption().equals("Open") && SHADE_CHEST_OBJECTS.containsKey(event.getId()))
 		{
@@ -662,7 +665,7 @@ public class LootTrackerPlugin extends Plugin
 			takeInventorySnapshot();
 		}
 
-		if (event.getMenuOption().equals("Search") && BIRDNEST_IDS.contains(event.getId()))
+		/*if (event.getMenuOption().equals("Search") && BIRDNEST_IDS.contains(event.getId()))
 		{
 			setEvent(LootRecordType.EVENT, BIRDNEST_EVENT);
 			takeInventorySnapshot();
@@ -672,8 +675,8 @@ public class LootTrackerPlugin extends Plugin
 		{
 			setEvent(LootRecordType.EVENT, CASKET_EVENT);
 			takeInventorySnapshot();
-		}
-	}*/
+		}*/
+	}
 
 	@Schedule(
 		period = 5,
@@ -702,13 +705,13 @@ public class LootTrackerPlugin extends Plugin
 
 	private void takeInventorySnapshot()
 	{
-		/*final ItemContainer itemContainer = client.getItemContainer(InventoryID.INVENTORY);
+		final ItemContainer itemContainer = client.getInventory();
 		if (itemContainer != null)
 		{
 			inventorySnapshot = HashMultiset.create();
 			Arrays.stream(itemContainer.getItems())
-				.forEach(item -> inventorySnapshot.add(item.getId(), item.getQuantity()));
-		}*/
+				.forEach(item -> inventorySnapshot.add(item.ID, item.amount));
+		}
 	}
 
 	private void processInventoryLoot(String event, LootRecordType lootRecordType, Object metadata, ItemContainer inventoryContainer, Collection<ItemStack> groundItems)
@@ -810,7 +813,7 @@ public class LootTrackerPlugin extends Plugin
 	private LootTrackerItem buildLootTrackerItem(int itemId, int quantity)
 	{
 		final ItemComposition itemComposition = itemManager.getItemComposition(itemId);
-		final int gePrice = /*itemManager.getItemPrice(itemId)*/0;
+		final int gePrice = itemManager.getItemPrice(itemId);
 		final int haPrice = /*itemComposition.getHaPrice()*/0;
 		final boolean ignored = ignoredItems.contains(itemComposition.getName());
 
