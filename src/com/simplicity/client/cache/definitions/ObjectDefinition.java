@@ -157,7 +157,7 @@ public final class ObjectDefinition {
             e.printStackTrace();
         }
         if (i == 133122) {
-            objectDef.name = "Champions chest";
+            objectDef.name = "Elite chest";
             objectDef.hasActions = true;
             objectDef.actions = new String[5];
             objectDef.actions[0] = "Loot";
