@@ -15,6 +15,7 @@ import com.simplicity.client.RSImageProducer;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.Tile;
 import com.simplicity.client.WorldController;
+import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.client.container.item.ItemContainer;
 
 import ch.qos.logback.classic.Logger;
@@ -814,8 +815,84 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public ItemComposition getItemDefinition(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		ItemDefinition def = ItemDefinition.forID(id);
+		
+		if (def == null) {
+			return null;
+		}
+		
+		return new ItemComposition() {
+			
+			@Override
+			public void setShiftClickActionIndex(int shiftclickActionIndex) {
+				
+			}
+			
+			@Override
+			public void resetShiftClickActionIndex() {
+				
+			}
+			
+			@Override
+			public boolean isTradeable() {
+				return !def.untradeable;
+			}
+			
+			@Override
+			public boolean isStackable() {
+				return def.stackable;
+			}
+			
+			@Override
+			public boolean isMembers() {
+				return def.membersObject;
+			}
+			
+			@Override
+			public int getShiftClickActionIndex() {
+				return 0;
+			}
+			
+			@Override
+			public int getPrice() {
+				return def.value;
+			}
+			
+			@Override
+			public int getPlaceholderTemplateId() {
+				return 0;
+			}
+			
+			@Override
+			public int getPlaceholderId() {
+				return 0;
+			}
+			
+			@Override
+			public int getNote() {
+				return def.certID;
+			}
+			
+			@Override
+			public String getName() {
+				return def.name;
+			}
+			
+			@Override
+			public int getLinkedNoteId() {
+				return def.certTemplateID;
+			}
+			
+			@Override
+			public String[] getInventoryActions() {
+				return def.actions;
+			}
+			
+			@Override
+			public int getId() {
+				return def.id;
+			}
+		};
 	}
 	
 	@Override
