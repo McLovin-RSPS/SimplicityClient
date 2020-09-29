@@ -32,6 +32,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.regex.Pattern;
 
+import com.simplicity.client.RSFontSystem;
+
 import lombok.Setter;
 import net.runelite.api.IndexedSprite;
 import net.runelite.client.ui.overlay.RenderableEntity;
@@ -57,6 +59,7 @@ public class TooltipComponent implements RenderableEntity
 		final int textHeight = metrics.getHeight();
 		int tooltipWidth = 0;
 		int tooltipHeight = 0;
+		text = RSFontSystem.handleOldSyntax(text);
 		String[] lines = BR.split(text);
 
 		// Calculate tooltip size
