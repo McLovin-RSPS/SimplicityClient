@@ -49,6 +49,7 @@ import net.runelite.api.Client;
 import net.runelite.api.Constants;
 import net.runelite.api.GameState;
 import net.runelite.api.ItemComposition;
+import net.runelite.api.ItemID;
 import net.runelite.api.SpritePixels;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.client.RuneLite;
@@ -183,13 +184,50 @@ public class ItemManager
 	/**
 	 * Look up an item's price
 	 *
-	 * @param itemId item id
+	 * @param itemID item id
 	 * @return item price
 	 */
-	public ItemPrice getItemPrice(int itemId)
+	public int getItemPrice(int itemID)
 	{
-		itemId = ItemMapping.mapFirst(itemId);
-		return itemPrices.get(itemId);
+		return getItemPrice(itemID, false);
+	}
+	
+	/**
+	 * Look up an item's price
+	 *
+	 * @param itemID item id
+	 * @param ignoreUntradeableMap should the price returned ignore the {@link UntradeableItemMapping}
+	 * @return item price
+	 */
+	public int getItemPrice(int itemID, boolean ignoreUntradeableMap)
+	{
+		if (itemID == ItemID.COINS_995)
+		{
+			return 1;
+		}
+		
+		if (itemID == ItemID.PLATINUM_TOKEN + 30_000)
+		{
+			return 1000;
+		}
+
+		ItemComposition itemComposition = getItemComposition(itemID);
+		if (itemComposition.getNote() != -1)
+		{
+			itemID = itemComposition.getLinkedNoteId();
+		}
+
+		int price = 0;
+		for (int mappedID : ItemMapping.map(itemID))
+		{
+			ItemPrice ip = itemPrices.get(mappedID);
+			if (ip != null)
+			{
+				price += ip.getPrice();
+			}
+		}
+
+		return price;
 	}
 
 	/**
