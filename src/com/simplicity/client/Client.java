@@ -23161,6 +23161,14 @@ public class Client extends RSApplet {
     public Sprite SubmitBuy;
     public Sprite SubmitSell;
     public Sprite geSearchBox, geSearchBoxHover;
+    
+    public int getDestX() {
+    	return destX;
+    }
+    
+    public int getDestY() {
+    	return destY;
+    }
 
     public boolean isRecruit(String name) {
         name = name.toLowerCase();
