@@ -94,7 +94,11 @@ class MouseHighlightOverlay extends Overlay
 		{
 			return null;
 		}
-
+		
+		if (com.simplicity.client.Client.openInterfaceID != -1) {
+			return null;
+		}
+		
 		MenuEntry[] menuEntries = client.getMenuEntries();
 		int last = menuEntries.length - 1;
 
