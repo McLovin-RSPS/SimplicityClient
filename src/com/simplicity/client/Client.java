@@ -16942,6 +16942,19 @@ public class Client extends RSApplet {
         }
         return s.equalsIgnoreCase(myPlayer.name);
     }
+    
+    public boolean isFriend(String name) {
+        if (name == null) {
+            return false;
+        }
+        for (int i = 0; i < friendsCount; i++) {
+            if (name.equalsIgnoreCase(friendsList[i])) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
 
     private static String combatDiffColor(int i, int j) {
         int k = i - j;

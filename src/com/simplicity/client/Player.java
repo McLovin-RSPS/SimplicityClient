@@ -568,5 +568,16 @@ public final class Player extends Entity {
 			return Client.instance.getPlayers()[interactingEntity - 32768];
 		}
 	}
+
+	/**
+	 * Checks whether this player is a friend of the local player.
+	 * 
+	 * @param player The player.
+	 * @return true if the player is a friend, false otherwise
+	 */
+	public boolean isFriend() {
+		return Client.instance.isFriend(name);
+	}
+
 }
 
