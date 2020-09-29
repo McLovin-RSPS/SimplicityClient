@@ -35,23 +35,23 @@ public enum MenuAction
 	/**
 	 * Menu action for using an item in your inventory on a tile object (GameObject or GroundObject).
 	 */
-	ITEM_USE_ON_GAME_OBJECT(1),
+	ITEM_USE_ON_GAME_OBJECT(62),
 	/**
 	 * Menu action for casting a spell on a tile object (GameObject or GroundObject).
 	 */
-	SPELL_CAST_ON_GAME_OBJECT(2),
+	SPELL_CAST_ON_GAME_OBJECT(956),
 	/**
 	 * First menu action for a game object.
 	 */
-	GAME_OBJECT_FIRST_OPTION(3),
+	GAME_OBJECT_FIRST_OPTION(502),
 	/**
 	 * Second menu action for a game object.
 	 */
-	GAME_OBJECT_SECOND_OPTION(4),
+	GAME_OBJECT_SECOND_OPTION(900),
 	/**
 	 * Third menu action for a game object.
 	 */
-	GAME_OBJECT_THIRD_OPTION(5),
+	GAME_OBJECT_THIRD_OPTION(113),
 	/**
 	 * Fourth menu action for a game object.
 	 */
@@ -64,7 +64,7 @@ public enum MenuAction
 	/**
 	 * Menu action for using an item in your inventory on an NPC.
 	 */
-	ITEM_USE_ON_NPC(7),
+	ITEM_USE_ON_NPC(582),
 	/**
 	 * Menu action for casting a spell on an NPC.
 	 */
@@ -72,23 +72,23 @@ public enum MenuAction
 	/**
 	 * First menu action for an NPC.
 	 */
-	NPC_FIRST_OPTION(9),
+	NPC_FIRST_OPTION(20),
 	/**
 	 * Second menu action for an NPC.
 	 */
-	NPC_SECOND_OPTION(10),
+	NPC_SECOND_OPTION(412),
 	/**
 	 * Third menu action for an NPC.
 	 */
-	NPC_THIRD_OPTION(11),
+	NPC_THIRD_OPTION(225),
 	/**
 	 * Fourth menu action for an NPC.
 	 */
-	NPC_FOURTH_OPTION(12),
+	NPC_FOURTH_OPTION(965),
 	/**
 	 * Fifth menu action for an NPC.
 	 */
-	NPC_FIFTH_OPTION(13),
+	NPC_FIFTH_OPTION(478),
 
 	/**
 	 * Menu action for using an item on a player.
@@ -102,7 +102,7 @@ public enum MenuAction
 	/**
 	 * Menu action for using an item on an item on the ground.
 	 */
-	ITEM_USE_ON_GROUND_ITEM(16),
+	ITEM_USE_ON_GROUND_ITEM(511),
 	/**
 	 * Menu action for casting a spell on an item on the ground.
 	 */
@@ -155,7 +155,7 @@ public enum MenuAction
 	/**
 	 * Menu action when using an item on another item inside a widget (inventory).
 	 */
-	ITEM_USE_ON_WIDGET_ITEM(31),
+	ITEM_USE_ON_WIDGET_ITEM(870),
 	/**
 	 * Menu action when using an item on a widget.
 	 */
@@ -184,11 +184,11 @@ public enum MenuAction
 	/**
 	 * Menu action to drop an item (identical to ITEM_FIFTH_OPTION).
 	 */
-	ITEM_DROP(37),
+	ITEM_DROP(847),
 	/**
 	 * Menu action to use an item.
 	 */
-	ITEM_USE(38),
+	ITEM_USE(447),
 
 	/**
 	 * First menu action for a widget.
@@ -211,13 +211,13 @@ public enum MenuAction
 	 */
 	WIDGET_FIFTH_OPTION(43),
 
-	PLAYER_FIRST_OPTION(44),
-	PLAYER_SECOND_OPTION(45),
-	PLAYER_THIRD_OPTION(46),
-	PLAYER_FOURTH_OPTION(47),
-	PLAYER_FIFTH_OPTION(48),
-	PLAYER_SIXTH_OPTION(49),
-	PLAYER_SEVENTH_OPTION(50),
+	PLAYER_FIRST_OPTION(561),
+	PLAYER_SECOND_OPTION(779),
+	PLAYER_THIRD_OPTION(27),
+	PLAYER_FOURTH_OPTION(577),
+	PLAYER_FIFTH_OPTION(729),
+	PLAYER_SIXTH_OPTION(829),
+	PLAYER_SEVENTH_OPTION(929),
 	PLAYER_EIGTH_OPTION(51),
 
 	/**
@@ -243,23 +243,23 @@ public enum MenuAction
 	/**
 	 * Menu action triggered by examining an object.
 	 */
-	EXAMINE_OBJECT(1002),
+	EXAMINE_OBJECT(1226),
 	/**
 	 * Menu action triggered by examining an NPC.
 	 */
-	EXAMINE_NPC(1003),
+	EXAMINE_NPC(1025),
 	/**
 	 * Menu action triggered by examining item on ground.
 	 */
-	EXAMINE_ITEM_GROUND(1004),
+	EXAMINE_ITEM_GROUND(1448),
 	/**
 	 * Menu action triggered by examining item in inventory.
 	 */
-	EXAMINE_ITEM(1005),
+	EXAMINE_ITEM(1125),
 	/**
 	 * Menu action triggered by canceling a menu.
 	 */
-	CANCEL(1006),
+	CANCEL(1107),
 	/**
 	 * Menu action for low priority child component actions.
 	 */
