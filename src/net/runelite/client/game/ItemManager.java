@@ -41,10 +41,12 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.simplicity.client.Item;
 import com.simplicity.client.Sprite;
+import com.simplicity.client.cache.definitions.ItemDefinition;
 
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
+import net.runelite.api.Constants;
 import net.runelite.api.GameState;
 import net.runelite.api.ItemComposition;
 import net.runelite.api.SpritePixels;
@@ -56,15 +58,18 @@ import net.runelite.client.util.AsyncBufferedImage;
 import net.runelite.http.api.item.ItemClient;
 import net.runelite.http.api.item.ItemPrice;
 import net.runelite.http.api.item.SearchResult;
+import static net.runelite.api.Constants.*;
 
 @Singleton
 @Slf4j
 public class ItemManager
 {
+	
 	@Value
 	private static class ImageKey
 	{
-		private final Item item;
+		private final int itemId;
+		private final int itemQuantity;
 		private final boolean stackable;
 	}
 
@@ -115,7 +120,7 @@ public class ItemManager
 				@Override
 				public AsyncBufferedImage load(ImageKey key) throws Exception
 				{
-					return loadImage(key.item, key.stackable);
+					return loadImage(key.itemId, key.itemQuantity, key.stackable);
 				}
 			});
 
@@ -210,36 +215,38 @@ public class ItemManager
 	{
 		return itemCompositions.getUnchecked(itemId);
 	}
-
+	
 	/**
 	 * Loads item sprite from game, makes transparent, and generates image
 	 *
 	 * @param itemId
 	 * @return
 	 */
-	private AsyncBufferedImage loadImage(Item item, boolean stackable)
+	private AsyncBufferedImage loadImage(int itemId, int quantity, boolean stackable)
 	{
-		Sprite sprite = item.getSprite();
-		
-		if (sprite == null) {
-			return null;
-		}
-		
-		AsyncBufferedImage img = new AsyncBufferedImage(sprite.myWidth, sprite.myHeight, BufferedImage.TYPE_INT_ARGB);
-		clientThread.invokeLater(() ->
+		AsyncBufferedImage img = new AsyncBufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
+		clientThread.invoke(() ->
 		{
 			if (client.getGameState().ordinal() < GameState.LOGIN_SCREEN.ordinal())
 			{
 				return false;
 			}
 			
+			Sprite sprite = ItemDefinition.getSprite(itemId, quantity, 0);
+			
+			/*SpritePixels sprite = client.createItemSprite(itemId, quantity, 1, SpritePixels.DEFAULT_SHADOW_COLOR,
+				stackable ? 1 : 0, false, CLIENT_DEFAULT_ZOOM);*/
+			if (sprite == null)
+			{
+				System.out.println("sprite still null");
+				return false;
+			}
 			sprite.toBufferedImage(img);
 			img.loaded();
 			return true;
 		});
 		return img;
 	}
-
 
 	/**
 	 * Get item sprite image as BufferedImage.
@@ -271,7 +278,7 @@ public class ItemManager
 	{
 		try
 		{
-			return itemImages.get(new ImageKey(new Item(itemId, quantity), stackable));
+			return itemImages.get(new ImageKey(itemId, quantity, stackable));
 		}
 		catch (ExecutionException ex)
 		{
