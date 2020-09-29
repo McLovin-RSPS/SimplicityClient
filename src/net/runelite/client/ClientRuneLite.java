@@ -370,8 +370,7 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public boolean isMenuOpen() {
-		// TODO Auto-generated method stub
-		return false;
+		return client().isMenuOpen();
 	}
 	
 	@Override
@@ -735,8 +734,19 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public MenuEntry[] getMenuEntries() {
-		// TODO Auto-generated method stub
-		return null;
+		MenuEntry[] entries = new MenuEntry[client().menuActionRow];
+		
+		for (int i = 0; i < client().menuActionRow; i++) {
+			String action = client().menuActionName[i];
+			
+			if (action != null) {
+				entries[i] = new MenuEntry();
+				entries[i].setParam1(client().menuActionCmd3[i]); // widget id
+				entries[i].setType(client().menuActionID[i]); // action type
+				entries[i].setOption(action);
+			}
+		}
+		return entries;
 	}
 	
 	@Override
