@@ -207,7 +207,7 @@ public final class ObjectDefinition {
         if (i == 129146) {
             objectDef.actions[3] = "Empty";
         }
-        if (i == 122819) {
+        if (i == 122819 || i == 110562) {
             objectDef.actions = new String[5];
             objectDef.actions[0] = "Use";
             objectDef.actions[1] = "View-presets";

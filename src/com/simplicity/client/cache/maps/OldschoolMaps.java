@@ -24,6 +24,9 @@ public class OldschoolMaps {
             
             5789, // CHASM OF FIRE
             
+            12951, 13461, 13462, // OSRS fishing place 
+            10131, // dungeon
+            
             6206, 6462, 6718, 6461, // Wintertodt
             5945, 6201, // Lizardman Canyon 
             
