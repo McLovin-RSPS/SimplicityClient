@@ -1,6 +1,9 @@
 package com.simplicity.client;
 
 
+import java.awt.Graphics2D;
+import java.awt.Polygon;
+
 // Decompiled by Jad v1.5.8f. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
@@ -226,6 +229,17 @@ public class Entity extends Animable {
 		int z = Client.instance.plane;
 		
 		return new WorldPoint(baseX + (x - 6 >> 7), baseY + (y - 6 >> 7), z);
+	}
+	
+	public Polygon getCanvasTilePoly()
+	{
+		return Perspective.getCanvasTilePoly(RuneLite.getClient(), getLocalLocation());
+	}
+
+	
+	public Point getCanvasTextLocation(Graphics2D graphics, String text, int zOffset)
+	{
+		return Perspective.getCanvasTextLocation(RuneLite.getClient(), graphics, getLocalLocation(), text, zOffset);
 	}
 	
 	public int nextAnimationFrame;
