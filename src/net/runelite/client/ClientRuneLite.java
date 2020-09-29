@@ -613,7 +613,7 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public Tile getSelectedSceneTile() {
-		return client().worldController.getSelectedTile();
+		return client().worldController.getSelectedSceneTile();
 	}
 	
 	@Override

@@ -17,6 +17,7 @@ import com.simplicity.Configuration;
 import com.simplicity.client.cache.node.Deque;
 import com.simplicity.client.entity.Position;
 
+import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.events.ItemSpawned;
 
 @SuppressWarnings("all")
@@ -1860,6 +1861,11 @@ public final class WorldController {
 				tracedTileX = j1;
 				tracedTileY = k1;
 			}
+			
+			if (!Client.instance.isMenuOpen() && method318(Client.instance.mouseX, Client.instance.mouseY, y_c, y_d, y_b, x_c, x_d, x_b)) {
+				setTargetTile(j1, k1);
+			}
+			
 			if (class43.anInt720 == -1 || class43.anInt720 > 50) {
 				if (class43.anInt718 != 0xbc614e) {
 					if (Configuration.enableHDTextures && class43.anInt720 != -1) {
@@ -1894,6 +1900,11 @@ public final class WorldController {
 				tracedTileX = j1;
 				tracedTileY = k1;
 			}
+			
+			if (!Client.instance.isMenuOpen() && method318(Client.instance.mouseX, Client.instance.mouseY, y_a, y_b, y_d, x_a, x_b, x_d)) {
+				setTargetTile(j1, k1);
+			}
+			
 			if (class43.anInt720 == -1 || class43.anInt720 > 50) {
 				if (class43.anInt716 != 0xbc614e) {
 					if (Configuration.enableHDTextures && class43.anInt720 != -1) {
@@ -2032,6 +2043,11 @@ public final class WorldController {
 					tracedTileX = i;
 					tracedTileY = i1;
 				}
+				
+				if (!Client.instance.isMenuOpen() && method318(Client.instance.mouseX, Client.instance.mouseY, y_a, y_b, y_c, x_a, x_b, x_c)) {
+					setTargetTile(i1, i1);
+				}
+				
 				if (class40.anIntArray682 == null || class40.anIntArray682[face] == -1 || class40.anIntArray682[face] > 50) {
 					if (class40.anIntArray676[face] != 0xbc614e) {
 						if (Configuration.enableHDTextures && class40.anIntArray682 != null && class40.anIntArray682[face] != -1) {
@@ -2464,13 +2480,44 @@ public final class WorldController {
 	private static int right;
 	private static int bottom;
 	public static int viewDistance = 9;
-	
-	public Tile getSelectedTile() {
-		if (tracedTileX < 0 || tracedTileY < 0) {
+
+	public Tile getSelectedSceneTile() {
+		int tileX = selectedSceneTileX;
+		int tileY = selectedSceneTileY;
+
+		if (tileX == -1 || tileY == -1) {
 			return null;
 		}
-		
-		return getTile(Client.instance.plane, tracedTileX, tracedTileY);
+
+		return getTile(Client.instance.plane, tileX, tileY);
+	}
+	
+	private static final int MAX_TARGET_DISTANCE = 45;
+	private static int selectedSceneTileX;
+	private static int selectedSceneTileY;
+	private static boolean checkClick;
+	
+	static void setTargetTile(int targetX, int targetY) {
+		final LocalPoint current = Client.instance.myPlayer.getLocalLocation();
+
+		// Limit walk distance - https://math.stackexchange.com/a/85582
+		final int a = current.getSceneX();
+		final int b = current.getSceneY();
+		final int c = targetX;
+		final int d = targetY;
+
+		final int r = MAX_TARGET_DISTANCE;
+		final int t = (int) Math.hypot(a - c, b - d) - r;
+		int x = targetX;
+		int y = targetY;
+
+		if (t > 0) {
+			x = (r * c + t * a) / (r + t);
+			y = (r * d + t * b) / (r + t);
+		}
+
+		selectedSceneTileX = x;
+		selectedSceneTileY = y;
 	}
 	
 	static {

@@ -204,12 +204,9 @@ public class GroundMarkerPlugin extends Plugin
 			final WorldPoint worldPoint = WorldPoint.fromLocalInstance(client, selectedSceneTile.getLocalLocation());
 			final int regionId = worldPoint.getRegionID();
 			final GroundMarkerPoint point = new GroundMarkerPoint(regionId, worldPoint.getRegionX(), worldPoint.getRegionY(), client.getPlane(), config.markerColor());
-
 			
 			com.simplicity.client.Client cl = com.simplicity.client.Client.instance;
 
-			cl.worldController.requestTileTrace(cl.mouseX, cl.mouseY);
-			
 	        cl.menuActionName[0] = "Cancel";
 	        cl.menuActionID[0] = 1107;
 	        cl.menuActionRow = 1;
