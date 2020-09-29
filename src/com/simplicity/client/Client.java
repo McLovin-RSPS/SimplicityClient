@@ -25598,4 +25598,12 @@ public class Client extends RSApplet {
 	    return null;
     }
 	
+	public int[] getSkillExperience() {
+		return currentExp;
+	}
+	
+	public int getSkillExperience(int skill) {
+		return currentExp[skill];
+	}
+	
 }

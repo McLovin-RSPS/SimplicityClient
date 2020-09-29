@@ -40,7 +40,7 @@ import net.runelite.api.Skill;
  */
 class XpState
 {
-	private static final double DEFAULT_XP_MODIFIER = 4.0;
+	private static final double DEFAULT_XP_MODIFIER = 360.0;
 	private static final double SHARED_XP_MODIFIER = DEFAULT_XP_MODIFIER / 3.0;
 	private final Map<Skill, XpStateSingle> xpSkills = new EnumMap<>(Skill.class);
 	private NPC interactedNPC;

@@ -603,14 +603,12 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public int[] getSkillExperiences() {
-		// TODO Auto-generated method stub
-		return null;
+		return client().getSkillExperience();
 	}
 	
 	@Override
 	public int getSkillExperience(Skill skill) {
-		// TODO Auto-generated method stub
-		return 0;
+		return client().getSkillExperience(skill.ordinal());
 	}
 	
 	@Override
@@ -1325,7 +1323,7 @@ public class ClientRuneLite implements Client {
 
 	@Override
 	public long getOverallExperience() {
-		return 0;
+		return client().getTotalXp();
 	}
 
 
