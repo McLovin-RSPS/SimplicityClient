@@ -870,7 +870,7 @@ public final class SpriteID
 	public static final int UNUSED_TAB_COMBAT = 881;
 	public static final int UNUSED_TAB_STATS = 882;
 	public static final int UNUSED_TAB_QUESTS = 883;
-	public static final int TAB_INVENTORY = 884;
+	public static final int TAB_INVENTORY = 976;
 	public static final int UNUSED_TAB_EQUIPMENT = 885;
 	public static final int UNUSED_TAB_PRAYER = 886;
 	public static final int UNUSED_TAB_MAGIC = 887;

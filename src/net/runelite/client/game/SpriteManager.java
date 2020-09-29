@@ -38,11 +38,10 @@ import javax.swing.SwingUtilities;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.inject.Inject;
+import com.simplicity.client.Sprite;
 
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
-import net.runelite.api.SpritePixels;
-import net.runelite.client.RuneLite;
 import net.runelite.client.callback.ClientThread;
 
 @Singleton
@@ -74,14 +73,15 @@ public class SpriteManager
 		{
 			return cached;
 		}
-
-		SpritePixels sp = client.getSprite(client.getIndexSprites(), archive, file);
+		
+		Sprite sp = com.simplicity.client.Client.cacheSprite[file];
+		//SpritePixels sp = client.getSprite(client.getIndexSprites(), archive, file);
+		
 		BufferedImage img = sp.toBufferedImage();
-
 		cache.put(key, img);
 		return img;
 	}
-
+	
 	public void getSpriteAsync(int archive, int file, Consumer<BufferedImage> user)
 	{
 		BufferedImage cached = cache.getIfPresent((long) archive << 32 | file);

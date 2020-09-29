@@ -1528,6 +1528,33 @@ public class Sprite extends DrawingArea {
 		return y2;
 	}
 	
+	public BufferedImage toBufferedImage() {
+		BufferedImage img = new BufferedImage(myWidth, myHeight, BufferedImage.TYPE_INT_ARGB);
+		
+		int width = myWidth;
+		int height = myHeight;
+		
+		if (img.getWidth() != width || img.getHeight() != height)
+		{
+			throw new IllegalArgumentException("Image bounds do not match SpritePixels");
+		}
+
+		int[] pixels = myPixels;
+		int[] transPixels = new int[pixels.length];
+
+		for (int i = 0; i < pixels.length; i++)
+		{
+			if (pixels[i] != 0)
+			{
+				transPixels[i] = pixels[i] | 0xff000000;
+			}
+		}
+
+		img.setRGB(0, 0, width, height, transPixels, 0, width);
+		
+		return img;
+	}
+	
 	public void toBufferedImage(BufferedImage img)
 	{
 		int width = myWidth;
