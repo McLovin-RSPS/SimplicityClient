@@ -221,9 +221,13 @@ public final class ObjectDefinition {
             objectDef.actions = new String[]{"Touch", null, null, null, null};
             objectDef.name = "@yel@Statue of Sezy";
         }
+        if (i == 137483) {
+            objectDef.actions = new String[]{"Restore-at", null, null, null, null};
+            objectDef.name = "@yel@Elite Dragon trophy";
+        }
         if (i == 133124) {
             objectDef.actions = new String[]{"Loot", null, null, null, null};
-            objectDef.name = "@yel@Elite chest";
+            objectDef.name = "@yel@Elite Champion chest";
         }        
         if (i == 126073) {
             objectDef.actions = new String[]{"Pray-at", null, null, null, null};

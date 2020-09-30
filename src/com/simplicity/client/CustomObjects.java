@@ -62,6 +62,9 @@ public class CustomObjects {
             // elite zone            
             {131618, 1670, 3748, 0, 1}, // Elite Raids            
             {131626, 1685, 3754, 0, 0}, // Sezy Statue Portal
+            {137483, 1682, 3753, 0, 0}, // Elite dragon recover trophy 
+            {136582, 1674, 3750, 0, 0}, // Elven crystal chest
+            
             {127882, 1693, 3744, 0, 1}, // Crystal
             {-1, 1680, 3751, 0, 0}, // Cyan crystal
             {-1, 1679, 3749, 0, 0}, // free
