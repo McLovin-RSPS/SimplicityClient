@@ -80,6 +80,10 @@ public final class MobDefinition {
                 npc.name = npc.name.replaceAll("<col=00ffff>", "@cya@").replaceAll("</col>", "");
             }
             switch (i) {
+            
+            case 8492:
+            	npc.walkAnim = 23492;
+            	break;
 
             // Kalphite princess
 			case 6637:
