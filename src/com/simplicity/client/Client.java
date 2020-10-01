@@ -17066,7 +17066,6 @@ public class Client extends RSApplet {
                 drawEffectTimers();
             }
         } catch (Exception e) {
-            System.out.println("Effect timers");
             e.printStackTrace();
         }
         if (fpsOn) {
@@ -17133,14 +17132,19 @@ public class Client extends RSApplet {
                 stream.createFrame(148);
             }
         } else if (broadcastText != null) {
+            final int yPos = super.mouseY;
+            final int xPos = super.mouseX;
+            final int yCorner = 336;
+            final boolean hoveringChatMessage = yPos >= yCorner - 14 && yPos <= yCorner &&
+                    xPos >= 17 && xPos <= 17 + newRegularFont.getTextWidth(broadcastText) + 2;
+            final int color = hoveringChatMessage ? 0xFFFFFF : 0xffff00;
             if (clientSize == 1) {
-                drawingArea.method385(0xffff00, broadcastText, clientHeight - 170, 19);
+                newRegularFont.drawBasicString(broadcastText, 19, clientHeight - 170, color, 0);
                 cacheSprite[1260].drawSprite(2, clientHeight - 180);
             } else {
-                drawingArea.method385(0xffff00, broadcastText, 329, 19);
+                newRegularFont.drawBasicString(broadcastText, 19, 329, color, 0);
                 cacheSprite[1260].drawSprite(2, 318);
             }
-
         }
         
     }
@@ -20247,7 +20251,6 @@ public class Client extends RSApplet {
                         String chatMsg = "<spr=1260:2>"+ broadcastText.substring(tokenIdx + 1) +"";
                         pushMessage(chatMsg, 1337, "<col=004f00>Broadcast</col>");
                     }
-//                    System.out.println("broad cast received: " + broadcastText);
 
                     opCode = -1;
                     return true;
