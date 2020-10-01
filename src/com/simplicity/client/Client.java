@@ -24329,7 +24329,8 @@ public class Client extends RSApplet {
             if (getQuickPrayersSet() > 0) {
                 if (!quickPrsActive) {
                     for (int i = 0; i < quickPrayers.length; i++) {
-                        int button = i == 26 ? 18018 : i == 27 ? 18025 : (i * 2) + 25000;
+                        int button = i == 24 ? 25110 : i == 25 ? 25048 : i == 26 ? 25050 : i == 27 ?
+                                25112 : i == 28 ? 25114 : (i * 2) + 25000;
                         RSInterface rsInterface = RSInterface.interfaceCache[button];
                         if (rsInterface.valueIndexArray != null && rsInterface.valueIndexArray[0][0] == 5) {
                             toggle = rsInterface.valueIndexArray[0][1];
@@ -24462,7 +24463,6 @@ public class Client extends RSApplet {
 
     public void togglePrayerState(int button) {
         int index = button == 17279 ? 26 : button == 17280 ? 27 : button == 17281 ? 28 : button - 17202;
-        System.out.println("Button clicked "+ button + " - "+ index);
         if (prayerInterfaceType == 5608) {
             if ((currentMaxStats[5] / 10) >= prayerLevelRequirements[index]) {
                 int[] types = getPrayerTypeForIndex(index);
@@ -24535,8 +24535,8 @@ public class Client extends RSApplet {
     private void turnOffPrayers() {
         int toggle = -1;
         for (int i = 0; i < quickPrayers.length; i++) {
-            int x = i == 26 ? 18018 : i == 27 ? 18025 : (i * 2) + 25000;
-            ;
+            int x = i == 24 ? 25110 : i == 25 ? 25048 : i == 26 ? 25050 : i == 27 ?
+                    25112 : i == 28 ? 25114 : (i * 2) + 25000;
             RSInterface rsInterface = RSInterface.interfaceCache[x];
             if (rsInterface.valueIndexArray != null && rsInterface.valueIndexArray[0][0] == 5) {
                 toggle = rsInterface.valueIndexArray[0][1];
