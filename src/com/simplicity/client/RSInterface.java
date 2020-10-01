@@ -12318,6 +12318,8 @@ public class RSInterface {
         setBounds(ID + 7, 142, 92, 8, hover);
     }
 
+    /*public static int[] LunarIDs = {30017, 30025, 30032, 30040, 30048, 30056, 30091, 30099, 30122, 30130, 30154, 30178, 30186,
+            30194, 30202, 30210, 30218, 30242, 30282, 30290, 30298, 30306, 30314, 30322};*/
     public static int[] LunarIDs = {30017, 30025, 30032, 30040, 30048, 30056, 30091, 30099, 30122, 30130, 30154, 30178, 30186,
             30194, 30202, 30210, 30218, 30242, 30282, 30290, 30298, 30306, 30314, 30322};
 
@@ -12391,25 +12393,37 @@ public class RSInterface {
 
         final int children = 24;
         lunarB.totalChildren(children + 39);
-        int y = 0, x = 11;
-        for (int index = 0; index < children; index++) {
-            if (index == 6 || index == 12 || index == 18) {
-                y += 30;
-                x = 11;
-            }
-            int xToSet = x;
-            int yToSet = y;
-            if (LunarIDs[index] == 30099)
-                yToSet -= 2;
-            lunarB.child(index, LunarIDs[index], x, yToSet);
-            x += 30;
-        }
+        int index = 0;
+        lunarB.child(0, 30000, 10, 15);
+        lunarB.child(index++, 30017, 39, 15);
+        lunarB.child(index++, 30025, 68, 17);
+        lunarB.child(index++, 30032, 97, 15);
+        lunarB.child(index++, 30040, 126, 17);
+        lunarB.child(index++, 30048, 155, 15);
+        lunarB.child(index++, 30056, 9, 44);
+        lunarB.child(index++, 30091, 97, 44);
+        lunarB.child(index++, 30099, 126, 44);
+        lunarB.child(index++, 30122, 157, 43);
+        lunarB.child(index++, 30130, 10, 73);
+        lunarB.child(index++, 30154, 67, 73);
+        lunarB.child(index++, 30178, 97, 73);
+        lunarB.child(index++, 30186, 127, 72);
+        lunarB.child(index++, 30194, 158, 73);
+        lunarB.child(index++, 30202, 13, 101);
+        lunarB.child(index++, 30210, 37, 102);
+        lunarB.child(index++, 30218, 96, 102);
+        lunarB.child(index++, 30242, 127, 102);
+        lunarB.child(index++, 30282, 39, 131);
+        lunarB.child(index++, 30290, 68, 131);
+        lunarB.child(index++, 30298, 97, 131);
+        lunarB.child(index++, 30306, 126, 131);
+        lunarB.child(index++, 30314, 155, 131);
+        lunarB.child(index++, 30322, 9, 160);
 
         RSInterface filterButton = addInterface(31330);
         filterButton.children(2);
 
         // Hover related info.
-        int index = 24;
         lunarB.child(index++, 30018, 5, 120);
         lunarB.child(index++, 30026, 5, 120);
         lunarB.child(index++, 30033, 5, 114);
@@ -12470,37 +12484,37 @@ public class RSInterface {
         spellButtons.width = 190;
         int widgetIndex = 0;
         newInterface.child(widgetIndex++, filterButton.id, 65, 235);
-        newInterface.child(widgetIndex++, 29999, 0, 55);
+        newInterface.child(widgetIndex++, 29999, 0, 0);
         /**
          * Add teleports
          */
         addHoverButtonWSpriteLoader(11001, 906, 18, 18, "Select", -1, 11002, 1);
         addTooltip(11002, "Home Teleport\nTeleport to set home location.");
-        newInterface.child(widgetIndex++, 11001, 8, 16);
+        newInterface.child(widgetIndex++, 11001, 10, 15);
         newInterface.child(widgetIndex++, 11002, 10, 39);
         addHoverButtonWSpriteLoader(11004, 907, 18, 18, "Select", -1, 11005, 1);
         addTooltip(11005, "Skills Teleport\nOpen options of different \nskilling teleports.");
-        newInterface.child(widgetIndex++, 11004, 34, 16);
+        newInterface.child(widgetIndex++, 11004, 39, 44);
         newInterface.child(widgetIndex++, 11005, 30, 39);
         addHoverButtonWSpriteLoader(11008, 908, 18, 18, "Select", -1, 11009, 1);
         addTooltip(11009, "Training Teleport\nOpen options of different \ntraining teleports.");
-        newInterface.child(widgetIndex++, 11008, 60, 16);
+        newInterface.child(widgetIndex++, 11008, 68, 44);
         newInterface.child(widgetIndex++, 11009, 40, 39);
         addHoverButtonWSpriteLoader(11011, 909, 18, 18, "Select", -1, 11012, 1);
         addTooltip(11012, "Dungeon Teleport\nOpen options of different\ndungeon teleports.");
-        newInterface.child(widgetIndex++, 11011, 86, 16);
+        newInterface.child(widgetIndex++, 11011, 39, 73);
         newInterface.child(widgetIndex++, 11012, 23, 39);
         addHoverButtonWSpriteLoader(11014, 910, 18, 18, "Select", -1, 11015, 1);
         addTooltip(11015, "Boss Teleport\nOpen options of different\nboss teleports.");
-        newInterface.child(widgetIndex++, 11014, 112, 16);
+        newInterface.child(widgetIndex++, 11014, 68, 102);
         newInterface.child(widgetIndex++, 11015, 23, 39);
         addHoverButtonWSpriteLoader(11017, 911, 18, 18, "Select", -1, 11018, 1);
         addTooltip(11018, "Minigame Teleport\nOpen options of different\nminigame teleports.");
-        newInterface.child(widgetIndex++, 11017, 138, 16);
+        newInterface.child(widgetIndex++, 11017, 159, 102);
         newInterface.child(widgetIndex++, 11018, 34, 39);
         addHoverButtonWSpriteLoader(11020, 912, 18, 18, "Select", -1, 11021, 1);
         addTooltip(11021, "Wilderness Teleport\nOpen options of different\nWilderness teleports.");
-        newInterface.child(widgetIndex++, 11020, 164, 16);
+        newInterface.child(widgetIndex++, 11020, 9, 131);
         newInterface.child(widgetIndex, 11021, 40, 39);
     }
 
@@ -15695,7 +15709,6 @@ public class RSInterface {
         interfaceCache[1188] = interfaceCache[12445];
         interfaceCache[1543] = interfaceCache[6003];
         interfaceCache[12425] = interfaceCache[12455];
-        System.out.println(interfaceCache[1192].spellName +", "+ interfaceCache[12435].spellName);
         removeSomething(1189);
         removeSomething(1592);
         removeSomething(1562);
