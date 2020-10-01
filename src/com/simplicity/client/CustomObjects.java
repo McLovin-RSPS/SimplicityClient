@@ -73,7 +73,7 @@ public class CustomObjects {
             {135188, 1689, 3744, 0, 1}, // pillar
             {135188, 1689, 3748, 0, 1}, // pillar
             
-            {137483, 1677, 3745, 0, 1}, // Elite dragon recover trophy 
+            {137483, 1677, 3745, 0, 3}, // Elite dragon recover trophy 
             {130087, 1677, 3743, 0, 1}, // bank chest
             {130087, 1677, 3742, 0, 1}, // bank chest
             
