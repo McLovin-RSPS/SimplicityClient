@@ -221,9 +221,17 @@ public final class ObjectDefinition {
             objectDef.actions = new String[]{"Touch", null, null, null, null};
             objectDef.name = "@yel@Statue of Sezy";
         }
+        if (i == 134021) {
+            objectDef.actions = new String[]{"Pick-from", null, null, null, null};
+            objectDef.name = "@yel@Dragonfruit tree";
+        }
         if (i == 137483) {
             objectDef.actions = new String[]{"Restore-at", null, null, null, null};
             objectDef.name = "@yel@Elite Dragon trophy";
+        }
+        if (i == 131618) {
+            objectDef.actions = new String[]{"Enter", null, null, null, null};
+            objectDef.name = "@yel@Elite Raids";
         }
         if (i == 133124) {
             objectDef.actions = new String[]{"Loot", null, null, null, null};

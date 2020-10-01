@@ -21,6 +21,7 @@ public class OldschoolMaps {
             8789,
             6457, // Great Kourand
             5179,  //Mount karuulm
+            9772, // myth's guild
             
             5789, // CHASM OF FIRE
             

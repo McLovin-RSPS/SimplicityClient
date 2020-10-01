@@ -2744,6 +2744,13 @@ public final class ItemDefinition {
                 itemDef.copy(forID(43652));
                 break; 
              
+            case 11924:
+                itemDef.copy(forID(41924));
+                break; 
+                
+            case 11926:
+                itemDef.copy(forID(41926));
+                break; 
                 
             case 12282:
                 itemDef.copy(forID(42931));
@@ -3078,21 +3085,6 @@ public final class ItemDefinition {
                 itemDef.modelID = 28439;
                 itemDef.maleEquip1 = 45006;
                 itemDef.femaleEquip1 = 43500;
-                break;
-            case 11926:
-                itemDef.name = "Odium ward";
-                itemDef.modelZoom = 1200;
-                itemDef.rotationY = 568;
-                itemDef.rotationX = 1836;
-                itemDef.modelOffsetX = 2;
-                itemDef.modelOffsetY = 3;
-                itemDef.newModelColor = new int[]{15252};
-                itemDef.editedModelColor = new int[]{908};
-                itemDef.modelID = 9354;
-                itemDef.actions[1] = "Wield";
-                itemDef.actions[4] = "Drop";
-                itemDef.maleEquip1 = 9347;
-                itemDef.femaleEquip1 = 9347;
                 break;
             case 11290:
                 itemDef.actions = new String[5];
@@ -3565,21 +3557,7 @@ public final class ItemDefinition {
                 itemDef.name = "Black h'ween Mask";
                 itemDef.description = "Aaaarrrghhh... I'm a monster.";
                 break;
-            case 11924:
-                itemDef.name = "Malediction ward";
-                itemDef.modelZoom = 1200;
-                itemDef.rotationY = 568;
-                itemDef.rotationX = 1836;
-                itemDef.modelOffsetX = 2;
-                itemDef.modelOffsetY = 3;
-                itemDef.newModelColor = new int[]{-21608};
-                itemDef.editedModelColor = new int[]{908};
-                itemDef.modelID = 9354;
-                itemDef.actions[1] = "Wield";
-                itemDef.actions[4] = "Drop";
-                itemDef.maleEquip1 = 9347;
-                itemDef.femaleEquip1 = 9347;
-                break;
+
             case 12279:
                 itemDef.name = "Magma helm";
                 itemDef.modelID = 29205;
