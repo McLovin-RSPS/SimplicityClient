@@ -12495,15 +12495,15 @@ public class RSInterface {
         addHoverButtonWSpriteLoader(11004, 907, 18, 18, "Select", -1, 11005, 1);
         addTooltip(11005, "Skills Teleport\nOpen options of different \nskilling teleports.");
         newInterface.child(widgetIndex++, 11004, 39, 44);
-        newInterface.child(widgetIndex++, 11005, 30, 39);
+        newInterface.child(widgetIndex++, 11005, 30, 122);
         addHoverButtonWSpriteLoader(11008, 908, 18, 18, "Select", -1, 11009, 1);
         addTooltip(11009, "Training Teleport\nOpen options of different \ntraining teleports.");
         newInterface.child(widgetIndex++, 11008, 68, 44);
-        newInterface.child(widgetIndex++, 11009, 40, 39);
+        newInterface.child(widgetIndex++, 11009, 40, 122);
         addHoverButtonWSpriteLoader(11011, 909, 18, 18, "Select", -1, 11012, 1);
         addTooltip(11012, "Dungeon Teleport\nOpen options of different\ndungeon teleports.");
         newInterface.child(widgetIndex++, 11011, 39, 73);
-        newInterface.child(widgetIndex++, 11012, 23, 39);
+        newInterface.child(widgetIndex++, 11012, 23, 20);
         addHoverButtonWSpriteLoader(11014, 910, 18, 18, "Select", -1, 11015, 1);
         addTooltip(11015, "Boss Teleport\nOpen options of different\nboss teleports.");
         newInterface.child(widgetIndex++, 11014, 68, 102);
