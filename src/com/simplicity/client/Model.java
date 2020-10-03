@@ -207,7 +207,8 @@ public class Model extends Animable {
         addDepthBufferModel(DataType.OLDSCHOOL, 14402); // Toxic staff
         addDepthBufferModel(DataType.OLDSCHOOL, 4037, 4038); // Dragon warhammer
         addDepthBufferModel(DataType.OLDSCHOOL, 14395, 14398); // Serpentine helmet
-        addDepthBufferModel(DataType.OLDSCHOOL, 14400); // Trident of the swamp
+        addDepthBufferModel(DataType.OLDSCHOOL, 14400); // Trident of the swamp 
+        addDepthBufferModel(DataType.OLDSCHOOL, 8950); // Volcanic whip
         addDepthBufferModel(DataType.OLDSCHOOL, 14401); // Uncharged toxic trident
         addDepthBufferModel(DataType.OLDSCHOOL, 6031); // Dragon scim
         addDepthBufferModel(DataType.OLDSCHOOL, 490); // Rune scim

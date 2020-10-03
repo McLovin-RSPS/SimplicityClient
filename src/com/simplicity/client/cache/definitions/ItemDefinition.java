@@ -3083,6 +3083,7 @@ public final class ItemDefinition {
                 itemDef.maleEquip1 = 44762;
                 itemDef.femaleEquip1 = 44762;
                 break;
+                
             case 11554:
                 itemDef.name = "Abyssal tentacle";
                 itemDef.modelZoom = 840;
@@ -3098,6 +3099,7 @@ public final class ItemDefinition {
                 itemDef.maleEquip1 = 45006;
                 itemDef.femaleEquip1 = 43500;
                 break;
+                
             case 11290:
                 itemDef.actions = new String[5];
                 itemDef.actions[1] = "Wear";
