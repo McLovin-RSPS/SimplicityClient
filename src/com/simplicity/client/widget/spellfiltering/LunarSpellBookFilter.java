@@ -20,7 +20,6 @@ public class LunarSpellBookFilter extends SpellBookFilter {
         if (varp == 671) {
             final boolean show = Client.instance.variousSettings[671] == 1;
             final int[] children = parent.originalChildren;
-            parent.childY[1] = show ? 55 : 15;
             for (int child : children) {
                 if (child >= 11001 && child <= 11021) {
                     RSInterface.interfaceCache[child].hidden = !show;
