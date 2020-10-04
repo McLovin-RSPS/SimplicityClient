@@ -26,6 +26,8 @@ package net.runelite.client.plugins.gpu;
 
 import javax.inject.Singleton;
 
+import com.simplicity.client.WorldController;
+
 import net.runelite.api.Client;
 import net.runelite.api.Constants;
 import net.runelite.api.DecorativeObject;
@@ -51,7 +53,7 @@ class SceneUploader
 	private int offset;
 	private int uvoffset;
 
-	void upload(Scene scene, GpuIntBuffer vertexbuffer, GpuFloatBuffer uvBuffer)
+	void upload(WorldController scene, GpuIntBuffer vertexbuffer, GpuFloatBuffer uvBuffer)
 	{
 		++sceneId;
 		offset = 0;
@@ -59,7 +61,8 @@ class SceneUploader
 		vertexbuffer.clear();
 		uvBuffer.clear();
 
-		for (int z = 0; z < Constants.MAX_Z; ++z)
+		// TODO: Convert Tile 
+		/*for (int z = 0; z < Constants.MAX_Z; ++z)
 		{
 			for (int x = 0; x < Constants.SCENE_SIZE; ++x)
 			{
@@ -87,7 +90,7 @@ class SceneUploader
 					}
 				}
 			}
-		}
+		}*/
 	}
 
 	private void reset(Tile tile)

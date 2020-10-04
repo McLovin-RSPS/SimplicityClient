@@ -9,17 +9,20 @@ import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import com.simplicity.client.Item;
 import com.simplicity.client.NPC;
 import com.simplicity.client.Player;
+import com.simplicity.client.Tile;
+import com.simplicity.client.WorldController;
+import com.simplicity.client.cache.node.Node;
 
 import net.runelite.api.Client;
 import net.runelite.api.Constants;
 import net.runelite.api.GameState;
 import net.runelite.api.InventoryID;
 import net.runelite.api.ItemContainer;
-import net.runelite.api.Node;
 import net.runelite.api.Scene;
-import net.runelite.api.Tile;
+import net.runelite.api.TileItem;
 import net.runelite.api.events.DecorativeObjectSpawned;
 import net.runelite.api.events.GameObjectSpawned;
 import net.runelite.api.events.GroundObjectSpawned;
@@ -52,7 +55,7 @@ public class GameEventManager
 	 */
 	private void forEachTile(Consumer<Tile> consumer)
 	{
-		final Scene scene = client.getScene();
+		final WorldController scene = client.getScene();
 		final Tile[][][] tiles = scene.getTiles();
 
 		for (int z = 0; z < Constants.MAX_Z; ++z)
@@ -159,15 +162,15 @@ public class GameEventManager
 				{
 					Node current = itemLayer.getBottom();
 
-					/*while (current instanceof TileItem)
+					while (current instanceof Item)
 					{
-						final TileItem item = (TileItem) current;
+						final Item item = (Item) current;
 
-						current = current.getNext();
+						current = current.next;
 
 						final ItemSpawned itemSpawned = new ItemSpawned(tile, item);
 						eventBus.post(itemSpawned);
-					}*/
+					}
 				});
 			});
 

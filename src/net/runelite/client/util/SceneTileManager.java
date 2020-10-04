@@ -33,16 +33,17 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
+import com.simplicity.client.Item;
+import com.simplicity.client.Tile;
+import com.simplicity.client.WorldController;
+import com.simplicity.client.cache.node.Node;
+
 import net.runelite.client.eventbus.EventBus;
 
 import net.runelite.api.Client;
 import net.runelite.api.Constants;
 import net.runelite.api.GameState;
-import net.runelite.api.Item;
-import net.runelite.api.Node;
 import net.runelite.api.Scene;
-import net.runelite.api.Tile;
-import net.runelite.api.TileItem;
 import net.runelite.api.events.DecorativeObjectSpawned;
 import net.runelite.api.events.GameObjectSpawned;
 import net.runelite.api.events.GroundObjectSpawned;
@@ -75,7 +76,7 @@ public class SceneTileManager
 			return;
 		}
 
-		final Scene scene = client.getScene();
+		final WorldController scene = client.getScene();
 		final Tile[][][] tiles = scene.getTiles();
 
 		for (int z = 0; z < Constants.MAX_Z; ++z)
@@ -104,7 +105,7 @@ public class SceneTileManager
 	 */
 	public void simulateObjectSpawns(Object subscriber)
 	{
-		/*eventBus.register(subscriber);
+		eventBus.register(subscriber);
 
 		forEachTile((tile) ->
 		{
@@ -146,9 +147,9 @@ public class SceneTileManager
 			{
 				Node current = itemLayer.getBottom();
 
-				while (current instanceof TileItem)
+				while (current instanceof Item)
 				{
-					final TileItem item = (TileItem) current;
+					final Item item = (Item) current;
 
 					current = current.getNext();
 
@@ -158,6 +159,6 @@ public class SceneTileManager
 			});
 		});
 
-		eventBus.unregister(subscriber);*/
+		eventBus.unregister(subscriber);
 	}
 }
