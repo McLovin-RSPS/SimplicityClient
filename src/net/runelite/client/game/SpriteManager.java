@@ -43,6 +43,8 @@ import com.simplicity.client.Sprite;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.client.callback.ClientThread;
+import net.runelite.client.ui.overlay.infobox.InfoBox;
+import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 
 @Singleton
 public class SpriteManager
@@ -52,6 +54,9 @@ public class SpriteManager
 
 	@Inject
 	private ClientThread clientThread;
+	
+	@Inject
+	private InfoBoxManager infoBoxManager;
 
 	public Cache<Long, BufferedImage> cache = CacheBuilder.newBuilder()
 		.maximumSize(128L)
@@ -75,6 +80,10 @@ public class SpriteManager
 		}
 		
 		Sprite sp = com.simplicity.client.Client.cacheSprite[file];
+		
+		if (sp == null) {
+			return null;
+		}
 		//SpritePixels sp = client.getSprite(client.getIndexSprites(), archive, file);
 		
 		BufferedImage img = sp.toBufferedImage();
@@ -101,6 +110,15 @@ public class SpriteManager
 			}
 			user.accept(img);
 			return true;
+		});
+	}
+	
+	public void getSpriteAsync(int archive, int file, InfoBox infoBox)
+	{
+		getSpriteAsync(archive, file, img ->
+		{
+			infoBox.setImage(img);
+			infoBoxManager.updateInfoBoxImage(infoBox);
 		});
 	}
 

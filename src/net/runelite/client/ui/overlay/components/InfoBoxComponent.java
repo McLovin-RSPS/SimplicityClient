@@ -32,6 +32,8 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import com.google.common.base.Strings;
+
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.client.ui.FontManager;
@@ -86,11 +88,14 @@ public class InfoBoxComponent implements LayoutableRenderableEntity
 			null);
 
 		// Render caption
-		final TextComponent textComponent = new TextComponent();
-		textComponent.setColor(color);
-		textComponent.setText(text);
-		textComponent.setPosition(new Point(((size - metrics.stringWidth(text)) / 2), size - SEPARATOR));
-		textComponent.render(graphics);
+		if (!Strings.isNullOrEmpty(text))
+		{
+			final TextComponent textComponent = new TextComponent();
+			textComponent.setColor(color);
+			textComponent.setText(text);
+			textComponent.setPosition(new Point(((size - metrics.stringWidth(text)) / 2), size - SEPARATOR));
+			textComponent.render(graphics);
+		}
 
 		graphics.translate(-preferredLocation.x, -preferredLocation.y);
 		return bounds.getSize();

@@ -82,6 +82,7 @@ import net.runelite.client.plugins.notes.NotesPlugin;
 import net.runelite.client.plugins.npchighlight.NpcIndicatorsPlugin;
 import net.runelite.client.plugins.opponentinfo.OpponentInfoPlugin;
 import net.runelite.client.plugins.playerindicators.PlayerIndicatorsPlugin;
+import net.runelite.client.plugins.prayer.PrayerPlugin;
 import net.runelite.client.plugins.screenshot.ScreenshotPlugin;
 import net.runelite.client.plugins.tileindicators.TileIndicatorsPlugin;
 import net.runelite.client.plugins.vote.VotePlugin;
@@ -262,7 +263,8 @@ public class PluginManager
 				LootTrackerPlugin.class,
 				MouseHighlightPlugin.class,
 				PlayerIndicatorsPlugin.class,
-				TileIndicatorsPlugin.class
+				TileIndicatorsPlugin.class,
+				PrayerPlugin.class
 		};
 		
 		for (Class<?> clazz : plugins)

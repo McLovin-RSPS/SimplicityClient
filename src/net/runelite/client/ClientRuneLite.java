@@ -366,8 +366,7 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public boolean isPrayerActive(Prayer prayer) {
-		// TODO Auto-generated method stub
-		return false;
+		return getVar(prayer.getVarbit()) == 1;
 	}
 	
 	@Override
@@ -541,8 +540,11 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public int getVar(Varbits varbit) {
-		// TODO Auto-generated method stub
-		return 0;
+		if (varbit.getId() >= client().variousSettings.length) {
+			return 0;
+		}
+		
+		return client().variousSettings[varbit.getId()];
 	}
 	
 	@Override
