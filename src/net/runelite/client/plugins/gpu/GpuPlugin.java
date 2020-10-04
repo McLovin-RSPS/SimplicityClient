@@ -38,6 +38,7 @@ import com.jogamp.opengl.GLException;
 import com.jogamp.opengl.GLFBODrawable;
 import com.jogamp.opengl.GLProfile;
 import com.simplicity.client.RSImageProducer;
+import com.simplicity.client.WorldController;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
@@ -796,7 +797,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 		yaw = client.getCameraYaw();
 		pitch = client.getCameraPitch();
 
-		final Scene scene = client.getScene();
+		final WorldController scene = client.getScene();
 		scene.setDrawDistance(getDrawDistance());
 	}
 

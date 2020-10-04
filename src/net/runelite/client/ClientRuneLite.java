@@ -619,9 +619,8 @@ public class ClientRuneLite implements Client {
 	}
 	
 	@Override
-	public Scene getScene() {
-		// TODO Auto-generated method stub
-		return null;
+	public WorldController getScene() {
+		return client().worldController;
 	}
 	
 	@Override

@@ -24,8 +24,9 @@
  */
 package net.runelite.rs.api;
 
+import com.simplicity.client.Tile;
+
 import net.runelite.api.Scene;
-import net.runelite.api.Tile;
 import net.runelite.mapping.Import;
 
 public interface RSScene extends Scene

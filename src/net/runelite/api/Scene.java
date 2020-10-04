@@ -24,6 +24,8 @@
  */
 package net.runelite.api;
 
+import com.simplicity.client.Tile;
+
 /**
  * Represents the entire 3D scene
  */

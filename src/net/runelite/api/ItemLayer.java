@@ -24,6 +24,9 @@
  */
 package net.runelite.api;
 
+import com.simplicity.client.Animable;
+import com.simplicity.client.TileObject;
+
 /**
  * Represents a pile of items held by a tile.
  */
@@ -41,19 +44,19 @@ public interface ItemLayer extends TileObject
 	 *
 	 * @return the bottom item
 	 */
-	Renderable getBottom();
+	Animable getBottom();
 
 	/**
 	 * Gets the item at the middle of the pile.
 	 *
 	 * @return the middle item
 	 */
-	Renderable getMiddle();
+	Animable getMiddle();
 
 	/**
 	 * Gets the item at the top of the pile.
 	 *
 	 * @return the top item
 	 */
-	Renderable getTop();
+	Animable getTop();
 }

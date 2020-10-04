@@ -29,13 +29,13 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import com.simplicity.client.CollisionDetection;
+import com.simplicity.client.Tile;
 
 import lombok.Getter;
 import net.runelite.api.Client;
 import net.runelite.api.CollisionDataFlag;
 import net.runelite.api.Constants;
 import net.runelite.api.Point;
-import net.runelite.api.Tile;
 
 /**
  * Represents an area on the world.

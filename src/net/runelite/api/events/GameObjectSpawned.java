@@ -1,4 +1,8 @@
 package net.runelite.api.events;
+
+import com.simplicity.client.Tile;
+import com.simplicity.client.InteractableObject;
+
 /*
  * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * All rights reserved.
@@ -25,7 +29,6 @@ package net.runelite.api.events;
  */
 import lombok.Data;
 import net.runelite.api.GameObject;
-import net.runelite.api.Tile;
 
 /**
  * An event where a {@link GameObject} is added to a {@link Tile}.
@@ -40,5 +43,5 @@ public class GameObjectSpawned
 	/**
 	 * The newly spawned game object.
 	 */
-	private GameObject gameObject;
+	private InteractableObject gameObject;
 }
