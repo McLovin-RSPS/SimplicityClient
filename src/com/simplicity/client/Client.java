@@ -8274,10 +8274,11 @@ public class Client extends RSApplet {
         
         if (runelite != null && MenuAction.of(l) != MenuAction.UNKNOWN) {
         	MenuOptionClicked option = new MenuOptionClicked();
-        	option.setMenuAction(MenuAction.of(l));
+        	option.setActionParam(slot);
         	option.setMenuOption(menuActionName[i]);
         	option.setMenuTarget("");
-        	option.setActionParam(slot);
+        	option.setMenuAction(MenuAction.of(l));
+        	option.setId(id); // obj id
         	option.setWidgetId(interfaceId);
         	callbacks.post(option);
         }
@@ -9992,7 +9993,7 @@ public class Client extends RSApplet {
             menuActionRow++;
             
             if (runelite != null && !menuOpen) {
-            	callbacks.post(new MenuEntryAdded(menuActionName[menuActionRow - 1], "", menuActionID[menuActionRow - 1], 0, menuActionCmd2[menuActionRow - 1], menuActionCmd3[menuActionRow - 1]));
+            	callbacks.post(new MenuEntryAdded(menuActionName[menuActionRow - 1], "", menuActionID[menuActionRow - 1], menuActionCmd1[menuActionRow - 1], menuActionCmd2[menuActionRow - 1], menuActionCmd3[menuActionRow - 1]));
             }
         }
         int lastUID = -1;
@@ -10091,6 +10092,10 @@ public class Client extends RSApplet {
                     menuActionCmd3[menuActionRow] = y;
                     menuActionCmd4[menuActionRow] = resourceId;
                     menuActionRow++;
+                    
+                    if (runelite != null && !menuOpen) {
+                    	callbacks.post(new MenuEntryAdded(menuActionName[menuActionRow - 1], "", menuActionID[menuActionRow - 1], menuActionCmd4[menuActionRow - 1], menuActionCmd2[menuActionRow - 1], menuActionCmd3[menuActionRow - 1]));
+                    }
                 }
             }
             if (resourceType == 1) {
