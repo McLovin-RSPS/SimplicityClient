@@ -24,4 +24,8 @@ public class Node
     public long hash;
     public Node next;
     public Node prev;
+    
+	public Node getNext() {
+		return next;
+	}
 }

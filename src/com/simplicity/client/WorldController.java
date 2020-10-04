@@ -2525,4 +2525,16 @@ public final class WorldController {
 		cullingClusterPointer = new int[amountOfCullingClusters];
 		cullingClusters = new CullingCluster[amountOfCullingClusters][500];
 	}
+
+	public Tile[][][] getTiles() {
+		return tileArray;
+	}
+
+	public int getDrawDistance() {
+		return TILE_DRAW_DISTANCE;
+	}
+
+	public void setDrawDistance(int drawDistance) {
+		
+	}
 }

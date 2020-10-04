@@ -168,10 +168,6 @@ public interface RSClient extends RSGameEngine, Client
 	 */
 	RSWidget[] getGroup(int groupId);
 
-	@Import("scene")
-	@Override
-	RSScene getScene();
-
 	@Import("npcIndexesCount")
 	int getNpcIndexesCount();
 

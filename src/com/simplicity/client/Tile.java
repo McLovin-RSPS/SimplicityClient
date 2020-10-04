@@ -42,6 +42,22 @@ public final class Tile extends Node {
 	int anInt1328;
 	public Tile tileBelowThisTile;
 	
+	public InteractableObject[] getGameObjects() {
+		return interactableObjects;
+	}
+	
+	public GroundDecoration getDecorativeObject() {
+		return groundDecoration;
+	}
+	
+	public WallObject getWallObject() {
+		return wallObject;
+	}
+	
+	public GroundItem getGroundObject() {
+		return groundItem;
+	}
+	
 	public int getZ() {
 		return logicHeight;
 	}
@@ -52,6 +68,14 @@ public final class Tile extends Node {
 	
 	public WorldPoint getWorldLocation() {
 		return WorldPoint.fromScene(RuneLite.getClient(), tileX, tileY, tileZ);
+	}
+
+	public boolean hasLineOfSightTo(Tile targetTile) {
+		return false;
+	}
+	
+	public GroundItem getItemLayer() {
+		return groundItem;
 	}
 	
 }
