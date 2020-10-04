@@ -24,6 +24,8 @@
  */
 package net.runelite.api;
 
+import static net.runelite.api.Constants.TILE_FLAG_BRIDGE;
+
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
@@ -32,16 +34,15 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import static net.runelite.api.Constants.TILE_FLAG_BRIDGE;
+
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.geometry.RectangleUnion;
 import net.runelite.api.geometry.Shapes;
 import net.runelite.api.geometry.SimplePolygon;
 import net.runelite.api.model.Jarvis;
-import net.runelite.api.widgets.Widget;
-import net.runelite.api.widgets.WidgetInfo;
 
 /**
  * A utility class containing methods to help with conversion between

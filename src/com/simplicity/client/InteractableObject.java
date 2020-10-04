@@ -4,9 +4,13 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Shape;
 
+import com.simplicity.client.cache.definitions.ObjectDefinition;
+
+import net.runelite.api.Perspective;
 import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
+import net.runelite.client.RuneLite;
 
 public final class InteractableObject implements TileObject
 {
@@ -33,80 +37,86 @@ public final class InteractableObject implements TileObject
 	
 	@Override
 	public long getHash() {
-		// TODO Auto-generated method stub
-		return 0;
+		return uid;
 	}
 	
 	@Override
 	public int getX() {
-		// TODO Auto-generated method stub
-		return 0;
+		return worldX;
 	}
 	
 	@Override
 	public int getY() {
-		// TODO Auto-generated method stub
-		return 0;
+		return worldY;
 	}
 	
 	@Override
 	public int getPlane() {
-		// TODO Auto-generated method stub
-		return 0;
+		return zPos;
 	}
 	
 	@Override
 	public int getId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return interactiveObjUID;
 	}
 	
 	@Override
 	public WorldPoint getWorldLocation() {
-		// TODO Auto-generated method stub
-		return null;
+		return WorldPoint.fromLocal(RuneLite.getClient(), getX(), getY(), getPlane());
 	}
 	
 	@Override
 	public LocalPoint getLocalLocation() {
-		// TODO Auto-generated method stub
-		return null;
+		return new LocalPoint(getX(), getY());
 	}
-	
+
 	@Override
 	public Point getCanvasLocation() {
-		// TODO Auto-generated method stub
-		return null;
+		return getCanvasLocation(0);
 	}
 	
 	@Override
 	public Point getCanvasLocation(int zOffset) {
-		// TODO Auto-generated method stub
-		return null;
+		return Perspective.localToCanvas(RuneLite.getClient(), getLocalLocation(), getPlane(), zOffset);
 	}
 	
 	@Override
 	public Polygon getCanvasTilePoly() {
-		// TODO Auto-generated method stub
-		return null;
+		return Perspective.getCanvasTilePoly(RuneLite.getClient(), getLocalLocation());
 	}
 	
 	@Override
 	public Point getCanvasTextLocation(Graphics2D graphics, String text, int zOffset) {
-		// TODO Auto-generated method stub
-		return null;
+		return Perspective.getCanvasTextLocation(RuneLite.getClient(), graphics, getLocalLocation(), text, zOffset);
 	}
 	
 	@Override
 	public Point getMinimapLocation() {
-		// TODO Auto-generated method stub
-		return null;
+		return Perspective.localToMinimap(RuneLite.getClient(), getLocalLocation());
 	}
 	
 	@Override
 	public Shape getClickbox() {
-		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public Polygon getConvexHull() {
+
+		Model model = null;
+
+		if (node instanceof Model) {
+			model = (Model) node;
+		} else if (node instanceof Animable) {
+			model = ((Animable) node).getRotatedModel();
+		}
+
+		if (model == null) {
+			return null;
+		}
+
+		int tileHeight = Perspective.getTileHeight(RuneLite.getClient(), new LocalPoint(getX(), getY()),
+				Client.instance.plane);
+		return model.getConvexHull(getX(), getY(), rotation, tileHeight);
 	}
 	
 }

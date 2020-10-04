@@ -5,9 +5,11 @@ import java.awt.Polygon;
 import java.awt.geom.Area;
 
 import net.runelite.api.ItemLayer;
+import net.runelite.api.Perspective;
 import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
+import net.runelite.client.RuneLite;
 
 public final class GroundItem implements ItemLayer {
 
@@ -31,80 +33,67 @@ public final class GroundItem implements ItemLayer {
 
 	@Override
 	public long getHash() {
-		// TODO Auto-generated method stub
-		return 0;
+		return uid;
 	}
 
 	@Override
 	public int getX() {
-		// TODO Auto-generated method stub
-		return 0;
+		return xPos;
 	}
 
 	@Override
 	public int getY() {
-		// TODO Auto-generated method stub
-		return 0;
+		return yPos;
 	}
 
 	@Override
 	public int getPlane() {
-		// TODO Auto-generated method stub
-		return 0;
+		return zPos;
 	}
 
 	@Override
 	public int getId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return uid;
 	}
 
 	@Override
 	public WorldPoint getWorldLocation() {
-		// TODO Auto-generated method stub
-		return null;
+		return WorldPoint.fromLocal(RuneLite.getClient(), getX(), getY(), getPlane());
 	}
 
 	@Override
 	public LocalPoint getLocalLocation() {
-		// TODO Auto-generated method stub
-		return null;
+		return new LocalPoint(getX(), getY());
 	}
 
 	@Override
 	public Point getCanvasLocation() {
-		// TODO Auto-generated method stub
-		return null;
+		return getCanvasLocation(0);
 	}
 
 	@Override
 	public Point getCanvasLocation(int zOffset) {
-		// TODO Auto-generated method stub
-		return null;
+		return Perspective.localToCanvas(RuneLite.getClient(), getLocalLocation(), getPlane(), zOffset);
 	}
 
 	@Override
 	public Polygon getCanvasTilePoly() {
-		// TODO Auto-generated method stub
-		return null;
+		return Perspective.getCanvasTilePoly(RuneLite.getClient(), getLocalLocation());
 	}
 
 	@Override
 	public Point getCanvasTextLocation(Graphics2D graphics, String text, int zOffset) {
-		// TODO Auto-generated method stub
-		return null;
+		return Perspective.getCanvasTextLocation(RuneLite.getClient(), graphics, getLocalLocation(), text, zOffset);
 	}
 
 	@Override
 	public Point getMinimapLocation() {
-		// TODO Auto-generated method stub
-		return null;
+		return Perspective.localToMinimap(RuneLite.getClient(), getLocalLocation());
 	}
 	
 	@Override
 	public Area getClickbox() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
