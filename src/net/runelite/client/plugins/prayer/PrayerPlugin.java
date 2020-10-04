@@ -209,8 +209,6 @@ public class PrayerPlugin extends Plugin
 				if (prayerCounter[ord] == null)
 				{
 					PrayerCounter counter = prayerCounter[ord] = new PrayerCounter(this, prayerType);
-					/*spriteManager.getSpriteAsync(prayerType.getSpriteID(), 0,
-						counter::setImage);*/
 					
 					spriteManager.getSpriteAsync(0, prayerType.getSpriteID(), counter);
 					

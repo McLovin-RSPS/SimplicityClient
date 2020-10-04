@@ -32,6 +32,7 @@ import java.awt.image.BufferedImage;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import com.simplicity.Configuration;
 import com.simplicity.client.Player;
 
 import net.runelite.api.Client;
@@ -90,7 +91,7 @@ class PrayerBarOverlay extends Overlay
 		final float ratio = (float) client.getBoostedSkillLevel(Skill.PRAYER) / client.getRealSkillLevel(Skill.PRAYER);
 
 		// Draw HD bar
-		if (true/*client.getSpriteOverrides().containsKey(SpriteID.HEALTHBAR_DEFAULT_FRONT_30PX)*/)
+		if (Configuration.enableNewHpBars)
 		{
 			final int barWidth = HD_FRONT_BAR.getWidth();
 			final int barHeight = HD_FRONT_BAR.getHeight();
@@ -167,7 +168,7 @@ class PrayerBarOverlay extends Overlay
 			return;
 		}
 
-		if (config.hideIfOutOfCombat() && localPlayer.currentHealth == -1)
+		if (config.hideIfOutOfCombat() && localPlayer.loopCycleStatus < com.simplicity.client.Client.loopCycle)
 		{
 			showingPrayerBar = false;
 		}
