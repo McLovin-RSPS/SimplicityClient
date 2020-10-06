@@ -18,6 +18,7 @@ import com.simplicity.client.particles.ParticleVector;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
 import net.runelite.api.model.Jarvis;
+import net.runelite.api.model.Triangle;
 import net.runelite.api.model.Vertex;
 import net.runelite.client.RuneLite;
 
@@ -3677,19 +3678,41 @@ public class Model extends Animable {
 	}
     
 	public List<Vertex> getVertices() {
-		int[] verticesX = verticesXCoordinate;
-		int[] verticesY = verticesYCoordinate;
-		int[] verticesZ = verticesZCoordinate;
+		int[] verticesX = getVerticesX();
+		int[] verticesY = getVerticesY();
+		int[] verticesZ = getVerticesZ();
 
-		List<Vertex> vertices = new ArrayList<Vertex>(numberOfVerticeCoordinates);
+		List<Vertex> vertices = new ArrayList<Vertex>(getVerticesCount());
 
-		for (int i = 0; i < numberOfVerticeCoordinates; ++i) {
+		for (int i = 0; i < getVerticesCount(); ++i) {
 			Vertex v = new Vertex(verticesX[i], verticesY[i], verticesZ[i]);
 			vertices.add(v);
 		}
 
 		return vertices;
 	}
+	
+	
+	public List<Triangle> getTriangles() {
+		int[] trianglesX = getTrianglesX();
+		int[] trianglesY = getTrianglesY();
+		int[] trianglesZ = getTrianglesZ();
+
+		List<Vertex> vertices = getVertices();
+		List<Triangle> triangles = new ArrayList<Triangle>(getTrianglesCount());
+
+		for (int i = 0; i < getTrianglesCount(); ++i) {
+			int triangleX = trianglesX[i];
+			int triangleY = trianglesY[i];
+			int triangleZ = trianglesZ[i];
+
+			Triangle triangle = new Triangle(vertices.get(triangleX), vertices.get(triangleY), vertices.get(triangleZ));
+			triangles.add(triangle);
+		}
+
+		return triangles;
+	}
+
 	
     public void renderSingle(int rotation_2, int offsetX, int rotation_1, int offsetY, int zoom_sine, int zoom_cosine) {
         try {
@@ -4032,4 +4055,49 @@ public class Model extends Animable {
             }
         }
     }
+    
+    public int getVerticesCount() {
+    	return numberOfVerticeCoordinates;
+    }
+    
+    public int[] getVerticesX() {
+    	return verticesXCoordinate;
+    }
+    
+    public int[] getVerticesY() {
+    	return verticesYCoordinate;
+    }
+    
+    public int[] getVerticesZ() {
+    	return verticesZCoordinate;
+    }
+    
+    public int getTrianglesCount() {
+    	return numberOfTriangleFaces;
+    }
+    
+    public int[] getTrianglesX() {
+    	return face_a;
+    }
+    
+    public int[] getTrianglesY() {
+    	return face_b;
+    }
+    
+    public int[] getTrianglesZ() {
+    	return face_c;
+    }
+    
+    public int getXYZMag() {
+    	return anInt1650;
+    }
+    
+    public int getRadius() {
+    	return anInt1653;
+    }
+    
+    public int getDiameter() {
+    	return diagonal3D;
+    }
+    
 }
