@@ -77,5 +77,9 @@ public final class Tile extends Node {
 	public GroundItem getItemLayer() {
 		return groundItem;
 	}
+
+	public int getPlane() {
+		return plane;
+	}
 	
 }
