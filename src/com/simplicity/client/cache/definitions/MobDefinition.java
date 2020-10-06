@@ -1939,9 +1939,11 @@ public final class MobDefinition {
             models[i] = def.models[i];
         }
 
-        actions = new String[def.actions.length];
-        for (int i = 0; i < actions.length; i++) {
-            actions[i] = def.actions[i];
+        if (def.actions != null) {
+	        actions = new String[def.actions.length];
+	        for (int i = 0; i < actions.length; i++) {
+	            actions[i] = def.actions[i];
+	        }
         }
 
         if (def.originalColours != null) {
