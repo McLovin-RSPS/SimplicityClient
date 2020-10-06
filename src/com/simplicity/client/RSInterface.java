@@ -1857,22 +1857,22 @@ public class RSInterface {
         addButton(11001, 430, "Cast @gre@Home Teleport", 19, 19);
         //addTooltip(11002, "Home Teleport\nTeleport to set home location.");
 
-        addHoverButtonWSpriteLoader(11004, 907, 18, 18, "Select", -1, 11005, 1);
+        addHoverButtonWSpriteLoader(11004, 907, 18, 18, "Teleport", -1, 11005, 1);
 //        addTooltip(11005, "Skills Teleport\nOpen options of different \nskilling teleports.");
 
-        addHoverButtonWSpriteLoader(11008, 908, 18, 18, "Select", -1, 11009, 1);
+        addHoverButtonWSpriteLoader(11008, 908, 18, 18, "Teleport", -1, 11009, 1);
 //        addTooltip(11009, "Training Teleport\nOpen options of different \ntraining teleports.");
 
-        addHoverButtonWSpriteLoader(11011, 909, 18, 18, "Select", -1, 11012, 1);
+        addHoverButtonWSpriteLoader(11011, 909, 18, 18, "Teleport", -1, 11012, 1);
 //        addTooltip(11012, "Dungeon Teleport\nOpen options of different\ndungeon teleports.");
 
-        addHoverButtonWSpriteLoader(11014, 910, 18, 18, "Select", -1, 11015, 1);
+        addHoverButtonWSpriteLoader(11014, 910, 18, 18, "Teleport", -1, 11015, 1);
 //        addTooltip(11015, "Boss Teleport\nOpen options of different\nboss teleports.");
 
-        addHoverButtonWSpriteLoader(11017, 911, 18, 18, "Select", -1, 11018, 1);
+        addHoverButtonWSpriteLoader(11017, 911, 18, 18, "Teleport", -1, 11018, 1);
 //        addTooltip(11018, "Minigame Teleport\nOpen options of different\nminigame teleports.");
 
-        addHoverButtonWSpriteLoader(11020, 912, 18, 18, "Select", -1, 11021, 1);
+        addHoverButtonWSpriteLoader(11020, 912, 18, 18, "Teleport", -1, 11021, 1);
 //        addTooltip(11021, "Wilderness Teleport\nOpen options of different\nWilderness teleports.");
 
 
@@ -12392,27 +12392,43 @@ public class RSInterface {
                 "Change to another spellbook for 1\\nspell cast", fonts, 38, 0, 5);
 
         final int children = 24;
-        lunarB.totalChildren(children + 39);
+        lunarB.totalChildren(children + 39 + 14);
         int index = 0;
-        lunarB.child(0, 30000, 10, 15);
+        addHoverButtonWSpriteLoader(11001, 906, 18, 18, "Teleport", -1, 11002, 1);
+//        lunarB.child(0, 30000, 10, 15);
+        lunarB.child(index++, 11001, 10, 15);
         lunarB.child(index++, 30017, 39, 15);
         lunarB.child(index++, 30025, 68, 17);
         lunarB.child(index++, 30032, 97, 15);
         lunarB.child(index++, 30040, 126, 17);
         lunarB.child(index++, 30048, 155, 15);
         lunarB.child(index++, 30056, 9, 44);
+
+        addHoverButtonWSpriteLoader(11004, 907, 18, 18, "Teleport", -1, 11005, 1);
+        lunarB.child(index++, 11004, 39, 44);
+        addHoverButtonWSpriteLoader(11008, 908, 18, 18, "Teleport", -1, 11009, 1);
+        lunarB.child(index++, 11008, 68, 44);
+
         lunarB.child(index++, 30091, 97, 44);
         lunarB.child(index++, 30099, 126, 44);
         lunarB.child(index++, 30122, 157, 43);
         lunarB.child(index++, 30130, 10, 73);
+        addHoverButtonWSpriteLoader(11011, 909, 18, 18, "Teleport", -1, 11012, 1);
+        lunarB.child(index++, 11011, 39, 73);
         lunarB.child(index++, 30154, 67, 73);
         lunarB.child(index++, 30178, 97, 73);
         lunarB.child(index++, 30186, 127, 72);
         lunarB.child(index++, 30194, 158, 73);
         lunarB.child(index++, 30202, 13, 101);
         lunarB.child(index++, 30210, 37, 102);
+        addHoverButtonWSpriteLoader(11014, 910, 18, 18, "Teleport", -1, 11015, 1);
+        lunarB.child(index++, 11014, 68, 102);
         lunarB.child(index++, 30218, 96, 102);
         lunarB.child(index++, 30242, 127, 102);
+        addHoverButtonWSpriteLoader(11017, 911, 18, 18, "Teleport", -1, 11018, 1);
+        lunarB.child(index++, 11017, 159, 102);
+        addHoverButtonWSpriteLoader(11020, 912, 18, 18, "Teleport", -1, 11021, 1);
+        lunarB.child(index++, 11020, 9, 131);
         lunarB.child(index++, 30282, 39, 131);
         lunarB.child(index++, 30290, 68, 131);
         lunarB.child(index++, 30298, 97, 131);
@@ -12424,12 +12440,26 @@ public class RSInterface {
         filterButton.children(2);
 
         // Hover related info.
+        addTooltip(11002, "Home Teleport\nTeleport to set home location.");
+        lunarB.child(index++, 11002, 10, 39);
         lunarB.child(index++, 30018, 5, 120);
         lunarB.child(index++, 30026, 5, 120);
         lunarB.child(index++, 30033, 5, 114);
         lunarB.child(index++, 30041, 5, 120);
         lunarB.child(index++, 30049, 5, 120);
         lunarB.child(index++, 30057, 5, 120);
+        addTooltip(11005, "Skills Teleport\nOpen options of different \nskilling teleports.");
+        lunarB.child(index++, 11005, 30, 122);
+        addTooltip(11009, "Training Teleport\nOpen options of different \ntraining teleports.");
+        lunarB.child(index++, 11009, 40, 122);
+        addTooltip(11012, "Dungeon Teleport\nOpen options of different\ndungeon teleports.");
+        lunarB.child(index++, 11012, 23, 20);
+        addTooltip(11015, "Boss Teleport\nOpen options of different\nboss teleports.");
+        lunarB.child(index++, 11015, 23, 39);
+        addTooltip(11018, "Minigame Teleport\nOpen options of different\nminigame teleports.");
+        lunarB.child(index++, 11018, 34, 39);
+        addTooltip(11021, "Wilderness Teleport\nOpen options of different\nWilderness teleports.");
+        lunarB.child(index++, 11021, 40, 39);
         lunarB.child(index++, 30065, 5, 120);
         lunarB.child(index++, 30076, 5, 120);
         lunarB.child(index++, 30084, 5, 120);
@@ -12474,7 +12504,7 @@ public class RSInterface {
 
         RSInterface newInterface = addInterface(11800);
         RSInterface spellButtons = interfaceCache[29999];
-        newInterface.totalChildren(16);
+        newInterface.totalChildren(2);
         
         /**
          * Change spellbook
@@ -12485,37 +12515,6 @@ public class RSInterface {
         int widgetIndex = 0;
         newInterface.child(widgetIndex++, filterButton.id, 65, 235);
         newInterface.child(widgetIndex++, 29999, 0, 0);
-        /**
-         * Add teleports
-         */
-        addHoverButtonWSpriteLoader(11001, 906, 18, 18, "Select", -1, 11002, 1);
-        addTooltip(11002, "Home Teleport\nTeleport to set home location.");
-        newInterface.child(widgetIndex++, 11001, 10, 15);
-        newInterface.child(widgetIndex++, 11002, 10, 39);
-        addHoverButtonWSpriteLoader(11004, 907, 18, 18, "Select", -1, 11005, 1);
-        addTooltip(11005, "Skills Teleport\nOpen options of different \nskilling teleports.");
-        newInterface.child(widgetIndex++, 11004, 39, 44);
-        newInterface.child(widgetIndex++, 11005, 30, 122);
-        addHoverButtonWSpriteLoader(11008, 908, 18, 18, "Select", -1, 11009, 1);
-        addTooltip(11009, "Training Teleport\nOpen options of different \ntraining teleports.");
-        newInterface.child(widgetIndex++, 11008, 68, 44);
-        newInterface.child(widgetIndex++, 11009, 40, 122);
-        addHoverButtonWSpriteLoader(11011, 909, 18, 18, "Select", -1, 11012, 1);
-        addTooltip(11012, "Dungeon Teleport\nOpen options of different\ndungeon teleports.");
-        newInterface.child(widgetIndex++, 11011, 39, 73);
-        newInterface.child(widgetIndex++, 11012, 23, 20);
-        addHoverButtonWSpriteLoader(11014, 910, 18, 18, "Select", -1, 11015, 1);
-        addTooltip(11015, "Boss Teleport\nOpen options of different\nboss teleports.");
-        newInterface.child(widgetIndex++, 11014, 68, 102);
-        newInterface.child(widgetIndex++, 11015, 23, 39);
-        addHoverButtonWSpriteLoader(11017, 911, 18, 18, "Select", -1, 11018, 1);
-        addTooltip(11018, "Minigame Teleport\nOpen options of different\nminigame teleports.");
-        newInterface.child(widgetIndex++, 11017, 159, 102);
-        newInterface.child(widgetIndex++, 11018, 34, 39);
-        addHoverButtonWSpriteLoader(11020, 912, 18, 18, "Select", -1, 11021, 1);
-        addTooltip(11021, "Wilderness Teleport\nOpen options of different\nWilderness teleports.");
-        newInterface.child(widgetIndex++, 11020, 9, 131);
-        newInterface.child(widgetIndex, 11021, 40, 39);
     }
 
     public static void addHoverImage(int i, int j, int k) {
@@ -15717,31 +15716,31 @@ public class RSInterface {
         removeSomething(12445);
         removeSomething(6003);
         removeSomething(12455);
-        addHoverButtonWSpriteLoader(11001, 906, 18, 18, "Select", -1, 11002, 1);
+        addHoverButtonWSpriteLoader(11001, 906, 18, 18, "Teleport", -1, 11002, 1);
         addTooltip(11002, "Home Teleport\nTeleport to set home location.");
         newInterface.child(childId++, 11001, 8, 8);
         newInterface.child(childId++, 11002, 10, 39);
-        addHoverButtonWSpriteLoader(11004, 907, 18, 18, "Select", -1, 11005, 1);
+        addHoverButtonWSpriteLoader(11004, 907, 18, 18, "Teleport", -1, 11005, 1);
         addTooltip(11005, "Skills Teleport\nOpen options of different \nskilling teleports.");
         newInterface.child(childId++, 11004, 34, 8);
         newInterface.child(childId++, 11005, 30, 39);
-        addHoverButtonWSpriteLoader(11008, 908, 18, 18, "Select", -1, 11009, 1);
+        addHoverButtonWSpriteLoader(11008, 908, 18, 18, "Teleport", -1, 11009, 1);
         addTooltip(11009, "Training Teleport\nOpen options of different \ntraining teleports.");
         newInterface.child(childId++, 11008, 60, 8);
         newInterface.child(childId++, 11009, 40, 39);
-        addHoverButtonWSpriteLoader(11011, 909, 18, 18, "Select", -1, 11012, 1);
+        addHoverButtonWSpriteLoader(11011, 909, 18, 18, "Teleport", -1, 11012, 1);
         addTooltip(11012, "Dungeon Teleport\nOpen options of different\ndungeon teleports.");
         newInterface.child(childId++, 11011, 86, 8);
         newInterface.child(childId++, 11012, 23, 39);
-        addHoverButtonWSpriteLoader(11014, 910, 18, 18, "Select", -1, 11015, 1);
+        addHoverButtonWSpriteLoader(11014, 910, 18, 18, "Teleport", -1, 11015, 1);
         addTooltip(11015, "Boss Teleport\nOpen options of different\nboss teleports.");
         newInterface.child(childId++, 11014, 112, 8);
         newInterface.child(childId++, 11015, 23, 39);
-        addHoverButtonWSpriteLoader(11017, 911, 18, 18, "Select", -1, 11018, 1);
+        addHoverButtonWSpriteLoader(11017, 911, 18, 18, "Teleport", -1, 11018, 1);
         addTooltip(11018, "Minigame Teleport\nOpen options of different\nminigame teleports.");
         newInterface.child(childId++, 11017, 138, 8);
         newInterface.child(childId++, 11018, 34, 39);
-        addHoverButtonWSpriteLoader(11020, 912, 18, 18, "Select", -1, 11021, 1);
+        addHoverButtonWSpriteLoader(11020, 912, 18, 18, "Teleport", -1, 11021, 1);
         addTooltip(11021, "Wilderness Teleport\nOpen options of different\nWilderness teleports.");
         newInterface.child(childId++, 11020, 164, 8);
         newInterface.child(childId, 11021, 40, 39);

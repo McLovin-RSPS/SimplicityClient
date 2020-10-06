@@ -22338,8 +22338,14 @@ public class Client extends RSApplet {
             inputTaken = true;
             dialogOptionsShowing = false;
         }
+
+        // Don't close the primary interface if we have a secondary one open.
+        if (secondaryOpenInterfaceID != -1) {
+            secondaryOpenInterfaceID = -1;
+            return;
+        }
+
         openInterfaceID = -1;
-        secondaryOpenInterfaceID = -1;
         fullscreenInterfaceID = -1;
         
         if (openInterfaceID != -1) {
