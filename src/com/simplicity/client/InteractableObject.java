@@ -3,6 +3,7 @@ package com.simplicity.client;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Shape;
+import java.awt.geom.Area;
 
 import com.simplicity.client.cache.definitions.ObjectDefinition;
 
@@ -95,13 +96,25 @@ public final class InteractableObject implements TileObject
 		return Perspective.localToMinimap(RuneLite.getClient(), getLocalLocation());
 	}
 	
-	@Override
-	public Shape getClickbox() {
-		return null;
+	public Area getClickbox() {
+		return Perspective.getClickbox(RuneLite.getClient(), getModel(), rotation, getLocalLocation());
 	}
 
 	public Polygon getConvexHull() {
 
+		Model model = getModel();
+
+		if (model == null) {
+			return null;
+		}
+
+		int tileHeight = Perspective.getTileHeight(RuneLite.getClient(), new LocalPoint(getX(), getY()),
+				Client.instance.plane);
+		return model.getConvexHull(getX(), getY(), 0, tileHeight);
+	}
+	
+	private Model getModel()
+	{
 		Model model = null;
 
 		if (node instanceof Model) {
@@ -110,13 +123,7 @@ public final class InteractableObject implements TileObject
 			model = ((Animable) node).getRotatedModel();
 		}
 
-		if (model == null) {
-			return null;
-		}
-
-		int tileHeight = Perspective.getTileHeight(RuneLite.getClient(), new LocalPoint(getX(), getY()),
-				Client.instance.plane);
-		return model.getConvexHull(getX(), getY(), rotation, tileHeight);
+		return model;
 	}
 	
 }
