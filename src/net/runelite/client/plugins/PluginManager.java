@@ -67,6 +67,7 @@ import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.PluginChanged;
+import net.runelite.client.plugins.agility.AgilityPlugin;
 import net.runelite.client.plugins.ammo.AmmoPlugin;
 import net.runelite.client.plugins.boosts.BoostsPlugin;
 import net.runelite.client.plugins.config.ConfigPlugin;
@@ -266,7 +267,8 @@ public class PluginManager
 				PlayerIndicatorsPlugin.class,
 				TileIndicatorsPlugin.class,
 				PrayerPlugin.class,
-				ObjectIndicatorsPlugin.class
+				ObjectIndicatorsPlugin.class,
+				AgilityPlugin.class
 		};
 		
 		for (Class<?> clazz : plugins)
