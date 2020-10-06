@@ -1,4 +1,8 @@
 package net.runelite.api.events;
+
+import com.simplicity.client.InteractableObject;
+import com.simplicity.client.Tile;
+
 /*
  * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * All rights reserved.
@@ -25,7 +29,6 @@ package net.runelite.api.events;
  */
 import lombok.Data;
 import net.runelite.api.GameObject;
-import net.runelite.api.Tile;
 
 /**
  * An event where a {@link GameObject} on a {@link Tile} has been replaced.
@@ -40,9 +43,9 @@ public class GameObjectChanged
 	/**
 	 * The game object that has been replaced.
 	 */
-	private GameObject previous;
+	private InteractableObject previous;
 	/**
 	 * The new game object on the tile.
 	 */
-	private GameObject gameObject;
+	private InteractableObject gameObject;
 }

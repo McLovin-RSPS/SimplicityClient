@@ -1,4 +1,7 @@
 package net.runelite.api.events;
+import com.simplicity.client.GroundDecoration;
+import com.simplicity.client.Tile;
+
 /*
  * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * All rights reserved.
@@ -24,8 +27,6 @@ package net.runelite.api.events;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 import lombok.Data;
-import net.runelite.api.DecorativeObject;
-import net.runelite.api.Tile;
 
 /**
  * An event where the {@link DecorativeObject} attached to a {@link Tile}
@@ -41,5 +42,5 @@ public class DecorativeObjectDespawned
 	/**
 	 * The removed decorative object.
 	 */
-	private DecorativeObject decorativeObject;
+	private GroundDecoration decorativeObject;
 }

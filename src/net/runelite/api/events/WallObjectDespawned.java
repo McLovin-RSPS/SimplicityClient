@@ -1,4 +1,7 @@
 package net.runelite.api.events;
+import com.simplicity.client.Tile;
+import com.simplicity.client.WallObject;
+
 /*
  * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * All rights reserved.
@@ -24,8 +27,6 @@ package net.runelite.api.events;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 import lombok.Data;
-import net.runelite.api.Tile;
-import net.runelite.api.WallObject;
 
 /**
  * An event where a {@link WallObject} on a {@link Tile} has been removed.

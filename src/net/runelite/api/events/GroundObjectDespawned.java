@@ -1,4 +1,7 @@
 package net.runelite.api.events;
+import com.simplicity.client.GroundItem;
+import com.simplicity.client.Tile;
+
 /*
  * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * All rights reserved.
@@ -25,7 +28,6 @@ package net.runelite.api.events;
  */
 import lombok.Data;
 import net.runelite.api.GroundObject;
-import net.runelite.api.Tile;
 
 /**
  * An event where a {@link GroundObject} on a {@link Tile} has been removed.
@@ -40,5 +42,5 @@ public class GroundObjectDespawned
 	/**
 	 * The removed ground object.
 	 */
-	private GroundObject groundObject;
+	private GroundItem groundObject;
 }

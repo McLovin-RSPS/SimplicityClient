@@ -1,4 +1,8 @@
 package net.runelite.api.events;
+import com.simplicity.client.GameObject;
+import com.simplicity.client.InteractableObject;
+import com.simplicity.client.Tile;
+
 /*
  * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * All rights reserved.
@@ -24,8 +28,6 @@ package net.runelite.api.events;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 import lombok.Data;
-import net.runelite.api.GameObject;
-import net.runelite.api.Tile;
 
 /**
  * An event where a {@link GameObject} on a {@link Tile} is removed.
@@ -40,5 +42,5 @@ public class GameObjectDespawned
 	/**
 	 * The removed game object.
 	 */
-	private GameObject gameObject;
+	private InteractableObject gameObject;
 }

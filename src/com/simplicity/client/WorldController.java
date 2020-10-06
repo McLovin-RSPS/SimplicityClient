@@ -18,7 +18,15 @@ import com.simplicity.client.cache.node.Deque;
 import com.simplicity.client.entity.Position;
 
 import net.runelite.api.coords.LocalPoint;
+import net.runelite.api.events.DecorativeObjectDespawned;
+import net.runelite.api.events.DecorativeObjectSpawned;
+import net.runelite.api.events.GameObjectDespawned;
+import net.runelite.api.events.GameObjectSpawned;
+import net.runelite.api.events.GroundObjectDespawned;
+import net.runelite.api.events.GroundObjectSpawned;
 import net.runelite.api.events.ItemSpawned;
+import net.runelite.api.events.WallObjectDespawned;
+import net.runelite.api.events.WallObjectSpawned;
 
 @SuppressWarnings("all")
 public final class WorldController {
@@ -264,11 +272,19 @@ public final class WorldController {
 		decoration.zPos = zPos;
 		decoration.uid = uid;
 		decoration.objConfig = byte0;
+		
 		if (tileArray[plane][xPos][yPos] == null)
 			tileArray[plane][xPos][yPos] = new Tile(plane, xPos, yPos);
 		tileArray[plane][xPos][yPos].groundDecoration = decoration;
+		
+		if (Client.instance.getRuneLite() != null) {
+			DecorativeObjectSpawned spawn = new DecorativeObjectSpawned();
+			spawn.setTile(tileArray[plane][xPos][yPos]);
+			spawn.setDecorativeObject(decoration);
+			Client.instance.getCallbacks().post(spawn);
+		}
 	}
-
+	
 	public void addGroundItemTile(int xPos, int uid, Animable secondItem, int zPos, Animable thirdItem, 
 			Animable firstItem, int plane, int yPos) {
 		GroundItem groundItem = new GroundItem();
@@ -294,6 +310,13 @@ public final class WorldController {
 		if (tileArray[plane][xPos][yPos] == null)
 			tileArray[plane][xPos][yPos] = new Tile(plane, xPos, yPos);
 		tileArray[plane][xPos][yPos].groundItem = groundItem;
+		
+		if (Client.instance.getRuneLite() != null) {
+			GroundObjectSpawned spawn = new GroundObjectSpawned();
+			spawn.setTile(tileArray[plane][xPos][yPos]);
+			spawn.setGroundObject(groundItem);
+			Client.instance.getCallbacks().post(spawn);
+		}
 	}
 
 	public void addWallObject(int orientation, Animable node, int uid, int yPos, byte objConfig, int xPos, Animable node2, 
@@ -316,6 +339,13 @@ public final class WorldController {
 				tileArray[zPtr][xPos][yPos] = new Tile(zPtr, xPos, yPos);
 
 		tileArray[plane][xPos][yPos].wallObject = wallObject;
+		
+		if (Client.instance.getRuneLite() != null) {
+			WallObjectSpawned spawn = new WallObjectSpawned();
+			spawn.setTile(tileArray[plane][xPos][yPos]);
+			spawn.setWallObject(wallObject);
+			Client.instance.getCallbacks().post(spawn);
+		}
 	}
 
 	public void addWallDecoration(int uid, int yPos, int rotation, int plane, int xOff, int zPos, 
@@ -433,7 +463,15 @@ public final class WorldController {
 				tile.anInt1320 |= position;
 				tile.entityCount++;
 			}
-
+		}
+		
+		if (interactiveObjUID > 0) {
+			if (Client.instance.getRuneLite() != null) {
+				GameObjectSpawned spawn = new GameObjectSpawned();
+				spawn.setTile(tileArray[z][tileLeft][tileTop]);
+				spawn.setGameObject(io);
+				Client.instance.getCallbacks().post(spawn);
+			}
 		}
 
 		if (flag)
@@ -464,7 +502,7 @@ public final class WorldController {
 							tile.interactableObjects[entityPtr] = tile.interactableObjects[entityPtr + 1];
 							tile.anIntArray1319[entityPtr] = tile.anIntArray1319[entityPtr + 1];
 						}
-
+						
 						tile.interactableObjects[tile.entityCount] = null;
 						break;
 					}
@@ -496,6 +534,13 @@ public final class WorldController {
 	public void removeWallObject(int x, int y, int z) {
 		Tile tile = tileArray[y][x][z];
 		if (tile != null) {
+			
+			if (Client.instance.getRuneLite() != null) {
+				WallObjectDespawned despawn = new WallObjectDespawned();
+				despawn.setWallObject(tile.wallObject);
+				Client.instance.getCallbacks().post(despawn);
+			}
+			
 			tile.wallObject = null;
 		}
 	}
@@ -514,6 +559,14 @@ public final class WorldController {
 		for (int i = 0; i < tile.entityCount; i++) {
 			InteractableObject subObject = tile.interactableObjects[i];
 			if ((subObject.uid >> 29 & 3) == 2 && subObject.tileLeft == x && subObject.tileTop == y) {
+				
+				if (Client.instance.getRuneLite() != null) {
+					GameObjectDespawned despawn = new GameObjectDespawned();
+					despawn.setTile(tile);
+					despawn.setGameObject(subObject);
+					Client.instance.getCallbacks().post(despawn);
+				}
+				
 				updateObjectEntities(subObject);
 				return;
 			}
@@ -525,12 +578,28 @@ public final class WorldController {
 		Tile tile = tileArray[z][x][y];
 		if (tile == null)
 			return;
+		
+		if (Client.instance.getRuneLite() != null) {
+			DecorativeObjectDespawned despawn = new DecorativeObjectDespawned();
+			despawn.setTile(tile);
+			despawn.setDecorativeObject(tile.groundDecoration);
+			Client.instance.getCallbacks().post(despawn);
+		}
+		
 		tile.groundDecoration = null;
 	}
 
 	public void removeGroundItemFromTIle(int z, int x, int y) {
 		Tile tile = tileArray[z][x][y];
 		if (tile != null) {
+			
+			if (Client.instance.getRuneLite() != null) {
+				GroundObjectDespawned despawn = new GroundObjectDespawned();
+				despawn.setTile(tile);
+				despawn.setGroundObject(tile.groundItem);
+				Client.instance.getCallbacks().post(despawn);
+			}
+			
 			tile.groundItem = null;
 		}
 	}

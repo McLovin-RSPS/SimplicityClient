@@ -1,4 +1,7 @@
 package net.runelite.api.events;
+import com.simplicity.client.GroundItem;
+import com.simplicity.client.Tile;
+
 /*
  * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * All rights reserved.
@@ -24,8 +27,6 @@ package net.runelite.api.events;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 import lombok.Data;
-import net.runelite.api.GroundObject;
-import net.runelite.api.Tile;
 
 /**
  * An event where the {@link GroundObject} on a {@link Tile} has been changed.
@@ -40,9 +41,9 @@ public class GroundObjectChanged
 	/**
 	 * The ground object that has been replaced.
 	 */
-	private GroundObject previous;
+	private GroundItem previous;
 	/**
 	 * The new ground object on the tile.
 	 */
-	private GroundObject groundObject;
+	private GroundItem groundObject;
 }
