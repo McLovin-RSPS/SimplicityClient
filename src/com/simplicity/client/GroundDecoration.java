@@ -44,7 +44,7 @@ public final class GroundDecoration implements TileObject
 	
 	@Override
 	public int getPlane() {
-		return Client.instance.plane;
+		return plane;
 	}
 	
 	@Override

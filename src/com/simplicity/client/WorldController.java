@@ -272,6 +272,7 @@ public final class WorldController {
 		decoration.zPos = zPos;
 		decoration.uid = uid;
 		decoration.objConfig = byte0;
+		decoration.plane = plane;
 		
 		if (tileArray[plane][xPos][yPos] == null)
 			tileArray[plane][xPos][yPos] = new Tile(plane, xPos, yPos);
