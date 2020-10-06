@@ -30,6 +30,7 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import javax.inject.Inject;
 
+import com.simplicity.client.GroundDecoration;
 import com.simplicity.client.InteractableObject;
 import com.simplicity.client.TileObject;
 
@@ -90,6 +91,9 @@ class ObjectIndicatorsOverlay extends Overlay
 			{
 				polygon = ((WallObject) object).getConvexHull();
 				polygon2 = ((WallObject) object).getConvexHull2();
+			}
+			else if (object instanceof GroundDecoration) {
+				polygon = ((GroundDecoration) object).getConvexHull();
 			}
 			else if (object instanceof DecorativeObject)
 			{
