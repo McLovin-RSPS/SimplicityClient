@@ -24,6 +24,10 @@
  */
 package net.runelite.api;
 
+import java.util.Collection;
+
+import net.runelite.api.model.Triangle;
+
 /**
  * Represents the model of an object.
  */
@@ -86,4 +90,5 @@ public interface Model extends Renderable
 
 	int getXYZMag();
 	boolean isClickable();
+	
 }
