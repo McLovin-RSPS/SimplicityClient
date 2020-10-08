@@ -37,6 +37,7 @@ import javax.inject.Inject;
 import com.simplicity.client.NPC;
 import com.simplicity.client.Tile;
 import com.simplicity.client.cache.definitions.MobDefinition;
+import com.simplicity.util.ObjectID667;
 
 import net.runelite.api.Client;
 import net.runelite.api.NPCComposition;
@@ -93,7 +94,7 @@ class AgilityOverlay extends Overlay
 			
 			int tilePlane = tile.getPlane();
 			
-			if (object.getId() == ObjectID.LOG_BALANCE_23145) {
+			if (object.getId() == ObjectID.LOG_BALANCE_23145 || object.getId() == ObjectID667.LOG_BALANCE) {
 				tilePlane = 0;
 			}
 			

@@ -28,6 +28,8 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
+import com.simplicity.util.ObjectID667;
+
 import java.util.List;
 import java.util.Set;
 import static net.runelite.api.NullObjectID.*;
@@ -59,6 +61,8 @@ class Obstacles
 		STEPPING_STONE_21130, STEPPING_STONE_21131, STEPPING_STONE_21132, STEPPING_STONE_21133,
 		ICICLES, ICE, ICE_21149, ICE_21150, ICE_21151, ICE_21152, ICE_21153, ICE_21154, ICE_21155, ICE_21156, GATE_21172,
 		// Barbarian
+		ObjectID667.ROPESWING_2282, ObjectID667.OBSTACLE_PIPE_2287, ObjectID667.LOG_BALANCE, ObjectID667.OBSTACLE_NET,
+		ObjectID667.BALANCING_LEDGE_2302, ObjectID667.WALL_1948,
 		ROPESWING_23131, LOG_BALANCE_23144, OBSTACLE_NET_20211, BALANCING_LEDGE_23547, LADDER_16682, CRUMBLING_WALL_1948,
 		// Canifis
 		TALL_TREE_14843, GAP_14844, GAP_14845, GAP_14848, GAP_14846, POLEVAULT, GAP_14847, GAP_14897,
