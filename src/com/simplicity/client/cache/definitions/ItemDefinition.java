@@ -635,7 +635,7 @@ public final class ItemDefinition {
                 itemDef.actions[0] = "Open";
                 break;
             case 42789:
-                itemDef.name = "@gre@Runelocus Box";
+                itemDef.name = "@gre@Vote Box";
                 itemDef.actions = new String[5];
                 itemDef.actions[0] = "Open";
                 break;
