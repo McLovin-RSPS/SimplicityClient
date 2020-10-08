@@ -94,7 +94,7 @@ class AgilityOverlay extends Overlay
 			
 			int tilePlane = tile.getPlane();
 			
-			if (object.getId() == ObjectID.LOG_BALANCE_23145 || object.getId() == ObjectID667.LOG_BALANCE) {
+			if (object.getId() == ObjectID.LOG_BALANCE_23145 || object.getId() == ObjectID667.LOG_BALANCE || object.getId() == ObjectID667.LOG_BALANCE_2297) {
 				tilePlane = 0;
 			}
 			
