@@ -5729,7 +5729,7 @@ public class RSInterface {
         addCloseButton(43003, 43121, 43122);
         rsi.child(0, 43001, 10, 20);
         rsi.child(1, 43002, 210, 22);
-        rsi.child(2, 43003, 466, 19);
+        rsi.child(2, 43003, 467, 21);
 
         /** BUY BUTTONS **/
         int id = 43004, child = 3;
@@ -5789,7 +5789,7 @@ public class RSInterface {
         }
         addText(43120, "Your Loyalty Points: 0", fonts, 0, 0xB9B855, false, true);
         rsi.child(72, 43120, 195, 43);
-        rsi.child(73, 43121, 466, 19);
+        rsi.child(73, 43121, 467, 21);
     }
 
     public static void achievementsInterface() {
