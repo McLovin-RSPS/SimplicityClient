@@ -2751,9 +2751,9 @@ public final class ItemDefinition {
                 itemDef.copy(forID(53646));
                 break; 
                 
-            case 4587:
+         /*   case 4587:
                 itemDef.copy(forID(50406));
-                break; 
+                break; */
                 
             case 1333:
                 itemDef.copy(forID(50402));
