@@ -86,6 +86,7 @@ import net.runelite.client.plugins.opponentinfo.OpponentInfoPlugin;
 import net.runelite.client.plugins.playerindicators.PlayerIndicatorsPlugin;
 import net.runelite.client.plugins.prayer.PrayerPlugin;
 import net.runelite.client.plugins.screenshot.ScreenshotPlugin;
+import net.runelite.client.plugins.slayer.SlayerPlugin;
 import net.runelite.client.plugins.tileindicators.TileIndicatorsPlugin;
 import net.runelite.client.plugins.vote.VotePlugin;
 import net.runelite.client.plugins.xptracker.XpTrackerPlugin;
@@ -268,7 +269,8 @@ public class PluginManager
 				TileIndicatorsPlugin.class,
 				PrayerPlugin.class,
 				ObjectIndicatorsPlugin.class,
-				AgilityPlugin.class
+				AgilityPlugin.class,
+				SlayerPlugin.class
 		};
 		
 		for (Class<?> clazz : plugins)

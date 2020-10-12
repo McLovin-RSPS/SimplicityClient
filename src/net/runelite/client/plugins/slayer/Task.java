@@ -139,6 +139,7 @@ enum Task
 	PYREFIENDS("Pyrefiends", ItemID.PYREFIEND, "Flaming pyrelord"),
 	RATS("Rats", ItemID.RATS_TAIL),
 	RED_DRAGONS("Red dragons", ItemID.BABY_RED_DRAGON, "Baby red dragon"),
+	ROCK_CRABS("Rock crabs", ItemID.PET_ROCK),
 	ROCKSLUGS("Rockslugs", ItemID.ROCKSLUG, 4, ItemID.BAG_OF_SALT),
 	//RUNE_DRAGONS("Rune dragons", ItemID.RUNE_DRAGON_MASK),
 	SCORPIA("Scorpia", ItemID.SCORPIAS_OFFSPRING),

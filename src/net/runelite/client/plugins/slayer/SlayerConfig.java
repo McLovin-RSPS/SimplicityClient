@@ -49,7 +49,8 @@ public interface SlayerConfig extends Config
 		position = 2,
 		keyName = "itemoverlay",
 		name = "Count on Items",
-		description = "Display task count remaining on slayer items"
+		description = "Display task count remaining on slayer items",
+		hidden = true
 	)
 	default boolean showItemOverlay()
 	{
@@ -60,7 +61,8 @@ public interface SlayerConfig extends Config
 		position = 3,
 		keyName = "superiornotification",
 		name = "Superior foe notification",
-		description = "Toggles notifications on superior foe encounters"
+		description = "Toggles notifications on superior foe encounters",
+		hidden = true
 	)
 	default boolean showSuperiorNotification()
 	{
@@ -101,7 +103,7 @@ public interface SlayerConfig extends Config
 		return Color.RED;
 	}
 
-	@ConfigItem(
+	/*@ConfigItem(
 		position = 7,
 		keyName = "weaknessPrompt",
 		name = "Show Monster Weakness",
@@ -110,13 +112,14 @@ public interface SlayerConfig extends Config
 	default boolean weaknessPrompt()
 	{
 		return true;
-	}
+	}*/
 
 	@ConfigItem(
 		position = 8,
 		keyName = "taskCommand",
 		name = "Task Command",
-		description = "Configures whether the slayer task command is enabled<br> !task"
+		description = "Configures whether the slayer task command is enabled<br> !task",
+		hidden = true
 	)
 	default boolean taskCommand()
 	{

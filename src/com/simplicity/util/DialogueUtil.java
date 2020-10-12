@@ -27,6 +27,28 @@ public class DialogueUtil {
 	public static boolean isNpcDialogue(int dialogId) {
 		return npcDialogues.containsKey(dialogId);
 	}
+	
+	/**
+	 * Gets the whole text from the specified npc dialogue.
+	 * 
+	 * @param dialogId The dialogue id.
+	 * @return The text.
+	 */
+	public static String getNpcDialogueText(int dialogId) {
+		if (!npcDialogues.containsKey(dialogId)) {
+			return null;
+		}
+
+		int[] stringIds = npcDialogues.get(dialogId);
+
+		StringBuilder sb = new StringBuilder();
+		
+		for (int i = 0; i < stringIds.length; i++) {
+			sb.append(RSInterface.interfaceCache[stringIds[i]].message + " ");
+		}
+		
+		return sb.toString();
+	}
 
 	/**
 	 * Gets the text from the specified line from a npc dialogue.

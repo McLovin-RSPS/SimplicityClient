@@ -49,6 +49,7 @@ import com.google.inject.Provides;
 import com.simplicity.client.Entity;
 import com.simplicity.client.NPC;
 import com.simplicity.client.cache.definitions.MobDefinition;
+import com.simplicity.util.DialogueUtil;
 
 import joptsimple.internal.Strings;
 import lombok.AccessLevel;
@@ -117,10 +118,11 @@ public class SlayerPlugin extends Plugin
 	private static final Pattern COMBAT_BRACELET_TASK_UPDATE_MESSAGE = Pattern.compile("^You still need to kill (\\d+) monsters to complete your current Slayer assignment");
 
 	//NPC messages
-	private static final Pattern NPC_ASSIGN_MESSAGE = Pattern.compile(".*(?:Your new task is to kill|You are to bring balance to)\\s*(?<amount>\\d+) (?<name>.+?)(?: (?:in|on|south of) (?:the )?(?<location>.+))?\\.");
+	private static final Pattern NPC_ASSIGN_MESSAGE = Pattern.compile(".*(?:Your new task is to kill|You are to bring balance to|You have been assigned to kill|Your new assignment is to kill)\\s*(?<amount>\\d+) (?<name>.+?)(?: (?:in|on|south of) (?:the )?(?<location>.+))?\\.");
 	private static final Pattern NPC_ASSIGN_BOSS_MESSAGE = Pattern.compile("^(?:Excellent\\. )?You're now assigned to (?:kill|bring balance to) (?:the )?(.*) (\\d+) times.*Your reward point tally is (.*)\\.$");
 	private static final Pattern NPC_ASSIGN_FIRST_MESSAGE = Pattern.compile("^We'll start you off (?:hunting|bringing balance to) (.*), you'll need to kill (\\d*) of them\\.$");
-	private static final Pattern NPC_CURRENT_MESSAGE = Pattern.compile("^You're (?:still(?: meant to be)?|currently assigned to) (?:hunting|bringing balance to|kill|bring balance to|slaying) (?<name>.+?)(?: (?:in|on|south of) (?:the )?(?<location>.+))?(?:, with|; (?:you have|only)) (?<amount>\\d+)(?: more)? to go\\..*");
+	private static final Pattern NPC_CURRENT_MESSAGE = Pattern.compile(".*(?:Your current task is to kill)\\s*(?<amount>\\d+) (?<name>.+?)(?: (?:in|on|south of) (?:the )?(?<location>.+))?\\.");
+	//private static final Pattern NPC_CURRENT_MESSAGE = Pattern.compile("^You're (?:still(?: meant to be)?|currently assigned to|current task is to kill) (?:hunting|bringing balance to|kill|bring balance to|slaying) (?<name>.+?)(?: (?:in|on|south of) (?:the )?(?<location>.+))?(?:, with|; (?:you have|only)) (?<amount>\\d+)(?: more)? to go\\..*");
 
 	//Reward UI
 	private static final Pattern REWARD_POINTS = Pattern.compile("Reward points: ((?:\\d+,)*\\d+)");
@@ -224,7 +226,7 @@ public class SlayerPlugin extends Plugin
 		overlayManager.add(targetClickboxOverlay);
 		/*overlayManager.add(targetWeaknessOverlay);
 		overlayManager.add(targetMinimapOverlay);*/
-
+		
 		if (client.getGameState() == GameState.LOGGED_IN)
 		{
 			cachedXp = client.getSkillExperience(SLAYER);
@@ -320,10 +322,11 @@ public class SlayerPlugin extends Plugin
 	@Subscribe
 	public void onGameTick(GameTick tick)
 	{
-		Widget npcDialog = client.getWidget(WidgetInfo.DIALOG_NPC_TEXT);
-		if (npcDialog != null)
+		int dialogId = client().getBackDialogID();
+		
+		if (dialogId != -1 && DialogueUtil.isNpcDialogue(dialogId))
 		{
-			String npcText = Text.sanitizeMultilineText(npcDialog.getText()); //remove color and linebreaks
+			String npcText = Text.sanitizeMultilineText(DialogueUtil.getNpcDialogueText(dialogId)); //remove color and linebreaks
 			final Matcher mAssign = NPC_ASSIGN_MESSAGE.matcher(npcText); // amount, name, (location)
 			final Matcher mAssignFirst = NPC_ASSIGN_FIRST_MESSAGE.matcher(npcText); // name, number
 			final Matcher mAssignBoss = NPC_ASSIGN_BOSS_MESSAGE.matcher(npcText); // name, number, points
