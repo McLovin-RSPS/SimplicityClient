@@ -57,6 +57,7 @@ import net.runelite.client.task.Scheduler;
 import net.runelite.client.util.DeferredEventBus;
 import net.runelite.client.util.QueryRunner;
 import net.runelite.http.api.RuneLiteAPI;
+import net.runelite.http.api.chat.ChatClient;
 import okhttp3.OkHttpClient;
 
 @Slf4j
@@ -118,6 +119,13 @@ public class RuneLiteModule extends AbstractModule
 	{
 		//return applet instanceof Client ? (Client) applet : null;
 		return RuneLite.getClient();
+	}
+	
+	@Provides
+	@Singleton
+	ChatClient provideChatClient(OkHttpClient okHttpClient)
+	{
+		return new ChatClient(okHttpClient);
 	}
 
 	@Provides

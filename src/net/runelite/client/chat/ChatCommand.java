@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2019, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,15 +22,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.events;
+package net.runelite.client.chat;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import java.util.function.BiConsumer;
+import java.util.function.BiPredicate;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import net.runelite.api.events.ChatMessage;
+import net.runelite.client.events.ChatInput;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
-public abstract class PrivateMessageInput extends ChatInput
+@AllArgsConstructor
+@Getter
+class ChatCommand
 {
-	private final String target;
-	private final String message;
+	private final String name;
+	private boolean async;
+	private final BiConsumer<ChatMessage, String> execute;
+	private final BiPredicate<ChatInput, String> input;
 }

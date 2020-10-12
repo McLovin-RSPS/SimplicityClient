@@ -135,7 +135,7 @@ public class Notifier
 
 			if (client != null && client.getGameState() == GameState.LOGGED_IN)
 			{
-				client.addChatMessage(ChatMessageType.GAME, appName,
+				client.addChatMessage(ChatMessageType.CONSOLE, appName,
 					"<col=" + MESSAGE_COLOR + ">" + message + "</col>", "");
 			}
 		}

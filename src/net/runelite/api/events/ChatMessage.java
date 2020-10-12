@@ -1,5 +1,3 @@
-package net.runelite.api.events;
-
 /*
  * Copyright (c) 2017, Seth <Sethtroll3@gmail.com>
  * All rights reserved.
@@ -24,20 +22,31 @@ package net.runelite.api.events;
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.api.events;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import net.runelite.api.ChatMessageType;
+import net.runelite.api.MessageNode;
 
 /**
  * An event where a new chat message is received.
  * <p>
- * See {@link ChatMessageType} for different message types that can be received.
+ * See {@link ChatMessageType} for different message types that can be
+ * received.
  * <p>
  * Note: This event will not trigger for NPC dialogues.
  */
 @Data
 @AllArgsConstructor
-public class ChatMessage {
+@NoArgsConstructor
+public class ChatMessage
+{
+	/**
+	 * The underlying MessageNode for the message.
+	 */
+	private MessageNode messageNode;
 	/**
 	 * The type of message received.
 	 */
@@ -53,8 +62,12 @@ public class ChatMessage {
 	/**
 	 * The sender of the message.
 	 * <p>
-	 * This field is only used for clan messages and refers to the current name of
-	 * the clan chat the client is in.
+	 * This field is only used for friends chat messages and refers to the
+	 * current name of the friends chat the client is in.
 	 */
 	private String sender;
+	/**
+	 * Timestamp of the message.
+	 */
+	private int timestamp;
 }

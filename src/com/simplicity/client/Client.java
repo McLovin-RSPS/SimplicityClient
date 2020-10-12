@@ -133,9 +133,11 @@ import com.simplicity.util.MiscUtils;
 import com.simplicity.util.Stopwatch;
 import com.simplicity.util.StringUtils;
 
+import net.runelite.api.ChatMessageType;
 import net.runelite.api.GameState;
 import net.runelite.api.MenuAction;
 import net.runelite.api.Skill;
+import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.InteractingChanged;
 import net.runelite.api.events.ItemContainerChanged;
@@ -12356,6 +12358,12 @@ public class Client extends RSApplet {
         chatTitles[0] = title;
         chatMessages[0] = s;
         chatRights[0] = rights;
+        
+        if (runelite != null) {
+        	ChatMessageType type = ChatMessageType.of(i);
+        	ChatMessage message = new ChatMessage(null, type, title, s, s1, (int) (System.currentTimeMillis() / 1000L));
+        	callbacks.post(message);
+        }
     }
 
     public static void setTab(int id) {

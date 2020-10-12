@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2018, Matthew Steglinski <https://github.com/sainttx>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,15 +22,17 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.events;
+package net.runelite.api.events;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import com.simplicity.client.Entity;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
-public abstract class PrivateMessageInput extends ChatInput
+import lombok.Value;
+
+/**
+ * An event fired when an actor dies.
+ */
+@Value
+public class ActorDeath
 {
-	private final String target;
-	private final String message;
+	private final Entity actor;
 }

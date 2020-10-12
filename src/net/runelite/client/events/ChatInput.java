@@ -24,13 +24,7 @@
  */
 package net.runelite.client.events;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
-@Data
-@EqualsAndHashCode(callSuper = true)
-public abstract class PrivateMessageInput extends ChatInput
+public abstract class ChatInput
 {
-	private final String target;
-	private final String message;
+	public abstract void resume();
 }
