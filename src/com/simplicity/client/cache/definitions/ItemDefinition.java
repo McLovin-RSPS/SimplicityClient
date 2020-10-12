@@ -1368,6 +1368,13 @@ public final class ItemDefinition {
             itemDef.editedModelColor = new int[] { 784, 790, 796, 536, 61, 78, 49 };
             itemDef.newModelColor = new int[] { 90, 90, 90, 90, 90, 90, 90 };
             break;
+            
+    	case 17860:
+            itemDef.copy(forID(53951));
+    		itemDef.name = "Halloween key";
+            itemDef.editedModelColor = new int[] { 32995, 7227, };
+            itemDef.newModelColor = new int[] { 796, 536, };
+    		break;
 			
 		case 22011: // SOV DS Inferno textured Hellraty
 			itemDef.copy(forID(15000));
@@ -2595,7 +2602,10 @@ public final class ItemDefinition {
         		itemDef.name = "@gre@Halloween Token";
         		break;
         	case 11179:
-        		itemDef.name = "Old Coin";
+        		itemDef.name = "Old coin";
+        		break;
+        	case 5519:
+        		itemDef.name = "Halloween orb";
         		break;
             case 1050:
                 itemDef.femaleZOffset += 4;
