@@ -25619,4 +25619,8 @@ public class Client extends RSApplet {
 		return currentExp[skill];
 	}
 	
+	public int getBackDialogID() {
+		return backDialogID;
+	}
+	
 }
