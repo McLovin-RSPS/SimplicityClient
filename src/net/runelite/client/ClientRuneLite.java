@@ -2,17 +2,15 @@ package net.runelite.client;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 
 import com.simplicity.client.CollisionDetection;
-import com.simplicity.client.Item;
 import com.simplicity.client.NPC;
 import com.simplicity.client.Player;
 import com.simplicity.client.RSImageProducer;
-import com.simplicity.client.RSInterface;
 import com.simplicity.client.Tile;
 import com.simplicity.client.WorldController;
 import com.simplicity.client.cache.definitions.ItemDefinition;
@@ -20,7 +18,6 @@ import com.simplicity.client.container.item.ItemContainer;
 
 import ch.qos.logback.classic.Logger;
 import net.runelite.api.Area;
-import net.runelite.api.BufferProvider;
 import net.runelite.api.ChatLineBuffer;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.ClanMember;
@@ -33,12 +30,10 @@ import net.runelite.api.HashTable;
 import net.runelite.api.HintArrowType;
 import net.runelite.api.IndexDataBase;
 import net.runelite.api.IndexedSprite;
-import net.runelite.api.InventoryID;
 import net.runelite.api.ItemComposition;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.Model;
 import net.runelite.api.NPCComposition;
-import net.runelite.api.Node;
 import net.runelite.api.NodeCache;
 import net.runelite.api.ObjectComposition;
 import net.runelite.api.Point;
@@ -46,7 +41,6 @@ import net.runelite.api.Prayer;
 import net.runelite.api.Preferences;
 import net.runelite.api.Projectile;
 import net.runelite.api.RenderOverview;
-import net.runelite.api.Scene;
 import net.runelite.api.Skill;
 import net.runelite.api.SpritePixels;
 import net.runelite.api.TextureProvider;
@@ -56,7 +50,6 @@ import net.runelite.api.VarPlayer;
 import net.runelite.api.Varbits;
 import net.runelite.api.WidgetNode;
 import net.runelite.api.World;
-import net.runelite.api.WorldType;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.hooks.Callbacks;
@@ -701,7 +694,17 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public List<NPC> getNpcs() {
-		return Arrays.asList(client().getNpcs());
+		List<NPC> npcs = new ArrayList<>();
+		
+		for (NPC n : client().getNpcs()) {
+			if (n == null) {
+				continue;
+			}
+			
+			npcs.add(n);
+		}
+		
+		return npcs;
 	}
 	
 	@Override
