@@ -10129,7 +10129,7 @@ public class Client extends RSApplet {
                     menuActionRow++;
                     
                     if (runelite != null && !menuOpen) {
-                    	callbacks.post(new MenuEntryAdded(menuActionName[menuActionRow - 1], "", menuActionID[menuActionRow - 1], menuActionCmd4[menuActionRow - 1], menuActionCmd2[menuActionRow - 1], menuActionCmd3[menuActionRow - 1]));
+                    	callbacks.post(new MenuEntryAdded(menuActionName[menuActionRow - 1], object.name, menuActionID[menuActionRow - 1], menuActionCmd4[menuActionRow - 1], menuActionCmd2[menuActionRow - 1], menuActionCmd3[menuActionRow - 1]));
                     }
                 }
             }
@@ -13755,6 +13755,10 @@ public class Client extends RSApplet {
                         menuActionCmd2[menuActionRow] = k;
                         menuActionCmd3[menuActionRow] = j;
                         menuActionRow++;
+                        
+                        if (runelite != null && !menuOpen) {
+                    		callbacks.post(new MenuEntryAdded(menuActionName[menuActionRow - 1], "@yel@" + entityDef.name, menuActionID[menuActionRow - 1], menuActionCmd1[menuActionRow - 1], menuActionCmd2[menuActionRow - 1], menuActionCmd3[menuActionRow - 1]));
+                        }
                     }
                 }
 
@@ -13807,6 +13811,10 @@ public class Client extends RSApplet {
             menuActionCmd2[menuActionRow] = k;
             menuActionCmd3[menuActionRow] = j;
             menuActionRow++;
+            
+            if (runelite != null && !menuOpen) {
+            	callbacks.post(new MenuEntryAdded(menuActionName[menuActionRow - 1], "@yel@" + entityDef.name, menuActionID[menuActionRow - 1], menuActionCmd1[menuActionRow - 1], menuActionCmd2[menuActionRow - 1], menuActionCmd3[menuActionRow - 1]));
+            }
 
             if (entityDef.combatLevel > 0) {
                 menuActionName[menuActionRow] = "Lookup @yel@" + s;
