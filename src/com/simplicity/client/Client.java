@@ -25698,6 +25698,20 @@ public class Client extends RSApplet {
 	public int getBackDialogID() {
 		return backDialogID;
 	}
+	
+	public void addMenuEntry(String actionName, String target, int actionId, int identifier, int actionParam0, int actionParam1, boolean deprioritize) {
+		if (deprioritize) {
+			menuActionID[menuActionRow] = actionId + '\0';
+		} else {
+			menuActionID[menuActionRow] = actionId;
+		}
+		
+		menuActionName[menuActionRow] = actionName + " " + target;
+		menuActionCmd1[menuActionRow] = identifier;
+		menuActionCmd2[menuActionRow] = actionParam0;
+		menuActionCmd3[menuActionRow] = actionParam1;
+		menuActionRow++;
+	}
 
 	public RuneLite getRuneLite() {
 		return runelite;
