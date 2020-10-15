@@ -265,6 +265,6 @@ public class Entity extends Animable {
 	}
 	
 	public boolean isDead() {
-		return currentHealth <= 0;
+		return maxHealth > 0 && currentHealth <= 0;
 	}
 }
