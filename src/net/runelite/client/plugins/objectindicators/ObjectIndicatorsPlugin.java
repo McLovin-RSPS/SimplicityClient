@@ -238,11 +238,15 @@ public class ObjectIndicatorsPlugin extends Plugin
 			return;
 		}
 		
-		client().menuActionName[client().menuActionRow] = (objects.stream().anyMatch(o -> o.getTileObject() == tileObject) ? UNMARK : MARK) + " @cya@" + event.getTarget();
-		client().menuActionCmd2[client().menuActionRow] = event.getActionParam0();
-		client().menuActionCmd3[client().menuActionRow] = event.getActionParam1();
-		client().menuActionID[client().menuActionRow] = MenuAction.RUNELITE.getId() + '\0';
-		client().menuActionRow++;
+		final MenuEntry entry = new MenuEntry();
+		entry.setOption(objects.stream().anyMatch(o -> o.getTileObject() == tileObject) ? UNMARK : MARK);
+		entry.setTarget(" @cya@" + event.getTarget());
+		entry.setParam0(event.getActionParam0());
+		entry.setParam1(event.getActionParam1());
+		entry.setIdentifier(event.getIdentifier());
+		entry.setType(MenuAction.RUNELITE.getId());
+		entry.setDeprioritize(true);
+		client.addMenuEntry(entry);
 	}
 
 	@Subscribe
@@ -259,7 +263,6 @@ public class ObjectIndicatorsPlugin extends Plugin
 		final int x = event.getActionParam();
 		final int y = event.getWidgetId();
 		final int z = client.getPlane();
-		System.out.println("Tile x: " + x + " y: " + y+ " z: " + z);
 		final Tile tile = tiles[z][x][y];
 
 		TileObject object = findTileObject(tile, event.getId());
@@ -354,9 +357,6 @@ public class ObjectIndicatorsPlugin extends Plugin
 		{
 			return false;
 		}
-		
-		System.out.println("TileObject id: " + tileObject.getId() + ", check id: " + id);
-		System.out.println("tileObj: " + tileObject.getX() + " - " + tileObject.getY() + " hash: " + tileObject.getHash());
 		
 		if (tileObject.getId() == id)
 		{
