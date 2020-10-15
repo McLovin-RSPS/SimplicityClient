@@ -5929,23 +5929,23 @@ public class Client extends RSApplet {
     }
 
     private void drawMenu() {
-        int i = menuOffsetX;
-        int j = menuOffsetY;
+        int xPos = menuOffsetX;
+        int yPos = menuOffsetY;
         int k = menuWidth;
         int posX = super.mouseX;
         int posY = super.mouseY;
         int l = menuHeight + 1;
         int i1 = 0x5d5447;
         if (menuScreenArea == 1 && (clientSize > 0)) {
-            i += 519;// +extraWidth;
-            j += 168;// +extraHeight;
+            xPos += 519;// +extraWidth;
+            yPos += 168;// +extraHeight;
         }
         if (menuScreenArea == 2 && (clientSize > 0)) {
-            j += 338;
+            yPos += 338;
         }
         if (menuScreenArea == 3 && (clientSize > 0)) {
-            i += 515;
-            j += 0;
+            xPos += 515;
+            yPos += 0;
         }
 
         if (menuScreenArea == 0) {
@@ -5969,59 +5969,59 @@ public class Client extends RSApplet {
             posY -= 0;
         }
         if (menuToggle == false) {
-            DrawingArea.fillRectangle(i1, j, k, l, 150, i);
-            DrawingArea.fillRectangle(0, j + 1, k - 2, 16, 150, i + 1);
-            DrawingArea.fillPixels(i + 1, k - 2, l - 19, 0, j + 18);
-            DrawingArea.drawRectangle(j + 18, l - 19, 150, 0, k - 2, i + 1);
-            chatTextDrawingArea.method385(0xc6b895, "Choose Option", j + 14, i + 3);
-            chatTextDrawingArea.method385(0xc6b895, "Choose Option", j + 14, i + 3);
+            DrawingArea.fillRectangle(i1, yPos, k, l, 150, xPos);
+            DrawingArea.fillRectangle(0, yPos + 1, k - 2, 16, 150, xPos + 1);
+            DrawingArea.fillPixels(xPos + 1, k - 2, l - 19, 0, yPos + 18);
+            DrawingArea.drawRectangle(yPos + 18, l - 19, 150, 0, k - 2, xPos + 1);
+            newBoldFont.drawBasicString("Choose Option", xPos + 3, yPos + 14, 0xc6b895, 1);
+            //newBoldFont.drawBasicString(0xc6b895, "Choose Option", j + 14, i + 3);
             for (int l1 = 0; l1 < menuActionRow; l1++) {
-                int i2 = j + 31 + (menuActionRow - 1 - l1) * 15;
-                int j2 = 0xffffff;
-                if (posX > i && posX < i + k && posY > i2 - 13 && posY < i2 + 3) {
-                    j2 = 0xffff00;
+                int textY = yPos + 31 + (menuActionRow - 1 - l1) * 15;
+                int textColor = 0xffffff;
+                if (posX > xPos && posX < xPos + k && posY > textY - 13 && posY < textY + 3) {
+                    textColor = 0xffff00;
                 }
-                chatTextDrawingArea.drawRegularText(true, i + 3, j2, menuActionName[l1], i2);
+                newBoldFont.drawBasicString(menuActionName[l1], xPos + 3, textY, textColor, 1);
             }
         } else if (menuToggle == true) {
             // DrawingArea.drawPixels(height, yPos, xPos, color, width);
             // DrawingArea.fillPixels(xPos, width, height, color, yPos);
-            DrawingArea.drawPixels(l - 4, j + 2, i, 0x706a5e, k);
-            DrawingArea.drawPixels(l - 2, j + 1, i + 1, 0x706a5e, k - 2);
-            DrawingArea.drawPixels(l, j, i + 2, 0x706a5e, k - 4);
-            DrawingArea.drawPixels(l - 2, j + 1, i + 3, 0x2d2822, k - 6);
-            DrawingArea.drawPixels(l - 4, j + 2, i + 2, 0x2d2822, k - 4);
-            DrawingArea.drawPixels(l - 6, j + 3, i + 1, 0x2d2822, k - 2);
-            DrawingArea.drawPixels(l - 22, j + 19, i + 2, 0x524a3d, k - 4);
-            DrawingArea.drawPixels(l - 22, j + 20, i + 3, 0x524a3d, k - 6);
-            DrawingArea.drawPixels(l - 23, j + 20, i + 3, 0x2b271c, k - 6);
-            DrawingArea.fillPixels(i + 3, k - 6, 1, 0x2a291b, j + 2);
-            DrawingArea.fillPixels(i + 2, k - 4, 1, 0x2a261b, j + 3);
-            DrawingArea.fillPixels(i + 2, k - 4, 1, 0x252116, j + 4);
-            DrawingArea.fillPixels(i + 2, k - 4, 1, 0x211e15, j + 5);
-            DrawingArea.fillPixels(i + 2, k - 4, 1, 0x1e1b12, j + 6);
-            DrawingArea.fillPixels(i + 2, k - 4, 1, 0x1a170e, j + 7);
-            DrawingArea.fillPixels(i + 2, k - 4, 2, 0x15120b, j + 8);
-            DrawingArea.fillPixels(i + 2, k - 4, 1, 0x100d08, j + 10);
-            DrawingArea.fillPixels(i + 2, k - 4, 1, 0x090a04, j + 11);
-            DrawingArea.fillPixels(i + 2, k - 4, 1, 0x080703, j + 12);
-            DrawingArea.fillPixels(i + 2, k - 4, 1, 0x090a04, j + 13);
-            DrawingArea.fillPixels(i + 2, k - 4, 1, 0x070802, j + 14);
-            DrawingArea.fillPixels(i + 2, k - 4, 1, 0x090a04, j + 15);
-            DrawingArea.fillPixels(i + 2, k - 4, 1, 0x070802, j + 16);
-            DrawingArea.fillPixels(i + 2, k - 4, 1, 0x090a04, j + 17);
-            DrawingArea.fillPixels(i + 2, k - 4, 1, 0x2a291b, j + 18);
-            DrawingArea.fillPixels(i + 3, k - 6, 1, 0x564943, j + 19);
-            chatTextDrawingArea.method385(0xc6b895, "Choose Option", j + 14, i + 3);
+            DrawingArea.drawPixels(l - 4, yPos + 2, xPos, 0x706a5e, k);
+            DrawingArea.drawPixels(l - 2, yPos + 1, xPos + 1, 0x706a5e, k - 2);
+            DrawingArea.drawPixels(l, yPos, xPos + 2, 0x706a5e, k - 4);
+            DrawingArea.drawPixels(l - 2, yPos + 1, xPos + 3, 0x2d2822, k - 6);
+            DrawingArea.drawPixels(l - 4, yPos + 2, xPos + 2, 0x2d2822, k - 4);
+            DrawingArea.drawPixels(l - 6, yPos + 3, xPos + 1, 0x2d2822, k - 2);
+            DrawingArea.drawPixels(l - 22, yPos + 19, xPos + 2, 0x524a3d, k - 4);
+            DrawingArea.drawPixels(l - 22, yPos + 20, xPos + 3, 0x524a3d, k - 6);
+            DrawingArea.drawPixels(l - 23, yPos + 20, xPos + 3, 0x2b271c, k - 6);
+            DrawingArea.fillPixels(xPos + 3, k - 6, 1, 0x2a291b, yPos + 2);
+            DrawingArea.fillPixels(xPos + 2, k - 4, 1, 0x2a261b, yPos + 3);
+            DrawingArea.fillPixels(xPos + 2, k - 4, 1, 0x252116, yPos + 4);
+            DrawingArea.fillPixels(xPos + 2, k - 4, 1, 0x211e15, yPos + 5);
+            DrawingArea.fillPixels(xPos + 2, k - 4, 1, 0x1e1b12, yPos + 6);
+            DrawingArea.fillPixels(xPos + 2, k - 4, 1, 0x1a170e, yPos + 7);
+            DrawingArea.fillPixels(xPos + 2, k - 4, 2, 0x15120b, yPos + 8);
+            DrawingArea.fillPixels(xPos + 2, k - 4, 1, 0x100d08, yPos + 10);
+            DrawingArea.fillPixels(xPos + 2, k - 4, 1, 0x090a04, yPos + 11);
+            DrawingArea.fillPixels(xPos + 2, k - 4, 1, 0x080703, yPos + 12);
+            DrawingArea.fillPixels(xPos + 2, k - 4, 1, 0x090a04, yPos + 13);
+            DrawingArea.fillPixels(xPos + 2, k - 4, 1, 0x070802, yPos + 14);
+            DrawingArea.fillPixels(xPos + 2, k - 4, 1, 0x090a04, yPos + 15);
+            DrawingArea.fillPixels(xPos + 2, k - 4, 1, 0x070802, yPos + 16);
+            DrawingArea.fillPixels(xPos + 2, k - 4, 1, 0x090a04, yPos + 17);
+            DrawingArea.fillPixels(xPos + 2, k - 4, 1, 0x2a291b, yPos + 18);
+            DrawingArea.fillPixels(xPos + 3, k - 6, 1, 0x564943, yPos + 19);
+            newBoldFont.drawBasicString("Choose Option", xPos + 3, yPos + 14, 0xc6b895, 1);
             for (int l1 = 0; l1 < menuActionRow; l1++) {
-                int i2 = j + 31 + (menuActionRow - 1 - l1) * 15;
-                int j2 = 0xc6b895;
-                if (posX > i && posX < i + k && posY > i2 - 13 && posY < i2 + 3) {
-                    DrawingArea.drawPixels(15, i2 - 11, i + 3, 0x6f695d, menuWidth - 6);
-                    j2 = 0xeee5c6;
+                int textY = yPos + 31 + (menuActionRow - 1 - l1) * 15;
+                int disColor = 0xc6b895;
+                if (posX > xPos && posX < xPos + k && posY > textY - 13 && posY < textY + 3) {
+                    DrawingArea.drawPixels(15, textY - 11, xPos + 3, 0x6f695d, menuWidth - 6);
+                    disColor = 0xeee5c6;
                     currentActionMenu = l1;
                 }
-                chatTextDrawingArea.drawRegularText(true, i + 4, j2, menuActionName[l1], i2 + 1);
+                newBoldFont.drawBasicString(menuActionName[l1], xPos + 3, textY, disColor, 1);
             }
         }
     }
@@ -17266,9 +17266,9 @@ public class Client extends RSApplet {
     }
 
     private void determineMenuSize() {
-        int i = boldFont.getTextWidth("Choose Option");
+        int i = newBoldFont.getTextWidth("Choose Option");
         for (int j = 0; j < menuActionRow; j++) {
-            int k = boldFont.getTextWidth(menuActionName[j]);
+            int k = newBoldFont.getTextWidth(menuActionName[j]);
             if (k > i) {
                 i = k;
             }
@@ -17832,7 +17832,7 @@ public class Client extends RSApplet {
         if (menuActionRow > 2) {
             s = s + "@whi@ / " + (menuActionRow - 2) + " more options";
         }
-        chatTextDrawingArea.method390(4, 0xffffff, s, loopCycle / 1000, 15);
+        newBoldFont.drawBasicString(s, 4, 15, 0xFFFFFF, 1);
     }
     
 	public void drawTooltip(int xPos, int yPos, String text) {
