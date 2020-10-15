@@ -8292,17 +8292,6 @@ public class Client extends RSApplet {
         	effectTimersVisible = !effectTimersVisible;
         }
         
-        if (runelite != null && MenuAction.of(l) != MenuAction.UNKNOWN) {
-        	MenuOptionClicked option = new MenuOptionClicked();
-        	option.setActionParam(slot);
-        	option.setMenuOption(menuActionName[i]);
-        	option.setMenuTarget("");
-        	option.setMenuAction(MenuAction.of(l));
-        	option.setId(id); // obj id
-        	option.setWidgetId(interfaceId);
-        	callbacks.post(option);
-        }
-
         if (interfaceId == 89596) {
             secondaryOpenInterfaceID = PortalNexusConfirm.PARENT_ID;
         }
@@ -8514,6 +8503,18 @@ public class Client extends RSApplet {
         if (l >= 2000) {
             l -= 2000;
         }
+        
+        if (runelite != null && MenuAction.of(l) != MenuAction.UNKNOWN) {
+        	MenuOptionClicked option = new MenuOptionClicked();
+        	option.setActionParam(slot);
+        	option.setMenuOption(menuActionName[i]);
+        	option.setMenuTarget("");
+        	option.setMenuAction(MenuAction.of(l));
+        	option.setId((entityId > 0x7fff ? cmd4 : entityId)); // obj id
+        	option.setWidgetId(interfaceId);
+        	callbacks.post(option);
+        }
+        
         // Placeholder releasing
         if (l == 633) {
             if (menuOpen) {
