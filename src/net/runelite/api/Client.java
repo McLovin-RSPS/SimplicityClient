@@ -525,6 +525,12 @@ public interface Client extends GameEngine
 	 * @param entries new array of open menu entries
 	 */
 	void setMenuEntries(MenuEntry[] entries);
+	
+	/**
+	 * Adds a menu entry.
+	 * @param entry The menu entry.
+	 */
+	void addMenuEntry(MenuEntry entry);
 
 	/**
 	 * Checks whether a right-click menu is currently open.

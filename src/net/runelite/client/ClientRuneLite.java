@@ -198,8 +198,18 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public void setMenuEntries(MenuEntry[] entries) {
-		// TODO Auto-generated method stub
-		
+		for (int i = 0; i < client().menuActionRow; i++) {
+			client().menuActionID[i] = entries[i].getType();
+			client().menuActionName[i] = entries[i].getOption() + entries[i].getTarget();
+			client().menuActionCmd1[i] = entries[i].getIdentifier();
+			client().menuActionCmd2[i] = entries[i].getParam0();
+			client().menuActionCmd3[i] = entries[i].getParam1();
+		}
+	}
+	
+	@Override
+	public void addMenuEntry(MenuEntry entry) {
+		client().addMenuEntry(entry.getOption(), entry.getTarget(), entry.getType(), entry.getIdentifier(), entry.getParam0(), entry.getParam1(), entry.isDeprioritize());
 	}
 	
 	@Override
@@ -742,14 +752,26 @@ public class ClientRuneLite implements Client {
 		
 		for (int i = 0; i < client().menuActionRow; i++) {
 			String action = client().menuActionName[i];
+			String target = "";
 			
 			if (action != null) {
+				
+				if (action.contains("@")) {
+					target = action.substring(action.indexOf("@"));
+					action = action.substring(0, action.indexOf("@"));
+				}
+				
 				entries[i] = new MenuEntry();
 				entries[i].setParam1(client().menuActionCmd3[i]); // widget id
 				entries[i].setType(client().menuActionID[i]); // action type
+				entries[i].setIdentifier(client().menuActionCmd1[i]);
+				entries[i].setParam0(client().menuActionCmd2[i]);
+				entries[i].setParam1(client().menuActionCmd3[i]);
 				entries[i].setOption(action);
+				entries[i].setTarget(target);
 			}
 		}
+		
 		return entries;
 	}
 	
