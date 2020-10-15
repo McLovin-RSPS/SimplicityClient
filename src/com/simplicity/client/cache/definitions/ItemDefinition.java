@@ -4559,7 +4559,7 @@ public final class ItemDefinition {
                 itemDef.modelID = 35742;
                 itemDef.actions = new String[5];
                 itemDef.actions[1] = "Wield";
-                itemDef.name = "@or2@Scythe Of Vitur";
+                itemDef.name = "@or2@Scythe of Vitur";
                 itemDef.description = "It is the Scythe Of Vitur";
                 itemDef.modelZoom = 2200;
                 itemDef.stackable = false;

@@ -134,6 +134,26 @@ public final class MobDefinition {
                     npc.squaresNeeded = 4;
                     break;
                     
+                case 2665:
+                    npc.copy(forID(18627));
+                    npc.name = "Halloween Ghost";
+                    npc.actions = new String[5];
+                    npc.actions[1] = "Attack";
+                    npc.sizeXZ *= 4;
+                    npc.sizeY *= 4;
+                    npc.squaresNeeded = 2;
+                    break;
+                    
+                case 2666:
+                    npc.copy(forID(23709));
+                    npc.name = "Halloween Beast";
+                    npc.actions = new String[5];
+                    npc.actions[1] = "Attack";
+                    npc.sizeXZ *= 3;
+                    npc.sizeY *= 3;
+                    npc.squaresNeeded = 4;
+                    break;
+                    
                 case 7519:
                     npc.name = "Superior Olmlet";
                     npc.actions = new String[5];
