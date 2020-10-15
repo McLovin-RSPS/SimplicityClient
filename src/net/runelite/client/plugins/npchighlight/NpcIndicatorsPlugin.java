@@ -216,7 +216,7 @@ public class NpcIndicatorsPlugin extends Plugin
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded event)
 	{
-		/*int type = event.getType();
+		int type = event.getType();
 
 		if (type >= MENU_ACTION_DEPRIORITIZE_OFFSET)
 		{
@@ -244,7 +244,7 @@ public class NpcIndicatorsPlugin extends Plugin
 			{
 				MenuEntry[] menuEntries = client.getMenuEntries();
 				final MenuEntry menuEntry = menuEntries[menuEntries.length - 1];
-				final String target = ColorUtil.prependColorTag(Text.removeTags(event.getTarget()), color);
+				final String target = ColorUtil.prependColorTag(Text.removeOldTags(event.getTarget()), color);
 				menuEntry.setTarget(target);
 				client.setMenuEntries(menuEntries);
 			}
@@ -252,28 +252,27 @@ public class NpcIndicatorsPlugin extends Plugin
 		else if (menuAction == MenuAction.EXAMINE_NPC && client.isKeyPressed(KeyCode.KC_SHIFT))
 		{
 			// Add tag option
-			MenuEntry[] menuEntries = client.getMenuEntries();
-			menuEntries = Arrays.copyOf(menuEntries, menuEntries.length + 1);
-			final MenuEntry tagEntry = menuEntries[menuEntries.length - 1] = new MenuEntry();
+			final MenuEntry tagEntry = new MenuEntry();
 			tagEntry.setOption(highlightedNpcs.stream().anyMatch(npc -> npc.index == event.getIdentifier()) ? UNTAG : TAG);
 			tagEntry.setTarget(event.getTarget());
 			tagEntry.setParam0(event.getActionParam0());
 			tagEntry.setParam1(event.getActionParam1());
 			tagEntry.setIdentifier(event.getIdentifier());
 			tagEntry.setType(MenuAction.RUNELITE.getId());
-			client.setMenuEntries(menuEntries);
-		}*/
+			tagEntry.setDeprioritize(true);
+			client.addMenuEntry(tagEntry);
+		}
 	}
 
 	@Subscribe
 	public void onMenuOptionClicked(MenuOptionClicked click)
 	{
-		/*if (click.getMenuAction() != MenuAction.RUNELITE ||
-			!(click.getMenuOption().equals(TAG) || click.getMenuOption().equals(UNTAG)))
+		if (click.getMenuAction() != MenuAction.RUNELITE ||
+			!(click.getMenuOption().startsWith(TAG) || click.getMenuOption().startsWith(UNTAG)))
 		{
 			return;
 		}
-
+		
 		final int id = click.getId();
 		final boolean removed = npcTags.remove(id);
 		final NPC[] cachedNPCs = client.getCachedNPCs();
@@ -283,11 +282,11 @@ public class NpcIndicatorsPlugin extends Plugin
 		{
 			return;
 		}
-
+		
 		if (removed)
 		{
 			highlightedNpcs.remove(npc);
-			memorizedNpcs.remove(npc.getIndex());
+			memorizedNpcs.remove(npc.index);
 		}
 		else
 		{
@@ -299,7 +298,7 @@ public class NpcIndicatorsPlugin extends Plugin
 			highlightedNpcs.add(npc);
 		}
 
-		click.consume();*/
+		click.consume();
 	}
 
 	@Subscribe
@@ -453,7 +452,6 @@ public class NpcIndicatorsPlugin extends Plugin
 		highlightedNpcs.clear();
 
 		if (client.getGameState() != GameState.LOGGED_IN) {
-			System.out.println("here");
 			// NPCs are still in the client after logging out,
 			// but we don't want to highlight those.
 			return;

@@ -42,6 +42,7 @@ public class Text
 {
 	private static final JaroWinklerDistance DISTANCE = new JaroWinklerDistance();
 	private static final Pattern TAG_REGEXP = Pattern.compile("<[^>]*>");
+	private static final Pattern OLD_TAG_REGEXP = Pattern.compile("@[^@]*@");
 	private static final Splitter COMMA_SPLITTER = Splitter
 		.on(",")
 		.omitEmptyStrings()
@@ -82,6 +83,17 @@ public class Text
 	public static String removeTags(String str)
 	{
 		return TAG_REGEXP.matcher(str).replaceAll("");
+	}
+	
+	/**
+	 * Removes all tags from the given string.
+	 *
+	 * @param str The string to remove tags from.
+	 * @return The given string with all tags removed from it.
+	 */
+	public static String removeOldTags(String str)
+	{
+		return OLD_TAG_REGEXP.matcher(str).replaceAll("");
 	}
 
 	/**

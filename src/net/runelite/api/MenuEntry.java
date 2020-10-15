@@ -59,6 +59,10 @@ public class MenuEntry
 	 * A second additional parameter for the action.
 	 */
 	private int param1;
+	/**
+	 * A flag which indicates if this entry should be de-prioritized.
+	 */
+	private boolean deprioritize;
 
 	@Override
 	public String toString()

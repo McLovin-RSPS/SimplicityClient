@@ -118,7 +118,7 @@ public enum MenuAction
 	/**
 	 * Third menu action for an item on the ground.
 	 */
-	GROUND_ITEM_THIRD_OPTION(20),
+	GROUND_ITEM_THIRD_OPTION(22220),
 	/**
 	 * Fourth menu action for an item on the ground.
 	 */
