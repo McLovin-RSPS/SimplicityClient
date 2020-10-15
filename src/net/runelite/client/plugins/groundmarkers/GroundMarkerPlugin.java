@@ -206,8 +206,13 @@ public class GroundMarkerPlugin extends Plugin
 			final GroundMarkerPoint point = new GroundMarkerPoint(regionId, worldPoint.getRegionX(), worldPoint.getRegionY(), client.getPlane(), config.markerColor());
 			
 			com.simplicity.client.Client cl = com.simplicity.client.Client.instance;
-
-	        cl.menuActionName[0] = "Cancel";
+			
+			char c = '\u07D0';
+			cl.menuActionName[cl.menuActionRow] = getPoints(regionId).contains(point) ? UNMARK : MARK;
+			cl.menuActionID[cl.menuActionRow] = MenuAction.TILE_MARK.getId() + c;
+			cl.menuActionRow++;
+			
+	        /*cl.menuActionName[0] = "Cancel";
 	        cl.menuActionID[0] = 1107;
 	        cl.menuActionRow = 1;
 	        
@@ -219,7 +224,7 @@ public class GroundMarkerPlugin extends Plugin
 	        cl.menuActionID[cl.menuActionRow] = 516;
 	        cl.menuActionCmd2[cl.menuActionRow] = cl.mouseX;
 	        cl.menuActionCmd3[cl.menuActionRow] = cl.mouseY;
-	        cl.menuActionRow += 1;
+	        cl.menuActionRow += 1;*/
 		}
 	}
 
@@ -237,7 +242,6 @@ public class GroundMarkerPlugin extends Plugin
 		{
 			return;
 		}
-		
 		markTile(target.getLocalLocation());
 	}
 
