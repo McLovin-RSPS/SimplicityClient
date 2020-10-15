@@ -567,6 +567,16 @@ public class RSFontSystem extends DrawingArea {
 		int startIndex = -1;
 		int finalWidth = 0;
 		for (int currentCharacter = 0; currentCharacter < string.length(); currentCharacter++) {
+			if (string.charAt(currentCharacter) == '@' && currentCharacter + 4 < string.length()
+					&& string.charAt(currentCharacter + 4) == '@') {
+				int tagColor = getTagColor(string.substring(currentCharacter + 1, currentCharacter + 4));
+				if (tagColor != -1) {
+					textColor = tagColor;
+				}
+				currentCharacter += 4;
+				continue;
+			}
+			
 			int character = string.charAt(currentCharacter);
 			if (character > 255) {
 				character = 32;
@@ -619,6 +629,47 @@ public class RSFontSystem extends DrawingArea {
 			}
 		}
 		return finalWidth;
+	}
+
+	public int getTagColor(String s) {
+		switch (s) {
+			case "red" :
+				return 0xff0000;
+			case "gre" :
+				return 65280;
+			case "blu" :
+				return 255;
+			case "yel" :
+				return 0xffff00;
+			case "cya" :
+				return 65535;
+			case "mag" :
+				return 0xff00ff;
+			case "whi" :
+				return 0xffffff;
+			case "bla" :
+				return 0;
+			case "lre" :
+				return 0xff9040;
+			case "dre" :
+				return 0x800000;
+			case "dbl" :
+				return 128;
+			case "or1" :
+				return 0xffb000;
+			case "or2" :
+				return 0xff7000;
+			case "or3" :
+				return 0xff3000;
+			case "gr1" :
+				return 0xc0ff00;
+			case "gr2" :
+				return 0x80ff00;
+			case "gr3" :
+				return 0x40ff00;
+			default :
+				return -1;
+		}
 	}
 
 	public void drawBasicString(String string, int drawX, int drawY, int color, int shadow) {
