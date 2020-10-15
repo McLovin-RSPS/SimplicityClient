@@ -25697,5 +25697,9 @@ public class Client extends RSApplet {
 	public int getBackDialogID() {
 		return backDialogID;
 	}
+
+	public RuneLite getRuneLite() {
+		return runelite;
+	}
 	
 }
