@@ -5034,6 +5034,15 @@ public class Client extends RSApplet {
 	                                                        interfaceId = 2700;
 	                                                    }
 	                                                    menuActionName[menuActionRow] = s;
+                                                        if (child.parentID == 1644) {
+                                                            if (itemDef.id == 9753 || itemDef.id == 9754 ||
+                                                                    itemDef.id == 14019 || itemDef.id == 14022) {
+                                                                if (j4 == 2) {
+                                                                    menuActionName[menuActionRow] = "Toggle ROL @lre@"
+                                                                            + itemDef.name;
+                                                                }
+                                                            }
+                                                        }
 	                                                    if (j4 == 0) {
 	                                                        menuActionID[menuActionRow] = 632;
 	                                                    }
@@ -6424,6 +6433,15 @@ public class Client extends RSApplet {
             inputDialogState = 0;
             interfaceButtonAction = 6199;
             promptMessage = "Enter a name for the clan chat:";
+        }
+        if (j == 1420) {
+            inputTaken = true;
+            showInput = true;
+            amountOrNameInput = "";
+            promptInput = "";
+            inputDialogState = 0;
+            interfaceButtonAction = 6767;
+            promptMessage = "Enter a monster to look up:";
         }
         if (j == 677) {
             inputTaken = true;
@@ -9565,6 +9583,20 @@ public class Client extends RSApplet {
                 }
             }
         }
+        if (l == 1202) {
+            NPC class30_sub2_sub4_sub1_sub1_5 = npcArray[entityId];
+            if (class30_sub2_sub4_sub1_sub1_5 != null) {
+                MobDefinition entityDef = class30_sub2_sub4_sub1_sub1_5.desc;
+                if (entityDef.childrenIDs != null) {
+                    entityDef = entityDef.getAlteredNPCDef();
+                }
+                if (entityDef != null) {
+                    inputString = "::[best] " + entityDef.name;
+                    sendPacket(103);
+                    inputString = "";
+                }
+            }
+        }
         if (l == 900) {
             reachedClickedObject(entityId, y, x, id);
             stream.createFrame(252);
@@ -10577,6 +10609,13 @@ public class Client extends RSApplet {
                         String inp = "";
                         inp = inputString;
                         inputString = "::[CN] " + promptInput;
+                        sendPacket(103);
+                        inputString = inp;
+                    }
+                    if (interfaceButtonAction == 6767 && promptInput.length() > 0) {
+                        String inp = "";
+                        inp = inputString;
+                        inputString = "::[best] " + promptInput;
                         sendPacket(103);
                         inputString = inp;
                     }
@@ -11976,8 +12015,8 @@ public class Client extends RSApplet {
         }
         if (j == 3291) {
             try {
-                MobDefinition mobDefinition = MobDefinition.forID(PetSystem.petSelected);
-
+                int npcId = PetSystem.petSelected;
+                MobDefinition mobDefinition = MobDefinition.forID(npcId);
                 PetSystem petDef = new PetSystem(mobDefinition);
                 RSInterface rsInterface = rsi;
                 int verticleTilt = 150;
@@ -11999,8 +12038,9 @@ public class Client extends RSApplet {
                     return;
                 }
 
-                int scale = (int) (petDef.getSizeXZ() / 2);
-
+                int scale = (int) (petDef.getSizeXZ() / mobDefinition.squaresNeeded);
+                if (mobDefinition.squaresNeeded == 1)
+                    scale -= 25;
                 switch (PetSystem.petSelected) {
                 case 4540:
                 	scale = 100;
@@ -13758,6 +13798,7 @@ public class Client extends RSApplet {
                 }
 
             }
+
             menuActionName[menuActionRow] = !entityDebug ? "Examine @yel@" + s
                     : "Examine @yel@" + s + " @gre@(@whi@" + entityDef.type + "@gre@)";
             menuActionID[menuActionRow] = 1025;
@@ -13765,6 +13806,15 @@ public class Client extends RSApplet {
             menuActionCmd2[menuActionRow] = k;
             menuActionCmd3[menuActionRow] = j;
             menuActionRow++;
+
+            if (entityDef.combatLevel > 0) {
+                menuActionName[menuActionRow] = "Lookup @yel@" + s;
+                menuActionID[menuActionRow] = 1202;
+                menuActionCmd1[menuActionRow] = i;
+                menuActionCmd2[menuActionRow] = k;
+                menuActionCmd3[menuActionRow] = j;
+                menuActionRow++;
+            }
         }
     }
 
@@ -14999,7 +15049,6 @@ public class Client extends RSApplet {
                     drawInterface(0, clientSize == 0 ? 0 : (clientWidth / 2) - 765 / 2, rsInterface_1,
                             clientSize == 0 ? 8 : (clientHeight / 2) - 503 / 2);
                     if (secondaryOpenInterfaceID != -1) {
-                        System.out.println("Drawing secondary");
                         RSInterface secondary = RSInterface.interfaceCache[secondaryOpenInterfaceID];
                         drawInterface(0, clientSize == 0 ? 0 : (clientWidth / 2) - 765 / 2, secondary,
                                 clientSize == 0 ? 8 : (clientHeight / 2) - 503 / 2);
@@ -15829,7 +15878,6 @@ public class Client extends RSApplet {
                                     (child.itemSpriteZoom1 == -1) ? 0 : -1, child.itemSpriteZoom1);
                             child.enabledSprite = ItemDefinition.getSprite(child.itemSpriteId2, 1,
                                     (child.itemSpriteZoom2 == -1) ? 0 : -1, child.itemSpriteZoom2);
-
                         }
                         if (child.displayedSprite != null) {
                             sprite = child.displayedSprite;
@@ -17165,7 +17213,6 @@ public class Client extends RSApplet {
                 drawEffectTimers();
             }
         } catch (Exception e) {
-            System.out.println("Effect timers");
             e.printStackTrace();
         }
         if (fpsOn) {
@@ -17232,14 +17279,19 @@ public class Client extends RSApplet {
                 stream.createFrame(148);
             }
         } else if (broadcastText != null) {
+            final int yPos = super.mouseY;
+            final int xPos = super.mouseX;
+            final int yCorner = 336;
+            final boolean hoveringChatMessage = yPos >= yCorner - 14 && yPos <= yCorner &&
+                    xPos >= 17 && xPos <= 17 + newRegularFont.getTextWidth(broadcastText) + 2;
+            final int color = hoveringChatMessage ? 0xFFFFFF : 0xffff00;
             if (clientSize == 1) {
-                drawingArea.method385(0xffff00, broadcastText, clientHeight - 170, 19);
+                newRegularFont.drawBasicString(broadcastText, 19, clientHeight - 170, color, 0);
                 cacheSprite[1260].drawSprite(2, clientHeight - 180);
             } else {
-                drawingArea.method385(0xffff00, broadcastText, 329, 19);
+                newRegularFont.drawBasicString(broadcastText, 19, 329, color, 0);
                 cacheSprite[1260].drawSprite(2, 318);
             }
-
         }
         
     }
@@ -19628,6 +19680,24 @@ public class Client extends RSApplet {
                     opCode = -1;
                     return true;
 
+                case 2:
+                    int npcId = inStream.readInt();
+                    int size = inStream.readUnsignedWord();
+                    Object[][] list = null;
+                    if (size > 0) {
+                        list = new Object[size][5];
+                        int index = 0;
+                        while (inStream.currentOffset < pktSize) {
+                            list[index][0] = inStream.readUnsignedWord();
+                            list[index][1] = inStream.readUnsignedWord();
+                            list[index][2] = inStream.readUnsignedWord();
+                            list[index][3]= inStream.readUnsignedWord();
+                            list[index++][4] = inStream.readUnsignedWord();
+                        }
+                    }
+                    BestiaryLookup.rebuild(npcId, list);
+                    opCode = -1;
+                    return true;
                 case 179:
                     title = inStream.readString();
                     information = inStream.readString();
@@ -20355,7 +20425,6 @@ public class Client extends RSApplet {
                         String chatMsg = "<spr=1260:2>"+ broadcastText.substring(tokenIdx + 1) +"";
                         pushMessage(chatMsg, 1337, "<col=004f00>Broadcast</col>");
                     }
-//                    System.out.println("broad cast received: " + broadcastText);
 
                     opCode = -1;
                     return true;
@@ -22516,8 +22585,14 @@ public class Client extends RSApplet {
             inputTaken = true;
             dialogOptionsShowing = false;
         }
+
+        // Don't close the primary interface if we have a secondary one open.
+        if (secondaryOpenInterfaceID != -1) {
+            secondaryOpenInterfaceID = -1;
+            return;
+        }
+
         openInterfaceID = -1;
-        secondaryOpenInterfaceID = -1;
         fullscreenInterfaceID = -1;
         
         if (openInterfaceID != -1) {
@@ -24523,7 +24598,8 @@ public class Client extends RSApplet {
             if (getQuickPrayersSet() > 0) {
                 if (!quickPrsActive) {
                     for (int i = 0; i < quickPrayers.length; i++) {
-                        int button = i == 26 ? 18018 : i == 27 ? 18025 : (i * 2) + 25000;
+                        int button = i == 24 ? 25110 : i == 25 ? 25048 : i == 26 ? 25050 : i == 27 ?
+                                25112 : i == 28 ? 25114 : (i * 2) + 25000;
                         RSInterface rsInterface = RSInterface.interfaceCache[button];
                         if (rsInterface.valueIndexArray != null && rsInterface.valueIndexArray[0][0] == 5) {
                             toggle = rsInterface.valueIndexArray[0][1];
@@ -24656,7 +24732,6 @@ public class Client extends RSApplet {
 
     public void togglePrayerState(int button) {
         int index = button == 17279 ? 26 : button == 17280 ? 27 : button == 17281 ? 28 : button - 17202;
-        System.out.println("Button clicked "+ button + " - "+ index);
         if (prayerInterfaceType == 5608) {
             if ((currentMaxStats[5] / 10) >= prayerLevelRequirements[index]) {
                 int[] types = getPrayerTypeForIndex(index);
@@ -24729,8 +24804,8 @@ public class Client extends RSApplet {
     private void turnOffPrayers() {
         int toggle = -1;
         for (int i = 0; i < quickPrayers.length; i++) {
-            int x = i == 26 ? 18018 : i == 27 ? 18025 : (i * 2) + 25000;
-            ;
+            int x = i == 24 ? 25110 : i == 25 ? 25048 : i == 26 ? 25050 : i == 27 ?
+                    25112 : i == 28 ? 25114 : (i * 2) + 25000;
             RSInterface rsInterface = RSInterface.interfaceCache[x];
             if (rsInterface.valueIndexArray != null && rsInterface.valueIndexArray[0][0] == 5) {
                 toggle = rsInterface.valueIndexArray[0][1];
@@ -25393,7 +25468,7 @@ public class Client extends RSApplet {
 	/**
 	 * A hash collection of region ids where roofs should not be toggled.
 	 */
-    private static final Set<Integer> NON_TOGGLABLE_ROOF_REGIONS = new HashSet<>(Arrays.asList(9033, 9370, 9545, 10056, 10057, 10644, 10645, 10646, 10647, 10899, 10900, 10901, 10905, 11412, 11413, 11416, 11417, 11601, 11671, 11672, 11673, 12181, 13465, 13979, 14234, 14235));
+    private static final Set<Integer> NON_TOGGLABLE_ROOF_REGIONS = new HashSet<>(Arrays.asList(13461, 11165, 12951, 9033, 9370, 9545, 10056, 10057, 10644, 10645, 10646, 10647, 10899, 10900, 10901, 10905, 11412, 11413, 11416, 11417, 11601, 11671, 11672, 11673, 12181, 13465, 13979, 14234, 14235));
     
     public boolean canRemoveRoofs() {
     	return !NON_TOGGLABLE_ROOF_REGIONS.contains(getRegionId());

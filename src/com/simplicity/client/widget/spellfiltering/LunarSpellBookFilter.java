@@ -15,19 +15,17 @@ public class LunarSpellBookFilter extends SpellBookFilter {
         if (varp < 670 || varp > 674) {
             return;
         }
-        RSInterface parent = RSInterface.interfaceCache[PARENT_ID];
         final int spellContainerId = 29999;
-        if (varp == 671) {
+        /*if (varp == 671) {
             final boolean show = Client.instance.variousSettings[671] == 1;
             final int[] children = parent.originalChildren;
-            parent.childY[1] = show ? 55 : 15;
             for (int child : children) {
                 if (child >= 11001 && child <= 11021) {
                     RSInterface.interfaceCache[child].hidden = !show;
                 }
             }
             return;
-        }
+        }*/
         RSInterface spellContainer = RSInterface.interfaceCache[spellContainerId];
         final int[] spells = spellContainer.originalChildren;
         int slot = 0;
@@ -45,7 +43,11 @@ public class LunarSpellBookFilter extends SpellBookFilter {
                 widget.hidden = true;
                 continue;
             }
-            if (!showUtilitySpells() && !combatSpell(widget)) {
+            if (!showTeleports() && teleportSpell(widget)) {
+                widget.hidden = true;
+                continue;
+            }
+            if (!showUtilitySpells() && !combatSpell(widget) && !teleportSpell(widget)) {
                 widget.hidden = true;
                 continue;
             }
@@ -61,5 +63,11 @@ public class LunarSpellBookFilter extends SpellBookFilter {
         if (widget.spellName == null)
             return false;
         return widget.spellName.toLowerCase().contains("vengeance");
+    }
+
+    private boolean teleportSpell(RSInterface widget) {
+        if (widget.selectedActionName == null)
+            return false;
+        return widget.selectedActionName.equalsIgnoreCase("teleport");
     }
 }

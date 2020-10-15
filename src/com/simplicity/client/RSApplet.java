@@ -414,7 +414,6 @@ WindowListener {
 		
 		if (tabInterfaceID != -1) {
 			RSInterface tab = RSInterface.interfaceCache[tabInterfaceID];
-			
 			offsetX = Client.getClient().clientSize == 0 ? Client.getClient().clientWidth - 218 : (Client.getClient().clientSize == 0 ? 28 : Client.getClient().clientWidth - 197);
 			offsetY = Client.getClient().clientSize == 0 ? Client.getClient().clientHeight - 298 : (Client.getClient().clientSize == 0 ? 37 : Client.getClient().clientHeight - (Client.getClient().clientWidth >= 900 ? 37 : 74) - 267);
 			
@@ -422,18 +421,19 @@ WindowListener {
 				return true;
 			}
 		}
-		
+
 		/* Main interface scrolling */
 		if (Client.openInterfaceID != -1) {
-			RSInterface rsi = RSInterface.interfaceCache[Client.openInterfaceID];
+			int secondaryId = Client.secondaryOpenInterfaceID;
+			RSInterface rsi = RSInterface.interfaceCache[secondaryId != -1 ? secondaryId : Client.openInterfaceID];
 			offsetX = Client.getClient().clientSize == 0 ? 4 : (Client.getClient().clientWidth / 2) - Client.getClient().getInterfaceOffX();
 			offsetY = Client.getClient().clientSize == 0 ? 4 : (Client.getClient().clientHeight / 2) - Client.getClient().getInterfaceOffY();
-			
+
 			if (handleScrolling(rsi, rotation, offsetX, offsetY)) {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 	
@@ -445,13 +445,11 @@ WindowListener {
 		int positionX = 0;
 		int positionY = 0;
 		int scrollAmount = 30;
-
 		for (int index = 0; index < rsi.children.length; index++) {
-			if (RSInterface.interfaceCache[rsi.children[index]].scrollMax > 0) {
+			RSInterface child = RSInterface.interfaceCache[rsi.children[index]];
+			if (child.scrollMax > 0) {
 				positionX = rsi.childX[index];
 				positionY = rsi.childY[index];
-				
-				RSInterface child = RSInterface.interfaceCache[rsi.children[index]];
 
 				if ((mouseX > (offsetX + positionX)) && (mouseY > (offsetY + positionY)) && (mouseX < (offsetX + positionX + child.width)) && (mouseY < (offsetY + positionY + child.height))) {
 					

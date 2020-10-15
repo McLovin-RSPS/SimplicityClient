@@ -157,7 +157,7 @@ public final class ObjectDefinition {
             e.printStackTrace();
         }
         if (i == 133122) {
-            objectDef.name = "Champions chest";
+            objectDef.name = "Elite chest";
             objectDef.hasActions = true;
             objectDef.actions = new String[5];
             objectDef.actions[0] = "Loot";
@@ -207,7 +207,7 @@ public final class ObjectDefinition {
         if (i == 129146) {
             objectDef.actions[3] = "Empty";
         }
-        if (i == 122819) {
+        if (i == 122819 || i == 110562) {
             objectDef.actions = new String[5];
             objectDef.actions[0] = "Use";
             objectDef.actions[1] = "View-presets";
@@ -221,9 +221,21 @@ public final class ObjectDefinition {
             objectDef.actions = new String[]{"Touch", null, null, null, null};
             objectDef.name = "@yel@Statue of Sezy";
         }
+        if (i == 134021) {
+            objectDef.actions = new String[]{"Pick-from", null, null, null, null};
+            objectDef.name = "@yel@Dragonfruit tree";
+        }
+        if (i == 137483) {
+            objectDef.actions = new String[]{"Restore-at", null, null, null, null};
+            objectDef.name = "@yel@Elite Dragon trophy";
+        }
+        if (i == 131618) {
+            objectDef.actions = new String[]{"Enter", null, null, null, null};
+            objectDef.name = "@yel@Elite Raids";
+        }
         if (i == 133124) {
             objectDef.actions = new String[]{"Loot", null, null, null, null};
-            objectDef.name = "@yel@Elite chest";
+            objectDef.name = "@yel@Elite Champion chest";
         }        
         if (i == 126073) {
             objectDef.actions = new String[]{"Pray-at", null, null, null, null};

@@ -338,6 +338,9 @@ public final class ItemDefinition {
             case 49547:
             case 52249:
             case 49535:
+            case 50366:
+            case 49720:
+            case 42002:
             case 1704:
                 itemDef.maleZOffset += 4;
                 itemDef.maleYOffset -= 10;
@@ -632,7 +635,7 @@ public final class ItemDefinition {
                 itemDef.actions[0] = "Open";
                 break;
             case 42789:
-                itemDef.name = "@gre@Runelocus Box";
+                itemDef.name = "@gre@Vote Box";
                 itemDef.actions = new String[5];
                 itemDef.actions[0] = "Open";
                 break;
@@ -653,10 +656,6 @@ public final class ItemDefinition {
                 break;
             case 41860:
                 itemDef.name = "Angelic Boots";
-                break;
-            case 52325:
-                itemDef.name = "Scythe of vitur";
-                itemDef.actions = new String[]{"Drink",null, null, null, "Drop"};
                 break;
             case 52410:
                 itemDef.name = "1000m Note";
@@ -1369,6 +1368,13 @@ public final class ItemDefinition {
             itemDef.editedModelColor = new int[] { 784, 790, 796, 536, 61, 78, 49 };
             itemDef.newModelColor = new int[] { 90, 90, 90, 90, 90, 90, 90 };
             break;
+            
+    	case 17860:
+            itemDef.copy(forID(53951));
+    		itemDef.name = "Halloween key";
+            itemDef.editedModelColor = new int[] { 32995, 7227, };
+            itemDef.newModelColor = new int[] { 796, 536, };
+    		break;
 			
 		case 22011: // SOV DS Inferno textured Hellraty
 			itemDef.copy(forID(15000));
@@ -2596,7 +2602,10 @@ public final class ItemDefinition {
         		itemDef.name = "@gre@Halloween Token";
         		break;
         	case 11179:
-        		itemDef.name = "Old Coin";
+        		itemDef.name = "Old coin";
+        		break;
+        	case 5519:
+        		itemDef.name = "Halloween orb";
         		break;
             case 1050:
                 itemDef.femaleZOffset += 4;
@@ -2739,11 +2748,34 @@ public final class ItemDefinition {
             case 15001:
                 itemDef.copy(forID(52324));
                 break;
+
+            case 15255:
+                itemDef.copy(forID(52325));
+                break;
                 
             case 14484:
                 itemDef.copy(forID(43652));
                 break; 
+                
+            case 11726:
+                itemDef.copy(forID(53646));
+                break; 
+                
+         /*   case 4587:
+                itemDef.copy(forID(50406));
+                break; */
+                
+            case 1333:
+                itemDef.copy(forID(50402));
+                break; 
              
+            case 11924:
+                itemDef.copy(forID(41924));
+                break; 
+                
+            case 11926:
+                itemDef.copy(forID(41926));
+                break; 
                 
             case 12282:
                 itemDef.copy(forID(42931));
@@ -3064,6 +3096,7 @@ public final class ItemDefinition {
                 itemDef.maleEquip1 = 44762;
                 itemDef.femaleEquip1 = 44762;
                 break;
+                
             case 11554:
                 itemDef.name = "Abyssal tentacle";
                 itemDef.modelZoom = 840;
@@ -3079,21 +3112,7 @@ public final class ItemDefinition {
                 itemDef.maleEquip1 = 45006;
                 itemDef.femaleEquip1 = 43500;
                 break;
-            case 11926:
-                itemDef.name = "Odium ward";
-                itemDef.modelZoom = 1200;
-                itemDef.rotationY = 568;
-                itemDef.rotationX = 1836;
-                itemDef.modelOffsetX = 2;
-                itemDef.modelOffsetY = 3;
-                itemDef.newModelColor = new int[]{15252};
-                itemDef.editedModelColor = new int[]{908};
-                itemDef.modelID = 9354;
-                itemDef.actions[1] = "Wield";
-                itemDef.actions[4] = "Drop";
-                itemDef.maleEquip1 = 9347;
-                itemDef.femaleEquip1 = 9347;
-                break;
+                
             case 11290:
                 itemDef.actions = new String[5];
                 itemDef.actions[1] = "Wear";
@@ -3565,21 +3584,7 @@ public final class ItemDefinition {
                 itemDef.name = "Black h'ween Mask";
                 itemDef.description = "Aaaarrrghhh... I'm a monster.";
                 break;
-            case 11924:
-                itemDef.name = "Malediction ward";
-                itemDef.modelZoom = 1200;
-                itemDef.rotationY = 568;
-                itemDef.rotationX = 1836;
-                itemDef.modelOffsetX = 2;
-                itemDef.modelOffsetY = 3;
-                itemDef.newModelColor = new int[]{-21608};
-                itemDef.editedModelColor = new int[]{908};
-                itemDef.modelID = 9354;
-                itemDef.actions[1] = "Wield";
-                itemDef.actions[4] = "Drop";
-                itemDef.maleEquip1 = 9347;
-                itemDef.femaleEquip1 = 9347;
-                break;
+
             case 12279:
                 itemDef.name = "Magma helm";
                 itemDef.modelID = 29205;
@@ -8076,6 +8081,7 @@ public final class ItemDefinition {
                 itemDef.actions = new String[5];
                 itemDef.actions[1] = "Wear";
                 itemDef.actions[2] = "Customize";
+                itemDef.actions[3] = "Toggle ROL";
                 itemDef.editedModelColor = new int[4];
                 itemDef.newModelColor = new int[4];
                 itemDef.editedModelColor[0] = 65214; //red
@@ -8117,6 +8123,10 @@ public final class ItemDefinition {
                 itemDef.actions = new String[5];
                 itemDef.actions[1] = "Wear";
                 break;
+            case 9753:
+            case 9754:
+                itemDef.actions[3] = "Toggle ROL";
+                break;
             case 14022:
                 itemDef.modelID = 65270;
                 itemDef.name = "Completionist Cape";
@@ -8132,9 +8142,8 @@ public final class ItemDefinition {
                 itemDef.groundActions[2] = "Take";
                 itemDef.actions = new String[5];
                 itemDef.actions[1] = "Wear";
-                itemDef.actions = new String[5];
-                itemDef.actions[1] = "Wear";
                 itemDef.actions[2] = "Customize";
+                itemDef.actions[3] = "Toggle ROL";
                 itemDef.editedModelColor = new int[4];
                 itemDef.newModelColor = new int[4];
                 itemDef.editedModelColor[0] = 65214; //red

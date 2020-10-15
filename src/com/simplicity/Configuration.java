@@ -31,7 +31,7 @@ public class Configuration {
 	 */
 	public final static int NPC_BITS = 18;
 
-	public static final int[] packetSizes = { 0, 0, 0, 1, 6, 0, 0, 0, 4, 0, // 0
+	public static final int[] packetSizes = { 0, 0, -2, 1, 6, 0, 0, 0, 4, 0, // 0
 			0, 2, -1, 1, 1, -1, 1, 0, 0, 0, // 10
 			0, 0, 0, 0, 1, 0, 0, -1, 1, 1, // 20
 			0, 0, 0, 0, -2, 4, 3, 0, 2, 0, // 30

@@ -80,6 +80,10 @@ public final class MobDefinition {
                 npc.name = npc.name.replaceAll("<col=00ffff>", "@cya@").replaceAll("</col>", "");
             }
             switch (i) {
+            
+            case 8492:
+            	npc.walkAnim = 23492;
+            	break;
 
             // Kalphite princess
 			case 6637:
@@ -156,7 +160,6 @@ public final class MobDefinition {
             return npc;
         stream.currentOffset = streamIndices[i];
         npc.type = i;
-        npc.postLoad();
         if (npc.name != null && npc.name.toLowerCase().contains("bank")) {
             if (npc.actions != null) {
                 for (int l = 0; l < npc.actions.length; l++) {
@@ -167,6 +170,7 @@ public final class MobDefinition {
         }
         npc.id = i;
         npc.readValues(stream);
+        npc.postLoad();
         switch (i) {
 
             case 621:
@@ -1305,7 +1309,7 @@ public final class MobDefinition {
                 break;
             case 494:
             case 1360:
-                npc.actions = new String[]{"Talk-to", null, null, null, null};
+                npc.actions = new String[]{"Talk-to", null, "Load prev. preset", null, null};
                 break;
             case 1685:
                 npc.name = "Pure";
@@ -1935,9 +1939,11 @@ public final class MobDefinition {
             models[i] = def.models[i];
         }
 
-        actions = new String[def.actions.length];
-        for (int i = 0; i < actions.length; i++) {
-            actions[i] = def.actions[i];
+        if (def.actions != null) {
+	        actions = new String[def.actions.length];
+	        for (int i = 0; i < actions.length; i++) {
+	            actions[i] = def.actions[i];
+	        }
         }
 
         if (def.originalColours != null) {
