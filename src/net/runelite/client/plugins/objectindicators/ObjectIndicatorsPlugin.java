@@ -230,10 +230,7 @@ public class ObjectIndicatorsPlugin extends Plugin
 			return;
 		}
 		
-		System.out.println("type: " + event.getType());
-		
 		final Tile tile = client().worldController.getTile(client.getPlane(), event.getActionParam0(), event.getActionParam1());
-		System.out.println("event identifier: " + event.getIdentifier());
 		final TileObject tileObject = findTileObject(tile, event.getIdentifier());
 
 		if (tileObject == null)
@@ -241,39 +238,18 @@ public class ObjectIndicatorsPlugin extends Plugin
 			return;
 		}
 		
-		client().menuActionName[0] = "Cancel";
-		client().menuActionID[0] = 1107;
-		client().menuActionRow = 1;
-        
-		client().menuActionName[client().menuActionRow] = objects.stream().anyMatch(o -> o.getTileObject() == tileObject) ? UNMARK : MARK;
+		client().menuActionName[client().menuActionRow] = (objects.stream().anyMatch(o -> o.getTileObject() == tileObject) ? UNMARK : MARK) + " @cya@" + event.getTarget();
 		client().menuActionCmd2[client().menuActionRow] = event.getActionParam0();
 		client().menuActionCmd3[client().menuActionRow] = event.getActionParam1();
-		client().menuActionID[client().menuActionRow] = MenuAction.RUNELITE.getId();
-		client().menuActionRow += 1;
-        
-		client().menuActionName[client().menuActionRow] = "Walk here";
-        client().menuActionID[client().menuActionRow] = 516;
-        client().menuActionCmd2[client().menuActionRow] = client().mouseX;
-        client().menuActionCmd3[client().menuActionRow] = client().mouseY;
-        client().menuActionRow += 1;
-
-		/*MenuEntry[] menuEntries = client.getMenuEntries();
-		menuEntries = Arrays.copyOf(menuEntries, menuEntries.length + 1);
-		MenuEntry menuEntry = menuEntries[menuEntries.length - 1] = new MenuEntry();
-		menuEntry.setOption(objects.stream().anyMatch(o -> o.getTileObject() == tileObject) ? UNMARK : MARK);
-		menuEntry.setTarget(event.getTarget());
-		menuEntry.setParam0(event.getActionParam0());
-		menuEntry.setParam1(event.getActionParam1());
-		menuEntry.setIdentifier(event.getIdentifier());
-		menuEntry.setType(MenuAction.RUNELITE.getId());
-		client.setMenuEntries(menuEntries);*/
+		client().menuActionID[client().menuActionRow] = MenuAction.RUNELITE.getId() + '\0';
+		client().menuActionRow++;
 	}
 
 	@Subscribe
 	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
 		if (event.getMenuAction() != MenuAction.RUNELITE
-			|| !(event.getMenuOption().equals(MARK) || event.getMenuOption().equals(UNMARK)))
+			|| !(event.getMenuOption().startsWith(MARK) || event.getMenuOption().startsWith(UNMARK)))
 		{
 			return;
 		}
