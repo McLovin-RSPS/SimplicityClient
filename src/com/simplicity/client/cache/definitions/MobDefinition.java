@@ -149,8 +149,8 @@ public final class MobDefinition {
                     npc.name = "Halloween Beast";
                     npc.actions = new String[5];
                     npc.actions[1] = "Attack";
-                    npc.sizeXZ *= 3;
-                    npc.sizeY *= 3;
+                    npc.sizeXZ *= 2;
+                    npc.sizeY *= 2;
                     npc.squaresNeeded = 4;
                     break;
                     
