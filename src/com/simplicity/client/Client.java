@@ -9376,7 +9376,7 @@ public class Client extends RSApplet {
             stream.writeUnsignedWordBigEndian(interfaceId + baseY);
             stream.writeWord(entityId);
             stream.writeUnsignedWordBigEndian(slot + baseX);
-            stream.writeUnsignedWordA(selectedSpellId);
+            stream.writeDWord(selectedSpellId);
         }
 		// Dropdown clicking
 		if (l == 769) {
@@ -9464,7 +9464,7 @@ public class Client extends RSApplet {
                 crossIndex = 0;
                 stream.createFrame(131);
                 stream.writeSignedBigEndian(entityId);
-                stream.writeUnsignedWordA(spellID);
+                stream.writeDWord(spellID);
             }
         }
         if (l == 200) {
@@ -9528,7 +9528,7 @@ public class Client extends RSApplet {
                 crossIndex = 0;
                 stream.createFrame(249);
                 stream.writeUnsignedWordA(entityId);
-                stream.writeUnsignedWordBigEndian(selectedSpellId);
+                stream.writeDWord(selectedSpellId);
             }
         }
         if (l == 729) {
@@ -9597,7 +9597,7 @@ public class Client extends RSApplet {
         if (l == 956 && reachedClickedObject(entityId, y, x, id)) {
             stream.createFrame(35);
             stream.writeUnsignedWordBigEndian(x + baseX);
-            stream.writeUnsignedWordA(selectedSpellId);
+            stream.writeDWord(selectedSpellId);
             stream.writeUnsignedWordA(y + baseY);
             stream.writeUnsignedWordBigEndian(id);
         }
