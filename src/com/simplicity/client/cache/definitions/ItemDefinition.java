@@ -312,6 +312,12 @@ public final class ItemDefinition {
 
     private static void postOsrsItemDef(ItemDefinition itemDef) {
         switch(itemDef.id) {
+        
+	        case 52323:
+	            itemDef.femaleZOffset = -11;
+	            itemDef.maleZOffset = 11;
+	            itemDef.maleXOffset = 3;
+	        	break;
 
             case 52981:
                 itemDef.maleYOffset += 5;
