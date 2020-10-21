@@ -3976,6 +3976,8 @@ public final class ItemDefinition {
                 
             case 20555:
                 itemDef.copy(forID(43576));
+                itemDef.femaleYOffset = 8;
+                itemDef.maleYOffset = -10;
                 break;
                 
             case 11613:
