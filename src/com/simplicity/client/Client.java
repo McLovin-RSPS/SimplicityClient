@@ -5643,7 +5643,6 @@ public class Client extends RSApplet {
                                 Entity e = ((Entity) (obj));
                                 int dmg = e.hitArray[j1];
                                 final boolean concerning = e.indexes[j1] == myPlayerIndex || e == Client.myPlayer;
-                                System.out.println("Comparing "+ e.indexes[j1] +" with "+ myPlayerIndex);
                                 final float brightness = concerning ? 1f : .65f;
                                 if (dmg > 0) {
                                     if (!Configuration.enableConstitution) {
