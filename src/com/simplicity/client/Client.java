@@ -5642,6 +5642,9 @@ public class Client extends RSApplet {
                                 }
                                 Entity e = ((Entity) (obj));
                                 int dmg = e.hitArray[j1];
+                                final boolean concerning = e.indexes[j1] == myPlayerIndex || e == Client.myPlayer;
+                                System.out.println("Comparing "+ e.indexes[j1] +" with "+ myPlayerIndex);
+                                final float brightness = concerning ? 1f : .65f;
                                 if (dmg > 0) {
                                     if (!Configuration.enableConstitution) {
                                         dmg = dmg / 10;
@@ -5649,9 +5652,9 @@ public class Client extends RSApplet {
                                             dmg = 1;
                                         }
                                     }
-                                    hitMarks[1].drawSprite(spriteDrawX - 12, spriteDrawY - 12);
+                                    hitMarks[1].drawAt(spriteDrawX - 12, spriteDrawY - 12, brightness);
                                 } else {
-                                	hitMarks[0].drawSprite(spriteDrawX - 12, spriteDrawY - 12);
+                                	hitMarks[0].drawAt(spriteDrawX - 12, spriteDrawY - 12, brightness);
                                 }
 
 
@@ -13504,7 +13507,6 @@ public class Client extends RSApplet {
                     int j1 = inStream.readDWord();
                     int j2 = stream.nglb();
                     int icon = stream.readUnsignedByte();
-                    npc.updateHitData(j2, j1, loopCycle, icon, 0);
                     int visibleTicks = 300;
                     if (npc.desc.type == 22535) {
                     	visibleTicks = 5000;
@@ -13512,6 +13514,7 @@ public class Client extends RSApplet {
                     npc.loopCycleStatus = loopCycle + visibleTicks;
                     npc.currentHealth = inStream.readDWord();
                     npc.maxHealth = inStream.readDWord();
+                    npc.updateHitData(j2, j1, loopCycle, icon, 0, inStream.readSignedWord());
                 }
                 if ((l & 0x80) != 0) {
                     npc.anInt1520 = stream.readUnsignedWord();
@@ -13555,10 +13558,10 @@ public class Client extends RSApplet {
                     int l1 = inStream.readDWord();
                     int k2 = stream.readByteS();
                     int icon = stream.readUnsignedByte();
-                    npc.updateHitData(k2, l1, loopCycle, icon, 0);
                     npc.loopCycleStatus = loopCycle + 300;
                     npc.currentHealth = inStream.readDWord();
                     npc.maxHealth = inStream.readDWord();
+                    npc.updateHitData(k2, l1, loopCycle, icon, 0, inStream.readSignedWord());
                 }
                 if ((l & 2) != 0) {
                     npc.desc = MobDefinition.forID(stream.readWordBigEndian());
@@ -16716,20 +16719,20 @@ public class Client extends RSApplet {
             int k2 = stream.readUnsignedByte();
             int icon = stream.readUnsignedByte();
             int soakDamage = inStream.readByteA();
-            player.updateHitData(k2, k1, loopCycle, icon, soakDamage);
             player.loopCycleStatus = loopCycle + 300;
             player.constitution = player.currentHealth = inStream.readByteA();
             player.maxConstitution = player.maxHealth = inStream.readByteA();
+            player.updateHitData(k2, k1, loopCycle, icon, soakDamage, inStream.readSignedWord());
         }
         if ((i & 0x200) != 0) {
             int l1 = inStream.readByteA();
             int l2 = stream.readUnsignedByte();
             int icon = stream.readUnsignedByte();
             int soakDamage = inStream.readByteA();
-            player.updateHitData(l2, l1, loopCycle, icon, soakDamage);
             player.loopCycleStatus = loopCycle + 300;
             player.constitution = player.currentHealth = inStream.readByteA();
             player.maxConstitution = player.maxHealth = inStream.readByteA();
+            player.updateHitData(l2, l1, loopCycle, icon, soakDamage, inStream.readSignedWord());
         }
     }
 
