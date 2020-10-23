@@ -5322,7 +5322,7 @@ public final class ItemDefinition {
                 
             case 16580:
                 itemDef.copy(forID(6637));
-                itemDef.name = "Halloween boy";
+                itemDef.name = "Halloween pet";
                 itemDef.groundActions = new String[]{null, null, "Take", null, null};
                 itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
                 itemDef.editedModelColor = new int[] { 898, 4502, 38119, 5640, 8363, 7403, 5388, 268, 4750, 9135, 65535, };
