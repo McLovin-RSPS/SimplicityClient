@@ -318,6 +318,11 @@ public final class ItemDefinition {
 	            itemDef.maleZOffset = 11;
 	            itemDef.maleXOffset = 3;
 	        	break;
+	        	
+	        case 53995:
+	            itemDef.femaleYOffset = 8;
+	            itemDef.maleYOffset = -10;
+	            break;
 
             case 52981:
                 itemDef.maleYOffset += 5;
@@ -3929,6 +3934,8 @@ public final class ItemDefinition {
                 itemDef.modelID = 19219;
                 itemDef.maleEquip1 = 14403;
                 itemDef.femaleEquip1 = 14403;
+                itemDef.femaleYOffset = 8;
+                itemDef.maleYOffset = -10;
                 break;
             case 12926:
                 itemDef.modelID = 25000;
@@ -3941,6 +3948,8 @@ public final class ItemDefinition {
                 itemDef.modelOffsetY = 4;
                 itemDef.maleEquip1 = 14403;
                 itemDef.femaleEquip1 = 14403;
+                itemDef.femaleYOffset = 8;
+                itemDef.maleYOffset = -10;
                 itemDef.actions = new String[]{null, "Wield", "Check", "Unload", "Drop"};
                 itemDef.groundActions = new String[]{null, null, "Take", null, null};
                 break;
