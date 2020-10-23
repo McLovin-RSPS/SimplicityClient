@@ -438,7 +438,7 @@ public final class MobDefinition {
                 
             case 4550:
                 npc.copy(forID(17666));
-                npc.name = "Halloween boy";
+                npc.name = "Halloween pet";
                 npc.sizeXZ = 80;
                 npc.sizeY = 80;
                 npc.actions = new String[5];
