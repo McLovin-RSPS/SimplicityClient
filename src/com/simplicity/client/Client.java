@@ -17654,10 +17654,6 @@ public class Client extends RSApplet {
     		return 3;
     	}
     	
-    	if (getRegionId() == 12342) { // Disable roofs in edgeville
-    		return 0;
-    	}
-    	
         int j = 3;
         if (yCameraCurve < 310) {
             int k = xCameraPos >> 7;
