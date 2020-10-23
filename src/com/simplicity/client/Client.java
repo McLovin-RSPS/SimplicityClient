@@ -17154,8 +17154,8 @@ public class Client extends RSApplet {
                     xPos >= 17 && xPos <= 17 + newRegularFont.getTextWidth(broadcastText) + 2;
             final int color = hoveringChatMessage ? 0xFFFFFF : 0xffff00;
             if (clientSize == 1) {
-                newRegularFont.drawBasicString(broadcastText, 19, clientHeight - 170, color, 0);
-                cacheSprite[1260].drawSprite(2, clientHeight - 180);
+                newRegularFont.drawBasicString(broadcastText, 19, clientHeight - (showChat ? 170 : 30), color, 0);
+                cacheSprite[1260].drawSprite(2, clientHeight - (showChat ? 180 : 40));
             } else {
                 newRegularFont.drawBasicString(broadcastText, 19, 329, color, 0);
                 cacheSprite[1260].drawSprite(2, 318);
