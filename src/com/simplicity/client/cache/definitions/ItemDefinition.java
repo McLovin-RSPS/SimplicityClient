@@ -1233,6 +1233,12 @@ public final class ItemDefinition {
 
         switch (itemId) {
         
+        case 18351:
+        	itemDef.maleYOffset = -10;
+        	itemDef.maleXOffset = 5;
+        	itemDef.maleZOffset = 5;
+        	break;
+        
         case 18346:
         	itemDef.femaleEquip1 = itemDef.maleEquip1;
         	break;
