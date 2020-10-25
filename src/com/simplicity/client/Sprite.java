@@ -1476,12 +1476,6 @@ public class Sprite extends DrawingArea {
 		int tempWidth = myWidth;
 		int tempHeight = myHeight;
 		int[] tempArray = new int[tempWidth * tempHeight];
-		for (int x = 0; x < myWidth; x++) {
-			for (int y = 0; y < myHeight; y++) {
-				if (myPixels[x + y * myWidth] != 0)
-					tempArray[x + y * tempWidth] = myPixels[x + y * myWidth];
-			}
-		}
 		for (int x = 0; x < tempWidth; x++) {
 			for (int y = 0; y < tempHeight; y++) {
 				float[] hsb = new float[4];
