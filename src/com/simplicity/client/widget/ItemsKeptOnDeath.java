@@ -134,22 +134,26 @@ public class ItemsKeptOnDeath extends RSInterface {
 
         widgetId++;
         addDeathButton(widgetId, 130, 36, 702);
+        interfaceCache[widgetId].hidden = true;
         parent.child(8, widgetId, centerWidget(130, 150), 100);
 
         widgetId += 3;
         text = "Killed by a player";
         x = (130 - fonts[0].getTextWidth(text)) / 2;
         addText(widgetId, text, fonts, fontId, 0xFF981F);
+        interfaceCache[widgetId].hidden = true;
         parent.child(9, widgetId, 22 + x, 100 + (36 - fonts[fontId].anInt1497) / 2);
 
         widgetId++;
         addDeathButton(widgetId, 130, 36, 703);
+        interfaceCache[widgetId].hidden = true;
         parent.child(10, widgetId, centerWidget(130, 150), 140);
 
         widgetId += 3;
         text = "Wilderness beyond";
         x = (130 - fonts[0].getTextWidth(text)) / 2;
         addText(widgetId, "Wildernes beyond\\nlevel 20", fonts, fontId, 0xFF981F);
+        interfaceCache[widgetId].hidden = true;
         parent.child(11, widgetId, 22 + x, (140 + (36 - fonts[fontId].anInt1497) / 2) - 4);
         return widgetId;
     }
