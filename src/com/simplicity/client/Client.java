@@ -20870,7 +20870,6 @@ public class Client extends RSApplet {
                 case 126:
                     String text = inStream.readString();
                     int frame = inStream.getInt();
-                    
                     if (text.equals("scrollreset")) {
                         if (frame == 5385) {
                             RSInterface.interfaceCache[5385].scrollPosition = 0;
@@ -21212,6 +21211,9 @@ public class Client extends RSApplet {
                     if (isDialogueTitleFrame(frame)) {
                 		formatDialogueTitle(frame);
                     }
+                    RSInterface textWidget = RSInterface.interfaceCache[frame];
+                    if (textWidget.onTextChange != null)
+                        textWidget.onTextChange.accept(textWidget);
                     opCode = -1;
                     return true;
 

@@ -17235,4 +17235,5 @@ public class RSInterface {
     }
 
     public Consumer<RSInterface> onItemTrasmit;
+    public Consumer<RSInterface> onTextChange;
 }

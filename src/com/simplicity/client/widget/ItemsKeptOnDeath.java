@@ -109,6 +109,7 @@ public class ItemsKeptOnDeath extends RSInterface {
         widgetId++;
         text = "0";
         addText(widgetId, text, fonts, fontId, 0xffffff);
+        interfaceCache[widgetId].onTextChange = widget -> parent.childX[3] = centerText(0, widget.message, boxWidth);
         parent.child(3, widgetId, centerText(fontId, text, boxWidth), 258);
 
         widgetId++;
