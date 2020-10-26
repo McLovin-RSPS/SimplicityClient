@@ -53,7 +53,6 @@ public class ItemsKeptOnDeath extends RSInterface {
                     if (i > 0)
                         occupied++;
                 }
-                occupied--;
                 int rows = occupied / 7;
                 if (occupied - (rows * 7) > 0)
                     rows++;
@@ -74,7 +73,6 @@ public class ItemsKeptOnDeath extends RSInterface {
                     if (i > 0)
                         occupied++;
                 }
-                occupied--;
                 int rows = occupied / 7;
                 if (occupied - (rows * 7) > 0)
                     rows++;
