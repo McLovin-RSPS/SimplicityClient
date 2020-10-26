@@ -58,7 +58,7 @@ public class ItemsKeptOnDeath extends RSInterface {
                 if (occupied - (rows * 7) > 0)
                     rows++;
                 keptContainer.height = Math.max((rows * 44) + 1, 60) + 8;
-                keptContainer.childY[2] = keptContainer.height - 2;
+                keptContainer.childY[2] = keptContainer.height - 1;
                 rebuildLeftContainer();
             }
         };
@@ -79,7 +79,8 @@ public class ItemsKeptOnDeath extends RSInterface {
                 if (occupied - (rows * 7) > 0)
                     rows++;
                 lostContainer.height = Math.max((rows * 44) + 10, 60) + 8;
-                lostContainer.childY[2] = lostContainer.height - 2;
+                lostContainer.childY[2] = lostContainer.height - 1;
+                parent.scrollMax = Math.max(273, keptContainer.height + lostContainer.height + 8);
             }
         };
         parent.child(1, lostContainer.id, x, y);
@@ -88,6 +89,7 @@ public class ItemsKeptOnDeath extends RSInterface {
             RSInterface lost = interfaceCache[lostContainer.children[1]];
             Arrays.fill(kept.inv, 0);
             Arrays.fill(lost.inv, 0);
+            parent.scrollMax = Math.max(273, keptContainer.height + lostContainer.height + 8);
         };
         return widgetId;
     }
@@ -182,7 +184,7 @@ public class ItemsKeptOnDeath extends RSInterface {
 
         widgetId++;
         addHorizontalLine(widgetId, 320, 0x000000, 255);
-        parent.child(2, widgetId, 0, 58);
+        parent.child(2, widgetId, 0, 59);
         return parent;
     }
 
