@@ -19462,6 +19462,11 @@ public class Client extends RSApplet {
             inputTaken = true;
         }
         openInterfaceID = interfaceID;
+        if (openInterfaceID > 0) {
+            RSInterface parent = RSInterface.interfaceCache[openInterfaceID];
+            if (parent.onOpen != null)
+                parent.onOpen.run();
+        }
         invOverlayInterfaceID = sideInterfaceID;
         needDrawTabArea = true;
         tabAreaAltered = true;
@@ -20645,6 +20650,11 @@ public class Client extends RSApplet {
                         inputTaken = true;
                     }
                     openInterfaceID = i5;
+                    if (openInterfaceID > 0) {
+                        RSInterface parent = RSInterface.interfaceCache[openInterfaceID];
+                        if (parent.onOpen != null)
+                            parent.onOpen.run();
+                    }
                     secondaryOpenInterfaceID = -1;
                     invOverlayInterfaceID = k12;
                     needDrawTabArea = true;
@@ -21456,6 +21466,11 @@ public class Client extends RSApplet {
                         }
                         
                         openInterfaceID = interfaceID;
+                        if (openInterfaceID > 0) {
+                            RSInterface parent = RSInterface.interfaceCache[openInterfaceID];
+                            if (parent.onOpen != null)
+                                parent.onOpen.run();
+                        }
                         secondaryOpenInterfaceID = -1;
                         bankItemDragSprite = null;
                         dialogOptionsShowing = false;

@@ -13659,7 +13659,6 @@ public class RSInterface {
     public boolean inventoryHover;
     public boolean greyScale;
     public boolean hidden;
-    public Runnable onLoad;
     
 	public Sprite enabledAltSprite;
 	public Sprite disabledAltSprite;
@@ -17236,4 +17235,5 @@ public class RSInterface {
 
     public Consumer<RSInterface> onItemTrasmit;
     public Consumer<RSInterface> onTextChange;
+    public Runnable onOpen;
 }

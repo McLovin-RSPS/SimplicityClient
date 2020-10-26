@@ -3,6 +3,8 @@ package com.simplicity.client.widget;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.SpriteLoader;
 
+import java.util.Arrays;
+
 public class ItemsKeptOnDeath extends RSInterface {
 
     private static final int PARENT = 120000;
@@ -81,6 +83,12 @@ public class ItemsKeptOnDeath extends RSInterface {
             }
         };
         parent.child(1, lostContainer.id, x, y);
+        interfaceCache[PARENT].onOpen = () -> {
+            RSInterface kept = interfaceCache[keptContainer.children[1]];
+            RSInterface lost = interfaceCache[lostContainer.children[1]];
+            Arrays.fill(kept.inv, 0);
+            Arrays.fill(lost.inv, 0);
+        };
         return widgetId;
     }
 
