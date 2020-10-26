@@ -12,6 +12,7 @@ import com.simplicity.client.widget.dropdown.DropdownMenu;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.util.function.Consumer;
 
 @SuppressWarnings("all")
 public class RSInterface {
@@ -4807,6 +4808,7 @@ public class RSInterface {
         PortalNexusConfirm.init();
         PortalNexusTeleportMenu.init();
         ItemStatComparePanel.init();
+        ItemsKeptOnDeath.init();
         BestiaryLookup.init();
         modernbook(textDrawingAreas);
         lunarbook(textDrawingAreas);
@@ -16892,6 +16894,19 @@ public class RSInterface {
         rsi.tooltip = tooltip;
         rsi.hovers = true;
 	}
+
+    public static void addDynamicButton(int id, String tooltip, int width, int height, boolean inverted) {
+        RSInterface rsi = addInterface(id, width, height);
+        rsi.id = id;
+        rsi.type = 38;
+        rsi.width = width;
+        rsi.height = height;
+        rsi.atActionType = 1;
+        rsi.contentType = 0;
+        rsi.tooltip = tooltip;
+        rsi.inverted = inverted;
+        rsi.hovers = true;
+    }
 	
 	public static RSInterface addTimer(int id, int width, int height, int fontId, int textColor, String defaultText) {
     	RSInterface rsi = addInterface(id);
@@ -17211,4 +17226,13 @@ public class RSInterface {
     
     public Sprite secondaryButtonSprite;
 
+    public static int centerText(int fontId, String text, int width) {
+        return (width - fonts[fontId].getTextWidth(text)) / 2;
+    }
+
+    public static int centerWidget(int widgetWidth, int parentWidth) {
+        return (parentWidth - widgetWidth) / 2;
+    }
+
+    public Consumer<RSInterface> onItemTrasmit;
 }

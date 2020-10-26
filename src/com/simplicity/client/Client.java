@@ -56,6 +56,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.CRC32;
@@ -16352,8 +16353,12 @@ public class Client extends RSApplet {
                     	boolean clicked = SkillQuantityWidget.clickedSkillButton(child.id);
                     	
                     	boolean hover = childHovered || child.selected || clicked;
-                    	
-                    	DrawingArea.fillRectangle((hover ? 0x89785e : 0xb29d7b), childY + 3, child.width - 5, child.height - 3, hover ? 255 : 255, childX + 3);
+                    	boolean inverted = child.inverted;
+                    	int color = inverted ? 0x5E5952 : 0xb29d7b;
+                    	if (hover) {
+                    	    color = inverted ? 0x544c44 : 0x89785e;
+                        }
+                    	DrawingArea.fillRectangle(color, childY + 3, child.width - 5, child.height - 3, hover ? 255 : 255, childX + 3);
                     	
                     	int hoverSpriteOffset = hover ? 8 : 0;
                     	
@@ -21285,6 +21290,9 @@ public class Client extends RSApplet {
                             }
                             RSInterface.interfaceCache[50009].scrollMax = RSInterface.purchase_options * 24;
                         }
+                        Consumer<RSInterface> listener = rsi_1.onItemTrasmit;
+                        if (listener != null)
+                            listener.accept(rsi_1);
                     } catch (Exception e) {
 
                     }
