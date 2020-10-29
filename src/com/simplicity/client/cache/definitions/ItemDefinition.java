@@ -1677,6 +1677,56 @@ public final class ItemDefinition {
         	itemDef.modelZoom += 350;
         	break;
         	
+        case 22060:
+        	itemDef.copy(forID(56000));
+        	itemDef.maleEquip1 = 57;
+        	itemDef.femaleEquip1 = 57;
+        	itemDef.modelID = 62;
+        	itemDef.editedModelColor = new int[] { 50 };
+        	itemDef.newModelColor = new int[] { 59 };
+        	itemDef.dataType = DataType.CUSTOM;
+        	break;
+        	
+        case 22061:
+        	itemDef.copy(forID(56001));
+        	itemDef.maleEquip1 = 58;
+        	itemDef.femaleEquip1 = 58;
+        	itemDef.modelID = 63;
+        	itemDef.editedModelColor = new int[] { 50 };
+        	itemDef.newModelColor = new int[] { 59 };
+        	itemDef.dataType = DataType.CUSTOM;
+        	break;
+        	
+        case 22062:
+        	itemDef.copy(forID(56002));
+        	itemDef.maleEquip1 = 59;
+        	itemDef.femaleEquip1 = 59;
+        	itemDef.modelID = 64;
+        	itemDef.editedModelColor = new int[] { 50 };
+        	itemDef.newModelColor = new int[] { 59 };
+        	itemDef.dataType = DataType.CUSTOM;
+        	break;
+        	
+        case 22063:
+        	itemDef.copy(forID(56003));
+        	itemDef.maleEquip1 = 60;
+        	itemDef.femaleEquip1 = 60;
+        	itemDef.modelID = 60;
+        	itemDef.editedModelColor = new int[] { 50 };
+        	itemDef.newModelColor = new int[] { 59 };
+        	itemDef.dataType = DataType.CUSTOM;
+        	break;
+        	
+        case 22064:
+        	itemDef.copy(forID(56004));
+        	itemDef.maleEquip1 = 61;
+        	itemDef.femaleEquip1 = 61;
+        	itemDef.modelID = 65;
+        	itemDef.editedModelColor = new int[] { 50 };
+        	itemDef.newModelColor = new int[] { 59 };
+        	itemDef.dataType = DataType.CUSTOM;
+        	break;
+        	
         case 17273:
         	itemDef.femaleYOffset += 7;
         	itemDef.femaleZOffset -= 6;
