@@ -2083,13 +2083,13 @@ public class RSInterface {
         parent.child(5, 98835, 0, 27);
         parent.addSpellButton(98845, 9075, 563, 557, 1, 1, 10, 68, "Cure Other", 1669, 1480, "Cure poisoned players", tda, 2, 8);
         parent.child(6, 98845, 40, 27);
-        parent.addSpellButton(98855, 9075, 555, 554, 1, 3, 1, 68, "Humidify", 1670, 1481, "Fills certain vessels with water", tda, 2, 16);
+        parent.addSpellButton(98855, 9075, 555, 554, 1, 3, 1, 68, "Humidify", 1670, 1481, "Fills certain vessels with water", tda, 1, 0);
         parent.child(7, 98855, 80, 27);
         parent.addSpellButton(98865, 563, 9075, 557, 1, 2, 2, 69, "Moonclan Teleport", 1671, 1482, "Teleports you to Moonclan Island", tda, 1, 0);
         parent.child(8, 98865, 120, 27);
         parent.addSpellButton(98875, 563, 9075, 557, 1, 2, 4, 70, "Tele Group Moonclan", 1672, 1483, "Teleports players to Moonclan Island", tda, 1, 0);
         parent.child(9, 98875, 160, 27);
-        parent.addSpellButton(98885, 9075, 564, 563, 2, 2, 1, 71, "Cure Me", 1673, 1484, "Cure Poison", tda, 2, 8);
+        parent.addSpellButton(98885, 9075, 564, 563, 2, 2, 1, 71, "Cure Me", 1673, 1484, "Cure Poison", tda, 1, 0);
         parent.child(10, 98885, 0, 54);
         parent.addSpellButton(98895, 9075, 557, 0, 2, 2, 0, 71, "Hunter Kit", 1674, 1485, "Get a kit of hunter gear", tda, 1, 0);
         parent.child(11, 98895, 80, 54);
@@ -2097,7 +2097,7 @@ public class RSInterface {
         parent.child(12, 98905, 120, 54);
         parent.addSpellButton(98915, 563, 9075, 555, 1, 2, 5, 73, "Tele Group Waterbirth", 1676, 1487, "Teleports players to Waterbirth Island", tda, 1, 0);
         parent.child(13, 98915, 160, 54);
-        parent.addSpellButton(98925, 9075, 564, 563, 2, 2, 2, 74, "Cure Group", 1677, 1488, "Cure poison on players", tda, 2, 8);
+        parent.addSpellButton(98925, 9075, 564, 563, 2, 2, 2, 74, "Cure Group", 1677, 1488, "Cure poison on players", tda, 1, 0);
         parent.child(14, 98925, 0, 81);
         parent.addSpellButton(98935, 9075, 564, 559, 2, 2, 5, 75, "Stat Spy", 1678, 1489, "Cast on another player to see their skill levels", tda, 2, 8);
         parent.child(15, 98935, 40, 81);
