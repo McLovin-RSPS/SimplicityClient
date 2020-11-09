@@ -9501,8 +9501,8 @@ public final class ItemDefinition {
             // colors.forEach(c -> System.out.print((c + ":#" +Integer.toHexString(RS2HSB_to_RGB(c)).substring(2) + ", ")));
         colors.forEach(c -> System.out.print((c + ", ")));
         System.out.println();
-        System.out.print(id + " Modified colours: ");
-        colors.forEach(c -> System.out.print((RGB_to_RS2HSB(RS2HSB_to_RGB_MODIFIED(c, 0, 0, 200).getRed(), RS2HSB_to_RGB_MODIFIED(c, 0, 0, 200).getGreen(), RS2HSB_to_RGB_MODIFIED(c, 0, 0, 200).getBlue()) + ", ")));
+        //System.out.print(id + " Modified colours: ");
+        //colors.forEach(c -> System.out.print((RGB_to_RS2HSB(RS2HSB_to_RGB_MODIFIED(c, 0, 0, 200).getRed(), RS2HSB_to_RGB_MODIFIED(c, 0, 0, 200).getGreen(), RS2HSB_to_RGB_MODIFIED(c, 0, 0, 200).getBlue()) + ", ")));
             System.out.println();
         }
         if (editedModelColor != null) {
@@ -9572,7 +9572,9 @@ public final class ItemDefinition {
       int encode_hue = (int)(hue * 63.0F);
       int encode_saturation = (int)(saturation * 7.0F);
       int encode_brightness = (int)(brightness * 127.0F);
-      return (encode_hue << 10) + (encode_saturation << 7) + encode_brightness;
+      int RS2 = (encode_hue << 10) + (encode_saturation << 7) + encode_brightness;
+      System.out.println("RS2: " + RS2);
+      return RS2;
     }
 	/**
 	 * Gets the custom recolors.
