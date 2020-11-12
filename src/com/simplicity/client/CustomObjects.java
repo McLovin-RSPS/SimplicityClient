@@ -501,7 +501,7 @@ public class CustomObjects {
             {28194, 3099, 3506, 0, 0}, // Comp orb
             
             {13292, 3077, 3497, 0, 2}, // Magic chest
-            {54407, 3090, 3488, 0, 3}, // Halloween chest
+            {54407, 3090, 3489, 0, 3}, // Halloween chest
             
             
             //{46984, 1630, 3990, 0, 0}, // Statue of Arthur
@@ -1018,6 +1018,11 @@ public class CustomObjects {
             {6552, 3092, 3506, 0, 2}, 	// ancient altar
             {13179, 3096, 3506, 0, 0},	// lunar altar
             {411, 3085, 3483, 0, 0},
+            
+            /**Halloween beast**/
+            {125203, 3308, 9376, 0, 0},
+            {125203, 3319, 9370, 0, 2},
+            {129493, 3317, 9385, 0, 0},
             
             /**Chaos altar wilderness**/
             {411, 3239, 3608, 0, 0},

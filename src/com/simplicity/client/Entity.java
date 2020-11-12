@@ -59,8 +59,9 @@ public class Entity extends Animable {
 	public int[] hitIcon = new int[4];
 	public int[] soakDamage = new int[4];
 	public int[] hitMarkPos = new int[4];
+	public int[] indexes = new int[4];
 
-	public final void updateHitData(int markType, int damage, int l, int icon, int soak) {
+	public final void updateHitData(int markType, int damage, int l, int icon, int soak, int entityIndex) {
 		for (int i1 = 0; i1 < 4; i1++)
 			if (hitsLoopCycle[i1] <= l) {
 				hitIcon[i1] = icon;
@@ -72,6 +73,7 @@ public class Entity extends Animable {
 				hitMarkTypes[i1] = markType;
 				hitsLoopCycle[i1] = l + 70;
 				hitMarkPos[i1] = 0;
+				indexes[i1] = entityIndex;
 				return;
 			}
 	}

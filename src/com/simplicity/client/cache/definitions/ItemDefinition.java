@@ -312,6 +312,17 @@ public final class ItemDefinition {
 
     private static void postOsrsItemDef(ItemDefinition itemDef) {
         switch(itemDef.id) {
+        
+	        case 52323:
+	            itemDef.femaleZOffset = -11;
+	            itemDef.maleZOffset = 11;
+	            itemDef.maleXOffset = 3;
+	        	break;
+	        	
+	        case 53995:
+	            itemDef.femaleYOffset = 8;
+	            itemDef.maleYOffset = -10;
+	            break;
 
             case 52981:
                 itemDef.maleYOffset += 5;
@@ -1222,6 +1233,12 @@ public final class ItemDefinition {
 
         switch (itemId) {
         
+        case 18351:
+        	itemDef.maleYOffset = -10;
+        	itemDef.maleXOffset = 5;
+        	itemDef.maleZOffset = 5;
+        	break;
+        
         case 18346:
         	itemDef.femaleEquip1 = itemDef.maleEquip1;
         	break;
@@ -1675,6 +1692,56 @@ public final class ItemDefinition {
         	itemDef.editedModelColor = new int[0];
         	itemDef.newModelColor = new int[0];
         	itemDef.modelZoom += 350;
+        	break;
+        	
+        case 22060:
+        	itemDef.copy(forID(56000));
+        	itemDef.maleEquip1 = 57;
+        	itemDef.femaleEquip1 = 57;
+        	itemDef.modelID = 62;
+        	itemDef.editedModelColor = new int[] { 50 };
+        	itemDef.newModelColor = new int[] { 59 };
+        	itemDef.dataType = DataType.CUSTOM;
+        	break;
+        	
+        case 22061:
+        	itemDef.copy(forID(56001));
+        	itemDef.maleEquip1 = 58;
+        	itemDef.femaleEquip1 = 58;
+        	itemDef.modelID = 63;
+        	itemDef.editedModelColor = new int[] { 50 };
+        	itemDef.newModelColor = new int[] { 59 };
+        	itemDef.dataType = DataType.CUSTOM;
+        	break;
+        	
+        case 22062:
+        	itemDef.copy(forID(56002));
+        	itemDef.maleEquip1 = 59;
+        	itemDef.femaleEquip1 = 59;
+        	itemDef.modelID = 64;
+        	itemDef.editedModelColor = new int[] { 50 };
+        	itemDef.newModelColor = new int[] { 59 };
+        	itemDef.dataType = DataType.CUSTOM;
+        	break;
+        	
+        case 22063:
+        	itemDef.copy(forID(56003));
+        	itemDef.maleEquip1 = 60;
+        	itemDef.femaleEquip1 = 60;
+        	itemDef.modelID = 60;
+        	itemDef.editedModelColor = new int[] { 50 };
+        	itemDef.newModelColor = new int[] { 59 };
+        	itemDef.dataType = DataType.CUSTOM;
+        	break;
+        	
+        case 22064:
+        	itemDef.copy(forID(56004));
+        	itemDef.maleEquip1 = 61;
+        	itemDef.femaleEquip1 = 61;
+        	itemDef.modelID = 65;
+        	itemDef.editedModelColor = new int[] { 50 };
+        	itemDef.newModelColor = new int[] { 59 };
+        	itemDef.dataType = DataType.CUSTOM;
         	break;
         	
         case 17273:
@@ -3923,6 +3990,8 @@ public final class ItemDefinition {
                 itemDef.modelID = 19219;
                 itemDef.maleEquip1 = 14403;
                 itemDef.femaleEquip1 = 14403;
+                itemDef.femaleYOffset = 8;
+                itemDef.maleYOffset = -10;
                 break;
             case 12926:
                 itemDef.modelID = 25000;
@@ -3935,6 +4004,8 @@ public final class ItemDefinition {
                 itemDef.modelOffsetY = 4;
                 itemDef.maleEquip1 = 14403;
                 itemDef.femaleEquip1 = 14403;
+                itemDef.femaleYOffset = 8;
+                itemDef.maleYOffset = -10;
                 itemDef.actions = new String[]{null, "Wield", "Check", "Unload", "Drop"};
                 itemDef.groundActions = new String[]{null, null, "Take", null, null};
                 break;
@@ -3976,6 +4047,8 @@ public final class ItemDefinition {
                 
             case 20555:
                 itemDef.copy(forID(43576));
+                itemDef.femaleYOffset = 8;
+                itemDef.maleYOffset = -10;
                 break;
                 
             case 11613:
@@ -4559,7 +4632,7 @@ public final class ItemDefinition {
                 itemDef.modelID = 35742;
                 itemDef.actions = new String[5];
                 itemDef.actions[1] = "Wield";
-                itemDef.name = "@or2@Scythe Of Vitur";
+                itemDef.name = "@or2@Scythe of Vitur";
                 itemDef.description = "It is the Scythe Of Vitur";
                 itemDef.modelZoom = 2200;
                 itemDef.stackable = false;
@@ -5302,6 +5375,15 @@ public final class ItemDefinition {
                 itemDef.name = "Olmlet";
                 break;
             //end
+                
+            case 16580:
+                itemDef.copy(forID(6637));
+                itemDef.name = "Halloween pet";
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.editedModelColor = new int[] { 898, 4502, 38119, 5640, 8363, 7403, 5388, 268, 4750, 9135, 65535, };
+                itemDef.newModelColor = new int[] { 3, 43, 90, 90, 90, 90, 23, 23, 27, 94, 90, };
+                break;
 
             case 11884:
                 itemDef.actions = new String[]{"Open", null, null, null, null, null};
@@ -9419,8 +9501,8 @@ public final class ItemDefinition {
             // colors.forEach(c -> System.out.print((c + ":#" +Integer.toHexString(RS2HSB_to_RGB(c)).substring(2) + ", ")));
         colors.forEach(c -> System.out.print((c + ", ")));
         System.out.println();
-        System.out.print(id + " Modified colours: ");
-        colors.forEach(c -> System.out.print((RGB_to_RS2HSB(RS2HSB_to_RGB_MODIFIED(c, 0, 0, 200).getRed(), RS2HSB_to_RGB_MODIFIED(c, 0, 0, 200).getGreen(), RS2HSB_to_RGB_MODIFIED(c, 0, 0, 200).getBlue()) + ", ")));
+        //System.out.print(id + " Modified colours: ");
+        //colors.forEach(c -> System.out.print((RGB_to_RS2HSB(RS2HSB_to_RGB_MODIFIED(c, 0, 0, 200).getRed(), RS2HSB_to_RGB_MODIFIED(c, 0, 0, 200).getGreen(), RS2HSB_to_RGB_MODIFIED(c, 0, 0, 200).getBlue()) + ", ")));
             System.out.println();
         }
         if (editedModelColor != null) {
@@ -9490,7 +9572,9 @@ public final class ItemDefinition {
       int encode_hue = (int)(hue * 63.0F);
       int encode_saturation = (int)(saturation * 7.0F);
       int encode_brightness = (int)(brightness * 127.0F);
-      return (encode_hue << 10) + (encode_saturation << 7) + encode_brightness;
+      int RS2 = (encode_hue << 10) + (encode_saturation << 7) + encode_brightness;
+      System.out.println("RS2: " + RS2);
+      return RS2;
     }
 	/**
 	 * Gets the custom recolors.

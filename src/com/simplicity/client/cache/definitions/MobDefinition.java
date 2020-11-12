@@ -16,7 +16,7 @@ public final class MobDefinition {
     private static final int[] FOLLOWER_IDS = new int[] {
             17130, 17131, 17132,
             6830, 6825, 6841, 6806, 6796, 7331, 6831, 6837, 7361, 6847, 6994, 6872, 7353, 6835, 6845, 6808, 153, 154, 7519,
-            23492, 23493, 23494, 23495, 2775, 2776, 7370, 7333, 7351, 7367, 6853, 6867, 6851, 6833, 6875, 6877, 6879,
+            23492, 23493, 23494, 23495, 2775, 2776, 4550, 7370, 7333, 7351, 7367, 6853, 6867, 6851, 6833, 6875, 6877, 6879,
             6881, 6883, 6885, 6887, 6855, 7377, 22519, 6824, 6843, 6794, 6818, 6992, 6857, 6991, 7365, 7337, 7363, 6809,
             6865, 6820, 6802, 6827, 6859, 6889, 6815, 6813, 6817, 7372, 6839, 8575, 7345, 6849, 6798, 6861, 7335, 7347,
             6800, 7355, 7357, 7359, 9488, 6804, 7341, 7329, 6863, 6822, 7339, 6869, 7349, 7375, 6873, 7343, 3033, 3030,
@@ -131,6 +131,26 @@ public final class MobDefinition {
                     npc.actions[1] = "Attack";
                     npc.sizeXZ *= 3;
                     npc.sizeY *= 3;
+                    npc.squaresNeeded = 4;
+                    break;
+                    
+                case 2665:
+                    npc.copy(forID(18627));
+                    npc.name = "Halloween Ghost";
+                    npc.actions = new String[5];
+                    npc.actions[1] = "Attack";
+                    npc.sizeXZ *= 4;
+                    npc.sizeY *= 4;
+                    npc.squaresNeeded = 2;
+                    break;
+                    
+                case 2666:
+                    npc.copy(forID(23709));
+                    npc.name = "Halloween Beast";
+                    npc.actions = new String[5];
+                    npc.actions[1] = "Attack";
+                    npc.sizeXZ *= 2;
+                    npc.sizeY *= 2;
                     npc.squaresNeeded = 4;
                     break;
                     
@@ -410,6 +430,17 @@ public final class MobDefinition {
                 npc.name = "Kura";
                 npc.sizeXZ = 20;
                 npc.sizeY = 20;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                npc.squaresNeeded = 1;
+                npc.pet = true;
+                break;
+                
+            case 4550:
+                npc.copy(forID(17666));
+                npc.name = "Halloween pet";
+                npc.sizeXZ = 80;
+                npc.sizeY = 80;
                 npc.actions = new String[5];
                 npc.actions[0] = "Pick-up";
                 npc.squaresNeeded = 1;

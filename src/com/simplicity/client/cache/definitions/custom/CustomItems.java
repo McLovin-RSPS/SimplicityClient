@@ -694,7 +694,7 @@ public class CustomItems {
                 itemDef.copy(ItemDefinition.forID(6830));
                 itemDef.editedModelColor = new int[]{127, 11187};
                 itemDef.newModelColor = new int[]{4024, 1024};
-                itemDef.name = "Halloween box";
+                itemDef.name = "Halloween box 2020";
                 break;
                 
             case 14933:

@@ -1472,6 +1472,65 @@ public class Sprite extends DrawingArea {
 
 	}
 
+	public void drawAt(int i, int k, float percent) {
+		int tempWidth = myWidth;
+		int tempHeight = myHeight;
+		int[] tempArray = new int[tempWidth * tempHeight];
+		for (int x = 0; x < tempWidth; x++) {
+			for (int y = 0; y < tempHeight; y++) {
+				float[] hsb = new float[4];
+				int alpha = myPixels[x + y * tempWidth] >>> 24;
+				int red = myPixels[x + y * tempWidth] >>> 16 & 0xff;
+				int green = myPixels[x + y * tempWidth] >>> 8 & 0xff;
+				int blue = myPixels[x + y * tempWidth] & 0xff;
+				Color.RGBtoHSB(red, green, blue, hsb);
+				int rgb = Color.HSBtoRGB(hsb[0], hsb[1], hsb[2] * percent);
+				red = rgb >>> 16 & 0xff;
+				green = rgb >>> 8 & 0xff;
+				blue = rgb & 0xff;
+				tempArray[x + y * tempWidth] = (alpha << 24 | red << 16 | green << 8 | blue);
+			}
+		}
+		i--;
+		k--;
+		i += drawOffsetX;
+		k += drawOffsetY;
+		int l = i + k * DrawingArea.width;
+		int i1 = 0;
+		int j1 = tempHeight;
+		int k1 = tempWidth;
+		int l1 = DrawingArea.width - k1;
+		int i2 = 0;
+		if (k < DrawingArea.topY) {
+			int j2 = DrawingArea.topY - k;
+			j1 -= j2;
+			k = DrawingArea.topY;
+			i1 += j2 * k1;
+			l += j2 * DrawingArea.width;
+		}
+		if (k + j1 > DrawingArea.bottomY) {
+			j1 -= (k + j1) - DrawingArea.bottomY;
+		}
+		if (i < DrawingArea.topX) {
+			int k2 = DrawingArea.topX - i;
+			k1 -= k2;
+			i = DrawingArea.topX;
+			i1 += k2;
+			l += k2;
+			i2 += k2;
+			l1 += k2;
+		}
+		if (i + k1 > DrawingArea.bottomX) {
+			int l2 = (i + k1) - DrawingArea.bottomX;
+			k1 -= l2;
+			i2 += l2;
+			l1 += l2;
+		}
+		if (!(k1 <= 0 || j1 <= 0)) {
+			block_copy_trans(DrawingArea.pixels, tempArray, i1, l, k1, j1, l1, i2);
+		}
+	}
+
 	public void drawARGBSprite(int xPos, int yPos) {
 		drawARGBSprite(xPos, yPos, 256);
 	}

@@ -175,6 +175,9 @@ public final class ObjectDefinition {
         if (i == 114108) {
         	objectDef.mapFunctionID = 87;
         }
+        if (i == 54407) {
+            objectDef.actions[2] = "Lookup";
+        }
         if(i == 134512) {
             objectDef.animationID = 23328;
         }
