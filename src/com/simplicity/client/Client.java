@@ -9065,8 +9065,6 @@ public class Client extends RSApplet {
             stream.writeWord(lastItemSelectedInterface);
             stream.writeUnsignedWordBigEndian(selectedItemId);
             stream.writeWord(interfaceId);
-            if (interfaceId == 1688 || interfaceId == 3214)
-                secondaryOpenInterfaceID = 48480;
             atInventoryLoopCycle = 0;
             atInventoryInterface = interfaceId;
             atInventoryIndex = slot;
