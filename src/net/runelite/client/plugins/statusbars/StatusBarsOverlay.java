@@ -210,9 +210,6 @@ class StatusBarsOverlay extends Overlay
 	public Dimension render(Graphics2D g)
 	{
 		
-		com.simplicity.client.Client clients = com.simplicity.client.Client.instance;
-		client.isResized()
-		boolean resizable = com.simplicity.client.Client.clientSize != 0;
 		int clientWidth = com.simplicity.client.Client.clientWidth;
 		int clientHeight = com.simplicity.client.Client.clientHeight;
 		boolean longTabs = clientWidth >= 1000;
