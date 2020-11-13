@@ -70,7 +70,7 @@ public class Configuration {
      */
     public static boolean xpCounterOpen = true;
     public static int xpDropsPosition = 0;
-    public static int xpCounterSize = 0;
+    public static int xpCounterSize = 2;
     public static int xpDropsSpeed = 0;
     public static int xpCounterType = 0;
     public static int xpCounterProgress = 1;
