@@ -470,31 +470,31 @@ public enum CustomRecolor {
 			new int[] { 127, 127, 127, 21503, 9087, 9087, 21503, 127, 127, 127, 9087, 9087, 127, 21503 }),
 	
 	/* NEW SIRENIC BLACK/RED */
-    RED_BLACK_SIRENIC_HELM(14452, 22014, "No Church Helm",
+    RED_BLACK_SIRENIC_HELM(14452, 22014, "@red@No Church Helm",
             new int[]{39329, 32197, 38057, 41226, 33066, 40202, 41232, 40084, 41237, 40085, 40344, 40345, 40090, 32060, 40349},
             new int[]{1024, 942, 1024, 942, 1024, 942, 1024, 942, 1024, 1024, 1024, 1024, 1024, 1024, 1024}),
             
-    RED_BLACK_SIRENIC_PLATEBODY(14453, 22016, "No Church Platebody",
+    RED_BLACK_SIRENIC_PLATEBODY(14453, 22016, "@red@No Church Platebody",
             new int[]{39329, 32197, 33066, 43149, 41232, 43153, 42131, 41237, 42133, 40344, 40345, 32060, 40349, 20158},
             new int[]{1024, 942, 1024, 942, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024}),
 
-    RED_BLACK_SIRENIC_PLATELEGS(14454, 22018, "No Church Platelegs",
+    RED_BLACK_SIRENIC_PLATELEGS(14454, 22018, "@red@No Church Platelegs",
             new int[]{39329, 32197, 33066, 43149, 41232, 43153, 42131, 41237, 42133, 40344, 40345, 32060, 40349},
             new int[]{1024, 942, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024}),
 
-    RED_BLACK_SIRENIC_GLOVES(14455, 22022, "No Church Gloves",
+    RED_BLACK_SIRENIC_GLOVES(14455, 22022, "@red@No Church Gloves",
             new int[]{ 40608, 33201, 43283, 40596, 43285, 43276 },
             new int[]{ 1024, 942, 1024, 1024, 942, 942 }),
 
-    RED_BLACK_SIRENIC_BOOTS(14456, 22020, "No Church Boots",
+    RED_BLACK_SIRENIC_BOOTS(14456, 22020, "@red@No Church Boots",
             new int[]{35104, 2, 35092, 35109, 38422, 43275, 38412},
             new int[]{942, 1024, 942, 942, 1024, 1024, 1024}),
     
-    RED_BLACK_ANGELIC_CAPE(14457, 11614, "No Church Angelic Cape", 
+    RED_BLACK_ANGELIC_CAPE(14457, 11614, "@red@No Church Angelic Cape", 
 			new int[]{ 40023, 40036, 1822, 36, 25, 34243, 9230, 40040, 10348, 48, 34251, 0, 43335, 6218, 23, 11013 },
 			getCustomCapeColor(1024, 942)),
     
-    NO_CHURCH_SCYTHE_XI(14439, 15000, "@pur@Tron Scythe X", 
+    NO_CHURCH_SCYTHE_XI(14439, 15000, "@red@No Church Scythe XI", 
 			new int[] { 33, 37, 41, 78, 16, 784, 49, 20, 790, 24, 536, 796, 28, 61 },
 			new int[] { 1024, 1024, 1024, 1024, 1024, 942, 1024, 1024, 1024, 1024, 942, 942, 1024, 1024 }),
     
