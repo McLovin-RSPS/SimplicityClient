@@ -426,6 +426,26 @@ public class Hooks implements Callbacks
 		}
 	}
 	
+	public static void drawAfterTabArea(RSImageProducer bufferProvider)
+	{
+		BufferedImage image = bufferProvider.image;
+		
+		Graphics2D graphics2d = image.createGraphics();
+
+		try
+		{
+			renderer.render(graphics2d, OverlayLayer.TAB_AREA);
+		}
+		catch (Exception ex)
+		{
+			log.warn("Error during overlay rendering", ex);
+		}
+		finally
+		{
+			graphics2d.dispose();
+		}
+	}
+	
 	public static void drawAfterWidgets(Graphics graphics2d)
 	{
 		try

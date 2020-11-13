@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Tomas Slusny <slusnucky@gmail.com>
+ * Copyright (c) 2019, Jos <Malevolentdev@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,44 +22,64 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.prayer;
+package net.runelite.client.plugins.statusbars;
 
-import com.google.common.collect.ImmutableMap;
-import java.util.Map;
-import net.runelite.api.ItemID;
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
+import net.runelite.client.plugins.statusbars.Config.BarMode;
 
-enum PrayerRestoreType
+@ConfigGroup("statusbars")
+public interface StatusBarsConfig extends Config
 {
-	RESTOREPOT(ItemID.SUPER_RESTORE4, ItemID.SUPER_RESTORE3, ItemID.SUPER_RESTORE2, ItemID.SUPER_RESTORE1),
-	PRAYERPOT(ItemID.PRAYER_POTION4, ItemID.PRAYER_POTION3, ItemID.PRAYER_POTION2, ItemID.PRAYER_POTION1),
-	SANFEWPOT(ItemID.SANFEW_SERUM4, ItemID.SANFEW_SERUM3, ItemID.SANFEW_SERUM2, ItemID.SANFEW_SERUM1),
-	HOLYWRENCH(ItemID.PRAYER_CAPE, ItemID.PRAYER_CAPET, ItemID.MAX_CAPE,
-			ItemID.MAX_CAPE_13342, ItemID.HOLY_WRENCH, ItemID.RING_OF_THE_GODS_I);
-
-	private static final Map<Integer, PrayerRestoreType> prayerRestores;
-
-	private final int[] items;
-
-	PrayerRestoreType(int... items)
+	@ConfigItem(
+		keyName = "enableCounter",
+		name = "Show counters",
+		description = "Shows current value of the status on the bar"
+	)
+	default boolean enableCounter()
 	{
-		this.items = items;
+		return false;
 	}
 
-	static
+	@ConfigItem(
+		keyName = "enableSkillIcon",
+		name = "Show icons",
+		description = "Adds skill icons at the top of the bars."
+	)
+	default boolean enableSkillIcon()
 	{
-		ImmutableMap.Builder<Integer, PrayerRestoreType> builder = new ImmutableMap.Builder<>();
-		for (PrayerRestoreType prayerRestoreType : values())
-		{
-			for (int itemId : prayerRestoreType.items)
-			{
-				builder.put(itemId, prayerRestoreType);
-			}
-		}
-		prayerRestores = builder.build();
+		return true;
 	}
 
-	static PrayerRestoreType getType(final int itemId)
+	@ConfigItem(
+		keyName = "enableRestorationBars",
+		name = "Show restores",
+		description = "Visually shows how much will be restored to your status bar.",
+		hidden = true
+	)
+	default boolean enableRestorationBars()
 	{
-		return prayerRestores.get(itemId);
+		return true;
+	}
+
+	@ConfigItem(
+		keyName = "leftBarMode",
+		name = "Left Status Bar",
+		description = "Configures the left status bar"
+	)
+	default BarMode leftBarMode()
+	{
+		return BarMode.HITPOINTS;
+	}
+
+	@ConfigItem(
+		keyName = "rightBarMode",
+		name = "Right Status Bar",
+		description = "Configures the right status bar"
+	)
+	default BarMode rightBarMode()
+	{
+		return BarMode.PRAYER;
 	}
 }

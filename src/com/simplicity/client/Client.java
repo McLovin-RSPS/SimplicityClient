@@ -1935,7 +1935,7 @@ public class Client extends RSApplet {
 
     boolean hasFamiliar = false;
 
-    private int currentSpec = 0;
+    public int currentSpec = 0;
     private boolean specActivated = false;
     private double fillSpec;
 
@@ -2708,7 +2708,11 @@ public class Client extends RSApplet {
         }
         Rasterizer.anIntArray1472 = anIntArray1181;
         handleTabArea(clientSize == 0);
-
+        
+        if (runelite != null) {
+        	callbacks.drawAfterTabArea(clientSize == 0 ? tabAreaIP : gameScreenIP);
+        }
+        
         if (Configuration.enableSkillStatusBars) {
             if (clientSize == 0) {
             	drawSkillStatus(8, 41, 3, 1155, 250, new Color(255, 0, 0, 45));
@@ -2720,7 +2724,7 @@ public class Client extends RSApplet {
             	drawSkillStatus(!showTab ? clientWidth - 25 : clientWidth - 230, small ? clientHeight - 312 : clientHeight - 350, 5, 1156, small ? 271 : 271, new Color(0, 0, 255, 45));
             }
         }
-
+        
         int y = clientWidth >= smallTabs ? 37 : 74;
         if (showTab) {
             if (invOverlayInterfaceID != -1) {
@@ -2732,6 +2736,7 @@ public class Client extends RSApplet {
                         RSInterface.interfaceCache[tabInterfaceIDs[tabID]],
                         (clientSize == 0 ? 37 : clientHeight - y - 267));
             }
+            
             if (menuOpen && menuScreenArea == 1) {
                 drawMenu();
             }

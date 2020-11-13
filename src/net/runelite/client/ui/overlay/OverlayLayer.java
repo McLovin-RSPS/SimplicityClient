@@ -40,9 +40,14 @@ public enum OverlayLayer
 	 * Render under the right-click menu
 	 */
 	ABOVE_WIDGETS,
-
+	
 	/**
 	 * Render overlay above all game elements
 	 */
 	ALWAYS_ON_TOP,
+	
+	/**
+	 * Renders above the tab area.
+	 */
+	TAB_AREA,
 }

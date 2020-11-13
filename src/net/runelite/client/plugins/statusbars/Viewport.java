@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Tomas Slusny <slusnucky@gmail.com>
+ * Copyright (c) 2018, Jos <Malevolentdev@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,44 +22,28 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.prayer;
+package net.runelite.client.plugins.statusbars;
 
-import com.google.common.collect.ImmutableMap;
-import java.util.Map;
-import net.runelite.api.ItemID;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import net.runelite.api.Point;
+import net.runelite.api.widgets.WidgetInfo;
 
-enum PrayerRestoreType
+@Getter
+@AllArgsConstructor
+enum Viewport
 {
-	RESTOREPOT(ItemID.SUPER_RESTORE4, ItemID.SUPER_RESTORE3, ItemID.SUPER_RESTORE2, ItemID.SUPER_RESTORE1),
-	PRAYERPOT(ItemID.PRAYER_POTION4, ItemID.PRAYER_POTION3, ItemID.PRAYER_POTION2, ItemID.PRAYER_POTION1),
-	SANFEWPOT(ItemID.SANFEW_SERUM4, ItemID.SANFEW_SERUM3, ItemID.SANFEW_SERUM2, ItemID.SANFEW_SERUM1),
-	HOLYWRENCH(ItemID.PRAYER_CAPE, ItemID.PRAYER_CAPET, ItemID.MAX_CAPE,
-			ItemID.MAX_CAPE_13342, ItemID.HOLY_WRENCH, ItemID.RING_OF_THE_GODS_I);
+	/*RESIZED_BOX(WidgetInfo.RESIZABLE_VIEWPORT_OLD_SCHOOL_BOX, WidgetInfo.RESIZABLE_VIEWPORT_INTERFACE_CONTAINER,
+			new Point(20, -4), new Point(0, -4)),
+	RESIZED_BOTTOM(WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE, WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_INTERFACE_CONTAINER,
+			new Point(61, 8), new Point(35, -12)),*/
+	FIXED(WidgetInfo.FIXED_VIEWPORT, WidgetInfo.FIXED_VIEWPORT_INTERFACE_CONTAINER,
+			new Point(20, -4), new Point(0, -4)),
+	/*FIXED_BANK(WidgetInfo.BANK_CONTAINER, WidgetInfo.BANK_INVENTORY_ITEMS_CONTAINER,
+			new Point(20, -4), new Point(0, -4))*/;
 
-	private static final Map<Integer, PrayerRestoreType> prayerRestores;
-
-	private final int[] items;
-
-	PrayerRestoreType(int... items)
-	{
-		this.items = items;
-	}
-
-	static
-	{
-		ImmutableMap.Builder<Integer, PrayerRestoreType> builder = new ImmutableMap.Builder<>();
-		for (PrayerRestoreType prayerRestoreType : values())
-		{
-			for (int itemId : prayerRestoreType.items)
-			{
-				builder.put(itemId, prayerRestoreType);
-			}
-		}
-		prayerRestores = builder.build();
-	}
-
-	static PrayerRestoreType getType(final int itemId)
-	{
-		return prayerRestores.get(itemId);
-	}
+	private WidgetInfo container;
+	private WidgetInfo viewport;
+	private Point offsetLeft;
+	private Point offsetRight;
 }

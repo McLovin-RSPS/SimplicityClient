@@ -1044,9 +1044,9 @@ public final class SpriteID
 	public static final int MINIMAP_ORB_RUN = 1064;
 	public static final int MINIMAP_ORB_RUN_ACTIVATED = 1065;
 	public static final int MINIMAP_ORB_PRAYER_ACTIVATED = 1066;
-	public static final int MINIMAP_ORB_HITPOINTS_ICON = 1067;
+	public static final int MINIMAP_ORB_HITPOINTS_ICON = 1155;
 	public static final int MINIMAP_ORB_PRAYER_ICON = 1068;
-	public static final int MINIMAP_ORB_RUN_ICON = 1070;
+	public static final int MINIMAP_ORB_RUN_ICON = 1710;
 	public static final int MINIMAP_ORB_RUN_ICON_ACTIVATED = 1070;
 	public static final int MINIMAP_ORB_FRAME = 1071;
 	public static final int MINIMAP_ORB_FRAME_HOVERED = 1072;
@@ -1553,7 +1553,7 @@ public final class SpriteID
 	public static final int MINIMAP_ORB_SPECIAL = 1607;
 	public static final int MINIMAP_ORB_SPECIAL_ACTIVATED = 1608;
 	/* Unmapped: 1609 */
-	public static final int MINIMAP_ORB_SPECIAL_ICON = 1610;
+	public static final int MINIMAP_ORB_SPECIAL_ICON = 1708;
 	public static final int FIXED_MODE_MINIMAP_FRAME_BOTTOM = 1611;
 	/* Unmapped: 1612, 1613, 1614 */
 	public static final int MOBILE_TUTORIAL_FUNCTION_MODE_BUTTON = 1615;

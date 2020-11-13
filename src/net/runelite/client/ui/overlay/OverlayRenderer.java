@@ -157,7 +157,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		for (Overlay overlay : overlays)
 		{
 			OverlayPosition overlayPosition = overlay.getPosition();
-
+			
 			if (overlay.getPreferredPosition() != null)
 			{
 				overlayPosition = overlay.getPreferredPosition();
@@ -436,8 +436,10 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 			changed = true;
 		}*/
 		
+		
+		
 		chatboxBounds = new Rectangle(0, 0, 512, 512);
-		viewportBounds = new Rectangle(0, 0, 512, 800);
+		viewportBounds = new Rectangle(0, 0, client.getViewportWidth(), client.getViewportHeight());
 		return true; // TODO
 	}
 
