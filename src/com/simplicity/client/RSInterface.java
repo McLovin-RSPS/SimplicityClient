@@ -5143,7 +5143,7 @@ public class RSInterface {
 
         RSInterface presets = addInterface(id++);
 
-        presets.totalChildren(39);
+        presets.totalChildren(43);
 
         int frame = 0;
 
@@ -5228,7 +5228,22 @@ public class RSInterface {
 
         interfaceCache[86100].children[27] = 86150;
 
-        presets.child(frame++, 86100, 109, 50);
+        presets.child(frame++, 86100, 109, 30);
+
+        addText(86202, "Familiar Loadout", tda, 0, 0xffffff, false);
+        presets.child(frame++, 86202, 130, 232);
+
+        addRectangle(86200, 40, 40, 0x000000, 128, true);
+        presets.child(frame++, 86200, 130, 250);
+        itemGroup(86201, 40, 40, 0, 0);
+        interfaceCache[86201].usableItemInterface = true;
+        interfaceCache[86201].inv[0] = 1;
+        interfaceCache[86201].invStackSizes[0] = 1;
+        presets.child(frame++, 86201, 135, 255);
+
+        addText(86203, "Left-click and select\\na @whi@pouch@or1@ in your \\ninventory to update\\nyour @whi@familiar loadout@or1@.",
+                tda, 0, 0xFFA500, false);
+        presets.child(frame++, 86203, 177, 250);
     }
 
     public static void tournamentInterface(TextDrawingArea[] tda) {

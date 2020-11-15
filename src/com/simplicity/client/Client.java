@@ -9065,8 +9065,6 @@ public class Client extends RSApplet {
             stream.writeWord(lastItemSelectedInterface);
             stream.writeUnsignedWordBigEndian(selectedItemId);
             stream.writeWord(interfaceId);
-            if (interfaceId == 1688 || interfaceId == 3214)
-                secondaryOpenInterfaceID = 48480;
             atInventoryLoopCycle = 0;
             atInventoryInterface = interfaceId;
             atInventoryIndex = slot;
@@ -25235,17 +25233,22 @@ public class Client extends RSApplet {
 	
 	public RSFontSystem getRSFont(TextDrawingArea textDrawingArea) {
 		RSFontSystem font = null;
+		
+		
 		if (textDrawingArea == smallText) {
 			font = newSmallFont;
-		} else if (textDrawingArea == normalFont) {
+		} else if (textDrawingArea == drawingArea) {
 			font = newRegularFont;
-		} else if (textDrawingArea == boldFont) {
+		} else if (textDrawingArea == chatTextDrawingArea) {
 			font = newBoldFont;
-		} else if (textDrawingArea == fancyText) {
+		} else if (textDrawingArea == aTextDrawingArea_1273) {
 			font = newFancyFont;
 		} else if (textDrawingArea == fancyTextLarge) {
 			font = newFancyFontLarge;
+		} else {
+			font = newSmallFont;
 		}
+		
 		return font;
 	}
 	
