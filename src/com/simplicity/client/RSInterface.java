@@ -2105,7 +2105,7 @@ public class RSInterface {
         parent.child(16, 98945, 80, 81);
         parent.addSpellButton(98955, 563, 9075, 554, 2, 2, 6, 76, "Tele Group Barbarian", 1680, 1491, "Teleports players to the Barbarian Outpost", tda, 1, 0);
         parent.child(17, 98955, 120, 81);
-        parent.addSpellButton(98965, 9075, 554, 556, 2, 6, 10, 77, "Superglass Make", 1681, 1492, "Make glass without a furnace", tda, 2, 16);
+        parent.addSpellButton(98965, 9075, 554, 556, 2, 6, 10, 77, "Superglass Make", 1681, 1492, "Make glass without a furnace", tda, 1, 0);
         parent.child(18, 98965, 0, 108);
         parent.addSpellButton(98975, 9075, 561, 554, 2, 1, 5, 78, "Tan Leather", 1682, 1493, "Tans up to 5 hides", tda, 1, 0);
         parent.child(19, 98975, 40, 108);
