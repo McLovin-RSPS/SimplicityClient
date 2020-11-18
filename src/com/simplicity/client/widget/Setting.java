@@ -250,6 +250,8 @@ public enum Setting {
 	HITMARKERS(new DropdownMenu(75, false, 0, new String[] { "562", "OSRS" }, Dropdown.HITMARKERS)) { },
 	
 	HP_BARS(new DropdownMenu(75, false, 0, new String[] { "562", "OSRS" }, Dropdown.HPBARS)) { },
+	
+	GAMEFRAME(new DropdownMenu(75, false, 1, new String[] { "500+", "600+", "OSRS" }, Dropdown.GAMEFRAME)) { },
 
 	OLD_GAMEFRAME() {
 

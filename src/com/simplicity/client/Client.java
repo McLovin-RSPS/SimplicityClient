@@ -556,7 +556,7 @@ public class Client extends RSApplet {
             antialiasingOffsets = Rasterizer.anIntArray1472;
             Rasterizer.setBounds(clientWidth, clientHeight);
             fullScreenTextureArray = Rasterizer.anIntArray1472;
-            Rasterizer.setBounds(clientSize == 0 ? (chatAreaIP != null ? chatAreaIP.width : 519) : clientWidth,
+            Rasterizer.setBounds(clientSize == 0 ? (chatAreaIP != null ? chatAreaIP.width : 516) : clientWidth,
                     clientSize == 0 ? (chatAreaIP != null ? chatAreaIP.height : 165) : clientHeight);
             anIntArray1180 = Rasterizer.anIntArray1472;
             Rasterizer.setBounds(clientSize == 0 ? (tabAreaIP != null ? tabAreaIP.width : 250) : clientWidth,
@@ -1704,14 +1704,33 @@ public class Client extends RSApplet {
     public int getOrbX(int orb) {
         switch (orb) {
             case 0:
+            	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+            		return 0;
+            	}
+            	
                 return clientSize != 0 ? clientWidth - 212 : Configuration.enableSpecialOrb ? 167 : 172;
             case 1:
+            	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+            		return 0;
+            	}
+            	
                 return clientSize != 0 ? clientWidth - 215 : Configuration.enableSpecialOrb ? 179 : 188;
             case 2:
+            	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+            		return 14;
+            	}
+            	
                 return clientSize != 0 ? clientWidth - 206 : Configuration.enableSpecialOrb ? 181 : 188;
             case 3:
+            	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+            		return 172;
+            	}
+            	
                 return clientSize != 0 ? clientWidth - 188 : Configuration.enableSpecialOrb ? 174 : 172;
             case 4:
+            	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+            		return 36;
+            	}
             	return clientSize != 0 ? clientWidth - 155 : 156;
         }
         return 0;
@@ -1720,14 +1739,34 @@ public class Client extends RSApplet {
     public int getOrbY(int orb) {
         switch (orb) {
             case 0:
+            	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+            		return 45;
+            	}
+            	
                 return clientSize != 0 ? 39 : Configuration.enableSpecialOrb ? 10 : 15;
             case 1:
+            	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+            		return 79;
+            	}
+            	
                 return clientSize != 0 ? 73 : Configuration.enableSpecialOrb ? 43 : 54;
             case 2:
+				if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+					return 109;
+				}
+				
                 return clientSize != 0 ? 106 : Configuration.enableSpecialOrb ? 76 : 93;
             case 3:
+            	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+            		return 128;
+            	}
+            	
                 return clientSize != 0 ? 135 : Configuration.enableSpecialOrb ? 107 : 128;
             case 4:
+            	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+            		return 134;
+            	}
+            	
             	return clientSize != 0 ? 159 : 134;
         }
         return 0;
@@ -1747,35 +1786,55 @@ public class Client extends RSApplet {
         }
         int x = getOrbX(0);
         int y = getOrbY(0);
-        orbs[clientSize == 0 ? 0 : 11].drawSprite(x, y);
+        
+        if (Configuration.enableOldschoolFrame) {
+        	cacheSprite[1711].drawSprite(x, y);
+        } else {
+        	orbs[clientSize == 0 ? 0 : 11].drawSprite(x, y);
+        }
+        
+        int textX = x + (clientSize == 0 ? 42 : 15);
+        
+        if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+        	textX -= 28;
+        }
+        
         if (health >= 75) {
-            newSmallFont.drawCenteredString(Integer.toString(currentHp), x + (clientSize == 0 ? 42 : 15), y + 26, 65280,
+            newSmallFont.drawCenteredString(Integer.toString(currentHp), textX, y + 26, 65280,
                     0);
         } else if (health <= 74 && health >= 50) {
-            newSmallFont.drawCenteredString(Integer.toString(currentHp), x + (clientSize == 0 ? 42 : 15), y + 26,
+            newSmallFont.drawCenteredString(Integer.toString(currentHp), textX, y + 26,
                     0xffff00, 0);
         } else if (health <= 49 && health >= 25) {
-            newSmallFont.drawCenteredString(Integer.toString(currentHp), x + (clientSize == 0 ? 42 : 15), y + 26,
+            newSmallFont.drawCenteredString(Integer.toString(currentHp), textX, y + 26,
                     0xfca607, 0);
         } else if (health <= 24 && health >= 0) {
-            newSmallFont.drawCenteredString(Integer.toString(currentHp), x + (clientSize == 0 ? 42 : 15), y + 26,
+            newSmallFont.drawCenteredString(Integer.toString(currentHp), textX, y + 26,
                     0xf50d0d, 0);
 
         }
-        if (poisoned && !venom) {
-            cacheSprite[1029].drawSprite(x + (clientSize == 0 ? 3 : 27), y + 3);
-        } else if (!poisoned && venom) {
-            cacheSprite[1030].drawSprite(x + (clientSize == 0 ? 3 : 27), y + 3);
-        } else {
-            orbs[2].drawSprite(x + (clientSize == 0 ? 3 : 27), y + 3);
+        
+        int fillX = x + (clientSize == 0 ? 3 : 27);
+        
+        if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+        	fillX += 24;
         }
+        
+        if (poisoned && !venom) {
+            cacheSprite[1029].drawSprite(fillX, y + 3);
+        } else if (!poisoned && venom) {
+            cacheSprite[1030].drawSprite(fillX, y + 3);
+        } else {
+            orbs[2].drawSprite(fillX, y + 3);
+        }
+        
         double percent = (health / 100D);
         fillHP = 27 * percent;
         int depleteFill = 27 - (int) fillHP;
         orbs[1].myHeight = depleteFill;
         orbs[1].height = depleteFill;
-        orbs[1].drawSprite(x + (clientSize == 0 ? 3 : 27), y + 3);
-        orbs[3].drawSprite(x + (clientSize == 0 ? 9 : 33), y + 11);
+        orbs[1].drawSprite(fillX, y + 3);
+        orbs[3].drawSprite(fillX + 6, y + 11);
     }
 
     public double fillPrayer;
@@ -1791,29 +1850,49 @@ public class Client extends RSApplet {
         int prayer = (int) (((double) currentPray / (double) maxPray) * 100D);
         int x = getOrbX(1);
         int y = getOrbY(1);
-        orbs[clientSize == 0 ? (hoverPos == 1 ? 12 : 0) : (hoverPos == 1 ? 13 : 11)].drawSprite(x, y);
+        
+        
+        if (Configuration.enableOldschoolFrame) {
+        	cacheSprite[hoverPos == 1 ? 1712 : 1711].drawSprite(x, y);
+        } else {
+        	orbs[clientSize == 0 ? (hoverPos == 1 ? 12 : 0) : (hoverPos == 1 ? 13 : 11)].drawSprite(x, y);
+        }
+        
+        int textX = x + (clientSize == 0 ? 42 : 15);
+        
+        if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+        	textX -= 28;
+        }
+        
         if (prayer >= 75) {
-            newSmallFont.drawCenteredString(Integer.toString(currentPray), x + (clientSize == 0 ? 42 : 15), y + 26,
+            newSmallFont.drawCenteredString(Integer.toString(currentPray), textX, y + 26,
                     65280, 0);
         } else if (prayer <= 74 && prayer >= 50) {
-            newSmallFont.drawCenteredString(Integer.toString(currentPray), x + (clientSize == 0 ? 42 : 15), y + 26,
+            newSmallFont.drawCenteredString(Integer.toString(currentPray), textX, y + 26,
                     0xffff00, 0);
         } else if (prayer <= 49 && prayer >= 25) {
-            newSmallFont.drawCenteredString(Integer.toString(currentPray), x + (clientSize == 0 ? 42 : 15), y + 26,
+            newSmallFont.drawCenteredString(Integer.toString(currentPray), textX, y + 26,
                     0xfca607, 0);
         } else if (prayer <= 24 && prayer >= 0) {
-            newSmallFont.drawCenteredString(Integer.toString(currentPray), x + (clientSize == 0 ? 42 : 15), y + 26,
+            newSmallFont.drawCenteredString(Integer.toString(currentPray), textX, y + 26,
                     0xf50d0d, 0);
 
         }
-        orbs[quickPrsActive ? 10 : 4].drawSprite(x + (clientSize == 0 ? 3 : 27), y + 3);
+        
+        int fillX = x + (clientSize == 0 ? 3 : 27);
+        
+        if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+        	fillX += 24;
+        }
+        
+        orbs[quickPrsActive ? 10 : 4].drawSprite(fillX, y + 3);
         double percent = (prayer / 100D);
         fillPrayer = 27 * percent;
         int depleteFill = 27 - (int) fillPrayer;
         orbs[17].myHeight = depleteFill;
         orbs[17].height = depleteFill;
-        orbs[17].drawSprite(x + (clientSize == 0 ? 3 : 27), y + 3);
-        orbs[5].drawSprite(x + (clientSize == 0 ? 7 : 31), y + 7);
+        orbs[17].drawSprite(fillX, y + 3);
+        orbs[5].drawSprite(fillX + 4, y + 7);
     }
 
     public double fillRun;
@@ -1825,29 +1904,48 @@ public class Client extends RSApplet {
         int run = (int) (((double) currentEnergy / (double) 100) * 100D);
         int x = getOrbX(2);
         int y = getOrbY(2);
-        orbs[clientSize == 0 ? (hoverPos == 2 ? 12 : 0) : (hoverPos == 2 ? 13 : 11)].drawSprite(x, y);
+        
+        if (Configuration.enableOldschoolFrame) {
+        	cacheSprite[hoverPos == 2 ? 1712 : 1711].drawSprite(x, y);
+        } else {
+        	orbs[clientSize == 0 ? (hoverPos == 2 ? 12 : 0) : (hoverPos == 2 ? 13 : 11)].drawSprite(x, y);
+        }
+        
+        int textX = x + (clientSize == 0 ? 42 : 15);
+        
+        if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+        	textX -= 27;
+        }
+        
         if (run <= 100 && run >= 75) {
-            newSmallFont.drawCenteredString(Integer.toString(currentEnergy), x + (clientSize == 0 ? 42 : 15), y + 26,
+            newSmallFont.drawCenteredString(Integer.toString(currentEnergy), textX, y + 26,
                     65280, 0);
         } else if (run <= 74 && run >= 50) {
-            newSmallFont.drawCenteredString(Integer.toString(currentEnergy), x + (clientSize == 0 ? 42 : 15), y + 26,
+            newSmallFont.drawCenteredString(Integer.toString(currentEnergy), textX, y + 26,
                     0xffff00, 0);
         } else if (run <= 49 && run >= 25) {
-            newSmallFont.drawCenteredString(Integer.toString(currentEnergy), x + (clientSize == 0 ? 42 : 15), y + 26,
+            newSmallFont.drawCenteredString(Integer.toString(currentEnergy), textX, y + 26,
                     0xfca607, 0);
         } else if (run <= 24 && run >= 0) {
-            newSmallFont.drawCenteredString(Integer.toString(currentEnergy), x + (clientSize == 0 ? 42 : 15), y + 26,
+            newSmallFont.drawCenteredString(Integer.toString(currentEnergy), textX, y + 26,
                     0xf50d0d, 0);
 
         }
-        orbs[!running ? 6 : 8].drawSprite(x + (clientSize == 0 ? 3 : 27), y + 3);
+        
+        int fillX = x + (clientSize == 0 ? 3 : 27);
+        
+        if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+        	fillX += 24;
+        }
+        
+        orbs[!running ? 6 : 8].drawSprite(fillX, y + 3);
         double percent = (run / 100D);
         fillRun = 27 * percent;
         int depleteFill = 27 - (int) fillRun;
         orbs[18].myHeight = depleteFill;
         orbs[18].height = depleteFill;
-        orbs[18].drawSprite(x + (clientSize == 0 ? 3 : 27), y + 3);
-        orbs[!running ? 7 : 9].drawSprite(x + (clientSize == 0 ? 10 : 34), y + 7);
+        orbs[18].drawSprite(fillX, y + 3);
+        orbs[!running ? 7 : 9].drawSprite(fillX + 7, y + 7);
     }
 
     public double fillSummoning;
@@ -1856,28 +1954,40 @@ public class Client extends RSApplet {
         int summoning = (int) (((double) currentStats[23] / (double) currentMaxStats[23]) * 100D);
         int x = getOrbX(3);
         int y = getOrbY(3);
-        orbs[clientSize == 0 ? (hoverPos == 3 ? 12 : 0) : (hoverPos == 3 ? 13 : 11)].drawSprite(x, y);
+        
+    	if (Configuration.enableOldschoolFrame) {
+    		int icon = hoverPos == 3 ? (clientSize == 0 ? 1719 : 1712) : (clientSize == 0 ? 1718 : 1711);
+    		cacheSprite[icon].drawSprite(x, y);
+    	} else {
+    		orbs[clientSize == 0 ? (hoverPos == 3 ? 12 : 0) : (hoverPos == 3 ? 13 : 11)].drawSprite(x, y);
+    	}
+        
+        int textX = x + (clientSize == 0 ? 42 : 15);
+        
         if (summoning <= 100 && summoning >= 75) {
-            newSmallFont.drawCenteredString(Integer.toString(currentStats[23]), x + (clientSize == 0 ? 42 : 15), y + 26,
+            newSmallFont.drawCenteredString(Integer.toString(currentStats[23]), textX, y + 26,
                     65280, 0);
         } else if (summoning <= 74 && summoning >= 50) {
-            newSmallFont.drawCenteredString(Integer.toString(currentStats[23]), x + (clientSize == 0 ? 42 : 15), y + 26,
+            newSmallFont.drawCenteredString(Integer.toString(currentStats[23]), textX, y + 26,
                     0xffff00, 0);
         } else if (summoning <= 49 && summoning >= 25) {
-            newSmallFont.drawCenteredString(Integer.toString(currentStats[23]), x + (clientSize == 0 ? 42 : 15), y + 26,
+            newSmallFont.drawCenteredString(Integer.toString(currentStats[23]), textX, y + 26,
                     0xfca607, 0);
         } else if (summoning <= 24 && summoning >= 0) {
-            newSmallFont.drawCenteredString(Integer.toString(currentStats[23]), x + (clientSize == 0 ? 42 : 15), y + 26,
+            newSmallFont.drawCenteredString(Integer.toString(currentStats[23]), textX, y + 26,
                     0xf50d0d, 0);
         }
-        orbs[hasFamiliar ? 16 : 14].drawSprite(x + (clientSize == 0 ? 3 : 27), y + 3);
+        
+        int fillX = x + (clientSize == 0 ? 3 : 27);
+        
+        orbs[hasFamiliar ? 16 : 14].drawSprite(fillX, y + 3);
         double percent = (summoning / 100D);
         fillSummoning = 27 * percent;
         int depleteFill = 27 - (int) fillSummoning;
         orbs[19].myHeight = depleteFill;
         orbs[19].height = depleteFill;
-        orbs[19].drawSprite(x + (clientSize == 0 ? 3 : 27), y + 3);
-        orbs[15].drawSprite(x + (clientSize == 0 ? 9 : 33), y + 9);
+        orbs[19].drawSprite(fillX, y + 3);
+        orbs[15].drawSprite(fillX + 6, y + 9);
     }
 
     boolean hasFamiliar = false;
@@ -1893,30 +2003,48 @@ public class Client extends RSApplet {
         int spec = (int) (((double) currentSpec / (double) 100) * 100D);
         int x = getOrbX(4);
         int y = getOrbY(4);
-        orbs[clientSize == 0 ? (specActivated || hoverSpecOrb() ? 12 : 0) : (specActivated || hoverSpecOrb() ? 13 : 11)].drawSprite(x, y);
+        
+        if (Configuration.enableOldschoolFrame) {
+        	cacheSprite[(specActivated || hoverSpecOrb()) ? 1712 : 1711].drawSprite(x, y);
+        } else {
+        	orbs[clientSize == 0 ? (specActivated || hoverSpecOrb() ? 12 : 0) : (specActivated || hoverSpecOrb() ? 13 : 11)].drawSprite(x, y);
+        }
+        
+        int textX = x + (clientSize == 0 ? 42 : 15);
+        
+        if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+        	textX -= 28;
+        }
+        
         if (spec <= 100 && spec >= 75) {
-            newSmallFont.drawCenteredString(Integer.toString(spec), x + (clientSize == 0 ? 42 : 15), y + 26,
+            newSmallFont.drawCenteredString(Integer.toString(spec), textX, y + 26,
                     65280, 0);
         } else if (spec <= 74 && spec >= 50) {
-            newSmallFont.drawCenteredString(Integer.toString(spec), x + (clientSize == 0 ? 42 : 15), y + 26,
+            newSmallFont.drawCenteredString(Integer.toString(spec), textX, y + 26,
                     0xffff00, 0);
         } else if (spec <= 49 && spec >= 25) {
-            newSmallFont.drawCenteredString(Integer.toString(spec), x + (clientSize == 0 ? 42 : 15), y + 26,
+            newSmallFont.drawCenteredString(Integer.toString(spec), textX, y + 26,
                     0xfca607, 0);
         } else if (spec <= 24 && spec >= 0) {
-            newSmallFont.drawCenteredString(Integer.toString(spec), x + (clientSize == 0 ? 42 : 15), y + 26,
+            newSmallFont.drawCenteredString(Integer.toString(spec), textX, y + 26,
                     0xf50d0d, 0);
         }
+        
+        int fillX = x + (clientSize == 0 ? 3 : 27);
+        
+        if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+        	fillX += 24;
+        }
 
-        cacheSprite[1363].drawSprite(x + (clientSize == 0 ? 4 : 27), y + 5);
+        cacheSprite[1363].drawSprite(fillX + 1, y + 5);
 
         double percent = (spec / 100D);
         double f = 27 * percent;
         int depleteFill = 27 - (int) f;
         orbs[19].myHeight = depleteFill;
         orbs[19].height = depleteFill;
-        orbs[19].drawSprite(x + (clientSize == 0 ? 3 : 27), y + 3);
-        cacheSprite[1364].drawAdvancedSprite(x + (clientSize == 0 ? 8 : 32), y + 9);
+        orbs[19].drawSprite(fillX, y + 3);
+        cacheSprite[1364].drawAdvancedSprite(fillX + 5, y + 9);
     }
 
     private NumberFormat format = NumberFormat.getInstance();
@@ -1930,14 +2058,11 @@ public class Client extends RSApplet {
     public int hoverPos;
 
     public void processMapAreaMouse() {
-        if (mouseInRegion(clientWidth - (clientSize == 0 ? 249 : 217), clientSize == 0 ? 46 : 3,
-                clientWidth - (clientSize == 0 ? 249 : 217) + 34, (clientSize == 0 ? 46 : 3) + 34)) {
+        if (hoverXpCounter()) {
             hoverPos = 0;// xp counter
-        } else if (mouseInRegion(clientSize == 0 ? clientWidth - 58 : getOrbX(1), getOrbY(1),
-                (clientSize == 0 ? clientWidth - 58 : getOrbX(1)) + 57, getOrbY(1) + 34)) {
+        } else if (hoverPrayOrb()) {
             hoverPos = 1;// prayer
-        } else if (mouseInRegion(clientSize == 0 ? clientWidth - 58 : getOrbX(2), getOrbY(2),
-                (clientSize == 0 ? clientWidth - 58 : getOrbX(2)) + 57, getOrbY(2) + 34)) {
+        } else if (hoverRunOrb()) {
             hoverPos = 2;// run
         } else if (mouseInRegion(clientSize == 0 ? clientWidth - 74 : getOrbX(3), getOrbY(3),
                 (clientSize == 0 ? clientWidth - 74 : getOrbX(3)) + 57, getOrbY(3) + 34)) {
@@ -1945,6 +2070,59 @@ public class Client extends RSApplet {
         } else {
             hoverPos = -1;
         }
+    }
+    
+    private boolean hoverXpCounter() {
+    	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+    		return mouseInRegion(513, 21, 542, 47);
+    	}
+    	
+    	return mouseInRegion(clientWidth - (clientSize == 0 ? 249 : 217), clientSize == 0 ? 46 : 3,
+                clientWidth - (clientSize == 0 ? 249 : 217) + 34, (clientSize == 0 ? 46 : 3) + 34);
+    }
+    
+    private boolean hoverPrayOrb() {
+    	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+    		return mouseInRegion(516, 80, 572, 112);
+    	}
+    	
+    	return mouseInRegion(clientSize == 0 ? clientWidth - 58 : getOrbX(1), getOrbY(1),
+                (clientSize == 0 ? clientWidth - 58 : getOrbX(1)) + 57, getOrbY(1) + 34);
+    }
+    
+    private boolean hoverRunOrb() {
+    	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+    		return mouseInRegion(530, 110, 585, 142);
+    	}
+    	
+    	return mouseInRegion(clientSize == 0 ? clientWidth - 58 : getOrbX(2), getOrbY(2),
+                (clientSize == 0 ? clientWidth - 58 : getOrbX(2)) + 57, getOrbY(2) + 34);
+    }
+    
+    private boolean hoverHpOrb() {
+    	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+    		return mouseInRegion(516, 45, 572, 78);
+    	}
+    	
+    	return mouseInRegion(clientSize == 0 ? 692 : getOrbX(0), getOrbY(0), (clientSize == 0 ? 748 : getOrbX(0) + 57),
+                getOrbY(0) + 30);
+    }
+    
+    private boolean hoverBonusOrb() {
+    	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+    		return mouseInRegion(715, 85, 755, 125);
+    	}
+    	
+    	return mouseInRegion(clientSize == 0 ? 522 : clientWidth - 44, clientSize == 0 ? 121 : 170, clientSize == 0 ? 559 : clientWidth - 3, clientSize == 0 ? 157 : 170 + 43);
+    }
+    
+    private boolean hoverCompass() {
+    	return Configuration.enableOldschoolFrame && (clientSize == 0 ? (mouseX >= 542 && mouseX <= 579 && mouseY >= 2 && mouseY <= 38) : (mouseX >= clientWidth - 180 && mouseX <= clientWidth - 139 && mouseY >= 0 && mouseY <= 40)) || (mouseX >= 531 && mouseX <= 557 && mouseY >= 7 && mouseY <= 40);
+    }
+    
+    private boolean hoverSummOrb() {
+    	return mouseInRegion(clientSize == 0 ? clientWidth - 74 : getOrbX(3), getOrbY(3),
+                (clientSize == 0 ? clientWidth - 74 : getOrbX(3)) + 57, getOrbY(3) + 34);
     }
 
     public boolean choosingLeftClick;
@@ -1958,15 +2136,12 @@ public class Client extends RSApplet {
     public int[] leftClickActions = {1018, 1019, 1020, 1021, 1022, 1023, 1024, 1026};
 
     public void rightClickMapArea() {
-        if (mouseInRegion(clientWidth - (clientSize == 0 ? 249 : 217), clientSize == 0 ? 46 : 3,
-                clientWidth - (clientSize == 0 ? 249 : 217) + 34, (clientSize == 0 ? 46 : 3) + 34)) {
+        if (hoverXpCounter()) {
             menuActionName[1] = showXP ? "Hide counter" : "Show counter";
             menuActionID[1] = 1006;
             menuActionRow = 2;
         }
-        if (mouseInRegion(clientSize == 0 ? clientWidth - 58 : getOrbX(1), getOrbY(1),
-                (clientSize == 0 ? clientWidth - 58 : getOrbX(1)) + 57, getOrbY(1) + 34)) {
-
+        if (hoverPrayOrb()) {
             String prayerType = (prayerInterfaceType == 5608) ? "prayers" : "curses";
             boolean inProcess = (tabInterfaceIDs[5] == 17200 || tabInterfaceIDs[5] == 17234);
             menuActionName[menuActionRow] = (inProcess ? "Finish" : "Select") + " " + "quick " + prayerType
@@ -1982,8 +2157,7 @@ public class Client extends RSApplet {
             menuActionID[menuActionRow] = 10003;
             menuActionRow++;
         }
-        if (mouseInRegion(clientSize == 0 ? clientWidth - 58 : getOrbX(2), getOrbY(2),
-                (clientSize == 0 ? clientWidth - 58 : getOrbX(2)) + 57, getOrbY(2) + 34)) {
+        if (hoverRunOrb()) {
             menuActionName[menuActionRow] = "Rest";
             menuActionID[menuActionRow] = 1048;
             menuActionRow++;
@@ -1991,8 +2165,7 @@ public class Client extends RSApplet {
             menuActionID[menuActionRow] = 1047;
             menuActionRow++;
         }
-        if (mouseInRegion(clientSize == 0 ? 692 : getOrbX(0), getOrbY(0), (clientSize == 0 ? 748 : getOrbX(0) + 57),
-                getOrbY(0) + 30)) {
+        if (hoverHpOrb()) {
             menuActionName[1] = "Cure Poision";
             menuActionID[1] = 10002;
             menuActionName[2] = "Heal";
@@ -2001,14 +2174,13 @@ public class Client extends RSApplet {
         }
         int x = super.mouseX; // Face North on compass
         int y = super.mouseY;
-        if (x >= 531 && x <= 557 && y >= 7 && y <= 40) {
+        if (hoverCompass()) {
             menuActionName[1] = "Face North";
             menuActionID[1] = 696;
             menuActionRow = 2;
         }
 
-        if (mouseInRegion(clientSize == 0 ? clientWidth - 74 : getOrbX(3), getOrbY(3),
-                (clientSize == 0 ? clientWidth - 74 : getOrbX(3)) + 57, getOrbY(3) + 34)) {
+        if (hoverSummOrb()) {
             menuActionName[5] = "Take BoB";
             menuActionID[5] = 1118;
             menuActionName[4] = "Cast Special";
@@ -2039,16 +2211,19 @@ public class Client extends RSApplet {
         if (minimapStatus == 2) {
             cacheSprite[67].drawSprite((clientSize == 0 ? 32 : clientWidth - 162), (clientSize == 0 ? 9 : 5));
             if (clientSize == 0) {
-                cacheSprite[6].drawSprite(0 + xPosOffset, 0);
+                cacheSprite[Configuration.enableOldschoolFrame ? 1714 : 6].drawSprite(0 + xPosOffset, 0);
                 // drawSpecOrb();
             } else {
-                cacheSprite[36].drawSprite(clientWidth - 167, 0);
-                cacheSprite[37].drawSprite(clientWidth - 172, 0);
+            	if (Configuration.enableOldschoolFrame) {
+            		cacheSprite[1713].drawSprite(clientWidth - 181,  0);
+            	} else {
+            		cacheSprite[36].drawSprite(clientWidth - 167, 0);
+                    cacheSprite[37].drawSprite(clientWidth - 172, 0);
+            	}
             }
-            cacheSprite[38].drawSprite(clientSize == 0 ? -1 : clientWidth - 188, clientSize == 0 ? 46 : 40);
-            if (hoverPos == 0) {
-                cacheSprite[39].drawSprite(clientSize == 0 ? -1 : clientWidth - 188, clientSize == 0 ? 46 : 40);
-            }
+            
+            int counterSprite = Configuration.enableOldschoolFrame ? (hoverPos == 0 ? 1717 : 1716) : (hoverPos == 0 ? 39 : 38);
+            cacheSprite[counterSprite].drawSprite(clientSize == 0 ? -1 : clientWidth - 188, clientSize == 0 ? 46 : 40);
             cacheSprite[30].drawSprite((clientSize == 0 ? 246 : clientWidth) - 21, 0);
             if (tabHover != -1) {
                 if (tabHover == 10) {
@@ -2065,17 +2240,27 @@ public class Client extends RSApplet {
             drawRunOrb();
             drawSummoningOrb();
             drawSpecOrb();
-            compass[0].rotate(33, viewRotation, anIntArray1057, 256, anIntArray968, 25, (clientSize == 0 ? 8 : 5),
-                    (clientSize == 0 ? 8 + xPosOffset : clientWidth - 167), 33, 25);
+            
+            
+            int compassY = Configuration.enableOldschoolFrame ? (clientSize == 0 ? 5 : 5) : (clientSize == 0 ? 8 : 5);
+    		int compassX = Configuration.enableOldschoolFrame ? (clientSize == 0 ? 29 : clientWidth - 176) : (clientSize == 0 ? 10 + xPosOffset : clientWidth - 167);
+            compass[0].rotate(33, viewRotation, anIntArray1057, 256, anIntArray968, 25, compassY,
+                    compassX, 33, 25);
             gameScreenIP.initDrawingArea();
             return;
         }
         int i = viewRotation + minimapRotation & 0x7ff;
         int j = 48 + myPlayer.x / 32;
         int l2 = 464 - myPlayer.y / 32;
-        miniMap.rotate(clientSize == 0 ? 156 : 156, i, minimapYPosArray, 256 + minimapZoom, minimapXPosArray, l2,
-                (clientSize == 0 ? 8 : 4/* 5 */), (clientSize == 0 ? 32 : clientWidth - 162),
-                clientSize == 0 ? 156 : 156, j);
+        if (Configuration.enableOldschoolFrame) {
+        	miniMap.rotate(clientSize == 0 ? 151 : 156, i, minimapYPosArray, 256 + minimapZoom, minimapXPosArray, l2,
+                    (clientSize == 0 ? 8 : 7), (clientSize == 0 ? 51 : clientWidth - 158),
+                    146, j);
+        } else {
+        	miniMap.rotate(clientSize == 0 ? 156 : 156, i, minimapYPosArray, 256 + minimapZoom, minimapXPosArray, l2,
+                    (clientSize == 0 ? 8 : 4/* 5 */), (clientSize == 0 ? 35 : clientWidth - 162),
+                    clientSize == 0 ? 156 : 156, j);
+        }
         for (int j5 = 0; j5 < mapFunctionsLoadedAmt; j5++) {
             int k = (mapFunctionTileX[j5] * 4 + 2) - myPlayer.x / 32;
             int i3 = (mapFunctionTileY[j5] * 4 + 2) - myPlayer.y / 32;
@@ -2173,20 +2358,32 @@ public class Client extends RSApplet {
             int l4 = (destY * 4 + 2) - myPlayer.y / 32;
             markMinimap(mapFlag, j2, l4);
         }
-        DrawingArea.drawPixels(3, (clientSize == 0 ? 84 : 80), (clientSize == 0 ? 107 + xPosOffset : clientWidth - 88),
-                0xffffff, 3);
-
+        
+        if (Configuration.enableOldschoolFrame) {
+        	DrawingArea.drawPixels(3, (clientSize == 0 ? 81 : 80), (clientSize == 0 ? 122 : clientWidth - 88),
+                    0xffffff, 3);
+        } else {
+        	DrawingArea.drawPixels(3, (clientSize == 0 ? 84 : 80), (clientSize == 0 ? 110 + xPosOffset : clientWidth - 88),
+                    0xffffff, 3);
+        }
+        
         if (clientSize == 0) {
-            cacheSprite[6].drawSprite(0 + xPosOffset, 0);
+        	cacheSprite[Configuration.enableOldschoolFrame ? 1714 : 6].drawSprite(Configuration.enableOldschoolFrame ? 0 : 0 + xPosOffset, 0);
             // drawSpecOrb();
         } else {
-            cacheSprite[36].drawSprite(clientWidth - 167, 0);
-            cacheSprite[37].drawSprite(clientWidth - 172, 0);
+        	if (Configuration.enableOldschoolFrame) {
+        		cacheSprite[1713].drawSprite(clientWidth - 181,  0);
+        	} else {
+        		cacheSprite[36].drawSprite(clientWidth - 167, 0);
+                cacheSprite[37].drawSprite(clientWidth - 172, 0);
+        	}
         }
-        cacheSprite[38].drawSprite(clientSize == 0 ? -1 : clientWidth - 217, clientSize == 0 ? 46 : 3);
-        if (hoverPos == 0) {
-            cacheSprite[39].drawSprite(clientSize == 0 ? -1 : clientWidth - 217, clientSize == 0 ? 46 : 3);
-        }
+        
+        boolean of = Configuration.enableOldschoolFrame;
+        int counterSprite = of ? (hoverPos == 0 ? 1717 : 1716) : (hoverPos == 0 ? 39 : 38);
+        int counterX = clientSize == 0 ? (of ? 0 : -1) : clientWidth - 217;
+        int counterY = clientSize == 0 ? (of ? 21 : 46) : 3;
+        cacheSprite[counterSprite].drawSprite(counterX, counterY);
         cacheSprite[30].drawSprite((clientSize == 0 ? 246 : clientWidth) - 21, 0);
         if (tabHover != -1) {
             if (tabHover == 10) {
@@ -2206,7 +2403,7 @@ public class Client extends RSApplet {
         drawSpecOrb();
         drawCoinOrb();
 
-		if (mouseInRegion(clientSize == 0 ? 522 : clientWidth - 44, clientSize == 0 ? 121 : 170, clientSize == 0 ? 559 : clientWidth - 3, clientSize == 0 ? 157 : 170 + 43)) {
+		if (hoverBonusOrb()) {
 
 			if (bonusOrbHoverTimer < 25) {
 				bonusOrbHoverTimer++;
@@ -2216,16 +2413,18 @@ public class Client extends RSApplet {
 				int y = clientSize == 0 ? (mouseY > 149 ? 149 : mouseY) : mouseY + 23;
 
 				String tooltip = bonusPercentage == 100 ? "Bonus event is currently active!" : bonusPercentage + "%";
-
-				drawTooltip(x, y, tooltip);
+				
+				drawTooltip(x, y, tooltip, clientSize == 0 && Configuration.enableOldschoolFrame);
 			}
 
 		} else {
 			bonusOrbHoverTimer = 0;
 		}
-
-        compass[0].rotate(33, viewRotation, anIntArray1057, 256, anIntArray968, 25, (clientSize == 0 ? 8 : 5),
-                (clientSize == 0 ? 8 + xPosOffset : clientWidth - 167), 33, 25);
+		
+		int compassY = Configuration.enableOldschoolFrame ? (clientSize == 0 ? 5 : 5) : (clientSize == 0 ? 8 : 5);
+		int compassX = Configuration.enableOldschoolFrame ? (clientSize == 0 ? 29 : clientWidth - 176) : (clientSize == 0 ? 10 + xPosOffset : clientWidth - 167);
+        compass[0].rotate(33, viewRotation, anIntArray1057, 256, anIntArray968, 25, compassY,
+                compassX, 33, 25);
         if (menuOpen && menuScreenArea == 3) {
             drawMenu();
         }
@@ -2236,9 +2435,15 @@ public class Client extends RSApplet {
     private int bonusPercentage;
 
 	private void drawBonusOrb() {
-		int x = clientSize == 0 ? 4 : clientWidth - 44;
+		boolean of = Configuration.enableOldschoolFrame;
+		
+		int x = clientSize == 0 ? (of ? 200 : 7) : clientWidth - 44;
 
-		int y = clientSize == 0 ? 122 : 173;
+		int y = clientSize == 0 ? (of ? 87 : 122) : 173;
+		
+		if (clientSize == 0 && of) {
+			cacheSprite[1721].drawSprite(x + 2, y + 1);
+		}
 
 		if (clientSize != 0) {
 			cacheSprite[1258].drawSprite(x - 2, y - 3);
@@ -2298,7 +2503,7 @@ public class Client extends RSApplet {
             if (tabHover != -1) {
                 if (tabInterfaceIDs[tabHover] != -1) {
                     if (tabHover != 10) {
-                        cacheSprite[16].drawSprite(3 + draw_tab_hover_x[tabHover], draw_Tab_hover_y[tabHover]);
+                        cacheSprite[16].drawSprite(6 + draw_tab_hover_x[tabHover], draw_Tab_hover_y[tabHover]);
                     }
                 }
             }
@@ -2324,7 +2529,9 @@ public class Client extends RSApplet {
 
     public void handleTabArea(boolean fixed) {
         if (fixed) {
-            if (!Configuration.enableOldFrame) {
+        	if (Configuration.enableOldschoolFrame) {
+        		cacheSprite[1715].drawSprite(0, 0);
+        	} else if (!Configuration.enableOldFrame) {
                 cacheSprite[13].drawSprite(0, 0);
             } else {
                 SpriteLoader.sprites[621].drawSprite(0, 0);
@@ -2380,7 +2587,7 @@ public class Client extends RSApplet {
                             if (tabID == 0) {
                                 xPos = 6;
                             } else if (tabID == 1) {
-                                xPos = 46;
+                                xPos = 44;
                             } else if (tabID == 2) {
                                 xPos = 77;
                             }
@@ -2397,11 +2604,11 @@ public class Client extends RSApplet {
                             if (tabID == 3) {
                                 xPos = 111;
                             } else if (tabID == 4) {
-                                xPos = 145;
+                                xPos = 144;
                             } else if (tabID == 5) {
-                                xPos = 178;
+                                xPos = 177;
                             } else if (tabID == 6) {
-                                xPos = 211;
+                                xPos = 210;
                             }
                         }
                         yPos = 0;
@@ -2462,18 +2669,18 @@ public class Client extends RSApplet {
                             yPos--;
                         }
                         if (tabID == 0) {
-                            SpriteLoader.sprites[612].drawSprite(xPos - 4, yPos);
+                            SpriteLoader.sprites[612].drawSprite(xPos, yPos);
                         } else if (tabID == 6) {
-                            SpriteLoader.sprites[613].drawSprite(xPos - 4, yPos);
+                            SpriteLoader.sprites[613].drawSprite(xPos, yPos);
                         } else if (tabID == 15) {
-                            SpriteLoader.sprites[614].drawSprite(xPos - 4, yPos);
+                            SpriteLoader.sprites[614].drawSprite(xPos, yPos);
                         } else if (tabID == 14) {
-                            SpriteLoader.sprites[615].drawSprite(xPos - 4, yPos);
+                            SpriteLoader.sprites[615].drawSprite(xPos, yPos);
                         } else {
-                            SpriteLoader.sprites[616].drawSprite(xPos - 4, yPos);
+                            SpriteLoader.sprites[616].drawSprite(xPos, yPos);
                         }
                     } else {
-                        cacheSprite[17].drawARGBSprite(xPos - 4, yPos);
+                        cacheSprite[17].drawARGBSprite(xPos - 1, yPos);
                     }
                 }
             }
@@ -2543,7 +2750,7 @@ public class Client extends RSApplet {
 
                     int spriteId = index == 2 ? (doingDung ? 657 + draw : getQuestTabIcon()) : Configuration.enableOldFrame ? 972 + draw : 657 + draw;
 
-                    SpriteLoader.sprites[spriteId].drawSprite(x, y);
+                    SpriteLoader.sprites[spriteId].drawSprite(x + 3, y);
                 }
             }
         } else {
@@ -2659,11 +2866,11 @@ public class Client extends RSApplet {
         int y = clientWidth >= smallTabs ? 37 : 74;
         if (showTab) {
             if (invOverlayInterfaceID != -1) {
-                drawInterface(0, (clientSize == 0 ? 28 : clientWidth - 197),
+                drawInterface(0, (clientSize == 0 ? 31 : clientWidth - 197),
                         RSInterface.interfaceCache[invOverlayInterfaceID],
                         (clientSize == 0 ? 37 : clientHeight - y - 267));
             } else if (tabInterfaceIDs[tabID] != -1) {
-                drawInterface(0, (clientSize == 0 ? 28 : clientWidth - 197),
+                drawInterface(0, (clientSize == 0 ? 31 : clientWidth - 197),
                         RSInterface.interfaceCache[tabInterfaceIDs[tabID]],
                         (clientSize == 0 ? 37 : clientHeight - y - 267));
             }
@@ -2677,7 +2884,7 @@ public class Client extends RSApplet {
         }
 
         if (clientSize == 0) {
-            tabAreaIP.drawGraphics(168, super.graphics, 519);
+            tabAreaIP.drawGraphics(168, super.graphics, 516);
         }
         gameScreenIP.initDrawingArea();
         Rasterizer.anIntArray1472 = anIntArray1182;
@@ -2699,13 +2906,24 @@ public class Client extends RSApplet {
         menuActionRow = 2;
         tooltipString = null;
     }
+    
+    private boolean hoverCoinOrb() {
+    	if (clientSize == 0) {
+    		if (Configuration.enableOldschoolFrame) {
+    			return mouseInRegion(520, 144, 544, 167);
+    		}
+    		
+    		return mouseInRegion(515, 85, 515 + 34, 85 + 34);
+    	}
+    	
+    	int orbX = getCoinOrbX();
+        int orbY = getCoinOrbY();
+    	return mouseInRegion(orbX, orbY, orbX + 34, orbY + 34);
+    }
 
     private void processTabAreaHovers() {
         // Moneypouch hover
-        int orbX = getCoinOrbX();
-        int orbY = getCoinOrbY();
-        if (clientSize == 0 ? mouseInRegion(515, 85, 515 + 34, 85 + 34)
-                : mouseInRegion(orbX, orbY, orbX + 34, orbY + 34)) {
+        if (hoverCoinOrb()) {
             menuActionName[5] = coinToggle ? "Hide Money Pouch" : "Show Money Pouch";
             menuActionID[5] = 72667;
             menuActionName[4] = "@gre@Withdraw 1b Tickets";
@@ -10189,7 +10407,6 @@ public class Client extends RSApplet {
         tabAreaIP = null;
         leftFrame = null;
         topFrame = null;
-        rightFrame = null;
         mapAreaIP = null;
         gameScreenIP = null;
         chatAreaIP = null;
@@ -12317,10 +12534,10 @@ public class Client extends RSApplet {
         nullLoader();
         super.fullGameScreen = null;
         titleScreen = null;
-        chatAreaIP = new RSImageProducer(519, 165, getGameComponent());
+        chatAreaIP = new RSImageProducer(516, 165, getGameComponent());
         mapAreaIP = new RSImageProducer(249, 168, getGameComponent());
         DrawingArea.resetImage();
-        cacheSprite[6].drawSprite(3, 0);
+    	cacheSprite[Configuration.enableOldschoolFrame ? 1714 : 6].drawSprite(Configuration.enableOldschoolFrame ? 0 : 3, 0);
         // drawSpecOrb();
         tabAreaIP = new RSImageProducer(250, 335, getGameComponent());
         gameScreenIP = new RSImageProducer(clientSize == 0 ? 512 : clientWidth, clientSize == 0 ? 334 : clientHeight,
@@ -12668,6 +12885,11 @@ public class Client extends RSApplet {
     }
 
 	private boolean hoverSpecOrb() {
+		if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+			return mouseInRegion(clientWidth - 208, 135,
+					clientWidth - 208 + 54, 167);
+		}
+		
 		return mouseInRegion(clientSize == 0 ? clientWidth - 90 : getOrbX(4), getOrbY(4),
 				(clientSize == 0 ? clientWidth - 90 : getOrbX(4)) + 57, getOrbY(4) + 34);
 	}
@@ -14160,7 +14382,6 @@ public class Client extends RSApplet {
             topFrame = new RSImageProducer(sprite.myWidth, sprite.myHeight, getGameComponent());
             sprite.method346(0, 0);
             sprite = new Sprite(mediaArchives, "screenframe", 2);
-            rightFrame = new RSImageProducer(sprite.myWidth, sprite.myHeight, getGameComponent());
             sprite.method346(0, 0);
             sprite = new Sprite(mediaArchives, "mapedge", 0);
             new RSImageProducer(sprite.myWidth, sprite.myHeight, getGameComponent());
@@ -14969,7 +15190,6 @@ public class Client extends RSApplet {
             if (clientSize == 0) {
                 topFrame.drawGraphics(0, super.graphics, 0);
                 leftFrame.drawGraphics(4, super.graphics, 0);
-                rightFrame.drawGraphics(3, super.graphics, 516);
             }
             needDrawTabArea = true;
             inputTaken = true;
@@ -15079,7 +15299,7 @@ public class Client extends RSApplet {
         if (loadingStage == 2) {
             if (clientSize == 0) {
                 drawMinimap();
-                mapAreaIP.drawGraphics(0, super.graphics, 765 - 246);
+                mapAreaIP.drawGraphics(0, super.graphics, 516);
             }
         }
         if (anInt1054 != -1) {
@@ -15092,9 +15312,6 @@ public class Client extends RSApplet {
                 stream.writeWordBigEndian(tabID);
             }
             tabAreaAltered = false;
-            if (clientSize == 0) {
-                rightFrame.drawGraphics(3, super.graphics, 516);
-            }
             GraphicsBuffer_1125.initDrawingArea();
             gameScreenIP.initDrawingArea();
         }
@@ -17858,6 +18075,10 @@ public class Client extends RSApplet {
     }
     
 	public void drawTooltip(int xPos, int yPos, String text) {
+		drawTooltip(xPos, yPos, text, false);
+	}
+	
+	public void drawTooltip(int xPos, int yPos, String text, boolean mapArea) {
 		String[] results = text.split("\n");
 		int height = (results.length * 16) + 3;
 		int width;
@@ -17868,8 +18089,8 @@ public class Client extends RSApplet {
 			}
 		}
 		
-		if (xPos + width > clientWidth) {
-			xPos = clientWidth - width - 2; 
+		if (xPos + width > (mapArea ? 248 : clientWidth)) {
+			xPos = (mapArea ? 248 : clientWidth) - width - 2; 
 		}
 		
 		DrawingArea.drawPixels(height, yPos, xPos, 0xFFFFA0, width);
@@ -19144,7 +19365,11 @@ public class Client extends RSApplet {
             int k1 = y * i1 + x * j1 >> 16;
             int l1 = y * j1 - x * i1 >> 16;
             if (clientSize == 0) {
-                sprite.drawSprite(((105 + k1) - sprite.maxWidth / 2) + 4 + offX, 88 - l1 - sprite.maxHeight / 2 - 4);
+            	if (Configuration.enableOldschoolFrame) {
+            		sprite.drawSprite(((89 + k1) - sprite.maxWidth / 2) + 4 + 30, 81 - l1 - sprite.maxHeight / 2 - 4 + 5);
+            	} else {
+            		sprite.drawSprite(((108 + k1) - sprite.maxWidth / 2) + 4 + offX, 89 - l1 - sprite.maxHeight / 2 - 4);
+            	}
             } else {
                 sprite.drawSprite(((77 + k1) - sprite.maxWidth / 2) + 4 + (clientWidth - 167),
                         85 - l1 - sprite.maxHeight / 2 - 4);
@@ -22611,7 +22836,6 @@ public class Client extends RSApplet {
     /**/
     private RSImageProducer leftFrame;
     private RSImageProducer topFrame;
-    private RSImageProducer rightFrame;
     private int ignoreCount;
     private long mapLoadingTime;
     private int[][] anIntArrayArray825;
@@ -24717,11 +24941,18 @@ public class Client extends RSApplet {
     }
 
     public int getCoinOrbX() {
-        return clientSize == 0 ? -2 : clientWidth - 85;
+    	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+    		return 4;
+    	}
+    	
+        return clientSize == 0 ? 0 : clientWidth - 85;
     }
 
     public int getCoinOrbY() {
         if (clientSize == 0) {
+        	if (Configuration.enableOldschoolFrame) {
+        		return 136;
+        	}
             return 84;
         }
         return 175;
@@ -24730,15 +24961,20 @@ public class Client extends RSApplet {
     public void drawCoinOrb() {
         int x = getCoinOrbX();
         int y = getCoinOrbY();
-        boolean hover = clientSize == 0 ? mouseInRegion(515, 85, 515 + 34, 85 + 34)
-                : mouseInRegion(x, y, x + 34, y + 34);
-        if (hover) {
-            SpriteLoader.sprites[630].drawSprite(x, y);
+        boolean hover = hoverCoinOrb();
+        if (clientSize == 0 && Configuration.enableOldschoolFrame) {
+        	Sprite back = Sprite.getResizedSprite(cacheSprite[hover ? 630 : 592], 24, 24);
+        	
+            back.drawAdvancedSprite(x, y + 7);
         } else {
-            SpriteLoader.sprites[592].drawSprite(x, y);
-        }
-        if (clientSize == 0) {
-            SpriteLoader.sprites[593].drawSprite(-1, y);
+        	 if (hover) {
+                 SpriteLoader.sprites[630].drawSprite(x, y);
+             } else {
+                 SpriteLoader.sprites[592].drawSprite(x, y);
+             }
+             if (clientSize == 0) {
+                 SpriteLoader.sprites[593].drawSprite(-1, y);
+             }
         }
     }
 
@@ -25380,7 +25616,7 @@ public class Client extends RSApplet {
 	 * @return <code>true</code> if in bounds.
 	 */
 	public boolean mouseInMinimapArea() {
-		return inImageProducerBounds(mapAreaIP, 519, 0);
+		return inImageProducerBounds(mapAreaIP, 516, 0);
 	}
 
 	/**
@@ -25389,7 +25625,7 @@ public class Client extends RSApplet {
 	 * @return <code>true</code> if in bounds.
 	 */
     public boolean mouseInTabArea() {
-        return inImageProducerBounds(tabAreaIP, clientSize != 0 ? clientWidth - 240 : 519, clientSize != 0 ? clientHeight - 337 : 168);
+        return inImageProducerBounds(tabAreaIP, clientSize != 0 ? clientWidth - 240 : 516, clientSize != 0 ? clientHeight - 337 : 168);
     }
     
 	/**

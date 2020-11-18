@@ -256,6 +256,11 @@ public class Configuration {
 	 * Indicates whether rune pouch overlay is enabled or not.
 	 */
 	public static boolean enableRunePouchOverlay = true;
+	
+	/**
+	 * Indicates whether oldschool frame is enabled or not.
+	 */
+	public static boolean enableOldschoolFrame = false;
 
 	public static long lastModerationToggleTime; //todo draw text of change or something
 }

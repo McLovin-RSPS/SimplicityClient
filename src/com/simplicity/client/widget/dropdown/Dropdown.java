@@ -1,6 +1,9 @@
 package com.simplicity.client.widget.dropdown;
 
+import static com.simplicity.Configuration.enableOldFrame;
+
 import com.simplicity.Configuration;
+import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.content.Keybinding;
 
@@ -15,6 +18,36 @@ public enum Dropdown {
 				Configuration.enableItemStats = 1;
 			} else if (selected == 2) {
 				Configuration.enableItemStats = 0;
+			}
+        }
+	},
+	
+	GAMEFRAME() {
+		@Override
+        public void selectOption(int selected, RSInterface dropdown) {
+			if (selected != 2) {
+				Configuration.enableOldschoolFrame = false;
+			}
+			
+			if (selected == 0) {
+				Configuration.enableOldFrame = true;
+				
+				if (Client.tabID == 13) {
+                	Client.tabID = 15;
+                }
+			} else if (selected == 1) {
+				Configuration.enableOldFrame = false;
+				
+				if (Client.tabID == 15) {
+                	Client.tabID = 13;
+                }
+			} else if (selected == 2) {
+				Configuration.enableOldFrame = true;
+				Configuration.enableOldschoolFrame = true;
+				
+				if (Client.tabID == 15) {
+                	Client.tabID = 13;
+                }
 			}
         }
 	},
