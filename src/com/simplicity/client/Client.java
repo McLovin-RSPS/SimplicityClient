@@ -14613,8 +14613,19 @@ public class Client extends RSApplet {
         if (super.clickMode3 == 1) {
             int clickX = super.saveClickX - 3 - (clientSize == 0 ? clientWidth - 214 : clientWidth - 163);
             int clickY = super.saveClickY - (clientSize == 0 ? 9 : 6);
+            
+            if (Configuration.enableOldschoolFrame) {
+            	clickX = super.saveClickX - 18 - 547;
+            	clickY = super.saveClickY - 5 - 3;
+            	
+            	if (clientSize != 0) {
+            		clickX = super.saveClickX - (clientWidth - 182 + 24);
+            		clickY = super.saveClickY - 8;
+            	}
+            }
+            
             // if (i >= 0 && j >= 0 && i < 152 && j < 152 && canClickMap()) {
-            if (inCircle(0, 0, clickX, clickY, 76)) {
+            if (inCircle(0, 0, clickX, clickY, 76) && mouseMapPosition() && hoverPos == -1) {
                 clickX -= 73;
                 clickY -= 75;
                 int k = viewRotation + minimapRotation & 0x7ff;
@@ -14644,6 +14655,14 @@ public class Client extends RSApplet {
 
         }
     }
+    
+	public boolean mouseMapPosition() {
+		if (!Configuration.enableOldschoolFrame) {
+			return true;
+		}
+		
+		return !(super.mouseX >= clientWidth - 21 && super.mouseX <= clientWidth && super.mouseY >= 0 && super.mouseY <= 21);
+	}
 
     private String interfaceIntToString(int j) {
         if (j < 0x3b9ac9ff) {
