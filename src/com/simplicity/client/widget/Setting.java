@@ -250,30 +250,9 @@ public enum Setting {
 	HITMARKERS(new DropdownMenu(75, false, 0, new String[] { "562", "OSRS" }, Dropdown.HITMARKERS)) { },
 	
 	HP_BARS(new DropdownMenu(75, false, 0, new String[] { "562", "OSRS" }, Dropdown.HPBARS)) { },
-
-	OLD_GAMEFRAME() {
-
-		@Override
-		public void handle() {
-			enableOldFrame = !enableOldFrame;
-			
-			if (enableOldFrame) {
-                if (Client.tabID == 13) {
-                	Client.tabID = 15;
-                }
-            } else {
-                if (Client.tabID == 15) {
-                	Client.tabID = 13;
-                }
-            }
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableOldFrame;
-		}
-	},
 	
+	GAMEFRAME(new DropdownMenu(75, false, 1, new String[] { "500+", "600+", "OSRS" }, Dropdown.GAMEFRAME)) { },
+
 	CONSTITUTION() {
 
 		@Override

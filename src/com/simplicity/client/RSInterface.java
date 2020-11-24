@@ -2105,7 +2105,7 @@ public class RSInterface {
         parent.child(16, 98945, 80, 81);
         parent.addSpellButton(98955, 563, 9075, 554, 2, 2, 6, 76, "Tele Group Barbarian", 1680, 1491, "Teleports players to the Barbarian Outpost", tda, 1, 0);
         parent.child(17, 98955, 120, 81);
-        parent.addSpellButton(98965, 9075, 554, 556, 2, 6, 10, 77, "Superglass Make", 1681, 1492, "Make glass without a furnace", tda, 2, 16);
+        parent.addSpellButton(98965, 9075, 554, 556, 2, 6, 10, 77, "Superglass Make", 1681, 1492, "Make glass without a furnace", tda, 1, 0);
         parent.child(18, 98965, 0, 108);
         parent.addSpellButton(98975, 9075, 561, 554, 2, 1, 5, 78, "Tan Leather", 1682, 1493, "Tans up to 5 hides", tda, 1, 0);
         parent.child(19, 98975, 40, 108);
@@ -2117,13 +2117,13 @@ public class RSInterface {
         parent.child(22, 99005, 160, 108);
         parent.addSpellButton(99015, 9075, 555, 557, 2, 5, 10, 80, "String Jewellery", 1686, 1497, "String amulets without wool", tda, 1, 0);
         parent.child(23, 99015, 0, 135);
-        parent.addSpellButton(99025, 9075, 555, 557, 2, 10, 10, 81, "Stat Restore Pot Share", 1687, 1498, "Shares a potion with up to 4 nearby players", tda, 1, 0);
+        parent.addSpellButton(99025, 9075, 555, 557, 2, 10, 10, 81, "Stat Restore Pot Share", 1687, 1498, "Shares a potion with up to 4 nearby players", tda, 2, 16);
         parent.child(24, 99025, 40, 135);
         parent.addSpellButton(99035, 9075, 555, 554, 2, 7, 7, 82, "Magic Imbue", 1688, 1499, "Combine runes without a talisman", tda, 1, 0);
         parent.child(25, 99035, 80, 135);
         parent.addSpellButton(99045, 9075, 561, 557, 3, 2, 15, 83, "Fertile Soil", 1689, 1500, "Fertilise a farming patch with super compost", tda, 2, 4);
         parent.child(26, 99045, 120, 135);
-        parent.addSpellButton(99055, 9075, 555, 557, 3, 10, 12, 84, "Boost Potion Share", 1690, 1501, "Shares a potion with up to 4 nearby players", tda, 1, 0);
+        parent.addSpellButton(99055, 9075, 555, 557, 3, 10, 12, 84, "Boost Potion Share", 1690, 1501, "Shares a potion with up to 4 nearby players", tda, 2, 16);
         parent.child(27, 99055, 160, 135);
         parent.addSpellButton(99065, 563, 9075, 555, 3, 3, 10, 85, "Fishing Guild Teleport", 1691, 1502, "Teleports you to the Fishing Guild", tda, 1, 0);
         parent.child(28, 99065, 0, 162);
