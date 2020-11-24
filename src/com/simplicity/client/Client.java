@@ -2240,7 +2240,7 @@ public class Client extends RSApplet {
             
             
             int compassY = Configuration.enableOldschoolFrame ? (clientSize == 0 ? 5 : 5) : (clientSize == 0 ? 8 : 5);
-    		int compassX = Configuration.enableOldschoolFrame ? (clientSize == 0 ? 29 : clientWidth - 176) : (clientSize == 0 ? 10 + xPosOffset : clientWidth - 167);
+    		int compassX = Configuration.enableOldschoolFrame ? (clientSize == 0 ? 29 : clientWidth - 176) : (clientSize == 0 ? 11 + xPosOffset : clientWidth - 167);
             compass[0].rotate(33, viewRotation, anIntArray1057, 256, anIntArray968, 25, compassY,
                     compassX, 33, 25);
             gameScreenIP.initDrawingArea();
@@ -2419,7 +2419,7 @@ public class Client extends RSApplet {
 		}
 		
 		int compassY = Configuration.enableOldschoolFrame ? (clientSize == 0 ? 5 : 5) : (clientSize == 0 ? 8 : 5);
-		int compassX = Configuration.enableOldschoolFrame ? (clientSize == 0 ? 29 : clientWidth - 176) : (clientSize == 0 ? 10 + xPosOffset : clientWidth - 167);
+		int compassX = Configuration.enableOldschoolFrame ? (clientSize == 0 ? 29 : clientWidth - 176) : (clientSize == 0 ? 11 + xPosOffset : clientWidth - 167);
         compass[0].rotate(33, viewRotation, anIntArray1057, 256, anIntArray968, 25, compassY,
                 compassX, 33, 25);
         if (menuOpen && menuScreenArea == 3) {
