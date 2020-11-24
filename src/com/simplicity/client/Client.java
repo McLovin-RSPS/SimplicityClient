@@ -2540,7 +2540,7 @@ public class Client extends RSApplet {
             if (clientWidth >= smallTabs) {
                 for (int positionX = clientWidth - 480, positionY = clientHeight
                         - 37, index = 0; positionX <= clientWidth - 30 && index < 16; positionX += 30, index++) {
-                    cacheSprite[15].drawSprite(positionX, positionY);
+                    cacheSprite[Configuration.enableOldFrame ? 1037 : 15].drawSprite(positionX, positionY);
                 }
                 if (showTab) {
                     cacheSprite[18].drawTransparentSprite(clientWidth - 197, clientHeight - 37 - 267, 150);
@@ -2549,11 +2549,11 @@ public class Client extends RSApplet {
             } else {
                 for (int positionX = clientWidth - 240, positionY = clientHeight
                         - 74, index = 0; positionX <= clientWidth - 30 && index < 8; positionX += 30, index++) {
-                    cacheSprite[15].drawSprite(positionX, positionY);
+                    cacheSprite[Configuration.enableOldFrame ? 1037 : 15].drawSprite(positionX, positionY);
                 }
                 for (int positionX = clientWidth - 240, positionY = clientHeight
                         - 37, index = 0; positionX <= clientWidth - 30 && index < 8; positionX += 30, index++) {
-                    cacheSprite[15].drawSprite(positionX, positionY);
+                    cacheSprite[Configuration.enableOldFrame ? 1037 : 15].drawSprite(positionX, positionY);
                 }
                 if (showTab) {
                     cacheSprite[18].drawTransparentSprite(clientWidth - 197, clientHeight - 74 - 267, 150);
@@ -2692,8 +2692,13 @@ public class Client extends RSApplet {
                 }
                 int offsetY = clientWidth >= smallTabs ? 37 : (index > 7 ? 37 : 74);
                 if (tabID == TAB_DRAW[index] && tabInterfaceIDs[TAB_DRAW[index]] != -1) {
-                    cacheSprite[17].drawARGBSprite((clientWidth - offsetX - 4) + TAB_POS[index],
-                            (clientHeight - offsetY) + 0);
+                	if (Configuration.enableOldFrame) {
+                		cacheSprite[12].drawARGBSprite((clientWidth - offsetX) + TAB_POS[index],
+                                (clientHeight - offsetY) + 0);
+                	} else {
+                		cacheSprite[17].drawARGBSprite((clientWidth - offsetX - 4) + TAB_POS[index],
+                                (clientHeight - offsetY) + 0);
+                	}
                 }
             }
         }
@@ -2711,6 +2716,8 @@ public class Client extends RSApplet {
     int[] tab = {0, 1, 2, 14, 3, 4, 5, 6, 15, 8, 9, 7, 11, 12, 13, 16};
     int[] positionX = {8, 37, 67, 97, 127, 159, 187, 217, 7, 38, 69, 97, 127, 157, 187, 217};
     int[] positionY = {9, 9, 8, 8, 8, 8, 8, 8, /* second row */ 8, 8, 8, 9, 8, 8, 8, 9};
+    int[] positionXOld = {8, 36, 67, 97, 125, 155, 185, 217, 7, 37, 68, 97, 128, 159, 187, 217};
+    int[] positionYOld = {9, 8, 8, 8, 6, 3, 4, 7, /* second row */ 7, 8, 8, 6, 8, 6, 8, 9};
 
     boolean doingDung = false;
 
@@ -2760,15 +2767,18 @@ public class Client extends RSApplet {
                     offsetX -= 240;
                 }
                 int offsetY = clientWidth >= smallTabs ? 37 : (index > 7 ? 37 : 74);
+                int l = index == 14 && Configuration.enableOldFrame ? 3 : index;
                 if (tabInterfaceIDs[tab[index]] != -1 || index == 8) {
                     if (index == 8) {
                         tabInterfaceIDs[tab[index]] = 54017;
                     }
+                    
+                    int draw = l == 3 && Configuration.enableOldFrame ? 15 : l;
 
-                    int spriteId = index == 2 ? (doingDung ? 657 + 16 : getQuestTabIcon()) : 657 + index;
+                    int spriteId = index == 2 ? (doingDung ? 657 + 16 : getQuestTabIcon()) : Configuration.enableOldFrame ? 972 + draw : 657 + index;
 
-                    SpriteLoader.sprites[spriteId].drawSprite((clientWidth - offsetX) + positionX[index],
-                            (clientHeight - offsetY) + positionY[index]);
+                    SpriteLoader.sprites[spriteId].drawSprite((clientWidth - offsetX) + (Configuration.enableOldFrame ? positionXOld[index] : positionX[index]),
+                            (clientHeight - offsetY) + (Configuration.enableOldFrame ? positionYOld[index] : positionY[index]));
                 }
             }
         }

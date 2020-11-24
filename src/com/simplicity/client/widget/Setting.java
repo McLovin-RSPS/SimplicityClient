@@ -253,29 +253,6 @@ public enum Setting {
 	
 	GAMEFRAME(new DropdownMenu(75, false, 1, new String[] { "500+", "600+", "OSRS" }, Dropdown.GAMEFRAME)) { },
 
-	OLD_GAMEFRAME() {
-
-		@Override
-		public void handle() {
-			enableOldFrame = !enableOldFrame;
-			
-			if (enableOldFrame) {
-                if (Client.tabID == 13) {
-                	Client.tabID = 15;
-                }
-            } else {
-                if (Client.tabID == 15) {
-                	Client.tabID = 13;
-                }
-            }
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableOldFrame;
-		}
-	},
-	
 	CONSTITUTION() {
 
 		@Override
