@@ -489,9 +489,6 @@ public class Client extends RSApplet {
                 cameraZoom = 900;
                 WorldController.viewDistance = 10;
             }
-            if (size != 0 && Configuration.enableOldFrame) {
-                pushMessage("Option 'Old Frame' is not available in a resized mode yet.", 0, "");
-            }
             if (size != 0 && Configuration.enableAntiAliasing) {
                 pushMessage("Anti aliasing is not avaible on resized mode yet", 0, "");
             }
