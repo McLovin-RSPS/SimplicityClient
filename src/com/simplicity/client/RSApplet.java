@@ -155,6 +155,7 @@ WindowListener {
 		graphics = getGameComponent().getGraphics();
 		fullGameScreen = new RSImageProducer(myWidth, myHeight,
 				getGameComponent());
+		setFocusTraversalKeysEnabled(false);
 		startRunnable(this, 1);
 	}
 
