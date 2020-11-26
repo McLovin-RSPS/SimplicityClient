@@ -30,6 +30,7 @@ public enum PlayerRights {
     HEAD_MODERATOR(1032, 16, 0, PlayerRightsType.STAFF),
     SUPER_ADMIN(1033, 16, 0, PlayerRightsType.STAFF),
     MIDDLEMAN(1317, 16, 0, PlayerRightsType.DEFAULT),
+    ELITE(1722, 20, 0, PlayerRightsType.DONATOR),
 
     IRON_MAN(712, PlayerRightsType.CUSTOM_GAME_MODE),
     ULTIMATE_IRON_MAN(711, PlayerRightsType.CUSTOM_GAME_MODE),
