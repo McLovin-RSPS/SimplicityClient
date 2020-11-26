@@ -218,7 +218,7 @@ class StatusBarsOverlay extends Overlay
 		final Point offsetLeft = curViewport.getOffsetLeft();
 		final Point offsetRight = curViewport.getOffsetRight();
 		boolean tabVis = com.simplicity.client.Client.instance.showTab;
-		Point location = new Point(client.isResized() ? (clientWidth - (tabVis ? 236 : 35)) : 28, client.isResized() ? clientHeight - (longTabs ? 315 : 352) : 38);
+		Point location = new Point(client.isResized() ? (clientWidth - (tabVis ? 236 : 35)) : 31, client.isResized() ? clientHeight - (longTabs ? 315 : 352) : 38);
 		
 		int curWidth = com.simplicity.client.Client.clientSize == 0 ? 190 : 8;
 		final int height = client.isResized() ? RESIZED_BOTTOM_HEIGHT : HEIGHT;
