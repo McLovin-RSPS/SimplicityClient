@@ -25,14 +25,8 @@
  */
 package net.runelite.client.plugins.xptracker;
 
-import com.google.common.annotations.VisibleForTesting;
-import static com.google.common.base.MoreObjects.firstNonNull;
-import com.google.common.collect.ImmutableList;
-import com.google.inject.Binder;
-import com.google.inject.Provides;
-import com.simplicity.client.Entity;
-import com.simplicity.client.NPC;
-import com.simplicity.client.Player;
+import static net.runelite.api.widgets.WidgetInfo.TO_GROUP;
+import static net.runelite.client.plugins.xptracker.XpWorldType.NORMAL;
 
 import java.awt.image.BufferedImage;
 import java.time.temporal.ChronoUnit;
@@ -40,11 +34,21 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
+
+import javax.imageio.ImageIO;
 import javax.inject.Inject;
+
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.collect.ImmutableList;
+import com.google.inject.Binder;
+import com.google.inject.Provides;
+import com.simplicity.client.Entity;
+import com.simplicity.client.NPC;
+import com.simplicity.client.Player;
+
 import lombok.AccessLevel;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.Actor;
 import net.runelite.api.Client;
 import net.runelite.api.Experience;
 import net.runelite.api.GameState;
@@ -60,23 +64,17 @@ import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.StatChanged;
 import net.runelite.api.widgets.WidgetID;
-import static net.runelite.api.widgets.WidgetInfo.TO_GROUP;
-
 import net.runelite.client.RuneLite;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.game.SkillIconManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import static net.runelite.client.plugins.xptracker.XpWorldType.NORMAL;
 import net.runelite.client.task.Schedule;
-import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.ui.ClientToolbar;
+import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.ui.overlay.OverlayManager;
-import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.Text;
-import net.runelite.http.api.xp.XpClient;
-import okhttp3.OkHttpClient;
 
 @PluginDescriptor(
 	name = "XP Tracker",
@@ -159,7 +157,7 @@ public class XpTrackerPlugin extends Plugin
 	{
 		xpPanel = new XpPanel(this, xpTrackerConfig, RuneLite.getClient(), skillIconManager);
 
-		final BufferedImage icon = ImageUtil.getResourceStreamFromClass(getClass(), "/skill_icons/overall.png");
+		final BufferedImage icon = ImageIO.read(getClass().getResourceAsStream("xp.png"));
 
 		navButton = NavigationButton.builder()
 			.tooltip("XP Tracker")

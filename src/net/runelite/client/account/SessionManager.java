@@ -35,8 +35,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import net.runelite.client.eventbus.EventBus;
-import net.runelite.client.eventbus.Subscribe;
 import com.google.gson.Gson;
 
 import lombok.Getter;
@@ -45,17 +43,16 @@ import net.runelite.api.events.SessionClose;
 import net.runelite.api.events.SessionOpen;
 import net.runelite.client.RuneLite;
 import net.runelite.client.config.ConfigManager;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.util.LinkBrowser;
 import net.runelite.http.api.account.AccountClient;
 import net.runelite.http.api.account.OAuthResponse;
-import net.runelite.http.api.ws.messages.LoginResponse;
 
 @Singleton
 @Slf4j
 public class SessionManager
 {
 	private static final File SESSION_FILE = new File(RuneLite.RUNELITE_DIR, "session");
-	private WSClient wsclient;
 
 	@Getter
 	private AccountSession accountSession;
@@ -139,18 +136,6 @@ public class SessionManager
 	 */
 	private void openSession(AccountSession session)
 	{
-		// If the ws session already exists, don't need to do anything
-		if (wsclient == null || !wsclient.checkSession(session))
-		{
-			if (wsclient != null)
-			{
-				wsclient.close();
-			}
-
-			wsclient = new WSClient(eventBus, executor, session);
-			wsclient.connect();
-		}
-
 		accountSession = session;
 
 		if (session.getUsername() != null)
@@ -165,12 +150,6 @@ public class SessionManager
 
 	private void closeSession()
 	{
-		if (wsclient != null)
-		{
-			wsclient.close();
-			wsclient = null;
-		}
-
 		if (accountSession == null)
 		{
 			return;
@@ -215,23 +194,6 @@ public class SessionManager
 
 		// Navigate to login link
 		LinkBrowser.browse(login.getOauthUrl());
-	}
-	
-	@Subscribe
-	public void onLoginResponse(LoginResponse loginResponse)
-	{
-		log.debug("Now logged in as {}", loginResponse.getUsername());
-
-		AccountSession session = getAccountSession();
-		session.setUsername(loginResponse.getUsername());
-
-		// Open session, again, now that we have a username
-		// This triggers onSessionOpen
-		// The socket is already opened here anyway so we pass true for openSocket
-		openSession(session);
-
-		// Save session to disk
-		saveSession();
 	}
 
 	public void logout()
