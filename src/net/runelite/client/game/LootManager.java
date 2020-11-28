@@ -88,7 +88,6 @@ public class LootManager
 	@Subscribe
 	public void onNpcDespawned(NpcDespawned npcDespawned)
 	{
-		System.out.println("npc despawned");
 		final NPC npc = npcDespawned.getNpc();
 
 		if (npc == delayedLootNpc)
@@ -168,7 +167,6 @@ public class LootManager
 	@Subscribe
 	public void onItemSpawned(ItemSpawned itemSpawned)
 	{
-		System.out.println("item spawned");
 		final Item item = itemSpawned.getItem();
 		final com.simplicity.client.Tile tile = itemSpawned.getTile();
 		final LocalPoint location = tile.getLocalLocation();
@@ -248,7 +246,6 @@ public class LootManager
 
 	private void processNpcLoot(NPC npc)
 	{
-		System.out.println("process npc loot");
 		final LocalPoint location = LocalPoint.fromWorld(client, getDropLocation(npc, npc.getWorldLocation()));
 		if (location == null || killPoints.contains(location))
 		{
