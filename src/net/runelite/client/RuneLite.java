@@ -24,90 +24,38 @@
  */
 package net.runelite.client;
 
-import java.awt.Canvas;
-import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
-import java.util.EnumSet;
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import javax.annotation.Nullable;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.Logger;
-
 import com.google.common.annotations.VisibleForTesting;
-import net.runelite.client.eventbus.EventBus;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
 import joptsimple.ArgumentAcceptingOptionSpec;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.util.EnumConverter;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.Area;
-import net.runelite.api.BufferProvider;
-import net.runelite.api.ChatLineBuffer;
-import net.runelite.api.ChatMessageType;
-import net.runelite.api.ClanMember;
 import net.runelite.api.Client;
-import net.runelite.api.CollisionData;
-import net.runelite.api.Friend;
-import net.runelite.api.GameState;
-import net.runelite.api.GrandExchangeOffer;
-import net.runelite.api.GraphicsObject;
-import net.runelite.api.HashTable;
-import net.runelite.api.HintArrowType;
-import net.runelite.api.IndexDataBase;
-import net.runelite.api.IndexedSprite;
-import net.runelite.api.InventoryID;
-import net.runelite.api.ItemComposition;
-import net.runelite.api.ItemContainer;
-import net.runelite.api.MenuEntry;
-import net.runelite.api.NPC;
-import net.runelite.api.NPCComposition;
-import net.runelite.api.ObjectComposition;
-import net.runelite.api.Player;
-import net.runelite.api.Point;
-import net.runelite.api.Prayer;
-import net.runelite.api.Preferences;
-import net.runelite.api.Projectile;
-import net.runelite.api.RenderOverview;
-import net.runelite.api.Scene;
-import net.runelite.api.Skill;
-import net.runelite.api.SpritePixels;
-import net.runelite.api.Tile;
-import net.runelite.api.VarClientInt;
-import net.runelite.api.VarClientStr;
-import net.runelite.api.VarPlayer;
-import net.runelite.api.Varbits;
-import net.runelite.api.WidgetNode;
-import net.runelite.api.World;
-import net.runelite.api.WorldType;
-import net.runelite.api.coords.LocalPoint;
-import net.runelite.api.coords.WorldPoint;
-import net.runelite.api.hooks.Callbacks;
-import net.runelite.api.vars.AccountType;
-import net.runelite.api.widgets.Widget;
-import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.account.SessionManager;
 import net.runelite.client.callback.Hooks;
 import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.chat.CommandManager;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.discord.DiscordService;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.ClanManager;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.LootManager;
@@ -164,9 +112,6 @@ public class RuneLite
 
 	@Inject
 	private SessionManager sessionManager;
-
-	@Inject
-	private DiscordService discordService;
 
 	@Inject
 	private ClientSessionManager clientSessionManager;
@@ -351,15 +296,6 @@ public class RuneLite
 		startup.execute(new Runnable() {
 
 			public void run() {
-				// Initialize Discord service
-				discordService.init();
-			}
-
-		});
-		
-		startup.execute(new Runnable() {
-
-			public void run() {
 				// Register event listeners
 				eventBus.register(clientUI);
 				eventBus.register(pluginManager);
@@ -418,7 +354,6 @@ public class RuneLite
 	public void shutdown()
 	{
 		//clientSessionManager.shutdown();
-		discordService.close();
 	}
 	
 	public void post(Object event) {

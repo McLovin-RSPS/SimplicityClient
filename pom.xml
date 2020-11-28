@@ -3,9 +3,44 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>newclient</groupId>
-	<artifactId>newclient</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<groupId>com.simplicity</groupId>
+	<artifactId>simp</artifactId>
+	<version>0.0.1-SNAPSHOT</version>	
+	
+	<name>Simplicity</name>
+	<url>https://simplicityps.org</url>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+		<java.release>8</java.release>
+		<lombok.version>1.18.4</lombok.version>
+		<guice.version>4.1.0</guice.version>
+		<maven.javadoc.skip>true</maven.javadoc.skip>
+		<checkstyle.skip>true</checkstyle.skip>
+	</properties>
+	
+	<repositories>
+		<repository>
+			<id>maven-central</id>
+			<url>https://repo.maven.apache.org/maven2</url>
+		</repository>
+		<repository>
+			<id>runelite</id>
+			<name>RuneLite</name>
+			<url>https://repo.runelite.net</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+	    <repository>
+	        <id>jcenter</id>
+	        <name>jcenter</name>
+	        <url>https://jcenter.bintray.com/</url>
+	    </repository>		
+	</repositories>
+	
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<resources>
@@ -18,17 +53,40 @@
 		</resources>
 		<plugins>
 			<plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-assembly-plugin</artifactId>
+			  <executions>
+			    <execution>
+			      <id>make-executable-jar-with-dependencies</id>
+			      <phase>package</phase>
+			      <goals>
+			        <goal>single</goal>
+			      </goals>
+			      <configuration>
+			      	<archive>
+						<manifestEntries>
+                        	<Built-By></Built-By>
+                    	</manifestEntries>			      	
+				      	<manifest>
+				      		<addClasspath>true</addClasspath>
+				        	<mainClass>net.runelite.client.RuneLite</mainClass>
+				      	</manifest>
+			      	</archive>
+			        <descriptorRefs>
+			          <descriptorRef>jar-with-dependencies</descriptorRef>
+			        </descriptorRefs>			      			        
+			      </configuration>
+			    </execution>
+			  </executions>
+			</plugin>
+					
+			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.7.0</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.immutables.tools</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>4</version>
 			</plugin>
 		</plugins>
 		<pluginManagement>
@@ -65,6 +123,16 @@
 						</lifecycleMappingMetadata>
 					</configuration>
 				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>3.0.2</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.6.1</version>
+				</plugin>				
 			</plugins>
 		</pluginManagement>
 	</build>
@@ -76,9 +144,26 @@
 			<type>maven-plugin</type>
 		</dependency>
 		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.12</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.7.12</version>
+		</dependency>		
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+			<version>${guice.version}</version>
+			<classifier>no_aop</classifier>
+		</dependency>
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.6</version>
+			<version>${lombok.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.squareup.okhttp3</groupId>
@@ -101,11 +186,6 @@
 			<version>3.0.1u2</version>
 		</dependency>
 		<dependency>
-			<groupId>org.jsoup</groupId>
-			<artifactId>jsoup</artifactId>
-			<version>1.11.3</version>
-		</dependency>
-		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.8.5</version>
@@ -115,7 +195,71 @@
 			<artifactId>commons-text</artifactId>
 			<version>0.66.0.1</version>
 		</dependency>
-	    <dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-parent</artifactId>
+			<version>1.2.3</version>
+			<type>pom</type>
+			<scope>import</scope>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.jopt-simple</groupId>
+			<artifactId>jopt-simple</artifactId>
+			<version>5.0.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>club.minnced</groupId>
+		    <artifactId>java-discord-rpc</artifactId>
+		    <version>2.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>net.runelite</groupId>
+			<artifactId>discord</artifactId>
+			<version>1.2</version>
+		</dependency>		
+		<dependency>
+			<groupId>net.runelite.pushingpixels</groupId>
+			<artifactId>substance</artifactId>
+			<version>8.0.02</version>
+		</dependency>
+		<dependency>
+			<groupId>net.runelite.pushingpixels</groupId>
+			<artifactId>trident</artifactId>
+			<version>1.5.00</version>
+		</dependency>		
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>23.2-jre</version>
+			<exclusions>
+				<!--
+				compile time annotations for static analysis in Guava
+				https://github.com/google/guava/wiki/UseGuavaInYourBuild#what-about-guavas-own-dependencies
+				-->
+				<exclusion>
+					<groupId>com.google.code.findbugs</groupId>
+					<artifactId>jsr305</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.google.errorprone</groupId>
+					<artifactId>error_prone_annotations</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.google.j2objc</groupId>
+					<artifactId>j2objc-annotations</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>animal-sniffer-annotations</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>		
+	    <!--<dependency>
 	      <groupId>org.jogamp.gluegen</groupId>
 	      <artifactId>gluegen-rt-main</artifactId>
 	      <version>2.3.2</version>
@@ -129,6 +273,6 @@
 		  <groupId>org.jogamp.jogl</groupId>
 		  <artifactId>jogl-all</artifactId>
 		  <version>2.3.2</version>
-		</dependency>
+		</dependency>-->
 	</dependencies>
 </project>
