@@ -501,7 +501,7 @@ public class CustomObjects {
             {28194, 3099, 3506, 0, 0}, // Comp orb
             
             {13292, 3077, 3497, 0, 2}, // Magic chest
-            {54407, 3090, 3489, 0, 3}, // Halloween chest
+            //{54407, 3090, 3489, 0, 3}, // Halloween chest
             
             
             //{46984, 1630, 3990, 0, 0}, // Statue of Arthur
