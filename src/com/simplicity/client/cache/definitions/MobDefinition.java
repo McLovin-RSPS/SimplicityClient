@@ -154,6 +154,17 @@ public final class MobDefinition {
                     npc.squaresNeeded = 4;
                     break;
                     
+                    
+                case 8221:
+                    npc.copy(forID(3821));
+                    npc.name = "Santa's Evil Brother";
+                    npc.actions = new String[5];
+                    npc.actions[1] = "Attack";
+                    npc.sizeXZ *= 3;
+                    npc.sizeY *= 3;
+                    npc.squaresNeeded = 4;
+                    break;
+                    
                 case 7519:
                     npc.name = "Superior Olmlet";
                     npc.actions = new String[5];
