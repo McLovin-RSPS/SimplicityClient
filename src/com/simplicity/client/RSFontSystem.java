@@ -30,6 +30,7 @@ public class RSFontSystem extends DrawingArea {
 	public static String startStrikethrough;
 	public static String endColor;
 	public static String startSprite;
+	public static String startGif;
 	public static String startImage;
 	public static String endUnderline;
 	public static String defaultStrikethrough;
@@ -232,6 +233,16 @@ public class RSFontSystem extends DrawingArea {
 								int[] args = extractSpriteValues(effectString);
 								int spriteId = args[0];
 								Sprite icon = Client.cacheSprite[spriteId];
+								icon.drawSprite(drawX, drawY + args[1]);
+								drawX += icon.myWidth + icon.drawOffsetX;
+							} catch (Exception exception) {
+								/* empty */
+							}
+						} else if (effectString.startsWith(startGif)) {
+							try {
+								int[] args = extractSpriteValues(effectString);
+								int spriteId = args[0];
+								AnimatedSprite icon = AnimatedSprite.sprites[spriteId];
 								icon.drawSprite(drawX, drawY + args[1]);
 								drawX += icon.myWidth + icon.drawOffsetX;
 							} catch (Exception exception) {
@@ -442,6 +453,54 @@ public class RSFontSystem extends DrawingArea {
 								/* empty */
 								exception.printStackTrace();
 							}
+						} else if (effectString.startsWith(startGif)) {
+							try {
+								int xModI;
+
+								if (xModifier != null) {
+									xModI = xModifier[modifierOffset];
+								} else {
+									xModI = 0;
+								}
+
+								int yMod;
+
+								if (yModifier != null) {
+									yMod = yModifier[modifierOffset];
+								} else {
+									yMod = 0;
+								}
+								
+								modifierOffset++;
+								
+								int[] args = extractSpriteValues(effectString);
+
+								int spriteId = args[0];
+
+								int yOffset = args[1];
+
+								AnimatedSprite class92 = AnimatedSprite.sprites[spriteId];
+
+								int iconOffsetY = class92.maxHeight;
+
+								if (transparency == 256) {
+									class92.drawSprite(drawX + xModI,
+											(drawY + baseCharacterHeight
+													- iconOffsetY + yMod
+													+ yOffset));
+								} else {
+									class92.drawSprite(drawX + xModI,
+											(drawY + baseCharacterHeight
+													- iconOffsetY + yMod
+													+ yOffset),
+											transparency);
+								}
+
+								drawX += class92.maxWidth;
+							} catch (Exception exception) {
+								/* empty */
+								exception.printStackTrace();
+							}
 						} else {
 							setTextEffects(effectString);
 						}
@@ -616,6 +675,14 @@ public class RSFontSystem extends DrawingArea {
 								int spriteId = Integer
 										.valueOf(effectString.substring(4));
 								finalWidth += Client.cacheSprite[spriteId].maxWidth;
+							} catch (Exception exception) {
+								/* empty */
+							}
+						} else if (effectString.startsWith(startGif)) {
+							try {
+								int spriteId = Integer
+										.valueOf(effectString.substring(4));
+								finalWidth += AnimatedSprite.sprites[spriteId].maxWidth;
 							} catch (Exception exception) {
 								/* empty */
 							}
@@ -913,6 +980,7 @@ public class RSFontSystem extends DrawingArea {
 		aRSString_4163 = null;
 		aRSString_4169 = null;
 		startSprite = null;
+		startGif = null;
 		startImage = null;
 		lineBreak = null;
 		startColor = null;
@@ -1071,6 +1139,7 @@ public class RSFontSystem extends DrawingArea {
 		defaultStrikethrough = "str";
 		endUnderline = "/u";
 		startSprite = "spr=";
+		startGif = "gif=";
 		startImage = "img=";
 		startShadow = "shad=";
 		startUnderline = "u=";

@@ -4,7 +4,6 @@ import com.simplicity.Configuration;
 import com.simplicity.client.AnimatedSprite;
 import com.simplicity.client.Sprite;
 import com.simplicity.client.SpriteLoader;
-import com.simplicity.client.signlink;
 
 /**
  * Player rights enum that MUST be synced with servers rights.
@@ -34,7 +33,7 @@ public enum PlayerRights {
     HEAD_MODERATOR(1032, 16, 0, PlayerRightsType.STAFF),
     SUPER_ADMIN(1033, 16, 0, PlayerRightsType.STAFF),
     MIDDLEMAN(1317, 16, 0, PlayerRightsType.DEFAULT),
-    INFERNAL(new AnimatedSprite(signlink.findcachedir() + "data/rank/inf.gif"), 20, 0, PlayerRightsType.DONATOR),
+    INFERNAL(AnimatedSprite.sprites[0], 20, -1, PlayerRightsType.DONATOR),
 
     IRON_MAN(712, PlayerRightsType.CUSTOM_GAME_MODE),
     ULTIMATE_IRON_MAN(711, PlayerRightsType.CUSTOM_GAME_MODE),

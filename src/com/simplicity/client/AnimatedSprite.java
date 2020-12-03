@@ -229,6 +229,14 @@ public final class AnimatedSprite extends Sprite
 	{
 		return new AnimatedSprite(this, width, height, absScale);
 	}
+	
+	public static AnimatedSprite[] sprites = new AnimatedSprite[1];
+	
+	public static void load() {
+		for (int i = 0; i < sprites.length; i++) {
+			sprites[i] = new AnimatedSprite(signlink.findcachedir() + "data/gif/" + i + ".gif");
+        }
+	}
 
 	private static int blend(int dst, int src)
 	{

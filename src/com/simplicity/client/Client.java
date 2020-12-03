@@ -14522,6 +14522,7 @@ public class Client extends RSApplet {
             SkillOrbs.init();
             ScreenOverlayManager.init();
             setSkillSprites();
+            AnimatedSprite.load();
             setLoadingText(100, "");
             isLoading = false;
         } catch (Exception exception) {
