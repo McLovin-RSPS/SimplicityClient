@@ -340,6 +340,7 @@ public class Sprite extends DrawingArea {
 	}
 
 	public void drawSprite1(int i, int j, int k) {
+		autoUpdate();
 		i += drawOffsetX;
 		j += drawOffsetY;
 		int i1 = i + j * DrawingArea.width;
@@ -516,6 +517,7 @@ public class Sprite extends DrawingArea {
 
 
 	public void drawAdvancedSprite(int i, int j) {
+		autoUpdate();
 		int k = 256;
 		int i1 = i + j * DrawingArea.width;
 		int j1 = 0;
@@ -562,6 +564,7 @@ public class Sprite extends DrawingArea {
 
 
 	public void drawARGBSprite(int xPos, int yPos, int alpha) {
+		autoUpdate();
 		int alphaValue = alpha;
 		xPos += drawOffsetX;
 		yPos += drawOffsetY;
@@ -971,6 +974,7 @@ public class Sprite extends DrawingArea {
 	}
 
 	public void drawSprite(int x, int y) {
+		autoUpdate();
 		x += drawOffsetX;
 		y += drawOffsetY;
 		int rasterClip = x + y * DrawingArea.width;
