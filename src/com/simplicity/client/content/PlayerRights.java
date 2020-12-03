@@ -64,14 +64,14 @@ public enum PlayerRights {
     private PlayerRightsType playerRightsType;
 
     PlayerRights(int crownId, PlayerRightsType playerRightsType) {
-        this.sprite = SpriteLoader.sprites[crownId];
+        this.sprite = crownId == -1 ? null : SpriteLoader.sprites[crownId];
         this.drawOffsetX = 17;
         this.drawOffsetY = 1;
         this.playerRightsType = playerRightsType;
     }
 
     PlayerRights(int crownId, int drawOffsetX, int drawOffsetY, PlayerRightsType playerRightsType) {
-    	this.sprite = SpriteLoader.sprites[crownId];
+    	this.sprite = crownId == -1 ? null : SpriteLoader.sprites[crownId];
         this.drawOffsetX = drawOffsetX;
         this.drawOffsetY = drawOffsetY;
         this.playerRightsType = playerRightsType;
