@@ -121,7 +121,9 @@ public class CustomObjects {
 
             //Xmass tree for december OR Summer tree
             //{47748, 3107, 3498, 0, 0},
-            {15969, 3097, 3503, 0, 0},
+            //{15969, 3097, 3503, 0, 0},
+            {47748, 3097, 3503, 0, 0},
+            
             
             // Cheapfix Chamber bloat
             {0, 3298, 4445, 4, 1}, // block
