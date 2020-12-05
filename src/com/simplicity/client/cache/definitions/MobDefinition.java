@@ -46,7 +46,7 @@ public final class MobDefinition {
             cacheIndexOSRS = (cacheIndexOSRS + 1) % 20;
 
             MobDefinition npc = cacheOSRS[cacheIndexOSRS] = new MobDefinition();
-            
+
             if (i == 15_000) { // OSRS House pet
             	npc.id = OSRS_NPCS_OFFSET + i;
             	npc.type = OSRS_NPCS_OFFSET + i;
@@ -123,7 +123,7 @@ public final class MobDefinition {
                     npc.actions[0] = "Trade";
                     npc.combatLevel = 1337;
                     break;
-                    
+
                 case 2669:
                     npc.copy(forID(17668));
                     npc.name = "Muhammad Ali";
@@ -203,7 +203,12 @@ public final class MobDefinition {
         npc.readValues(stream);
         npc.postLoad();
         switch (i) {
-
+            case 13282:
+                npc.name = "Snowman";
+                npc.combatLevel = 137;
+                npc.actions = new String[5];
+                npc.actions[1] = "Attack";
+                break;
             case 621:
                 npc.name = "@or1@Fire Twisted bow";
                 npc.description = "A mystical bow carved from a very hot place.";
