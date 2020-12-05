@@ -160,6 +160,8 @@ public enum CustomRecolor {
 	
 	SCYTHE_OF_VITUR_INFERNAL(56018, 22011, "Scythe of Vitur Infernal", new int[] { 69 }, new int[] { 59 }),
 	
+	SCYTHE_OF_VITUR_I(22013, 56018, "Infernal Scythe", new int[] { 69 }, new int[] { 59 }),
+	
 	SEZY_ANGELIC_BOOTS(3324, 41860, "Can still see your sock",
 			new int[]{8396, 8417, 5293, 20},
 			new int[]{1024, 1024, 926, 926}),
