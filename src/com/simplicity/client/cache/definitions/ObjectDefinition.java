@@ -250,6 +250,9 @@ public final class ObjectDefinition {
         if (i == 132968) {
             objectDef.description = new String("Arthur promised to come and save him one day..").getBytes();
         }
+        if (i == 131626) {
+            objectDef.description = new String("The first player to achieve the infernal rank.").getBytes();
+        }
         if (i == 132938) {
             objectDef.description = new String("Theatre of Blood they said. It will be fun, they said.").getBytes();
         }
@@ -427,6 +430,9 @@ public final class ObjectDefinition {
             objectDef.actions = new String[]{"Fill-at", null, null, null, null};
             objectDef.name = "@yel@AFK Fountain";
         }
+        if (i == 48661) {
+            objectDef.description = new String("Statue of the almighty owner of Simplicity.").getBytes();
+        }
         if (i == 56839) {
             objectDef.actions = new String[]{"Pickup", null, null, null, null};
             objectDef.name = "@yel@Mysterious plant";
@@ -500,7 +506,7 @@ public final class ObjectDefinition {
             objectDef.actions = new String[]{"Dump-weeds", null, null, null, null};
             objectDef.name = "Compost bin";
         }
-        if (i == 884) {
+        if (i == 884 || i == 11007 ) {
             objectDef.actions = new String[]{"Investigate", "Contribute", "Status", null, null};
             objectDef.name = "Well of Goodwill";
         }
