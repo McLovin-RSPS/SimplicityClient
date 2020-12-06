@@ -4645,6 +4645,10 @@ public final class ItemDefinition {
             case 8869:
                 itemDef.name = "@or2@Champion's key";
                 break;
+                
+            case 6469:
+                itemDef.name = "@or2@Dragonfruit";
+                break;
 
             case 20790:
                 itemDef.modelID = 35127;
