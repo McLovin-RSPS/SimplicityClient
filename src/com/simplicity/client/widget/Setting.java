@@ -130,19 +130,6 @@ public enum Setting {
 		}
 	},
 
-	SKILL_STATUS_BARS() {
-
-		@Override
-		public void handle() {
-			enableSkillStatusBars = !enableSkillStatusBars;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableSkillStatusBars;
-		}
-	},
-
 	XP_ORBS() {
 
 		@Override
@@ -158,18 +145,6 @@ public enum Setting {
 
 	ITEM_STATS(new DropdownMenu(75, false, 1, new String[] { "On Hover", "Hold Ctrl", "Disabled" }, Dropdown.ITEM_STATS)) { },
 
-	TILE_MARKERS() {
-		@Override
-		public void handle() {
-			Configuration.enableTileMarkers = !Configuration.enableTileMarkers;
-		}
-
-		@Override
-		public boolean enabled() {
-			return Configuration.enableTileMarkers;
-		}
-	},
-	
 	EFFECT_TIMERS() {
 
 		@Override
@@ -181,18 +156,6 @@ public enum Setting {
 		@Override
 		public boolean enabled() {
 			return enableTimers;
-		}
-	},
-	
-	AMMUNITION() {
-		@Override
-		public void handle() {
-			Configuration.enableAmmunitionOverlay = !Configuration.enableAmmunitionOverlay;
-		}
-
-		@Override
-		public boolean enabled() {
-			return Configuration.enableAmmunitionOverlay;
 		}
 	},
 	
