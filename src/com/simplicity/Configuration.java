@@ -190,7 +190,7 @@ public class Configuration {
     /**
      * Indicates whether skill status bars are enabled or not.
      */
-	public static boolean enableSkillStatusBars = true;
+	public static boolean enableSkillStatusBars = false;
 	
     /**
      * Indicates whether xp orbs are enabled or not.
@@ -210,7 +210,7 @@ public class Configuration {
 	/**
 	 * Indicates whether the tile markers are enabled or not.
 	 */
-	public static boolean enableTileMarkers = true;
+	public static boolean enableTileMarkers = false;
 	
 	/**
 	 * Indicates whether the WASD camera is enabled or not.
@@ -240,7 +240,7 @@ public class Configuration {
 	/**
 	 * Indicates whether ammunition overlay is enabled or not.
 	 */
-	public static boolean enableAmmunitionOverlay = true;
+	public static boolean enableAmmunitionOverlay = false;
 	
 	/**
 	 * Indicates whether kdr overlay is enabled or not.

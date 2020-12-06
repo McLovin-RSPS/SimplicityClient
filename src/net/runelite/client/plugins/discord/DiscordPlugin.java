@@ -38,7 +38,7 @@ public class DiscordPlugin extends Plugin {
 			icon = ImageIO.read(getClass().getResourceAsStream("discord.png"));
 		}
 		
-		discordButton = NavigationButton.builder().tooltip("Join Discord").icon(icon).onClick(() -> LinkBrowser.browse("https://discord.gg/u2BPNYw")).build();
+		discordButton = NavigationButton.builder().tooltip("Join Discord").icon(icon).onClick(() -> LinkBrowser.browse("https://discord.gg/NjbEDNg")).build();
 		toolBar.addNavigation(discordButton);
 	}
 	

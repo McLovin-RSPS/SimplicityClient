@@ -252,7 +252,6 @@ public class PluginManager
 				ConfigPlugin.class, 
 				NotesPlugin.class,
 				DiscordPlugin.class,
-				ForumPlugin.class,
 				DonatePlugin.class,
 				VotePlugin.class,
 				ScreenshotPlugin.class,

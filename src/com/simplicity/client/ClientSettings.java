@@ -138,10 +138,6 @@ public class ClientSettings {
 				Configuration.enableParticles = reader.get("particles").getAsBoolean();
 			}
 			
-			if (reader.has("skill-status-bars")) {
-				Configuration.enableSkillStatusBars = reader.get("skill-status-bars").getAsBoolean();
-			}
-			
 			if (reader.has("xp-orbs")) {
 				Configuration.enableXpOrbs = reader.get("xp-orbs").getAsBoolean();
 			}
@@ -186,10 +182,6 @@ public class ClientSettings {
 				Configuration.enableBountyTarget = reader.get("bounty-target").getAsBoolean();
 			}
 			
-			if (reader.has("ammunition-overlay")) {
-				Configuration.enableAmmunitionOverlay = reader.get("ammunition-overlay").getAsBoolean();
-			}
-			
 			if (reader.has("kdr-overlay")) {
 				Configuration.enableKDROverlay = reader.get("kdr-overlay").getAsBoolean();
 			}
@@ -215,10 +207,6 @@ public class ClientSettings {
 			
 			if (reader.has("quick-curses")) {
 				Client.instance.setQuickCurses(builder.fromJson(reader.get("quick-curses"), int[].class));
-			}
-			
-			if (reader.has("tile-markers")) {
-				WorldController.markedTiles = builder.fromJson(reader.get("tile-markers"), new TypeToken<Map<Integer, List<Position>>>() { }.getType());
 			}
 			
 			fileReader.close();
@@ -270,7 +258,6 @@ public class ClientSettings {
 			object.addProperty("save-input", Configuration.enableSaveInput);
 			object.addProperty("hd-shading", Configuration.enableHDShading);
 			object.addProperty("particles", Configuration.enableParticles);
-			object.addProperty("skill-status-bars", Configuration.enableSkillStatusBars);
 			object.addProperty("xp-orbs", Configuration.enableXpOrbs);
 			object.addProperty("ground-item-names", Configuration.enableGroundItemNames);
 			object.addProperty("shift-click-drop", Configuration.enableShiftClickDrop);
@@ -283,14 +270,12 @@ public class ClientSettings {
 			object.addProperty("moderation-menu-enabled", Configuration.enableModerationMenu);
 			object.addProperty("zooming", Configuration.enableZooming);
 			object.addProperty("bounty-target", Configuration.enableBountyTarget);
-			object.addProperty("ammunition-overlay", Configuration.enableAmmunitionOverlay);
 			object.addProperty("kdr-overlay", Configuration.enableKDROverlay);
 			object.addProperty("runepouch-overlay", Configuration.enableRunePouchOverlay);
 			object.addProperty("new-hp-bars", Configuration.enableNewHpBars);
 			object.add("keybindings", builder.toJsonTree(Keybinding.KEYBINDINGS));
 			object.add("quick-prayers", builder.toJsonTree(Client.instance.getQuickPrayers()));
 			object.add("quick-curses", builder.toJsonTree(Client.instance.getQuickCurses()));
-			object.add("tile-markers", builder.toJsonTree(WorldController.markedTiles));
 
 			writer.write(builder.toJson(object));
 			writer.close();
@@ -321,16 +306,13 @@ public class ClientSettings {
 		Configuration.enableSaveInput = true;
 		Configuration.enableHDShading = true;
 		Configuration.enableParticles = true;
-		Configuration.enableSkillStatusBars = true;
 		Configuration.enableXpOrbs = true;
 		Configuration.enableMipmapping = false;
 		Configuration.enableItemStats = 1;
-		Configuration.enableTileMarkers = true;
 		Configuration.enableWASDCamera = false;
 		Configuration.enableZooming = true;
 		Configuration.enableBountyTarget = true;
 		Configuration.enableModerationMenu = true;
-		Configuration.enableAmmunitionOverlay = true;
 		Configuration.enableKDROverlay = false;
 		Configuration.enableRunePouchOverlay = true;
 		Configuration.enableNewHpBars = true;
