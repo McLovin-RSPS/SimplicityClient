@@ -117,7 +117,7 @@ public interface RuneLiteConfig extends Config
 	)
 	default WarningOnExit warningOnExit()
 	{
-		return WarningOnExit.LOGGED_IN;
+		return WarningOnExit.ALWAYS;
 	}
 
 	@ConfigItem(
