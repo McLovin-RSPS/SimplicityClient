@@ -121,7 +121,9 @@ public class CustomObjects {
 
             //Xmass tree for december OR Summer tree
             //{47748, 3107, 3498, 0, 0},
-            {15969, 3097, 3503, 0, 0},
+            //{15969, 3097, 3503, 0, 0},
+            {47748, 3097, 3503, 0, 0},
+            
             
             // Cheapfix Chamber bloat
             {0, 3298, 4445, 4, 1}, // block
@@ -501,7 +503,7 @@ public class CustomObjects {
             {28194, 3099, 3506, 0, 0}, // Comp orb
             
             {13292, 3077, 3497, 0, 2}, // Magic chest
-            {54407, 3090, 3489, 0, 3}, // Halloween chest
+            //{54407, 3090, 3489, 0, 3}, // Halloween chest
             
             
             //{46984, 1630, 3990, 0, 0}, // Statue of Arthur

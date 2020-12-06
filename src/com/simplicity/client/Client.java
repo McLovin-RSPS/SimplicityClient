@@ -842,7 +842,7 @@ public class Client extends RSApplet {
                                     } else if(playerRights > 0) {
                                     	PlayerRights rights = PlayerRights.get(playerRights);
                                     	
-                                        SpriteLoader.sprites[rights.getCrownId()].drawSprite(xPos + 1 + offsetX,
+                                        rights.getSprite().drawSprite(xPos + 1 + offsetX,
                                                 positionY - 10 + offsetY + rights.getDrawOffsetY());
                                         xPos += rights.getDrawOffsetX();
                                     }
@@ -910,7 +910,7 @@ public class Client extends RSApplet {
                                         xPos += 14;
                                     } else if(playerRights > 0) {
                                         PlayerRights rights = PlayerRights.get(playerRights);
-                                        SpriteLoader.sprites[rights.getCrownId()].drawSprite(xPos + 1 + offsetX,
+                                        rights.getSprite().drawSprite(xPos + 1 + offsetX,
                                                 positionY - 11 + offsetY + rights.getDrawOffsetY());
                                         xPos += rights.getDrawOffsetX();
                                     }
@@ -1024,7 +1024,7 @@ public class Client extends RSApplet {
                     }
                     offsetX += 15;
                 } else if(myRights > 0) {
-                    SpriteLoader.sprites[rights.getCrownId()].drawSprite(12 + offsetX,
+                    rights.getSprite().drawSprite(12 + offsetX,
                             122 + offsetY + rights.getDrawOffsetY());
 
                     offsetX += rights.getDrawOffsetX();
@@ -12551,7 +12551,7 @@ public class Client extends RSApplet {
 
                     if (playerRights != PlayerRights.PLAYER || ironman2 != 0) {
                         if (rights != 0) {
-                            SpriteLoader.sprites[playerRights.getCrownId()].drawSprite(k1 + 1,
+                            playerRights.getSprite().drawSprite(k1 + 1,
                                     l - 12 + playerRights.getDrawOffsetY());
                             k1 += playerRights.getDrawOffsetX();
                         } else if (ironman2 != 0) {
@@ -14650,6 +14650,7 @@ public class Client extends RSApplet {
             SkillOrbs.init();
             ScreenOverlayManager.init();
             setSkillSprites();
+            AnimatedSprite.load();
             setLoadingText(100, "");
             isLoading = false;
         } catch (Exception exception) {

@@ -1,6 +1,9 @@
 package com.simplicity.client.content;
 
 import com.simplicity.Configuration;
+import com.simplicity.client.AnimatedSprite;
+import com.simplicity.client.Sprite;
+import com.simplicity.client.SpriteLoader;
 
 /**
  * Player rights enum that MUST be synced with servers rights.
@@ -30,6 +33,7 @@ public enum PlayerRights {
     HEAD_MODERATOR(1032, 16, 0, PlayerRightsType.STAFF),
     SUPER_ADMIN(1033, 16, 0, PlayerRightsType.STAFF),
     MIDDLEMAN(1317, 16, 0, PlayerRightsType.DEFAULT),
+    INFERNAL(AnimatedSprite.sprites[0], 20, -1, PlayerRightsType.DONATOR),
 
     IRON_MAN(712, PlayerRightsType.CUSTOM_GAME_MODE),
     ULTIMATE_IRON_MAN(711, PlayerRightsType.CUSTOM_GAME_MODE),
@@ -37,11 +41,11 @@ public enum PlayerRights {
     GROUP_IRON_MAN(1316, PlayerRightsType.CUSTOM_GAME_MODE)
 
     ;
-
-    /**
-     * The crown sprite ID.
-     */
-    private int crownId;
+	
+	/**
+	 * The sprite.
+	 */
+	private Sprite sprite;
 
     /**
      * The draw offset in the X coordinate.
@@ -59,21 +63,28 @@ public enum PlayerRights {
     private PlayerRightsType playerRightsType;
 
     PlayerRights(int crownId, PlayerRightsType playerRightsType) {
-        this.crownId = crownId;
+        this.sprite = crownId == -1 ? null : SpriteLoader.sprites[crownId];
         this.drawOffsetX = 17;
         this.drawOffsetY = 1;
         this.playerRightsType = playerRightsType;
     }
 
     PlayerRights(int crownId, int drawOffsetX, int drawOffsetY, PlayerRightsType playerRightsType) {
-        this.crownId = crownId;
+    	this.sprite = crownId == -1 ? null : SpriteLoader.sprites[crownId];
         this.drawOffsetX = drawOffsetX;
         this.drawOffsetY = drawOffsetY;
         this.playerRightsType = playerRightsType;
     }
-
-    public int getCrownId() {
-        return crownId;
+    
+    PlayerRights(Sprite sprite, int drawOffsetX, int drawOffsetY, PlayerRightsType playerRightsType) {
+        this.sprite = sprite;
+        this.drawOffsetX = drawOffsetX;
+        this.drawOffsetY = drawOffsetY;
+        this.playerRightsType = playerRightsType;
+    }
+    
+    public Sprite getSprite() {
+    	return sprite;
     }
 
     public int getDrawOffsetX() {
