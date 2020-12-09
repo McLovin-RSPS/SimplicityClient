@@ -65,6 +65,8 @@ public class CustomObjects {
             {131626, 1685, 3754, 0, 0}, // Sezy Statue Portal
             {134677, 1669, 3747, 0, 3}, // Verzik display
             
+            {131919, 1700, 3745, 0, 1}, // Inferno statue
+            
             //{112941, 1686, 3746, 0, 0}, // middle fountain
             
             {135192, 1683, 3744, 0, 1}, // pillar
