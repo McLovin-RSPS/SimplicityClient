@@ -237,7 +237,7 @@ public final class ObjectDefinition {
             objectDef.name = "@yel@Elite Raids";
         }
         if (i == 133124) {
-            objectDef.actions = new String[]{"Loot", null, null, null, null};
+            objectDef.actions = new String[]{"Loot", "Lookup", null, null, null};
             objectDef.name = "@yel@Elite Champion chest";
         }        
         if (i == 126073) {
