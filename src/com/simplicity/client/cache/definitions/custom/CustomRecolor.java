@@ -560,6 +560,23 @@ public enum CustomRecolor {
    	SKY_BLUE_SCYTHE_X(11318, 15000, "@cya@Sky Blue Dragonstone Scythe", 
 			new int[] { 33, 37, 41, 78, 16, 784, 49, 20, 790, 24, 536, 796, 28, 61 },
 			new int[] { 1024, 1024, 1024, 1024, 1024, 37631, 1024, 1024, 1024, 1024, 37631, 37631, 1024, 1024 }),
+   	/* Eli Santa Suit Purple */
+   ELI_SANTA_TOP(13728, 14601, "Eli's santa top",
+		    new int[] { 940, 933, 928, 924 },
+			new int[] { 51136, 51136, 51136, 51136 }),
+   ELI_SANTA_LEGS(13729, 14603, "Eli's santa legs",
+		    new int[] { 940, 933, 928, 924 },
+			new int[] { 51136, 51136, 51136, 51136 }),
+   ELI_SANTA_BOOTS(13730, 14605, "Eli's santa boots",
+		    new int[] { 0, 56338, 56342, 120, 105, 90, 56334 },
+			new int[] { 0, 51136, 51136, 120, 105, 90, 51136 }),
+   ELI_SANTA_GLOVES(13731, 14602, "Eli's santa gloves",
+		    new int[] { 56340, 5220, 5240, 5401, 56346, 5230 },
+			new int[] { 51136, 5220, 5240, 5401, 51136, 5230 }),
+   ELI_SCYTHE(13733, 15000, "Kevin's Son Scythe XI", 
+			new int[] { 33, 37, 41, 78, 16, 784, 49, 20, 790, 24, 536, 796, 28, 61 },
+			new int[] { 90, 90, 90, 51136, 90, 51136, 51136, 90, 51136, 90, 51136, 51136, 90, 51136 }),
+
 
     
 	//dark purple - 37631
