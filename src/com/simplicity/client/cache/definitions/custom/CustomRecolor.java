@@ -597,8 +597,22 @@ public enum CustomRecolor {
    DEMONIC_MASTERWORK_GLOVES(15655, 22004, "Demonic masterwork gloves", 
 			new int[] { 52249, 35, 5284, 135, 1033, 10, 52234, 5259, 11, 12, 51212, 14, 142, 15, 52239, 144, 58512, 17, 3217, 19, 52244, 148, 2197, 57365, 21, 150, 60566, 3222, 57368, 152, 2200, 153, 60569, 4249, 2202, 26, 154, 2205, 4381, 53278, 30, 4254, 52255, 59424, 52256, 32, 5282, 58402, 36, 3236, 5413, 58405, 6567, 2094, 7601,  }, 
 			new int[] { 908, 908, 908, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10  }),
+   LIME_ANKOU_HOOD(6189, 14914, "Lemon Ankou Hood",
+		   	new int[]{ 960 },
+   			new int[]{ 17350 }),
+   LIME_ANKOU_CHEST(6190, 14915, "Lemon Ankou Chest",
+		   	new int[]{ 960 },
+   			new int[]{ 17350 }),
+   LIME_ANKOU_LEGS(6191, 14917, "Lemon Ankou Legs",
+		   	new int[]{ 960 },
+   			new int[]{ 17350 }),
+   LIME_ANKOU_GLOVES(6192, 14916, "Lemon Ankou Gloves",
+		   	new int[]{ 960 },
+   			new int[]{ 17350 }),
+   LIME_ANKOU_SOCKS(6193, 14918, "Lemon Ankou Socks",
+		   	new int[]{ 960 },
+   			new int[]{ 17350 });
 
-    
 	//dark purple - 37631
 	;
 	/**
