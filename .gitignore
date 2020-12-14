@@ -5,8 +5,6 @@ src/com/simplicity/client/cache/definitions/ItemDefinition.java
 .idea/libraries/deps.xml
 client.iml
 SimplicityClientNew.iml
-*.png
-*.gif
 *.class
 *.classpath
 *.project
