@@ -3,6 +3,8 @@ package com.simplicity.client.cache.definitions;
 
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.simplicity.client.CacheArchive;
 import com.simplicity.client.Client;
@@ -312,6 +314,14 @@ public final class ObjectDefinition {
             30310, 30302
     };
     private final static int[] hotSpotIDs = new int[]{13374, 13375, 13376, 13377, 13378, 39260, 39261, 39262, 39263, 39264, 39265, 2715, 13366, 13367, 13368, 13369, 13370, 13371, 13372, 15361, 15362, 15363, 15366, 15367, 15364, 15365, 15410, 15412, 15411, 15414, 15415, 15413, 15416, 15416, 15418, 15419, 15419, 15419, 15419, 15419, 15419, 15419, 15419, 15402, 15405, 15401, 15398, 15404, 15403, 15400, 15400, 15399, 15302, 15302, 15302, 15302, 15302, 15302, 15304, 15303, 15303, 15301, 15300, 15300, 15300, 15300, 15299, 15299, 15299, 15299, 15298, 15443, 15445, 15447, 15446, 15444, 15441, 15439, 15448, 15450, 15266, 15265, 15264, 15263, 15263, 15263, 15263, 15263, 15263, 15263, 15263, 15267, 15262, 15260, 15261, 15268, 15379, 15378, 15377, 15386, 15383, 15382, 15384, 34255, 15380, 15381, 15346, 15344, 15345, 15343, 15342, 15296, 15297, 15297, 15294, 15293, 15292, 15291, 15290, 15289, 15288, 15287, 15286, 15282, 15281, 15280, 15279, 15278, 15277, 15397, 15396, 15395, 15393, 15392, 15394, 15390, 15389, 15388, 15387, 44909, 44910, 44911, 44908, 15423, 15423, 15423, 15423, 15420, 48662, 15422, 15421, 15425, 15425, 15424, 18813, 18814, 18812, 18815, 18811, 18810, 15275, 15275, 15271, 15271, 15276, 15270, 15269, 13733, 13733, 13733, 13733, 13733, 13733, 15270, 15274, 15273, 15406, 15407, 15408, 15409, 15368, 15375, 15375, 15375, 15375, 15376, 15376, 15376, 15376, 15373, 15373, 15374, 15374, 15370, 15371, 15372, 15369, 15426, 15426, 15435, 15438, 15434, 15434, 15431, 15431, 15431, 15431, 15436, 15436, 15436, 15436, 15436, 15436, 15437, 15437, 15437, 15437, 15437, 15437, 15350, 15348, 15347, 15351, 15349, 15353, 15352, 15354, 15356, 15331, 15331, 15331, 15331, 15355, 15355, 15355, 15355, 15330, 15330, 15330, 15330, 15331, 15331, 15323, 15325, 15325, 15324, 15324, 15329, 15328, 15326, 15327, 15325, 15325, 15324, 15324, 15330, 15330, 15330, 15330, 15331, 15331, 34138, 15330, 15330, 34138, 34138, 15330, 34138, 15330, 15331, 15331, 15337, 15336, 39230, 39231, 36692, 39229, 36676, 34138, 15330, 15330, 34138, 34138, 15330, 34138, 15330, 15331, 15331, 36675, 36672, 36672, 36675, 36672, 36675, 36675, 36672, 15331, 15331, 15330, 15330, 15257, 15256, 15259, 15259, 15327, 15326};
+    
+    /**
+     * A hash collection of objects which should display the black triangles.
+     */
+    private static final Set<Integer> BLACK_TRIANGLES = new HashSet<>(Arrays.asList(
+    	/* Nex objects */
+    	57212, 57213, 57214, 57215, 57216, 57218, 57222, 57223, 57225, 57226, 57239
+    ));
 
     public static ObjectDefinition forID(int i) {
         boolean loadNew = (
@@ -386,7 +396,11 @@ public final class ObjectDefinition {
                 objectDef.actions[1] = "View-presets";
             }
         }
-		
+
+        if (BLACK_TRIANGLES.contains(i)) {
+        	objectDef.showBlackTriangles = true;
+        }
+        
         if (i == 9293) { // Tav dung pipe
 			objectDef.offsetX = 64;
 			objectDef.adjustToTerrain = true;
@@ -1198,7 +1212,7 @@ public final class ObjectDefinition {
         if (hasOffsets)
             model_3.translate(offsetX, offsetH, offsetY);
         //model_3.light(74, 1000, -90, -580, -90, !nonFlatShading);
-        model_3.light(64 + brightness, 768 + contrast * 5, -50, -10, -50, !nonFlatShading);
+        model_3.light(64 + brightness, 768 + contrast * 5, -50, -10, -50, !nonFlatShading, showBlackTriangles);
         //64 + aByte737, 768 + aByte742 * 5, -50, -10, -50, !aBoolean769
         if (anInt760 == 1)
             model_3.myPriority = model_3.modelHeight;
@@ -1539,6 +1553,7 @@ public final class ObjectDefinition {
         type = -1;
     }
 
+    private boolean showBlackTriangles;
     public boolean aBoolean736;
     public byte brightness;
     private int offsetX;
