@@ -2141,7 +2141,7 @@ public class Model extends Animable {
         face_a = facePoint1;
         face_b = facePoint2;
         face_c = facePoint3;
-        filterTriangles();
+        // filterTriangles();
         convertTexturesTo317(modelID, D, texTrianglesPoint1, texTrianglesPoint2, texTrianglesPoint3, x);
         
         if (isDepthBuffered(modelID, dataType)) {
