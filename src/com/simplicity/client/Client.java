@@ -3869,7 +3869,7 @@ public class Client extends RSApplet {
             webclient = true;
             nodeID = 10;
             portOff = 0;
-            setLowMem();
+            setHighMem();
             signlink.startpriv(InetAddress.getLocalHost());
             initClientFrame(765, 563);
             instance = this;
