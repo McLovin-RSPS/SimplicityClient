@@ -156,6 +156,10 @@ public final class ObjectDefinition {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        if (i == 126953) {
+            objectDef.hasActions = false;
+        }
         if (i == 133122) {
             objectDef.name = "Elite chest";
             objectDef.hasActions = true;
