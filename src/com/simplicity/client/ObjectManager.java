@@ -733,7 +733,7 @@ final class ObjectManager {
 
 		ObjectDefinition objectDef = ObjectDefinition.forID(objId);
 		
-		boolean flag = face == 1 || face == 3;
+		boolean flag = face != 1 && face != 3;
 		int sizeY = flag ? objectDef.sizeY : objectDef.sizeX;
 		int sizeX = flag ? objectDef.sizeX : objectDef.sizeY;
 		
