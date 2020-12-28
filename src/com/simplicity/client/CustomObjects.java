@@ -124,7 +124,7 @@ public class CustomObjects {
             //Xmass tree for december OR Summer tree
             //{47748, 3107, 3498, 0, 0},
             //{15969, 3097, 3503, 0, 0},
-            {47748, 3097, 3503, 0, 0},
+            {47748, 3090, 3503, 0, 0},
             
             
             // Cheapfix Chamber bloat
@@ -502,9 +502,9 @@ public class CustomObjects {
             
             // Arthur's dream 2
 
-            {28194, 3099, 3506, 0, 0}, // Comp orb
+            {28194, 3097, 3510, 0, 0}, // Comp orb
             
-            {13292, 3077, 3497, 0, 2}, // Magic chest
+            {13292, 3079, 3497, 0, 2}, // Magic chest
             //{54407, 3090, 3489, 0, 3}, // Halloween chest
             
             
@@ -806,7 +806,7 @@ public class CustomObjects {
 
             // Teleport to new slayer dung
 
-            {10780, 3105, 3507, 0, 0},
+            {10780, 3093, 3510, 0, 0},
             
             
             
@@ -1019,8 +1019,6 @@ public class CustomObjects {
             /**Edgeville**/
             {409, 3088, 3483, 0, 0},	// prayer altar
             //{409, 3090, 3510, 0, 1},	// prayer altar 
-            {6552, 3092, 3506, 0, 2}, 	// ancient altar
-            {13179, 3096, 3506, 0, 0},	// lunar altar
             {411, 3085, 3483, 0, 0},
             
             /**Halloween beast**/
@@ -1035,6 +1033,8 @@ public class CustomObjects {
             
             /**Edgeville north**/
             {409, 3085, 3509, 0, 3}, 		//altar
+            {6552, 3090, 3509, 0, 3}, 		//ancient altar
+            {13179, 3100, 3510, 0, 1},	// lunar altar
             {29942, 3085, 3511, 0, 0}, 		//summoning obelisk edge
             {130087, 3085, 3512, 0, 1},		//bank chest
 
@@ -1116,7 +1116,7 @@ public class CustomObjects {
             {13569, 2770, 3520, 0, 0}, // AFK-westerfish
             {13569, 2769, 3520, 0, 0}, // AFK-westerfish
 
-            {2158, 3094, 3513, 0, 1}, // portal
+            //{2158, 3094, 3513, 0, 1}, // portal
             
             {13570, 3425, 2909, 0, 0}, // sapphire westerfish
 
