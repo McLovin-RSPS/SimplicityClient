@@ -161,6 +161,10 @@ public final class ObjectDefinition {
         if (i == 134520 || i == 134541 || i == 134542) {
         	objectDef.showBlackTriangles = true;
         }
+
+        if (i == 126953) {
+            objectDef.hasActions = false;
+        }
         if (i == 133122) {
             objectDef.name = "Elite chest";
             objectDef.hasActions = true;

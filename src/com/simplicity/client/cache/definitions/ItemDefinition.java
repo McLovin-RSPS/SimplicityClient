@@ -1232,7 +1232,15 @@ public final class ItemDefinition {
         itemDef.value = prices[itemDef.id];
 
         switch (itemId) {
-        
+
+            case 4964:
+            case 4965:
+            case 4966:
+            case 4967:
+                String name = itemDef.name;
+                itemDef.copy(forID(4749));
+                itemDef.name = name;
+                break;
         case 18351:
         	itemDef.maleYOffset = -10;
         	itemDef.maleXOffset = 5;
