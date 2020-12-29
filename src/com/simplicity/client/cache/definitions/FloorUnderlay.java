@@ -23,7 +23,7 @@ public final class FloorUnderlay {
 
 	}
 	
-	public static boolean snowEnabled = true;
+	public static boolean snowEnabled = false;
 
 	private static Calendar date = new GregorianCalendar();
 	

@@ -504,7 +504,7 @@ public class CustomObjects {
 
             {28194, 3097, 3510, 0, 0}, // Comp orb
             
-            {13292, 3079, 3497, 0, 2}, // Magic chest
+            {13292, 3099, 3490, 0, 1}, // Magic chest
             //{54407, 3090, 3489, 0, 3}, // Halloween chest
             
             
@@ -1031,12 +1031,16 @@ public class CustomObjects {
             
             //{30205, 3085, 3509, 0, 3},
             
-            /**Edgeville north**/
+            /**Edgeville north hall**/
+            {123709, 3083, 3499, 0, 1}, // box of life           
+            {136582, 3097, 3513, 0, 0}, // elven crystal chest
+            {172, 3099, 3513, 0, 2}, // crystal chest
             {409, 3085, 3509, 0, 3}, 		//altar
             {6552, 3090, 3509, 0, 3}, 		//ancient altar
             {13179, 3100, 3510, 0, 1},	// lunar altar
-            {29942, 3085, 3511, 0, 0}, 		//summoning obelisk edge
+            {29942, 3090, 3498, 0, 0}, 		//summoning obelisk edge
             {130087, 3085, 3512, 0, 1},		//bank chest
+            {131925, 3094, 3512, 0, 0}, // mounted max cape
 
             {4875, 3094, 3500, 0, 0},
             {4874, 3095, 3500, 0, 0},
@@ -1091,9 +1095,8 @@ public class CustomObjects {
             {14859, 3054, 9746, 0, 2},
             {4306, 3026, 9741, 0, 0},
             {6189, 3022, 9742, 0, 1},
-            {172, 3077, 3499, 0, 1},
             
-            {3192, 3078, 3480, 0, 0}, // scoreboard
+            {3192, 3082, 3484, 0, 0}, // scoreboard
 
             {75, 2914, 3452, 0, 2},
 
