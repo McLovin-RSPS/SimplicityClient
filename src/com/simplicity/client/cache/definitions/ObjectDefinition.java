@@ -158,6 +158,9 @@ public final class ObjectDefinition {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if (i == 134520 || i == 134541 || i == 134542) {
+        	objectDef.showBlackTriangles = true;
+        }
         if (i == 133122) {
             objectDef.name = "Elite chest";
             objectDef.hasActions = true;
