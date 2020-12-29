@@ -2,7 +2,6 @@ package com.simplicity.client.content.login;
 
 import java.util.ArrayList;
 
-import com.simplicity.client.Client;
 import com.simplicity.client.ClientSettings;
 import com.simplicity.util.StringUtils;
 
@@ -68,9 +67,6 @@ public class LoginScreen {
 		}
 		
 		public String getPassword() {
-			if (password == null) {
-				System.out.println("password is null, but username: " + username);
-			}
 			String encoded = StringUtils.base64decode(StringUtils.base64encode(password));
 			
 			return StringUtils.xorMessage(encoded, "yT4eHQk");
