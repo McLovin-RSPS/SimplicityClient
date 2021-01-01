@@ -233,6 +233,10 @@ public final class ObjectDefinition {
             objectDef.actions = new String[]{"Touch", null, null, null, null};
             objectDef.name = "@yel@Statue of Sezy";
         }
+        if (i == 120723) {
+            objectDef.actions = new String[]{"Touch", null, null, null, null};
+            objectDef.name = "@yel@Raids Mystery Chest";
+        }
         if (i == 134021) {
             objectDef.actions = new String[]{"Pick-from", null, null, null, null};
             objectDef.name = "@yel@Dragonfruit tree";
@@ -257,7 +261,10 @@ public final class ObjectDefinition {
             objectDef.description = new String("Chamber").getBytes();
         }
         if (i == 132968) {
-            objectDef.description = new String("Arthur promised to come and save him one day..").getBytes();
+            objectDef.description = new String("Arthur promised to come and save him one day.").getBytes();
+        }
+        if (i == 125942) {
+            objectDef.description = new String("The almighty owner of Simplicity!").getBytes();
         }
         if (i == 131626) {
             objectDef.description = new String("The first player to achieve the infernal rank.").getBytes();

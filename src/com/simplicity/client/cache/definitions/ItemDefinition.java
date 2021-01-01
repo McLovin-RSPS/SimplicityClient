@@ -622,6 +622,9 @@ public final class ItemDefinition {
                 itemDef.name = "Raids Mystery Box";
                 itemDef.newModelColor[0] = 27570;
                 break;
+            case 18688:
+                itemDef.name = "Raids key";
+                break;
             case 49480:
                 itemDef.copy(forID(6199));
                 itemDef.name = "Infinity Box";
