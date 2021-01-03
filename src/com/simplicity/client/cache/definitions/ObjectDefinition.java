@@ -234,7 +234,7 @@ public final class ObjectDefinition {
             objectDef.name = "@yel@Statue of Sezy";
         }
         if (i == 120723) {
-            objectDef.actions = new String[]{"Touch", null, null, null, null};
+            objectDef.actions = new String[]{"Open", null, null, null, null};
             objectDef.name = "@yel@Raids Mystery Chest";
         }
         if (i == 134021) {
