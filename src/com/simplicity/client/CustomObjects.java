@@ -1037,8 +1037,11 @@ public class CustomObjects {
             {13179, 3100, 3510, 0, 1},	// lunar altar
             {29942, 3090, 3498, 0, 0}, 		//summoning obelisk edge
             {130087, 3085, 3512, 0, 1},		//bank chest
-            {125942, 3094, 3512, 0, 0}, // king arthur
+            
+            {132940, 3094, 3512, 0, 0}, // twisted bow
             {135988, 3095, 3512, 0, 2}, // reward chest
+            {136582, 3094, 3513, 0, 0}, // elven crystal chest
+            
             {120723, 3090, 3509, 0, 3}, // raids mystery chest
             {131903, 3094, 3499, 0, 0}, // armour stand bandos
             {131904, 3098, 3499, 0, 0}, // armour stand armadyl
