@@ -101,7 +101,7 @@ class StatusBarsOverlay extends Overlay
 		//this.itemStatService = itemstatservice;
 		this.spriteManager = spriteManager;
 
-		prayerIcon = ImageUtil.resizeCanvas(ImageUtil.resizeImage(skillIconManager.getSkillImage(Skill.PRAYER, true), IMAGE_SIZE, IMAGE_SIZE), ICON_DIMENSIONS, ICON_DIMENSIONS);
+		prayerIcon = ImageUtil.resizeCanvas(skillIconManager.getSkillImage(Skill.PRAYER, true), ICON_DIMENSIONS, ICON_DIMENSIONS);
 		initRenderers();
 	}
 
