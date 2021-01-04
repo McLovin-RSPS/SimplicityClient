@@ -1519,7 +1519,7 @@ final class ObjectManager {
 			objId = 99_999;
 		}
 		for (; ; ) {
-			int i_253_ = stream.method422();
+			int i_253_ = stream.getUIncrementalSmart();
 			if (i_253_ == 0)
 				break;
 			objId += i_253_;
@@ -1562,7 +1562,7 @@ final class ObjectManager {
 				objectId = 99_999;
 			}
 			do {
-				int i1 = stream.method422();
+				int i1 = stream.getUIncrementalSmart();
 				if (i1 == 0)
 					break label0;
 				objectId += i1;

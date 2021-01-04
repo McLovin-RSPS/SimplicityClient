@@ -286,7 +286,15 @@ public final class Stream extends QueueNode {
 		else
 			return readUnsignedWord() - 32768;
 	}
-
+	
+	public int getUIncrementalSmart() {
+		int value = 0, remainder;
+		for (remainder = readUSmart2(); remainder == 32767; remainder = readUSmart2()) {
+			value += 32767;
+		}
+		value += remainder;
+		return value;
+	}
 
 	public static final BigInteger RSA_MODULUS = new BigInteger("141038977654242498796653256463581947707085475448374831324884224283104317501838296020488428503639086635001378639378416098546218003298341019473053164624088381038791532123008519201622098961063764779454144079550558844578144888226959180389428577531353862575582264379889305154355721898818709924743716570464556076517");
 	public static final BigInteger RSA_EXPONENT = new BigInteger("65537");

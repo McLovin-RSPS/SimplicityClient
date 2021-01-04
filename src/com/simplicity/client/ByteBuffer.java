@@ -277,6 +277,15 @@ public final class ByteBuffer extends QueueNode {
 			return readUnsignedWord() - 32768;
 		}
 	}
+	
+	public int getUIncrementalSmart() {
+		int value = 0, remainder;
+		for (remainder = readUSmart2(); remainder == 32767; remainder = readUSmart2()) {
+			value += 32767;
+		}
+		value += remainder;
+		return value;
+	}
 
 	public void doKeys() {
 		int i = currentOffset;
