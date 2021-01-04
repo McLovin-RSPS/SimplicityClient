@@ -1401,9 +1401,13 @@ public final class ObjectDefinition {
 						objectModelIDs[k1] = stream.readUnsignedWord();
 						objectModelTypes[k1] = stream.readUnsignedByte();
 					}
+				} else {
+					stream.currentOffset += len * 3;
 				}
 			} else if (opcode == 2)
 				name = stream.readString();
+			else if (opcode == 3)
+				description = new String(stream.readString()).getBytes();
 			else if (opcode == 5) {
 				int len = stream.readUnsignedByte();
 				if (len > 0) {
@@ -1411,6 +1415,8 @@ public final class ObjectDefinition {
 					objectModelIDs = new int[len];
 					for (int l1 = 0; l1 < len; l1++)
 						objectModelIDs[l1] = stream.readUnsignedWord();
+				} else {
+					stream.currentOffset += len * 2;
 				}
 			} else if (opcode == 14)
 				sizeX = stream.readUnsignedByte();
@@ -1495,14 +1501,9 @@ public final class ObjectDefinition {
 				stream.readUnsignedWord(); // ambient sound id
 				stream.readUnsignedByte();
 			} else if (opcode == 79) {
-				stream.readUnsignedWord();
-				stream.readUnsignedWord();
-				stream.readUnsignedByte();
+				stream.currentOffset += 5;
 				int len = stream.readUnsignedByte();
-
-				for (int i = 0; i < len; i++) {
-					stream.readUnsignedWord();
-				}
+				stream.currentOffset += len * 2;
 			} else if (opcode == 81) {
 				int adjustToTerrain = stream.readUnsignedByte() * 256; // adjustToTerrain?
 			} else if (opcode == 82) {
