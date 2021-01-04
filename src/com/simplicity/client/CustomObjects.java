@@ -486,7 +486,7 @@ public class CustomObjects {
             {52709, 1824, 5161, 2, 0}, // arthur's dream campfire
             
             // Edge arthur's dream teleporter
-            {48661, 3083, 3487, 0, 3}, // Arthur's dream teleporter edgeville
+            {48661, 3083, 3488, 0, 3}, // Arthur's dream teleporter edgeville
             {27254, 1831, 5163, 2, 0}, // Dark portal arthur's dream
             
             
@@ -501,8 +501,6 @@ public class CustomObjects {
 			{-1, 2911, 5471, 0, 0},
             
             // Arthur's dream 2
-
-            {28194, 3097, 3510, 0, 0}, // Comp orb
             
             {13292, 3099, 3490, 0, 1}, // Magic chest
             //{54407, 3090, 3489, 0, 3}, // Halloween chest
@@ -804,9 +802,6 @@ public class CustomObjects {
             {57165, 2042, 4496, 0, 0},
             {57165, 2042, 4491, 0, 0},
 
-            // Teleport to new slayer dung
-
-            {10780, 3093, 3510, 0, 0},
             
             
             
@@ -1033,14 +1028,26 @@ public class CustomObjects {
             
             /**Edgeville north hall**/
             {123709, 3083, 3499, 0, 1}, // box of life           
-            {136582, 3097, 3513, 0, 0}, // elven crystal chest
-            {172, 3099, 3513, 0, 2}, // crystal chest
+            //{136582, 3098, 3513, 0, 0}, // elven crystal chest
+            {10780, 3099, 3513, 0, 0}, // Karuulm teleporter
+            {28194, 3097, 3513, 0, 0}, // Comp orb
+            {172, 3090, 3513, 0, 2}, // crystal chest
             {409, 3085, 3509, 0, 3}, 		//altar
-            {6552, 3090, 3509, 0, 3}, 		//ancient altar
+            {6552, 3100, 3507, 0, 1}, 		//ancient altar
             {13179, 3100, 3510, 0, 1},	// lunar altar
             {29942, 3090, 3498, 0, 0}, 		//summoning obelisk edge
             {130087, 3085, 3512, 0, 1},		//bank chest
-            {131925, 3094, 3512, 0, 0}, // mounted max cape
+            
+            {132940, 3094, 3512, 0, 0}, // twisted bow
+            {135988, 3095, 3512, 0, 2}, // reward chest
+            {136582, 3094, 3513, 0, 0}, // elven crystal chest
+            
+            {120723, 3090, 3509, 0, 3}, // raids mystery chest
+            {131903, 3094, 3499, 0, 0}, // armour stand bandos
+            {131904, 3098, 3499, 0, 0}, // armour stand armadyl
+            {133013, 3094, 3504, 0, 0}, // justiciar armour
+            {133013, 3096, 3504, 0, 0}, // justiciar armour
+            {137384, 3078, 3495, 0, 1}, // PoH advertisement 
 
             {4875, 3094, 3500, 0, 0},
             {4874, 3095, 3500, 0, 0},
