@@ -1038,6 +1038,13 @@ public class CustomObjects {
             {29942, 3090, 3498, 0, 0}, 		//summoning obelisk edge
             {130087, 3085, 3512, 0, 1},		//bank chest
             
+            //{23598, 3092, 3487, 0, 0}, // ornate dummy
+            //{25507, 3094, 3487, 0, 0}, // ornate dummy
+            //{25511, 3096, 3487, 0, 0}, // ornate dummy
+            {-1, 3092, 3487, 0, 0}, // ornate dummy
+            {-1, 3097, 3487, 0, 0}, // removed dummy
+            
+            
             {132940, 3094, 3512, 0, 0}, // twisted bow
             {135988, 3095, 3512, 0, 2}, // reward chest
             {136582, 3094, 3513, 0, 0}, // elven crystal chest
