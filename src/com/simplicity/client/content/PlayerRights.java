@@ -23,7 +23,7 @@ public enum PlayerRights {
     PLATINUM_MEMBER(687, 14, 1, PlayerRightsType.DONATOR),
     DIAMOND_MEMBER(688, 14, 1, PlayerRightsType.DONATOR),
     SUPPORT(689, PlayerRightsType.STAFF),
-    YOUTUBER(690, 18, 1, PlayerRightsType.STAFF),
+    YOUTUBER(1723, 18, 1, PlayerRightsType.STAFF),
     RUBY_MEMBER(691, 14, 1, PlayerRightsType.DONATOR),
     MANAGER(1034, 20, 1, PlayerRightsType.STAFF),
     SAPPHIRE(693, PlayerRightsType.DONATOR),
