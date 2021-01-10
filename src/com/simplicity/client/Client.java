@@ -15828,7 +15828,7 @@ public class Client extends RSApplet {
                                                 if (!bankTab) {
 
                                                     if (rsInterface.id == 33213) {
-                                                        if (itemAmount >= 1500000000 && child.drawInfinity) {
+                                                        if (itemAmount == Integer.MAX_VALUE && (child.id == 3900 || child.drawInfinity)) {
                                                             SpriteLoader.sprites[653].drawSprite(itemSpriteX, itemSpriteY);
                                                         } else if (itemAmount == 0) {
 
