@@ -1029,8 +1029,8 @@ public class CustomObjects {
             /**Edgeville north hall**/
             {123709, 3083, 3499, 0, 1}, // box of life           
             //{136582, 3098, 3513, 0, 0}, // elven crystal chest
-            {10780, 3099, 3513, 0, 0}, // Karuulm teleporter
-            {28194, 3097, 3513, 0, 0}, // Comp orb
+            {10780, 3096, 3507, 0, 0}, // Karuulm teleporter
+            {28194, 3094, 3507, 0, 0}, // Comp orb
             {172, 3090, 3513, 0, 2}, // crystal chest
             {409, 3085, 3509, 0, 3}, 		//altar
             {6552, 3100, 3507, 0, 1}, 		//ancient altar
@@ -1045,9 +1045,9 @@ public class CustomObjects {
             {-1, 3097, 3487, 0, 0}, // removed dummy
             
             
-            {132940, 3094, 3512, 0, 0}, // twisted bow
+            {132940, 3094, 3513, 0, 0}, // twisted bow
+            {136582, 3094, 3512, 0, 0}, // elven crystal chest
             {135988, 3095, 3512, 0, 2}, // reward chest
-            {136582, 3094, 3513, 0, 0}, // elven crystal chest
             
             {120723, 3090, 3509, 0, 3}, // raids mystery chest
             {131903, 3094, 3499, 0, 0}, // armour stand bandos
