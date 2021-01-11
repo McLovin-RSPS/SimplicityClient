@@ -392,6 +392,7 @@ public final class ObjectDefinition {
                 objectDef.actions = new String[5];
                 objectDef.actions[0] = "Use";
                 objectDef.actions[1] = "View-presets";
+                objectDef.actions[2] = "Load prev. preset";
             }
         }
 		
