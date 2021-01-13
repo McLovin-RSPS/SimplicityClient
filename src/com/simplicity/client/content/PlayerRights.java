@@ -38,7 +38,8 @@ public enum PlayerRights {
     IRON_MAN(712, PlayerRightsType.CUSTOM_GAME_MODE),
     ULTIMATE_IRON_MAN(711, PlayerRightsType.CUSTOM_GAME_MODE),
     HARDCORE_IRON_MAN(1142, PlayerRightsType.CUSTOM_GAME_MODE),
-    GROUP_IRON_MAN(1316, PlayerRightsType.CUSTOM_GAME_MODE)
+    GROUP_IRON_MAN(1316, PlayerRightsType.CUSTOM_GAME_MODE),
+    REALISM(1727, 18, -2, PlayerRightsType.CUSTOM_GAME_MODE)
 
     ;
 	
@@ -111,6 +112,9 @@ public enum PlayerRights {
         }
         if(rights==63) {
         	return GROUP_IRON_MAN;
+        }
+        if (rights == 64) {
+            return REALISM;
         }
         if (rights >= values().length) {
             if (Configuration.LOCALHOST) {
