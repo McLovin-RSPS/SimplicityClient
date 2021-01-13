@@ -429,7 +429,7 @@ public class Client extends RSApplet {
                 case 4:
                     return "@cr63@";
                 case 5:
-                    return "@cr63@";
+                    return "@cr64@";
             }
         }
 
