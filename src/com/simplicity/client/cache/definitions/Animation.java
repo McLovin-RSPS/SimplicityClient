@@ -887,7 +887,7 @@ public final class Animation {
 						buffer.read3Bytes();
 					}
 				} else {
-					System.out.println("Error unrecognised OSRS anim config code: " + opcode + " for anim " + id);
+					//System.out.println("Error unrecognised OSRS anim config code: " + opcode + " for anim " + id);
 				}
 			}
 			if (resetWhenWalk == -1)
