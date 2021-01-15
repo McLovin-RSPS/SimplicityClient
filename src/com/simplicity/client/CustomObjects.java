@@ -502,7 +502,7 @@ public class CustomObjects {
             
             // Arthur's dream 2
             
-            {13292, 3099, 3490, 0, 1}, // Magic chest
+            {13292, 3090, 3507, 0, 1}, // Magic chest
             //{54407, 3090, 3489, 0, 3}, // Halloween chest
             
             
@@ -1041,6 +1041,7 @@ public class CustomObjects {
             //{23598, 3092, 3487, 0, 0}, // ornate dummy
             //{25507, 3094, 3487, 0, 0}, // ornate dummy
             //{25511, 3096, 3487, 0, 0}, // ornate dummy
+            {591, 3092, 3488, 0, 2},		//bank table
             {-1, 3092, 3487, 0, 0}, // ornate dummy
             {-1, 3097, 3487, 0, 0}, // removed dummy
             
