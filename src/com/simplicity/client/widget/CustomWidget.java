@@ -459,7 +459,13 @@ public abstract class CustomWidget {
         id++;
         return tab;
     }
-    
+
+    public RSInterface addProgressBar(int width, int height, int current, int max) {
+        RSInterface rsi = RSInterface.addProgressBar(id, width, height, current, max);
+        rsi.componentId = id++;
+        return rsi;
+    }
+
     public RSInterface addProgressSprite(int backgroundSprite, int fillSprite, int current, int max) {
     	RSInterface rsi = RSInterface.addProgressSprite(id, backgroundSprite, fillSprite, current, max);
     	rsi.componentId = id++;

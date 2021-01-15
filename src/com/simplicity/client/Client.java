@@ -116,6 +116,7 @@ import com.simplicity.client.particles.ParticleDefinition;
 import com.simplicity.client.widget.*;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.client.widget.raids.cox.XericPointsWidget;
+import com.simplicity.client.widget.raids.nightmare.NightmareOverlay;
 import com.simplicity.client.widget.raids.tob.TheatrePartyWidget;
 import com.simplicity.client.widget.raids.tob.TheatrePerformersWidget;
 import com.simplicity.client.widget.raids.tob.TobFadeText;
@@ -16581,16 +16582,22 @@ public class Client extends RSApplet {
     						int width = child.width;
     						
     						int height = child.height;
-    						
-    						int color = color = getProgressBarColor((int) ((double) current / (double) maximum * 100));
+
+    						int color = getProgressBarColor(child.id, (int) ((double) current / (double) maximum * 100));
     						
     						DrawingArea.drawRectangle(childY - 1, child.height + 2, 250, 0, child.width -5, childX - 1);
     						DrawingArea.drawAlphaPixels(childX, childY, width - 7, height, 0, 150);
     						DrawingArea.drawAlphaPixels(childX, childY, (int) ((double) current / maximum * width - 7), height, color, 150);
-    						
-    						newSmallFont.drawCenteredString(MiscUtils.formatCoins(current) + "/" + MiscUtils.formatCoins(maximum), childX + (width - 8) / 2, childY + height / 2 + 5, 0xFFFFFF, 0);
-    						
-    						cacheSprite[719].drawSprite(childX, childY - 14);
+
+    						RSFontSystem font = child.rsFont == null ? newSmallFont : child.rsFont;
+
+    						boolean achievements = rsInterface.id == AchievementsWidget.INTERFACE_ID + 15;
+
+                            font.drawCenteredString(MiscUtils.formatCoins(current) + " / " + (achievements ? MiscUtils.formatCoins(maximum) : maximum), childX + (width - 8) / 2, childY + height / 2 + 5, 0xFFFFFF, 0);
+
+    						if (achievements) {
+                                cacheSprite[719].drawSprite(childX, childY - 14);
+                            }
     					} catch (Exception e) {
     						e.printStackTrace();
     					}
@@ -25757,7 +25764,12 @@ public class Client extends RSApplet {
 		return 31744;
 	}
 	
-	public static int getProgressBarColor(int percent) {
+	public static int getProgressBarColor(int childId, int percent) {
+        if (childId == NightmareOverlay.PROGRESS_WIDGET_ID) {
+            //return 0x00FF00;
+            return 0x00FFFF;
+        }
+
 		if (percent <= 15) {
 			return 0xFF0000;
 		}

@@ -16708,7 +16708,7 @@ public class RSInterface {
         tab.tooltip = text;
     }
     
-    public static void addProgressBar(int id, int width, int height, int current, int max) {
+    public static RSInterface addProgressBar(int id, int width, int height, int current, int max) {
 		RSInterface rsi = addInterface(id);
 		rsi.id = id;
 		rsi.type = 29;
@@ -16716,9 +16716,10 @@ public class RSInterface {
 		rsi.height = height;
 		rsi.message = current + "/" + max;
 		rsi.enabledMessage = current + "/" + max;
+		return rsi;
 	}
     
-    public static void addPercentageBar(int id, int width, int height, int current, int color, int textColor, int transparency) {
+    public static RSInterface addPercentageBar(int id, int width, int height, int current, int color, int textColor, int transparency) {
 		RSInterface rsi = addInterface(id);
 		rsi.id = id;
 		rsi.type = 30;
@@ -16729,6 +16730,7 @@ public class RSInterface {
 		rsi.disabledColor = color;
 		rsi.textColor = textColor;
 		rsi.transparency = transparency;
+        return rsi;
 	}
     
     public static RSInterface addProgressSprite(int id, int backgroundSprite, int fillSprite, int current, int max) {
