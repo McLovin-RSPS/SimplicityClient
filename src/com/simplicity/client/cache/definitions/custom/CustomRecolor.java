@@ -613,15 +613,15 @@ public enum CustomRecolor {
 		   	new int[]{ 960 },
    			new int[]{ 17350 }),
    /* STAFF SANTA HATS 2020 */
-   STAFF_SANTA_1(18402, 1050, "Pale Yellow",
+   STAFF_SANTA_1(18402, 1050, "Riv's pisshat",
 		   	new int[]{ 933 },
 		   	new int[]{ 10351 }),
    STAFF_SANTA_2(18403, 1050, "Gryffindor",
 		   	new int[]{ 10351, 933 },
 		   	new int[]{ 59245, 90 }),
-   STAFF_SANTA_3(18404, 1050, "COYI",
+   STAFF_SANTA_3(18404, 1050, "Scotty Boy",
 		   	new int[]{ 933, 10351 },
-		   	new int[]{ ItemDefinition.RGB_to_RS2HSB(93,20,35), ItemDefinition.RGB_to_RS2HSB(25,131,173) }),
+		   	new int[]{ 62126, 35542 }),
    STAFF_SANTA_4(18405, 1050, "Akimbo bigppbrain",
 		   	new int[]{ 933, 10351 },
 		   	new int[]{ 10352, 933 }),
@@ -648,11 +648,17 @@ public enum CustomRecolor {
 		   	new int[]{ 6073, 42659 }),
    STAFF_SANTA_12(18413, 1050, "Lawless",
 		   	new int[]{ 10351, 933 },
-		   	new int[]{ 1024, ItemDefinition.RGB_to_RS2HSB(3,36,116) }),
+		   	new int[]{ 1024, 39737 }),
    STAFF_SANTA_13(18414, 1050, "Beercules",
 		   	new int[]{ 10351, 933 },
 		   	new int[]{ 9087, 6036 /*Bronze*/ }),
-	
+   STAFF_SANTA_14(18415, 1050, "Smexy Santa Hat",
+		   	new int[]{ 10351, 933 },
+		   	new int[]{ 47615, 49874 }),
+   STAFF_SANTA_15(18416, 1050, "Crown of Dabs",
+		   	new int[]{ 10351, 933 },
+		   	new int[]{ 9087, 20158 }),
+   //20158
 	/* SKY BLUE PRIMAL SET */
    SKY_PRIMAL_HELM(18395, 16711, "@cya@Sky Blue Primal Full Helm",
             new int[] { 2838, 2848, 2866, 2048, 2855, 7731, 7757, 7694, 4110, 2049,
@@ -688,8 +694,23 @@ public enum CustomRecolor {
             new int[] { 37631, 37631, 37631, 37631, 37631, 37631, 37631, 37631, 37631, 37631, 37631, 37631, 37631, 37631 }),
    DREAMER_SCYTHE_DS(18401, 15000, "@cya@The Dreamer DS", 
 	        new int[] { 33, 37, 41, 78, 16, 784, 49, 20, 790, 24, 536, 796, 28, 61 },
-	        new int[] { 37631, 37631, 37631, 37631, 37631, 37631, 37631, 37631, 37631, 37631, 37631, 37631, 37631, 37631 });
-
+	        new int[] { 37631, 37631, 37631, 37631, 37631, 37631, 37631, 37631, 37631, 37631, 37631, 37631, 37631, 37631 }),
+   BLK_SKYBLUE_NIGHTMARE_STAFF(11311, 54422, "@red@Sky Blue Nightmare staff",
+			new int[] { 35, 7333, 39, 61962, 61838, 16, 7442, 18, 20, 61718, 28, 7326, 61598 },
+			new int[] { 1024, 1024, 1024, 1024, 37631, 1024, 1024, 37631, 1024, 1024, 37631, 37631, 1024, 1024 }),
+   SKYBLUE_ANGELIC_CAPE(12151, 11614, "@whi@Sky Blue Angelic Cape",
+			new int[] { 40023, 40036, 1822, 36, 25, 34243, 9230, 40040, 10348, 48, 34251, 0, 43335, 6218, 23, 11013 },
+			getCustomCapeColor(37631, 1024)),
+   DEMONIC_RED_SCYTHE_DS(18401, 15000, "@cya@The Dreamer DS", 
+	        new int[] { 33, 37, 41, 78, 16, 784, 49, 20, 790, 24, 536, 796, 28, 61 },
+	        new int[] { 1024, 1024, 1024, 908, 1024, 908, 908, 1024, 908, 1024, 908, 908, 1024, 908 }),
+   DEMONIC_RED_ANGELIC_BOOTS(3324, 41860, "Can still see your sock",
+			new int[]{ 8396, 8417, 5293, 20 },
+			new int[]{ 1024, 1024, 908, 908 }),
+   DEMONIC_RED_FEROCIOUS_GLOVES(52981, 52981, "Demonic Ferocious Gloves",
+			new int[]{ 16, 30643, 12484, 20, 13493, 8, 32906, 10394, 10411, 12, 32910 },
+			new int[]{ 908, 908, 908, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024 }),
+	;
 	//11200, 6036, 37, 103, 74
 
 	

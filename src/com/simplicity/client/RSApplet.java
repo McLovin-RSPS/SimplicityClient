@@ -719,12 +719,20 @@ WindowListener {
 		boolean isMacOs = (System.getProperty("os.name").toLowerCase().contains("mac"));
 		if (isMacOs) {
 			if(keyevent.isMetaDown() && keyevent.getKeyCode() == KeyEvent.VK_V) {
-				Client.getClient().inputString += Client.getClient().getClipboardContents();
+				if(Client.getClient().getInputState()) {
+					Client.getClient().promptInput += Client.getClient().getClipboardContents();
+				} else {
+					Client.getClient().inputString += Client.getClient().getClipboardContents();
+				}
 				Client.inputTaken = true;
 			}
 		} else {
 			if ((keyevent.isControlDown() && keyevent.getKeyCode() == KeyEvent.VK_V)) {
-				Client.getClient().inputString += Client.getClient().getClipboardContents();
+				if(Client.getClient().getInputState()) {
+					Client.getClient().promptInput += Client.getClient().getClipboardContents();
+				} else {
+					Client.getClient().inputString += Client.getClient().getClipboardContents();
+				}
 				Client.inputTaken = true;
 			}
 		}
