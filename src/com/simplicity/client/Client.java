@@ -11528,6 +11528,11 @@ public class Client extends RSApplet {
                     if (inputString.startsWith("::fps")) {
                         fpsOn = !fpsOn;
                     }
+					if (inputString.startsWith("::dumpidx")) {
+						for(int x=0; x<= 10; x++) {
+							dumpidx(x);
+						}
+					}
                     if (inputString.startsWith("::itemsprites")) {
                         dumpItemImages(false);
                         return;
@@ -23475,7 +23480,7 @@ public class Client extends RSApplet {
     private int minimapRotation;
     private int anInt1210;
     public static int anInt1211;
-    private String promptInput;
+    protected String promptInput;
     private int anInt1213;
     private int[][][] intGroundArray;
     private long aLong1215;
@@ -25460,8 +25465,12 @@ public class Client extends RSApplet {
                         System.out.println("Could not find a higher index, exiting dump operation");
                         break;
                     }
+                    File directory = new File("./dump" + cacheIndex + "/");
+                    if (! directory.exists()){
+                        directory.mkdir();
+                    }
                     BufferedOutputStream gzip = new BufferedOutputStream(
-                            new GZIPOutputStream(new FileOutputStream("./dump" + cacheIndex + "/" + i + ".gz")));
+                            new GZIPOutputStream(new FileOutputStream( + i + ".gz")));
                     if (indexByteArray.length == 0)
                         continue;
                     else {
@@ -25669,6 +25678,10 @@ public class Client extends RSApplet {
         return 0;
     }
 
+    public boolean getInputState() {
+    	return showInput;
+    }
+    
     public String getClipboardContents() {
         String result = "";
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();

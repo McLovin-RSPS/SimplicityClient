@@ -165,6 +165,10 @@ public final class ObjectDefinition {
         if (i == 126953) {
             objectDef.hasActions = false;
         }
+        if(i == 134660) {
+            objectDef.actions = new String[5];
+            objectDef.actions[0] = "Open";
+        }
         if (i == 133122) {
             objectDef.name = "Elite chest";
             objectDef.hasActions = true;
@@ -408,6 +412,7 @@ public final class ObjectDefinition {
                 objectDef.actions = new String[5];
                 objectDef.actions[0] = "Use";
                 objectDef.actions[1] = "View-presets";
+                objectDef.actions[2] = "Load prev. preset";
             }
         }
 
