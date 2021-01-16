@@ -17274,6 +17274,10 @@ public class Client extends RSApplet {
                     case 61500:
                     	xPosition = clientSize == 0 ? 0 : clientWidth / 2 - 300; // 392
                     	break;
+                    case NightmareOverlay.WIDGET_ID:
+                        xPosition = 0;
+                        yPosition = 0;
+                        break;
                 }
                 
                 if (widget.id != TobPlayerOrbsWidget.INTERFACE_ID && widget.id != TobPartyOverlayWidget.WIDGET_ID && widget.id != XericPointsWidget.WIDGET_ID) {
