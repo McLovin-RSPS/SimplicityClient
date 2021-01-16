@@ -16598,7 +16598,7 @@ public class Client extends RSApplet {
 
     						boolean achievements = rsInterface.id == AchievementsWidget.INTERFACE_ID + 15;
 
-                            font.drawCenteredString(MiscUtils.formatCoins(current) + " / " + (achievements ? MiscUtils.formatCoins(maximum) : maximum), childX + (width - 8) / 2, childY + height / 2 + 5, 0xFFFFFF, 0);
+                            font.drawCenteredString((achievements ? MiscUtils.formatCoins(current) : current) + " / " + (achievements ? MiscUtils.formatCoins(maximum) : maximum), childX + (width - 8) / 2, childY + height / 2 + 5, 0xFFFFFF, 0);
 
     						if (achievements) {
                                 cacheSprite[719].drawSprite(childX, childY - 14);
