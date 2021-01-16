@@ -17275,7 +17275,7 @@ public class Client extends RSApplet {
                     	xPosition = clientSize == 0 ? 0 : clientWidth / 2 - 300; // 392
                     	break;
                     case NightmareOverlay.WIDGET_ID:
-                        xPosition = 0;
+                        xPosition = clientSize == 0 ? 0 : clientWidth / 2 - 378;
                         yPosition = 0;
                         break;
                 }
