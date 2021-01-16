@@ -6475,10 +6475,9 @@ public class Client extends RSApplet {
         RSInterface.interfaceCache[3322].deleteOnDrag2 = false;
         RSInterface.handleConfigHover(RSInterface.interfaceCache[71021]);
         RSInterface.handleConfigHover(RSInterface.interfaceCache[QuestTab.INFO_BUTTON_ID]);
-        parallelWidgetList.remove(RSInterface.interfaceCache[XericPointsWidget.WIDGET_ID]);
-        parallelWidgetList.remove(RSInterface.interfaceCache[TobPlayerOrbsWidget.INTERFACE_ID]);
-        parallelWidgetList.remove(RSInterface.interfaceCache[TobPartyOverlayWidget.WIDGET_ID]);
-        parallelWidgetList.remove(RSInterface.interfaceCache[TobFadeText.WIDGET_ID]);
+        parallelWidgetList.clear();
+        fadeColor = fadeAlpha = fadeAlphaEnd = fadeAlphaStep = 0;
+        fadeVisible = false;
         inCutScene = false;
         for (int l = 0; l < 5; l++) {
             aBooleanArray876[l] = false;
