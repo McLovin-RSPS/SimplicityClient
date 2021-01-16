@@ -85,6 +85,10 @@ class OpponentInfoOverlay extends OverlayPanel
 		opponentName = Text.removeTags(opponent.getName()).replaceAll("@cya@", "");
 		currentHealth = !x10 ? opponent.currentHealth / 10 : opponent.currentHealth;
 		maxHealth = !x10 ? opponent.maxHealth / 10 : opponent.maxHealth;
+
+		if (opponentName.equals("The Nightmare")) {
+			return null;
+		}
 			
 		final FontMetrics fontMetrics = graphics.getFontMetrics();
 
