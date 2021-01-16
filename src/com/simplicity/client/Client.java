@@ -16580,6 +16580,10 @@ public class Client extends RSApplet {
     						}
 
     						int current = Integer.parseInt(progress.substring(0, progress.indexOf("/")));
+
+    						if (current > maximum) {
+    						    current = maximum;
+                            }
     						
     						int maximum = Integer.parseInt(progress.substring(progress.indexOf("/") + 1, progress.length()));
     						
