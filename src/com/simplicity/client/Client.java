@@ -21970,6 +21970,7 @@ public class Client extends RSApplet {
                     }
                     if (variousSettings[settingIdx] != settingValue) {
                         variousSettings[settingIdx] = settingValue;
+                        NightmareOverlay.onVarpChange(settingIdx, settingValue);
                         PortalNexusTeleportMenu.onVarpChange(settingIdx, settingValue);
                         handleActions(settingIdx);
                         needDrawTabArea = true;
@@ -25779,8 +25780,7 @@ public class Client extends RSApplet {
 	
 	public static int getProgressBarColor(int childId, int percent) {
         if (childId == NightmareOverlay.PROGRESS_WIDGET_ID) {
-            //return 0x00FF00;
-            return 0x00FFFF;
+            return RSInterface.interfaceCache[childId].fillColor;
         }
 
 		if (percent <= 15) {

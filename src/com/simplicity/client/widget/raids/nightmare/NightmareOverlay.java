@@ -31,9 +31,19 @@ public class NightmareOverlay extends CustomWidget {
 
 		RSInterface progress = addProgressBar(width - 5, 20, 2221, 10400);
 		progress.rsFont = Client.getClient().newSmallFont;
+		progress.fillColor = 0x00FFFF;
 		add(progress, x + 6, y + 20);
 
 		PROGRESS_WIDGET_ID = progress.id;
 	}
 
+	public static void onVarpChange(int id, int value) {
+		if (id == 1313) {
+			int hp_amount = value & 0xFFFF;
+			int stage = value >> 16 & 0xFFFF;
+			RSInterface progress = RSInterface.interfaceCache[PROGRESS_WIDGET_ID];
+			progress.fillColor = stage == 0 ? 0x00FFFF : 0X00FF00;
+			progress.message = hp_amount + "/24000";
+		}
+	}
 }
