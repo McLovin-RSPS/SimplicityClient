@@ -21,9 +21,9 @@ public class NightmareOverlay extends CustomWidget {
 
 	@Override
 	public void init() {
-		int x = 128;
+		int x = 128 + 20;
 		int y = 25;
-		int width = 250;
+		int width = 250 - 40;
 		int height = 46;
 		add(addBox(width, height, 1, 0, 0, 250), x, y);
 		add(addRectangle(width - 1, height - 3, 0x3d3327, 0, true), x + 1, y + 1);

@@ -15,6 +15,7 @@ import com.simplicity.client.widget.raids.cox.party.RaidingPartyWidget;
 import com.simplicity.client.widget.raids.cox.tab.RaidingTab;
 import com.simplicity.client.widget.raids.cox.tab.RaidingTabContainerWidget;
 import com.simplicity.client.widget.raids.nightmare.NightmareOverlay;
+import com.simplicity.client.widget.raids.nightmare.TotemsOverlay;
 import com.simplicity.client.widget.raids.tob.*;
 
 public class Widget {
@@ -57,6 +58,7 @@ public class Widget {
 		init(new RaidingTab());
 		init(new RaidingTabContainerWidget());
 		init(new NightmareOverlay());
+		init(new TotemsOverlay());
 	}
 
 	/**
