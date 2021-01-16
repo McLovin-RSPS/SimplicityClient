@@ -117,6 +117,7 @@ import com.simplicity.client.widget.*;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.client.widget.raids.cox.XericPointsWidget;
 import com.simplicity.client.widget.raids.nightmare.NightmareOverlay;
+import com.simplicity.client.widget.raids.nightmare.TotemsOverlay;
 import com.simplicity.client.widget.raids.tob.TheatrePartyWidget;
 import com.simplicity.client.widget.raids.tob.TheatrePerformersWidget;
 import com.simplicity.client.widget.raids.tob.TobFadeText;
@@ -16591,17 +16592,19 @@ public class Client extends RSApplet {
     						
     						int height = child.height;
 
-    						int color = getProgressBarColor(child.id, (int) ((double) current / (double) maximum * 100));
+    						int color = getProgressBarColor(rsInterface.id, child.id, (int) ((double) current / (double) maximum * 100));
+
+                            boolean achievements = rsInterface.id == AchievementsWidget.INTERFACE_ID + 15;
     						
     						DrawingArea.drawRectangle(childY - 1, child.height + 2, 250, 0, child.width -5, childX - 1);
-    						DrawingArea.drawAlphaPixels(childX, childY, width - 7, height, 0, 150);
+    						DrawingArea.drawAlphaPixels(childX, childY, width - 7, height, 0, child.progressBackAlpha);
     						DrawingArea.drawAlphaPixels(childX, childY, (int) ((double) current / maximum * width - 7), height, color, 150);
 
-    						RSFontSystem font = child.rsFont == null ? newSmallFont : child.rsFont;
+    						if (child.drawProgressText) {
+                                RSFontSystem font = child.rsFont == null ? newSmallFont : child.rsFont;
 
-    						boolean achievements = rsInterface.id == AchievementsWidget.INTERFACE_ID + 15;
-
-                            font.drawCenteredString((achievements ? MiscUtils.formatCoins(current) : current) + " / " + (achievements ? MiscUtils.formatCoins(maximum) : maximum), childX + (width - 8) / 2, childY + height / 2 + 5, 0xFFFFFF, 0);
+                                font.drawCenteredString((achievements ? MiscUtils.formatCoins(current) : current) + " / " + (achievements ? MiscUtils.formatCoins(maximum) : maximum), childX + (width - 8) / 2, childY + height / 2 + 5, 0xFFFFFF, 0);
+                            }
 
     						if (achievements) {
                                 cacheSprite[719].drawSprite(childX, childY - 14);
@@ -17278,9 +17281,12 @@ public class Client extends RSApplet {
                     	xPosition = clientSize == 0 ? 0 : clientWidth / 2 - 300; // 392
                     	break;
                     case NightmareOverlay.WIDGET_ID:
-                        xPosition = clientSize == 0 ? 0 : clientWidth / 2 - 378;
+                        xPosition = clientSize == 0 ? 0 : clientWidth / 2 - 358;
                         yPosition = 0;
                         break;
+                    case TotemsOverlay.WIDGET_ID:
+                        xPosition = 0;
+                        yPosition = 0;
                 }
                 
                 if (widget.id != TobPlayerOrbsWidget.INTERFACE_ID && widget.id != TobPartyOverlayWidget.WIDGET_ID && widget.id != XericPointsWidget.WIDGET_ID) {
@@ -21978,6 +21984,7 @@ public class Client extends RSApplet {
                     if (variousSettings[settingIdx] != settingValue) {
                         variousSettings[settingIdx] = settingValue;
                         NightmareOverlay.onVarpChange(settingIdx, settingValue);
+                        TotemsOverlay.onVarpChange(settingIdx, settingValue);
                         PortalNexusTeleportMenu.onVarpChange(settingIdx, settingValue);
                         handleActions(settingIdx);
                         needDrawTabArea = true;
@@ -25785,8 +25792,8 @@ public class Client extends RSApplet {
 		return 31744;
 	}
 	
-	public static int getProgressBarColor(int childId, int percent) {
-        if (childId == NightmareOverlay.PROGRESS_WIDGET_ID) {
+	public static int getProgressBarColor(int mainId, int childId, int percent) {
+        if (mainId == TotemsOverlay.WIDGET_ID || childId == NightmareOverlay.PROGRESS_WIDGET_ID) {
             return RSInterface.interfaceCache[childId].fillColor;
         }
 
