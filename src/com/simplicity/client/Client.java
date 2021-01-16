@@ -21689,7 +21689,7 @@ public class Client extends RSApplet {
                 		formatDialogueTitle(frame);
                     }
                     RSInterface textWidget = RSInterface.interfaceCache[frame];
-                    if (textWidget.onTextChange != null)
+                    if (textWidget != null && textWidget.onTextChange != null)
                         textWidget.onTextChange.accept(textWidget);
                     opCode = -1;
                     return true;
