@@ -716,7 +716,7 @@ public enum CustomRecolor {
    REALISM_PLATEBODY(16428, 2591, "Realism Platebody",
 			new int[]{ 24, 41, 12, 61 },
 			new int[]{ 8635, 13327, 13327, 10263 }),
-   REALISM_PLATELEGS(16429, 2593, "Realism Platebody",
+   REALISM_PLATELEGS(16429, 2593, "Realism Platelegs",
 			new int[]{ 28, 0, 41, 57, 908, 61 },
 			new int[]{ 10263, 13327, 13327, 8635, 13327, 10263 }),
    BLACK_ROSEBLOOD_TOP(16431, 17223, "@bla@Shadow Roseblood robe top",
