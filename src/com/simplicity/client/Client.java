@@ -18812,7 +18812,7 @@ public class Client extends RSApplet {
     private Sprite twoFactorAuthBg;
     private String currentPinCode = "";
 
-    private int currentBackgroundSprite = 1168;
+    private int currentBackgroundSprite = 1746;
 
     private Stopwatch backgroundTimer = new Stopwatch();
 
@@ -18829,16 +18829,16 @@ public class Client extends RSApplet {
 
         }
 
-        if(backgroundTimer.elapsed(60)) {
+        /*if(backgroundTimer.elapsed(60)) {
             currentBackgroundSprite++;
             backgroundTimer.reset();
         }
 
         if(currentBackgroundSprite > 1197) {
             currentBackgroundSprite = 1168;
-        }
+        }*/
 
-        SpriteLoader.sprites[currentBackgroundSprite].drawAdvancedSprite(0, 0);
+        SpriteLoader.sprites[currentBackgroundSprite].drawARGBSprite(0, 0);
 
         // SpriteLoader.sprites[602].drawAdvancedSprite(0, 200);
 
