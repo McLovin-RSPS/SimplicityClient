@@ -1819,6 +1819,84 @@ public final class ItemDefinition {
         	itemDef.dataType = DataType.CUSTOM;
         	break;
         	
+        case 22070:
+        	itemDef.copy(forID(14008));
+        	itemDef.name = "@gre@Necrolord hood";
+        	itemDef.maleEquip1 = 76;
+        	itemDef.femaleEquip1 = 76;
+        	itemDef.modelID = 75;
+        	itemDef.dataType = DataType.CUSTOM;
+        	itemDef.editedModelColor = new int[0];
+        	itemDef.newModelColor = new int[0];
+        	itemDef.modelZoom += 50;
+        	break;
+        	
+        case 22071:
+        	itemDef.copy(forID(14009));
+        	itemDef.name = "@gre@Necrolord robe top";
+        	itemDef.maleEquip1 = 78;
+        	itemDef.femaleEquip1 = 78;
+        	itemDef.modelID = 77;
+        	itemDef.dataType = DataType.CUSTOM;
+        	itemDef.modelOffsetY = 8;
+        	itemDef.editedModelColor = new int[0];
+        	itemDef.newModelColor = new int[0];
+        	itemDef.modelZoom += 30;
+        	break;
+        	
+        case 22072:
+        	itemDef.copy(forID(14010));
+        	itemDef.name = "@gre@Necrolord robe bottoms";
+        	itemDef.maleEquip1 = 80;
+        	itemDef.femaleEquip1 = 80;
+        	itemDef.modelID = 79;
+        	itemDef.dataType = DataType.CUSTOM;
+        	itemDef.modelZoom = 1800;
+        	itemDef.modelOffsetY = 8;
+        	itemDef.editedModelColor = new int[0];
+        	itemDef.newModelColor = new int[0];
+        	itemDef.modelZoom += 350;
+        	break;
+        	
+        case 22073:
+        	itemDef.copy(forID(14008));
+        	itemDef.name = "@red@Necrolord hood";
+        	itemDef.maleEquip1 = 82;
+        	itemDef.femaleEquip1 = 82;
+        	itemDef.modelID = 81;
+        	itemDef.dataType = DataType.CUSTOM;
+        	itemDef.editedModelColor = new int[0];
+        	itemDef.newModelColor = new int[0];
+        	itemDef.modelZoom += 50;
+        	break;
+        	
+        case 22074:
+        	itemDef.copy(forID(14009));
+        	itemDef.name = "@red@Necrolord robe top";
+        	itemDef.maleEquip1 = 84;
+        	itemDef.femaleEquip1 = 84;
+        	itemDef.modelID = 83;
+        	itemDef.dataType = DataType.CUSTOM;
+        	itemDef.modelOffsetY = 8;
+        	itemDef.editedModelColor = new int[0];
+        	itemDef.newModelColor = new int[0];
+        	itemDef.modelZoom += 30;
+        	break;
+        	
+        case 22075:
+        	itemDef.copy(forID(14010));
+        	itemDef.name = "@red@Necrolord robe bottoms";
+        	itemDef.maleEquip1 = 86;
+        	itemDef.femaleEquip1 = 86;
+        	itemDef.modelID = 85;
+        	itemDef.dataType = DataType.CUSTOM;
+        	itemDef.modelZoom = 1800;
+        	itemDef.modelOffsetY = 8;
+        	itemDef.editedModelColor = new int[0];
+        	itemDef.newModelColor = new int[0];
+        	itemDef.modelZoom += 350;
+        	break;
+        	
         case 17273:
         	itemDef.femaleYOffset += 7;
         	itemDef.femaleZOffset -= 6;
