@@ -707,7 +707,7 @@ public enum CustomRecolor {
    DEMONIC_RED_ANGELIC_BOOTS(3324, 41860, "Can still see your sock",
 			new int[]{ 8396, 8417, 5293, 20 },
 			new int[]{ 1024, 1024, 908, 908 }),
-   DEMONIC_RED_FEROCIOUS_GLOVES(52981, 52981, "Demonic Ferocious Gloves",
+   DEMONIC_RED_FEROCIOUS_GLOVES(15370, 52981, "Demonic Ferocious Gloves",
 			new int[]{ 16, 30643, 12484, 20, 13493, 8, 32906, 10394, 10411, 12, 32910 },
 			new int[]{ 908, 908, 908, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024 }),
    REALISM_FACEGUARD(16430, 54271, "Realism Neitiznot Faceguard",
@@ -735,7 +735,14 @@ public enum CustomRecolor {
    BLACK_ROSEBLOOD_BOOTS(16436, 16917, "@bla@Shadow Roseblood shoes",
 			new int[] { 1305, 1297, 7219, 262, 1319 },
 			new int[] { 1024, 1024, 1024, 1024, 1024 }),
-	;
+   ORANGE_SCYTHE_XI(17743, 15000, "@ora@Orange Scythe XI", 
+		   	new int[] { 33, 37, 41, 78, 16, 784, 49, 20, 790, 24, 536, 796, 28, 61 },
+		   	new int[] { 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024 }),
+   BLUE_GREEN_SCYTHE_XI(17744, 15000, "Blue Green Scythe", 
+		   	new int[] { 33, 37, 41, 78, 16, 784, 49, 20, 790, 24, 536, 796, 28, 61 },
+		   	new int[] { 90, 90, 90, 56220, 90, 56220, 56220, 90, 56220, 90, 56220, 56220, 90, 56220 }),
+   
+   ;
 	//11200, 6036, 37, 103, 74
 
 	
