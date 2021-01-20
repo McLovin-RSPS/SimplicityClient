@@ -7090,19 +7090,6 @@ public class Client extends RSApplet {
     public static void main(String args[]) {
         try {
             RICH_PRESENCE.initiate();
-            if (args.length > 0) {
-                Configuration.HOST = args[0];
-                fromLauncher = true;
-
-                if (args.length > 1) {
-                	try {
-                		fromLauncher = Boolean.parseBoolean(args[1]);
-                	} catch (Exception e) {
-
-                	}
-                }
-            }
-
             nodeID = 10;
             portOff = 0;
             setHighMem();

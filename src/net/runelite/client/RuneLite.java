@@ -40,6 +40,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.simplicity.Configuration;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
@@ -155,6 +156,19 @@ public class RuneLite
 	
 	public static void main(String[] args) throws Exception
 	{
+        if (args.length > 0) {
+            Configuration.HOST = args[0];
+            com.simplicity.client.Client.fromLauncher = true;
+
+            if (args.length > 1) {
+            	try {
+            		com.simplicity.client.Client.fromLauncher = Boolean.parseBoolean(args[1]);
+            	} catch (Exception e) {
+
+            	}
+            }
+        }
+        
 		Locale.setDefault(Locale.ENGLISH);
 
 		final OptionParser parser = new OptionParser();
