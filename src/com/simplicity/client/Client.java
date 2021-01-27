@@ -5919,13 +5919,29 @@ public class Client extends RSApplet {
 
                             if (!Configuration.enableNewHpBars) {
                             	int multiplier = !(obj instanceof Player) && ((Entity) (obj)).maxHealth >= 5000 ? 4 : 1;
+        						int hpColor = 65280;
+        						int bgColor = 0xff0000;
+        						
+        						if (((Entity) obj) instanceof NPC) {
+        							NPC n = (NPC) obj;
+        							
+        							if (n.getName().equals("The Nightmare") && getRegionId() == 15515) {
+        								boolean nightmare = parallelWidgetList.contains(RSInterface.interfaceCache[NightmareOverlay.WIDGET_ID]);
+                						
+                						if (nightmare && NightmareOverlay.getStage() == 0) {
+                							hpColor = 0x46eae4;
+                							bgColor = 0x0a0573;
+                							multiplier = 4;
+                						}
+        							}
+        						}
 
         						int max = 30 * multiplier;
 
         						current *= multiplier;
-
-        						DrawingArea.drawPixels(5, spriteDrawY - 3, spriteDrawX - max / 2, 65280, current);
-        						DrawingArea.drawPixels(5, spriteDrawY - 3, (spriteDrawX - max / 2) + current, 0xff0000, max - current);
+        						
+        						DrawingArea.drawPixels(5, spriteDrawY - 3, spriteDrawX - max / 2, hpColor, current);
+        						DrawingArea.drawPixels(5, spriteDrawY - 3, (spriteDrawX - max / 2) + current, bgColor, max - current);
                             } else {
                             	SpriteCache.spriteCache[34].drawSprite(spriteDrawX - 28, spriteDrawY - 5);
                                 Sprite s = Sprite.getCutted(SpriteCache.spriteCache[33], HpPercent,

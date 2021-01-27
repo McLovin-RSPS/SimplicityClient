@@ -36,6 +36,12 @@ public class NightmareOverlay extends CustomWidget {
 
 		PROGRESS_WIDGET_ID = progress.id;
 	}
+	
+	public static int getStage() {
+		int value = Client.getClient().variousSettings[1313];
+		
+		return value >> 16 & 0xFFFF;
+	}
 
 	public static void onVarpChange(int id, int value) {
 		if (id == 1313) {

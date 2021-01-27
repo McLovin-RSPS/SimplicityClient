@@ -100,6 +100,14 @@ public final class NPC extends Entity
 		int tileHeight = Perspective.getTileHeight(c, tileHeightPoint, c.getPlane());
 		return model.getConvexHull(x, y, turnDirection, tileHeight);
 	}
+	
+	public String getName() {
+		if (desc != null && desc.name != null) {
+			return desc.name;
+		}
+		
+		return "";
+	}
 
 	public boolean isVisible()
 	{
