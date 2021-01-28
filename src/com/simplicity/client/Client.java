@@ -5925,14 +5925,20 @@ public class Client extends RSApplet {
         						if (((Entity) obj) instanceof NPC) {
         							NPC n = (NPC) obj;
         							
-        							if (n.getName().equals("The Nightmare") && getRegionId() == 15515) {
-        								boolean nightmare = parallelWidgetList.contains(RSInterface.interfaceCache[NightmareOverlay.WIDGET_ID]);
-                						
-                						if (nightmare && NightmareOverlay.getStage() == 0) {
-                							hpColor = 0x46eae4;
-                							bgColor = 0x0a0573;
+        							if (getRegionId() == 15515) {
+        								if (n.getName().endsWith("Totem")) {
+        									hpColor = 0xFFFF00;
+                							bgColor = 0x665700;
                 							multiplier = 4;
-                						}
+            							} else if (n.getName().equals("The Nightmare")) {
+            								boolean nightmare = parallelWidgetList.contains(RSInterface.interfaceCache[NightmareOverlay.WIDGET_ID]);
+                    						
+                    						if (nightmare && NightmareOverlay.getStage() == 0) {
+                    							hpColor = 0x46eae4;
+                    							bgColor = 0x0a0573;
+                    							multiplier = 4;
+                    						}
+            							}
         							}
         						}
 
@@ -5956,7 +5962,7 @@ public class Client extends RSApplet {
                 for (int j1 = 0; j1 < 4; j1++) {
                     if (((Entity) (obj)).hitsLoopCycle[j1] > loopCycle) {
                         npcScreenPos(((Entity) (obj)), ((Entity) (obj)).height / 2);
-                        if (!Configuration.enableOldHitmarkers) {
+                        if (!Configuration.enableOldHitmarkers && getRegionId() != 15515) {
                             if (spriteDrawX > -1) {
                                 Entity e = ((Entity) (obj));
                                 if (e.moveTimer[j1] == 0) {
@@ -5991,14 +5997,26 @@ public class Client extends RSApplet {
                                 int dmg = e.hitArray[j1];
                                 final boolean concerning = e.indexes[j1] == myPlayerIndex || e == Client.myPlayer;
                                 final float brightness = concerning ? 1f : .65f;
+                                
                                 if (dmg > 0) {
+                                	Sprite hitMark = hitMarks[1];
+                                	
+                                	if (e instanceof NPC && getRegionId() == 15515) {
+                                		NPC n = (NPC) obj;
+                                		
+                                		if (n.getName().endsWith("Totem")) {
+                                			hitMark = hitMarks[3];
+                                		} else if (n.getName().equals("The Nightmare") && NightmareOverlay.getStage() == 0) {
+                                			hitMark = cacheSprite[1747];
+                                		}
+                                	}
                                     if (!Configuration.enableConstitution) {
                                         dmg = dmg / 10;
                                         if (dmg == 0) {
                                             dmg = 1;
                                         }
                                     }
-                                    hitMarks[1].drawAt(spriteDrawX - 12, spriteDrawY - 12, brightness);
+                                    hitMark.drawAt(spriteDrawX - 12, spriteDrawY - 12, brightness);
                                 } else {
                                 	hitMarks[0].drawAt(spriteDrawX - 12, spriteDrawY - 12, brightness);
                                 }
