@@ -13855,7 +13855,22 @@ public class Client extends RSApplet {
                 int k = playersToUpdate[j];
                 NPC npc = npcArray[k];
                 npc.index = k;
-                int l = stream.readUnsignedByte();
+                int l = stream.readUnsignedWord();
+                /*
+                 * NPC ForceMovement method
+                 */
+                if ((l & 0x100) != 0) {
+                	npc.anInt1543 = stream.readByteS();
+                    npc.anInt1545 = stream.readByteS();
+                    npc.anInt1544 = stream.readByteS();
+                    npc.anInt1546 = stream.readByteS();
+                    npc.anInt1547 = stream.readWordBigEndian() + loopCycle;
+                    npc.anInt1548 = stream.readByteA() + loopCycle;
+                    npc.turnInfo = stream.readByteS();
+                    npc.resetWalk();
+                }
+                
+                
                 if ((l & 0x10) != 0) {
                     int requestAnim = stream.ig2();
                     if (requestAnim == 65535) {
