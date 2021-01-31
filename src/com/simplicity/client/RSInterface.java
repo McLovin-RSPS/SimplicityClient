@@ -6,11 +6,13 @@ import com.simplicity.client.cache.definitions.Animation;
 import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.client.cache.definitions.MobDefinition;
 import com.simplicity.client.content.Keybinding;
+import com.simplicity.client.instruction.InstructionArgs;
 import com.simplicity.client.instruction.VoidInstruction;
 import com.simplicity.client.widget.*;
 import com.simplicity.client.widget.dropdown.Dropdown;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 
+import java.util.Arrays;
 import java.util.function.Consumer;
 
 @SuppressWarnings("all")
@@ -1622,6 +1624,36 @@ public class RSInterface {
         }
         rsi.type = 2;
         return rsi;
+    }
+
+    public void setItemContainer(int width, int height, int paddingX, int paddingY, String... actions) {
+        this.type = 2;
+        this.width = width;
+        this.height = height;
+        this.inv = new int[width * height];
+        this.invStackSizes = new int[width * height];
+        this.usableItemInterface = false;
+        this.isInventoryInterface = false;
+        this.interfaceShown = false;
+        this.invSpritePadX = paddingX;
+        this.invSpritePadY = paddingY;
+        this.spritesX = new int[20];
+        this.spritesY = new int[20];
+        this.sprites = new Sprite[20];
+        this.actions = new String[5];
+        if (actions != null & actions.length > 0) {
+            this.actions = actions;
+        }
+    }
+
+    public void setItemModel(int itemId, int quantity) {
+        for (int i = 0; i < inv.length; i++) {
+            if (inv[i] == 0) {
+                inv[i] = itemId;
+                invStackSizes[i] = quantity;
+                break;
+            }
+        }
     }
 
     private static void createInventoryOverlayInterface(int interfaceId, String[] options) {
@@ -6620,6 +6652,26 @@ public class RSInterface {
         tab.tooltip = tT;
     }
 
+    public void setConfigButton(int disabledSpriteId, int enabledSpriteId, int width, int height,
+                                String tT, int configID, int aT, int configFrame) {
+        this.atActionType = aT;
+        this.contentType = 0;
+        this.width = width;
+        this.height = height;
+        this.hoverType = -1;
+        this.valueCompareType = new int[1];
+        this.requiredValues = new int[1];
+        this.valueCompareType[0] = 1;
+        this.requiredValues[0] = configID;
+        this.valueIndexArray = new int[1][3];
+        this.valueIndexArray[0][0] = 5;
+        this.valueIndexArray[0][1] = configFrame;
+        this.valueIndexArray[0][2] = 0;
+        this.enabledSprite = Client.cacheSprite[enabledSpriteId];
+        this.disabledSprite = Client.cacheSprite[disabledSpriteId];
+        this.tooltip = tT;
+    }
+
     public static void addPixels(int id, int color, int width, int height, int alpha, boolean filled) {
         RSInterface rsi = addInterface(id);
         rsi.type = 3;
@@ -6631,6 +6683,17 @@ public class RSInterface {
         rsi.filled = filled;
         rsi.width = width;
         rsi.height = height;
+    }
+
+    public void setRect(int color, int width, int height, int alpha, boolean filled) {
+        this.opacity = (byte) alpha;
+        this.disabledColor = color;
+        this.disabledMouseOverColor = color;
+        this.enabledColor = color;
+        this.enabledMouseOverColor = color;
+        this.filled = filled;
+        this.width = width;
+        this.height = height;
     }
 
     public static void addButton(int id, int sid, String spriteName, String tooltip, int mOver, int atAction, int width,
@@ -12056,6 +12119,25 @@ public class RSInterface {
         tab.enabledMouseOverColor = 0;
         return tab;
     }
+    
+    public void setText(String text, int fontId, int color, boolean center, boolean shadow) {
+        this.type = 4;
+        this.atActionType = 0;
+        this.width = 0;
+        this.height = 11;
+        this.contentType = 0;
+        this.opacity = 0;
+        this.hoverType = -1;
+        this.centerText = center;
+        this.shadowed = shadow;
+        this.textDrawingAreas = defaultFont[fontId];
+        this.message = text;
+        this.enabledMessage = "";
+        this.disabledColor = color;
+        this.enabledColor = 0;
+        this.disabledMouseOverColor = 0;
+        this.enabledMouseOverColor = 0;
+    }
 
     public static void addButton(int id, int sid, String spriteName, String tooltip, int w, int h) {
         RSInterface tab = interfaceCache[id] = new RSInterface();
@@ -13672,6 +13754,7 @@ public class RSInterface {
     public boolean dragDeletes;
     public int componentId;
     public int parentID;
+    public boolean newFormat = false;
     public int spellUsableOn;
     private static MemCache spriteCache;
     private static MemCache modelSpriteCache;
@@ -16635,6 +16718,21 @@ public class RSInterface {
 		tab.spriteOpacity = 255;
 	}
 	
+	public void setConfigHoverButton(String tooltip, int enabledSpriteId, int disabledSpriteId,
+                                     int enabledAltSpriteId, int disabledAltSpriteId, boolean active) {
+        this.tooltip = tooltip;
+        this.atActionType = 1;
+        this.type = 20;
+        this.enabledSprite = Client.cacheSprite[enabledSpriteId];
+        this.disabledSprite = Client.cacheSprite[disabledSpriteId];
+        this.width = this.enabledSprite.myWidth;
+        this.height = this.disabledSprite.myHeight;
+        this.enabledAltSprite = Client.cacheSprite[enabledAltSpriteId];
+        this.disabledAltSprite = Client.cacheSprite[disabledAltSpriteId];
+        this.active = active;
+        this.spriteOpacity = 255;
+    }
+	
 	public static void configHoverButton(int id, String tooltip, String[] actions, int enabledSprite, int disabledSprite,
 			int enabledAltSprite, int disabledAltSprite, boolean active, int... buttonsToDisable) {
 		RSInterface tab = addInterface(id);
@@ -17015,6 +17113,73 @@ public class RSInterface {
 
 		return interfaceCache[interfaceId].textDrawingAreas.getTextWidth(message);
 	}
+
+	public RSInterface createChildComponent(int type) {
+	    int newId = getFreeStaticId();
+	    RSInterface child = interfaceCache[newId] = new RSInterface();
+	    child.id = newId;
+	    child.type = type;
+	    child.parentID = id;
+	    child.newFormat = true;
+	    int childId = getFreeChildId();
+	    if (childId != -1) {
+            child.childId = childId;
+        } else {
+            int oldSize = children.length;
+            int[] expanded = new int[oldSize + 1];
+            System.arraycopy(children, 0, expanded, 0, oldSize);
+            expanded[oldSize] = child.id;
+            child.childId = oldSize;
+            children = expanded;
+
+            oldSize = childX.length;
+            expanded = new int[oldSize + 1];
+            System.arraycopy(childX, 0, expanded, 0, oldSize);
+            childX = expanded;
+
+            oldSize = childY.length;
+            expanded = new int[oldSize + 1];
+            System.arraycopy(childY, 0, expanded, 0, oldSize);
+            childY = expanded;
+        }
+
+	    child.uid = (id << 12) | (child.childId & 2048);
+	    return child;
+    }
+
+    public void setChildSize(RSInterface child, int width, int height) {
+	    child.width = width;
+	    child.height = height;
+    }
+
+    public void setChildPosition(RSInterface child, int x, int y) {
+	    childX[child.childId] = x;
+	    childY[child.childId] = y;
+    }
+
+    /**
+     * Returns the next unoccupied slot in the children list.
+     * @return
+     */
+    private int getFreeChildId() {
+	    for (int i = 0; i < children.length; i++) {
+	        if (children[i] == 0)
+	            return i;
+        }
+	    return -1;
+    }
+
+    /**
+     * Returns the next unoccupied slot within the interface list.
+     * @return
+     */
+    private int getFreeStaticId() {
+        for (int i = 0; i < interfaceCache.length; i++) {
+            if (interfaceCache[i] == null)
+                return i;
+        }
+        return -1;
+    }
 	
     public static int summoningItemRequirements[][] = {{12158, 2859, -1}, // Wolf pouch
             {12158, 2138, -1}, // Dreadfowl pouch
@@ -17294,6 +17459,11 @@ public class RSInterface {
     
     public boolean buttonDown;
     public boolean useNewFonts;
+
+    // The position this component is in within the parent's children list.
+    public int childId;
+    // The unique id of a widget consisting of the parent + child id.
+    public int uid;
     
     public Sprite secondaryButtonSprite;
 
@@ -17316,4 +17486,30 @@ public class RSInterface {
      * usage.
      */
     public VoidInstruction[] openInstructions;
+
+    /**
+     * A set of instructions to execute upon an interface closing.
+     * Should ideally be used on type 0 (often a layer or parent of widgets) however it is up to developer's choice of
+     * usage.
+     */
+    public VoidInstruction[] closeInstructions;
+
+    /**
+     * Scans through all children within the root parent and invokes any instructions upon interface close.
+     */
+    public void onClose() {
+        if (children == null || children.length == 0)
+            return;
+        for (int id : children) {
+            RSInterface child = RSInterface.interfaceCache[id];
+            if (child.type != 0 || child.closeInstructions == null)
+                continue;
+
+            for (VoidInstruction ins : child.closeInstructions) {
+                InstructionArgs args = InstructionArgs.empty();
+                args.addNextInt(child.id);
+                ins.invoke(args);
+            }
+        }
+    }
 }

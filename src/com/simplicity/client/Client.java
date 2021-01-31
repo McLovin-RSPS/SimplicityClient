@@ -111,6 +111,7 @@ import com.simplicity.client.content.overlay.ScreenOverlayManager;
 import com.simplicity.client.entity.Position;
 import com.simplicity.client.instruction.InstructionArgs;
 import com.simplicity.client.instruction.InstructionProcessor;
+import com.simplicity.client.instruction.VoidInstruction;
 import com.simplicity.client.particles.Particle;
 import com.simplicity.client.particles.ParticleDefinition;
 import com.simplicity.client.widget.*;
@@ -2568,7 +2569,7 @@ public class Client extends RSApplet {
     public int activeMagicBookInterfaceId;
     public int tabHover = -1;
     public boolean showTab = true;
-    private int smallTabs = 1000;
+    public int smallTabs = 1000;
     int[] draw_tab_hover_x = {0, 30, 60, 120, 150, 180, 210, 90, 30, 60, -1, 120, 150, 180, 90, 0, 210};
     int[] draw_Tab_hover_y = {0, 0, 0, 0, 0, 0, 0, 298, 298, 298, -1, 298, 298, 298, 0, 298, 298};
     int[] draw_tab_hover_tab = {0, 1, 2, 14, 3, 4, 5, 6, 15, 8, 9, 7, 11, 12, 13, 16};
@@ -9174,16 +9175,19 @@ public class Client extends RSApplet {
                                 e.printStackTrace();
                             }
                         } else {
-
-                            stream.createFrame(185);
-                            stream.putInt(interfaceId);
+                            if (class9.newFormat) {
+                                stream.createFrame(187);
+                                stream.putInt(class9.parentID);
+                                stream.writeWord(class9.childId);
+                            } else {
+                                stream.createFrame(185);
+                                stream.putInt(interfaceId);
+                            }
                         }
                         break;
 
                 }
             }
-        }
-        switch (l) {
         }
         if (l == 561) {
             Player player = playerArray[entityId];
@@ -16556,7 +16560,6 @@ public class Client extends RSApplet {
                     } else if (child.type == 20) {
                     	// Draw sprite
     					boolean flag = false;
-
     					if (child.toggled) {
     						child.disabledSprite.drawARGBSprite(childX, childY, child.spriteOpacity);
     						flag = true;
@@ -19959,6 +19962,10 @@ public class Client extends RSApplet {
             inputDialogState = 0;
             inputTaken = true;
         }
+
+        if (openInterfaceID > -1)
+            RSInterface.interfaceCache[openInterfaceID].onClose();
+
         openInterfaceID = -1;
         dialogOptionsShowing = false;
     }
@@ -21360,6 +21367,9 @@ public class Client extends RSApplet {
                         inputDialogState = 0;
                         inputTaken = true;
                     }
+                    if (openInterfaceID > -1)
+                        RSInterface.interfaceCache[openInterfaceID].onClose();
+
                     invOverlayInterfaceID = j6;
                     needDrawTabArea = true;
                     tabAreaAltered = true;
@@ -22112,6 +22122,9 @@ public class Client extends RSApplet {
                         inputDialogState = 0;
                         inputTaken = true;
                     }
+                    if (openInterfaceID > -1)
+                        RSInterface.interfaceCache[openInterfaceID].onClose();
+
                     openInterfaceID = -1;
                     secondaryOpenInterfaceID = -1;
                     bankItemDragSprite = null;
@@ -22998,6 +23011,9 @@ public class Client extends RSApplet {
             secondaryOpenInterfaceID = -1;
             return;
         }
+
+        if (openInterfaceID > -1)
+            RSInterface.interfaceCache[openInterfaceID].onClose();
 
         openInterfaceID = -1;
         fullscreenInterfaceID = -1;

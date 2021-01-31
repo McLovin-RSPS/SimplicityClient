@@ -1,8 +1,11 @@
 package com.simplicity.client.instruction;
 
+import com.simplicity.client.instruction.impl.ClearChildren;
 import com.simplicity.client.instruction.impl.SetWidgetText;
 import com.simplicity.client.instruction.impl.SetWidgetVisibility;
 import com.simplicity.client.instruction.impl.teleportmenu.AddTeleportCategory;
+import com.simplicity.client.instruction.impl.teleportmenu.AddTeleportEntry;
+import com.simplicity.client.instruction.impl.teleportmenu.SetTeleportCategorySelected;
 import com.simplicity.client.instruction.impl.teleportmenu.TeleportCategoryInit;
 
 /**
@@ -12,7 +15,7 @@ import com.simplicity.client.instruction.impl.teleportmenu.TeleportCategoryInit;
 @SuppressWarnings("unchecked")
 public enum InstructionId {
     NOTHING(-1),
-    TELEPORT_CATEGORY_INIT(0) {
+    TELEPORT_MENU_CATEGORY_INIT(0) {
         @Override
         public VoidInstruction getInstruction() {
             return new TeleportCategoryInit();
@@ -30,10 +33,28 @@ public enum InstructionId {
             return new SetWidgetText();
         }
     },
-    ADD_CATEGORY_ENTRY(3) {
+    ADD_TELEPORT_MENU_CATEGORY_ENTRY(3) {
         @Override
         public VoidInstruction getInstruction() {
             return new AddTeleportCategory();
+        }
+    },
+    SET_TELEPORT_MENU_CATEGORY_SELECTED(4) {
+        @Override
+        public VoidInstruction getInstruction() {
+            return new SetTeleportCategorySelected();
+        }
+    },
+    CLEAR_CHILDREN_COMPONENTS(5) {
+        @Override
+        public VoidInstruction getInstruction() {
+            return new ClearChildren();
+        }
+    },
+    ADD_TELEPORT_MENU_ENTRY(6) {
+        @Override
+        public VoidInstruction getInstruction() {
+            return new AddTeleportEntry();
         }
     }
 

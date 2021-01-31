@@ -10,12 +10,27 @@ public class AddTeleportCategory implements VoidInstruction {
     public Void invoke(InstructionArgs args) {
         RSInterface[] widgets = RSInterface.interfaceCache;
         RSInterface parent = widgets[61322];
-        int index = args.getNextInt() - 1;
 
-        widgets[parent.children[14 + (2 * index)]].inv[0] = args.getNextInt() + 1;
-        widgets[parent.children[14 + (2 * index)]].invStackSizes[0] = 1;
+        int index = args.getNextInt();
 
-        widgets[parent.children[14 + (2 * index) + 1]].message = args.getNextString();
+        RSInterface ccRect = parent.createChildComponent(3);
+        ccRect.setRect(0x50473D, 154, 35, index % 2 == 0 ? 0 : 200, true);
+        parent.setChildPosition(ccRect, 0, index * 35);
+
+        RSInterface ccButton = parent.createChildComponent(20);
+        ccButton.setConfigHoverButton("Select", 1750, 1749, 1749, 1749, false);
+        parent.setChildPosition(ccButton, 0, index * 35);
+
+        RSInterface ccIcon = parent.createChildComponent(2);
+        ccIcon.setItemContainer(3, 5, 5, 5);
+        ccIcon.setItemModel(args.getNextInt() + 1, 1);
+        parent.setChildPosition(ccIcon, 2, (index * 35) + 1);
+
+        RSInterface ccText = parent.createChildComponent(4);
+        ccText.setText(args.getNextString(), 1, 0xff981f, false, true);
+        parent.setChildPosition(ccText, 45, (index * 35) + 6);
+
+        parent.scrollMax = Math.max(187, 35 * index);
         return null;
     }
 }
