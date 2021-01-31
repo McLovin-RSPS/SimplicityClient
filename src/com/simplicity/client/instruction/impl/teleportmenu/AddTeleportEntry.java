@@ -22,11 +22,15 @@ public class AddTeleportEntry implements VoidInstruction {
 
             RSInterface ccName = teleportList.createChildComponent(4);
             ccName.setText(args.getNextString(), 1, 0xff981f, false, true);
-            teleportList.setChildPosition(ccName, 20, (i * 36) + 3);
 
             RSInterface ccDescr = teleportList.createChildComponent(4);
             ccDescr.setText(args.getNextString(), 0, 0xff981f, false, true);
-            teleportList.setChildPosition(ccDescr, 20, (i * 36) + RSInterface.defaultFont[0].anInt1497 + 12);
+            if (ccDescr.message.isEmpty()) {
+                teleportList.setChildPosition(ccName, 20, (i * 36) + (35 - RSInterface.defaultFont[1].anInt1497) / 2);
+            } else {
+                teleportList.setChildPosition(ccName, 20, (i * 36) + 3);
+                teleportList.setChildPosition(ccDescr, 20, (i * 36) + RSInterface.defaultFont[0].anInt1497 + 12);
+            }
 
             RSInterface ccFav = teleportList.createChildComponent(5);
             ccFav.setConfigButton(1754, 1755, 30, 25, "Favorite", 1, 5, 1160 + i);
