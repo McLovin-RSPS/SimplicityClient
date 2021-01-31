@@ -6,12 +6,11 @@ import com.simplicity.client.cache.definitions.Animation;
 import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.client.cache.definitions.MobDefinition;
 import com.simplicity.client.content.Keybinding;
+import com.simplicity.client.instruction.VoidInstruction;
 import com.simplicity.client.widget.*;
 import com.simplicity.client.widget.dropdown.Dropdown;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.util.function.Consumer;
 
 @SuppressWarnings("all")
@@ -4812,6 +4811,7 @@ public class RSInterface {
         BestiaryLookup.init();
         modernbook(textDrawingAreas);
         lunarbook(textDrawingAreas);
+        TeleportInterface.init(textDrawingAreas);
         Widget.init();
         for (RSInterface widget : interfaceCache) {
             if (widget == null || widget.children == null)
@@ -6578,6 +6578,59 @@ public class RSInterface {
         tab.child(24, 35640, 310, 180);
 
         tab.child(25, 40052, 445, 264);
+    }
+
+    public static void addButton(int id, int sid, String tooltip) {
+        RSInterface tab = interfaceCache[id] = new RSInterface();
+        tab.id = id;
+        tab.parentID = id;
+        tab.type = 5;
+        tab.atActionType = 1;
+        tab.contentType = 0;
+        tab.opacity = (byte) 0;
+        tab.hoverType = 52;
+        tab.disabledSprite = SpriteLoader.sprites[sid];
+        tab.enabledSprite = SpriteLoader.sprites[sid];
+        tab.width = tab.disabledSprite.myWidth;
+        tab.height = tab.enabledSprite.myHeight;
+        tab.tooltip = tooltip;
+    }
+
+    public static void addConfigButtonWCacheLoader(int ID, int pID, int disabledSpriteId, int enabledSpriteId, int width, int height,
+                                                   String tT, int configID, int aT, int configFrame) {
+        RSInterface tab = addTabInterface(ID);
+        tab.parentID = pID;
+        tab.id = ID;
+        tab.type = 5;
+        tab.atActionType = aT;
+        tab.contentType = 0;
+        tab.width = width;
+        tab.height = height;
+        tab.hoverType = -1;
+        tab.valueCompareType = new int[1];
+        tab.requiredValues = new int[1];
+        tab.valueCompareType[0] = 1;
+        tab.requiredValues[0] = configID;
+        tab.valueIndexArray = new int[1][3];
+        tab.valueIndexArray[0][0] = 5;
+        tab.valueIndexArray[0][1] = configFrame;
+        tab.valueIndexArray[0][2] = 0;
+        tab.enabledSprite = Client.cacheSprite[enabledSpriteId];
+        tab.disabledSprite = Client.cacheSprite[disabledSpriteId];
+        tab.tooltip = tT;
+    }
+
+    public static void addPixels(int id, int color, int width, int height, int alpha, boolean filled) {
+        RSInterface rsi = addInterface(id);
+        rsi.type = 3;
+        rsi.opacity = (byte) alpha;
+        rsi.disabledColor = color;
+        rsi.disabledMouseOverColor = color;
+        rsi.enabledColor = color;
+        rsi.enabledMouseOverColor = color;
+        rsi.filled = filled;
+        rsi.width = width;
+        rsi.height = height;
     }
 
     public static void addButton(int id, int sid, String spriteName, String tooltip, int mOver, int atAction, int width,
@@ -17254,5 +17307,13 @@ public class RSInterface {
 
     public Consumer<RSInterface> onItemTrasmit;
     public Consumer<RSInterface> onTextChange;
+    @Deprecated
     public Runnable onOpen;
+
+    /**
+     * A set of instructions to execute upon an interface opening.
+     * Should ideally be used on type 0 (often a layer or parent of widgets) however it is up to developer's choice of
+     * usage.
+     */
+    public VoidInstruction[] openInstructions;
 }

@@ -52,7 +52,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -77,7 +76,6 @@ import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import com.google.common.primitives.Ints;
 import com.google.inject.Injector;
 import com.simplicity.Configuration;
 import com.simplicity.Jframe;
@@ -111,6 +109,8 @@ import com.simplicity.client.content.PlayerRights;
 import com.simplicity.client.content.RichPresence;
 import com.simplicity.client.content.overlay.ScreenOverlayManager;
 import com.simplicity.client.entity.Position;
+import com.simplicity.client.instruction.InstructionArgs;
+import com.simplicity.client.instruction.InstructionProcessor;
 import com.simplicity.client.particles.Particle;
 import com.simplicity.client.particles.ParticleDefinition;
 import com.simplicity.client.widget.*;
@@ -155,7 +155,6 @@ import net.runelite.api.events.PlayerSpawned;
 import net.runelite.api.events.StatChanged;
 import net.runelite.client.RuneLite;
 import net.runelite.client.callback.Hooks;
-import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginManager;
 
 @SuppressWarnings("all")
@@ -21764,6 +21763,25 @@ public class Client extends RSApplet {
                     int l13 = inStream.readUnsignedWord();
                     RSInterface.interfaceCache[k6].mediaType = 1;
                     RSInterface.interfaceCache[k6].mediaID = l13;
+                    opCode = -1;
+                    return true;
+                    
+                case 245:
+                    final int instruction = inStream.readUnsignedWord();
+                    final char[] types = inStream.readString().toCharArray();
+                    final int[] intArgs = new int[inStream.readUnsignedWord()];
+                    final String[] stringArgs = new String[inStream.readUnsignedWord()];
+
+                    for (int index = 0; index < types.length; index++) {
+                        char t = types[index];
+                        if (t == 's')
+                            stringArgs[index] = inStream.readString();
+                        else
+                            intArgs[index] = inStream.readInt();
+                    }
+
+                    InstructionArgs args = InstructionArgs.of(intArgs, stringArgs);
+                    InstructionProcessor.invoke(instruction, args);
                     opCode = -1;
                     return true;
 

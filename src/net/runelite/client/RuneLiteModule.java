@@ -79,7 +79,7 @@ public class RuneLiteModule extends AbstractModule
 		bindConstant().annotatedWith(Names.named("developerMode")).to(developerMode);
 		bind(ScheduledExecutorService.class).toInstance(Executors.newSingleThreadScheduledExecutor());
 		try {
-		bind(OkHttpClient.class).toInstance(RuneLiteAPI.CLIENT);
+			bind(OkHttpClient.class).toInstance(RuneLiteAPI.CLIENT);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
