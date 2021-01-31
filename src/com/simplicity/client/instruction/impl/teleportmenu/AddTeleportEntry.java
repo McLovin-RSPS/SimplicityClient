@@ -37,7 +37,7 @@ public class AddTeleportEntry implements VoidInstruction {
             teleportList.setChildPosition(ccFav, 288, (i * 36) + 6);
         }
 
-        teleportList.scrollMax = Math.max(187, 35 * length);
+        teleportList.scrollMax = Math.max(187, 36 * length);
         return null;
     }
 }

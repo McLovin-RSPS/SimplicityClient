@@ -9785,16 +9785,22 @@ public class Client extends RSApplet {
 		    pushMessage("Link opens to: "+ (broadcastUrl == null ? "nowhere" : broadcastUrl), 0, null);
         }
         if (l == 646) {
-            stream.createFrame(185);
-            stream.putInt(interfaceId);
             RSInterface class9_2 = RSInterface.interfaceCache[interfaceId];
-            if (class9_2.valueIndexArray != null && class9_2.valueIndexArray[0][0] == 5) {
-                int i2 = class9_2.valueIndexArray[0][1];
-                // System.out.println("Config ID: "+i2);
-                if (variousSettings[i2] != class9_2.requiredValues[0]) {
-                    variousSettings[i2] = class9_2.requiredValues[0];
-                    handleActions(i2);
-                    needDrawTabArea = true;
+            if (class9_2.newFormat) {
+                stream.createFrame(187);
+                stream.putInt(class9_2.parentID);
+                stream.writeWord(class9_2.childId);
+            } else {
+                stream.createFrame(185);
+                stream.putInt(interfaceId);
+                if (class9_2.valueIndexArray != null && class9_2.valueIndexArray[0][0] == 5) {
+                    int i2 = class9_2.valueIndexArray[0][1];
+                    // System.out.println("Config ID: "+i2);
+                    if (variousSettings[i2] != class9_2.requiredValues[0]) {
+                        variousSettings[i2] = class9_2.requiredValues[0];
+                        handleActions(i2);
+                        needDrawTabArea = true;
+                    }
                 }
             }
         }
