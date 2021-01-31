@@ -20,7 +20,7 @@ public class InstructionProcessor {
                 return;
             }
 
-            VoidInstruction instruction = identifier.getInstruction();
+            Instruction<Object> instruction = identifier.getInstruction();
             if (instruction == null) {
                 System.err.println("No valid instruction mapped to id "+ identifier +".");
                 return;

@@ -27,6 +27,14 @@ public class InstructionArgs {
     private int stringStackPos;
 
     /**
+     * Creates an empty set of instruction arguments.
+     * @return
+     */
+    public static InstructionArgs empty() {
+        return new InstructionArgs(new int[0], new String[0]);
+    }
+
+    /**
      * Creates a new set of arguments consisting of the elements within the array passed through the constructor.
      * @param intArgs
      * @param stringArgs
@@ -54,6 +62,14 @@ public class InstructionArgs {
      */
     public int getNextInt() {
         return intStack[--intStackPos];
+    }
+
+    /**
+     * Adds a boolean value onto the stack by evaluating the input and setting a 0-1 logical value respectively.
+     * @param bool
+     */
+    public void addNextBool(boolean bool) {
+        addNextInt(bool ? 1 : 0);
     }
 
     /**

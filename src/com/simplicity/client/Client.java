@@ -21771,13 +21771,14 @@ public class Client extends RSApplet {
                     final char[] types = inStream.readString().toCharArray();
                     final int[] intArgs = new int[inStream.readUnsignedWord()];
                     final String[] stringArgs = new String[inStream.readUnsignedWord()];
-
+                    int intArgIndex = 0;
+                    int stringArgIndex = 0;
                     for (int index = 0; index < types.length; index++) {
                         char t = types[index];
                         if (t == 's')
-                            stringArgs[index] = inStream.readString();
+                            stringArgs[stringArgIndex++] = inStream.readString();
                         else
-                            intArgs[index] = inStream.readInt();
+                            intArgs[intArgIndex++] = inStream.readInt();
                     }
 
                     InstructionArgs args = InstructionArgs.of(intArgs, stringArgs);
