@@ -393,45 +393,47 @@ WindowListener {
 		int offsetX = 0;
 		int offsetY = 0;
 		int childID = 0;
-		
-		/* Tab interface scrolling */
-		int tabInterfaceID = Client.getClient().tabInterfaceIDs[Client.getClient().tabID];
-		
-		if (tabInterfaceID == 11000) {
-			tabInterfaceID = 1151;
-		}
-		
-		if (tabInterfaceID == 73300) {
-			tabInterfaceID = AchievementsWidget.INTERFACE_ID;
-		}
-		
-		if (tabInterfaceID == 67000) {
-			tabInterfaceID = QuestTab.QUEST_TAB_ID;
-		}
-		
-		if (tabInterfaceID == 73800) {
-			tabInterfaceID = RaidingTab.WIDGET_ID;
-		}
-		
-		if (tabInterfaceID != -1) {
-			RSInterface tab = RSInterface.interfaceCache[tabInterfaceID];
-			offsetX = Client.getClient().clientSize == 0 ? Client.getClient().clientWidth - 218 : (Client.getClient().clientSize == 0 ? 28 : Client.getClient().clientWidth - 197);
-			offsetY = Client.getClient().clientSize == 0 ? Client.getClient().clientHeight - 298 : (Client.getClient().clientSize == 0 ? 37 : Client.getClient().clientHeight - (Client.getClient().clientWidth >= 900 ? 37 : 74) - 267);
-			
-			if (handleScrolling(tab, rotation, offsetX, offsetY)) {
-				return true;
+
+		if (Client.instance.mouseInTabArea()) {
+			/* Tab interface scrolling */
+			int tabInterfaceID = Client.getClient().tabInterfaceIDs[Client.getClient().tabID];
+
+			if (tabInterfaceID == 11000) {
+				tabInterfaceID = 1151;
 			}
-		}
 
-		/* Main interface scrolling */
-		if (Client.openInterfaceID != -1) {
-			int secondaryId = Client.secondaryOpenInterfaceID;
-			RSInterface rsi = RSInterface.interfaceCache[secondaryId != -1 ? secondaryId : Client.openInterfaceID];
-			offsetX = Client.getClient().clientSize == 0 ? 4 : (Client.getClient().clientWidth / 2) - Client.getClient().getInterfaceOffX();
-			offsetY = Client.getClient().clientSize == 0 ? 4 : (Client.getClient().clientHeight / 2) - Client.getClient().getInterfaceOffY();
+			if (tabInterfaceID == 73300) {
+				tabInterfaceID = AchievementsWidget.INTERFACE_ID;
+			}
 
-			if (handleScrolling(rsi, rotation, offsetX, offsetY)) {
-				return true;
+			if (tabInterfaceID == 67000) {
+				tabInterfaceID = QuestTab.QUEST_TAB_ID;
+			}
+
+			if (tabInterfaceID == 73800) {
+				tabInterfaceID = RaidingTab.WIDGET_ID;
+			}
+
+			if (tabInterfaceID != -1) {
+				RSInterface tab = RSInterface.interfaceCache[tabInterfaceID];
+				offsetX = Client.getClient().clientSize == 0 ? Client.getClient().clientWidth - 218 : (Client.getClient().clientSize == 0 ? 28 : Client.getClient().clientWidth - 197);
+				offsetY = Client.getClient().clientSize == 0 ? Client.getClient().clientHeight - 298 : (Client.getClient().clientSize == 0 ? 37 : Client.getClient().clientHeight - (Client.getClient().clientWidth >= 900 ? 37 : 74) - 267);
+
+				if (handleScrolling(tab, rotation, offsetX, offsetY)) {
+					return true;
+				}
+			}
+		} else {
+			/* Main interface scrolling */
+			if (Client.openInterfaceID != -1) {
+				int secondaryId = Client.secondaryOpenInterfaceID;
+				RSInterface rsi = RSInterface.interfaceCache[secondaryId != -1 ? secondaryId : Client.openInterfaceID];
+				offsetX = Client.getClient().clientSize == 0 ? 4 : (Client.getClient().clientWidth / 2) - Client.getClient().getInterfaceOffX();
+				offsetY = Client.getClient().clientSize == 0 ? 4 : (Client.getClient().clientHeight / 2) - Client.getClient().getInterfaceOffY();
+
+				if (handleScrolling(rsi, rotation, offsetX, offsetY)) {
+					return true;
+				}
 			}
 		}
 

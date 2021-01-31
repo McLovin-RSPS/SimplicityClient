@@ -18,7 +18,6 @@ public class ClearChildren implements VoidInstruction {
         parent.childX = new int[0];
         parent.childY = null;
         parent.childY = new int[0];
-        System.out.println("Cleaning children for "+ parent.id);
         return null;
     }
 }
