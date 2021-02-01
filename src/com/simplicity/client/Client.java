@@ -16217,6 +16217,9 @@ public class Client extends RSApplet {
                             child.enabledSprite = ItemDefinition.getSprite(child.itemSpriteId2, 1,
                                     (child.itemSpriteZoom2 == -1) ? 0 : -1, child.itemSpriteZoom2);
                         }
+                        boolean hoveringChild = childHovered;
+                        if (Client.clientSize == 0 && openInterfaceID == child.layerId && !mouseInGameArea())
+                            hoveringChild = false;
                         if (child.displayedSprite != null) {
                             sprite = child.displayedSprite;
                         } else if (interfaceIsSelected(child) || hoverSpriteId == child.id) {
@@ -16228,7 +16231,7 @@ public class Client extends RSApplet {
                         } else if (child.disabledSpriteId != -1
                                 && child.disabledSpriteId < SpriteCache.spriteCache.length && SpriteCache.spriteCache[child.disabledSpriteId] != null) {
                             sprite = SpriteCache.spriteCache[child.disabledSpriteId];
-                        } else if (interfaceIsSelected(child) && child.enabledSprite != null) {
+                        } else if ((child.selected || hoveringChild || interfaceIsSelected(child)) && child.enabledSprite != null) {
                             sprite = child.enabledSprite;
                         } else {
                             sprite = child.disabledSprite;

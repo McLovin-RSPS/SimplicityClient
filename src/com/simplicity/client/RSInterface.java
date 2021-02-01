@@ -13754,6 +13754,8 @@ public class RSInterface {
     public boolean dragDeletes;
     public int componentId;
     public int parentID;
+    // This points to the id of the overall interface i.e the root layer of all concerning widgets within this interface.
+    public int layerId;
     public boolean newFormat = false;
     public int spellUsableOn;
     private static MemCache spriteCache;
@@ -16718,18 +16720,14 @@ public class RSInterface {
 		tab.spriteOpacity = 255;
 	}
 	
-	public void setConfigHoverButton(String tooltip, int enabledSpriteId, int disabledSpriteId,
-                                     int enabledAltSpriteId, int disabledAltSpriteId, boolean active) {
+	public void setConfigHoverButton(String tooltip, int enabledSpriteId, int disabledSpriteId) {
         this.tooltip = tooltip;
         this.atActionType = 1;
-        this.type = 19;
+        this.type = 5;
         this.enabledSprite = Client.cacheSprite[enabledSpriteId];
         this.disabledSprite = Client.cacheSprite[disabledSpriteId];
         this.width = this.enabledSprite.myWidth;
         this.height = this.disabledSprite.myHeight;
-        this.enabledAltSprite = Client.cacheSprite[enabledAltSpriteId];
-        this.disabledAltSprite = Client.cacheSprite[disabledAltSpriteId];
-        this.active = active;
         this.spriteOpacity = 255;
     }
 	
@@ -17120,6 +17118,7 @@ public class RSInterface {
 	    child.id = newId;
 	    child.type = type;
 	    child.parentID = id;
+	    child.layerId = parentID;
 	    child.newFormat = true;
 	    int childId = getFreeChildId();
 	    if (childId != -1) {

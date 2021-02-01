@@ -20,8 +20,8 @@ public class SetTeleportMenuTeleList implements VoidInstruction {
             ccRect.setRect(0x50473D, 312, 35, i % 2 == 0 ? 0 : 200, true);
             teleportList.setChildPosition(ccRect, 13, (i * 36) + 1);
 
-            RSInterface ccButton = teleportList.createChildComponent(20);
-            ccButton.setConfigHoverButton("Teleport", 1752, 1753, 1753, 1753, false);
+            RSInterface ccButton = teleportList.createChildComponent(5);
+            ccButton.setConfigHoverButton("Teleport", 1753, 1752);
             teleportList.setChildPosition(ccButton, 13, (i * 36) + 1);
 
             RSInterface ccName = teleportList.createChildComponent(4);
