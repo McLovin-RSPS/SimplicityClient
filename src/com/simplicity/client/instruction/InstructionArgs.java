@@ -75,7 +75,7 @@ public class InstructionArgs {
     /**
      * Adds an int value onto the stack to be returned on the next calling of {@link #getNextInt()}.
      */
-    public void addNextInt(int value) {
+    public InstructionArgs addNextInt(int value) {
         if (intStackPos >= intStack.length) {
             int oldSize = intStack.length;
             int[] newStack = new int[oldSize + 1];
@@ -84,6 +84,7 @@ public class InstructionArgs {
             intStack = newStack;
         }
         intStack[intStackPos++] = value;
+        return this;
     }
 
     /**
@@ -97,7 +98,7 @@ public class InstructionArgs {
     /**
      * Adds an string value onto the stack to be returned on the next calling of {@link #getNextString()}.
      */
-    public void addString(String value) {
+    public InstructionArgs addNextString(String value) {
         if (stringStackPos >= stringStack.length) {
             int oldSize = stringStack.length;
             String[] newStack = new String[oldSize + 1];
@@ -106,5 +107,6 @@ public class InstructionArgs {
             stringStack = newStack;
         }
         stringStack[stringStackPos++] = value;
+        return this;
     }
 }

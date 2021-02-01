@@ -2,12 +2,16 @@ package com.simplicity.client.instruction.impl.teleportmenu;
 
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.instruction.InstructionArgs;
+import com.simplicity.client.instruction.InstructionId;
 import com.simplicity.client.instruction.VoidInstruction;
 
-public class AddTeleportEntry implements VoidInstruction {
+public class SetTeleportMenuTeleList implements VoidInstruction {
 
     @Override
     public Void invoke(InstructionArgs args) {
+        InstructionId.SET_VARP.invoke(InstructionArgs.empty().addNextInt(1160).addNextInt(0));
+        InstructionId.SET_VARP.invoke(InstructionArgs.empty().addNextInt(1161).addNextInt(0));
+
         RSInterface teleportList = RSInterface.interfaceCache[61360];
 
         int length = args.getNextInt();
@@ -35,6 +39,7 @@ public class AddTeleportEntry implements VoidInstruction {
             RSInterface ccFav = teleportList.createChildComponent(5);
             ccFav.setConfigButton(1754, 1755, 30, 25, "Favorite", 1, 5, 1160 + i);
             teleportList.setChildPosition(ccFav, 288, (i * 36) + 6);
+            InstructionId.SET_VARP.invoke(InstructionArgs.empty().addNextInt(args.getNextInt()).addNextInt(1160 + i));
         }
 
         teleportList.scrollMax = Math.max(187, 36 * length);

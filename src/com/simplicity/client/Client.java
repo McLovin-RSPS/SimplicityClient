@@ -9112,7 +9112,7 @@ public class Client extends RSApplet {
 			/**
 			 * Config hover button toggle.
 			 */
-			if (class9.type == 20) {
+			if (class9.type == 20 || class9.type == 40) {
 				RSInterface.handleConfigHover(class9);
 			}
 

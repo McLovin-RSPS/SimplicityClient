@@ -6653,7 +6653,7 @@ public class RSInterface {
     }
 
     public void setConfigButton(int disabledSpriteId, int enabledSpriteId, int width, int height,
-                                String tT, int configID, int aT, int configFrame) {
+                                String tT, int requiredValue, int aT, int varpId) {
         this.atActionType = aT;
         this.contentType = 0;
         this.width = width;
@@ -6662,10 +6662,10 @@ public class RSInterface {
         this.valueCompareType = new int[1];
         this.requiredValues = new int[1];
         this.valueCompareType[0] = 1;
-        this.requiredValues[0] = configID;
+        this.requiredValues[0] = requiredValue;
         this.valueIndexArray = new int[1][3];
         this.valueIndexArray[0][0] = 5;
-        this.valueIndexArray[0][1] = configFrame;
+        this.valueIndexArray[0][1] = varpId;
         this.valueIndexArray[0][2] = 0;
         this.enabledSprite = Client.cacheSprite[enabledSpriteId];
         this.disabledSprite = Client.cacheSprite[disabledSpriteId];
@@ -16722,7 +16722,7 @@ public class RSInterface {
                                      int enabledAltSpriteId, int disabledAltSpriteId, boolean active) {
         this.tooltip = tooltip;
         this.atActionType = 1;
-        this.type = 20;
+        this.type = 19;
         this.enabledSprite = Client.cacheSprite[enabledSpriteId];
         this.disabledSprite = Client.cacheSprite[disabledSpriteId];
         this.width = this.enabledSprite.myWidth;

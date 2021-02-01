@@ -1,10 +1,9 @@
 package com.simplicity.client.instruction;
 
-import com.simplicity.client.instruction.impl.ClearChildren;
-import com.simplicity.client.instruction.impl.SetWidgetText;
-import com.simplicity.client.instruction.impl.SetWidgetVisibility;
+import com.simplicity.client.RSInterface;
+import com.simplicity.client.instruction.impl.*;
 import com.simplicity.client.instruction.impl.teleportmenu.AddTeleportCategory;
-import com.simplicity.client.instruction.impl.teleportmenu.AddTeleportEntry;
+import com.simplicity.client.instruction.impl.teleportmenu.SetTeleportMenuTeleList;
 import com.simplicity.client.instruction.impl.teleportmenu.SetTeleportCategorySelected;
 import com.simplicity.client.instruction.impl.teleportmenu.TeleportCategoryInit;
 
@@ -54,7 +53,19 @@ public enum InstructionId {
     ADD_TELEPORT_MENU_ENTRY(6) {
         @Override
         public VoidInstruction getInstruction() {
-            return new AddTeleportEntry();
+            return new SetTeleportMenuTeleList();
+        }
+    },
+    CREATE_CHILD_WIDGET(7) {
+        @Override
+        public Instruction<RSInterface> getInstruction() {
+            return new CreateChildWidget();
+        }
+    },
+    SET_VARP(8) {
+        @Override
+        public VoidInstruction getInstruction() {
+            return new SetVarp();
         }
     }
 

@@ -11,12 +11,11 @@ public class SetTeleportCategorySelected implements VoidInstruction {
         RSInterface parent = RSInterface.interfaceCache[61322];
         final int categories = parent.children.length;
         for (int index = 0; index < categories; index += 4) {
-            RSInterface button = RSInterface.interfaceCache[parent.children[index + 1]];
-            button.toggled = false;
+            RSInterface.interfaceCache[parent.children[index + 1]].selected = false;
         }
 
-        int childId = args.getNextInt();
-        RSInterface.interfaceCache[parent.children[(childId + 1) * 4]].toggled = true;
+        final int childId = args.getNextInt();
+        RSInterface.interfaceCache[parent.children[(childId * 4) + 1]].selected = true;
         return null;
     }
 }
