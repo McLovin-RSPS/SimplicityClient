@@ -16217,7 +16217,7 @@ public class Client extends RSApplet {
                             child.enabledSprite = ItemDefinition.getSprite(child.itemSpriteId2, 1,
                                     (child.itemSpriteZoom2 == -1) ? 0 : -1, child.itemSpriteZoom2);
                         }
-                        boolean hoveringChild = childHovered;
+                        boolean hoveringChild = (child.atActionType == 1 || child.atActionType == 5) && childHovered;
                         if (Client.clientSize == 0 && openInterfaceID == child.layerId && !mouseInGameArea())
                             hoveringChild = false;
                         if (child.displayedSprite != null) {
