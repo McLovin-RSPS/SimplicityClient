@@ -1040,7 +1040,7 @@ final class ObjectManager {
 		}
 		} catch(ArrayIndexOutOfBoundsException e)
 		{
-			System.out.println("Error placing object (out of map boundaries)");
+			System.out.println("Error placing object " + objId + " (out of map boundaries)");
 		}
 	}
 
