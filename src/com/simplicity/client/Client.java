@@ -4872,8 +4872,8 @@ public class Client extends RSApplet {
                 if (clickable && hover) {
                     boolean flag = false;
                     boolean flag1 = false;
-
-                    if (child.contentType != 0) {
+                    
+                    if (child.contentType != 0 && (class9.id == 5066 || class9.id == 5716)) {
                         flag = buildFriendsListMenu(child);
                     }
                     if (!flag && !flag1) {
