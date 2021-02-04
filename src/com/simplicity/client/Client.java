@@ -15833,7 +15833,10 @@ public class Client extends RSApplet {
                                                         }
                                                     }
                                                 }
-                                                if (itemSpriteY + j7 < DrawingArea.topY
+                                                
+                                                int minTopY = rsInterface.id == 5385 ? 50 : 0;
+                                                
+                                                if (itemSpriteY + j7 > minTopY && itemSpriteY + j7 < DrawingArea.topY
                                                         && rsInterface.scrollPosition > 0) {
                                                     int i10 = (cycleTimer * (DrawingArea.topY - itemSpriteY - j7)) / 3;
                                                     if (i10 > cycleTimer * 10) {
