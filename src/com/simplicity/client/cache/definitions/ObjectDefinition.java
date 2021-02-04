@@ -1045,7 +1045,7 @@ public final class ObjectDefinition {
 
         streamIndices = new int[totalObjects];
         streamIndices667 = new int[totalObjects667];
-        streamIndicesOSRS = new int[totalObjectsOSRS];
+        streamIndicesOSRS = new int[totalObjectsOSRS + 10_000];
 
         int i = 2;
 
