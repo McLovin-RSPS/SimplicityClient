@@ -66,6 +66,7 @@ public final class ItemDefinition {
 
     public static void nullLoader() {
         modelCache = null;
+        modelCacheOSRS = null;
         modelCacheCustom = null;
         spriteCache = null;
         streamIndices = null;
@@ -9642,7 +9643,7 @@ public final class ItemDefinition {
         
         int itemForModel = id;
         
-        Model model = type == DataType.CUSTOM ? (Model) modelCacheCustom.get(itemForModel) : (Model) modelCache.get(itemForModel);
+        Model model = type == DataType.CUSTOM ? (Model) modelCacheCustom.get(itemForModel) : type == DataType.OLDSCHOOL ? (Model) modelCacheOSRS.get(itemForModel) : (Model) modelCache.get(itemForModel);
         if (model != null) {
             return model;
         }
@@ -9678,6 +9679,8 @@ public final class ItemDefinition {
         model.rendersWithinOneTile = true;
         if (type == DataType.CUSTOM) {
         	modelCacheCustom.put(model, id);
+        } else if (type == DataType.OLDSCHOOL) {
+        	modelCacheOSRS.put(model, id);
         } else {
         	if (id != 5572 && id != 5573 && id != 640 && id != 650 && id != 630) {
                 modelCache.put(model, id);
@@ -9878,6 +9881,7 @@ public final class ItemDefinition {
     public int id;
     public static MemCache spriteCache = new MemCache(100);
     public static MemCache modelCache = new MemCache(50);
+    public static MemCache modelCacheOSRS = new MemCache(50);
     public static MemCache modelCacheCustom = new MemCache(50);
     public int[] newModelColor;
     public boolean membersObject;
