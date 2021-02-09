@@ -11820,7 +11820,7 @@ public class Client extends RSApplet {
                 if (j > positionY - 14 && j <= positionY && !name.equals(myPlayer.name)) {
                     if (isStaff(myRights)) {
                         menuActionName[menuActionRow] = "Reply @whi@" + name;
-                        menuActionID[menuActionRow] = 606;
+                        menuActionID[menuActionRow] = 639;
                         menuActionRow++;
                     }
                     if (!isFriendOrSelf(name)) {
@@ -11879,7 +11879,7 @@ public class Client extends RSApplet {
                 if (j > k1 - 14 && j <= k1) {
                     if (isStaff(myRights)) {
                         menuActionName[menuActionRow] = "Reply @whi@" + name;
-                        menuActionID[menuActionRow] = 606;
+                        menuActionID[menuActionRow] = 639;
                         menuActionRow++;
                     }
                     if (!isFriendOrSelf(name)) {
@@ -12036,7 +12036,7 @@ public class Client extends RSApplet {
                 if (j > k1 - 14 && j <= k1) {
                     if (isStaff(myRights)) {
                         menuActionName[menuActionRow] = "Reply @whi@" + name;
-                        menuActionID[menuActionRow] = 606;
+                        menuActionID[menuActionRow] = 639;
                         menuActionRow++;
                     }
                     if (!isFriendOrSelf(name)) {
