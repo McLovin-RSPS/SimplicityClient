@@ -18,6 +18,23 @@ public class LoginScreen {
 
 	public static final String[] SOCIAL_MEDIA_LINKS = { "https://www.facebook.com/simplicityps", "", "http://www.youtube.com/channel/UCsQMC7RxvylgTL0jveRyjSw",
 			"", "http://discord.gg/VJy7QAH", "" };
+	
+	public static final int PROFILES_X = 241;
+	public static final int PROFILES_Y = 395;
+	
+    public static boolean profileHover(int index, int mouseX, int mouseY) {
+    	int baseX = PROFILES_X + 24 + (index * 95);
+    	int baseY = PROFILES_Y;
+    	
+    	return mouseX >= baseX && mouseX <= baseX + 38 && mouseY >= baseY && mouseY <= baseY + 38;
+    }
+    
+    public static boolean profileDeleteHover(int index, int mouseX, int mouseY) {
+    	int baseX = PROFILES_X + 38 + (index * 95);
+    	int baseY = PROFILES_Y + 29;
+    	
+    	return mouseX >= baseX && mouseX <= baseX + 10 && mouseY >= baseY && mouseY <= baseY + 10;
+    }
 
 
 	public static boolean add(String username, String password, boolean save) {

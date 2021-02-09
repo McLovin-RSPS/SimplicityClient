@@ -8158,35 +8158,17 @@ public class Client extends RSApplet {
         boolean handCursor = false, textCursor = false;
 
         if (!isLoading) {
-            if (super.mouseX >= 305 && super.mouseX <= 459 && super.mouseY >= 327 && super.mouseY <= 355) {
+            if (super.mouseX >= 278 && super.mouseX <= 486 && super.mouseY >= 313 && super.mouseY <= 346) {
                 loginButtonHover = handCursor = true;
             } else if (super.mouseX >= 249 && super.mouseX <= 513 && super.mouseY >= 191 && super.mouseY <= 223) {
                 input1Hover = textCursor = true;
-            } else if (super.mouseX >= 249 && super.mouseX <= 513 && super.mouseY >= 227 && super.mouseY <= 257) {
+            } else if (super.mouseX >= 249 && super.mouseX <= 513 && super.mouseY >= 243 && super.mouseY <= 276) {
                 input2Hover = textCursor = true;
-            } else if (super.mouseX >= 441 && super.mouseX <= 513) {
-                if (super.mouseY >= 285 && super.mouseY <= 305) {
-                    input3Hover = textCursor = true;
-                }
+            } else if (!showTwoFactorAuth && mouseX >= 441 && super.mouseX <= 513 && super.mouseY >= 285 && super.mouseY <= 305) {
+                input3Hover = textCursor = true;
             }
 
-            for (int i = 0; i < LoginScreen.characters.size(); i++) {
-                int x = 297 + (i * 94);
-                int x1 = x + 8;
-                LoginScreen.deleteCharacterState[i] = super.mouseX >= x && super.mouseX <= x1 && super.mouseY >= 374 && super.mouseY <= 381;
-
-            }
-
-            /*for (int i = 0; i < LoginScreen.SOCIAL_MEDIA.length; i++) {
-
-                int x = 287 + (i * 40);
-
-                int x1 = x + 20;
-                LoginScreen.socialMediaState[i] = (super.mouseX >= x && super.mouseX <= x1 && super.mouseY >= 466
-                        && super.mouseY <= 489);
-            }*/
-
-            if (super.mouseX >= 325 && super.mouseX <= 348 && super.mouseY >= 284 && super.mouseY <= 303) {
+            if (super.mouseX >= 325 && super.mouseX <= 345 && super.mouseY >= 284 && super.mouseY <= 303) {
                 rememberMeButtonHover = handCursor = true;
             }
         }
@@ -18872,13 +18854,7 @@ public class Client extends RSApplet {
 
         titleScreen.initDrawingArea();
         setLoadingAndLoginHovers();
-
-        if (showTwoFactorAuth) {
-            twoFactorAuthBg.drawAdvancedSprite(0, 0);
-        } else {
-
-        }
-
+        
         /*if(backgroundTimer.elapsed(60)) {
             currentBackgroundSprite++;
             backgroundTimer.reset();
@@ -18895,14 +18871,14 @@ public class Client extends RSApplet {
         if (enableMouseCoords) {
             drawingArea.method385(0xffff00, "Mouse X: " + super.mouseX + " , Mouse Y: " + super.mouseY, 25, 5);
         }
-
+        
         if (!showTwoFactorAuth) {
             for (int i = 0; i < loginMessages.length; i++) {
                 String s = loginMessages[i];
                 if (s == null || s.length() == 0) {
                     continue;
                 }
-                int y = 130 + (i * 12) + 188 - (10 * loginMessages.length);
+                int y = 130 + (i * 12) + 242 - (10 * loginMessages.length);
                 int x = (clientWidth / 2);
                 smallText.drawCenteredText(16777215, x, s, y, true);
             }
@@ -18915,7 +18891,7 @@ public class Client extends RSApplet {
         } else {
             String s = "Your PIN code was sent to +" + currentPhoneNumber;
             chatTextDrawingArea.drawRegularText(true, (clientWidth - chatTextDrawingArea.getTextWidth(s)) / 2, 16777215,
-                    s, 279);
+                    s, 269);
         }
         
         int inputX = 250;
@@ -18937,50 +18913,58 @@ public class Client extends RSApplet {
                 SpriteLoader.sprites[1758].drawAdvancedSprite(inputX, inputY + 53);
             }
         }
-
+        
         if (input3Hover) {
-            SpriteLoader.sprites[1757].drawAdvancedSprite(showTwoFactorAuth ? 345 : 442, showTwoFactorAuth ? 292 : 285);
+            SpriteLoader.sprites[1757].drawAdvancedSprite(showTwoFactorAuth ? 345 : 442, showTwoFactorAuth ? 282 : 285);
         } else {
-            SpriteLoader.sprites[1756].drawAdvancedSprite(showTwoFactorAuth ? 345 : 442, showTwoFactorAuth ? 292 : 285);
+            SpriteLoader.sprites[1756].drawAdvancedSprite(showTwoFactorAuth ? 345 : 442, showTwoFactorAuth ? 282 : 285);
         }
 
         if (loginButtonHover) {
-            SpriteLoader.sprites[1204].drawAdvancedSprite((765 / 2) - (169 / 2), 322);
+            SpriteLoader.sprites[1765].drawAdvancedSprite((765 / 2) - (208 / 2), 313);
         } else {
-            SpriteLoader.sprites[1203].drawAdvancedSprite((765 / 2) - (169 / 2), 322);
+            SpriteLoader.sprites[1764].drawAdvancedSprite((765 / 2) - (208 / 2), 313);
         }
 
         if (!showTwoFactorAuth) {
         	SpriteLoader.sprites[1762].drawAdvancedSprite(inputX + 6, 291);
         	SpriteLoader.sprites[1763].drawAdvancedSprite(375, 291);
-            if (rememberMe) {
-                SpriteLoader.sprites[1201].drawAdvancedSprite(320, 279);
-            } else if (rememberMeButtonHover) {
-                SpriteLoader.sprites[1200].drawAdvancedSprite(320, 279);
-            } else {
-                SpriteLoader.sprites[1200].drawAdvancedSprite(320, 279);
+        	SpriteLoader.sprites[rememberMeButtonHover ? 1767 : 1766].drawAdvancedSprite(325, 284);
+        	
+        	if (rememberMe) {
+        		SpriteLoader.sprites[1768].drawAdvancedSprite(329, 290);	
+        	}
+        }
+        
+        if (!showTwoFactorAuth) {
+            int x = LoginScreen.PROFILES_X;
+            int y = LoginScreen.PROFILES_Y;
+            
+            for (int i = 0; i < 3; i++) {
+                CharacterFile f = LoginScreen.characters.size() > i ? LoginScreen.characters.get(i) : null;
+                
+            	boolean deleteH = LoginScreen.profileDeleteHover(i, mouseX, mouseY);
+                	
+            	boolean charBgH = !deleteH && LoginScreen.profileHover(i, mouseX, mouseY);
+                	
+                SpriteLoader.sprites[f != null && charBgH ? 1770 : 1769].drawARGBSprite(x + 24, y - 4, 256);
+                    
+                if (f != null) {
+                	SpriteLoader.sprites[deleteH ? 1774 : 1773].drawARGBSprite(x + 38, y + 29, 256);
+                }
+                
+                SpriteLoader.sprites[1771].drawARGBSprite(x + 2, y + 46, 256);
+
+                chatTextDrawingArea.drawCenteredText(16777215, x + 43, f == null ? "-" : f.getUsername(), y + 59, true);
+                x += 95;
             }
         }
 
-        int x = 241;
-        int y = 395;
-
-        for (int i = 0; i < 3; i++) {
-            CharacterFile f = LoginScreen.characters.size() > i ? LoginScreen.characters.get(i) : null;
-
-            SpriteLoader.sprites[f == null ? 1205 : 1206].drawARGBSprite(x + 24, y - 4, 256);
-
-            SpriteLoader.sprites[LoginScreen.deleteCharacterState[i] ? 1207 : 1208].drawARGBSprite(x - 7, y + 40, 256);
-
-            chatTextDrawingArea.drawCenteredText(16777215, x + 46, f == null ? "Empty" : f.getUsername(), y + 59, true);
-            x += 95;
-        }
-        
         if (showTwoFactorAuth) {
             if (loginScreenCursorPos == 0 && loopCycle % 45 < 10) {
-                chatTextDrawingArea.drawRegularText(true, 355, 16777215, currentPinCode + "|", 307);
+                chatTextDrawingArea.drawRegularText(true, 355, 16777215, currentPinCode + "|", 307 - 10);
             } else {
-                chatTextDrawingArea.drawRegularText(true, 355, 16777215, currentPinCode, 307);
+                chatTextDrawingArea.drawRegularText(true, 355, 16777215, currentPinCode, 307 - 10);
             }
         } else {
             if (loginScreenCursorPos == 0 && loopCycle % 45 < 10) {
@@ -19000,27 +18984,13 @@ public class Client extends RSApplet {
             }
         }
 
-        /*int width = LoginScreen.SOCIAL_MEDIA.length * 40;
-
-        x = (765 / 2) - (width / 2) + 7;
-        y = 470;
-
-        for (int i = 0; i < LoginScreen.SOCIAL_MEDIA.length; i++) {
-            int sprite = 1209 + (i * 2);
-            if (LoginScreen.socialMediaState[i]) {
-                sprite++;
-            }
-            SpriteLoader.sprites[sprite].drawAdvancedSprite(x, y);
-            x += 40;
-        }*/
-
         // soundButton[muted ? 1 : 0].drawAdvancedSprite(clientWidth - 49 - 10,
         // clientHeight - 49 - 10);
 
         titleScreen.drawGraphics(0, super.graphics, 0);
 
     }
-
+    
     /**
      * Creates a new String containing stars only.
      *
@@ -19054,23 +19024,14 @@ public class Client extends RSApplet {
                         loginScreenCursorPos = 2;
                     }
 
-                    for (int i = 0; i < LoginScreen.socialMediaState.length; i++) {
-                        if (LoginScreen.socialMediaState[i]) {
-                            Client.launchURL(LoginScreen.SOCIAL_MEDIA_LINKS[i]);
-                        }
-                    }
-
                     for (int i = 0; i < LoginScreen.characters.size(); i++) {
-
-                        int x = 241 + (i * 93);
-                        int x1 = x + 92;
                         CharacterFile file = LoginScreen.characters.get(i);
-                        if (LoginScreen.deleteCharacterState[i]) {
+                        
+                        if (LoginScreen.profileDeleteHover(i, mouseX, mouseY)) {
                             LoginScreen.delete(file.getUsername());
-                        } else if (super.mouseX >= x && super.mouseX <= x1 && super.mouseY >= 370 && super.mouseY <= 441) {
+                        } else if (LoginScreen.profileHover(i, mouseX, mouseY)) {
                             login(file.getUsername(), file.getPassword(), myAuth, false);
                         }
-                        x += 95;
                     }
 
                     if (rememberMeButtonHover) {
