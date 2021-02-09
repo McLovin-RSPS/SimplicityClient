@@ -12012,7 +12012,7 @@ public class Client extends RSApplet {
                 if (hoveringChatMessage && !name.equals(myPlayer.name)) {
                     if (isStaff(myRights)) {
                         menuActionName[menuActionRow] = "Reply @whi@" + name;
-                        menuActionID[menuActionRow] = 606;
+                        menuActionID[menuActionRow] = 639;
                         menuActionRow++;
                     }
                     if (!isFriendOrSelf(name)) {
