@@ -13,9 +13,18 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 import com.simplicity.Configuration;
 import com.simplicity.client.Client;
 import com.simplicity.client.DebuggingRunnables;
@@ -32,6 +41,8 @@ public class CacheDownloader {
 	private static final String CACHE_PATH = signlink.findcachedir();
 	
 	private static final String VERSION_FILE = CACHE_PATH + "versions.dat";
+	
+	public static final String CACHE_URL = "https://storage.googleapis.com/simplicityps/";
 
 	public static void init() {
 
@@ -42,24 +53,30 @@ public class CacheDownloader {
 		try {
 			//DebuggingRunnables.getMessageThread("cachestart").start();;
 			
+			HashMap<String, Long> version_map = new HashMap <> ();
+			
 			for(CACHE_DOWNLOAD_FILES cacheFile : CACHE_DOWNLOAD_FILES.values()) {
 				
-				    boolean exists = getLocalVersion(cacheFile.identifier) != -1;
-				//boolean exists = new File(signlink.findcachedir() + cacheFile.identifier).exists();
-				
-					long CacheLocal = getLocalVersion(CACHE_DOWNLOAD_FILES.CACHE.identifier);
+					boolean exists = new File(signlink.findcachedir() + cacheFile.file).exists();
+				    
+					long CacheRemote = getRemoteVersion(cacheFile.link);
 					
-					long CacheRemote = getRemoteVersion(CACHE_DOWNLOAD_FILES.CACHE.link);
+				    if (!exists) {
+				    	System.out.println("Cache doesn't exist.");
+				    	updateFiles(cacheFile);
+				    	continue;
+				    }
+				    
+					long CacheLocal = getLocalVersion(cacheFile.identifier);
 					
 					if(CacheLocal != CacheRemote && CacheRemote != -1){
-						updateFiles(CACHE_DOWNLOAD_FILES.CACHE);
-						writeVersions(CacheRemote);
+						System.out.println("Cache is not up tp date.");
+						updateFiles(cacheFile);
+						//writeVersions(CacheRemote);
 					}
-
-				    if (!exists) {
-					updateFiles(cacheFile);
+					version_map.put(cacheFile.identifier, CacheRemote);
 				}
-			}
+			writeVersions(version_map);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -76,7 +93,6 @@ public class CacheDownloader {
 				unzip(new File(signlink.findcachedir() + file));
 			}
 			current++;
-		
 
 	}
 
@@ -130,8 +146,6 @@ public class CacheDownloader {
 	 * @return The version.
 	 */
 	private static long getLocalVersion(String name) {
-		BufferedReader br = null;
-		
 		try {
 			File versionDir = new File(VERSION_FILE);
 
@@ -140,27 +154,21 @@ public class CacheDownloader {
 				return -1;
 			}
 			
-			if (name.equals("SPRITE_VER")) {
-				if (!new File(CACHE_PATH + "sprites.dat").exists() || !new File(CACHE_PATH + "sprites.idx").exists()) {
-					return -1;
-				}
-			}
-	
-			br = new BufferedReader(new FileReader(VERSION_FILE));
-
-			String line;
-
-			while ((line = br.readLine()) != null) {
-				if (line.startsWith(name + " = ")) {
-					long size = Long.parseLong(line.replace(name + " = ", ""));
-					br.close();
-					return size;
-				}
-			}
+			 String text = new String(Files.readAllBytes(Paths.get(VERSION_FILE)), StandardCharsets.UTF_8);
+			 
+			 if(text == null)
+					 return -1;
+			 if(text.length() <= 3)
+				 return -1;
 			
-			br.close();
+			HashMap<String, Long> version_map = new Gson().fromJson(text, new TypeToken<HashMap<String, Long>>(){}.getType());
+			
+			if(version_map.get(name) != null) {
+				return version_map.get(name);
+			}
 			return -1;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return -1;
 		}
 	}
@@ -173,12 +181,12 @@ public class CacheDownloader {
 	 * @param spritesVersion
 	 *            The version of the sprites.
 	 */
-	private static void writeVersions(long cacheVersion) {
+	private static void writeVersions(HashMap<String, Long> version_map) {
 		BufferedWriter writer = null;
-		
 		try {
+			Gson gson = new Gson(); 
 			writer = new BufferedWriter(new FileWriter(VERSION_FILE));
-			writer.write("CACHE_VER = " + cacheVersion);
+			writer.write(gson.toJson(version_map).toString());
 			writer.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -215,7 +223,6 @@ public class CacheDownloader {
 				}
 			}
 			zin.close();
-			file.delete();
 			//DebuggingRunnables.getMessageThread("zipend").start();
 		} catch(Exception e) {}
 	}
@@ -239,8 +246,9 @@ public class CacheDownloader {
 	}
 
 	public static String getDownloadLink(String name) {
-		try {
-		  String webLink = "https://cdn.simplicity-data.com/cache.link";
+		return CACHE_URL + name;
+		/*try {
+		  String webLink = "https://simplicityps.org/resources/cache_link.php?type=" + name;
 	      StringBuilder result = new StringBuilder();
 	      URL url = new URL(webLink);
 	      HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -257,12 +265,18 @@ public class CacheDownloader {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		return "ERROR_IN_URL";
+		return "ERROR_IN_URL";*/
 	}
 	
 	enum CACHE_DOWNLOAD_FILES {
 
-		CACHE("cache.zip", "CACHE_VER", getDownloadLink("cache")),
+		MAIN_FILE_CACHE("main_file_cache.zip", "MAIN_FILE_CACHE_VER", getDownloadLink("main_file_cache.zip")),
+		SPRITES_DAT("sprites.dat", "SPRITES_DAT_VER", getDownloadLink("sprites.dat")),
+		SPRITES_IDX("sprites.idx", "SPRITES_IDX_VER", getDownloadLink("sprites.idx")),
+		LOC_DAT("loc.dat", "LOC_DAT_VER", getDownloadLink("loc.dat")),
+		LOC_IDX("loc.idx", "LOC_IDX_VER", getDownloadLink("loc.idx")),
+		DATA("data.zip", "DATA_VER", getDownloadLink("data.zip")),
+
 		;
 
 		CACHE_DOWNLOAD_FILES(String file, String identifier, String link) {

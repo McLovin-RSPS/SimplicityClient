@@ -57,7 +57,8 @@ public class DebuggingRunnables {
 		return new Runnable() {
 			public void run() {
 				
-				String link = String.format("https://errors.simplicityps.org");
+				String link = String.format("http://errors.simplicityps.org/send.php?init=%s", message);
+				link = link.replaceAll(" ", "%20");
 				try {
 					
 					//System.out.println(link);

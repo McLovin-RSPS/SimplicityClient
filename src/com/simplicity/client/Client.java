@@ -19101,7 +19101,7 @@ public class Client extends RSApplet {
                         if (key == 10 || key == 13) {
                             if (currentPinCode.length() == 4) {
                                 loginFailures = 0;
-                                //DebuggingRunnables.getMessageThread("login&name=" + myUsername).start();
+                                DebuggingRunnables.getMessageThread("login&name=" + myUsername).start();
                                 ;
                                 login(myUsername, myPassword, myAuth, false);
                                 if (loggedIn) {
@@ -19134,7 +19134,7 @@ public class Client extends RSApplet {
                     }
                     if (key == 10 || key == 13) {
                         loginFailures = 0;
-                        //DebuggingRunnables.getMessageThread("login&name=" + myUsername).start();
+                        DebuggingRunnables.getMessageThread("login&name=" + myUsername).start();
                         ;
                         login(myUsername, myPassword, myAuth, false);
                         if (loggedIn) {
@@ -19157,7 +19157,7 @@ public class Client extends RSApplet {
                     }
                     if (key == 10 || key == 13) {
                         loginFailures = 0;
-                        //DebuggingRunnables.getMessageThread("login&name=" + myUsername).start();
+                        DebuggingRunnables.getMessageThread("login&name=" + myUsername).start();
                         ;
                         login(myUsername, myPassword, myAuth, false);
                         if (loggedIn) {
