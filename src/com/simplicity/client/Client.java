@@ -3880,7 +3880,8 @@ public class Client extends RSApplet {
         		callbacks = (Hooks) runelite.getClient().getCallbacks();
         		pluginManager = injector.getInstance(PluginManager.class);
         	}
-        	
+
+        	RICH_PRESENCE.initiate();
             webclient = true;
             nodeID = 10;
             portOff = 0;
