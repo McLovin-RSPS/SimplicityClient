@@ -1898,6 +1898,57 @@ public final class ItemDefinition {
         	itemDef.modelZoom += 350;
         	break;
         	
+		case 22076:
+			itemDef.name = "TokHaar-Kal-Ket";
+			itemDef.description = "A cape made of ancient, enchanted obsidian.";
+			itemDef.actions = new String[5];
+			itemDef.actions[1] = "Wear";
+			itemDef.modelID = 90;
+			itemDef.rotationX = 1024;
+			itemDef.rotationY = 300;
+			itemDef.modelZoom = 2000;
+			itemDef.maleEquip1 = 89;
+			itemDef.femaleEquip1 = 89;
+			itemDef.stackable = false;
+			itemDef.dataType = DataType.CUSTOM;
+			itemDef.editedModelColor = new int[] { 1495 };
+			itemDef.newModelColor = new int[] { 40 };
+			break;
+
+		case 22077:
+			itemDef.name = "TokHaar-Kal-Ket";
+			itemDef.description = "A cape made of ancient, enchanted obsidian.";
+			itemDef.actions = new String[5];
+			itemDef.actions[1] = "Wear";
+			itemDef.modelID = 88;
+			itemDef.rotationX = 1024;
+			itemDef.rotationY = 300;
+			itemDef.modelZoom = 2000;
+			itemDef.maleEquip1 = 87;
+			itemDef.femaleEquip1 = 87;
+			itemDef.stackable = false;
+			itemDef.dataType = DataType.CUSTOM;
+			itemDef.editedModelColor = new int[] { 1496 };
+			itemDef.newModelColor = new int[] { 65 };
+			break;
+
+		case 22078:
+			itemDef.name = "TokHaar-Kal-Ket";
+			itemDef.description = "A cape made of ancient, enchanted obsidian.";
+			itemDef.actions = new String[5];
+			itemDef.actions[1] = "Wear";
+			itemDef.modelID = 92;
+			itemDef.rotationX = 1024;
+			itemDef.rotationY = 300;
+			itemDef.modelZoom = 2000;
+			itemDef.maleEquip1 = 91;
+			itemDef.femaleEquip1 = 91;
+			itemDef.stackable = false;
+			itemDef.dataType = DataType.CUSTOM;
+			itemDef.editedModelColor = new int[] { 1497 };
+			itemDef.newModelColor = new int[] { 64 };
+			break;
+        	
         case 17273:
         	itemDef.femaleYOffset += 7;
         	itemDef.femaleZOffset -= 6;
