@@ -442,10 +442,10 @@ public enum CustomRecolor {
 	SKY_BLUE_CELESTIAL_BOTTOMS(17845, 16865, "@cya@BlazeThe420 Celestial Bottoms",
 			new int[] { 22693, 10374, 262, 7719, 266, 7723, 270, 7727, 274, 278, 22683, 7739, 22686 }, 
 			new int[] { 0, 0, 37631, 37631, 37631/*top square*/, 37631/*l2 stripes*/, 37631, 0, 37631, 37631, 37631, 37631, 0, 0, 37631, 37631, 37631, 37631 }),
-	SKY_BLUE_CELESTIAL_GLOVES(17846, 16931, "@cya@BlazeThe420 Celestial Gloves",
+	SKY_BLUE_CELESTIAL_GLOVES(17846, 16931, "@cya@BlazeThe420 Celestial Boots",
 			new int[] { 7730, 22675, 22692, 262, 7750, 22683 }, 
 			new int[] { 0, 37631, 37631, 0, 37631, 0 }),
-	SKY_BLUE_CELESTIAL_SHOES(17847, 17171, "@cya@BlazeThe420 Celestial Hood",
+	SKY_BLUE_CELESTIAL_SHOES(17847, 17171, "@cya@BlazeThe420 Celestial Gloves",
 			new int[] { 4096, 4116, 4123, 22686, 22703 }, 
 			new int[] { 37631, 0, 37631, 37631, 0 }),
 	/* SKY BLUE V2 */
@@ -741,34 +741,48 @@ public enum CustomRecolor {
    BLUE_GREEN_SCYTHE_XI(17744, 15000, "Blue Green Scythe", 
 		   	new int[] { 33, 37, 41, 78, 16, 784, 49, 20, 790, 24, 536, 796, 28, 61 },
 		   	new int[] { 90, 90, 90, 56220, 90, 56220, 56220, 90, 56220, 90, 56220, 56220, 90, 56220 }),
-   BLK_GREEN_NIGHTMARE_STAFF(11311, 54422, "@red@Green Nightmare staff",
+   /*
+    * Customs Feb 2021 
+    */
+   
+   ELITE_NIGHTMARE(21520, 54491, "@gre@Elite Nightmare",
+			new int[] { 43968, 62400, 61714, 38036, 43076, 58661, 61718, 38408, 38040, 38156, 38044, 43086, },
+			new int[] { 43968, 32889, 61714, 38036, 90, 58661, 61718, 38408, 38040, 90, 38044, 90,}),
+	   ELITE_OLMLET(21521, 50851, "@gre@Elite Olmlet",
+				new int[] { 15296, 32881, 33, 33891, 32821, 24, 32889, 32858, 32875, 12, 32846,  },
+				new int[]  { 15296, 32881, 90, 33891, 32821, 90, 32889, 32858, 32875, 12, 61714,   }),
+	   ELITE_ZIK(21522, 52473, "@gre@Elite Zik",
+				new int[] { 0, 64448, 43169, 43202, 43206, 59303, 54410, 63946, 47275, 62763, 62771, 10452, 49304, 62236, 43197,   },
+				new int[]  {  0, 32889, 32889, 43202, 43206, 59303, 54410, 32889, 32889, 32889, 62771, 32889, 49304, 62236, 43197,     }),
+	   
+   BLK_GREEN_NIGHTMARE_STAFF(21501, 54422, "@gre@Green Nightmare staff",
 			new int[] { 35, 7333, 39, 61962, 61838, 16, 7442, 18, 20, 61718, 28, 7326, 61598 },
 			new int[] { 1024, 1024, 1024, 1024, 22427, 1024, 1024, 22427, 1024, 1024, 22427, 22427, 1024, 1024 }),
-   BLK_GREEN_ANGELIC_CAPE(11206, 11614, "Green Angelic Cape", 
+   BLK_GREEN_ANGELIC_CAPE(21500, 11614, "Green Angelic Cape", 
 			new int[]{ 40023, 40036, 1822, 36, 25, 34243, 9230, 40040, 10348, 48, 34251, 0, 43335, 6218, 23, 11013 },
           new int[]{ 1024, 1024, 1024, 22427, 22427, 1024, 22427, 1024, 1024, 22427, 1024, 1024, 1024, 1024, 22427, 1024 }),
    /* SIRENIC BLACK/GREEN */
-   BLACK_GREEN_SIRENIC_HELM(14452, 22014, "@gre@Green Sirenic Helm",
+   BLACK_GREEN_SIRENIC_HELM(21502, 22014, "@gre@Green Sirenic Helm",
           new int[]{39329, 32197, 38057, 41226, 33066, 40202, 41232, 40084, 41237, 40085, 40344, 40345, 40090, 32060, 40349},
           new int[]{1024, 22427, 1024, 22427, 1024, 22427, 1024, 22427, 1024, 1024, 1024, 1024, 1024, 1024, 1024}),
           
-   BLACK_GREEN_SIRENIC_PLATEBODY(14453, 22016, "@gre@Green Sirenic Platebody",
+   BLACK_GREEN_SIRENIC_PLATEBODY(21503, 22016, "@gre@Green Sirenic Platebody",
           new int[]{39329, 32197, 33066, 43149, 41232, 43153, 42131, 41237, 42133, 40344, 40345, 32060, 40349, 20158},
           new int[]{1024, 22427, 1024, 22427, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024}),
 
-   BLACK_GREEN_SIRENIC_PLATELEGS(14454, 22018, "@gre@Green Sirenic Platelegs",
+   BLACK_GREEN_SIRENIC_PLATELEGS(21504, 22018, "@gre@Green Sirenic Platelegs",
           new int[]{39329, 32197, 33066, 43149, 41232, 43153, 42131, 41237, 42133, 40344, 40345, 32060, 40349},
           new int[]{1024, 22427, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024}),
 
-   BLACK_GREEN_SIRENIC_GLOVES(14455, 22022, "@gre@Green Sirenic Gloves",
+   BLACK_GREEN_SIRENIC_GLOVES(21505, 22022, "@gre@Green Sirenic Gloves",
           new int[]{ 40608, 33201, 43283, 40596, 43285, 43276 },
           new int[]{ 1024, 22427, 1024, 1024, 22427, 22427 }),
 
-   BLACK_GREEN_SIRENIC_BOOTS(14456, 22020, "@gre@Green Sirenic Boots",
+   BLACK_GREEN_SIRENIC_BOOTS(21506, 22020, "@gre@Green Sirenic Boots",
           new int[]{35104, 2, 35092, 35109, 38422, 43275, 38412},
           new int[]{22427, 1024, 22427, 22427, 1024, 1024, 1024}),
    /* WHITE PRIMAL SET */
-   WHITE_PRIMAL_HELM(3068, 16711, "White Primal Full Helm",
+   WHITE_PRIMAL_HELM(21507, 16711, "White Primal Full Helm",
 			new int[] { 2838, 2848, 2866, 2048, 2855, 7731, 7757, 7694, 4110, 127,
 						7753, 7718, 7372, 7712, 7403, 7713, 7726, 7743, 7721, 7684,
 						7738, 7716, 7680, 7698, 7711, 7733, 7693, 7706, 7728 },
@@ -776,7 +790,7 @@ public enum CustomRecolor {
 						127, 127, 127, 127, 127, 127, 127, 127, 127, 127,
 						127, 127, 127, 127, 127, 127, 127, 127, 127 }),
 	
-	WHITE_PRIMAL_BODY(3067, 17259, "White Primal Platebody",
+	WHITE_PRIMAL_BODY(21508, 17259, "White Primal Platebody",
 			new int[] { 2828, 2840, 2848, 2833, 2834, 2845, 2824, 2826, 2855, 2830,
 						2827, 2888, 2846, 2847, 2817, 2866, 2880, 7703, 7710, 7731,
 						2822, 7694, 2816, 2862, 2823, 2844, 2853, 2831, 2839 },
@@ -784,7 +798,7 @@ public enum CustomRecolor {
 						127, 127, 127, 127, 127, 127, 127, 127, 127, 127,
 						127, 127, 127, 127, 127, 127, 127, 127, 127 }),
 	
-	WHITE_PRIMAL_LEGS(3066, 16689, "White Primal Platelegs",
+	WHITE_PRIMAL_LEGS(21509, 16689, "White Primal Platelegs",
 			new int[] { 2830, 7694, 7731, 7710, 7703, 2816, 2880, 2844, 7700, 2866,
 						2848, 2853, 2839, 2925, 2857, 2840, 2836, 2822, 2832, 2828,
 						2876, 2823, 2827, 2833, 2847, 2842, 7724, 7721, 7715, 7735,
@@ -794,7 +808,7 @@ public enum CustomRecolor {
 						127, 127, 127, 127, 127, 127, 127, 127, 127, 127,
 						127, 127, 127 }),
 	
-	WHITE_PRIMAL_KITE(3065, 17361, "White Primal Kiteshield",
+	WHITE_PRIMAL_KITE(21510, 17361, "White Primal Kiteshield",
 			new int[] { 1567, 1559, 1549, 1557, 6694, 6704, 1539, 6729, 6719, 1562,
 						1572, 5403, 5398, 5388, 5393, 1550, 5380, 5385, 5424, 5408,
 						1584, 1554, 1544, 1574, 5378, 5376, 1540, 5383, 1589, 5411,
@@ -804,19 +818,19 @@ public enum CustomRecolor {
            			127, 127, 127, 127, 127, 127, 127, 127, 127, 127,
            			127, 127, 127, 127, 127, 127, 127, 127 }),
 	
-	WHITE_PRIMAL_BOOTS(3064, 16359, "White Primal Boots",
+	WHITE_PRIMAL_BOOTS(21511, 16359, "White Primal Boots",
 			new int[] { 2830, 2853, 2840, 2836 },
            new int[] {  127, 127, 127, 127 }),
 	
-	WHITE_PRIMAL_GLOVES(3063, 16293, "White Primal Gauntlents",
+	WHITE_PRIMAL_GLOVES(21512, 16293, "White Primal Gauntlents",
 			new int[] { 2839, 2848, 2826 },
            new int[] {  127, 127, 127 }),
 	
-	WHITE_SCYTHE_DS(18401, 15000, "@whi@White Scythe DS", 
+	WHITE_SCYTHE_DS(21513, 15000, "@whi@White Scythe DS", 
 	        new int[] { 33, 37, 41, 78, 16, 784, 49, 20, 790, 24, 536, 796, 28, 61 },
 	        new int[] { 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127 }),
 	
-	VOID_ANGELIC_CAPE(12151, 11614, "@bla@VOID Angelic Cape",
+	VOID_ANGELIC_CAPE(21514, 11614, "@bla@VOID Angelic Cape",
 			new int[] { 40023, 40036, 1822, 36, 25, 34243, 9230, 40040, 10348, 48, 34251, 0, 43335, 6218, 23, 11013 },
 			getCustomCapeColor(1024, 1024)),
 	
