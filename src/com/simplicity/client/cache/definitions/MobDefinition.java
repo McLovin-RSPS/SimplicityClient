@@ -81,6 +81,13 @@ public final class MobDefinition {
             }
             switch (i) {
             
+            case 8009:
+            case 7674:
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                npc.actions[2] = "Metamorphosis";
+                break;
+                
             case 8492:
             	npc.walkAnim = 23492;
             	break;
