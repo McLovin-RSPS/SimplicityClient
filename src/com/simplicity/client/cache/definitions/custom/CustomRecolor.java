@@ -745,10 +745,10 @@ public enum CustomRecolor {
     * Customs Feb 2021 
     */
    
-   BLK_GREEN_NIGHTMARE_STAFF(21500, 54422, "@gre@Green Nightmare staff",
+   BLK_GREEN_NIGHTMARE_STAFF(21501, 54422, "@gre@Green Nightmare staff",
 			new int[] { 35, 7333, 39, 61962, 61838, 16, 7442, 18, 20, 61718, 28, 7326, 61598 },
 			new int[] { 1024, 1024, 1024, 1024, 22427, 1024, 1024, 22427, 1024, 1024, 22427, 22427, 1024, 1024 }),
-   BLK_GREEN_ANGELIC_CAPE(21501, 11614, "Green Angelic Cape", 
+   BLK_GREEN_ANGELIC_CAPE(21500, 11614, "Green Angelic Cape", 
 			new int[]{ 40023, 40036, 1822, 36, 25, 34243, 9230, 40040, 10348, 48, 34251, 0, 43335, 6218, 23, 11013 },
           new int[]{ 1024, 1024, 1024, 22427, 22427, 1024, 22427, 1024, 1024, 22427, 1024, 1024, 1024, 1024, 22427, 1024 }),
    /* SIRENIC BLACK/GREEN */
