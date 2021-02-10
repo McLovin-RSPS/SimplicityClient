@@ -549,9 +549,11 @@ public final class ItemDefinition {
             case 51018:
                 itemDef.maleYOffset -= 10;
                 break;
+                
             case 50851:
                 itemDef.name = "Superior Olmlet";
                 break;
+                
             case 50852:
                 ItemDefinition def2 = forID(52319);
                 itemDef.name = "Superior " + def2.name;
@@ -561,6 +563,7 @@ public final class ItemDefinition {
                 itemDef.modelOffsetY = def2.modelOffsetY;
                 itemDef.modelZoom = def2.modelZoom;
                 break;
+                
             case 50854:
                 ItemDefinition defVorki = forID(51992);
                 itemDef.name = "Superior " + defVorki.name;
@@ -2346,6 +2349,7 @@ public final class ItemDefinition {
         	itemDef.femaleYOffset -= 7;
             itemDef.maleYOffset -= 7;
         	break;
+        	
         case 21004:
         	itemDef.copy(forID(11694));
         	itemDef.modelID = 2608;
@@ -2811,23 +2815,48 @@ public final class ItemDefinition {
             itemDef.femaleYOffset -= 7;
             itemDef.maleYOffset -= 7;
             break;
+            
+      /*  case 21520:
+            itemDef.name = "Elite Nightmare";
+        	itemDef.copy(forID(54491));
+            itemDef.editedModelColor = new int[] { 43968, 62400, 61714, 38036, 43076, 58661, 61718, 38408, 38040, 38156, 38044, 43086, };
+            itemDef.newModelColor = new int[] { 43968, 90, 61714, 38036, 90, 58661, 61718, 38408, 38040, 90, 38044, 90, };
+            break;
+        case 21521:
+            itemDef.name = "Elite Olmlet";
+        	itemDef.copy(forID(50851));
+            itemDef.editedModelColor = new int[] { 15296, 32881, 33, 33891, 32821, 24, 32889, 32858, 32875, 12, 32846,  };
+            itemDef.newModelColor = new int[] { 15296, 32881, 90, 33891, 32821, 90, 32889, 32858, 32875, 12, 61714,  };
+            break;
+        case 21522:
+            itemDef.name = "Elite Zik";
+        	itemDef.copy(forID(52473));
+            itemDef.editedModelColor = new int[] { 0, 64448, 43169, 43202, 43206, 59303, 54410, 63946, 47275, 62763, 62771, 10452, 49304, 62236, 43197,   };
+            itemDef.newModelColor = new int[] {  0, 32889, 32889, 43202, 43206, 59303, 54410, 32889, 32889, 32889, 62771, 32889, 49304, 62236, 43197,    };
+            break; */
+            
         	case 18339:
         		itemDef.name = "Gold bag";
         		itemDef.actions[0] = "Check";
         		itemDef.actions[4] = "Drop";
         		break;
+        		
         	case 9722:
         		itemDef.name = "@gre@Prize Key";
         		break;
+        		
         	case 19864:
         		itemDef.name = "@gre@Halloween Token";
         		break;
+        		
         	case 11179:
         		itemDef.name = "Old coin";
         		break;
+        		
         	case 5519:
         		itemDef.name = "Halloween orb";
         		break;
+        		
             case 1050:
                 itemDef.femaleZOffset += 4;
                 break;
