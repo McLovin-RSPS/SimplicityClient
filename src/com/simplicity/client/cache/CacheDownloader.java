@@ -66,16 +66,17 @@ public class CacheDownloader {
 	}
 	
 	public static void updateFiles(CACHE_DOWNLOAD_FILES cacheFile) throws Exception {
-		int total = 1;
+		int total = cacheFile.file.length;
 		
 		int current = 1;
 		
-		String file = cacheFile.file;
+		for (String file : cacheFile.file) {
 			downloadFile(cacheFile, file, current, total);
 			if (file.endsWith(".zip")) {
 				unzip(new File(signlink.findcachedir() + file));
 			}
 			current++;
+		}
 		
 
 	}
@@ -240,7 +241,7 @@ public class CacheDownloader {
 
 	public static String getDownloadLink(String name) {
 		try {
-		  String webLink = "https://cdn.simplicity-data.com/cache.link";
+		  String webLink = "https://simplicityps.org/resources/cache_link.php?type=" + name;
 	      StringBuilder result = new StringBuilder();
 	      URL url = new URL(webLink);
 	      HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -262,16 +263,16 @@ public class CacheDownloader {
 	
 	enum CACHE_DOWNLOAD_FILES {
 
-		CACHE("cache.zip", "CACHE_VER", getDownloadLink("cache")),
+		CACHE(new String[]{"cache.zip"}, "CACHE_VER", getDownloadLink("cache")),
 		;
 
-		CACHE_DOWNLOAD_FILES(String file, String identifier, String link) {
+		CACHE_DOWNLOAD_FILES(String[] file, String identifier, String link) {
 			this.file = file;
 			this.identifier = identifier;
 			this.link = link;
 		}
 
-		private String file;
+		private String[] file;
 		private String identifier;
 		private String link;
 	}
