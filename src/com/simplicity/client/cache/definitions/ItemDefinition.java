@@ -26,6 +26,7 @@ import com.simplicity.client.signlink;
 import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.custom.CustomItems;
 import com.simplicity.client.cache.definitions.custom.CustomRecolor;
+import com.simplicity.client.cache.definitions.custom.CustomRecolor2;
 
 public final class ItemDefinition {
 	
@@ -1061,6 +1062,7 @@ public final class ItemDefinition {
         //dumpInterface(totalItems, totalItemsOSRS);
         
         CustomRecolor.values();
+        CustomRecolor2.values();
     }
     
     /*public static void dumpInterface(int totalItems, int totalItemsOSRS) {

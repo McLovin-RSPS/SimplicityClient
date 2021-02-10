@@ -833,8 +833,44 @@ public enum CustomRecolor {
 	VOID_ANGELIC_CAPE(21514, 11614, "@bla@VOID Angelic Cape",
 			new int[] { 40023, 40036, 1822, 36, 25, 34243, 9230, 40040, 10348, 48, 34251, 0, 43335, 6218, 23, 11013 },
 			getCustomCapeColor(1024, 1024)),
+	YELLOW_ANKOU_HOOD(21515, 14914, "@yel@Yellow Ankou Hood",
+		   	new int[]{ 960 },
+   			new int[]{ 9087 }),
+	YELLOW_ANKOU_CHEST(21516, 14915, "@yel@Yellow Ankou Chest",
+		   	new int[]{ 960 },
+   			new int[]{ 9087 }),
+	YELLOW_ANKOU_LEGS(21517, 14917, "@yel@Yellow Ankou Legs",
+		   	new int[]{ 960 },
+   			new int[]{ 9087 }),
+	YELLOW_ANKOU_GLOVES(21518, 14916, "@yel@Yellow Ankou Gloves",
+		   	new int[]{ 960 },
+   			new int[]{ 9087 }),
+	YELLOW_ANKOU_SOCKS(21519, 14918, "@yel@Yellow Ankou Socks",
+		   	new int[]{ 960 },
+   			new int[]{ 9087 }),
+	YELLOW_BLACK_SIRENIC_HELM(21523, 22014, "@yel@Kanker sirenic helm",
+            new int[]{39329, 32197, 38057, 41226, 33066, 40202, 41232, 40084, 41237, 40085, 40344, 40345, 40090, 32060, 40349},
+            new int[]{1024, 11237, 1024, 11237, 1024, 11237, 1024, 11237, 1024, 1024, 1024, 1024, 1024, 1024, 1024}),
+            
+	YELLOW_BLACK_SIRENIC_PLATEBODY(21524, 22016, "@yel@Kanker sirenic platebody",
+            new int[]{39329, 32197, 33066, 43149, 41232, 43153, 42131, 41237, 42133, 40344, 40345, 32060, 40349, 20158},
+            new int[]{1024, 11237, 1024, 11237, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024}),
+
+	YELLOW_BLACK_SIRENIC_PLATELEGS(21525, 22018, "@yel@Kanker sirenic platelegs",
+            new int[]{39329, 32197, 33066, 43149, 41232, 43153, 42131, 41237, 42133, 40344, 40345, 32060, 40349},
+            new int[]{1024, 11237, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024}),
+
+	YELLOW_BLACK_SIRENIC_GLOVES(21526, 22022, "@yel@Kanker sirenic gloves",
+            new int[]{ 40608, 33201, 43283, 40596, 43285, 43276 },
+            new int[]{ 1024, 11237, 1024, 1024, 11237, 11237 }),
+
+	YELLOW_BLACK_SIRENIC_BOOTS(21527, 22020, "@yel@Kanker sirenic boots",
+            new int[]{35104, 2, 35092, 35109, 38422, 43275, 38412},
+            new int[]{11237, 1024, 11237, 11237, 1024, 1024, 1024}),
 	
-   ;
+	YELLOW_BLACK_HAND_CANNON_XI(21528, 11620, "@yel@Kanker Cannon XI",
+            new int[]{ 35840, 64, 35905, 35912, 1097, 35855, 35856, 85, 35862, 23, 35865, 35866, 1051, 35868, 6303, 31, 32, 35873, 1058, 35875, 39, 40, 35882, 6317, 45, 35886, 1070, 35888, 49, 50, 54, 35895, 59 },
+            new int[]{ 1024, 1024, 1024, 1024, 11237, 11237, 11237, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 11237, 11237, 1024, 11237, 1024, 1024, 11237, 11237, 11237, 1024, 11237 }),
 	//11200, 6036, 37, 103, 74
 
 	
