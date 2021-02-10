@@ -99,7 +99,8 @@ public class OldschoolMaps {
             5021, // Hespori
             12126, // Zalcano
             15256, 15515, //Nightmare
-            12597, 12598, 12852, 12854, 13108, 13109, 13110
+            12597, 12598, 12852, 12854, 13108, 13109, 13110,
+            8755, 8756, 9011, 9012 // Priffdinas
     };
     static {
         for(Integer region : OLDSCHOOL_REGION_IDS) {
