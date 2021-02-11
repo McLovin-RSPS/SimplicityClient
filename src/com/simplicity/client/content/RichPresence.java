@@ -59,7 +59,7 @@ public class RichPresence {
         System.out.println(response.toString());
         return response.toString();
     } catch(Exception e) {
-    	return "212";
+    	return "312";
     }
     }
     

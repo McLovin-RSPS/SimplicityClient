@@ -41,6 +41,7 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.simplicity.Configuration;
+import com.simplicity.client.content.RichPresence;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
@@ -83,6 +84,7 @@ public class RuneLite
 	public static final File SCREENSHOT_DIR = new File(RUNELITE_DIR, "screenshots");
 	private static final File LOGS_DIR = new File(RUNELITE_DIR, "logs");
 	public static final File LOGS_FILE_NAME = new File(LOGS_DIR, "application");
+	public static final RichPresence RICH_PRESENCE = new RichPresence();
 	
 	@Getter
 	private static Injector injector;
@@ -156,6 +158,7 @@ public class RuneLite
 	
 	public static void main(String[] args) throws Exception
 	{
+		RICH_PRESENCE.initiate();
         if (args.length > 0) {
             Configuration.HOST = args[0];
             com.simplicity.client.Client.fromLauncher = true;
