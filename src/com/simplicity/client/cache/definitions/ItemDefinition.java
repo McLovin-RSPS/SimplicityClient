@@ -1913,7 +1913,11 @@ public final class ItemDefinition {
 			itemDef.rotationY = 300;
 			itemDef.modelZoom = 2000;
 			itemDef.maleEquip1 = 89;
+			itemDef.maleEquip2 = -1;
+			itemDef.maleEquip3 = -1;
 			itemDef.femaleEquip1 = 89;
+			itemDef.femaleEquip2 = -1;
+			itemDef.femaleEquip3 = -1;
 			itemDef.stackable = false;
 			itemDef.dataType = DataType.CUSTOM;
 			itemDef.editedModelColor = new int[] { 1495 };
@@ -1930,7 +1934,11 @@ public final class ItemDefinition {
 			itemDef.rotationY = 300;
 			itemDef.modelZoom = 2000;
 			itemDef.maleEquip1 = 87;
+			itemDef.maleEquip2 = -1;
+			itemDef.maleEquip3 = -1;
 			itemDef.femaleEquip1 = 87;
+			itemDef.femaleEquip2 = -1;
+			itemDef.femaleEquip3 = -1;
 			itemDef.stackable = false;
 			itemDef.dataType = DataType.CUSTOM;
 			itemDef.editedModelColor = new int[] { 1496 };
@@ -1947,7 +1955,11 @@ public final class ItemDefinition {
 			itemDef.rotationY = 300;
 			itemDef.modelZoom = 2000;
 			itemDef.maleEquip1 = 91;
+			itemDef.maleEquip2 = -1;
+			itemDef.maleEquip3 = -1;
 			itemDef.femaleEquip1 = 91;
+			itemDef.femaleEquip2 = -1;
+			itemDef.femaleEquip3 = -1;
 			itemDef.stackable = false;
 			itemDef.dataType = DataType.CUSTOM;
 			itemDef.editedModelColor = new int[] { 1497 };
