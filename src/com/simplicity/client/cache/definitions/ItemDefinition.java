@@ -3004,6 +3004,16 @@ public final class ItemDefinition {
                 itemDef.actions = new String[5];
                 itemDef.actions[0] = "Open";
                 break;
+            case 745:
+                itemDef.name = "Valentine's 2021 Box";
+                itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
+                break;
+            case 8152:
+                itemDef.name = "Valentine's Owner Box";
+                itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
+                break;
             case 8473:
             	itemDef.copy(forID(6199));
                 itemDef.name = "Verzik's Mystery Box";
