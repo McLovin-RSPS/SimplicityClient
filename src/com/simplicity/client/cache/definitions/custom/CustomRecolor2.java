@@ -31,6 +31,12 @@ public enum CustomRecolor2 {
 		BLACK_YELLOW_ANGELIC_BOOTS(21534, 41860, "@yel@Kanker angelic boots",
 				new int[]{8396, 8417, 5293, 20},
 				new int[]{1024, 1024, 11237, 11237}),
+		CNY_BOX(9850, 9850, "@red@CNY 2021 Owner Box",
+				new int[] { 5281, 8514, 5268, 9878, 5272, 12393, 5276, 5388 },
+				new int[] { 9087, 933, 9087, 933, 933, 9087, 9087, 9087 }),
+		OWNER_CNY_BOX(10834, 10834, "@red@CNY 2021 Mystery Bag",
+				new int[] { 8128, 7616, 4626, 7091, 6067 },
+				new int[] { 9087, 9087, 933, 9087, 9087 }),
 	;
 	/**
 	 * Constructs a new {@link CustomRecolor2}.
