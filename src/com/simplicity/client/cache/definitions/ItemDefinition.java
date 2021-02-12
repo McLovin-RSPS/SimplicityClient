@@ -650,6 +650,11 @@ public final class ItemDefinition {
                 itemDef.actions = new String[5];
                 itemDef.actions[0] = "Open";
                 break;
+            case 21535:
+            case 21536:
+            	itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
+                break;
             case 42789:
                 itemDef.name = "@gre@Vote Box";
                 itemDef.actions = new String[5];
