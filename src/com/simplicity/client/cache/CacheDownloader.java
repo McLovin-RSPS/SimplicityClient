@@ -21,6 +21,8 @@ import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -68,6 +70,8 @@ public class CacheDownloader {
 				    }
 				    
 					long CacheLocal = getLocalVersion(cacheFile.identifier);
+					
+					System.out.println(cacheFile.identifier + " Sizes: Local - " + CacheLocal + " Remote - " + CacheRemote);
 					
 					if(CacheLocal != CacheRemote && CacheRemote != -1){
 						System.out.println("Cache is not up tp date.");
@@ -201,6 +205,9 @@ public class CacheDownloader {
 		}
 	}
 
+	private static String antiCache() {
+		return RandomStringUtils.randomAlphabetic(10);
+	}
 	private static void drawLoadingText(int amount, String text) {
 		Client.getClient().drawLoadingText(amount, text);
 	}
@@ -246,7 +253,7 @@ public class CacheDownloader {
 	}
 
 	public static String getDownloadLink(String name) {
-		return CACHE_URL + name;
+		return CACHE_URL + name + "?" + antiCache();
 		/*try {
 		  String webLink = "https://simplicityps.org/resources/cache_link.php?type=" + name;
 	      StringBuilder result = new StringBuilder();

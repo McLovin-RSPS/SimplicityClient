@@ -470,6 +470,39 @@ public final class MobDefinition {
                 npc.pet = true;
                 break;
                 
+            case 6565:
+                npc.copy(forID(22519));
+                npc.name = "Elite Olmlet";
+                npc.sizeXZ = 100;
+                npc.sizeY = 100;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                npc.squaresNeeded = 1;
+                npc.pet = true;
+                break;
+                
+            case 6566:
+                npc.copy(forID(23337));
+                npc.name = "Elite Zik";
+                npc.sizeXZ = 40;
+                npc.sizeY = 40;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                npc.squaresNeeded = 1;
+                npc.pet = true;
+                break;
+                
+            case 6567:
+                npc.copy(forID(24398));
+                npc.name = "Elite Nightmare";
+                npc.sizeXZ = 60;
+                npc.sizeY = 60;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                npc.squaresNeeded = 1;
+                npc.pet = true;
+                break;
+                
             case 2576:
                 npc.copy(forID(23360));
                 npc.name = "Sugi";
