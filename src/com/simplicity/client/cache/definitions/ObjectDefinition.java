@@ -840,7 +840,7 @@ public final class ObjectDefinition {
         switch (i) {
             case 47748:
                 objectDef.actions = new String[]{"Cut", null, null, null, null};
-                objectDef.name = "Christmas AFK Tree";
+                objectDef.name = "Simplicity AFK Tree";
                 break;
             /*case 14309:
                 objectDef.actions = new String[]{"Cut", null, null, null, null};
