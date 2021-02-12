@@ -384,7 +384,20 @@ public class CustomItems {
                 itemDef.modelID = 29;
                 itemDef.dataType = DataType.CUSTOM;
                 break;
-                
+            case 21535:
+            	itemDef.copy(ItemDefinition.forID(9850));
+            	itemDef.name = "@red@CNY 2021 Owner Box";
+                itemDef.actions[0] = "Open";
+                itemDef.editedModelColor = new int[] { 5281, 8514, 5268, 9878, 5272, 12393, 5276, 5388 };
+                itemDef.newModelColor = new int[] { 9087, 933, 9087, 933, 933, 9087, 9087, 9087 };
+                break;
+            case 21536:
+            	itemDef.copy(ItemDefinition.forID(10834));
+            	itemDef.name = "@red@CNY 2021 Mystery Bag";
+                itemDef.actions[0] = "Open";
+                itemDef.editedModelColor = new int[] { 8128, 7616, 4626, 7091, 6067 };
+                itemDef.newModelColor = new int[] { 9087, 9087, 933, 9087, 9087 };
+                break;
             case 11222:
                 itemDef.name = "Frost fire arrow";
                 itemDef.editedModelColor = new int[] { 929, 914, 788, 68, 918, 937, 7081, 922, 924};
