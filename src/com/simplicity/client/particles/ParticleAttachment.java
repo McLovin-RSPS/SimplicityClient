@@ -2,15 +2,28 @@ package com.simplicity.client.particles;
 
 import java.util.*;
 
+import com.simplicity.client.cache.DataType;
+
 public class ParticleAttachment {
+	
+	private static final Map<Integer, int[][]> customAttachments = new HashMap<Integer, int[][]>();
 
 	private static final Map<Integer, int[][]> attachments = new HashMap<Integer, int[][]>();
 
-	public static int[][] getAttachments(int model) {
+	public static int[][] getAttachments(int model, DataType dataType) {
+		if (dataType.equals(DataType.CUSTOM)) {
+			return customAttachments.get(model);
+		}
+		
         return attachments.get(model);
     }
 
 	static {
+		// TokHaar-Kal-Ket
+		customAttachments.put(89, new int[][] { { 243, 7 }, { 164, 7 }, { 191, 7 }, { 100, 7 } });
+		customAttachments.put(87, new int[][] { { 243, 13 }, { 164, 13 }, { 191, 13 }, { 100, 13 } });
+		customAttachments.put(91, new int[][] { { 243, 14 }, { 164, 14 }, { 191, 14 }, { 100, 14 } });
+		
 		//Completionist cape
 		attachments.put(65297, new int[][] { { 494, 0 }, { 488, 0 }, { 485, 0 }, { 476, 0 }, { 482, 0 }, { 479, 0 }, { 491, 0 } });
 		attachments.put(65316, new int[][] { { 494, 0 }, { 488, 0 }, { 485, 0 }, { 476, 0 }, { 482, 0 }, { 479, 0 }, { 491, 0 } });

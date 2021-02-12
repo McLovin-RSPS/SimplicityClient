@@ -700,8 +700,9 @@ public class Model extends Animable {
                 translate(0, 6, 0);
             }
         }
-
-        int[][] attachments = ParticleAttachment.getAttachments(modelId);
+        
+        int[][] attachments = ParticleAttachment.getAttachments(modelId, dataType);
+        
         if (attachments != null) {
             for (int n = 0; n < attachments.length; n++) {
                 int[] attach = attachments[n];

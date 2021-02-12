@@ -147,11 +147,11 @@ public class ParticleDefinition {
             setEndVelocity(new ParticleVector(0, -3, 0));
             setGravity(new ParticleVector(0, 1 / 2, 0));
             setLifeSpan(19);
-            setStartColor(0xB70000);
+            setStartColor(0xFF7F00);
             setSpawnRate(2);
-            setStartSize(1.2f);
+            setStartSize(1.15f);
             setEndSize(0);
-            setStartAlpha(0.095f);
+            setStartAlpha(0.20f);
             updateSteps();
             setColorStep(0x000900);
         }
@@ -228,7 +228,35 @@ public class ParticleDefinition {
             updateSteps();
             setColorStep(0x000000);
         }        
-    },
+    }, new ParticleDefinition() {
+        { // Tok-Haar Kal
+            setStartVelocity(new ParticleVector(0, -3, 0)); // x z y
+            setEndVelocity(new ParticleVector(0, -3, 0));
+            setGravity(new ParticleVector(0, 1 / 2, 0));
+            setLifeSpan(19);
+            setStartColor(0xc020bd);
+            setSpawnRate(2);
+            setStartSize(1.15f);
+            setEndSize(0);
+            setStartAlpha(0.20f);
+            updateSteps();
+            setColorStep(0x000900);
+        }
+    }, new ParticleDefinition() {
+        { // Tok-Haar Kal
+            setStartVelocity(new ParticleVector(0, -3, 0)); // x z y
+            setEndVelocity(new ParticleVector(0, -3, 0));
+            setGravity(new ParticleVector(0, 1 / 2, 0));
+            setLifeSpan(19);
+            setStartColor(0x224d57);
+            setSpawnRate(2);
+            setStartSize(1.15f);
+            setEndSize(0);
+            setStartAlpha(0.30f);
+            updateSteps();
+            setColorStep(0x000900);
+        }
+    },           
     };
 
     public final SpawnShape getSpawnedShape() {
