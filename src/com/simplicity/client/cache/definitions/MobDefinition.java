@@ -484,8 +484,8 @@ public final class MobDefinition {
             case 6566:
                 npc.copy(forID(23337));
                 npc.name = "Elite Zik";
-                npc.sizeXZ = 40;
-                npc.sizeY = 40;
+                npc.sizeXZ = 30;
+                npc.sizeY = 30;
                 npc.actions = new String[5];
                 npc.actions[0] = "Pick-up";
                 npc.squaresNeeded = 1;
