@@ -19,7 +19,7 @@ public final class MobDefinition {
             23492, 23493, 23494, 23495, 2775, 2776, 4550, 7370, 7333, 7351, 7367, 6853, 6867, 6851, 6833, 6875, 6877, 6879,
             6881, 6883, 6885, 6887, 6855, 7377, 22519, 6824, 6843, 6794, 6818, 6992, 6857, 6991, 7365, 7337, 7363, 6809,
             6865, 6820, 6802, 6827, 6859, 6889, 6815, 6813, 6817, 7372, 6839, 8575, 7345, 6849, 6798, 6861, 7335, 7347,
-            6800, 7355, 7357, 7359, 9488, 6804, 7341, 7329, 6863, 6822, 7339, 6869, 7349, 7375, 6873, 7343, 3033, 3030,
+            6800, 7355, 7357, 7359, 9488, 6804, 7341, 7329, 6863, 6822, 7339, 6869, 7349, 7375, 6873, 7343, 3033, 3030, 21636,
             3031, 3032, 3034, 3035, 3036, 3037, 3038, 3039, 3040, 3047, 3048, 21637, 21638, 3051, 3052, 3053, 3054,
             3055, 3056, 3057, 3058, 3059, 3060, 3061, 3063, 3064, 3066, 3067, 3068, 3070, 3069, 3065, 6723, 6724, 6726,
             6727, 6728, 6729, 6730, 963, 6640, 5781, 6731, 22519, 23025, 154, 23009, 153, 621, 622, 623, 624, 625, 626,
@@ -484,8 +484,8 @@ public final class MobDefinition {
             case 6566:
                 npc.copy(forID(23337));
                 npc.name = "Elite Zik";
-                npc.sizeXZ = 40;
-                npc.sizeY = 40;
+                npc.sizeXZ = 30;
+                npc.sizeY = 30;
                 npc.actions = new String[5];
                 npc.actions[0] = "Pick-up";
                 npc.squaresNeeded = 1;
@@ -1402,17 +1402,9 @@ public final class MobDefinition {
                 npc.name = "Pure";
                 npc.actions = new String[]{"Trade", null, null, null, null};
                 break;
+                
             case 3030:
-                npc.name = "King black dragon";
-                npc.actions = new String[5];
-                npc.actions[0] = "Pick-up";
-                npc.models = new int[]{17414, 17415, 17429, 17422};
-                npc.combatLevel = 276;
-                npc.standAnim = 90;
-                npc.walkAnim = 4635;
-                npc.sizeY = 40;
-                npc.sizeXZ = 40;
-                npc.squaresNeeded = 3;
+                npc.copy(forID(21636));
                 npc.pet = true;
                 break;
 
