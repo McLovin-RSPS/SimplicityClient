@@ -8396,7 +8396,9 @@ public final class ItemDefinition {
                 itemDef.actions = new String[]{null, "Wield", null, null, "Drop"};
                 itemDef.modelID = 64593;
                 itemDef.maleEquip1 = 64704;
-                itemDef.femaleEquip2 = 64704;
+                itemDef.femaleEquip1 = 64704;
+                itemDef.maleYOffset = -11;
+                itemDef.maleXOffset = 6;
                 break;
 
             case 15220:
