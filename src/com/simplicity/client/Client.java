@@ -5937,7 +5937,7 @@ public class Client extends RSApplet {
                     						
                     						if (nightmare && NightmareOverlay.getStage() == 0) {
                     							hpColor = 0x46eae4;
-                    							bgColor = 0x0a0573;
+                    							bgColor = 0x032620;
                     							multiplier = 4;
                     						}
             							}
