@@ -175,9 +175,10 @@ public final class ItemDefinition {
         //if (j == 62367)
         //model.translate(68, 7, -8);
         if (gender == 0 && (femaleYOffset != 0 || femaleXOffset != 0  || femaleZOffset != 0)) {
-            model.translate(femaleXOffset, femaleYOffset, femaleZOffset);
-        } else if (gender == 1 && (maleXOffset != 0 || maleYOffset != 0 || maleZOffset != 0) ) {
+        if (gender == 0 && (maleYOffset != 0 || maleXOffset != 0  || maleZOffset != 0)) {
             model.translate(maleXOffset, maleYOffset, maleZOffset);
+        } else if (gender == 1 && (femaleXOffset != 0 || femaleYOffset != 0 || femaleZOffset != 0) ) {
+            model.translate(femaleXOffset, femaleYOffset, femaleZOffset);
         }
         if (editedModelColor != null && newModelColor != null) {
             for (int i1 = 0; i1 < editedModelColor.length; i1++) {
@@ -209,14 +210,14 @@ public final class ItemDefinition {
         actions = null;
         maleEquip1 = -1;
         maleEquip2 = -1;
-        maleYOffset = 0;
-        maleXOffset = 0;
-        maleZOffset = 0;
+        femaleYOffset = 0;
+        femaleXOffset = 0;
+        femaleZOffset = 0;
         femaleEquip1 = -1;
         femaleEquip2 = -1;
-        femaleZOffset = 0;
-        femaleXOffset = 0;
-        femaleYOffset = 0;
+        maleZOffset = 0;
+        maleXOffset = 0;
+        maleYOffset = 0;
         maleEquip3 = -1;
         femaleEquip3 = -1;
         maleDialogue = -1;
@@ -316,19 +317,19 @@ public final class ItemDefinition {
         switch(itemDef.id) {
         
 	        case 52323:
-	            itemDef.femaleZOffset = -11;
-	            itemDef.maleZOffset = 11;
-	            itemDef.maleXOffset = 3;
+	            itemDef.maleZOffset = -11;
+	            itemDef.femaleZOffset = 11;
+	            itemDef.femaleXOffset = 3;
 	        	break;
 	        	
 	        case 53995:
-	            itemDef.femaleYOffset = 8;
-	            itemDef.maleYOffset = -10;
+	            itemDef.maleYOffset = 8;
+	            itemDef.femaleYOffset = -10;
 	            break;
 
             case 52981:
-                itemDef.maleYOffset += 5;
                 itemDef.femaleYOffset += 5;
+                itemDef.maleYOffset += 5;
                 break;
 
             // Crystal halberd full
@@ -340,10 +341,10 @@ public final class ItemDefinition {
 
             // Rainbow partyhat
             case 41863:
-                itemDef.maleZOffset += 4;
-                itemDef.maleYOffset -= 10;
                 itemDef.femaleZOffset += 4;
-                itemDef.femaleYOffset -= 6;
+                itemDef.femaleYOffset -= 10;
+                itemDef.maleZOffset += 4;
+                itemDef.maleYOffset -= 6;
                 break;
 
             // OSRS necklaces
@@ -355,9 +356,9 @@ public final class ItemDefinition {
             case 49720:
             case 42002:
             case 1704:
-                itemDef.maleZOffset += 4;
-                itemDef.maleYOffset -= 10;
+                itemDef.femaleZOffset += 4;
                 itemDef.femaleYOffset -= 10;
+                itemDef.maleYOffset -= 10;
                 itemDef.modelOffsetY = 16;
                 break;
 
@@ -365,10 +366,10 @@ public final class ItemDefinition {
             // Team cape x and i
             case 50214:
             case 50217:
-                itemDef.femaleYOffset -= 7;
-                itemDef.femaleZOffset += 4;
                 itemDef.maleYOffset -= 7;
-                itemDef.femaleZOffset += 4;
+                itemDef.maleZOffset += 4;
+                itemDef.femaleYOffset -= 7;
+                itemDef.maleZOffset += 4;
                 break;
 
             case 43300:
@@ -443,85 +444,85 @@ public final class ItemDefinition {
             case 51793:
             case 51795:
             case 52954:
-                itemDef.maleZOffset += 4;
                 itemDef.femaleZOffset += 4;
-                itemDef.femaleYOffset -= 7;
+                itemDef.maleZOffset += 4;
                 itemDef.maleYOffset -= 7;
+                itemDef.femaleYOffset -= 7;
                 break;
 
             case 51400: // Red Inf cape
                 itemDef.copy(forID(51295));
-                itemDef.maleZOffset += 3;
                 itemDef.femaleZOffset += 3;
-                itemDef.femaleYOffset -= 3;
+                itemDef.maleZOffset += 3;
                 itemDef.maleYOffset -= 3;
+                itemDef.femaleYOffset -= 3;
                 itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
                 itemDef.newModelColor = new int[] { 61, 946, 946, 946, 946 };
                 break;
             case 51401: // Bloody cape
                 itemDef.copy(forID(51295));
-                itemDef.maleZOffset += 3;
                 itemDef.femaleZOffset += 3;
-                itemDef.femaleYOffset -= 3;
+                itemDef.maleZOffset += 3;
                 itemDef.maleYOffset -= 3;
+                itemDef.femaleYOffset -= 3;
                 itemDef.name = "Bloody cape";
                 itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
                 itemDef.newModelColor = new int[] { 62, 921, 921, 921, 0 };
                 break;
             case 51402: // Stone Cape
                 itemDef.copy(forID(51295));
-                itemDef.maleZOffset += 3;
                 itemDef.femaleZOffset += 3;
-                itemDef.femaleYOffset -= 3;
+                itemDef.maleZOffset += 3;
                 itemDef.maleYOffset -= 3;
+                itemDef.femaleYOffset -= 3;
                 itemDef.name = "Stone cape";
                 itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
                 itemDef.newModelColor = new int[] { 63, 25, 25, 25, 25 };
                 break;
             case 51403: // Ocean Cape
                 itemDef.copy(forID(51295));
-                itemDef.maleZOffset += 3;
                 itemDef.femaleZOffset += 3;
-                itemDef.femaleYOffset -= 3;
+                itemDef.maleZOffset += 3;
                 itemDef.maleYOffset -= 3;
+                itemDef.femaleYOffset -= 3;
                 itemDef.name = "Ocean cape";
                 itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
                 itemDef.newModelColor = new int[] { 64, 32665, 32665, 32665, 32665 };
                 break;
             case 51404: // Pink Inf Cape
                 itemDef.copy(forID(51295));
-                itemDef.maleZOffset += 3;
                 itemDef.femaleZOffset += 3;
-                itemDef.femaleYOffset -= 3;
+                itemDef.maleZOffset += 3;
                 itemDef.maleYOffset -= 3;
+                itemDef.femaleYOffset -= 3;
                 itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
                 itemDef.newModelColor = new int[] { 65, 54194, 54194, 54194, 54194 };
                 break;
             case 51405: // Green inf Cape
                 itemDef.copy(forID(51295));
-                itemDef.maleZOffset += 3;
                 itemDef.femaleZOffset += 3;
-                itemDef.femaleYOffset -= 3;
+                itemDef.maleZOffset += 3;
                 itemDef.maleYOffset -= 3;
+                itemDef.femaleYOffset -= 3;
                 itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
                 itemDef.newModelColor = new int[] { 66, 16306, 16306, 16306, 16306 };
                 break;
             case 51406: // Frozen cape
                 itemDef.copy(forID(51295));
-                itemDef.maleZOffset += 3;
                 itemDef.femaleZOffset += 3;
-                itemDef.femaleYOffset -= 3;
+                itemDef.maleZOffset += 3;
                 itemDef.maleYOffset -= 3;
+                itemDef.femaleYOffset -= 3;
                 itemDef.name = "Frozen cape";
                 itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
                 itemDef.newModelColor = new int[] { 67, 43263, 43263, 43263, 37247 };
                 break;
             case 51407: // Yellow inf Cape
                 itemDef.copy(forID(51295));
-                itemDef.maleZOffset += 3;
                 itemDef.femaleZOffset += 3;
-                itemDef.femaleYOffset -= 3;
+                itemDef.maleZOffset += 3;
                 itemDef.maleYOffset -= 3;
+                itemDef.femaleYOffset -= 3;
                 itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
                 itemDef.newModelColor = new int[] { 68, 11212, 11212, 11212, 11212 };
                 break;
@@ -541,14 +542,14 @@ public final class ItemDefinition {
             case 43342:
             case 50760:
             case 51186:
-                itemDef.maleZOffset += 3;
                 itemDef.femaleZOffset += 3;
-                itemDef.femaleYOffset -= 3;
+                itemDef.maleZOffset += 3;
                 itemDef.maleYOffset -= 3;
+                itemDef.femaleYOffset -= 3;
             case 51296:
                 break;
             case 51018:
-                itemDef.maleYOffset -= 10;
+                itemDef.femaleYOffset -= 10;
                 break;
                 
             case 50851:
@@ -1249,9 +1250,9 @@ public final class ItemDefinition {
                 itemDef.name = name;
                 break;
         case 18351:
-        	itemDef.maleYOffset = -10;
-        	itemDef.maleXOffset = 5;
-        	itemDef.maleZOffset = 5;
+        	itemDef.femaleYOffset = -10;
+        	itemDef.femaleXOffset = 5;
+        	itemDef.femaleZOffset = 5;
         	break;
         
         case 18346:
@@ -1968,8 +1969,8 @@ public final class ItemDefinition {
 			break;
         	
         case 17273:
-        	itemDef.femaleYOffset += 7;
-        	itemDef.femaleZOffset -= 6;
+        	itemDef.maleYOffset += 7;
+        	itemDef.maleZOffset -= 6;
         	itemDef.maleEquip1 = 56110;
         	break;
         case 21630:
@@ -2363,8 +2364,8 @@ public final class ItemDefinition {
         	itemDef.modelOffsetY = 130;
         	itemDef.editedModelColor = def2.editedModelColor;
         	itemDef.newModelColor = def2.newModelColor;
-        	itemDef.femaleYOffset -= 7;
-            itemDef.maleYOffset -= 7;
+        	itemDef.maleYOffset -= 7;
+            itemDef.femaleYOffset -= 7;
         	break;
         case 21002:
             itemDef.modelID = 35742;
@@ -2412,8 +2413,8 @@ public final class ItemDefinition {
         	itemDef.modelOffsetY = 130;
         	itemDef.editedModelColor = def2.editedModelColor;
         	itemDef.newModelColor = def2.newModelColor;
-        	itemDef.femaleYOffset -= 7;
-            itemDef.maleYOffset -= 7;
+        	itemDef.maleYOffset -= 7;
+            itemDef.femaleYOffset -= 7;
         	break;
         	
         case 21004:
@@ -2859,8 +2860,8 @@ public final class ItemDefinition {
         	itemDef.modelOffsetY = 50;
         	itemDef.editedModelColor = def2.editedModelColor;
         	itemDef.newModelColor = def2.newModelColor;
-        	itemDef.femaleYOffset -= 1;
-            itemDef.maleYOffset -= 1;
+        	itemDef.maleYOffset -= 1;
+            itemDef.femaleYOffset -= 1;
             break;
         case 21022:
         	def2 = forID(9774);
@@ -2878,8 +2879,8 @@ public final class ItemDefinition {
         	itemDef.modelOffsetY = 130;
         	itemDef.editedModelColor = def2.editedModelColor;
         	itemDef.newModelColor = def2.newModelColor;
-            itemDef.femaleYOffset -= 7;
             itemDef.maleYOffset -= 7;
+            itemDef.femaleYOffset -= 7;
             break;
             
       /*  case 21520:
@@ -2924,7 +2925,7 @@ public final class ItemDefinition {
         		break;
         		
             case 1050:
-                itemDef.femaleZOffset += 4;
+                itemDef.maleZOffset += 4;
                 break;
             case 19713:
                 itemDef.copy(forID(6199));
@@ -4252,8 +4253,8 @@ public final class ItemDefinition {
                 itemDef.modelID = 19219;
                 itemDef.maleEquip1 = 14403;
                 itemDef.femaleEquip1 = 14403;
-                itemDef.femaleYOffset = 8;
-                itemDef.maleYOffset = -10;
+                itemDef.maleYOffset = 8;
+                itemDef.femaleYOffset = -10;
                 break;
             case 12926:
                 itemDef.modelID = 25000;
@@ -4266,8 +4267,8 @@ public final class ItemDefinition {
                 itemDef.modelOffsetY = 4;
                 itemDef.maleEquip1 = 14403;
                 itemDef.femaleEquip1 = 14403;
-                itemDef.femaleYOffset = 8;
-                itemDef.maleYOffset = -10;
+                itemDef.maleYOffset = 8;
+                itemDef.femaleYOffset = -10;
                 itemDef.actions = new String[]{null, "Wield", "Check", "Unload", "Drop"};
                 itemDef.groundActions = new String[]{null, null, "Take", null, null};
                 break;
@@ -4309,8 +4310,8 @@ public final class ItemDefinition {
                 
             case 20555:
                 itemDef.copy(forID(43576));
-                itemDef.femaleYOffset = 8;
-                itemDef.maleYOffset = -10;
+                itemDef.maleYOffset = 8;
+                itemDef.femaleYOffset = -10;
                 break;
                 
             case 11613:
@@ -8397,8 +8398,8 @@ public final class ItemDefinition {
                 itemDef.modelID = 64593;
                 itemDef.maleEquip1 = 64704;
                 itemDef.femaleEquip1 = 64704;
-                itemDef.maleYOffset = -11;
-                itemDef.maleXOffset = 6;
+                itemDef.femaleYOffset = -11;
+                itemDef.femaleXOffset = 6;
                 break;
 
             case 15220:
@@ -9209,12 +9210,12 @@ public final class ItemDefinition {
                 membersObject = true;
             } else if (i == 23) {
                 maleEquip1 = stream.readUnsignedWord();
-                maleYOffset = stream.readSignedByte();
+                femaleYOffset = stream.readSignedByte();
             } else if (i == 24) {
                 maleEquip2 = stream.readUnsignedWord();
             } else if (i == 25) {
                 femaleEquip1 = stream.readUnsignedWord();
-                femaleYOffset = stream.readSignedByte();
+                maleYOffset = stream.readSignedByte();
             } else if (i == 26) {
                 femaleEquip2 = stream.readUnsignedWord();
             } else if (i >= 30 && i < 35) {
@@ -9903,13 +9904,13 @@ public final class ItemDefinition {
     };
 
     public void copy(ItemDefinition copy) {
-        femaleZOffset = copy.femaleZOffset;
-        femaleXOffset = copy.femaleXOffset;
-        femaleYOffset = copy.femaleYOffset;
-
-        maleYOffset = copy.maleYOffset;
-        maleXOffset = copy.maleXOffset;
         maleZOffset = copy.maleZOffset;
+        maleXOffset = copy.maleXOffset;
+        maleYOffset = copy.maleYOffset;
+
+        femaleYOffset = copy.femaleYOffset;
+        femaleXOffset = copy.femaleXOffset;
+        femaleZOffset = copy.femaleZOffset;
 
         modelOffsetX = copy.modelOffsetX;
         modelOffsetY = copy.modelOffsetY;
@@ -9981,9 +9982,9 @@ public final class ItemDefinition {
         id = -1;
     }
 
-    public byte femaleZOffset;
-    public byte femaleXOffset;
-    public byte femaleYOffset;
+    public byte maleZOffset;
+    public byte maleXOffset;
+    public byte maleYOffset;
     public int value;
     public int[] editedModelColor;
     public int id;
@@ -10035,9 +10036,9 @@ public final class ItemDefinition {
     public static int totalItems;
     public static int totalItemsOSRS;
     public int modelOffsetX;
-    public byte maleYOffset;
-    public byte maleXOffset;
-    public byte maleZOffset;
+    public byte femaleYOffset;
+    public byte femaleXOffset;
+    public byte femaleZOffset;
     public int lendID;
     public int lentItemID;
     public boolean untradeable;

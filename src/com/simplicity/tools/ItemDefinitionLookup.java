@@ -192,12 +192,12 @@ public class ItemDefinitionLookup extends JFrame {
 		details.getModel().setValueAt(def.rotationY, column++, 1);
 		details.getModel().setValueAt(def.modelOffsetX, column++, 1);
 		details.getModel().setValueAt(def.modelOffsetY, column++, 1);
-		details.getModel().setValueAt(def.maleXOffset, column++, 1);
-		details.getModel().setValueAt(def.maleYOffset, column++, 1);
-		details.getModel().setValueAt(def.maleZOffset, column++, 1);
 		details.getModel().setValueAt(def.femaleXOffset, column++, 1);
 		details.getModel().setValueAt(def.femaleYOffset, column++, 1);
 		details.getModel().setValueAt(def.femaleZOffset, column++, 1);
+		details.getModel().setValueAt(def.maleXOffset, column++, 1);
+		details.getModel().setValueAt(def.maleYOffset, column++, 1);
+		details.getModel().setValueAt(def.maleZOffset, column++, 1);
 		details.getModel().setValueAt(Arrays.toString(def.editedModelColor), column++, 1);
 		details.getModel().setValueAt(Arrays.toString(def.newModelColor), column++, 1);
 		details.getModel().setValueAt(Arrays.toString(def.actions), column++, 1);
