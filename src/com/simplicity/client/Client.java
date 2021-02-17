@@ -71,6 +71,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.event.ChangeEvent;
@@ -11423,8 +11424,10 @@ public class Client extends RSApplet {
 					}
 
                     if (inputString.equals("::rsi")) {
-						InterfaceDebugger debug = new InterfaceDebugger();
-						debug.setVisible(true);
+                    	SwingUtilities.invokeLater(() -> {
+                    		InterfaceDebugger debug = new InterfaceDebugger();
+							debug.setVisible(true);
+                    	});
 					}
                     if (inputString.equalsIgnoreCase("::modmenu")) {
                         if (Configuration.enableModerationMenu) {
@@ -11437,24 +11440,34 @@ public class Client extends RSApplet {
                         Configuration.lastModerationToggleTime = System.currentTimeMillis();
                     }
                     if (inputString.equals("::itemdef")) {
-                    	ItemDefinitionLookup lookup = new ItemDefinitionLookup();
-						lookup.setVisible(true);
+                    	SwingUtilities.invokeLater(() -> {
+                    		ItemDefinitionLookup lookup = new ItemDefinitionLookup();
+							lookup.setVisible(true);
+                    	});
                     }
                     if (inputString.equals("::objectdef")) {
-                    	ObjectDefinitionLookup lookup = new ObjectDefinitionLookup();
-						lookup.setVisible(true);
+            			SwingUtilities.invokeLater(() -> {
+            				ObjectDefinitionLookup lookup = new ObjectDefinitionLookup();
+    						lookup.setVisible(true);
+            			});
                     }
                     if (inputString.equals("::npcdef")) {
-                    	NpcDefinitionLookup lookup = new NpcDefinitionLookup();
-						lookup.setVisible(true);
+                    	SwingUtilities.invokeLater(() -> {
+                    		NpcDefinitionLookup lookup = new NpcDefinitionLookup();
+							lookup.setVisible(true);
+                    	});
                     }
                     if (inputString.equals("::animdef")) {
-                    	AnimDefinitionLookup lookup = new AnimDefinitionLookup();
-						lookup.setVisible(true);
+                    	SwingUtilities.invokeLater(() -> {
+                    		AnimDefinitionLookup lookup = new AnimDefinitionLookup();
+							lookup.setVisible(true);
+                    	});
                     }
                     if (inputString.equals("::gfxlookup")) {
-                    	GraphicDefinitionLookup lookup = new GraphicDefinitionLookup();
-						lookup.setVisible(true);
+                    	SwingUtilities.invokeLater(() -> {
+                    		GraphicDefinitionLookup lookup = new GraphicDefinitionLookup();
+							lookup.setVisible(true);
+                    	});
                     }
                     if (inputString.equals("::packrsi") || inputString.equals("::repack")) {
                         reloadInterfaces();
