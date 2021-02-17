@@ -1213,9 +1213,10 @@ public final class ItemDefinition {
         	return CUSTOM_RECOLORS.get(itemId);
         }
 
-        if (itemId >= streamIndices.length) {
+        if (itemId >= streamIndices.length || itemId < 0) {
             return forID(1);
         }
+        
         stream.currentOffset = streamIndices[itemId];
         itemDef.id = itemId;
         itemDef.setDefaults();
