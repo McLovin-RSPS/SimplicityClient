@@ -9980,9 +9980,9 @@ public final class ItemDefinition {
         id = -1;
     }
 
-    public byte femaleZOffset;
-    public byte femaleXOffset;
-    public byte femaleYOffset;
+    public byte maleZOffset;
+    public byte maleXOffset;
+    public byte maleYOffset;
     public int value;
     public int[] editedModelColor;
     public int id;
@@ -10034,9 +10034,9 @@ public final class ItemDefinition {
     public static int totalItems;
     public static int totalItemsOSRS;
     public int modelOffsetX;
-    public byte maleYOffset;
-    public byte maleXOffset;
-    public byte maleZOffset;
+    public byte femaleYOffset;
+    public byte femaleXOffset;
+    public byte femaleZOffset;
     public int lendID;
     public int lentItemID;
     public boolean untradeable;
