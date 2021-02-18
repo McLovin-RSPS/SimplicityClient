@@ -183,7 +183,8 @@ public final class ItemDefinition {
         if (editedModelColor != null && newModelColor != null) {
             for (int i1 = 0; i1 < editedModelColor.length; i1++) {
                 model.recolour(editedModelColor[i1], newModelColor[i1]);
-            }
+            	}
+        	}
         }
 
 
