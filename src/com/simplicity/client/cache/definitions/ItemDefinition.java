@@ -179,13 +179,11 @@ public final class ItemDefinition {
         } else if (gender == 1 && (maleXOffset != 0 || maleYOffset != 0 || maleZOffset != 0) ) {
             model.translate(maleXOffset, maleYOffset, maleZOffset);
         }
-        if (editedModelColor != null && newModelColor != null) {
-            for (int i1 = 0; i1 < editedModelColor.length; i1++) {
-                model.recolour(editedModelColor[i1], newModelColor[i1]);
-            	}
-        	}
-        }
-
+		if (editedModelColor != null && newModelColor != null) {
+			for (int i1 = 0; i1 < editedModelColor.length; i1++) {
+				model.recolour(editedModelColor[i1], newModelColor[i1]);
+			}
+		}
 
         return model;
     }
