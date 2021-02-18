@@ -174,10 +174,10 @@ public final class ItemDefinition {
         }
         //if (j == 62367)
         //model.translate(68, 7, -8);
-        if (gender == 0 && (femaleYOffset != 0 || femaleXOffset != 0  || femaleZOffset != 0)) {
-            model.translate(femaleXOffset, femaleYOffset, femaleZOffset);
-        } else if (gender == 1 && (maleXOffset != 0 || maleYOffset != 0 || maleZOffset != 0) ) {
+        if (gender == 0 && (maleYOffset != 0 || maleXOffset != 0  || maleZOffset != 0)) {
             model.translate(maleXOffset, maleYOffset, maleZOffset);
+        } else if (gender == 1 && (femaleXOffset != 0 || femaleYOffset != 0 || femaleZOffset != 0) ) {
+            model.translate(femaleXOffset, femaleYOffset, femaleZOffset);
         }
 		if (editedModelColor != null && newModelColor != null) {
 			for (int i1 = 0; i1 < editedModelColor.length; i1++) {
@@ -9980,9 +9980,9 @@ public final class ItemDefinition {
         id = -1;
     }
 
-    public byte maleZOffset;
-    public byte maleXOffset;
-    public byte maleYOffset;
+    public byte femaleZOffset;
+    public byte femaleXOffset;
+    public byte femaleYOffset;
     public int value;
     public int[] editedModelColor;
     public int id;
@@ -10034,9 +10034,9 @@ public final class ItemDefinition {
     public static int totalItems;
     public static int totalItemsOSRS;
     public int modelOffsetX;
-    public byte femaleYOffset;
-    public byte femaleXOffset;
-    public byte femaleZOffset;
+    public byte maleYOffset;
+    public byte maleXOffset;
+    public byte maleZOffset;
     public int lendID;
     public int lentItemID;
     public boolean untradeable;
