@@ -218,6 +218,7 @@ public class Model extends Animable {
         addDepthBufferModel(DataType.OLDSCHOOL, 14401); // Uncharged toxic trident
         addDepthBufferModel(DataType.OLDSCHOOL, 6031); // Dragon scim
         addDepthBufferModel(DataType.OLDSCHOOL, 490); // Rune scim
+        addDepthBufferModel(DataType.OLDSCHOOL, 8962); // Dragon pickaxe upgraded
         
 		applyTexture(69, 16, 17);
 		applyTexture(58, 10, 11, 12, 13, 14, 15);

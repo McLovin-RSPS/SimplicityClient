@@ -321,6 +321,7 @@ public final class ItemDefinition {
 	        	break;
 	        	
 	        case 53995:
+	        case 53677: // dragon pickaxe or
 	            itemDef.maleYOffset = 8;
 	            itemDef.femaleYOffset = -10;
 	            break;
@@ -3080,6 +3081,10 @@ public final class ItemDefinition {
                 
             case 14484:
                 itemDef.copy(forID(43652));
+                break; 
+                
+            case 15259:
+                itemDef.copy(forID(41920));
                 break; 
                 
             case 11726:
