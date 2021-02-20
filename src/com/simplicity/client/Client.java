@@ -118,7 +118,7 @@ import com.simplicity.client.particles.ParticleDefinition;
 import com.simplicity.client.widget.*;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.client.widget.raids.cox.XericPointsWidget;
-import com.simplicity.client.widget.raids.nightmare.NightmareOverlay;
+import com.simplicity.client.widget.raids.nightmare.BossHealthOverlay;
 import com.simplicity.client.widget.raids.nightmare.TotemsOverlay;
 import com.simplicity.client.widget.raids.tob.TheatrePartyWidget;
 import com.simplicity.client.widget.raids.tob.TheatrePerformersWidget;
@@ -5934,9 +5934,9 @@ public class Client extends RSApplet {
                 							bgColor = 0x665700;
                 							multiplier = 4;
             							} else if (n.getName().equals("The Nightmare")) {
-            								boolean nightmare = parallelWidgetList.contains(RSInterface.interfaceCache[NightmareOverlay.WIDGET_ID]);
+            								boolean nightmare = parallelWidgetList.contains(RSInterface.interfaceCache[BossHealthOverlay.WIDGET_ID]);
                     						
-                    						if (nightmare && NightmareOverlay.getStage() == 0) {
+                    						if (nightmare && BossHealthOverlay.getStage(BossHealthOverlay.VARP_NIGHTMARE) == 0) {
                     							hpColor = 0x46eae4;
                     							bgColor = 0x032620;
                     							multiplier = 4;
@@ -6009,7 +6009,7 @@ public class Client extends RSApplet {
                                 		
                                 		if (n.getName().endsWith("Totem")) {
                                 			hitMark = hitMarks[3];
-                                		} else if (n.getName().equals("The Nightmare") && NightmareOverlay.getStage() == 0) {
+                                		} else if (n.getName().equals("The Nightmare") && BossHealthOverlay.getStage(BossHealthOverlay.VARP_NIGHTMARE) == 0) {
                                 			hitMark = cacheSprite[1747];
                                 		}
                                 	}
@@ -17326,7 +17326,7 @@ public class Client extends RSApplet {
                     case 61500:
                     	xPosition = clientSize == 0 ? 0 : clientWidth / 2 - 300; // 392
                     	break;
-                    case NightmareOverlay.WIDGET_ID:
+                    case BossHealthOverlay.WIDGET_ID:
                         xPosition = clientSize == 0 ? 0 : clientWidth / 2 - 358;
                         yPosition = 0;
                         break;
@@ -22044,7 +22044,7 @@ public class Client extends RSApplet {
                     }
                     if (variousSettings[settingIdx] != settingValue) {
                         variousSettings[settingIdx] = settingValue;
-                        NightmareOverlay.onVarpChange(settingIdx, settingValue);
+                        BossHealthOverlay.onVarpChange(settingIdx, settingValue);
                         TotemsOverlay.onVarpChange(settingIdx, settingValue);
                         PortalNexusTeleportMenu.onVarpChange(settingIdx, settingValue);
                         handleActions(settingIdx);
@@ -25860,7 +25860,7 @@ public class Client extends RSApplet {
 	}
 	
 	public static int getProgressBarColor(int mainId, int childId, int percent) {
-        if (mainId == TotemsOverlay.WIDGET_ID || childId == NightmareOverlay.PROGRESS_WIDGET_ID) {
+        if (mainId == TotemsOverlay.WIDGET_ID || childId == BossHealthOverlay.PROGRESS_WIDGET_ID) {
             return RSInterface.interfaceCache[childId].fillColor;
         }
 

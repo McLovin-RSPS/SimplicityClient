@@ -4,19 +4,25 @@ import com.simplicity.client.Client;
 import com.simplicity.client.widget.CustomWidget;
 import com.simplicity.client.RSInterface;
 
-public class NightmareOverlay extends CustomWidget {
+public class BossHealthOverlay extends CustomWidget {
 	
 	public static final int WIDGET_ID = 74_000;
+	
+	public static final int VARP_NIGHTMARE = 1313;
+	
+	public static final int VARP_ZALCANO = 1314;
+	
+	public static int HEADER_ID;
 
 	public static int PROGRESS_WIDGET_ID;
-
-	public NightmareOverlay() {
+	
+	public BossHealthOverlay() {
 		super(WIDGET_ID);
 	}
 
 	@Override
 	public String getName() {
-		return "Nightmare Overlay Widget";
+		return "Boss Health Overlay Widget";
 	}
 
 	@Override
@@ -27,6 +33,7 @@ public class NightmareOverlay extends CustomWidget {
 		int height = 46;
 		add(addBox(width, height, 1, 0, 0, 250), x, y);
 		add(addRectangle(width - 1, height - 3, 0x3d3327, 0, true), x + 1, y + 1);
+		HEADER_ID = id;
 		add(addCenteredText("The Nightmare", 0, 0xff9800), width / 2 + x, y + 5);
 
 		RSInterface progress = addProgressBar(width - 5, 20, 2221, 10400);
@@ -37,19 +44,31 @@ public class NightmareOverlay extends CustomWidget {
 		PROGRESS_WIDGET_ID = progress.id;
 	}
 	
-	public static int getStage() {
-		int value = Client.getClient().variousSettings[1313];
+	public static int getStage(int varp) {
+		int value = Client.getClient().variousSettings[varp];
 		
 		return value >> 16 & 0xFFFF;
 	}
 
 	public static void onVarpChange(int id, int value) {
-		if (id == 1313) {
-			int hp_amount = value & 0xFFFF;
-			int stage = value >> 16 & 0xFFFF;
-			RSInterface progress = RSInterface.interfaceCache[PROGRESS_WIDGET_ID];
-			progress.fillColor = stage == 0 ? 0x00FFFF : 0X00FF00;
-			progress.message = hp_amount + "/24000";
+		if (id == VARP_NIGHTMARE) {
+			setProgress(value, 24000);
+			setHeader("The Nightmare");
+		} else if (id == VARP_ZALCANO) {
+			setProgress(value, 3000);
+			setHeader("Zalcano");
 		}
+	}
+	
+	private static void setProgress(int value, int max) {
+		int hp_amount = value & 0xFFFF;
+		int stage = value >> 16 & 0xFFFF;
+		RSInterface progress = RSInterface.interfaceCache[PROGRESS_WIDGET_ID];
+		progress.fillColor = stage == 0 ? 0x00FFFF : 0X00FF00;
+		progress.message = hp_amount + "/" + max;
+	}
+	
+	private static void setHeader(String name) {
+		RSInterface.interfaceCache[HEADER_ID].message = name;
 	}
 }
