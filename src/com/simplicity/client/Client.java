@@ -5941,11 +5941,11 @@ public class Client extends RSApplet {
                     							bgColor = 0x032620;
                     							multiplier = 4;
                     						}
-            							} else if (n.getName().equals("Zalcano")) {
-            								hpColor = 0xe25505;
-            								bgColor = 0x491c00;
-            								multiplier = 4;
             							}
+        							} else if (getRegionId() == 12126 && n.getName().equals("Zalcano")) {
+        								hpColor = 0xe25505;
+        								bgColor = 0x491c00;
+        								multiplier = 4;
         							}
         						}
 
