@@ -8269,7 +8269,7 @@ public class Client extends RSApplet {
             /**
              * Revenant cave pillars walking up to.
              */
-            if (id == 131561) {
+            if (id == 131561 || id == 119040) {
                 if (objectRotation == 1) {
                     if (myPlayer.pathX[0] < tileX) {
                         tileX -= sizeX;
