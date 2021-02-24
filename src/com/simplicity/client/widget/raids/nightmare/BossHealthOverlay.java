@@ -10,7 +10,7 @@ public class BossHealthOverlay extends CustomWidget {
 	
 	public static final int VARP_NIGHTMARE = 1313;
 	
-	public static final int VARP_ZALCANO = 1314;
+	public static final int VARP_ZALCANO = 1315;
 	
 	public static int HEADER_ID;
 
@@ -56,6 +56,8 @@ public class BossHealthOverlay extends CustomWidget {
 			setHeader("The Nightmare");
 		} else if (id == VARP_ZALCANO) {
 			setProgress(value, 3000);
+			RSInterface progress = RSInterface.interfaceCache[PROGRESS_WIDGET_ID];
+			progress.fillColor = 0xff8a00;
 			setHeader("Zalcano");
 		}
 	}

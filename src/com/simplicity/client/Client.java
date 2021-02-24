@@ -5941,6 +5941,10 @@ public class Client extends RSApplet {
                     							bgColor = 0x032620;
                     							multiplier = 4;
                     						}
+            							} else if (n.getName().equals("Zalcano")) {
+            								hpColor = 0xe25505;
+            								bgColor = 0x491c00;
+            								multiplier = 4;
             							}
         							}
         						}
@@ -22044,7 +22048,6 @@ public class Client extends RSApplet {
                     }
                     if (variousSettings[settingIdx] != settingValue) {
                         variousSettings[settingIdx] = settingValue;
-                        BossHealthOverlay.onVarpChange(settingIdx, settingValue);
                         TotemsOverlay.onVarpChange(settingIdx, settingValue);
                         PortalNexusTeleportMenu.onVarpChange(settingIdx, settingValue);
                         handleActions(settingIdx);
@@ -22053,6 +22056,7 @@ public class Client extends RSApplet {
                             inputTaken = true;
                         }
                     }
+                    BossHealthOverlay.onVarpChange(settingIdx, settingValue);
                     opCode = -1;
                     return true;
 
