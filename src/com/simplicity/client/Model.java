@@ -112,6 +112,10 @@ public class Model extends Animable {
     protected static int anIntArray1624[] = new int[3000];
 
     protected static int anIntArray1625[] = new int[3000];
+    
+    public short[] materials;
+    public byte[] textures;
+    public byte[] textureTypes;
 
     static ModelHeader modelHeaderRegular[];
 
@@ -778,6 +782,9 @@ public class Model extends Animable {
         boolean flag1 = false;
         boolean flag2 = false;
         boolean flag3 = false;
+		boolean color_flag = false;
+        boolean texture_flag = false;
+        boolean coordinate_flag = false;
         numberOfVerticeCoordinates = 0;
         numberOfTriangleFaces = 0;
         numberOfTexturesFaces = 0;
@@ -799,6 +806,9 @@ public class Model extends Animable {
                 }
                 flag2 |= model.face_alpha != null;
                 flag3 |= model.triangleTSkin != null;
+                color_flag |= model.face_color != null;
+                texture_flag |= model.materials != null;
+                coordinate_flag |= model.textures != null;
             }
         }
 
@@ -821,7 +831,12 @@ public class Model extends Animable {
             face_alpha = new int[numberOfTriangleFaces];
         if (flag3)
             triangleTSkin = new int[numberOfTriangleFaces];
-        face_color = new int[numberOfTriangleFaces];
+		if (color_flag)
+			face_color = new int[numberOfTriangleFaces];
+		if (texture_flag)
+            materials = new short[numberOfTriangleFaces];
+        if (coordinate_flag)
+            textures = new byte[numberOfTriangleFaces];
         numberOfVerticeCoordinates = 0;
         numberOfTriangleFaces = 0;
         numberOfTexturesFaces = 0;
@@ -852,6 +867,21 @@ public class Model extends Animable {
 
                     if (flag3 && model_1.triangleTSkin != null)
                         triangleTSkin[numberOfTriangleFaces] = model_1.triangleTSkin[j1];
+                    
+                    if (texture_flag) {
+                        if (model_1.materials != null)
+                            materials[numberOfTriangleFaces] = model_1.materials[j1];
+                        else
+                            materials[numberOfTriangleFaces] = -1;
+                    }
+                    if (coordinate_flag) {
+                        if (model_1.textures != null && model_1.textures[j1] != -1) {
+                            textures[numberOfTriangleFaces] = (byte) (model_1.textures[j1] + l);
+                        } else {
+                            textures[numberOfTriangleFaces] = -1;
+                        }
+                    }
+                    
                     face_color[numberOfTriangleFaces] = model_1.face_color[j1];
                     face_a[numberOfTriangleFaces] = method465(model_1, model_1.face_a[j1]);
                     face_b[numberOfTriangleFaces] = method465(model_1, model_1.face_b[j1]);
@@ -881,6 +911,8 @@ public class Model extends Animable {
         boolean flag2 = false;
         boolean flag3 = false;
         boolean flag4 = false;
+        boolean texture_flag = false;
+        boolean coordinate_flag = false;
         numberOfVerticeCoordinates = 0;
         numberOfTriangleFaces = 0;
         numberOfTexturesFaces = 0;
@@ -902,6 +934,8 @@ public class Model extends Animable {
                 }
                 flag3 |= model.face_alpha != null;
                 flag4 |= model.face_color != null;
+				texture_flag |= model.materials != null;
+				coordinate_flag |= model.textures != null;
             }
         }
 
@@ -926,6 +960,10 @@ public class Model extends Animable {
             face_alpha = new int[numberOfTriangleFaces];
         if (flag4)
             face_color = new int[numberOfTriangleFaces];
+        if (texture_flag)
+            materials = new short[numberOfTriangleFaces];
+        if (coordinate_flag)
+            textures = new byte[numberOfTriangleFaces];
         numberOfVerticeCoordinates = 0;
         numberOfTriangleFaces = 0;
         numberOfTexturesFaces = 0;
@@ -970,6 +1008,21 @@ public class Model extends Animable {
                             face_alpha[numberOfTriangleFaces] = model_1.face_alpha[i2];
                     if (flag4 && model_1.face_color != null)
                         face_color[numberOfTriangleFaces] = model_1.face_color[i2];
+                    
+                    if (texture_flag) {
+                        if (model_1.materials != null) {
+                            materials[numberOfTriangleFaces] = model_1.materials[numberOfTriangleFaces];
+                        } else {
+                            materials[numberOfTriangleFaces] = -1;
+                        }
+                    }
+                    if (coordinate_flag) {
+                        if (model_1.textures != null && model_1.textures[numberOfTriangleFaces] != -1)
+                            textures[numberOfTriangleFaces] = (byte) (model_1.textures[numberOfTriangleFaces] + numberOfTexturesFaces);
+                        else
+                            textures[numberOfTriangleFaces] = -1;
+
+                    }
 
                     numberOfTriangleFaces++;
                 }
@@ -1663,6 +1716,7 @@ public class Model extends Animable {
             int k1 = face_a[j1];
             int i2 = face_b[j1];
             int j2 = face_c[j1];
+            
             if (face_render_type == null) {
                 int i3 = face_color[j1];
                 VertexNormal class33 = super.vertexNormals[k1];
@@ -1848,7 +1902,6 @@ public class Model extends Animable {
         int hb = 0;
         int P = 0;
         byte G = 0;
-        byte[] x = null;
         byte[] O = null;
         byte[] J = null;
         byte[] F = null;
@@ -1859,7 +1912,6 @@ public class Model extends Animable {
         int[] kb = null;
         int[] y = null;
         int[] N = null;
-        short[] D = null;
         int[] triangleColours2 = new int[numTriangles];
         if (numTexTriangles > 0) {
             O = new byte[numTexTriangles];
@@ -1949,9 +2001,9 @@ public class Model extends Animable {
         if (k2 == 1)
             triangleTSkin = new int[numTriangles];
         if (l2 == 1)
-            D = new short[numTriangles];
+        	materials = new short[numTriangles];
         if (l2 == 1 && numTexTriangles > 0)
-            x = new byte[numTriangles];
+        	textures = new byte[numTriangles];
         triangleColours2 = new int[numTriangles];
         int i_115_ = k5;
         int[] texTrianglesPoint1 = null;
@@ -2028,12 +2080,12 @@ public class Model extends Animable {
             if (k2 == 1)
                 triangleTSkin[i12] = nc5.readUnsignedByte();
             if (l2 == 1)
-                D[i12] = (short) (nc6.readUnsignedWord() - 1);
-            if (x != null)
-                if (D[i12] != -1)
-                    x[i12] = (byte) (nc7.readUnsignedByte() - 1);
+            	materials[i12] = (short) (nc6.readUnsignedWord() - 1);
+            if (textures != null)
+                if (materials[i12] != -1)
+                	textures[i12] = (byte) (nc7.readUnsignedByte() - 1);
                 else
-                    x[i12] = -1;
+                	textures[i12] = -1;
         }
         nc1.currentOffset = k7;
         nc2.currentOffset = j6;
@@ -2144,7 +2196,7 @@ public class Model extends Animable {
         face_b = facePoint2;
         face_c = facePoint3;
         // filterTriangles();
-        convertTexturesTo317(modelID, D, texTrianglesPoint1, texTrianglesPoint2, texTrianglesPoint3, x);
+        convertTexturesTo317(modelID, materials, texTrianglesPoint1, texTrianglesPoint2, texTrianglesPoint3, textures);
         
         if (isDepthBuffered(modelID, dataType)) {
         	setUseDepthBuffer(modelID, dataType);
@@ -2760,7 +2812,6 @@ public class Model extends Animable {
         int hb = 0;
         int P = 0;
         byte G = 0;
-        byte[] x = null;
         byte[] O = null;
         byte[] J = null;
         byte[] F = null;
@@ -2771,7 +2822,6 @@ public class Model extends Animable {
         int[] kb = null;
         int[] y = null;
         int[] N = null;
-        short[] D = null;
         int[] triangleColours2 = new int[numTriangles];
         if (numTexTriangles > 0) {
             O = new byte[numTexTriangles];
@@ -2869,9 +2919,9 @@ public class Model extends Animable {
         if (k2 == 1)
             triangleTSkin = new int[numTriangles];
         if (l2 == 1)
-            D = new short[numTriangles];
+        	materials = new short[numTriangles];
         if (l2 == 1 && numTexTriangles > 0)
-            x = new byte[numTriangles];
+        	textures = new byte[numTriangles];
         triangleColours2 = new int[numTriangles];
         int i_115_ = k5;
         int[] texTrianglesPoint1 = null;
@@ -2948,12 +2998,12 @@ public class Model extends Animable {
             if (k2 == 1)
                 triangleTSkin[i12] = nc5.readUnsignedByte();
             if (l2 == 1)
-                D[i12] = (short) (nc6.readUnsignedWord() - 1);
-            if (x != null)
-                if (D[i12] != -1)
-                    x[i12] = (byte) (nc7.readUnsignedByte() - 1);
+            	materials[i12] = (short) (nc6.readUnsignedWord() - 1);
+            if (textures != null)
+                if (materials[i12] != -1)
+                	textures[i12] = (byte) (nc7.readUnsignedByte() - 1);
                 else
-                    x[i12] = -1;
+                	textures[i12] = -1;
         }
         nc1.currentOffset = k7;
         nc2.currentOffset = j6;
@@ -3091,7 +3141,7 @@ public class Model extends Animable {
         face_b = facePoint2;
         face_c = facePoint3;
         filterTriangles();
-        convertTexturesTo317(modelID, D, texTrianglesPoint1, texTrianglesPoint2, texTrianglesPoint3, x);
+        convertTexturesTo317(modelID, materials, texTrianglesPoint1, texTrianglesPoint2, texTrianglesPoint3, textures);
         setUseDepthBuffer(modelID, dataType);
     }
 
@@ -3242,7 +3292,7 @@ public class Model extends Animable {
             textures_face_b[j4] = stream.readUnsignedWord();
             textures_face_c[j4] = stream.readUnsignedWord();
         }
-        // filterTriangles();
+        filterTriangles();
     }
 
     public void forceRecolour(int i, int j) {
