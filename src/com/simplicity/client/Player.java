@@ -382,7 +382,7 @@ public final class Player extends Entity {
 				}
 
 			model_1.createBones();
-			model_1.light(frontLight, backLight, rightLight, middleLight, leftLight, true);
+			model_1.light(frontLight, backLight, rightLight, middleLight, leftLight, true, true);
 			modelCache.put(model_1, l);
 			aLong1697 = l;
 		}

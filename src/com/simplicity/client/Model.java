@@ -1335,7 +1335,7 @@ public class Model extends Animable {
     	light(i, j, k, l, i1, flag, false);
     }
 
-    public void light(int i, int j, int k, int l, int i1, boolean flag, boolean showBlackTriangles) {
+    public void light(int i, int j, int k, int l, int i1, boolean flag, boolean renderBlack) {
         try {
             int j1 = (int) Math.sqrt(k * k + l * l + i1 * i1);
             int k1 = j * j1 >> 8;
@@ -1354,7 +1354,7 @@ public class Model extends Animable {
                 if (face_color != null && face_alpha != null) {
                     if (face_color[i2] == 65535 || face_color[i2] == 1 || face_color[i2] == 16705
                             || face_color[i2] == 255) {
-                    	if (face_color[i2] == 255 && showBlackTriangles) {
+                    	if (face_color[i2] == 255 && renderBlack) {
                     		face_color[i2] = 0;
                     		face_alpha[i2] = 0;
                     	} else {
