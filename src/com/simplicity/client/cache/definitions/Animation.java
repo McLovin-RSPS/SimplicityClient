@@ -43,6 +43,10 @@ public final class Animation {
 			if (j == 16918) { // 1658 osrs whip anim
 				anims[j].dataType = DataType.REGULAR;
 			}
+			
+			if (j == 16921) { // tent running anim
+				anims[j].dataType = DataType.REGULAR;
+			}
 
 			if (j == 884) {
 				anims[j].leftHandItem = -1;
