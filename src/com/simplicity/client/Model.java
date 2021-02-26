@@ -1323,7 +1323,7 @@ public class Model extends Animable {
                 }
             }
             if (b) {
-                if (face_render_type != null)
+                if (face_render_type != null && face_alpha != null)
                     // face_render_type[triangleId] = -1;
                     face_alpha[triangleId] = 255;
 
