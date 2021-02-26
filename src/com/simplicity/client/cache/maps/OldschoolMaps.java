@@ -100,7 +100,8 @@ public class OldschoolMaps {
             12126, // Zalcano
             15256, 15515, //Nightmare
             12597, 12598, 12852, 12854, 13108, 13109, 13110,
-            8755, 8756, 9011, 9012 // Priffdinas
+            8755, 8756, 9011, 9012, // Priffdinas
+            6455, 10819, // Mimic
     };
     static {
         for(Integer region : OLDSCHOOL_REGION_IDS) {
