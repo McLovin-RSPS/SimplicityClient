@@ -3143,6 +3143,16 @@ public class Model extends Animable {
         filterTriangles();
         convertTexturesTo317(modelID, materials, texTrianglesPoint1, texTrianglesPoint2, texTrianglesPoint3, textures);
         setUseDepthBuffer(modelID, dataType);
+        
+        if (modelID == 394 || modelID == 218) { // Turns black visible for full helms
+        	for (int idx = 0; idx < numberOfTriangleFaces; idx++) {
+                if (face_color != null && face_alpha != null) {
+            		if (face_alpha[idx] == 0 && face_color[idx] == 0) {
+                		face_color[idx] = 2;
+                	}
+                }
+            }
+        }
     }
 
     private void readOldModel(int i, DataType dataType) {
