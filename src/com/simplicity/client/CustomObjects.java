@@ -1027,6 +1027,7 @@ public class CustomObjects {
             //{30205, 3085, 3509, 0, 3},
             
             /**Edgeville north hall**/
+            {9074, 3083, 3500, 0, 3}, // strange casket
             {123709, 3083, 3499, 0, 1}, // box of life           
             //{136582, 3098, 3513, 0, 0}, // elven crystal chest
             {10780, 3096, 3507, 0, 0}, // Karuulm teleporter

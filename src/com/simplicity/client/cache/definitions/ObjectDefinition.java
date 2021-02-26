@@ -419,7 +419,11 @@ public final class ObjectDefinition {
         if (BLACK_TRIANGLES.contains(i)) {
         	objectDef.showBlackTriangles = true;
         }
-        
+
+        if(i == 9074) {
+            objectDef.actions = new String[5];
+            objectDef.name = "Strange casket";
+        }
         if (i == 9293) { // Tav dung pipe
 			objectDef.offsetX = 64;
 			objectDef.adjustToTerrain = true;
