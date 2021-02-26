@@ -6008,15 +6008,22 @@ public class Client extends RSApplet {
                                 if (dmg > 0) {
                                 	Sprite hitMark = hitMarks[1];
                                 	
-                                	if (e instanceof NPC && getRegionId() == 15515) {
+                                	if (e instanceof NPC) {
                                 		NPC n = (NPC) obj;
                                 		
-                                		if (n.getName().endsWith("Totem")) {
-                                			hitMark = hitMarks[3];
-                                		} else if (n.getName().equals("The Nightmare") && BossHealthOverlay.getStage(BossHealthOverlay.VARP_NIGHTMARE) == 0) {
-                                			hitMark = cacheSprite[1747];
-                                		}
+                                		if (getRegionId() == 15515) {
+                                    		if (n.getName().endsWith("Totem")) {
+                                    			hitMark = hitMarks[3];
+                                    		} else if (n.getName().equals("The Nightmare") && BossHealthOverlay.getStage(BossHealthOverlay.VARP_NIGHTMARE) == 0) {
+                                    			hitMark = cacheSprite[1747];
+                                    		}
+                                    	} else if (getRegionId() == 12126) {
+                                    		if (n.getName().equals("Zalcano")) {
+                                    			hitMark = cacheSprite[1776];
+                                    		}
+                                    	}
                                 	}
+                                	
                                     if (!Configuration.enableConstitution) {
                                         dmg = dmg / 10;
                                         if (dmg == 0) {
