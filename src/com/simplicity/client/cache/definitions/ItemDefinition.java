@@ -8898,6 +8898,9 @@ public final class ItemDefinition {
                 itemDef.maleEquip1 = 53327;
                 itemDef.femaleEquip1 = 53643;
                 itemDef.description = "A pair of Steadfast boots.";
+                itemDef.femaleYOffset = -10;
+                itemDef.femaleZOffset = 4;
+                itemDef.maleYOffset = -4;
                 break;
 
             case 20001:
@@ -8914,6 +8917,9 @@ public final class ItemDefinition {
                 itemDef.femaleEquip1 = 53309;
                 itemDef.maleEquip1 = 53309;
                 itemDef.description = "A pair of Glaiven boots.";
+                itemDef.femaleYOffset = -10;
+                itemDef.femaleZOffset = 4;
+                itemDef.maleYOffset = -4;
                 break;
 
             case 20002:
@@ -8930,6 +8936,9 @@ public final class ItemDefinition {
                 itemDef.modelOffsetY = -7;
                 itemDef.maleEquip1 = 53330;
                 itemDef.femaleEquip1 = 53651;
+                itemDef.femaleYOffset = -10;
+                itemDef.femaleZOffset = 4;
+                itemDef.maleYOffset = -4;
                 break;
                 
             case 20060:
