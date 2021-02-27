@@ -1946,12 +1946,131 @@ public class RSInterface {
         }
     }
 
+    private static void buildSpellbook() {
+        // Modern book
+        int infoboxId = 101910;
+        RSInterface spellbook = interfaceCache[101219];
+        for (int i = 0; i < spellbook.children.length / 2; i++) {
+            int widgetId = 101220 + (i * 10);
+            infoboxId++;
+            RSInterface spell = interfaceCache[widgetId];
+            int[][] runes = new int[spell.valueIndexArray.length][];
+            for (int j = 0; j < runes.length; j++) {
+                runes[j] = new int[spell.valueIndexArray[j].length];
+                runes[j][0] = spell.valueIndexArray[j][2];
+                runes[j][1] = spell.requiredValues[j];
+            }
+            RSInterface infobox = createSpellInfoBox(infoboxId, spell.spellName, spell.message, runes);
+            spellbook.child((spellbook.children.length / 2) + i, infobox.id, 4, 156);
+            spell.hoverType = infobox.id;
+            infoboxId += infobox.children.length + 1;
+        }
+    }
+
+    private static RSInterface createSpellInfoBox(int id, String name, String descr, int[][] runes) {
+        int childrenCount = 4 + 2 + ((runes != null ? runes.length - 1 : 0) * 2);
+        int childId = 0;
+        RSInterface infobox = addInterface(id++);
+        infobox.totalChildren(childrenCount);
+        infobox.type = 0;
+        infobox.width = 186;
+        infobox.height = 115;
+        infobox.hoverType = -1;
+        infobox.interfaceShown = true;
+
+        RSInterface widget = addInterface(id);
+        widget.type = 3;
+        widget.width = 178;
+        widget.height = 87;
+        widget.disabledColor = 7496785;
+        widget.hoverType = -1;
+        infobox.child(childId++, id++, 3, 9);
+
+        widget = addInterface(id);
+        widget.type = 3;
+        widget.width = 176;
+        widget.height = 85;
+        widget.hoverType = -1;
+        widget.disabledColor = 7496785;
+        infobox.child(childId++, id++, 4, 10);
+
+        widget = addInterface(id);
+        widget.type = 3;
+        widget.width = 176;
+        widget.height = 86;
+        widget.hoverType = -1;
+        widget.disabledColor = 3025699;
+        infobox.child(childId++, id++, 4, 10);
+
+        widget = addInterface(id);
+        widget.type = 3;
+        widget.width = 174;
+        widget.height = 83;
+        widget.transparancy = 50;
+        widget.hoverType = -1;
+        widget.filled = true;
+        infobox.child(childId++, id++, 5, 11);
+
+        if (runes != null) {
+            int runeCount = runes.length - 1;
+            int x = ((174 - (57 * runeCount)) / 2) + 20;
+            for (int i = 0; i < runeCount; i++) {
+                widget = addInterface(id);
+                widget.type = 6;
+                widget.width = 28;
+                widget.height = 28;
+                widget.mediaType = 1;
+                widget.mediaID = ItemDefinition.forID(runes[i][0]).modelID;
+                widget.modelZoom = 730;
+                widget.modelRotation1 = 512;
+                widget.modelRotation2 = 1024;
+                infobox.child(childId++, id++, x + (i * 57), 52);
+
+                widget = addInterface(id);
+                widget.type = 4;
+                widget.width = 180;
+                widget.height = 13;
+                widget.centerText = true;
+                widget.disabledColor = 12582912;
+                widget.enabledColor = 49152;
+                widget.textDrawingAreas = fonts[0];
+                widget.message = "%1/"+ runes[i][1];
+                infobox.child(childId++, id++, x + (i * 57), 78);
+            }
+        }
+
+        widget = addInterface(id);
+        widget.type = 4;
+        widget.width = 180;
+        widget.height = 13;
+        widget.centerText = true;
+        widget.message = name;
+        widget.disabledColor = 16753920;
+        widget.textDrawingAreas = fonts[1];
+        infobox.child(childId++, id++, 2, 11);
+
+        widget = addInterface(id);
+        widget.type = 4;
+        widget.width = 180;
+        widget.height = 12;
+        widget.centerText = true;
+        int lineSplit = descr.indexOf("\n");
+        if (lineSplit != -1) {
+            descr = descr.substring(0, lineSplit) + "\\" + descr.substring(lineSplit, descr.length());
+        }
+        widget.message = descr;
+        widget.disabledColor = 13468991;
+        widget.textDrawingAreas = fonts[0];
+        infobox.child(childId, id, 3, 29);
+        return infobox;
+    }
+
     public static void modernbook(TextDrawingArea[] tda) {
         RSInterface main = addInterface(101218);
         main.children(1);
         RSInterface parent = addInterface(101219);
-        main.child(0, parent.id, 8, 5);
-        parent.children(70);
+        main.child(0, parent.id, 0, 5);
+        parent.children(70 * 2);
         parent.addSpellButton(101220, 0, 0, 0, 0, 0, 0, 0, "Lumbridge Home Teleport", 1593, 1521, "Requires no runes - recharge time 30 mins. Warning: This spell takes a long time to cast and will be interrupted by combat.", tda, 1, 0);
         parent.child(0, 101220, 0, 0);
         parent.addSpellButton(101230, 558, 556, 0, 1, 1, 0, 1, "Wind Strike", 1594, 1522, "A basic Air missile", tda, 2, 10);
@@ -4843,6 +4962,7 @@ public class RSInterface {
         BestiaryLookup.init();
         modernbook(textDrawingAreas);
         lunarbook(textDrawingAreas);
+        buildSpellbook();
         TeleportInterface.init(textDrawingAreas);
         Widget.init();
         for (RSInterface widget : interfaceCache) {
@@ -12532,6 +12652,7 @@ public class RSInterface {
         rsInterface.height = 24;
         rsInterface.tooltip = "Cast @gre@" + name;
         rsInterface.spellName = name;
+        rsInterface.message = descr;
         rsInterface.valueCompareType = new int[4];
         rsInterface.requiredValues = new int[4];
         rsInterface.valueCompareType[0] = 10;
@@ -12566,21 +12687,6 @@ public class RSInterface {
         rsInterface.disabledSpriteId = -1;
         rsInterface.enabledSprite = Client.cacheSprite[spriteSpellOnId];
         rsInterface.disabledSprite = Client.cacheSprite[spriteSpellOffId];
-        RSInterface hover = addTabInterface(id + 1);
-        hover.hoverType = -1;
-        hover.type = 1337;
-        hover.interfaceShown = true;
-        setChildren(5, hover);
-        addText(id + 2, "Level " + lvl + ": " + name, 0xFF981F, true, true, 52, 1);
-        setBounds(id + 2, 90, 4, 0, hover);
-        addText(id + 3, descr, 0xAF6A1A, true, true, 52, 0);
-        setBounds(id + 3, 90, 19, 1, hover);
-        addRuneText(id + 4, ra1 + 1, r1, tda);
-        setBounds(id + 4, 26, 66, 2, hover);
-        addRuneText(id + 5, ra2 + 1, r2, tda);
-        setBounds(id + 5, 87, 66, 3, hover);
-        addRuneText(id + 6, ra3 + 1, r3, tda);
-        setBounds(id + 6, 142, 66, 4, hover);
     }
 
     public static void addLunar3RunesSmallBox(int ID, int r1, int r2, int r3, int ra1, int ra2, int ra3, int rune1,
