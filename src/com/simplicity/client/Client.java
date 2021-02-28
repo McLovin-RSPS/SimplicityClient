@@ -112,7 +112,6 @@ import com.simplicity.client.content.overlay.ScreenOverlayManager;
 import com.simplicity.client.entity.Position;
 import com.simplicity.client.instruction.InstructionArgs;
 import com.simplicity.client.instruction.InstructionProcessor;
-import com.simplicity.client.instruction.VoidInstruction;
 import com.simplicity.client.particles.Particle;
 import com.simplicity.client.particles.ParticleDefinition;
 import com.simplicity.client.widget.*;
@@ -15787,6 +15786,20 @@ public class Client extends RSApplet {
                                 false, false);
                     }
                 } else if (child.type != 1) {
+                    if (child.hasMouseListeners() && childHovered) {
+                        if (activeHoveredWidgetId != child.id) {
+                            if (activeHoveredWidgetId != -1) {
+                                RSInterface.interfaceCache[activeHoveredWidgetId].onMouseExit();
+                            }
+                            activeHoveredWidgetId = child.id;
+                            RSInterface.interfaceCache[activeHoveredWidgetId].onMouseEnter();
+                        }
+                    } else {
+                        if (activeHoveredWidgetId != -1) {
+                            RSInterface.interfaceCache[activeHoveredWidgetId].onMouseExit();
+                            activeHoveredWidgetId = -1;
+                        }
+                    }
                     if (child.type == 2) {
                         int spriteIndex = 0;
                         for (int height = 0; height < child.height; height++) {
@@ -16227,9 +16240,9 @@ public class Client extends RSApplet {
                             child.enabledSprite = ItemDefinition.getSprite(child.itemSpriteId2, 1,
                                     (child.itemSpriteZoom2 == -1) ? 0 : -1, child.itemSpriteZoom2);
                         }
-                        boolean hoveringChild = (child.atActionType == 1 || child.atActionType == 5) && childHovered;
+                        /*boolean hoveringChild = (child.atActionType == 1 || child.atActionType == 5) && childHovered;
                         if (Client.clientSize == 0 && openInterfaceID == child.layerId && !mouseInGameArea())
-                            hoveringChild = false;
+                            hoveringChild = false;*/
                         if (child.displayedSprite != null) {
                             sprite = child.displayedSprite;
                         } else if (interfaceIsSelected(child) || hoverSpriteId == child.id) {
@@ -16241,7 +16254,7 @@ public class Client extends RSApplet {
                         } else if (child.disabledSpriteId != -1
                                 && child.disabledSpriteId < SpriteCache.spriteCache.length && SpriteCache.spriteCache[child.disabledSpriteId] != null) {
                             sprite = SpriteCache.spriteCache[child.disabledSpriteId];
-                        } else if ((child.selected || hoveringChild || interfaceIsSelected(child)) && child.enabledSprite != null) {
+                        } else if ((child.selected || interfaceIsSelected(child)) && child.enabledSprite != null) {
                             sprite = child.enabledSprite;
                         } else {
                             sprite = child.disabledSprite;
@@ -16260,6 +16273,7 @@ public class Client extends RSApplet {
                         }
                         if (spellSelected == 1 && child.id == spellID && spellID != 0 && sprite != null) {
                             sprite.drawSprite(childX, childY, 0xffffff);
+                            System.out.println("Drawing outline at "+ childX +", "+ childY);
                         } else {
                             if (sprite != null) {
                                 if (child.type == 5) {
@@ -21798,7 +21812,7 @@ public class Client extends RSApplet {
                             intArgs[intArgIndex++] = inStream.readInt();
                     }
 
-                    InstructionArgs args = InstructionArgs.of(intArgs, stringArgs);
+                    InstructionArgs args = InstructionArgs.createFrom(intArgs, stringArgs);
                     InstructionProcessor.invoke(instruction, args);
                     opCode = -1;
                     return true;
@@ -23413,6 +23427,7 @@ public class Client extends RSApplet {
     public Sprite[] mapFunctionsOSRS;
     private static int baseX;
     private static int baseY;
+    public static int activeHoveredWidgetId = -1;
 
     public static int getBaseX() {
         return baseX;

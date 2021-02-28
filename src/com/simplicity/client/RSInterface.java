@@ -7,6 +7,7 @@ import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.client.cache.definitions.MobDefinition;
 import com.simplicity.client.content.Keybinding;
 import com.simplicity.client.instruction.InstructionArgs;
+import com.simplicity.client.instruction.InstructionId;
 import com.simplicity.client.instruction.VoidInstruction;
 import com.simplicity.client.widget.*;
 import com.simplicity.client.widget.dropdown.Dropdown;
@@ -17660,6 +17661,50 @@ public class RSInterface {
      */
     public VoidInstruction[] closeInstructions;
 
+
+    /**
+     * An instruction to invoke upon a mouse entering the bounds of this widget.
+     */
+    public InstructionArgs mouseEnterInstructions;
+
+    /**
+     * An instruction to invoke upon a mouse exiting the bounds of this widget.
+     */
+    public InstructionArgs mouseExitInstructions;
+
+    public void onMouseEnter() {
+        if (mouseEnterInstructions == null)
+            return;
+
+        InstructionArgs ar = InstructionArgs.createFrom(mouseEnterInstructions);
+        if (ar == null)
+            return;
+        InstructionId.MOUSE_ENTER.invoke(ar);
+    }
+
+    public void onMouseEnter(InstructionArgs args) {
+        this.mouseEnterInstructions = args;
+    }
+
+    public void onMouseExit() {
+        if (mouseExitInstructions == null)
+            return;
+
+        InstructionArgs ar = InstructionArgs.createFrom(mouseExitInstructions);
+        if (ar == null)
+            return;
+        InstructionId.MOUSE_EXIT.invoke(ar);
+
+    }
+
+    public void onMouseExit(InstructionArgs args) {
+        this.mouseExitInstructions = args;
+    }
+
+    public boolean hasMouseListeners() {
+        return mouseEnterInstructions != null || mouseExitInstructions != null;
+    }
+
     /**
      * Scans through all children within the root parent and invokes any instructions upon interface close.
      */
@@ -17668,11 +17713,14 @@ public class RSInterface {
             return;
         for (int id : children) {
             RSInterface child = RSInterface.interfaceCache[id];
-            if (child.type != 0 || child.closeInstructions == null)
+            if (child.closeInstructions == null)
                 continue;
-
+            if (child.type == 0) {
+                child.onClose();
+                continue;
+            }
             for (VoidInstruction ins : child.closeInstructions) {
-                InstructionArgs args = InstructionArgs.empty();
+                InstructionArgs args = InstructionArgs.createStack();
                 args.addNextInt(child.id);
                 ins.invoke(args);
             }

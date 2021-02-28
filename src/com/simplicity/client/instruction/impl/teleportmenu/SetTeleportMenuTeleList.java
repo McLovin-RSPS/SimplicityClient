@@ -9,8 +9,8 @@ public class SetTeleportMenuTeleList implements VoidInstruction {
 
     @Override
     public Void invoke(InstructionArgs args) {
-        InstructionId.SET_VARP.invoke(InstructionArgs.empty().addNextInt(1160).addNextInt(0));
-        InstructionId.SET_VARP.invoke(InstructionArgs.empty().addNextInt(1161).addNextInt(0));
+        InstructionId.SET_VARP.invoke(InstructionArgs.createStack().addNextInt(1160).addNextInt(0));
+        InstructionId.SET_VARP.invoke(InstructionArgs.createStack().addNextInt(1161).addNextInt(0));
 
         RSInterface teleportList = RSInterface.interfaceCache[61360];
 
@@ -22,6 +22,17 @@ public class SetTeleportMenuTeleList implements VoidInstruction {
 
             RSInterface ccButton = teleportList.createChildComponent(5);
             ccButton.setConfigHoverButton("Teleport", 1753, 1752);
+            ccButton.onMouseEnter(InstructionArgs.createStack()
+                    .addNextInt(ccButton.id)
+                    .addNextInt(1753)
+                    .addNextInt(InstructionId.SET_WIDGET_GRAPHIC.uid)
+            );
+            ccButton.onMouseExit(
+                    InstructionArgs.createStack()
+                            .addNextInt(ccButton.id)
+                            .addNextInt(1752)
+                            .addNextInt(InstructionId.SET_WIDGET_GRAPHIC.uid)
+            );
             teleportList.setChildPosition(ccButton, 13, (i * 36) + 1);
 
             RSInterface ccName = teleportList.createChildComponent(4);
@@ -38,8 +49,19 @@ public class SetTeleportMenuTeleList implements VoidInstruction {
 
             RSInterface ccFav = teleportList.createChildComponent(5);
             ccFav.setConfigButton(1754, 1755, 30, 25, "Favorite", 1, 5, 1160 + i);
+            ccFav.onMouseEnter(InstructionArgs.createStack()
+                    .addNextInt(ccFav.id)
+                    .addNextInt(1755)
+                    .addNextInt(InstructionId.SET_WIDGET_GRAPHIC.uid)
+            );
+            ccFav.onMouseExit(
+                    InstructionArgs.createStack()
+                            .addNextInt(ccFav.id)
+                            .addNextInt(1754)
+                            .addNextInt(InstructionId.SET_WIDGET_GRAPHIC.uid)
+            );
             teleportList.setChildPosition(ccFav, 288, (i * 36) + 6);
-            InstructionId.SET_VARP.invoke(InstructionArgs.empty().addNextInt(args.getNextInt()).addNextInt(1160 + i));
+            InstructionId.SET_VARP.invoke(InstructionArgs.createStack().addNextInt(args.getNextInt()).addNextInt(1160 + i));
         }
 
         teleportList.scrollMax = Math.max(187, 36 * length);
