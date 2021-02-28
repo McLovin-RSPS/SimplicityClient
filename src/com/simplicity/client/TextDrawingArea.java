@@ -240,6 +240,31 @@ public final class TextDrawingArea extends DrawingArea {
 		return j;
 	}
 
+	public String insertLineBreaksWith(String input, int width) {
+		int currWidth = 0;
+		int lastWhitespace = 0;
+		int markerIndex = 0;
+		StringBuilder bldr = new StringBuilder();
+		for (int i = 0; i < input.toCharArray().length; i++) {
+			char currChar = input.charAt(i);
+			if (currChar == ' ')
+				lastWhitespace = i;
+			currWidth += rsb[currChar];
+			if (currWidth >= width) {
+				bldr.append(input, markerIndex, lastWhitespace).append("\\n").append(input, lastWhitespace, input.length());
+				currWidth = width - currWidth;
+				markerIndex = lastWhitespace;
+			}
+		}
+
+		String result = bldr.toString();
+		return !result.isEmpty() ? result : input;
+	}
+
+	public int getLineBreaks(String input, int width) {
+		return getTextWidth(input) / width;
+	}
+
 	public int charFor(int i, String s) {
 		int j = 0;
 		for (int k = 0; k < s.length(); k++) {

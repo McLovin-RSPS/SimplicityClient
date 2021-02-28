@@ -1946,30 +1946,61 @@ public class RSInterface {
         }
     }
 
-    private static void buildSpellbook() {
-        // Modern book
-        int infoboxId = 101910;
-        RSInterface spellbook = interfaceCache[101219];
-        for (int i = 0; i < spellbook.children.length / 2; i++) {
-            int widgetId = 101220 + (i * 10);
+    private static void buildSpellbookInfoBox(int spellContainerWidgetId) {
+        RSInterface spellbook = interfaceCache[spellContainerWidgetId];
+        int infoboxId = spellbook.getHighestChildId();
+        int childCount = spellbook.children.length / 2;
+        int xPadding = 25;
+        int yPadding = 24;
+        if (spellbook.parentID == 101218) {
+            int rowCount = 7;
+            int rows = (childCount / rowCount) + (childCount % rowCount == 0 ? 0 : 1);
+            int height = rows * yPadding;
+            spellbook.width = rowCount * xPadding;
+            spellbook.height = height;
+            interfaceCache[spellbook.parentID].width = spellbook.width;
+            interfaceCache[spellbook.parentID].height = height;
+        }
+        for (int i = 0; i < childCount; i++) {
+            int widgetId = spellbook.children[i];
             infoboxId++;
             RSInterface spell = interfaceCache[widgetId];
-            int[][] runes = new int[spell.valueIndexArray.length][];
-            for (int j = 0; j < runes.length; j++) {
-                runes[j] = new int[spell.valueIndexArray[j].length];
-                runes[j][0] = spell.valueIndexArray[j][2];
-                runes[j][1] = spell.requiredValues[j];
+            int[] runeIds = new int[spell.valueIndexArray.length - 1];
+            int[] runesRequired = new int[spell.valueIndexArray.length - 1];
+            for (int j = 0; j < runeIds.length; j++) {
+                int runeId = spell.valueIndexArray[j][2];
+                if (runeId == 21880)
+                    runeId += ItemDefinition.OSRS_ITEMS_OFFSET;
+                runeIds[j] = runeId;
+                runesRequired[j] = spell.requiredValues[j];
             }
-            RSInterface infobox = createSpellInfoBox(infoboxId, spell.spellName, spell.message, runes);
-            spellbook.child((spellbook.children.length / 2) + i, infobox.id, 4, 156);
+
+            if (spellbook.parentID == 101218) {
+                int xOff = (xPadding - spell.disabledSprite.myWidth) / 2;
+                int yOff = (yPadding - spell.disabledSprite.myHeight) / 2;
+                int x = (i * xPadding) % spellbook.width;
+                int y = ((i * xPadding) / spellbook.width) * yPadding;
+                spellbook.child(i, widgetId, x + xOff, y + yOff);
+            }
+
+            runeIds = Arrays.stream(runeIds).filter(it -> it > 0).toArray();
+            runesRequired = Arrays.stream(runesRequired).filter(it -> it > 0).toArray();
+
+            RSInterface infobox = createSpellInfoBox(infoboxId, spell.spellName, spell.message, runeIds, runesRequired);
+            if (i >= childCount / 2)
+                spellbook.child(childCount + i, infobox.id, 0, 0);
+            else
+                spellbook.child(childCount + i, infobox.id, 0, 156);
             spell.hoverType = infobox.id;
-            infoboxId += infobox.children.length + 1;
+            infoboxId += infobox.children.length;
         }
     }
 
-    private static RSInterface createSpellInfoBox(int id, String name, String descr, int[][] runes) {
-        int childrenCount = 4 + 2 + ((runes != null ? runes.length - 1 : 0) * 2);
+    private static RSInterface createSpellInfoBox(int id, String name, String descr, int[] runeIds, int[] runesRequired) {
+        int runeCount = runeIds != null && runeIds.length > 0 ? runeIds.length : 0;
+        int childrenCount = 4 + 2 + (runeCount * 2);
         int childId = 0;
+
         RSInterface infobox = addInterface(id++);
         infobox.totalChildren(childrenCount);
         infobox.type = 0;
@@ -2011,34 +2042,6 @@ public class RSInterface {
         widget.filled = true;
         infobox.child(childId++, id++, 5, 11);
 
-        if (runes != null) {
-            int runeCount = runes.length - 1;
-            int x = ((174 - (57 * runeCount)) / 2) + 20;
-            for (int i = 0; i < runeCount; i++) {
-                widget = addInterface(id);
-                widget.type = 6;
-                widget.width = 28;
-                widget.height = 28;
-                widget.mediaType = 1;
-                widget.mediaID = ItemDefinition.forID(runes[i][0]).modelID;
-                widget.modelZoom = 730;
-                widget.modelRotation1 = 512;
-                widget.modelRotation2 = 1024;
-                infobox.child(childId++, id++, x + (i * 57), 52);
-
-                widget = addInterface(id);
-                widget.type = 4;
-                widget.width = 180;
-                widget.height = 13;
-                widget.centerText = true;
-                widget.disabledColor = 12582912;
-                widget.enabledColor = 49152;
-                widget.textDrawingAreas = fonts[0];
-                widget.message = "%1/"+ runes[i][1];
-                infobox.child(childId++, id++, x + (i * 57), 78);
-            }
-        }
-
         widget = addInterface(id);
         widget.type = 4;
         widget.width = 180;
@@ -2051,26 +2054,72 @@ public class RSInterface {
 
         widget = addInterface(id);
         widget.type = 4;
-        widget.width = 180;
+        widget.width = 170;
         widget.height = 12;
         widget.centerText = true;
-        int lineSplit = descr.indexOf("\n");
-        if (lineSplit != -1) {
-            descr = descr.substring(0, lineSplit) + "\\" + descr.substring(lineSplit, descr.length());
+        widget.message = fonts[0].insertLineBreaksWith(descr, 150);
+        int breakTag = descr.indexOf("<br>");
+        if (breakTag != -1) {
+            descr = descr.replace("<br>", " ");
         }
-        widget.message = descr;
+        int breaks = fonts[0].getLineBreaks(descr, 150);
         widget.disabledColor = 13468991;
         widget.textDrawingAreas = fonts[0];
-        infobox.child(childId, id, 3, 29);
+        infobox.child(childId++, id++, 3, 29 - (breaks * 1));
+
+        if (runeCount > 0) {
+            int modelOffsetX = ((174 - (56 * runeCount)) / 2) + 20;
+            int infoOffsetX = ((174 - fonts[0].getTextWidth("%1/0")) / 2) + 20;
+            for (int i = 0; i < runeCount; i++) {
+                widget = addInterface(id);
+                widget.type = 6;
+                widget.width = 28;
+                widget.height = 28;
+                widget.mediaType = 1;
+                widget.mediaID = ItemDefinition.forID(runeIds[i]).modelID;
+                int modelZoom = 730;
+                int modelRot = 512;
+                int modelRot2 = 1024;
+                if (widget.mediaID == 2790 || widget.mediaID == 2634 || widget.mediaID == 2749 || widget.mediaID == 5060) {
+                    modelZoom = 1710;
+                    modelRot = 200;
+                    modelRot2 = 892;
+                }
+                widget.modelZoom = modelZoom + (breaks * 125);
+                widget.modelRotation1 = modelRot;
+                widget.modelRotation2 = modelRot2;
+                infobox.child(childId++, id++, modelOffsetX + (i * 56), 52 - (breaks * 2));
+
+                widget = addInterface(id);
+                widget.type = 4;
+                widget.height = 13;
+                widget.centerText = true;
+                widget.disabledColor = 12582912;
+                widget.enabledColor = 49152;
+                widget.textDrawingAreas = fonts[0];
+                widget.message = "%1/"+ runesRequired[i];
+                widget.width = fonts[0].getTextWidth(widget.message);
+                widget.valueIndexArray = new int[2][];
+                widget.valueCompareType = new int[2];
+                widget.requiredValues = new int[2];
+                infobox.child(childId++, id++, infoOffsetX + (i * 50), 78);
+            }
+        }
+
         return infobox;
     }
 
     public static void modernbook(TextDrawingArea[] tda) {
         RSInterface main = addInterface(101218);
+        main.width = 168;
+        main.height = 220;
         main.children(1);
         RSInterface parent = addInterface(101219);
-        main.child(0, parent.id, 0, 5);
+        parent.parentID = main.id;
         parent.children(70 * 2);
+        parent.width = 168;
+        parent.height = 220;
+        main.child(0, parent.id, 6, 3);
         parent.addSpellButton(101220, 0, 0, 0, 0, 0, 0, 0, "Lumbridge Home Teleport", 1593, 1521, "Requires no runes - recharge time 30 mins. Warning: This spell takes a long time to cast and will be interrupted by combat.", tda, 1, 0);
         parent.child(0, 101220, 0, 0);
         parent.addSpellButton(101230, 558, 556, 0, 1, 1, 0, 1, "Wind Strike", 1594, 1522, "A basic Air missile", tda, 2, 10);
@@ -2211,6 +2260,8 @@ public class RSInterface {
         parent.child(68, 101900, 134, 220);
         parent.addSpellButton(101910, 21880, 554, 556, 1, 10, 7, 95, "Fire Surge", 1662, 1590, "A very high level Fire missile", tda, 2, 10);
         parent.child(69, 101910, 156, 216);
+
+        buildSpellbookInfoBox(101219);
     }
 
     public static void lunarbook(TextDrawingArea[] tda) {
@@ -2218,7 +2269,7 @@ public class RSInterface {
         main.children(1);
         RSInterface parent = addInterface(98784);
         main.child(0, parent.id, 5, 5);
-        parent.children(45);
+        parent.children(45 * 2);
         parent.addSpellButton(98785, 563, 560, 562, 1, 1, 1, 85, "Teleport to Bounty Target", 1663, 1474, "Teleports you near your Bounty Hunter target", tda, 1, 0);
         parent.child(0, 98785, 40, 162);
         parent.addSpellButton(98795, 0, 0, 0, 0, 0, 0, 0, "Lunar Home Teleport", 1664, 1475, "Requires no runes - recharge time 30 mins. Warning: This spell takes a long time to cast and will be interrupted by combat.", tda, 1, 0);
@@ -2309,6 +2360,8 @@ public class RSInterface {
         parent.child(43, 99215, 160, 81);
         parent.addSpellButton(99225, 563, 9075, 557, 1, 2, 6, 71, "Ourania Teleport", 1707, 1518, "Teleports you to the Ourania altar", tda, 1, 0);
         parent.child(44, 99225, 40, 54);
+
+        buildSpellbookInfoBox(98784);
     }
 
     /*
@@ -4962,7 +5015,6 @@ public class RSInterface {
         BestiaryLookup.init();
         modernbook(textDrawingAreas);
         lunarbook(textDrawingAreas);
-        buildSpellbook();
         TeleportInterface.init(textDrawingAreas);
         Widget.init();
         for (RSInterface widget : interfaceCache) {
@@ -12645,7 +12697,6 @@ public class RSInterface {
         rsInterface.type = 5;
         rsInterface.atActionType = at;
         rsInterface.contentType = 0;
-        rsInterface.hoverType = id + 1;
         rsInterface.spellUsableOn = suo;
         rsInterface.selectedActionName = "Cast on";
         rsInterface.width = 24;
@@ -17284,6 +17335,15 @@ public class RSInterface {
                 return i;
         }
         return -1;
+    }
+
+    private int getHighestChildId() {
+        int highest = 0;
+        for (int id : children) {
+            if (id > highest)
+                highest = id;
+        }
+        return highest;
     }
 	
     public static int summoningItemRequirements[][] = {{12158, 2859, -1}, // Wolf pouch
