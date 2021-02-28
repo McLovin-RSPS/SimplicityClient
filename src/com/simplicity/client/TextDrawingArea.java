@@ -251,9 +251,9 @@ public final class TextDrawingArea extends DrawingArea {
 				lastWhitespace = i;
 			currWidth += rsb[currChar];
 			if (currWidth >= width) {
-				bldr.append(input, markerIndex, lastWhitespace).append("\\n").append(input, lastWhitespace + 1, input.length());
+				bldr.append(input, markerIndex, lastWhitespace).append("\\n").append(input, lastWhitespace, input.length());
 				currWidth = width - currWidth;
-				markerIndex = lastWhitespace + 1;
+				markerIndex = lastWhitespace;
 			}
 		}
 

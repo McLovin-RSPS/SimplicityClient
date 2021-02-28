@@ -1950,6 +1950,17 @@ public class RSInterface {
         RSInterface spellbook = interfaceCache[spellContainerWidgetId];
         int infoboxId = spellbook.getHighestChildId();
         int childCount = spellbook.children.length / 2;
+        int xPadding = 25;
+        int yPadding = 24;
+        if (spellbook.parentID == 101218) {
+            int rowCount = 7;
+            int rows = (childCount / rowCount) + (childCount % rowCount == 0 ? 0 : 1);
+            int height = rows * yPadding;
+            spellbook.width = rowCount * xPadding;
+            spellbook.height = height;
+            interfaceCache[spellbook.parentID].width = spellbook.width;
+            interfaceCache[spellbook.parentID].height = height;
+        }
         for (int i = 0; i < childCount; i++) {
             int widgetId = spellbook.children[i];
             infoboxId++;
@@ -1964,13 +1975,22 @@ public class RSInterface {
                 runesRequired[j] = spell.requiredValues[j];
             }
 
+            if (spellbook.parentID == 101218) {
+                int xOff = (xPadding - spell.disabledSprite.myWidth) / 2;
+                int yOff = (yPadding - spell.disabledSprite.myHeight) / 2;
+                int x = (i * xPadding) % spellbook.width;
+                int y = ((i * xPadding) / spellbook.width) * yPadding;
+                spellbook.child(i, widgetId, x + xOff, y + yOff);
+            }
+
             runeIds = Arrays.stream(runeIds).filter(it -> it > 0).toArray();
             runesRequired = Arrays.stream(runesRequired).filter(it -> it > 0).toArray();
-            System.out.println(Arrays.toString(runeIds));
-            System.out.println(Arrays.toString(runesRequired));
 
             RSInterface infobox = createSpellInfoBox(infoboxId, spell.spellName, spell.message, runeIds, runesRequired);
-            spellbook.child(childCount + i, infobox.id, 4, 156);
+            if (i >= childCount / 2)
+                spellbook.child(childCount + i, infobox.id, 0, 0);
+            else
+                spellbook.child(childCount + i, infobox.id, 0, 156);
             spell.hoverType = infobox.id;
             infoboxId += infobox.children.length;
         }
@@ -2037,14 +2057,19 @@ public class RSInterface {
         widget.width = 170;
         widget.height = 12;
         widget.centerText = true;
-        final int breaks = fonts[0].getLineBreaks(descr, 170);
-        widget.message = fonts[0].insertLineBreaksWith(descr, 170);
+        widget.message = fonts[0].insertLineBreaksWith(descr, 150);
+        int breakTag = descr.indexOf("<br>");
+        if (breakTag != -1) {
+            descr = descr.replace("<br>", " ");
+        }
+        int breaks = fonts[0].getLineBreaks(descr, 150);
         widget.disabledColor = 13468991;
         widget.textDrawingAreas = fonts[0];
-        infobox.child(childId++, id++, 3, 29 - (breaks * 3));
+        infobox.child(childId++, id++, 3, 29 - (breaks * 1));
 
         if (runeCount > 0) {
-            int startX = ((174 - (56 * runeCount)) / 2) + 20;
+            int modelOffsetX = ((174 - (56 * runeCount)) / 2) + 20;
+            int infoOffsetX = ((174 - fonts[0].getTextWidth("%1/0")) / 2) + 20;
             for (int i = 0; i < runeCount; i++) {
                 widget = addInterface(id);
                 widget.type = 6;
@@ -2063,21 +2088,21 @@ public class RSInterface {
                 widget.modelZoom = modelZoom + (breaks * 125);
                 widget.modelRotation1 = modelRot;
                 widget.modelRotation2 = modelRot2;
-                infobox.child(childId++, id++, startX + (i * 56), 42 - (breaks * 3));
+                infobox.child(childId++, id++, modelOffsetX + (i * 56), 52 - (breaks * 2));
 
                 widget = addInterface(id);
                 widget.type = 4;
-                widget.width = 180;
                 widget.height = 13;
                 widget.centerText = true;
                 widget.disabledColor = 12582912;
                 widget.enabledColor = 49152;
                 widget.textDrawingAreas = fonts[0];
                 widget.message = "%1/"+ runesRequired[i];
+                widget.width = fonts[0].getTextWidth(widget.message);
                 widget.valueIndexArray = new int[2][];
                 widget.valueCompareType = new int[2];
                 widget.requiredValues = new int[2];
-                infobox.child(childId++, id++, startX + (i * 25), 78);
+                infobox.child(childId++, id++, infoOffsetX + (i * 50), 78);
             }
         }
 
@@ -2086,10 +2111,15 @@ public class RSInterface {
 
     public static void modernbook(TextDrawingArea[] tda) {
         RSInterface main = addInterface(101218);
+        main.width = 168;
+        main.height = 220;
         main.children(1);
         RSInterface parent = addInterface(101219);
-        main.child(0, parent.id, 0, 5);
+        parent.parentID = main.id;
         parent.children(70 * 2);
+        parent.width = 168;
+        parent.height = 220;
+        main.child(0, parent.id, 6, 3);
         parent.addSpellButton(101220, 0, 0, 0, 0, 0, 0, 0, "Lumbridge Home Teleport", 1593, 1521, "Requires no runes - recharge time 30 mins. Warning: This spell takes a long time to cast and will be interrupted by combat.", tda, 1, 0);
         parent.child(0, 101220, 0, 0);
         parent.addSpellButton(101230, 558, 556, 0, 1, 1, 0, 1, "Wind Strike", 1594, 1522, "A basic Air missile", tda, 2, 10);
@@ -12667,7 +12697,6 @@ public class RSInterface {
         rsInterface.type = 5;
         rsInterface.atActionType = at;
         rsInterface.contentType = 0;
-        rsInterface.hoverType = id + 1;
         rsInterface.spellUsableOn = suo;
         rsInterface.selectedActionName = "Cast on";
         rsInterface.width = 24;
