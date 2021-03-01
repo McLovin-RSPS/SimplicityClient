@@ -161,7 +161,7 @@ import net.runelite.client.plugins.PluginManager;
 @SuppressWarnings("all")
 public class Client extends RSApplet {
 	
-	private static final Injector injector = RuneLite.getInjector();
+	private static Injector injector;
 	private static RuneLite runelite;
 	private static Hooks callbacks;
 	private static PluginManager pluginManager;
@@ -3875,6 +3875,8 @@ public class Client extends RSApplet {
 
     public void init() {
         try {
+        	injector = RuneLite.getInjector();
+        	
         	if (injector != null) {
         		runelite = injector.getInstance(RuneLite.class);
         		callbacks = (Hooks) runelite.getClient().getCallbacks();
