@@ -75,7 +75,7 @@ class OpponentInfoOverlay extends OverlayPanel
 	{
 		final Entity opponent = opponentInfoPlugin.getLastOpponent();
 
-		if (opponent == null || opponent.getName() == null || opponent.maxHealth <= 0)
+		if (opponent == null || opponent.getName() == null || opponent.getName().isEmpty() || opponent.maxHealth <= 0)
 		{
 			opponentName = null;
 			return null;
