@@ -210,6 +210,9 @@ public final class MobDefinition {
         npc.readValues(stream);
         npc.postLoad();
         switch (i) {
+        case 1643:
+        	npc.walkAnim = 7200;
+        	break;
             case 13282:
                 npc.name = "Snowman";
                 npc.combatLevel = 137;
