@@ -53,7 +53,9 @@ public abstract class SpellBookFilter {
     boolean teleportSpell(RSInterface widget) {
         if (widget.spellName == null)
             return false;
-        return widget.spellName.toLowerCase().endsWith("teleport") || widget.spellName.toLowerCase().contains("tele");
+        String spellName = widget.spellName.toLowerCase();
+        return spellName.contains("teleport") ||
+                spellName.contains("tele");
     }
 
     public boolean showCombatSpells() {
