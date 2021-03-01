@@ -9790,7 +9790,7 @@ public class Client extends RSApplet {
                 if (class9_2.valueIndexArray != null && class9_2.valueIndexArray[0][0] == 5) {
                     int i2 = class9_2.valueIndexArray[0][1];
                     // System.out.println("Config ID: "+i2);
-                    if (variousSettings[i2] != class9_2.requiredValues[0]) {
+                    if ((i2 < 670 || i2 > 674) && variousSettings[i2] != class9_2.requiredValues[0]) {
                         variousSettings[i2] = class9_2.requiredValues[0];
                         handleActions(i2);
                         needDrawTabArea = true;
@@ -16273,7 +16273,6 @@ public class Client extends RSApplet {
                         }
                         if (spellSelected == 1 && child.id == spellID && spellID != 0 && sprite != null) {
                             sprite.drawSprite(childX, childY, 0xffffff);
-                            System.out.println("Drawing outline at "+ childX +", "+ childY);
                         } else {
                             if (sprite != null) {
                                 if (child.type == 5) {

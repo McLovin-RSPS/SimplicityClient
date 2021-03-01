@@ -50,6 +50,12 @@ public abstract class SpellBookFilter {
         return Client.instance.currentStats[6] < widget.requiredValues[2];
     }
 
+    boolean teleportSpell(RSInterface widget) {
+        if (widget.spellName == null)
+            return false;
+        return widget.spellName.toLowerCase().endsWith("teleport") || widget.spellName.toLowerCase().contains("tele");
+    }
+
     public boolean showCombatSpells() {
         return Client.instance.variousSettings[670] == 1;
     }

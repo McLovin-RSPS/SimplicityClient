@@ -1951,17 +1951,15 @@ public class RSInterface {
         RSInterface spellbook = interfaceCache[spellContainerWidgetId];
         int infoboxId = spellbook.getHighestChildId();
         int childCount = spellbook.children.length / 2;
-        int xPadding = 25;
-        int yPadding = 24;
-        if (spellbook.parentID == 101218) {
-            int rowCount = 7;
-            int rows = (childCount / rowCount) + (childCount % rowCount == 0 ? 0 : 1);
-            int height = rows * yPadding;
-            spellbook.width = rowCount * xPadding;
-            spellbook.height = height;
-            interfaceCache[spellbook.parentID].width = spellbook.width;
-            interfaceCache[spellbook.parentID].height = height;
-        }
+        boolean modern = spellContainerWidgetId == 101219;
+        int xPadding = modern ? 25 : 38;
+        int yPadding = modern ? 24 : 25;
+        int rowCount = modern ? 7 : 5;
+        int rows = (childCount / rowCount) + (childCount % rowCount == 0 ? 0 : 1);
+        int height = rows * yPadding;
+        spellbook.width = rowCount * xPadding;
+        spellbook.height = height;
+        interfaceCache[spellbook.parentID].width = spellbook.width;
         for (int i = 0; i < childCount; i++) {
             int widgetId = spellbook.children[i];
             infoboxId++;
@@ -1976,13 +1974,7 @@ public class RSInterface {
                 runesRequired[j] = spell.requiredValues[j];
             }
 
-            if (spellbook.parentID == 101218) {
-                int xOff = (xPadding - spell.disabledSprite.myWidth) / 2;
-                int yOff = (yPadding - spell.disabledSprite.myHeight) / 2;
-                int x = (i * xPadding) % spellbook.width;
-                int y = ((i * xPadding) / spellbook.width) * yPadding;
-                spellbook.child(i, widgetId, x + xOff, y + yOff);
-            }
+            rebuildSpellEntry(true, spellbook, spell, spell.childId, xPadding, yPadding);
 
             runeIds = Arrays.stream(runeIds).filter(it -> it > 0).toArray();
             runesRequired = Arrays.stream(runesRequired).filter(it -> it > 0).toArray();
@@ -1994,6 +1986,29 @@ public class RSInterface {
                 spellbook.child(childCount + i, infobox.id, 0, 156);
             spell.hoverType = infobox.id;
             infoboxId += infobox.children.length;
+        }
+    }
+
+    public static void rebuildSpellEntry(boolean init, RSInterface container, RSInterface widget, int position, int xPadding, int yPadding) {
+        int xOff = (xPadding - widget.disabledSprite.myWidth) / 2;
+        int yOff = (yPadding - widget.disabledSprite.myHeight) / 2;
+        int x = (position * xPadding) % container.width;
+        int y = ((position * xPadding) / container.width) * yPadding;
+        if (init) {
+            container.child(position, widget.id, x + xOff, y + yOff);
+        } else {
+            container.childX[widget.childId] = x + xOff;
+            container.childY[widget.childId] = y + yOff;
+        }
+    }
+
+    public static void rebuildVisibleSpells(RSInterface container, int xPadding, int yPadding) {
+        int position = 0;
+        for (int index = 0; index < container.children.length / 2; index++) {
+            RSInterface spell = interfaceCache[container.children[index]];
+            if (!spell.hidden) {
+                rebuildSpellEntry(false, container, spell, position++, xPadding, yPadding);
+            }
         }
     }
 
@@ -2113,14 +2128,14 @@ public class RSInterface {
     public static void modernbook(TextDrawingArea[] tda) {
         RSInterface main = addInterface(101218);
         main.width = 168;
-        main.height = 220;
-        main.children(1);
+        main.height = 260;
+        main.children(2);
         RSInterface parent = addInterface(101219);
         parent.parentID = main.id;
         parent.children(70 * 2);
         parent.width = 168;
         parent.height = 220;
-        main.child(0, parent.id, 6, 3);
+        main.child(1, parent.id, 6, 3);
         parent.addSpellButton(101220, 0, 0, 0, 0, 0, 0, 0, "Lumbridge Home Teleport", 1593, 1521, "Requires no runes - recharge time 30 mins. Warning: This spell takes a long time to cast and will be interrupted by combat.", tda, 1, 0);
         parent.child(0, 101220, 0, 0);
         parent.addSpellButton(101230, 558, 556, 0, 1, 1, 0, 1, "Wind Strike", 1594, 1522, "A basic Air missile", tda, 2, 10);
@@ -2263,20 +2278,23 @@ public class RSInterface {
         parent.child(69, 101910, 156, 216);
 
         buildSpellbookInfoBox(101219);
+        main.child(0, 31330, (main.width - interfaceCache[31332].disabledSprite.myWidth) / 2, main.height - interfaceCache[31332].disabledSprite.myHeight);
     }
 
     public static void lunarbook(TextDrawingArea[] tda) {
         RSInterface main = addInterface(98783);
-        main.children(1);
+        main.height = 260;
+        main.children(2);
         RSInterface parent = addInterface(98784);
-        main.child(0, parent.id, 5, 5);
+        parent.parentID = main.id;
+        main.child(1, parent.id, 0, 5);
         parent.children(45 * 2);
-        parent.addSpellButton(98785, 563, 560, 562, 1, 1, 1, 85, "Teleport to Bounty Target", 1663, 1474, "Teleports you near your Bounty Hunter target", tda, 1, 0);
-        parent.child(0, 98785, 40, 162);
-        parent.addSpellButton(98795, 0, 0, 0, 0, 0, 0, 0, "Lunar Home Teleport", 1664, 1475, "Requires no runes - recharge time 30 mins. Warning: This spell takes a long time to cast and will be interrupted by combat.", tda, 1, 0);
-        parent.child(1, 98795, 0, 0);
+        parent.addSpellButton(98795, 0, 0, 0, 0, 0, 0, 1, "Lunar Home Teleport", 1664, 1475, "Requires no runes - recharge time 30 mins. Warning: This spell takes a long time to cast and will be interrupted by combat.", tda, 1, 0);
+        parent.child(0, 98795, 0, 0);
         parent.addSpellButton(98805, 9075, 555, 554, 1, 4, 5, 65, "Bake Pie", 1665, 1476, "Bake pies without a stove", tda, 2, 16);
-        parent.child(2, 98805, 40, 0);
+        parent.child(1, 98805, 40, 0);
+        parent.addSpellButton(99205, 9075, 561, 557, 3, 3, 8, 65, "Geomancy", 1705, 1516, "Checks the status of your main Farming patches", tda, 2, 4);
+        parent.child(2, 99205, 80, 0);
         parent.addSpellButton(98815, 9075, 557, 0, 1, 8, 0, 66, "Cure Plant", 1666, 1477, "Cures disease on farming patch", tda, 2, 4);
         parent.child(3, 98815, 120, 0);
         parent.addSpellButton(98825, 9075, 564, 558, 1, 1, 1, 66, "Monster Examine", 1667, 1478, "Detect the combat statistics of a monster", tda, 2, 2);
@@ -2287,82 +2305,83 @@ public class RSInterface {
         parent.child(6, 98845, 40, 27);
         parent.addSpellButton(98855, 9075, 555, 554, 1, 3, 1, 68, "Humidify", 1670, 1481, "Fills certain vessels with water", tda, 1, 0);
         parent.child(7, 98855, 80, 27);
-        parent.addSpellButton(98865, 563, 9075, 557, 1, 2, 2, 69, "Moonclan Teleport", 1671, 1482, "Teleports you to Moonclan Island", tda, 1, 0);
+        parent.addSpellButton(98865, 0, 0, 0, 0, 0, 0, 1, "Moonclan Teleport", 1671, 1482, "Teleports you to Moonclan Island", tda, 1, 0);
         parent.child(8, 98865, 120, 27);
         parent.addSpellButton(98875, 563, 9075, 557, 1, 2, 4, 70, "Tele Group Moonclan", 1672, 1483, "Teleports players to Moonclan Island", tda, 1, 0);
         parent.child(9, 98875, 160, 27);
         parent.addSpellButton(98885, 9075, 564, 563, 2, 2, 1, 71, "Cure Me", 1673, 1484, "Cure Poison", tda, 1, 0);
         parent.child(10, 98885, 0, 54);
+        parent.addSpellButton(99225, 0, 0, 0, 0, 0, 0, 1, "Ourania Teleport", 1707, 1518, "Teleports you to the Ourania altar", tda, 1, 0);
+        parent.child(11, 99225, 40, 54);
         parent.addSpellButton(98895, 9075, 557, 0, 2, 2, 0, 71, "Hunter Kit", 1674, 1485, "Get a kit of hunter gear", tda, 1, 0);
-        parent.child(11, 98895, 80, 54);
-        parent.addSpellButton(98905, 563, 9075, 555, 1, 2, 1, 72, "Waterbirth Teleport", 1675, 1486, "Teleports you to Waterbirth Island", tda, 1, 0);
-        parent.child(12, 98905, 120, 54);
+        parent.child(12, 98895, 80, 54);
+        parent.addSpellButton(98905, 0, 0, 0, 0, 0, 0, 1, "Waterbirth Teleport", 1675, 1486, "Teleports you to Waterbirth Island", tda, 1, 0);
+        parent.child(13, 98905, 120, 54);
         parent.addSpellButton(98915, 563, 9075, 555, 1, 2, 5, 73, "Tele Group Waterbirth", 1676, 1487, "Teleports players to Waterbirth Island", tda, 1, 0);
-        parent.child(13, 98915, 160, 54);
+        parent.child(14, 98915, 160, 54);
         parent.addSpellButton(98925, 9075, 564, 563, 2, 2, 2, 74, "Cure Group", 1677, 1488, "Cure poison on players", tda, 1, 0);
-        parent.child(14, 98925, 0, 81);
+        parent.child(15, 98925, 0, 81);
         parent.addSpellButton(98935, 9075, 564, 559, 2, 2, 5, 75, "Stat Spy", 1678, 1489, "Cast on another player to see their skill levels", tda, 2, 8);
-        parent.child(15, 98935, 40, 81);
-        parent.addSpellButton(98945, 563, 9075, 554, 2, 2, 3, 75, "Barbarian Teleport", 1679, 1490, "Teleports you to the Barbarian Outpost", tda, 1, 0);
-        parent.child(16, 98945, 80, 81);
+        parent.child(16, 98935, 40, 81);
+        parent.addSpellButton(98945, 0, 0, 0, 0, 0, 0, 1, "Barbarian Teleport", 1679, 1490, "Teleports you to the Barbarian Outpost", tda, 1, 0);
+        parent.child(17, 98945, 80, 81);
         parent.addSpellButton(98955, 563, 9075, 554, 2, 2, 6, 76, "Tele Group Barbarian", 1680, 1491, "Teleports players to the Barbarian Outpost", tda, 1, 0);
-        parent.child(17, 98955, 120, 81);
-        parent.addSpellButton(98965, 9075, 554, 556, 2, 6, 10, 77, "Superglass Make", 1681, 1492, "Make glass without a furnace", tda, 1, 0);
-        parent.child(18, 98965, 0, 108);
-        parent.addSpellButton(98975, 9075, 561, 554, 2, 1, 5, 78, "Tan Leather", 1682, 1493, "Tans up to 5 hides", tda, 1, 0);
-        parent.child(19, 98975, 40, 108);
-        parent.addSpellButton(98985, 563, 9075, 555, 2, 2, 4, 78, "Khazard Teleport", 1683, 1494, "Teleports you to Port Khazard", tda, 1, 0);
-        parent.child(20, 98985, 80, 108);
-        parent.addSpellButton(98995, 563, 9075, 555, 2, 2, 8, 79, "Tele Group Khazard", 1684, 1495, "Teleports players to Port Khazard", tda, 1, 0);
-        parent.child(21, 98995, 120, 108);
-        parent.addSpellButton(99005, 9075, 564, 559, 2, 1, 5, 79, "Dream", 1685, 1496, "Take a rest and restore Hitpoints 3 times faster", tda, 1, 0);
-        parent.child(22, 99005, 160, 108);
-        parent.addSpellButton(99015, 9075, 555, 557, 2, 5, 10, 80, "String Jewellery", 1686, 1497, "String amulets without wool", tda, 1, 0);
-        parent.child(23, 99015, 0, 135);
-        parent.addSpellButton(99025, 9075, 555, 557, 2, 10, 10, 81, "Stat Restore Pot Share", 1687, 1498, "Shares a potion with up to 4 nearby players", tda, 2, 16);
-        parent.child(24, 99025, 40, 135);
-        parent.addSpellButton(99035, 9075, 555, 554, 2, 7, 7, 82, "Magic Imbue", 1688, 1499, "Combine runes without a talisman", tda, 1, 0);
-        parent.child(25, 99035, 80, 135);
-        parent.addSpellButton(99045, 9075, 561, 557, 3, 2, 15, 83, "Fertile Soil", 1689, 1500, "Fertilise a farming patch with super compost", tda, 2, 4);
-        parent.child(26, 99045, 120, 135);
-        parent.addSpellButton(99055, 9075, 555, 557, 3, 10, 12, 84, "Boost Potion Share", 1690, 1501, "Shares a potion with up to 4 nearby players", tda, 2, 16);
-        parent.child(27, 99055, 160, 135);
-        parent.addSpellButton(99065, 563, 9075, 555, 3, 3, 10, 85, "Fishing Guild Teleport", 1691, 1502, "Teleports you to the Fishing Guild", tda, 1, 0);
-        parent.child(28, 99065, 0, 162);
-        parent.addSpellButton(99075, 563, 9075, 555, 3, 3, 14, 86, "Tele Group Fishing Guild", 1692, 1503, "Teleports players to the Fishing Guild", tda, 1, 0);
-        parent.child(29, 99075, 80, 162);
-        parent.addSpellButton(99085, 9075, 561, 557, 2, 1, 15, 86, "Plank Make", 1693, 1504, "Turn logs into planks", tda, 1, 0);
-        parent.child(30, 99085, 120, 162);
-        parent.addSpellButton(99095, 563, 9075, 555, 3, 3, 10, 87, "Catherby Teleport", 1694, 1505, "Teleports you to Catherby", tda, 1, 0);
-        parent.child(31, 99095, 160, 162);
-        parent.addSpellButton(99105, 563, 9075, 555, 3, 3, 15, 88, "Tele Group Catherby", 1695, 1506, "Teleports players to Catherby", tda, 1, 0);
-        parent.child(32, 99105, 0, 189);
-        parent.addSpellButton(99115, 9075, 566, 555, 1, 1, 4, 89, "Recharge Dragonstone", 1696, 1507, "Recharges enchanted dragonstone jewellery", tda, 2, 16);
-        parent.child(33, 99115, 40, 189);
-        parent.addSpellButton(99125, 563, 9075, 555, 3, 3, 8, 89, "Ice Plateau Teleport", 1697, 1508, "Teleports you to Ice Plateau", tda, 1, 0);
-        parent.child(34, 99125, 80, 189);
-        parent.addSpellButton(99135, 563, 9075, 555, 3, 3, 16, 90, "Tele Group Ice Plateau", 1698, 1509, "Teleports players to Ice Plateau", tda, 1, 0);
-        parent.child(35, 99135, 120, 189);
-        parent.addSpellButton(99145, 9075, 563, 561, 3, 2, 1, 91, "Energy Transfer", 1699, 1510, "Spend Hitpoints and SA energy to give another SA and run energy", tda, 2, 8);
-        parent.child(36, 99145, 160, 189);
-        parent.addSpellButton(99155, 9075, 563, 565, 3, 3, 1, 92, "Heal Other", 1700, 1511, "Transfers up to 75% of Hitpoints to another player", tda, 2, 8);
-        parent.child(37, 99155, 0, 216);
-        parent.addSpellButton(99165, 9075, 560, 557, 3, 2, 10, 93, "Vengeance Other", 1701, 1512, "Allows another player to rebound damage to an opponent", tda, 2, 8);
-        parent.child(38, 99165, 40, 216);
-        parent.addSpellButton(99175, 9075, 560, 557, 4, 2, 10, 94, "Vengeance", 1702, 1513, "Rebound damage to an opponent", tda, 1, 0);
-        parent.child(39, 99175, 80, 216);
-        parent.addSpellButton(99185, 9075, 563, 565, 4, 6, 3, 95, "Heal Group", 1703, 1514, "Transfers up to 75% of Hitpoints to a group", tda, 1, 0);
-        parent.child(40, 99185, 120, 216);
-        parent.addSpellButton(99195, 9075, 564, 563, 3, 2, 1, 96, "Spellbook Swap", 1704, 1515, "Change to another spellbook for 1 spell cast", tda, 1, 0);
-        parent.child(41, 99195, 160, 216);
-        parent.addSpellButton(99205, 9075, 561, 557, 3, 3, 8, 65, "Geomancy", 1705, 1516, "Checks the status of your main Farming patches", tda, 2, 4);
-        parent.child(42, 99205, 80, 0);
+        parent.child(18, 98955, 120, 81);
         parent.addSpellButton(99215, 9075, 561, 556, 1, 2, 5, 76, "Spin Flax", 1706, 1517, "Turn flax into bowstring", tda, 1, 0);
-        parent.child(43, 99215, 160, 81);
-        parent.addSpellButton(99225, 563, 9075, 557, 1, 2, 6, 71, "Ourania Teleport", 1707, 1518, "Teleports you to the Ourania altar", tda, 1, 0);
-        parent.child(44, 99225, 40, 54);
+        parent.child(19, 99215, 160, 81);
+        parent.addSpellButton(98965, 9075, 554, 556, 2, 6, 10, 77, "Superglass Make", 1681, 1492, "Make glass without a furnace", tda, 1, 0);
+        parent.child(20, 98965, 0, 108);
+        parent.addSpellButton(98975, 9075, 561, 554, 2, 1, 5, 78, "Tan Leather", 1682, 1493, "Tans up to 5 hides", tda, 1, 0);
+        parent.child(21, 98975, 40, 108);
+        parent.addSpellButton(98985, 0, 0, 0, 0, 0, 0, 1, "Khazard Teleport", 1683, 1494, "Teleports you to Port Khazard", tda, 1, 0);
+        parent.child(22, 98985, 80, 108);
+        parent.addSpellButton(98995, 563, 9075, 555, 2, 2, 8, 79, "Tele Group Khazard", 1684, 1495, "Teleports players to Port Khazard", tda, 1, 0);
+        parent.child(23, 98995, 120, 108);
+        parent.addSpellButton(99005, 9075, 564, 559, 2, 1, 5, 79, "Dream", 1685, 1496, "Take a rest and restore Hitpoints 3 times faster", tda, 1, 0);
+        parent.child(24, 99005, 160, 108);
+        parent.addSpellButton(99015, 9075, 555, 557, 2, 5, 10, 80, "String Jewellery", 1686, 1497, "String amulets without wool", tda, 1, 0);
+        parent.child(25, 99015, 0, 135);
+        parent.addSpellButton(99025, 9075, 555, 557, 2, 10, 10, 81, "Stat Restore Pot Share", 1687, 1498, "Shares a potion with up to 4 nearby players", tda, 2, 16);
+        parent.child(26, 99025, 40, 135);
+        parent.addSpellButton(99035, 9075, 555, 554, 2, 7, 7, 82, "Magic Imbue", 1688, 1499, "Combine runes without a talisman", tda, 1, 0);
+        parent.child(27, 99035, 80, 135);
+        parent.addSpellButton(99045, 9075, 561, 557, 3, 2, 15, 83, "Fertile Soil", 1689, 1500, "Fertilise a farming patch with super compost", tda, 2, 4);
+        parent.child(28, 99045, 120, 135);
+        parent.addSpellButton(99055, 9075, 555, 557, 3, 10, 12, 84, "Boost Potion Share", 1690, 1501, "Shares a potion with up to 4 nearby players", tda, 2, 16);
+        parent.child(29, 99055, 160, 135);
+        parent.addSpellButton(99065, 0, 0, 0, 0, 0, 0, 1, "Fishing Guild Teleport", 1691, 1502, "Teleports you to the Fishing Guild", tda, 1, 0);
+        parent.child(30, 99065, 0, 162);
+        parent.addSpellButton(98785, 563, 560, 562, 1, 1, 1, 85, "Teleport to Bounty Target", 1663, 1474, "Teleports you near your Bounty Hunter target", tda, 1, 0);
+        parent.child(31, 98785, 40, 162);
+        parent.addSpellButton(99075, 563, 9075, 555, 3, 3, 14, 86, "Tele Group Fishing Guild", 1692, 1503, "Teleports players to the Fishing Guild", tda, 1, 0);
+        parent.child(32, 99075, 80, 162);
+        parent.addSpellButton(99085, 9075, 561, 557, 2, 1, 15, 86, "Plank Make", 1693, 1504, "Turn logs into planks", tda, 1, 0);
+        parent.child(33, 99085, 120, 162);
+        parent.addSpellButton(99095, 0, 0, 0, 0, 0, 0, 1, "Catherby Teleport", 1694, 1505, "Teleports you to Catherby", tda, 1, 0);
+        parent.child(34, 99095, 160, 162);
+        parent.addSpellButton(99105, 563, 9075, 555, 3, 3, 15, 88, "Tele Group Catherby", 1695, 1506, "Teleports players to Catherby", tda, 1, 0);
+        parent.child(35, 99105, 0, 189);
+        parent.addSpellButton(99115, 9075, 566, 555, 1, 1, 4, 89, "Recharge Dragonstone", 1696, 1507, "Recharges enchanted dragonstone jewellery", tda, 2, 16);
+        parent.child(36, 99115, 40, 189);
+        parent.addSpellButton(99125, 0, 0, 0, 0, 0, 0, 1, "Ice Plateau Teleport", 1697, 1508, "Teleports you to Ice Plateau", tda, 1, 0);
+        parent.child(37, 99125, 80, 189);
+        parent.addSpellButton(99135, 563, 9075, 555, 3, 3, 16, 90, "Tele Group Ice Plateau", 1698, 1509, "Teleports players to Ice Plateau", tda, 1, 0);
+        parent.child(38, 99135, 120, 189);
+        parent.addSpellButton(99145, 9075, 563, 561, 3, 2, 1, 91, "Energy Transfer", 1699, 1510, "Spend Hitpoints and SA energy to give another SA and run energy", tda, 2, 8);
+        parent.child(39, 99145, 160, 189);
+        parent.addSpellButton(99155, 9075, 563, 565, 3, 3, 1, 92, "Heal Other", 1700, 1511, "Transfers up to 75% of Hitpoints to another player", tda, 2, 8);
+        parent.child(40, 99155, 0, 216);
+        parent.addSpellButton(99165, 9075, 560, 557, 3, 2, 10, 93, "Vengeance Other", 1701, 1512, "Allows another player to rebound damage to an opponent", tda, 2, 8);
+        parent.child(41, 99165, 40, 216);
+        parent.addSpellButton(99175, 9075, 560, 557, 4, 2, 10, 94, "Vengeance", 1702, 1513, "Rebound damage to an opponent", tda, 1, 0);
+        parent.child(42, 99175, 80, 216);
+        parent.addSpellButton(99185, 9075, 563, 565, 4, 6, 3, 95, "Heal Group", 1703, 1514, "Transfers up to 75% of Hitpoints to a group", tda, 1, 0);
+        parent.child(43, 99185, 120, 216);
+        parent.addSpellButton(99195, 9075, 564, 563, 3, 2, 1, 96, "Spellbook Swap", 1704, 1515, "Change to another spellbook for 1 spell cast", tda, 1, 0);
+        parent.child(44, 99195, 160, 216);
 
         buildSpellbookInfoBox(98784);
+        main.child(0, 31330, (main.width - interfaceCache[31332].disabledSprite.myWidth) / 2, main.height - interfaceCache[31332].disabledSprite.myHeight);
     }
 
     /*
@@ -4861,7 +4880,7 @@ public class RSInterface {
         equipmentScreenInterface();
         itemsKeptOnDeathInterface();
         clanChatTabInterface();
-        redoSpellBooks(textDrawingAreas);
+//        redoSpellBooks(textDrawingAreas);
         shopInterface(textDrawingAreas);
         newShopInterface(textDrawingAreas);
         bankInterface();
@@ -5014,6 +5033,7 @@ public class RSInterface {
         ItemStatComparePanel.init();
         ItemsKeptOnDeath.init();
         BestiaryLookup.init();
+        buildSpellFilterButton();
         modernbook(textDrawingAreas);
         lunarbook(textDrawingAreas);
         TeleportInterface.init(textDrawingAreas);
@@ -12878,6 +12898,18 @@ public class RSInterface {
         setBounds(ID + 7, 142, 79, 8, hover);
     }
 
+    private static void buildSpellFilterButton() {
+        RSInterface filterButton = addInterface(31330);
+        filterButton.children(2);
+        int widgetId = 31332;
+        int buttonChild = 0;
+        addHoverButton_sprite_loader(widgetId, 1463, 46, 17, "Confirm", -1, widgetId + 1, 5);
+        filterButton.child(buttonChild++, widgetId, 0, 0);
+        widgetId++;
+        addHoveredImageWSpriteLoader(widgetId, 1464, 46, 17, widgetId + 1);
+        filterButton.child(buttonChild, widgetId, 0, 0);
+    }
+
     public static void addLunar3RunesLargeBox(int ID, int r1, int r2, int r3, int ra1, int ra2, int ra3, int rune1,
                                               int rune2, int lvl, String name, String descr, TextDrawingArea[] TDA, int sid, int suo, int type) {
         RSInterface rsInterface = addTabInterface(ID);
@@ -13064,9 +13096,6 @@ public class RSInterface {
         lunarB.child(index++, 30314, 155, 131);
         lunarB.child(index++, 30322, 9, 160);
 
-        RSInterface filterButton = addInterface(31330);
-        filterButton.children(2);
-
         // Hover related info.
         addTooltip(11002, "Home Teleport\nTeleport to set home location.");
         lunarB.child(index++, 11002, 10, 39);
@@ -13122,14 +13151,6 @@ public class RSInterface {
         lunarB.child(index++, 30323, 5, 120);
         lunarB.child(index, 30315, 5, 120);
 
-        int widgetId = 31332;
-        int buttonChild = 0;
-        addHoverButton_sprite_loader(widgetId, 1463, 46, 17, "Confirm", -1, widgetId + 1, 5);
-        filterButton.child(buttonChild++, widgetId, 0, 0);
-        widgetId++;
-        addHoveredImageWSpriteLoader(widgetId, 1464, 46, 17, widgetId + 1);
-        filterButton.child(buttonChild, widgetId, 0, 0);
-
         RSInterface newInterface = addInterface(11800);
         RSInterface spellButtons = interfaceCache[29999];
         newInterface.totalChildren(2);
@@ -13141,7 +13162,7 @@ public class RSInterface {
         spellButtons.height = 260;
         spellButtons.width = 190;
         int widgetIndex = 0;
-        newInterface.child(widgetIndex++, filterButton.id, 65, 235);
+        newInterface.child(widgetIndex++, /*filterButton.id*/0, 65, 235);
         newInterface.child(widgetIndex++, 29999, 0, 0);
     }
 
@@ -13254,6 +13275,8 @@ public class RSInterface {
         children[id] = interID;
         childX[id] = x;
         childY[id] = y;
+        if (interfaceCache[interID] != null)
+            interfaceCache[interID].childId = id;
     }
 
     public void totalChildren(int t) {
@@ -16444,7 +16467,7 @@ public class RSInterface {
         /**
          * Lunar
          */
-        lunarSpellbookInterface(tda);
+//        lunarSpellbookInterface(tda);
 
         ancientMagicTab(tda);
     }
