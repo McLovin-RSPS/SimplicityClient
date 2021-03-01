@@ -18903,7 +18903,8 @@ public class Client extends RSApplet {
                 if (s == null || s.length() == 0) {
                     continue;
                 }
-                int y = 130 + (i * 12) + 242 - (10 * loginMessages.length);
+                
+                int y = (loginMessages.length == 1 ? 130 : 135) + (i * 12) + 242 - (10 * loginMessages.length);	
                 int x = (clientWidth / 2);
                 smallText.drawCenteredText(16777215, x, s, y, true);
             }
