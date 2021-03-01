@@ -23,6 +23,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
+import com.simplicity.client.Client;
 import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.SpotAnimDefinition;
 
@@ -196,6 +197,7 @@ public class GraphicDefinitionLookup extends JFrame {
 		details.getModel().setValueAt(Arrays.toString(gfx.originalColours), column++, 1);
 		details.getModel().setValueAt(Arrays.toString(gfx.destColours), column++, 1);
 		details.getModel().setValueAt(gfx.dataType, column++, 1);
+		Client.getClient().playGraphic(id);
 	}
 	
 	public int getSelectedType() {
