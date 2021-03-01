@@ -2300,7 +2300,7 @@ public final class MobDefinition {
                 }
             } else if (i >= 30 && i < 40) {
                 if (actions == null)
-                    actions = new String[5];
+                    actions = new String[10];
                 actions[i - 30] = osrs ? stream.readString() : stream.readNewString();
                 if (actions[i - 30].equalsIgnoreCase("hidden"))
                     actions[i - 30] = null;
