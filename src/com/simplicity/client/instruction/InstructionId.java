@@ -67,6 +67,24 @@ public enum InstructionId {
         public VoidInstruction getInstruction() {
             return new SetVarp();
         }
+    },
+    MOUSE_ENTER(9) {
+        @Override
+        public VoidInstruction getInstruction() {
+            return new MouseEnterWidget();
+        }
+    },
+    MOUSE_EXIT(10) {
+        @Override
+        public VoidInstruction getInstruction() {
+            return new MouseExitWidget();
+        }
+    },
+    SET_WIDGET_GRAPHIC(11) {
+        @Override
+        public VoidInstruction getInstruction() {
+            return new SetWidgetGraphic();
+        }
     }
 
     ; // End of enum
