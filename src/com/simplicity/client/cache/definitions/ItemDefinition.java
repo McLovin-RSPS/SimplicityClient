@@ -313,7 +313,7 @@ public final class ItemDefinition {
 
     private static void postOsrsItemDef(ItemDefinition itemDef) {
         switch(itemDef.id) {
-        
+
 	        case 52323:
 	            itemDef.maleZOffset = -11;
 	            itemDef.femaleZOffset = 11;
@@ -1239,7 +1239,9 @@ public final class ItemDefinition {
         itemDef.value = prices[itemDef.id];
 
         switch (itemId) {
-
+            case 11154:
+                itemDef.actions = new String[]{"Drink", null, null, null, null, "Drop"};
+                break;
             case 4964:
             case 4965:
             case 4966:
