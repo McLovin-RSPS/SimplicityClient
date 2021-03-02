@@ -1889,7 +1889,8 @@ public class RSInterface {
     public static void ancientMagicTab(TextDrawingArea[] tda) {
         final int spellPadding = 20;
         RSInterface tab = addInterface(12855);
-
+        tab.width = 175;
+        tab.height = 260;
         addButton(11001, 430, "Cast @gre@Home Teleport", 19, 19);
         //addTooltip(11002, "Home Teleport\nTeleport to set home location.");
 
@@ -1924,7 +1925,7 @@ public class RSInterface {
 
         int index = 0;
         tab.totalChildren(itfChildren.length + 1);
-        tab.child(index, 31330, 65, 235);
+        tab.child(index, 31330, (tab.width - interfaceCache[31332].disabledSprite.myWidth) / 2, tab.height - interfaceCache[31332].disabledSprite.myHeight);
         for (int i1 = 0, xPos = 18, yPos = 8; i1 < itfChildren.length; i1++, xPos += 45) {
             ++index;
             RSInterface widget = interfaceCache[itfChildren[i1]];
@@ -5036,6 +5037,7 @@ public class RSInterface {
         buildSpellFilterButton();
         modernbook(textDrawingAreas);
         lunarbook(textDrawingAreas);
+        ancientMagicTab(textDrawingAreas);
         TeleportInterface.init(textDrawingAreas);
         Widget.init();
         for (RSInterface widget : interfaceCache) {
@@ -16468,8 +16470,6 @@ public class RSInterface {
          * Lunar
          */
 //        lunarSpellbookInterface(tda);
-
-        ancientMagicTab(tda);
     }
 
     private static void removeSpell(RSInterface rsInterface) {
