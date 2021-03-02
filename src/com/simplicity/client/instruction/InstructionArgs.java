@@ -1,5 +1,7 @@
 package com.simplicity.client.instruction;
 
+import java.util.Arrays;
+
 /**
  * Represents a set of arguments that are to be passed off to an {@link VoidInstruction} for processing.
  * @author Heaven
@@ -30,7 +32,7 @@ public class InstructionArgs {
      * Creates an empty set of instruction arguments.
      * @return
      */
-    public static InstructionArgs empty() {
+    public static InstructionArgs createStack() {
         return new InstructionArgs(new int[0], new String[0]);
     }
 
@@ -40,8 +42,19 @@ public class InstructionArgs {
      * @param stringArgs
      * @return
      */
-    public static InstructionArgs of(int[] intArgs, String[] stringArgs) {
+    public static InstructionArgs createFrom(int[] intArgs, String[] stringArgs) {
         return new InstructionArgs(intArgs, stringArgs);
+    }
+
+    /**
+     * Creates a new set of instructions consisting of the underlying stack elements of the specified argument.
+     * @param from
+     * @return
+     */
+    public static InstructionArgs createFrom(InstructionArgs from) {
+        int[] is = Arrays.copyOf(from.intStack, from.intStack.length);
+        String[] ss = Arrays.copyOf(from.stringStack, from.stringStack.length);
+        return createFrom(is, ss);
     }
 
     /**
@@ -107,6 +120,16 @@ public class InstructionArgs {
             stringStack = newStack;
         }
         stringStack[stringStackPos++] = value;
+        return this;
+    }
+
+    public InstructionArgs intStackOffset(int offset) {
+        this.intStackPos -= offset;
+        return this;
+    }
+
+    public InstructionArgs stringStackOffset(int offset) {
+        this.stringStackPos -= offset;
         return this;
     }
 }

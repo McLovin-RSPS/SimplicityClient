@@ -2,6 +2,7 @@ package com.simplicity.client.instruction.impl.teleportmenu;
 
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.instruction.InstructionArgs;
+import com.simplicity.client.instruction.InstructionId;
 import com.simplicity.client.instruction.VoidInstruction;
 
 public class AddTeleportCategory implements VoidInstruction {
@@ -19,6 +20,17 @@ public class AddTeleportCategory implements VoidInstruction {
 
         RSInterface ccButton = parent.createChildComponent(5);
         ccButton.setConfigHoverButton("Select", 1749, 1750);
+        ccButton.onMouseEnter(InstructionArgs.createStack()
+                .addNextInt(ccButton.id)
+                .addNextInt(1749)
+                .addNextInt(InstructionId.SET_WIDGET_GRAPHIC.uid)
+        );
+        ccButton.onMouseExit(
+                InstructionArgs.createStack()
+                        .addNextInt(ccButton.id)
+                        .addNextInt(1750)
+                        .addNextInt(InstructionId.SET_WIDGET_GRAPHIC.uid)
+        );
         parent.setChildPosition(ccButton, 0, index * 35);
 
         RSInterface ccIcon = parent.createChildComponent(2);

@@ -2943,6 +2943,14 @@ public final class ItemDefinition {
                 itemDef.actions = new String[5];
                 itemDef.actions[0] = "Open";
                 break;
+            case 21545:
+                itemDef.copy(forID(6855));
+                itemDef.name = "Mythical Box";
+                itemDef.editedModelColor = new int[] { 35763, 62375, };
+                itemDef.newModelColor = new int[] { 35763, 9583, }; 
+                itemDef.actions = new String[5];
+                itemDef.actions[0] = "Open";
+                break;
             case 6831:
                 itemDef.name = "Sapphire Mystery Box";
                 itemDef.actions = new String[5];

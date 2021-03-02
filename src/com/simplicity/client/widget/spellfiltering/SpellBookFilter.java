@@ -5,10 +5,6 @@ import com.simplicity.client.RSInterface;
 
 public abstract class SpellBookFilter {
 
-    public static final int[] TELEPORT_SPELL_WIDGET_IDS = new int[] {
-            11001, 11004, 11008, 11011, 11014, 11017, 11020
-    };
-
     private void init() {
 
     }
@@ -48,6 +44,14 @@ public abstract class SpellBookFilter {
         if (widget.requiredValues == null)
             return false;
         return Client.instance.currentStats[6] < widget.requiredValues[2];
+    }
+
+    boolean teleportSpell(RSInterface widget) {
+        if (widget.spellName == null)
+            return false;
+        String spellName = widget.spellName.toLowerCase();
+        return spellName.contains("teleport") ||
+                spellName.contains("tele");
     }
 
     public boolean showCombatSpells() {

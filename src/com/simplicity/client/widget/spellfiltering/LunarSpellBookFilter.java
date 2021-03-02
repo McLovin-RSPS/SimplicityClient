@@ -1,13 +1,10 @@
 package com.simplicity.client.widget.spellfiltering;
 
-import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
-
-import java.util.Arrays;
 
 public class LunarSpellBookFilter extends SpellBookFilter {
 
-    public static final int PARENT_ID = 11800;
+    public static final int PARENT_ID = 98783;
     public static final LunarSpellBookFilter INSTANCE = new LunarSpellBookFilter();
 
     @Override
@@ -15,30 +12,17 @@ public class LunarSpellBookFilter extends SpellBookFilter {
         if (varp < 670 || varp > 674) {
             return;
         }
-        final int spellContainerId = 29999;
-        /*if (varp == 671) {
-            final boolean show = Client.instance.variousSettings[671] == 1;
-            final int[] children = parent.originalChildren;
-            for (int child : children) {
-                if (child >= 11001 && child <= 11021) {
-                    RSInterface.interfaceCache[child].hidden = !show;
-                }
-            }
-            return;
-        }*/
+        final int spellContainerId = 98784;
         RSInterface spellContainer = RSInterface.interfaceCache[spellContainerId];
-        final int[] spells = spellContainer.originalChildren;
-        int slot = 0;
-        final int[] filtered = new int[spells.length];
-        Arrays.fill(filtered, -1);
-        for (int spellId : spells) {
-            RSInterface widget = RSInterface.interfaceCache[spellId];
+        final int[] spells = spellContainer.children;
+        for (int i = 0; i < spellContainer.children.length / 2; i++) {
+            RSInterface widget = RSInterface.interfaceCache[spells[i]];
             if (widget == null)
                 continue;
-            if (canFilter(widget)) {
+            /*if (canFilter(widget)) {
                 widget.hidden = true;
                 continue;
-            }
+            }*/
             if (!showCombatSpells() && combatSpell(widget)) {
                 widget.hidden = true;
                 continue;
@@ -53,21 +37,13 @@ public class LunarSpellBookFilter extends SpellBookFilter {
             }
             if (widget.hidden)
                 widget.hidden = false;
-            filtered[slot] = widget.id;
-            slot++;
         }
-        spellContainer.children = filtered;
+        RSInterface.rebuildVisibleSpells(spellContainer, 38, 25);
     }
 
     private boolean combatSpell(RSInterface widget) {
         if (widget.spellName == null)
             return false;
         return widget.spellName.toLowerCase().contains("vengeance");
-    }
-
-    private boolean teleportSpell(RSInterface widget) {
-        if (widget.selectedActionName == null)
-            return false;
-        return widget.selectedActionName.equalsIgnoreCase("teleport");
     }
 }

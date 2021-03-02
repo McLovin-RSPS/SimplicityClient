@@ -21,10 +21,6 @@ public class AncientSpellBookFilter extends SpellBookFilter {
         Arrays.fill(filtered, -1);
         for (int index = 1; index < spells.length; index++) {
             RSInterface widget = RSInterface.interfaceCache[spells[index]];
-            if (canFilter(widget)) {
-                widget.hidden = true;
-                continue;
-            }
             if (!showCombatSpells() && combatSpell(widget)) {
                 widget.hidden = true;
                 continue;
@@ -35,8 +31,7 @@ public class AncientSpellBookFilter extends SpellBookFilter {
             }
             if (widget.hidden)
                 widget.hidden = false;
-            filtered[slot] = widget.id;
-            slot++;
+            filtered[slot++] = widget.id;
         }
         filtered[0] = 31330;
         parent.children = filtered;

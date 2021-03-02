@@ -6,8 +6,7 @@ import java.util.Arrays;
 
 public class ModernSpellBookFilter extends SpellBookFilter {
 
-    private static final int[] IGNORED_CHILDREN = new int[] {1189, 1592, 1562, 1193, 12435, 12445, 6003, 12455};
-    public static final int PARENT_ID = 11000;
+    public static final int PARENT_ID = 101218;
 
     public static final ModernSpellBookFilter INSTANCE = new ModernSpellBookFilter();
 
@@ -16,65 +15,42 @@ public class ModernSpellBookFilter extends SpellBookFilter {
         if (varp < 670 || varp > 674) {
             return;
         }
-        // TODO Disabled for now.
-        for (int id : TELEPORT_SPELL_WIDGET_IDS) {
-            RSInterface widget = RSInterface.interfaceCache[id];
+        final int spellContainerId = 101219;
+        RSInterface spellContainer = RSInterface.interfaceCache[spellContainerId];
+        final int[] spells = spellContainer.children;
+        for (int i = 0; i < spellContainer.children.length / 2; i++) {
+            RSInterface widget = RSInterface.interfaceCache[spells[i]];
+            if (widget == null)
+                continue;
+            /*if (canFilter(widget)) {
+                widget.hidden = true;
+                continue;
+            }*/
+            if (!showCombatSpells() && combatSpell(widget)) {
+                widget.hidden = true;
+                continue;
+            }
+            if (!showTeleports() && teleportSpell(widget)) {
+                widget.hidden = true;
+                continue;
+            }
+            if (!showUtilitySpells() && !combatSpell(widget) && !teleportSpell(widget)) {
+                widget.hidden = true;
+                continue;
+            }
             if (widget.hidden)
                 widget.hidden = false;
         }
-        RSInterface parent = RSInterface.interfaceCache[PARENT_ID];
-        /*if (varp == 671) {
-            final boolean show = showTeleports();
-            final int[] children = parent.originalChildren;
-            RSInterface.interfaceCache[1151].childY[54] = show ? 0 : -20;
-            for (int child : children) {
-                if (child >= 11001 && child <= 11021) {
-                    RSInterface.interfaceCache[child].hidden = !show;
-                }
-            }
-            return;
-        }*/
-        if (varp == 670 || varp == 673 || varp == 674) {
-            /*RSInterface spellContainer = RSInterface.interfaceCache[12424];
-            int[] spells = spellContainer.originalChildren;
-            int slot = 0;
-            final int[] filtered = new int[spells.length];
-            Arrays.fill(filtered, -1);
-            for (int spellId : spells) {
-                RSInterface widget = RSInterface.interfaceCache[spellId];
-                boolean ignored = false;
-                for (int ignoreId : IGNORED_CHILDREN) {
-                    if (widget.id == ignoreId) {
-                        ignored = true;
-                        break;
-                    }
-                }
-                if (ignored)
-                    continue;
-                if (canFilter(widget)) {
-                    widget.hidden = true;
-                    continue;
-                }
-                if (!showCombatSpells() && combatSpell(widget)) {
-                    widget.hidden = true;
-                    continue;
-                }
-                if (widget.id == 0) {
-                    widget.hidden = true;
-                    continue;
-                }
-                System.out.println("Adding "+ widget.id +": hidden="+ widget.hidden +", "+ widget.spellUsableOn +", "+ widget.spellName);
-                if (widget.hidden)
-                    widget.hidden = false;
-                filtered[slot] = widget.id;
-                slot++;
-            }
-            spellContainer.children = filtered;
-            System.out.println(Arrays.toString(spellContainer.children));*/
-        }
+        RSInterface.rebuildVisibleSpells(spellContainer, 25, 24);
     }
 
     private boolean combatSpell(RSInterface widget) {
-        return widget.spellUsableOn == 10 || widget.spellUsableOn == 8;
+        if (widget.spellName == null)
+            return false;
+        String spellName = widget.spellName.toLowerCase();
+        return spellName.endsWith("strike") || spellName.endsWith("bolt")
+                || spellName.equalsIgnoreCase("Crumble Undead") || spellName.endsWith("blast")
+                || spellName.endsWith("wave") || spellName.endsWith("surge") || spellName.equalsIgnoreCase("Claws of Guthix")
+                || spellName.equalsIgnoreCase("Flames of Zamorak") || spellName.equalsIgnoreCase("Magic Dart");
     }
 }

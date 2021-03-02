@@ -112,7 +112,6 @@ import com.simplicity.client.content.overlay.ScreenOverlayManager;
 import com.simplicity.client.entity.Position;
 import com.simplicity.client.instruction.InstructionArgs;
 import com.simplicity.client.instruction.InstructionProcessor;
-import com.simplicity.client.instruction.VoidInstruction;
 import com.simplicity.client.particles.Particle;
 import com.simplicity.client.particles.ParticleDefinition;
 import com.simplicity.client.widget.*;
@@ -162,7 +161,7 @@ import net.runelite.client.plugins.PluginManager;
 @SuppressWarnings("all")
 public class Client extends RSApplet {
 	
-	private static final Injector injector = RuneLite.getInjector();
+	private static Injector injector;
 	private static RuneLite runelite;
 	private static Hooks callbacks;
 	private static PluginManager pluginManager;
@@ -3876,6 +3875,8 @@ public class Client extends RSApplet {
 
     public void init() {
         try {
+        	injector = RuneLite.getInjector();
+        	
         	if (injector != null) {
         		runelite = injector.getInstance(RuneLite.class);
         		callbacks = (Hooks) runelite.getClient().getCallbacks();
@@ -9791,7 +9792,7 @@ public class Client extends RSApplet {
                 if (class9_2.valueIndexArray != null && class9_2.valueIndexArray[0][0] == 5) {
                     int i2 = class9_2.valueIndexArray[0][1];
                     // System.out.println("Config ID: "+i2);
-                    if (variousSettings[i2] != class9_2.requiredValues[0]) {
+                    if ((i2 < 670 || i2 > 674) && variousSettings[i2] != class9_2.requiredValues[0]) {
                         variousSettings[i2] = class9_2.requiredValues[0];
                         handleActions(i2);
                         needDrawTabArea = true;
@@ -15787,6 +15788,20 @@ public class Client extends RSApplet {
                                 false, false);
                     }
                 } else if (child.type != 1) {
+                    if (child.hasMouseListeners() && childHovered) {
+                        if (activeHoveredWidgetId != child.id) {
+                            if (activeHoveredWidgetId != -1) {
+                                RSInterface.interfaceCache[activeHoveredWidgetId].onMouseExit();
+                            }
+                            activeHoveredWidgetId = child.id;
+                            RSInterface.interfaceCache[activeHoveredWidgetId].onMouseEnter();
+                        }
+                    } else {
+                        if (activeHoveredWidgetId != -1) {
+                            RSInterface.interfaceCache[activeHoveredWidgetId].onMouseExit();
+                            activeHoveredWidgetId = -1;
+                        }
+                    }
                     if (child.type == 2) {
                         int spriteIndex = 0;
                         for (int height = 0; height < child.height; height++) {
@@ -16227,9 +16242,9 @@ public class Client extends RSApplet {
                             child.enabledSprite = ItemDefinition.getSprite(child.itemSpriteId2, 1,
                                     (child.itemSpriteZoom2 == -1) ? 0 : -1, child.itemSpriteZoom2);
                         }
-                        boolean hoveringChild = (child.atActionType == 1 || child.atActionType == 5) && childHovered;
+                        /*boolean hoveringChild = (child.atActionType == 1 || child.atActionType == 5) && childHovered;
                         if (Client.clientSize == 0 && openInterfaceID == child.layerId && !mouseInGameArea())
-                            hoveringChild = false;
+                            hoveringChild = false;*/
                         if (child.displayedSprite != null) {
                             sprite = child.displayedSprite;
                         } else if (interfaceIsSelected(child) || hoverSpriteId == child.id) {
@@ -16241,7 +16256,7 @@ public class Client extends RSApplet {
                         } else if (child.disabledSpriteId != -1
                                 && child.disabledSpriteId < SpriteCache.spriteCache.length && SpriteCache.spriteCache[child.disabledSpriteId] != null) {
                             sprite = SpriteCache.spriteCache[child.disabledSpriteId];
-                        } else if ((child.selected || hoveringChild || interfaceIsSelected(child)) && child.enabledSprite != null) {
+                        } else if ((child.selected || interfaceIsSelected(child)) && child.enabledSprite != null) {
                             sprite = child.enabledSprite;
                         } else {
                             sprite = child.disabledSprite;
@@ -18903,7 +18918,8 @@ public class Client extends RSApplet {
                 if (s == null || s.length() == 0) {
                     continue;
                 }
-                int y = 130 + (i * 12) + 242 - (10 * loginMessages.length);
+                
+                int y = (loginMessages.length == 1 ? 130 : 135) + (i * 12) + 242 - (10 * loginMessages.length);	
                 int x = (clientWidth / 2);
                 smallText.drawCenteredText(16777215, x, s, y, true);
             }
@@ -21798,7 +21814,7 @@ public class Client extends RSApplet {
                             intArgs[intArgIndex++] = inStream.readInt();
                     }
 
-                    InstructionArgs args = InstructionArgs.of(intArgs, stringArgs);
+                    InstructionArgs args = InstructionArgs.createFrom(intArgs, stringArgs);
                     InstructionProcessor.invoke(instruction, args);
                     opCode = -1;
                     return true;
@@ -23413,6 +23429,7 @@ public class Client extends RSApplet {
     public Sprite[] mapFunctionsOSRS;
     private static int baseX;
     private static int baseY;
+    public static int activeHoveredWidgetId = -1;
 
     public static int getBaseX() {
         return baseX;
@@ -25979,6 +25996,29 @@ public class Client extends RSApplet {
 
         } catch (Exception e) {
         	e.printStackTrace();
+        }
+	}
+	
+	public void playGraphic(int graphicId) {
+		try {
+			myPlayer.anInt1520 = graphicId;
+            myPlayer.graphicHeight = 100;
+			myPlayer.graphicDelay = loopCycle + 0;
+            myPlayer.currentAnim = 0;
+            myPlayer.animCycle = 0;
+
+            if (SpotAnimDefinition.cache[graphicId].dataType == DataType.OLDSCHOOL) {
+                if (FrameReader.animationListOldschool[Integer.parseInt(Integer.toHexString(SpotAnimDefinition.cache[graphicId].animation.frameIDs[0]).substring(0, Integer.toHexString(SpotAnimDefinition.cache[graphicId].animation.frameIDs[0]).length() - 4), 16)].length == 0) {
+                    onDemandFetcher.requestFileData(Client.OSRS_ANIM_IDX - 1, Integer.parseInt(Integer.toHexString(SpotAnimDefinition.cache[graphicId].animation.frameIDs[0]).substring(0, Integer.toHexString(SpotAnimDefinition.cache[graphicId].animation.frameIDs[0]).length() - 4), 16));
+                }
+            } else {
+                if (FrameReader.animationListRegular[Integer.parseInt(Integer.toHexString(SpotAnimDefinition.cache[graphicId].animation.frameIDs[0]).substring(0, Integer.toHexString(SpotAnimDefinition.cache[graphicId].animation.frameIDs[0]).length() - 4), 16)].length == 0) {
+                    onDemandFetcher.requestFileData(Client.ANIM_IDX - 1, Integer.parseInt(Integer.toHexString(SpotAnimDefinition.cache[graphicId].animation.frameIDs[0]).substring(0, Integer.toHexString(SpotAnimDefinition.cache[graphicId].animation.frameIDs[0]).length() - 4), 16));
+                }
+            }
+
+        } catch (Exception e) {
+        	
         }
 	}
 	
