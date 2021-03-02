@@ -161,7 +161,7 @@ import net.runelite.client.plugins.PluginManager;
 @SuppressWarnings("all")
 public class Client extends RSApplet {
 	
-	private static final Injector injector = RuneLite.getInjector();
+	private static Injector injector;
 	private static RuneLite runelite;
 	private static Hooks callbacks;
 	private static PluginManager pluginManager;
@@ -3875,6 +3875,8 @@ public class Client extends RSApplet {
 
     public void init() {
         try {
+        	injector = RuneLite.getInjector();
+        	
         	if (injector != null) {
         		runelite = injector.getInstance(RuneLite.class);
         		callbacks = (Hooks) runelite.getClient().getCallbacks();
@@ -18916,7 +18918,8 @@ public class Client extends RSApplet {
                 if (s == null || s.length() == 0) {
                     continue;
                 }
-                int y = 130 + (i * 12) + 242 - (10 * loginMessages.length);
+                
+                int y = (loginMessages.length == 1 ? 130 : 135) + (i * 12) + 242 - (10 * loginMessages.length);	
                 int x = (clientWidth / 2);
                 smallText.drawCenteredText(16777215, x, s, y, true);
             }
@@ -25993,6 +25996,29 @@ public class Client extends RSApplet {
 
         } catch (Exception e) {
         	e.printStackTrace();
+        }
+	}
+	
+	public void playGraphic(int graphicId) {
+		try {
+			myPlayer.anInt1520 = graphicId;
+            myPlayer.graphicHeight = 100;
+			myPlayer.graphicDelay = loopCycle + 0;
+            myPlayer.currentAnim = 0;
+            myPlayer.animCycle = 0;
+
+            if (SpotAnimDefinition.cache[graphicId].dataType == DataType.OLDSCHOOL) {
+                if (FrameReader.animationListOldschool[Integer.parseInt(Integer.toHexString(SpotAnimDefinition.cache[graphicId].animation.frameIDs[0]).substring(0, Integer.toHexString(SpotAnimDefinition.cache[graphicId].animation.frameIDs[0]).length() - 4), 16)].length == 0) {
+                    onDemandFetcher.requestFileData(Client.OSRS_ANIM_IDX - 1, Integer.parseInt(Integer.toHexString(SpotAnimDefinition.cache[graphicId].animation.frameIDs[0]).substring(0, Integer.toHexString(SpotAnimDefinition.cache[graphicId].animation.frameIDs[0]).length() - 4), 16));
+                }
+            } else {
+                if (FrameReader.animationListRegular[Integer.parseInt(Integer.toHexString(SpotAnimDefinition.cache[graphicId].animation.frameIDs[0]).substring(0, Integer.toHexString(SpotAnimDefinition.cache[graphicId].animation.frameIDs[0]).length() - 4), 16)].length == 0) {
+                    onDemandFetcher.requestFileData(Client.ANIM_IDX - 1, Integer.parseInt(Integer.toHexString(SpotAnimDefinition.cache[graphicId].animation.frameIDs[0]).substring(0, Integer.toHexString(SpotAnimDefinition.cache[graphicId].animation.frameIDs[0]).length() - 4), 16));
+                }
+            }
+
+        } catch (Exception e) {
+        	
         }
 	}
 	
