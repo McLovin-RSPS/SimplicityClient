@@ -297,7 +297,7 @@ public enum CustomRecolor {
 	MYTHICAL_BOTTOMS(21543, 19386, "@cya@Mythical Bottoms", 
             new int[] { 0, 115, 916, 105, 908 }, 
             new int[] { 0, 115, 38325, 105, 38325 }),
-	MYTHICAL_ANGELIC_BOOTS(21540, 41860, "@cya@Mythical Angelic Boots",
+	MYTHICAL_ANGELIC_BOOTS(21541, 41860, "@cya@Mythical Angelic Boots",
 			new int[]{8396, 8417, 5293, 20},
 			new int[]{38325, 127, 38325, 127}),
 	SKY_BLUE_SANG_X(20082, 52323, "@cya@Sky Blue Sang X", 
