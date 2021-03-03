@@ -4929,12 +4929,13 @@ public class Client extends RSApplet {
                     if (s.indexOf(" ") != -1) {
                         s = s.substring(0, s.indexOf(" "));
                     }
-                    if (child.spellName.endsWith("Rush") || child.spellName.endsWith("Burst")
-                            || child.spellName.endsWith("Blitz") || child.spellName.endsWith("Barrage")
-                            || child.spellName.endsWith("strike") || child.spellName.endsWith("bolt")
-                            || child.spellName.equals("Crumble undead") || child.spellName.endsWith("blast")
-                            || child.spellName.endsWith("wave") || child.spellName.equals("Claws of Guthix")
-                            || child.spellName.equals("Flames of Zamorak") || child.spellName.equals("Magic Dart")) {
+                    String spellName = child.spellName.toLowerCase();
+                    if (spellName.endsWith("Rush") || spellName.endsWith("Burst")
+                            || spellName.endsWith("Blitz") || spellName.endsWith("Barrage")
+                            || spellName.endsWith("strike") || spellName.endsWith("bolt")
+                            || spellName.equalsIgnoreCase("Crumble undead") || spellName.endsWith("blast")
+                            || spellName.endsWith("wave") || spellName.endsWith("surge") || spellName.equalsIgnoreCase("Claws of Guthix")
+                            || spellName.equalsIgnoreCase("Flames of Zamorak") || spellName.equalsIgnoreCase("Magic Dart")) {
                         menuActionName[menuActionRow] = "Autocast @gre@" + child.spellName;
                         menuActionID[menuActionRow] = 104;
                         menuActionCmd3[menuActionRow] = child.id;
