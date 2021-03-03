@@ -2947,7 +2947,7 @@ public final class ItemDefinition {
                 itemDef.copy(forID(6855));
                 itemDef.name = "Mythical Box";
                 itemDef.editedModelColor = new int[] { 35763, 62375, };
-                itemDef.newModelColor = new int[] { 35763, 9583, }; 
+                itemDef.newModelColor = new int[] { 38325, 9583, }; 
                 itemDef.actions = new String[5];
                 itemDef.actions[0] = "Open";
                 break;
