@@ -26,7 +26,7 @@ public class CustomObjects {
     // id, x, y, z, face, type
     // 0 = north, 1 = east, 2 = south, 3 = west
     public static final int[][] CUSTOM_OBJECTS = {
-    		
+            {134829, 3018, 3962, 0, 0},//larrans big chest
             /**
              * TOB
             */
