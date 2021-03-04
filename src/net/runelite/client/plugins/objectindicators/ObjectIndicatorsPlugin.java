@@ -205,13 +205,16 @@ public class ObjectIndicatorsPlugin extends Plugin
 			// Reload points with new map regions
 
 			points.clear();
-			for (int regionId : client.getMapRegions())
-			{
-				// load points for region
-				final Set<ObjectPoint> regionPoints = loadPoints(regionId);
-				if (regionPoints != null)
+			
+			if (client.getMapRegions() != null) {
+				for (int regionId : client.getMapRegions())
 				{
-					points.put(regionId, regionPoints);
+					// load points for region
+					final Set<ObjectPoint> regionPoints = loadPoints(regionId);
+					if (regionPoints != null)
+					{
+						points.put(regionId, regionPoints);
+					}
 				}
 			}
 		}

@@ -1965,6 +1965,7 @@ public class RSInterface {
             int widgetId = spellbook.children[i];
             infoboxId++;
             RSInterface spell = interfaceCache[widgetId];
+            spell.parentID = modern ? 101219 : 98784;
             int[] runeIds = new int[spell.valueIndexArray.length - 1];
             int[] runesRequired = new int[spell.valueIndexArray.length - 1];
             for (int j = 0; j < runeIds.length; j++) {
