@@ -85,7 +85,13 @@ public enum InstructionId {
         public VoidInstruction getInstruction() {
             return new SetWidgetGraphic();
         }
-    }
+    },
+    SET_HOVER_TRIGGER(12) {
+        @Override
+        public VoidInstruction getInstruction() {
+            return new SetHoverTrigger();
+        }
+    },
 
     ; // End of enum
 

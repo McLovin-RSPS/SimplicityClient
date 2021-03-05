@@ -16913,6 +16913,10 @@ public class RSInterface {
         this.height = this.disabledSprite.myHeight;
         this.spriteOpacity = 255;
     }
+
+    public void setGraphicWidget(int graphicId) {
+
+    }
 	
 	public static void configHoverButton(int id, String tooltip, String[] actions, int enabledSprite, int disabledSprite,
 			int enabledAltSprite, int disabledAltSprite, boolean active, int... buttonsToDisable) {
@@ -17303,6 +17307,11 @@ public class RSInterface {
 	    child.parentID = id;
 	    child.layerId = parentID;
 	    child.newFormat = true;
+	    if (type == 0) {
+            child.children = new int[0];
+            child.childX = new int[0];
+            child.childY = new int[0];
+        }
 	    int childId = getFreeChildId();
 	    if (childId != -1) {
             child.childId = childId;
@@ -17735,19 +17744,24 @@ public class RSInterface {
     public void onClose() {
         if (children == null || children.length == 0)
             return;
+
         for (int id : children) {
             RSInterface child = RSInterface.interfaceCache[id];
-            if (child.closeInstructions == null)
-                continue;
             if (child.type == 0) {
-                child.onClose();
-                continue;
+                processCloseInstructions(child.id);
             }
-            for (VoidInstruction ins : child.closeInstructions) {
-                InstructionArgs args = InstructionArgs.createStack();
-                args.addNextInt(child.id);
-                ins.invoke(args);
-            }
+        }
+    }
+
+    private void processCloseInstructions(int id) {
+        RSInterface widget = interfaceCache[id];
+        if (widget.closeInstructions == null)
+            return;
+
+        for (VoidInstruction ins : widget.closeInstructions) {
+            InstructionArgs args = InstructionArgs.createStack();
+            args.addNextInt(widget.id);
+            ins.invoke(args);
         }
     }
 }

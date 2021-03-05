@@ -12,6 +12,7 @@ public class ClearChildren implements VoidInstruction {
         for (int id : parent.children) {
             RSInterface.interfaceCache[id] = null;
         }
+
         parent.children = null;
         parent.children = new int[0];
         parent.childX = null;

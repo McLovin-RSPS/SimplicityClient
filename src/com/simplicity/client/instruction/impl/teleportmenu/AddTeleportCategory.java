@@ -11,38 +11,38 @@ public class AddTeleportCategory implements VoidInstruction {
     public Void invoke(InstructionArgs args) {
         RSInterface[] widgets = RSInterface.interfaceCache;
         RSInterface parent = widgets[61322];
+        InstructionId.CLEAR_CHILDREN_COMPONENTS.invoke(InstructionArgs.createStack().addNextInt(61322));
 
-        int index = args.getNextInt();
+        int count = args.getNextInt();
+        for (int i = 0; i < count; i++) {
+            RSInterface ccRect = parent.createChildComponent(3);
+            ccRect.setRect(0x50473D, 154, 35, i % 2 == 0 ? 0 : 200, true);
+            parent.setChildPosition(ccRect, 0, i * 35);
 
-        RSInterface ccRect = parent.createChildComponent(3);
-        ccRect.setRect(0x50473D, 154, 35, index % 2 == 0 ? 0 : 200, true);
-        parent.setChildPosition(ccRect, 0, index * 35);
-
-        RSInterface ccButton = parent.createChildComponent(5);
-        ccButton.setConfigHoverButton("Select", 1749, 1750);
-        ccButton.onMouseEnter(InstructionArgs.createStack()
+            RSInterface ccButton = parent.createChildComponent(5);
+            ccButton.setConfigHoverButton("Select", 1749, 1750);
+            parent.setChildPosition(ccButton, 0, i * 35);
+        /*InstructionId.SET_HOVER_TRIGGER.invoke(InstructionArgs.createStack()
+                .addNextInt(ccButton.parentID)
                 .addNextInt(ccButton.id)
+                .addNextInt(0)
+                .addNextInt(index * 35)
+                .addNextInt(ccButton.width)
+                .addNextInt(ccButton.height)
                 .addNextInt(1749)
-                .addNextInt(InstructionId.SET_WIDGET_GRAPHIC.uid)
-        );
-        ccButton.onMouseExit(
-                InstructionArgs.createStack()
-                        .addNextInt(ccButton.id)
-                        .addNextInt(1750)
-                        .addNextInt(InstructionId.SET_WIDGET_GRAPHIC.uid)
-        );
-        parent.setChildPosition(ccButton, 0, index * 35);
+        );*/
 
-        RSInterface ccIcon = parent.createChildComponent(2);
-        ccIcon.setItemContainer(3, 5, 5, 5);
-        ccIcon.setItemModel(args.getNextInt() + 1, 1);
-        parent.setChildPosition(ccIcon, 2, (index * 35) + 1);
+            RSInterface ccIcon = parent.createChildComponent(2);
+            ccIcon.setItemContainer(3, 5, 5, 5);
+            ccIcon.setItemModel(args.getNextInt() + 1, 1);
+            parent.setChildPosition(ccIcon, 2, (i * 35) + 1);
 
-        RSInterface ccText = parent.createChildComponent(4);
-        ccText.setText(args.getNextString(), 1, 0xff981f, false, true);
-        parent.setChildPosition(ccText, 45, (index * 35) + 6);
+            RSInterface ccText = parent.createChildComponent(4);
+            ccText.setText(args.getNextString(), 1, 0xff981f, false, true);
+            parent.setChildPosition(ccText, 45, (i * 35) + 6);
 
-        parent.scrollMax = Math.max(187, 35 * index);
+            parent.scrollMax = Math.max(187, 35 * i);
+        }
         return null;
     }
 }
