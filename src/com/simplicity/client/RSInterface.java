@@ -2087,7 +2087,7 @@ public class RSInterface {
 
         if (runeCount > 0) {
             int modelOffsetX = ((174 - (56 * runeCount)) / 2) + 20;
-            int infoOffsetX = ((174 - fonts[0].getTextWidth("%1/0")) / 2) + 20;
+            int infoOffsetX = ((174 - ((4 * fonts[0].getTextWidth("%1/0")) * runeCount)) / 2);
             for (int i = 0; i < runeCount; i++) {
                 widget = addInterface(id);
                 widget.type = 6;
@@ -2116,11 +2116,17 @@ public class RSInterface {
                 widget.enabledColor = 49152;
                 widget.textDrawingAreas = fonts[0];
                 widget.message = "%1/"+ runesRequired[i];
+                widget.enabledMessage = widget.message;
                 widget.width = fonts[0].getTextWidth(widget.message);
-                widget.valueIndexArray = new int[2][];
-                widget.valueCompareType = new int[2];
-                widget.requiredValues = new int[2];
-                infobox.child(childId++, id++, infoOffsetX + (i * 50), 78);
+                widget.valueCompareType = new int[] {10};
+                widget.requiredValues = new int[] {runesRequired[i]};
+                widget.valueIndexArray = new int[1][];
+                widget.valueIndexArray[0] = new int[4];
+                widget.valueIndexArray[0][0] = 4;
+                widget.valueIndexArray[0][1] = 3214;
+                widget.valueIndexArray[0][2] = runeIds[i];
+                widget.valueIndexArray[0][3] = 0;
+                infobox.child(childId++, id++, infoOffsetX + (i * 52) + (32 - fonts[0].getTextWidth(widget.message) / 2), 78);
             }
         }
 
