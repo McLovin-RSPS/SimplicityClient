@@ -4602,6 +4602,8 @@ public class Client extends RSApplet {
                         		functionId = 28;
                         	} else if (functionId == 590) {
                         		functionId = 27;
+                        	} else if (functionId == 630) {
+                        		functionId = 21;
                         	} else {
                         		if (cached > 500) {
                     				functionId -= 575;
