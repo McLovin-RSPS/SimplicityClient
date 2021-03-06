@@ -171,8 +171,8 @@ public final class IDK {
 	public static IDK cache[];
 	public int bodyPartID;
 	private int[] bodyModelIDs;
-	private final int[] recolourOriginal;
-	private final int[] recolourTarget;
+	private int[] recolourOriginal;
+	private int[] recolourTarget;
 	private final int[] headModelIDs = { -1, -1, -1, -1, -1 };
 	public boolean notSelectable;
 }
