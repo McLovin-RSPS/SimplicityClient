@@ -6022,7 +6022,7 @@ public class Client extends RSApplet {
                                     			hitMark = cacheSprite[1747];
                                     		}
                                     	} else if (getRegionId() == 12126) {
-                                    		if (n.getName().equals("Zalcano")) {
+                                    		if (n.getName().equals("Zalcano") && BossHealthOverlay.getStage(BossHealthOverlay.VARP_ZALCANO) == 1) {
                                     			hitMark = cacheSprite[1776];
                                     		}
                                     	}
@@ -16655,8 +16655,8 @@ public class Client extends RSApplet {
                             boolean achievements = rsInterface.id == AchievementsWidget.INTERFACE_ID + 15;
     						
     						DrawingArea.drawRectangle(childY - 1, child.height + 2, 250, 0, child.width -5, childX - 1);
-    						DrawingArea.drawAlphaPixels(childX, childY, width - 7, height, 0, child.progressBackAlpha);
-    						DrawingArea.drawAlphaPixels(childX, childY, (int) ((double) current / maximum * width - 7), height, color, 150);
+    						DrawingArea.drawAlphaPixels(childX, childY, width - 7, height, child.progressBackColor, child.progressBackAlpha);
+    						DrawingArea.drawAlphaPixels(childX, childY, (int) ((double) current / maximum * width - 7), height, color, 200);
 
     						if (child.drawProgressText) {
                                 RSFontSystem font = child.rsFont == null ? newSmallFont : child.rsFont;

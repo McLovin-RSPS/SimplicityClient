@@ -14010,6 +14010,7 @@ public class RSInterface {
 	public int[] buttonsToDisable;
 	public boolean active;
 	public boolean drawProgressText = true;
+	public int progressBackColor = 0;
 	public int progressBackAlpha = 150;
 	
 	public int hoverIconX;
