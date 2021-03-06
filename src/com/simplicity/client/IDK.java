@@ -36,6 +36,10 @@ public final class IDK {
 			}
 		}
 		
+		if (length <= OVERRIDE_INDEX_START) {
+			return;
+		}
+		
 		int[][] newStyleRanges = new int[][] { { 169, 198 }, { 245, 268 }, { 269, 303 }, { 309, 316 }, { 317, 326 }, { 327, 334 }, { 335, 344 }, { 345, 352 }, { 353, 362 } };
 		
 		int start = OVERRIDE_INDEX_START;
