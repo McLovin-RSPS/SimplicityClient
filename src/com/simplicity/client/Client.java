@@ -5944,7 +5944,7 @@ public class Client extends RSApplet {
                     							multiplier = 4;
                     						}
             							}
-        							} else if (getRegionId() == 12126 && n.getName().equals("Zalcano")) {
+        							} else if (getRegionId() == 12126 && n.getName().equals("Zalcano") && BossHealthOverlay.getStage(BossHealthOverlay.VARP_ZALCANO) == 1) {
         								hpColor = 0xe25505;
         								bgColor = 0x491c00;
         								multiplier = 4;
