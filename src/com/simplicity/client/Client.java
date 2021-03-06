@@ -15789,20 +15789,6 @@ public class Client extends RSApplet {
                                 false, false);
                     }
                 } else if (child.type != 1) {
-                    if (child.hasMouseListeners() && childHovered) {
-                        if (activeHoveredWidgetId != child.id) {
-                            if (activeHoveredWidgetId != -1) {
-                                RSInterface.interfaceCache[activeHoveredWidgetId].onMouseExit();
-                            }
-                            activeHoveredWidgetId = child.id;
-                            RSInterface.interfaceCache[activeHoveredWidgetId].onMouseEnter();
-                        }
-                    } else {
-                        if (activeHoveredWidgetId != -1) {
-                            RSInterface.interfaceCache[activeHoveredWidgetId].onMouseExit();
-                            activeHoveredWidgetId = -1;
-                        }
-                    }
                     if (child.type == 2) {
                         int spriteIndex = 0;
                         for (int height = 0; height < child.height; height++) {
@@ -16243,9 +16229,6 @@ public class Client extends RSApplet {
                             child.enabledSprite = ItemDefinition.getSprite(child.itemSpriteId2, 1,
                                     (child.itemSpriteZoom2 == -1) ? 0 : -1, child.itemSpriteZoom2);
                         }
-                        /*boolean hoveringChild = (child.atActionType == 1 || child.atActionType == 5) && childHovered;
-                        if (Client.clientSize == 0 && openInterfaceID == child.layerId && !mouseInGameArea())
-                            hoveringChild = false;*/
                         if (child.displayedSprite != null) {
                             sprite = child.displayedSprite;
                         } else if (interfaceIsSelected(child) || hoverSpriteId == child.id) {
@@ -22038,6 +22021,9 @@ public class Client extends RSApplet {
                         if (w != null && w.stateListener != null) {
                         	w.stateListener.onDisplay();
                         }
+
+                        if (openInterfaceID > -1)
+                            RSInterface.interfaceCache[openInterfaceID].onClose();
                         
                         openInterfaceID = interfaceID;
                         if (openInterfaceID > 0) {
@@ -23430,7 +23416,6 @@ public class Client extends RSApplet {
     public Sprite[] mapFunctionsOSRS;
     private static int baseX;
     private static int baseY;
-    public static int activeHoveredWidgetId = -1;
 
     public static int getBaseX() {
         return baseX;
