@@ -161,6 +161,11 @@ public final class ObjectDefinition {
         if (i == 134520 || i == 134541 || i == 134542) {
         	objectDef.showBlackTriangles = true;
         }
+        
+        if (i == 136192) { // Rock formation
+        	objectDef.animationID = 23709;
+        	objectDef.canRandomAnimStart = false;
+        }
 
         if (i == 126953) {
             objectDef.hasActions = false;

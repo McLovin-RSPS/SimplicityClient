@@ -40,6 +40,10 @@ public final class Animation {
 				anims[j].readValuesNew(stream);
 			}
 			
+			if (j == 23709) { // Rock formation anim
+				anims[j].loopDelay = 1;
+			}
+			
 			if (j == 16918) { // 1658 osrs whip anim
 				anims[j].dataType = DataType.REGULAR;
 			}
