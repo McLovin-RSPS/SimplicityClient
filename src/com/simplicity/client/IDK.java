@@ -7,6 +7,13 @@ import com.simplicity.client.cache.DataType;
 
 public final class IDK {
 
+	/*
+	 * New hairstyles will start from index 98. The max indice for a style in this
+	 * engine is 256. Newer engines do not have this limitation hence why the ID's
+	 * are higher.
+	 */
+	private static final int OVERRIDE_INDEX_START = 98;
+
 	public static void unpackConfig(CacheArchive streamLoader) {
 		Stream stream = new Stream(streamLoader.getDataForName("idk.dat"));
 		length = stream.readUnsignedWord();
@@ -15,7 +22,55 @@ public final class IDK {
 		for (int j = 0; j < length; j++) {
 			if (cache[j] == null)
 				cache[j] = new IDK();
+			
 			cache[j].readValues(stream);
+			
+			/**
+			 * The code below fixes the pink on some of the styles.
+			 */
+			cache[j].recolourOriginal[0] = 55232;
+			cache[j].recolourTarget[0] = 6798;
+			
+			if (j >= OVERRIDE_INDEX_START) { // Set higher indices as not selectable by default as we can't enable them all.
+				cache[j].notSelectable = true;
+			}
+		}
+		
+		int[][] newStyleRanges = new int[][] { { 169, 198 }, { 245, 268 }, { 269, 303 }, { 309, 316 }, { 317, 326 }, { 327, 334 }, { 335, 344 }, { 345, 352 }, { 353, 362 } };
+		
+		int start = OVERRIDE_INDEX_START;
+		
+		/**
+		 * Code below moves the styles from higher indices into lower ones to be usable.
+		 */
+		for (int i = 0; i < newStyleRanges.length; i++) {
+			for (int j = newStyleRanges[i][0]; j <= newStyleRanges[i][1]; j++) {
+				cache[start].copy(j);
+				cache[start].notSelectable = false;
+				start++;
+			}
+		}
+	}
+	
+	private void copy(int from) {
+		IDK idk = cache[from];
+		bodyPartID = idk.bodyPartID;
+		bodyModelIDs = new int[idk.bodyModelIDs.length];
+		
+		for (int i = 0; i < idk.bodyModelIDs.length; i++) {
+			bodyModelIDs[i] = idk.bodyModelIDs[i];
+		}
+		
+		recolourOriginal = new int[idk.recolourOriginal.length];
+		
+		for (int i = 0; i < idk.recolourOriginal.length; i++) {
+			recolourOriginal[i] = idk.recolourOriginal[i];
+		}
+		
+		recolourTarget = new int[idk.recolourTarget.length];
+		
+		for (int i = 0; i < idk.recolourTarget.length; i++) {
+			recolourTarget[i] = idk.recolourTarget[i];
 		}
 	}
 
