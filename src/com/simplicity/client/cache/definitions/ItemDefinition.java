@@ -305,7 +305,9 @@ public final class ItemDefinition {
 
     public static void postOsrsItemDef(ItemDefinition itemDef) {
         switch(itemDef.id) {
-
+            case 55087:
+                itemDef.name = "@red@Mystery Donation Scroll";
+                break;
 	        case 52323:
 	            itemDef.maleZOffset = -11;
 	            itemDef.femaleZOffset = 11;
