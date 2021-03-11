@@ -8277,21 +8277,12 @@ public class Client extends RSApplet {
             	sizeY = -2;
             }
 
-            boolean moveNear = false;
-            
-            /**
-             * Walking up to objects that are unreachable by default.
-             */
-            if (id == 131561 || id == 119040) {
-            	moveNear = true;
-            }
-
             int reqPlane = objectDef.plane;
             if (objectRotation != 0) {
                 reqPlane = (reqPlane << objectRotation & 0xf) + (reqPlane >> 4 - objectRotation);
             }
             
-            doWalkTo(2, 0, sizeY, 0, myPlayer.pathY[0], sizeX, reqPlane, tileY, myPlayer.pathX[0], moveNear, tileX);
+            doWalkTo(2, 0, sizeY, 0, myPlayer.pathY[0], sizeX, reqPlane, tileY, myPlayer.pathX[0], false, tileX);
         } else {
             doWalkTo(2, objectRotation, 0, objectType + 1, myPlayer.pathY[0], 0, 0, tileY, myPlayer.pathX[0], false,
                     tileX);
@@ -13648,14 +13639,17 @@ public class Client extends RSApplet {
     private boolean doWalkTo(int i, int j, int k, int objectType, int fromLocalY, int k1, int l1, int toLocalY, int fromLocalX, boolean moveNear,
                              int toLocalX) {
         try {
+        	moveNear = true; // Always walks to the closest tile
+        	
+        	anIntArrayArray901 = new int[104][104];
+        	
             byte mapSizeX = 104;
             byte mapSizeY = 104;
+            
             for (int l2 = 0; l2 < mapSizeX; l2++) {
-                for (int i3 = 0; i3 < mapSizeY; i3++) {
-                    anIntArrayArray901[l2][i3] = 0;
-                    anIntArrayArray825[l2][i3] = 0x5f5e0ff;
-                }
-            }
+    			Arrays.fill(anIntArrayArray825[l2],	0x5F5E0FF);
+    		}
+            
             int currentX = fromLocalX;
             int currentY = fromLocalY;
             anIntArrayArray901[fromLocalX][fromLocalY] = 99;
@@ -13754,32 +13748,53 @@ public class Client extends RSApplet {
                     anIntArrayArray825[currentX + 1][currentY + 1] = l4;
                 }
             }
+
             anInt1264 = 0;
             if (!foundPath) {
                 if (moveNear) {
-                    int i5 = 100;
-                    for (int deviation = 1; deviation < 3; deviation++) {
-                        for (int i6 = toLocalX - deviation; i6 <= toLocalX + deviation; i6++) {
-                            for (int l6 = toLocalY - deviation; l6 <= toLocalY + deviation; l6++) {
-                                if (i6 >= 0 && l6 >= 0 && i6 < 104 && l6 < 104 && anIntArrayArray825[i6][l6] < i5) {
-                                    i5 = anIntArrayArray825[i6][l6];
+                	int i_127_ = 1000;
+                	int i_128_ = 10;
+                    int i_129_ = 100;
+                    
+                    for (int i6 = toLocalX - i_128_; i6 <= toLocalX + i_128_; i6++) {
+                        for (int l6 = toLocalY - i_128_; l6 <= toLocalY + i_128_; l6++) {
+                            if (i6 >= 0 && l6 >= 0 && i6 < 104 && l6 < 104 && anIntArrayArray825[i6][l6] < 100) {
+                            	
+    							int i_132_ = 0;
+    							int i_133_ = 0;
+    							if (i6 < toLocalX)
+    								i_133_ = -i6 + toLocalX;
+    							else if (toLocalX + k1 - 1 < i6)
+    								i_133_ = 1 - toLocalX - (k1 - i6);
+    							if (toLocalY > l6)
+    								i_132_ = -l6 + toLocalY;
+    							else if (k + (toLocalY - 1) < l6)
+    								i_132_ = l6 + 1 - k - toLocalY;
+    							int i_134_ = i_132_ * i_132_ + i_133_ * i_133_;
+    							
+    							if (i_127_ > i_134_
+    									|| (i_127_ == i_134_ && i_129_ > (anIntArrayArray825[i6][l6]))) {
+                                    i_127_ = i_134_;
                                     currentX = i6;
                                     currentY = l6;
-                                    anInt1264 = 1;
-                                    foundPath = true;
-                                }
+                                    i_129_ = anIntArrayArray825[i6][l6];
+    							}
                             }
-
                         }
 
-                        if (foundPath) {
-                            break;
-                        }
                     }
 
-                }
-                if (!foundPath) {
-                    return false;
+                    if (i_127_ == 1000) {
+                    	return false;
+                    }
+                    
+                    if (currentX == fromLocalX && currentY == fromLocalY) {
+    					return false;
+    				}
+                    
+                    anInt1264 = 1;
+                } else {
+                	return false;
                 }
             }
             currentIndex = 0;
