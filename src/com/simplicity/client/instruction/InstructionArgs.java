@@ -123,6 +123,14 @@ public class InstructionArgs {
         return this;
     }
 
+    public int getIntArg(int position) {
+        return intStack[position];
+    }
+
+    public String getStringArg(int position) {
+        return stringStack[this.stringStackPos - position];
+    }
+
     public InstructionArgs intStackOffset(int offset) {
         this.intStackPos -= offset;
         return this;

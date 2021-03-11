@@ -2087,7 +2087,7 @@ public class RSInterface {
 
         if (runeCount > 0) {
             int modelOffsetX = ((174 - (56 * runeCount)) / 2) + 20;
-            int infoOffsetX = ((174 - fonts[0].getTextWidth("%1/0")) / 2) + 20;
+            int infoOffsetX = ((174 - ((4 * fonts[0].getTextWidth("%1/0")) * runeCount)) / 2);
             for (int i = 0; i < runeCount; i++) {
                 widget = addInterface(id);
                 widget.type = 6;
@@ -2116,11 +2116,17 @@ public class RSInterface {
                 widget.enabledColor = 49152;
                 widget.textDrawingAreas = fonts[0];
                 widget.message = "%1/"+ runesRequired[i];
+                widget.enabledMessage = widget.message;
                 widget.width = fonts[0].getTextWidth(widget.message);
-                widget.valueIndexArray = new int[2][];
-                widget.valueCompareType = new int[2];
-                widget.requiredValues = new int[2];
-                infobox.child(childId++, id++, infoOffsetX + (i * 50), 78);
+                widget.valueCompareType = new int[] {10};
+                widget.requiredValues = new int[] {runesRequired[i]};
+                widget.valueIndexArray = new int[1][];
+                widget.valueIndexArray[0] = new int[4];
+                widget.valueIndexArray[0][0] = 4;
+                widget.valueIndexArray[0][1] = 3214;
+                widget.valueIndexArray[0][2] = runeIds[i];
+                widget.valueIndexArray[0][3] = 0;
+                infobox.child(childId++, id++, infoOffsetX + (i * 52) + (32 - fonts[0].getTextWidth(widget.message) / 2), 78);
             }
         }
 
@@ -14004,6 +14010,7 @@ public class RSInterface {
 	public int[] buttonsToDisable;
 	public boolean active;
 	public boolean drawProgressText = true;
+	public int progressBackColor = 0;
 	public int progressBackAlpha = 150;
 	
 	public int hoverIconX;
@@ -16913,6 +16920,10 @@ public class RSInterface {
         this.height = this.disabledSprite.myHeight;
         this.spriteOpacity = 255;
     }
+
+    public void setGraphicWidget(int graphicId) {
+
+    }
 	
 	public static void configHoverButton(int id, String tooltip, String[] actions, int enabledSprite, int disabledSprite,
 			int enabledAltSprite, int disabledAltSprite, boolean active, int... buttonsToDisable) {
@@ -17303,6 +17314,11 @@ public class RSInterface {
 	    child.parentID = id;
 	    child.layerId = parentID;
 	    child.newFormat = true;
+	    if (type == 0) {
+            child.children = new int[0];
+            child.childX = new int[0];
+            child.childY = new int[0];
+        }
 	    int childId = getFreeChildId();
 	    if (childId != -1) {
             child.childId = childId;
@@ -17735,19 +17751,24 @@ public class RSInterface {
     public void onClose() {
         if (children == null || children.length == 0)
             return;
+
         for (int id : children) {
             RSInterface child = RSInterface.interfaceCache[id];
-            if (child.closeInstructions == null)
-                continue;
             if (child.type == 0) {
-                child.onClose();
-                continue;
+                processCloseInstructions(child.id);
             }
-            for (VoidInstruction ins : child.closeInstructions) {
-                InstructionArgs args = InstructionArgs.createStack();
-                args.addNextInt(child.id);
-                ins.invoke(args);
-            }
+        }
+    }
+
+    private void processCloseInstructions(int id) {
+        RSInterface widget = interfaceCache[id];
+        if (widget.closeInstructions == null)
+            return;
+
+        for (VoidInstruction ins : widget.closeInstructions) {
+            InstructionArgs args = InstructionArgs.createStack();
+            args.addNextInt(widget.id);
+            ins.invoke(args);
         }
     }
 }

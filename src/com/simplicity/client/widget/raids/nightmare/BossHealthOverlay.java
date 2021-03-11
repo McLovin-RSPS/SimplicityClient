@@ -51,23 +51,24 @@ public class BossHealthOverlay extends CustomWidget {
 	}
 
 	public static void onVarpChange(int id, int value) {
-		if (id == VARP_NIGHTMARE) {
-			setProgress(value, 24000);
-			setHeader("The Nightmare");
-		} else if (id == VARP_ZALCANO) {
-			setProgress(value, 3000);
-			RSInterface progress = RSInterface.interfaceCache[PROGRESS_WIDGET_ID];
-			progress.fillColor = 0xff8a00;
-			setHeader("Zalcano");
-		}
-	}
-	
-	private static void setProgress(int value, int max) {
 		int hp_amount = value & 0xFFFF;
 		int stage = value >> 16 & 0xFFFF;
-		RSInterface progress = RSInterface.interfaceCache[PROGRESS_WIDGET_ID];
-		progress.fillColor = stage == 0 ? 0x00FFFF : 0X00FF00;
-		progress.message = hp_amount + "/" + max;
+		
+		if (id == VARP_NIGHTMARE) {
+			RSInterface progress = RSInterface.interfaceCache[PROGRESS_WIDGET_ID];
+			progress.fillColor = stage == 0 ? 0x00FFFF : 0X00FF00;
+			progress.progressBackColor = 0;
+			progress.progressBackAlpha = 150;
+			progress.message = hp_amount + "/24000";
+			setHeader("The Nightmare");
+		} else if (id == VARP_ZALCANO) {
+			RSInterface progress = RSInterface.interfaceCache[PROGRESS_WIDGET_ID];
+			progress.fillColor = stage == 1 ? 0xff8a00 : 0x00ff00;
+			progress.progressBackColor = stage == 1 ? 0 : 0xff0000;
+			progress.progressBackAlpha = stage == 1 ? 150 : 255;
+			progress.message = hp_amount + "/" + (stage == 1 ? 3000 : 10000);
+			setHeader("Zalcano");
+		}
 	}
 	
 	private static void setHeader(String name) {

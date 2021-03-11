@@ -4602,6 +4602,8 @@ public class Client extends RSApplet {
                         		functionId = 28;
                         	} else if (functionId == 590) {
                         		functionId = 27;
+                        	} else if (functionId == 630) {
+                        		functionId = 21;
                         	} else {
                         		if (cached > 500) {
                     				functionId -= 575;
@@ -5944,7 +5946,7 @@ public class Client extends RSApplet {
                     							multiplier = 4;
                     						}
             							}
-        							} else if (getRegionId() == 12126 && n.getName().equals("Zalcano")) {
+        							} else if (getRegionId() == 12126 && n.getName().equals("Zalcano") && BossHealthOverlay.getStage(BossHealthOverlay.VARP_ZALCANO) == 1) {
         								hpColor = 0xe25505;
         								bgColor = 0x491c00;
         								multiplier = 4;
@@ -6020,7 +6022,7 @@ public class Client extends RSApplet {
                                     			hitMark = cacheSprite[1747];
                                     		}
                                     	} else if (getRegionId() == 12126) {
-                                    		if (n.getName().equals("Zalcano")) {
+                                    		if (n.getName().equals("Zalcano") && BossHealthOverlay.getStage(BossHealthOverlay.VARP_ZALCANO) == 1) {
                                     			hitMark = cacheSprite[1776];
                                     		}
                                     	}
@@ -13653,174 +13655,174 @@ public class Client extends RSApplet {
         loginMessages = new String[]{"Error connecting to server.", "Please try connecting again!"};
     }
 
-    private boolean doWalkTo(int i, int j, int k, int i1, int j1, int k1, int l1, int i2, int j2, boolean flag,
+    private boolean doWalkTo(int i, int j, int k, int i1, int fromLocalY, int k1, int l1, int i2, int fromLocalX, boolean moveNear,
                              int k2) {
         try {
-            byte byte0 = 104;
-            byte byte1 = 104;
-            for (int l2 = 0; l2 < byte0; l2++) {
-                for (int i3 = 0; i3 < byte1; i3++) {
+            byte mapSizeX = 104;
+            byte mapSizeY = 104;
+            for (int l2 = 0; l2 < mapSizeX; l2++) {
+                for (int i3 = 0; i3 < mapSizeY; i3++) {
                     anIntArrayArray901[l2][i3] = 0;
                     anIntArrayArray825[l2][i3] = 0x5f5e0ff;
                 }
             }
-            int j3 = j2;
-            int k3 = j1;
-            anIntArrayArray901[j2][j1] = 99;
-            anIntArrayArray825[j2][j1] = 0;
-            int l3 = 0;
-            int i4 = 0;
-            bigX[l3] = j2;
-            bigY[l3++] = j1;
-            boolean flag1 = false;
-            int j4 = bigX.length;
-            int ai[][] = clippingPlanes[plane].clipData;
-            while (i4 != l3) {
-                j3 = bigX[i4];
-                k3 = bigY[i4];
-                i4 = (i4 + 1) % j4;
-                if (j3 == k2 && k3 == i2) {
-                    flag1 = true;
+            int currentX = fromLocalX;
+            int currentY = fromLocalY;
+            anIntArrayArray901[fromLocalX][fromLocalY] = 99;
+            anIntArrayArray825[fromLocalX][fromLocalY] = 0;
+            int nextIndex = 0;
+            int currentIndex = 0;
+            bigX[nextIndex] = fromLocalX;
+            bigY[nextIndex++] = fromLocalY;
+            boolean foundPath = false;
+            int maxPathSize = bigX.length;
+            int clippingFlags[][] = clippingPlanes[plane].clipData;
+            while (currentIndex != nextIndex) {
+                currentX = bigX[currentIndex];
+                currentY = bigY[currentIndex];
+                currentIndex = (currentIndex + 1) % maxPathSize;
+                if (currentX == k2 && currentY == i2) {
+                    foundPath = true;
                     break;
                 }
                 if (i1 != 0) {
-                    if ((i1 < 5 || i1 == 10) && clippingPlanes[plane].checkWallClipping(k2, j3, k3, j, i1 - 1, i2)) {
-                        flag1 = true;
+                    if ((i1 < 5 || i1 == 10) && clippingPlanes[plane].checkWallClipping(k2, currentX, currentY, j, i1 - 1, i2)) {
+                        foundPath = true;
                         break;
                     }
-                    if (i1 < 10 && clippingPlanes[plane].checkWallDecorationClipping(k2, i2, k3, i1 - 1, j, j3)) {
-                        flag1 = true;
+                    if (i1 < 10 && clippingPlanes[plane].checkWallDecorationClipping(k2, i2, currentY, i1 - 1, j, currentX)) {
+                        foundPath = true;
                         break;
                     }
                 }
-                if (k1 != 0 && k != 0 && clippingPlanes[plane].canWalkToEntity(i2, k2, j3, k, l1, k1, k3)) {
-                    flag1 = true;
+                if (k1 != 0 && k != 0 && clippingPlanes[plane].canWalkToEntity(i2, k2, currentX, k, l1, k1, currentY)) {
+                    foundPath = true;
                     break;
                 }
-                int l4 = anIntArrayArray825[j3][k3] + 1;
-                if (j3 > 0 && anIntArrayArray901[j3 - 1][k3] == 0 && (ai[j3 - 1][k3] & 0x1280108) == 0) {
-                    bigX[l3] = j3 - 1;
-                    bigY[l3] = k3;
-                    l3 = (l3 + 1) % j4;
-                    anIntArrayArray901[j3 - 1][k3] = 2;
-                    anIntArrayArray825[j3 - 1][k3] = l4;
+                int l4 = anIntArrayArray825[currentX][currentY] + 1;
+                if (currentX > 0 && anIntArrayArray901[currentX - 1][currentY] == 0 && (clippingFlags[currentX - 1][currentY] & 0x1280108) == 0) {
+                    bigX[nextIndex] = currentX - 1;
+                    bigY[nextIndex] = currentY;
+                    nextIndex = (nextIndex + 1) % maxPathSize;
+                    anIntArrayArray901[currentX - 1][currentY] = 2;
+                    anIntArrayArray825[currentX - 1][currentY] = l4;
                 }
-                if (j3 < byte0 - 1 && anIntArrayArray901[j3 + 1][k3] == 0 && (ai[j3 + 1][k3] & 0x1280180) == 0) {
-                    bigX[l3] = j3 + 1;
-                    bigY[l3] = k3;
-                    l3 = (l3 + 1) % j4;
-                    anIntArrayArray901[j3 + 1][k3] = 8;
-                    anIntArrayArray825[j3 + 1][k3] = l4;
+                if (currentX < mapSizeX - 1 && anIntArrayArray901[currentX + 1][currentY] == 0 && (clippingFlags[currentX + 1][currentY] & 0x1280180) == 0) {
+                    bigX[nextIndex] = currentX + 1;
+                    bigY[nextIndex] = currentY;
+                    nextIndex = (nextIndex + 1) % maxPathSize;
+                    anIntArrayArray901[currentX + 1][currentY] = 8;
+                    anIntArrayArray825[currentX + 1][currentY] = l4;
                 }
-                if (k3 > 0 && anIntArrayArray901[j3][k3 - 1] == 0 && (ai[j3][k3 - 1] & 0x1280102) == 0) {
-                    bigX[l3] = j3;
-                    bigY[l3] = k3 - 1;
-                    l3 = (l3 + 1) % j4;
-                    anIntArrayArray901[j3][k3 - 1] = 1;
-                    anIntArrayArray825[j3][k3 - 1] = l4;
+                if (currentY > 0 && anIntArrayArray901[currentX][currentY - 1] == 0 && (clippingFlags[currentX][currentY - 1] & 0x1280102) == 0) {
+                    bigX[nextIndex] = currentX;
+                    bigY[nextIndex] = currentY - 1;
+                    nextIndex = (nextIndex + 1) % maxPathSize;
+                    anIntArrayArray901[currentX][currentY - 1] = 1;
+                    anIntArrayArray825[currentX][currentY - 1] = l4;
                 }
-                if (k3 < byte1 - 1 && anIntArrayArray901[j3][k3 + 1] == 0 && (ai[j3][k3 + 1] & 0x1280120) == 0) {
-                    bigX[l3] = j3;
-                    bigY[l3] = k3 + 1;
-                    l3 = (l3 + 1) % j4;
-                    anIntArrayArray901[j3][k3 + 1] = 4;
-                    anIntArrayArray825[j3][k3 + 1] = l4;
+                if (currentY < mapSizeY - 1 && anIntArrayArray901[currentX][currentY + 1] == 0 && (clippingFlags[currentX][currentY + 1] & 0x1280120) == 0) {
+                    bigX[nextIndex] = currentX;
+                    bigY[nextIndex] = currentY + 1;
+                    nextIndex = (nextIndex + 1) % maxPathSize;
+                    anIntArrayArray901[currentX][currentY + 1] = 4;
+                    anIntArrayArray825[currentX][currentY + 1] = l4;
                 }
-                if (j3 > 0 && k3 > 0 && anIntArrayArray901[j3 - 1][k3 - 1] == 0 && (ai[j3 - 1][k3 - 1] & 0x128010e) == 0
-                        && (ai[j3 - 1][k3] & 0x1280108) == 0 && (ai[j3][k3 - 1] & 0x1280102) == 0) {
-                    bigX[l3] = j3 - 1;
-                    bigY[l3] = k3 - 1;
-                    l3 = (l3 + 1) % j4;
-                    anIntArrayArray901[j3 - 1][k3 - 1] = 3;
-                    anIntArrayArray825[j3 - 1][k3 - 1] = l4;
+                if (currentX > 0 && currentY > 0 && anIntArrayArray901[currentX - 1][currentY - 1] == 0 && (clippingFlags[currentX - 1][currentY - 1] & 0x128010e) == 0
+                        && (clippingFlags[currentX - 1][currentY] & 0x1280108) == 0 && (clippingFlags[currentX][currentY - 1] & 0x1280102) == 0) {
+                    bigX[nextIndex] = currentX - 1;
+                    bigY[nextIndex] = currentY - 1;
+                    nextIndex = (nextIndex + 1) % maxPathSize;
+                    anIntArrayArray901[currentX - 1][currentY - 1] = 3;
+                    anIntArrayArray825[currentX - 1][currentY - 1] = l4;
                 }
-                if (j3 < byte0 - 1 && k3 > 0 && anIntArrayArray901[j3 + 1][k3 - 1] == 0
-                        && (ai[j3 + 1][k3 - 1] & 0x1280183) == 0 && (ai[j3 + 1][k3] & 0x1280180) == 0
-                        && (ai[j3][k3 - 1] & 0x1280102) == 0) {
-                    bigX[l3] = j3 + 1;
-                    bigY[l3] = k3 - 1;
-                    l3 = (l3 + 1) % j4;
-                    anIntArrayArray901[j3 + 1][k3 - 1] = 9;
-                    anIntArrayArray825[j3 + 1][k3 - 1] = l4;
+                if (currentX < mapSizeX - 1 && currentY > 0 && anIntArrayArray901[currentX + 1][currentY - 1] == 0
+                        && (clippingFlags[currentX + 1][currentY - 1] & 0x1280183) == 0 && (clippingFlags[currentX + 1][currentY] & 0x1280180) == 0
+                        && (clippingFlags[currentX][currentY - 1] & 0x1280102) == 0) {
+                    bigX[nextIndex] = currentX + 1;
+                    bigY[nextIndex] = currentY - 1;
+                    nextIndex = (nextIndex + 1) % maxPathSize;
+                    anIntArrayArray901[currentX + 1][currentY - 1] = 9;
+                    anIntArrayArray825[currentX + 1][currentY - 1] = l4;
                 }
-                if (j3 > 0 && k3 < byte1 - 1 && anIntArrayArray901[j3 - 1][k3 + 1] == 0
-                        && (ai[j3 - 1][k3 + 1] & 0x1280138) == 0 && (ai[j3 - 1][k3] & 0x1280108) == 0
-                        && (ai[j3][k3 + 1] & 0x1280120) == 0) {
-                    bigX[l3] = j3 - 1;
-                    bigY[l3] = k3 + 1;
-                    l3 = (l3 + 1) % j4;
-                    anIntArrayArray901[j3 - 1][k3 + 1] = 6;
-                    anIntArrayArray825[j3 - 1][k3 + 1] = l4;
+                if (currentX > 0 && currentY < mapSizeY - 1 && anIntArrayArray901[currentX - 1][currentY + 1] == 0
+                        && (clippingFlags[currentX - 1][currentY + 1] & 0x1280138) == 0 && (clippingFlags[currentX - 1][currentY] & 0x1280108) == 0
+                        && (clippingFlags[currentX][currentY + 1] & 0x1280120) == 0) {
+                    bigX[nextIndex] = currentX - 1;
+                    bigY[nextIndex] = currentY + 1;
+                    nextIndex = (nextIndex + 1) % maxPathSize;
+                    anIntArrayArray901[currentX - 1][currentY + 1] = 6;
+                    anIntArrayArray825[currentX - 1][currentY + 1] = l4;
                 }
-                if (j3 < byte0 - 1 && k3 < byte1 - 1 && anIntArrayArray901[j3 + 1][k3 + 1] == 0
-                        && (ai[j3 + 1][k3 + 1] & 0x12801e0) == 0 && (ai[j3 + 1][k3] & 0x1280180) == 0
-                        && (ai[j3][k3 + 1] & 0x1280120) == 0) {
-                    bigX[l3] = j3 + 1;
-                    bigY[l3] = k3 + 1;
-                    l3 = (l3 + 1) % j4;
-                    anIntArrayArray901[j3 + 1][k3 + 1] = 12;
-                    anIntArrayArray825[j3 + 1][k3 + 1] = l4;
+                if (currentX < mapSizeX - 1 && currentY < mapSizeY - 1 && anIntArrayArray901[currentX + 1][currentY + 1] == 0
+                        && (clippingFlags[currentX + 1][currentY + 1] & 0x12801e0) == 0 && (clippingFlags[currentX + 1][currentY] & 0x1280180) == 0
+                        && (clippingFlags[currentX][currentY + 1] & 0x1280120) == 0) {
+                    bigX[nextIndex] = currentX + 1;
+                    bigY[nextIndex] = currentY + 1;
+                    nextIndex = (nextIndex + 1) % maxPathSize;
+                    anIntArrayArray901[currentX + 1][currentY + 1] = 12;
+                    anIntArrayArray825[currentX + 1][currentY + 1] = l4;
                 }
             }
             anInt1264 = 0;
-            if (!flag1) {
-                if (flag) {
+            if (!foundPath) {
+                if (moveNear) {
                     int i5 = 100;
                     for (int k5 = 1; k5 < 2; k5++) {
                         for (int i6 = k2 - k5; i6 <= k2 + k5; i6++) {
                             for (int l6 = i2 - k5; l6 <= i2 + k5; l6++) {
                                 if (i6 >= 0 && l6 >= 0 && i6 < 104 && l6 < 104 && anIntArrayArray825[i6][l6] < i5) {
                                     i5 = anIntArrayArray825[i6][l6];
-                                    j3 = i6;
-                                    k3 = l6;
+                                    currentX = i6;
+                                    currentY = l6;
                                     anInt1264 = 1;
-                                    flag1 = true;
+                                    foundPath = true;
                                 }
                             }
 
                         }
 
-                        if (flag1) {
+                        if (foundPath) {
                             break;
                         }
                     }
 
                 }
-                if (!flag1) {
+                if (!foundPath) {
                     return false;
                 }
             }
-            i4 = 0;
-            bigX[i4] = j3;
-            bigY[i4++] = k3;
+            currentIndex = 0;
+            bigX[currentIndex] = currentX;
+            bigY[currentIndex++] = currentY;
             int l5;
-            for (int j5 = l5 = anIntArrayArray901[j3][k3]; j3 != j2 || k3 != j1; j5 = anIntArrayArray901[j3][k3]) {
+            for (int j5 = l5 = anIntArrayArray901[currentX][currentY]; currentX != fromLocalX || currentY != fromLocalY; j5 = anIntArrayArray901[currentX][currentY]) {
                 if (j5 != l5) {
                     l5 = j5;
-                    bigX[i4] = j3;
-                    bigY[i4++] = k3;
+                    bigX[currentIndex] = currentX;
+                    bigY[currentIndex++] = currentY;
                 }
                 if ((j5 & 2) != 0) {
-                    j3++;
+                    currentX++;
                 } else if ((j5 & 8) != 0) {
-                    j3--;
+                    currentX--;
                 }
                 if ((j5 & 1) != 0) {
-                    k3++;
+                    currentY++;
                 } else if ((j5 & 4) != 0) {
-                    k3--;
+                    currentY--;
                 }
             }
             // if(cancelWalk) { return i4 > 0; }
 
-            if (i4 > 0) {
-                int k4 = i4;
+            if (currentIndex > 0) {
+                int k4 = currentIndex;
                 if (k4 > 25) {
                     k4 = 25;
                 }
-                i4--;
-                int k6 = bigX[i4];
-                int i7 = bigY[i4];
+                currentIndex--;
+                int k6 = bigX[currentIndex];
+                int i7 = bigY[currentIndex];
                 anInt1288 += k4;
                 if (anInt1288 >= 92) {
                     stream.createFrame(36);
@@ -13849,9 +13851,9 @@ public class Client extends RSApplet {
                 destX = bigX[0];
                 destY = bigY[0];
                 for (int j7 = 1; j7 < k4; j7++) {
-                    i4--;
-                    stream.writeWordBigEndian(bigX[i4] - k6);
-                    stream.writeWordBigEndian(bigY[i4] - i7);
+                    currentIndex--;
+                    stream.writeWordBigEndian(bigX[currentIndex] - k6);
+                    stream.writeWordBigEndian(bigY[currentIndex] - i7);
                 }
 
                 stream.writeUnsignedWordBigEndian(i7 + baseY);
@@ -15789,20 +15791,6 @@ public class Client extends RSApplet {
                                 false, false);
                     }
                 } else if (child.type != 1) {
-                    if (child.hasMouseListeners() && childHovered) {
-                        if (activeHoveredWidgetId != child.id) {
-                            if (activeHoveredWidgetId != -1) {
-                                RSInterface.interfaceCache[activeHoveredWidgetId].onMouseExit();
-                            }
-                            activeHoveredWidgetId = child.id;
-                            RSInterface.interfaceCache[activeHoveredWidgetId].onMouseEnter();
-                        }
-                    } else {
-                        if (activeHoveredWidgetId != -1) {
-                            RSInterface.interfaceCache[activeHoveredWidgetId].onMouseExit();
-                            activeHoveredWidgetId = -1;
-                        }
-                    }
                     if (child.type == 2) {
                         int spriteIndex = 0;
                         for (int height = 0; height < child.height; height++) {
@@ -16243,9 +16231,6 @@ public class Client extends RSApplet {
                             child.enabledSprite = ItemDefinition.getSprite(child.itemSpriteId2, 1,
                                     (child.itemSpriteZoom2 == -1) ? 0 : -1, child.itemSpriteZoom2);
                         }
-                        /*boolean hoveringChild = (child.atActionType == 1 || child.atActionType == 5) && childHovered;
-                        if (Client.clientSize == 0 && openInterfaceID == child.layerId && !mouseInGameArea())
-                            hoveringChild = false;*/
                         if (child.displayedSprite != null) {
                             sprite = child.displayedSprite;
                         } else if (interfaceIsSelected(child) || hoverSpriteId == child.id) {
@@ -16670,8 +16655,8 @@ public class Client extends RSApplet {
                             boolean achievements = rsInterface.id == AchievementsWidget.INTERFACE_ID + 15;
     						
     						DrawingArea.drawRectangle(childY - 1, child.height + 2, 250, 0, child.width -5, childX - 1);
-    						DrawingArea.drawAlphaPixels(childX, childY, width - 7, height, 0, child.progressBackAlpha);
-    						DrawingArea.drawAlphaPixels(childX, childY, (int) ((double) current / maximum * width - 7), height, color, 150);
+    						DrawingArea.drawAlphaPixels(childX, childY, width - 7, height, child.progressBackColor, child.progressBackAlpha);
+    						DrawingArea.drawAlphaPixels(childX, childY, (int) ((double) current / maximum * width - 7), height, color, 200);
 
     						if (child.drawProgressText) {
                                 RSFontSystem font = child.rsFont == null ? newSmallFont : child.rsFont;
@@ -22038,6 +22023,9 @@ public class Client extends RSApplet {
                         if (w != null && w.stateListener != null) {
                         	w.stateListener.onDisplay();
                         }
+
+                        if (openInterfaceID > -1)
+                            RSInterface.interfaceCache[openInterfaceID].onClose();
                         
                         openInterfaceID = interfaceID;
                         if (openInterfaceID > 0) {
@@ -23430,7 +23418,6 @@ public class Client extends RSApplet {
     public Sprite[] mapFunctionsOSRS;
     private static int baseX;
     private static int baseY;
-    public static int activeHoveredWidgetId = -1;
 
     public static int getBaseX() {
         return baseX;

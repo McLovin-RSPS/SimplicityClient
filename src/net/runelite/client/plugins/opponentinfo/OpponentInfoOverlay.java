@@ -81,7 +81,7 @@ class OpponentInfoOverlay extends OverlayPanel
 			return null;
 		}
 
-		if (Client.getClient().getRegionId() == 15515) { // Nightmare
+		if (opponent.getName().equals("Zalcano") || Client.getClient().getRegionId() == 15515) { // Nightmare
 			return null;
 		}
 
