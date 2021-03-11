@@ -8277,31 +8277,21 @@ public class Client extends RSApplet {
             	sizeY = -2;
             }
 
+            boolean moveNear = false;
+            
             /**
-             * Revenant cave pillars walking up to.
+             * Walking up to objects that are unreachable by default.
              */
             if (id == 131561 || id == 119040) {
-                if (objectRotation == 1) {
-                    if (myPlayer.pathX[0] < tileX) {
-                        tileX -= sizeX;
-                    } else {
-                        tileX += sizeX;
-                    }
-                } else if (objectRotation == 0) {
-                    if (myPlayer.pathY[0] < tileY) {
-                        tileY -= sizeY;
-                    } else {
-                        tileY += sizeY;
-                    }
-                }
+            	moveNear = true;
             }
 
             int reqPlane = objectDef.plane;
             if (objectRotation != 0) {
                 reqPlane = (reqPlane << objectRotation & 0xf) + (reqPlane >> 4 - objectRotation);
             }
-
-            doWalkTo(2, 0, sizeY, 0, myPlayer.pathY[0], sizeX, reqPlane, tileY, myPlayer.pathX[0], false, tileX);
+            
+            doWalkTo(2, 0, sizeY, 0, myPlayer.pathY[0], sizeX, reqPlane, tileY, myPlayer.pathX[0], moveNear, tileX);
         } else {
             doWalkTo(2, objectRotation, 0, objectType + 1, myPlayer.pathY[0], 0, 0, tileY, myPlayer.pathX[0], false,
                     tileX);
@@ -13655,7 +13645,7 @@ public class Client extends RSApplet {
         loginMessages = new String[]{"Error connecting to server.", "Please try connecting again!"};
     }
 
-    private boolean doWalkTo(int i, int j, int k, int i1, int fromLocalY, int k1, int l1, int toLocalY, int fromLocalX, boolean moveNear,
+    private boolean doWalkTo(int i, int j, int k, int objectType, int fromLocalY, int k1, int l1, int toLocalY, int fromLocalX, boolean moveNear,
                              int toLocalX) {
         try {
             byte mapSizeX = 104;
@@ -13685,12 +13675,12 @@ public class Client extends RSApplet {
                     foundPath = true;
                     break;
                 }
-                if (i1 != 0) {
-                    if ((i1 < 5 || i1 == 10) && clippingPlanes[plane].checkWallClipping(toLocalX, currentX, currentY, j, i1 - 1, toLocalY)) {
+                if (objectType != 0) {
+                    if ((objectType < 5 || objectType == 10) && clippingPlanes[plane].checkWallClipping(toLocalX, currentX, currentY, j, objectType - 1, toLocalY)) {
                         foundPath = true;
                         break;
                     }
-                    if (i1 < 10 && clippingPlanes[plane].checkWallDecorationClipping(toLocalX, toLocalY, currentY, i1 - 1, j, currentX)) {
+                    if (objectType < 10 && clippingPlanes[plane].checkWallDecorationClipping(toLocalX, toLocalY, currentY, objectType - 1, j, currentX)) {
                         foundPath = true;
                         break;
                     }
@@ -13768,9 +13758,9 @@ public class Client extends RSApplet {
             if (!foundPath) {
                 if (moveNear) {
                     int i5 = 100;
-                    for (int k5 = 1; k5 < 2; k5++) {
-                        for (int i6 = toLocalX - k5; i6 <= toLocalX + k5; i6++) {
-                            for (int l6 = toLocalY - k5; l6 <= toLocalY + k5; l6++) {
+                    for (int deviation = 1; deviation < 3; deviation++) {
+                        for (int i6 = toLocalX - deviation; i6 <= toLocalX + deviation; i6++) {
+                            for (int l6 = toLocalY - deviation; l6 <= toLocalY + deviation; l6++) {
                                 if (i6 >= 0 && l6 >= 0 && i6 < 104 && l6 < 104 && anIntArrayArray825[i6][l6] < i5) {
                                     i5 = anIntArrayArray825[i6][l6];
                                     currentX = i6;
