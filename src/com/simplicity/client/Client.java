@@ -16031,10 +16031,6 @@ public class Client extends RSApplet {
 
                         RSFontSystem font = null;
 
-                    	boolean useNewFonts = child.useNewFonts || child.id == TheatrePartyWidget.WIDGET_ID + 28 || QuestTab.isQuestTabId(rsInterface.id) || rsInterface.id == 68069 || child.id == 70025 || child.id == WildernessWidget.TARGET_NAME;
-
-
-
 						if (useNewFonts) {
 							if (textDrawingArea == smallText) {
 								font = newSmallFont;

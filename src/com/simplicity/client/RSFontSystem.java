@@ -233,7 +233,7 @@ public class RSFontSystem extends DrawingArea {
 								int[] args = extractSpriteValues(effectString);
 								int spriteId = args[0];
 								Sprite icon = Client.cacheSprite[spriteId];
-								icon.drawSprite(drawX, drawY + args[1]);
+								icon.drawAdvancedSprite(drawX, drawY + args[1]);
 								drawX += icon.myWidth + icon.drawOffsetX;
 							} catch (Exception exception) {
 								/* empty */
@@ -436,12 +436,12 @@ public class RSFontSystem extends DrawingArea {
 								int iconOffsetY = class92.maxHeight;
 
 								if (transparency == 256) {
-									class92.drawSprite(drawX + xModI,
+									class92.drawAdvancedSprite(drawX + xModI,
 											(drawY + baseCharacterHeight
 													- iconOffsetY + yMod
 													+ yOffset));
 								} else {
-									class92.drawSprite(drawX + xModI,
+									class92.drawAdvancedSprite(drawX + xModI,
 											(drawY + baseCharacterHeight
 													- iconOffsetY + yMod
 													+ yOffset),
