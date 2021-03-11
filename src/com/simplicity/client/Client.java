@@ -13655,8 +13655,8 @@ public class Client extends RSApplet {
         loginMessages = new String[]{"Error connecting to server.", "Please try connecting again!"};
     }
 
-    private boolean doWalkTo(int i, int j, int k, int i1, int fromLocalY, int k1, int l1, int i2, int fromLocalX, boolean moveNear,
-                             int k2) {
+    private boolean doWalkTo(int i, int j, int k, int i1, int fromLocalY, int k1, int l1, int toLocalY, int fromLocalX, boolean moveNear,
+                             int toLocalX) {
         try {
             byte mapSizeX = 104;
             byte mapSizeY = 104;
@@ -13681,21 +13681,21 @@ public class Client extends RSApplet {
                 currentX = bigX[currentIndex];
                 currentY = bigY[currentIndex];
                 currentIndex = (currentIndex + 1) % maxPathSize;
-                if (currentX == k2 && currentY == i2) {
+                if (currentX == toLocalX && currentY == toLocalY) {
                     foundPath = true;
                     break;
                 }
                 if (i1 != 0) {
-                    if ((i1 < 5 || i1 == 10) && clippingPlanes[plane].checkWallClipping(k2, currentX, currentY, j, i1 - 1, i2)) {
+                    if ((i1 < 5 || i1 == 10) && clippingPlanes[plane].checkWallClipping(toLocalX, currentX, currentY, j, i1 - 1, toLocalY)) {
                         foundPath = true;
                         break;
                     }
-                    if (i1 < 10 && clippingPlanes[plane].checkWallDecorationClipping(k2, i2, currentY, i1 - 1, j, currentX)) {
+                    if (i1 < 10 && clippingPlanes[plane].checkWallDecorationClipping(toLocalX, toLocalY, currentY, i1 - 1, j, currentX)) {
                         foundPath = true;
                         break;
                     }
                 }
-                if (k1 != 0 && k != 0 && clippingPlanes[plane].canWalkToEntity(i2, k2, currentX, k, l1, k1, currentY)) {
+                if (k1 != 0 && k != 0 && clippingPlanes[plane].canWalkToEntity(toLocalY, toLocalX, currentX, k, l1, k1, currentY)) {
                     foundPath = true;
                     break;
                 }
@@ -13769,8 +13769,8 @@ public class Client extends RSApplet {
                 if (moveNear) {
                     int i5 = 100;
                     for (int k5 = 1; k5 < 2; k5++) {
-                        for (int i6 = k2 - k5; i6 <= k2 + k5; i6++) {
-                            for (int l6 = i2 - k5; l6 <= i2 + k5; l6++) {
+                        for (int i6 = toLocalX - k5; i6 <= toLocalX + k5; i6++) {
+                            for (int l6 = toLocalY - k5; l6 <= toLocalY + k5; l6++) {
                                 if (i6 >= 0 && l6 >= 0 && i6 < 104 && l6 < 104 && anIntArrayArray825[i6][l6] < i5) {
                                     i5 = anIntArrayArray825[i6][l6];
                                     currentX = i6;
