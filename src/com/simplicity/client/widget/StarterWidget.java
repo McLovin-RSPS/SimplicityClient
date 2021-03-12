@@ -15,6 +15,8 @@ public class StarterWidget extends RSInterface {
 	 * The interface id.
 	 */
 	public static final int INTERFACE_ID = 71_000;
+	
+	public static int NORMAL_ID;
 
 	/**
 	 * Unpacks the interface.
@@ -69,6 +71,8 @@ public class StarterWidget extends RSInterface {
 		int boxWidth = 127;
 
 		int baseY = 59;
+		
+		NORMAL_ID = id;
 		
 		configHoverButton(id, "Select Normal", 1040, 1040, 1039, 1039, true, new int[] { id + 1, id + 2, id + 3, id + 4, id + 5 });
 		rsi.child(child++, id, 20, baseY + 5);
@@ -148,6 +152,10 @@ public class StarterWidget extends RSInterface {
 		addText(id, "Click '@gre@Confirm'@or1@ to proceed.", tda, 2, 0xffb000, false, true);
 		rsi.child(child++, id, 227 + 134 - 52 + 4, 234 + 49 - 41 - 5);
 		id++;
+	}
+	
+	public static void onDisplay() {
+		RSInterface.setSelectedInterface(NORMAL_ID);
 	}
 
 }

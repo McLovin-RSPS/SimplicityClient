@@ -22031,6 +22031,10 @@ public class Client extends RSApplet {
                         	SettingsWidget.updateAdvancedOptions();
                         }
                         
+                        if (interfaceID == StarterWidget.INTERFACE_ID) {
+                        	StarterWidget.onDisplay();
+                        }
+                        
                         CustomWidget w = Widget.widgets.get(interfaceID);
                         
                         if (w != null && w.stateListener != null) {
