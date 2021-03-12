@@ -1,5 +1,6 @@
 package com.simplicity.client.widget;
 
+import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.TextDrawingArea;
 
@@ -155,7 +156,15 @@ public class StarterWidget extends RSInterface {
 	}
 	
 	public static void onDisplay() {
-		RSInterface.setSelectedInterface(NORMAL_ID);
+		RSInterface normal = RSInterface.interfaceCache[NORMAL_ID];
+		disableOtherButtons(normal);
+		
+		// Set defaults for normal button
+		normal.enabledSprite = Client.cacheSprite[1040];
+		normal.disabledSprite = Client.cacheSprite[1040];
+		normal.enabledAltSprite = Client.cacheSprite[1039];
+		normal.disabledAltSprite = Client.cacheSprite[1039];
+		normal.active = true;
 	}
 
 }

@@ -6526,7 +6526,6 @@ public class Client extends RSApplet {
         fadeVisible = false;
         toggleSize(0);
         RSInterface.interfaceCache[3322].deleteOnDrag2 = false;
-        RSInterface.handleConfigHover(RSInterface.interfaceCache[71021]);
         RSInterface.handleConfigHover(RSInterface.interfaceCache[QuestTab.INFO_BUTTON_ID]);
         parallelWidgetList.clear();
         fadeColor = fadeAlpha = fadeAlphaEnd = fadeAlphaStep = 0;
