@@ -10059,7 +10059,8 @@ public class Client extends RSApplet {
             String s3 = menuActionName[i];
             int k2 = s3.indexOf("@whi@");
             if (k2 != -1) {
-                long l4 = TextClass.longForName(s3.substring(k2 + 5).trim());
+            	String name = s3.substring(k2 + 5).trim();
+                long l4 = TextClass.longForName(name);
                 int k3 = -1;
                 for (int i4 = 0; i4 < friendsCount; i4++) {
                     if (friendsListAsLongs[i4] != l4) {
@@ -10077,6 +10078,13 @@ public class Client extends RSApplet {
                     friendsListAction = 3;
                     aLong953 = friendsListAsLongs[k3];
                     promptMessage = "Enter message to send to " + friendsList[k3];
+                } else if (isStaff(myRights)) { // Not in friend list
+                	inputTaken = true;
+                	inputDialogState = 0;
+                	showInput = true;
+                	promptInput = "";
+                	aLong953 = l4;
+                	promptMessage = "Enter message to send to " + name;
                 }
             }
         }
