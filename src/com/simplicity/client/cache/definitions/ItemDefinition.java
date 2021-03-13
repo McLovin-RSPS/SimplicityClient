@@ -1561,7 +1561,7 @@ public final class ItemDefinition {
             sprite.maxWidth = l5;
             sprite.maxHeight = j6;
         }
-        if (k == 0 && i != 5572 && i != 5573 && i != 640 && i != 650 && i != 630) {
+        if (k == 0 && !itemDef.animateInventory && i != 5572 && i != 5573 && i != 640 && i != 650 && i != 630) {
             spriteCache.put(sprite2, i);
         }
         DrawingArea.initDrawingArea(j2, i2, ai1, depthBuffer);
@@ -1713,7 +1713,7 @@ public final class ItemDefinition {
             sprite.maxWidth = l5;
             sprite.maxHeight = j6;
         }
-        if (k == 0 && i != 5572 && i != 5573 && i != 640 && i != 650 && i != 630) {
+        if (k == 0 && !itemDef.animateInventory && i != 5572 && i != 5573 && i != 640 && i != 650 && i != 630) {
             spriteCache.put(sprite2, i);
         }
         DrawingArea.initDrawingArea(j2, i2, ai1, depthBuffer);
@@ -1987,6 +1987,7 @@ public final class ItemDefinition {
         id = -1;
     }
 
+    public boolean animateInventory;
     public byte femaleZOffset;
     public byte femaleXOffset;
     public byte femaleYOffset;
