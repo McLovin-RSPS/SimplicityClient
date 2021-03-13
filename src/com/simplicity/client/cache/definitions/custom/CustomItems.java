@@ -752,6 +752,31 @@ public class CustomItems {
                 itemDef.name = "Kevin's owner box";
                 break;
                 
+			case 6200:
+				itemDef.copy(ItemDefinition.forID(6199));
+				itemDef.name = "Mystery Box";
+				itemDef.actions = new String[5];
+				itemDef.actions[0] = "Open";
+				itemDef.animateInventory = true;
+				itemDef.modelZoom = 2200;
+				itemDef.rotationY = 120;
+				itemDef.rotationX = 1800;
+				itemDef.modelOffsetX = 0;
+				itemDef.modelOffset1 = 40;
+				itemDef.modelOffsetY = -20;
+				itemDef.dataType = DataType.CUSTOM;
+				itemDef.modelID = 93;
+				break;
+
+			case 6201:
+				itemDef.copy(ItemDefinition.forID(6830));
+				itemDef.name = "Mystery Box";
+				itemDef.modelZoom = 3100;
+				itemDef.animateInventory = true;
+				itemDef.dataType = DataType.CUSTOM;
+				itemDef.modelID = 94;
+				break;
+                
             case 6835:
                 itemDef.copy(ItemDefinition.forID(6830));
                 itemDef.editedModelColor = new int[]{127, 11187};
