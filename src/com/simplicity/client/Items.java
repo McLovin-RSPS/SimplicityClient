@@ -787,6 +787,45 @@ public class Items {
                 itemDef.editedModelColor = new int[] { 1495 };
                 itemDef.newModelColor = new int[] { 40 };
                 break;
+                
+            case 22079:
+                itemDef.copy(forID(14008));
+                itemDef.name = "@yel@Necrolord hood";
+                itemDef.maleEquip1 = 100;
+                itemDef.femaleEquip1 = 100;
+                itemDef.modelID = 99;
+                itemDef.dataType = DataType.CUSTOM;
+                itemDef.editedModelColor = new int[0];
+                itemDef.newModelColor = new int[0];
+                itemDef.modelZoom += 50;
+                break;
+
+            case 22080:
+                itemDef.copy(forID(14009));
+                itemDef.name = "@yel@Necrolord robe top";
+                itemDef.maleEquip1 = 102;
+                itemDef.femaleEquip1 = 102;
+                itemDef.modelID = 101;
+                itemDef.dataType = DataType.CUSTOM;
+                itemDef.modelOffsetY = 8;
+                itemDef.editedModelColor = new int[0];
+                itemDef.newModelColor = new int[0];
+                itemDef.modelZoom += 30;
+                break;
+
+            case 22081:
+                itemDef.copy(forID(14010));
+                itemDef.name = "@yel@Necrolord robe bottoms";
+                itemDef.maleEquip1 = 104;
+                itemDef.femaleEquip1 = 104;
+                itemDef.modelID = 103;
+                itemDef.dataType = DataType.CUSTOM;
+                itemDef.modelZoom = 1800;
+                itemDef.modelOffsetY = 8;
+                itemDef.editedModelColor = new int[0];
+                itemDef.newModelColor = new int[0];
+                itemDef.modelZoom += 350;
+                break;
 
             case 22077:
                 itemDef.name = "TokHaar-Kal-Ket";
