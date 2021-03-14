@@ -305,6 +305,18 @@ public final class ItemDefinition {
 
     public static void postOsrsItemDef(ItemDefinition itemDef) {
         switch(itemDef.id) {
+        case 43191: // Bond textured
+        	itemDef.copy(forID(43190));
+        	itemDef.dataType = DataType.CUSTOM;
+        	itemDef.modelID = 95;
+        	itemDef.animateInventory = true;
+        	break;
+        case 51030: // Dark relic textured
+        	itemDef.copy(forID(51027));
+        	itemDef.dataType = DataType.CUSTOM;
+        	itemDef.modelID = 96;
+        	itemDef.animateInventory = true;
+        	break;
             case 55087:
                 itemDef.name = "@red@Mystery Donation Scroll";
                 break;
