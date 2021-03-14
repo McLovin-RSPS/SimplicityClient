@@ -551,7 +551,6 @@ public final class ItemDefinition {
                 itemDef.maleZOffset += 3;
                 itemDef.maleYOffset -= 3;
                 itemDef.femaleYOffset -= 3;
-            case 51296:
                 break;
             case 51018:
                 itemDef.femaleYOffset -= 10;
