@@ -22,6 +22,7 @@ public class EffectTimer {
 	    PRAYER_RENEWAL(21630, true),
 	    ANTI_VENOM(42905, true),
 	    FAMILIAR_SPECIAL(327),
+	    DREAM_POTION(11154, true),
 	    
 	    ;
 		
