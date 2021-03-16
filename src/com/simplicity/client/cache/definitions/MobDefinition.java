@@ -988,7 +988,6 @@ public final class MobDefinition {
                 npc.combatLevel = 291;
                 npc.models = new int[]{28231};
                 npc.standAnim = 3989;
-                npc.walkAnim = forID(3847).walkAnim;
                 npc.sizeXZ = npc.sizeY = 130;
                 npc.lightning = 30;
                 npc.shadow = 150;
