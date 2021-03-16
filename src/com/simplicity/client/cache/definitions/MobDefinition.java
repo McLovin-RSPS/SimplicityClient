@@ -1815,6 +1815,22 @@ public final class MobDefinition {
                 //npc.sizeY = 75;
                 break;
                 
+            case 3333:
+            	npc.copy(forID(3));
+                npc.name = "Solak";
+                npc.combatLevel = 321;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                npc.models = new int[1];
+                npc.models[0] = 105;
+                npc.squaresNeeded = 5;
+                npc.sizeXZ = 100;
+                npc.sizeY = 100;
+                npc.dataType = DataType.CUSTOM;
+                npc.standAnim = 808;
+                npc.walkAnim = 819;
+                break;
+                
             case 3067:
                 npc.name = "Bork";
                 npc.models = new int[]{40590};
