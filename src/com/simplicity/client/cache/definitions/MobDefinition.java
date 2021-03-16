@@ -185,6 +185,11 @@ public final class MobDefinition {
                     npc.actions[2] = "Blood money";
                     npc.actions[3] = "Untradeables";
                     break;
+                    
+                case 7852:
+                    npc.name = "Dawn";
+                    npc.standAnim = 23035;
+                    break;
             }
             return npc;
         }
