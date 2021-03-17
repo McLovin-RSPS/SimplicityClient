@@ -185,6 +185,11 @@ public final class MobDefinition {
                     npc.actions[2] = "Blood money";
                     npc.actions[3] = "Untradeables";
                     break;
+                    
+                case 7852:
+                    npc.name = "Dawn";
+                    npc.standAnim = 23035;
+                    break;
             }
             return npc;
         }
@@ -1264,6 +1269,13 @@ public final class MobDefinition {
                 npc.walkAnim = 819;
                 npc.models = new int[]{65291, 65322, 506, 529, 252, 9642, 62746, 13307, 62743, 53327};
                 npc.npcHeadModels = new int[]{39332, 39235};
+                break;
+            case 1644:
+            case 1645:
+            case 1646:
+            case 1647:
+                npc.standAnim = 7188;
+                npc.walkAnim = 7189;
                 break;
             case 6830:
             case 6841:
