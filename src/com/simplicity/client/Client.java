@@ -8467,42 +8467,34 @@ public class Client extends RSApplet {
     public int maxCapeInterfaceId = -1;
 
     private void selectColor(final String title, final int slot, final int interfaceId) {
+    	SwingUtilities.invokeLater(() -> {
+            final JColorChooser cc = new JColorChooser();
+            AbstractColorChooserPanel[] panels = cc.getChooserPanels();
 
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-
-                final JColorChooser cc = new JColorChooser();
-                AbstractColorChooserPanel[] panels = cc.getChooserPanels();
-
-                for (AbstractColorChooserPanel p : panels) {
-                    String[] names = {"Swatches", "HSV", "RGB", "CMYK"};
-                    for (String name : names) {
-                        if (p.getDisplayName().equalsIgnoreCase(name)) {
-                            cc.removeChooserPanel(p);
-                            break;
-                        }
+            for (AbstractColorChooserPanel p : panels) {
+                String[] names = {"Swatches", "HSV", "RGB", "CMYK"};
+                for (String name : names) {
+                    if (p.getDisplayName().equalsIgnoreCase(name)) {
+                        cc.removeChooserPanel(p);
+                        break;
                     }
                 }
-
-                cc.setColor(RSInterface.interfaceCache[interfaceId].enabledColor);
-                cc.setPreviewPanel(new JPanel());
-                cc.getSelectionModel().addChangeListener(new ChangeListener() {
-                    public void stateChanged(ChangeEvent e) {
-                        maxCapeColor = cc.getColor();
-                        maxCapeSlot = slot;
-                        maxCapeInterfaceId = interfaceId;
-                    }
-                });
-
-                hideTransparencyControls(cc);
-
-                JOptionPane.showMessageDialog(null, cc, title, JOptionPane.DEFAULT_OPTION, new ImageIcon());
-
             }
 
-        }).start();
+            cc.setColor(RSInterface.interfaceCache[interfaceId].enabledColor);
+            cc.setPreviewPanel(new JPanel());
+            cc.getSelectionModel().addChangeListener(new ChangeListener() {
+                public void stateChanged(ChangeEvent e) {
+                    maxCapeColor = cc.getColor();
+                    maxCapeSlot = slot;
+                    maxCapeInterfaceId = interfaceId;
+                }
+            });
+
+            hideTransparencyControls(cc);
+
+        	JOptionPane.showMessageDialog(null, cc, title, JOptionPane.DEFAULT_OPTION);
+    	});
 
     }
 
