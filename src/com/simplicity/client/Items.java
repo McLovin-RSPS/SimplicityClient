@@ -100,6 +100,11 @@ public class Items {
         itemDef.value = prices[itemDef.id];
 
         switch (itemId) {
+        case 15426:
+        	itemDef.femaleEquip1 = itemDef.maleEquip1;
+        	itemDef.femaleYOffset = -14;
+        	itemDef.femaleXOffset = 6;
+        	break;
             case 11154:
                 itemDef.actions = new String[]{"Drink", null, null, null, null, "Drop"};
                 break;
