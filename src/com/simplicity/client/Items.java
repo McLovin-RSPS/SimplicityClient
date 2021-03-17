@@ -1783,6 +1783,29 @@ public class Items {
                 itemDef.maleYOffset -= 7;
                 itemDef.femaleYOffset -= 7;
                 break;
+                
+            case 21045:
+                def2 = forID(9774);
+                itemDef.actions = def2.actions;
+                itemDef.name = "Executive cape";
+                itemDef.modelID = 98;
+                itemDef.sizeX = def2.sizeX;
+                itemDef.sizeY = def2.sizeY;
+                itemDef.sizeZ = def2.sizeZ;
+                itemDef.maleEquip1 = 97;
+                itemDef.femaleEquip1 = 97;
+                itemDef.rotationX = 1024;
+                itemDef.rotationY = 300;
+                itemDef.modelZoom = 2000;
+                itemDef.modelOffsetY = 130;
+                itemDef.editedModelColor = def2.editedModelColor;
+                itemDef.newModelColor = def2.newModelColor;
+                itemDef.editedModelColor = new int[] { 40 };
+                itemDef.newModelColor = new int[] { 61 };
+                itemDef.maleYOffset = -10;
+                itemDef.femaleYOffset = -10;
+                itemDef.dataType = DataType.CUSTOM;
+                break;
 
       /*  case 21520:
             itemDef.name = "Elite Nightmare";
