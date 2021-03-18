@@ -108,7 +108,7 @@ public class ModelViewer extends JFrame {
 				loadSearch(text);
 			}
 		});
-		btnSubmit.setBounds(384, 7, 65, 23);
+		btnSubmit.setBounds(150, 7, 75, 23);
 		contentPane.add(btnSubmit);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -228,7 +228,7 @@ public class ModelViewer extends JFrame {
 			if (type == DataType.REGULAR && !attemptsReg.contains(id)) {
 				attemptsReg.add(id);
 				fetch = true;
-			} else if (type == DataType.OLDSCHOOL && attemptsOSRS.contains(id)) {
+			} else if (type == DataType.OLDSCHOOL && !attemptsOSRS.contains(id)) {
 				attemptsOSRS.add(id);
 				fetch = true;
 			}
