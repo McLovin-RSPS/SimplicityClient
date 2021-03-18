@@ -101,10 +101,22 @@ public class Items {
 
         switch (itemId) {
         case 15426:
+        case 52719:
         	itemDef.femaleEquip1 = itemDef.maleEquip1;
         	itemDef.femaleYOffset = -14;
         	itemDef.femaleXOffset = 6;
         	break;
+        case 21040:
+            itemDef.copy(forID(50997));
+            itemDef.actions[1] = "Wear";
+            itemDef.actions[4] = "Drop";
+            itemDef.name = "Sirenic twisted bow";
+        	itemDef.femaleYOffset = -14;
+        	itemDef.femaleXOffset = 6;
+            itemDef.description = "A mystical bow carved from the twisted remains of higher dimensions.";
+            itemDef.editedModelColor = new int[] { 16, 24, 33, 43223, 44236 };
+            itemDef.newModelColor = new int[] { 90, 90, 90, 90, 90 };
+            break;
             case 11154:
                 itemDef.actions = new String[]{"Drink", null, null, null, null, "Drop"};
                 break;
@@ -310,16 +322,6 @@ public class Items {
                 itemDef.actions = new String[] { null, "Wield", null, null, null };
                 itemDef.dataType = DataType.CUSTOM;
                 itemDef.name = "Cursed Reaver wings";
-                break;
-
-            case 21040:
-                itemDef.copy(forID(50997));
-                itemDef.actions[1] = "Wear";
-                itemDef.actions[4] = "Drop";
-                itemDef.name = "Sirenic twisted bow";
-                itemDef.description = "A mystical bow carved from the twisted remains of higher dimensions.";
-                itemDef.editedModelColor = new int[] { 16, 24, 33, 43223, 44236 };
-                itemDef.newModelColor = new int[] { 90, 90, 90, 90, 90 };
                 break;
 
             case 22014:
@@ -1345,6 +1347,19 @@ public class Items {
                 itemDef.maleEquip1 = 4946;
                 itemDef.femaleEquip1 = 4946;
                 itemDef.newModelColor = new int[] { 9583, 9583, 9583, 9583, 9583, 9583, 9583 };
+                break;
+            case 11304: // Katt Sang X
+                itemDef.copy(forID(52323));
+                itemDef.name = "@cya@Katt Sanguinesti staff X";
+	        	itemDef.femaleYOffset = -11;
+	            itemDef.femaleZOffset = 11;	            
+	        	itemDef.femaleXOffset = 4;
+	            itemDef.maleZOffset = -11;
+                itemDef.modelOffsetY = 3;
+                itemDef.maleEquip1 = 35372;
+                itemDef.femaleEquip1 = 39555;
+                itemDef.editedModelColor = new int[] { 836, 156, 3127, 142, 3140, 24, 20, 28, 836, 37, 49, 41, 57, 33, 16, 284 };
+                itemDef.newModelColor = new int[] { 54220, 54220, 32565, 32565, 54220, 54220, 54220, 54220, 54220, 54220, 32565, 32565, 32565, 54220, 54220, 54220 };
                 break;
             case 21007:
                 itemDef.modelID = 35742;

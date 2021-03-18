@@ -321,9 +321,20 @@ public final class ItemDefinition {
                 itemDef.name = "@red@Mystery Donation Scroll";
                 break;
 	        case 52323:
-	            itemDef.maleZOffset = -11;
+	        case 5085:
+	        case 12150:
+	        case 13840:
+	        case 13991:
+	        case 17835:
+	        case 20082:
+	        case 20085:
+	        case 21023:
+	        case 21027:
+	        case 21540:
+	        	itemDef.femaleYOffset = -11;
+	        	itemDef.femaleXOffset = 6;
 	            itemDef.femaleZOffset = 11;
-	            itemDef.femaleXOffset = 3;
+	            itemDef.maleZOffset = -11;
 	        	break;
 	        	
 	        case 53995:
@@ -531,6 +542,9 @@ public final class ItemDefinition {
                 itemDef.editedModelColor = new int[] { 59, 3005, 5056, 5066, 924 };
                 itemDef.newModelColor = new int[] { 68, 11212, 11212, 11212, 11212 };
                 break;
+                
+                // 
+                
             case 51295:
             case 51285:
             case 51776:
