@@ -67,7 +67,6 @@ import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
-import javax.swing.ImageIcon;
 import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -99,8 +98,6 @@ import com.simplicity.client.cache.node.Node;
 import com.simplicity.client.container.item.ItemContainer;
 import com.simplicity.client.content.EffectTimer;
 import com.simplicity.client.content.EffectTimer.Type;
-import com.simplicity.client.content.login.LoginScreen;
-import com.simplicity.client.content.login.LoginScreen.CharacterFile;
 import com.simplicity.client.content.FlashingSprite;
 import com.simplicity.client.content.ItemStatsPanel;
 import com.simplicity.client.content.Keybinding;
@@ -108,13 +105,28 @@ import com.simplicity.client.content.MagicItems;
 import com.simplicity.client.content.PetSystem;
 import com.simplicity.client.content.PlayerRights;
 import com.simplicity.client.content.RichPresence;
+import com.simplicity.client.content.login.LoginScreen;
+import com.simplicity.client.content.login.LoginScreen.CharacterFile;
 import com.simplicity.client.content.overlay.ScreenOverlayManager;
 import com.simplicity.client.entity.Position;
 import com.simplicity.client.instruction.InstructionArgs;
 import com.simplicity.client.instruction.InstructionProcessor;
 import com.simplicity.client.particles.Particle;
 import com.simplicity.client.particles.ParticleDefinition;
-import com.simplicity.client.widget.*;
+import com.simplicity.client.widget.AchievementsWidget;
+import com.simplicity.client.widget.BestiaryLookup;
+import com.simplicity.client.widget.CollectionLogWidget;
+import com.simplicity.client.widget.CustomWidget;
+import com.simplicity.client.widget.PortalNexusConfirm;
+import com.simplicity.client.widget.PortalNexusTeleportMenu;
+import com.simplicity.client.widget.QuestTab;
+import com.simplicity.client.widget.SettingsWidget;
+import com.simplicity.client.widget.SkillQuantityWidget;
+import com.simplicity.client.widget.Slider;
+import com.simplicity.client.widget.StarterWidget;
+import com.simplicity.client.widget.TobPlayerOrbsWidget;
+import com.simplicity.client.widget.Widget;
+import com.simplicity.client.widget.WildernessWidget;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.client.widget.raids.cox.XericPointsWidget;
 import com.simplicity.client.widget.raids.nightmare.BossHealthOverlay;
@@ -131,8 +143,10 @@ import com.simplicity.tools.AnimDefinitionLookup;
 import com.simplicity.tools.GraphicDefinitionLookup;
 import com.simplicity.tools.InterfaceDebugger;
 import com.simplicity.tools.ItemDefinitionLookup;
+import com.simplicity.tools.ModelViewer;
 import com.simplicity.tools.NpcDefinitionLookup;
 import com.simplicity.tools.ObjectDefinitionLookup;
+import com.simplicity.tools.DevToolbox;
 import com.simplicity.util.MiscUtils;
 import com.simplicity.util.Stopwatch;
 import com.simplicity.util.StringUtils;
@@ -11272,27 +11286,7 @@ public class Client extends RSApplet {
                     }
 
 					if (inputString.startsWith("::mapimage")) {
-						final String path = signlink.findcachedir() + "MapImageDumps/";
-
-						File directory = new File(path);
-
-						if (!directory.exists()) {
-							directory.mkdir();
-						}
-
-						BufferedImage bufferedimage = new BufferedImage(miniMap.myWidth, miniMap.myHeight, 1);
-						bufferedimage.setRGB(0, 0, miniMap.myWidth, miniMap.myHeight, miniMap.myPixels, 0,
-								miniMap.myWidth);
-						Graphics2D graphics2d = bufferedimage.createGraphics();
-						graphics2d.dispose();
-
-						try {
-							File file1 = new File(path + (directory.listFiles().length + 1) + ".png");
-							ImageIO.write(bufferedimage, "png", file1);
-							pushMessage("Success!", 0, "");
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
+						dumpMapImage();
 					}
 
                     if (inputString.startsWith("::findgfxmodel")) {
@@ -11462,6 +11456,18 @@ public class Client extends RSApplet {
                     	SwingUtilities.invokeLater(() -> {
                     		GraphicDefinitionLookup lookup = new GraphicDefinitionLookup();
 							lookup.setVisible(true);
+                    	});
+                    }
+                    if (inputString.equals("::modelcolors")) {
+                    	SwingUtilities.invokeLater(() -> {
+                    		ModelViewer viewer = new ModelViewer();
+                    		viewer.setVisible(true);
+                    	});
+                    }
+                    if (inputString.equals("::dev") || inputString.equals("::toolbox")) {
+                    	SwingUtilities.invokeLater(() -> {
+                    		DevToolbox tb = new DevToolbox();
+                    		tb.setVisible(true);
                     	});
                     }
                     if (inputString.equals("::packrsi") || inputString.equals("::repack")) {
@@ -11691,7 +11697,31 @@ public class Client extends RSApplet {
         } while (true);
     }
 
-    public void reloadInterfaces() {
+    public void dumpMapImage() {
+    	final String path = signlink.findcachedir() + "MapImageDumps/";
+
+		File directory = new File(path);
+
+		if (!directory.exists()) {
+			directory.mkdir();
+		}
+
+		BufferedImage bufferedimage = new BufferedImage(miniMap.myWidth, miniMap.myHeight, 1);
+		bufferedimage.setRGB(0, 0, miniMap.myWidth, miniMap.myHeight, miniMap.myPixels, 0,
+				miniMap.myWidth);
+		Graphics2D graphics2d = bufferedimage.createGraphics();
+		graphics2d.dispose();
+
+		try {
+			File file1 = new File(path + (directory.listFiles().length + 1) + ".png");
+			ImageIO.write(bufferedimage, "png", file1);
+			pushMessage("Success!", 0, "");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void reloadInterfaces() {
     	int cached = Client.openInterfaceID;
     	Client.openInterfaceID = -1;
     	CacheArchive streamLoader_1 = streamLoaderForName(3, "interface", "interface", expectedCRCs[3],
