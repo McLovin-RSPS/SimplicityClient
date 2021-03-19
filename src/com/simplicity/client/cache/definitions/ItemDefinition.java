@@ -1880,7 +1880,6 @@ public final class ItemDefinition {
       int encode_saturation = (int)(saturation * 7.0F);
       int encode_brightness = (int)(brightness * 127.0F);
       int RS2 = (encode_hue << 10) + (encode_saturation << 7) + encode_brightness;
-      System.out.println("RS2: " + RS2);
       return RS2;
     }
 	/**
