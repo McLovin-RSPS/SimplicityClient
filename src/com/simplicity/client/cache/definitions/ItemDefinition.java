@@ -404,6 +404,12 @@ public final class ItemDefinition {
                 itemDef.modelID = MobDefinition.forID(21332).models[0];
                 itemDef.modelZoom = 1200;
                 break;
+                
+	        case 54975:
+	            itemDef.name = "Headless beast pet";
+	            itemDef.groundActions = new String[]{null, null, "Take", null, null};
+	            itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+	            break;
 
             case 43301:
                 itemDef.name = "Warmi";

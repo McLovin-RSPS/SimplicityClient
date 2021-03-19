@@ -478,6 +478,19 @@ public final class MobDefinition {
                 npc.pet = true;
                 break;
                 
+            case 13337:
+                npc.copy(forID(25493));
+                npc.name = "Headless Beast";
+                npc.standAnim = 20179;
+                npc.walkAnim = 20184;
+                npc.sizeXZ = 80;
+                npc.sizeY = 80;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                npc.squaresNeeded = 1;
+                npc.pet = true;
+                break;
+                
             case 6565:
                 npc.copy(forID(22519));
                 npc.name = "Elite Olmlet";
