@@ -34,6 +34,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
+import com.simplicity.Configuration;
 import com.simplicity.client.Model;
 import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.ItemDefinition;
@@ -249,8 +250,7 @@ public class ModelViewer extends JFrame {
 			return;
 		}
 		
-		Set<Integer> colors = new HashSet<>();
-		Arrays.stream(model.face_color).forEach(i -> colors.add(i));
+		Set<Integer> colors = getColors(id, type);
 		
 		for (int color : colors) {
 			int rgb = ItemDefinition.RS2HSB_to_RGB(color);
@@ -265,6 +265,16 @@ public class ModelViewer extends JFrame {
 			defaultTableModel.addRow(rd);
 			table.validate();
 		}
+	}
+	
+	public Set<Integer> getColors(int id, DataType type) {
+		Set<Integer> colors = new HashSet<>();
+		
+        Model model = ItemDefinition.forID(id).getItemModelFinalised(1);
+        for (int i : model.face_color) {
+            colors.add(i);
+        }
+		return colors;
 	}
 	
 	public void init() {
