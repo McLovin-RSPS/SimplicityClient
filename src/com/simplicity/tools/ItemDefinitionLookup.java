@@ -2,6 +2,8 @@ package com.simplicity.tools;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,13 +19,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.table.TableColumnModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
+import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.ItemDefinition;
 
 /**
@@ -142,7 +147,7 @@ public class ItemDefinitionLookup extends JFrame {
 			}
 		});
 		
-		Object rowData[][] = new Object[detailsData.size()][2];
+		Object rowData[][] = new Object[detailsData.size()][3];
 		
 		for (int i = 0; i < detailsData.size(); i++) {
 			String name = detailsData.get(i);
@@ -150,9 +155,33 @@ public class ItemDefinitionLookup extends JFrame {
 			rowData[i][1] = "";
 		}
 
-		Object columnNames[] = { "", "" };
+		Object columnNames[] = { "", "", "" };
 		
 		details = new JTable(rowData, columnNames);
+		TableColumnModel columnModel = details.getColumnModel();
+		columnModel.getColumn(2).setPreferredWidth(1);
+		details.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				int row = details.getSelectedRow();
+				int col = details.getSelectedColumn();
+				
+				if (col == 2) {
+					Object value = details.getValueAt(row, col - 1);
+					
+					if (value instanceof Integer) {
+						int modelID = (int) value;
+						
+						if (modelID != -1) {
+							value = details.getValueAt(detailsData.size() - 1, 1);
+							
+							DataType type = DataType.valueOf(value.toString());
+							
+							ModelViewer.of(modelID, type);
+						}
+					}
+				}
+			}
+		});
 		details.setTableHeader(null);
 		details.setBounds(151, 37, 298, 431);
 		
@@ -181,13 +210,28 @@ public class ItemDefinitionLookup extends JFrame {
 		details.getModel().setValueAt(def.description, column++, 1);
 		details.getModel().setValueAt(def.certID, column++, 1);
 		details.getModel().setValueAt(def.certTemplateID, column++, 1);
+		
+		viewColor(def.modelID, column);
 		details.getModel().setValueAt(def.modelID, column++, 1);
+		
+		viewColor(def.maleEquip1, column);
 		details.getModel().setValueAt(def.maleEquip1, column++, 1);
+		
+		viewColor(def.maleEquip2, column);
 		details.getModel().setValueAt(def.maleEquip2, column++, 1);
+		
+		viewColor(def.maleEquip3, column);
 		details.getModel().setValueAt(def.maleEquip3, column++, 1);
+		
+		viewColor(def.femaleEquip1, column);
 		details.getModel().setValueAt(def.femaleEquip1, column++, 1);
+		
+		viewColor(def.femaleEquip2, column);
 		details.getModel().setValueAt(def.femaleEquip2, column++, 1);
+		
+		viewColor(def.femaleEquip3, column);
 		details.getModel().setValueAt(def.femaleEquip3, column++, 1);
+		
 		details.getModel().setValueAt(def.rotationX, column++, 1);
 		details.getModel().setValueAt(def.rotationY, column++, 1);
 		details.getModel().setValueAt(def.modelOffsetX, column++, 1);
@@ -205,6 +249,14 @@ public class ItemDefinitionLookup extends JFrame {
 		details.getModel().setValueAt(def.dataType, column++, 1);
 	}
 	
+	private void viewColor(int modelID, int column) {
+		if (modelID != -1) {
+			details.getModel().setValueAt("[Colors]", column, 2);
+		} else {
+			details.getModel().setValueAt("", column, 2);
+		}
+	}
+
 	public int getSelectedType() {
 		if (rdbtnName.isSelected()) {
 			return TYPE_NAME;
