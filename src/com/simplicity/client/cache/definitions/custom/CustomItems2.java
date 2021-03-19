@@ -6997,7 +6997,7 @@ public class CustomItems2 {
 	            itemDef.editedModelColor = new int[1];
 	            itemDef.newModelColor = new int[1];
 	            itemDef.editedModelColor[0] = 933;
-	            itemDef.newModelColor[0] = 57300;
+	            itemDef.newModelColor[0] = 54220;
 	            itemDef.modelZoom = 540;
 	            itemDef.rotationX = 136;
 	            itemDef.rotationY = 72;
