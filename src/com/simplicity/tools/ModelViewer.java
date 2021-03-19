@@ -72,80 +72,82 @@ public class ModelViewer extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ModelViewer() {
+	public ModelViewer(boolean compact) {
 		setTitle("Model Colors");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(475, 518);
+		setSize(compact ? 325 : 475, compact ? 480 : 518);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblFilter = new JLabel("Search:");
-		lblFilter.setBounds(10, 11, 45, 14);
-		contentPane.add(lblFilter);
-		
-		textField = new JTextField();
-		textField.setBounds(55, 8, 86, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
-		
-		objects = new DefaultMutableTreeNode("Items");
-		
-		JButton btnSubmit = new JButton("Submit");
-		btnSubmit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String text = textField.getText().toLowerCase();
-				
-				if (text.isEmpty()) {
-					objects.removeAllChildren();
-					clearTree();
-					resetDetails();
-					init();
-					return;
-				}
-				
-				loadSearch(text);
-			}
-		});
-		btnSubmit.setBounds(150, 7, 75, 23);
-		contentPane.add(btnSubmit);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 36, 131, 431);
-		contentPane.add(scrollPane);
-		
-		tree = new JTree(objects);
-		scrollPane.setViewportView(tree);
-		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-		tree.addTreeSelectionListener(new TreeSelectionListener() {
+		if (!compact) {
+			JLabel lblFilter = new JLabel("Search:");
+			lblFilter.setBounds(10, 11, 45, 14);
+			contentPane.add(lblFilter);
 			
-			@Override
-			public void valueChanged(TreeSelectionEvent e) {
-				DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-				
-				if (node == null || node.getParent() == null || node.getParent().equals(objects)) {
-					return;
-				}
-				
-				if (node.getParent() != null) {
+			textField = new JTextField();
+			textField.setBounds(55, 8, 86, 20);
+			contentPane.add(textField);
+			textField.setColumns(10);
+			
+			objects = new DefaultMutableTreeNode("Items");
+			
+			JButton btnSubmit = new JButton("Submit");
+			btnSubmit.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					String text = textField.getText().toLowerCase();
 					
-					String s = node.getUserObject().toString();
-					
-					int objectId = Integer.parseInt(s);
-					
-					if (node.getParent().equals(osrs)) {
-						objectId += ItemDefinition.OSRS_ITEMS_OFFSET;
+					if (text.isEmpty()) {
+						objects.removeAllChildren();
+						clearTree();
+						resetDetails();
+						init();
+						return;
 					}
 					
-					DataType type = node.getParent().equals(osrs) ? DataType.OLDSCHOOL : DataType.REGULAR;
-					
-					loadDetails(objectId, type);
+					loadSearch(text);
 				}
+			});
+			btnSubmit.setBounds(150, 7, 75, 23);
+			contentPane.add(btnSubmit);
+			
+			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.setBounds(10, 36, 131, 431);
+			contentPane.add(scrollPane);
+			
+			tree = new JTree(objects);
+			scrollPane.setViewportView(tree);
+			tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+			tree.addTreeSelectionListener(new TreeSelectionListener() {
 				
-			}
-		});
+				@Override
+				public void valueChanged(TreeSelectionEvent e) {
+					DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+					
+					if (node == null || node.getParent() == null || node.getParent().equals(objects)) {
+						return;
+					}
+					
+					if (node.getParent() != null) {
+						
+						String s = node.getUserObject().toString();
+						
+						int objectId = Integer.parseInt(s);
+						
+						if (node.getParent().equals(osrs)) {
+							objectId += ItemDefinition.OSRS_ITEMS_OFFSET;
+						}
+						
+						DataType type = node.getParent().equals(osrs) ? DataType.OLDSCHOOL : DataType.REGULAR;
+						
+						loadDetails(objectId, type);
+					}
+					
+				}
+			});
+		}
 		
 		columnNamesList = new ArrayList<String>();
 		columnNamesList.add("Id");
@@ -162,7 +164,7 @@ public class ModelViewer extends JFrame {
 		
 		defaultTableModel = new ColorTableModel(data, columnNamesArr);
 		table = new JTable(defaultTableModel);
-		table.setBounds(151, 37, 298, 131);
+		table.setBounds(compact ? 5 : 151, compact ? 5 : 37, 298, 131);
 		tableColumnModel = table.getColumnModel();
 		table.setTableHeader(new JTableHeader(tableColumnModel));
 		
@@ -172,7 +174,7 @@ public class ModelViewer extends JFrame {
 		}
 		table.setPreferredScrollableViewportSize(table.getPreferredSize());
 		scrollPane2 = new JScrollPane(table);
-		scrollPane2.setBounds(151, 37, 298, 431);
+		scrollPane2.setBounds(compact ? 5 : 151, compact ? 5 : 37, 298, 431);
 		
 		SwingUtilities.invokeLater(() -> {
 			table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
@@ -203,7 +205,9 @@ public class ModelViewer extends JFrame {
 		contentPane.add(table.getTableHeader());
 		contentPane.add(scrollPane2);
 		
-		init();
+		if (!compact) {
+			init();
+		}
 	}
 	
 	public void createNodes(DefaultMutableTreeNode root) {
@@ -361,6 +365,15 @@ public class ModelViewer extends JFrame {
 		}
 		
 		tree.expandPath(tree.getPathForRow(0));
+	}
+	
+	public static void of(int modelID, DataType type) {
+		SwingUtilities.invokeLater(() -> {
+			ModelViewer v = new ModelViewer(true);
+			v.loadDetails(modelID, type);
+			v.setTitle(modelID + " - " + type);
+			v.setVisible(true);
+		});
 	}
 	
 	static class ColorTableModel extends DefaultTableModel {

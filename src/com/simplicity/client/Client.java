@@ -11460,7 +11460,7 @@ public class Client extends RSApplet {
                     }
                     if (inputString.equals("::modelcolors")) {
                     	SwingUtilities.invokeLater(() -> {
-                    		ModelViewer viewer = new ModelViewer();
+                    		ModelViewer viewer = new ModelViewer(false);
                     		viewer.setVisible(true);
                     	});
                     }

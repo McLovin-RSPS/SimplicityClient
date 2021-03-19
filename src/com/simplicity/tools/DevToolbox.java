@@ -107,7 +107,7 @@ public class DevToolbox extends JFrame {
 		btnModels.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				SwingUtilities.invokeLater(() -> {
-            		ModelViewer viewer = new ModelViewer();
+            		ModelViewer viewer = new ModelViewer(false);
             		viewer.setVisible(true);
             	});
 			}
