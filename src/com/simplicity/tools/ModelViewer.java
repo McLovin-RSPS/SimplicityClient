@@ -142,7 +142,7 @@ public class ModelViewer extends JFrame {
 						
 						DataType type = node.getParent().equals(osrs) ? DataType.OLDSCHOOL : DataType.REGULAR;
 						
-						loadDetails(objectId, type);
+						loadDetails(objectId, type, true);
 					}
 					
 				}
@@ -221,35 +221,17 @@ public class ModelViewer extends JFrame {
 	private Set<Integer> attemptsReg = new HashSet<>();
 	private Set<Integer> attemptsOSRS = new HashSet<>();
 	
-	public void loadDetails(Model model) {
+	public void loadDetails(int id, DataType type, boolean isItemId) {
 		resetDetails();
-		Set<Integer> colors = getColorsModel(model);
-		for (int color : colors) {
-			int rgb = ItemDefinition.RS2HSB_to_RGB(color);
-			Color col = new Color(rgb);
-			String hex = String.format("#%02X%02X%02X", col.getRed(), col.getGreen(), col.getBlue());
-			
-			Vector rd = new Vector<>();
-			rd.add(color);
-			rd.add(hex);
-			rd.add("");
-			
-			defaultTableModel.addRow(rd);
-			table.validate();
-		}
 		
-	}
-	public void loadDetails(int id, DataType type) {
-		resetDetails();
-	
-		Model model = Model.fetchModel(id, type);
+		Model model = isItemId ? ItemDefinition.forID(id).getItemModelFinalised(1) : Model.fetchModel(id, type);
 		
 		if (model == null) {
-			
 			boolean fetch = false;
 			
 			if (type == DataType.REGULAR && !attemptsReg.contains(id)) {
 				attemptsReg.add(id);
+				
 				fetch = true;
 			} else if (type == DataType.OLDSCHOOL && !attemptsOSRS.contains(id)) {
 				attemptsOSRS.add(id);
@@ -262,7 +244,7 @@ public class ModelViewer extends JFrame {
 					@Override
 					public void execute() throws IOException {
 						System.out.println("Fetching: " + id + " - " + type);
-						loadDetails(id, type);
+						loadDetails(id, type, isItemId);
 						stop();
 					}
 					
@@ -272,7 +254,7 @@ public class ModelViewer extends JFrame {
 			return;
 		}
 		
-		Set<Integer> colors = getColors(id, type);
+		Set<Integer> colors = getColors(model);
 		
 		for (int color : colors) {
 			int rgb = ItemDefinition.RS2HSB_to_RGB(color);
@@ -303,7 +285,7 @@ public class ModelViewer extends JFrame {
 		return colors;
 	}
 	
-	public Set<Integer> getColorsModel(Model model) {
+	public Set<Integer> getColors(Model model) {
 		Set<Integer> colors = new HashSet<>();
         
         if (model != null && model.face_color != null) {
@@ -409,7 +391,7 @@ public class ModelViewer extends JFrame {
 		
 		SwingUtilities.invokeLater(() -> {
 			ModelViewer v = new ModelViewer(true);
-			v.loadDetails(Model.fetchModel(modelID));
+			v.loadDetails(modelID, DataType.REGULAR, false);
 			v.setTitle(modelID + " - " + type);
 			v.setVisible(true);
 		});
