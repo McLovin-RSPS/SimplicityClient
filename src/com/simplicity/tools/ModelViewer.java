@@ -223,7 +223,7 @@ public class ModelViewer extends JFrame {
 	
 	public void loadDetails(int id, DataType type) {
 		resetDetails();
-		
+	
 		Model model = Model.fetchModel(id, type);
 		
 		if (model == null) {
@@ -372,6 +372,11 @@ public class ModelViewer extends JFrame {
 	}
 	
 	public static void of(int modelID, DataType type) {
+		if (modelID == -1 || modelID == 65535) {
+			JOptionPane.showMessageDialog(null, "Invalid model.", "Error", 0, null);
+			return;
+		}
+		
 		SwingUtilities.invokeLater(() -> {
 			ModelViewer v = new ModelViewer(true);
 			v.loadDetails(modelID, type);
