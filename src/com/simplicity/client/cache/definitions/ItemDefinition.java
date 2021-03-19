@@ -309,12 +309,16 @@ public final class ItemDefinition {
         	itemDef.copy(forID(43190));
         	itemDef.dataType = DataType.CUSTOM;
         	itemDef.modelID = 95;
+        	itemDef.editedModelColor = new int[] { 40 };
+        	itemDef.newModelColor = new int[] { 61 };
         	itemDef.animateInventory = true;
         	break;
         case 51030: // Dark relic textured
         	itemDef.copy(forID(51027));
         	itemDef.dataType = DataType.CUSTOM;
         	itemDef.modelID = 96;
+        	itemDef.editedModelColor = new int[] { 40 };
+        	itemDef.newModelColor = new int[] { 61 };
         	itemDef.animateInventory = true;
         	break;
             case 55087:
