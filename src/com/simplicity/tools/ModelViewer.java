@@ -275,9 +275,13 @@ public class ModelViewer extends JFrame {
 		Set<Integer> colors = new HashSet<>();
 		
         Model model = ItemDefinition.forID(id).getItemModelFinalised(1);
-        for (int i : model.face_color) {
-            colors.add(i);
+        
+        if (model != null && model.face_color != null) {
+	        for (int i : model.face_color) {
+	            colors.add(i);
+	        }
         }
+        
 		return colors;
 	}
 	
