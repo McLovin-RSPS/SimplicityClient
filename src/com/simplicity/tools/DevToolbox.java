@@ -34,7 +34,7 @@ public class DevToolbox extends JFrame {
 		//setLookAndFeel();
 		setTitle("Developer's Toolbox");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(368, 270);
+		setSize(368, 300);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		contentPane = new JPanel();
