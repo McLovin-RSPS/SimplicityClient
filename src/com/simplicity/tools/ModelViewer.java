@@ -221,6 +221,24 @@ public class ModelViewer extends JFrame {
 	private Set<Integer> attemptsReg = new HashSet<>();
 	private Set<Integer> attemptsOSRS = new HashSet<>();
 	
+	public void loadDetails(Model model) {
+		resetDetails();
+		Set<Integer> colors = getColorsModel(model);
+		for (int color : colors) {
+			int rgb = ItemDefinition.RS2HSB_to_RGB(color);
+			Color col = new Color(rgb);
+			String hex = String.format("#%02X%02X%02X", col.getRed(), col.getGreen(), col.getBlue());
+			
+			Vector rd = new Vector<>();
+			rd.add(color);
+			rd.add(hex);
+			rd.add("");
+			
+			defaultTableModel.addRow(rd);
+			table.validate();
+		}
+		
+	}
 	public void loadDetails(int id, DataType type) {
 		resetDetails();
 	
@@ -275,6 +293,18 @@ public class ModelViewer extends JFrame {
 		Set<Integer> colors = new HashSet<>();
 		
         Model model = ItemDefinition.forID(id).getItemModelFinalised(1);
+        
+        if (model != null && model.face_color != null) {
+	        for (int i : model.face_color) {
+	            colors.add(i);
+	        }
+        }
+        
+		return colors;
+	}
+	
+	public Set<Integer> getColorsModel(Model model) {
+		Set<Integer> colors = new HashSet<>();
         
         if (model != null && model.face_color != null) {
 	        for (int i : model.face_color) {
@@ -379,7 +409,7 @@ public class ModelViewer extends JFrame {
 		
 		SwingUtilities.invokeLater(() -> {
 			ModelViewer v = new ModelViewer(true);
-			v.loadDetails(modelID, type);
+			v.loadDetails(Model.fetchModel(modelID));
 			v.setTitle(modelID + " - " + type);
 			v.setVisible(true);
 		});
