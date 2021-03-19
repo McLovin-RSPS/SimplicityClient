@@ -9,9 +9,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 import com.simplicity.client.Client;
+import com.simplicity.tools.colortools.WindowSelectColor;
 
 /**
  * A tool used for looking up object definitions.
@@ -28,6 +31,7 @@ public class DevToolbox extends JFrame {
 	 * Create the frame.
 	 */
 	public DevToolbox() {
+		//setLookAndFeel();
 		setTitle("Developer's Toolbox");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(368, 270);
@@ -111,6 +115,18 @@ public class DevToolbox extends JFrame {
 		btnModels.setBounds(x, y += 30, 150, 23);
 		contentPane.add(btnModels);
 		
+		JButton rs2ColorPicker = new JButton("RS2 Color Picker");
+		rs2ColorPicker.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				SwingUtilities.invokeLater(() -> {
+					WindowSelectColor rs2Picker = new WindowSelectColor();
+            		rs2Picker.setVisible(true);
+            	});
+			}
+		});
+		rs2ColorPicker.setBounds(x, y += 30, 150, 23);
+		contentPane.add(rs2ColorPicker);
+		
 		JButton btnNpcs = new JButton("NPC's");
 		btnNpcs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -165,5 +181,11 @@ public class DevToolbox extends JFrame {
 		btnDumpMap.setBounds(x, y += 30, 150, 23);
 		contentPane.add(btnDumpMap);
 	}
+	
+	private void setLookAndFeel(){
+        try {
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        } catch ( Exception ignored) {}
+    }
 	
 }

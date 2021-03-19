@@ -534,9 +534,9 @@ public enum CustomRecolor {
    KAT_SANTA_GLOVES(11303, 14602, "Kat santa gloves",
 		    new int[] { 56340, 5220, 5240, 5401, 56346, 5230 },
 			new int[] { 54220, 5220, 5240, 5401, 54220, 5230 }),
-   KAT_SAPPHIRE_SANG_X(11304, 52323, "@cya@Katt Sanguinesti staff X",
+ /*  KAT_SAPPHIRE_SANG_X(11304, 52323, "@cya@Katt Sanguinesti staff X",
 			new int[] { 836, 156, 3127, 142, 3140, 24, 20, 28, 836, 37, 49, 41, 57, 33, 16, 284 }, 
-			new int[] { 54220, 54220, 32565, 32565, 54220, 54220, 54220, 54220, 54220, 54220, 32565, 32565, 32565, 54220, 54220, 54220 }),
+			new int[] { 54220, 54220, 32565, 32565, 54220, 54220, 54220, 54220, 54220, 54220, 32565, 32565, 32565, 54220, 54220, 54220 }), */
 
    /* BLACK RED SET */
 	BLK_RED_ROSEBLOOD_TOP(11305, 17223, "@red@Blk Red Roseblood robe top",
