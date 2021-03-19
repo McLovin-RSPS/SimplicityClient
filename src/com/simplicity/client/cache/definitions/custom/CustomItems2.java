@@ -2289,7 +2289,10 @@ public class CustomItems2 {
 	            break;
 	
 	        case 11554:
+	        case 42006:
 	            itemDef.name = "Abyssal tentacle";
+		    	itemDef.femaleYOffset = -3;
+		    	itemDef.femaleXOffset = 6;
 	            itemDef.modelZoom = 840;
 	            itemDef.rotationY = 280;
 	            itemDef.rotationX = 121;

@@ -313,17 +313,22 @@ public final class ItemDefinition {
         	itemDef.newModelColor = new int[] { 61 };
         	itemDef.animateInventory = true;
         	break;
+        	
         case 51030: // Dark relic textured
         	itemDef.copy(forID(51027));
+            itemDef.name = "@red@Executive relic";
+            itemDef.actions = new String[] { null, null , null, null, null };
         	itemDef.dataType = DataType.CUSTOM;
         	itemDef.modelID = 96;
         	itemDef.editedModelColor = new int[] { 40 };
         	itemDef.newModelColor = new int[] { 61 };
         	itemDef.animateInventory = true;
         	break;
+        	
             case 55087:
                 itemDef.name = "@red@Mystery Donation Scroll";
                 break;
+                
 	        case 52323:
 	        case 5085:
 	        case 12150:
