@@ -25622,7 +25622,11 @@ public class Client extends RSApplet {
             e.printStackTrace();
         }
     }
-
+    
+	public Decompressor getCacheIndice(int index) {
+		return cacheIndices[index];
+	}
+	
     private int cursor;
 
     public void setCursor(int id) {
