@@ -556,6 +556,10 @@ public final class Player extends Entity {
 	int extendedXMax;
 	int extendedYMax;
 	boolean updateColor = true;
+	
+	public void clearCache() {
+		modelCache.clear();
+	}
 
 	public Entity getInteracting() {
 		if (interactingEntity == -1) {
