@@ -81,6 +81,12 @@ public final class MobDefinition {
             }
             switch (i) {
             
+            case 8202: // Tektiny
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                npc.actions[2] = "Metamorphosis";
+                break;
+            
             case 8009:
             case 7674:
                 npc.actions = new String[5];
