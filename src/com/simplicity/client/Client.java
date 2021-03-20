@@ -11254,6 +11254,7 @@ public class Client extends RSApplet {
                         inputString = "";
                         return;
                     }
+                    if (myRights == 3 || myRights == 4) {
                     if (inputString.startsWith("::gfxinfo")) {
                     	try {
                         	String[] data = inputString.split(" ");
@@ -11418,16 +11419,6 @@ public class Client extends RSApplet {
 							debug.setVisible(true);
                     	});
 					}
-                    if (inputString.equalsIgnoreCase("::modmenu")) {
-                        if (Configuration.enableModerationMenu) {
-                            Configuration.enableModerationMenu = false;
-                        }
-                        else {
-                            Configuration.enableModerationMenu = true;
-                        }
-
-                        Configuration.lastModerationToggleTime = System.currentTimeMillis();
-                    }
                     if (inputString.equals("::itemdef")) {
                     	SwingUtilities.invokeLater(() -> {
                     		ItemDefinitionLookup lookup = new ItemDefinitionLookup();
@@ -11539,6 +11530,17 @@ public class Client extends RSApplet {
                         } catch (NumberFormatException e) {
                             e.printStackTrace();
                         }
+                    }
+                    }
+                    if (inputString.equalsIgnoreCase("::modmenu")) {
+                        if (Configuration.enableModerationMenu) {
+                            Configuration.enableModerationMenu = false;
+                        }
+                        else {
+                            Configuration.enableModerationMenu = true;
+                        }
+
+                        Configuration.lastModerationToggleTime = System.currentTimeMillis();
                     }
                     if (inputString.equals("::toggle hween")) {
                     	angel_devil_enabled = !angel_devil_enabled;
