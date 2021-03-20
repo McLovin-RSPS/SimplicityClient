@@ -3,14 +3,9 @@ package com.simplicity.tools;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.zip.GZIPOutputStream;
 
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,16 +13,15 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 import com.simplicity.client.Client;
 import com.simplicity.client.Model;
-import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.tools.colortools.WindowSelectColor;
-import com.sun.javafx.application.PlatformImpl;
 
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
@@ -41,6 +35,7 @@ public class DevToolbox extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	final JFXPanel fxPanel = new JFXPanel();
 	
 	/**
 	 * Create the frame.
@@ -210,7 +205,7 @@ public class DevToolbox extends JFrame {
 				
 				int file = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter file:"));
 				
-				PlatformImpl.startup(() -> {
+				Platform.runLater(() -> {
 					FileChooser chooser2 = new FileChooser();
 					chooser2.setTitle("Select destination folder");
 					chooser2.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
@@ -238,7 +233,7 @@ public class DevToolbox extends JFrame {
 				
 				int archive = Integer.parseInt(type.substring(0, type.indexOf(" ")));
 				
-				PlatformImpl.startup(() -> {
+				Platform.runLater(() -> {
 					FileChooser chooser2 = new FileChooser();
 					chooser2.setTitle("Select file");
 					chooser2.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
