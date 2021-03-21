@@ -19775,7 +19775,11 @@ public class Client extends RSApplet {
                 if (j3 < 3 && (byteGroundArray[1][xTile][yTile] & 2) == 2) {
                     j3++;
                 }
-                ObjectManager.method188(worldController, objectFace, yTile, requestType, j3, clippingPlanes[z], intGroundArray, xTile, objectId, z);
+                try {
+                	ObjectManager.method188(worldController, objectFace, yTile, requestType, j3, clippingPlanes[z], intGroundArray, xTile, objectId, z);
+                } catch (Exception e) {
+                	e.printStackTrace();
+                }
             }
         }
     }
