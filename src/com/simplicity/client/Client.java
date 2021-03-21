@@ -11744,9 +11744,16 @@ public class Client extends RSApplet {
      */
     public void dumpItemImages(boolean dumpByName) {
         for (int id = 0; id < ItemDefinition.totalItems; id++) {
+        	ItemDefinition def = ItemDefinition.forID(id);
+        	
+        	if (def.id == 1) {
+        		continue;
+        	}
+        	
             Sprite image = ItemDefinition.getSprite(id, id, 0);
+            
             if (image != null)
-                dumpImage(image, dumpByName ? ItemDefinition.forID(id).name : Integer.toString(id));
+                dumpImage(image, dumpByName ? def.name : Integer.toString(id));
             else
                 System.out.println("image " + id + " null");
         }
