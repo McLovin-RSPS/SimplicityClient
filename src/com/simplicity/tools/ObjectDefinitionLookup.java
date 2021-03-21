@@ -62,7 +62,7 @@ public class ObjectDefinitionLookup extends JFrame {
 	public ObjectDefinitionLookup() {
 		setTitle("Object Definition Lookup");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(475, 468);
+		setSize(475, 514);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -116,7 +116,7 @@ public class ObjectDefinitionLookup extends JFrame {
 		contentPane.add(btnSubmit);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 36, 131, 383);
+		scrollPane.setBounds(10, 36, 131, 430);
 		contentPane.add(scrollPane);
 		
 		tree = new JTree(objects);
@@ -160,7 +160,7 @@ public class ObjectDefinitionLookup extends JFrame {
 		
 		details = new JTable(rowData, columnNames);
 		details.setTableHeader(null);
-		details.setBounds(151, 37, 298, 383);
+		details.setBounds(151, 37, 298, 430);
 		
 		contentPane.add(details);
 		
