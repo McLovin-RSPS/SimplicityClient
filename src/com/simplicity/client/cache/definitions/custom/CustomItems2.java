@@ -1721,7 +1721,11 @@ public class CustomItems2 {
 	            itemDef.sizeY = def2.sizeY;
 	            itemDef.sizeZ = def2.sizeZ;
 	            itemDef.maleEquip1 = 97;
+	            itemDef.maleEquip2 = -1;
+	            itemDef.maleEquip3 = -1;
 	            itemDef.femaleEquip1 = 97;
+	            itemDef.femaleEquip2 = -1;
+	            itemDef.femaleEquip3 = -1;
 	            itemDef.rotationX = 1024;
 	            itemDef.rotationY = 300;
 	            itemDef.modelZoom = 2000;
