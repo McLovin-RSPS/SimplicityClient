@@ -18,6 +18,7 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import com.simplicity.client.Client;
 import com.simplicity.client.Model;
 import com.simplicity.client.cache.definitions.ItemDefinition;
+import com.simplicity.client.cache.definitions.MobDefinition;
 import com.simplicity.tools.colortools.WindowSelectColor;
 
 import javafx.application.Platform;
@@ -272,6 +273,7 @@ public class DevToolbox extends JFrame {
 	    ItemDefinition.modelCacheCustom.clear();
 	    ItemDefinition.modelCacheOSRS.clear();
 	    ItemDefinition.spriteCache.clear();
+	    MobDefinition.reloadCache();
 	    Client.myPlayer.clearCache();
 	}
 	

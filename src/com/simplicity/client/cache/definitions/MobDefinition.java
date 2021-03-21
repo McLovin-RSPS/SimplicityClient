@@ -2292,6 +2292,19 @@ public final class MobDefinition {
             }
         }
     }
+    
+	public static void reloadCache() {
+		modelCache.clear();
+		modelCacheOSRS.clear();
+		
+        cache = new MobDefinition[20];
+        cacheOSRS = new MobDefinition[20];
+
+        for (int k = 0; k < 20; k++) {
+            cache[k] = new MobDefinition();
+            cacheOSRS[k] = new MobDefinition();
+        }
+	}
 
     public void readValues(Stream stream) {
         boolean osrs = stream == streamOSRS;
