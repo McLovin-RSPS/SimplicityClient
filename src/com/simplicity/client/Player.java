@@ -559,6 +559,10 @@ public final class Player extends Entity {
 	
 	public void clearCache() {
 		modelCache.clear();
+		
+		if (desc != null) {
+			desc = desc.forID(desc.id);
+		}
 	}
 
 	public Entity getInteracting() {
