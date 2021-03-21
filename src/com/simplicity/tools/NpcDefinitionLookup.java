@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -23,6 +24,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
+import com.simplicity.client.Client;
 import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.MobDefinition;
 
@@ -50,6 +52,7 @@ public class NpcDefinitionLookup extends JFrame {
 	private JRadioButton rdbtnModel;
 	private JRadioButton rdbtnName;
 	private JRadioButton rdbtnAnimation;
+	private JCheckBox setOnClick;
 	
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private List<String> detailsData = new ArrayList<String>(Arrays.asList(new String[] { "Id", "Name", "Description", "Combat Level", "Actions", "Model IDs", "Head Model IDs", "SizeX", "SizeY", "Size", "On minimap", "Walk anim", "Stand anim", "DataType" }));
@@ -65,7 +68,7 @@ public class NpcDefinitionLookup extends JFrame {
 	public NpcDefinitionLookup() {
 		setTitle("NPC Definition Lookup");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(550, 375);
+		setSize(550, 385);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -124,7 +127,7 @@ public class NpcDefinitionLookup extends JFrame {
 		contentPane.add(btnSubmit);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 36, 202, 288);
+		scrollPane.setBounds(10, 36, 202, 300);
 		contentPane.add(scrollPane);
 		
 		tree = new JTree(objects);
@@ -164,9 +167,13 @@ public class NpcDefinitionLookup extends JFrame {
 		
 		details = new JTable(rowData, columnNames);
 		details.setTableHeader(null);
-		details.setBounds(226, 37, 298, 287);
+		details.setBounds(226, 37, 298, 277);
 		
 		contentPane.add(details);
+		
+		setOnClick = new JCheckBox("Set On Click");
+		setOnClick.setBounds(222, 317, 100, 20);
+		contentPane.add(setOnClick);
 		
 		init();
 	}
@@ -200,6 +207,10 @@ public class NpcDefinitionLookup extends JFrame {
 		details.getModel().setValueAt(def.walkAnim, column++, 1);
 		details.getModel().setValueAt(def.standAnim, column++, 1);
 		details.getModel().setValueAt(def.dataType, column++, 1);
+		
+		if (setOnClick.isSelected()) {
+			Client.myPlayer.desc = def;
+		}
 	}
 	
 	public int getSelectedType() {
