@@ -1,8 +1,12 @@
 package com.simplicity.tools.colortools;
 
+import javax.print.attribute.IntegerSyntax;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import com.simplicity.client.cache.definitions.ItemDefinition;
+import com.sun.org.apache.xerces.internal.impl.dv.xs.IntegerDV;
+
+import net.runelite.api.IntegerNode;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -248,15 +252,11 @@ public class WindowSelectColor extends JFrame {
 
     /** do the action when rgb is input*/
     private void actionInInputRGB(ActionEvent event){
-        String value = valueRGBdisplay.getText().replace(" ", "");
-        String[] eachData = value.split(",");
-       if (eachData.length < 3) {
-           valueRGBdisplay.setForeground(Color.decode("#ff001b"));
-           return;
-       }
+        String value = valueRGBdisplay.getText();
        Color color;
        try {
-           color = new Color(Integer.parseInt(eachData[0]), Integer.parseInt(eachData[1]), Integer.parseInt(eachData[2]));
+    	   color = new Color(ItemDefinition.RS2HSB_to_RGB(Integer.parseInt(value)));
+           //color = new Color(Integer.parseInt(eachData[0]), Integer.parseInt(eachData[1]), Integer.parseInt(eachData[2]));
        } catch (Exception error){
            valueRGBdisplay.setForeground(Color.decode("#ff001b"));
            return;
