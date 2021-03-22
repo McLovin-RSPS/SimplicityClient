@@ -329,19 +329,28 @@ public class ItemDefinitionLookup extends JFrame {
 		
 		int searchedId = -1;
 		
+		int max = 32_000;
+		
 		if (type == TYPE_ID) {
 			try {
 				searchedId = Integer.parseInt(query);
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(
 				        null, "Invalid ID specified.", "Error", JOptionPane.ERROR_MESSAGE);
+				return;
 			}
-			return;
+			
+			if (searchedId > max) {
+				JOptionPane.showMessageDialog(
+				        null, "ID is too high.", "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 		}
 		
-		for (int i = 0; i < ItemDefinition.totalItems; i++) {
-			if (type == TYPE_ID && searchedId > ItemDefinition.totalItems) {
-				break;
+		
+		for (int i = 0; i < max; i++) {
+			if (type == TYPE_ID && i != searchedId) {
+				continue;
 			}
 			
 			ItemDefinition def = null;
