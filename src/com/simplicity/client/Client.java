@@ -4946,8 +4946,8 @@ public class Client extends RSApplet {
                         s = s.substring(0, s.indexOf(" "));
                     }
                     String spellName = child.spellName.toLowerCase();
-                    if (spellName.endsWith("Rush") || spellName.endsWith("Burst")
-                            || spellName.endsWith("Blitz") || spellName.endsWith("Barrage")
+                    if (spellName.endsWith("rush") || spellName.endsWith("burst")
+                            || spellName.endsWith("blitz") || spellName.endsWith("barrage")
                             || spellName.endsWith("strike") || spellName.endsWith("bolt")
                             || spellName.equalsIgnoreCase("Crumble undead") || spellName.endsWith("blast")
                             || spellName.endsWith("wave") || spellName.endsWith("surge") || spellName.equalsIgnoreCase("Claws of Guthix")
