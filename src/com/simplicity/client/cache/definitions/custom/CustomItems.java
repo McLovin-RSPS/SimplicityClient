@@ -356,6 +356,7 @@ public class CustomItems {
                 
             case 15100:
                 itemDef.copy(ItemDefinition.forID(52324));
+                itemDef.actions = new String[5];
                 itemDef.actions[1] = "Wield";
                 itemDef.name = "Ghrazi rapier X";
                 itemDef.description = "It is the Ghrazi Rapier X";
