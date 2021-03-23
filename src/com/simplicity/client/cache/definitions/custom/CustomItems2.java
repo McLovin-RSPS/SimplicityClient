@@ -1798,6 +1798,14 @@ public class CustomItems2 {
 	            itemDef.actions = new String[5];
 	            itemDef.actions[0] = "Open";
 	            break;
+	        case 21560:
+	            itemDef.copy(ItemDefinition.forID(76));
+	            itemDef.name = "Elite key";
+	            itemDef.editedModelColor = new int[] { 74, 12, 45, };
+	            itemDef.newModelColor = new int[] { 38325, 9583, 38325, }; 
+	            itemDef.actions = new String[5];
+	            itemDef.actions[1] = "Teleport";
+	            break;
 	        case 21545:
 	            itemDef.copy(ItemDefinition.forID(6855));
 	            itemDef.name = "Mythical Box";
