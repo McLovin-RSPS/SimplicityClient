@@ -2107,7 +2107,6 @@ public class RSInterface {
                 widget.modelZoom = modelZoom + (breaks * 125);
                 widget.modelRotation1 = modelRot;
                 widget.modelRotation2 = modelRot2;
-                System.out.println("MODEL POS "+ modelOffsetX + (i * 56));
                 infobox.child(childId++, id++, modelOffsetX + (i * 56), 48 + (breaks * 2));
 
                 widget = addInterface(id);
@@ -2128,7 +2127,6 @@ public class RSInterface {
                 widget.valueIndexArray[0][1] = 3214;
                 widget.valueIndexArray[0][2] = runeIds[i];
                 widget.valueIndexArray[0][3] = 0;
-                System.out.println("TEXT POST"+ (infoOffsetX + (i * 54) + (32 - fonts[0].getTextWidth(widget.message) / 2)));
                 infobox.child(childId++, id++, infoOffsetX + (i * 54) + (32 - fonts[0].getTextWidth(widget.message) / 2), 78);
             }
         }
