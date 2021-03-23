@@ -293,6 +293,7 @@ public class WindowSelectColor extends JFrame {
         valueHex = new JLabel("HEX ");
         valueHexDisplay = new JTextField("       ");
         valueRGBdisplay = new JTextField("             ");
+        valueRGBdisplay.setPreferredSize(new Dimension(50, 25));
         valueRGBdisplay.addActionListener(this::actionInInputRGB);
         valueHexDisplay.addActionListener(this::actionInInputHex);
 
