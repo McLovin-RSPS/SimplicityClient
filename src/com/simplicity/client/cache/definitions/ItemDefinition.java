@@ -1380,7 +1380,7 @@ public final class ItemDefinition {
         membersObject = itemDef_1.membersObject;
         value = itemDef_1.value;
         String s = "a";
-        char c = itemDef_1.name == null ? 'S' : itemDef_1.name.charAt(0);
+        char c = (itemDef_1.name == null || itemDef_1.name.isEmpty()) ? 'S' : itemDef_1.name.charAt(0);
         if (c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U') {
             s = "an";
         }
@@ -1691,6 +1691,10 @@ public final class ItemDefinition {
         }
         if (k > 0) {
             k3 = (int) ((double) k3 * 1.04D);
+        }
+        
+        if (itemDef.rotationY > Rasterizer.anIntArray1470.length || itemDef.rotationY > Rasterizer.anIntArray1471.length) {
+        	return null;
         }
 
         int l3 = Rasterizer.anIntArray1470[itemDef.rotationY] * k3 >> 16;
