@@ -4,6 +4,7 @@ import javax.print.attribute.IntegerSyntax;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import com.simplicity.client.cache.definitions.ItemDefinition;
+import com.simplicity.tools.ModelViewer;
 import com.sun.org.apache.xerces.internal.impl.dv.xs.IntegerDV;
 
 import net.runelite.api.IntegerNode;
@@ -293,7 +294,7 @@ public class WindowSelectColor extends JFrame {
         valueHex = new JLabel("HEX ");
         valueHexDisplay = new JTextField("       ");
         valueRGBdisplay = new JTextField("             ");
-        valueRGBdisplay.setPreferredSize(new Dimension(50, 25));
+        valueRGBdisplay.setPreferredSize(new Dimension(52, 25));
         valueRGBdisplay.addActionListener(this::actionInInputRGB);
         valueHexDisplay.addActionListener(this::actionInInputHex);
 
@@ -307,13 +308,36 @@ public class WindowSelectColor extends JFrame {
     }
 
     /** actualise all the date of the new pixel chose*/
-    private void setInfoColor(Color color){
+    public void setInfoColor(Color color){
         colorSelect.setBackground(color);
         valueRGB.setText("RS2 :");
         valueRGBdisplay.setForeground(Color.WHITE);
-        valueRGBdisplay.setText( String.valueOf(ItemDefinition.RGB_to_RS2HSB(color.getRed(), color.getGreen(), color.getBlue())) );
+        int rs2Color = ItemDefinition.RGB_to_RS2HSB(color.getRed(), color.getGreen(), color.getBlue());
+        valueRGBdisplay.setText(String.valueOf(rs2Color));
         valueHex.setText("HEX :");
         valueHexDisplay.setForeground(Color.WHITE);
         valueHexDisplay.setText("#"+Integer.toHexString(color.getRGB()).substring(2));
+        
+        if (viewer != null) {
+        	viewer.setColor(rs2Color);
+        }
+    }
+    
+    public void setSelectedColor(int rs2hsb) {
+    	int rgb = ItemDefinition.RS2HSB_to_RGB(rs2hsb);
+    	Color color = new Color(rgb);
+    	colorSelect.setBackground(color);
+    	valueRGB.setText("RS2 :");
+    	valueRGBdisplay.setForeground(Color.WHITE);
+    	valueRGBdisplay.setText(Integer.toString(rs2hsb));
+    	valueHex.setText("HEX :");
+    	valueHexDisplay.setForeground(Color.WHITE);
+        valueHexDisplay.setText("#"+Integer.toHexString(color.getRGB()).substring(2));
+    }
+    
+    private ModelViewer viewer;
+    
+    public void setModelViewer(ModelViewer viewer) {
+    	this.viewer = viewer;
     }
 }

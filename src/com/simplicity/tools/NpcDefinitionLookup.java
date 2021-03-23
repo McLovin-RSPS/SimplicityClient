@@ -4,13 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -25,8 +28,14 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
 import com.simplicity.client.Client;
+import com.simplicity.client.Model;
 import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.MobDefinition;
+import com.simplicity.util.StringUtils;
+
+import javafx.application.Platform;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 
 /**
  * A tool used for looking up npc definitions.
@@ -35,6 +44,8 @@ import com.simplicity.client.cache.definitions.MobDefinition;
  *
  */
 public class NpcDefinitionLookup extends JFrame {
+	
+	private MobDefinition selected;
 	
 	private static final long serialVersionUID = 1L;
 
@@ -176,6 +187,77 @@ public class NpcDefinitionLookup extends JFrame {
 		setOnClick.setBounds(222, 317, 100, 20);
 		contentPane.add(setOnClick);
 		
+		JButton button = new JButton("Copy Colors");
+		button.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (selected == null) {
+					return;
+				}
+				
+				if (selected.models == null) {
+					System.out.println("no models");
+					return;
+				}
+				
+				Set<Integer> colors = new HashSet<>();
+				
+				for (int idx = 0; idx < selected.models.length; idx++) {
+					int modelId = selected.models[idx];
+					
+					Model model = Model.fetchModel(modelId, selected.dataType);
+					
+					if (model != null && model.face_color != null) {
+						for (int color : model.face_color) {
+							colors.add(color);
+						}
+					}
+				}
+				
+				String colorString = StringUtils.intSetToString(colors, true);
+				String orig = "npc.originalColours = new int[] " + colorString + ";";
+				String dest = "npc.destColours = new int[] " + colorString + ";";
+				System.out.println(orig);
+				System.out.println(dest);
+				
+				Platform.runLater(() -> {
+					ClipboardContent content = new ClipboardContent();
+					content.putString(orig + "\r\n" + dest);
+					Clipboard.getSystemClipboard().setContent(content);
+				});
+			}
+		});
+		button.setBounds(322, 317, 100, 20);
+		contentPane.add(button);
+		
+		JButton editColors = new JButton("Edit colors");
+		editColors.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (selected == null) {
+					return;
+				}
+				
+				if (selected.models == null) {
+					System.out.println("no models");
+					return;
+				}
+				
+				String[] options = new String[selected.models.length];
+				
+				for (int i = 0; i < selected.models.length; i++) {
+					options[i] = Integer.toString(selected.models[i]);
+				}
+				
+				String input = JOptionPane.showInputDialog(null, null, "Select model",
+				        JOptionPane.QUESTION_MESSAGE, null, options, options[0]).toString();
+				ModelViewer.of(Integer.parseInt(input), selected.dataType);
+			}
+		});
+		editColors.setBounds(430, 317, 90, 20);
+		contentPane.add(editColors);
 		init();
 	}
 	
@@ -212,6 +294,8 @@ public class NpcDefinitionLookup extends JFrame {
 		if (setOnClick.isSelected()) {
 			Client.myPlayer.desc = def;
 		}
+		
+		selected = def;
 	}
 	
 	public int getSelectedType() {

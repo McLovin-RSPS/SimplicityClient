@@ -2,9 +2,47 @@ package com.simplicity.util;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.List;
+import java.util.Set;
 
 public class StringUtils {
+	
+	public static String arrayToString(int[] array, boolean format) {
+		String s = Arrays.toString(array);
+		
+		if (format) {
+			s = s.replaceAll("\\[", "\\{");
+			s = s.replaceAll("\\]", "\\}");
+		}
+		
+		return s;
+	}
+	
+	public static String intListToString(List<Integer> array, boolean format) {
+		String s = array.toString();
+		
+		if (format) {
+			s = s.replaceAll("\\[", "\\{");
+			s = s.replaceAll("\\]", "\\}");
+		}
+		
+		return s;
+	}
+	
+	public static String intSetToString(Set<Integer> set, boolean format) {
+		Integer[] array = set.toArray(new Integer[set.size()]);
+		
+		String s = Arrays.toString(array);
+		
+		if (format) {
+			s = s.replaceAll("\\[", "\\{");
+			s = s.replaceAll("\\]", "\\}");
+		}
+		
+		return s;
+	}
 
 	public static String capitalizeFirst(String name) {
 		if (name.length() < 1)

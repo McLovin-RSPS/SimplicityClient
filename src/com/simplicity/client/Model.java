@@ -14,6 +14,8 @@ import com.simplicity.client.particles.Particle;
 import com.simplicity.client.particles.ParticleAttachment;
 import com.simplicity.client.particles.ParticleDefinition;
 import com.simplicity.client.particles.ParticleVector;
+import com.simplicity.tools.ModelViewer;
+import com.simplicity.tools.util.ModelColorMapping;
 
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
@@ -747,7 +749,14 @@ public class Model extends Animable {
                 }
             }
         }
+        
+        if (DEV_COLOR_MAPPINGS.containsKey(modelId)) {
+        	ModelColorMapping map = DEV_COLOR_MAPPINGS.get(modelId);
+        	face_color = map.getNewFaceColors();
+        }
     }
+    
+    public static Map<Integer, ModelColorMapping> DEV_COLOR_MAPPINGS = new HashMap<>();
     
 	/**
 	 * Gets if the model of the specified datatype should use depth buffering.

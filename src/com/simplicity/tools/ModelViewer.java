@@ -4,15 +4,19 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
+import java.util.concurrent.TimeUnit;
 
-import javax.swing.ButtonGroup;
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -34,12 +38,21 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
-import com.simplicity.Configuration;
+import com.simplicity.client.Client;
 import com.simplicity.client.Model;
 import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.ItemDefinition;
+import com.simplicity.client.cache.definitions.MobDefinition;
 import com.simplicity.task.Task;
 import com.simplicity.task.TaskManager;
+import com.simplicity.tools.colortools.WindowSelectColor;
+import com.simplicity.tools.util.ModelColorMapping;
+import com.simplicity.tools.util.TableCellListener;
+import com.simplicity.util.StringUtils;
+
+import javafx.application.Platform;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 
 /**
  * A tool used for looking up model colors.
@@ -48,6 +61,14 @@ import com.simplicity.task.TaskManager;
  *
  */
 public class ModelViewer extends JFrame {
+	
+	private Map<Integer, List<Integer>> origColors = new HashMap<>();
+	
+	private int selectedId;
+	private DataType selectedType;
+	private boolean selectedIsItem;
+	private Model selected;
+	private int selectedRow;
 	
 	private static final long serialVersionUID = 1L;
 
@@ -75,7 +96,7 @@ public class ModelViewer extends JFrame {
 	public ModelViewer(boolean compact) {
 		setTitle("Model Colors");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(compact ? 325 : 475, compact ? 480 : 518);
+		setSize(compact ? 325 : 475, compact ? 508 : 558);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -176,6 +197,116 @@ public class ModelViewer extends JFrame {
 		scrollPane2 = new JScrollPane(table);
 		scrollPane2.setBounds(compact ? 5 : 151, compact ? 5 : 37, 298, 431);
 		
+		JButton copy = new JButton("Copy");
+		copy.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int rows = defaultTableModel.getRowCount();
+				
+				int[] colors = new int[rows];
+				
+				for (int i = 0; i < rows; i++) {
+					colors[i] = Integer.parseInt(defaultTableModel.getValueAt(i, 0).toString());
+				}
+				
+				String origColorString;
+				
+				if (origColors.containsKey(selectedId)) {
+					origColorString = StringUtils.intListToString(origColors.get(selectedId), true);
+				} else {
+					origColorString = StringUtils.arrayToString(colors, true);
+				}
+				
+				String orig = "originalColours = new int[] " + origColorString + ";";
+				String dest = "destColours = new int[] " + StringUtils.arrayToString(colors, true) + ";";
+				System.out.println(orig);
+				System.out.println(dest);
+			}
+		});
+		copy.setBounds(compact ? 5 : 150, compact ? 440 : 473, 75, 23);
+		contentPane.add(copy);
+		
+		JButton reload = new JButton("Reload");
+		reload.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (selected == null) {
+					return;
+				}
+				
+				reloadModels();
+			}
+		});
+		reload.setBounds(compact ? 100 : 245, compact ? 440 : 473, 75, 23);
+		contentPane.add(reload);
+		
+		JButton revert = new JButton("Revert");
+		revert.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (selected == null || !Model.DEV_COLOR_MAPPINGS.containsKey(selectedId)) {
+					return;
+				}
+					
+				ModelColorMapping mapping = Model.DEV_COLOR_MAPPINGS.get(selectedId);
+				
+				selected.face_color = mapping.getOriginalFaceColors();
+				
+				Model.DEV_COLOR_MAPPINGS.remove(selectedId);
+				origColors.remove(selectedId);
+				reloadModels();
+				loadDetails(selectedId, selectedType, selectedIsItem);
+				loadDetails(selectedId, selectedType, selectedIsItem);
+			}
+		});
+		revert.setBounds(compact ? 200 : 345, compact ? 440 : 473, 75, 23);
+		contentPane.add(revert);
+		
+		ModelViewer instance = this;
+		
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int row = table.getSelectedRow();
+				int col = table.getSelectedColumn();
+				
+				if (col == 2) {
+					int color = Integer.parseInt(table.getValueAt(row, 0).toString());
+					
+					int rgb = ItemDefinition.RS2HSB_to_RGB((int) color);
+					
+					SwingUtilities.invokeLater(() -> {
+						WindowSelectColor rs2Picker = new WindowSelectColor();
+						rs2Picker.setModelViewer(instance);
+						rs2Picker.setSelectedColor(color);
+	            		rs2Picker.setVisible(true);
+	            		selectedRow = row;
+	            	});
+				}
+			}
+		});
+		
+		table.addPropertyChangeListener(new TableCellListener(table, new AbstractAction() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				TableCellListener listener = (TableCellListener) e.getSource();
+				int row = listener.getRow();
+				int col = listener.getColumn();
+				
+				if (col == 0 && listener.getOldValue() != listener.getNewValue()) { // RS2 color edited
+					int prev = Integer.parseInt(listener.getOldValue().toString());
+					int next = Integer.parseInt(listener.getNewValue().toString());
+					colorEdited(prev, next, row, col);
+				}
+			}
+		}));
+		
+		//table.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE); 
+		
 		SwingUtilities.invokeLater(() -> {
 			table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 				@Override
@@ -185,16 +316,16 @@ public class ModelViewer extends JFrame {
 			        
 			        Object val = model.getValueAt(row, 0);
 			        
-			        if (!(val instanceof Integer)) {
+			        if (val.toString().isEmpty()) {
 			        	return c;
 			        }
 			        
-			        int rgb = ItemDefinition.RS2HSB_to_RGB((int) val);
+			        int rgb = ItemDefinition.RS2HSB_to_RGB(Integer.parseInt(val.toString()));
 			        
 			        if (column == 2) {
 			        	c.setBackground(new Color(rgb));
 			        } else {
-			        	c.setBackground(new Color(0, 0, 0, 0));
+			        	c.setBackground(table.getBackground());
 			        }
 			        
 			        return c;
@@ -208,6 +339,33 @@ public class ModelViewer extends JFrame {
 		if (!compact) {
 			init();
 		}
+	}
+	
+	private void colorEdited(int oldValue, int newValue, int row, int col) {
+		ColorTableModel model = (ColorTableModel) table.getModel();
+		model.fireTableDataChanged();
+		table.setValueAt(newValue, row, col);
+		
+		ModelColorMapping mapping = null;
+		
+		if (Model.DEV_COLOR_MAPPINGS.containsKey(selectedId)) {
+			mapping = Model.DEV_COLOR_MAPPINGS.get(selectedId);
+		} else {
+			mapping = new ModelColorMapping(selected.face_color);
+		}
+		
+		int prevMapping = origColors.containsKey(selectedId) ? origColors.get(selectedId).get(row) : oldValue;
+		
+		mapping.recolor(prevMapping, newValue);
+		Model.DEV_COLOR_MAPPINGS.put(selectedId, mapping);
+	}
+	
+	public void setColor(int color) {
+		int oldTableValue = Integer.parseInt(table.getValueAt(selectedRow, 0).toString());
+		
+		int prevMapping = origColors.containsKey(selectedId) ? origColors.get(selectedId).get(selectedRow) : oldTableValue;
+		
+		colorEdited(prevMapping, color, selectedRow, 0);
 	}
 	
 	public void createNodes(DefaultMutableTreeNode root) {
@@ -256,19 +414,38 @@ public class ModelViewer extends JFrame {
 		
 		Set<Integer> colors = getColors(model);
 		
+		List<Integer> origMappings = null;
+		
+		if (origColors.containsKey(id)) {
+			origMappings = origColors.get(id);
+		} else {
+			origMappings = new ArrayList<>();
+		}
+		
 		for (int color : colors) {
 			int rgb = ItemDefinition.RS2HSB_to_RGB(color);
-			Color col = new Color(rgb);
-			String hex = String.format("#%02X%02X%02X", col.getRed(), col.getGreen(), col.getBlue());
 			
 			Vector rd = new Vector<>();
 			rd.add(color);
-			rd.add(hex);
+			rd.add(rgbToHexString(rgb));
 			rd.add("");
 			
 			defaultTableModel.addRow(rd);
+			origMappings.add(color);
 			table.validate();
 		}
+		
+		origColors.put(id, origMappings);
+		selectedId = id;
+		selectedType = type;
+		selectedIsItem = isItemId;
+		selected = model;
+	}
+	
+	public static String rgbToHexString(int rgb) {
+		Color col = new Color(rgb);
+		
+		return String.format("#%02X%02X%02X", col.getRed(), col.getGreen(), col.getBlue());
 	}
 	
 	public Set<Integer> getColors(int id, DataType type) {
@@ -323,6 +500,7 @@ public class ModelViewer extends JFrame {
 	
 	public void resetDetails() {
 		defaultTableModel.setRowCount(0);
+		origColors = new HashMap<>();
 	}
 	
 	public static final int LENGTH_REGULAR = 80_000;
@@ -383,6 +561,20 @@ public class ModelViewer extends JFrame {
 		tree.expandPath(tree.getPathForRow(0));
 	}
 	
+	public int getSelectedRow() {
+		return selectedRow;
+	}
+	
+	private void reloadModels() {
+		Model.reinit();
+	    ItemDefinition.modelCache.clear();
+	    ItemDefinition.modelCacheCustom.clear();
+	    ItemDefinition.modelCacheOSRS.clear();
+	    ItemDefinition.spriteCache.clear();
+	    MobDefinition.reloadCache();
+	    Client.myPlayer.clearCache();
+	}
+	
 	public static void of(int modelID, DataType type) {
 		if (modelID == -1 || modelID == 65535) {
 			JOptionPane.showMessageDialog(null, "Invalid model.", "Error", 0, null);
@@ -403,6 +595,17 @@ public class ModelViewer extends JFrame {
 
 		public ColorTableModel(Object[][] data, Object[] columnNames) {
 			super(data, columnNames);
+		}
+		
+		@Override
+		public void setValueAt(Object aValue, int row, int column) {
+			if (column == 0) { // Updating HEX whenever RS2 Color is updated.
+				int rgb = ItemDefinition.RS2HSB_to_RGB(Integer.parseInt(aValue.toString()));
+				
+				setValueAt(rgbToHexString(rgb), row, 1);
+			}
+			
+			super.setValueAt(aValue, row, column);
 		}
 		
 	    @Override
