@@ -1715,6 +1715,7 @@ public class CustomItems2 {
 	        case 21045:
 	            def2 = ItemDefinition.forID(9774);
 	            itemDef.actions = def2.actions;
+				itemDef.actions[2] = "Teleport";
 	            itemDef.name = "Executive cape";
 	            itemDef.modelID = 98;
 	            itemDef.sizeX = def2.sizeX;
