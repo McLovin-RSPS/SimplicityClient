@@ -3,10 +3,12 @@ package com.simplicity.tools;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -14,7 +16,15 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 import com.simplicity.client.Client;
+import com.simplicity.client.Model;
+import com.simplicity.client.cache.definitions.ItemDefinition;
+import com.simplicity.client.cache.definitions.MobDefinition;
 import com.simplicity.tools.colortools.WindowSelectColor;
+
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 /**
  * A tool used for looking up object definitions.
@@ -26,6 +36,7 @@ public class DevToolbox extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	final JFXPanel fxPanel = new JFXPanel();
 	
 	/**
 	 * Create the frame.
@@ -180,6 +191,90 @@ public class DevToolbox extends JFrame {
 		});
 		btnDumpMap.setBounds(x, y += 30, 150, 23);
 		contentPane.add(btnDumpMap);
+		
+		JButton btnDump = new JButton("Dump File");
+		btnDump.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String[] options = {"1 - model", "2 - animation", "3 - music", "4 - map", "7 - osrs model", "8 - osrs anim", "9 - osrs map", "10 - custom model"};
+				Object searchType = JOptionPane.showInputDialog(null, null, "Choose archive",
+				        JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+				System.out.println(searchType);
+				
+				String type = searchType.toString();
+				
+				int archive = Integer.parseInt(type.substring(0, type.indexOf(" ")));
+				
+				int file = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter file:"));
+				
+				Platform.runLater(() -> {
+					FileChooser chooser2 = new FileChooser();
+					chooser2.setTitle("Select destination folder");
+					chooser2.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
+					chooser2.setInitialFileName(file + ".gz");
+					
+					File selected = chooser2.showSaveDialog(null);
+					
+					if (selected != null) {
+						Client.instance.getCacheIndice(archive).dump(file, selected.getAbsolutePath());
+					}
+				});
+			}
+		});
+		btnDump.setBounds(x, y += 30, 150, 23);
+		contentPane.add(btnDump);
+		
+		JButton btnRepack = new JButton("Repack File");
+		btnRepack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String[] options = {"1 - model", "2 - animation", "3 - music", "4 - map", "7 - osrs model", "8 - osrs anim", "9 - osrs map", "10 - custom model"};
+				Object searchType = JOptionPane.showInputDialog(null, null, "Choose archive to repack",
+				        JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+				
+				String type = searchType.toString();
+				
+				int archive = Integer.parseInt(type.substring(0, type.indexOf(" ")));
+				
+				Platform.runLater(() -> {
+					FileChooser chooser2 = new FileChooser();
+					chooser2.setTitle("Select file");
+					chooser2.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
+					chooser2.setSelectedExtensionFilter(new ExtensionFilter("Models", "gz", "dat"));
+					
+					File selected = chooser2.showOpenDialog(null);
+					
+					if (selected != null) {
+						int fileIndex = Integer.parseInt(Client.getFileNameWithoutExtension(selected.getName()));
+						
+						Client.instance.getCacheIndice(archive).pack(fileIndex, selected);
+						
+						if (archive == Client.MODEL_IDX || archive == Client.OSRS_MODEL_IDX || archive == Client.CUSTOM_MODEL_IDX) { // Models
+							reloadModelCache();
+						}
+					}
+				});
+			}
+		});
+		btnRepack.setBounds(x, y += 30, 150, 23);
+		contentPane.add(btnRepack);
+		
+		JButton btnReloadModel = new JButton("Reload Model");
+		btnReloadModel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			    reloadModelCache();
+			}
+		});
+		btnReloadModel.setBounds(x, y += 30, 150, 23);
+		contentPane.add(btnReloadModel);
+	}
+	
+	private void reloadModelCache() {
+		Model.reinit();
+	    ItemDefinition.modelCache.clear();
+	    ItemDefinition.modelCacheCustom.clear();
+	    ItemDefinition.modelCacheOSRS.clear();
+	    ItemDefinition.spriteCache.clear();
+	    MobDefinition.reloadCache();
+	    Client.myPlayer.clearCache();
 	}
 	
 	private void setLookAndFeel(){

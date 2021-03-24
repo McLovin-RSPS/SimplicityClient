@@ -687,20 +687,20 @@ public class CustomItems2 {
 	            itemDef.description = "A cape made of ancient, enchanted obsidian.";
 	            itemDef.actions = new String[5];
 	            itemDef.actions[1] = "Wear";
-	            itemDef.modelID = 90;
+	            itemDef.modelID = 110;
 	            itemDef.rotationX = 1024;
 	            itemDef.rotationY = 300;
 	            itemDef.modelZoom = 2000;
-	            itemDef.maleEquip1 = 89;
+	            itemDef.maleEquip1 = 111;
 	            itemDef.maleEquip2 = -1;
 	            itemDef.maleEquip3 = -1;
-	            itemDef.femaleEquip1 = 89;
+	            itemDef.femaleEquip1 = 111;
 	            itemDef.femaleEquip2 = -1;
 	            itemDef.femaleEquip3 = -1;
 	            itemDef.stackable = false;
 	            itemDef.dataType = DataType.CUSTOM;
-	            itemDef.editedModelColor = new int[] { 1495 };
-	            itemDef.newModelColor = new int[] { 40 };
+	            //itemDef.editedModelColor = new int[] { 1495 };
+	            //itemDef.newModelColor = new int[] { 40 };
 	            break;
 	            
 	        case 22079:
@@ -747,20 +747,20 @@ public class CustomItems2 {
 	            itemDef.description = "A cape made of ancient, enchanted obsidian.";
 	            itemDef.actions = new String[5];
 	            itemDef.actions[1] = "Wear";
-	            itemDef.modelID = 88;
+	            itemDef.modelID = 108;
 	            itemDef.rotationX = 1024;
 	            itemDef.rotationY = 300;
 	            itemDef.modelZoom = 2000;
-	            itemDef.maleEquip1 = 87;
+	            itemDef.maleEquip1 = 109;
 	            itemDef.maleEquip2 = -1;
 	            itemDef.maleEquip3 = -1;
-	            itemDef.femaleEquip1 = 87;
+	            itemDef.femaleEquip1 = 109;
 	            itemDef.femaleEquip2 = -1;
 	            itemDef.femaleEquip3 = -1;
 	            itemDef.stackable = false;
 	            itemDef.dataType = DataType.CUSTOM;
-	            itemDef.editedModelColor = new int[] { 1496 };
-	            itemDef.newModelColor = new int[] { 65 };
+	            //itemDef.editedModelColor = new int[] { 1496 };
+	            //itemDef.newModelColor = new int[] { 65 };
 	            break;
 	
 	        case 22078:
@@ -768,20 +768,20 @@ public class CustomItems2 {
 	            itemDef.description = "A cape made of ancient, enchanted obsidian.";
 	            itemDef.actions = new String[5];
 	            itemDef.actions[1] = "Wear";
-	            itemDef.modelID = 92;
+	            itemDef.modelID = 112;
 	            itemDef.rotationX = 1024;
 	            itemDef.rotationY = 300;
 	            itemDef.modelZoom = 2000;
-	            itemDef.maleEquip1 = 91;
+	            itemDef.maleEquip1 = 113;
 	            itemDef.maleEquip2 = -1;
 	            itemDef.maleEquip3 = -1;
-	            itemDef.femaleEquip1 = 91;
+	            itemDef.femaleEquip1 = 113;
 	            itemDef.femaleEquip2 = -1;
 	            itemDef.femaleEquip3 = -1;
 	            itemDef.stackable = false;
 	            itemDef.dataType = DataType.CUSTOM;
-	            itemDef.editedModelColor = new int[] { 1497 };
-	            itemDef.newModelColor = new int[] { 64 };
+	            //itemDef.editedModelColor = new int[] { 1497 };
+	            //itemDef.newModelColor = new int[] { 64 };
 	            break;
 	
 	        case 17273:
@@ -1722,7 +1722,11 @@ public class CustomItems2 {
 	            itemDef.sizeY = def2.sizeY;
 	            itemDef.sizeZ = def2.sizeZ;
 	            itemDef.maleEquip1 = 97;
+	            itemDef.maleEquip2 = -1;
+	            itemDef.maleEquip3 = -1;
 	            itemDef.femaleEquip1 = 97;
+	            itemDef.femaleEquip2 = -1;
+	            itemDef.femaleEquip3 = -1;
 	            itemDef.rotationX = 1024;
 	            itemDef.rotationY = 300;
 	            itemDef.modelZoom = 2000;
@@ -1794,6 +1798,14 @@ public class CustomItems2 {
 	            itemDef.name = "Arthur's Birthday Box";
 	            itemDef.actions = new String[5];
 	            itemDef.actions[0] = "Open";
+	            break;
+	        case 21560:
+	            itemDef.copy(ItemDefinition.forID(76));
+	            itemDef.name = "Elite key";
+	            itemDef.editedModelColor = new int[] { 74, 12, 45, };
+	            itemDef.newModelColor = new int[] { 38325, 9583, 38325, }; 
+	            itemDef.actions = new String[5];
+	            itemDef.actions[1] = "Teleport";
 	            break;
 	        case 21545:
 	            itemDef.copy(ItemDefinition.forID(6855));

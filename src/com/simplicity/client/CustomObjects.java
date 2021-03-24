@@ -489,6 +489,10 @@ public class CustomObjects {
             {48661, 3083, 3488, 0, 3}, // Arthur's dream teleporter edgeville
             {27254, 1831, 5163, 2, 0}, // Dark portal arthur's dream
             
+            // Chest island           
+            {10607, 2847, 5079, 0, 0}, // Elite chest
+            {10611, 2849, 5079, 0, 0}, // Elite chest
+            {10616, 2845, 5079, 0, 0}, // Elite chest
             
             /* Easter 2020 */
 			//{29826, 3099, 3485, 0, 0},

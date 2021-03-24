@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -23,7 +24,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
+import com.simplicity.client.Client;
 import com.simplicity.client.cache.definitions.ObjectDefinition;
+import com.simplicity.client.entity.Position;
 
 /**
  * A tool used for looking up object definitions.
@@ -48,6 +51,7 @@ public class ObjectDefinitionLookup extends JFrame {
 	private JRadioButton rdbtnId;
 	private JRadioButton rdbtnName;
 	private JRadioButton rdbtnAnimation;
+	private JCheckBox spawnOnClick;
 	
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private List<String> detailsData = new ArrayList<String>(Arrays.asList(new String[] { "Id", "Name", "Description", "HasActions", "Actions", "ObjectModelIDs", "ObjectModelTypes", "Animation ID", "AdjustToTerrain", "SizeX", "SizeY", "ABoolean736", "ABoolean751", "ABoolean757", "ABoolean764", "ABoolean779", "AnInt775", "ConfigID", "ConfigObjectIDs", "IsUnwalkable", "VarbitIndex", "Brightness", "Contrast", "DataType" }));
@@ -62,8 +66,9 @@ public class ObjectDefinitionLookup extends JFrame {
 	public ObjectDefinitionLookup() {
 		setTitle("Object Definition Lookup");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(475, 468);
+		setSize(475, 533);
 		setLocationRelativeTo(null);
+		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -116,7 +121,7 @@ public class ObjectDefinitionLookup extends JFrame {
 		contentPane.add(btnSubmit);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 36, 131, 383);
+		scrollPane.setBounds(10, 36, 131, 450);
 		contentPane.add(scrollPane);
 		
 		tree = new JTree(objects);
@@ -160,9 +165,13 @@ public class ObjectDefinitionLookup extends JFrame {
 		
 		details = new JTable(rowData, columnNames);
 		details.setTableHeader(null);
-		details.setBounds(151, 37, 298, 383);
+		details.setBounds(151, 37, 298, 430);
 		
 		contentPane.add(details);
+		
+		spawnOnClick = new JCheckBox("Spawn On Click");
+		spawnOnClick.setBounds(146, 467, 150, 25);
+		contentPane.add(spawnOnClick);
 		
 		init();
 	}
@@ -206,6 +215,18 @@ public class ObjectDefinitionLookup extends JFrame {
 		details.getModel().setValueAt(def.brightness, column++, 1);
 		details.getModel().setValueAt(def.contrast, column++, 1);
 		details.getModel().setValueAt(def.dataType, column++, 1);
+
+		if (spawnOnClick.isSelected()) {
+			int type = 10;
+			
+			if (def.objectModelTypes != null) {
+				type = def.objectModelTypes[0];
+			}
+			
+			Position pos = Client.instance.getPlayerPos();
+			
+			Client.instance.addObject(id, pos.getX(), pos.getY(), 0, type);
+		}
 	}
 	
 	public int getSelectedType() {

@@ -4,12 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -23,8 +27,15 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
+import com.simplicity.client.Client;
+import com.simplicity.client.Model;
 import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.MobDefinition;
+import com.simplicity.util.StringUtils;
+
+import javafx.application.Platform;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 
 /**
  * A tool used for looking up npc definitions.
@@ -33,6 +44,8 @@ import com.simplicity.client.cache.definitions.MobDefinition;
  *
  */
 public class NpcDefinitionLookup extends JFrame {
+	
+	private MobDefinition selected;
 	
 	private static final long serialVersionUID = 1L;
 
@@ -50,6 +63,7 @@ public class NpcDefinitionLookup extends JFrame {
 	private JRadioButton rdbtnModel;
 	private JRadioButton rdbtnName;
 	private JRadioButton rdbtnAnimation;
+	private JCheckBox setOnClick;
 	
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private List<String> detailsData = new ArrayList<String>(Arrays.asList(new String[] { "Id", "Name", "Description", "Combat Level", "Actions", "Model IDs", "Head Model IDs", "SizeX", "SizeY", "Size", "On minimap", "Walk anim", "Stand anim", "DataType" }));
@@ -65,8 +79,9 @@ public class NpcDefinitionLookup extends JFrame {
 	public NpcDefinitionLookup() {
 		setTitle("NPC Definition Lookup");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(550, 375);
+		setSize(550, 385);
 		setLocationRelativeTo(null);
+		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -124,7 +139,7 @@ public class NpcDefinitionLookup extends JFrame {
 		contentPane.add(btnSubmit);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 36, 202, 288);
+		scrollPane.setBounds(10, 36, 202, 300);
 		contentPane.add(scrollPane);
 		
 		tree = new JTree(objects);
@@ -164,10 +179,85 @@ public class NpcDefinitionLookup extends JFrame {
 		
 		details = new JTable(rowData, columnNames);
 		details.setTableHeader(null);
-		details.setBounds(226, 37, 298, 287);
+		details.setBounds(226, 37, 298, 277);
 		
 		contentPane.add(details);
 		
+		setOnClick = new JCheckBox("Set On Click");
+		setOnClick.setBounds(222, 317, 100, 20);
+		contentPane.add(setOnClick);
+		
+		JButton button = new JButton("Copy Colors");
+		button.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (selected == null) {
+					return;
+				}
+				
+				if (selected.models == null) {
+					System.out.println("no models");
+					return;
+				}
+				
+				Set<Integer> colors = new HashSet<>();
+				
+				for (int idx = 0; idx < selected.models.length; idx++) {
+					int modelId = selected.models[idx];
+					
+					Model model = Model.fetchModel(modelId, selected.dataType);
+					
+					if (model != null && model.face_color != null) {
+						for (int color : model.face_color) {
+							colors.add(color);
+						}
+					}
+				}
+				
+				String colorString = StringUtils.intSetToString(colors, true);
+				String orig = "npc.originalColours = new int[] " + colorString + ";";
+				String dest = "npc.destColours = new int[] " + colorString + ";";
+				System.out.println(orig);
+				System.out.println(dest);
+				
+				Platform.runLater(() -> {
+					ClipboardContent content = new ClipboardContent();
+					content.putString(orig + "\r\n" + dest);
+					Clipboard.getSystemClipboard().setContent(content);
+				});
+			}
+		});
+		button.setBounds(322, 317, 100, 20);
+		contentPane.add(button);
+		
+		JButton editColors = new JButton("Edit colors");
+		editColors.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (selected == null) {
+					return;
+				}
+				
+				if (selected.models == null) {
+					System.out.println("no models");
+					return;
+				}
+				
+				String[] options = new String[selected.models.length];
+				
+				for (int i = 0; i < selected.models.length; i++) {
+					options[i] = Integer.toString(selected.models[i]);
+				}
+				
+				String input = JOptionPane.showInputDialog(null, null, "Select model",
+				        JOptionPane.QUESTION_MESSAGE, null, options, options[0]).toString();
+				ModelViewer.of(Integer.parseInt(input), selected.dataType);
+			}
+		});
+		editColors.setBounds(430, 317, 90, 20);
+		contentPane.add(editColors);
 		init();
 	}
 	
@@ -200,6 +290,12 @@ public class NpcDefinitionLookup extends JFrame {
 		details.getModel().setValueAt(def.walkAnim, column++, 1);
 		details.getModel().setValueAt(def.standAnim, column++, 1);
 		details.getModel().setValueAt(def.dataType, column++, 1);
+		
+		if (setOnClick.isSelected()) {
+			Client.myPlayer.desc = def;
+		}
+		
+		selected = def;
 	}
 	
 	public int getSelectedType() {

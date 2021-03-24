@@ -1,15 +1,78 @@
 package com.simplicity.client;
 
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.zip.GZIPOutputStream;
 
-final class Decompressor {
+import com.simplicity.util.GZIPUtil;
+
+public final class Decompressor {
 
 	public Decompressor(RandomAccessFile randomaccessfile, RandomAccessFile randomaccessfile1, int j) {
 		anInt311 = j;
 		dataFile = randomaccessfile;
 		indexFile = randomaccessfile1;
+	}
+
+	/**
+	 * Packs a file into this archive.
+	 * 
+	 * @param index The index.
+	 * @param file  The file to pack.
+	 * @return <code>true</code> if the file was packed.
+	 */
+	public boolean pack(int index, File file) {
+		try {
+			byte[] data;
+
+			if (!GZIPUtil.isGzipped(file)) {
+				data = GZIPUtil.toGzip(file);
+			} else {
+				data = fileToByteArray(file);
+			}
+
+			if (data == null || data.length == 0) {
+				return false;
+			}
+
+			put((int) data.length, data, index);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	/**
+	 * Dumps a file from this archive.
+	 * 
+	 * @param index The index.
+	 * @param path  The path to dump this file to.
+	 * @return <code>true</code> if the file was dumped.
+	 */
+	public boolean dump(int index, String path) {
+		try {
+			byte[] indexByteArray = get(index);
+
+			if (indexByteArray == null || indexByteArray.length == 0) {
+				return false;
+			}
+
+			BufferedOutputStream gzip = new BufferedOutputStream(
+					new GZIPOutputStream(new FileOutputStream(path)));
+
+			gzip.write(indexByteArray);
+			gzip.close();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	/**
@@ -183,6 +246,18 @@ final class Decompressor {
 			e.printStackTrace();
 		}
 	}
+	
+	private byte[] fileToByteArray(File file) {
+        try {
+            byte[] fileData = new byte[(int) file.length()];
+            FileInputStream fis = new FileInputStream(file);
+            fis.read(fileData);
+            fis.close();
+            return fileData;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
 	private static final byte[] buffer = new byte[520];
 	private final RandomAccessFile dataFile;

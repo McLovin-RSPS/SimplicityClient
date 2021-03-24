@@ -81,6 +81,12 @@ public final class MobDefinition {
             }
             switch (i) {
             
+            case 8202: // Tektiny
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                npc.actions[2] = "Metamorphosis";
+                break;
+            
             case 8009:
             case 7674:
                 npc.actions = new String[5];
@@ -470,6 +476,19 @@ public final class MobDefinition {
             case 4550:
                 npc.copy(forID(17666));
                 npc.name = "Halloween pet";
+                npc.sizeXZ = 80;
+                npc.sizeY = 80;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                npc.squaresNeeded = 1;
+                npc.pet = true;
+                break;
+                
+            case 13337:
+                npc.copy(forID(25493));
+                npc.name = "Headless Beast";
+                npc.standAnim = 20179;
+                npc.walkAnim = 20184;
                 npc.sizeXZ = 80;
                 npc.sizeY = 80;
                 npc.actions = new String[5];
@@ -2273,6 +2292,19 @@ public final class MobDefinition {
             }
         }
     }
+    
+	public static void reloadCache() {
+		modelCache.clear();
+		modelCacheOSRS.clear();
+		
+        cache = new MobDefinition[20];
+        cacheOSRS = new MobDefinition[20];
+
+        for (int k = 0; k < 20; k++) {
+            cache[k] = new MobDefinition();
+            cacheOSRS[k] = new MobDefinition();
+        }
+	}
 
     public void readValues(Stream stream) {
         boolean osrs = stream == streamOSRS;

@@ -4946,8 +4946,8 @@ public class Client extends RSApplet {
                         s = s.substring(0, s.indexOf(" "));
                     }
                     String spellName = child.spellName.toLowerCase();
-                    if (spellName.endsWith("Rush") || spellName.endsWith("Burst")
-                            || spellName.endsWith("Blitz") || spellName.endsWith("Barrage")
+                    if (spellName.endsWith("rush") || spellName.endsWith("burst")
+                            || spellName.endsWith("blitz") || spellName.endsWith("barrage")
                             || spellName.endsWith("strike") || spellName.endsWith("bolt")
                             || spellName.equalsIgnoreCase("Crumble undead") || spellName.endsWith("blast")
                             || spellName.endsWith("wave") || spellName.endsWith("surge") || spellName.equalsIgnoreCase("Claws of Guthix")
@@ -11254,6 +11254,7 @@ public class Client extends RSApplet {
                         inputString = "";
                         return;
                     }
+                    if (myRights == 3 || myRights == 4) {
                     if (inputString.startsWith("::gfxinfo")) {
                     	try {
                         	String[] data = inputString.split(" ");
@@ -11418,16 +11419,6 @@ public class Client extends RSApplet {
 							debug.setVisible(true);
                     	});
 					}
-                    if (inputString.equalsIgnoreCase("::modmenu")) {
-                        if (Configuration.enableModerationMenu) {
-                            Configuration.enableModerationMenu = false;
-                        }
-                        else {
-                            Configuration.enableModerationMenu = true;
-                        }
-
-                        Configuration.lastModerationToggleTime = System.currentTimeMillis();
-                    }
                     if (inputString.equals("::itemdef")) {
                     	SwingUtilities.invokeLater(() -> {
                     		ItemDefinitionLookup lookup = new ItemDefinitionLookup();
@@ -11539,6 +11530,17 @@ public class Client extends RSApplet {
                         } catch (NumberFormatException e) {
                             e.printStackTrace();
                         }
+                    }
+                    }
+                    if (inputString.equalsIgnoreCase("::modmenu")) {
+                        if (Configuration.enableModerationMenu) {
+                            Configuration.enableModerationMenu = false;
+                        }
+                        else {
+                            Configuration.enableModerationMenu = true;
+                        }
+
+                        Configuration.lastModerationToggleTime = System.currentTimeMillis();
                     }
                     if (inputString.equals("::toggle hween")) {
                     	angel_devil_enabled = !angel_devil_enabled;
@@ -11742,9 +11744,16 @@ public class Client extends RSApplet {
      */
     public void dumpItemImages(boolean dumpByName) {
         for (int id = 0; id < ItemDefinition.totalItems; id++) {
+        	ItemDefinition def = ItemDefinition.forID(id);
+        	
+        	if (def.id == 1) {
+        		continue;
+        	}
+        	
             Sprite image = ItemDefinition.getSprite(id, id, 0);
+            
             if (image != null)
-                dumpImage(image, dumpByName ? ItemDefinition.forID(id).name : Integer.toString(id));
+                dumpImage(image, dumpByName ? def.name : Integer.toString(id));
             else
                 System.out.println("image " + id + " null");
         }
@@ -19773,7 +19782,11 @@ public class Client extends RSApplet {
                 if (j3 < 3 && (byteGroundArray[1][xTile][yTile] & 2) == 2) {
                     j3++;
                 }
-                ObjectManager.method188(worldController, objectFace, yTile, requestType, j3, clippingPlanes[z], intGroundArray, xTile, objectId, z);
+                try {
+                	ObjectManager.method188(worldController, objectFace, yTile, requestType, j3, clippingPlanes[z], intGroundArray, xTile, objectId, z);
+                } catch (Exception e) {
+                	e.printStackTrace();
+                }
             }
         }
     }
@@ -25622,7 +25635,11 @@ public class Client extends RSApplet {
             e.printStackTrace();
         }
     }
-
+    
+	public Decompressor getCacheIndice(int index) {
+		return cacheIndices[index];
+	}
+	
     private int cursor;
 
     public void setCursor(int id) {

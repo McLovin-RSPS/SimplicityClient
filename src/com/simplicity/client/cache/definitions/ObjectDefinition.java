@@ -503,6 +503,18 @@ public final class ObjectDefinition {
             objectDef.actions = new String[]{"Touch", null, null, null, null};
             objectDef.name = "@yel@Statue of Arthur";
         }
+        if (i == 10607) {
+            objectDef.actions = new String[]{"Search", null, null, null, null};
+            objectDef.name = "@yel@Elite Chest";
+        }
+        if (i == 10611) {
+            objectDef.actions = new String[]{"Search", null, null, null, null};
+            objectDef.name = "@yel@Elite Chest";
+        }
+        if (i == 10616) {
+            objectDef.actions = new String[]{"Search", null, null, null, null};
+            objectDef.name = "@yel@Elite Chest";
+        }
         if (i == 29826) {
             objectDef.actions = new String[]{"Jump-into", null, null, null, null};
             objectDef.name = "@yel@Rabbit hole";

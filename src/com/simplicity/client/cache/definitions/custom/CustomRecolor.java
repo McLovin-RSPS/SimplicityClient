@@ -161,6 +161,7 @@ public enum CustomRecolor {
 	SCYTHE_OF_VITUR_INFERNAL(56018, 22011, "Scythe of Vitur Infernal", new int[] { 69 }, new int[] { 59 }),
 	
 	SCYTHE_OF_VITUR_I(22013, 56018, "Infernal Scythe", new int[] { 69 }, new int[] { 59 }),
+	SCYTHE_OF_VITUR_DARK_INFERNAL(21046, 56018, "Dark Infernal Scythe", new int[] { 69 }, new int[] { 61 }),
 	
 	SEZY_ANGELIC_BOOTS(3324, 41860, "Can still see your sock",
 			new int[]{8396, 8417, 5293, 20},
@@ -504,7 +505,7 @@ public enum CustomRecolor {
 
     RED_BLACK_SIRENIC_GLOVES(14455, 22022, "@red@No Church Gloves",
             new int[]{ 40608, 33201, 43283, 40596, 43285, 43276 },
-            new int[]{ 1024, 942, 1024, 1024, 942, 942 }),
+            new int[]{ 1024, 942, 1024, 1024, 942, 942 }), 
 
     RED_BLACK_SIRENIC_BOOTS(14456, 22020, "@red@No Church Boots",
             new int[]{35104, 2, 35092, 35109, 38422, 43275, 38412},
