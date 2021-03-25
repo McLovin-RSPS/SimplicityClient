@@ -354,6 +354,18 @@ public class CustomItems {
                 itemDef.newModelColor = new int[]{960, 4024, 3024, 4024, 3024, 43968, 4361, 476, 127};
                 break;
                 
+            	
+            case 18620: 
+            	itemDef.copy(ItemDefinition.forID(8151));
+            	itemDef.name = "Prize chest";
+            	itemDef.actions = new String[5];
+            	itemDef.actions[0] = "Open";
+            	itemDef.modelID = 114;
+            	itemDef.editedModelColor =new int[]{ 40 };
+            	itemDef.newModelColor = new int[]{ 65 };
+            	itemDef.dataType = DataType.CUSTOM;
+            	break;
+                
             case 15100:
                 itemDef.copy(ItemDefinition.forID(52324));
                 itemDef.actions = new String[5];
