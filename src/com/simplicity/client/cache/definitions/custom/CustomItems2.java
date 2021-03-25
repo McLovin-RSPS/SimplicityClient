@@ -1805,7 +1805,7 @@ public class CustomItems2 {
 	            itemDef.editedModelColor = new int[] { 74, 12, 45, };
 	            itemDef.newModelColor = new int[] { 38325, 9583, 38325, }; 
 	            itemDef.actions = new String[5];
-	            itemDef.actions[1] = "Teleport";
+	            itemDef.actions[2] = "Teleport";
 	            break;
 	        case 21545:
 	            itemDef.copy(ItemDefinition.forID(6855));
