@@ -220,8 +220,18 @@ public class DevToolbox extends JFrame {
 				});
 			}
 		});
+		
 		btnDump.setBounds(x, y += 30, 150, 23);
 		contentPane.add(btnDump);
+		
+		JButton btnDumpItemSprites = new JButton("Dump Item Sprites");
+		btnDumpItemSprites.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Client.instance.dumpItemImages(false);
+			}
+		});
+		btnDumpItemSprites.setBounds(x, y += 30, 150, 23);
+		contentPane.add(btnDumpItemSprites);
 		
 		JButton btnRepack = new JButton("Repack File");
 		btnRepack.addActionListener(new ActionListener() {

@@ -11743,7 +11743,7 @@ public class Client extends RSApplet {
      * @param dumpByName
      */
     public void dumpItemImages(boolean dumpByName) {
-        for (int id = 0; id < ItemDefinition.totalItems; id++) {
+        for (int id = 0; id < 56100; id++) {
         	ItemDefinition def = ItemDefinition.forID(id);
         	
         	if (def.id == 1) {
