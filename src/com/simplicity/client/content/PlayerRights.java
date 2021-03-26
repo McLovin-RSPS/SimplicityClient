@@ -34,6 +34,7 @@ public enum PlayerRights {
     SUPER_ADMIN(1033, 16, 0, PlayerRightsType.STAFF),
     MIDDLEMAN(1317, 16, 0, PlayerRightsType.DEFAULT),
     INFERNAL(AnimatedSprite.sprites[0], 20, -1, PlayerRightsType.DONATOR),
+    WIKI_EDITOR(1781, 20, -1, PlayerRightsType.STAFF),
 
     IRON_MAN(712, PlayerRightsType.CUSTOM_GAME_MODE),
     ULTIMATE_IRON_MAN(711, PlayerRightsType.CUSTOM_GAME_MODE),
