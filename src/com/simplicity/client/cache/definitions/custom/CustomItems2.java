@@ -1673,6 +1673,24 @@ public class CustomItems2 {
 	            itemDef.editedModelColor = def2.editedModelColor;
 	            itemDef.newModelColor = def2.newModelColor;
 	            break;
+	        case 21019:
+	            def2 = ItemDefinition.forID(9774);
+	            itemDef.actions = def2.actions;
+	            itemDef.name = "Nightmare cape";
+	            itemDef.modelID = 106;
+	            itemDef.sizeX = def2.sizeX;
+	            itemDef.sizeY = def2.sizeY;
+	            itemDef.sizeZ = def2.sizeZ;
+	            itemDef.maleEquip1 = 107;
+	            itemDef.femaleEquip1 = 107;
+	            itemDef.rotationX = 1024;
+	            itemDef.rotationY = 300;
+	            itemDef.modelZoom = 2000;
+	            itemDef.modelOffsetY = 130;
+	            itemDef.editedModelColor = def2.editedModelColor;
+	            itemDef.newModelColor = def2.newModelColor;
+	            itemDef.dataType = DataType.CUSTOM;
+	            break;
 	        case 21021:
 	            def2 = ItemDefinition.forID(9774);
 	            itemDef.actions = def2.actions;
