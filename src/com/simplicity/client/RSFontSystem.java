@@ -232,9 +232,11 @@ public class RSFontSystem extends DrawingArea {
 							try {
 								int[] args = extractSpriteValues(effectString);
 								int spriteId = args[0];
-								Sprite icon = Client.cacheSprite[spriteId];
-								icon.drawAdvancedSprite(drawX, drawY + args[1]);
-								drawX += icon.myWidth + icon.drawOffsetX;
+								if (spriteId != 0) {
+									Sprite icon = Client.cacheSprite[spriteId];
+									icon.drawAdvancedSprite(drawX, drawY + args[1]);
+									drawX += icon.myWidth + icon.drawOffsetX;
+								}
 							} catch (Exception exception) {
 								/* empty */
 							}
