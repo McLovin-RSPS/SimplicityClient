@@ -767,7 +767,7 @@ public class CustomItems {
                 
 			case 6200:
 				itemDef.copy(ItemDefinition.forID(6199));
-				itemDef.name = "Mystery Box";
+				itemDef.name = "@red@Executive Box";
 				itemDef.actions = new String[5];
 				itemDef.actions[0] = "Open";
 				itemDef.animateInventory = true;
@@ -778,6 +778,8 @@ public class CustomItems {
 				itemDef.modelOffset1 = 40;
 				itemDef.modelOffsetY = -20;
 				itemDef.dataType = DataType.CUSTOM;
+	        	itemDef.editedModelColor = new int[] { 40 };
+	        	itemDef.newModelColor = new int[] { 61 };
 				itemDef.modelID = 93;
 				break;
 

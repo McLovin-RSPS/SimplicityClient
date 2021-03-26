@@ -1969,10 +1969,7 @@ public class RSInterface {
             int[] runeIds = new int[spell.valueIndexArray.length - 1];
             int[] runesRequired = new int[spell.valueIndexArray.length - 1];
             for (int j = 0; j < runeIds.length; j++) {
-                int runeId = spell.valueIndexArray[j][2];
-                if (runeId == 21880)
-                    runeId += ItemDefinition.OSRS_ITEMS_OFFSET;
-                runeIds[j] = runeId;
+                runeIds[j] = spell.valueIndexArray[j][2];
                 runesRequired[j] = spell.requiredValues[j];
             }
 
@@ -2087,21 +2084,25 @@ public class RSInterface {
 
         if (runeCount > 0) {
             int modelOffsetX = ((174 - (56 * runeCount)) / 2) + 20;
-            int infoOffsetX = ((174 - ((4 * fonts[0].getTextWidth("%1/0")) * runeCount)) / 2);
+            int infoOffsetX = modelOffsetX - 16;
+
             for (int i = 0; i < runeCount; i++) {
                 widget = addInterface(id);
                 widget.type = 6;
                 widget.width = 28;
                 widget.height = 28;
                 widget.mediaType = 1;
-                widget.mediaID = ItemDefinition.forID(runeIds[i]).modelID;
+                final int runeId = runeIds[i];
+                widget.mediaID = ItemDefinition.forID(runeId).modelID;
                 int modelZoom = 730;
                 int modelRot = 512;
                 int modelRot2 = 1024;
-                if (widget.mediaID == 2790 || widget.mediaID == 2634 || widget.mediaID == 2749 || widget.mediaID == 5060) {
+                if (runeId >= 2415 && runeId <= 2417 || runeId == 4170 || runeId == 1409) {
                     modelZoom = 1710;
-                    modelRot = 200;
-                    modelRot2 = 892;
+                    if (runeId >= 2415 && runeId <= 2417) {
+                        modelRot = 200;
+                        modelRot2 = 892;
+                    }
                 }
                 widget.modelZoom = modelZoom + (breaks * 125);
                 widget.modelRotation1 = modelRot;
@@ -2126,7 +2127,7 @@ public class RSInterface {
                 widget.valueIndexArray[0][1] = 3214;
                 widget.valueIndexArray[0][2] = runeIds[i];
                 widget.valueIndexArray[0][3] = 0;
-                infobox.child(childId++, id++, infoOffsetX + (i * 52) + (32 - fonts[0].getTextWidth(widget.message) / 2), 78);
+                infobox.child(childId++, id++, infoOffsetX + (i * 54) + (32 - fonts[0].getTextWidth(widget.message) / 2), 78);
             }
         }
 
@@ -2228,7 +2229,7 @@ public class RSInterface {
         parent.child(40, 101620, 130, 120);
         parent.addSpellButton(101630, 2415, 565, 556, 1, 2, 4, 60, "Saradomin strike", 1634, 1562, "Summons the power of Saradomin", tda, 2, 10);
         parent.child(41, 101630, 156, 120);
-        parent.addSpellButton(101640, 8843, 565, 556, 1, 2, 4, 60, "Claws of Guthix", 1635, 1563, "Summons the power of Guthix", tda, 2, 10);
+        parent.addSpellButton(101640, 2416, 565, 556, 1, 2, 4, 60, "Claws of Guthix", 1635, 1563, "Summons the power of Guthix", tda, 2, 10);
         parent.child(42, 101640, 0, 144);
         parent.addSpellButton(101650, 2417, 565, 556, 1, 2, 1, 60, "Flames of Zamorak", 1636, 1564, "Summons the power of Zamorak", tda, 2, 10);
         parent.child(43, 101650, 26, 144);
@@ -12749,6 +12750,12 @@ public class RSInterface {
         rsInterface.valueIndexArray[0] = new int[4];
         rsInterface.valueIndexArray[0][0] = 4;
         rsInterface.valueIndexArray[0][1] = 3214;
+        if (r1 == 21880)
+            r1 += ItemDefinition.OSRS_ITEMS_OFFSET;
+        if (r2 == 21880)
+            r2 += ItemDefinition.OSRS_ITEMS_OFFSET;
+        if (r3 == 21880)
+            r3 += ItemDefinition.OSRS_ITEMS_OFFSET;
         rsInterface.valueIndexArray[0][2] = teleport ? 0 : r1;
         rsInterface.valueIndexArray[0][3] = 0;
         rsInterface.valueIndexArray[1] = new int[4];

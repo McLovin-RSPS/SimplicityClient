@@ -51,8 +51,8 @@ public enum CustomRecolor2 {
 	            new int[]{43069, 17350, 17350, 43069, 43069, 43069, 43069, 43069, 43069, 37931, 43069, 17350, 37931}),
 
 	    GREY_GREEN_SIRENIC_GLOVES(21552, 22022, "@gre@Sher's Sirenic Gloves",
-	            new int[]{ 40608, 33201, 43283, 40596, 43285, 43276 },
-	            new int[]{ 43069, 17350, 43069, 43069, 17350, 17350 }),
+	            new int[]{ 40608, 33201, 43283, 40596, 43285, 43276, 33200, 33202, 43303 },
+	            new int[]{ 43069, 17350, 43069, 43069, 17350, 17350, 17350, 17350, 43303 }),
 
 	    GREY_GREEN_SIRENIC_BOOTS(21553, 22020, "@gre@Sher's Sirenic Boots",
 	            new int[]{35104, 2, 35092, 35109, 38422, 43275, 38412},
@@ -69,7 +69,36 @@ public enum CustomRecolor2 {
 		OWNER_CNY_BOX(21536, 10834, "@red@CNY 2021 Mystery Bag",
 				new int[] { 8128, 7616, 4626, 7091, 6067 },
 				new int[] { 9087, 9087, 933, 9087, 9087 }),*/
-	;
+		SIRENIC_SCYTHE_DS(21047, 15000, "@cya@Sirenic Scythe DS", 
+				new int[] { 33, 37, 41, 78, 16, 784, 49, 20, 790, 24, 536, 796, 28, 61 },
+				new int[] { 127, 127, 127, 33279, 127, 33279, 33279, 127, 127, 127, 33279, 33279, 127, 33279 }),
+		/* SIRENIC BLUE AND GOLD */
+		BLUE_GOLD_SIRENIC_HELM(21048, 22014, "<col=001F9E>Ntho Skiller Sirenic Helm</col>",
+	            new int[]{39329, 32197, 38057, 41226, 33066, 40202, 41232, 40084, 41237, 40085, 40344, 40345, 40090, 32060, 40349},
+	            new int[]{40910, 9073, 9073, 40910, 9073, 40910, 40910, 9073, 40910, 41927, 41927, 41927, 41927, 9073, 40910}),
+	            
+		BLUE_GOLD_SIRENIC_PLATEBODY(21049, 22016, "<col=001F9E>Ntho Skiller Sirenic Platebody</col>",
+	            new int[]{39329, 32197, 33066, 43149, 41232, 43153, 42131, 41237, 42133, 40344, 40345, 32060, 40349, 20158},
+	            new int[]{9073, 9073, 9073, 40910, 40910, 40910, 40910, 40910, 40910, 40910, 40910, 9073, 41927, 9073}),
+
+		BLUE_GOLD_SIRENIC_PLATELEGS(21050, 22018, "<col=001F9E>Ntho Skiller Sirenic Platelegs</col>",
+	            new int[]{39329, 32197, 33066, 43149, 41232, 43153, 42131, 41237, 42133, 40344, 40345, 32060, 40349},
+	            new int[]{40910, 9073, 9073, 40910, 40910, 40910, 40910, 40910, 40910, 41927, 40910, 9073, 41927}),
+
+		BLUE_GOLD_SIRENIC_GLOVES(21051, 22022, "<col=001F9E>Ntho Skiller Sirenic Gloves</col>",
+	            new int[]{ 40608, 33201, 43283, 40596, 43285, 43276 },
+	            new int[]{ 40910, 9073, 40910, 40910, 9073, 9073 }),
+
+		BLUE_GOLD_SIRENIC_BOOTS(21052, 22020, "<col=001F9E>Ntho Skiller Sirenic Boots</col>",
+	            new int[]{35104, 2, 35092, 35109, 38422, 43275, 38412},
+	            new int[]{9073, 41927, 9073, 9073, 41927, 41927, 41927}),
+		BLUE_GOLD_ANGELIC_CAPE(21053, 11614, "<col=001F9E>Ntho Skiller Angelic Cape</col>",
+				new int[] { 40023, 40036, 1822, 36, 25, 34243, 9230, 40040, 10348, 48, 34251, 0, 43335, 6218, 23, 11013 },
+				getCustomCapeColor(41927, 9073)),
+		ROADMAN_ANGELIC_CAPE(21054, 11614, "@whi@Roadman Angelic Cape",
+				new int[] { 40023, 40036, 1822, 36, 25, 34243, 9230, 40040, 10348, 48, 34251, 0, 43335, 6218, 23, 11013 },
+				getCustomCapeColor(51136, 127)),
+		;
 	/**
 	 * Constructs a new {@link CustomRecolor2}.
 	 * 
@@ -104,6 +133,7 @@ public enum CustomRecolor2 {
 	private static int[] getCustomCapeColor(int main, int accent) {
 		return new int[] { main, main, main, accent, accent, main, accent, main, main, accent, main, main, main, main, accent, main };
 	}
+	
 	private CustomRecolor2(int itemId, int copyFromId, String name, int[] editedModelColor, int[] newModelColor) {
 		ItemDefinition def = new ItemDefinition();
 
