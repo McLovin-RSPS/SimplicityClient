@@ -363,6 +363,7 @@ public class CustomItems {
             	itemDef.modelID = 114;
             	itemDef.editedModelColor =new int[]{ 40 };
             	itemDef.newModelColor = new int[]{ 65 };
+            	itemDef.animateInventory = true;
             	itemDef.dataType = DataType.CUSTOM;
             	break;
                 
