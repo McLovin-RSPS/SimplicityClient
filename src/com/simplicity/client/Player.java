@@ -368,6 +368,12 @@ public final class Player extends Entity {
 								scaleOldEquipment(model_4, currentPart);
 							}
 							
+							if (myGender == 1 && (def.femaleXScale != 0 || def.femaleYScale != 0 || def.femaleZScale != 0)) {
+								model_4.scale2(def.femaleXScale, def.femaleYScale, def.femaleZScale);
+							} else if (myGender == 0 && (def.maleXScale != 0 || def.maleYScale != 0 || def.maleZScale != 0)) {
+								model_4.scale2(def.maleXScale, def.maleYScale, def.maleZScale);
+							}
+							
 							bodyPartModels[j2++] = model_4;
 						}
 				}

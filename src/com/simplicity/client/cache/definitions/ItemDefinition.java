@@ -2041,6 +2041,9 @@ public final class ItemDefinition {
     public byte femaleZOffset;
     public byte femaleXOffset;
     public byte femaleYOffset;
+    public int femaleXScale;
+    public int femaleYScale;
+    public int femaleZScale;
     public int value;
     public int[] editedModelColor;
     public int id;
@@ -2095,6 +2098,9 @@ public final class ItemDefinition {
     public byte maleYOffset;
     public byte maleXOffset;
     public byte maleZOffset;
+    public int maleXScale;
+    public int maleYScale;
+    public int maleZScale;
     public int lendID;
     public int lentItemID;
     public boolean untradeable;
