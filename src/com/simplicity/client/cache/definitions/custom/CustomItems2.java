@@ -1988,6 +1988,8 @@ public class CustomItems2 {
 	
 	        case 15259:
 	            itemDef.copy(ItemDefinition.forID(41920));
+	            itemDef.femaleYOffset = -7;
+	            itemDef.femaleXOffset = 2;
 	            break;
 	
 	        case 11726:
@@ -3196,6 +3198,10 @@ public class CustomItems2 {
 	            itemDef.actions = new String[5];
 	            itemDef.actions[1] = "Wield";
 	            itemDef.actions[3] = "Check";
+	            itemDef.femaleYOffset = -8;
+	            itemDef.femaleZOffset = 3;
+	            itemDef.maleYOffset = 8;
+	            itemDef.maleXOffset = -6;
 	            break;
 	        case 12601:
 	            itemDef.name = "Ring of the gods";
