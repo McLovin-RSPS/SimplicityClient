@@ -787,6 +787,9 @@ public class CustomItems2 {
 	        case 17273:
 	            itemDef.maleYOffset += 7;
 	            itemDef.maleZOffset -= 6;
+	            itemDef.femaleYOffset = -1;
+	            itemDef.femaleXOffset = -4;
+	            itemDef.femaleZOffset = -2;
 	            itemDef.maleEquip1 = 56110;
 	            break;
 	        case 21630:
