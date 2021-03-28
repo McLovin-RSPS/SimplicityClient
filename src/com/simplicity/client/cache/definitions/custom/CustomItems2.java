@@ -3177,7 +3177,8 @@ public class CustomItems2 {
 	            itemDef.maleEquip1 = 14403;
 	            itemDef.femaleEquip1 = 14403;
 	            itemDef.maleYOffset = 8;
-	            itemDef.femaleYOffset = -10;
+	            itemDef.femaleXOffset = -4;
+	            itemDef.maleXOffset = -4;
 	            itemDef.actions = new String[]{null, "Wield", "Check", "Unload", "Drop"};
 	            itemDef.groundActions = new String[]{null, null, "Take", null, null};
 	            break;
