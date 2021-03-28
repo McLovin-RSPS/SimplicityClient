@@ -22870,7 +22870,7 @@ public class Client extends RSApplet {
             Rasterizer.method370(34);
         }
 
-        if (Rasterizer.anIntArray1480[40] >= j) {
+        if (Rasterizer.anIntArray1480[40] >= j || Rasterizer.anIntArray1480[40] < j) {
             Background background_2 = Rasterizer.aBackgroundArray1474s[40];
             int i1 = background_2.imgWidth * background_2.imgHeight - 1;
             int l1 = background_2.imgWidth * cycleTimer * 1;
