@@ -276,6 +276,7 @@ public class CustomItems2 {
 	            itemDef.femaleXScale = 108;
 	            itemDef.femaleYScale = 131;
 	            itemDef.femaleZScale = 115;
+	            //model_4.scale2(108, 130, 115);
 	            break;
 	
 	        case 22020:
