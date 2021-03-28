@@ -1180,8 +1180,8 @@ public class CustomItems2 {
 	            itemDef.modelOffsetY = 130;
 	            itemDef.editedModelColor = def2.editedModelColor;
 	            itemDef.newModelColor = def2.newModelColor;
-	            itemDef.maleYOffset -= 7;
-	            itemDef.femaleYOffset -= 7;
+	            itemDef.maleYOffset -= 10;
+	            itemDef.femaleYOffset -= 10;
 	            break;
 	        case 21002:
 	            itemDef.modelID = 35742;
@@ -1672,6 +1672,8 @@ public class CustomItems2 {
 	            itemDef.modelOffsetY = 130;
 	            itemDef.editedModelColor = def2.editedModelColor;
 	            itemDef.newModelColor = def2.newModelColor;
+	            itemDef.maleYOffset = -4;
+	            itemDef.femaleYOffset = -4;
 	            break;
 	        case 21019:
 	            def2 = ItemDefinition.forID(9774);
@@ -1682,11 +1684,17 @@ public class CustomItems2 {
 	            itemDef.sizeY = def2.sizeY;
 	            itemDef.sizeZ = def2.sizeZ;
 	            itemDef.maleEquip1 = 107;
+	            itemDef.maleEquip2 = -1;
+	            itemDef.maleEquip3 = -1;
 	            itemDef.femaleEquip1 = 107;
+	            itemDef.femaleEquip2 = -1;
+	            itemDef.femaleEquip3 = -1;
 	            itemDef.rotationX = 1024;
 	            itemDef.rotationY = 300;
 	            itemDef.modelZoom = 2000;
 	            itemDef.modelOffsetY = 130;
+	            itemDef.maleYOffset = -10;
+	            itemDef.femaleYOffset = -10;
 	            itemDef.editedModelColor = def2.editedModelColor;
 	            itemDef.newModelColor = def2.newModelColor;
 	            itemDef.dataType = DataType.CUSTOM;
@@ -1707,8 +1715,8 @@ public class CustomItems2 {
 	            itemDef.modelOffsetY = 50;
 	            itemDef.editedModelColor = def2.editedModelColor;
 	            itemDef.newModelColor = def2.newModelColor;
-	            itemDef.maleYOffset -= 1;
-	            itemDef.femaleYOffset -= 1;
+	            itemDef.maleYOffset = -4;
+	            itemDef.femaleYOffset = -4;
 	            break;
 	        case 21022:
 	            def2 = ItemDefinition.forID(9774);
