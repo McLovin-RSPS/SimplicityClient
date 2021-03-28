@@ -14,11 +14,19 @@ import java.util.Map;
 import java.util.Set;
 
 import com.simplicity.Configuration;
-import com.simplicity.client.*;
+import com.simplicity.client.CacheArchive;
+import com.simplicity.client.DrawingArea;
+import com.simplicity.client.Items;
+import com.simplicity.client.MemCache;
+import com.simplicity.client.Model;
+import com.simplicity.client.Rasterizer;
+import com.simplicity.client.Sprite;
+import com.simplicity.client.Stream;
+import com.simplicity.client.signlink;
 import com.simplicity.client.cache.DataType;
-import com.simplicity.client.cache.definitions.custom.CustomItems;
 import com.simplicity.client.cache.definitions.custom.CustomRecolor;
 import com.simplicity.client.cache.definitions.custom.CustomRecolor2;
+import com.simplicity.client.cache.definitions.custom.ModelOffsets;
 
 public final class ItemDefinition {
 	
@@ -171,6 +179,9 @@ public final class ItemDefinition {
         } else if (gender == 1 && (femaleXOffset != 0 || femaleYOffset != 0 || femaleZOffset != 0) ) {
             model.translate(femaleXOffset, femaleYOffset, femaleZOffset);
         }
+        
+        ModelOffsets.check(gender, this, model);
+        
 		if (editedModelColor != null && newModelColor != null) {
 			for (int i1 = 0; i1 < editedModelColor.length; i1++) {
 				model.recolour(editedModelColor[i1], newModelColor[i1]);
@@ -1106,6 +1117,7 @@ public final class ItemDefinition {
         
         CustomRecolor.values();
         CustomRecolor2.values();
+        ModelOffsets.init();
     }
     
     /*public static void dumpInterface(int totalItems, int totalItemsOSRS) {

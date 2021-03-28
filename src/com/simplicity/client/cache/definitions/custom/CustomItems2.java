@@ -7228,9 +7228,6 @@ public class CustomItems2 {
 	            itemDef.modelZoom = itemDef2.modelZoom;
 	            itemDef.name = itemDef2.name;
 	            itemDef.actions = itemDef2.actions;
-	            itemDef.femaleXOffset = -3;
-	            itemDef.femaleZOffset = 5;
-	            itemDef.femaleYOffset = -14;
 	            break;
 	        case 10942:
 	            itemDef.name = "$10 Scroll";
