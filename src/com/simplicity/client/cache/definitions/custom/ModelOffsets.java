@@ -17,11 +17,10 @@ import com.simplicity.util.Vector3;
  */
 public enum ModelOffsets {
 	
-	REG_SCIMITAR(1, DataType.REGULAR, 490),
-	DRAGON_SCIMITAR(1, DataType.REGULAR, 62348),
-	ANCIENT_STAFF(1, DataType.REGULAR, 6232),
-	CRYSTAL_PICK(1, DataType.OLDSCHOOL, 38275),
-	DRAGON_DEFENDER(1, DataType.REGULAR, 62367, new Vector3(-3, -12, 7))
+	FEMALE_BOW(1, DataType.REGULAR, new Vector3(4, -12, 5), 512, 563, 16846),
+	GENERIC_FEMALE(1, DataType.REGULAR, 486, 490, 493, 505, 509, 510, 517, 518, 519, 533, 539, 540, 541, 542, 546, 550, 555, 559, 564, 565, 3885, 6232, 11225, 26424, 38275, 62348),
+	DRAGON_DEFENDER(1, DataType.REGULAR, new Vector3(-3, -12, 7), 62367),
+	DRAGONFIRE_SHIELD(1, DataType.REGULAR, new Vector3(0, 10, 0), 26423),
 	;
 	
 	/**
@@ -37,7 +36,7 @@ public enum ModelOffsets {
 	/**
 	 * The model id.
 	 */
-	private int modelId;
+	private int[] modelIds;
 	
 	/**
 	 * The offsets.
@@ -51,8 +50,8 @@ public enum ModelOffsets {
 	 * @param type    The data type.
 	 * @param modelId The model id.
 	 */
-	private ModelOffsets(int gender, DataType type, int modelId) {
-		this(gender, type, modelId, new Vector3(4, -12, 7));
+	private ModelOffsets(int gender, DataType type, int...modelIds) {
+		this(gender, type, new Vector3(4, -12, 7), modelIds);
 	}
 
 	/**
@@ -60,13 +59,13 @@ public enum ModelOffsets {
 	 * 
 	 * @param gender  The gender.
 	 * @param type    The data type.
-	 * @param modelId The model id.
 	 * @param offsets The offsets.
+	 * @param modelId The model id.
 	 */
-	private ModelOffsets(int gender, DataType type, int modelId, Vector3 offsets) {
+	private ModelOffsets(int gender, DataType type, Vector3 offsets, int...modelIds) {
 		this.gender = gender;
 		this.type = type;
-		this.modelId = modelId;
+		this.modelIds = modelIds;
 		this.offsets = offsets;
 	}
 
@@ -90,10 +89,12 @@ public enum ModelOffsets {
 		}
 
 		for (ModelOffsets f : ModelOffsets.values()) {
-			if (f.gender == 0) {
-				MALE_OFFSETS.get(f.type).put(f.modelId, f.offsets);
-			} else if (f.gender == 1) {
-				FEMALE_OFFSETS.get(f.type).put(f.modelId, f.offsets);
+			for (int id : f.modelIds) {
+				if (f.gender == 0) {
+					MALE_OFFSETS.get(f.type).put(id, f.offsets);
+				} else if (f.gender == 1) {
+					FEMALE_OFFSETS.get(f.type).put(id, f.offsets);
+				}
 			}
 		}
 	}
