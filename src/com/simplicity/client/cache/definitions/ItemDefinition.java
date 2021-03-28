@@ -305,6 +305,12 @@ public final class ItemDefinition {
 
     public static void postOsrsItemDef(ItemDefinition itemDef) {
         switch(itemDef.id) {
+        case 52296:
+        	itemDef.femaleXOffset = 0;
+            itemDef.femaleYOffset = -12;
+            itemDef.femaleZOffset = 4;
+            itemDef.maleYOffset = 6;
+        	break;
         case 43191: // Bond textured
         	itemDef.copy(forID(43190));
         	itemDef.dataType = DataType.CUSTOM;
