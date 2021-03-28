@@ -254,6 +254,10 @@ public class CustomItems2 {
 	            itemDef.modelOffsetY = 8;
 	            itemDef.editedModelColor = new int[0];
 	            itemDef.newModelColor = new int[0];
+	            itemDef.femaleZOffset = 5;
+	            itemDef.femaleXScale = 120;
+	            itemDef.femaleYScale = 130;
+	            itemDef.femaleZScale = 105;
 	            break;
 	
 	        case 22018:
@@ -267,6 +271,11 @@ public class CustomItems2 {
 	            itemDef.modelOffsetY = 8;
 	            itemDef.editedModelColor = new int[0];
 	            itemDef.newModelColor = new int[0];
+	            itemDef.femaleYOffset = -7;
+	            itemDef.femaleZOffset = 4;
+	            itemDef.femaleXScale = 108;
+	            itemDef.femaleYScale = 131;
+	            itemDef.femaleZScale = 115;
 	            break;
 	
 	        case 22020:
@@ -296,6 +305,11 @@ public class CustomItems2 {
 	            itemDef.modelOffsetY = 30;
 	            itemDef.rotationX = 390;
 	            itemDef.rotationY = 290;
+	            itemDef.femaleXScale = 108;
+	            itemDef.femaleYScale = 148;
+	            itemDef.femaleZScale = 135;
+	            itemDef.femaleYOffset = -2;
+	            itemDef.femaleZOffset = 5;
 	            itemDef.dataType = DataType.CUSTOM;
 	            break;
 	
