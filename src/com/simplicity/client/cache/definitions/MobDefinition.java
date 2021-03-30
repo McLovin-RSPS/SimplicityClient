@@ -469,7 +469,7 @@ public final class MobDefinition {
                 npc.actions = new String[5];
                 npc.actions[1] = "Attack";
                 npc.models = new int[] { 60000 };
-                break;
+                break;        
                 
             case 2775:
                 npc.copy(forID(12841));
@@ -478,6 +478,7 @@ public final class MobDefinition {
                 npc.sizeY = 120;
                 npc.pet = true;
                 break;
+
                 
             case 2776:
                 npc.copy(forID(22405));
@@ -500,6 +501,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
+             
                 
             case 13337:
                 npc.copy(forID(25493));
@@ -607,6 +609,15 @@ public final class MobDefinition {
                 npc.actions[1] = "Attack";
                 npc.sizeXZ = 825;
                 npc.sizeY = 820;
+                break;
+                
+            case 13213:
+                npc.copy(forID(7126));
+                npc.combatLevel = 1337;
+                npc.name = "Bunny Coco";
+                npc.sizeXZ = 825;
+                npc.sizeY = 820;
+                npc.actions[1] = "Attack";
                 break;
 
             case 1337:
