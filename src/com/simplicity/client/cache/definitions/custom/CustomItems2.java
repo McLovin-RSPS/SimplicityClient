@@ -14,6 +14,10 @@ public class CustomItems2 {
 	    	itemDef.femaleYOffset = -14;
 	    	itemDef.femaleXOffset = 6;
 	    	break;
+        case 50997:
+	    	itemDef.femaleYOffset = -14;
+	    	itemDef.femaleXOffset = 6;
+            break;
 	    case 21040:
 	        itemDef.copy(ItemDefinition.forID(50997));
 	        itemDef.actions[1] = "Wear";
@@ -838,6 +842,10 @@ public class CustomItems2 {
 	            itemDef.femaleEquip1 = 62914;
 	            itemDef.modelID = 62915;
 	            itemDef.name = "Sanguinesti staff X";
+	            itemDef.femaleYOffset = -8;
+	            itemDef.femaleZOffset = 3;
+	            itemDef.maleYOffset = 8;
+	            itemDef.maleXOffset = -6;
 	            break;
 	        case 21027:
 	            itemDef.copy(ItemDefinition.forID(52323));
@@ -3179,8 +3187,11 @@ public class CustomItems2 {
 	            itemDef.modelID = 19219;
 	            itemDef.maleEquip1 = 14403;
 	            itemDef.femaleEquip1 = 14403;
+	            itemDef.modelOffset1 = -7;
+	            itemDef.modelOffsetY = 4;
 	            itemDef.maleYOffset = 8;
-	            itemDef.femaleYOffset = -10;
+	            itemDef.femaleXOffset = -4;
+	            itemDef.maleXOffset = -4;  
 	            break;
 	        case 12926:
 	            itemDef.modelID = 25000;
@@ -3199,6 +3210,7 @@ public class CustomItems2 {
 	            itemDef.actions = new String[]{null, "Wield", "Check", "Unload", "Drop"};
 	            itemDef.groundActions = new String[]{null, null, "Take", null, null};
 	            break;
+	            
 	        case 13058:
 	            itemDef.name = "Trident of the seas";
 	            itemDef.description = "A weapon from the deep.";

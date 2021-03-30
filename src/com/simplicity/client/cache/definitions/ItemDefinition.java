@@ -363,6 +363,18 @@ public final class ItemDefinition {
 	            itemDef.maleZOffset = -11;
 	        	break;
 	        	
+		    case 54422:
+	        case 54423:
+	        case 54424:
+	        case 54425:
+	            itemDef.femaleYOffset = -10;
+	            itemDef.femaleXOffset = 5;
+	            itemDef.femaleZOffset = 5;
+	            itemDef.modelOffsetY = 13;
+	            itemDef.rotationY = 404; 
+	            itemDef.rotationX = 1050;
+	            break;
+	        	
 	        case 53995:
 	        case 53677: // dragon pickaxe or
 	            itemDef.maleYOffset = 8;
