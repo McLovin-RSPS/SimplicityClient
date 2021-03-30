@@ -16,7 +16,7 @@ public class CustomItems2 {
 	    	break;
         case 50997:
 	    	itemDef.femaleYOffset = -14;
-	    	itemDef.femaleXOffset = 6;
+	    	itemDef.femaleXOffset = 8;
             break;
 	    case 21040:
 	        itemDef.copy(ItemDefinition.forID(50997));
@@ -1768,7 +1768,7 @@ public class CustomItems2 {
 	            def2 = ItemDefinition.forID(9774);
 	            itemDef.actions = def2.actions;
 				itemDef.actions[2] = "Teleport";
-	            itemDef.name = "Executive cape";
+	            itemDef.name = "Overlord cape";
 	            itemDef.modelID = 98;
 	            itemDef.sizeX = def2.sizeX;
 	            itemDef.sizeY = def2.sizeY;
