@@ -327,6 +327,23 @@ public final class MobDefinition {
                 npc.sizeY = 120;
                 npc.squaresNeeded = 1;
                 break;
+                
+            case 627:
+                npc.name = "@or1@Sirenic twisted bow";
+                npc.description = "A mystical bow carved from the twisted remains of the Great Olm.";
+                npc.combatLevel = 0;
+                npc.actions = new String[5];
+                npc.actions[0] = "Take";
+                npc.models = new int[1];
+                npc.models[0] = 32799;
+                npc.standAnim = 3853;
+                npc.walkAnim = 3853;
+                npc.sizeXZ = 120;
+                npc.sizeY = 120;
+                npc.squaresNeeded = 1;
+                npc.originalColours = new int[]{16, 24, 33, 43223, 44236};
+                npc.destColours = new int[]{90, 90, 90, 90, 90};
+                break;
 
             case 3975:
                 npc.name = "Max Hit Stone";

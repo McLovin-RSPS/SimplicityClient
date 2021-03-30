@@ -157,6 +157,20 @@ public class CustomItems {
                 itemDef.rotationY = 327;
                 itemDef.maleEquip1 = 35371;
                 itemDef.femaleEquip1 = 35371;
+                break;            
+            case 14441:
+                itemDef.actions = new String[5];
+                itemDef.actions[4] = "Drop";
+                itemDef.modelID = 32799;
+                itemDef.name = "Sirenic twisted Bow Pet";
+                itemDef.modelZoom = 2000;
+                itemDef.rotationY = 720;
+                itemDef.rotationX = 1500;
+                itemDef.modelOffset1 = 3;
+                itemDef.modelOffsetY = 1;
+                itemDef.description = "A mystical bow carved from a very hot place.";
+                itemDef.editedModelColor = new int[]{16, 24, 33, 43223, 44236};
+                itemDef.newModelColor = new int[]{90, 90, 90, 90, 90};
                 break;
 
             case 11848:
