@@ -4,6 +4,7 @@ import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.client.cache.definitions.custom.CustomItems;
 import com.simplicity.client.cache.definitions.custom.CustomItems2;
+import com.simplicity.client.cache.definitions.custom.CustomItems3;
 
 import static com.simplicity.client.cache.definitions.ItemDefinition.*;
 
@@ -102,6 +103,7 @@ public class Items {
         
         CustomItems.loadDefinition(itemDef);
         CustomItems2.loadDefinition(itemDef);
+        CustomItems3.loadDefinition(itemDef);
         return itemDef;
     }
 }
