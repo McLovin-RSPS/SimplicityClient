@@ -489,6 +489,17 @@ public class CustomObjects {
             {48661, 3083, 3488, 0, 3}, // Arthur's dream teleporter edgeville
             {27254, 1831, 5163, 2, 0}, // Dark portal arthur's dream
             
+            // EASTER 2021       
+            {57376, 3103, 3496, 0, 3}, // Portal
+            {42651, 3105, 3494, 0, 0}, // Eggs
+            {42651, 3092, 3505, 0, 0}, // Eggs
+            {42650, 3082, 3490, 0, 0}, // Eggs
+            {42650, 3077, 3500, 0, 0}, // Eggs
+            {42652, 3084, 3506, 0, 0}, // Eggs
+            {42652, 3085, 3507, 0, 0}, // Eggs
+            {115183, 1231, 3571, 0, 0}, // Eggs
+            {42650, 1237, 3568, 0, 0}, // Eggs
+            
             // Chest island                   
             {136087, 2847, 5081, 0, 0}, // Executive chest
             
