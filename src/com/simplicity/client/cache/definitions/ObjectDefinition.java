@@ -242,6 +242,10 @@ public final class ObjectDefinition {
             objectDef.actions = new String[]{"Touch", null, null, null, null};
             objectDef.name = "@yel@Statue of Sezy";
         }
+        if (i == 137975) {
+        objectDef.actions = new String[]{"Cut", null, null, null, null};
+        objectDef.name = "Easter Tree";
+        }
         if (i == 136087) {
             objectDef.name = "@cya@Executive Chest";
         }
@@ -865,7 +869,7 @@ public final class ObjectDefinition {
             case 47748:
                 objectDef.actions = new String[]{"Cut", null, null, null, null};
                 objectDef.name = "Simplicity AFK Tree";
-                break;
+                break;            
             /*case 14309:
                 objectDef.actions = new String[]{"Cut", null, null, null, null};
                 objectDef.name = "AFK Tree";
