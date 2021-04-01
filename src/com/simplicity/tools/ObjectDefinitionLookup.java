@@ -4,13 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -25,8 +28,15 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
 import com.simplicity.client.Client;
+import com.simplicity.client.Model;
+import com.simplicity.client.cache.definitions.MobDefinition;
 import com.simplicity.client.cache.definitions.ObjectDefinition;
 import com.simplicity.client.entity.Position;
+import com.simplicity.util.StringUtils;
+
+import javafx.application.Platform;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 
 /**
  * A tool used for looking up object definitions.
@@ -38,6 +48,8 @@ public class ObjectDefinitionLookup extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 
+	private ObjectDefinition selected;
+	
 	private DefaultMutableTreeNode objects;
 	
 	private DefaultMutableTreeNode regular;
@@ -172,10 +184,87 @@ public class ObjectDefinitionLookup extends JFrame {
 		spawnOnClick = new JCheckBox("Spawn On Click");
 		spawnOnClick.setBounds(146, 467, 150, 25);
 		contentPane.add(spawnOnClick);
+	
+	/** START COLORS **/
 		
+		
+		JButton button = new JButton("Copy Colors");
+		button.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (selected == null) {
+					System.out.println("SELECTED NULL");
+					return;
+				}
+				
+				if (selected.objectModelIDs == null) {
+					System.out.println("no models");
+					return;
+				}
+				
+				Set<Integer> colors = new HashSet<>();
+				
+				for (int idx = 0; idx < selected.objectModelIDs.length; idx++) {
+					int modelId = selected.objectModelIDs[idx];
+					
+					Model model = Model.fetchModel(modelId, selected.dataType);
+					
+					if (model != null && model.face_color != null) {
+						for (int color : model.face_color) {
+							colors.add(color);
+						}
+					}
+				}
+				
+				String colorString = StringUtils.intSetToString(colors, true);
+				String orig = "object.originalColours = new int[] " + colorString + ";";
+				String dest = "object.destColours = new int[] " + colorString + ";";
+				System.out.println(orig);
+				System.out.println(dest);
+				
+				Platform.runLater(() -> {
+					ClipboardContent content = new ClipboardContent();
+					content.putString(orig + "\r\n" + dest);
+					Clipboard.getSystemClipboard().setContent(content);
+				});
+			}
+		});
+		button.setBounds(246, 467, 100, 25);
+		contentPane.add(button);
+		
+		JButton editColors = new JButton("Edit colors");
+		editColors.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (selected == null) {
+					return;
+				}
+				
+				if (selected.objectModelIDs == null) {
+					System.out.println("no models");
+					return;
+				}
+				
+				String[] options = new String[selected.objectModelIDs.length];
+				
+				for (int i = 0; i < selected.objectModelIDs.length; i++) {
+					options[i] = Integer.toString(selected.objectModelIDs[i]);
+				}
+				
+				String input = JOptionPane.showInputDialog(null, null, "Select model",
+				        JOptionPane.QUESTION_MESSAGE, null, options, options[0]).toString();
+				ModelViewer.of(Integer.parseInt(input), selected.dataType);
+			}
+		});
+		editColors.setBounds(346, 467, 100, 25);
+		contentPane.add(editColors);
 		init();
 	}
 	
+	
+	/** END COLORS **/
 	public void createNodes(DefaultMutableTreeNode root) {
 		regular = new DefaultMutableTreeNode("Regular");
 		root.add(regular);
@@ -227,6 +316,9 @@ public class ObjectDefinitionLookup extends JFrame {
 			
 			Client.instance.addObject(id, pos.getX(), pos.getY(), 0, type);
 		}
+		
+		selected = def;
+		
 	}
 	
 	public int getSelectedType() {

@@ -1803,6 +1803,21 @@ public final class ObjectDefinition {
         type = -1;
     }
 
+    public static void reloadCache() {
+    	System.out.println("Reloading Objects");
+    	
+    	modelCache.clear();
+    	osrsModelCache.clear();
+		
+    	cache = new ObjectDefinition[200];
+        cacheOSRS = new ObjectDefinition[200];
+
+        for (int k = 0; k < 200; k++) {
+            cache[k] = new ObjectDefinition();
+            cacheOSRS[k] = new ObjectDefinition();
+        }
+	}
+    
     private boolean showBlackTriangles;
     public boolean aBoolean736;
     public byte brightness;

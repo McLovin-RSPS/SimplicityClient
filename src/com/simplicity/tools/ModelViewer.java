@@ -43,6 +43,7 @@ import com.simplicity.client.Model;
 import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.client.cache.definitions.MobDefinition;
+import com.simplicity.client.cache.definitions.ObjectDefinition;
 import com.simplicity.task.Task;
 import com.simplicity.task.TaskManager;
 import com.simplicity.tools.colortools.WindowSelectColor;
@@ -160,7 +161,9 @@ public class ModelViewer extends JFrame {
 						if (node.getParent().equals(osrs)) {
 							objectId += ItemDefinition.OSRS_ITEMS_OFFSET;
 						}
-						
+						if(node.getParent().equals(osrs)) {
+							System.out.println("ITEM OSRS: " + objectId);
+						}
 						DataType type = node.getParent().equals(osrs) ? DataType.OLDSCHOOL : DataType.REGULAR;
 						
 						loadDetails(objectId, type, true);
@@ -572,6 +575,11 @@ public class ModelViewer extends JFrame {
 	    ItemDefinition.modelCacheOSRS.clear();
 	    ItemDefinition.spriteCache.clear();
 	    MobDefinition.reloadCache();
+	    ObjectDefinition.modelCache.clear();
+	    ObjectDefinition.osrsModelCache.clear();
+	    ObjectDefinition.completedModelCache.clear();
+	    ObjectDefinition.completedOSRSModelCache.clear();
+	    ObjectDefinition.reloadCache();
 	    Client.myPlayer.clearCache();
 	}
 	
@@ -583,7 +591,7 @@ public class ModelViewer extends JFrame {
 		
 		SwingUtilities.invokeLater(() -> {
 			ModelViewer v = new ModelViewer(true);
-			v.loadDetails(modelID, DataType.REGULAR, false);
+			v.loadDetails(modelID, type, false);
 			v.setTitle(modelID + " - " + type);
 			v.setVisible(true);
 		});
