@@ -246,6 +246,10 @@ public final class ObjectDefinition {
         objectDef.actions = new String[]{"Cut", null, null, null, null};
         objectDef.name = "Easter Tree";
         }
+        if (i == 132940) {
+        objectDef.actions = new String[]{"Take", null, null, null, null};
+        objectDef.name = "Twisted bow";
+        }
         if (i == 136087) {
             objectDef.name = "@cya@Executive Chest";
         }

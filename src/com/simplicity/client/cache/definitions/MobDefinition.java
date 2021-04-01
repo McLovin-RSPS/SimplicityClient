@@ -613,11 +613,10 @@ public final class MobDefinition {
                 
                 
             case 3476:
-                npc.combatLevel = 1337;
+                npc.combatLevel = 1007;
                 npc.name = "Bunny Bird";
                 npc.sizeXZ = 225;
                 npc.sizeY = 220;
-                npc.actions[1] = "Attack";
                 break;
                 
             case 13213:
