@@ -92,12 +92,26 @@ public enum CustomRecolor2 {
 		BLUE_GOLD_SIRENIC_BOOTS(21052, 22020, "<col=001F9E>Ntho Skiller Sirenic Boots</col>",
 	            new int[]{35104, 2, 35092, 35109, 38422, 43275, 38412},
 	            new int[]{9073, 41927, 9073, 9073, 41927, 41927, 41927}),
+		
 		BLUE_GOLD_ANGELIC_CAPE(21053, 11614, "<col=001F9E>Ntho Skiller Angelic Cape</col>",
 				new int[] { 40023, 40036, 1822, 36, 25, 34243, 9230, 40040, 10348, 48, 34251, 0, 43335, 6218, 23, 11013 },
 				getCustomCapeColor(41927, 9073)),
-		ROADMAN_ANGELIC_CAPE(21054, 11614, "@whi@Roadman Angelic Cape",
-				new int[] { 40023, 40036, 1822, 36, 25, 34243, 9230, 40040, 10348, 48, 34251, 0, 43335, 6218, 23, 11013 },
-				getCustomCapeColor(51136, 127)),
+		
+		PINK_PURPLE_GIANT_EGG(21055, 53446, "@pink@Giant Purple Easter Egg",
+				new int[] {46016, 44979, 819, 2597, 3734, 11175, 103, 11179, 2590, 11183, 687},
+				new int[] {44615, 44615, 53840, 53840, 44615, 53840, 53840, 53840, 44615, 53840, 44615}),
+		
+		BLUE_GREEN_GIANT_EGG(21056, 53446, "@pink@Giant Green Easter Egg",
+				new int[] {46016, 44979, 819, 2597, 3734, 11175, 103, 11179, 2590, 11183, 687},
+				new int[] {27240, 27240, 41961, 41961, 27240, 27240, 27240, 41961, 27240, 41961, 41961}),
+		
+		PINK_BUNNYMAN_MASK(21057, 53448, "@pink@Bunny Mask 2021",
+				new int[] {0, 115, 103, 24, 2378, 62942, 127},
+				new int[] {963, 115, 103, 24, 53503, 963, 127}),
+		
+		EASTER_EGG_HELMET(21058, 51214, "@pink@Easter Egg Helmet 2021",
+				new int[] {11200, 0, 1556, 4550, 3511, 43992, 3738, 924, 78},
+				new int[] {53625, 0, 1556, 4550, 3511, 33373, 3738, 44500, 11007}),
 		;
 	/**
 	 * Constructs a new {@link CustomRecolor2}.
