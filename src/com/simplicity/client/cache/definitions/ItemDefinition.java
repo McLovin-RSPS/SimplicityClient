@@ -333,7 +333,7 @@ public final class ItemDefinition {
         	
         case 51030: // Dark relic textured
         	itemDef.copy(forID(51027));
-            itemDef.name = "@red@Executive relic";
+            itemDef.name = "@red@Overlord relic";
             itemDef.actions = new String[] { null, null , null, null, null };
         	itemDef.dataType = DataType.CUSTOM;
         	itemDef.modelID = 96;
