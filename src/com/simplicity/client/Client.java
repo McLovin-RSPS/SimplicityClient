@@ -24,6 +24,7 @@ import java.awt.image.FilteredImageSource;
 import java.awt.image.RGBImageFilter;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -31,9 +32,12 @@ import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
@@ -76,6 +80,8 @@ import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.inject.Injector;
 import com.simplicity.Configuration;
 import com.simplicity.Jframe;
@@ -4268,7 +4274,7 @@ public class Client extends RSApplet {
         signlink.midisave(abyte0, abyte0.length);
     }
 
-    private void loadRegion() {
+    public void loadRegion() {
         try {
             lastKnownPlane = -1;
             highestAmtToLoad = 0;
@@ -11587,8 +11593,27 @@ public class Client extends RSApplet {
                             }
                         }
                     }
-                    if (inputString.startsWith("::mipmap")) {
-                        Rasterizer.enableMipmapping = !Rasterizer.enableMipmapping;
+                    if (inputString.startsWith("::itemjson")) {
+                    	HashMap<Integer, String> items = new HashMap<Integer, String>();
+                		for(int x = 1; x<= 65000; x++) {
+                			try {
+                				ItemDefinition def = ItemDefinition.forID(x);
+                				if(def == null)
+                					continue;
+                				if(def.name.equalsIgnoreCase("toolkit"))
+                					continue;
+                				items.put(x, def.name);
+                			} catch(Exception e) {
+                				continue;
+                			}
+                		}
+                		try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter( new FileOutputStream("Item.json"), "UTF-8" ))) {
+                		    Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+                		    gson.toJson(items, writer);
+                		} catch(Exception e) {
+                			e.printStackTrace();
+                		}
+                        //Rasterizer.enableMipmapping = !Rasterizer.enableMipmapping;
                     }
                     if (inputString.startsWith("::") && !inputString.startsWith("::[")) {
                         stream.createFrame(103);
