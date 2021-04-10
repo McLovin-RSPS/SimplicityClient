@@ -620,14 +620,14 @@ public final class MobDefinition {
                 npc.actions = new String[]{null, "Attack", null, null, null};
                 break;
                 
-            case 13213:
+     /*       case 13213:
                 npc.copy(forID(7126));
                 npc.combatLevel = 1337;
                 npc.name = "Bunny Coco";
                 npc.sizeXZ = 625;
                 npc.sizeY = 620;
                 npc.actions[1] = "Attack";
-                break;
+                break; */
 
             case 1337:
                 npc.name = "Superior Arthur";

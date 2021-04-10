@@ -782,7 +782,7 @@ public class CustomItems {
                 
 			case 6200:
 				itemDef.copy(ItemDefinition.forID(6199));
-				itemDef.name = "@red@Executive Box";
+				itemDef.name = "@red@Demonic Box";
 				itemDef.actions = new String[5];
 				itemDef.actions[0] = "Open";
 				itemDef.animateInventory = true;
