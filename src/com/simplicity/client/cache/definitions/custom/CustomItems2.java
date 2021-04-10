@@ -844,8 +844,6 @@ public class CustomItems2 {
 	            itemDef.name = "Sanguinesti staff X";
 	            itemDef.femaleYOffset = -8;
 	            itemDef.femaleZOffset = 3;
-	            itemDef.maleYOffset = 8;
-	            itemDef.maleXOffset = -6;
 	            break;
 	        case 21027:
 	            itemDef.copy(ItemDefinition.forID(52323));

@@ -354,7 +354,6 @@ public final class ItemDefinition {
 	        case 17835:
 	        case 20082:
 	        case 20085:
-	        case 21023:
 	        case 21027:
 	        case 21540:
 	        	itemDef.femaleYOffset = -11;
