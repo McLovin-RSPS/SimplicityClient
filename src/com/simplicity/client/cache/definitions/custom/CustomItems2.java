@@ -1789,6 +1789,34 @@ public class CustomItems2 {
 	            itemDef.femaleYOffset = -10;
 	            itemDef.dataType = DataType.CUSTOM;
 	            break;
+	            
+	        case 21075:
+	            def2 = ItemDefinition.forID(9774);
+	            itemDef.actions = def2.actions;
+				itemDef.actions[2] = "Teleport";
+	            itemDef.name = "Overlord cape";
+	            itemDef.modelID = 98;
+	            itemDef.sizeX = def2.sizeX;
+	            itemDef.sizeY = def2.sizeY;
+	            itemDef.sizeZ = def2.sizeZ;
+	            itemDef.maleEquip1 = 97;
+	            itemDef.maleEquip2 = -1;
+	            itemDef.maleEquip3 = -1;
+	            itemDef.femaleEquip1 = 97;
+	            itemDef.femaleEquip2 = -1;
+	            itemDef.femaleEquip3 = -1;
+	            itemDef.rotationX = 1024;
+	            itemDef.rotationY = 300;
+	            itemDef.modelZoom = 2000;
+	            itemDef.modelOffsetY = 130;
+	            itemDef.editedModelColor = def2.editedModelColor;
+	            itemDef.newModelColor = def2.newModelColor;
+	            itemDef.editedModelColor = new int[] { 40 };
+	            itemDef.newModelColor = new int[] { 40 };
+	            itemDef.maleYOffset = -10;
+	            itemDef.femaleYOffset = -10;
+	            itemDef.dataType = DataType.CUSTOM;
+	            break;
 	
 	  /*  case 21520:
 	        itemDef.name = "Elite Nightmare";
