@@ -1256,6 +1256,13 @@ public class CustomItems2 {
 	            itemDef.maleYOffset -= 7;
 	            itemDef.femaleYOffset -= 7;
 	            break;
+	            
+	        case 21076:
+	            itemDef.copy(ItemDefinition.forID(4747));
+	            itemDef.name = "Angelic Hammers";
+	            itemDef.editedModelColor = new int[] { 8481, 10291, };
+	            itemDef.newModelColor = new int[] { 127, 127, }; 
+	            break;
 	
 	        case 21004:
 	            itemDef.copy(ItemDefinition.forID(11694));
@@ -1817,6 +1824,7 @@ public class CustomItems2 {
 	            itemDef.femaleYOffset = -10;
 	            itemDef.dataType = DataType.CUSTOM;
 	            break;
+	           
 	
 	  /*  case 21520:
 	        itemDef.name = "Elite Nightmare";
