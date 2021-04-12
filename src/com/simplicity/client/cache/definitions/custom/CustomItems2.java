@@ -1259,7 +1259,7 @@ public class CustomItems2 {
 	            
 	        case 21076:
 	            itemDef.copy(ItemDefinition.forID(4747));
-	            itemDef.name = "Angelic Hammers";
+	            itemDef.name = "Demonic Hammers";
 	            itemDef.editedModelColor = new int[] { 8481, 10291, };
 	            itemDef.newModelColor = new int[] { 908, 908, }; 
 	            //itemDef.newModelColor = new int[] { 127, 127, }; if angelic
