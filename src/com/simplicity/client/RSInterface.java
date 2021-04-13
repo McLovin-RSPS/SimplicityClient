@@ -14,6 +14,7 @@ import com.simplicity.client.widget.dropdown.Dropdown;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 
 import java.util.Arrays;
+import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 
 @SuppressWarnings("all")
@@ -4635,6 +4636,7 @@ public class RSInterface {
             RSInterface rsInterface = interfaceCache[opcode] = new RSInterface();
             rsInterface.id = opcode;
             rsInterface.parentID = parentId;
+            rsInterface.layerId = parentId;
             rsInterface.type = stream.readUnsignedByte();
             rsInterface.atActionType = stream.readUnsignedByte();
             rsInterface.contentType = stream.readUnsignedWord();

@@ -15816,13 +15816,19 @@ public class Client extends RSApplet {
 
             	int hoverY = mouseY - (hoverChatInterface && clientSize == 0 ? gameAreaHeight + 4 : 4) + hoverYOff;
 
-            	if (clientSize == 0 && hoverTabInterface) {
-            		hoverX -= 519;
-            		hoverY -= 168;
-            	}
+                if (clientSize == 0 && hoverTabInterface) {
+                    hoverX -= 519;
+                    hoverY -= 168;
+                }
 
             	if (hoverChatInterface || hoverGameInterface || hoverTabInterface) {
-            		childHovered = hoverX >= childX && hoverX <= childX + child.width && hoverY >= childY && hoverY <= childY + child.height;
+                    boolean inBounds = (hoverX >= childX && hoverX <= childX + child.width && hoverY >= childY && hoverY <= childY + child.height);
+            		if (hoverGameInterface) {
+            		    childHovered = inBounds && RSInterface.interfaceCache[openInterfaceID].parentID == child.layerId;
+                    } else if (hoverTabInterface) {
+            		    final int tabInterface = tabInterfaceIDs[tabID];
+                        childHovered = inBounds && tabInterface > 0 && RSInterface.interfaceCache[tabInterface].parentID == child.layerId;
+                    }
             	}
 
                 for (int m5 = 0; m5 < IDs.length; m5++) {
@@ -16301,7 +16307,7 @@ public class Client extends RSApplet {
                         }
                         if (child.displayedSprite != null) {
                             sprite = child.displayedSprite;
-                        } else if (interfaceIsSelected(child) || hoverSpriteId == child.id) {
+                        } else if (interfaceIsSelected(child) || hoverSpriteId == child.id || childHovered) {
                             if (child.enabledSpriteId != -1 && SpriteCache.spriteCache[child.enabledSpriteId] != null) {
                                 sprite = SpriteCache.spriteCache[child.enabledSpriteId];
                             } else {
