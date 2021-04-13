@@ -5472,7 +5472,7 @@ public class RSInterface {
         presets.child(frame++, 86200, 130, 250);
         itemGroup(86201, 40, 40, 0, 0);
         interfaceCache[86201].usableItemInterface = true;
-        interfaceCache[86201].inv[0] = 1;
+        interfaceCache[86201].inv[0] = 12093;
         interfaceCache[86201].invStackSizes[0] = 1;
         presets.child(frame++, 86201, 135, 255);
 
