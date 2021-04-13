@@ -16307,7 +16307,7 @@ public class Client extends RSApplet {
                         }
                         if (child.displayedSprite != null) {
                             sprite = child.displayedSprite;
-                        } else if (interfaceIsSelected(child) || hoverSpriteId == child.id || childHovered) {
+                        } else if (interfaceIsSelected(child) || hoverSpriteId == child.id || (child.enabledSprite != null && childHovered)) {
                             if (child.enabledSpriteId != -1 && SpriteCache.spriteCache[child.enabledSpriteId] != null) {
                                 sprite = SpriteCache.spriteCache[child.enabledSpriteId];
                             } else {
