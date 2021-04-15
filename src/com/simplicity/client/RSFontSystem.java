@@ -947,6 +947,8 @@ public class RSFontSystem extends DrawingArea {
 		text = replace(text, "@don@", "<img=6>");
 		text = replace(text, "@or2@", "<col=ff7000>");
 		text = replace(text, "@pink@", "<col=e9aad1>");
+		text = replace(text, "@pur@", "<col=800080>");
+		text = replace(text, "@gold@", "<col=ffd700>");
 		if(text != null && SMILIES_TOGGLED) {
 			/*Cba making another sprite[] ill just use modicons for these lol //Gabbe
 			text = replace(text, ":=)", "<img=12>");

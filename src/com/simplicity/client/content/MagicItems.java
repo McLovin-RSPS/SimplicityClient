@@ -45,6 +45,132 @@ public enum MagicItems {
 		public int getReturnValue(int runeId) {
 			return UNLIMITED;
 		}
+	},
+
+	STAFF_OF_AIR(1381, 556) {
+		@Override
+		public int getReturnValue(int runeId) {
+			return UNLIMITED;
+		}
+	},
+
+	STAFF_OF_AIR_2(1397, 556) {
+		@Override
+		public int getReturnValue(int runeId) {
+			return UNLIMITED;
+		}
+	},
+
+	STAFF_OF_AIR_3(1405, 556) {
+		@Override
+		public int getReturnValue(int runeId) {
+			return UNLIMITED;
+		}
+	},
+
+	STAFF_OF_WATER(1383, 555) {
+		@Override
+		public int getReturnValue(int runeId) {
+			return UNLIMITED;
+		}
+	},
+
+	STAFF_OF_WATER_2(1395, 555) {
+		@Override
+		public int getReturnValue(int runeId) {
+			return UNLIMITED;
+		}
+	},
+
+	STAFF_OF_WATER_3(1403, 555) {
+		@Override
+		public int getReturnValue(int runeId) {
+			return UNLIMITED;
+		}
+	},
+
+	STAFF_OF_WATER_4(18346, 555) {
+		@Override
+		public int getReturnValue(int runeId) {
+			return UNLIMITED;
+		}
+	},
+
+	STAFF_OF_WATER_5(51006, 555) {
+		@Override
+		public int getReturnValue(int runeId) {
+			return UNLIMITED;
+		}
+	},
+
+	STAFF_OF_EARTH(1385, 557) {
+		@Override
+		public int getReturnValue(int runeId) {
+			return UNLIMITED;
+		}
+	},
+
+	STAFF_OF_EARTH_2(1399, 557) {
+		@Override
+		public int getReturnValue(int runeId) {
+			return UNLIMITED;
+		}
+	},
+
+	STAFF_OF_EARTH_3(1407, 557) {
+		@Override
+		public int getReturnValue(int runeId) {
+			return UNLIMITED;
+		}
+	},
+
+	STAFF_OF_FIRE(1387, 554) {
+		@Override
+		public int getReturnValue(int runeId) {
+			return UNLIMITED;
+		}
+	},
+
+	STAFF_OF_FIRE_2(1393, 554) {
+		@Override
+		public int getReturnValue(int runeId) {
+			return UNLIMITED;
+		}
+	},
+
+	STAFF_OF_FIRE_3(1401, 554) {
+		@Override
+		public int getReturnValue(int runeId) {
+			return UNLIMITED;
+		}
+	},
+
+	STAFF_OF_MUD(6562, new int[]{555, 557}) {
+		@Override
+		public int getReturnValue(int runeId) {
+			return UNLIMITED;
+		}
+	},
+
+	STAFF_OF_MUD_2(6563, new int[]{555, 557}) {
+		@Override
+		public int getReturnValue(int runeId) {
+			return UNLIMITED;
+		}
+	},
+
+	STAFF_OF_LAVA(3053, new int[]{554, 557}) {
+		@Override
+		public int getReturnValue(int runeId) {
+			return UNLIMITED;
+		}
+	},
+
+	STAFF_OF_LAVA_2(3054, new int[]{554, 557}) {
+		@Override
+		public int getReturnValue(int runeId) {
+			return UNLIMITED;
+		}
 	};
 
 	/**
@@ -60,7 +186,7 @@ public enum MagicItems {
 	/**
 	 * The rune id.
 	 */
-	private int runeId;
+	private int[] runeId;
 
 	/**
 	 * Constructs a new {@link MagicItems}.
@@ -75,9 +201,13 @@ public enum MagicItems {
 	 * @param itemId The item id.
 	 * @param runeId The rune id.
 	 */
-	private MagicItems(int itemId, int runeId) {
+	MagicItems(int itemId, int[] runeId) {
 		this.itemId = itemId;
 		this.runeId = runeId;
+	}
+
+	MagicItems(int itemId, int runeId) {
+		this(itemId, new int[]{runeId});
 	}
 
 	/**
@@ -94,7 +224,7 @@ public enum MagicItems {
 	 * 
 	 * @return The rune id.
 	 */
-	public int getRuneId() {
+	public int[] getRuneId() {
 		return runeId;
 	}
 
