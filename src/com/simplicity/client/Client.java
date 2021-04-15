@@ -24,6 +24,7 @@ import java.awt.image.FilteredImageSource;
 import java.awt.image.RGBImageFilter;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -31,9 +32,12 @@ import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
@@ -76,6 +80,8 @@ import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.inject.Injector;
 import com.simplicity.Configuration;
 import com.simplicity.Jframe;
@@ -4268,7 +4274,7 @@ public class Client extends RSApplet {
         signlink.midisave(abyte0, abyte0.length);
     }
 
-    private void loadRegion() {
+    public void loadRegion() {
         try {
             lastKnownPlane = -1;
             highestAmtToLoad = 0;
@@ -5305,13 +5311,21 @@ public class Client extends RSApplet {
 	                                                    }
 	                                                    menuActionName[menuActionRow] = s;
                                                         if (child.parentID == 1644) {
-                                                            if (itemDef.id == 9753 || itemDef.id == 9754 ||
-                                                                    itemDef.id == 14019 || itemDef.id == 14022) {
-                                                                if (j4 == 2) {
-                                                                    menuActionName[menuActionRow] = "Toggle ROL @lre@"
-                                                                            + itemDef.name;
-                                                                }
-                                                            }
+                                                            if (j4 == 2) {
+	                                                        	switch(itemDef.id) {
+	                                                        		case 9753:
+	                                                        		case 9754:
+	                                                        		case 14019:
+	                                                        		case 14022:
+	                                                        			menuActionName[menuActionRow] = "Toggle ROL @lre@" + itemDef.name;
+	                                                        			break;
+	                                                        		case 21045:
+	                                                        			menuActionName[menuActionRow] = "Teleport @lre@" + itemDef.name;
+	                                                        			break;
+	                                                        		default:
+	                                                        			continue;
+	                                                        	}
+	                                                        }
                                                         }
 	                                                    if (j4 == 0) {
 	                                                        menuActionID[menuActionRow] = 632;
@@ -11587,8 +11601,27 @@ public class Client extends RSApplet {
                             }
                         }
                     }
-                    if (inputString.startsWith("::mipmap")) {
-                        Rasterizer.enableMipmapping = !Rasterizer.enableMipmapping;
+                    if (inputString.startsWith("::itemjson")) {
+                    	HashMap<Integer, String> items = new HashMap<Integer, String>();
+                		for(int x = 1; x<= 65000; x++) {
+                			try {
+                				ItemDefinition def = ItemDefinition.forID(x);
+                				if(def == null)
+                					continue;
+                				if(def.name.equalsIgnoreCase("toolkit"))
+                					continue;
+                				items.put(x, def.name);
+                			} catch(Exception e) {
+                				continue;
+                			}
+                		}
+                		try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter( new FileOutputStream("Item.json"), "UTF-8" ))) {
+                		    Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+                		    gson.toJson(items, writer);
+                		} catch(Exception e) {
+                			e.printStackTrace();
+                		}
+                        //Rasterizer.enableMipmapping = !Rasterizer.enableMipmapping;
                     }
                     if (inputString.startsWith("::") && !inputString.startsWith("::[")) {
                         stream.createFrame(103);
@@ -15791,13 +15824,19 @@ public class Client extends RSApplet {
 
             	int hoverY = mouseY - (hoverChatInterface && clientSize == 0 ? gameAreaHeight + 4 : 4) + hoverYOff;
 
-            	if (clientSize == 0 && hoverTabInterface) {
-            		hoverX -= 519;
-            		hoverY -= 168;
-            	}
+                if (clientSize == 0 && hoverTabInterface) {
+                    hoverX -= 519;
+                    hoverY -= 168;
+                }
 
             	if (hoverChatInterface || hoverGameInterface || hoverTabInterface) {
-            		childHovered = hoverX >= childX && hoverX <= childX + child.width && hoverY >= childY && hoverY <= childY + child.height;
+                    boolean inBounds = (hoverX >= childX && hoverX <= childX + child.width && hoverY >= childY && hoverY <= childY + child.height);
+            		if (hoverGameInterface) {
+            		    childHovered = inBounds && RSInterface.interfaceCache[openInterfaceID].parentID == child.layerId;
+                    } else if (hoverTabInterface) {
+            		    final int tabInterface = tabInterfaceIDs[tabID];
+                        childHovered = inBounds && tabInterface > 0 && RSInterface.interfaceCache[tabInterface].parentID == child.layerId;
+                    }
             	}
 
                 for (int m5 = 0; m5 < IDs.length; m5++) {
@@ -16276,7 +16315,7 @@ public class Client extends RSApplet {
                         }
                         if (child.displayedSprite != null) {
                             sprite = child.displayedSprite;
-                        } else if (interfaceIsSelected(child) || hoverSpriteId == child.id) {
+                        } else if (interfaceIsSelected(child) || hoverSpriteId == child.id || (child.enabledSprite != null && childHovered)) {
                             if (child.enabledSpriteId != -1 && SpriteCache.spriteCache[child.enabledSpriteId] != null) {
                                 sprite = SpriteCache.spriteCache[child.enabledSpriteId];
                             } else {

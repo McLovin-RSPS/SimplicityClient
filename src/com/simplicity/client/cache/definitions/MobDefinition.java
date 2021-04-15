@@ -611,14 +611,23 @@ public final class MobDefinition {
                 npc.sizeY = 820;
                 break;
                 
-            case 13213:
+                
+            case 3476:
+                npc.combatLevel = 1007;
+                npc.name = "Bunny Bird";
+                npc.sizeXZ = 225;
+                npc.sizeY = 220;
+                npc.actions = new String[]{null, "Attack", null, null, null};
+                break;
+                
+     /*       case 13213:
                 npc.copy(forID(7126));
                 npc.combatLevel = 1337;
                 npc.name = "Bunny Coco";
-                npc.sizeXZ = 825;
-                npc.sizeY = 820;
+                npc.sizeXZ = 625;
+                npc.sizeY = 620;
                 npc.actions[1] = "Attack";
-                break;
+                break; */
 
             case 1337:
                 npc.name = "Superior Arthur";

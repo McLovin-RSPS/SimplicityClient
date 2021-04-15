@@ -40,6 +40,10 @@ public final class Animation {
 				anims[j].readValuesNew(stream);
 			}
 			
+			if (j == 8279 + OSRS_ANIM_OFFSET) {
+				anims[j].loopDelay = 1;
+			}
+			
 			if (j == 23709) { // Rock formation anim
 				anims[j].loopDelay = 1;
 			}

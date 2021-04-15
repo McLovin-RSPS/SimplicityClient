@@ -242,6 +242,14 @@ public final class ObjectDefinition {
             objectDef.actions = new String[]{"Touch", null, null, null, null};
             objectDef.name = "@yel@Statue of Sezy";
         }
+        if (i == 137975) {
+        objectDef.actions = new String[]{"Cut", null, null, null, null};
+        objectDef.name = "Easter Tree";
+        }
+        if (i == 132940) {
+        objectDef.actions = new String[]{"Take", null, null, null, null};
+        objectDef.name = "Twisted bow";
+        }
         if (i == 136087) {
             objectDef.name = "@cya@Executive Chest";
         }
@@ -865,7 +873,7 @@ public final class ObjectDefinition {
             case 47748:
                 objectDef.actions = new String[]{"Cut", null, null, null, null};
                 objectDef.name = "Simplicity AFK Tree";
-                break;
+                break;            
             /*case 14309:
                 objectDef.actions = new String[]{"Cut", null, null, null, null};
                 objectDef.name = "AFK Tree";
@@ -1799,6 +1807,21 @@ public final class ObjectDefinition {
         type = -1;
     }
 
+    public static void reloadCache() {
+    	System.out.println("Reloading Objects");
+    	
+    	modelCache.clear();
+    	osrsModelCache.clear();
+		
+    	cache = new ObjectDefinition[200];
+        cacheOSRS = new ObjectDefinition[200];
+
+        for (int k = 0; k < 200; k++) {
+            cache[k] = new ObjectDefinition();
+            cacheOSRS[k] = new ObjectDefinition();
+        }
+	}
+    
     private boolean showBlackTriangles;
     public boolean aBoolean736;
     public byte brightness;

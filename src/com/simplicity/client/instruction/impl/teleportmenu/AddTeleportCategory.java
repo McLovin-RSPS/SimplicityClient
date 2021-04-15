@@ -21,16 +21,17 @@ public class AddTeleportCategory implements VoidInstruction {
 
             RSInterface ccButton = parent.createChildComponent(5);
             ccButton.setConfigHoverButton("Select", 1749, 1750);
+            ccButton.layerId = 61300;
             parent.setChildPosition(ccButton, 0, i * 35);
-        /*InstructionId.SET_HOVER_TRIGGER.invoke(InstructionArgs.createStack()
-                .addNextInt(ccButton.parentID)
-                .addNextInt(ccButton.id)
-                .addNextInt(0)
-                .addNextInt(index * 35)
-                .addNextInt(ccButton.width)
-                .addNextInt(ccButton.height)
-                .addNextInt(1749)
-        );*/
+            /*InstructionId.SET_HOVER_TRIGGER.invoke(InstructionArgs.createStack()
+                    .addNextInt(ccButton.parentID)
+                    .addNextInt(ccButton.id)
+                    .addNextInt(0)
+                    .addNextInt(i * 35)
+                    .addNextInt(ccButton.width)
+                    .addNextInt(ccButton.height)
+                    .addNextInt(1749)
+            );*/
 
             RSInterface ccIcon = parent.createChildComponent(2);
             ccIcon.setItemContainer(3, 5, 5, 5);

@@ -946,29 +946,66 @@ public class RSFontSystem extends DrawingArea {
 		text = replace(text, "@vet@", "<img=5>");
 		text = replace(text, "@don@", "<img=6>");
 		text = replace(text, "@or2@", "<col=ff7000>");
-		/*if(text != null && SMILIES_TOGGLED && !text.contains(":store")) {
-			//Cba making another sprite[] ill just use modicons for these lol //Gabbe
-			text = replace(text, ":=)", "<img=12>");text = replace(text, "=)", "<img=12>"); text = replace(text, ":)", "<img=12>");text = replace(text, ":]", "<img=12>");
-			text = replace(text, ":=(", "<img=13>");text = replace(text, "=(", "<img=13>");text = replace(text, ":(", "<img=13>");text = replace(text, ":[", "<img=13>");
+		text = replace(text, "@pink@", "<col=e9aad1>");
+		text = replace(text, "@pur@", "<col=800080>");
+		text = replace(text, "@gold@", "<col=ffd700>");
+		if(text != null && SMILIES_TOGGLED) {
+			/*Cba making another sprite[] ill just use modicons for these lol //Gabbe
+			text = replace(text, ":=)", "<img=12>");
+			text = replace(text, "=)", "<img=12>");
+			text = replace(text, ":)", "<img=12>");
+			text = replace(text, ":]", "<img=12>");
+			text = replace(text, ":=(", "<img=13>");
+			text = replace(text, "=(", "<img=13>");
+			text = replace(text, ":(", "<img=13>");
+			text = replace(text, ":[", "<img=13>");
 			text = replace(text, ":|", "<img=14>");
-			text = replace(text, ":S", "<img=15>"); text = replace(text, ":s", "<img=15>");
-			text = replace(text, ":O", "<img=17>"); text = replace(text, ":o", "<img=17>");
+			text = replace(text, ":S", "<img=15>");
+			text = replace(text, ":s", "<img=15>");
+			text = replace(text, ":O", "<img=17>");
+			text = replace(text, ":o", "<img=17>");
 			text = replace(text, ":8", "<img=16>");
 			text = replace(text, ":$", "<img=18>");
-			text = replace(text, ";)", "<img=19>");text = replace(text, ";]", "<img=19>");
-			text = replace(text, ":/", "<img=20>"); text = replace(text, ":\\", "<img=20>"); text = replace(text, "\\:", "<img=20>");
-			text = replace(text, "(y)", "<img=21>"); text = replace(text, "(Y)", "<img=21>");
-			text = replace(text, "(n)", "<img=22>"); text = replace(text, "(N)", "<img=22>");
-			text = replace(text, ":p", "<img=23>"); text = replace(text, ":P", "<img=23>");
-			text = replace(text, ":d", "<img=24>"); text = replace(text, ":D", "<img=24>");text = replace(text, "=D", "<img=24>"); text = replace(text, "=d", "<img=24>");
+			text = replace(text, ";)", "<img=19>");
+			text = replace(text, ";]", "<img=19>");
+			text = replace(text, ":/", "<img=20>");
+			text = replace(text, ":\\", "<img=20>");
+			text = replace(text, "\\:", "<img=20>");
+			text = replace(text, "(y)", "<img=21>");
+			text = replace(text, "(Y)", "<img=21>");
+			text = replace(text, "(n)", "<img=22>");
+			text = replace(text, "(N)", "<img=22>");
+			text = replace(text, ":p", "<img=23>");
+			text = replace(text, ":P", "<img=23>");
+			text = replace(text, ":d", "<img=24>");
+			text = replace(text, ":D", "<img=24>");
+			text = replace(text, "=D", "<img=24>");
+			text = replace(text, "=d", "<img=24>");
 			text = replace(text, "^^", "<img=25>");
-			text = replace(text, "<3", "<img=26>"); text = replace(text, "(L)", "<img=26>"); text = replace(text, "(l)", "<img=26>");
+			text = replace(text, "<3", "<img=26>");
+			text = replace(text, "(L)", "<img=26>");
+			text = replace(text, "(l)", "<img=26>");
 			text = replace(text, ":'(", "<img=28>");
 			text = replace(text, ":*", "<img=29>");
-			text = replace(text, "(a)", "<img=27>"); text = replace(text, "(A)", "<img=27>");
+			text = replace(text, "(a)", "<img=27>");
+			text = replace(text, "(A)", "<img=27>");
 			text = replace(text, "-.-", "<img=30>");
-			text = replace(text, "O.o", "<img=31>"); text = replace(text, "o.O", "<img=31>");text = replace(text, "o.o", "<img=31>"); text = replace(text, "O.O", "<img=31>");
-		}*/
+			text = replace(text, "O.o", "<img=31>");
+			text = replace(text, "o.O", "<img=31>");
+			text = replace(text, "o.o", "<img=31>");
+			text = replace(text, "O.O", "<img=31>");*/
+			text = replace(text, ":smile:", "<img=19>");
+			text = replace(text, ":wow:", "<img=31>");
+			text = replace(text, "<3", "<img=26>");
+			text = replace(text, ":heart:", "<img=26>");
+			text = replace(text, ":angel:", "<img=27>");
+			text = replace(text, ":pepe:", "<spr=1784:0>");
+			text = replace(text, ":pepeok:", "<spr=1785:0>");
+			text = replace(text, ":simp:", "<spr=1786:0>");
+			text = replace(text, ":p:", "<img=23>");
+			text = replace(text, ":o:", "<img=23>");
+			text = replace(text, ":/:", "<img=20>");
+		}
 		return text;
 	}
 
