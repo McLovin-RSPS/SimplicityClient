@@ -70,6 +70,9 @@ public class OldschoolMaps {
             //zalcano
             12126,
             
+            //Black square Overlord
+            7501,
+            
             9116, // Kraken
             13900, // Elite minigame
             
