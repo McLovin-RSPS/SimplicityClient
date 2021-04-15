@@ -18245,8 +18245,9 @@ public class Client extends RSApplet {
                             
                             if (MagicItems.EQUIPMENT.containsKey(id)) {
                             	MagicItems eq = MagicItems.EQUIPMENT.get(id);
-                            	
-                            	if (id == eq.getItemId() && itemId == eq.getRuneId()) {
+
+                            	boolean runesMatch = eq.getRuneId().length == 1 ? itemId == eq.getRuneId()[0] : Arrays.stream(eq.getRuneId()).anyMatch(i -> i == itemId);
+                            	if (id == eq.getItemId() && runesMatch) {
                         			returnValue += eq.getReturnValue(itemId);
                         			
                         			if (returnValue < 0 || returnValue > MagicItems.UNLIMITED) {
