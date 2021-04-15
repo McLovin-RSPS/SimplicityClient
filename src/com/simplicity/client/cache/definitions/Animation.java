@@ -871,9 +871,9 @@ public final class Animation {
 				} else if (opcode == 5) {
 					priority = buffer.readUnsignedByte();
 				} else if (opcode == 6) {
-					leftHandItem = buffer.readUnsignedWord();
+					leftHandItem = buffer.readUnsignedWord() + ItemDefinition.OSRS_ITEMS_OFFSET;
 				} else if (opcode == 7) {
-					rightHandItem = buffer.readUnsignedWord();
+					rightHandItem = buffer.readUnsignedWord() +  + ItemDefinition.OSRS_ITEMS_OFFSET;
 				} else if (opcode == 8) {
 					frameStep = buffer.readUnsignedByte();
 				} else if (opcode == 9) {
