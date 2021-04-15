@@ -5311,13 +5311,21 @@ public class Client extends RSApplet {
 	                                                    }
 	                                                    menuActionName[menuActionRow] = s;
                                                         if (child.parentID == 1644) {
-                                                            if (itemDef.id == 9753 || itemDef.id == 9754 ||
-                                                                    itemDef.id == 14019 || itemDef.id == 14022) {
-                                                                if (j4 == 2) {
-                                                                    menuActionName[menuActionRow] = "Toggle ROL @lre@"
-                                                                            + itemDef.name;
-                                                                }
-                                                            }
+                                                            if (j4 == 2) {
+	                                                        	switch(itemDef.id) {
+	                                                        		case 9753:
+	                                                        		case 9754:
+	                                                        		case 14019:
+	                                                        		case 14022:
+	                                                        			menuActionName[menuActionRow] = "Toggle ROL @lre@" + itemDef.name;
+	                                                        			break;
+	                                                        		case 21045:
+	                                                        			menuActionName[menuActionRow] = "Teleport @lre@" + itemDef.name;
+	                                                        			break;
+	                                                        		default:
+	                                                        			continue;
+	                                                        	}
+	                                                        }
                                                         }
 	                                                    if (j4 == 0) {
 	                                                        menuActionID[menuActionRow] = 632;
