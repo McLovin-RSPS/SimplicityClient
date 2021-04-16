@@ -2053,7 +2053,7 @@ public class RSInterface {
         widget.type = 3;
         widget.width = 174;
         widget.height = 83;
-        widget.transparancy = 50;
+        widget.opacity = 42;
         widget.hoverType = -1;
         widget.filled = true;
         infobox.child(childId++, id++, 5, 11);
