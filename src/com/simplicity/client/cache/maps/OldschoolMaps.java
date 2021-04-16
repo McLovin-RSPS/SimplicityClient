@@ -70,8 +70,14 @@ public class OldschoolMaps {
             //zalcano
             12126,
             
-            //Black square Overlord
-            7501,
+            //Overlord zone & new donator zone
+            7501, 15262, 12563, 12187,
+            
+            // Hunter OSRS maps
+            11662,
+            
+            //Prifddinas
+            12894, 12895, 13150, 13151,
             
             9116, // Kraken
             13900, // Elite minigame
