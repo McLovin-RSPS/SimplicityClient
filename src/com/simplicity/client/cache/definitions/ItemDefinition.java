@@ -754,7 +754,7 @@ public final class ItemDefinition {
         totalItems = streamIdx.readUnsignedWord();
         totalItemsOSRS = streamOSRS.readUnsignedWord();
 
-        streamIndices = new int[totalItems + 2000];
+        streamIndices = new int[totalItems + 3000];
         streamIndicesOSRS = new int[totalItemsOSRS];
 
         int i = 2;
