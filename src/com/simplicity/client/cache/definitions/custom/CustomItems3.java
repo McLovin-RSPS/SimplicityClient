@@ -395,6 +395,16 @@ public class CustomItems3 {
 	        	itemDef.femaleEquip1 = 125;
 	        	itemDef.dataType = DataType.CUSTOM;
 	        	break;
+	        case 22087:
+	        	itemDef.copy(ItemDefinition.forID(21045));
+	        	itemDef.name = "Grotesque Cape";
+	        	itemDef.modelID = 126;
+	        	itemDef.maleEquip1 = 127;
+	        	itemDef.femaleEquip1 = 127;
+	        	itemDef.modelZoom = 1900;
+	        	itemDef.modelOffsetY = 15;
+	        	itemDef.dataType = DataType.CUSTOM;
+	        	break;
 		}
     }
 }
