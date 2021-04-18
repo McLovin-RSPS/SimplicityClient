@@ -128,7 +128,6 @@ public class CustomObjects {
             {137975, 3088, 3504, 0, 0}, 
             //{132940, 3088, 3503, 0, 0}, 
             {42651, 3102, 3485, 0, 0}, 
-            {23114, 3090, 3489, 0, 0}, 
             {-1, 3090, 3503, 0, 0}, 
             
             // Cheapfix Chamber bloat
@@ -1073,8 +1072,6 @@ public class CustomObjects {
             //{25507, 3094, 3487, 0, 0}, // ornate dummy
             //{25511, 3096, 3487, 0, 0}, // ornate dummy
             {591, 3092, 3488, 0, 2},		//bank table
-            {-1, 3092, 3487, 0, 0}, // ornate dummy
-            {-1, 3097, 3487, 0, 0}, // removed dummy
             
             
             {132940, 3094, 3513, 0, 0}, // twisted bow
