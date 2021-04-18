@@ -706,20 +706,20 @@ public class CustomItems2 {
 	            itemDef.description = "A cape made of ancient, enchanted obsidian.";
 	            itemDef.actions = new String[5];
 	            itemDef.actions[1] = "Wear";
-	            itemDef.modelID = 110;
+	            itemDef.modelID = 90;
 	            itemDef.rotationX = 1024;
 	            itemDef.rotationY = 300;
 	            itemDef.modelZoom = 2000;
-	            itemDef.maleEquip1 = 111;
+	            itemDef.maleEquip1 = 89;
 	            itemDef.maleEquip2 = -1;
 	            itemDef.maleEquip3 = -1;
-	            itemDef.femaleEquip1 = 111;
+	            itemDef.femaleEquip1 = 89;
 	            itemDef.femaleEquip2 = -1;
 	            itemDef.femaleEquip3 = -1;
 	            itemDef.stackable = false;
 	            itemDef.dataType = DataType.CUSTOM;
-	            //itemDef.editedModelColor = new int[] { 1495 };
-	            //itemDef.newModelColor = new int[] { 40 };
+	            itemDef.editedModelColor = new int[] { 1495 };
+	            itemDef.newModelColor = new int[] { 40 };
 	            break;
 	            
 	        case 22079:
@@ -766,20 +766,20 @@ public class CustomItems2 {
 	            itemDef.description = "A cape made of ancient, enchanted obsidian.";
 	            itemDef.actions = new String[5];
 	            itemDef.actions[1] = "Wear";
-	            itemDef.modelID = 108;
+	            itemDef.modelID = 88;
 	            itemDef.rotationX = 1024;
 	            itemDef.rotationY = 300;
 	            itemDef.modelZoom = 2000;
-	            itemDef.maleEquip1 = 109;
+	            itemDef.maleEquip1 = 87;
 	            itemDef.maleEquip2 = -1;
 	            itemDef.maleEquip3 = -1;
-	            itemDef.femaleEquip1 = 109;
+	            itemDef.femaleEquip1 = 87;
 	            itemDef.femaleEquip2 = -1;
 	            itemDef.femaleEquip3 = -1;
 	            itemDef.stackable = false;
 	            itemDef.dataType = DataType.CUSTOM;
-	            //itemDef.editedModelColor = new int[] { 1496 };
-	            //itemDef.newModelColor = new int[] { 65 };
+	            itemDef.editedModelColor = new int[] { 1496 };
+	            itemDef.newModelColor = new int[] { 65 };
 	            break;
 	
 	        case 22078:
@@ -787,20 +787,20 @@ public class CustomItems2 {
 	            itemDef.description = "A cape made of ancient, enchanted obsidian.";
 	            itemDef.actions = new String[5];
 	            itemDef.actions[1] = "Wear";
-	            itemDef.modelID = 112;
+	            itemDef.modelID = 92;
 	            itemDef.rotationX = 1024;
 	            itemDef.rotationY = 300;
 	            itemDef.modelZoom = 2000;
-	            itemDef.maleEquip1 = 113;
+	            itemDef.maleEquip1 = 91;
 	            itemDef.maleEquip2 = -1;
 	            itemDef.maleEquip3 = -1;
-	            itemDef.femaleEquip1 = 113;
+	            itemDef.femaleEquip1 = 91;
 	            itemDef.femaleEquip2 = -1;
 	            itemDef.femaleEquip3 = -1;
 	            itemDef.stackable = false;
 	            itemDef.dataType = DataType.CUSTOM;
-	            //itemDef.editedModelColor = new int[] { 1497 };
-	            //itemDef.newModelColor = new int[] { 64 };
+	            itemDef.editedModelColor = new int[] { 1497 };
+	            itemDef.newModelColor = new int[] { 64 };
 	            break;
 	
 	        case 17273:
