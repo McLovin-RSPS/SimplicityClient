@@ -787,6 +787,11 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
                     if (landscapeMapIds[j1] == -1) {
                         return -1;
                     }
+
+                    if (OldschoolMaps.isOldschoolRegion(regionId)) {
+                        return landscapeMapIds[j1];
+                    }
+
                     if (landscapeMapIds[j1] >= 10000 && landscapeMapIds[j1] <= 11000) {
                         return landscapeMapIds[j1];
                     }
@@ -802,6 +807,11 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
                     if (objectMapIds[j1] == -1) {
                         return -1;
                     }
+
+                    if (OldschoolMaps.isOldschoolRegion(regionId)) {
+                        return objectMapIds[j1];
+                    }
+
                     if (objectMapIds[j1] >= 10000 && objectMapIds[j1] <= 11000) {
                         return objectMapIds[j1];
                     }
