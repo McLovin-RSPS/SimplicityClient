@@ -111,6 +111,7 @@ public class OldschoolMaps {
             12597, 12598, 12852, 12854, 13108, 13109, 13110,
             8755, 8756, 9011, 9012, // Priffdinas
             6455, 10819, // Mimic
+            13658, 13617, 12344, 12600, // LMS
     };
     static {
         for(Integer region : OLDSCHOOL_REGION_IDS) {
