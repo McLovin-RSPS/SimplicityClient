@@ -14607,7 +14607,7 @@ public class Client extends RSApplet {
                 scrollBar[id] = new Sprite(mediaArchives, "scrollbar", id);
             }
 
-            for (int k3 = 0; k3 < 80; k3++) {
+            for (int k3 = 0; k3 < mapScenes.length; k3++) {
                 mapScenes[k3] = new Background(mediaArchives, "mapscene", k3);
             }
 
@@ -23260,7 +23260,7 @@ public class Client extends RSApplet {
         stillGraphicDeque = new Deque();
         anIntArray1057 = new int[33];
         aClass9_1059 = new RSInterface();
-        mapScenes = new Background[100];
+        mapScenes = new Background[103];
         myAppearance = new int[7];
         mapFunctionTileX = new int[1000];
         mapFunctionTileY = new int[1000];
