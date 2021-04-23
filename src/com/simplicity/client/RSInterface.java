@@ -5752,6 +5752,36 @@ public class RSInterface {
         }
     }
 
+    public static void lmsOverlay(TextDrawingArea[] tda) {
+	    RSInterface layer = addInterface(124000);
+
+	    int childId = 124001;
+
+        addPixels(childId++, 0x53552e, 110, 55, 25, true);
+        addPixels(childId++, 0xFFFFFF, 3, 61, 180, true);
+        addPixels(childId++, 0xFFFFFF, 97, 3, 180, true);
+        addPixels(childId++, 0xFFFFFF, 97, 3, 180, true);
+        addPixels(childId++, 0xFFFFFF, 3, 61, 180, true);
+
+        addText(childId++, "Survivors: 0/1", 0xFFFFFF, false, true, -1, tda, 0);
+        addText(childId++, "Kills: 0", 0xFFFFFF, false, true, -1, tda, 0);
+        addText(childId++, "Fog: Approaching", 0xFFFFFF, false, true, -1, tda, 0);
+
+        layer.totalChildren(childId - 26501);
+
+        childId = 26501;
+        int frame = 0;
+        layer.child(frame++, childId++, 412, 70);
+        layer.child(frame++, childId++, 409, 67);
+        layer.child(frame++, childId++, 412, 67);
+        layer.child(frame++, childId++, 412, 68 + 57);
+        layer.child(frame++, childId++, 509, 67);
+
+        layer.child(frame++, childId++, 418, 76);
+        layer.child(frame++, childId++, 418, 91);
+        layer.child(frame++, childId, 418, 106);
+    }
+
     /*
 
             int xOffset = fixed ? 210 : 60 + (clientWidth / 2) - 110 ;
