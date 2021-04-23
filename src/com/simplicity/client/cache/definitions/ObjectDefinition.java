@@ -158,6 +158,11 @@ public final class ObjectDefinition {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        if (i == 129069) {
+            objectDef.mapSceneID = 90;
+        }
+
         if (i == 134520 || i == 134541 || i == 134542) {
         	objectDef.showBlackTriangles = true;
         }
