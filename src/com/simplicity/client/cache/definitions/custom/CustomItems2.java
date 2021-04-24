@@ -1770,6 +1770,24 @@ public class CustomItems2 {
 	            itemDef.femaleYOffset -= 7;
 	            break;
 	            
+	        case 21090:
+		    	itemDef.copy(ItemDefinition.forID(41860));
+	            itemDef.name = "Angelic Boots"; // Overlord boots
+	            itemDef.maleEquip1 = 115;
+	            itemDef.femaleEquip1 = 115;
+	            itemDef.modelID = 116;
+	            itemDef.editedModelColor = new int[] { 31, 40 };
+	            itemDef.newModelColor = new int[] { 62, 62 }; 
+	            //itemDef.newModelColor = new int[] { 40, 40 }; Fire cape angelics
+	            //itemDef.newModelColor = new int[] { 61, 61 }; Dark Infernal angelics
+	            //itemDef.newModelColor = new int[] { 62, 62 }; Dark overlord angelics
+	            //itemDef.newModelColor = new int[] { 64, 64 }; Ocean angelics
+	            //itemDef.newModelColor = new int[] { 67, 67 }; Executive aqua angelics
+	            //itemDef.newModelColor = new int[] { 69, 69 }; Dark lava angelics
+	            //itemDef.newModelColor = new int[] { 70, 70 }; Rainbow angelics
+	            itemDef.dataType = DataType.CUSTOM;
+	            break;
+	            
 	        case 21045:
 	            def2 = ItemDefinition.forID(9774);
 	            itemDef.actions = def2.actions;
