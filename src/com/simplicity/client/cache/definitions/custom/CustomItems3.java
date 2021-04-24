@@ -405,6 +405,57 @@ public class CustomItems3 {
 	        	itemDef.modelOffsetY = 15;
 	        	itemDef.dataType = DataType.CUSTOM;
 	        	break;
+			case 21091:
+				itemDef.copy(ItemDefinition.forID(22000));
+				itemDef.name = "Grotesque Helm (Tier 3)";
+				itemDef.modelID = 128;
+				itemDef.maleEquip1 = 129;
+				itemDef.femaleEquip1 = 129;
+				itemDef.modelZoom = 900;
+				itemDef.dataType = DataType.CUSTOM;
+				break;
+			case 21092:
+				itemDef.copy(ItemDefinition.forID(22001));
+				itemDef.name = "Grotesque Chest (Tier 3)";
+				itemDef.modelID = 130;
+				itemDef.maleEquip1 = 131;
+				itemDef.femaleEquip1 = 131;
+				itemDef.dataType = DataType.CUSTOM;
+				break;
+			case 21093:
+				itemDef.copy(ItemDefinition.forID(22002));
+				itemDef.name = "Grotesque Legs (Tier 3)";
+				itemDef.modelID = 132;
+				itemDef.maleEquip1 = 133;
+				itemDef.femaleEquip1 = 133;
+				itemDef.dataType = DataType.CUSTOM;
+				break;
+			case 21094:
+				itemDef.copy(ItemDefinition.forID(22004));
+				itemDef.name = "Grotesque Gloves (Tier 3)";
+				itemDef.modelID = 134;
+				itemDef.maleEquip1 = 135;
+				itemDef.femaleEquip1 = 135;
+				itemDef.dataType = DataType.CUSTOM;
+				break;
+			case 21095:
+				itemDef.copy(ItemDefinition.forID(22003));
+				itemDef.name = "Grotesque Boots (Tier 3)";
+				itemDef.modelID = 136;
+				itemDef.maleEquip1 = 136;
+				itemDef.femaleEquip1 = 136;
+				itemDef.dataType = DataType.CUSTOM;
+				break;
+			case 21096:
+				itemDef.copy(ItemDefinition.forID(21045));
+				itemDef.name = "Grotesque Cape (Tier 3)";
+				itemDef.modelID = 137;
+				itemDef.maleEquip1 = 138;
+				itemDef.femaleEquip1 = 138;
+				itemDef.modelZoom = 1900;
+				itemDef.modelOffsetY = 15;
+				itemDef.dataType = DataType.CUSTOM;
+				break;
 		}
     }
 }
