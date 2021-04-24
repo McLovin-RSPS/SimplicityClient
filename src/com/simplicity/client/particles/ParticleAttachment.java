@@ -19,6 +19,9 @@ public class ParticleAttachment {
     }
 
 	static {
+		// Overlord cape
+		customAttachments.put(97, new int[][] { { 439, 12 }, { 302, 12 }, { 324, 12 }, });
+		
 		// TokHaar-Kal-Ket
 		customAttachments.put(89, new int[][] { { 243, 7 }, { 164, 7 }, { 191, 7 }, { 100, 7 } });
 		customAttachments.put(87, new int[][] { { 243, 13 }, { 164, 13 }, { 191, 13 }, { 100, 13 } });
