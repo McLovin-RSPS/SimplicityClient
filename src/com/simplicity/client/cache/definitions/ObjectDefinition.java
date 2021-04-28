@@ -247,6 +247,10 @@ public final class ObjectDefinition {
             objectDef.actions = new String[]{"Touch", null, null, null, null};
             objectDef.name = "@yel@Statue of Sezy";
         }
+        if (i == 111978) {
+            objectDef.actions = new String[]{"Teleport", null, null, null, null};
+            objectDef.name = "@yel@Lava cave";
+        }
         if (i == 137975) {
         objectDef.actions = new String[]{"Cut", null, null, null, null};
         objectDef.name = "Easter Tree";

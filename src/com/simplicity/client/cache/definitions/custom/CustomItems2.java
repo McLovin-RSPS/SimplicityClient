@@ -1810,7 +1810,7 @@ public class CustomItems2 {
 	            itemDef.editedModelColor = def2.editedModelColor;
 	            itemDef.newModelColor = def2.newModelColor;
 	            itemDef.editedModelColor = new int[] { 40 };
-	            itemDef.newModelColor = new int[] { 61 };
+	            itemDef.newModelColor = new int[] { 62 };
 	            itemDef.maleYOffset = -10;
 	            itemDef.femaleYOffset = -10;
 	            itemDef.dataType = DataType.CUSTOM;
@@ -1820,7 +1820,7 @@ public class CustomItems2 {
 	            def2 = ItemDefinition.forID(9774);
 	            itemDef.actions = def2.actions;
 				itemDef.actions[2] = "Teleport";
-	            itemDef.name = "Overlord cape";
+	            itemDef.name = "Phoenix cape"; // WIP
 	            itemDef.modelID = 98;
 	            itemDef.sizeX = def2.sizeX;
 	            itemDef.sizeY = def2.sizeY;
