@@ -501,8 +501,8 @@ public enum CustomRecolor {
             new int[]{1024, 942, 942, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 942, 1024}),
 
     RED_BLACK_SIRENIC_GLOVES(14455, 22022, "@red@No Church Gloves",
-            new int[]{ 40608, 33201, 43283, 40596, 43285, 43276 },
-            new int[]{ 1024, 942, 1024, 1024, 942, 942 }), 
+    		new int[] {43281, 32178, 36242, 43283, 43274, 36254},
+    		new int[] {942, 942, 1024, 1024, 1024, 1024}),
 
     RED_BLACK_SIRENIC_BOOTS(14456, 22020, "@red@No Church Boots",
             new int[]{35104, 2, 35092, 35109, 38422, 43275, 38412},
@@ -793,8 +793,8 @@ public enum CustomRecolor {
           new int[]{1024, 22427, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024}),
 
    BLACK_GREEN_SIRENIC_GLOVES(21505, 22022, "@gre@Green Sirenic Gloves",
-          new int[]{ 40608, 33201, 43283, 40596, 43285, 43276 },
-          new int[]{ 1024, 22427, 1024, 1024, 22427, 22427 }),
+		  new int[] {43281, 32178, 36242, 43283, 43274, 36254},
+		  new int[] {22427, 22427, 1024, 1024, 1024, 1024}),
 
    BLACK_GREEN_SIRENIC_BOOTS(21506, 22020, "@gre@Green Sirenic Boots",
           new int[]{35104, 2, 35092, 35109, 38422, 43275, 38412},
@@ -879,8 +879,8 @@ public enum CustomRecolor {
             new int[]{1024, 11237, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024}),
 
 	YELLOW_BLACK_SIRENIC_GLOVES(21526, 22022, "@yel@Kanker sirenic gloves",
-            new int[]{ 40608, 33201, 43283, 40596, 43285, 43276 },
-            new int[]{ 1024, 11237, 1024, 1024, 11237, 11237 }),
+			new int[] {43281, 32178, 36242, 43283, 43274, 36254},
+			new int[] {11237, 11237, 1024, 1024, 1024, 1024}),
 
 	YELLOW_BLACK_SIRENIC_BOOTS(21527, 22020, "@yel@Kanker sirenic boots",
             new int[]{35104, 2, 35092, 35109, 38422, 43275, 38412},
