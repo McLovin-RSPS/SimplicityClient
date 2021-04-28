@@ -672,7 +672,7 @@ public final class ObjectDefinition {
             objectDef.actions[0] = "Enter";
         }
         if (i == 11356) {
-            objectDef.name = "Training Portal";
+            objectDef.name = "WildyWyrm Portal (Safe)";
         }
         if (i == 47120) {
             objectDef.name = "Altar";
