@@ -1810,7 +1810,7 @@ public class CustomItems2 {
 	            itemDef.editedModelColor = def2.editedModelColor;
 	            itemDef.newModelColor = def2.newModelColor;
 	            itemDef.editedModelColor = new int[] { 40 };
-	            itemDef.newModelColor = new int[] { 62 };
+	            itemDef.newModelColor = new int[] { 61 };
 	            itemDef.maleYOffset = -10;
 	            itemDef.femaleYOffset = -10;
 	            itemDef.dataType = DataType.CUSTOM;

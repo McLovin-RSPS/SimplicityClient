@@ -5320,7 +5320,7 @@ public class Client extends RSApplet {
 	                                                        			menuActionName[menuActionRow] = "Toggle ROL @lre@" + itemDef.name;
 	                                                        			break;
 	                                                        		case 21045:
-	                                                        			menuActionName[menuActionRow] = "Teleport @lre@" + itemDef.name;
+	                                                        			menuActionName[menuActionRow] = "Operate @lre@" + itemDef.name;
 	                                                        			break;
 	                                                        		default:
 	                                                        			continue;
