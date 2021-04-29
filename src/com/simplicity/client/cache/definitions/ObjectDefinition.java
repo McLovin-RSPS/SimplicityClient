@@ -253,7 +253,9 @@ public final class ObjectDefinition {
         }
         if (i == 137975) {
         objectDef.actions = new String[]{"Cut", null, null, null, null};
-        objectDef.name = "Easter Tree";
+        objectDef.name = "@red@Overlord Tree";
+        objectDef.modifiedModelColors = new int[] {12818, 32995, 6435, 35955, 6550, 33114, 6554, 13212, 37340, 13964, 12942, 14734};
+        objectDef.originalModelColors = new int[] {15, 972, 15, 35955, 30, 930, 20, 940, 0, 10, 941, 940};
         }
         if (i == 132940) {
         objectDef.actions = new String[]{"Take", null, null, null, null};
