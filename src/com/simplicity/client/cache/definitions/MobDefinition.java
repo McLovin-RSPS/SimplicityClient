@@ -204,6 +204,11 @@ public final class MobDefinition {
                     npc.actions[3] = "Untradeables";
                     break;
                     
+                    
+                case 7252:
+                    npc.name = "Lava giant";
+                    break;
+                    
                 case 7852:
                     npc.name = "Dawn";
                     npc.standAnim = 23035;
