@@ -35,6 +35,14 @@ public class MiscUtils {
 		}
 	}
 
+	public static int square(int num) {
+		return num * num;
+	}
+
+	public static boolean isInCircleArea(int radius, int circleCenterX, int circleCenterY, int x, int y) {
+		return square(radius) >= square((x - circleCenterX)) + square((y - circleCenterY));
+	}
+
     public static int ensureRange(int value, int min, int max) {
         return Math.min(Math.max(value, min), max);
     }
