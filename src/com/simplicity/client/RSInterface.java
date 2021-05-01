@@ -4950,6 +4950,7 @@ public class RSInterface {
         teleports(textDrawingAreas);
         playerOwnedShopHistory(textDrawingAreas);
         raids(textDrawingAreas);
+        lmsOverlay(textDrawingAreas);
         checkLootingBag(textDrawingAreas);
         addToLootingBag(textDrawingAreas);
         bankLootingBag(textDrawingAreas);
@@ -5753,41 +5754,38 @@ public class RSInterface {
     }
 
     public static void lmsOverlay(TextDrawingArea[] tda) {
-	    RSInterface layer = addInterface(124000);
+        int id = 74_500;
 
-	    int childId = 124001;
+        RSInterface rsi = addInterface(id++);
 
-        addPixels(childId++, 0x53552e, 110, 55, 25, true);
-        addPixels(childId++, 0xFFFFFF, 3, 61, 180, true);
-        addPixels(childId++, 0xFFFFFF, 97, 3, 180, true);
-        addPixels(childId++, 0xFFFFFF, 97, 3, 180, true);
-        addPixels(childId++, 0xFFFFFF, 3, 61, 180, true);
+        rsi.totalChildren(5);
 
-        addText(childId++, "Survivors: 0/1", 0xFFFFFF, false, true, -1, tda, 0);
-        addText(childId++, "Kills: 0", 0xFFFFFF, false, true, -1, tda, 0);
-        addText(childId++, "Fog: Approaching", 0xFFFFFF, false, true, -1, tda, 0);
+        int child = 0;
 
-        layer.totalChildren(childId - 26501);
+        int x = 383;
 
-        childId = 26501;
-        int frame = 0;
-        layer.child(frame++, childId++, 412, 70);
-        layer.child(frame++, childId++, 409, 67);
-        layer.child(frame++, childId++, 412, 67);
-        layer.child(frame++, childId++, 412, 68 + 57);
-        layer.child(frame++, childId++, 509, 67);
+        int y = 12;
 
-        layer.child(frame++, childId++, 418, 76);
-        layer.child(frame++, childId++, 418, 91);
-        layer.child(frame++, childId, 418, 106);
+        drawBox(id, 115, 60, 2, 0x7f7c7d, 0x7f7c7d, 200);
+        rsi.child(child++, id, x, y);
+        id++;
+
+        addRectangle(id, 125, 0x45472b, true, 115 - 3, 60 - 4);
+        rsi.child(child++, id, x + 2, y + 2);
+        id++;
+
+        addText(id, "Rank: Novice (500)", tda, 0, 0xffffff);
+        rsi.child(child++, id, x + 9, y + 11);
+        id++;
+
+        addText(id, "Coffer: Empty", tda, 0, 0xffffff);
+        rsi.child(child++, id, x + 9, y + 11 + 14);
+        id++;
+
+        addText(id, "Mode: None", tda, 0, 0xffffff);
+        rsi.child(child++, id, x + 9, y + 11 + 28);
+        id++;
     }
-
-    /*
-
-            int xOffset = fixed ? 210 : 60 + (clientWidth / 2) - 110 ;
-            int yOffset = fixed ? 50 : (clientHeight - 503);
-
-     */
 
     public static void checkLootingBag(TextDrawingArea[] tda) {
 

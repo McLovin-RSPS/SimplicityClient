@@ -316,6 +316,45 @@ public final class ItemDefinition {
 
     public static void postOsrsItemDef(ItemDefinition itemDef) {
         switch(itemDef.id) {
+            case 50405:
+                itemDef.copy(forID(4151));
+                break;
+            case 50407:
+                itemDef.copy(forID(1215));
+                break;
+            case 50423:
+                itemDef.copy(forID(2503));
+                break;
+            case 50424:
+                itemDef.copy(forID(2497));
+                break;
+            case 50578:
+                itemDef.copy(forID(3105));
+                break;
+            case 50586:
+                itemDef.copy(forID(1704));
+                break;
+            case 53593:
+                itemDef.copy(forID(7462));
+                break;
+            case 53601:
+                itemDef.copy(forID(9185));
+                break;
+            case 53653:
+                itemDef.copy(forID(4710));
+                break;
+            case 53642:
+                itemDef.copy(forID(13736));
+                break;
+            case 50425:
+                itemDef.copy(forID(4091));
+                break;
+            case 50426:
+                itemDef.copy(forID(4093));
+                break;
+            case 50579:
+                itemDef.copy(forID(4097));
+                break;
         case 52296:
         	itemDef.femaleXOffset = 0;
             itemDef.femaleYOffset = -12;

@@ -80,6 +80,18 @@ public final class MobDefinition {
                 npc.name = npc.name.replaceAll("<col=00ffff>", "@cya@").replaceAll("</col>", "");
             }
             switch (i) {
+
+            case 7317: // Old Lisa
+                npc.models = new int[] {  398, 20516, 6693, 19951, 13319, 337, 9644, 9640  };
+                npc.npcHeadModels = new int[] { 106 };
+                npc.standAnim = 808;
+                npc.walkAnim = 819;
+                npc.turn90CWAnimIndex = 821;
+                npc.turn180AnimIndex = 820;
+                npc.turn90CCWAnimIndex = 822;
+                npc.hasRenderPriority = true;
+                npc.dataType = DataType.REGULAR;
+                break;
             
             case 8202: // Tektiny
                 npc.actions = new String[5];
