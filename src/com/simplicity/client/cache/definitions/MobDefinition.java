@@ -756,6 +756,22 @@ public final class MobDefinition {
                 npc.standAnim = 808;
                 npc.walkAnim = 819;
                 break;
+                
+            case 2222:
+            	npc.copy(forID(3));
+                npc.name = "Mini Solak";
+                npc.combatLevel = 321;
+                npc.actions = new String[5];
+                npc.actions = new String[]{null, "Attack", null, null, null};
+                npc.models = new int[1];
+                npc.models[0] = 105;
+                npc.squaresNeeded = 5;
+                npc.sizeXZ = 20;
+                npc.sizeY = 20;
+                npc.dataType = DataType.CUSTOM;
+                npc.standAnim = 808;
+                npc.walkAnim = 819;
+                break;
 
             case 3334:
                 npc.name = "WildyWyrm";
