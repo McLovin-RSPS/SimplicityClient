@@ -18,6 +18,8 @@ public class OldschoolMaps {
             12598, 12854, 13110,//varrock
             12597, 12853, 13109,//varrock
             12596, 12852, 13108,//varrock
+            13105,//alkharid
+            12339, 12338,//draynor
             5947, // South of blast mine
             8536, //Demonic gorillas
             8280, // Demonic gorillas
