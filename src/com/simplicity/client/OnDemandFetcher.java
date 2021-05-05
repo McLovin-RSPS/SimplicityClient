@@ -343,6 +343,12 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
         clearNearRegions(12889);
 
         clearNearRegions(13914); // LMS
+
+        setNullRegion(13401);
+        setNullRegion(13402);
+        setNullRegion(13403);
+        setNullRegion(13657);
+        setNullRegion(14171);
         /**
          * Inferno
          */
@@ -520,6 +526,15 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
                     objectMapIds[j1] = -1;
                 }
             }
+        }
+    }
+
+    public void setNullRegion(int regionId) {
+        int index = getIndicesIndex(regionId);
+
+        if (index != -1) {
+            landscapeMapIds[index] = -1;
+            objectMapIds[index] = -1;
         }
     }
 

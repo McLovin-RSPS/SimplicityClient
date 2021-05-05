@@ -32,12 +32,10 @@ import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
@@ -2372,6 +2370,27 @@ public class Client extends RSApplet {
                 e.printStackTrace();
             }
         }
+
+        if (lmsSize > 0) {
+            drawZone(lmsSafeX, lmsSafeY, lmsSize, Color.white);
+        }
+
+        if (lmsBlueSize > 0) {
+            if (lmsBlueSize > lmsSize + 2 && loopCycle % 10 > 8) {
+                lmsBlueSize--;
+
+                long last = System.currentTimeMillis() - lastSizeChange;
+
+                if (last > 200) {
+                    lastSizeChange += last - 200;
+                }
+
+                lastSizeChange = System.currentTimeMillis();
+            }
+
+            drawZone(lmsBlueX, lmsBlueY, lmsBlueSize, Color.blue);
+        }
+
         for (int k5 = 0; k5 < 104; k5++) {
             for (int l5 = 0; l5 < 104; l5++) {
                 Deque class19 = groundArray[plane][k5][l5];
@@ -5311,21 +5330,13 @@ public class Client extends RSApplet {
 	                                                    }
 	                                                    menuActionName[menuActionRow] = s;
                                                         if (child.parentID == 1644) {
-                                                            if (j4 == 2) {
-	                                                        	switch(itemDef.id) {
-	                                                        		case 9753:
-	                                                        		case 9754:
-	                                                        		case 14019:
-	                                                        		case 14022:
-	                                                        			menuActionName[menuActionRow] = "Toggle ROL @lre@" + itemDef.name;
-	                                                        			break;
-	                                                        		case 21045:
-	                                                        			menuActionName[menuActionRow] = "Operate @lre@" + itemDef.name;
-	                                                        			break;
-	                                                        		default:
-	                                                        			continue;
-	                                                        	}
-	                                                        }
+                                                            if (itemDef.id == 9753 || itemDef.id == 9754 ||
+                                                                    itemDef.id == 14019 || itemDef.id == 14022) {
+                                                                if (j4 == 2) {
+                                                                    menuActionName[menuActionRow] = "Toggle ROL @lre@"
+                                                                            + itemDef.name;
+                                                                }
+                                                            }
                                                         }
 	                                                    if (j4 == 0) {
 	                                                        menuActionID[menuActionRow] = 632;
@@ -17762,6 +17773,10 @@ public class Client extends RSApplet {
     	return 248;
     }
 
+    public boolean inLMS(int x, int y, int z) {
+        return (x >= 3391 && x <= 3520 && y >= 5759 && y <= 5894);
+    }
+
     public int getRegionId() {
         int localX = this.currentRegionX / 8;
         int localY = this.currentRegionY / 8;
@@ -19758,6 +19773,41 @@ public class Client extends RSApplet {
         }
     }
 
+    private void drawZone(int x, int y, int radius, Color color) {
+        int toDrawX = ((x - baseX) * 4 + 2) - myPlayer.x / 32;
+
+        int toDrawY = ((y - baseY) * 4 + 2) - myPlayer.y / 32;
+
+        int k = viewRotation + minimapRotation & 0x7ff;
+        int l = toDrawX * toDrawX + toDrawY * toDrawY;
+
+        int i1 = Model.SINE[k];
+        int j1 = Model.COSINE[k];
+
+        i1 = (i1 * 256) / (minimapZoom + 256);
+        j1 = (j1 * 256) / (minimapZoom + 256);
+
+        int k1 = toDrawY * i1 + toDrawX * j1 >> 16;
+        int l1 = toDrawY * j1 - toDrawX * i1 >> 16;
+
+        Graphics2D g2d = DrawingArea.createGraphics(true);
+
+        int tx = Configuration.enableOldschoolFrame ? 89 : 81;
+        int ty = Configuration.enableOldschoolFrame ? 86 : 89;
+
+        Shape outerCircle = DrawingArea.createCircle((clientSize == 0 ? 0 : clientWidth - 210) + (tx + k1 - radius / 2) + 34, ty - l1 - radius / 2 - 4, radius);
+
+        g2d.setColor(color);
+
+        if (clientSize != 0) {
+            Shape cut = DrawingArea.createCircle((clientSize == 0 ? 0 : clientWidth - 255) + tx, 3, 158);
+            Shape finalShape = DrawingArea.createRing(cut, outerCircle);
+            g2d.draw(finalShape);
+        } else {
+            g2d.draw(outerCircle);
+        }
+    }
+
     private void addRequestedObject(int yTile, int z, int objectFace, int requestType, int xTile, int objectType,
                                     int objectId) {
         if (xTile >= 1 && yTile >= 1 && xTile <= 102 && yTile <= 102) {
@@ -20147,7 +20197,7 @@ public class Client extends RSApplet {
                     loadingMap = false;
                     opCode = -1;
                     return true;
-                    
+
                 case 123:
                     sendConsoleMessage(inStream.readString(), false);
                     opCode = -1;
@@ -20164,7 +20214,7 @@ public class Client extends RSApplet {
                             list[index][0] = inStream.readUnsignedWord();
                             list[index][1] = inStream.readUnsignedWord();
                             list[index][2] = inStream.readUnsignedWord();
-                            list[index][3]= inStream.readUnsignedWord();
+                            list[index][3] = inStream.readUnsignedWord();
                             list[index++][4] = inStream.readUnsignedWord();
                         }
                     }
@@ -20263,22 +20313,22 @@ public class Client extends RSApplet {
                     }
                     opCode = -1;
                     return true;
-                    
+
                 case 181: {
-					int itemId = inStream.readInt();
-	
-					int[] bonus = new int[12];
-	
-					for (int b = 0; b < bonus.length; b++) {
-						bonus[b] = inStream.readShort();
-					}
-	
-					ItemDefinition def = ItemDefinition.forID(itemId);
-	
-					itemStatCache.put(itemId, new ItemStatsPanel(def.name, bonus));
-					opCode = -1;
+                    int itemId = inStream.readInt();
+
+                    int[] bonus = new int[12];
+
+                    for (int b = 0; b < bonus.length; b++) {
+                        bonus[b] = inStream.readShort();
+                    }
+
+                    ItemDefinition def = ItemDefinition.forID(itemId);
+
+                    itemStatCache.put(itemId, new ItemStatsPanel(def.name, bonus));
+                    opCode = -1;
                     return true;
-				}
+                }
 
                 case 185:
 
@@ -21020,6 +21070,25 @@ public class Client extends RSApplet {
                             alertColour = 0x4286f4;
                             alertText = s.substring(7).split(":n:");
                         }
+                    } else if (s.startsWith(":lms:")) {
+                        String[] vars = s.substring(5).split(":");
+                        int zx = Integer.parseInt(vars[0]);
+                        int zy = Integer.parseInt(vars[1]);
+                        int radius = Integer.parseInt(vars[2]);
+                        int ztype = Integer.parseInt(vars[3]);
+
+                        if (ztype == 0) {
+                            lmsSafeX = zx;
+                            lmsSafeY = zy;
+                            lmsSize = radius;
+                        } else if (ztype == 1) {
+                            lmsBlueX = zx;
+                            lmsBlueY = zy;
+                            lmsBlueSize = radius;
+                        }
+                    } else if (s.equals(":lmsend:")) {
+                        lmsSize = 0;
+                        lmsBlueSize = 0;
                     } else if (s.startsWith(":fade:")) {
                     	String[] vars = s.substring(6).split(":");
                     	fadeColor = Integer.decode(vars[0]);
@@ -22693,6 +22762,15 @@ public class Client extends RSApplet {
 			SkillOrbs.process();
 		}
 
+        int pX = baseX + (myPlayer.x - 6 >> 7);
+        int pY = baseY + (myPlayer.y - 6 >> 7);
+
+        if (inLMS(pX, pY, plane)) {
+            if (lmsBlueSize > 0 && (!MiscUtils.isInCircleArea(lmsBlueSize / 8, lmsBlueX, lmsBlueY, pX, pY))) {
+                drawingArea.drawAlphaGradient(0, 0, clientSize != 0 ? clientWidth : 512, clientSize != 0 ? clientHeight : 334, 0x0000ff, 0, 100);
+            }
+        }
+
         updateEntities();
         drawHeadIcon();
         method37(k2);
@@ -23774,6 +23852,9 @@ public class Client extends RSApplet {
     public Sprite SubmitBuy;
     public Sprite SubmitSell;
     public Sprite geSearchBox, geSearchBoxHover;
+    public int lmsBlueX, lmsBlueY, lmsBlueSize;
+    public int lmsSafeX, lmsSafeY, lmsSize;
+    public long lastSizeChange;
     
     public int getDestX() {
     	return destX;
