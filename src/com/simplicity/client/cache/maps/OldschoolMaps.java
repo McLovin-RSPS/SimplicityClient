@@ -15,6 +15,9 @@ public class OldschoolMaps {
     private static final Map<Integer, Integer> OLDSCHOOL_REGIONS = new HashMap<>();
 
     public static int[] OLDSCHOOL_REGION_IDS = {
+            12598, 12854, 13110,//varrock
+            12597, 12853, 13109,//varrock
+            12596, 12852, 13108,//varrock
             5947, // South of blast mine
             8536, //Demonic gorillas
             8280, // Demonic gorillas
