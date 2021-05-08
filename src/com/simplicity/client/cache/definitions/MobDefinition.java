@@ -14,9 +14,9 @@ public final class MobDefinition {
 
     /** Hardcoded until we pack another byte into npc definitions to flag followers such as pets and familiars/bobs. **/
     private static final int[] FOLLOWER_IDS = new int[] {
-            17130, 17131, 17132,
+            17130, 17131, 17132, 2222, 2223, 22892,
             6830, 6825, 6841, 6806, 6796, 7331, 6831, 6837, 7361, 6847, 6994, 6872, 7353, 6835, 6845, 6808, 153, 154, 7519,
-            23492, 23493, 23494, 23495, 2775, 2776, 4550, 7370, 7333, 7351, 7367, 6853, 6867, 6851, 6833, 6875, 6877, 6879,
+            23492, 23493, 23494, 23495, 2776, 4550, 7370, 7333, 7351, 7367, 6853, 6867, 6851, 6833, 6875, 6877, 6879,
             6881, 6883, 6885, 6887, 6855, 7377, 22519, 6824, 6843, 6794, 6818, 6992, 6857, 6991, 7365, 7337, 7363, 6809,
             6865, 6820, 6802, 6827, 6859, 6889, 6815, 6813, 6817, 7372, 6839, 8575, 7345, 6849, 6798, 6861, 7335, 7347,
             6800, 7355, 7357, 7359, 9488, 6804, 7341, 7329, 6863, 6822, 7339, 6869, 7349, 7375, 6873, 7343, 3033, 3030, 21636,
@@ -212,6 +212,12 @@ public final class MobDefinition {
                 case 7852:
                     npc.name = "Dawn";
                     npc.standAnim = 23035;
+                    break;
+                    
+                case 7892:
+                    npc.name = "Noon";
+                    npc.standAnim = 23035;
+                	npc.walkAnim = 23035;
                     break;
             }
             return npc;
@@ -488,13 +494,7 @@ public final class MobDefinition {
                 npc.models = new int[] { 60000 };
                 break;        
                 
-            case 2775:
-                npc.copy(forID(12841));
-                npc.name = "Warmi";
-                npc.sizeXZ = 120;
-                npc.sizeY = 120;
-                npc.pet = true;
-                break;
+
 
             case 30001:
             	npc.copy(forID(13447));
@@ -762,16 +762,32 @@ public final class MobDefinition {
                 npc.name = "Mini Solak";
                 npc.combatLevel = 321;
                 npc.actions = new String[5];
-                npc.actions = new String[]{null, "Attack", null, null, null};
+                npc.actions[0] = "Pick-up"; 
                 npc.models = new int[1];
                 npc.models[0] = 105;
-                npc.squaresNeeded = 5;
-                npc.sizeXZ = 20;
-                npc.sizeY = 20;
+                npc.squaresNeeded = 1;
+                npc.sizeXZ = 30;
+                npc.sizeY = 30;
                 npc.dataType = DataType.CUSTOM;
                 npc.standAnim = 808;
                 npc.walkAnim = 819;
                 break;
+                
+            case 2223:
+                npc.name = "Warmi";
+                npc.combatLevel = 321;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up"; 
+                npc.models = new int[1];
+                npc.models[0] = 59611;
+                npc.squaresNeeded = 1;
+                npc.sizeXZ = 50;
+                npc.sizeY = 50;
+                npc.dataType = DataType.REGULAR;
+                npc.standAnim = 14967;
+                npc.walkAnim = 14966;
+                break;
+               
 
             case 3334:
                 npc.name = "WildyWyrm";
