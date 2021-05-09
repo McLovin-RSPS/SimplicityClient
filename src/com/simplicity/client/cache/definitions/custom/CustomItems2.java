@@ -200,6 +200,13 @@ public class CustomItems2 {
 	            itemDef.editedModelColor = new int[] { 32995, 7227, };
 	            itemDef.newModelColor = new int[] { 796, 536, };
 	            break;
+	            
+	        case 22100:
+	            itemDef.copy(ItemDefinition.forID(53951));
+	            itemDef.name = "Executive chest key";
+	            itemDef.editedModelColor = new int[] { 32995, 7227, };
+	            itemDef.newModelColor = new int[] { 689484, 689484, };
+	            break;
 	
 	        case 22011: // SOV DS Inferno textured Hellraty
 	            itemDef.copy(ItemDefinition.forID(15000));
@@ -1927,7 +1934,7 @@ public class CustomItems2 {
 	            break;
 	        case 21560:
 	            itemDef.copy(ItemDefinition.forID(76));
-	            itemDef.name = "Elite key";
+	            itemDef.name = "Elite chest key";
 	            itemDef.editedModelColor = new int[] { 74, 12, 45, };
 	            itemDef.newModelColor = new int[] { 38325, 9583, 38325, }; 
 	            itemDef.actions = new String[5];

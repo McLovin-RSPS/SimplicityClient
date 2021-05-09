@@ -223,6 +223,10 @@ public final class ObjectDefinition {
             objectDef.actions[0] = "Search";
             objectDef.actions[1] = "Check";
         }
+        if (i == 136087) {
+            objectDef.actions = new String[]{"Search", null, null, null, null};
+            objectDef.name = "@cya@Executive Chest";
+        }
         if (i == 131923) {
             objectDef.actions = new String[5];
             objectDef.actions[0] = "Venerate";
@@ -260,9 +264,6 @@ public final class ObjectDefinition {
         if (i == 132940) {
         objectDef.actions = new String[]{"Take", null, null, null, null};
         objectDef.name = "Twisted bow";
-        }
-        if (i == 136087) {
-            objectDef.name = "@cya@Executive Chest";
         }
         if (i == 120723) {
             objectDef.actions = new String[]{"Open", null, null, null, null};
