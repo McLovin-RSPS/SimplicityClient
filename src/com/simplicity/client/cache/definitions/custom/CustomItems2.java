@@ -3,6 +3,7 @@ package com.simplicity.client.cache.definitions.custom;
 import com.simplicity.client.RandomColor;
 import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.ItemDefinition;
+import com.simplicity.client.cache.definitions.MobDefinition;
 
 public class CustomItems2 {
 	
@@ -452,6 +453,17 @@ public class CustomItems2 {
 	            itemDef.rotationY = 250;
 	            itemDef.dataType = DataType.CUSTOM;
 	            break;
+	            
+            case 21223:
+	            itemDef.modelID = 59611;
+	            itemDef.modelZoom = 5000;
+	            itemDef.rotationX = 100;
+	            itemDef.rotationY = 30;
+	            itemDef.dataType = DataType.REGULAR;
+	            itemDef.name = "Warmi";
+	            itemDef.groundActions = new String[] { null, null, "Take", null, null };
+	            itemDef.actions = new String[] { null, null, null, null, "Drop" };
+                break;
 	
 	        case 22046:
 	            itemDef.modelID = 16737;
@@ -466,7 +478,16 @@ public class CustomItems2 {
 	            itemDef.groundActions = new String[] { null, null, "Take", null, null };
 	            itemDef.actions = new String[] { null, null, null, null, "Drop" };
 	            break;
-	
+                
+	        case 21222: // 
+                itemDef.name = "Mini Solak";
+	            itemDef.modelID = 16589;
+	            itemDef.modelZoom = 1750;
+	            itemDef.groundActions = new String[]{null, null, "Take", null, null};
+	            itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+	            break;
+
+	            
 	        case 22047:
 	            itemDef.copy(ItemDefinition.forID(14008));
 	            itemDef.name = "Necrolord hood";

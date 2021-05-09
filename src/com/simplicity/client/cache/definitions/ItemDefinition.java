@@ -400,6 +400,7 @@ public final class ItemDefinition {
 	            itemDef.femaleZOffset = 11;
 	            itemDef.maleZOffset = -11;
 	        	break;
+	       
 	        	
 		    case 54422:
 	        case 54423:
@@ -478,13 +479,7 @@ public final class ItemDefinition {
 	            itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
 	            break;
 
-            case 43301:
-                itemDef.name = "Warmi";
-                itemDef.groundActions = new String[]{null, null, "Take", null, null};
-                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
-                itemDef.modelID = MobDefinition.forID(12841).models[0];
-                itemDef.modelZoom = 10000;
-                break;
+
 
             case 43299:
                 itemDef.name = "Kura";
