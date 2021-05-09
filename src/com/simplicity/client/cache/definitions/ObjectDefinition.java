@@ -224,7 +224,7 @@ public final class ObjectDefinition {
             objectDef.actions[1] = "Check";
         }
         if (i == 136087) {
-            objectDef.actions = new String[]{"Search", null, null, null, null};
+            objectDef.actions = new String[]{"Search", "Lookup", null, null, null};
             objectDef.name = "@cya@Executive Chest";
         }
         if (i == 131923) {
@@ -281,7 +281,7 @@ public final class ObjectDefinition {
             objectDef.actions = new String[]{"Enter", null, null, null, null};
             objectDef.name = "@yel@Elite Raids";
         }
-        if (i == 133124 || i == 136087) {
+        if (i == 133124) {
             objectDef.actions = new String[]{"Loot", "Lookup", null, null, null};
             objectDef.name = "@yel@Elite Champion chest";
         }        
