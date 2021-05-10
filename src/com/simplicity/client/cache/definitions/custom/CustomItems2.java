@@ -203,9 +203,11 @@ public class CustomItems2 {
 	            
 	        case 22100:
 	            itemDef.copy(ItemDefinition.forID(53951));
-	            itemDef.name = "Executive chest key";
+	            itemDef.name = "@cya@Executive key";
 	            itemDef.editedModelColor = new int[] { 32995, 7227, };
 	            itemDef.newModelColor = new int[] { 689484, 689484, };
+	            itemDef.actions = new String[5];
+	            itemDef.actions[2] = "Teleport";
 	            break;
 	
 	        case 22011: // SOV DS Inferno textured Hellraty

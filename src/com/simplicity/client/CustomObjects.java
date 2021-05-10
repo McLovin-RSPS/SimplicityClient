@@ -510,7 +510,7 @@ public class CustomObjects {
             //{42651, 3097, 3504, 0, 0}, // Eggs
             
             // Chest island                   
-            {136087, 2847, 5081, 0, 0}, // Executive chest
+            {136088, 2847, 5081, 0, 0}, // Executive chest
             
             //{10607, 2847, 5078, 0, 2}, // Elite chest
             {10611, 2849, 5079, 0, 2}, // Elite chest

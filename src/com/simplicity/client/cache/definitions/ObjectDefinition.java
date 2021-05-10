@@ -223,7 +223,7 @@ public final class ObjectDefinition {
             objectDef.actions[0] = "Search";
             objectDef.actions[1] = "Check";
         }
-        if (i == 136087) {
+        if (i == 136088) {
             objectDef.actions = new String[]{"Search", "Lookup", null, null, null};
             objectDef.name = "@cya@Executive Chest";
         }
