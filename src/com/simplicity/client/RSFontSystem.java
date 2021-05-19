@@ -2,6 +2,8 @@ package com.simplicity.client;
 
 
 
+import com.simplicity.util.MiscUtils;
+
 import java.awt.Color;
 
 public class RSFontSystem extends DrawingArea {
@@ -923,6 +925,21 @@ public class RSFontSystem extends DrawingArea {
 
 		//return s;
 	}
+
+	public void drawSplitString(String string, int drawX, int drawY, int color, int shadow, int maxWidth, int maxLines) {
+		String[] split = MiscUtils.getSplitString(this, string, maxWidth, maxLines);
+
+		for (int idx = 0; idx < split.length; idx++) {
+			String str = split[idx];
+
+			if (str == null) {
+				continue;
+			}
+
+			drawBasicString(str, drawX, drawY + idx * baseCharacterHeight, color, shadow);
+		}
+	}
+
 	public static String handleOldSyntax(String text) {
 
 		text = replace(text, "@red@", "<col=ff0000>");
@@ -1207,4 +1224,5 @@ public class RSFontSystem extends DrawingArea {
 		anInt4178 = 0;
 		transparency = 256;
 	}
+
 }

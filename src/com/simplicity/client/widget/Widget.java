@@ -116,5 +116,9 @@ public class Widget {
 
 		return widgets.get(mainId);
 	}
-	
+
+	public static <T> T get(int id) {
+		return (T) widgets.get(id);
+	}
+
 }

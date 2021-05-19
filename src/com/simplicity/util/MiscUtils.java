@@ -1,6 +1,11 @@
 package com.simplicity.util;
 
+import com.simplicity.client.RSFontSystem;
+
 import java.awt.Color;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MiscUtils {
 
@@ -60,4 +65,57 @@ public class MiscUtils {
 		return max;
 	}
 
+	public static String[] getSplitString(RSFontSystem font, String name, int maxWidth, int maxLines) {
+		int totalWidth = font.getTextWidth(name);
+
+		if (totalWidth > maxWidth) {
+			String[] split = name.split(" ", maxLines);
+
+			for (int idx = 0; idx < split.length; idx++) {
+				String str = split[idx];
+
+				if (str == null) {
+					continue;
+				}
+
+				if (idx >= maxLines - 1 && str.length() > 10) {
+					split[idx] = str.substring(0, 10) + "...";
+				}
+			}
+
+			return split;
+		} else {
+			return new String[] { name };
+		}
+	}
+
+	public static String capitalizeFirstLetter(String s) {
+		return Character.toUpperCase(s.charAt(0)) + s.substring(1);
+	}
+
+	public static String capitalize(String s) {
+		for (int i = 0; i < s.length(); i++) {
+			if (i == 0) {
+				s = String.format("%s%s", Character.toUpperCase(s.charAt(0)), s.substring(1));
+			}
+			if (!Character.isLetterOrDigit(s.charAt(i))) {
+				if (i + 1 < s.length()) {
+					s = String.format("%s%s%s", s.subSequence(0, i + 1), Character.toUpperCase(s.charAt(i + 1)), s.substring(i + 2));
+				}
+			}
+		}
+		return s;
+	}
+
+	private static final Set<Character> VOWELS = new HashSet<>(Arrays.asList(
+			'A', 'E', 'I', 'O', 'U'
+	));
+
+	public static String getAOrAn(String s) {
+		return startsWithVowel(s) ? "an" : "a";
+	}
+
+	public static boolean startsWithVowel(String word) {
+		return VOWELS.contains(Character.toUpperCase(word.charAt(0)));
+	}
 }
