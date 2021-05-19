@@ -22330,14 +22330,14 @@ public class Client extends RSApplet {
                         Consumer<RSInterface> listener = rsi_1.onItemTrasmit;
                         if (listener != null)
                             listener.accept(rsi_1);
+
+                        CustomWidget cw = Widget.mainForComponent(rsi_1.componentId);
+
+                        if (cw != null && cw.containerListener != null) {
+                            cw.containerListener.onContainerUpdate(rsi_1.componentId);
+                        }
                     } catch (Exception e) {
 
-                    }
-
-                    CustomWidget cw = Widget.mainForComponent(rsi_1.componentId);
-
-                    if (cw != null && cw.containerListener != null) {
-                        cw.containerListener.onContainerUpdate(rsi_1.componentId);
                     }
 
                     opCode = -1;
