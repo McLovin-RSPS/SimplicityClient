@@ -14071,6 +14071,11 @@ public class RSInterface {
 	 * A toggle for buttons to center its sprite.
 	 */
 	public boolean centerButton;
+
+    /**
+     * The examine option on an interface item.
+     */
+    public boolean itemExamine = true;
 	
     /*
      * Custom interfaces

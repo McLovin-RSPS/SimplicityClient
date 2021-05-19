@@ -5166,7 +5166,7 @@ public class Client extends RSApplet {
 					}
 				}
 
-                if (child.type == 2) {
+                if (child.type == 2 && !child.hidden && child.itemExamine) {
                     // Find last slot of a bank container
                     int lastSlot = 0;
 
@@ -5319,7 +5319,7 @@ public class Client extends RSApplet {
                                                 || openInterfaceID == 2700 || openInterfaceID == 24700
                                                 || openInterfaceID == 24600 && child.parentID == 3323
                                                 || child.parentID == 2901 || child.parentID == 2902
-                                                || child.parentID == 2903 || child.parentID == 2904;
+                                                || child.parentID == 2903 || child.parentID == 2904 || !child.itemExamine;
 
                                         if (child.actions != null) {
 
