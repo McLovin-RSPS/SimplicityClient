@@ -67,6 +67,7 @@ public abstract class CustomWidget {
     public abstract void init();
     
     public void add(RSInterface widget, int x, int y) {
+        widget.componentId = widget.id;
 
         if (RSInterface.interfaceCache[widget.componentId] != null) {
             if (Widget.componentForMain.get(widget.componentId) != null) {
