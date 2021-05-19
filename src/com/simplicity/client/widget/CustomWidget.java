@@ -954,6 +954,10 @@ public abstract class CustomWidget {
         }
         return scroll;
     }
+    public RSInterface addInputField(int characterLimit, int defaultColor, int defaultHoverColor, int selectedColor, int selectedHoverColor, String text, int width, int height, boolean onlyNumbers, boolean asterisks, String defaultText) {
+        return RSInterface.addInputField(mainId, id++, characterLimit, defaultColor, defaultHoverColor, selectedColor, selectedHoverColor, text, width, height, onlyNumbers, asterisks, defaultText);
+    }
+
     public RSInterface addInputField(int characterLimit, int defaultColor, int defaultHoverColor, int selectedColor, int selectedHoverColor, String text, int width, int height, boolean onlyNumbers, boolean asterisks, String defaultText, String[] actions) {
         return RSInterface.addInputField(mainId, id++, characterLimit, defaultColor, defaultHoverColor, selectedColor, selectedHoverColor, text, width, height, onlyNumbers, asterisks, defaultText, actions);
     }
