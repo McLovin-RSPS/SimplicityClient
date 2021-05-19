@@ -800,7 +800,7 @@ public class CustomItems {
 
 			case 6201:
 				itemDef.copy(ItemDefinition.forID(6830));
-				itemDef.name = "Mystery Box";
+				itemDef.name = "@red@Infernal Box";
 				itemDef.modelZoom = 3100;
 				itemDef.animateInventory = true;
 				itemDef.dataType = DataType.CUSTOM;
