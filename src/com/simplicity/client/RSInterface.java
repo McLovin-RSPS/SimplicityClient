@@ -54,6 +54,12 @@ public class RSInterface {
     }
 
 	public int fillColor;
+    public boolean fading;
+    public int fadeStep;
+    public int minFade;
+    public int maxFade;
+    public boolean decreaseFade;
+    public int fadeSpeed = 3;
 
     public boolean drawInterface(final Client client, int widgetDrawX, int widgetDrawY, int subWidgetDrawX,
                                  int subWidgetDrawY) {
@@ -2451,6 +2457,10 @@ public class RSInterface {
         spellButtons.width = 190;
     }
 
+    public static RSInterface addContainer(int id, int contentType, int width, int height, String...actions) {
+        return addContainer(id, contentType, width, height, 16, 4, true, actions);
+    }
+
     /* Add Container */
     public static RSInterface addContainer(int id, int contentType, int width, int height, int xPad, int yPad,
                                            boolean move, String... actions) {
@@ -3889,7 +3899,34 @@ public class RSInterface {
 		r.disabledColor = color;
 		r.transparency = transparency;
 	}
-    
+
+    public static RSInterface addSpriteRepeatX(int id, int spriteId, int width) {
+        RSInterface rsi = addInterface(id);
+        rsi.type = 53;
+        rsi.disabledSprite = Client.cacheSprite[spriteId];
+        rsi.width = width;
+        rsi.height = rsi.disabledSprite.myHeight;
+        return rsi;
+    }
+
+    public static RSInterface addSpriteRepeatY(int id, int spriteId, int height) {
+        RSInterface rsi = addInterface(id);
+        rsi.type = 54;
+        rsi.disabledSprite = Client.cacheSprite[spriteId];
+        rsi.width = rsi.disabledSprite.myWidth;
+        rsi.height = height;
+        return rsi;
+    }
+
+    public static RSInterface addSpriteRepeatBoth(int id, int spriteId, int width, int height) {
+        RSInterface rsi = addInterface(id);
+        rsi.type = 55;
+        rsi.disabledSprite = Client.cacheSprite[spriteId];
+        rsi.width = width;
+        rsi.height = height;
+        return rsi;
+    }
+
 	/**
 	 * Draws a rectangle on the interface.
 	 * @param interfaceId
@@ -3898,7 +3935,7 @@ public class RSInterface {
 	 * @param color
 	 * @param transparency
 	 */
-	public static void drawBox(int interfaceId, int width, int height, int border, int borderColor, int color, int transparency) {
+	public static RSInterface drawBox(int interfaceId, int width, int height, int border, int borderColor, int color, int transparency) {
 		RSInterface tab = addInterface(interfaceId);
 		tab.type = 34;
 		tab.width = width;
@@ -3907,8 +3944,9 @@ public class RSInterface {
 		tab.borderColor = borderColor;
 		tab.disabledColor = color;
 		tab.transparency = transparency;
+        return tab;
 	}
-	
+
 	/**
 	 * Draws a rectangle on the interface.
 	 * @param interfaceId
@@ -3917,7 +3955,7 @@ public class RSInterface {
 	 * @param color
 	 * @param transparency
 	 */
-	public static void drawBox(int interfaceId, int width, int height, int border, int borderColor, int color, int transparency, int fillColor, int fillTransparency) {
+	public static RSInterface drawBox(int interfaceId, int width, int height, int border, int borderColor, int color, int transparency, int fillColor, int fillTransparency) {
 		RSInterface tab = addInterface(interfaceId);
 		tab.type = 34;
 		tab.width = width;
@@ -3929,7 +3967,12 @@ public class RSInterface {
 		tab.fillColor = fillColor;
 		tab.customOpacity = fillTransparency;
 		tab.filled = true;
+		return tab;
 	}
+
+    public RSInterface configButton(String tooltip, int enabledSprite, int disabledSprite) {
+        return RSInterface.configButton(id++, tooltip, enabledSprite, disabledSprite);
+    }
 
     public static void addItemContainer(int id, int[] padding,
                                         int[] dimensions, String[] actions, boolean examine) {
@@ -6661,6 +6704,25 @@ public class RSInterface {
         Tab.textColor(id, color);
     }
 
+    /**
+     * Draws a gradient rectangle on the interface.
+     * @param interfaceId
+     * @param width
+     * @param height
+     * @param startColor
+     * @param endColor
+     * @param transparency
+     */
+    public static RSInterface fillRectangle(int interfaceId, int width, int height, int color, int transparency) {
+        RSInterface tab = addInterface(interfaceId);
+        tab.type = 32;
+        tab.width = width;
+        tab.height = height;
+        tab.disabledColor = color;
+        tab.transparency = transparency;
+        return tab;
+    }
+
     public static void addClanChatListTextWithOptions(int id, String text, String ignore, boolean owner,
                                                       TextDrawingArea tda[], int idx, int color, int width, int height) {
         RSInterface Tab = addTabInterface(id);
@@ -7927,6 +7989,29 @@ public class RSInterface {
             rsinterface.disabledColor = k;
         } catch (Exception e) {
         }
+    }
+
+    public static RSInterface addText(int id, String text, int idx, int color) {
+        RSInterface rsinterface = addTabInterface(id);
+        rsinterface.id = id;
+        rsinterface.parentID = id;
+        rsinterface.type = 4;
+        rsinterface.atActionType = 0;
+        rsinterface.width = 174;
+        rsinterface.height = 11;
+        rsinterface.contentType = 0;
+        rsinterface.opacity = 0;
+        rsinterface.hoverType = -1;
+        rsinterface.centerText = false;
+        rsinterface.shadowed = true;
+        rsinterface.textDrawingAreas = fonts[idx];
+        rsinterface.message = text;
+        rsinterface.enabledMessage = "";
+        rsinterface.disabledColor = color;
+        rsinterface.enabledColor = 0;
+        rsinterface.disabledMouseOverColor = 0;
+        rsinterface.enabledMouseOverColor = 0;
+        return rsinterface;
     }
 
     private static Sprite loadSprite(int i, String s) {
@@ -14005,6 +14090,7 @@ public class RSInterface {
     public int id;
     public int invStackSizes[];
     public int inv[];
+    public Sprite invBack;
     public byte opacity;
     public int childToIntersect = 0;
     public int childToIntersect2 = 0;
@@ -14058,9 +14144,12 @@ public class RSInterface {
 	public int msgX, msgY;
 	
 	public RSFontSystem rsFont;
+
+    public int selectedChild;
+    public int selectedColor;
+    public int selectedTransparency;
 	
 	public int borderWidth;
-	
 	public int borderColor;
 
 	public int[] originalChildren;
@@ -16884,7 +16973,7 @@ public class RSInterface {
         tab.tooltip = tT;
     }
     
-	public static void configButton(int id, String tooltip, int enabledSprite, int disabledSprite) {
+	public static RSInterface configButton(int id, String tooltip, int enabledSprite, int disabledSprite) {
 		RSInterface tab = addInterface(id);
 		tab.tooltip = tooltip;
 		tab.atActionType = 1;
@@ -16894,6 +16983,7 @@ public class RSInterface {
 		tab.width = tab.enabledSprite.myWidth;
 		tab.height = tab.disabledSprite.myHeight;
 		tab.active = false;
+		return tab;
 	}
     
 	public static void configHoverButton(int id, String tooltip, int enabledSprite, int disabledSprite,
@@ -16985,6 +17075,20 @@ public class RSInterface {
 		tab.active = active;
 		tab.spriteOpacity = 255;
 	}
+
+    public static RSInterface hoverButton(int id, int disabledSprite, int enabledSprite, String[] actions) {
+        RSInterface tab = addInterface(id);
+        tab.atActionType = 1;
+        tab.type = 56;
+        tab.disabledSprite = Client.cacheSprite[disabledSprite];
+        tab.enabledSprite = Client.cacheSprite[enabledSprite];
+        tab.width = tab.disabledSprite.myWidth;
+        tab.height = tab.disabledSprite.myHeight;
+        tab.actions = actions;
+        tab.hoverType = id;
+        tab.hovers = true;
+        return tab;
+    }
 	
 	public static void hoverButton(int id, String tooltip, String[] actions, int enabledSprite, int disabledSprite) {
 		RSInterface tab = addInterface(id);
@@ -17253,22 +17357,23 @@ public class RSInterface {
 		rsi.hoverType = 52;
 		rsi.tooltip = tooltip;
     }
-    
-	public static void dropdownMenu(int id, int width, int defaultOption, String[] options, Dropdown d) {
-		dropdownMenu(id, width, defaultOption, options, d,
+
+	public static RSInterface dropdownMenu(int id, int width, int defaultOption, String[] options, Dropdown d) {
+		return dropdownMenu(id, width, defaultOption, options, d,
 				new int[] { 0x0d0d0b, 0x464644, 0x473d32, 0x51483c, 0x787169 }, false);
 	}
 
-	public static void dropdownMenu(int id, DropdownMenu d) {
+	public static RSInterface dropdownMenu(int id, DropdownMenu d) {
 		RSInterface menu = addInterface(id);
 		menu.type = 36;
 		menu.dropdown = d;
 		menu.atActionType = 7;
 		menu.dropdownColours = new int[] { 0x80786d, 0x464644, 0x473d32, 0x51483c, 0x787169 };
 		menu.centerText = false;
+		return menu;
 	}
 
-	public static void dropdownMenu(int id, int width, int defaultOption, String[] options, Dropdown d,
+	public static RSInterface dropdownMenu(int id, int width, int defaultOption, String[] options, Dropdown d,
 			int[] dropdownColours, boolean centerText) {
 		RSInterface menu = addInterface(id);
 		menu.type = 36;
@@ -17276,6 +17381,7 @@ public class RSInterface {
 		menu.atActionType = 7;
 		menu.dropdownColours = dropdownColours;
 		menu.centerText = centerText;
+		return menu;
 	}
 
 	public static void keybindingDropdown(int id, int width, int defaultOption, String[] options, Dropdown d,
@@ -17363,6 +17469,22 @@ public class RSInterface {
         field.displayAsterisks = asterisks;
         field.actions = actions;
         return field;
+    }
+
+    public static RSInterface addStoneButton(int interfaceId, int width, int height, int color, int hoverColor, String text) {
+        RSInterface rsi = addInterface(interfaceId, width, height);
+        rsi.type = 52;
+        rsi.width = width;
+        rsi.height = height;
+        rsi.message = text;
+        rsi.tooltip = text;
+        rsi.atActionType = 1;
+        rsi.centerText = true;
+        rsi.hovers = true;
+        rsi.hoverType = interfaceId;
+        rsi.disabledColor = color;
+        rsi.enabledColor = hoverColor;
+        return rsi;
     }
 	
 	/**
@@ -17760,6 +17882,7 @@ public class RSInterface {
     public int clickedChildId = -1;
     
     public boolean buttonDown;
+    public boolean hoverDisabled;
     public boolean useNewFonts;
 
     // The position this component is in within the parent's children list.
@@ -17866,4 +17989,16 @@ public class RSInterface {
             ins.invoke(args);
         }
     }
+
+    public RSInterface setSize(int width, int height) {
+        this.width = width;
+        this.height = height;
+        return this;
+    }
+
+    public RSInterface setActionType(int actionType) {
+        this.atActionType = actionType;
+        return this;
+    }
+
 }

@@ -15973,6 +15973,23 @@ public class Client extends RSApplet {
                 if (child.invisible) {
                     continue;
                 }
+
+                if (child.fading && loopCycle % child.fadeSpeed == 0) {
+                    if (child.transparency >= child.maxFade) {
+                        child.decreaseFade = true;
+                    }
+
+                    if (child.transparency <= child.minFade) {
+                        child.decreaseFade = false;
+                    }
+
+                    if (child.decreaseFade) {
+                        child.transparency -= child.fadeStep;
+                    } else {
+                        child.transparency += child.fadeStep;
+                    }
+                }
+
                 if (rsInterface.id == WildernessWidget.INTERFACE_ID) {
                     if (child.id == WildernessWidget.MINIMIZE_ID && WildernessWidget.isHidden()) {
                     	childX += 158;
@@ -16012,7 +16029,7 @@ public class Client extends RSApplet {
                     hoverY -= 168;
                 }
 
-            	if (hoverChatInterface || hoverGameInterface || hoverTabInterface) {
+            	if (!child.hoverDisabled && (hoverChatInterface || hoverGameInterface || hoverTabInterface)) {
                     boolean inBounds = (hoverX >= childX && hoverX <= childX + child.width && hoverY >= childY && hoverY <= childY + child.height);
             		if (hoverGameInterface) {
             		    childHovered = inBounds && RSInterface.interfaceCache[openInterfaceID].parentID == child.layerId;
@@ -16936,31 +16953,37 @@ public class Client extends RSApplet {
     						e.printStackTrace();
     					}
     				} else if (child.type == 30) {
-                    	try {
-    						String progress = RSInterface.interfaceCache[child.id].message;
-    						
-    						if (progress.indexOf("/") == -1) {
-    							continue;
-    						}
+                        try {
+                            String progress = RSInterface.interfaceCache[child.id].message;
 
-    						int current = Integer.parseInt(progress.substring(0, progress.indexOf("/")));
-    						
-    						int maximum = Integer.parseInt(progress.substring(progress.indexOf("/") + 1, progress.length()));
-    						
-    						int width = child.width;
-    						
-    						int height = child.height;
-    						
-    						NumberFormat formatter = new DecimalFormat("#0.0").getInstance(Locale.UK);
-    						
-    						DrawingArea.drawAlphaPixels(childX, childY, (int) ((double) current / maximum * width), height, child.disabledColor, child.transparency);
-    						
-    						double percentage = (double) current / (double) maximum * (double) 100;
-    						
-    						newSmallFont.drawCenteredString(formatter.format(percentage) + "%", childX + (width - 1) / 2 + 5, childY + height / 2 + 5, child.textColor, -1);
-    					} catch (Exception e) {
-    						e.printStackTrace();
-    					}
+                            if (progress.indexOf("/") == -1) {
+                                continue;
+                            }
+
+                            int current = Integer.parseInt(progress.substring(0, progress.indexOf("/")));
+
+                            int maximum = Integer.parseInt(progress.substring(progress.indexOf("/") + 1, progress.length()));
+
+                            int width = child.width;
+
+                            int height = child.height;
+
+                            NumberFormat formatter = new DecimalFormat("#0.0").getInstance(Locale.UK);
+
+                            DrawingArea.drawAlphaPixels(childX, childY, (int) ((double) current / maximum * width), height, child.disabledColor, child.transparency);
+
+                            double percentage = (double) current / (double) maximum * (double) 100;
+
+                            newSmallFont.drawCenteredString(formatter.format(percentage) + "%", childX + (width - 1) / 2 + 5, childY + height / 2 + 5, child.textColor, -1);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else if (child.type == 32) {
+                        if (rsInterface.selectedChild != -1 && rsInterface.selectedChild == child.id) {
+                            DrawingArea.fillRectangle(child.selectedColor, childY, child.width, child.height, child.selectedTransparency, childX);
+                        } else {
+                            DrawingArea.fillRectangle(child.disabledColor, childY, child.width, child.height, child.transparency, childX);
+                        }
                     } else if (child.type == 34) {
                     	DrawingArea.drawBox(childX, childY, child.width, child.height, child.borderWidth, child.borderColor, child.disabledColor, child.transparency);
                     	
@@ -17367,6 +17390,45 @@ public class Client extends RSApplet {
                             t.method389(true, (childX + 8), 0xFFFFFF, builder.append(TextClass.passwordAsterisks(message)).append(((RSInterface.currentInputField == child ? 1 : 0) & (loopCycle % 40 < 20 ? 1 : 0)) != 0 ? "|" : "").toString(), yPos);
                         } else {
                             t.method389(true, (childX + 8), 0xFFFFFF, builder.append(message).append(((RSInterface.currentInputField == child ? 1 : 0) & (loopCycle % 40 < 20 ? 1 : 0)) != 0 ? "|" : "").toString(), yPos);
+                        }
+                    } else if (child.type == 52) {
+                        boolean hover = childHovered;
+
+                        Sprite bg = cacheSprite[hover ? 1828 : 1819];
+                        Sprite top = cacheSprite[hover ? 1825 : 1816];
+                        Sprite left = cacheSprite[hover ? 1827 : 1818];
+                        Sprite right = cacheSprite[hover ? 1829 : 1820];
+                        Sprite bottom = cacheSprite[hover ? 1831 : 1822];
+
+                        Sprite topLeft = cacheSprite[hover ? 1824 : 1815];
+                        Sprite topRight = cacheSprite[hover ? 1826 : 1817];
+                        Sprite bottomLeft = cacheSprite[hover ? 1830 : 1821];
+                        Sprite bottomRight = cacheSprite[hover ? 1832 : 1823];
+
+                        bg.repeatBoth(childX + 6, childY + 6, child.width - 12, child.height - 12);
+                        top.repeatX(childX + 6, childY, child.width - 12); // top
+                        bottom.repeatX(childX + 6, child.height + childY - bottom.myHeight - 1, child.width - 12); // bottom
+
+                        left.repeatY(childX, childY + 6, child.height - 11);
+                        right.repeatY(childX + child.width - 6, childY + 6, child.height - 11);
+
+                        topLeft.drawSprite(childX, childY);
+                        topRight.drawSprite(childX + child.width - 6, childY);
+                        bottomLeft.drawSprite(childX, childY + child.height - bottomLeft.myHeight - 1);
+                        bottomRight.drawSprite(childX + child.width - 6, childY + child.height - bottomRight.myHeight - 1);
+
+                        newSmallFont.drawCenteredString(child.message, childX + child.width / 2, childY + 14, hover ? child.enabledColor : child.disabledColor, 0);
+                    } else if (child.type == 53) {
+                        child.disabledSprite.repeatX(childX, childY, child.width);
+                    } else if (child.type == 54) {
+                        child.disabledSprite.repeatY(childX, childY, child.height);
+                    } else if (child.type == 55) {
+                        child.disabledSprite.repeatBoth(childX, childY, child.width, child.height);
+                    } else if (child.type == 56) {
+                        Sprite sprite = childHovered ? child.enabledSprite : child.disabledSprite;
+
+                        if (sprite != null) {
+                            sprite.drawSprite(childX, childY);
                         }
                     }
                 }

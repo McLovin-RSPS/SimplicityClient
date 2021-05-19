@@ -7,6 +7,7 @@ import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.Sprite;
 import com.simplicity.client.cache.DataType;
+import com.simplicity.client.widget.dropdown.Dropdown;
 import com.simplicity.client.widget.listener.*;
 
 public abstract class CustomWidget {
@@ -155,6 +156,12 @@ public abstract class CustomWidget {
     	RSInterface rsi = RSInterface.addRectangle(id, width, height, colour, alpha, filled);
     	rsi.componentId = id++;
     	return rsi;
+    }
+
+    public RSInterface fillRectangle(int width, int height, int colour, int alpha) {
+        RSInterface rsi = RSInterface.fillRectangle(id, width, height, colour, alpha);
+        rsi.componentId = id++;
+        return rsi;
     }
     
 	public RSInterface addVerticalLine(int h, int color, int transparency) {
@@ -420,7 +427,34 @@ public abstract class CustomWidget {
     	rsi.atActionType = 1;
     	return rsi;
     }
-    
+
+    public RSInterface addSpriteRepeatX(int spriteId, int width) {
+        return RSInterface.addSpriteRepeatX(id++, spriteId, width);
+    }
+
+    public RSInterface addSpriteRepeatY(int spriteId, int height) {
+        return RSInterface.addSpriteRepeatY(id++, spriteId, height);
+    }
+
+    public RSInterface addSpriteRepeatBoth(int spriteId, int width, int height) {
+        return RSInterface.addSpriteRepeatBoth(id++, spriteId, width, height);
+    }
+
+    public RSInterface drawBox(int width, int height, int border, int color, int transparency) {
+        return RSInterface.drawBox(id++, width, height, border, 0, color, transparency);
+    }
+
+    public RSInterface drawBox(int width, int height, int border, int borderColor, int color, int transparency) {
+        return RSInterface.drawBox(id++, width, height, border, borderColor, color, transparency);
+    }
+
+    public RSInterface configButton(String tooltip, int enabledSprite, int disabledSprite) {
+        return RSInterface.configButton(id++, tooltip, enabledSprite, disabledSprite);
+    }
+
+    public RSInterface hoverButton(int disabledSprite, int enabledSprite, String[] actions) {
+        return RSInterface.hoverButton(id++, disabledSprite, enabledSprite, actions);
+    }
 
     public RSInterface addConfigButton(String tooltip, int sprite1, int sprite2, int aT, int configSlot, int configId) {
         RSInterface tab = RSInterface.addInterface(id);
@@ -471,6 +505,10 @@ public abstract class CustomWidget {
         tab.height = 0;
         id++;
         return tab;
+    }
+
+    public RSInterface addProgressBar(int width, int height) {
+        return addProgressBar(width, height, 0, 100);
     }
 
     public RSInterface addProgressBar(int width, int height, int current, int max) {
@@ -828,6 +866,10 @@ public abstract class CustomWidget {
         return addText(text, size, color, false, false, false, true);
     }
 
+    public RSInterface addText(String text, int size, int color, boolean center) {
+        return addText(text, size, color, center, false, false, true);
+    }
+
     public RSInterface addCenteredText(String text, int size, int color) {
         return addText(text, size, color, true, false, false, true);
     }
@@ -960,6 +1002,19 @@ public abstract class CustomWidget {
         }
         return scroll;
     }
+
+    public RSInterface addStoneButton(int width, int height, int color, int hoverColor, String text) {
+        return RSInterface.addStoneButton(id++, width, height, color, hoverColor, text);
+    }
+
+    public RSInterface dropdownMenu(int width, int defaultOption, String[] options, Dropdown d) {
+        return RSInterface.dropdownMenu(id++, width, defaultOption, options, d);
+    }
+
+    public RSInterface dropdownMenu(int width, int defaultOption, String[] options, Dropdown d, int[] dropdownColours, boolean centerText) {
+        return RSInterface.dropdownMenu(id++, width, defaultOption, options, d, dropdownColours, centerText);
+    }
+
     public RSInterface addInputField(int characterLimit, int defaultColor, int defaultHoverColor, int selectedColor, int selectedHoverColor, String text, int width, int height, boolean onlyNumbers, boolean asterisks, String defaultText) {
         return RSInterface.addInputField(mainId, id++, characterLimit, defaultColor, defaultHoverColor, selectedColor, selectedHoverColor, text, width, height, onlyNumbers, asterisks, defaultText);
     }
