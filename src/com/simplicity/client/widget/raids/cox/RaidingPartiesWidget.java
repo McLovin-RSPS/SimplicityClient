@@ -145,5 +145,10 @@ public class RaidingPartiesWidget extends CustomWidget implements WidgetButtonLi
 		RSInterface.setSelectedInterface(SORT_BUTTON_START);
 		RSInterface.interfaceCache[SORT_BUTTON_START].active = true;
 	}
-	
+
+	@Override
+	public void onClose() {
+
+	}
+
 }

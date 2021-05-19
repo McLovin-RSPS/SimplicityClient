@@ -4,4 +4,5 @@ public interface WidgetStateListener {
 	
 	void onDisplay();
 
+	void onClose();
 }

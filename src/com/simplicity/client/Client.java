@@ -11769,7 +11769,7 @@ public class Client extends RSApplet {
 
 	public void reloadInterfaces() {
     	int cached = Client.openInterfaceID;
-    	Client.openInterfaceID = -1;
+    	setOpenInterfaceID(-1);
     	CacheArchive streamLoader_1 = streamLoaderForName(3, "interface", "interface", expectedCRCs[3],
                 35);
         CacheArchive streamLoader_2 = streamLoaderForName(4, "2d graphics", "media", expectedCRCs[4],
@@ -11778,7 +11778,7 @@ public class Client extends RSApplet {
                 aTextDrawingArea_1273, fancyTextLarge};
         RSInterface.unpack(streamLoader_1, allFonts, streamLoader_2);
         pushMessage("Reloaded interface configurations.", 0, "");
-        Client.openInterfaceID = cached;
+        setOpenInterfaceID(cached);
 	}
 
 	/**
@@ -13426,7 +13426,7 @@ public class Client extends RSApplet {
                 friendsCount = 0;
                 dialogID = -1;
                 resetDialogue();
-                openInterfaceID = -1;
+                setOpenInterfaceID(-1);
                 invOverlayInterfaceID = -1;
                 walkableInterfaceId = -1;
                 dialogOptionsShowing = false;
@@ -20112,7 +20112,7 @@ public class Client extends RSApplet {
         if (openInterfaceID > -1)
             RSInterface.interfaceCache[openInterfaceID].onClose();
 
-        openInterfaceID = -1;
+        setOpenInterfaceID(-1);
         dialogOptionsShowing = false;
     }
 
@@ -20125,7 +20125,7 @@ public class Client extends RSApplet {
             inputDialogState = 0;
             inputTaken = true;
         }
-        openInterfaceID = interfaceID;
+        setOpenInterfaceID(interfaceID);
         if (openInterfaceID > 0) {
             RSInterface parent = RSInterface.interfaceCache[openInterfaceID];
             if (parent.onOpen != null)
@@ -20284,7 +20284,7 @@ public class Client extends RSApplet {
                             if (RSInterface.interfaceCache[k9] == null || RSInterface.interfaceCache[k9].contentType != c) {
                                 continue;
                             }
-                            openInterfaceID = RSInterface.interfaceCache[k9].parentID;
+                            setOpenInterfaceID(RSInterface.interfaceCache[k9].parentID);
 
                         }
                     }
@@ -21336,7 +21336,7 @@ public class Client extends RSApplet {
                         inputDialogState = 0;
                         inputTaken = true;
                     }
-                    openInterfaceID = i5;
+                    setOpenInterfaceID(i5);
                     if (openInterfaceID > 0) {
                         RSInterface parent = RSInterface.interfaceCache[openInterfaceID];
                         if (parent.onOpen != null)
@@ -21539,7 +21539,7 @@ public class Client extends RSApplet {
                     needDrawTabArea = true;
                     tabAreaAltered = true;
                     bankItemDragSprite = null;
-                    openInterfaceID = -1;
+                    setOpenInterfaceID(-1);
                     secondaryOpenInterfaceID = -1;
                     dialogOptionsShowing = false;
                     opCode = -1;
@@ -22186,8 +22186,8 @@ public class Client extends RSApplet {
 
                         if (openInterfaceID > -1)
                             RSInterface.interfaceCache[openInterfaceID].onClose();
-                        
-                        openInterfaceID = interfaceID;
+
+                        setOpenInterfaceID(interfaceID);
                         if (openInterfaceID > 0) {
                             RSInterface parent = RSInterface.interfaceCache[openInterfaceID];
                             if (parent.onOpen != null)
@@ -22297,7 +22297,7 @@ public class Client extends RSApplet {
                     if (openInterfaceID > -1)
                         RSInterface.interfaceCache[openInterfaceID].onClose();
 
-                    openInterfaceID = -1;
+                    setOpenInterfaceID(-1);
                     secondaryOpenInterfaceID = -1;
                     bankItemDragSprite = null;
                     dialogOptionsShowing = false;
@@ -23196,7 +23196,7 @@ public class Client extends RSApplet {
         if (openInterfaceID > -1)
             RSInterface.interfaceCache[openInterfaceID].onClose();
 
-        openInterfaceID = -1;
+        setOpenInterfaceID(-1);
         fullscreenInterfaceID = -1;
         
         if (openInterfaceID != -1) {
@@ -23267,7 +23267,7 @@ public class Client extends RSApplet {
         anIntArray840 = new int[1000];
         aStream_847 = Stream.create();
         soundEnabled = true;
-        openInterfaceID = -1;
+        setOpenInterfaceID(-1);
         secondaryOpenInterfaceID = -1;
         currentExp = new int[Skills.SKILL_COUNT];
 
@@ -26377,5 +26377,27 @@ public class Client extends RSApplet {
 	public RuneLite getRuneLite() {
 		return runelite;
 	}
-	
+
+    public void setOpenInterfaceID(int id) {
+        int current = openInterfaceID;
+
+        if (current != -1 && current != id) {
+            CustomWidget cw = Widget.widgets.get(current);
+
+            if (cw != null && cw.stateListener != null) {
+                cw.stateListener.onClose();
+            }
+
+        }
+
+        openInterfaceID = id;
+
+        if (id != -1 && current != id) {
+            CustomWidget cw = Widget.widgets.get(id);
+
+            if (cw != null && cw.stateListener != null) {
+                cw.stateListener.onDisplay();
+            }
+        }
+    }
 }

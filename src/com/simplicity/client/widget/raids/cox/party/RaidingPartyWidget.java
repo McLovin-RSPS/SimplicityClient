@@ -250,7 +250,12 @@ public class RaidingPartyWidget extends CustomWidget implements WidgetButtonList
 		RSInterface.setSelectedInterface(SORT_BUTTON_START);
 		RSInterface.interfaceCache[SORT_BUTTON_START].active = false;
 	}
-	
+
+	@Override
+	public void onClose() {
+
+	}
+
 	/**
 	 * A flag which determines if the hourglass anim was reset.
 	 */

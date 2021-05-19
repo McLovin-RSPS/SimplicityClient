@@ -92,4 +92,9 @@ public class RaidingTab extends CustomWidget implements WidgetStateListener {
 		RSInterface.interfaceCache[TEXT_ID].message = "Waiting for your leader to\\\\nbegin the raid...";
 	}
 
+	@Override
+	public void onClose() {
+
+	}
+
 }

@@ -270,7 +270,12 @@ public class TheatrePartyWidget extends CustomWidget implements WidgetButtonList
 		RSInterface.interfaceCache[PREFERRED_SIZE_ID].tooltip = hidden ? null : "Set @lre@Preffered size";
 		RSInterface.interfaceCache[PREFERRED_LEVEL_ID].tooltip = hidden ? null : "Set @lre@Preffered level";
 	}
-	
+
+	@Override
+	public void onClose() {
+
+	}
+
 	/**
 	 * The progress amount.
 	 */
