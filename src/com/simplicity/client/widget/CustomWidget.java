@@ -7,10 +7,7 @@ import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.Sprite;
 import com.simplicity.client.cache.DataType;
-import com.simplicity.client.widget.listener.WidgetAnimationListener;
-import com.simplicity.client.widget.listener.WidgetButtonListener;
-import com.simplicity.client.widget.listener.WidgetStateListener;
-import com.simplicity.client.widget.listener.WidgetStringListener;
+import com.simplicity.client.widget.listener.*;
 
 public abstract class CustomWidget {
     public static final int OR1 = 0xFFB000;
@@ -23,6 +20,9 @@ public abstract class CustomWidget {
     public WidgetStateListener stateListener;
     public WidgetStringListener stringListener;
     public WidgetAnimationListener animListener;
+    public WidgetContainerListener containerListener;
+    public WidgetEnterInputListener enterInputListener;
+    public WidgetInputFieldListener inputFieldListener;
     
     public ArrayList<WidgetComponent> components;
 
@@ -48,6 +48,13 @@ public abstract class CustomWidget {
     
     public void addAnimListener(WidgetAnimationListener listener) {
     	this.animListener = listener;
+    }
+    public void addEnterInputListener(WidgetEnterInputListener listener) {
+        this.enterInputListener = listener;
+    }
+
+    public void addInputFieldListener(WidgetInputFieldListener listener) {
+        this.inputFieldListener = listener;
     }
     
     public abstract String getName();
@@ -947,9 +954,16 @@ public abstract class CustomWidget {
         }
         return scroll;
     }
+    public RSInterface addInputField(int characterLimit, int defaultColor, int defaultHoverColor, int selectedColor, int selectedHoverColor, String text, int width, int height, boolean onlyNumbers, boolean asterisks, String defaultText, String[] actions) {
+        return RSInterface.addInputField(mainId, id++, characterLimit, defaultColor, defaultHoverColor, selectedColor, selectedHoverColor, text, width, height, onlyNumbers, asterisks, defaultText, actions);
+    }
     
     public RSInterface getInterface() {
         return RSInterface.interfaceCache[mainId];
+    }
+
+    public static RSInterface getWidget(int widgetId) {
+        return RSInterface.interfaceCache[widgetId];
     }
     
 }

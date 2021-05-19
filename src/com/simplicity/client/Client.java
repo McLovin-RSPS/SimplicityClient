@@ -680,6 +680,17 @@ public class Client extends RSApplet {
             }
         }
         drawChannelButtons(offsetX, offsetY);
+
+        if (super.saveClickX >= 0 && super.saveClickX <= 518 && super.saveClickY >= 345 && super.saveClickY <= 478) {
+            if (this.isFieldInFocus()) {
+                this.inputString = "";
+                this.resetInputFocus();
+            }
+        }
+
+        if (this.isFieldInFocus())
+            this.inputString = "[Click chat box to enable]";
+
         if (showInput) {
             cacheSprite[64].drawSprite(0 + offsetX, 0 + offsetY);
             newBoldFont.drawCenteredString(promptMessage, 259 + offsetX, 60 + offsetY, 0, -1);
@@ -1524,6 +1535,30 @@ public class Client extends RSApplet {
             inputTaken = true;
         }
         if (super.clickMode3 == 1) {
+            if (RSInterface.currentInputField != null) {
+                if (RSInterface.currentInputField.onlyNumbers) {
+                    long amount = 0;
+
+                    try {
+                        amount = Long.parseLong(message.replaceAll(",", ""));
+
+                        // overflow concious code
+                        if (amount < -Integer.MAX_VALUE) {
+                            amount = -Integer.MAX_VALUE;
+                        } else if (amount > Integer.MAX_VALUE) {
+                            amount = Integer.MAX_VALUE;
+                        }
+                    } catch (Exception ignored) {
+                    }
+
+                    if (amount > 0) {
+                        stream.createFrame(208);
+                        stream.writeDWord((int) amount);
+                    }
+                }
+                //Right click
+                RSInterface.currentInputField.enabledMessage = RSInterface.currentInputField.message;
+            }
             if (super.saveClickX >= x[0] && super.saveClickX <= x[0] + 56 && super.saveClickY >= clientHeight - 23
                     && super.saveClickY <= clientHeight) {
                 if (clientSize != 0) {
@@ -3845,6 +3880,44 @@ public class Client extends RSApplet {
         if (updateMidi) {
             signlink.midi = "voladjust";
         }
+    }
+
+    public void setInputFocusTo(RSInterface to) {
+        for (RSInterface rsi : RSInterface.interfaceCache)
+            if (rsi != null) {
+                if (rsi == to)
+                    rsi.inFocus = true;
+                else
+                    rsi.inFocus = false;
+            }
+    }
+
+    public RSInterface getInputFocus() {
+        for (RSInterface rsi : RSInterface.interfaceCache) {
+            if (rsi != null && rsi.inFocus) {
+                return rsi;
+            }
+        }
+
+        return null;
+    }
+
+    public void resetInputFocus() {
+        RSInterface.currentInputField = null;
+
+        for (RSInterface rsi : RSInterface.interfaceCache) {
+            if (rsi != null) {
+                rsi.inFocus = false;
+            }
+        }
+    }
+
+    public boolean isFieldInFocus() {
+        for (RSInterface rsi : RSInterface.interfaceCache)
+            if (rsi != null)
+                if (rsi.inFocus)
+                    return true;
+        return false;
     }
 
     private boolean menuHasAddFriend(int j) {
@@ -10757,6 +10830,82 @@ public class Client extends RSApplet {
                     inputTaken = true;
                 }
                 return;
+            } else if (RSInterface.currentInputField != null) {
+                if (Configuration.enableWASDCamera) {
+                    chatboxInFocus = true;
+                }
+
+                boolean update = false;
+
+                RSInterface rsTextField = RSInterface.interfaceCache[RSInterface.currentInputField.id];
+
+                String message = MiscUtils.capitalize(rsTextField.message);
+
+                if (key == 8 && message.length() > 0) {
+                    message = message.substring(0, message.length() - 1);
+                    if (message.length() > 0 && RSInterface.currentInputField.onlyNumbers && !RSInterface.currentInputField.displayAsterisks) {
+                        long num = Long.valueOf(message.replaceAll(",", ""));
+
+                        if (num > Integer.MAX_VALUE) {
+                            num = Integer.MAX_VALUE;
+                            rsTextField.message = num + "";
+                        }
+
+                        message = NumberFormat.getInstance(Locale.US).format(num);
+                    }
+                    update = true;
+                }
+
+                if ((RSInterface.currentInputField.onlyNumbers ? (key >= 48 && key <= 57) : (key >= 32 && key <= 122)) && message.length() < RSInterface.currentInputField.characterLimit) {
+                    message += (char) key;
+                    if (RSInterface.currentInputField.onlyNumbers && !RSInterface.currentInputField.displayAsterisks) {
+                        long num = Long.valueOf(message.replaceAll(",", ""));
+
+                        if (num > Integer.MAX_VALUE) {
+                            num = Integer.MAX_VALUE;
+                            rsTextField.message = num + "";
+                        }
+
+                        message = NumberFormat.getInstance(Locale.US).format(num);
+                    }
+                    update = true;
+                }
+
+                rsTextField.message = message;
+
+                if ((key == 13 || key == 10) && rsTextField.message.length() > 0) {
+                    if (RSInterface.currentInputField.onlyNumbers) {
+                        long amount = 0;
+
+                        try {
+                            amount = Long.parseLong(message.replaceAll(",", ""));
+
+                            // overflow concious code
+                            if (amount < -Integer.MAX_VALUE) {
+                                amount = -Integer.MAX_VALUE;
+                            } else if (amount > Integer.MAX_VALUE) {
+                                amount = Integer.MAX_VALUE;
+                            }
+                        } catch (Exception ignored) {
+                        }
+
+                        if (amount > 0) {
+                            stream.createFrame(208);
+                            stream.writeDWord((int) amount);
+                        }
+                    } else {
+                        stream.createFrame(150);
+                        stream.writeByte(RSInterface.currentInputField.message.length() + 3);
+                        stream.writeWord(RSInterface.currentInputField.id);
+                        stream.writeString(RSInterface.currentInputField.message);
+                    }
+                    RSInterface.currentInputField.message = "";
+                    RSInterface.currentInputField = null;
+                }
+
+                if (update) {
+                    doTextField(rsTextField);
+                }
             }
             if (openInterfaceID == 10000) {
             	if (Configuration.enableWASDCamera) {
@@ -11104,8 +11253,22 @@ public class Client extends RSApplet {
                                     withdrawingMoneyFromPouch = false;
                                     return;
                                 }
-                                stream.createFrame(208);
-                                stream.writeDWord(amount);
+
+                                boolean send = true;
+
+                                if (widgetInputId != -1) {
+                                    CustomWidget cw = Widget.mainForComponent(widgetInputId);
+
+                                    if (cw != null && cw.enterInputListener != null) {
+                                        cw.enterInputListener.onEnterAmount(widgetInputId, (int) amount);
+                                        send = false;
+                                    }
+                                }
+
+                                if (send) {
+                                    stream.createFrame(208);
+                                    stream.writeDWord(amount);
+                                }
                             }
                             if (openInterfaceID == 24600 || openInterfaceID == 24700) {
                                 amountOrNameInput = "";
@@ -11115,6 +11278,7 @@ public class Client extends RSApplet {
                         }
                         inputDialogState = 0;
                         inputTaken = true;
+                        widgetInputId = -1;
                         withdrawingMoneyFromPouch = false;
                     }
                     if (key == 13 || key == 10) {
@@ -11741,6 +11905,14 @@ public class Client extends RSApplet {
                 }
             }
         } while (true);
+    }
+
+    private void doTextField(RSInterface rsint) {
+        CustomWidget c = Widget.mainForComponent(rsint.id);
+
+        if (c != null && c.inputFieldListener != null) {
+            c.inputFieldListener.onUpdateInputField(rsint.id, rsint.message);
+        }
     }
 
     public void dumpMapImage() {
@@ -17120,6 +17292,82 @@ public class Client extends RSApplet {
                         }
                         
                         newFancyFont.drawCenteredString(text, childX + 16, childY + 23, 0xFFFFFF, 0);
+                    } else if (child.type == 51) {
+                        int xx = childX;
+                        int yy = childY;
+
+                        if (tabInterfaceIDs[tabID] == child.parentID) {
+                            xx = clientWidth - 211;
+                            yy = clientWidth >= 1000 ? clientHeight - 280 : clientHeight - 298 + yy - scrollOffset;
+                        }
+
+                        boolean hover = false;
+
+                        if (super.mouseX >= xx && super.mouseX <= xx + child.width && super.mouseY >= yy && super.mouseY <= yy + child.height) {
+                            hover = true;
+                        }
+
+                        if (super.saveClickX >= xx && super.saveClickX <= xx + child.width && super.saveClickY >= yy && super.saveClickY <= yy + child.height) {
+                            if (RSInterface.currentInputField != child) {
+                                if (super.mouseDown == 0 && !menuOpen) {
+                                    RSInterface.currentInputField = child;
+                                    setInputFocusTo(RSInterface.interfaceCache[61250]);
+
+                                    CustomWidget cw = Widget.mainForComponent(child.id);
+
+                                    if (cw != null && cw.inputFieldListener != null) {
+                                        cw.inputFieldListener.onInputFocus(child.id);
+                                    }
+                                }
+                            }
+                        } else if (RSInterface.currentInputField != null) {
+                            RSInterface.currentInputField.inFocus = false;
+                            RSInterface.currentInputField = null;
+                        }
+
+                        int color;
+
+                        if (RSInterface.currentInputField == child) {
+                            color = child.enabledColor;
+
+                            if (hover) {
+                                color = child.enabledMouseOverColor;
+                            }
+                        } else {
+                            color = child.disabledColor;
+
+                            if (hover) {
+                                color = child.disabledMouseOverColor;
+                            }
+                        }
+
+
+                        DrawingArea.drawPixels(child.height, childY, childX, color, child.width);
+                        DrawingArea.drawRectangle(childX + 1, childY + 1, child.width - 2, child.height - 2, 0x5a5245, 255);
+                        DrawingArea.fillPixels(childX, child.width, child.height, 0x383023, childY);
+
+                        StringBuilder builder = new StringBuilder();
+
+                        String message = child.message;
+
+                        if (child.enabledMessage != null && RSInterface.currentInputField != child) {
+                            message = child.enabledMessage;
+                        }
+
+                        TextDrawingArea t = boldFont;
+
+                        int yPos = (childY + (child.height / 2) + 6);
+
+                        if (child.id == GrandExchangeListingsWidget.INPUT_FIELD_ID) {
+                            yPos = childY + child.height / 2 + 4;
+                            t = smallText;
+                        }
+
+                        if (child.displayAsterisks) {
+                            t.method389(true, (childX + 8), 0xFFFFFF, builder.append(TextClass.passwordAsterisks(message)).append(((RSInterface.currentInputField == child ? 1 : 0) & (loopCycle % 40 < 20 ? 1 : 0)) != 0 ? "|" : "").toString(), yPos);
+                        } else {
+                            t.method389(true, (childX + 8), 0xFFFFFF, builder.append(message).append(((RSInterface.currentInputField == child ? 1 : 0) & (loopCycle % 40 < 20 ? 1 : 0)) != 0 ? "|" : "").toString(), yPos);
+                        }
                     }
                 }
                 if (openInterfaceID == 10000) {
@@ -22297,6 +22545,16 @@ public class Client extends RSApplet {
                     if (openInterfaceID > -1)
                         RSInterface.interfaceCache[openInterfaceID].onClose();
 
+                    if (this.isFieldInFocus()) {
+                        this.resetInputFocus();
+                        this.inputString = "";
+                    }
+                    if (RSInterface.currentInputField != null) {
+                        RSInterface.currentInputField.enabledMessage = "";
+                        RSInterface.currentInputField.message = "";
+                        RSInterface.currentInputField = null;
+                    }
+
                     setOpenInterfaceID(-1);
                     secondaryOpenInterfaceID = -1;
                     bankItemDragSprite = null;
@@ -23196,6 +23454,12 @@ public class Client extends RSApplet {
         if (openInterfaceID > -1)
             RSInterface.interfaceCache[openInterfaceID].onClose();
 
+        if (RSInterface.currentInputField != null) {
+            RSInterface.currentInputField.enabledMessage = "";
+            RSInterface.currentInputField.message = "";
+            RSInterface.currentInputField = null;
+        }
+
         setOpenInterfaceID(-1);
         fullscreenInterfaceID = -1;
         
@@ -23731,7 +23995,7 @@ public class Client extends RSApplet {
     private int anInt1187;
     private static int anInt1188;
     private int invOverlayInterfaceID;
-    static Stream stream;
+    public static Stream stream;
     private int anInt1193;
     private int splitPrivateChat = 1;
     private Background mapBack;
@@ -26359,6 +26623,24 @@ public class Client extends RSApplet {
 	public int getBackDialogID() {
 		return backDialogID;
 	}
+
+    public int getInventoryInterface() {
+        return invOverlayInterfaceID;
+    }
+
+    public void setInventoryInterface(int interfaceId) {
+        if (backDialogID != -1) {
+            backDialogID = -1;
+            inputTaken = true;
+        }
+        if (inputDialogState != 0) {
+            inputDialogState = 0;
+            inputTaken = true;
+        }
+        invOverlayInterfaceID = interfaceId;
+        tabAreaAltered = true;
+        dialogOptionsShowing = false;
+    }
 	
 	public void addMenuEntry(String actionName, String target, int actionId, int identifier, int actionParam0, int actionParam1, boolean deprioritize) {
 		if (deprioritize) {
@@ -26373,6 +26655,26 @@ public class Client extends RSApplet {
 		menuActionCmd3[menuActionRow] = actionParam1;
 		menuActionRow++;
 	}
+
+    public void setInputDialog(int state) {
+        inputDialogState = state;
+        showInput = false;
+        amountOrNameInput = "";
+        promptMessage = "";
+        inputTaken = true;
+    }
+
+    public int widgetInputId;
+
+    public void setWidgetInputDialog(int state, int widgetInputId) {
+        setInputDialog(state);
+        this.widgetInputId = widgetInputId;
+    }
+
+    public void endInputDialogue() {
+        inputDialogState = 0;
+        inputTaken = true;
+    }
 
 	public RuneLite getRuneLite() {
 		return runelite;

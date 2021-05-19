@@ -14000,6 +14000,7 @@ public class RSInterface {
     public int spritesY[];
     public String message;
     public boolean isInventoryInterface;
+    public static RSInterface currentInputField = null;
     public int x, y;
     public int id;
     public int invStackSizes[];
@@ -17316,6 +17317,48 @@ public class RSInterface {
     	rsi.shadowed = true;
     	return rsi;
 	}
+
+    public static RSInterface addInputField(int parentId, int id, int characterLimit, int defaultColor, int defaultHoverColor, int selectedColor, int selectedHoverColor, String text, int width, int height, boolean onlyNumbers, boolean asterisks, String defaultText) {
+        RSInterface field = addInterface(id);
+        field.id = id;
+        field.parentID = parentId;
+        field.type = 51;
+        field.atActionType = 8;
+        field.message = text;
+        field.enabledMessage = defaultText;
+        field.width = width;
+        field.height = height;
+        field.characterLimit = characterLimit;
+        field.disabledColor = defaultColor;
+        field.disabledMouseOverColor = defaultHoverColor;
+        field.enabledColor = selectedColor;
+        field.enabledMouseOverColor = selectedHoverColor;
+        field.onlyNumbers = onlyNumbers;
+        field.displayAsterisks = asterisks;
+        field.actions = new String[] { "Clear", "Edit" };
+        return field;
+    }
+
+    public static RSInterface addInputField(int parentId, int id, int characterLimit, int defaultColor, int defaultHoverColor, int selectedColor, int selectedHoverColor, String text, int width, int height, boolean onlyNumbers, boolean asterisks, String defaultText, String[] actions) {
+        RSInterface field = addInterface(id);
+        field.id = id;
+        field.parentID = parentId;
+        field.type = 51;
+        field.atActionType = 8;
+        field.message = text;
+        field.enabledMessage = defaultText;
+        field.width = width;
+        field.height = height;
+        field.characterLimit = characterLimit;
+        field.disabledColor = defaultColor;
+        field.disabledMouseOverColor = defaultHoverColor;
+        field.enabledColor = selectedColor;
+        field.enabledMouseOverColor = selectedHoverColor;
+        field.onlyNumbers = onlyNumbers;
+        field.displayAsterisks = asterisks;
+        field.actions = actions;
+        return field;
+    }
 	
 	/**
 	 * Gets if the specified interface id is valid.
@@ -17676,6 +17719,7 @@ public class RSInterface {
     public Sprite sprite1;
     public Sprite sprite2;
     boolean displayAsterisks;
+    boolean onlyNumbers;
     public int characterLimit;
     public static int currentInputFieldId;
     public boolean isInFocus;
@@ -17696,6 +17740,15 @@ public class RSInterface {
     public int[] selectableInterfaces;
     
     public static TextDrawingArea defaultFont[];
+
+    /**
+     * If the input component is in focus.
+     */
+    public boolean inFocus;
+
+    public void setInFocus(boolean inFocus) {
+        this.inFocus = inFocus;
+    }
     
     public int textColor;
     
