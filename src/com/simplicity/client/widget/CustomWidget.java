@@ -49,6 +49,11 @@ public abstract class CustomWidget {
     public void addAnimListener(WidgetAnimationListener listener) {
     	this.animListener = listener;
     }
+
+    public void addContainerListener(WidgetContainerListener listener) {
+        this.containerListener = listener;
+    }
+
     public void addEnterInputListener(WidgetEnterInputListener listener) {
         this.enterInputListener = listener;
     }

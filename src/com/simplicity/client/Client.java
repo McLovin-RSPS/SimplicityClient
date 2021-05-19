@@ -22271,6 +22271,13 @@ public class Client extends RSApplet {
                     } catch (Exception e) {
 
                     }
+
+                    CustomWidget cw = Widget.mainForComponent(rsi_1.componentId);
+
+                    if (cw != null && cw.containerListener != null) {
+                        cw.containerListener.onContainerUpdate(rsi_1.componentId);
+                    }
+
                     opCode = -1;
                     return true;
 
