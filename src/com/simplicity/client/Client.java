@@ -16488,7 +16488,7 @@ public class Client extends RSApplet {
 								}
                             } else {
                             	if (font != null) {
-                            		font.drawBasicString(s1, childX + xOffset, l6 + yOffset);
+                                    font.drawBasicString(s1, childX + xOffset, l6 + yOffset, color, child.shadowed ? 0 : -1);
                             	} else {
                             		textDrawingArea.drawRegularText(child.shadowed, childX + xOffset, color, s1, l6 + yOffset);
                             	}
@@ -17387,9 +17387,9 @@ public class Client extends RSApplet {
                         }
 
                         if (child.displayAsterisks) {
-                            t.method389(true, (childX + 8), 0xFFFFFF, builder.append(TextClass.passwordAsterisks(message)).append(((RSInterface.currentInputField == child ? 1 : 0) & (loopCycle % 40 < 20 ? 1 : 0)) != 0 ? "|" : "").toString(), yPos);
+                            t.drawRegularText(true,(childX + 8), 0xFFFFFF, builder.append(TextClass.passwordAsterisks(message)).append(((RSInterface.currentInputField == child ? 1 : 0) & (loopCycle % 40 < 20 ? 1 : 0)) != 0 ? "|" : "").toString(), yPos);
                         } else {
-                            t.method389(true, (childX + 8), 0xFFFFFF, builder.append(message).append(((RSInterface.currentInputField == child ? 1 : 0) & (loopCycle % 40 < 20 ? 1 : 0)) != 0 ? "|" : "").toString(), yPos);
+                            t.drawRegularText(true, (childX + 8), 0xFFFFFF, builder.append(message).append(((RSInterface.currentInputField == child ? 1 : 0) & (loopCycle % 40 < 20 ? 1 : 0)) != 0 ? "|" : "").toString(), yPos);
                         }
                     } else if (child.type == 52) {
                         boolean hover = childHovered;
