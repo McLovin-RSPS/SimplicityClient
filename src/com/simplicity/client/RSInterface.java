@@ -4017,14 +4017,14 @@ public class RSInterface {
     }
 
     public static void addRectangleClickable(int id, int opacity, int color, boolean filled, int width, int height, String tooltip) {
-        RSInterface tab = addInterface(id);
+        RSInterface tab = interfaceCache[id] = new RSInterface();
         tab.disabledColor = color;
         tab.filled = filled;
         tab.id = id;
         tab.parentID = id;
         tab.type = 3;
         tab.atActionType = 5;
-        tab.atActionType = 0;
+        tab.contentType = 0;
         tab.opacity = (byte)opacity;
         tab.width = width;
         tab.height = height;
