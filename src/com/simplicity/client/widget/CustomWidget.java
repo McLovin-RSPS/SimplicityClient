@@ -248,7 +248,7 @@ public abstract class CustomWidget {
     	
     	int child = 0;
     	
-    	RSInterface window = addWindow(width, height, false);
+    	RSInterface window = addWindow(width, height, modernBorder);
     	RSInterface titles = addCenteredText(title, 2, 0xFF981F);
     	RSInterface close = addButton(1068, 1069, "Close Window", 250, 3);
     	RSInterface separator = addHorizontalSeparator(width - 10, modernBorder);
@@ -395,6 +395,7 @@ public abstract class CustomWidget {
     	rsi.tooltip = tooltip;
     	rsi.contentType = 0;
     	rsi.atActionType = 1;
+    	id++;
     	return rsi;
     }
     
@@ -425,6 +426,7 @@ public abstract class CustomWidget {
     	rsi.tooltip = tooltip;
     	rsi.contentType = 0;
     	rsi.atActionType = 1;
+    	id++;
     	return rsi;
     }
 
@@ -450,6 +452,10 @@ public abstract class CustomWidget {
 
     public RSInterface configButton(String tooltip, int enabledSprite, int disabledSprite) {
         return RSInterface.configButton(id++, tooltip, enabledSprite, disabledSprite);
+    }
+
+    public RSInterface hoverButton(int disabledSprite, int enabledSprite, String tooltip) {
+        return RSInterface.hoverButton(id++, disabledSprite, enabledSprite, tooltip);
     }
 
     public RSInterface hoverButton(int disabledSprite, int enabledSprite, String[] actions) {
