@@ -1560,7 +1560,18 @@ public class Sprite extends DrawingArea {
 
 		for (int yy = 0; yy < rows; yy++) {
 			for (int xx = 0; xx < cols; xx++) {
-				drawSprite(x + myWidth * xx, y + myHeight * yy);
+				int xDraw = myWidth * xx;
+				int yDraw = myHeight * yy;
+
+				if (xDraw + myWidth > width) {
+					xDraw = width - myWidth;
+				}
+
+				if (yDraw + myHeight > height) {
+					yDraw = height - myHeight;
+				}
+
+				drawSprite(x + xDraw, y + yDraw);
 			}
 		}
 	}
@@ -1571,6 +1582,10 @@ public class Sprite extends DrawingArea {
 		int x2 = 0;
 		
 		for (int i = 0; i < count; i++) {
+			if (x2 + myWidth > width) {
+				x2 = width - myWidth;
+			}
+
 			drawSprite(x + x2, y);
 			x2 += myWidth;
 		}
@@ -1584,6 +1599,10 @@ public class Sprite extends DrawingArea {
 		int y2 = 0;
 
 		for (int i = 0; i < count; i++) {
+			if (y2 + myHeight > height) {
+				y2 = height - myHeight;
+			}
+
 			drawSprite(x, y + y2);
 			y2 += myHeight;
 		}
