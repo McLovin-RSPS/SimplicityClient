@@ -16460,6 +16460,10 @@ public class Client extends RSApplet {
                             if (l8 != -1) {
                                 s1 = s.substring(0, l8);
                                 s = s.substring(l8 + 2);
+
+                                if (child.centerText) { // Vertically center the string which has a new line
+                                    l6 -= 5;
+                                }
                             } else {
                                 s1 = s;
                                 s = "";
