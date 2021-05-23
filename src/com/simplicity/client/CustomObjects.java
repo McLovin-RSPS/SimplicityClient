@@ -495,6 +495,73 @@ public class CustomObjects {
             // Lava giant teleporter
             {111978, 3103, 3495, 0, 0}, // Portal
             
+            // New FFA maps pillars added
+            
+            {134800, 3164, 5068, 0, 0}, // FFA maps wall
+            {134800, 3163, 5068, 0, 0}, // FFA maps wall
+            {134800, 3162, 5068, 0, 0}, // FFA maps wall
+            {134800, 3161, 5068, 0, 0}, // FFA maps wall
+            {134800, 3160, 5068, 0, 0}, // FFA maps wall
+            {134800, 3159, 5068, 0, 0}, // FFA maps wall
+            {134800, 3158, 5068, 0, 0}, // FFA maps wall
+            
+            {134800, 3171, 5068, 0, 0}, // FFA maps wall
+            {134800, 3172, 5068, 0, 0}, // FFA maps wall
+            {134800, 3173, 5068, 0, 0}, // FFA maps wall
+            {134800, 3174, 5068, 0, 0}, // FFA maps wall
+            {134800, 3175, 5068, 0, 0}, // FFA maps wall
+            {134800, 3176, 5068, 0, 0}, // FFA maps wall
+            {134800, 3177, 5068, 0, 0}, // FFA maps wall
+            
+            {134800, 3144, 5046, 0, 0}, // FFA maps wall
+            {134800, 3145, 5046, 0, 0}, // FFA maps wall
+            {134800, 3146, 5046, 0, 0}, // FFA maps wall
+            {134800, 3147, 5046, 0, 0}, // FFA maps wall
+            {134800, 3148, 5046, 0, 0}, // FFA maps wall
+            {134800, 3149, 5046, 0, 0}, // FFA maps wall
+            {134800, 3150, 5046, 0, 0}, // FFA maps wall
+            {134800, 3151, 5046, 0, 0}, // FFA maps wall
+            {134800, 3152, 5046, 0, 0}, // FFA maps wall
+            {134800, 3153, 5046, 0, 0}, // FFA maps wall
+            {134800, 3154, 5046, 0, 0}, // FFA maps wall
+            {134800, 3155, 5046, 0, 0}, // FFA maps wall
+            {134800, 3156, 5046, 0, 0}, // FFA maps wall
+            {134800, 3157, 5046, 0, 0}, // FFA maps wall
+            {134800, 3158, 5046, 0, 0}, // FFA maps wall
+            {134800, 3159, 5046, 0, 0}, // FFA maps wall
+            {134800, 3160, 5046, 0, 0}, // FFA maps wall
+            {134800, 3161, 5046, 0, 0}, // FFA maps wall
+            {134800, 3162, 5046, 0, 0}, // FFA maps wall
+            {134800, 3163, 5046, 0, 0}, // FFA maps wall
+            {134800, 3164, 5046, 0, 0}, // FFA maps wall
+            
+            {134800, 3171, 5043, 0, 0}, // FFA maps wall
+            {134800, 3172, 5043, 0, 0}, // FFA maps wall
+            {134800, 3173, 5043, 0, 0}, // FFA maps wall
+            {134800, 3174, 5043, 0, 0}, // FFA maps wall
+            {134800, 3175, 5043, 0, 0}, // FFA maps wall
+            {134800, 3176, 5043, 0, 0}, // FFA maps wall
+            {134800, 3177, 5043, 0, 0}, // FFA maps wall
+            
+            {134801, 3187, 5042, 0, 0}, // FFA maps wall
+            {134801, 3188, 5042, 0, 0}, // FFA maps wall
+            {134801, 3189, 5042, 0, 0}, // FFA maps wall
+            {134801, 3190, 5042, 0, 0}, // FFA maps wall
+            {134801, 3191, 5042, 0, 0}, // FFA maps wall
+            
+            {134801, 3187, 5068, 0, 0}, // FFA maps wall
+            {134801, 3188, 5068, 0, 0}, // FFA maps wall
+            {134801, 3189, 5068, 0, 0}, // FFA maps wall
+            {134801, 3190, 5068, 0, 0}, // FFA maps wall
+            {134801, 3191, 5068, 0, 0}, // FFA maps wall
+            
+            
+            {134801, 3148, 5069, 0, 0}, // FFA maps wall
+            {134801, 3147, 5069, 0, 0}, // FFA maps wall
+            {134801, 3146, 5069, 0, 0}, // FFA maps wall
+            {134801, 3145, 5069, 0, 0}, // FFA maps wall
+            {134801, 3144, 5069, 0, 0}, // FFA maps wall
+            
             // EASTER 2021       
             //{57376, 3103, 3495, 0, 3}, // Portal
             //{42651, 3105, 3494, 0, 0}, // Eggs
