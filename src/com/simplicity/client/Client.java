@@ -17385,10 +17385,10 @@ public class Client extends RSApplet {
 
                         int yPos = (childY + (child.height / 2) + 6);
 
-                        if (child.id == GrandExchangeListingsWidget.INPUT_FIELD_ID) {
+                        /*if (child.id == GrandExchangeListingsWidget.INPUT_FIELD_ID) {
                             yPos = childY + child.height / 2 + 4;
                             t = smallText;
-                        }
+                        }*/
 
                         if (child.displayAsterisks) {
                             t.drawRegularText(true,(childX + 8), 0xFFFFFF, builder.append(TextClass.passwordAsterisks(message)).append(((RSInterface.currentInputField == child ? 1 : 0) & (loopCycle % 40 < 20 ? 1 : 0)) != 0 ? "|" : "").toString(), yPos);
