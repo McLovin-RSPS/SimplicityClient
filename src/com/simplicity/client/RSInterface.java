@@ -17076,6 +17076,20 @@ public class RSInterface {
 		tab.spriteOpacity = 255;
 	}
 
+    public static RSInterface hoverButton(int id, int disabledSprite, int enabledSprite, String tooltip) {
+        RSInterface tab = addInterface(id);
+        tab.atActionType = 1;
+        tab.type = 56;
+        tab.disabledSprite = Client.cacheSprite[disabledSprite];
+        tab.enabledSprite = Client.cacheSprite[enabledSprite];
+        tab.width = tab.disabledSprite.myWidth;
+        tab.height = tab.disabledSprite.myHeight;
+        tab.tooltip = tooltip;
+        tab.hoverType = id;
+        tab.hovers = true;
+        return tab;
+    }
+
     public static RSInterface hoverButton(int id, int disabledSprite, int enabledSprite, String[] actions) {
         RSInterface tab = addInterface(id);
         tab.atActionType = 1;
