@@ -60,7 +60,6 @@ public class Widget {
 		init(new RaidingTabContainerWidget());
 		init(new BossHealthOverlay());
 		init(new TotemsOverlay());
-		init(new DailyChallengesWidget());
 
 		init(new GrandExchangeMainWidget());
 		init(new GrandExchangeOfferWidget());
