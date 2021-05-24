@@ -159,6 +159,10 @@ public final class ObjectDefinition {
             e.printStackTrace();
         }
 
+        if (i == 110059) {
+            objectDef.contrast = 127;
+        }
+
         if (i == 129069) {
             objectDef.mapSceneID = 90;
         }

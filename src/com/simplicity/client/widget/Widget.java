@@ -7,6 +7,7 @@ import com.simplicity.client.RSInterface;
 import com.simplicity.client.widget.deals.DealBoardWidget;
 import com.simplicity.client.widget.deals.ItemDealBoardWidget;
 import com.simplicity.client.widget.deals.MultipleItemDealBoxWidget;
+import com.simplicity.client.widget.ge.*;
 import com.simplicity.client.widget.raids.cox.RaidingPartiesContainerWidget;
 import com.simplicity.client.widget.raids.cox.RaidingPartiesWidget;
 import com.simplicity.client.widget.raids.cox.XericPointsWidget;
@@ -59,6 +60,14 @@ public class Widget {
 		init(new RaidingTabContainerWidget());
 		init(new BossHealthOverlay());
 		init(new TotemsOverlay());
+		init(new DailyChallengesWidget());
+
+		init(new GrandExchangeMainWidget());
+		init(new GrandExchangeOfferWidget());
+		init(new GrandExchangeSearchWidget());
+		init(new GrandExchangeStatusWidget());
+		init(new GrandExchangeOverlayWidget());
+		init(new GrandExchangeListingsWidget());
 	}
 
 	/**

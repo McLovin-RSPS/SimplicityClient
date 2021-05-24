@@ -17252,6 +17252,13 @@ public class RSInterface {
 		return rsi;
 	}
 
+    public static RSInterface addGeProgress(int id, int width, int height) {
+        RSInterface rsi = RSInterface.addInterface(id, width, height);
+        rsi.type = 57;
+        rsi.message = "0/100";
+        return rsi;
+    }
+
     public static void addSummoningText(int i, String s, int k, boolean l, boolean m, int a, TextDrawingArea[] TDA,
                                         int j) {
         RSInterface RSInterface = addTabInterface(i);

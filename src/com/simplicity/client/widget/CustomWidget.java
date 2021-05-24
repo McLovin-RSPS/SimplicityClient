@@ -529,6 +529,10 @@ public abstract class CustomWidget {
     	return rsi;
     }
 
+    public RSInterface addGeProgress(int width, int height) {
+        return RSInterface.addGeProgress(id++,width,height);
+    }
+
     public RSInterface addItemContainer(int w, int h, int x, int y, String[] actions, String string) {
         System.out.println(getName() + " container: " + string + ": " + id);
         RSInterface tab = RSInterface.addInterface(id);
@@ -538,8 +542,8 @@ public abstract class CustomWidget {
         tab.inv = new int[w * h];
         tab.invStackSizes = new int[w * h];
         for (int i = 0; i < tab.inv.length; i++) {
-            tab.inv[i] = 996;
-            tab.invStackSizes[i] = Integer.MAX_VALUE;
+            //tab.inv[i] = 996;
+            //tab.invStackSizes[i] = Integer.MAX_VALUE;
         }
         tab.usableItemInterface = false;
         tab.invSpritePadX = x;
@@ -911,6 +915,7 @@ public abstract class CustomWidget {
         tab.hoverType = -1;
         tab.centerText = center;
         tab.rightAlignText = rightAligned;
+        tab.useNewFonts = true;
         tab.shadowed = shadow;
         tab.textDrawingAreas = RSInterface.fonts[idx];
         tab.message = text.contains("#") ? text + ":" + id : text;

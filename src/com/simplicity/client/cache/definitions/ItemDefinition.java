@@ -27,6 +27,8 @@ import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.custom.CustomRecolor;
 import com.simplicity.client.cache.definitions.custom.CustomRecolor2;
 import com.simplicity.client.cache.definitions.custom.ModelOffsets;
+import com.simplicity.client.widget.ge.GrandExchange;
+import com.simplicity.client.widget.ge.SearchItem;
 
 public final class ItemDefinition {
 	
@@ -830,7 +832,11 @@ public final class ItemDefinition {
 				}
 
 				items.put(def.id, def.name);
-				
+
+				if (!def.name.equals("null")) {
+                    GrandExchange.items.put(def.id, new SearchItem(def.id, def.stackable, def.name));
+                }
+
 			} catch (Exception e) {
 				System.out.println("Error loading: " + i1);
 			}
@@ -1163,6 +1169,7 @@ public final class ItemDefinition {
         CustomRecolor.values();
         CustomRecolor2.values();
         ModelOffsets.init();
+        GrandExchange.init(totalItems + totalItemsOSRS);
     }
     
     /*public static void dumpInterface(int totalItems, int totalItemsOSRS) {

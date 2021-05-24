@@ -31,6 +31,8 @@ import com.simplicity.client.content.Keybinding;
 import com.simplicity.client.widget.AchievementsWidget;
 import com.simplicity.client.widget.QuestTab;
 import com.simplicity.client.widget.SettingsWidget;
+import com.simplicity.client.widget.ge.GrandExchangeOfferWidget;
+import com.simplicity.client.widget.ge.GrandExchangeSearchWidget;
 import com.simplicity.client.widget.raids.cox.tab.RaidingTab;
 
 import net.runelite.api.KeyCode;
@@ -427,9 +429,20 @@ WindowListener {
 			/* Main interface scrolling */
 			if (Client.openInterfaceID != -1) {
 				int secondaryId = Client.secondaryOpenInterfaceID;
+
+				boolean geSearch = Client.openInterfaceID == GrandExchangeOfferWidget.WIDGET_ID && Client.getClient().isSearchingGe();
+
+				if (geSearch) {
+					secondaryId = GrandExchangeSearchWidget.WIDGET_ID;
+				}
+
 				RSInterface rsi = RSInterface.interfaceCache[secondaryId != -1 ? secondaryId : Client.openInterfaceID];
 				offsetX = Client.getClient().clientSize == 0 ? 4 : (Client.getClient().clientWidth / 2) - Client.getClient().getInterfaceOffX();
 				offsetY = Client.getClient().clientSize == 0 ? 4 : (Client.getClient().clientHeight / 2) - Client.getClient().getInterfaceOffY();
+
+				if (geSearch) { // Ge search offset
+					offsetY += 28;
+				}
 
 				if (handleScrolling(rsi, rotation, offsetX, offsetY)) {
 					return true;
@@ -445,16 +458,22 @@ WindowListener {
 			return false;
 		}
 		
-		int positionX = 0;
-		int positionY = 0;
 		int scrollAmount = 30;
 		for (int index = 0; index < rsi.children.length; index++) {
 			RSInterface child = RSInterface.interfaceCache[rsi.children[index]];
 			if (child.scrollMax > 0) {
-				positionX = rsi.childX[index];
-				positionY = rsi.childY[index];
 
-				if ((mouseX > (offsetX + positionX)) && (mouseY > (offsetY + positionY)) && (mouseX < (offsetX + positionX + child.width)) && (mouseY < (offsetY + positionY + child.height))) {
+				int startX = offsetX + rsi.childX[index];
+				int endX = startX + child.width;
+				int startY = offsetY + rsi.childY[index];
+				int endY = offsetY + child.height + rsi.childY[index];
+
+				if (Client.getClient().isSearchingGe()) {
+					startY += Client.clientSize == 0 ? Client.getClient().getGameAreaHeight() : Client.getClient().getGameAreaHeight() - 185;
+					endY += Client.clientSize == 0 ? Client.getClient().getGameAreaHeight() : Client.getClient().getGameAreaHeight() - 185;
+				}
+
+				if (mouseX >= startX && mouseX <= endX && mouseY >= startY && mouseY <= endY) {
 					
 					if (rotation < 0) {
 
