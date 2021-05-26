@@ -16,8 +16,7 @@ public class ItemDealBoardWidget extends CustomWidget {
     @Override
     public void init() {
         addWidget(DealBoardWidget.ID, 0, 0);
-
         ItemDealBoxWidget box = new ItemDealBoxWidget(id);
-        addWidget(box.mainId, 256 - (139 / 2), 130);
+        addWidget(box.mainId, 256 - (139 / 2), 95);
     }
 }

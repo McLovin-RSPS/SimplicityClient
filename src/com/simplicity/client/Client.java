@@ -131,6 +131,7 @@ import com.simplicity.client.widget.StarterWidget;
 import com.simplicity.client.widget.TobPlayerOrbsWidget;
 import com.simplicity.client.widget.Widget;
 import com.simplicity.client.widget.WildernessWidget;
+import com.simplicity.client.widget.deals.DealBoardWidget;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.client.widget.ge.GrandExchange;
 import com.simplicity.client.widget.ge.GrandExchangeListingsWidget;
@@ -26511,7 +26512,7 @@ public class Client extends RSApplet {
 	}
 	
 	public static int getProgressBarColor(int mainId, int childId, int percent) {
-        if (mainId == TotemsOverlay.WIDGET_ID || childId == BossHealthOverlay.PROGRESS_WIDGET_ID) {
+        if (mainId == TotemsOverlay.WIDGET_ID || childId == BossHealthOverlay.PROGRESS_WIDGET_ID || childId == DealBoardWidget.PBAR_ID) {
             return RSInterface.interfaceCache[childId].fillColor;
         }
 

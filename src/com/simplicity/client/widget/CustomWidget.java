@@ -529,6 +529,12 @@ public abstract class CustomWidget {
     	return rsi;
     }
 
+    public RSInterface addProgressBar(int width, int height, int color, int textColor, int transparency) {
+        RSInterface rsi = RSInterface.addPercentageBar(id, width, height, 50, color, textColor, transparency);
+        rsi.componentId = id++;
+        return rsi;
+    }
+
     public RSInterface addGeProgress(int width, int height) {
         return RSInterface.addGeProgress(id++,width,height);
     }

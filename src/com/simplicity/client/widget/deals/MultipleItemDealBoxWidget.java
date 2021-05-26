@@ -17,7 +17,7 @@ public class MultipleItemDealBoxWidget extends CustomWidget {
     public void init() {
         addWidget(DealBoardWidget.ID, 0, 0);
 
-        int y = 125;
+        int y = 95;
 
         ItemDealBoxWidget box = new ItemDealBoxWidget(id);
         addWidget(box.mainId, 256 - 220, y);
@@ -32,7 +32,7 @@ public class MultipleItemDealBoxWidget extends CustomWidget {
 
         id+=25;
 
-        add(addButton("Box Rewards", 1313, 1314, 0, OR1), 216, 253);
+        //add(addButton("Box Rewards", 1313, 1314, 0, OR1), 216, 209);
 
         //add(addCenteredText("After donating for the\\nitems type ::donated", 1, 0xDC9221), 90, 255);
         //add(addCenteredText("PM a staff member after\\ninfo more info", 1, 0xDC9221), 416, 257);
