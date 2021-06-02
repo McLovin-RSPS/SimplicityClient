@@ -27,6 +27,11 @@ public class OldschoolMaps {
             6457, // Great Kourand
             5179,  //Mount karuulm
             9772, // myth's guild
+                   
+            5432, 5433, // Lake Molch
+            11316, // Entrana maybe use for donator zone
+            
+            8757, 8754, 9010, 9265, 9013, 7483, 7482, // Elven fishing locations 
             
             5789, // CHASM OF FIRE
             
