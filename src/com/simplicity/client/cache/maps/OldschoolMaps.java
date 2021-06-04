@@ -27,6 +27,8 @@ public class OldschoolMaps {
             6457, // Great Kourand
             5179,  //Mount karuulm
             9772, // myth's guild
+            
+            14906, 14650, 14652, 14651, 14908, 14907, 15163,  // Hunter location Fossil Island OSRS
                    
             5432, 5433, // Lake Molch
             11316, // Entrana maybe use for donator zone

@@ -120,7 +120,8 @@ public class CustomObjects {
 
             //Well for upgradable at home and gold bars
             {3485, 3089, 3495, 0, 0},
-
+            
+            
             //Xmass tree for december OR Summer tree
             //{47748, 3107, 3498, 0, 0},
             //{15969, 3097, 3503, 0, 0},
@@ -1052,6 +1053,7 @@ public class CustomObjects {
             {1661, 3124, 9664, 0, 3},
             {4483, 2918, 2885, 0, 3},
             {12356, 3207, 3415, 0, 0},
+            {2182, 3077, 3506, 0, 0}, // barrow gloves chest
             {2182, 3206, 3415, 0, 0},
             {1746, 3090, 3492, 0, 1},
             {2644, 2737, 3444, 0, 0},
