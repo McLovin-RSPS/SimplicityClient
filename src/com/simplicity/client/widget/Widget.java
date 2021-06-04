@@ -67,6 +67,7 @@ public class Widget {
 		init(new GrandExchangeStatusWidget());
 		init(new GrandExchangeOverlayWidget());
 		init(new GrandExchangeListingsWidget());
+		init(new GrandExchangeHistoryWidget());
 		
 		init(new NewAchievements());
 	}
