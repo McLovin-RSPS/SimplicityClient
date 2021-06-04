@@ -22,7 +22,7 @@ public class ItemDealBoxWidget extends CustomWidget {
 
         int x = 14;
 
-        add(addButton("#", 1849, 1849, 0, OR1), 49, 26 + x);
+        add(addButton("#", 1941, 1941, 0, OR1), 49, 26 + x);
         add(addCenteredText("Expired #", 1), 70, 62+ x);
         add(addCenteredText("Remaining #", 1, 0xFFFFFF), 70,76+ x);
         add(addButton("", 1309, 1309, 0, 0), 20, 40+ x);
