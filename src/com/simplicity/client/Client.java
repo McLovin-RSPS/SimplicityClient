@@ -9888,9 +9888,12 @@ public class Client extends RSApplet {
         }
 		if (l == 85) {
 		    pushMessage("Link opens to: "+ (broadcastUrl == null ? "nowhere" : broadcastUrl), 0, null);
-        }
+        }//
         if (l == 646) {
             RSInterface class9_2 = RSInterface.interfaceCache[interfaceId];
+            CustomWidget w = Widget.mainForComponent(interfaceId);
+			if (w != null && w.buttonListener != null && w.buttonListener.onClick(interfaceId)) {
+			}
             if (class9_2.newFormat) {
                 stream.createFrame(187);
                 stream.putInt(class9_2.parentID);

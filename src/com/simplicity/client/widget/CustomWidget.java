@@ -230,7 +230,7 @@ public abstract class CustomWidget {
         id++;
         return tab;
     }
-    
+    //
 	/**
 	 * Adds a closable window
 	 * 
@@ -486,6 +486,7 @@ public abstract class CustomWidget {
         tab.disabledSprite = sprite;
         tab.enabledSprite = Client.cacheSprite[sprite2];
         tab.tooltip = tooltip;
+        id++;
         return tab;
     }
 
@@ -529,12 +530,6 @@ public abstract class CustomWidget {
     	return rsi;
     }
 
-    public RSInterface addProgressBar(int width, int height, int color, int textColor, int transparency) {
-        RSInterface rsi = RSInterface.addPercentageBar(id, width, height, 50, color, textColor, transparency);
-        rsi.componentId = id++;
-        return rsi;
-    }
-
     public RSInterface addGeProgress(int width, int height) {
         return RSInterface.addGeProgress(id++,width,height);
     }
@@ -565,6 +560,7 @@ public abstract class CustomWidget {
         id++;
         return tab;
     }
+    
     
     public RSInterface addModel(int modelID, int zoom, int rotation1, int rotation2, DataType dataType) {
     	RSInterface rsi = RSInterface.addModel(id, modelID, zoom, rotation1, rotation2, dataType);
@@ -704,6 +700,20 @@ public abstract class CustomWidget {
         id++;
         return tab;
     }
+    
+    
+    public RSInterface addHoverButton(int sprite, String tooltip) {
+    	RSInterface.addHoverButton(id, sprite, Client.cacheSprite[sprite].myWidth, Client.cacheSprite[sprite].myHeight, tooltip, -1, id + 1, 1);
+    	return RSInterface.interfaceCache[id++];
+    }
+    public RSInterface addHoveredButton(int sprite) {
+    	RSInterface.addHoveredButton(id, sprite, Client.cacheSprite[sprite].myWidth, Client.cacheSprite[sprite].myHeight, id + 1);
+    	RSInterface button = RSInterface.interfaceCache[id];
+    	id += 2;
+    	return button;
+    }
+    
+    
     
 	/**
 	 * Adds a dynamic button with a text attached to it.

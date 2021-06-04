@@ -52,6 +52,14 @@ public class RSInterface {
         component.height = height;
         component.tooltip = s;
     }
+    //
+    public static void fill(int a) {
+    	RSInterface f = interfaceCache[a];
+		for (int i = 0; i < f.inv.length; i++) {
+			f.inv[i] = 1039;
+			f.invStackSizes[i] = 1;
+		}
+	}
 
 	public int fillColor;
     public boolean fading;
