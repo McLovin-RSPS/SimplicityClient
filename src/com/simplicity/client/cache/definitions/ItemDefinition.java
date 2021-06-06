@@ -1175,7 +1175,6 @@ public final class ItemDefinition {
         CustomRecolor.values();
         CustomRecolor2.values();
         ModelOffsets.init();
-        GrandExchange.init(totalItems + totalItemsOSRS);
     }
 
     private static boolean isTradableOnGE(ItemDefinition def) {
