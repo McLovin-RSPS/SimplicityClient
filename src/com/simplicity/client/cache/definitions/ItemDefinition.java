@@ -1184,6 +1184,10 @@ public final class ItemDefinition {
             return false;
         }
 
+        if (def.id == 4178 || def.id == 14661) {
+            return false;
+        }
+
         if (def.id != 590 && name.contains("inderbox")) {
             return false;
         }
