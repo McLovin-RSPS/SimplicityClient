@@ -848,6 +848,7 @@ public final class ItemDefinition {
             }
         }
 
+        names.clear();
 
         osrsModels.add(34148);
         osrsModels.add(34152);
