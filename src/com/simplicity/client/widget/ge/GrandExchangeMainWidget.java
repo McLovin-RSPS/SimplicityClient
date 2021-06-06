@@ -189,6 +189,7 @@ public class GrandExchangeMainWidget extends CustomWidget implements WidgetButto
 	@Override
 	public boolean onClick(int id) {
 		if (id == LISTINGS_BUTTON_ID) {
+			//Client.getClient().setOpenInterfaceID(GrandExchangeListingsWidget.WIDGET_ID);
 			return false;
 		}
 		

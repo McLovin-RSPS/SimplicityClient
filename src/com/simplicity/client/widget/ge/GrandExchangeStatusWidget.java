@@ -50,6 +50,8 @@ public class GrandExchangeStatusWidget extends CustomWidget implements WidgetStr
 	private int PROGRESS_BAR_ID;
 	private int ABORT_OFFER_ID;
 	public static int COLLECT_CONTAINER_ID;
+	public static int COLLECT_AMOUNT_1;
+	public static int COLLECT_AMOUNT_2;
 
 	/**
 	 * Constructs a new {@link GrandExchangeStatusWidget}.
@@ -146,6 +148,11 @@ public class GrandExchangeStatusWidget extends CustomWidget implements WidgetStr
 		System.out.println("TOTAL_ID: " + TOTAL_ID);
 		System.out.println("STATUS_STRING_ID: " + STATUS_STRING_ID);
 		System.out.println("COLLECT_CONTAINER_ID: " + COLLECT_CONTAINER_ID);
+
+		COLLECT_AMOUNT_1 = id;
+		add(addText("", 0), -100, -100);
+		COLLECT_AMOUNT_2 = id;
+		add(addText("", 0), -100, -100);
 	}
 
 	@Override

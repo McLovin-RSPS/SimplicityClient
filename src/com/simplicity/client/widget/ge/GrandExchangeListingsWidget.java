@@ -134,11 +134,6 @@ public class GrandExchangeListingsWidget extends CustomWidget implements WidgetS
 	
 	@Override
 	public boolean onClick(int id) {
-		if (id == EXCHANGE_BUTTON_ID || id == WIDGET_ID + 11) {
-			Client.getClient().setOpenInterfaceID(GrandExchangeMainWidget.WIDGET_ID);
-			return false;
-		}
-		
 		if (id == WIDGET_ID + 26) {
 			GrandExchange.showSearch();
 			return false;

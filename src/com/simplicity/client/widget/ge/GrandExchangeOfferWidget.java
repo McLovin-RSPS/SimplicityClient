@@ -3,6 +3,7 @@ package com.simplicity.client.widget.ge;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import com.google.common.math.LongMath;
 import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.cache.definitions.ItemDefinition;
@@ -252,14 +253,14 @@ public class GrandExchangeOfferWidget extends CustomWidget implements WidgetStri
 		}
 		
 		if (id == PRICE_DECREMENT_PERCENTAGE) {
-			setPrice((int) (getPrice() * 0.95));
+			setPrice((long) (getPrice() * 0.95));
 			return true;
 		}
 		
 		if (id == PRICE_INCREMENT_PERCENTAGE) {
-			int price = getPrice();
-			
-			int incr = (int) (price * 1.05);
+			long price = getPrice();
+
+			long incr = (long) (price * 1.05);
 			
 			if (incr == price) {
 				incr++;
@@ -308,9 +309,9 @@ public class GrandExchangeOfferWidget extends CustomWidget implements WidgetStri
 	}
 	
 	@Override
-	public void onEnterAmount(int widgetId, int amount) {
+	public void onEnterAmount(int widgetId, long amount) {
 		if (widgetId == QUANTITY_SET_CUSTOM) {
-			setQuantity(amount);
+			setQuantity((int) amount);
 			return;
 		}
 		
@@ -339,14 +340,14 @@ public class GrandExchangeOfferWidget extends CustomWidget implements WidgetStri
 	 * 
 	 * @return The price.
 	 */
-	private int getPrice() {
+	private long getPrice() {
 		String message = getWidget(WIDGET_ID + 42).message.replaceAll(",", "");
 		
 		if (message.isEmpty()) {
 			return -1;
 		}
 		
-		return Integer.parseInt(message.substring(0, message.indexOf(" ")));
+		return Long.parseLong(message.substring(0, message.indexOf(" ")));
 	}
 
 	/**
@@ -354,7 +355,7 @@ public class GrandExchangeOfferWidget extends CustomWidget implements WidgetStri
 	 * 
 	 * @param amount The amount.
 	 */
-	private void incrementPrice(int amount) {
+	private void incrementPrice(long amount) {
 		setPrice(getPrice() + amount);
 	}
 
@@ -363,7 +364,7 @@ public class GrandExchangeOfferWidget extends CustomWidget implements WidgetStri
 	 * 
 	 * @param amount The amount.
 	 */
-	private void decrementPrice(int amount) {
+	private void decrementPrice(long amount) {
 		setPrice(getPrice() - amount);
 	}
 
@@ -372,13 +373,13 @@ public class GrandExchangeOfferWidget extends CustomWidget implements WidgetStri
 	 * 
 	 * @param amount The amount.
 	 */
-	private void setPrice(int amount) {
+	private void setPrice(long amount) {
 		if (!itemSelected || amount <= 0) {
 			return;
 		}
 		
 		getWidget(WIDGET_ID + 42).message = formatCoins(amount);
-		setTotal(getQuantity() * amount);
+		setTotal();
 	}
 
 	/**
@@ -433,7 +434,7 @@ public class GrandExchangeOfferWidget extends CustomWidget implements WidgetStri
 		}
 		
 		getWidget(WIDGET_ID + 38).message = format(amount);
-		setTotal(getPrice() * amount);
+		setTotal();
 		getWidget(SELECTED_CONTAINER).invStackSizes[0] = amount;
 	}
 	
@@ -453,16 +454,19 @@ public class GrandExchangeOfferWidget extends CustomWidget implements WidgetStri
 	
 	/**
 	 * Sets the total to the specified value.
-	 * 
-	 * @param total The total.
 	 */
-	private void setTotal(int total) {
-		int price = getPrice();
+	private void setTotal() {
+		long price = getPrice();
 		int quantity = getQuantity();
-		long t = (long) price * (long) quantity;
-		
-		boolean limit = t > Integer.MAX_VALUE;
-		
+
+		boolean limit = false;
+
+		try {
+			LongMath.checkedMultiply(price, (long) quantity);
+		} catch (Exception e) {
+			limit = true;
+		}
+
 		if (limit) {
 			if (confirmEnabled) {
 				setConfirmButton(false);
@@ -472,7 +476,7 @@ public class GrandExchangeOfferWidget extends CustomWidget implements WidgetStri
 				setConfirmButton(true);
 			}
 		}
-		
+
 		getWidget(WIDGET_ID + 66).message = limit ? "<col=ff0000>Too much money!</col>" : formatCoins(price * quantity);
 	}
 	
@@ -482,7 +486,7 @@ public class GrandExchangeOfferWidget extends CustomWidget implements WidgetStri
 	 * @param amount The amount.
 	 * @return The formatted string.
 	 */
-	private String format(int amount) {
+	private String format(long amount) {
 		return NumberFormat.getInstance(Locale.UK).format(amount);
 	}
 
@@ -492,7 +496,7 @@ public class GrandExchangeOfferWidget extends CustomWidget implements WidgetStri
 	 * @param amount The amount.
 	 * @return The formatted string.
 	 */
-	private String formatCoins(int amount) {
+	private String formatCoins(long amount) {
 		return format(amount) + " coins";
 	}
 	
@@ -536,15 +540,15 @@ public class GrandExchangeOfferWidget extends CustomWidget implements WidgetStri
 		if (total < 0) {
 			return;
 		}
-		
-		if (total >= Integer.MAX_VALUE) {
-			Client.getClient().pushMessage("Offers cannot have a total cost of exceeding 2,147,483,647 coins.", 0, "");
+
+		if (total >= Long.MAX_VALUE) {
+			Client.getClient().pushMessage("The offer cost exceeds the limit.", 0, "");
 			return;
 		}
 		
 		Client.getClient().stream.createFrame(204);
 		Client.getClient().stream.writeByte(getOfferType());
-		Client.getClient().stream.writeDWord(getPrice());
+		Client.getClient().stream.writeQWord(getPrice());
 		Client.getClient().stream.writeDWord(getQuantity());
 	}
 	
@@ -568,9 +572,17 @@ public class GrandExchangeOfferWidget extends CustomWidget implements WidgetStri
 		RSInterface inventory = getWidget(3214);
 		int[] itemIds = inventory.inv;
 		int[] amounts = inventory.invStackSizes;
-		
+
+		ItemDefinition def = ItemDefinition.forID(getSelectedItem());
+
+		if (def == null) {
+			return 0;
+		}
+
 		for (int i = 0; i < itemIds.length; i++) {
-			if (itemIds[i] == getSelectedItem()) {
+			int invItem = itemIds[i] - 1;
+
+			if (invItem == def.id || def.certID != -1 && invItem == def.certID) {
 				amount += amounts[i];
 			}
 		}
