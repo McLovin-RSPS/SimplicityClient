@@ -9193,6 +9193,12 @@ public class Client extends RSApplet {
 				return;
 			}
 
+            CustomWidget w = Widget.mainForComponent(interfaceId);
+
+            if (w != null && w.buttonListener != null && w.buttonListener.onClick(interfaceId)) {
+                return;
+            }
+
             stream.createFrame(222);
             stream.writeDWord(interfaceId);
             stream.writeByte(currentActionMenu);
