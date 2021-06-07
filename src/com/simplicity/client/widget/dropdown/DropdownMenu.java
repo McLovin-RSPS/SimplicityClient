@@ -65,4 +65,9 @@ public class DropdownMenu {
     public boolean doesSplit() {
         return this.split;
     }
+
+    public void reset() {
+        this.setOpen(false);
+        this.optionSelected = options[0];
+    }
 }

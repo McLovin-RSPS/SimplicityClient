@@ -5349,7 +5349,8 @@ public class Client extends RSApplet {
                                                 || openInterfaceID == 2700 || openInterfaceID == 24700
                                                 || openInterfaceID == 24600 && child.parentID == 3323
                                                 || child.parentID == 2901 || child.parentID == 2902
-                                                || child.parentID == 2903 || child.parentID == 2904 || child.id == GrandExchangeSearchWidget.WIDGET_ID + 2;
+                                                || child.parentID == 2903 || child.parentID == 2904 || child.id == GrandExchangeSearchWidget.WIDGET_ID + 2
+                                                || child.id == GrandExchangeStatusWidget.COLLECT_CONTAINER_ID;
 
                                         if (child.actions != null) {
 
@@ -5392,6 +5393,19 @@ public class Client extends RSApplet {
 	                                                        // examine
 	                                                        // option
 	                                                    }
+
+	                                                    if (child.id == GrandExchangeStatusWidget.COLLECT_CONTAINER_ID) {
+	                                                        if (itemDef.id == 995) {
+                                                                menuActionName[menuActionRow] = "Collect-to-pouch @lre@"
+                                                                        + itemDef.name;
+                                                                menuActionID[menuActionRow] = 632;
+                                                                menuActionCmd1[menuActionRow] = itemDef.id;
+                                                                menuActionCmd2[menuActionRow] = ptr;
+                                                                menuActionCmd3[menuActionRow] = child.id;
+                                                                menuActionRow++;
+                                                                break;
+                                                            }
+                                                        }
 
 	                                                    if (openInterfaceID == 5292) {
 	                                                        // Placeholder releasing
@@ -17508,11 +17522,6 @@ public class Client extends RSApplet {
 
                         int yPos = (childY + (child.height / 2) + 6);
 
-                        if (child.id == GrandExchangeListingsWidget.INPUT_FIELD_ID) {
-                            yPos = childY + child.height / 2 + 4;
-                            t = smallText;
-                        }
-
                         if (child.displayAsterisks) {
                             t.drawRegularText(true,(childX + 8), 0xFFFFFF, builder.append(TextClass.passwordAsterisks(message)).append(((RSInterface.currentInputField == child ? 1 : 0) & (loopCycle % 40 < 20 ? 1 : 0)) != 0 ? "|" : "").toString(), yPos);
                         } else {
@@ -17585,6 +17594,12 @@ public class Client extends RSApplet {
                         for (int i = 0; i < 3; i++) {
                             DrawingArea.drawHorizontalLine(childX + 1, childY + 1 + i, child.width - 2, 0, 55);
                             DrawingArea.drawVerticalLine(childX + 1 + i, childY + 4, child.height - 5, 0, 55);
+                        }
+
+                        if (child.drawProgressText) {
+                            RSFontSystem font = child.rsFont == null ? newSmallFont : child.rsFont;
+
+                            font.drawCenteredString(current + " / " + maximum, childX + (child.width - 3) / 2, childY + child.height / 2 + 5, 0xFFFFFF, 0);
                         }
                     }
                 }

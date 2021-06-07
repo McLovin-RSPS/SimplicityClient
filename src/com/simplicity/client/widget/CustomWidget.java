@@ -1057,5 +1057,11 @@ public abstract class CustomWidget {
     public static RSInterface getWidget(int widgetId) {
         return RSInterface.interfaceCache[widgetId];
     }
+
+    public void clearText(int from, int to) {
+        for (int i = from; i <= to; i++) {
+            RSInterface.interfaceCache[i].message = "";
+        }
+    }
     
 }

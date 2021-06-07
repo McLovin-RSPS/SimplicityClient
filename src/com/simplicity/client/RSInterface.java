@@ -17261,9 +17261,14 @@ public class RSInterface {
 	}
 
     public static RSInterface addGeProgress(int id, int width, int height) {
+        return addGeProgress(id, width, height, false);
+    }
+
+    public static RSInterface addGeProgress(int id, int width, int height, boolean drawProgressText) {
         RSInterface rsi = RSInterface.addInterface(id, width, height);
         rsi.type = 57;
         rsi.message = "0/100";
+        rsi.drawProgressText = drawProgressText;
         return rsi;
     }
 
