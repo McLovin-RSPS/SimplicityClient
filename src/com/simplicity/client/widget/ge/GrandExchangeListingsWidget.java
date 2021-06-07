@@ -103,10 +103,8 @@ public class GrandExchangeListingsWidget extends CustomWidget implements WidgetS
 		LISTINGS_START = id;
 		
 		for (int i = 0; i < LISTINGS_AMOUNT; i++) {
-			OFFER_BUTTONS.add(id);
-			Widget.componentForMain.put(id, mainId);
 			int parent = id;
-			RSInterface.addRectangleClickable(id, 100, 0x5a5245, false, scrollWidth - 1, RECT_HEIGHT, new String[] { "Make Buy-Offer" });
+			RSInterface.addRectangleClickable(id, 100, 0x5a5245, false, scrollWidth - 1, RECT_HEIGHT, new String[] { "Make Offer" });
 			RSInterface.setBounds(id++, xPos, yPos, scroll_frame++, scroll);
 			
 			RSInterface.fillRectangle(id, scrollWidth - 3, RECT_HEIGHT - 2, 0, i % 2 == 0 ? 30 : 60);
@@ -174,18 +172,7 @@ public class GrandExchangeListingsWidget extends CustomWidget implements WidgetS
 			GrandExchange.showSearch();
 			return false;
 		}
-		
-		if (OFFER_BUTTONS.contains(id)) {
-			String type = getWidget(id + 2).message;
-			String item = getWidget(id + 3).message;
-			String price = getWidget(id + 4).message;
-			
-			Client.getClient().setOpenInterfaceID(GrandExchangeOfferWidget.WIDGET_ID);
-			GrandExchangeOfferWidget widget = Widget.get(GrandExchangeOfferWidget.WIDGET_ID);
-			widget.makeBuyOffer(4151, 1, 120_000);
-			return true;
-		}
-		
+
 		return false;
 	}
 	
