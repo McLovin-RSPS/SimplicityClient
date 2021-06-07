@@ -16030,6 +16030,10 @@ public class Client extends RSApplet {
                     continue;
                 }
 
+                if (child.parentID > 0 && RSInterface.isValid(child.parentID) && RSInterface.interfaceCache[child.parentID].hidden) {
+                    continue;
+                }
+
                 if (child.fading && loopCycle % child.fadeSpeed == 0) {
                     if (child.transparency >= child.maxFade) {
                         child.decreaseFade = true;
