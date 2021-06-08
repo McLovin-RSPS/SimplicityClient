@@ -573,7 +573,7 @@ public class GrandExchangeOfferWidget extends CustomWidget implements WidgetStri
 		int[] itemIds = inventory.inv;
 		int[] amounts = inventory.invStackSizes;
 
-		ItemDefinition def = ItemDefinition.forID(getSelectedItem());
+		ItemDefinition def = ItemDefinition.forID(getSelectedItem() - 1);
 
 		if (def == null) {
 			return 0;

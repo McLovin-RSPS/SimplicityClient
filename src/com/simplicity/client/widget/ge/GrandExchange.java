@@ -152,4 +152,16 @@ public class GrandExchange {
         return results;
     }
 
+    public static String format(final long quantity) {
+        if (quantity >= 100000 && quantity < 10000000) {
+            return "<col=FFFFFF>" + quantity / 1000 + "K";
+        } else if (quantity >= 10000000 && quantity <= 9999999999L) {
+            return "<col=00ff80>" + quantity / 1000000 + "M";
+        } else if (quantity >= 10000000000L && quantity <= Long.MAX_VALUE) {
+            return "<col=00ff80>" +  quantity / 1000000000L + "B";
+        } else {
+            return "" + quantity;
+        }
+    }
+
 }
