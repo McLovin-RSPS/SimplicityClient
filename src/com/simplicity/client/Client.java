@@ -177,6 +177,7 @@ import net.runelite.api.events.StatChanged;
 import net.runelite.client.RuneLite;
 import net.runelite.client.callback.Hooks;
 import net.runelite.client.plugins.PluginManager;
+import org.apache.commons.lang3.math.NumberUtils;
 
 @SuppressWarnings("all")
 public class Client extends RSApplet {
@@ -16094,7 +16095,7 @@ public class Client extends RSApplet {
 
             	boolean hoverChatInterface = backDialogID != -1 && mouseInChatArea();
 
-            	boolean hoverTabInterface = mouseInTabArea();
+            	boolean hoverTabInterface = tabInterfaceIDs[tabID] != -1 && mouseInTabArea();
 
             	int hoverXOff = hoverGameInterface && clientSize == 0 ? -4 : 0;
 
@@ -16104,18 +16105,15 @@ public class Client extends RSApplet {
 
             	int hoverY = mouseY - (hoverChatInterface && clientSize == 0 ? gameAreaHeight + 4 : 4) + hoverYOff;
 
-                if (clientSize == 0 && hoverTabInterface) {
-                    hoverX -= 519;
-                    hoverY -= 168;
-                }
-
             	if (!child.hoverDisabled && (hoverChatInterface || hoverGameInterface || hoverTabInterface)) {
                     boolean inBounds = (hoverX >= childX && hoverX <= childX + child.width && hoverY >= childY && hoverY <= childY + child.height);
-            		if (hoverGameInterface) {
-            		    childHovered = inBounds && RSInterface.interfaceCache[openInterfaceID].parentID == child.layerId;
+
+                    if (hoverGameInterface) {
+                        childHovered = inBounds && RSInterface.interfaceCache[openInterfaceID].parentID == child.layerId;
                     } else if (hoverTabInterface) {
-            		    final int tabInterface = tabInterfaceIDs[tabID];
-                        childHovered = inBounds && tabInterface > 0 && RSInterface.interfaceCache[tabInterface].parentID == child.layerId;
+                        childHovered = inBounds && RSInterface.interfaceCache[tabInterfaceIDs[tabID]].parentID == child.layerId;
+                    } else if (hoverChatInterface) {
+                        childHovered = inBounds && RSInterface.interfaceCache[backDialogID].parentID == child.layerId;
                     }
             	}
 
@@ -16232,7 +16230,8 @@ public class Client extends RSApplet {
                                         boolean drawCustom = false;
 
                                         if (itemAmount == 0 && j9 == 995 && child.id == GrandExchangeStatusWidget.COLLECT_CONTAINER_ID) {
-                                            itemAmount = 10000;
+                                            String amt = RSInterface.interfaceCache[spriteIndex == 0 ? GrandExchangeStatusWidget.COLLECT_AMOUNT_1 : GrandExchangeStatusWidget.COLLECT_AMOUNT_2].message;
+                                            itemAmount = NumberUtils.isDigits(amt) ? Integer.parseInt(amt) : 10000;
                                             drawCustom = true;
                                         }
 

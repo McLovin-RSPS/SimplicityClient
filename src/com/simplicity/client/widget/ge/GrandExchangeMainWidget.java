@@ -120,6 +120,7 @@ public class GrandExchangeMainWidget extends CustomWidget implements WidgetButto
 		rsi.totalChildren(4);
 		
 		RSInterface.addRectangleClickable(id + 1, 255, 0xffffff, true, 115, 110, "View offer");
+		RSInterface.interfaceCache[id + 1].setLayer(mainId);
 		RSInterface.interfaceCache[id + 1].parentID = rsi.id;
 		RSInterface.interfaceCache[id + 1].hovers = true;
 		RSInterface.interfaceCache[id + 1].hoverType = id + 1;
@@ -166,8 +167,8 @@ public class GrandExchangeMainWidget extends CustomWidget implements WidgetButto
 		
 		RSInterface.drawBox(id + 2, 46, 45, 2, 0x5a5245, 0x383023, 255);
 		RSInterface.drawBox(id + 3, 46, 45, 2, 0x5a5245, 0x383023, 255);
-		RSInterface.hoverButton(id + 4, 1794, 1795, "Create <col=ff9040>Buy</col> Offer");
-		RSInterface.hoverButton(id + 5, 1792, 1793, "Create <col=ff9040>Sell</col> Offer");
+		RSInterface.hoverButton(id + 4, 1794, 1795, "Create <col=ff9040>Buy</col> Offer").setLayer(mainId);
+		RSInterface.hoverButton(id + 5, 1792, 1793, "Create <col=ff9040>Sell</col> Offer").setLayer(mainId);
 		
 		Widget.componentForMain.put(id + 4, mainId);
 		Widget.componentForMain.put(id + 5, mainId);
