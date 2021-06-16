@@ -2,10 +2,15 @@ package com.simplicity.client.widget.ge;
 
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.widget.CustomWidget;
+import com.simplicity.client.widget.listener.WidgetStateListener;
 
-public class GrandExchangeHistoryWidget extends CustomWidget {
+public class GrandExchangeHistoryWidget extends CustomWidget implements WidgetStateListener {
 
     public static final int WIDGET_ID = 98_000;
+
+    private static final int AMOUNT = 20;
+
+    private static int SCROLL_ID;
 
     public GrandExchangeHistoryWidget() {
         super(WIDGET_ID);
@@ -13,13 +18,14 @@ public class GrandExchangeHistoryWidget extends CustomWidget {
 
     @Override
     public void init() {
-        add(addClosableWindow(484, 304, false, getName()), 16, 14);
+        add(addClosableWindow(484, 304, false, getName()), 14, 15);
         add(addStoneButton(58, 20, 0xff981f, 0xffffff, "Exchange"), 21, 22);
-        add(scroll(10), 38 - 18, 51);
+        add(scroll(AMOUNT), 38 - 18, 51);
     }
 
     public RSInterface scroll(int amount) {
         RSInterface scroll = RSInterface.addInterface(id, 456, 263);
+        SCROLL_ID = id;
         scroll.componentId = id++;
         scroll.scrollMax = amount * 38;
         scroll.totalChildren(amount * 6);
@@ -35,8 +41,6 @@ public class GrandExchangeHistoryWidget extends CustomWidget {
             RSInterface.interfaceCache[id + 3].useNewFonts = true;
             RSInterface.addContainer(id + 4, 1, 1, 1, 0, 0, false, new String[0]);
             RSInterface.interfaceCache[id + 4].itemExamine = false;
-            RSInterface.interfaceCache[id + 4].inv[0] = 4152;
-            RSInterface.interfaceCache[id + 4].invStackSizes[0] = 5;
             RSInterface.interfaceCache[id + 4].parentID = scroll.id;
             RSInterface.addText(id + 5,"", RSInterface.fonts, 0, 0xffb83f, true, true);
             RSInterface.interfaceCache[id + 5].useNewFonts = true;
@@ -58,4 +62,13 @@ public class GrandExchangeHistoryWidget extends CustomWidget {
         return "Grand Exchange: Trade History";
     }
 
+    @Override
+    public void onDisplay() {
+
+    }
+
+    @Override
+    public void onClose() {
+
+    }
 }

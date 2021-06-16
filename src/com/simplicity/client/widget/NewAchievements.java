@@ -43,7 +43,7 @@ public class NewAchievements extends CustomWidget implements WidgetButtonListene
 		add(addCenteredText("Achievement Name", 2, 0xffb000), 317+x, 52+y);
 		
 		for (int i = 0; i < 6; ++i) {
-			add(addText("Description", 1, 0xffb000), 167+x, 88+y+(i*12));
+			add(addText("", 1, 0xffb000), 167+x, 88+y+(i*12));
 		}
 		
 		add(addSprite(1857), 165+x, 217+y);
@@ -97,7 +97,7 @@ public class NewAchievements extends CustomWidget implements WidgetButtonListene
 		RSInterface.addSprite(96099, 1854);
 		tab.totalChildren(200);
 		for (int i = 0; i < 100; ++i) {
-			RSInterface.addClickableText(++id, "ID: "+id, "Select", RSInterface.fonts, 0, 0xff981f, false, true, 132);
+			RSInterface.addClickableText(++id, "", "Select", RSInterface.fonts, 0, 0xff981f, false, true, 132);
 			tab.child(i, i % 2 == 0 ? 96098 : 96099, 0, i * 13);
 			tab.child(i + 100, id, 2, 2 + (i * 13));
 		}

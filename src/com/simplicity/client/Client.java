@@ -133,10 +133,7 @@ import com.simplicity.client.widget.Widget;
 import com.simplicity.client.widget.WildernessWidget;
 import com.simplicity.client.widget.deals.DealBoardWidget;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
-import com.simplicity.client.widget.ge.GrandExchange;
-import com.simplicity.client.widget.ge.GrandExchangeListingsWidget;
-import com.simplicity.client.widget.ge.GrandExchangeMainWidget;
-import com.simplicity.client.widget.ge.GrandExchangeSearchWidget;
+import com.simplicity.client.widget.ge.*;
 import com.simplicity.client.widget.raids.cox.XericPointsWidget;
 import com.simplicity.client.widget.raids.nightmare.BossHealthOverlay;
 import com.simplicity.client.widget.raids.nightmare.TotemsOverlay;
@@ -180,6 +177,7 @@ import net.runelite.api.events.StatChanged;
 import net.runelite.client.RuneLite;
 import net.runelite.client.callback.Hooks;
 import net.runelite.client.plugins.PluginManager;
+import org.apache.commons.lang3.math.NumberUtils;
 
 @SuppressWarnings("all")
 public class Client extends RSApplet {
@@ -5352,7 +5350,8 @@ public class Client extends RSApplet {
                                                 || openInterfaceID == 2700 || openInterfaceID == 24700
                                                 || openInterfaceID == 24600 && child.parentID == 3323
                                                 || child.parentID == 2901 || child.parentID == 2902
-                                                || child.parentID == 2903 || child.parentID == 2904 || child.id == GrandExchangeSearchWidget.WIDGET_ID + 2;
+                                                || child.parentID == 2903 || child.parentID == 2904 || child.id == GrandExchangeSearchWidget.WIDGET_ID + 2
+                                                || child.id == GrandExchangeStatusWidget.COLLECT_CONTAINER_ID;
 
                                         if (child.actions != null) {
 
@@ -5395,6 +5394,19 @@ public class Client extends RSApplet {
 	                                                        // examine
 	                                                        // option
 	                                                    }
+
+	                                                    if (child.id == GrandExchangeStatusWidget.COLLECT_CONTAINER_ID) {
+	                                                        if (itemDef.id == 995) {
+                                                                menuActionName[menuActionRow] = "Collect-to-pouch @lre@"
+                                                                        + itemDef.name;
+                                                                menuActionID[menuActionRow] = 632;
+                                                                menuActionCmd1[menuActionRow] = itemDef.id;
+                                                                menuActionCmd2[menuActionRow] = ptr;
+                                                                menuActionCmd3[menuActionRow] = child.id;
+                                                                menuActionRow++;
+                                                                break;
+                                                            }
+                                                        }
 
 	                                                    if (openInterfaceID == 5292) {
 	                                                        // Placeholder releasing
@@ -9182,6 +9194,12 @@ public class Client extends RSApplet {
 				return;
 			}
 
+            CustomWidget w = Widget.mainForComponent(interfaceId);
+
+            if (w != null && w.buttonListener != null && w.buttonListener.onClick(interfaceId)) {
+                return;
+            }
+
             stream.createFrame(222);
             stream.writeDWord(interfaceId);
             stream.writeByte(currentActionMenu);
@@ -11194,8 +11212,9 @@ public class Client extends RSApplet {
                     }
                     if ((amountOrNameInput.length() > 0 && !amountOrNameInput.toLowerCase().contains("k")
                             && !amountOrNameInput.toLowerCase().contains("m")
-                            && !amountOrNameInput.toLowerCase().contains("b"))
-                            && (key == 107 || key == 109 || key == 98)) {
+                            && !amountOrNameInput.toLowerCase().contains("b")
+                            && !amountOrNameInput.toLowerCase().contains("t"))
+                            && (key == 107 || key == 109 || key == 98 || key == 116)) {
                         long am = 0;
                         boolean addChar = true;
                         long l = Long.valueOf(amountOrNameInput);
@@ -11205,6 +11224,9 @@ public class Client extends RSApplet {
                             addChar = false;
                         } else {
                             am = Long.valueOf(amountOrNameInput);
+                        }
+                        if (key == 116 && am > 10) {
+                            addChar = false;
                         }
                         if (key == 107 && am > 2147000000) {
                             addChar = false;
@@ -11233,14 +11255,26 @@ public class Client extends RSApplet {
                                 amountOrNameInput = amountOrNameInput.replaceAll("m", "000000");
                             } else if (amountOrNameInput.toLowerCase().contains("b")) {
                                 amountOrNameInput = amountOrNameInput.replaceAll("b", "000000000");
+                            } else if (amountOrNameInput.toLowerCase().contains("t")) {
+                                amountOrNameInput = amountOrNameInput.replaceAll("t", "000000000000");
                             }
                             long l = Long.valueOf(amountOrNameInput);
+
+                            if (widgetInputId == GrandExchangeOfferWidget.PRICE_SET_CUSTOM) {
+                                Widget.mainForComponent(widgetInputId).enterInputListener.onEnterAmount(widgetInputId, l);
+                                inputDialogState = 0;
+                                inputTaken = true;
+                                widgetInputId = -1;
+                                return;
+                            }
+
                             boolean asString = false;
                             String prev = amountOrNameInput;
                             if (l > 2147483647) {
                                 asString = true;
                                 amountOrNameInput = "2147483647";
                             }
+
                             int amount = 0;
                             if (asString) {
                                 if (interfaceButtonAction == 557 && withdrawingMoneyFromPouch) {
@@ -16017,6 +16051,10 @@ public class Client extends RSApplet {
                     continue;
                 }
 
+                if (child.parentID > 0 && RSInterface.isValid(child.parentID) && RSInterface.interfaceCache[child.parentID].hidden) {
+                    continue;
+                }
+
                 if (child.fading && loopCycle % child.fadeSpeed == 0) {
                     if (child.transparency >= child.maxFade) {
                         child.decreaseFade = true;
@@ -16057,7 +16095,7 @@ public class Client extends RSApplet {
 
             	boolean hoverChatInterface = backDialogID != -1 && mouseInChatArea();
 
-            	boolean hoverTabInterface = mouseInTabArea();
+            	boolean hoverTabInterface = tabInterfaceIDs[tabID] != -1 && mouseInTabArea();
 
             	int hoverXOff = hoverGameInterface && clientSize == 0 ? -4 : 0;
 
@@ -16067,18 +16105,15 @@ public class Client extends RSApplet {
 
             	int hoverY = mouseY - (hoverChatInterface && clientSize == 0 ? gameAreaHeight + 4 : 4) + hoverYOff;
 
-                if (clientSize == 0 && hoverTabInterface) {
-                    hoverX -= 519;
-                    hoverY -= 168;
-                }
-
             	if (!child.hoverDisabled && (hoverChatInterface || hoverGameInterface || hoverTabInterface)) {
                     boolean inBounds = (hoverX >= childX && hoverX <= childX + child.width && hoverY >= childY && hoverY <= childY + child.height);
-            		if (hoverGameInterface) {
-            		    childHovered = inBounds && RSInterface.interfaceCache[openInterfaceID].parentID == child.layerId;
+
+                    if (hoverGameInterface) {
+                        childHovered = inBounds && RSInterface.interfaceCache[openInterfaceID].parentID == child.layerId;
                     } else if (hoverTabInterface) {
-            		    final int tabInterface = tabInterfaceIDs[tabID];
-                        childHovered = inBounds && tabInterface > 0 && RSInterface.interfaceCache[tabInterface].parentID == child.layerId;
+                        childHovered = inBounds && RSInterface.interfaceCache[tabInterfaceIDs[tabID]].parentID == child.layerId;
+                    } else if (hoverChatInterface) {
+                        childHovered = inBounds && RSInterface.interfaceCache[backDialogID].parentID == child.layerId;
                     }
             	}
 
@@ -16191,6 +16226,15 @@ public class Client extends RSApplet {
                                             selectedColour = 0xffffff;
                                         }
                                         int itemAmount = child.invStackSizes[spriteIndex];
+
+                                        boolean drawCustom = false;
+
+                                        if (itemAmount == 0 && j9 == 995 && child.id == GrandExchangeStatusWidget.COLLECT_CONTAINER_ID) {
+                                            String amt = RSInterface.interfaceCache[spriteIndex == 0 ? GrandExchangeStatusWidget.COLLECT_AMOUNT_1 : GrandExchangeStatusWidget.COLLECT_AMOUNT_2].message;
+                                            itemAmount = NumberUtils.isDigits(amt) ? Integer.parseInt(amt) : 10000;
+                                            drawCustom = true;
+                                        }
+
                                         Sprite sprite_2 = ItemDefinition.getSprite(j9, itemAmount,
                                                 selectedColour);
                                         if (sprite_2 != null) {
@@ -16299,7 +16343,10 @@ public class Client extends RSApplet {
 
                                                     	boolean drawPlaceHolderText = itemAmount == 0 && child.id != CollectionLogWidget.ITEM_CONTAINER;
 
-                                                        if (itemAmount >= 1500000000 && child.drawInfinity) {
+                                                        if (drawCustom && child.id == GrandExchangeStatusWidget.COLLECT_CONTAINER_ID) {
+                                                            String amt = RSInterface.interfaceCache[spriteIndex == 0 ? GrandExchangeStatusWidget.COLLECT_AMOUNT_1 : GrandExchangeStatusWidget.COLLECT_AMOUNT_2].message;
+                                                            newSmallFont.drawBasicString(amt, itemSpriteX + k6, itemSpriteY + 9 + j7, 0xFFFF00, 1);
+                                                        } else if (itemAmount >= 1500000000 && child.drawInfinity) {
                                                             SpriteLoader.sprites[653].drawSprite(itemSpriteX, itemSpriteY);
                                                         } else if (drawPlaceHolderText) { // Placeholder text
 															newSmallFont.drawBasicString(intToKOrMil(itemAmount), itemSpriteX + k6, itemSpriteY + 9 + j7, 0xFFFF00, 1, 120);
@@ -17480,11 +17527,6 @@ public class Client extends RSApplet {
 
                         int yPos = (childY + (child.height / 2) + 6);
 
-                        if (child.id == GrandExchangeListingsWidget.INPUT_FIELD_ID) {
-                            yPos = childY + child.height / 2 + 4;
-                            t = smallText;
-                        }
-
                         if (child.displayAsterisks) {
                             t.drawRegularText(true,(childX + 8), 0xFFFFFF, builder.append(TextClass.passwordAsterisks(message)).append(((RSInterface.currentInputField == child ? 1 : 0) & (loopCycle % 40 < 20 ? 1 : 0)) != 0 ? "|" : "").toString(), yPos);
                         } else {
@@ -17557,6 +17599,12 @@ public class Client extends RSApplet {
                         for (int i = 0; i < 3; i++) {
                             DrawingArea.drawHorizontalLine(childX + 1, childY + 1 + i, child.width - 2, 0, 55);
                             DrawingArea.drawVerticalLine(childX + 1 + i, childY + 4, child.height - 5, 0, 55);
+                        }
+
+                        if (child.drawProgressText) {
+                            RSFontSystem font = child.rsFont == null ? newSmallFont : child.rsFont;
+
+                            font.drawCenteredString(current + " / " + maximum, childX + (child.width - 3) / 2, childY + child.height / 2 + 5, 0xFFFFFF, 0);
                         }
                     }
                 }

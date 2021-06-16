@@ -106,6 +106,7 @@ public class SkillQuantityWidget extends RSInterface {
 		
 		for (int i = 0; i < 5; i++) {
 			addDynamicButton(id, "Make", width, height);
+			interfaceCache[id].layerId = INTERFACE_ID;
 			rsi.child(child++, id, startX + (width * i + 7 * i), startY);
 			id++;
 		}
@@ -120,6 +121,7 @@ public class SkillQuantityWidget extends RSInterface {
 		
 		for (int i = 0; i < 5; i++) {
 			addDynamicButton(id, text[i], width, height);
+			interfaceCache[id].layerId = INTERFACE_ID;
 			interfaceCache[id].selectableInterfaces = new int[] { QUANTITY_BUTTON_START, QUANTITY_BUTTON_START + 1, QUANTITY_BUTTON_START + 2, QUANTITY_BUTTON_START + 3, QUANTITY_BUTTON_START + 4 };
 			rsi.child(child++, id, startX + (width * i + 5 * i), startY);
 			id++;
