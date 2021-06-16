@@ -17006,7 +17006,7 @@ public class Client extends RSApplet {
 					} else if (child.type == 25) {
 						cacheSprite[child.isModernWindow() ? 1284 : 1275].repeatX(childX, childY, child.width);
 					} else if (child.type == 26) {
-						cacheSprite[child.isModernWindow() ? 1285 : 1278].repeatY(childX, childY, child.height);
+						cacheSprite[child.isModernWindow() ? 1287 : 1278].repeatY(childX, childY, child.height);
 					} else if (child.type == 27) {
 						DrawingArea.drawVerticalLine(childX, childY, child.height, child.disabledColor, child.transparency);
 					} else if (child.type == 28) {
