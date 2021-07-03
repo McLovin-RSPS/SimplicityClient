@@ -1332,6 +1332,9 @@ public final class MobDefinition {
             case 4249:
                 npc.name = "Gambler";
                 break;
+           // case 7942:
+            //    npc.name = "@cya@Legend Achievements";
+              //  break;
             case 4247:
                 npc.actions[0] = "Talk-to";
                 npc.actions[2] = "Trade";
