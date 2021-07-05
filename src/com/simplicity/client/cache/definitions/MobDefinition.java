@@ -592,9 +592,9 @@ public final class MobDefinition {
                 
             case 1500:
                 npc.copy(forID(23917));
-                npc.name = "Lil seren";
-                npc.sizeXZ = 40;
-                npc.sizeY = 40;
+                npc.name = "Lil' seren";
+                npc.sizeXZ = 80;
+                npc.sizeY = 80;
                 npc.actions = new String[5];
                 npc.actions[0] = "Pick-up";
                 npc.squaresNeeded = 1;
