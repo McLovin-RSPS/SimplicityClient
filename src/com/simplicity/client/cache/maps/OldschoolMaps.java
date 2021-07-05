@@ -28,6 +28,10 @@ public class OldschoolMaps {
             5179,  //Mount karuulm
             9772, // myth's guild
             
+            14496, 14495, // Wyvern cave
+            9634, 9890, 9631, // caves
+            5277, // cave next to farming boss
+            
             11675, // Warrior's guild basement
             
             14906, 14650, 14652, 14651, 14908, 14907, 15163,  // Hunter location Fossil Island OSRS
