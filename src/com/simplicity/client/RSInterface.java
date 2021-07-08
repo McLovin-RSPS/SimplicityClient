@@ -5046,6 +5046,7 @@ public class RSInterface {
         runePouch(textDrawingAreas);
         donationPanel(textDrawingAreas);
         thrownaxeSpecial();
+        chinchompas();
         warnInterface(textDrawingAreas);
 //		slayerInterfaces(textDrawingAreas);
 
@@ -5361,6 +5362,50 @@ public class RSInterface {
             System.out.println(copy.children[i] + ". " + i + ", " + interfaceCache[copy.children[i]].type);
         }
     }
+
+    private static final void chinchompas() {
+        RSInterface tab = addTabInterface(19051); // 75321
+
+        setChildren(1, tab);
+
+        RSInterface main = addInterface(19052); // 75322
+        RSInterface empty = addTabInterface(19050); // 75320
+
+        main.copy(interfaceCache[4446]); // accurate, rapid, longrange
+
+        addSpriteLoader(19053, 1945);
+        main.children[3] = 19053;
+
+        addSpriteLoader(19054, 1946);
+        main.children[4] = 19054;
+
+        addSpriteLoader(19055, 1947);
+        main.children[5] = 19055;
+
+        RSInterface first = addTabInterface(19056);
+        first.copy(4458);
+        first.message = "Short fuse";
+        main.children[6] = first.id;
+        main.childX[6] -= 5;
+
+        RSInterface second = addTabInterface(19057);
+        second.copy(4459);
+        second.message = "Medium fuse";
+        main.children[7] = second.id;
+        main.childX[7] -= 17;
+
+        RSInterface third = addTabInterface(19058);
+        third.copy(4460);
+        third.message = "Long fuse";
+        main.children[8] = third.id;
+        main.childX[8] += 2;
+
+        // 10 name
+        main.children[10] = copy(19059, 4449).id;
+
+        setBounds(19052, 0, 0, 0, tab);
+
+    }
     
 	/**
 	 * Keybindings interface.
@@ -5642,6 +5687,12 @@ public class RSInterface {
         rsi.type = 2;
     }
 
+    public static RSInterface copy(int id, int from) {
+	    RSInterface rsi = addInterface(id);
+	    rsi.copy(from);
+	    return rsi;
+    }
+
     public void copy(int fromCompId) {
         copy(interfaceCache[fromCompId]);
     }
@@ -5652,6 +5703,21 @@ public class RSInterface {
         contentType = from.contentType;
         width = from.width;
         height = from.height;
+        textDrawingAreas = from.textDrawingAreas;
+        opacity = from.opacity;
+        shadowed = from.shadowed;
+        disabledColor = from.disabledColor;
+        enabledColor = from.enabledColor;
+        disabledMouseOverColor = from.disabledMouseOverColor;
+        enabledMouseOverColor = from.enabledMouseOverColor;
+        enabledMessage = from.enabledMessage;
+        message = from.message;
+        hoverType = from.hoverType;
+        centerText = from.centerText;
+        mediaID = from.mediaID;
+        enabledSprite = from.enabledSprite;
+        disabledSprite = from.disabledSprite;
+        tooltip = from.tooltip;
 
         if (from.inv != null) {
             inv = new int[from.inv.length];
