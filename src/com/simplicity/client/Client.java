@@ -1978,6 +1978,22 @@ public class Client extends RSApplet {
     private boolean prayClicked;
     private String prayerBook;
 
+    private boolean usingPrayerPlugin;
+
+    public void setUsingPrayerPlugin(boolean enabled) {
+        this.usingPrayerPlugin = enabled;
+    }
+
+    private String prayerString = "";
+
+    public String getPrayerString() {
+        return prayerString;
+    }
+
+    public void setPrayerString(String prayerString) {
+        this.prayerString = prayerString;
+    }
+
     public void drawPrayerOrb() {
         int currentPray = currentStats[5] / 10;
         if (currentPray <= 0 && quickPrsActive) {
@@ -2000,18 +2016,20 @@ public class Client extends RSApplet {
         if (clientSize == 0 && Configuration.enableOldschoolFrame) {
         	textX -= 28;
         }
+
+        String prayerString = usingPrayerPlugin && !getPrayerString().isEmpty() ? getPrayerString() : Integer.toString(currentPray);
         
         if (prayer >= 75) {
-            newSmallFont.drawCenteredString(Integer.toString(currentPray), textX, y + 26,
+            newSmallFont.drawCenteredString(prayerString, textX, y + 26,
                     65280, 0);
         } else if (prayer <= 74 && prayer >= 50) {
-            newSmallFont.drawCenteredString(Integer.toString(currentPray), textX, y + 26,
+            newSmallFont.drawCenteredString(prayerString, textX, y + 26,
                     0xffff00, 0);
         } else if (prayer <= 49 && prayer >= 25) {
-            newSmallFont.drawCenteredString(Integer.toString(currentPray), textX, y + 26,
+            newSmallFont.drawCenteredString(prayerString, textX, y + 26,
                     0xfca607, 0);
         } else if (prayer <= 24 && prayer >= 0) {
-            newSmallFont.drawCenteredString(Integer.toString(currentPray), textX, y + 26,
+            newSmallFont.drawCenteredString(prayerString, textX, y + 26,
                     0xf50d0d, 0);
 
         }
@@ -22489,8 +22507,11 @@ public class Client extends RSApplet {
                             rsi_1.invStackSizes[idx] = 0;
                         }
                         
-                        if (runelite != null && rsi_frame == 1688) {
-                        	callbacks.post(new ItemContainerChanged(getEquipment()));
+                        if (runelite != null) {
+                            if (rsi_frame == 3214)
+                                callbacks.post(new ItemContainerChanged(getInventory()));
+                            else if (rsi_frame == 1688)
+                        	    callbacks.post(new ItemContainerChanged(getEquipment()));
                         }
                         
                         if (rsi_frame == 24680) {
@@ -23394,7 +23415,7 @@ public class Client extends RSApplet {
 	};
 	
 	public ItemContainer getInventory() {
-		return equipment;
+		return inventory;
 	}
 	
 	private ItemContainer inventory = new ItemContainer() {
