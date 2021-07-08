@@ -34,6 +34,7 @@ import net.runelite.api.GameObject;
 import net.runelite.api.GameState;
 import net.runelite.api.Skill;
 import net.runelite.api.events.*;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.api.util.Text;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
