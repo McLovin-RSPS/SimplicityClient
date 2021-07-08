@@ -799,10 +799,10 @@ public final class ItemDefinition {
         stream = new Stream(streamLoader.getDataForName("obj.dat"));
         Stream streamIdx = new Stream(streamLoader.getDataForName("obj.idx"));
         streamOSRS = new Stream(streamLoader.getDataForName("obj3.dat"));
-        Stream streamOSRS = new Stream(streamLoader.getDataForName("obj3.idx"));
+        Stream streamOSRSIdx = new Stream(streamLoader.getDataForName("obj3.idx"));
 
         totalItems = streamIdx.readUnsignedWord();
-        totalItemsOSRS = streamOSRS.readUnsignedWord();
+        totalItemsOSRS = streamOSRSIdx.readUnsignedWord();
 
         streamIndices = new int[totalItems + 3000];
         streamIndicesOSRS = new int[totalItemsOSRS];
@@ -818,7 +818,7 @@ public final class ItemDefinition {
 
         for (int j = 0; j < totalItemsOSRS; j++) {
             streamIndicesOSRS[j] = i;
-            i += streamOSRS.readUnsignedWord();
+            i += streamOSRSIdx.readUnsignedWord();
         }
 
         cache = new ItemDefinition[10];
@@ -1461,6 +1461,161 @@ public final class ItemDefinition {
             	stream.readUnsignedWord();
             }
         } while (true);
+    }
+
+    public void readValuesOSRS(Stream stream) {
+        for (;;) {
+            int i = stream.readUnsignedByte();
+            if (i == 0) {
+                return;
+            }
+            if (i == 1) {
+                modelID = stream.readUnsignedWord();
+            } else if (i == 2) {
+                name = stream.readStringOSRS();
+            } else if (i == 4) {
+                modelZoom = stream.readUnsignedWord();
+            } else if (i == 5) {
+                rotationY = stream.readUnsignedWord();
+            } else if (i == 6) {
+                rotationX = stream.readUnsignedWord();
+            } else if (i == 7) {
+                modelOffset1 = stream.readUnsignedWord();
+                if (modelOffset1 > 32767) {
+                    modelOffset1 -= 0x10000;
+                }
+            } else if (i == 8) {
+                modelOffsetY = stream.readUnsignedWord();
+                if (modelOffsetY > 32767) {
+                    modelOffsetY -= 0x10000;
+                }
+            } else if (i == 9) {
+                stream.readStringOSRS(); // unknown
+            } else if (i == 11) {
+                stackable = true;
+            } else if (i == 12) {
+                value = stream.getInt();
+            } else if (i == 16) {
+                membersObject = true;
+            } else if (i == 23) {
+                maleEquip1 = stream.readUnsignedWord();
+                femaleYOffset = (byte) stream.readUnsignedByte();
+            } else if (i == 24) {
+                maleEquip2 = stream.readUnsignedWord();
+            } else if (i == 25) {
+                femaleEquip1 = stream.readUnsignedWord();
+                maleYOffset = (byte) stream.readUnsignedByte();
+            } else if (i == 26) {
+                femaleEquip2 = stream.readUnsignedWord();
+            } else if (i >= 30 && i < 35) {
+                if (groundActions == null) {
+                    groundActions = new String[5];
+                }
+                groundActions[i - 30] = stream.readStringOSRS();
+                if (groundActions[i - 30].equalsIgnoreCase("hidden")) {
+                    groundActions[i - 30] = null;
+                }
+            } else if (i >= 35 && i < 40) {
+                if (actions == null) {
+                    actions = new String[5];
+                }
+                actions[i - 35] = stream.readStringOSRS();
+                if (actions[i - 35].equalsIgnoreCase("null")) {
+                    actions[i - 35] = null;
+                }
+            } else if (i == 40) {
+                int j = stream.readUnsignedByte();
+                editedModelColor = new int[j];
+                newModelColor = new int[j];
+                for (int k = 0; k < j; k++) {
+                    newModelColor[k] = stream.readUnsignedWord();
+                    editedModelColor[k] = stream.readUnsignedWord();
+                }
+            } else if (i == 41) {
+                int count = stream.readUnsignedByte();
+                short[] textureFind = new short[count];
+                short[] textureReplace = new short[count];
+
+                for (int t = 0; t < count; t++) {
+                    textureFind[t] = (short) stream.readUnsignedWord();
+                    textureReplace[t] = (short) stream.readUnsignedWord();
+                }
+            } else if (i == 42) {
+                stream.readSignedByte(); // shift click drop index
+            } else if (i == 65) {
+                //isTradeable
+            } else if (i == 78) {
+                maleEquip3 = stream.readUnsignedWord();
+            } else if (i == 79) {
+                femaleEquip3 = stream.readUnsignedWord();
+            } else if (i == 90) {
+                maleDialogue = stream.readUnsignedWord();
+            } else if (i == 91) {
+                femaleDialogue = stream.readUnsignedWord();
+            } else if (i == 92) {
+                maleDialogueModel = stream.readUnsignedWord();
+            } else if (i == 93) {
+                femaleDialogueModel = stream.readUnsignedWord();
+            } else if (i == 94) {
+                stream.readUnsignedWord(); // category
+            } else if (i == 95) {
+                modelOffsetX = stream.readUnsignedWord();
+            } else if (i == 97) {
+                certID = OSRS_ITEMS_OFFSET + stream.readUnsignedWord();
+            } else if (i == 98) {
+                certTemplateID = stream.readUnsignedWord();
+            } else if (i >= 100 && i < 110) {
+                if (stackIDs == null) {
+                    stackIDs = new int[10];
+                    stackAmounts = new int[10];
+                }
+                stackIDs[i - 100] = stream.readUnsignedWord() + OSRS_ITEMS_OFFSET;
+                stackAmounts[i - 100] = stream.readUnsignedWord();
+            } else if (i == 110) {
+                sizeX = stream.readUnsignedWord();
+            } else if (i == 111) {
+                sizeY = stream.readUnsignedWord();
+            } else if (i == 112) {
+                sizeZ = stream.readUnsignedWord();
+            } else if (i == 113) {
+                shadow = stream.readSignedByte();
+            } else if (i == 114) {
+                lightness = stream.readSignedByte() * 5;
+            } else if (i == 115) {
+                team = stream.readUnsignedByte();
+            } else if (i == 139) {
+                stream.readUnsignedWord();
+            } else if (i == 140) {
+                stream.readUnsignedWord();
+            } else if (i == 148) {
+                stream.readUnsignedWord();
+            } else if (i == 149) {
+                stream.readUnsignedWord();
+            } else if (i == 249) {
+                int length = stream.readUnsignedByte();
+                Map<Integer, Object> params = new HashMap<>(length);
+
+                for (int idx = 0; idx < length; idx++) {
+                    boolean isString = stream.readUnsignedByte() == 1;
+                    int key = stream.read24BitInt();
+                    Object value;
+
+                    if (isString)
+                    {
+                        value = stream.readStringOSRS();
+                    }
+
+                    else
+                    {
+                        value = stream.getInt();
+                    }
+
+                    params.put(key, value);
+                }
+            } else {
+                //System.out.println("Unrecognized opcode: " + i + " name: " + name + " id: " + id);
+            }
+        }
     }
 
     public static void setSettings() {
