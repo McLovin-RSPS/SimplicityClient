@@ -8722,6 +8722,11 @@ public class Client extends RSApplet {
             tabAreaAltered = true;
         }
 
+        if (interfaceId == 957) {
+            variousSettings[287] = variousSettings[502] = variousSettings[502] == 1 ? 0 : 1;
+            handleActions(287);
+        }
+
         if (openInterfaceID == 60000) {
             switch (interfaceId) {
                 case 60005:
@@ -10383,10 +10388,6 @@ public class Client extends RSApplet {
             stream.writeUnsignedWordBigEndian(slot + baseX);
             stream.writeSignedBigEndian(interfaceId + baseY);
             stream.writeUnsignedWordA(entityId);
-        }
-        if (interfaceId == 957) {
-            variousSettings[287] = variousSettings[502] = variousSettings[502] == 1 ? 0 : 1;
-            handleActions(287);
         }
         itemSelected = 0;
         spellSelected = 0;
@@ -21722,10 +21723,14 @@ public class Client extends RSApplet {
                         if (friendsNodeIDs[k24] != i18) {
                             friendsNodeIDs[k24] = i18;
                             needDrawTabArea = true;
-                            /*
-                             * if (i18 >= 2) { pushMessage(s7 + " has logged in.", 5, ""); } if (i18 <= 1) {
-                             * pushMessage(s7 + " has logged out.", 5, ""); }
-                             */
+
+                            if (i18 >= 2) {
+                                pushMessage(s7 + " has logged in.", 5, "");
+                            }
+                            if (i18 <= 1) {
+                                pushMessage(s7 + " has logged out.", 5, "");
+                            }
+
                         }
                         s7 = null;
 
