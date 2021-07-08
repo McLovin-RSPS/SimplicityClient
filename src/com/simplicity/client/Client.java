@@ -15086,6 +15086,7 @@ public class Client extends RSApplet {
             AnimatedSprite.load();
             setLoadingText(100, "");
             isLoading = false;
+            setGameState(GameState.LOGIN_SCREEN);
         } catch (Exception exception) {
             exception.printStackTrace();
             isLoading = false;
