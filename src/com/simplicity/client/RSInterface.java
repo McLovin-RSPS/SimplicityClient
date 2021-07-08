@@ -5650,7 +5650,6 @@ public class RSInterface {
         type = from.type;
         atActionType = from.atActionType;
         contentType = from.contentType;
-        valueCompareType = from.valueCompareType;
         width = from.width;
         height = from.height;
 
@@ -5670,11 +5669,18 @@ public class RSInterface {
         }
 
         if (from.valueCompareType != null) {
+            valueCompareType = new int[from.valueCompareType.length];
             System.arraycopy(from.valueCompareType, 0, valueCompareType, 0, from.valueCompareType.length);
         }
 
         if (from.valueIndexArray != null) {
+            valueIndexArray = new int[from.valueIndexArray.length][];
             System.arraycopy(from.valueIndexArray, 0, valueIndexArray, 0, from.valueIndexArray.length);
+        }
+
+        if (from.requiredValues != null) {
+            requiredValues = new int[from.requiredValues.length];
+            System.arraycopy(from.requiredValues, 0, requiredValues, 0, from.requiredValues.length);
         }
 
         if (from.children != null) {
