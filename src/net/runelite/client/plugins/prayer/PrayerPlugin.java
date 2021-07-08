@@ -251,12 +251,15 @@ public class PrayerPlugin extends Plugin
 				{
 					case PRAYERPOT:
 						hasPrayerPotion = true;
+						total += 7;
 						break;
 					case RESTOREPOT:
 						hasSuperRestore = true;
+						total += 8;
 						break;
 					case SANFEWPOT:
 						hasSanfew = true;
+						total += 4;
 						break;
 					case HOLYWRENCH:
 						doseOverlay.setHasHolyWrench(true);
