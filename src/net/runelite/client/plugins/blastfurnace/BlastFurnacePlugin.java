@@ -80,9 +80,6 @@ public class BlastFurnacePlugin extends Plugin
 	private BlastFurnaceOverlay overlay;
 
 	@Inject
-	private BlastFurnaceCofferOverlay cofferOverlay;
-
-	@Inject
 	private BlastFurnaceClickBoxOverlay clickBoxOverlay;
 
 	@Inject
@@ -111,7 +108,6 @@ public class BlastFurnacePlugin extends Plugin
 		updateConfig();
 
 		overlayManager.add(overlay);
-		overlayManager.add(cofferOverlay);
 		overlayManager.add(clickBoxOverlay);
 	}
 
@@ -122,7 +118,6 @@ public class BlastFurnacePlugin extends Plugin
 
 		infoBoxManager.removeIf(ForemanTimer.class::isInstance);
 		overlayManager.remove(overlay);
-		overlayManager.remove(cofferOverlay);
 		overlayManager.remove(clickBoxOverlay);
 		conveyorBelt = null;
 		barDispenser = null;
