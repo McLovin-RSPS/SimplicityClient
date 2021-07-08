@@ -197,6 +197,11 @@ public final class MobDefinition {
                     npc.actions[2] = "Toggle Special";
                     break;
                     
+                case 8897: // Master achievements
+                    npc.name = "@cya@Master Achievements";
+                    npc.actions[0] = "Open";
+                    break;
+                    
                 case 8390:
                     npc.name = "Blood money dealer";
                     npc.standAnim = 22313;
@@ -1343,9 +1348,6 @@ public final class MobDefinition {
             case 4249:
                 npc.name = "Gambler";
                 break;
-           // case 7942:
-            //    npc.name = "@cya@Legend Achievements";
-              //  break;
             case 4247:
                 npc.actions[0] = "Talk-to";
                 npc.actions[2] = "Trade";

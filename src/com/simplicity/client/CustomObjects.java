@@ -120,6 +120,8 @@ public class CustomObjects {
 
             //Well for upgradable at home and gold bars
             {3485, 3089, 3495, 0, 0},
+            {0, 3091, 3494, 0, 0}, //g.e
+            {0, 3091, 3496, 0, 0}, //g.e
             
             
             //Xmass tree for december OR Summer tree

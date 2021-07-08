@@ -28,6 +28,8 @@ public class OldschoolMaps {
             5179,  //Mount karuulm
             9772, // myth's guild
             
+            7501, 6473, 9870, 9358, 9360, // seren map test
+            
             14496, 14495, // Wyvern cave
             9634, 9890, 9631, // caves
             5277, // cave next to farming boss
