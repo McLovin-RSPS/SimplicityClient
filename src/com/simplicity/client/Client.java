@@ -21546,7 +21546,7 @@ public class Client extends RSApplet {
                             flag2 = true;
 
                         }
-                        if (!flag2 && s3.length() >= 2) {
+                        if (!flag2 && s3.length() > 0) {
                             pushMessage("wishes to trade with you.", 4, s3);
                         }
                     } else if (s.startsWith(":highlight_clr:")) {
