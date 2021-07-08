@@ -37,10 +37,10 @@ public class TheatreRewardsWidget extends CustomWidget {
 		add(addHoverOpacityButton(1450, 1448, 4, 8, 150, "Bank all"), x + 10, y + 134);
 		add(addHoverOpacityButton(1450, 1447, 2, 8, 150, "Take all"), x + 10 + 36 + 4, y + 134);
 		RSInterface container = addItemContainer(2, 2, 20, 16, new String[] { "Take", "Take 5", "Take All", "Take X" }, "Theatre rewards container #");
-		for (int i = 0; i < container.inv.length; i++) {
+		/*for (int i = 0; i < container.inv.length; i++) {
 			container.inv[i] = 1113 + 1;
 			container.invStackSizes[i] = 1;
-		}
+		}*/
 		
 		add(container, x + 10, y + 40);
 		
