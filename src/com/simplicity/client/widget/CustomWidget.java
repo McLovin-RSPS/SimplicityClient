@@ -292,6 +292,23 @@ public abstract class CustomWidget {
     	return addWrapper(width, 6, rsi);
     }
     
+    /**
+	 * Adds a vertical separator.
+	 * 
+	 * @param width        The width.
+	 * @param modernBorder Whether to use the modern border or not.
+	 * @return The separator inside a wrapper.
+	 */
+    public RSInterface addVerticalSeparator(int height, boolean modernBorder) {
+    	RSInterface rsi = RSInterface.addInterface(id);
+    	rsi.componentId = id++;
+    	rsi.type = 26;
+    	rsi.width = 20;
+    	rsi.height = height;
+    	rsi.modernWindow = modernBorder;
+    	return addWrapper(10, height, rsi);
+    }
+    
 	/**
 	 * Adds a wrapper around the specified interface.
 	 * 

@@ -14,7 +14,7 @@ public final class MobDefinition {
 
     /** Hardcoded until we pack another byte into npc definitions to flag followers such as pets and familiars/bobs. **/
     private static final int[] FOLLOWER_IDS = new int[] {
-            17130, 17131, 17132, 2222, 2223, 22892, 22891, 
+            17130, 17131, 17132, 2222, 2223, 22892, 22891, 1500,
             6830, 6825, 6841, 6806, 6796, 7331, 6831, 6837, 7361, 6847, 6994, 6872, 7353, 6835, 6845, 6808, 153, 154, 7519,
             23492, 23493, 23494, 23495, 2776, 4550, 7370, 7333, 7351, 7367, 6853, 6867, 6851, 6833, 6875, 6877, 6879, 2222, 
             6881, 6883, 6885, 6887, 6855, 7377, 22519, 6824, 6843, 6794, 6818, 6992, 6857, 6991, 7365, 7337, 7363, 6809,
@@ -584,6 +584,17 @@ public final class MobDefinition {
                 npc.name = "Sugi";
                 npc.sizeXZ = 20;
                 npc.sizeY = 20;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                npc.squaresNeeded = 1;
+                npc.pet = true;
+                break;
+                
+            case 1500:
+                npc.copy(forID(23917));
+                npc.name = "Lil' seren";
+                npc.sizeXZ = 80;
+                npc.sizeY = 80;
                 npc.actions = new String[5];
                 npc.actions[0] = "Pick-up";
                 npc.squaresNeeded = 1;
@@ -1332,6 +1343,9 @@ public final class MobDefinition {
             case 4249:
                 npc.name = "Gambler";
                 break;
+           // case 7942:
+            //    npc.name = "@cya@Legend Achievements";
+              //  break;
             case 4247:
                 npc.actions[0] = "Talk-to";
                 npc.actions[2] = "Trade";
