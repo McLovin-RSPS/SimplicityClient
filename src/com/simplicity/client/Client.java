@@ -16125,15 +16125,28 @@ public class Client extends RSApplet {
 
             	int hoverY = mouseY - (hoverChatInterface && clientSize == 0 ? gameAreaHeight + 4 : 4) + hoverYOff;
 
-            	if (!child.hoverDisabled && (hoverChatInterface || hoverGameInterface || hoverTabInterface)) {
+                if (clientSize == 0 && hoverTabInterface) {
+                    hoverX -= 519;
+                    hoverY -= 168;
+                }
+
+                if (!child.hoverDisabled && child.hovers && (hoverChatInterface || hoverGameInterface || hoverTabInterface)) {
                     boolean inBounds = (hoverX >= childX && hoverX <= childX + child.width && hoverY >= childY && hoverY <= childY + child.height);
 
-                    if (hoverGameInterface && RSInterface.isValid(openInterfaceID)) {
-                        childHovered = inBounds && RSInterface.interfaceCache[openInterfaceID].parentID == child.layerId;
-                    } else if (hoverTabInterface&& RSInterface.isValid(tabInterfaceIDs[tabID])) {
-                        childHovered = inBounds && RSInterface.interfaceCache[tabInterfaceIDs[tabID]].parentID == child.layerId;
-                    } else if (hoverChatInterface && RSInterface.isValid(backDialogID)) {
-                        childHovered = inBounds && RSInterface.interfaceCache[backDialogID].parentID == child.layerId;
+                    childHovered = inBounds;
+
+                    if (hoverGameInterface) {
+                        if (child.layerId != 0 && RSInterface.isValid(openInterfaceID)) {
+                            childHovered = inBounds && RSInterface.interfaceCache[openInterfaceID].parentID == child.layerId;
+                        }
+                    } else if (hoverTabInterface) {
+                        if (child.layerId != 0 && RSInterface.isValid(tabInterfaceIDs[tabID])) {
+                            childHovered = inBounds && RSInterface.interfaceCache[tabInterfaceIDs[tabID]].parentID == child.layerId;
+                        }
+                    } else if (hoverChatInterface) {
+                        if (child.layerId != 0 && RSInterface.isValid(backDialogID)) {
+                            childHovered = inBounds && RSInterface.interfaceCache[backDialogID].parentID == child.layerId;
+                        }
                     }
             	}
 
