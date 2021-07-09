@@ -408,6 +408,14 @@ public final class ItemDefinition {
 	            itemDef.femaleZOffset = 11;
 	            itemDef.maleZOffset = -11;
 	        	break;
+	        	
+	        case 55731:
+                itemDef.name = "@whi@Holy mythical sanguinesti";
+	        	itemDef.femaleYOffset = -11;
+	        	itemDef.femaleXOffset = 6;
+	            itemDef.femaleZOffset = 11;
+	            itemDef.maleZOffset = -11;
+	        	break;
 	       
 	        	
 		    case 54422:
