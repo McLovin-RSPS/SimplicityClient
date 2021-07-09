@@ -15,7 +15,7 @@ public class NewAchievements extends CustomWidget implements WidgetButtonListene
 		addButtonListener(this);
 		addContainerListener(this);
 		int x = 14, y = 15;
-		add(addClosableWindow(484, 304, false, "Achievements"), x, y);
+		add(addClosableWindow(484, 304, false, "Master Achievements"), x, y);
 		add(achievementList(96100, 1), 6+x, 63+y);
 		achievementList(96205, 2);
 		achievementList(96310, 3);
