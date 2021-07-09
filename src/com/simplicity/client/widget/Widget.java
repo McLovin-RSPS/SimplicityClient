@@ -72,6 +72,7 @@ public class Widget {
 		init(new GrandExchangeHistoryWidget());
 		
 		init(new NewAchievements());
+		init(new BlastFurnaceCoffer());
 	}
 
 	/**

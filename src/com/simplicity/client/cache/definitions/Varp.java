@@ -11,7 +11,7 @@ public final class Varp {
 		cacheSize = 0;
 		int cacheSize = stream.readUnsignedWord();
 		if (cache == null)
-			cache = new Varp[cacheSize + 50];
+			cache = new Varp[cacheSize + 300];
 		if (idLinkTable == null)
 			idLinkTable = new int[cacheSize];
 
@@ -28,6 +28,8 @@ public final class Varp {
 		followerIndex.usage = 10;
 		cache[725] = followerIndex;
 		cache[726] = new Varp();
+
+		cache[795] = new Varp(); // Blast furnace, bit: 5357
 
 		if (stream.currentOffset != stream.buffer.length)
 			System.out.println("varptype load mismatch");

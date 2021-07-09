@@ -15,7 +15,7 @@ public class NewAchievements extends CustomWidget implements WidgetButtonListene
 		addButtonListener(this);
 		addContainerListener(this);
 		int x = 14, y = 15;
-		add(addClosableWindow(484, 304, false, "Achievements"), x, y);
+		add(addClosableWindow(484, 304, false, "Master Achievements"), x, y);
 		add(achievementList(96100, 1), 6+x, 63+y);
 		achievementList(96205, 2);
 		achievementList(96310, 3);
@@ -52,10 +52,9 @@ public class NewAchievements extends CustomWidget implements WidgetButtonListene
 		add(addRectangle(195, 47, 0, 200, true), 165+x, 236+y);
 		add(addItemContainer(4, 1, 14, 1, null, ""), 174+x, 244+y);
 		RSInterface.fill(id - 1);
-		
-		add(addHoverButton(1858, "Claim Rewards"), 369+x, 235+y);
+
+		add(addDynamicButton("Claim", 2, 0xffb000, 5, 0, 102, 49), 369 + x, 235 + y);
 		add(addSprite(1794), 372+x, 243+y);
-		add(addCenteredText("Claim", 2, 0xffb000), 433+x, 251+y);
 	}
 
 	@Override
