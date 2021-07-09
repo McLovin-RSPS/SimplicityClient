@@ -497,6 +497,8 @@ public class CustomObjects {
             
             // Lava giant teleporter
             {111978, 3103, 3495, 0, 0}, // Portal
+           
+            
             
             // New FFA maps pillars added
             
