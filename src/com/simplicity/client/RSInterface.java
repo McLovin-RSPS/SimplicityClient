@@ -17067,6 +17067,7 @@ public class RSInterface {
 		tab.width = tab.enabledSprite.myWidth;
 		tab.height = tab.disabledSprite.myHeight;
 		tab.active = false;
+        tab.hovers = true;
 		return tab;
 	}
     
@@ -17083,6 +17084,7 @@ public class RSInterface {
 		tab.enabledAltSprite = Client.cacheSprite[enabledAltSprite];
 		tab.disabledAltSprite = Client.cacheSprite[disabledAltSprite];
 		tab.spriteOpacity = 255;
+		tab.hovers = true;
 	}
 
 	public static void configHoverButton(int id, String tooltip, int enabledSprite, int disabledSprite,
@@ -17100,6 +17102,7 @@ public class RSInterface {
 		tab.buttonsToDisable = buttonsToDisable;
 		tab.active = active;
 		tab.spriteOpacity = 255;
+        tab.hovers = true;
 	}
 
 	public static void configHoverButton(int id, String tooltip, int enabledSprite, int disabledSprite,
@@ -17125,6 +17128,7 @@ public class RSInterface {
 		tab.disabledMouseOverColor = hoveredColour;
 		tab.centerText = centerText;
 		tab.spriteOpacity = 255;
+        tab.hovers = true;
 	}
 	
 	public void setConfigHoverButton(String tooltip, int enabledSpriteId, int disabledSpriteId) {
@@ -17136,6 +17140,7 @@ public class RSInterface {
         this.width = this.enabledSprite.myWidth;
         this.height = this.disabledSprite.myHeight;
         this.spriteOpacity = 255;
+        this.hovers = true;
     }
 
     public void setGraphicWidget(int graphicId) {
@@ -17158,6 +17163,7 @@ public class RSInterface {
 		tab.buttonsToDisable = buttonsToDisable;
 		tab.active = active;
 		tab.spriteOpacity = 255;
+        tab.hovers = true;
 	}
 
     public static RSInterface hoverButton(int id, int disabledSprite, int enabledSprite, String tooltip) {
@@ -17199,6 +17205,7 @@ public class RSInterface {
 		tab.width = tab.enabledSprite.myWidth;
 		tab.height = tab.disabledSprite.myHeight;
 		tab.spriteOpacity = 255;
+        tab.hovers = true;
 	}
 	
 	public static void hoverButton(int id, String tooltip, String[] actions, int enabledSprite, int disabledSprite, int enabledAltSprite, int disabledAltSprite) {
@@ -17214,6 +17221,7 @@ public class RSInterface {
 		tab.width = tab.enabledSprite.myWidth;
 		tab.height = tab.disabledSprite.myHeight;
 		tab.spriteOpacity = 255;
+        tab.hovers = true;
 	}
 	
 	public static void handleConfigHover(RSInterface widget) {
