@@ -393,6 +393,9 @@ public final class ItemDefinition {
                 itemDef.name = "@red@Mystery Donation Scroll";
                 break;
                 
+	            //itemDef.maleEquip1 = 42279;
+	            //itemDef.femaleEquip1 = 42272;
+                
 	        case 52323:
 	        case 5085:
 	        case 12150:
@@ -408,6 +411,22 @@ public final class ItemDefinition {
 	            itemDef.femaleZOffset = 11;
 	            itemDef.maleZOffset = -11;
 	        	break;
+	        	
+	        case 55739:
+	            itemDef.modelID = 42295;
+	            itemDef.actions = new String[5];
+	            itemDef.actions[1] = "Wield";
+	            itemDef.name = "@whi@Sanguine scythe of vitur";
+	            itemDef.stackable = false;
+	            itemDef.modelZoom = 2200;
+	            itemDef.rotationX = 23;
+	            itemDef.rotationY = 327;
+	            itemDef.maleEquip1 = 42279;
+	            itemDef.femaleEquip1 = 42272;
+	        	itemDef.femaleYOffset = -5;
+	        	itemDef.femaleXOffset = 8;
+	            itemDef.femaleZOffset = 4;
+	            break;
 	        	
 	        case 55731:
                 itemDef.name = "@whi@Holy mythical sanguinesti";
