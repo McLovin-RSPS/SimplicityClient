@@ -251,6 +251,7 @@ public abstract class CustomWidget {
     	RSInterface window = addWindow(width, height, modernBorder);
     	RSInterface titles = addCenteredText(title, 2, 0xFF981F);
         RSInterface close = hoverButton(1068, 1069, "Close Window").setActionType(3);
+        id += 3;
     	RSInterface separator = addHorizontalSeparator(width - 10, modernBorder);
     	
     	tab.child(child++, window.id, 0, 0);
