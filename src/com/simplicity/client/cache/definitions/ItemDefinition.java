@@ -753,6 +753,32 @@ public final class ItemDefinition {
                 itemDef.actions = def.actions;
                 itemDef.name = "Lava dragon teleport";
                 break;
+                
+	        case 43307:
+	        case 43308:
+	        case 43309:
+	        case 43310:
+	            itemDef.name = "Blood money";
+	            itemDef.editedModelColor = new int[] { 82 };
+	            itemDef.newModelColor = new int[] { 926 }; 
+	            break;
+	            
+	        case 43311:
+	        case 43312:
+	        case 43313:
+	        case 43314:
+	        case 43315:
+	            itemDef.name = "Blood money";
+	            itemDef.editedModelColor = new int[] { 8128 };
+	            itemDef.newModelColor = new int[] { 926 }; 
+	            break;
+	            
+	        case 43316:
+	            itemDef.name = "Blood money";
+	            itemDef.editedModelColor = new int[] { 8128 };
+	            itemDef.newModelColor = new int[] { 926 }; 
+	            break;
+                
             case 42603:
                 itemDef.name = "Ring of Bosses";
                 itemDef.actions = new String[5];
