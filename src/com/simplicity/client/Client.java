@@ -4990,8 +4990,8 @@ public class Client extends RSApplet {
 
             int hoverYOff = clientSize != 0 && mouseInTabArea() ? -3 : 0;
 
-			boolean hover = mouseX >= childX && mouseY >= childY
-                    && mouseX <= childX + child.width && mouseY <= childY + child.height + hoverYOff;
+			boolean hover = mouseX >= childX && mouseY > childY
+                    && mouseX <= childX + child.width && mouseY < childY + child.height + hoverYOff;
 			if (child.id == SettingsWidget.ADVANCED) {
 				hover = mouseX >= childX && mouseY >= childY + 7 - child.height / 2 && mouseX < childX + child.width && mouseY < childY - 9 + child.height;
 			}
@@ -5114,7 +5114,7 @@ public class Client extends RSApplet {
                     menuActionRow++;
                 }
                 if (child.atActionType == 5 && mouseX >= childX && mouseY >= childY && mouseX <= childX + child.width
-                        && mouseY <= childY + child.height) {
+                        && mouseY < childY + child.height) {
                     if (child.tooltip2 != null) {
                         menuActionName[menuActionRow] = child.tooltip2
                                 + ((myRights != 0) ? ", @gre@(@whi@" + (child.id + 1) + "@gre@)" : "");
@@ -16131,7 +16131,7 @@ public class Client extends RSApplet {
                 }
 
                 if (!child.hoverDisabled && child.hovers && (hoverChatInterface || hoverGameInterface || hoverTabInterface)) {
-                    boolean inBounds = (hoverX >= childX && hoverX <= childX + child.width && hoverY >= childY && hoverY <= childY + child.height);
+                    boolean inBounds = (hoverX >= childX && hoverX <= childX + child.width && hoverY >= childY && hoverY < childY + child.height);
 
                     childHovered = inBounds;
 
@@ -16421,9 +16421,9 @@ public class Client extends RSApplet {
                         int j3;
                         int opacity;
 
-                        if (interfaceIsSelected(child) || (childHovered && hovers(child))) {
+                        if (interfaceIsSelected(child) || child.hovers && childHovered) {
                             j3 = child.disabledColor;
-                            if (flag && child.enabledMouseOverColor != 0) {
+                            if ((flag || child.hovers && childHovered) && child.enabledMouseOverColor != 0) {
                                 j3 = child.enabledMouseOverColor;
                             }
                             opacity = child.enabledOpacity;

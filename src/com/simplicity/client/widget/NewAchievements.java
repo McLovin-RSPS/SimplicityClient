@@ -92,13 +92,18 @@ public class NewAchievements extends CustomWidget implements WidgetButtonListene
 		tab.width = 132;
 		tab.height = 235;
 		tab.scrollMax = 1300;
-		RSInterface.addSprite(96098, 1853);
-		RSInterface.addSprite(96099, 1854);
 		tab.totalChildren(200);
 		for (int i = 0; i < 100; ++i) {
-			RSInterface.addClickableText(++id, "", "Select", RSInterface.fonts, 0, 0xff981f, false, true, 132);
-			tab.child(i, i % 2 == 0 ? 96098 : 96099, 0, i * 13);
-			tab.child(i + 100, id, 2, 2 + (i * 13));
+			RSInterface.addRectangleClickable(++id, 50, i % 2 == 0 ? 0x564c42 : 0x483f33, true, 186, 14);
+			RSInterface.interfaceCache[id].hovers = true;
+			RSInterface.interfaceCache[id].setLayer(96000);
+			RSInterface.interfaceCache[id].enabledOpacity = 200;
+			RSInterface.interfaceCache[id].enabledColor = 0xffffff;
+			RSInterface.interfaceCache[id].enabledMouseOverColor = 0xffffff;
+			tab.child(i, id, 0, 2 + i * 14);
+
+			RSInterface.addText(++id,"", RSInterface.fonts, 0, 0xff981f );
+			tab.child(i + 100, id, 2, 2 + (i * 14));
 		}
 		return tab;
 	}
