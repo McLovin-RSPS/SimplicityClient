@@ -262,7 +262,9 @@ public enum CustomRecolor2 {
 		ROADMAN_SPIRIT_SHIELD(21123, 8421, "@pur@Roadman Demonic Sprit Shield",
 				new int[] { 123, 124, 908 },
 				new int[] { 127, 127, 51136 }),
-
+		MYTHICAL_STAFF(55731, 55731, "@whi@Holy mythical sanguinesti",
+				new int[] {6736, 6709, 43303, 39, 24, 8, 59466, 6602, 28, 59453, 4382},
+				new int[] {6736, 6709, 38325, 127, 127, 8, 127, 6602, 100, 125, 4382}),
 		;
 	/**
 	 * Constructs a new {@link CustomRecolor2}.
