@@ -721,7 +721,30 @@ public final class ItemDefinition {
                 itemDef.editedModelColor = defVorki.editedModelColor;
                 itemDef.newModelColor = defVorki.newModelColor;
                 break;
-
+            case 3244:
+                ItemDefinition defGoat = forID(4935);
+                itemDef.name = "Kevin the Goat";
+                itemDef.modelID = defGoat.modelID;
+                itemDef.modelOffset1 = defGoat.modelOffset1;
+                itemDef.modelOffsetX = defGoat.modelOffsetX;
+                itemDef.modelOffsetY = defGoat.modelOffsetY;
+                itemDef.sizeX = defGoat.sizeX;
+                itemDef.sizeY = defGoat.sizeY;
+                itemDef.sizeZ = defGoat.sizeZ;
+                itemDef.rotationX = defGoat.rotationX;
+                itemDef.rotationY = defGoat.rotationY;
+                itemDef.actions = defGoat.actions;
+                itemDef.modelID = defGoat.modelID;
+                itemDef.sizeX = defGoat.sizeX;
+                itemDef.sizeY = defGoat.sizeY;
+                itemDef.sizeZ = defGoat.sizeZ;
+                itemDef.maleEquip1 = defGoat.maleEquip1;
+                itemDef.femaleEquip1 = defGoat.femaleEquip1;
+                itemDef.modelZoom = defGoat.modelZoom;
+                itemDef.modelOffsetY = defGoat.modelOffsetY;
+                itemDef.editedModelColor = defGoat.editedModelColor;
+                itemDef.newModelColor = defGoat.newModelColor;
+                
             case 50884:
                 itemDef.name = "@or2@Great Olm's crystal";
                 break;
@@ -2237,7 +2260,7 @@ public final class ItemDefinition {
             12005, 12006, 11990, 11991, 11992, 11993, 11994, 11989, 11988, 11987, 11986, 11985, 11984, 11983, 14924, 14482, 22013, 54491, 53446, 53448, 51216, 51217, 51218, 51219, 51220, 51221, 51222,
             11982, 11981, 11980, 11979, 11967, 11969, 11970, 11971, 11972, 11973, 11974, 11975, 11976, 1590, 993, 6529, 6950, 1464, 2996,
             6570, 51214, 12158, 12159, 12160, 7986, 7981, 7980, 12163, 13247, 12655, 12646, 12161, 12162, 52473, 14924, 16580, 51027, 1961,
-            19143, 19149, 19146, 6500, 19157, 19162, 19152, 4155, 1543, 51992, 50851, 52319, 50851, 50852, 50854, 56018, 16430, 16429, 16428,
+            19143, 19149, 19146, 6500, 19157, 19162, 19152, 4155, 1543, 51992, 50851, 52319, 50851, 50852, 50854, 3244, 56018, 16430, 16429, 16428,
             8850, 10551, 8839, 16910, 19669, 8840, 16909, 8842, 11663, 11664, 19712, 52191, 52378, 19864, 11949, 2022, 3706, 21223,
             11665, 3842, 3844, 3840, 8844, 8845, 8846, 8847, 51507, 52441, 52746, 52747, 52748, 52749, 52750, 52751, 52752,
             8848, 8849, 8850, 10551, 7462, 7461, 7460, 51637, 52284, 10637, 52607, 50445, 14019, 50447, 43329, 52606, 21222,

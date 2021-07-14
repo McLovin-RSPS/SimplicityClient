@@ -930,6 +930,17 @@ public final class MobDefinition {
                 npc.pet = true;
                 break;
 
+            case 3244:
+                npc.copy(forID(4935));
+                npc.name = "Kevin the Goat";
+                npc.sizeXZ = 40;
+                npc.sizeY = 40;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                npc.squaresNeeded = 1;
+                npc.pet = true;
+                break;
+                
             case 6727:
                 npc.name = "Tangleroot";
                 npc.combatLevel = 0;
