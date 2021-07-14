@@ -540,18 +540,12 @@ public final class ItemDefinition {
                 break;
                 
             case 43306:
-                itemDef.name = "Blo";
+            	// 55749
+                itemDef.copy(forID(55749));
+                itemDef.name = "Lil' bloat";
                 itemDef.groundActions = new String[]{null, null, "Take", null, null};
                 itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
                 itemDef.modelID = MobDefinition.forID(23359).models[0];
-                itemDef.modelZoom = 10000;
-                break;
-                
-            case 21504:
-                itemDef.name = "Nylo";
-                itemDef.groundActions = new String[]{null, null, "Take", null, null};
-                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
-                itemDef.modelID = MobDefinition.forID(23355).models[0];
                 itemDef.modelZoom = 10000;
                 break;
                 
