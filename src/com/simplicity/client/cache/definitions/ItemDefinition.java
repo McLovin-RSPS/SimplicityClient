@@ -531,6 +531,14 @@ public final class ItemDefinition {
                 itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
                 break;
                 
+            case 33306:
+                itemDef.name = "Kevin the Goat";
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelID = MobDefinition.forID(4935).models[0];
+                itemDef.modelZoom = 1400;
+                break;
+                
             case 33305:
                 itemDef.name = "Lil seren";
                 itemDef.groundActions = new String[]{null, null, "Take", null, null};
@@ -721,29 +729,6 @@ public final class ItemDefinition {
                 itemDef.editedModelColor = defVorki.editedModelColor;
                 itemDef.newModelColor = defVorki.newModelColor;
                 break;
-            case 3244:
-                ItemDefinition defGoat = forID(4935);
-                itemDef.name = "Kevin the Goat";
-                itemDef.modelID = defGoat.modelID;
-                itemDef.modelOffset1 = defGoat.modelOffset1;
-                itemDef.modelOffsetX = defGoat.modelOffsetX;
-                itemDef.modelOffsetY = defGoat.modelOffsetY;
-                itemDef.sizeX = defGoat.sizeX;
-                itemDef.sizeY = defGoat.sizeY;
-                itemDef.sizeZ = defGoat.sizeZ;
-                itemDef.rotationX = defGoat.rotationX;
-                itemDef.rotationY = defGoat.rotationY;
-                itemDef.actions = defGoat.actions;
-                itemDef.modelID = defGoat.modelID;
-                itemDef.sizeX = defGoat.sizeX;
-                itemDef.sizeY = defGoat.sizeY;
-                itemDef.sizeZ = defGoat.sizeZ;
-                itemDef.maleEquip1 = defGoat.maleEquip1;
-                itemDef.femaleEquip1 = defGoat.femaleEquip1;
-                itemDef.modelZoom = defGoat.modelZoom;
-                itemDef.modelOffsetY = defGoat.modelOffsetY;
-                itemDef.editedModelColor = defGoat.editedModelColor;
-                itemDef.newModelColor = defGoat.newModelColor;
                 
             case 50884:
                 itemDef.name = "@or2@Great Olm's crystal";
