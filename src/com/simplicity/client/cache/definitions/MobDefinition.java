@@ -202,6 +202,17 @@ public final class MobDefinition {
                     npc.actions[0] = "Open";
                     break;
                     
+                case 10493:
+                    npc.name = "Headless beast";
+                    npc.actions = new String[]{null, "Attack", null, null, null};
+                    npc.combatLevel = 777;
+                    npc.standAnim = 20179;
+                    npc.walkAnim = 20183;
+                    npc.squaresNeeded = 4;
+                    npc.sizeXZ = 220;
+                    npc.sizeY = 220;
+                    break;
+                    
                 case 8390:
                     npc.name = "Blood money dealer";
                     npc.standAnim = 22313;
@@ -933,6 +944,7 @@ public final class MobDefinition {
             case 3244:
                 npc.copy(forID(4935));
                 npc.name = "Kevin the Goat";
+                npc.combatLevel = 1337;
                 npc.sizeXZ = 80;
                 npc.sizeY = 80;
                 npc.actions = new String[5];
