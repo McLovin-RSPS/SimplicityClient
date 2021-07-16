@@ -961,14 +961,12 @@ public final class MobDefinition {
                 
             case 6727:
                 npc.name = "Tangleroot";
+                npc.copy(forID(22335));
+                npc.npcHeadModels = new int[]{32207};
                 npc.combatLevel = 0;
-                npc.models = new int[1];
-                npc.models[0] = 32202;
                 npc.actions = new String[5];
                 npc.actions[0] = "Talk-to";
                 npc.actions[2] = "Pick-up";
-                npc.walkAnim = 7313;
-                npc.standAnim = 7312;
                 npc.description = "Its a Tangleroot.";
                 npc.squaresNeeded = 1;
                 break;
