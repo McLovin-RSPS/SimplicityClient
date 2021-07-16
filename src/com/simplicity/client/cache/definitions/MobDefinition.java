@@ -887,7 +887,8 @@ public final class MobDefinition {
                 npc.models = new int[1];
                 npc.models[0] = 29754;
                 npc.actions = new String[5];
-                npc.actions[0] = "Pick-up";
+                npc.actions[0] = "Talk-to";
+                npc.actions[2] = "Pick-up";
                 npc.walkAnim = 7178;
                 npc.standAnim = 7177;
                 npc.description = "Its a Beaver.";
@@ -905,7 +906,8 @@ public final class MobDefinition {
                 npc.sizeY = 25;
                 npc.actions = new String[5];
                 npc.drawMinimapDot = false;
-                npc.actions[0] = "Pick-up";
+                npc.actions[0] = "Talk-to";
+                npc.actions[2] = "Pick-up";
                 npc.combatLevel = 0;
                 npc.squaresNeeded = 1;
                 break;
@@ -919,7 +921,8 @@ public final class MobDefinition {
                 npc.originalColours = new int[]{29270};
                 npc.actions = new String[5];
                 npc.drawMinimapDot = false;
-                npc.actions[0] = "Pick-up";
+                npc.actions[0] = "Talk-to";
+                npc.actions[2] = "Pick-up";
                 npc.combatLevel = 0;
                 npc.pet = true;
                 break;
