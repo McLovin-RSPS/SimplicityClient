@@ -1114,6 +1114,9 @@ public class CustomObjects {
             
             {-1, 3108, 3931, 0, 0},
             
+            /**Bird house trapping spaces**/
+            {130552, 3763, 3755, 0, 0},
+            
             /**Edgeville**/
             {409, 3088, 3483, 0, 0},	// prayer altar
             //{409, 3090, 3510, 0, 1},	// prayer altar 
