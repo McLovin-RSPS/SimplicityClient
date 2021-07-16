@@ -1642,12 +1642,8 @@ public final class MobDefinition {
                 npc.actions = new String[5];
                 npc.actions[0] = "Talk-to";
                 npc.actions[2] = "Pick-up";
-                npc.models = new int[]{11216};
-                npc.combatLevel = 305;
-                npc.standAnim = 3144;
-                npc.walkAnim = 3145;
-                npc.sizeY = 49;
-                npc.sizeXZ = 45;
+                npc.copy(forID(17055));
+                npc.npcHeadModels = new int[]{5805};
                 npc.pet = true;
                 break;
 
@@ -1714,46 +1710,32 @@ public final class MobDefinition {
                 npc.actions = new String[5];
                 npc.actions[0] = "Talk-to";
                 npc.actions[2] = "Pick-up";
-                npc.models = new int[]{9941, 9943};
-                npc.combatLevel = 303;
-                npc.standAnim = 2850;
-                npc.walkAnim = 2849;
-                npc.sizeY = 60;
-                npc.sizeXZ = 60;
+                npc.copy(forID(21626));
+                npc.npcHeadModels = new int[]{28862};
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
 
             case 3039:
-                npc.name = "Dagannoth prime"; //9940, 9943, 9942
+                npc.name = "Dagannoth prime"; 
                 npc.actions = new String[5];
                 npc.actions[0] = "Talk-to";
                 npc.actions[2] = "Pick-up";
-                npc.models = new int[]{9940, 9943, 9942};
-                npc.originalColours = new int[]{11930, 27144, 16536, 16540};
-                npc.destColours = new int[]{5931, 1688, 21530, 21534};
-                npc.combatLevel = 303;
-                npc.standAnim = 2850;
-                npc.walkAnim = 2849;
-                npc.sizeY = 60;
-                npc.sizeXZ = 60;
+                npc.copy(forID(21627));
+                npc.npcHeadModels = new int[]{28855};
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
 
             case 3040:
-                npc.name = "Dagannoth rex";
+                npc.name = "Dagannoth Rex Jr.";
                 npc.actions = new String[5];
                 npc.actions[0] = "Talk-to";
                 npc.actions[2] = "Pick-up";
-                npc.models = new int[]{9941};
-                npc.originalColours = new int[]{16536, 16540, 27144, 2477};
-                npc.destColours = new int[]{7322, 7326, 10403, 2595};
-                npc.combatLevel = 303;
-                npc.standAnim = 2850;
-                npc.walkAnim = 2849;
-                npc.sizeY = 60;
-                npc.sizeXZ = 60;
+                npc.copy(forID(21630));
+                npc.npcHeadModels = new int[]{28857};
+                npc.standAnim = 18110;
+                npc.walkAnim = 18109;
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
