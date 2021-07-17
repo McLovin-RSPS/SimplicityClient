@@ -1285,8 +1285,8 @@ public final class MobDefinition {
                 break;
 
             case 947:
-                npc.name = "Player Owned Shop Manager";
-                npc.actions = new String[]{"Talk-to", "History", "View Shops", "My Shop", "Claim Earnings"};
+                npc.name = "Exchange Clerk";
+                npc.actions = new String[]{"Exchange", null, null, "Legacy POS", null};
                 break;
             case 465:
                 npc.name = "Master Zulri";
