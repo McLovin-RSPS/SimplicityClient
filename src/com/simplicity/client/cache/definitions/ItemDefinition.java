@@ -532,7 +532,7 @@ public final class ItemDefinition {
                 break;
                 
             case 33306:
-                itemDef.name = "Kevin the Goat";
+                itemDef.name = "Mak3 the Goat";
                 itemDef.groundActions = new String[]{null, null, "Take", null, null};
                 itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
                 itemDef.modelID = MobDefinition.forID(4935).models[0];
