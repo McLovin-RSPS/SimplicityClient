@@ -597,11 +597,24 @@ public final class MobDefinition {
                 
             case 2576:
                 npc.copy(forID(23360));
+                //npc.npcHeadModels = new int[]{35385};
                 npc.name = "Lil' maiden";
+                npc.combatLevel = 0;
                 npc.sizeXZ = 40;
                 npc.sizeY = 40;
                 npc.actions = new String[5];
-                npc.actions[0] = "Pick-up";
+                npc.actions[0] = "Talk-to";
+                npc.actions[2] = "Pick-up";
+                npc.squaresNeeded = 1;
+                npc.pet = true;
+                break;
+                
+            case 23492:
+                npc.name = "Ikkle Hydra";
+                npc.actions = new String[5];
+                npc.actions[0] = "Talk-to";
+                npc.actions[1] = "Metamorphosis";
+                npc.actions[2] = "Pick-up";
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
@@ -609,21 +622,27 @@ public final class MobDefinition {
             case 1500:
                 npc.copy(forID(23917));
                 npc.name = "Lil' seren";
+                npc.combatLevel = 0;
                 npc.sizeXZ = 80;
                 npc.sizeY = 80;
                 npc.actions = new String[5];
-                npc.actions[0] = "Pick-up";
+                npc.actions[0] = "Talk-to";
+                npc.actions[2] = "Pick-up";
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
                 
             case 2530:
                 npc.copy(forID(23359));
+                npc.combatLevel = 0;
+                // Model id 35404
+                npc.npcHeadModels = new int[]{39630, 39543};
                 npc.name = "Lil' bloat";
                 npc.sizeXZ = 30;
                 npc.sizeY = 30;
                 npc.actions = new String[5];
-                npc.actions[0] = "Pick-up";
+                npc.actions[0] = "Talk-to";
+                npc.actions[2] = "Pick-up";
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;               
@@ -631,33 +650,40 @@ public final class MobDefinition {
 
             case 2532:
                 npc.copy(forID(23355));
+                npc.npcHeadModels = new int[]{35183};
                 npc.name = "Lil' nylo";
+                npc.combatLevel = 0;
                 npc.sizeXZ = 30;
                 npc.sizeY = 30;
                 npc.actions = new String[5];
-                npc.actions[0] = "Pick-up";
+                npc.actions[0] = "Talk-to";
+                npc.actions[2] = "Pick-up";
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
                 
             case 2533:
                 npc.copy(forID(23388));
+                npc.npcHeadModels = new int[]{35403};
                 npc.name = "Lil' sot";
                 npc.sizeXZ = 30;
                 npc.sizeY = 30;
                 npc.actions = new String[5];
-                npc.actions[0] = "Pick-up";
+                npc.actions[0] = "Talk-to";
+                npc.actions[2] = "Pick-up";
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
                 
             case 2534:
                 npc.copy(forID(23340));
+                npc.npcHeadModels = new int[]{35383};
                 npc.name = "Lil' xarp";
                 npc.sizeXZ = 30;
                 npc.sizeY = 30;
                 npc.actions = new String[5];
-                npc.actions[0] = "Pick-up";
+                npc.actions[0] = "Talk-to";
+                npc.actions[2] = "Pick-up";
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
@@ -948,7 +974,7 @@ public final class MobDefinition {
             case 3244:
                 npc.copy(forID(4935));
                 npc.npcHeadModels = new int[]{18903};
-                npc.name = "Kevin the Goat";
+                npc.name = "Mak3 the Goat";
                 npc.combatLevel = 1337;
                 npc.sizeXZ = 80;
                 npc.sizeY = 80;
@@ -1012,6 +1038,7 @@ public final class MobDefinition {
             case 6731:
                 npc.models = new int[1];
                 npc.models[0] = 32697;
+                npc.npcHeadModels = new int[]{32775};
                 npc.name = "Olmlet";
                 npc.description = "Its a Olmlet.";
                 npc.actions = new String[5];
@@ -2086,7 +2113,15 @@ public final class MobDefinition {
                 
             case 154:
                 npc.copy(forID(23025));
+                npc.npcHeadModels = new int[]{35024};
                 npc.name = "Superior Vorki";
+                npc.pet = true;
+                break;
+                
+            case 23025:
+                npc.copy(forID(23025));
+                npc.npcHeadModels = new int[]{35024};
+                npc.name = "Vorki";
                 npc.pet = true;
                 break;
 		/*  		     
