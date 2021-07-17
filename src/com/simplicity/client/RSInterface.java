@@ -5373,13 +5373,13 @@ public class RSInterface {
 
         main.copy(interfaceCache[4446]); // accurate, rapid, longrange
 
-        addSpriteLoader(19053, 1945);
+        addSpriteLoader(19053, 1956);
         main.children[3] = 19053;
 
-        addSpriteLoader(19054, 1946);
+        addSpriteLoader(19054, 1957);
         main.children[4] = 19054;
 
-        addSpriteLoader(19055, 1947);
+        addSpriteLoader(19055, 1958);
         main.children[5] = 19055;
 
         RSInterface first = addTabInterface(19056);
