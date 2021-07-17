@@ -103,6 +103,7 @@ public class NewAchievements extends CustomWidget implements WidgetButtonListene
 			tab.child(i, id, 0, 2 + i * 14);
 
 			RSInterface.addText(++id,"", RSInterface.fonts, 0, 0xff981f );
+			RSInterface.interfaceCache[id].useNewFonts = true;
 			tab.child(i + 100, id, 2, 2 + (i * 14));
 		}
 		return tab;
