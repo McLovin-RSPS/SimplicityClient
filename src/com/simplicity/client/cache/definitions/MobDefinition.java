@@ -1,6 +1,8 @@
 package com.simplicity.client.cache.definitions;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.simplicity.client.CacheArchive;
 import com.simplicity.client.Client;
@@ -68,7 +70,7 @@ public final class MobDefinition {
             npc.id = OSRS_NPCS_OFFSET + i;
             npc.type = OSRS_NPCS_OFFSET + i;
             npc.dataType = DataType.OLDSCHOOL;
-            npc.readValues(streamOSRS);
+            npc.readValuesOSRS(streamOSRS);
             npc.postLoad();
             if (npc.name != null && npc.name.contains("Ket-Keh")) {
                 npc.name = "Inferno";
@@ -2248,10 +2250,12 @@ public final class MobDefinition {
         description = def.description;
         combatLevel = def.combatLevel;
 
-        models = new int[def.models.length];
+        if (def.models != null) {
+            models = new int[def.models.length];
 
-        for (int i = 0; i < models.length; i++) {
-            models[i] = def.models[i];
+            for (int i = 0; i < models.length; i++) {
+                models[i] = def.models[i];
+            }
         }
 
         if (def.actions != null) {
@@ -2603,6 +2607,157 @@ public final class MobDefinition {
                 }
             } else if (i == 107)
                 clickable = false;
+        } while (true);
+    }
+
+    public void readValuesOSRS(Stream stream) {
+        do {
+            int i = stream.readUnsignedByte();
+            if (i == 0)
+                return;
+            if (i == 1) {
+                int j = stream.readUnsignedByte();
+                models = new int[j];
+                for (int j1 = 0; j1 < j; j1++)
+                    models[j1] = stream.readUnsignedWord();
+            } else if (i == 2)
+                name = stream.readStringOSRS();
+            else if (i == 12)
+                squaresNeeded = stream.readSignedByte();
+            else if (i == 13) {
+                standAnim = stream.readUnsignedWord();
+                standAnim += Animation.OSRS_ANIM_OFFSET;
+            } else if (i == 14) {
+                walkAnim = stream.readUnsignedWord();
+                runAnim = walkAnim += Animation.OSRS_ANIM_OFFSET;
+            } else if (i == 17) {
+                walkAnim = stream.readUnsignedWord();
+                turn180AnimIndex = stream.readUnsignedWord();
+                turn90CWAnimIndex = stream.readUnsignedWord();
+                turn90CCWAnimIndex = stream.readUnsignedWord();
+                if (walkAnim == 65535)
+                    walkAnim = -1;
+                if (turn180AnimIndex == 65535)
+                    turn180AnimIndex = -1;
+                if (turn90CWAnimIndex == 65535)
+                    turn90CWAnimIndex = -1;
+                if (turn90CCWAnimIndex == 65535)
+                    turn90CCWAnimIndex = -1;
+                if (walkAnim != -1)
+                    walkAnim += Animation.OSRS_ANIM_OFFSET;
+                if (turn180AnimIndex != -1)
+                    turn180AnimIndex += Animation.OSRS_ANIM_OFFSET;
+                if (turn90CWAnimIndex != -1)
+                    turn90CWAnimIndex += Animation.OSRS_ANIM_OFFSET;
+                if (turn90CCWAnimIndex != -1)
+                    turn90CCWAnimIndex += Animation.OSRS_ANIM_OFFSET;
+            } else if (i == 18) {
+                int category = stream.readUnsignedWord();
+            } else if (i >= 30 && i < 35) {
+                if (actions == null)
+                    actions = new String[10];
+                actions[i - 30] = stream.readStringOSRS();
+                if (actions[i - 30].equalsIgnoreCase("hidden"))
+                    actions[i - 30] = null;
+            } else if (i == 40) {
+                int k = stream.readUnsignedByte();
+                destColours = new int[k];
+                originalColours = new int[k];
+                for (int k1 = 0; k1 < k; k1++) {
+                    originalColours[k1] = stream.readUnsignedWord();
+                    destColours[k1] = stream.readUnsignedWord();
+                }
+            } else if (i == 41) {
+                int k = stream.readUnsignedByte();
+                short[] retextureToFind = new short[k];
+                short[] retextureToReplace = new short[k];
+                for (int k1 = 0; k1 < k; k1++) {
+                    retextureToFind[k1] = (short) stream.readUnsignedWord();
+                    retextureToReplace[k1] = (short) stream.readUnsignedWord();
+                }
+            } else if (i == 60) {
+                int l = stream.readUnsignedByte();
+                npcHeadModels = new int[l];
+                for (int l1 = 0; l1 < l; l1++)
+                    npcHeadModels[l1] = stream.readUnsignedWord();
+            } else if (i == 93)
+                drawMinimapDot = false;
+            else if (i == 95)
+                combatLevel = stream.readUnsignedWord();
+            else if (i == 97)
+                sizeXZ = stream.readUnsignedWord();
+            else if (i == 98)
+                sizeY = stream.readUnsignedWord();
+            else if (i == 99)
+                hasRenderPriority = true;
+            else if (i == 100)
+                lightning = stream.readSignedByte();
+            else if (i == 101)
+                shadow = stream.readSignedByte() * 5;
+            else if (i == 102)
+                headIcon = stream.readUnsignedWord();
+            else if (i == 103)
+                degreesToTurn = stream.readUnsignedWord();
+            else if (i == 106) {
+                varbitId = stream.readUnsignedWord();
+                if (varbitId == 65535)
+                    varbitId = -1;
+                varSettingsId = stream.readUnsignedWord();
+                if (varSettingsId == 65535)
+                    varSettingsId = -1;
+                int i1 = stream.readUnsignedByte();
+                childrenIDs = new int[i1 + 1];
+                for (int i2 = 0; i2 <= i1; i2++) {
+                    childrenIDs[i2] = stream.readUnsignedWord();
+                    if (childrenIDs[i2] == 65535)
+                        childrenIDs[i2] = -1;
+                }
+            } else if (i == 107)
+                clickable = false;
+            else if (i == 109) {
+
+            } else if (i == 111) {
+                // is pet
+            } else if (i == 118) {
+                varbitId = stream.readUnsignedWord();
+                if (varbitId == 65535)
+                    varbitId = -1;
+                varSettingsId = stream.readUnsignedWord();
+                if (varSettingsId == 65535)
+                    varSettingsId = -1;
+                int i1 = stream.readUnsignedByte();
+                childrenIDs = new int[i1 + 1];
+                for (int i2 = 0; i2 <= i1; i2++) {
+                    childrenIDs[i2] = stream.readUnsignedWord();
+                    if (childrenIDs[i2] == 65535)
+                        childrenIDs[i2] = -1;
+                }
+            } else if (i == 249) {
+                int length = stream.readUnsignedByte();
+                Map<Integer, Object> params = new HashMap<>(length);
+
+                for (int idx = 0; idx < length; idx++) {
+                    boolean isString = stream.readUnsignedByte() == 1;
+                    int key = stream.read24BitInt();
+                    Object value;
+
+                    if (isString)
+                    {
+                        value = stream.readStringOSRS();
+                    }
+
+                    else
+                    {
+                        value = stream.getInt();
+                    }
+
+                    params.put(key, value);
+                }
+            } else {
+                //System.out.println("Unrecognized npc opcode: " + i);
+            }
+
+
         } while (true);
     }
 
