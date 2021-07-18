@@ -107,6 +107,7 @@ public final class MobDefinition {
                 break;
                 
             case 8492:
+            	npc.standAnim = 23493;
             	npc.walkAnim = 23492;
             	break;
 
@@ -219,7 +220,6 @@ public final class MobDefinition {
                     npc.actions[2] = "Blood money";
                     npc.actions[3] = "Untradeables";
                     break;
-                    
                     
                 case 7252:
                     npc.name = "Lava giant";
@@ -1009,16 +1009,14 @@ public final class MobDefinition {
                 npc.description = "Its a Rocky.";
                 npc.squaresNeeded = 1;
                 break;
-            case 6729:
-                npc.name = "Giant squirrel";
+            case 6729: // 
+                npc.copy(forID(22334));
                 npc.combatLevel = 0;
                 npc.models = new int[1];
                 npc.models[0] = 32206;
                 npc.actions = new String[5];
                 npc.actions[0] = "Talk-to";
                 npc.actions[2] = "Pick-up";
-                npc.walkAnim = 7310;
-                npc.standAnim = 7309;
                 npc.description = "Its a Giant squirrel.";
                 npc.squaresNeeded = 1;
                 break;
@@ -1640,12 +1638,10 @@ public final class MobDefinition {
                 npc.actions = new String[5];
                 npc.actions[0] = "Talk-to";
                 npc.actions[2] = "Pick-up";
-                npc.models = new int[]{27785, 27789};
-                npc.combatLevel = 624;
-                npc.standAnim = 7059;
-                npc.walkAnim = 7058;
-                npc.sizeY = 29;
-                npc.sizeXZ = 33;
+                npc.models = new int[]{27660, 27665};
+                npc.npcHeadModels = new int[]{28860};
+                npc.copy(forID(21632));
+                npc.combatLevel = 0;
                 npc.pet = true;
                 break;
 
