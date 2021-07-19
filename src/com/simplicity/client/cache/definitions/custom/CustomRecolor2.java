@@ -262,13 +262,13 @@ public enum CustomRecolor2 {
 		ROADMAN_SPIRIT_SHIELD(21123, 8421, "@pur@Roadman Demonic Sprit Shield",
 				new int[] { 123, 124, 908 },
 				new int[] { 127, 127, 51136 }),
-		MYTHICAL_STAFF(55731, 55731, "@whi@Holy mythical sanguinesti",
+		HOLY_MYTHICAL_STAFF(55731, 55731, "@whi@Holy mythical sanguinesti",
 				new int[] {6736, 6709, 43303, 39, 24, 8, 59466, 6602, 28, 59453, 4382},
 				new int[] {6736, 6709, 38325, 127, 127, 8, 127, 6602, 100, 125, 4382}),
 		
-		//MYTHICAL_STAFF(21124, 55731, "@whi@Holy mythical sanguinesti",
-		//		new int[] {6736, 6709, 43303, 39, 24, 8, 59466, 6602, 28, 59453, 4382},
-		//		new int[] {6736, 6709, 38325, 127, 127, 8, 127, 6602, 100, 125, 4382}),
+		MYTHICAL_STAFF_CUSTOM(21124, 21540, "@whi@Mythical sanguinesti",
+				new int[] {6736, 6709, 43303, 39, 24, 8, 59466, 6602, 28, 59453, 4382},
+				new int[] {6736, 6709, 38325, 127, 127, 8, 127, 6602, 100, 125, 4382}),
 		
 		/* GREY/RED SIRENIC SET */
 	    GREY_RED_SIRENIC_HELM(21125, 22014, "@red@Overlord Sirenic Helm",
