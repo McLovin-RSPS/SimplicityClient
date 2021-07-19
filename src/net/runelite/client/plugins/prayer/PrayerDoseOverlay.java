@@ -113,7 +113,7 @@ class PrayerDoseOverlay extends Overlay
 
 		final Point mousePosition = client.getMouseCanvasPosition();
 
-		if (config.showPrayerStatistics() && bounds.contains(mousePosition.getX(), mousePosition.getY()))
+		/*if (config.showPrayerStatistics() && bounds.contains(mousePosition.getX(), mousePosition.getY()))
 		{
 			final StringBuilder sb = new StringBuilder();
 
@@ -128,7 +128,7 @@ class PrayerDoseOverlay extends Overlay
 
 			sb.append("</br>").append("Prayer Bonus: ").append(plugin.getPrayerBonus());
 			tooltipManager.add(new Tooltip(sb.toString()));
-		}
+		}*/
 
 		if (!config.showPrayerDoseIndicator() || !hasPrayerRestore)
 		{
