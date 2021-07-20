@@ -540,6 +540,14 @@ public final class ItemDefinition {
                 break;
                 
             case 33305:
+                itemDef.name = "Lil seren (inactive)";
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelID = MobDefinition.forID(23917).models[0];
+                itemDef.modelZoom = 600;
+                break;
+                
+            case 33307:
                 itemDef.name = "Lil seren";
                 itemDef.groundActions = new String[]{null, null, "Take", null, null};
                 itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
@@ -2252,7 +2260,7 @@ public final class ItemDefinition {
             7459, 7458, 7457, 7456, 7455, 7454, 7453, 11665, 10499, 9748, 52325, 14548, 14549, 14550, 14551, 14552,
             9754, 9751, 9769, 9757, 9760, 9763, 9802, 9808, 14433, 14434, 14435, 14436, 14437, 14438, 43299,
             9784, 9799, 9805, 9781, 9796, 9793, 9775, 9772, 43081, 6927, 6928, 6929, 6930, 6931, 53448,
-            9778, 9787, 9811, 9766, 9749, 9755, 9752, 9770, 14037, 14036, 14035, 14033, 14034, 43305, 43306, 33305,
+            9778, 9787, 9811, 9766, 9749, 9755, 9752, 9770, 14037, 14036, 14035, 14033, 14034, 43305, 43306, 33305, 33307,
             9758, 9761, 9764, 9803, 9809, 9785, 9800, 9806, 14023, 14024, 14025, 12635, 12636, 12637, 12638, 12639, 12640, 12641,
             9782, 9797, 9794, 9776, 9773, 9779, 9788, 9812, 52_109, 19538, 11951, 20208,
             9767, 9747, 9753, 9750, 9768, 9756, 9759, 9762, 810, 51285, 9801, 9807, 9783, 9798, 9804, 9780, 9795, 9792,
