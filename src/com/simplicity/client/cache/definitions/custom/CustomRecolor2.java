@@ -265,6 +265,9 @@ public enum CustomRecolor2 {
 		HOLY_MYTHICAL_STAFF(55731, 55731, "@whi@Holy mythical sanguinesti",
 				new int[] {6736, 6709, 43303, 39, 24, 8, 59466, 6602, 28, 59453, 4382},
 				new int[] {6736, 6709, 38325, 127, 127, 8, 127, 6602, 100, 125, 4382}),
+		SANGUINE_DUST(55746, 55746, "Sanguine dust",
+				new int[] {5908, 6693, 6697, 5660, 6573, },
+				new int[] {784, 784, 784, 784, 784, }),
 		
 		MYTHICAL_STAFF_CUSTOM(21124, 21540, "@whi@Mythical sanguinesti",
 				new int[] {6736, 6709, 43303, 39, 24, 8, 59466, 6602, 28, 59453, 4382},
