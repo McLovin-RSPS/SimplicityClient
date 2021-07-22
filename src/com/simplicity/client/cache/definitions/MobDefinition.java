@@ -224,6 +224,12 @@ public final class MobDefinition {
                     npc.actions[3] = "Untradeables";
                     break;
                     
+                case 3132:
+                    npc.name = "Kevin's Demon";
+                    npc.sizeXZ = 220;
+                    npc.sizeY = 220;
+                    break;
+                    
                 case 7252:
                     npc.name = "Lava giant";
                     break;
@@ -633,6 +639,28 @@ public final class MobDefinition {
                 npc.actions[2] = "Pick-up";
                 npc.squaresNeeded = 1;
                 npc.pet = true;
+                break;
+                
+            case 1502:
+                npc.copy(forID(18132));
+                npc.name = "Demon Baby";
+                npc.combatLevel = 0;
+                npc.sizeXZ = 60;
+                npc.sizeY = 60;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                //npc.actions[2] = "Pick-up";
+                npc.squaresNeeded = 1;
+                npc.pet = true;
+                break;
+                
+            case 1503:
+                npc.copy(forID(18132));
+                npc.actions = new String[]{null, "Attack", null, null, null};
+                npc.name = "Demon minion";
+                npc.combatLevel = 600;
+                npc.sizeXZ = 70;
+                npc.sizeY = 70;
                 break;
                 
             case 2530:
