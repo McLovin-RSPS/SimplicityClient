@@ -643,7 +643,7 @@ public final class MobDefinition {
                 
             case 1502:
                 npc.copy(forID(18132));
-                npc.name = "Demonic Demon Baby";
+                npc.name = "Superior Demon Baby";
                 npc.combatLevel = 0;
                 npc.sizeXZ = 60;
                 npc.sizeY = 60;
