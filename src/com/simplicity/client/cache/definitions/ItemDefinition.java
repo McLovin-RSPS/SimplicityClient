@@ -1582,8 +1582,8 @@ public final class ItemDefinition {
                 editedModelColor = new int[j];
                 newModelColor = new int[j];
                 for (int k = 0; k < j; k++) {
-                    newModelColor[k] = stream.readUnsignedWord();
                     editedModelColor[k] = stream.readUnsignedWord();
+                    newModelColor[k] = stream.readUnsignedWord();
                 }
             } else if (i == 41) {
                 int count = stream.readUnsignedByte();
