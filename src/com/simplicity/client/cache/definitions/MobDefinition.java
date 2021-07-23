@@ -225,7 +225,7 @@ public final class MobDefinition {
                     break;
                     
                 case 3132:
-                    npc.name = "Kevin's Demon";
+                    npc.name = "Kevin's Demonic Boss";
                     npc.sizeXZ = 220;
                     npc.sizeY = 220;
                     break;
@@ -643,7 +643,7 @@ public final class MobDefinition {
                 
             case 1502:
                 npc.copy(forID(18132));
-                npc.name = "Demon Baby";
+                npc.name = "Demonic Demon Baby";
                 npc.combatLevel = 0;
                 npc.sizeXZ = 60;
                 npc.sizeY = 60;
