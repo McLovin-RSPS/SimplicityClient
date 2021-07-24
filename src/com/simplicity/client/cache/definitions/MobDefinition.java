@@ -643,7 +643,7 @@ public final class MobDefinition {
                 
             case 1502:
                 npc.copy(forID(18132));
-                npc.name = "Demonic Demon Baby";
+                npc.name = "Superior Demon Baby";
                 npc.combatLevel = 0;
                 npc.sizeXZ = 60;
                 npc.sizeY = 60;
@@ -1315,7 +1315,7 @@ public final class MobDefinition {
 
             case 947:
                 npc.name = "Exchange Clerk";
-                npc.actions = new String[]{"Exchange", null, null, "Legacy POS", null};
+                npc.actions = new String[]{"<spr=1857:1>@whi@ Exchange", null, null, "<img=483>@whi@ Legacy POS", null};
                 break;
             case 465:
                 npc.name = "Master Zulri";

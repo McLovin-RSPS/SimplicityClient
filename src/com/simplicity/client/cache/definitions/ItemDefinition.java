@@ -556,7 +556,7 @@ public final class ItemDefinition {
                 break;
                 
             case 33308:
-                itemDef.name = "@whi@Demon baby";
+                itemDef.name = "@whi@Superior Demon Baby";
                 itemDef.groundActions = new String[]{null, null, "Take", null, null};
                 itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
                 itemDef.modelID = MobDefinition.forID(18132).models[0];
