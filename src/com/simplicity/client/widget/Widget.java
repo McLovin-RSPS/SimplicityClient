@@ -73,6 +73,8 @@ public class Widget {
 		
 		init(new NewAchievements());
 		init(new BlastFurnaceCoffer());
+
+		init(new SlayerPartner());
 	}
 
 	/**
