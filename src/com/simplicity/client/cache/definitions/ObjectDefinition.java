@@ -322,6 +322,10 @@ public final class ObjectDefinition {
         	objectDef.animationID = -1;
         }
 
+        if (i == 110059) {
+            objectDef.isUnwalkable = true;
+        }
+
 		if (debug) {
 			objectDef.name = ""+i;
 			objectDef.hasActions = true;
