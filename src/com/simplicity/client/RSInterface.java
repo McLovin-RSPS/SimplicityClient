@@ -15246,7 +15246,9 @@ public class RSInterface {
         interfaceCache[5385].width = 474;
         interfaceCache[5382].width = 10;
         interfaceCache[5382].invSpritePadX = 12;
-        interfaceCache[5382].height = 35;
+        interfaceCache[5382].height = 82;
+        interfaceCache[5382].inv = new int[820];
+        interfaceCache[5382].invStackSizes = new int[820];
         setBounds(5385, 0, 74, 2, rsinterface);
         addSpriteLoader(5293, 913);
         setBounds(5293, 13, 13, 0, rsinterface);
