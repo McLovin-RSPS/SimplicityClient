@@ -65,18 +65,18 @@ public class NewAchievements extends CustomWidget implements WidgetButtonListene
 	@Override
 	public boolean onClick(int id) {
 		switch(id) {
-		case 96012:
-			RSInterface.interfaceCache[96000].children[1] = 96100;
-			return true;
-		case 96014:
-			RSInterface.interfaceCache[96000].children[1] = 96205;
-			return true;
-		case 96016:
-			RSInterface.interfaceCache[96000].children[1] = 96310;
-			return true;
-		case 96018:
-			RSInterface.interfaceCache[96000].children[1] = 96415;
-			return true;
+//		case 96012:
+//			RSInterface.interfaceCache[96000].children[1] = 96100;
+//			return true;
+//		case 96014:
+//			RSInterface.interfaceCache[96000].children[1] = 96205;
+//			return true;
+//		case 96016:
+//			RSInterface.interfaceCache[96000].children[1] = 96310;
+//			return true;
+//		case 96018:
+//			RSInterface.interfaceCache[96000].children[1] = 96415;
+//			return true;
 		}
 		return false;
 	}
