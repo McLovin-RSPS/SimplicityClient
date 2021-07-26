@@ -125,11 +125,11 @@ public class PrayerPlugin extends Plugin
 	{
 		if (event.getGroup().equals("prayer"))
 		{
-			if (!config.prayerIndicator())
+			/*if (!config.prayerIndicator())
 			{
 				removeIndicators();
 			}
-			else if (!config.prayerIndicatorOverheads())
+			else */if (!config.prayerIndicatorOverheads())
 			{
 				removeOverheadsIndicators();
 			}
@@ -189,7 +189,7 @@ public class PrayerPlugin extends Plugin
 			setPrayerOrbText(getEstimatedTimeRemaining(true));
 		}
 
-		if (!config.prayerIndicator())
+		/*if (!config.prayerIndicator())
 		{
 			return;
 		}
@@ -220,7 +220,7 @@ public class PrayerPlugin extends Plugin
 				infoBoxManager.removeInfoBox(prayerCounter[ord]);
 				prayerCounter[ord] = null;
 			}
-		}
+		}*/
 	}
 
 	private int checkContainerForPrayer(Item[] items)

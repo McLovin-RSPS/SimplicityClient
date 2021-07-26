@@ -53,7 +53,7 @@ public interface PrayerConfig extends Config
 		return false;
 	}
 
-	@ConfigItem(
+	/*@ConfigItem(
 		position = 2,
 		keyName = "prayerIndicator",
 		name = "Boost indicator",
@@ -62,7 +62,7 @@ public interface PrayerConfig extends Config
 	default boolean prayerIndicator()
 	{
 		return false;
-	}
+	}*/
 
 	@ConfigItem(
 		position = 3,
@@ -86,7 +86,7 @@ public interface PrayerConfig extends Config
 		return true;
 	}
 
-	@ConfigItem(
+	/*@ConfigItem(
 		position = 5,
 		keyName = "showPrayerTooltip",
 		name = "Show prayer orb tooltip",
@@ -95,7 +95,7 @@ public interface PrayerConfig extends Config
 	default boolean showPrayerStatistics()
 	{
 		return true;
-	}
+	}*/
 
 	@ConfigItem(
 		position = 6,

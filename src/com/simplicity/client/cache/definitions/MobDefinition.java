@@ -1,6 +1,8 @@
 package com.simplicity.client.cache.definitions;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.simplicity.client.CacheArchive;
 import com.simplicity.client.Client;
@@ -15,10 +17,11 @@ public final class MobDefinition {
     /** Hardcoded until we pack another byte into npc definitions to flag followers such as pets and familiars/bobs. **/
     private static final int[] FOLLOWER_IDS = new int[] {
             17130, 17131, 17132, 2222, 2223, 22892, 22891, 1500, 24492, 24493, 24494, 24495, 24496, 24497, 24498, 24499, 24500, 24501, 33306,
-            6830, 6825, 6841, 6806, 6796, 7331, 6831, 6837, 7361, 6847, 6994, 6872, 7353, 6835, 6845, 6808, 153, 154, 7519,
-            23492, 23493, 23494, 23495, 2776, 4550, 7370, 7333, 7351, 7367, 6853, 6867, 6851, 6833, 6875, 6877, 6879, 2222, 
-            6881, 6883, 6885, 6887, 6855, 7377, 22519, 6824, 6843, 6794, 6818, 6992, 6857, 6991, 7365, 7337, 7363, 6809,
-            6865, 6820, 6802, 6827, 6859, 6889, 6815, 6813, 6817, 7372, 6839, 8575, 7345, 6849, 6798, 6861, 7335, 7347,
+            6830, 6825, 6841, 6806, 6796, 7331, 6831, 6837, 7361, 6847, 6994, 6872, 7353, 6835, 6845, 6808, 153, 154, 7519, 15425, 20547, 
+            23492, 23493, 23494, 23495, 2776, 4550, 7370, 7333, 7351, 7367, 6853, 6867, 6851, 6833, 6875, 6877, 6879, 2222, 25761, 25762, 
+            6881, 6883, 6885, 6887, 6855, 7377, 22519, 6824, 6843, 6794, 6818, 6992, 6857, 6991, 7365, 7337, 7363, 6809, 25763, 25764, 25765, 21636, 21631,
+            21634, 21637, 22368, 21715, 21717, 15964, 21640, 22674, 23731,
+            6865, 6820, 6802, 6827, 6859, 6889, 6815, 6813, 6817, 7372, 6839, 8575, 7345, 6849, 6798, 6861, 7335, 7347, 23197, 23336,
             6800, 7355, 7357, 7359, 9488, 6804, 7341, 7329, 6863, 6822, 7339, 6869, 7349, 7375, 6873, 7343, 3033, 3030, 21636,
             3031, 3032, 3034, 3035, 3036, 3037, 3038, 3039, 3040, 3047, 3048, 21637, 21638, 3051, 3052, 3053, 3054,
             3055, 3056, 3057, 3058, 3059, 3060, 3061, 3063, 3064, 3066, 3067, 3068, 3070, 3069, 3065, 6723, 6724, 6726,
@@ -68,7 +71,7 @@ public final class MobDefinition {
             npc.id = OSRS_NPCS_OFFSET + i;
             npc.type = OSRS_NPCS_OFFSET + i;
             npc.dataType = DataType.OLDSCHOOL;
-            npc.readValues(streamOSRS);
+            npc.readValuesOSRS(streamOSRS);
             npc.postLoad();
             if (npc.name != null && npc.name.contains("Ket-Keh")) {
                 npc.name = "Inferno";
@@ -107,6 +110,7 @@ public final class MobDefinition {
                 break;
                 
             case 8492:
+            	npc.standAnim = 23493;
             	npc.walkAnim = 23492;
             	break;
 
@@ -220,6 +224,11 @@ public final class MobDefinition {
                     npc.actions[3] = "Untradeables";
                     break;
                     
+                case 3132:
+                    npc.name = "Kevin's Demonic Boss";
+                    npc.sizeXZ = 220;
+                    npc.sizeY = 220;
+                    break;
                     
                 case 7252:
                     npc.name = "Lava giant";
@@ -632,6 +641,28 @@ public final class MobDefinition {
                 npc.pet = true;
                 break;
                 
+            case 1502:
+                npc.copy(forID(18132));
+                npc.name = "Superior Demon Baby";
+                npc.combatLevel = 0;
+                npc.sizeXZ = 60;
+                npc.sizeY = 60;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                //npc.actions[2] = "Pick-up";
+                npc.squaresNeeded = 1;
+                npc.pet = true;
+                break;
+                
+            case 1503:
+                npc.copy(forID(18132));
+                npc.actions = new String[]{null, "Attack", null, null, null};
+                npc.name = "Demon minion";
+                npc.combatLevel = 600;
+                npc.sizeXZ = 70;
+                npc.sizeY = 70;
+                break;
+                
             case 2530:
                 npc.copy(forID(23359));
                 npc.combatLevel = 0;
@@ -1009,16 +1040,14 @@ public final class MobDefinition {
                 npc.description = "Its a Rocky.";
                 npc.squaresNeeded = 1;
                 break;
-            case 6729:
-                npc.name = "Giant squirrel";
+            case 6729: // 
+                npc.copy(forID(22334));
                 npc.combatLevel = 0;
                 npc.models = new int[1];
                 npc.models[0] = 32206;
                 npc.actions = new String[5];
                 npc.actions[0] = "Talk-to";
                 npc.actions[2] = "Pick-up";
-                npc.walkAnim = 7310;
-                npc.standAnim = 7309;
                 npc.description = "Its a Giant squirrel.";
                 npc.squaresNeeded = 1;
                 break;
@@ -1286,7 +1315,7 @@ public final class MobDefinition {
 
             case 947:
                 npc.name = "Exchange Clerk";
-                npc.actions = new String[]{"Exchange", null, null, "Legacy POS", null};
+                npc.actions = new String[]{"<spr=1857:1>@whi@ Exchange", null, null, "<img=483>@whi@ Legacy POS", null};
                 break;
             case 465:
                 npc.name = "Master Zulri";
@@ -1640,12 +1669,10 @@ public final class MobDefinition {
                 npc.actions = new String[5];
                 npc.actions[0] = "Talk-to";
                 npc.actions[2] = "Pick-up";
-                npc.models = new int[]{27785, 27789};
-                npc.combatLevel = 624;
-                npc.standAnim = 7059;
-                npc.walkAnim = 7058;
-                npc.sizeY = 29;
-                npc.sizeXZ = 33;
+                npc.models = new int[]{27660, 27665};
+                npc.npcHeadModels = new int[]{28860};
+                npc.copy(forID(21632));
+                npc.combatLevel = 0;
                 npc.pet = true;
                 break;
 
@@ -2248,10 +2275,12 @@ public final class MobDefinition {
         description = def.description;
         combatLevel = def.combatLevel;
 
-        models = new int[def.models.length];
+        if (def.models != null) {
+            models = new int[def.models.length];
 
-        for (int i = 0; i < models.length; i++) {
-            models[i] = def.models[i];
+            for (int i = 0; i < models.length; i++) {
+                models[i] = def.models[i];
+            }
         }
 
         if (def.actions != null) {
@@ -2603,6 +2632,157 @@ public final class MobDefinition {
                 }
             } else if (i == 107)
                 clickable = false;
+        } while (true);
+    }
+
+    public void readValuesOSRS(Stream stream) {
+        do {
+            int i = stream.readUnsignedByte();
+            if (i == 0)
+                return;
+            if (i == 1) {
+                int j = stream.readUnsignedByte();
+                models = new int[j];
+                for (int j1 = 0; j1 < j; j1++)
+                    models[j1] = stream.readUnsignedWord();
+            } else if (i == 2)
+                name = stream.readStringOSRS();
+            else if (i == 12)
+                squaresNeeded = stream.readSignedByte();
+            else if (i == 13) {
+                standAnim = stream.readUnsignedWord();
+                standAnim += Animation.OSRS_ANIM_OFFSET;
+            } else if (i == 14) {
+                walkAnim = stream.readUnsignedWord();
+                runAnim = walkAnim += Animation.OSRS_ANIM_OFFSET;
+            } else if (i == 17) {
+                walkAnim = stream.readUnsignedWord();
+                turn180AnimIndex = stream.readUnsignedWord();
+                turn90CWAnimIndex = stream.readUnsignedWord();
+                turn90CCWAnimIndex = stream.readUnsignedWord();
+                if (walkAnim == 65535)
+                    walkAnim = -1;
+                if (turn180AnimIndex == 65535)
+                    turn180AnimIndex = -1;
+                if (turn90CWAnimIndex == 65535)
+                    turn90CWAnimIndex = -1;
+                if (turn90CCWAnimIndex == 65535)
+                    turn90CCWAnimIndex = -1;
+                if (walkAnim != -1)
+                    walkAnim += Animation.OSRS_ANIM_OFFSET;
+                if (turn180AnimIndex != -1)
+                    turn180AnimIndex += Animation.OSRS_ANIM_OFFSET;
+                if (turn90CWAnimIndex != -1)
+                    turn90CWAnimIndex += Animation.OSRS_ANIM_OFFSET;
+                if (turn90CCWAnimIndex != -1)
+                    turn90CCWAnimIndex += Animation.OSRS_ANIM_OFFSET;
+            } else if (i == 18) {
+                int category = stream.readUnsignedWord();
+            } else if (i >= 30 && i < 35) {
+                if (actions == null)
+                    actions = new String[10];
+                actions[i - 30] = stream.readStringOSRS();
+                if (actions[i - 30].equalsIgnoreCase("hidden"))
+                    actions[i - 30] = null;
+            } else if (i == 40) {
+                int k = stream.readUnsignedByte();
+                destColours = new int[k];
+                originalColours = new int[k];
+                for (int k1 = 0; k1 < k; k1++) {
+                    originalColours[k1] = stream.readUnsignedWord();
+                    destColours[k1] = stream.readUnsignedWord();
+                }
+            } else if (i == 41) {
+                int k = stream.readUnsignedByte();
+                short[] retextureToFind = new short[k];
+                short[] retextureToReplace = new short[k];
+                for (int k1 = 0; k1 < k; k1++) {
+                    retextureToFind[k1] = (short) stream.readUnsignedWord();
+                    retextureToReplace[k1] = (short) stream.readUnsignedWord();
+                }
+            } else if (i == 60) {
+                int l = stream.readUnsignedByte();
+                npcHeadModels = new int[l];
+                for (int l1 = 0; l1 < l; l1++)
+                    npcHeadModels[l1] = stream.readUnsignedWord();
+            } else if (i == 93)
+                drawMinimapDot = false;
+            else if (i == 95)
+                combatLevel = stream.readUnsignedWord();
+            else if (i == 97)
+                sizeXZ = stream.readUnsignedWord();
+            else if (i == 98)
+                sizeY = stream.readUnsignedWord();
+            else if (i == 99)
+                hasRenderPriority = true;
+            else if (i == 100)
+                lightning = stream.readSignedByte();
+            else if (i == 101)
+                shadow = stream.readSignedByte() * 5;
+            else if (i == 102)
+                headIcon = stream.readUnsignedWord();
+            else if (i == 103)
+                degreesToTurn = stream.readUnsignedWord();
+            else if (i == 106) {
+                varbitId = stream.readUnsignedWord();
+                if (varbitId == 65535)
+                    varbitId = -1;
+                varSettingsId = stream.readUnsignedWord();
+                if (varSettingsId == 65535)
+                    varSettingsId = -1;
+                int i1 = stream.readUnsignedByte();
+                childrenIDs = new int[i1 + 1];
+                for (int i2 = 0; i2 <= i1; i2++) {
+                    childrenIDs[i2] = stream.readUnsignedWord();
+                    if (childrenIDs[i2] == 65535)
+                        childrenIDs[i2] = -1;
+                }
+            } else if (i == 107)
+                clickable = false;
+            else if (i == 109) {
+
+            } else if (i == 111) {
+                // is pet
+            } else if (i == 118) {
+                varbitId = stream.readUnsignedWord();
+                if (varbitId == 65535)
+                    varbitId = -1;
+                varSettingsId = stream.readUnsignedWord();
+                if (varSettingsId == 65535)
+                    varSettingsId = -1;
+                int i1 = stream.readUnsignedByte();
+                childrenIDs = new int[i1 + 1];
+                for (int i2 = 0; i2 <= i1; i2++) {
+                    childrenIDs[i2] = stream.readUnsignedWord();
+                    if (childrenIDs[i2] == 65535)
+                        childrenIDs[i2] = -1;
+                }
+            } else if (i == 249) {
+                int length = stream.readUnsignedByte();
+                Map<Integer, Object> params = new HashMap<>(length);
+
+                for (int idx = 0; idx < length; idx++) {
+                    boolean isString = stream.readUnsignedByte() == 1;
+                    int key = stream.read24BitInt();
+                    Object value;
+
+                    if (isString)
+                    {
+                        value = stream.readStringOSRS();
+                    }
+
+                    else
+                    {
+                        value = stream.getInt();
+                    }
+
+                    params.put(key, value);
+                }
+            } else {
+                //System.out.println("Unrecognized npc opcode: " + i);
+            }
+
+
         } while (true);
     }
 

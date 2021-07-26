@@ -540,11 +540,27 @@ public final class ItemDefinition {
                 break;
                 
             case 33305:
-                itemDef.name = "Lil seren";
+                itemDef.name = "Lil seren (inactive)";
                 itemDef.groundActions = new String[]{null, null, "Take", null, null};
                 itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
                 itemDef.modelID = MobDefinition.forID(23917).models[0];
                 itemDef.modelZoom = 600;
+                break;
+                
+            case 33307:
+                itemDef.name = "Lil seren";
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelID = MobDefinition.forID(18132).models[0];
+                itemDef.modelZoom = 600;
+                break;
+                
+            case 33308:
+                itemDef.name = "@whi@Superior Demon Baby";
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelID = MobDefinition.forID(18132).models[0];
+                itemDef.modelZoom = 6200;
                 break;
                 
             case 43306:
@@ -1582,8 +1598,8 @@ public final class ItemDefinition {
                 editedModelColor = new int[j];
                 newModelColor = new int[j];
                 for (int k = 0; k < j; k++) {
-                    newModelColor[k] = stream.readUnsignedWord();
                     editedModelColor[k] = stream.readUnsignedWord();
+                    newModelColor[k] = stream.readUnsignedWord();
                 }
             } else if (i == 41) {
                 int count = stream.readUnsignedByte();
@@ -2241,7 +2257,7 @@ public final class ItemDefinition {
             43300, 10933, 10939, 10940, 10941, 10945, 14936, 14937, 14938, 14939, 13612, 13613, 13614, 13615, 13616, 13617, 13618, 13619, 13620, 54975, 22076,
             13621, 13622, 13623, 13624, 13625, 13626, 13627, 13628, 11296, 11297, 11298, 11299, 3070, 3071, 3072, 3073, 3074, 3075, 3076, 3077, 3078, 21560, 22101,
             43241, 52316, 21004, 13661, 13262, 20072, 16956, 16426, 16910, 605, 13320, 17273, 17274, 13321, 13322, 13323, 13324, 13325, 13326, 13327, 21540,
-            11995, 11996, 11997, 11978, 12001, 12002, 12003, 12004, 21024, 21025, 21026, 21087, 51748, 14935, 51791, 51793, 51795, 20085, 11951, 42653, 22046,
+            11995, 11996, 11997, 11978, 12001, 12002, 12003, 12004, 21024, 21025, 21026, 21087, 51748, 14935, 51791, 51793, 51795, 20085, 11951, 42653, 22046, 6203,
             12005, 12006, 11990, 11991, 11992, 11993, 11994, 11989, 11988, 11987, 11986, 11985, 11984, 11983, 14924, 14482, 22013, 54491, 53446, 53448, 51216, 51217, 51218, 51219, 51220, 51221, 51222,
             11982, 11981, 11980, 11979, 11967, 11969, 11970, 11971, 11972, 11973, 11974, 11975, 11976, 1590, 993, 6529, 6950, 1464, 2996,
             6570, 51214, 12158, 12159, 12160, 7986, 7981, 7980, 12163, 13247, 12655, 12646, 12161, 12162, 52473, 14924, 16580, 51027, 1961,
@@ -2252,7 +2268,7 @@ public final class ItemDefinition {
             7459, 7458, 7457, 7456, 7455, 7454, 7453, 11665, 10499, 9748, 52325, 14548, 14549, 14550, 14551, 14552,
             9754, 9751, 9769, 9757, 9760, 9763, 9802, 9808, 14433, 14434, 14435, 14436, 14437, 14438, 43299,
             9784, 9799, 9805, 9781, 9796, 9793, 9775, 9772, 43081, 6927, 6928, 6929, 6930, 6931, 53448,
-            9778, 9787, 9811, 9766, 9749, 9755, 9752, 9770, 14037, 14036, 14035, 14033, 14034, 43305, 43306, 33305,
+            9778, 9787, 9811, 9766, 9749, 9755, 9752, 9770, 14037, 14036, 14035, 14033, 14034, 43305, 43306, 33305, 33307, 33308,
             9758, 9761, 9764, 9803, 9809, 9785, 9800, 9806, 14023, 14024, 14025, 12635, 12636, 12637, 12638, 12639, 12640, 12641,
             9782, 9797, 9794, 9776, 9773, 9779, 9788, 9812, 52_109, 19538, 11951, 20208,
             9767, 9747, 9753, 9750, 9768, 9756, 9759, 9762, 810, 51285, 9801, 9807, 9783, 9798, 9804, 9780, 9795, 9792,

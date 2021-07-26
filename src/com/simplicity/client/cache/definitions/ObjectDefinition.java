@@ -2,9 +2,7 @@ package com.simplicity.client.cache.definitions;
 
 
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import com.simplicity.client.CacheArchive;
 import com.simplicity.client.Client;
@@ -322,6 +320,10 @@ public final class ObjectDefinition {
         boolean debug = false;
         if (i == 132660) {
         	objectDef.animationID = -1;
+        }
+
+        if (i == 110059) {
+            objectDef.isUnwalkable = true;
         }
 
 		if (debug) {
@@ -1465,9 +1467,9 @@ public final class ObjectDefinition {
 					stream.currentOffset += len * 3;
 				}
 			} else if (opcode == 2)
-				name = stream.readString();
-			else if (opcode == 3)
-				description = new String(stream.readString()).getBytes();
+				name = stream.readStringOSRS();
+			/*else if (opcode == 3)
+				description = new String(stream.readString()).getBytes();*/
 			else if (opcode == 5) {
 				int len = stream.readUnsignedByte();
 				if (len > 0) {
@@ -1512,7 +1514,7 @@ public final class ObjectDefinition {
 			else if (opcode >= 30 && opcode < 35) {
 				if (actions == null)
 					actions = new String[5];
-				actions[opcode - 30] = stream.readString();
+				actions[opcode - 30] = stream.readStringOSRS();
 				if (actions[opcode - 30].equalsIgnoreCase("hidden"))
 					actions[opcode - 30] = null;
 			} else if (opcode == 40) {
@@ -1524,13 +1526,15 @@ public final class ObjectDefinition {
 					originalModelColors[i2] = stream.readUnsignedWord();
 				}
 			} else if (opcode == 41) {
-				int i1 = stream.readUnsignedByte();
+                int i1 = stream.readUnsignedByte();
                 short[] modifiedModelTexture = new short[i1];
                 short[] originalModelTexture = new short[i1];
-				for (int i2 = 0; i2 < i1; i2++) {
-					modifiedModelTexture[i2] = (short) stream.readUnsignedWord();
-					originalModelTexture[i2] = (short) stream.readUnsignedWord();
-				}
+                for (int i2 = 0; i2 < i1; i2++) {
+                    modifiedModelTexture[i2] = (short) stream.readUnsignedWord();
+                    originalModelTexture[i2] = (short) stream.readUnsignedWord();
+                }
+            } else if (opcode == 61) {
+			    int category = stream.readUnsignedWord();
 			} else if (opcode == 62)
 				aBoolean751 = true;
 			else if (opcode == 64)
@@ -1561,9 +1565,16 @@ public final class ObjectDefinition {
 				stream.readUnsignedWord(); // ambient sound id
 				stream.readUnsignedByte();
 			} else if (opcode == 79) {
-				stream.currentOffset += 5;
-				int len = stream.readUnsignedByte();
-				stream.currentOffset += len * 2;
+                stream.readUnsignedWord();
+                stream.readUnsignedWord();
+                stream.readUnsignedByte();
+                int length = stream.readUnsignedByte();
+                int[] anIntArray2084 = new int[length];
+
+                for (int index = 0; index < length; ++index)
+                {
+                    anIntArray2084[index] = stream.readUnsignedWord();
+                }
 			} else if (opcode == 81) {
 				int adjustToTerrain = stream.readUnsignedByte() * 256; // adjustToTerrain?
 			} else if (opcode == 82) {
@@ -1605,7 +1616,26 @@ public final class ObjectDefinition {
 				
 				configObjectIDs[len + 1] = value;
 			} else if (opcode == 249) {
-				
+                int length = stream.readUnsignedByte();
+                Map<Integer, Object> params = new HashMap<>(length);
+
+                for (int idx = 0; idx < length; idx++) {
+                    boolean isString = stream.readUnsignedByte() == 1;
+                    int key = stream.read24BitInt();
+                    Object value;
+
+                    if (isString)
+                    {
+                        value = stream.readStringOSRS();
+                    }
+
+                    else
+                    {
+                        value = stream.getInt();
+                    }
+
+                    params.put(key, value);
+                }
 			}
 		} while (true);
 		if (flag == -1 && name != "null" && name != null) {
