@@ -271,6 +271,12 @@ public final class ObjectDefinition {
             objectDef.actions = new String[]{"Open", null, null, null, null};
             objectDef.name = "@yel@Raids Mystery Chest";
         }
+        if(i == 130555 || i == 130558 || i == 130561 || i == 130564 || i == 131829 || i == 131832 || i == 131835 || i == 131838 || i == 131841) {
+            objectDef.actions = new String[]{"Check", "Dismantle", null, null, null};
+        }
+        if(i == 130553 || i == 130556 || i == 130559 || i == 130562 || i == 131827 || i == 131830 || i == 131833 || i == 131836 || i == 131839) {
+            objectDef.actions = new String[]{"Seeds", "Dismantle", null, null, null};
+        }
         if (i == 134021) {
             objectDef.actions = new String[]{"Pick-from", null, null, null, null};
             objectDef.name = "@yel@Dragonfruit tree";
