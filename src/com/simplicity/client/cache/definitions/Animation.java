@@ -843,7 +843,7 @@ public final class Animation {
 			while ((opcode = buffer.readUnsignedByte()) != 0) {
 
 				if (opcode == 1) {
-					frameCount = buffer.readUnsignedWord();
+					/*frameCount = buffer.readUnsignedWord();
 					frameIDs = new int[frameCount];
 					frameIDs2 = new int[frameCount];
 					delays = new int[frameCount];
@@ -856,7 +856,19 @@ public final class Animation {
 					}
 					for (int i = 0; i < frameCount; i++) {
 						frameIDs[i] += buffer.readUnsignedWord() << 16;
+					}*/
+					frameCount = buffer.readUnsignedWord();
+					frameIDs = new int[frameCount];
+					frameIDs2 = new int[frameCount];
+					delays = new int[frameCount];
+
+					for (int j = 0; j < frameCount; j++) {
+						frameIDs[j] = buffer.readDWord();
+						frameIDs2[j] = -1;
 					}
+
+					for (int j = 0; j < frameCount; j++)
+						delays[j] = buffer.readUnsignedByte();
 				} else if (opcode == 2) {
 					loopDelay = buffer.readUnsignedWord();
 				} else if (opcode == 3) {
@@ -882,8 +894,8 @@ public final class Animation {
 					priority = buffer.readUnsignedByte();
 				} else if (opcode == 11) {
 					delayType = buffer.readUnsignedByte();
-				} else if (opcode == 12) {
-					int len = buffer.readUByte();
+				/*} else if (opcode == 12) { // chat frame ids
+					int len = buffer.readUnsignedByte();
 
 					for (int i = 0; i < len; i++) {
 						buffer.readUnsignedWord();
@@ -892,12 +904,13 @@ public final class Animation {
 					for (int i = 0; i < len; i++) {
 						buffer.readUnsignedWord();
 					}
-				} else if (opcode == 13) {
+				} else if (opcode == 13) { // sounds
 					int len = buffer.readUByte();
 
 					for (int i = 0; i < len; i++) {
-						buffer.read3Bytes();
-					}
+						buffer.read24BitInt();
+						//buffer.read3Bytes();
+					}*/
 				} else {
 					//System.out.println("Error unrecognised OSRS anim config code: " + opcode + " for anim " + id);
 				}

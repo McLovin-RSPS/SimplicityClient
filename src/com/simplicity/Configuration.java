@@ -6,8 +6,8 @@ public class Configuration {
 	 * Connection information
 	 */
 	public final static boolean LOCALHOST = false;
-	public final static boolean BETA = false;
-	public static String HOST = LOCALHOST ? "127.0.0.1" : BETA ? "beta.simplicity-data.com" : "142.44.136.172"; // TEST
+	public final static boolean BETA = true;
+	public static String HOST = LOCALHOST ? "127.0.0.1" : BETA ? "beta.simplicity-data.com" : "149.56.28.66";
 	public static int PORT = 43594;
 
 	/**

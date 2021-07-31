@@ -1978,6 +1978,22 @@ public class Client extends RSApplet {
     private boolean prayClicked;
     private String prayerBook;
 
+    private boolean usingPrayerPlugin;
+
+    public void setUsingPrayerPlugin(boolean enabled) {
+        this.usingPrayerPlugin = enabled;
+    }
+
+    private String prayerString = "";
+
+    public String getPrayerString() {
+        return prayerString;
+    }
+
+    public void setPrayerString(String prayerString) {
+        this.prayerString = prayerString;
+    }
+
     public void drawPrayerOrb() {
         int currentPray = currentStats[5] / 10;
         if (currentPray <= 0 && quickPrsActive) {
@@ -2000,18 +2016,20 @@ public class Client extends RSApplet {
         if (clientSize == 0 && Configuration.enableOldschoolFrame) {
         	textX -= 28;
         }
+
+        String prayerString = usingPrayerPlugin && !getPrayerString().isEmpty() ? getPrayerString() : Integer.toString(currentPray);
         
         if (prayer >= 75) {
-            newSmallFont.drawCenteredString(Integer.toString(currentPray), textX, y + 26,
+            newSmallFont.drawCenteredString(prayerString, textX, y + 26,
                     65280, 0);
         } else if (prayer <= 74 && prayer >= 50) {
-            newSmallFont.drawCenteredString(Integer.toString(currentPray), textX, y + 26,
+            newSmallFont.drawCenteredString(prayerString, textX, y + 26,
                     0xffff00, 0);
         } else if (prayer <= 49 && prayer >= 25) {
-            newSmallFont.drawCenteredString(Integer.toString(currentPray), textX, y + 26,
+            newSmallFont.drawCenteredString(prayerString, textX, y + 26,
                     0xfca607, 0);
         } else if (prayer <= 24 && prayer >= 0) {
-            newSmallFont.drawCenteredString(Integer.toString(currentPray), textX, y + 26,
+            newSmallFont.drawCenteredString(prayerString, textX, y + 26,
                     0xf50d0d, 0);
 
         }
@@ -4972,8 +4990,8 @@ public class Client extends RSApplet {
 
             int hoverYOff = clientSize != 0 && mouseInTabArea() ? -3 : 0;
 
-			boolean hover = mouseX >= childX && mouseY >= childY
-                    && mouseX <= childX + child.width && mouseY <= childY + child.height + hoverYOff;
+			boolean hover = mouseX >= childX && mouseY > childY
+                    && mouseX <= childX + child.width && mouseY < childY + child.height + hoverYOff;
 			if (child.id == SettingsWidget.ADVANCED) {
 				hover = mouseX >= childX && mouseY >= childY + 7 - child.height / 2 && mouseX < childX + child.width && mouseY < childY - 9 + child.height;
 			}
@@ -5096,7 +5114,7 @@ public class Client extends RSApplet {
                     menuActionRow++;
                 }
                 if (child.atActionType == 5 && mouseX >= childX && mouseY >= childY && mouseX <= childX + child.width
-                        && mouseY <= childY + child.height) {
+                        && mouseY < childY + child.height) {
                     if (child.tooltip2 != null) {
                         menuActionName[menuActionRow] = child.tooltip2
                                 + ((myRights != 0) ? ", @gre@(@whi@" + (child.id + 1) + "@gre@)" : "");
@@ -8704,6 +8722,11 @@ public class Client extends RSApplet {
             tabAreaAltered = true;
         }
 
+        if (interfaceId == 957) {
+            variousSettings[287] = variousSettings[502] = variousSettings[502] == 1 ? 0 : 1;
+            handleActions(287);
+        }
+
         if (openInterfaceID == 60000) {
             switch (interfaceId) {
                 case 60005:
@@ -10365,10 +10388,6 @@ public class Client extends RSApplet {
             stream.writeUnsignedWordBigEndian(slot + baseX);
             stream.writeSignedBigEndian(interfaceId + baseY);
             stream.writeUnsignedWordA(entityId);
-        }
-        if (interfaceId == 957) {
-            variousSettings[287] = variousSettings[502] = variousSettings[502] == 1 ? 0 : 1;
-            handleActions(287);
         }
         itemSelected = 0;
         spellSelected = 0;
@@ -15068,6 +15087,7 @@ public class Client extends RSApplet {
             AnimatedSprite.load();
             setLoadingText(100, "");
             isLoading = false;
+            setGameState(GameState.LOGIN_SCREEN);
         } catch (Exception exception) {
             exception.printStackTrace();
             isLoading = false;
@@ -16105,15 +16125,28 @@ public class Client extends RSApplet {
 
             	int hoverY = mouseY - (hoverChatInterface && clientSize == 0 ? gameAreaHeight + 4 : 4) + hoverYOff;
 
-            	if (!child.hoverDisabled && (hoverChatInterface || hoverGameInterface || hoverTabInterface)) {
-                    boolean inBounds = (hoverX >= childX && hoverX <= childX + child.width && hoverY >= childY && hoverY <= childY + child.height);
+                if (clientSize == 0 && hoverTabInterface) {
+                    hoverX -= 519;
+                    hoverY -= 168;
+                }
+
+                if (!child.hoverDisabled && child.hovers && (hoverChatInterface || hoverGameInterface || hoverTabInterface)) {
+                    boolean inBounds = (hoverX >= childX && hoverX <= childX + child.width && hoverY >= childY && hoverY < childY + child.height);
+
+                    childHovered = inBounds;
 
                     if (hoverGameInterface) {
-                        childHovered = inBounds && RSInterface.interfaceCache[openInterfaceID].parentID == child.layerId;
+                        if (child.layerId != 0 && RSInterface.isValid(openInterfaceID)) {
+                            childHovered = inBounds && RSInterface.interfaceCache[openInterfaceID].parentID == child.layerId;
+                        }
                     } else if (hoverTabInterface) {
-                        childHovered = inBounds && RSInterface.interfaceCache[tabInterfaceIDs[tabID]].parentID == child.layerId;
+                        if (child.layerId != 0 && RSInterface.isValid(tabInterfaceIDs[tabID])) {
+                            childHovered = inBounds && RSInterface.interfaceCache[tabInterfaceIDs[tabID]].parentID == child.layerId;
+                        }
                     } else if (hoverChatInterface) {
-                        childHovered = inBounds && RSInterface.interfaceCache[backDialogID].parentID == child.layerId;
+                        if (child.layerId != 0 && RSInterface.isValid(backDialogID)) {
+                            childHovered = inBounds && RSInterface.interfaceCache[backDialogID].parentID == child.layerId;
+                        }
                     }
             	}
 
@@ -16391,9 +16424,9 @@ public class Client extends RSApplet {
                         int j3;
                         int opacity;
 
-                        if (interfaceIsSelected(child) || (childHovered && hovers(child))) {
+                        if (interfaceIsSelected(child) || child.hovers && childHovered) {
                             j3 = child.disabledColor;
-                            if (flag && child.enabledMouseOverColor != 0) {
+                            if ((flag || child.hovers && childHovered) && child.enabledMouseOverColor != 0) {
                                 j3 = child.enabledMouseOverColor;
                             }
                             opacity = child.enabledOpacity;
@@ -21530,7 +21563,7 @@ public class Client extends RSApplet {
                             flag2 = true;
 
                         }
-                        if (!flag2 && s3.length() >= 2) {
+                        if (!flag2 && s3.length() > 0) {
                             pushMessage("wishes to trade with you.", 4, s3);
                         }
                     } else if (s.startsWith(":highlight_clr:")) {
@@ -21706,10 +21739,14 @@ public class Client extends RSApplet {
                         if (friendsNodeIDs[k24] != i18) {
                             friendsNodeIDs[k24] = i18;
                             needDrawTabArea = true;
-                            /*
-                             * if (i18 >= 2) { pushMessage(s7 + " has logged in.", 5, ""); } if (i18 <= 1) {
-                             * pushMessage(s7 + " has logged out.", 5, ""); }
-                             */
+
+                            if (i18 >= 2) {
+                                pushMessage(s7 + " has logged in.", 5, "");
+                            }
+                            if (i18 <= 1) {
+                                pushMessage(s7 + " has logged out.", 5, "");
+                            }
+
                         }
                         s7 = null;
 
@@ -22492,8 +22529,11 @@ public class Client extends RSApplet {
                             rsi_1.invStackSizes[idx] = 0;
                         }
                         
-                        if (runelite != null && rsi_frame == 1688) {
-                        	callbacks.post(new ItemContainerChanged(getEquipment()));
+                        if (runelite != null) {
+                            if (rsi_frame == 3214)
+                                callbacks.post(new ItemContainerChanged(getInventory()));
+                            else if (rsi_frame == 1688)
+                        	    callbacks.post(new ItemContainerChanged(getEquipment()));
                         }
                         
                         if (rsi_frame == 24680) {
@@ -23397,7 +23437,7 @@ public class Client extends RSApplet {
 	};
 	
 	public ItemContainer getInventory() {
-		return equipment;
+		return inventory;
 	}
 	
 	private ItemContainer inventory = new ItemContainer() {

@@ -24,11 +24,11 @@
  */
 package net.runelite.client.plugins.prayer;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import javax.inject.Inject;
+
+import com.simplicity.Configuration;
 import net.runelite.api.Client;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
@@ -63,14 +63,13 @@ class PrayerFlickOverlay extends Overlay
 			return null;
 		}
 
-		Widget xpOrb = client.getWidget(WidgetInfo.MINIMAP_QUICK_PRAYER_ORB);
-		if (xpOrb == null || xpOrb.isHidden())
-		{
-			return null;
+		int orbX = com.simplicity.client.Client.getClient().getOrbX(1);
+		if (!Configuration.enableOldschoolFrame && !client.isResized()) {
+			orbX -= 25;
 		}
-
-		Rectangle2D bounds = xpOrb.getBounds().getBounds2D();
-		if (bounds.getX() <= 0)
+		int orbY = com.simplicity.client.Client.getClient().getOrbY(1);
+		Rectangle2D bounds = new Rectangle(orbX, orbY, 32, 32);
+		if (bounds.getX() < 0)
 		{
 			return null;
 		}

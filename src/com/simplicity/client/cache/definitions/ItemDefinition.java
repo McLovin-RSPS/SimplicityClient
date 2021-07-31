@@ -393,6 +393,9 @@ public final class ItemDefinition {
                 itemDef.name = "@red@Mystery Donation Scroll";
                 break;
                 
+	            //itemDef.maleEquip1 = 42279;
+	            //itemDef.femaleEquip1 = 42272;
+                
 	        case 52323:
 	        case 5085:
 	        case 12150:
@@ -403,6 +406,30 @@ public final class ItemDefinition {
 	        case 20085:
 	        case 21027:
 	        case 21540:
+	        	itemDef.femaleYOffset = -11;
+	        	itemDef.femaleXOffset = 6;
+	            itemDef.femaleZOffset = 11;
+	            itemDef.maleZOffset = -11;
+	        	break;
+	        	
+	        case 55739:
+	            itemDef.modelID = 42295;
+	            itemDef.actions = new String[5];
+	            itemDef.actions[1] = "Wield";
+	            itemDef.name = "@whi@Sanguine scythe of vitur";
+	            itemDef.stackable = false;
+	            itemDef.modelZoom = 2200;
+	            itemDef.rotationX = 23;
+	            itemDef.rotationY = 327;
+	            itemDef.maleEquip1 = 42279;
+	            itemDef.femaleEquip1 = 42272;
+	        	itemDef.femaleYOffset = -5;
+	        	itemDef.femaleXOffset = 8;
+	            itemDef.femaleZOffset = 4;
+	            break;
+	        	
+	        case 55731:
+                itemDef.name = "@whi@Holy mythical sanguinesti";
 	        	itemDef.femaleYOffset = -11;
 	        	itemDef.femaleXOffset = 6;
 	            itemDef.femaleZOffset = 11;
@@ -429,6 +456,7 @@ public final class ItemDefinition {
 	            break;
 
             case 52981:
+            case 53444:
                 itemDef.femaleYOffset += 5;
                 itemDef.maleYOffset += 5;
                 break;
@@ -488,7 +516,6 @@ public final class ItemDefinition {
 	            break;
 
 
-
             case 43299:
                 itemDef.name = "Kura";
                 itemDef.groundActions = new String[]{null, null, "Take", null, null};
@@ -498,26 +525,51 @@ public final class ItemDefinition {
                 break;
                 
             case 43305:
-                itemDef.name = "Sugi";
+                itemDef.copy(forID(55748));
+                itemDef.name = "Lil' maiden";
                 itemDef.groundActions = new String[]{null, null, "Take", null, null};
                 itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
-                itemDef.modelID = MobDefinition.forID(23360).models[0];
-                itemDef.modelZoom = 10000;
+                break;
+                
+            case 33306:
+                itemDef.name = "Mak3 the Goat";
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelID = MobDefinition.forID(4935).models[0];
+                itemDef.modelZoom = 1400;
+                break;
+                
+            case 33305:
+                itemDef.name = "Lil seren (inactive)";
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelID = MobDefinition.forID(23917).models[0];
+                itemDef.modelZoom = 600;
+                break;
+                
+            case 33307:
+                itemDef.name = "Lil seren";
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelID = MobDefinition.forID(18132).models[0];
+                itemDef.modelZoom = 600;
+                break;
+                
+            case 33308:
+                itemDef.name = "@whi@Superior Demon Baby";
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelID = MobDefinition.forID(18132).models[0];
+                itemDef.modelZoom = 6200;
                 break;
                 
             case 43306:
-                itemDef.name = "Blo";
+            	// 55749
+                itemDef.copy(forID(55749));
+                itemDef.name = "Lil' bloat";
                 itemDef.groundActions = new String[]{null, null, "Take", null, null};
                 itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
                 itemDef.modelID = MobDefinition.forID(23359).models[0];
-                itemDef.modelZoom = 10000;
-                break;
-                
-            case 21504:
-                itemDef.name = "Nylo";
-                itemDef.groundActions = new String[]{null, null, "Take", null, null};
-                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
-                itemDef.modelID = MobDefinition.forID(23355).models[0];
                 itemDef.modelZoom = 10000;
                 break;
                 
@@ -693,7 +745,7 @@ public final class ItemDefinition {
                 itemDef.editedModelColor = defVorki.editedModelColor;
                 itemDef.newModelColor = defVorki.newModelColor;
                 break;
-
+                
             case 50884:
                 itemDef.name = "@or2@Great Olm's crystal";
                 break;
@@ -719,6 +771,32 @@ public final class ItemDefinition {
                 itemDef.actions = def.actions;
                 itemDef.name = "Lava dragon teleport";
                 break;
+                
+	        case 43307:
+	        case 43308:
+	        case 43309:
+	        case 43310:
+	            itemDef.name = "Blood money";
+	            itemDef.editedModelColor = new int[] { 82 };
+	            itemDef.newModelColor = new int[] { 926 }; 
+	            break;
+	            
+	        case 43311:
+	        case 43312:
+	        case 43313:
+	        case 43314:
+	        case 43315:
+	            itemDef.name = "Blood money";
+	            itemDef.editedModelColor = new int[] { 8128 };
+	            itemDef.newModelColor = new int[] { 926 }; 
+	            break;
+	            
+	        case 43316:
+	            itemDef.name = "Blood money";
+	            itemDef.editedModelColor = new int[] { 8128 };
+	            itemDef.newModelColor = new int[] { 926 }; 
+	            break;
+                
             case 42603:
                 itemDef.name = "Ring of Bosses";
                 itemDef.actions = new String[5];
@@ -791,10 +869,10 @@ public final class ItemDefinition {
         stream = new Stream(streamLoader.getDataForName("obj.dat"));
         Stream streamIdx = new Stream(streamLoader.getDataForName("obj.idx"));
         streamOSRS = new Stream(streamLoader.getDataForName("obj3.dat"));
-        Stream streamOSRS = new Stream(streamLoader.getDataForName("obj3.idx"));
+        Stream streamOSRSIdx = new Stream(streamLoader.getDataForName("obj3.idx"));
 
         totalItems = streamIdx.readUnsignedWord();
-        totalItemsOSRS = streamOSRS.readUnsignedWord();
+        totalItemsOSRS = streamOSRSIdx.readUnsignedWord();
 
         streamIndices = new int[totalItems + 3000];
         streamIndicesOSRS = new int[totalItemsOSRS];
@@ -810,7 +888,7 @@ public final class ItemDefinition {
 
         for (int j = 0; j < totalItemsOSRS; j++) {
             streamIndicesOSRS[j] = i;
-            i += streamOSRS.readUnsignedWord();
+            i += streamOSRSIdx.readUnsignedWord();
         }
 
         cache = new ItemDefinition[10];
@@ -1455,6 +1533,161 @@ public final class ItemDefinition {
         } while (true);
     }
 
+    public void readValuesOSRS(Stream stream) {
+        for (;;) {
+            int i = stream.readUnsignedByte();
+            if (i == 0) {
+                return;
+            }
+            if (i == 1) {
+                modelID = stream.readUnsignedWord();
+            } else if (i == 2) {
+                name = stream.readStringOSRS();
+            } else if (i == 4) {
+                modelZoom = stream.readUnsignedWord();
+            } else if (i == 5) {
+                rotationY = stream.readUnsignedWord();
+            } else if (i == 6) {
+                rotationX = stream.readUnsignedWord();
+            } else if (i == 7) {
+                modelOffset1 = stream.readUnsignedWord();
+                if (modelOffset1 > 32767) {
+                    modelOffset1 -= 0x10000;
+                }
+            } else if (i == 8) {
+                modelOffsetY = stream.readUnsignedWord();
+                if (modelOffsetY > 32767) {
+                    modelOffsetY -= 0x10000;
+                }
+            } else if (i == 9) {
+                stream.readStringOSRS(); // unknown
+            } else if (i == 11) {
+                stackable = true;
+            } else if (i == 12) {
+                value = stream.getInt();
+            } else if (i == 16) {
+                membersObject = true;
+            } else if (i == 23) {
+                maleEquip1 = stream.readUnsignedWord();
+                femaleYOffset = (byte) stream.readUnsignedByte();
+            } else if (i == 24) {
+                maleEquip2 = stream.readUnsignedWord();
+            } else if (i == 25) {
+                femaleEquip1 = stream.readUnsignedWord();
+                maleYOffset = (byte) stream.readUnsignedByte();
+            } else if (i == 26) {
+                femaleEquip2 = stream.readUnsignedWord();
+            } else if (i >= 30 && i < 35) {
+                if (groundActions == null) {
+                    groundActions = new String[5];
+                }
+                groundActions[i - 30] = stream.readStringOSRS();
+                if (groundActions[i - 30].equalsIgnoreCase("hidden")) {
+                    groundActions[i - 30] = null;
+                }
+            } else if (i >= 35 && i < 40) {
+                if (actions == null) {
+                    actions = new String[5];
+                }
+                actions[i - 35] = stream.readStringOSRS();
+                if (actions[i - 35].equalsIgnoreCase("null")) {
+                    actions[i - 35] = null;
+                }
+            } else if (i == 40) {
+                int j = stream.readUnsignedByte();
+                editedModelColor = new int[j];
+                newModelColor = new int[j];
+                for (int k = 0; k < j; k++) {
+                    editedModelColor[k] = stream.readUnsignedWord();
+                    newModelColor[k] = stream.readUnsignedWord();
+                }
+            } else if (i == 41) {
+                int count = stream.readUnsignedByte();
+                short[] textureFind = new short[count];
+                short[] textureReplace = new short[count];
+
+                for (int t = 0; t < count; t++) {
+                    textureFind[t] = (short) stream.readUnsignedWord();
+                    textureReplace[t] = (short) stream.readUnsignedWord();
+                }
+            } else if (i == 42) {
+                stream.readSignedByte(); // shift click drop index
+            } else if (i == 65) {
+                //isTradeable
+            } else if (i == 78) {
+                maleEquip3 = stream.readUnsignedWord();
+            } else if (i == 79) {
+                femaleEquip3 = stream.readUnsignedWord();
+            } else if (i == 90) {
+                maleDialogue = stream.readUnsignedWord();
+            } else if (i == 91) {
+                femaleDialogue = stream.readUnsignedWord();
+            } else if (i == 92) {
+                maleDialogueModel = stream.readUnsignedWord();
+            } else if (i == 93) {
+                femaleDialogueModel = stream.readUnsignedWord();
+            } else if (i == 94) {
+                stream.readUnsignedWord(); // category
+            } else if (i == 95) {
+                modelOffsetX = stream.readUnsignedWord();
+            } else if (i == 97) {
+                certID = OSRS_ITEMS_OFFSET + stream.readUnsignedWord();
+            } else if (i == 98) {
+                certTemplateID = stream.readUnsignedWord();
+            } else if (i >= 100 && i < 110) {
+                if (stackIDs == null) {
+                    stackIDs = new int[10];
+                    stackAmounts = new int[10];
+                }
+                stackIDs[i - 100] = stream.readUnsignedWord() + OSRS_ITEMS_OFFSET;
+                stackAmounts[i - 100] = stream.readUnsignedWord();
+            } else if (i == 110) {
+                sizeX = stream.readUnsignedWord();
+            } else if (i == 111) {
+                sizeY = stream.readUnsignedWord();
+            } else if (i == 112) {
+                sizeZ = stream.readUnsignedWord();
+            } else if (i == 113) {
+                shadow = stream.readSignedByte();
+            } else if (i == 114) {
+                lightness = stream.readSignedByte() * 5;
+            } else if (i == 115) {
+                team = stream.readUnsignedByte();
+            } else if (i == 139) {
+                stream.readUnsignedWord();
+            } else if (i == 140) {
+                stream.readUnsignedWord();
+            } else if (i == 148) {
+                stream.readUnsignedWord();
+            } else if (i == 149) {
+                stream.readUnsignedWord();
+            } else if (i == 249) {
+                int length = stream.readUnsignedByte();
+                Map<Integer, Object> params = new HashMap<>(length);
+
+                for (int idx = 0; idx < length; idx++) {
+                    boolean isString = stream.readUnsignedByte() == 1;
+                    int key = stream.read24BitInt();
+                    Object value;
+
+                    if (isString)
+                    {
+                        value = stream.readStringOSRS();
+                    }
+
+                    else
+                    {
+                        value = stream.getInt();
+                    }
+
+                    params.put(key, value);
+                }
+            } else {
+                //System.out.println("Unrecognized opcode: " + i + " name: " + name + " id: " + id);
+            }
+        }
+    }
+
     public static void setSettings() {
         try {
             prices = new int[22694];
@@ -2024,18 +2257,18 @@ public final class ItemDefinition {
             43300, 10933, 10939, 10940, 10941, 10945, 14936, 14937, 14938, 14939, 13612, 13613, 13614, 13615, 13616, 13617, 13618, 13619, 13620, 54975, 22076,
             13621, 13622, 13623, 13624, 13625, 13626, 13627, 13628, 11296, 11297, 11298, 11299, 3070, 3071, 3072, 3073, 3074, 3075, 3076, 3077, 3078, 21560, 22101,
             43241, 52316, 21004, 13661, 13262, 20072, 16956, 16426, 16910, 605, 13320, 17273, 17274, 13321, 13322, 13323, 13324, 13325, 13326, 13327, 21540,
-            11995, 11996, 11997, 11978, 12001, 12002, 12003, 12004, 21024, 21025, 21026, 21087, 51748, 14935, 51791, 51793, 51795, 20085, 11951, 42653, 22046,
+            11995, 11996, 11997, 11978, 12001, 12002, 12003, 12004, 21024, 21025, 21026, 21087, 51748, 14935, 51791, 51793, 51795, 20085, 11951, 42653, 22046, 6203,
             12005, 12006, 11990, 11991, 11992, 11993, 11994, 11989, 11988, 11987, 11986, 11985, 11984, 11983, 14924, 14482, 22013, 54491, 53446, 53448, 51216, 51217, 51218, 51219, 51220, 51221, 51222,
             11982, 11981, 11980, 11979, 11967, 11969, 11970, 11971, 11972, 11973, 11974, 11975, 11976, 1590, 993, 6529, 6950, 1464, 2996,
             6570, 51214, 12158, 12159, 12160, 7986, 7981, 7980, 12163, 13247, 12655, 12646, 12161, 12162, 52473, 14924, 16580, 51027, 1961,
-            19143, 19149, 19146, 6500, 19157, 19162, 19152, 4155, 1543, 51992, 50851, 52319, 50851, 50852, 50854, 56018, 16430, 16429, 16428,
+            19143, 19149, 19146, 6500, 19157, 19162, 19152, 4155, 1543, 51992, 50851, 52319, 50851, 50852, 50854, 3244, 56018, 16430, 16429, 16428,
             8850, 10551, 8839, 16910, 19669, 8840, 16909, 8842, 11663, 11664, 19712, 52191, 52378, 19864, 11949, 2022, 3706, 21223,
             11665, 3842, 3844, 3840, 8844, 8845, 8846, 8847, 51507, 52441, 52746, 52747, 52748, 52749, 52750, 52751, 52752,
             8848, 8849, 8850, 10551, 7462, 7461, 7460, 51637, 52284, 10637, 52607, 50445, 14019, 50447, 43329, 52606, 21222,
             7459, 7458, 7457, 7456, 7455, 7454, 7453, 11665, 10499, 9748, 52325, 14548, 14549, 14550, 14551, 14552,
             9754, 9751, 9769, 9757, 9760, 9763, 9802, 9808, 14433, 14434, 14435, 14436, 14437, 14438, 43299,
             9784, 9799, 9805, 9781, 9796, 9793, 9775, 9772, 43081, 6927, 6928, 6929, 6930, 6931, 53448,
-            9778, 9787, 9811, 9766, 9749, 9755, 9752, 9770, 14037, 14036, 14035, 14033, 14034, 43305, 43306,
+            9778, 9787, 9811, 9766, 9749, 9755, 9752, 9770, 14037, 14036, 14035, 14033, 14034, 43305, 43306, 33305, 33307, 33308,
             9758, 9761, 9764, 9803, 9809, 9785, 9800, 9806, 14023, 14024, 14025, 12635, 12636, 12637, 12638, 12639, 12640, 12641,
             9782, 9797, 9794, 9776, 9773, 9779, 9788, 9812, 52_109, 19538, 11951, 20208,
             9767, 9747, 9753, 9750, 9768, 9756, 9759, 9762, 810, 51285, 9801, 9807, 9783, 9798, 9804, 9780, 9795, 9792,

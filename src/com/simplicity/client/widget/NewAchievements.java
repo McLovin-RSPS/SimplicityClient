@@ -15,14 +15,14 @@ public class NewAchievements extends CustomWidget implements WidgetButtonListene
 		addButtonListener(this);
 		addContainerListener(this);
 		int x = 14, y = 15;
-		add(addClosableWindow(484, 304, false, "Achievements"), x, y);
+		add(addClosableWindow(484, 304, false, "Master Achievements"), x, y);
 		add(achievementList(96100, 1), 6+x, 63+y);
 		achievementList(96205, 2);
 		achievementList(96310, 3);
 		achievementList(96415, 4);
 		add(addSpriteRepeatY(1277, 264), 154+x, 35+y);
-		String[] pages = {"PVP", "PVM", "Skilling", "Other"};
-		int[] icons = {1859, 1860, 1861, 1862};
+		String[] pages = {"PVM", "PVP", "Skilling", "Other"};
+		int[] icons = {1860, 1859, 1861, 1862};
 		for (int i = 0; i < 4; ++i) {
 			add(addConfigButton(pages[i], 1849, 1850, 5, i, 1631), 6 + x + (i * 37), 35+y);
 			add(addSprite(icons[i]), 6 + x + (i * 37) + 8, 40 + y);
@@ -52,10 +52,9 @@ public class NewAchievements extends CustomWidget implements WidgetButtonListene
 		add(addRectangle(195, 47, 0, 200, true), 165+x, 236+y);
 		add(addItemContainer(4, 1, 14, 1, null, ""), 174+x, 244+y);
 		RSInterface.fill(id - 1);
-		
-		add(addHoverButton(1858, "Claim Rewards"), 369+x, 235+y);
+
+		add(addDynamicButton("Claim", 2, 0xffb000, 5, 0, 102, 49), 369 + x, 235 + y);
 		add(addSprite(1794), 372+x, 243+y);
-		add(addCenteredText("Claim", 2, 0xffb000), 433+x, 251+y);
 	}
 
 	@Override
@@ -66,18 +65,18 @@ public class NewAchievements extends CustomWidget implements WidgetButtonListene
 	@Override
 	public boolean onClick(int id) {
 		switch(id) {
-		case 96012:
-			RSInterface.interfaceCache[96000].children[1] = 96100;
-			return true;
-		case 96014:
-			RSInterface.interfaceCache[96000].children[1] = 96205;
-			return true;
-		case 96016:
-			RSInterface.interfaceCache[96000].children[1] = 96310;
-			return true;
-		case 96018:
-			RSInterface.interfaceCache[96000].children[1] = 96415;
-			return true;
+//		case 96012:
+//			RSInterface.interfaceCache[96000].children[1] = 96100;
+//			return true;
+//		case 96014:
+//			RSInterface.interfaceCache[96000].children[1] = 96205;
+//			return true;
+//		case 96016:
+//			RSInterface.interfaceCache[96000].children[1] = 96310;
+//			return true;
+//		case 96018:
+//			RSInterface.interfaceCache[96000].children[1] = 96415;
+//			return true;
 		}
 		return false;
 	}
@@ -93,13 +92,19 @@ public class NewAchievements extends CustomWidget implements WidgetButtonListene
 		tab.width = 132;
 		tab.height = 235;
 		tab.scrollMax = 1300;
-		RSInterface.addSprite(96098, 1853);
-		RSInterface.addSprite(96099, 1854);
 		tab.totalChildren(200);
 		for (int i = 0; i < 100; ++i) {
-			RSInterface.addClickableText(++id, "", "Select", RSInterface.fonts, 0, 0xff981f, false, true, 132);
-			tab.child(i, i % 2 == 0 ? 96098 : 96099, 0, i * 13);
-			tab.child(i + 100, id, 2, 2 + (i * 13));
+			RSInterface.addRectangleClickable(++id, 50, i % 2 == 0 ? 0x564c42 : 0x483f33, true, 186, 14);
+			RSInterface.interfaceCache[id].hovers = true;
+			RSInterface.interfaceCache[id].setLayer(96000);
+			RSInterface.interfaceCache[id].enabledOpacity = 200;
+			RSInterface.interfaceCache[id].enabledColor = 0xffffff;
+			RSInterface.interfaceCache[id].enabledMouseOverColor = 0xffffff;
+			tab.child(i, id, 0, 2 + i * 14);
+
+			RSInterface.addText(++id,"", RSInterface.fonts, 0, 0xff981f );
+			RSInterface.interfaceCache[id].useNewFonts = true;
+			tab.child(i + 100, id, 2, 2 + (i * 14));
 		}
 		return tab;
 	}
