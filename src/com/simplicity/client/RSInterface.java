@@ -8000,6 +8000,28 @@ public class RSInterface {
         } catch (Exception e) {
         }
     }
+    
+    public static void addText(int i, String s, int k, boolean centre, boolean shadow, boolean alignRight, int hoverType, int size) {
+        try {
+            RSInterface rsinterface = addTabInterface(i);
+            rsinterface.parentID = i;
+            rsinterface.id = i;
+            rsinterface.type = 4;
+            rsinterface.atActionType = 0;
+            rsinterface.width = 0;
+            rsinterface.height = 0;
+            rsinterface.contentType = 0;
+            rsinterface.transparancy = 0;
+            rsinterface.hoverType = hoverType;
+            rsinterface.rightAlignText = alignRight;
+            rsinterface.centerText = centre;
+            rsinterface.shadowed = shadow;
+            rsinterface.textDrawingAreas = RSInterface.fonts[size];
+            rsinterface.message = s;
+            rsinterface.disabledColor = k;
+        } catch (Exception e) {
+        }
+    }
 
     public static RSInterface addText(int id, String text, int idx, int color) {
         RSInterface rsinterface = addTabInterface(id);
