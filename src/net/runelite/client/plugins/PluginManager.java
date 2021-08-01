@@ -69,6 +69,7 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.PluginChanged;
 import net.runelite.client.plugins.agility.AgilityPlugin;
 import net.runelite.client.plugins.ammo.AmmoPlugin;
+import net.runelite.client.plugins.blastfurnace.BlastFurnacePlugin;
 import net.runelite.client.plugins.boosts.BoostsPlugin;
 import net.runelite.client.plugins.config.ConfigPlugin;
 import net.runelite.client.plugins.discord.DiscordPlugin;
@@ -88,6 +89,7 @@ import net.runelite.client.plugins.prayer.PrayerPlugin;
 import net.runelite.client.plugins.screenshot.ScreenshotPlugin;
 import net.runelite.client.plugins.slayer.SlayerPlugin;
 import net.runelite.client.plugins.statusbars.StatusBarsPlugin;
+import net.runelite.client.plugins.statusorbs.StatusOrbsPlugin;
 import net.runelite.client.plugins.tileindicators.TileIndicatorsPlugin;
 import net.runelite.client.plugins.vote.VotePlugin;
 import net.runelite.client.plugins.xptracker.XpTrackerPlugin;
@@ -271,7 +273,9 @@ public class PluginManager
 				ObjectIndicatorsPlugin.class,
 				AgilityPlugin.class,
 				SlayerPlugin.class,
-				StatusBarsPlugin.class
+				StatusBarsPlugin.class,
+				StatusOrbsPlugin.class,
+				BlastFurnacePlugin.class
 		};
 		
 		for (Class<?> clazz : plugins)

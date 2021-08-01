@@ -2,14 +2,8 @@ package com.simplicity.client.widget.ge;
 
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.Client;
-import com.simplicity.client.cache.definitions.ItemDefinition;
-import com.simplicity.client.signlink;
 
-import java.io.DataInputStream;
-import java.io.EOFException;
-import java.io.FileInputStream;
 import java.util.*;
-import java.io.File;
 
 /**
  * A class that handles the grand exchange.
@@ -44,73 +38,9 @@ public class GrandExchange {
     }
 
     /**
-     * A collection of tradable items on the grand exchange.
-     */
-    private static List<Integer> ge_tradeable = new ArrayList<>();
-
-    /**
      * The client instance.
      */
     private static Client client = Client.getClient();
-
-    /**
-     * Initializes the grand exchange.
-     *
-     * @param totalItems The amount of total items.
-     */
-    public static void init(int totalItems) {
-        //loadTradeables();
-        //loadSearchables(totalItems);
-    }
-
-    /**
-     * Loads the tradeable items on the grand exchange.
-     */
-    private static void loadTradeables() {
-        File file = new File(signlink.findcachedir() + "data/ge_tradeables.dat");
-
-        if (!file.exists()) {
-            return;
-        }
-
-        try (DataInputStream in = new DataInputStream(new FileInputStream(file))) {
-            while (true) {
-                try {
-                    int id = in.readInt();
-                    ge_tradeable.add(id);
-                } catch (EOFException e) {
-                    break;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Loads the searchable items on the grand exchange.
-     *
-     * @param totalItems The amount of total items.
-     */
-    private static void loadSearchables(int totalItems) {
-        for (int i = 0; i < totalItems; i++) {
-            ItemDefinition def = ItemDefinition.forID(i);
-
-            if (def == null || def.name == null || def.name.isEmpty() || def.name.equals("null")) {
-                continue;
-            }
-
-            if (def.certTemplateID != -1) {
-                continue;
-            }
-
-            if (!ge_tradeable.contains(def.id)) {
-                continue;
-            }
-
-            items.put(def.id, new SearchItem(def.id, def.stackable, def.name));
-        }
-    }
 
     /**
      * Resets the search container.
@@ -161,8 +91,9 @@ public class GrandExchange {
             client.geSearchString = "";
         }
 
-        RSInterface container = getSearchContainer();
+        RSInterface.interfaceCache[GrandExchangeSearchWidget.WIDGET_ID + 1].scrollPosition = 0;
 
+        RSInterface container = getSearchContainer();
         container.inv = new int[container.inv.length];
 
         if (delete && input.isEmpty()) {
@@ -219,6 +150,18 @@ public class GrandExchange {
 
         Collections.sort(results, SEARCH_COMPARATOR);
         return results;
+    }
+
+    public static String format(final long quantity) {
+        if (quantity >= 100000 && quantity < 10000000) {
+            return "<col=FFFFFF>" + quantity / 1000 + "K";
+        } else if (quantity >= 10000000 && quantity <= 9999999999L) {
+            return "<col=00ff80>" + quantity / 1000000 + "M";
+        } else if (quantity >= 10000000000L && quantity <= Long.MAX_VALUE) {
+            return "<col=00ff80>" +  quantity / 1000000000L + "B";
+        } else {
+            return "" + quantity;
+        }
     }
 
 }

@@ -15,6 +15,9 @@ public class OldschoolMaps {
     private static final Map<Integer, Integer> OLDSCHOOL_REGIONS = new HashMap<>();
 
     public static int[] OLDSCHOOL_REGION_IDS = {
+            14650, 14651, 14652,
+            14906, 14907, 14908,
+            15162, 15163, 15164,
             12598, 12854, 13110,//varrock
             12597, 12853, 13109,//varrock
             12596, 12852, 13108,//varrock
@@ -27,6 +30,21 @@ public class OldschoolMaps {
             6457, // Great Kourand
             5179,  //Mount karuulm
             9772, // myth's guild
+            
+            7501, 6473, 9870, 9358, 9360, // seren map test
+            
+            14496, 14495, // Wyvern cave
+            9634, 9890, 9631, // caves
+            5277, // cave next to farming boss
+            
+            11675, // Warrior's guild basement
+            
+            14906, 14650, 14652, 14651, 14908, 14907, 15163,  // Hunter location Fossil Island OSRS
+                   
+            5432, 5433, // Lake Molch
+            11316, // Entrana maybe use for donator zone
+            
+            8757, 8754, 9010, 9265, 9013, 7483, 7482, // Elven fishing locations 
             
             5789, // CHASM OF FIRE
             
@@ -116,7 +134,9 @@ public class OldschoolMaps {
             12597, 12598, 12852, 12854, 13108, 13109, 13110,
             8755, 8756, 9011, 9012, // Priffdinas
             6455, 10819, // Mimic
-            13914, 13915, 13658, 13659, 13617, 12344, 12600, 13918, 13919, 13920, 14174, 14175, 14176, 14430, 14431, 14432 // LMS
+            13914, 13915, 13658, 13659, 13617, 12344, 12600, 13918, 13919, 13920, 14174, 14175, 14176, 14430, 14431, 14432, // LMS
+            8259,
+            12588, 12332, 12078 // tempoross
     };
     static {
         for(Integer region : OLDSCHOOL_REGION_IDS) {

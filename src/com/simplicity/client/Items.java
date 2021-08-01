@@ -43,7 +43,7 @@ public class Items {
             itemDef.id = OSRS_ITEMS_OFFSET + itemId;
             itemDef.dataType = DataType.OLDSCHOOL;
             itemDef.setDefaults();
-            itemDef.readValues(streamOSRS);
+            itemDef.readValuesOSRS(streamOSRS);
 
             if (itemDef.certTemplateID != -1) {
                 itemDef.toNote();
@@ -99,8 +99,11 @@ public class Items {
         if (untradeableItems.contains(itemDef.id)) {
             itemDef.untradeable = true;
         }
-        itemDef.value = prices[itemDef.id];
-        
+
+        if (itemDef.id < prices.length) {
+            itemDef.value = prices[itemDef.id];
+        }
+
         CustomItems.loadDefinition(itemDef);
         CustomItems2.loadDefinition(itemDef);
         CustomItems3.loadDefinition(itemDef);

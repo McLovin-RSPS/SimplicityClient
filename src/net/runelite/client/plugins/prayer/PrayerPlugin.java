@@ -35,16 +35,13 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
 import net.runelite.api.Constants;
-import net.runelite.api.InventoryID;
-import net.runelite.api.Item;
-import net.runelite.api.ItemContainer;
+import com.simplicity.client.container.item.ItemContainer;
+import com.simplicity.client.Item;
 import net.runelite.api.Prayer;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.api.Skill;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.ItemContainerChanged;
-import net.runelite.api.widgets.Widget;
-import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.game.ItemManager;
@@ -111,6 +108,7 @@ public class PrayerPlugin extends Plugin
 		overlayManager.add(flickOverlay);
 		overlayManager.add(doseOverlay);
 		overlayManager.add(barOverlay);
+		client().setUsingPrayerPlugin(config.replaceOrbText());
 	}
 
 	@Override
@@ -127,23 +125,25 @@ public class PrayerPlugin extends Plugin
 	{
 		if (event.getGroup().equals("prayer"))
 		{
-			if (!config.prayerIndicator())
+			/*if (!config.prayerIndicator())
 			{
 				removeIndicators();
 			}
-			else if (!config.prayerIndicatorOverheads())
+			else */if (!config.prayerIndicatorOverheads())
 			{
 				removeOverheadsIndicators();
 			}
+
+			client().setUsingPrayerPlugin(config.replaceOrbText());
 		}
 	}
 
 	@Subscribe
 	public void onItemContainerChanged(final ItemContainerChanged event)
 	{
-		/*final ItemContainer container = event.getItemContainer();
-		final ItemContainer inventory = client.getItemContainer(InventoryID.INVENTORY);
-		final ItemContainer equipment = client.getItemContainer(InventoryID.EQUIPMENT);
+		final ItemContainer container = event.getItemContainer();
+		final ItemContainer inventory = client().getInventory();
+		final ItemContainer equipment = client().getEquipment();
 
 		if (container == inventory || container == equipment)
 		{
@@ -161,7 +161,7 @@ public class PrayerPlugin extends Plugin
 				prayerBonus = checkContainerForPrayer(equipment.getItems());
 			}
 
-		}*/
+		}
 	}
 
 	@Subscribe
@@ -189,7 +189,7 @@ public class PrayerPlugin extends Plugin
 			setPrayerOrbText(getEstimatedTimeRemaining(true));
 		}
 
-		if (!config.prayerIndicator())
+		/*if (!config.prayerIndicator())
 		{
 			return;
 		}
@@ -220,7 +220,7 @@ public class PrayerPlugin extends Plugin
 				infoBoxManager.removeInfoBox(prayerCounter[ord]);
 				prayerCounter[ord] = null;
 			}
-		}
+		}*/
 	}
 
 	private int checkContainerForPrayer(Item[] items)
@@ -243,7 +243,7 @@ public class PrayerPlugin extends Plugin
 				continue;
 			}
 
-			final PrayerRestoreType type = PrayerRestoreType.getType(item.getId());
+			final PrayerRestoreType type = PrayerRestoreType.getType(item.ID);
 
 			if (type != null)
 			{
@@ -251,12 +251,15 @@ public class PrayerPlugin extends Plugin
 				{
 					case PRAYERPOT:
 						hasPrayerPotion = true;
+						total += 7;
 						break;
 					case RESTOREPOT:
 						hasSuperRestore = true;
+						total += 8;
 						break;
 					case SANFEWPOT:
 						hasSanfew = true;
+						total += 4;
 						break;
 					case HOLYWRENCH:
 						doseOverlay.setHasHolyWrench(true);
@@ -321,11 +324,7 @@ public class PrayerPlugin extends Plugin
 
 	private void setPrayerOrbText(String text)
 	{
-		/*Widget prayerOrbText = client.getWidget(WidgetInfo.MINIMAP_PRAYER_ORB_TEXT);
-		if (prayerOrbText != null)
-		{
-			prayerOrbText.setText(text);
-		}*/
+		client().setPrayerString(text);
 	}
 
 	private static double getPrayerDrainRate(Client client)

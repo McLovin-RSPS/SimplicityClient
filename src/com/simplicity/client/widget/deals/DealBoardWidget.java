@@ -73,18 +73,16 @@ public class DealBoardWidget extends CustomWidget {
         add(addSprite(1849), x + 2 + 342, y - 10);
         add(addSprite(1849), x + 2 + width - 43, y - 10);
 
-        add(addText("$0", 0, 0xffff00, false), x + 9, y - 21);
-        add(addText("$100", 0, 0xffff00, false), x + 6 + 103, y - 21);
-        add(addText("$250", 0, 0xffff00, false), x + 6 + 222, y - 21);
-        add(addText("$350", 0, 0xffff00, false), x + 6 + 342, y - 21);
-        add(addText("$500", 0, 0xffff00, false), x + 6 + width - 43, y - 21);
+        add(addText("", 0, 0xffff00, false), x + 9, y - 21);
+        add(addText("", 0, 0xffff00, false), x + 6 + 103, y - 21);
+        add(addText("", 0, 0xffff00, false), x + 6 + 222, y - 21);
+        add(addText("", 0, 0xffff00, false), x + 6 + 342, y - 21);
+        add(addText("", 0, 0xffff00, false), x + 6 + width - 43, y - 21);
 
         int[] cX = new int[] { x + 3 + 103, x + 4 + 222, x + 4 + 342, x + 4 + width - 43 };
 
         for (int i = 0; i < cX.length; i++) {
             RSInterface container = addItemContainer(1, 1, 44, 0, new String[0], "");
-            container.inv[0] = 52993 + 1;
-            container.invStackSizes[0] = 1;
             add(container, cX[i], y - 7);
         }
 

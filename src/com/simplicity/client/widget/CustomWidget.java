@@ -230,7 +230,7 @@ public abstract class CustomWidget {
         id++;
         return tab;
     }
-    
+    //
 	/**
 	 * Adds a closable window
 	 * 
@@ -250,7 +250,8 @@ public abstract class CustomWidget {
     	
     	RSInterface window = addWindow(width, height, modernBorder);
     	RSInterface titles = addCenteredText(title, 2, 0xFF981F);
-    	RSInterface close = addButton(1068, 1069, "Close Window", 250, 3);
+        RSInterface close = hoverButton(1068, 1069, "Close Window").setActionType(3);
+        id += 3;
     	RSInterface separator = addHorizontalSeparator(width - 10, modernBorder);
     	
     	tab.child(child++, window.id, 0, 0);
@@ -291,6 +292,23 @@ public abstract class CustomWidget {
     	return addWrapper(width, 6, rsi);
     }
     
+    /**
+	 * Adds a vertical separator.
+	 * 
+	 * @param width        The width.
+	 * @param modernBorder Whether to use the modern border or not.
+	 * @return The separator inside a wrapper.
+	 */
+    public RSInterface addVerticalSeparator(int height, boolean modernBorder) {
+    	RSInterface rsi = RSInterface.addInterface(id);
+    	rsi.componentId = id++;
+    	rsi.type = 26;
+    	rsi.width = 10;
+    	rsi.height = height;
+    	rsi.modernWindow = modernBorder;
+    	return addWrapper(10, height, rsi);
+    }
+    
 	/**
 	 * Adds a wrapper around the specified interface.
 	 * 
@@ -311,6 +329,7 @@ public abstract class CustomWidget {
                                              String... actions) {
         RSInterface tab = RSInterface.addTabInterface(id);
         tab.componentId = id;
+        tab.layerId = mainId;
         tab.parentID = id;
         tab.id = id;
         tab.disabledColor = color;
@@ -384,6 +403,7 @@ public abstract class CustomWidget {
     public RSInterface addHoverOpacityButton(int spriteId, int hoverOpacity, String tooltip) {
     	RSInterface rsi = RSInterface.addInterface(id);
     	rsi.componentId = id;
+        rsi.layerId = mainId;
     	rsi.id = id;
     	rsi.type = 47;
     	rsi.disabledSprite = Client.cacheSprite[spriteId];
@@ -413,6 +433,7 @@ public abstract class CustomWidget {
     public RSInterface addHoverOpacityButton(int backgroundSprite, int iconId, int iconX, int iconY, int hoverOpacity, String tooltip) {
     	RSInterface rsi = RSInterface.addInterface(id);
     	rsi.componentId = id;
+        rsi.layerId = mainId;
     	rsi.id = id;
     	rsi.type = 45;
     	rsi.disabledSprite = Client.cacheSprite[backgroundSprite];
@@ -451,15 +472,15 @@ public abstract class CustomWidget {
     }
 
     public RSInterface configButton(String tooltip, int enabledSprite, int disabledSprite) {
-        return RSInterface.configButton(id++, tooltip, enabledSprite, disabledSprite);
+        return RSInterface.configButton(id++, tooltip, enabledSprite, disabledSprite).setLayer(mainId);
     }
 
     public RSInterface hoverButton(int disabledSprite, int enabledSprite, String tooltip) {
-        return RSInterface.hoverButton(id++, disabledSprite, enabledSprite, tooltip);
+        return RSInterface.hoverButton(id++, disabledSprite, enabledSprite, tooltip).setLayer(mainId);
     }
 
     public RSInterface hoverButton(int disabledSprite, int enabledSprite, String[] actions) {
-        return RSInterface.hoverButton(id++, disabledSprite, enabledSprite, actions);
+        return RSInterface.hoverButton(id++, disabledSprite, enabledSprite, actions).setLayer(mainId);
     }
 
     public RSInterface addConfigButton(String tooltip, int sprite1, int sprite2, int aT, int configSlot, int configId) {
@@ -469,6 +490,7 @@ public abstract class CustomWidget {
         tab.type = 5;
         tab.atActionType = aT;
         tab.componentId = id;
+        tab.layerId = mainId;
         tab.contentType = 0;
         Sprite sprite = Client.cacheSprite[sprite1];
         tab.width = sprite.myWidth;
@@ -486,6 +508,7 @@ public abstract class CustomWidget {
         tab.disabledSprite = sprite;
         tab.enabledSprite = Client.cacheSprite[sprite2];
         tab.tooltip = tooltip;
+        id++;
         return tab;
     }
 
@@ -529,12 +552,6 @@ public abstract class CustomWidget {
     	return rsi;
     }
 
-    public RSInterface addProgressBar(int width, int height, int color, int textColor, int transparency) {
-        RSInterface rsi = RSInterface.addPercentageBar(id, width, height, 50, color, textColor, transparency);
-        rsi.componentId = id++;
-        return rsi;
-    }
-
     public RSInterface addGeProgress(int width, int height) {
         return RSInterface.addGeProgress(id++,width,height);
     }
@@ -566,6 +583,7 @@ public abstract class CustomWidget {
         return tab;
     }
     
+    
     public RSInterface addModel(int modelID, int zoom, int rotation1, int rotation2, DataType dataType) {
     	RSInterface rsi = RSInterface.addModel(id, modelID, zoom, rotation1, rotation2, dataType);
     	rsi.componentId = id;
@@ -594,6 +612,7 @@ public abstract class CustomWidget {
    public RSInterface addToggleButton(String tooltip, int enabledSprite, int disabledSprite) {
 		RSInterface tab = RSInterface.addTabInterface(id);
 		tab.componentId = id;
+        tab.layerId = mainId;
 		tab.tooltip = tooltip;
 		tab.atActionType = 1;
 		tab.type = 19;
@@ -610,6 +629,7 @@ public abstract class CustomWidget {
 			boolean center) {
 		RSInterface tab = RSInterface.addTabInterface(id);
 		tab.componentId = id;
+        tab.layerId = mainId;
 		tab.tooltip = tooltip;
 		tab.atActionType = 1;
 		tab.type = 19;
@@ -627,6 +647,7 @@ public abstract class CustomWidget {
 			boolean center, boolean active, boolean selected) {
 		RSInterface tab = RSInterface.addTabInterface(id);
 		tab.componentId = id;
+        tab.layerId = mainId;
 		tab.tooltip = tooltip;
 		tab.atActionType = 1;
 		tab.type = 40;
@@ -656,7 +677,7 @@ public abstract class CustomWidget {
 
         tab.width = width;
         tab.height = height;
-        
+
         RSInterface.addHoverButton(id, disabledSprite, width, height, tooltip, contentType, id + 1, actionType);
         RSInterface.addHoveredButton(id + 1, enabledSprite, width, height, id + 2);
         tab.child(frame++, id, 0, 0);
@@ -684,7 +705,9 @@ public abstract class CustomWidget {
         tab.height = height;
 
         RSInterface.addHoverButton(id, sprite1, width, height, "Select @lre@" + name, -1, id + 1, 5);
+        getWidget(id).setLayer(mainId);
         RSInterface.addHoveredButton(id + 1, sprite2, width, height, id + 2);
+        getWidget(id + 1).setLayer(mainId);
         tab.child(frame++, id, 0, 0);
         tab.child(frame++, id + 1, 0, 0);
         id += 3;
@@ -705,42 +728,71 @@ public abstract class CustomWidget {
         return tab;
     }
     
-	/**
-	 * Adds a dynamic button with a text attached to it.
-	 * 
-	 * @param name      The name.
-	 * @param textSize  The text size.
-	 * @param textColor The text color.
-	 * @param width     The width.
-	 * @param height    The height.
-	 * @return RSInterface for chaining.
-	 */
-    public RSInterface addDynamicButton(String name, int textSize, int textColor, int width, int height) {
-    	RSInterface rsi = RSInterface.addInterface(id, width, height);
-    	rsi.componentId = id++;
-    	rsi.totalChildren(2);
-    	
-    	RSInterface button = RSInterface.addInterface(id, width, height);
-    	button.componentId = id++;
-    	button.type = 41;
-    	button.atActionType = 1;
-    	button.contentType = 0;
-    	button.tooltip = name;
-    	button.hovers = true;
-    	
-    	int textHeight = 13 + textSize;
-    	
-    	int textDecrease = textSize > 1 ? -1 : 1;
-    	
-    	RSInterface text = addText(name, textSize, textColor, true, false, false, true);
-    	rsi.child(0, button.id, 0, 0);
-    	rsi.child(1, text.id, width / 2, ((height / 2) - (textHeight / 2)) + (textSize == 0 ? +textDecrease : -textDecrease));
-
-    	Widget.componentForMain.put(button.id, mainId);
-    	Widget.componentForMain.put(text.id, mainId);
-    	return rsi;
-    }
     
+    public RSInterface addHoverButton(int sprite, String tooltip) {
+    	RSInterface.addHoverButton(id, sprite, Client.cacheSprite[sprite].myWidth, Client.cacheSprite[sprite].myHeight, tooltip, -1, id + 1, 1);
+    	return RSInterface.interfaceCache[id++].setLayer(mainId);
+    }
+    public RSInterface addHoveredButton(int sprite) {
+    	RSInterface.addHoveredButton(id, sprite, Client.cacheSprite[sprite].myWidth, Client.cacheSprite[sprite].myHeight, id + 1);
+    	RSInterface button = RSInterface.interfaceCache[id].setLayer(mainId);
+    	id += 2;
+    	return button;
+    }
+
+    /**
+     * Adds a dynamic button with a text attached to it.
+     *
+     * @param name      The name.
+     * @param textSize  The text size.
+     * @param textColor The text color.
+     * @param width     The width.
+     * @param height    The height.
+     * @return RSInterface for chaining.
+     */
+    public RSInterface addDynamicButton(String name, int textSize, int textColor, int width, int height) {
+        return addDynamicButton(name, textSize, textColor, 0, 0, width, height);
+    }
+
+    /**
+     * Adds a dynamic button with a text attached to it.
+     *
+     * @param name      The name.
+     * @param textSize  The text size.
+     * @param textColor The text color.
+     * @param textXOff  The text x offset.
+     * @param textYOff  The text y offset.
+     * @param width     The width.
+     * @param height    The height.
+     * @return RSInterface for chaining.
+     */
+    public RSInterface addDynamicButton(String name, int textSize, int textColor, int textXOff, int textYOff, int width, int height) {
+        RSInterface rsi = RSInterface.addInterface(id, width, height);
+        rsi.componentId = id++;
+        rsi.totalChildren(2);
+
+        RSInterface button = RSInterface.addInterface(id, width, height);
+        button.componentId = id++;
+        button.layerId = mainId;
+        button.type = 41;
+        button.atActionType = 1;
+        button.contentType = 0;
+        button.tooltip = name;
+        button.hovers = true;
+
+        int textHeight = 13 + textSize;
+
+        int textDecrease = textSize > 1 ? -1 : 1;
+
+        RSInterface text = addText(name, textSize, textColor, true, false, false, true);
+        rsi.child(0, button.id, 0, 0);
+        rsi.child(1, text.id, width / 2 + textXOff, ((height / 2) - (textHeight / 2)) + (textSize == 0 ? +textDecrease : -textDecrease) + textYOff);
+
+        Widget.componentForMain.put(button.id, mainId);
+        Widget.componentForMain.put(text.id, mainId);
+        return rsi;
+    }
+
     public RSInterface addButtonList(String[] list, int sprite1, int sprite2, int textSize, int colour, int offset,
                                      boolean verticle) {
         RSInterface tab = RSInterface.addTabInterface(id);
@@ -775,6 +827,7 @@ public abstract class CustomWidget {
     public RSInterface addField(int width, int height, String text, String tooltip) {
     	RSInterface rsi = RSInterface.addInterface(id);
     	rsi.componentId = id++;
+    	rsi.layerId = mainId;
     	rsi.type = 42;
     	rsi.width = width;
     	rsi.height = height;
@@ -1021,7 +1074,7 @@ public abstract class CustomWidget {
     }
 
     public RSInterface addStoneButton(int width, int height, int color, int hoverColor, String text) {
-        return RSInterface.addStoneButton(id++, width, height, color, hoverColor, text);
+        return RSInterface.addStoneButton(id++, width, height, color, hoverColor, text).setLayer(mainId);
     }
 
     public RSInterface dropdownMenu(int width, int defaultOption, String[] options, Dropdown d) {
@@ -1046,6 +1099,12 @@ public abstract class CustomWidget {
 
     public static RSInterface getWidget(int widgetId) {
         return RSInterface.interfaceCache[widgetId];
+    }
+
+    public void clearText(int from, int to) {
+        for (int i = from; i <= to; i++) {
+            RSInterface.interfaceCache[i].message = "";
+        }
     }
     
 }

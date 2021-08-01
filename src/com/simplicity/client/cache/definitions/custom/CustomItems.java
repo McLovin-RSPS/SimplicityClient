@@ -806,6 +806,17 @@ public class CustomItems {
 				itemDef.dataType = DataType.CUSTOM;
 				itemDef.modelID = 94;
 				break;
+				
+			case 6203:
+				itemDef.copy(ItemDefinition.forID(6830));
+				itemDef.name = "@red@Kevin's Owner Box (Overlord)";
+				itemDef.modelZoom = 3100;
+				itemDef.animateInventory = true;
+				itemDef.dataType = DataType.CUSTOM;
+				itemDef.modelID = 94;
+	        	itemDef.editedModelColor = new int[] { 40 };
+	        	itemDef.newModelColor = new int[] { 61 };
+				break;
                 
             case 6835:
                 itemDef.copy(ItemDefinition.forID(6830));

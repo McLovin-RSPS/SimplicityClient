@@ -29,9 +29,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 import java.time.Duration;
 import java.time.Instant;
 import javax.inject.Inject;
+
+import com.simplicity.Configuration;
 import lombok.AccessLevel;
 import lombok.Setter;
 import net.runelite.api.Client;
@@ -96,21 +99,21 @@ class PrayerDoseOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		final Widget xpOrb = client.getWidget(WidgetInfo.MINIMAP_QUICK_PRAYER_ORB);
-		if (xpOrb == null || xpOrb.isHidden())
-		{
-			return null;
+		int orbX = com.simplicity.client.Client.getClient().getOrbX(1) + 2;
+		int orbY = com.simplicity.client.Client.getClient().getOrbY(1) + 3;
+		if (!Configuration.enableOldschoolFrame && !client.isResized()) {
+			orbX -= 24;
+			orbY -= 1;
 		}
-
-		final Rectangle bounds = xpOrb.getBounds();
-		if (bounds.getX() <= 0)
+		Rectangle2D bounds = new Rectangle(orbX, orbY, 27, 27);
+		if (bounds.getX() < 0)
 		{
 			return null;
 		}
 
 		final Point mousePosition = client.getMouseCanvasPosition();
 
-		if (config.showPrayerStatistics() && bounds.contains(mousePosition.getX(), mousePosition.getY()))
+		/*if (config.showPrayerStatistics() && bounds.contains(mousePosition.getX(), mousePosition.getY()))
 		{
 			final StringBuilder sb = new StringBuilder();
 
@@ -125,7 +128,7 @@ class PrayerDoseOverlay extends Overlay
 
 			sb.append("</br>").append("Prayer Bonus: ").append(plugin.getPrayerBonus());
 			tooltipManager.add(new Tooltip(sb.toString()));
-		}
+		}*/
 
 		if (!config.showPrayerDoseIndicator() || !hasPrayerRestore)
 		{
@@ -155,7 +158,7 @@ class PrayerDoseOverlay extends Overlay
 		final int orbInnerSize = (int) bounds.getHeight();
 
 		final int orbInnerX = (int) (bounds.getX() + 24); // x pos of the inside of the prayer orb
-		final int orbInnerY = (int) (bounds.getY() - 1); // y pos of the inside of the prayer orb
+		final int orbInnerY = (int) (bounds.getY()); // y pos of the inside of the prayer orb
 
 		final long timeSinceLastTick = Duration.between(startOfLastTick, Instant.now()).toMillis();
 

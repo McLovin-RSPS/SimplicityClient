@@ -185,6 +185,11 @@ public final class Stream extends QueueNode {
 		return ((buffer[currentOffset - 3] & 0xff) << 16) + ((buffer[currentOffset - 2] & 0xff) << 8) + (buffer[currentOffset - 1] & 0xff);
 	}
 
+	public int read24BitInt() {
+		currentOffset += 3;
+		return ((buffer[currentOffset - 3] & 255) << 16) + (buffer[currentOffset - 1] & 255) + ((buffer[currentOffset - 2] & 255) << 8);
+	}
+
 	public int readUnsignedWord() {
 		currentOffset += 2;
 		return ((buffer[currentOffset - 2] & 0xff) << 8)
@@ -231,6 +236,49 @@ public final class Stream extends QueueNode {
 		while (buffer[currentOffset++] != 10)
 			;
 		return new String(buffer, i, currentOffset - i - 1);
+	}
+
+	public String readStringOSRS() {
+		int var1 = currentOffset;
+
+		while (buffer[++currentOffset - 1] != 0) {
+		}
+
+		int var2 = currentOffset - var1 - 1;
+		return var2 == 0 ? "" : method1297(buffer, var1, var2);
+	}
+
+	private static final char[] CHARACTERS = new char[]
+			{
+					'\u20ac', '\u0000', '\u201a', '\u0192', '\u201e', '\u2026',
+					'\u2020', '\u2021', '\u02c6', '\u2030', '\u0160', '\u2039',
+					'\u0152', '\u0000', '\u017d', '\u0000', '\u0000', '\u2018',
+					'\u2019', '\u201c', '\u201d', '\u2022', '\u2013', '\u2014',
+					'\u02dc', '\u2122', '\u0161', '\u203a', '\u0153', '\u0000',
+					'\u017e', '\u0178'
+			};
+
+	public static String method1297(byte[] var0, int var1, int var2) {
+		char[] var3 = new char[var2];
+		int var4 = 0;
+
+		for(int var5 = 0; var5 < var2; ++var5) {
+			int ch = var0[var5 + var1] & 255;
+			if(ch != 0) {
+				if(ch >= 128 && ch < 160) {
+					char var7 = CHARACTERS[ch - 128];
+					if(var7 == 0) {
+						var7 = '?';
+					}
+
+					ch = var7;
+				}
+
+				var3[var4++] = (char)ch;
+			}
+		}
+
+		return new String(var3, 0, var4);
 	}
 
 	public byte[] readBytes() {

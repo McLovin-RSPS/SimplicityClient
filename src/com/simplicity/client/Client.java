@@ -133,10 +133,7 @@ import com.simplicity.client.widget.Widget;
 import com.simplicity.client.widget.WildernessWidget;
 import com.simplicity.client.widget.deals.DealBoardWidget;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
-import com.simplicity.client.widget.ge.GrandExchange;
-import com.simplicity.client.widget.ge.GrandExchangeListingsWidget;
-import com.simplicity.client.widget.ge.GrandExchangeMainWidget;
-import com.simplicity.client.widget.ge.GrandExchangeSearchWidget;
+import com.simplicity.client.widget.ge.*;
 import com.simplicity.client.widget.raids.cox.XericPointsWidget;
 import com.simplicity.client.widget.raids.nightmare.BossHealthOverlay;
 import com.simplicity.client.widget.raids.nightmare.TotemsOverlay;
@@ -180,6 +177,7 @@ import net.runelite.api.events.StatChanged;
 import net.runelite.client.RuneLite;
 import net.runelite.client.callback.Hooks;
 import net.runelite.client.plugins.PluginManager;
+import org.apache.commons.lang3.math.NumberUtils;
 
 @SuppressWarnings("all")
 public class Client extends RSApplet {
@@ -1980,6 +1978,22 @@ public class Client extends RSApplet {
     private boolean prayClicked;
     private String prayerBook;
 
+    private boolean usingPrayerPlugin;
+
+    public void setUsingPrayerPlugin(boolean enabled) {
+        this.usingPrayerPlugin = enabled;
+    }
+
+    private String prayerString = "";
+
+    public String getPrayerString() {
+        return prayerString;
+    }
+
+    public void setPrayerString(String prayerString) {
+        this.prayerString = prayerString;
+    }
+
     public void drawPrayerOrb() {
         int currentPray = currentStats[5] / 10;
         if (currentPray <= 0 && quickPrsActive) {
@@ -2002,18 +2016,20 @@ public class Client extends RSApplet {
         if (clientSize == 0 && Configuration.enableOldschoolFrame) {
         	textX -= 28;
         }
+
+        String prayerString = usingPrayerPlugin && !getPrayerString().isEmpty() ? getPrayerString() : Integer.toString(currentPray);
         
         if (prayer >= 75) {
-            newSmallFont.drawCenteredString(Integer.toString(currentPray), textX, y + 26,
+            newSmallFont.drawCenteredString(prayerString, textX, y + 26,
                     65280, 0);
         } else if (prayer <= 74 && prayer >= 50) {
-            newSmallFont.drawCenteredString(Integer.toString(currentPray), textX, y + 26,
+            newSmallFont.drawCenteredString(prayerString, textX, y + 26,
                     0xffff00, 0);
         } else if (prayer <= 49 && prayer >= 25) {
-            newSmallFont.drawCenteredString(Integer.toString(currentPray), textX, y + 26,
+            newSmallFont.drawCenteredString(prayerString, textX, y + 26,
                     0xfca607, 0);
         } else if (prayer <= 24 && prayer >= 0) {
-            newSmallFont.drawCenteredString(Integer.toString(currentPray), textX, y + 26,
+            newSmallFont.drawCenteredString(prayerString, textX, y + 26,
                     0xf50d0d, 0);
 
         }
@@ -4974,8 +4990,8 @@ public class Client extends RSApplet {
 
             int hoverYOff = clientSize != 0 && mouseInTabArea() ? -3 : 0;
 
-			boolean hover = mouseX >= childX && mouseY >= childY
-                    && mouseX <= childX + child.width && mouseY <= childY + child.height + hoverYOff;
+			boolean hover = mouseX >= childX && mouseY > childY
+                    && mouseX <= childX + child.width && mouseY < childY + child.height + hoverYOff;
 			if (child.id == SettingsWidget.ADVANCED) {
 				hover = mouseX >= childX && mouseY >= childY + 7 - child.height / 2 && mouseX < childX + child.width && mouseY < childY - 9 + child.height;
 			}
@@ -5098,7 +5114,7 @@ public class Client extends RSApplet {
                     menuActionRow++;
                 }
                 if (child.atActionType == 5 && mouseX >= childX && mouseY >= childY && mouseX <= childX + child.width
-                        && mouseY <= childY + child.height) {
+                        && mouseY < childY + child.height) {
                     if (child.tooltip2 != null) {
                         menuActionName[menuActionRow] = child.tooltip2
                                 + ((myRights != 0) ? ", @gre@(@whi@" + (child.id + 1) + "@gre@)" : "");
@@ -5352,7 +5368,8 @@ public class Client extends RSApplet {
                                                 || openInterfaceID == 2700 || openInterfaceID == 24700
                                                 || openInterfaceID == 24600 && child.parentID == 3323
                                                 || child.parentID == 2901 || child.parentID == 2902
-                                                || child.parentID == 2903 || child.parentID == 2904 || child.id == GrandExchangeSearchWidget.WIDGET_ID + 2;
+                                                || child.parentID == 2903 || child.parentID == 2904 || child.id == GrandExchangeSearchWidget.WIDGET_ID + 2
+                                                || child.id == GrandExchangeStatusWidget.COLLECT_CONTAINER_ID;
 
                                         if (child.actions != null) {
 
@@ -5395,6 +5412,19 @@ public class Client extends RSApplet {
 	                                                        // examine
 	                                                        // option
 	                                                    }
+
+	                                                    if (child.id == GrandExchangeStatusWidget.COLLECT_CONTAINER_ID) {
+	                                                        if (itemDef.id == 995) {
+                                                                menuActionName[menuActionRow] = "Collect-to-pouch @lre@"
+                                                                        + itemDef.name;
+                                                                menuActionID[menuActionRow] = 632;
+                                                                menuActionCmd1[menuActionRow] = itemDef.id;
+                                                                menuActionCmd2[menuActionRow] = ptr;
+                                                                menuActionCmd3[menuActionRow] = child.id;
+                                                                menuActionRow++;
+                                                                break;
+                                                            }
+                                                        }
 
 	                                                    if (openInterfaceID == 5292) {
 	                                                        // Placeholder releasing
@@ -8692,6 +8722,11 @@ public class Client extends RSApplet {
             tabAreaAltered = true;
         }
 
+        if (interfaceId == 957) {
+            variousSettings[287] = variousSettings[502] = variousSettings[502] == 1 ? 0 : 1;
+            handleActions(287);
+        }
+
         if (openInterfaceID == 60000) {
             switch (interfaceId) {
                 case 60005:
@@ -9181,6 +9216,12 @@ public class Client extends RSApplet {
 			if (SettingsWidget.handleButton(interfaceId, currentActionMenu)) {
 				return;
 			}
+
+            CustomWidget w = Widget.mainForComponent(interfaceId);
+
+            if (w != null && w.buttonListener != null && w.buttonListener.onClick(interfaceId)) {
+                return;
+            }
 
             stream.createFrame(222);
             stream.writeDWord(interfaceId);
@@ -9888,9 +9929,12 @@ public class Client extends RSApplet {
         }
 		if (l == 85) {
 		    pushMessage("Link opens to: "+ (broadcastUrl == null ? "nowhere" : broadcastUrl), 0, null);
-        }
+        }//
         if (l == 646) {
             RSInterface class9_2 = RSInterface.interfaceCache[interfaceId];
+            CustomWidget w = Widget.mainForComponent(interfaceId);
+			if (w != null && w.buttonListener != null && w.buttonListener.onClick(interfaceId)) {
+			}
             if (class9_2.newFormat) {
                 stream.createFrame(187);
                 stream.putInt(class9_2.parentID);
@@ -10344,10 +10388,6 @@ public class Client extends RSApplet {
             stream.writeUnsignedWordBigEndian(slot + baseX);
             stream.writeSignedBigEndian(interfaceId + baseY);
             stream.writeUnsignedWordA(entityId);
-        }
-        if (interfaceId == 957) {
-            variousSettings[287] = variousSettings[502] = variousSettings[502] == 1 ? 0 : 1;
-            handleActions(287);
         }
         itemSelected = 0;
         spellSelected = 0;
@@ -11191,8 +11231,9 @@ public class Client extends RSApplet {
                     }
                     if ((amountOrNameInput.length() > 0 && !amountOrNameInput.toLowerCase().contains("k")
                             && !amountOrNameInput.toLowerCase().contains("m")
-                            && !amountOrNameInput.toLowerCase().contains("b"))
-                            && (key == 107 || key == 109 || key == 98)) {
+                            && !amountOrNameInput.toLowerCase().contains("b")
+                            && !amountOrNameInput.toLowerCase().contains("t"))
+                            && (key == 107 || key == 109 || key == 98 || key == 116)) {
                         long am = 0;
                         boolean addChar = true;
                         long l = Long.valueOf(amountOrNameInput);
@@ -11202,6 +11243,9 @@ public class Client extends RSApplet {
                             addChar = false;
                         } else {
                             am = Long.valueOf(amountOrNameInput);
+                        }
+                        if (key == 116 && am > 10) {
+                            addChar = false;
                         }
                         if (key == 107 && am > 2147000000) {
                             addChar = false;
@@ -11230,14 +11274,26 @@ public class Client extends RSApplet {
                                 amountOrNameInput = amountOrNameInput.replaceAll("m", "000000");
                             } else if (amountOrNameInput.toLowerCase().contains("b")) {
                                 amountOrNameInput = amountOrNameInput.replaceAll("b", "000000000");
+                            } else if (amountOrNameInput.toLowerCase().contains("t")) {
+                                amountOrNameInput = amountOrNameInput.replaceAll("t", "000000000000");
                             }
                             long l = Long.valueOf(amountOrNameInput);
+
+                            if (widgetInputId == GrandExchangeOfferWidget.PRICE_SET_CUSTOM) {
+                                Widget.mainForComponent(widgetInputId).enterInputListener.onEnterAmount(widgetInputId, l);
+                                inputDialogState = 0;
+                                inputTaken = true;
+                                widgetInputId = -1;
+                                return;
+                            }
+
                             boolean asString = false;
                             String prev = amountOrNameInput;
                             if (l > 2147483647) {
                                 asString = true;
                                 amountOrNameInput = "2147483647";
                             }
+
                             int amount = 0;
                             if (asString) {
                                 if (interfaceButtonAction == 557 && withdrawingMoneyFromPouch) {
@@ -15031,6 +15087,7 @@ public class Client extends RSApplet {
             AnimatedSprite.load();
             setLoadingText(100, "");
             isLoading = false;
+            setGameState(GameState.LOGIN_SCREEN);
         } catch (Exception exception) {
             exception.printStackTrace();
             isLoading = false;
@@ -16014,6 +16071,10 @@ public class Client extends RSApplet {
                     continue;
                 }
 
+                if (child.parentID > 0 && RSInterface.isValid(child.parentID) && RSInterface.interfaceCache[child.parentID].hidden) {
+                    continue;
+                }
+
                 if (child.fading && loopCycle % child.fadeSpeed == 0) {
                     if (child.transparency >= child.maxFade) {
                         child.decreaseFade = true;
@@ -16054,7 +16115,7 @@ public class Client extends RSApplet {
 
             	boolean hoverChatInterface = backDialogID != -1 && mouseInChatArea();
 
-            	boolean hoverTabInterface = mouseInTabArea();
+            	boolean hoverTabInterface = tabInterfaceIDs[tabID] != -1 && mouseInTabArea();
 
             	int hoverXOff = hoverGameInterface && clientSize == 0 ? -4 : 0;
 
@@ -16069,13 +16130,23 @@ public class Client extends RSApplet {
                     hoverY -= 168;
                 }
 
-            	if (!child.hoverDisabled && (hoverChatInterface || hoverGameInterface || hoverTabInterface)) {
-                    boolean inBounds = (hoverX >= childX && hoverX <= childX + child.width && hoverY >= childY && hoverY <= childY + child.height);
-            		if (hoverGameInterface) {
-            		    childHovered = inBounds && RSInterface.interfaceCache[openInterfaceID].parentID == child.layerId;
+                if (!child.hoverDisabled && child.hovers && (hoverChatInterface || hoverGameInterface || hoverTabInterface)) {
+                    boolean inBounds = (hoverX >= childX && hoverX <= childX + child.width && hoverY >= childY && hoverY < childY + child.height);
+
+                    childHovered = inBounds;
+
+                    if (hoverGameInterface) {
+                        if (child.layerId != 0 && RSInterface.isValid(openInterfaceID)) {
+                            childHovered = inBounds && RSInterface.interfaceCache[openInterfaceID].parentID == child.layerId;
+                        }
                     } else if (hoverTabInterface) {
-            		    final int tabInterface = tabInterfaceIDs[tabID];
-                        childHovered = inBounds && tabInterface > 0 && RSInterface.interfaceCache[tabInterface].parentID == child.layerId;
+                        if (child.layerId != 0 && RSInterface.isValid(tabInterfaceIDs[tabID])) {
+                            childHovered = inBounds && RSInterface.interfaceCache[tabInterfaceIDs[tabID]].parentID == child.layerId;
+                        }
+                    } else if (hoverChatInterface) {
+                        if (child.layerId != 0 && RSInterface.isValid(backDialogID)) {
+                            childHovered = inBounds && RSInterface.interfaceCache[backDialogID].parentID == child.layerId;
+                        }
                     }
             	}
 
@@ -16127,6 +16198,9 @@ public class Client extends RSApplet {
                                 boolean geSearchItem = child.id == GrandExchangeSearchWidget.WIDGET_ID + 2;
 
                                 boolean geOfferItem = GrandExchangeMainWidget.CONTAINER_IDS.contains(child.id);
+                                
+                                boolean duelArenaStaticTokenCoinItem = child.id == 83791 || child.id == 83792
+                                										|| child.id == 83833 || child.id == 83836 || child.id == 83839 || child.id == 83842;
 
                                 if (child.inv[spriteIndex] > 0) {
                                     if (child.invBack != null) {
@@ -16188,6 +16262,15 @@ public class Client extends RSApplet {
                                             selectedColour = 0xffffff;
                                         }
                                         int itemAmount = child.invStackSizes[spriteIndex];
+
+                                        boolean drawCustom = false;
+
+                                        if (itemAmount == 0 && j9 == 995 && child.id == GrandExchangeStatusWidget.COLLECT_CONTAINER_ID) {
+                                            String amt = RSInterface.interfaceCache[spriteIndex == 0 ? GrandExchangeStatusWidget.COLLECT_AMOUNT_1 : GrandExchangeStatusWidget.COLLECT_AMOUNT_2].message;
+                                            itemAmount = NumberUtils.isDigits(amt) ? Integer.parseInt(amt) : 10000;
+                                            drawCustom = true;
+                                        }
+
                                         Sprite sprite_2 = ItemDefinition.getSprite(j9, itemAmount,
                                                 selectedColour);
                                         if (sprite_2 != null) {
@@ -16279,7 +16362,7 @@ public class Client extends RSApplet {
                                         			}
                                                 }
                                             }
-                                            if (sprite_2.maxWidth == 33 || itemAmount != 1 || rsInterface.id == 33213) {
+                                            if (sprite_2.maxWidth == 33 || itemAmount != 1 && !duelArenaStaticTokenCoinItem || rsInterface.id == 33213) {
                                                 boolean bankTab = child.id >= 22035 && child.id <= 22042;
                                                 if (!bankTab) {
 
@@ -16296,7 +16379,10 @@ public class Client extends RSApplet {
 
                                                     	boolean drawPlaceHolderText = itemAmount == 0 && child.id != CollectionLogWidget.ITEM_CONTAINER;
 
-                                                        if (itemAmount >= 1500000000 && child.drawInfinity) {
+                                                        if (drawCustom && child.id == GrandExchangeStatusWidget.COLLECT_CONTAINER_ID) {
+                                                            String amt = RSInterface.interfaceCache[spriteIndex == 0 ? GrandExchangeStatusWidget.COLLECT_AMOUNT_1 : GrandExchangeStatusWidget.COLLECT_AMOUNT_2].message;
+                                                            newSmallFont.drawBasicString(amt, itemSpriteX + k6, itemSpriteY + 9 + j7, 0xFFFF00, 1);
+                                                        } else if (itemAmount >= 1500000000 && child.drawInfinity) {
                                                             SpriteLoader.sprites[653].drawSprite(itemSpriteX, itemSpriteY);
                                                         } else if (drawPlaceHolderText) { // Placeholder text
 															newSmallFont.drawBasicString(intToKOrMil(itemAmount), itemSpriteX + k6, itemSpriteY + 9 + j7, 0xFFFF00, 1, 120);
@@ -16338,9 +16424,9 @@ public class Client extends RSApplet {
                         int j3;
                         int opacity;
 
-                        if (interfaceIsSelected(child) || (childHovered && hovers(child))) {
+                        if (interfaceIsSelected(child) || child.hovers && childHovered) {
                             j3 = child.disabledColor;
-                            if (flag && child.enabledMouseOverColor != 0) {
+                            if ((flag || child.hovers && childHovered) && child.enabledMouseOverColor != 0) {
                                 j3 = child.enabledMouseOverColor;
                             }
                             opacity = child.enabledOpacity;
@@ -17003,7 +17089,7 @@ public class Client extends RSApplet {
 					} else if (child.type == 25) {
 						cacheSprite[child.isModernWindow() ? 1284 : 1275].repeatX(childX, childY, child.width);
 					} else if (child.type == 26) {
-						cacheSprite[child.isModernWindow() ? 1285 : 1278].repeatY(childX, childY, child.height);
+						cacheSprite[child.isModernWindow() ? 1287 : 1278].repeatY(childX, childY, child.height);
 					} else if (child.type == 27) {
 						DrawingArea.drawVerticalLine(childX, childY, child.height, child.disabledColor, child.transparency);
 					} else if (child.type == 28) {
@@ -17477,11 +17563,6 @@ public class Client extends RSApplet {
 
                         int yPos = (childY + (child.height / 2) + 6);
 
-                        if (child.id == GrandExchangeListingsWidget.INPUT_FIELD_ID) {
-                            yPos = childY + child.height / 2 + 4;
-                            t = smallText;
-                        }
-
                         if (child.displayAsterisks) {
                             t.drawRegularText(true,(childX + 8), 0xFFFFFF, builder.append(TextClass.passwordAsterisks(message)).append(((RSInterface.currentInputField == child ? 1 : 0) & (loopCycle % 40 < 20 ? 1 : 0)) != 0 ? "|" : "").toString(), yPos);
                         } else {
@@ -17554,6 +17635,12 @@ public class Client extends RSApplet {
                         for (int i = 0; i < 3; i++) {
                             DrawingArea.drawHorizontalLine(childX + 1, childY + 1 + i, child.width - 2, 0, 55);
                             DrawingArea.drawVerticalLine(childX + 1 + i, childY + 4, child.height - 5, 0, 55);
+                        }
+
+                        if (child.drawProgressText) {
+                            RSFontSystem font = child.rsFont == null ? newSmallFont : child.rsFont;
+
+                            font.drawCenteredString(current + " / " + maximum, childX + (child.width - 3) / 2, childY + child.height / 2 + 5, 0xFFFFFF, 0);
                         }
                     }
                 }
@@ -21476,7 +21563,7 @@ public class Client extends RSApplet {
                             flag2 = true;
 
                         }
-                        if (!flag2 && s3.length() >= 2) {
+                        if (!flag2 && s3.length() > 0) {
                             pushMessage("wishes to trade with you.", 4, s3);
                         }
                     } else if (s.startsWith(":highlight_clr:")) {
@@ -21652,10 +21739,14 @@ public class Client extends RSApplet {
                         if (friendsNodeIDs[k24] != i18) {
                             friendsNodeIDs[k24] = i18;
                             needDrawTabArea = true;
-                            /*
-                             * if (i18 >= 2) { pushMessage(s7 + " has logged in.", 5, ""); } if (i18 <= 1) {
-                             * pushMessage(s7 + " has logged out.", 5, ""); }
-                             */
+
+                            if (i18 >= 2) {
+                                pushMessage(s7 + " has logged in.", 5, "");
+                            }
+                            if (i18 <= 1) {
+                                pushMessage(s7 + " has logged out.", 5, "");
+                            }
+
                         }
                         s7 = null;
 
@@ -22438,8 +22529,11 @@ public class Client extends RSApplet {
                             rsi_1.invStackSizes[idx] = 0;
                         }
                         
-                        if (runelite != null && rsi_frame == 1688) {
-                        	callbacks.post(new ItemContainerChanged(getEquipment()));
+                        if (runelite != null) {
+                            if (rsi_frame == 3214)
+                                callbacks.post(new ItemContainerChanged(getInventory()));
+                            else if (rsi_frame == 1688)
+                        	    callbacks.post(new ItemContainerChanged(getEquipment()));
                         }
                         
                         if (rsi_frame == 24680) {
@@ -23343,7 +23437,7 @@ public class Client extends RSApplet {
 	};
 	
 	public ItemContainer getInventory() {
-		return equipment;
+		return inventory;
 	}
 	
 	private ItemContainer inventory = new ItemContainer() {

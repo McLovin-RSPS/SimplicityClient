@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 @SuppressWarnings("all")
 public class RSInterface {
 
-    public static void addHoveredButton(int i, int sprite2, int width, int height, int i1) {
+    public static RSInterface addHoveredButton(int i, int sprite2, int width, int height, int i1) {
         RSInterface component = addTabInterface(i);
         component.parentID = i;
         component.id = i;
@@ -35,9 +35,10 @@ public class RSInterface {
         addHoverImage(i1, sprite2, sprite2);
         component.totalChildren(1);
         component.child(0, i1, 0, 0);
+        return component;
     }
 
-    public static void addHoverButton(int id, int sprite1, int width, int height, String s, int i, int i1, int i2) {
+    public static RSInterface addHoverButton(int id, int sprite1, int width, int height, String s, int i, int i1, int i2) {
         RSInterface component = addTabInterface(id);
         component.id = id;
         component.parentID = id;
@@ -51,7 +52,16 @@ public class RSInterface {
         component.width = width;
         component.height = height;
         component.tooltip = s;
+        return component;
     }
+    //
+    public static void fill(int a) {
+    	RSInterface f = interfaceCache[a];
+		for (int i = 0; i < f.inv.length; i++) {
+			f.inv[i] = 1039;
+			f.invStackSizes[i] = 1;
+		}
+	}
 
 	public int fillColor;
     public boolean fading;
@@ -5036,6 +5046,7 @@ public class RSInterface {
         runePouch(textDrawingAreas);
         donationPanel(textDrawingAreas);
         thrownaxeSpecial();
+        chinchompas();
         warnInterface(textDrawingAreas);
 //		slayerInterfaces(textDrawingAreas);
 
@@ -5351,6 +5362,50 @@ public class RSInterface {
             System.out.println(copy.children[i] + ". " + i + ", " + interfaceCache[copy.children[i]].type);
         }
     }
+
+    private static final void chinchompas() {
+        RSInterface tab = addTabInterface(19051); // 75321
+
+        setChildren(1, tab);
+
+        RSInterface main = addInterface(19052); // 75322
+        RSInterface empty = addTabInterface(19050); // 75320
+
+        main.copy(interfaceCache[4446]); // accurate, rapid, longrange
+
+        addSpriteLoader(19053, 1956);
+        main.children[3] = 19053;
+
+        addSpriteLoader(19054, 1957);
+        main.children[4] = 19054;
+
+        addSpriteLoader(19055, 1958);
+        main.children[5] = 19055;
+
+        RSInterface first = addTabInterface(19056);
+        first.copy(4458);
+        first.message = "Short fuse";
+        main.children[6] = first.id;
+        main.childX[6] -= 5;
+
+        RSInterface second = addTabInterface(19057);
+        second.copy(4459);
+        second.message = "Medium fuse";
+        main.children[7] = second.id;
+        main.childX[7] -= 17;
+
+        RSInterface third = addTabInterface(19058);
+        third.copy(4460);
+        third.message = "Long fuse";
+        main.children[8] = third.id;
+        main.childX[8] += 2;
+
+        // 10 name
+        main.children[10] = copy(19059, 4449).id;
+
+        setBounds(19052, 0, 0, 0, tab);
+
+    }
     
 	/**
 	 * Keybindings interface.
@@ -5632,6 +5687,12 @@ public class RSInterface {
         rsi.type = 2;
     }
 
+    public static RSInterface copy(int id, int from) {
+	    RSInterface rsi = addInterface(id);
+	    rsi.copy(from);
+	    return rsi;
+    }
+
     public void copy(int fromCompId) {
         copy(interfaceCache[fromCompId]);
     }
@@ -5640,9 +5701,23 @@ public class RSInterface {
         type = from.type;
         atActionType = from.atActionType;
         contentType = from.contentType;
-        valueCompareType = from.valueCompareType;
         width = from.width;
         height = from.height;
+        textDrawingAreas = from.textDrawingAreas;
+        opacity = from.opacity;
+        shadowed = from.shadowed;
+        disabledColor = from.disabledColor;
+        enabledColor = from.enabledColor;
+        disabledMouseOverColor = from.disabledMouseOverColor;
+        enabledMouseOverColor = from.enabledMouseOverColor;
+        enabledMessage = from.enabledMessage;
+        message = from.message;
+        hoverType = from.hoverType;
+        centerText = from.centerText;
+        mediaID = from.mediaID;
+        enabledSprite = from.enabledSprite;
+        disabledSprite = from.disabledSprite;
+        tooltip = from.tooltip;
 
         if (from.inv != null) {
             inv = new int[from.inv.length];
@@ -5660,11 +5735,18 @@ public class RSInterface {
         }
 
         if (from.valueCompareType != null) {
+            valueCompareType = new int[from.valueCompareType.length];
             System.arraycopy(from.valueCompareType, 0, valueCompareType, 0, from.valueCompareType.length);
         }
 
         if (from.valueIndexArray != null) {
+            valueIndexArray = new int[from.valueIndexArray.length][];
             System.arraycopy(from.valueIndexArray, 0, valueIndexArray, 0, from.valueIndexArray.length);
+        }
+
+        if (from.requiredValues != null) {
+            requiredValues = new int[from.requiredValues.length];
+            System.arraycopy(from.requiredValues, 0, requiredValues, 0, from.requiredValues.length);
         }
 
         if (from.children != null) {
@@ -6151,7 +6233,7 @@ public class RSInterface {
         addText(65252, "Drop Log", tda, 2, 0xff981f, true, true);
         addButtonWSpriteLoader(65253, 990, "Select", 57, 17);
         addButtonWSpriteLoader(65254, 989, "Select", 57, 17);
-        addButtonWSpriteLoader(77265, 892, "Close Window", 16, 16);
+        hoverButton(77265, 892, 914, "Close Window").setLayer(tab.id);
         interfaceCache[77265].atActionType = 3;
 
         addText(65256, "Common", tda, 0, 0xff981f, true, true);
@@ -6229,8 +6311,8 @@ public class RSInterface {
         addText(55252, "Monster Kill Tracker", tda, 2, 0xff981f, true, true);
         addButtonWSpriteLoader(55253, 989, "Select", 57, 17);
         addButtonWSpriteLoader(55254, 990, "Select", 57, 17);
-        addButtonWSpriteLoader(35255, 892, "Close Window", 16, 16);
-        interfaceCache[35255].atActionType = 3;
+        hoverButton(35255, 892, 914, "Close Window");
+        interfaceCache[35255].setLayer(tab.id).setActionType(3);
 
         addText(55256, "Normal", tda, 0, 0xff981f, true, true);
         addText(55257, "Bosses", tda, 0, 0xff981f, true, true);
@@ -7985,6 +8067,28 @@ public class RSInterface {
             rsinterface.centerText = l;
             rsinterface.shadowed = m;
             rsinterface.textDrawingAreas = RSInterface.fonts[j];
+            rsinterface.message = s;
+            rsinterface.disabledColor = k;
+        } catch (Exception e) {
+        }
+    }
+    
+    public static void addText(int i, String s, int k, boolean centre, boolean shadow, boolean alignRight, int hoverType, int size) {
+        try {
+            RSInterface rsinterface = addTabInterface(i);
+            rsinterface.parentID = i;
+            rsinterface.id = i;
+            rsinterface.type = 4;
+            rsinterface.atActionType = 0;
+            rsinterface.width = 0;
+            rsinterface.height = 0;
+            rsinterface.contentType = 0;
+            rsinterface.transparancy = 0;
+            rsinterface.hoverType = hoverType;
+            rsinterface.rightAlignText = alignRight;
+            rsinterface.centerText = centre;
+            rsinterface.shadowed = shadow;
+            rsinterface.textDrawingAreas = RSInterface.fonts[size];
             rsinterface.message = s;
             rsinterface.disabledColor = k;
         } catch (Exception e) {
@@ -12540,7 +12644,7 @@ public class RSInterface {
         addSpriteLoader(id, 779 + skill);
     }
 
-    public static void addHoverButton(int i, int disabledSprite, int enabledSprite, int width, int height, String text,
+    public static RSInterface addHoverButton(int i, int disabledSprite, int enabledSprite, int width, int height, String text,
                                       int contentType, int hoverOver, int aT) {// hoverable
         // button
         RSInterface tab = addTabInterface(i);
@@ -12556,9 +12660,10 @@ public class RSInterface {
         tab.width = width;
         tab.height = height;
         tab.tooltip = text;
+        return tab;
     }
 
-    public static void addHoveredButton(int i, int disabledSprite, int enabledSprite, int w, int h, int IMAGEID) {
+    public static RSInterface addHoveredButton(int i, int disabledSprite, int enabledSprite, int w, int h, int IMAGEID) {
         RSInterface tab = addTabInterface(i);
         tab.parentID = i;
         tab.id = i;
@@ -12573,6 +12678,7 @@ public class RSInterface {
         addHoverImage(IMAGEID, disabledSprite, enabledSprite);
         tab.totalChildren(1);
         tab.child(0, IMAGEID, 0, 0);
+        return tab;
     }
 
     public static void addHoverButton(int i, String imageName, int j, int width, int height, String text,
@@ -15162,7 +15268,9 @@ public class RSInterface {
         interfaceCache[5385].width = 474;
         interfaceCache[5382].width = 10;
         interfaceCache[5382].invSpritePadX = 12;
-        interfaceCache[5382].height = 35;
+        interfaceCache[5382].height = 82;
+        interfaceCache[5382].inv = new int[820];
+        interfaceCache[5382].invStackSizes = new int[820];
         setBounds(5385, 0, 74, 2, rsinterface);
         addSpriteLoader(5293, 913);
         setBounds(5293, 13, 13, 0, rsinterface);
@@ -16983,6 +17091,7 @@ public class RSInterface {
 		tab.width = tab.enabledSprite.myWidth;
 		tab.height = tab.disabledSprite.myHeight;
 		tab.active = false;
+        tab.hovers = true;
 		return tab;
 	}
     
@@ -16999,6 +17108,7 @@ public class RSInterface {
 		tab.enabledAltSprite = Client.cacheSprite[enabledAltSprite];
 		tab.disabledAltSprite = Client.cacheSprite[disabledAltSprite];
 		tab.spriteOpacity = 255;
+		tab.hovers = true;
 	}
 
 	public static void configHoverButton(int id, String tooltip, int enabledSprite, int disabledSprite,
@@ -17016,6 +17126,7 @@ public class RSInterface {
 		tab.buttonsToDisable = buttonsToDisable;
 		tab.active = active;
 		tab.spriteOpacity = 255;
+        tab.hovers = true;
 	}
 
 	public static void configHoverButton(int id, String tooltip, int enabledSprite, int disabledSprite,
@@ -17041,6 +17152,7 @@ public class RSInterface {
 		tab.disabledMouseOverColor = hoveredColour;
 		tab.centerText = centerText;
 		tab.spriteOpacity = 255;
+        tab.hovers = true;
 	}
 	
 	public void setConfigHoverButton(String tooltip, int enabledSpriteId, int disabledSpriteId) {
@@ -17052,6 +17164,7 @@ public class RSInterface {
         this.width = this.enabledSprite.myWidth;
         this.height = this.disabledSprite.myHeight;
         this.spriteOpacity = 255;
+        this.hovers = true;
     }
 
     public void setGraphicWidget(int graphicId) {
@@ -17074,6 +17187,7 @@ public class RSInterface {
 		tab.buttonsToDisable = buttonsToDisable;
 		tab.active = active;
 		tab.spriteOpacity = 255;
+        tab.hovers = true;
 	}
 
     public static RSInterface hoverButton(int id, int disabledSprite, int enabledSprite, String tooltip) {
@@ -17115,6 +17229,7 @@ public class RSInterface {
 		tab.width = tab.enabledSprite.myWidth;
 		tab.height = tab.disabledSprite.myHeight;
 		tab.spriteOpacity = 255;
+        tab.hovers = true;
 	}
 	
 	public static void hoverButton(int id, String tooltip, String[] actions, int enabledSprite, int disabledSprite, int enabledAltSprite, int disabledAltSprite) {
@@ -17130,6 +17245,7 @@ public class RSInterface {
 		tab.width = tab.enabledSprite.myWidth;
 		tab.height = tab.disabledSprite.myHeight;
 		tab.spriteOpacity = 255;
+        tab.hovers = true;
 	}
 	
 	public static void handleConfigHover(RSInterface widget) {
@@ -17253,9 +17369,14 @@ public class RSInterface {
 	}
 
     public static RSInterface addGeProgress(int id, int width, int height) {
+        return addGeProgress(id, width, height, false);
+    }
+
+    public static RSInterface addGeProgress(int id, int width, int height, boolean drawProgressText) {
         RSInterface rsi = RSInterface.addInterface(id, width, height);
         rsi.type = 57;
         rsi.message = "0/100";
+        rsi.drawProgressText = drawProgressText;
         return rsi;
     }
 
@@ -18014,6 +18135,11 @@ public class RSInterface {
     public RSInterface setSize(int width, int height) {
         this.width = width;
         this.height = height;
+        return this;
+    }
+
+    public RSInterface setLayer(int id) {
+        this.layerId = id;
         return this;
     }
 

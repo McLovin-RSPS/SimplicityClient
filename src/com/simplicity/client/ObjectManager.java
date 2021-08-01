@@ -1287,6 +1287,9 @@ final class ObjectManager {
 
     private static int getShadow(int i, int j)
     {
+    	if (Client.getClient().getRegionId() == 8259) {
+    		return 0;
+		}
         if(i == -1)
             return 0xbc614e;
         j = (j * (i & 0x7f)) / 128;
