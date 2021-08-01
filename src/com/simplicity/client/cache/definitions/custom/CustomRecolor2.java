@@ -262,7 +262,9 @@ public enum CustomRecolor2 {
 		ROADMAN_SPIRIT_SHIELD(21123, 8421, "@pur@Roadman Demonic Sprit Shield",
 				new int[] { 123, 124, 908 },
 				new int[] { 127, 127, 51136 }),
-
+		//Kevin's Red/Black Staff
+		//originalColours = new int[] {0, 35, 7108, 7333, 61962, 61838, 16, 7442, 18, 20, 61718, 8375, 7097, 28, 7326, 61598};
+		//destColours = new int[] {969, 0, 969, 0, 969, 969, 0, 969, 0, 969, 0, 969, 969, 0, 969, 969};
 		;
 	/**
 	 * Constructs a new {@link CustomRecolor2}.
