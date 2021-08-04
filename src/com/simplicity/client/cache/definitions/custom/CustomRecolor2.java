@@ -262,6 +262,11 @@ public enum CustomRecolor2 {
 		ROADMAN_SPIRIT_SHIELD(21123, 8421, "@pur@Roadman Demonic Sprit Shield",
 				new int[] { 123, 124, 908 },
 				new int[] { 127, 127, 51136 }),
+
+		//Kevin's Red/Black Staff
+		//originalColours = new int[] {0, 35, 7108, 7333, 61962, 61838, 16, 7442, 18, 20, 61718, 8375, 7097, 28, 7326, 61598};
+		//destColours = new int[] {969, 0, 969, 0, 969, 969, 0, 969, 0, 969, 0, 969, 969, 0, 969, 969};
+
 		HOLY_MYTHICAL_STAFF(55731, 55731, "@whi@Holy mythical sanguinesti",
 				new int[] {6736, 6709, 43303, 39, 24, 8, 59466, 6602, 28, 59453, 4382},
 				new int[] {6736, 6709, 38325, 127, 127, 8, 127, 6602, 100, 125, 4382}),
@@ -326,6 +331,7 @@ public enum CustomRecolor2 {
 		BLACK_RED_SIRENIC_TBOW(21137, 20998, "@red@Australian Kangaroo Twisted Bow",
 				new int[] { 16, 0, 33, 13223, 8, 24, 41, 14236, 10318, 10334 }, 
 				new int[] { 1024, 945, 1024, 945, 1024, 945, 1024, 1024, 1024, 1024 }),
+
 
 		;
 	/**

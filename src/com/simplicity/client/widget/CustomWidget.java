@@ -303,7 +303,7 @@ public abstract class CustomWidget {
     	RSInterface rsi = RSInterface.addInterface(id);
     	rsi.componentId = id++;
     	rsi.type = 26;
-    	rsi.width = 20;
+    	rsi.width = 10;
     	rsi.height = height;
     	rsi.modernWindow = modernBorder;
     	return addWrapper(10, height, rsi);

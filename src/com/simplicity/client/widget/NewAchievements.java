@@ -21,8 +21,8 @@ public class NewAchievements extends CustomWidget implements WidgetButtonListene
 		achievementList(96310, 3);
 		achievementList(96415, 4);
 		add(addSpriteRepeatY(1277, 264), 154+x, 35+y);
-		String[] pages = {"PVP", "PVM", "Skilling", "Other"};
-		int[] icons = {1859, 1860, 1861, 1862};
+		String[] pages = {"PVM", "PVP", "Skilling", "Other"};
+		int[] icons = {1860, 1859, 1861, 1862};
 		for (int i = 0; i < 4; ++i) {
 			add(addConfigButton(pages[i], 1849, 1850, 5, i, 1631), 6 + x + (i * 37), 35+y);
 			add(addSprite(icons[i]), 6 + x + (i * 37) + 8, 40 + y);
@@ -65,18 +65,18 @@ public class NewAchievements extends CustomWidget implements WidgetButtonListene
 	@Override
 	public boolean onClick(int id) {
 		switch(id) {
-		case 96012:
-			RSInterface.interfaceCache[96000].children[1] = 96100;
-			return true;
-		case 96014:
-			RSInterface.interfaceCache[96000].children[1] = 96205;
-			return true;
-		case 96016:
-			RSInterface.interfaceCache[96000].children[1] = 96310;
-			return true;
-		case 96018:
-			RSInterface.interfaceCache[96000].children[1] = 96415;
-			return true;
+//		case 96012:
+//			RSInterface.interfaceCache[96000].children[1] = 96100;
+//			return true;
+//		case 96014:
+//			RSInterface.interfaceCache[96000].children[1] = 96205;
+//			return true;
+//		case 96016:
+//			RSInterface.interfaceCache[96000].children[1] = 96310;
+//			return true;
+//		case 96018:
+//			RSInterface.interfaceCache[96000].children[1] = 96415;
+//			return true;
 		}
 		return false;
 	}

@@ -16198,6 +16198,9 @@ public class Client extends RSApplet {
                                 boolean geSearchItem = child.id == GrandExchangeSearchWidget.WIDGET_ID + 2;
 
                                 boolean geOfferItem = GrandExchangeMainWidget.CONTAINER_IDS.contains(child.id);
+                                
+                                boolean duelArenaStaticTokenCoinItem = child.id == 83791 || child.id == 83792
+                                										|| child.id == 83833 || child.id == 83836 || child.id == 83839 || child.id == 83842;
 
                                 if (child.inv[spriteIndex] > 0) {
                                     if (child.invBack != null) {
@@ -16359,7 +16362,7 @@ public class Client extends RSApplet {
                                         			}
                                                 }
                                             }
-                                            if (sprite_2.maxWidth == 33 || itemAmount != 1 || rsInterface.id == 33213) {
+                                            if (sprite_2.maxWidth == 33 || itemAmount != 1 && !duelArenaStaticTokenCoinItem || rsInterface.id == 33213) {
                                                 boolean bankTab = child.id >= 22035 && child.id <= 22042;
                                                 if (!bankTab) {
 

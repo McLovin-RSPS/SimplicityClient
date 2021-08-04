@@ -7,6 +7,10 @@ import com.simplicity.client.RSInterface;
 import com.simplicity.client.widget.deals.DealBoardWidget;
 import com.simplicity.client.widget.deals.ItemDealBoardWidget;
 import com.simplicity.client.widget.deals.MultipleItemDealBoxWidget;
+import com.simplicity.client.widget.duel_arena.DuelArenaDuelConfirmationWidget;
+import com.simplicity.client.widget.duel_arena.DuelArenaDuelOptionsWidget;
+import com.simplicity.client.widget.duel_arena.DuelArenaDuelStakeWidget;
+import com.simplicity.client.widget.duel_arena.DuelArenaEquipmentWidget;
 import com.simplicity.client.widget.ge.*;
 import com.simplicity.client.widget.npc_drop_checker.NpcDropChecker;
 import com.simplicity.client.widget.raids.cox.RaidingPartiesContainerWidget;
@@ -37,6 +41,10 @@ public class Widget {
 	 */
 	public static void init() {
 		componentForMain.clear();
+		init(new DuelArenaDuelStakeWidget());
+		init(new DuelArenaEquipmentWidget());
+		init(new DuelArenaDuelOptionsWidget());
+		init(new DuelArenaDuelConfirmationWidget());
 		init(new NpcDropChecker());
 		init(new DealBoardWidget());
 		init(new ItemDealBoardWidget());
