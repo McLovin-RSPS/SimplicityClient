@@ -28,7 +28,7 @@ public class DuelArenaDuelOptionsWidget extends CustomWidget {
 		final int[] rules = {6725, 6726, 6727, 7816, 6721, 6728, 6729, 6730, 6722, 6732, 670,};
 		final int[] rule_text = {6698, 6699, 6697, 7817, 6696, 6701, 6702, 6703, 6704, 6731, 669};
 
-		add(addSprite(1945), 3, 12);
+		add(addSprite(1962), 3, 12);
 		
 		addWidget(DuelArenaEquipmentWidget.ID, 0, 0);
 
@@ -73,7 +73,7 @@ public class DuelArenaDuelOptionsWidget extends CustomWidget {
 		
 		yPosition = 258;
 		for (int i = 0; i < 3; i++) {
-			add(addButton(i == 0 ? 1946 : 1947, i == 0 ? 1946 : 1947, "Save", 5, 1), 180 + 185, yPosition);
+			add(addButton(i == 0 ? 1963 : 1964, i == 0 ? 1963 : 1964, "Save", 5, 1), 180 + 185, yPosition);
 			yPosition += i == 1 ? 18 : 17;
 		}
 		

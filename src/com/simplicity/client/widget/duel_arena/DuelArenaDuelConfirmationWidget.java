@@ -25,7 +25,7 @@ public class DuelArenaDuelConfirmationWidget extends CustomWidget {
 	@Override
 	public void init() {
 
-		add(addSprite(1949), 3, 12);
+		add(addSprite(1966), 3, 12);
 		
 		add(addButton(996, 997, "Close", 0, 3), 468, 21);
 		

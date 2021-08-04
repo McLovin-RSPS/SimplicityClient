@@ -46,7 +46,7 @@ public class DuelArenaDuelStakeWidget extends CustomWidget {
 		add(addButton(996, 997, "Close", 0, 3), 483, 21);
 		
 		int xPosition = 10;
-		final int[] icons = { 1948, 976, 977};
+		final int[] icons = { 1965, 976, 977};
 		for (int i = 0; i < icons.length; i++) {
 			add(addDynamicButton("", 1, 0x00C000, 42, 37), xPosition, 52);
 			add(addSprite(icons[i]), xPosition + 7, i == 2 ? 53 : 57);
