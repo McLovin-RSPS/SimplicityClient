@@ -5105,6 +5105,11 @@ public class RSInterface {
         ancientMagicTab(textDrawingAreas);
         TeleportInterface.init(textDrawingAreas);
         Widget.init();
+        slayerUnlockInterface(textDrawingAreas);
+        slayerExtendInterface(textDrawingAreas);
+        slayerTaskInterface(textDrawingAreas);
+        slayerConfirmInterface(textDrawingAreas);
+        slayerBuyInterface(textDrawingAreas);
         for (RSInterface widget : interfaceCache) {
             if (widget == null || widget.children == null)
                 continue;
@@ -5116,6 +5121,281 @@ public class RSInterface {
             System.arraycopy(widget.childY, 0, widget.originalChildrenY, 0, widget.originalChildrenY.length);
         }
         spriteCache = null;
+    }
+
+    public static void slayerUnlockInterface(TextDrawingArea[] tda) {
+        RSInterface tab = addInterface(97400);
+        addButton(97401, 1949, "Select");
+        addButton(97402, 1948, "Select");
+        addButton(97403, 1948, "Select");
+        addButton(97404, 1948, "Select");
+        int x = 9, y = 13;
+        tab.totalChildren(14);
+        tab.child(0, 97001, x, y);
+        tab.child(1, 97002, 460+x, 7+y);
+        tab.child(2, 97003, 460+x, 7+y);
+        tab.child(3, 97005, 244+x, 9+y);
+        tab.child(4, 97401, 11+x, 36+y);
+        tab.child(5, 97402, 97+x, 36+y);
+        tab.child(6, 97403, 183+x, 36+y);
+        tab.child(7, 97404, 269+x, 36+y);
+        tab.child(8, 97010, 52+x, 40+y);
+        tab.child(9, 97011, 138+x, 40+y);
+        tab.child(10, 97012, 224+x, 40+y);
+        tab.child(11, 97013, 310+x, 40+y);
+        tab.child(12, 97014, 420+x, 40+y);
+        tab.child(13, 97405, 10+x, 59+y);
+
+        RSInterface scroll = addInterface(97405);
+        scroll.totalChildren(64);
+        int xx = 0, yy = 0;
+        for (int i = 0; i < 16; i++) {
+            addConfigButton2(97406 + i, 97405, 1954, 1955, 224, 84, "Unlock", 1, 4, 580 + i);
+            addItemContainer(97425 + i, new int[] {1, 1}, new int[] {1, 1}, new String[5], false);
+            fill(97425 + i);
+            addText(97444 + i, "Creature Name", tda, 1, 0xFFA500, true, true);
+            addText(97463 + i, "Description text here\\nDescription text here\\nDescription text here\\nDescription text here", tda, 0, 0xFFA500, false, true);
+            scroll.child(i, 97406 + i, xx, yy);
+            scroll.child(i+16, 97425 + i, 3+xx, 3+yy);
+            scroll.child(i+32, 97444 + i, 128+xx, 13+yy);
+            scroll.child(i+48, 97463 + i, 7+xx, 39+yy);
+            xx += 227;
+            if (xx == 454) {
+                xx = 0;
+                yy += 87;
+            }
+        }
+        scroll.width = 452;
+        scroll.height = 234;
+        scroll.scrollMax = yy;
+    }
+
+
+    public static void slayerExtendInterface(TextDrawingArea[] tda) {
+        RSInterface tab = addInterface(97300);
+        addButton(97301, 1948, "Select");
+        addButton(97302, 1949, "Select");
+        addButton(97303, 1948, "Select");
+        addButton(97304, 1948, "Select");
+        int x = 9, y = 13;
+        tab.totalChildren(14);
+        tab.child(0, 97001, x, y);
+        tab.child(1, 97002, 460+x, 7+y);
+        tab.child(2, 97003, 460+x, 7+y);
+        tab.child(3, 97005, 244+x, 9+y);
+        tab.child(4, 97301, 11+x, 36+y);
+        tab.child(5, 97302, 97+x, 36+y);
+        tab.child(6, 97303, 183+x, 36+y);
+        tab.child(7, 97304, 269+x, 36+y);
+        tab.child(8, 97010, 52+x, 40+y);
+        tab.child(9, 97011, 138+x, 40+y);
+        tab.child(10, 97012, 224+x, 40+y);
+        tab.child(11, 97013, 310+x, 40+y);
+        tab.child(12, 97014, 420+x, 40+y);
+        tab.child(13, 97305, 10+x, 59+y);
+
+        RSInterface scroll = addInterface(97305);
+        scroll.totalChildren(76);
+        int xx = 0, yy = 0;
+        for (int i = 0; i < 19; i++) {
+            addConfigButton2(97306 + i, 97305, 1952, 1953, 224, 64, "Unlock", 1, 4, 560 + i);
+            addItemContainer(97325 + i, new int[] {1, 1}, new int[] {1, 1}, new String[5], false);
+            fill(97325 + i);
+            addText(97344 + i, "Creature Name", tda, 1, 0xFFA500, true, true);
+            addText(97363 + i, "Description text here\\nDescription text here", tda, 0, 0xFFA500, false, true);
+            scroll.child(i, 97306 + i, xx, yy);
+            scroll.child(i+19, 97325 + i, 3+xx, 3+yy);
+            scroll.child(i+38, 97344 + i, 128+xx, 13+yy);
+            scroll.child(i+57, 97363 + i, 7+xx, 39+yy);
+            xx += 227;
+            if (xx == 454) {
+                xx = 0;
+                yy += 67;
+            }
+        }
+        scroll.width = 452;
+        scroll.height = 234;
+        scroll.scrollMax = yy + 67;
+    }
+
+
+
+    public static void slayerTaskInterface(TextDrawingArea[] tda) {
+        RSInterface tab = addInterface(97200);
+        addButton(97201, 1948, "Select");
+        addButton(97202, 1948, "Select");
+        addButton(97203, 1948, "Select");
+        addButton(97204, 1949, "Select");
+        addText(97205, "You may spend points to @whi@Cancel@lre@ or @whi@Block@lre@ your current task.", tda, 0, 0xff9040, true, true);
+        addText(97250, "If you @whi@cancel@lre@ it, you may be assigned that target again in future. @red@(30 points)", tda, 0, 0xff9040, true, true);
+        addText(97251, "If you @whi@block@lre@ it, you will not get that assignment again. @red@(100 points)", tda, 0, 0xff9040, true, true);
+        addText(97252, "@whi@Neither@lre@ option will reset your current tally of completed Slayer tasks.", tda, 0, 0xff9040, true, true);
+
+        addSprite(97206, 1951);
+        addText(97207, "Current assignment:", tda, 2, 0xFFA500, true, true);
+        addText(97208, "Nothing", tda, 1, 0xffffff, true, true);
+        addButton(97209, 1948, "Select");
+        addButton(97210, 1948, "Select");
+        addText(97211, "Cancel task", tda, 0, 0xFFA500, true, true);
+        addText(97212, "Block task", tda, 0, 0xFFA500, true, true);
+        addText(97213, "Blocked tasks:", tda, 2, 0xFFA500, true, true);
+        int x = 9, y = 13;
+        tab.totalChildren(49);
+        tab.child(0, 97001, x, y);
+        tab.child(1, 97002, 460+x, 7+y);
+        tab.child(2, 97003, 460+x, 7+y);
+        tab.child(3, 97005, 244+x, 9+y);
+        tab.child(4, 97201, 11+x, 36+y);
+        tab.child(5, 97202, 97+x, 36+y);
+        tab.child(6, 97203, 183+x, 36+y);
+        tab.child(7, 97204, 269+x, 36+y);
+        tab.child(8, 97010, 52+x, 40+y);
+        tab.child(9, 97011, 138+x, 40+y);
+        tab.child(10, 97012, 224+x, 40+y);
+        tab.child(11, 97013, 310+x, 40+y);
+        tab.child(12, 97014, 420+x, 40+y);
+        tab.child(13, 97205, 244+x, 60+y);
+        tab.child(14, 97206, 10+x, 105+y);
+        tab.child(15, 97207, 140+x, 110+y);
+        tab.child(16, 97208, 140+x, 126+y);
+        tab.child(17, 97209, 286+x, 120+y);
+        tab.child(18, 97210, 386+x, 120+y);
+        tab.child(19, 97211, 327+x, 124+y);
+        tab.child(20, 97212, 427+x, 124+y);
+        tab.child(21, 97213, 244+x, 148+y);
+        int yy = 0;
+        for (int i = 0; i < 6; i++) {
+            addText(97214 + i, "Slot "+(i + 1)+":", tda, 1, 0xFFA500, true, true);
+            addText(97220 + i, "Empty", tda, 1, 0xFFA500, true, true);
+            addButton(97226 + i, 1948, "Select");
+            addText(97232 + i, "Unblock task", tda, 0, -8434673, true, true);
+            tab.child(22 + i, 97214 + i, 61+x, 164+y+yy);
+            tab.child(28 + i, 97220 + i, 244+x, 164+y+yy);
+            tab.child(34 + i, 97226 + i, 360+x, 161+y+yy);
+            tab.child(40 + i, 97232 + i, 401+x, 165+y+yy);
+            yy += 22;
+        }
+        tab.child(46, 97250, 244+x, 71+y);
+        tab.child(47, 97251, 244+x, 82+y);
+        tab.child(48, 97252, 244+x, 93+y);
+    }
+
+
+
+    public static void slayerConfirmInterface(TextDrawingArea[] tda) {
+        RSInterface tab = addInterface(97100);
+        addSprite(97101, 1950);
+        addButton(97102, 1948, "Select");
+        addButton(97103, 1948, "Select");
+        addText(97104, "Back", tda, 0, 0xFFA500, true, true);
+        addText(97105, "Confirm", tda, 0, 0xFFA500, true, true);
+        addText(97106, "Name", tda, 1, 0xFFA500, true, true);
+        addText(97107, "Your current task will be cancelled, and the", tda, 1, 0xFFA500, true, true);
+        addText(97108, "Slayer Masters will be blocked from", tda, 1, 0xFFA500, true, true);
+        addText(97109, "assigning this category to you again.", tda, 1, 0xFFA500, true, true);
+        addText(97110, "Cost:", tda, 1, 0xff0000, true, true);
+        addText(97111, "If you unblock this creature in future, you", tda, 1, 0xFFA500, true, true);
+        addText(97112, "will not get your points back.", tda, 1, 0xFFA500, true, true);
+        int x = 9, y = 13;
+        tab.totalChildren(16);
+        tab.child(0, 97001, x, y);
+        tab.child(1, 97002, 460+x, 7+y);
+        tab.child(2, 97003, 460+x, 7+y);
+        tab.child(3, 97005, 244+x, 9+y);
+        tab.child(4, 97101, 100+x, 75+y);
+        tab.child(5, 97102, 134+x, 241+y);
+        tab.child(6, 97103, 251+x, 241+y);
+        tab.child(7, 97104, 175+x, 245+y);
+        tab.child(8, 97105, 292+x, 245+y);
+        tab.child(9, 97106, 234+x, 102+y);
+        tab.child(10, 97107, 234+x, 125+y);
+        tab.child(11, 97108, 234+x, 138+y);
+        tab.child(12, 97109, 234+x, 151+y);
+        tab.child(13, 97110, 234+x, 174+y);
+        tab.child(14, 97111, 234+x, 197+y);
+        tab.child(15, 97112, 234+x, 210+y);
+    }
+
+
+
+    public static void slayerBuyInterface(TextDrawingArea[] tda) {
+        RSInterface tab = addInterface(97000);
+        addSprite(97001, 1945);
+        addHoverButton(97002, 1946, 21, 21, "Close", -1, 97003, 1);
+        addHoveredButton(97003, 1947, 21, 21, 97004);
+        addText(97005, "Slayer Rewards", tda, 2, 0xFFA500, true, true);
+        addButton(97006, 1948, "Select");
+        addButton(97007, 1948, "Select");
+        addButton(97008, 1949, "Select");
+        addButton(97009, 1950, "Select");
+        addText(97010, "Unlock", tda, 0, 0xFFA500, true, true);
+        addText(97011, "Extend", tda, 0, 0xFFA500, true, true);
+        addText(97012, "Buy", tda, 0, 0xFFA500, true, true);
+        addText(97013, "Tasks", tda, 0, 0xFFA500, true, true);
+        addText(97014, "Reward Points: ###", tda, 0, 0xFFA500, true, true);
+        int x = 9, y = 13;
+        tab.totalChildren(14);
+        tab.child(0, 97001, x, y);
+        tab.child(1, 97002, 460+x, 7+y);
+        tab.child(2, 97003, 460+x, 7+y);
+        tab.child(3, 97005, 244+x, 9+y);
+        tab.child(4, 97006, 11+x, 36+y);
+        tab.child(5, 97007, 97+x, 36+y);
+        tab.child(6, 97008, 183+x, 36+y);
+        tab.child(7, 97009, 269+x, 36+y);
+        tab.child(8, 97010, 52+x, 40+y);
+        tab.child(9, 97011, 138+x, 40+y);
+        tab.child(10, 97012, 224+x, 40+y);
+        tab.child(11, 97013, 310+x, 40+y);
+        tab.child(12, 97014, 420+x, 40+y);
+        tab.child(13, 97015, 35+x, 59+y);
+
+
+
+        RSInterface scroll = addInterface(97015);
+        scroll.totalChildren(26);
+        addItemContainer(97016, new int[] {60, 30}, new int[] {5, 5}, new String[] {"Buy 1", "Buy 5", "Buy 10", "Buy 50", "Buy X"}, true);
+        fill(97016);
+        scroll.child(0, 97016, 0, 0);
+        int xx = 0, yy = 34;
+        for (int i = 1; i < 26; i++) {
+            addText(97016 + i, "100", tda, 1, 0xFFA500, true, true);
+            scroll.child(i, 97016 + i, xx + 16, yy);
+            xx += 92;
+            if (xx == 460) {
+                xx = 0;
+                yy += 62;
+            }
+        }
+        scroll.width = 426;
+        scroll.height = 234;
+        scroll.scrollMax = 250;
+    }
+
+
+    public static void addConfigButton2(int ID, int pID, int bID, int bID2, int width, int height, String tT,
+                                        int configID, int aT, int configFrame) {
+        RSInterface Tab = addTabInterface(ID);
+        Tab.parentID = pID;
+        Tab.id = ID;
+        Tab.type = 5;
+        Tab.atActionType = aT;
+        Tab.contentType = 0;
+        Tab.width = width;
+        Tab.height = height;
+        Tab.opacity = 0;
+        Tab.hoverType = -1;
+        Tab.valueCompareType = new int[1];
+        Tab.requiredValues = new int[1];
+        Tab.valueCompareType[0] = 1;
+        Tab.requiredValues[0] = configID;
+        Tab.valueIndexArray = new int[1][3];
+        Tab.valueIndexArray[0][0] = 5;
+        Tab.valueIndexArray[0][1] = configFrame;
+        Tab.valueIndexArray[0][2] = 0;
+        Tab.enabledSprite = SpriteLoader.sprites[bID2];
+        Tab.disabledSprite = SpriteLoader.sprites[bID];
+        Tab.tooltip = tT;
     }
 
 	private static void optionDialogues() {
