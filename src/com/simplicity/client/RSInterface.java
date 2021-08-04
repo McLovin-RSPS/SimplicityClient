@@ -5130,6 +5130,7 @@ public class RSInterface {
         addButton(97403, 1948, "Select");
         addButton(97404, 1948, "Select");
         int x = 9, y = 13;
+        int scrollId = 97405;
         tab.totalChildren(14);
         tab.child(0, 97001, x, y);
         tab.child(1, 97002, 460+x, 7+y);
@@ -5144,28 +5145,28 @@ public class RSInterface {
         tab.child(10, 97012, 224+x, 40+y);
         tab.child(11, 97013, 310+x, 40+y);
         tab.child(12, 97014, 420+x, 40+y);
-        tab.child(13, 97405, 10+x, 59+y);
+        tab.child(13, scrollId, 10+x, 59+y);
 
-        int amount = 18;
-        RSInterface scroll = addInterface(97405);
+        int amount = 24;
+        RSInterface scroll = addInterface(scrollId);
         scroll.totalChildren(amount * 4);
         int xx = 0, yy = 0;
         int[] items = new int[] {34147, 34136, 36695, 37420, 34455, 41864, 41866, 34761, 33687, 33851, 33903, 33260, 33064, 31451, 49639, 49643, 49647, 51264, 51888, 53073, 32360, 36812, 51750, 34139};
         String[] names = new String[]{"Gargoyle smasher", "Slug salter", "Reptile freezer", "'Shroom sprayer", "Broader fletching", "Malevolent masquerade", "Ring bling", "Seeing red", "I hope you mith me", "Watch the birdie", "Hot stuff", "Reptile got ripped", "Like a boss", "Bigger and Badder", "King black bonnet", "Kalphite khat", "Unholy helmet", "Dark Mantle", "Undead head", "Use more head", "Duly noted", "Stop the Wyvern", "Double Trouble", "Basilocked"};
         String[] desc = new String[]{"Automatically smash gargoyles when\\nthey're on critical health, if you have the\\nright tool. <col=ff0000>(120 points)", "Automatically salt rock slugs when they're\\non critical health, if you have salt. <col=ff0000>(80\\npoints)", "Automatically freeze desert lizards when\\nthey're on critical health, if you have ice\\nwater. <col=ff0000>(90 points)", "Automatically spray mutated zygomites\\nwhen they're on critical health, if you\\nhave fungicide. <col=ff0000>(110 points)", "Learn to fletch broad arrows (with level 52\\nFletching), broad bolts (with level 55\\nFletching) and amethyst broad bolts (with\\nlevel 76 Fletching). <col=ff0000>(300 points)", "Learn to combine the protective Slayer\\nheadgear and Slayer gem into one\\nuniversal helmet, with level 55 Crafting.\\n<col=ff0000>(400 points)", "Learn to craft your own Slayer Rings, with\\nlevel 75 Crafting. <col=ff0000>(300 points)", "Konar, Duradel and Nieve will be able to\\nassign Red Dragons as your task.<col=ff0000>(50\\npoints)", "Konar, Duradel and Nieve will be able to\\nassign Mithril Dragons as your task. <col=ff0000>(80\\npoints)", "Konar, Duradel, Nieve and Chaeldar will be\\nable to assign Aviansies as your task. <col=ff0000>(80\\npoints)", "Duradel, Nieve and Chaeldar will be able\\nto assign TzHaar as your task. You may\\nalso be offered a chance to slay TzTok-Jad\\nor TzkKal-Zuk. <col=ff0000>(100 points)", "Konar, Duradel, Nieve and Chaeldar will be\\nable to assign you Lizardmen. You need\\nShayzien favour to fight lizardmen. <col=ff0000>(75\\npoints)", "Konar, Duradel and Nieve will be able to\\nassign boss monsters as your task. They\\nwill choose which boss you must kill. <col=ff0000>(200\\npoints)", "Increase the risk against certain slayer\\nmonsters with the chance of a superior\\nversion spawning whilst on a slayer task.\\n<col=ff0000>(150 points)", "Learn how to combine a KBD head with your\\nslayer helm to colour it black. <col=ff0000>(1000 points)", "Learn how to combine a Kalphite Queen\\nhead with your slayer helm to colour it\\ngreen. <col=ff0000>(1000 points)", "Learn how to combine an Abyssal Demon\\nhead with your slayer helm to colour it red.\\n<col=ff0000>(1000 points)", "Learn how to combine a Dark Claw with\\nyour slayer helm to colour it purple. <col=ff0000>(1000\\npoints)", "Learn how to combine Vorkath's head with\\nyour slayer helm to colour it turquoise.\\n<col=ff0000>(1000 points)", "Learn how to combine a Hydra head with\\nyour slayer helm to theme it like the\\nAlchemical Hydra. <col=ff0000>(1000 points)", "Mithril dragons drop mithril bars in\\nbanknote form while killed on assignment.\\n<col=ff0000>(200 points)", "Stops you getting Fossil Island Wyvern\\ntasks, without counting towards your\\nblocked task limit. <col=ff0000>(500 points)", "Slaying Dusk and Dawn now counts for two\\nkills towards your task rather than one.\\n<col=ff0000>(500 points)", "Konar, Duradel and Nieve will be able to\\nassign Basilisks as your task. <col=ff0000>(80 points)"};
         for (int i = 0; i < amount; i++) {
-            addConfigButton2(97406 + i, 97405, 1954, 1955, 224, 84, "Unlock", 1, 4, 580 + i);
-            addItemContainer(97425 + i, new int[] {1, 1}, new int[] {1, 1}, new String[5], false);
-            interfaceCache[97425 + i].inv[0] = items[i] + 1;
-            interfaceCache[97425 + i].invStackSizes[0] = 1;
-            addText(97444 + i, names[i], tda, 1, 0xFFA500, true, true);
-            interfaceCache[97444 + i].useNewFonts = true;
-            addText(97463 + i, desc[i], tda, 0, 0xFFA500, false, true);
-            interfaceCache[97463 + i].useNewFonts = true;
-            scroll.child(i, 97406 + i, xx, yy);
-            scroll.child(i+amount, 97425 + i, 3+xx, 3+yy);
-            scroll.child(i+amount*2, 97444 + i, 128+xx, 13+yy);
-            scroll.child(i+amount*3, 97463 + i, 7+xx, 39+yy);
+            addConfigButton2(scrollId + 1 + i, scrollId, 1954, 1955, 224, 84, "Unlock", 1, 4, 580 + i);
+            addItemContainer(scrollId + (amount + 4) + i, new int[] {1, 1}, new int[] {1, 1}, new String[5], false);
+            interfaceCache[scrollId + (amount + 4) + i].inv[0] = items[i] + 1;
+            interfaceCache[scrollId + (amount + 4) + i].invStackSizes[0] = 1;
+            addText(scrollId + (amount * 2 + 7) + i, names[i], tda, 1, 0xFFA500, true, true);
+            interfaceCache[scrollId + (amount * 2 + 7) + i].useNewFonts = true;
+            addText(scrollId + (amount * 3 + 10) + i, desc[i], tda, 0, 0xFFA500, false, true);
+            interfaceCache[scrollId + (amount * 3 + 10) + i].useNewFonts = true;
+            scroll.child(i, scrollId + 1 + i, xx, yy);
+            scroll.child(i+amount, scrollId + (amount + 4) + i, 3+xx, 3+yy);
+            scroll.child(i+amount*2, scrollId + (amount * 2 + 7) + i, 128+xx, 13+yy);
+            scroll.child(i+amount*3, scrollId + (amount * 3 + 10) + i, 7+xx, 39+yy);
             xx += 227;
             if (xx == 454) {
                 xx = 0;
