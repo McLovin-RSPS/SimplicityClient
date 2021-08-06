@@ -1,5 +1,4 @@
 /bin/
-src/com/simplicity/client/cache/definitions/ItemDefinition.java
 .idea
 .idea/libraries
 .idea/libraries/deps.xml
