@@ -1,12 +1,7 @@
 package com.simplicity.client;
 
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.*;
 import java.util.zip.GZIPOutputStream;
 
 import com.simplicity.util.GZIPUtil;
@@ -63,11 +58,18 @@ public final class Decompressor {
 				return false;
 			}
 
-			BufferedOutputStream gzip = new BufferedOutputStream(
-					new GZIPOutputStream(new FileOutputStream(path)));
+			if (GZIPUtil.isGzipped(indexByteArray)) {
+				BufferedOutputStream gzip = new BufferedOutputStream(
+						new GZIPOutputStream(new FileOutputStream(path)));
 
-			gzip.write(indexByteArray);
-			gzip.close();
+				gzip.write(indexByteArray);
+				gzip.close();
+			} else {
+				DataOutputStream stream = new DataOutputStream(new FileOutputStream(path));
+				stream.write(indexByteArray);
+				stream.close();
+			}
+
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
