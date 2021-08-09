@@ -35,11 +35,12 @@ import java.awt.Stroke;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 
+import com.simplicity.client.Entity;
+import com.simplicity.client.TileObject;
 import net.runelite.api.Actor;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
-import net.runelite.api.TileObject;
 import net.runelite.api.coords.LocalPoint;
 
 
@@ -121,7 +122,7 @@ public class OverlayUtil
 		graphics.drawImage(image, x, y, null);
 	}
 
-	public static void renderActorOverlay(Graphics2D graphics, Actor actor, String text, Color color)
+	public static void renderActorOverlay(Graphics2D graphics, Entity actor, String text, Color color)
 	{
 		Polygon poly = actor.getCanvasTilePoly();
 		if (poly != null)
@@ -129,7 +130,7 @@ public class OverlayUtil
 			renderPolygon(graphics, poly, color);
 		}
 
-		Point textLocation = actor.getCanvasTextLocation(graphics, text, actor.getLogicalHeight() + 40);
+		Point textLocation = actor.getCanvasTextLocation(graphics, text, actor.modelHeight + 40);
 		if (textLocation != null)
 		{
 			renderTextLocation(graphics, textLocation, text, color);

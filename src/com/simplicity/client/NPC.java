@@ -109,6 +109,10 @@ public final class NPC extends Entity
 		return "";
 	}
 
+	public int getId() {
+		return desc != null ? desc.id : -1;
+	}
+
 	public boolean isVisible()
 	{
 		return desc != null;

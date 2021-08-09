@@ -108,6 +108,24 @@ public final class GroundDecoration implements TileObject
 				Client.instance.plane);
 		return model.getConvexHull(getX(), getY(), 0, tileHeight);
 	}
+
+	public Polygon getConvexHull2() {
+		Model model = null;
+
+		if (node instanceof Model) {
+			model = (Model) node;
+		} else if (node instanceof Animable) {
+			model = ((Animable) node).getRotatedModel();
+		}
+
+		if (model == null) {
+			return null;
+		}
+
+		int tileHeight = Perspective.getTileHeight(RuneLite.getClient(), new LocalPoint(getX(), getY()),
+				Client.instance.plane);
+		return model.getConvexHull(getX(), getY(), 0, tileHeight);
+	}
 	
 	private Model getModel()
 	{

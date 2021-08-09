@@ -571,18 +571,6 @@ public final class Player extends Entity {
 		}
 	}
 
-	public Entity getInteracting() {
-		if (interactingEntity == -1) {
-			return null;
-		}
-
-		if (interactingEntity < 32768) {
-			return Client.instance.getNpcs()[interactingEntity];
-		} else {
-			return Client.instance.getPlayers()[interactingEntity - 32768];
-		}
-	}
-
 	/**
 	 * Checks whether this player is a friend of the local player.
 	 * 

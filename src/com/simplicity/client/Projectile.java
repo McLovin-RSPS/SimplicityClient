@@ -3,7 +3,7 @@ package com.simplicity.client;
 
 import com.simplicity.client.cache.definitions.SpotAnimDefinition;
 
-final class Projectile extends Animable {
+public final class Projectile extends Animable {
 
 	public void calculateTracking(int currentTime, int targetY, int targetZ, int targetX)
 	{
@@ -84,6 +84,18 @@ final class Projectile extends Animable {
 					currentFrame = 0;
 			}
 
+	}
+
+	public int getId() {
+		return gfx.getId();
+	}
+
+	public int getX() {
+		return startX;
+	}
+
+	public int getY() {
+		return startY;
 	}
 
 	public final int startTime;
