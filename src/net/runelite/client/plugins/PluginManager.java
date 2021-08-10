@@ -75,8 +75,6 @@ import net.runelite.client.plugins.config.ConfigPlugin;
 import net.runelite.client.plugins.devtools.DevToolsPlugin;
 import net.runelite.client.plugins.discord.DiscordPlugin;
 import net.runelite.client.plugins.donate.DonatePlugin;
-import net.runelite.client.plugins.feed.FeedPlugin;
-import net.runelite.client.plugins.forum.ForumPlugin;
 import net.runelite.client.plugins.fps.FpsPlugin;
 import net.runelite.client.plugins.grounditems.GroundItemsPlugin;
 import net.runelite.client.plugins.groundmarkers.GroundMarkerPlugin;
@@ -277,7 +275,7 @@ public class PluginManager
 				SlayerPlugin.class,
 				StatusBarsPlugin.class,
 				StatusOrbsPlugin.class,
-				FeedPlugin.class,
+//				FeedPlugin.class,
 				BlastFurnacePlugin.class,
 				DevToolsPlugin.class
 		};

@@ -627,7 +627,7 @@ public class ClientRuneLite implements Client {
 	}
 	
 	@Override
-	public List<Projectile> getProjectiles() {
+	public List<com.simplicity.client.Projectile> getProjectiles() {
 		// TODO Auto-generated method stub
 		return null;
 	}
