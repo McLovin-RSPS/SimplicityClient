@@ -26,12 +26,12 @@ package net.runelite.api;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nullable;
 
+import com.simplicity.client.Projectile;
 import org.slf4j.Logger;
 
 import com.simplicity.client.CollisionDetection;
