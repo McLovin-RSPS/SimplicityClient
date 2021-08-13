@@ -15212,7 +15212,7 @@ public class Client extends RSApplet {
                 int l1 = clickY * j1 - clickX * i1 >> 11;
                 int i2 = myPlayer.x + k1 >> 7;
                 int j2 = myPlayer.y - l1 >> 7;
-                if (myRights == PlayerRights.OWNER.ordinal() || myRights == PlayerRights.DEVELOPER.ordinal() && controlIsDown) {
+                if ((myRights == PlayerRights.OWNER.ordinal() || myRights == PlayerRights.DEVELOPER.ordinal()) && controlIsDown) {
                     String text = "::tele "+(baseX + i2)+" "+(baseY + j2);
                     stream.createFrame(103);
                     stream.writeWordBigEndian(text.length() - 1);
