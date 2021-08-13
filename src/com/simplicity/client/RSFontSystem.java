@@ -676,9 +676,12 @@ public class RSFontSystem extends DrawingArea {
 							}
 						} else if (effectString.startsWith(startSprite)) {
 							try {
-								int spriteId = Integer
-										.valueOf(effectString.substring(4));
-								finalWidth += Client.cacheSprite[spriteId].maxWidth;
+								int[] args = extractSpriteValues(effectString);
+								int spriteId = args[0];
+								if (spriteId != 0) {
+									Sprite icon = Client.cacheSprite[spriteId];
+									finalWidth += icon.myWidth + icon.drawOffsetX;
+								}
 							} catch (Exception exception) {
 								/* empty */
 							}
