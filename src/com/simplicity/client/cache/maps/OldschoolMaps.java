@@ -39,6 +39,8 @@ public class OldschoolMaps {
             
             11675, // Warrior's guild basement
             
+            11164, 10908, 10907, // Fremennik slayer dungeon
+            
             14906, 14650, 14652, 14651, 14908, 14907, 15163,  // Hunter location Fossil Island OSRS
                    
             5432, 5433, // Lake Molch
