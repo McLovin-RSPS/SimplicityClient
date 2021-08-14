@@ -9283,6 +9283,10 @@ public class Client extends RSApplet {
 					return;
 				}
 
+                if (interfaceId >= 73003 && interfaceId <= 73007) {
+                    QuestTab.setTab(interfaceId);
+                }
+
                 switch (interfaceId) {
                 case SettingsWidget.DISPLAY_BUTTON:
 				case SettingsWidget.AUDIO_BUTTON:
@@ -21637,6 +21641,7 @@ public class Client extends RSApplet {
                     } else if (s.startsWith(":set_quest_tab:")) {
                     	int buttonId = Integer.parseInt(s.substring(s.lastIndexOf(":") + 1));
                     	RSInterface.handleConfigHover(RSInterface.interfaceCache[buttonId]);
+                        QuestTab.setTab(buttonId);
                     } else if (s.startsWith("setTeleportOptions:")) {
                         String[] ids = s.split(":")[1].split(",");
                        // RSInterface.???

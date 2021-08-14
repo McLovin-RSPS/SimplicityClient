@@ -1,5 +1,6 @@
 package com.simplicity.client.widget;
 
+import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.TextDrawingArea;
 import com.simplicity.client.widget.raids.cox.tab.RaidingTab;
@@ -26,7 +27,8 @@ public class QuestTab extends RSInterface {
 
 	public static void unpack(TextDrawingArea[] tda) {
 		navigation(tda);
-		informationTab(tda);
+		characterSummaryTab(tda);
+		//informationTab(tda);
 		questTab(tda);
 		activityTab(tda);
 		miscTab(tda);
@@ -81,6 +83,195 @@ public class QuestTab extends RSInterface {
 		id++;
 		
 		addRectangle(73221, 150, 0, true, 156, 195);
+	}
+
+	private static void characterSummaryTab(TextDrawingArea[] tda) {
+		int id = INFORMATION_TAB_ID;
+
+		RSInterface tab = addTabInterface(id++);
+		tab.totalChildren(10 + 7);
+		tab.child(0, INTERFACE_ID, 0, 0);
+
+		int child = 1;
+
+		int width = 164 + 5;
+		int height = 232 - 25;
+		int baseX = 3;
+		int baseY = 0;
+
+		addText(id, "", 2, 0xff9800);
+		RSInterface.interfaceCache[id].width = 183;
+		RSInterface.interfaceCache[id].height = 20;
+		RSInterface.interfaceCache[id].centerText = true;
+		RSInterface.interfaceCache[id].useNewFonts = true;
+		tab.child(child++, id++, baseX, baseY + 26);
+
+		int blockWidth = 90 + 1;
+		int blockHeight = 42;
+		int mBlockH = 54;
+		int lBlockW = 184;
+		int lBlockH = 28;
+		int gap = 2;
+
+		int yPos = baseY + blockHeight + 2;
+
+		RSInterface cmb = addBlock(0, id, blockWidth, blockHeight, "Combat Level:", "70");
+		tab.child(child++, cmb.id, baseX, yPos);
+		id += cmb.children.length + 1;
+        addSprite(id, 1972);
+        tab.child(child++, id++, baseX + 30, yPos + (blockHeight / 2) + 1);
+
+		RSInterface total = addBlock(1, id, blockWidth, blockHeight, "Total Level:", "1220");
+		tab.child(child++, total.id, baseX + blockWidth + gap, yPos);
+		id += total.children.length + 1;
+		addSprite(id, 1973);
+        tab.child(child++, id++, baseX + blockWidth + 26, yPos + (blockHeight / 2));
+		yPos += blockHeight + 2;
+
+		RSInterface xp = addBlock(2, id, lBlockW, lBlockH, "Total XP: <col=0dc10d>8,019,799</col>", "");
+		tab.child(child++, xp.id, baseX, yPos);
+		id += xp.children.length + 1;
+		addSprite(id, 1974);
+		tab.child(child++, id++, baseX + 32, yPos + 5);
+		yPos += lBlockH + 2;
+
+		RSInterface quests = addBlock(3, id, blockWidth, mBlockH, "Quests\\nCompleted:", "33/150");
+		tab.child(child++, quests.id, baseX, yPos);
+		id += quests.children.length + 1;
+        addSprite(id, 1327);
+        tab.child(child++, id++, baseX + 15, yPos + 32);
+
+		RSInterface ach = addBlock(4, id, blockWidth, mBlockH, "Achievements\\nCompleted:", "69/492");
+		tab.child(child++, ach.id, baseX + blockWidth + gap, yPos);
+		id += ach.children.length + 1;
+        addSprite(id, 1328);
+        tab.child(child++, id++, baseX + blockWidth + gap + 15, yPos + 32);
+		yPos += mBlockH + 2;
+
+		RSInterface cmbTasks = addBlock(5, id, blockWidth, mBlockH, "Combat Tasks\\nCompleted:", "1/410");
+		tab.child(child++, cmbTasks.id, baseX, yPos);
+		id += cmbTasks.children.length + 1;
+        addSprite(id, 1975);
+        tab.child(child++, id++, baseX + 22, yPos + 32);
+
+		RSInterface collections = addBlock(6, id, blockWidth, mBlockH, "Collections\\nLogged:", "10/1365");
+		tab.child(child++, collections.id, baseX + blockWidth + gap, yPos);
+		id += collections.children.length + 1;
+        addSprite(id, 1976);
+        tab.child(child++, id++, baseX + blockWidth + gap + 14, yPos + 32);
+		yPos += mBlockH + 2;
+
+		RSInterface played = addBlock(7, id, lBlockW, lBlockH, "Time Played: <col=0dc10d>21 days, 4 hours</col>", "");
+		tab.child(child++, played.id, baseX, yPos);
+		id += played.children.length + 1;
+	}
+
+	private static RSInterface addBlock(int index, int id, int width, int height, String title, String value) {
+		int x = 0;
+		int y = 0;
+
+		RSInterface block = addInterface(id++);
+		block.totalChildren(13);
+
+		int child = 0;
+
+		addSprite(id, 1968);
+		block.child(child++, id++, x, y);
+
+		addSprite(id, 1969);
+		block.child(child++, id++, x + width - 8, y);
+
+		addSprite(id, 1970);
+		block.child(child++, id++, x, y + height - 8);
+
+		addSprite(id, 1971);
+		block.child(child++, id++, x + width - 8, y + height - 8);
+
+		addSprite(id, 1977);
+		block.child(child++, id++, x + 8, y);
+
+		addSpriteRepeatX(id,1978, width - 16);
+		block.child(child++, id++, x + 8, y + height - 4);
+
+		addSpriteRepeatX(id,1977, width - 16);
+		block.child(child++, id++, x + 8, y);
+
+		addSpriteRepeatY(id, 1979, height - 16);
+		block.child(child++, id++, x, y + 8);
+
+		addSpriteRepeatY(id, 1980, height - 16);
+		block.child(child++, id++, x + width - 4, y + 8);
+
+		addSpriteRepeatBoth(id,1981, width - 8, height - 16);
+		block.child(child++, id++, x + 4, y + 8);
+
+		addSpriteRepeatBoth(id,1981, width - 16, height - 8);
+		block.child(child++, id++, x + 8, y + 4);
+
+		addText(id, title, 0, 0xff9933);
+		interfaceCache[id].width = width - 8;
+		interfaceCache[id].height = height;
+		interfaceCache[id].centerText = true;
+		interfaceCache[id].useNewFonts = true;
+
+		if (index >= 3 && index <= 6) {
+			interfaceCache[id].atActionType = 1;
+			interfaceCache[id].contentType = 0;
+			interfaceCache[id].disabledMouseOverColor = 0xffffff;
+			interfaceCache[id].tooltip = "View " + title.replaceAll(":", "").replace("\\n", " ");
+		}
+
+        int textXOff = 0;
+		int textYOff = 5;
+
+		switch (index) {
+			case 2:
+			    textXOff = 10;
+			    textYOff = 9;
+			    break;
+			case 7:
+				textYOff = 9;
+				break;
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+				textYOff = 11;
+				break;
+		}
+
+		block.child(child++, id++, x + 5 + textXOff, y + textYOff);
+
+		textXOff = textYOff = 0;
+
+		switch (index) {
+            case 0:
+                textXOff = 17;
+                break;
+            case 1:
+                textXOff = 11;
+                break;
+            case 3:
+            case 4:
+                textXOff = 5;
+                textYOff = 12;
+                break;
+            case 5:
+                textXOff = 10;
+                textYOff = 12;
+                break;
+            case 6:
+                textXOff = 2;
+                textYOff = 12;
+                break;
+        }
+
+		addText(id, value, 0, 0x0dc10d);
+		interfaceCache[id].width = width - 8;
+		interfaceCache[id].height = height;
+		interfaceCache[id].useNewFonts = true;
+		block.child(child++, id++, x + 34 + textXOff, y + 23 + textYOff);
+		return block;
 	}
 	
 	private static void informationTab(TextDrawingArea[] tda) {
@@ -232,6 +423,14 @@ public class QuestTab extends RSInterface {
 		tab.child(0, 73221, 9, 51);
 		tab.child(1, INTERFACE_ID, 0, 0);
 		return tab;
+	}
+
+	public static void setTab(int buttonId) {
+		int tab = buttonId - 73003;
+		String[] titles = { "", "Player Information", "Activity", "Miscellaneous" };
+		int[] tabs = new int[] { INFORMATION_TAB_ID, QUEST_TAB_ID, ACTIVITY_TAB_ID, MISC_TAB_ID };
+		Client.getClient().tabInterfaceIDs[2] = tabs[tab];
+		interfaceCache[INTERFACE_ID + 1].message = titles[tab];
 	}
 	
 	public static boolean isQuestTabId(int id) {
