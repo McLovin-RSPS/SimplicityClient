@@ -148,7 +148,7 @@ public class QuestTab extends RSInterface {
         tab.child(child++, id++, baseX + blockWidth + gap + 15, yPos + 32);
 		yPos += mBlockH + 2;
 
-		RSInterface cmbTasks = addBlock(5, id, blockWidth, mBlockH, "Combat Tasks\\nCompleted:", "1/410");
+		RSInterface cmbTasks = addBlock(5, id, blockWidth, mBlockH, "M Achievements\\nCompleted:", "1/410");
 		tab.child(child++, cmbTasks.id, baseX, yPos);
 		id += cmbTasks.children.length + 1;
         addSprite(id, 1975);
