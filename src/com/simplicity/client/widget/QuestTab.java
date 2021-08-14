@@ -320,7 +320,7 @@ public class QuestTab extends RSInterface {
 		int height = 232 - 25;
 		
 		RSInterface scroll = addInterface(id++);
-		scroll.totalChildren(15);
+		scroll.totalChildren(50);
 		scroll.width = width - 7;
 		scroll.height = height;
 		scroll.scrollMax = scroll.children.length * 20 + 9;
