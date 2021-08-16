@@ -25,9 +25,17 @@ public class GZIPUtil {
 	 * @return <code>true</code> if the file is compressed using gzip.
 	 */
 	public static boolean isGzipped(File file) {
-		try {
-			byte[] data = fileToByteArray(file);
+		byte[] data = fileToByteArray(file);
 
+		if (data == null) {
+			return false;
+		}
+
+		return isGzipped(data);
+	}
+
+	public static boolean isGzipped(byte[] data) {
+		try {
 			if (data == null) {
 				return false;
 			}

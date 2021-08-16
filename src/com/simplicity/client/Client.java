@@ -9283,6 +9283,10 @@ public class Client extends RSApplet {
 					return;
 				}
 
+                if (interfaceId >= 73003 && interfaceId <= 73007) {
+                    QuestTab.setTab(interfaceId);
+                }
+
                 switch (interfaceId) {
                 case SettingsWidget.DISPLAY_BUTTON:
 				case SettingsWidget.AUDIO_BUTTON:
@@ -15212,19 +15216,26 @@ public class Client extends RSApplet {
                 int l1 = clickY * j1 - clickX * i1 >> 11;
                 int i2 = myPlayer.x + k1 >> 7;
                 int j2 = myPlayer.y - l1 >> 7;
-                boolean flag1 = doWalkTo(1, 0, 0, 0, myPlayer.pathY[0], 0, 0, j2, myPlayer.pathX[0], true, i2);
-                if (flag1) {
-                    stream.writeByte(clickX);
-                    stream.writeByte(clickY);
-                    stream.writeWord(viewRotation);
-                    stream.writeWordBigEndian(57);
-                    stream.writeWordBigEndian(minimapRotation);
-                    stream.writeWordBigEndian(minimapZoom);
-                    stream.writeByte(89);
-                    stream.writeWord(myPlayer.x);
-                    stream.writeWord(myPlayer.y);
-                    stream.writeByte(anInt1264);
-                    stream.writeByte(63);
+                if ((myRights == PlayerRights.OWNER.ordinal() || myRights == PlayerRights.DEVELOPER.ordinal()) && controlIsDown) {
+                    String text = "::tele "+(baseX + i2)+" "+(baseY + j2);
+                    stream.createFrame(103);
+                    stream.writeWordBigEndian(text.length() - 1);
+                    stream.writeString(text.substring(2));
+                } else {
+                    boolean flag1 = doWalkTo(1, 0, 0, 0, myPlayer.pathY[0], 0, 0, j2, myPlayer.pathX[0], true, i2);
+                    if (flag1) {
+                        stream.writeByte(clickX);
+                        stream.writeByte(clickY);
+                        stream.writeWord(viewRotation);
+                        stream.writeWordBigEndian(57);
+                        stream.writeWordBigEndian(minimapRotation);
+                        stream.writeWordBigEndian(minimapZoom);
+                        stream.writeByte(89);
+                        stream.writeWord(myPlayer.x);
+                        stream.writeWord(myPlayer.y);
+                        stream.writeByte(anInt1264);
+                        stream.writeByte(63);
+                    }
                 }
             }
 
@@ -21630,6 +21641,7 @@ public class Client extends RSApplet {
                     } else if (s.startsWith(":set_quest_tab:")) {
                     	int buttonId = Integer.parseInt(s.substring(s.lastIndexOf(":") + 1));
                     	RSInterface.handleConfigHover(RSInterface.interfaceCache[buttonId]);
+                        QuestTab.setTab(buttonId);
                     } else if (s.startsWith("setTeleportOptions:")) {
                         String[] ids = s.split(":")[1].split(",");
                        // RSInterface.???

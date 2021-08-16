@@ -126,6 +126,8 @@ public final class SpotAnimDefinition {
 		return animationId;
 	}
 
+	public int getId() { return id; }
+
 	public int anInt400;
 	public static SpotAnimDefinition cache[];
 	private int id;

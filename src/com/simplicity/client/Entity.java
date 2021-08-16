@@ -10,9 +10,11 @@ import java.awt.Polygon;
 
 import com.simplicity.client.cache.definitions.Animation;
 
+import com.simplicity.client.cache.definitions.MobDefinition;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
+import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.RuneLite;
 
@@ -269,4 +271,40 @@ public class Entity extends Animable {
 	public boolean isDead() {
 		return maxHealth > 0 && currentHealth <= 0;
 	}
+
+	public int getGraphic() {
+		return anInt1520;
+	}
+
+	public int getPoseAnimation() {
+		return standAnim;
+	}
+
+	public Entity getInteracting() {
+		if (interactingEntity == -1) {
+			return null;
+		}
+
+		if (interactingEntity < 32768) {
+			return Client.instance.getNpcs()[interactingEntity];
+		} else {
+			return Client.instance.getPlayers()[interactingEntity - 32768];
+		}
+	}
+
+	public WorldArea getWorldArea()
+	{
+		int size = 1;
+		if (this instanceof NPC)
+		{
+			MobDefinition composition = ((NPC)this).desc;
+			if (composition != null)
+			{
+				size = composition.squaresNeeded;
+			}
+		}
+
+		return new WorldArea(this.getWorldLocation(), size, size);
+	}
+
 }
