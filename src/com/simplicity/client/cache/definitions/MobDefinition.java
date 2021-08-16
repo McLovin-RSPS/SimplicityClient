@@ -1369,6 +1369,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.actions = new String[]{"Talk-to", null, "Start", "Rewards", null};
                 break;
+            case 8273:
             case 8275:
                 npc.actions[2] = "Get-task";
                 break;
