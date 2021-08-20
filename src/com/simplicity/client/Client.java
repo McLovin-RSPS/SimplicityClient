@@ -6107,19 +6107,27 @@ public class Client extends RSApplet {
         							NPC n = (NPC) obj;
         							
         							if (getRegionId() == 15515) {
-        								if (n.getName().endsWith("Totem")) {
-        									hpColor = 0xFFFF00;
-                							bgColor = 0x665700;
-                							multiplier = 4;
-            							} else if (n.getName().equals("The Nightmare")) {
-            								boolean nightmare = parallelWidgetList.contains(RSInterface.interfaceCache[BossHealthOverlay.WIDGET_ID]);
-                    						
-                    						if (nightmare && BossHealthOverlay.getStage(BossHealthOverlay.VARP_NIGHTMARE) == 0) {
-                    							hpColor = 0x46eae4;
-                    							bgColor = 0x032620;
-                    							multiplier = 4;
-                    						}
-            							}
+                                        if (n.getName().endsWith("Totem")) {
+                                            hpColor = 0xFFFF00;
+                                            bgColor = 0x665700;
+                                            multiplier = 4;
+                                        } else if (n.getName().equals("The Nightmare")) {
+                                            boolean nightmare = parallelWidgetList.contains(RSInterface.interfaceCache[BossHealthOverlay.WIDGET_ID]);
+
+                                            if (nightmare && BossHealthOverlay.getStage(BossHealthOverlay.VARP_NIGHTMARE) == 0) {
+                                                hpColor = 0x46eae4;
+                                                bgColor = 0x032620;
+                                                multiplier = 4;
+                                            }
+                                        }
+                                    } else if (getRegionId() == 12611) {
+        							    if (n.getName().equals("Verzik Vitur")) {
+        							        if (n.getId() == 23370) {
+                                                hpColor = 0x46eae4;
+                                                bgColor = 0x032620;
+                                                multiplier = 3;
+                                            }
+                                        }
         							} else if (getRegionId() == 12126 && n.getName().equals("Zalcano") && BossHealthOverlay.getStage(BossHealthOverlay.VARP_ZALCANO) == 1) {
         								hpColor = 0xe25505;
         								bgColor = 0x491c00;
@@ -6195,11 +6203,17 @@ public class Client extends RSApplet {
                                     		} else if (n.getName().equals("The Nightmare") && BossHealthOverlay.getStage(BossHealthOverlay.VARP_NIGHTMARE) == 0) {
                                     			hitMark = cacheSprite[1747];
                                     		}
+                                        } else if (getRegionId() == 12611) {
+                                            if (n.getName().equals("Verzik Vitur")) {
+                                                if (n.getId() == 23370) {
+                                                    hitMark = cacheSprite[1747];
+                                                }
+                                            }
                                     	} else if (getRegionId() == 12126) {
                                     		if (n.getName().equals("Zalcano") && BossHealthOverlay.getStage(BossHealthOverlay.VARP_ZALCANO) == 1) {
                                     			hitMark = cacheSprite[1776];
                                     		}
-                                    	}
+                                        }
                                 	}
                                 	
                                     if (!Configuration.enableConstitution) {
@@ -6701,6 +6715,8 @@ public class Client extends RSApplet {
         toggleSize(0);
         RSInterface.interfaceCache[3322].deleteOnDrag2 = false;
         RSInterface.handleConfigHover(RSInterface.interfaceCache[QuestTab.INFO_BUTTON_ID]);
+        RSInterface.interfaceCache[61502].disabledColor = 0xff0000;
+        RSInterface.interfaceCache[61503].disabledColor = 0x00ff00;
         parallelWidgetList.clear();
         fadeColor = fadeAlpha = fadeAlphaEnd = fadeAlphaStep = 0;
         fadeVisible = false;
@@ -21580,11 +21596,16 @@ public class Client extends RSApplet {
                     } else if (s.startsWith(":highlight_clr:")) {
                     	worldController.highlighted.clear();
                     } else if (s.startsWith(":highlight:")) {
-                    	String[] datas = s.substring(11).split(":");
-                    	int x = (Integer.parseInt(datas[0]));
-                    	int y = (Integer.parseInt(datas[1]));
-                    	
-                    	worldController.highlight(x, y, plane, false);
+                        String[] datas = s.substring(11).split(":");
+                        int x = (Integer.parseInt(datas[0]));
+                        int y = (Integer.parseInt(datas[1]));
+
+                        worldController.highlight(x, y, plane, false);
+                    } else if (s.startsWith(":raid_shield:")) {
+                        int shield = Integer.parseInt(s.substring(s.lastIndexOf(":") + 1));
+                        RSInterface.interfaceCache[61502].disabledColor = shield == 1 ? 0x032620 : 0xff0000;
+                        RSInterface.interfaceCache[61503].disabledColor = shield == 1 ? 0x46eae4 : 0x00ff00;
+                        RSInterface.interfaceCache[61503].textColor = shield == 1 ? 0xff0000 : 0;
                     } else if (s.startsWith(":bonus_amount:")) {
 						bonusPercentage = Integer.parseInt(s.substring(s.lastIndexOf(":") + 1));
                     } else if (s.startsWith(":idle_graphic:")) {
