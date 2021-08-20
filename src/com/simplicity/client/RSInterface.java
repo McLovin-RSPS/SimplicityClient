@@ -5335,7 +5335,7 @@ public class RSInterface {
         addButton(97006, 1948, "Select");
         addButton(97007, 1948, "Select");
         addButton(97008, 1949, "Select");
-        addButton(97009, 1950, "Select");
+        addButton(97009, 1948, "Select");
         addText(97010, "Unlock", tda, 0, 0xFFA500, true, true);
         addText(97011, "Extend", tda, 0, 0xFFA500, true, true);
         addText(97012, "Buy", tda, 0, 0xFFA500, true, true);
