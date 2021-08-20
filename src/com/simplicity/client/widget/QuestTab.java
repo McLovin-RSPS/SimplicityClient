@@ -89,7 +89,7 @@ public class QuestTab extends RSInterface {
 		int id = INFORMATION_TAB_ID;
 
 		RSInterface tab = addTabInterface(id++);
-		tab.totalChildren(10 + 7);
+		tab.totalChildren(10 + 6);
 		tab.child(0, INTERFACE_ID, 0, 0);
 
 		int child = 1;
@@ -128,11 +128,12 @@ public class QuestTab extends RSInterface {
         tab.child(child++, id++, baseX + blockWidth + 26, yPos + (blockHeight / 2));
 		yPos += blockHeight + 2;
 
-		RSInterface xp = addBlock(2, id, lBlockW, lBlockH, "Total XP: <col=0dc10d>8,019,799</col>", "");
+		RSInterface xp = addBlock(2, id, lBlockW, lBlockH, "<spr=1974:-3> Total XP: <col=0dc10d>8,019,799</col>", "");
 		tab.child(child++, xp.id, baseX, yPos);
 		id += xp.children.length + 1;
-		addSprite(id, 1974);
-		tab.child(child++, id++, baseX + 32, yPos + 5);
+		/*addSprite(id, 1974);
+		tab.child(child++, id++, baseX + 32, yPos + 5);*/
+		id++;
 		yPos += lBlockH + 2;
 
 		RSInterface quests = addBlock(3, id, blockWidth, mBlockH, "Quests\\nCompleted:", "33/150");
@@ -226,7 +227,7 @@ public class QuestTab extends RSInterface {
 
 		switch (index) {
 			case 2:
-			    textXOff = 10;
+			    textXOff = 0;
 			    textYOff = 9;
 			    break;
 			case 7:
