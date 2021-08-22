@@ -12,9 +12,9 @@ import com.simplicity.client.instruction.VoidInstruction;
 import com.simplicity.client.widget.*;
 import com.simplicity.client.widget.dropdown.Dropdown;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
+import com.simplicity.client.widget.raids.cox.StorageUnitBuildingWidget;
 
 import java.util.Arrays;
-import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 
 @SuppressWarnings("all")
@@ -5068,7 +5068,9 @@ public class RSInterface {
         makeAllSkilling(textDrawingAreas);
         
         SettingsWidget.unpack(textDrawingAreas);
-        
+
+        StorageUnitBuildingWidget.unpack(textDrawingAreas);
+
         AchievementsWidget.unpack(textDrawingAreas);
         
         newTeleports(textDrawingAreas);
