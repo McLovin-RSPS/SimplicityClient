@@ -36,7 +36,7 @@ public class DuelArenaDuelOptionsWidget extends CustomWidget {
 
 		for (int i = 0; i < rules.length; i++) {
 			//add(RSInterface.interfaceCache[rules[i]], 33, y_rules);
-			add(addConfigButton(RSInterface.interfaceCache[rule_text[i]].message, 1039, 1040, 5, i, 286), 25, yPosition);
+			add(addConfigButton(RSInterface.interfaceCache[rule_text[i]].message, 1039, 1040, 5, i, 1000 + i), 25, yPosition);
 			add(RSInterface.interfaceCache[rule_text[i]], 43, yPosition);
 			yPosition += 20;
 		}
