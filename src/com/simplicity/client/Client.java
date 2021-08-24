@@ -10370,9 +10370,11 @@ public class Client extends RSApplet {
             RSInterface class9_3 = RSInterface.interfaceCache[interfaceId];
             if (class9_3.valueIndexArray != null && class9_3.valueIndexArray[0][0] == 5) {
                 int l2 = class9_3.valueIndexArray[0][1];
-                variousSettings[l2] = 1 - variousSettings[l2];
-                handleActions(l2);
-                needDrawTabArea = true;
+                if(!(l2 >= 580 && l2 <= 603)) {
+                    variousSettings[l2] = 1 - variousSettings[l2];
+                    handleActions(l2);
+                    needDrawTabArea = true;
+                }
             }
         }
         if (l == 447 || l == 301) {
