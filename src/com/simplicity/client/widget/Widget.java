@@ -13,9 +13,7 @@ import com.simplicity.client.widget.duel_arena.DuelArenaDuelStakeWidget;
 import com.simplicity.client.widget.duel_arena.DuelArenaEquipmentWidget;
 import com.simplicity.client.widget.ge.*;
 import com.simplicity.client.widget.npc_drop_checker.NpcDropChecker;
-import com.simplicity.client.widget.raids.cox.RaidingPartiesContainerWidget;
-import com.simplicity.client.widget.raids.cox.RaidingPartiesWidget;
-import com.simplicity.client.widget.raids.cox.XericPointsWidget;
+import com.simplicity.client.widget.raids.cox.*;
 import com.simplicity.client.widget.raids.cox.party.RaidingPartyContainerWidget;
 import com.simplicity.client.widget.raids.cox.party.RaidingPartyWidget;
 import com.simplicity.client.widget.raids.cox.tab.RaidingTab;
@@ -81,8 +79,9 @@ public class Widget {
 		
 		init(new NewAchievements());
 		init(new BlastFurnaceCoffer());
-
 		init(new SlayerPartner());
+		init(new PrivateStorageWidget());
+		init(new SharedStorageWidget());
 	}
 
 	/**

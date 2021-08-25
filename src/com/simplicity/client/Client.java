@@ -9971,7 +9971,7 @@ public class Client extends RSApplet {
                 if (class9_2.valueIndexArray != null && class9_2.valueIndexArray[0][0] == 5) {
                     int i2 = class9_2.valueIndexArray[0][1];
                     // System.out.println("Config ID: "+i2);
-                    if ((i2 < 670 || i2 > 674) && variousSettings[i2] != class9_2.requiredValues[0]) {
+                    if ((i2 < 670 || i2 > 674) && !(i2 >= 1000 && i2 <= 1012) && variousSettings[i2] != class9_2.requiredValues[0]) {
                         variousSettings[i2] = class9_2.requiredValues[0];
                         handleActions(i2);
                         needDrawTabArea = true;
@@ -10376,9 +10376,11 @@ public class Client extends RSApplet {
             RSInterface class9_3 = RSInterface.interfaceCache[interfaceId];
             if (class9_3.valueIndexArray != null && class9_3.valueIndexArray[0][0] == 5) {
                 int l2 = class9_3.valueIndexArray[0][1];
-                variousSettings[l2] = 1 - variousSettings[l2];
-                handleActions(l2);
-                needDrawTabArea = true;
+                if(!(l2 >= 580 && l2 <= 603)) {
+                    variousSettings[l2] = 1 - variousSettings[l2];
+                    handleActions(l2);
+                    needDrawTabArea = true;
+                }
             }
         }
         if (l == 447 || l == 301) {
