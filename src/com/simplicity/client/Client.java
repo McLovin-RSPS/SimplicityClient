@@ -6136,7 +6136,7 @@ public class Client extends RSApplet {
         								multiplier = 4;
         							} else if (getRegionId() == 12889) {
         							    if (n.getName().startsWith("Great Olm")) {
-                                            multiplier = 3;
+                                            multiplier = 4;
                                         }
                                     }
         						}
