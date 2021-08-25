@@ -6098,7 +6098,9 @@ public class Client extends RSApplet {
                                 HpPercent = 0;
                             }
 
-                            if (!Configuration.enableNewHpBars) {
+                            boolean forceOsrs = getRegionId() == 15515 || getRegionId() == 12611 || getRegionId() == 12126 || getRegionId() == 12889;
+
+                            if (!Configuration.enableNewHpBars || forceOsrs) {
                             	int multiplier = !(obj instanceof Player) && ((Entity) (obj)).maxHealth >= 5000 ? 4 : 1;
         						int hpColor = 65280;
         						int bgColor = 0xff0000;
@@ -6132,7 +6134,11 @@ public class Client extends RSApplet {
         								hpColor = 0xe25505;
         								bgColor = 0x491c00;
         								multiplier = 4;
-        							}
+        							} else if (getRegionId() == 12889) {
+        							    if (n.getName().startsWith("Great Olm")) {
+                                            multiplier = 3;
+                                        }
+                                    }
         						}
 
         						int max = 30 * multiplier;
