@@ -112,6 +112,7 @@ import com.simplicity.client.content.RichPresence;
 import com.simplicity.client.content.login.LoginScreen;
 import com.simplicity.client.content.login.LoginScreen.CharacterFile;
 import com.simplicity.client.content.overlay.ScreenOverlayManager;
+import com.simplicity.client.entity.HealthBar;
 import com.simplicity.client.entity.Position;
 import com.simplicity.client.instruction.InstructionArgs;
 import com.simplicity.client.instruction.InstructionProcessor;
@@ -6098,55 +6099,38 @@ public class Client extends RSApplet {
                                 HpPercent = 0;
                             }
 
-                            boolean forceOsrs = getRegionId() == 15515 || getRegionId() == 12611 || getRegionId() == 12126 || getRegionId() == 12889;
+                            /**
+                             * Forcing OSRS health bars.
+                             */
+                            boolean forceOsrs = getRegionId() == 15515 || getRegionId() == 12611 || getRegionId() == 12126 || getRegionId() == 12889 || getRegionId() == 8259;
 
                             if (!Configuration.enableNewHpBars || forceOsrs) {
-                            	int multiplier = !(obj instanceof Player) && ((Entity) (obj)).maxHealth >= 5000 ? 4 : 1;
-        						int hpColor = 65280;
-        						int bgColor = 0xff0000;
-        						
+                                int size = ((Entity) obj).getHealthDimension();
+                                HealthBar healthBar = ((Entity) obj).getHealthBar();
+
+                                if (size == HealthBar.DIM_30 && !(obj instanceof Player) && ((Entity) obj).maxHealth >= 5000) {
+                                    size = HealthBar.DIM_120;
+                                }
+
         						if (((Entity) obj) instanceof NPC) {
         							NPC n = (NPC) obj;
-        							
-        							if (getRegionId() == 15515) {
-                                        if (n.getName().endsWith("Totem")) {
-                                            hpColor = 0xFFFF00;
-                                            bgColor = 0x665700;
-                                            multiplier = 4;
-                                        } else if (n.getName().equals("The Nightmare")) {
-                                            boolean nightmare = parallelWidgetList.contains(RSInterface.interfaceCache[BossHealthOverlay.WIDGET_ID]);
 
-                                            if (nightmare && BossHealthOverlay.getStage(BossHealthOverlay.VARP_NIGHTMARE) == 0) {
-                                                hpColor = 0x46eae4;
-                                                bgColor = 0x032620;
-                                                multiplier = 4;
-                                            }
-                                        }
-                                    } else if (getRegionId() == 12611) {
-        							    if (n.getName().equals("Verzik Vitur")) {
-        							        if (n.getId() == 23370) {
-                                                hpColor = 0x46eae4;
-                                                bgColor = 0x032620;
-                                                multiplier = 3;
-                                            }
+        							if (getRegionId() == 15515 && n.getName().equals("The Nightmare")) {
+                                        boolean nightmare = parallelWidgetList.contains(RSInterface.interfaceCache[BossHealthOverlay.WIDGET_ID]);
+
+                                        if (nightmare && BossHealthOverlay.getStage(BossHealthOverlay.VARP_NIGHTMARE) == 0) {
+                                            size = HealthBar.DIM_120;
+                                            healthBar = HealthBar.CYAN;
                                         }
         							} else if (getRegionId() == 12126 && n.getName().equals("Zalcano") && BossHealthOverlay.getStage(BossHealthOverlay.VARP_ZALCANO) == 1) {
-        								hpColor = 0xe25505;
-        								bgColor = 0x491c00;
-        								multiplier = 4;
-        							} else if (getRegionId() == 12889) {
-        							    if (n.getName().startsWith("Great Olm")) {
-                                            multiplier = 5;
-                                        }
+                                        size = HealthBar.DIM_120;
+                                        healthBar = HealthBar.ORANGE;
                                     }
         						}
 
-        						int max = 30 * multiplier;
-
-        						current *= multiplier;
-        						
-        						DrawingArea.drawPixels(5, spriteDrawY - 3, spriteDrawX - max / 2, hpColor, current);
-        						DrawingArea.drawPixels(5, spriteDrawY - 3, (spriteDrawX - max / 2) + current, bgColor, max - current);
+        						current = (((Entity) (obj)).currentHealth * size) / ((Entity) (obj)).maxHealth;
+        						DrawingArea.drawPixels(5, spriteDrawY - 3, spriteDrawX - size / 2, healthBar.getMainColor(), current);
+        						DrawingArea.drawPixels(5, spriteDrawY - 3, (spriteDrawX - size / 2) + current, healthBar.getBackColor(), size - current);
                             } else {
                             	SpriteCache.spriteCache[34].drawSprite(spriteDrawX - 28, spriteDrawY - 5);
                                 Sprite s = Sprite.getCutted(SpriteCache.spriteCache[33], HpPercent,

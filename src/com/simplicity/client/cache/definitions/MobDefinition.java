@@ -11,8 +11,13 @@ import com.simplicity.client.MemCache;
 import com.simplicity.client.Model;
 import com.simplicity.client.Stream;
 import com.simplicity.client.cache.DataType;
+import com.simplicity.client.entity.HealthBar;
 
 public final class MobDefinition {
+
+    public HealthBar healthBar = HealthBar.DEFAULT;
+
+    public int healthBarDimension = 30;
 
     /** Hardcoded until we pack another byte into npc definitions to flag followers such as pets and familiars/bobs. **/
     private static final int[] FOLLOWER_IDS = new int[] {
@@ -73,15 +78,20 @@ public final class MobDefinition {
             npc.dataType = DataType.OLDSCHOOL;
             npc.readValuesOSRS(streamOSRS);
             npc.postLoad();
-            if (npc.name != null && npc.name.contains("Ket-Keh")) {
-                npc.name = "Inferno";
-                npc.actions = new String[5];
-                npc.actions[0] = "Start";
-             //   System.out.println("asdfasdfsfsdf " + npc.models[0]);
+            npc.setHealthBar(npc);
+            if (npc.name != null) {
+                if (npc.name.contains("Ket-Keh")) {
+                    npc.name = "Inferno";
+                    npc.actions = new String[5];
+                    npc.actions[0] = "Start";
+                 //   System.out.println("asdfasdfsfsdf " + npc.models[0]);
+                }
+
+                if (npc.name.contains("00ffff")) {
+                    npc.name = npc.name.replaceAll("<col=00ffff>", "@cya@").replaceAll("</col>", "");
+                }
             }
-            if (npc.name != null && npc.name.contains("00ffff")) {
-                npc.name = npc.name.replaceAll("<col=00ffff>", "@cya@").replaceAll("</col>", "");
-            }
+
             switch (i) {
 
             case 7317: // Old Lisa
@@ -2508,6 +2518,35 @@ public final class MobDefinition {
                 this.pet = true;
                 break;
             }
+        }
+    }
+
+    private void setHealthBar(MobDefinition def) {
+        if (def.name != null) {
+            switch (def.name) {
+                case "Great Olm":
+                case "Great Olm (Left hand)":
+                case "Great Olm (Right hand)":
+                    def.healthBarDimension = HealthBar.DIM_160;
+                    break;
+
+                case "Fragment of Seren":
+                    def.healthBarDimension = HealthBar.DIM_120;
+                    break;
+
+                case "@cya@Totem":
+                    def.healthBar = HealthBar.YELLOW;
+                    def.healthBarDimension = HealthBar.DIM_120;
+                    break;
+
+            }
+        }
+
+        switch (def.id) {
+            case 8370:
+                def.healthBar = HealthBar.CYAN;
+                def.healthBarDimension = HealthBar.DIM_100;
+                break;
         }
     }
     
