@@ -1,6 +1,8 @@
 package com.simplicity.client.widget.duel_arena;
 
+import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
+import com.simplicity.client.instruction.impl.SetVarp;
 import com.simplicity.client.widget.CustomWidget;
 import com.simplicity.client.widget.listener.WidgetStateListener;
 
@@ -27,6 +29,7 @@ public class DuelArenaEquipmentWidget extends CustomWidget implements WidgetStat
 
 	@Override
 	public void init() {
+	    addStateListener(this);
 		RSInterface equip = RSInterface.addInterface(id++);
 		equip.totalChildren(23 + 11);
 		

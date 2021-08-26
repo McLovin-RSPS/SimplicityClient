@@ -1,7 +1,9 @@
 package com.simplicity.client.widget.duel_arena;
 
+import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.widget.CustomWidget;
+import com.simplicity.client.widget.listener.WidgetStateListener;
 
 /**
  * Duel Arena 1st Duel Options Interface to replica OSRS
@@ -9,9 +11,12 @@ import com.simplicity.client.widget.CustomWidget;
  * @author Ali/Leonidas https://www.rune-server.ee/members/_ali/
  *
  */
-public class DuelArenaDuelOptionsWidget extends CustomWidget {
+public class DuelArenaDuelOptionsWidget extends CustomWidget implements WidgetStateListener {
 
 	private static final int ID = 83_600;
+
+	private final int[] rules = {6725, 6726, 6727, 7816, 6721, 6728, 6729, 6730, 6722, 6732, 670,};
+	private final int[] rule_text = {6698, 6699, 6697, 7817, 6696, 6701, 6702, 6703, 6704, 6731, 669};
 	
 	public DuelArenaDuelOptionsWidget() {
 		super(ID);
@@ -24,10 +29,7 @@ public class DuelArenaDuelOptionsWidget extends CustomWidget {
 
 	@Override
 	public void init() {
-
-		final int[] rules = {6725, 6726, 6727, 7816, 6721, 6728, 6729, 6730, 6722, 6732, 670,};
-		final int[] rule_text = {6698, 6699, 6697, 7817, 6696, 6701, 6702, 6703, 6704, 6731, 669};
-
+		addStateListener(this);
 		add(addSprite(1962), 3, 12);
 		
 		addWidget(DuelArenaEquipmentWidget.ID, 0, 0);
@@ -86,7 +88,19 @@ public class DuelArenaDuelOptionsWidget extends CustomWidget {
 			add(addClickText(actionButtons[i], 1, 0xFF8C00, false), 386, yPosition);
 			yPosition += 18;
 		}
-		System.out.println("lol id: "+id);
 	}
 
+	@Override
+	public void onDisplay() {
+		for (int i = 0; i < rules.length; i++) {
+			Client.instance.variousSettings[1000 + i] = i == 1 ? 0 : 1;
+		}
+
+		Client.instance.variousSettings[1650] = 1;
+	}
+
+	@Override
+	public void onClose() {
+
+	}
 }
