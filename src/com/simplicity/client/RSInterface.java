@@ -5207,12 +5207,15 @@ public class RSInterface {
         RSInterface scroll = addInterface(97305);
         scroll.totalChildren(76);
         int xx = 0, yy = 0;
+        int[] items = new int[] {6637, 34136, 36695, 37420, 34455, 41864, 41866, 34761, 33687, 33851, 33903, 33260, 33064, 31451, 49639, 49643, 49647, 51264, 51888, 53073, 32360, 36812, 51750, 34139};
+        String[] names = new String[]{"Need more darkness", "Ankou very much", "Suq-a-nother one", "Fire & Darkness", "Pedal to the metals", "I really mith you", "Ada'mind some more", "RUUUUUNE", "Spiritual fervour", "Birds of a feather", "Greater challenge", "It's dark in here", "Bleed me dry", "Smell ya later", "Horrorific", "To dust you shall return", "Wyver-nother one", "Get smashed", "Nechs please"/*, "Augment my abbies", "Krack on", "Get scabaright on it", "Wyver-nother two", "Basilonger"*/};
+        String[] desc = new String[]{"Whenever you get a Dark Beast task, it\\nwill be a bigger task. <col=ff0000>(100 points)", "Whenever you get an Ankou task, it will be\\na bigger task. <col=ff0000>(100 points)", "Whenever you get a Suqah task, it will be\\na bigger task. <col=ff0000>(100 points)", "Whenever you get a Black Dragon task, it\\nwill be a bigger task. <col=ff0000>(50 points)", "Whenever you get a Bronze, Iron or Steel\\nDragon tasks, it will be a bigger task. <col=ff0000>(100\\n<col=ff0000>points)", "Whenever you get a Mithril Dragon tasks, it\\nwill be a bigger task. <col=ff0000>(120 points)", "Whenever you get an Adamant Dragon\\ntask, it will be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Rune Dragon task, it\\nwill be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Spiritual Create\\ntask, it will be a bigger task. <col=ff0000>(100 points)", "Whenever you get an Aviansie task, it will\\nbe a bigger task. <col=ff0000>(100 points)", "Whenever you get a Greater Demon task,\\nit will be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Black Demon task, it\\nwill be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Bloodveld task, it will\\nbe a bigger task. <col=ff0000>(75 points)", "Whenever you get an Aberrant Spectre\\ntask, it will be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Cave Horror task, it\\nwill be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Dust Devil task, it will\\nbe a bigger task. <col=ff0000>(100 points)", "Whenever you get a Skeletal Wyvern task,\\nit will be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Gargoyle task, it will\\nbe a bigger task. <col=ff0000>(100 points)", "Whenever you get a Nechryael task, it will\\nbe a bigger task. <col=ff0000>(100 points)"/*, "Learn how to combine a Hydra head with\\nyour slayer helm to theme it like the\\nAlchemical Hydra. <col=ff0000>(1000 points)", "Mithril dragons drop mithril bars in\\nbanknote form while killed on assignment.\\n<col=ff0000>(200 points)", "Stops you getting Fossil Island Wyvern\\ntasks, without counting towards your\\nblocked task limit. <col=ff0000>(500 points)", "Slaying Dusk and Dawn now counts for two\\nkills towards your task rather than one.\\n<col=ff0000>(500 points)", "Konar, Duradel and Nieve will be able to\\nassign Basilisks as your task. <col=ff0000>(80 points)"*/};
         for (int i = 0; i < 19; i++) {
             addConfigButton2(97306 + i, 97305, 1952, 1953, 224, 64, "Unlock", 1, 4, 560 + i);
             addItemContainer(97325 + i, new int[] {1, 1}, new int[] {1, 1}, new String[5], false);
             fill(97325 + i);
-            addText(97344 + i, "Creature Name", tda, 1, 0xFFA500, true, true);
-            addText(97363 + i, "Description text here\\nDescription text here", tda, 0, 0xFFA500, false, true);
+            addText(97344 + i, names[i], tda, 1, 0xFFA500, true, true);
+            addText(97363 + i, desc[i], tda, 0, 0xFFA500, false, true);
             scroll.child(i, 97306 + i, xx, yy);
             scroll.child(i+19, 97325 + i, 3+xx, 3+yy);
             scroll.child(i+38, 97344 + i, 128+xx, 13+yy);
@@ -5303,7 +5306,7 @@ public class RSInterface {
         addText(97107, "Your current task will be cancelled, and the", tda, 1, 0xFFA500, true, true);
         addText(97108, "Slayer Masters will be blocked from", tda, 1, 0xFFA500, true, true);
         addText(97109, "assigning this category to you again.", tda, 1, 0xFFA500, true, true);
-        addText(97110, "Cost:", tda, 1, 0xff0000, true, true);
+        addText(97110, "Cost: 100", tda, 1, 0xff0000, true, true);
         addText(97111, "If you unblock this creature in future, you", tda, 1, 0xFFA500, true, true);
         addText(97112, "will not get your points back.", tda, 1, 0xFFA500, true, true);
         int x = 9, y = 13;
