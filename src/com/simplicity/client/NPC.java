@@ -7,6 +7,7 @@ import com.simplicity.client.cache.definitions.Animation;
 import com.simplicity.client.cache.definitions.MobDefinition;
 import com.simplicity.client.cache.definitions.SpotAnimDefinition;
 
+import com.simplicity.client.entity.HealthBar;
 import net.runelite.api.Perspective;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.client.RuneLite;
@@ -123,4 +124,22 @@ public final class NPC extends Entity
 	}
 
 	public MobDefinition desc;
+
+	@Override
+	public HealthBar getHealthBar() {
+		if (desc != null) {
+			return desc.healthBar;
+		}
+
+		return super.getHealthBar();
+	}
+
+	@Override
+	public int getHealthDimension() {
+		if (desc != null) {
+			return desc.healthBarDimension;
+		}
+
+		return super.getHealthDimension();
+	}
 }

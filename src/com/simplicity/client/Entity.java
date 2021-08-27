@@ -11,6 +11,7 @@ import java.awt.Polygon;
 import com.simplicity.client.cache.definitions.Animation;
 
 import com.simplicity.client.cache.definitions.MobDefinition;
+import com.simplicity.client.entity.HealthBar;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
@@ -305,6 +306,14 @@ public class Entity extends Animable {
 		}
 
 		return new WorldArea(this.getWorldLocation(), size, size);
+	}
+
+	public HealthBar getHealthBar() {
+		return HealthBar.DEFAULT;
+	}
+
+	public int getHealthDimension() {
+		return HealthBar.DIM_30;
 	}
 
 }

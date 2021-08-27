@@ -92,6 +92,10 @@ public enum InstructionId {
             return new SetHoverTrigger();
         }
     },
+    HEALTH_HUD(13) {
+        @Override
+        public VoidInstruction getInstruction() { return new SetHealthHud(); }
+    },
 
     ; // End of enum
 

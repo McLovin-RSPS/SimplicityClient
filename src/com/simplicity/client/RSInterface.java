@@ -13,6 +13,7 @@ import com.simplicity.client.widget.*;
 import com.simplicity.client.widget.dropdown.Dropdown;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.client.widget.raids.cox.StorageUnitBuildingWidget;
+import com.simplicity.client.widget.raids.nightmare.HealthHud;
 
 import java.util.Arrays;
 import java.util.function.Consumer;
@@ -63,6 +64,7 @@ public class RSInterface {
 		}
 	}
 
+	public HealthHud.HudType hudType;
 	public int fillColor;
     public boolean fading;
     public int fadeStep;

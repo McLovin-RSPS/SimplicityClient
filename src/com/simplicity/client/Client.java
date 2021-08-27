@@ -112,6 +112,7 @@ import com.simplicity.client.content.RichPresence;
 import com.simplicity.client.content.login.LoginScreen;
 import com.simplicity.client.content.login.LoginScreen.CharacterFile;
 import com.simplicity.client.content.overlay.ScreenOverlayManager;
+import com.simplicity.client.entity.HealthBar;
 import com.simplicity.client.entity.Position;
 import com.simplicity.client.instruction.InstructionArgs;
 import com.simplicity.client.instruction.InstructionProcessor;
@@ -135,7 +136,7 @@ import com.simplicity.client.widget.deals.DealBoardWidget;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.client.widget.ge.*;
 import com.simplicity.client.widget.raids.cox.XericPointsWidget;
-import com.simplicity.client.widget.raids.nightmare.BossHealthOverlay;
+import com.simplicity.client.widget.raids.nightmare.HealthHud;
 import com.simplicity.client.widget.raids.nightmare.TotemsOverlay;
 import com.simplicity.client.widget.raids.tob.TheatrePartyWidget;
 import com.simplicity.client.widget.raids.tob.TheatrePerformersWidget;
@@ -6098,49 +6099,38 @@ public class Client extends RSApplet {
                                 HpPercent = 0;
                             }
 
-                            if (!Configuration.enableNewHpBars) {
-                            	int multiplier = !(obj instanceof Player) && ((Entity) (obj)).maxHealth >= 5000 ? 4 : 1;
-        						int hpColor = 65280;
-        						int bgColor = 0xff0000;
-        						
+                            /**
+                             * Forcing OSRS health bars.
+                             */
+                            boolean forceOsrs = getRegionId() == 15515 || getRegionId() == 12611 || getRegionId() == 12126 || getRegionId() == 12889 || getRegionId() == 8259;
+
+                            if (!Configuration.enableNewHpBars || forceOsrs) {
+                                int size = ((Entity) obj).getHealthDimension();
+                                HealthBar healthBar = ((Entity) obj).getHealthBar();
+
+                                if (size == HealthBar.DIM_30 && !(obj instanceof Player) && ((Entity) obj).maxHealth >= 5000) {
+                                    size = HealthBar.DIM_120;
+                                }
+
         						if (((Entity) obj) instanceof NPC) {
         							NPC n = (NPC) obj;
-        							
-        							if (getRegionId() == 15515) {
-                                        if (n.getName().endsWith("Totem")) {
-                                            hpColor = 0xFFFF00;
-                                            bgColor = 0x665700;
-                                            multiplier = 4;
-                                        } else if (n.getName().equals("The Nightmare")) {
-                                            boolean nightmare = parallelWidgetList.contains(RSInterface.interfaceCache[BossHealthOverlay.WIDGET_ID]);
 
-                                            if (nightmare && BossHealthOverlay.getStage(BossHealthOverlay.VARP_NIGHTMARE) == 0) {
-                                                hpColor = 0x46eae4;
-                                                bgColor = 0x032620;
-                                                multiplier = 4;
-                                            }
+        							if (getRegionId() == 15515 && n.getName().equals("The Nightmare")) {
+                                        boolean nightmare = parallelWidgetList.contains(RSInterface.interfaceCache[HealthHud.WIDGET_ID]);
+
+                                        if (nightmare && HealthHud.getType() == HealthHud.HudType.CYAN_SHIELD) {
+                                            size = HealthBar.DIM_120;
+                                            healthBar = HealthBar.CYAN;
                                         }
-                                    } else if (getRegionId() == 12611) {
-        							    if (n.getName().equals("Verzik Vitur")) {
-        							        if (n.getId() == 23370) {
-                                                hpColor = 0x46eae4;
-                                                bgColor = 0x032620;
-                                                multiplier = 3;
-                                            }
-                                        }
-        							} else if (getRegionId() == 12126 && n.getName().equals("Zalcano") && BossHealthOverlay.getStage(BossHealthOverlay.VARP_ZALCANO) == 1) {
-        								hpColor = 0xe25505;
-        								bgColor = 0x491c00;
-        								multiplier = 4;
-        							}
+        							} else if (getRegionId() == 12126 && n.getName().equals("Zalcano") && HealthHud.getType() == HealthHud.HudType.ORANGE_SHIELD) {
+                                        size = HealthBar.DIM_120;
+                                        healthBar = HealthBar.ORANGE;
+                                    }
         						}
 
-        						int max = 30 * multiplier;
-
-        						current *= multiplier;
-        						
-        						DrawingArea.drawPixels(5, spriteDrawY - 3, spriteDrawX - max / 2, hpColor, current);
-        						DrawingArea.drawPixels(5, spriteDrawY - 3, (spriteDrawX - max / 2) + current, bgColor, max - current);
+        						current = (((Entity) (obj)).currentHealth * size) / ((Entity) (obj)).maxHealth;
+        						DrawingArea.drawPixels(5, spriteDrawY - 3, spriteDrawX - size / 2, healthBar.getMainColor(), current);
+        						DrawingArea.drawPixels(5, spriteDrawY - 3, (spriteDrawX - size / 2) + current, healthBar.getBackColor(), size - current);
                             } else {
                             	SpriteCache.spriteCache[34].drawSprite(spriteDrawX - 28, spriteDrawY - 5);
                                 Sprite s = Sprite.getCutted(SpriteCache.spriteCache[33], HpPercent,
@@ -6200,7 +6190,7 @@ public class Client extends RSApplet {
                                 		if (getRegionId() == 15515) {
                                     		if (n.getName().endsWith("Totem")) {
                                     			hitMark = hitMarks[3];
-                                    		} else if (n.getName().equals("The Nightmare") && BossHealthOverlay.getStage(BossHealthOverlay.VARP_NIGHTMARE) == 0) {
+                                    		} else if (n.getName().equals("The Nightmare") && HealthHud.getType() == HealthHud.HudType.CYAN_SHIELD) {
                                     			hitMark = cacheSprite[1747];
                                     		}
                                         } else if (getRegionId() == 12611) {
@@ -6210,7 +6200,7 @@ public class Client extends RSApplet {
                                                 }
                                             }
                                     	} else if (getRegionId() == 12126) {
-                                    		if (n.getName().equals("Zalcano") && BossHealthOverlay.getStage(BossHealthOverlay.VARP_ZALCANO) == 1) {
+                                    		if (n.getName().equals("Zalcano") && HealthHud.getType() == HealthHud.HudType.ORANGE_SHIELD) {
                                     			hitMark = cacheSprite[1776];
                                     		}
                                         }
@@ -17982,7 +17972,7 @@ public class Client extends RSApplet {
                     case 61500:
                     	xPosition = clientSize == 0 ? 0 : clientWidth / 2 - 300; // 392
                     	break;
-                    case BossHealthOverlay.WIDGET_ID:
+                    case HealthHud.WIDGET_ID:
                         xPosition = clientSize == 0 ? 0 : clientWidth / 2 - 358;
                         yPosition = 0;
                         break;
@@ -22800,7 +22790,7 @@ public class Client extends RSApplet {
                             inputTaken = true;
                         }
                     }
-                    BossHealthOverlay.onVarpChange(settingIdx, settingValue);
+                    HealthHud.onVarpChange(settingIdx, settingValue);
                     opCode = -1;
                     return true;
 
@@ -26641,7 +26631,7 @@ public class Client extends RSApplet {
 	}
 	
 	public static int getProgressBarColor(int mainId, int childId, int percent) {
-        if (mainId == TotemsOverlay.WIDGET_ID || childId == BossHealthOverlay.PROGRESS_WIDGET_ID || childId == DealBoardWidget.PBAR_ID) {
+        if (mainId == TotemsOverlay.WIDGET_ID || childId == HealthHud.PROGRESS_WIDGET_ID || childId == DealBoardWidget.PBAR_ID) {
             return RSInterface.interfaceCache[childId].fillColor;
         }
 
