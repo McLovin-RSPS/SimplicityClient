@@ -43,12 +43,12 @@ public class DuelArenaDuelOptionsWidget extends CustomWidget implements WidgetSt
 			yPosition += 20;
 		}
 
-		add(addConfigButton("No Weapon Switch", 1039, 1040, 5, 11, 1650), 25, yPosition);
+		add(addConfigButton("No Weapon Switch", 1039, 1040, 5, 1, 10013), 25, yPosition);
 		add(addText("No Weapon Switch", 1, 0xEE9021, false), 43, yPosition);
 		
 		yPosition += 20;
 		
-		add(addConfigButton("Show Inventories", 1039, 1040, 5, 11, 1650), 25, yPosition);
+		add(addConfigButton("Show Inventories", 1039, 1040, 5, 1, 10014), 25, yPosition);
 		add(addText("Show Inventories", 1, 0xEE9021, false), 43, yPosition);
 		
 		add(addDynamicButton("Accept", 1, 0x00C000, 80, 33), 170, 272);
