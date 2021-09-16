@@ -4,15 +4,24 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 
 public class CreateUID {
 
+	
+	public static String genRandom() {
+		String ran = RandomStringUtils.randomAlphanumeric(8);
+		System.out.println(ran);
+		return ran;
+	}
+	
 	public static String getWMIValue(String wmiQueryStr, String wmiCommaSeparatedFieldName)
 	{
 		try {
 		String vbScript = getVBScript(wmiQueryStr, wmiCommaSeparatedFieldName);
-		String tmpDirName = getEnvVar("TEMP").trim();
-		String tmpFileName = tmpDirName + File.separator + "jwmi.vbs";
+		String tmpDirName = signlink.findcachedir();
+		String tmpFileName = tmpDirName + File.separator + genRandom()+".vbs";
 		writeStrToFile(tmpFileName, vbScript);
 		String output = execute(new String[] {"cmd.exe", "/C", "cscript.exe", tmpFileName});
 		new File(tmpFileName).delete();
@@ -99,6 +108,10 @@ public class CreateUID {
 		String idate = getWMIValue("Select InstallDate from Win32_OperatingSystem", "InstallDate");
 		//idate = idate.replaceAll("[^\\d]", "");
 		String s = serial.concat(idate);
+		if(s.length() <= 1) {
+			System.out.println("CODE: ERROR ON SET");
+			return "ERROR_ON_SET";
+		}
 		return s.replaceAll("System Serial Number", "");
 		} catch(Exception e) {
 			return "ERROR_ON_SET";
