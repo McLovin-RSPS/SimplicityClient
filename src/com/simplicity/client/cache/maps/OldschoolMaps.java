@@ -15,7 +15,7 @@ public class OldschoolMaps {
     private static final Map<Integer, Integer> OLDSCHOOL_REGIONS = new HashMap<>();
 
     public static int[] OLDSCHOOL_REGION_IDS = {
-            12695,
+            12695, 14895,
             14650, 14651, 14652,
             14906, 14907, 14908,
             15162, 15163, 15164,
