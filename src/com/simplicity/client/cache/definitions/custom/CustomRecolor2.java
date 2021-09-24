@@ -369,9 +369,9 @@ public enum CustomRecolor2 {
 				new int[] {6736, 6709, 43303, 39, 24, 8, 59466, 6602, 28, 59453, 4382},
 				new int[] {9050, 9050, 9087, 127, 127, 8, 127, 9050, 100, 125, 127}),
 		
-		WHITE_GOLD_VITUR_SANGUINE(21147, 15000, "@gold@Syrex Sanguine Scythe of Vitur",
-				new int[] {33, 37, 41, 78, 16, 784, 49, 20, 790, 24, 536, 796, 28, 61},
-				new int[] {10367, 10367, 10367, 9087, 10367, 8056, 9087, 10367, 8056, 10367, 9087, 8056, 10367, 9087}),
+		WHITE_GOLD_VITUR_SANGUINE(21147, 55793, "@gold@Syrex Sanguine Scythe of Vitur",
+				new int[] {784, 16, 18, 20, 22, 790, 406, 536, 26, 427, 12, 796},
+				new int[] {8056, 127, 127, 127, 127, 8056, 8056, 8056, 127, 9087, 127, 8056}),
 		
 		/** WHITE PURPLE MYTHICAL SET ***/
 		WHITE_PURPLE_MYTHICAL_SANG(21148, 52323, "@gold@Nicky WestSide Sanguinesti Staff",
@@ -470,9 +470,9 @@ public enum CustomRecolor2 {
 						new int[] {10, 11, 12, 11, 12, 13, 12, 13, 12, 11, 11, 12, 10, 9, 10, 10, 10, 11, 12, 27, 28, 29, 30, 32, 33, 34, 35, 37, 41, 35}),
 		
 		/** PURPLE SANGUINE SOV **/
-		PURPLE_SANGUINE_SOV(12274, 15000, "@pur@Mephi's God Sanguine Scythe of Vitur",
-				new int[] {33, 37, 41, 78, 16, 784, 49, 20, 790, 24, 536, 796, 28, 61},
-				new int[] {11, 11, 11, 49151, 11, 50175, 49151, 11, 50175, 11, 49151, 50175, 11, 49151}),
+		PURPLE_SANGUINE_SOV(12274, 55739, "@pur@Mephi's God Sanguine Scythe of Vitur",
+				new int[] {784, 16, 18, 20, 22, 790, 406, 536, 26, 427, 12, 796},
+				new int[] {50175, 16, 18, 20, 22, 50175, 50170, 50175, 26, 50943, 12, 50175}),
 
 		BLACK_BUNNY_EARS2(12275, 1037, "Black Bunny ears", new int[] { 220 }, new int[] { 12 }),
 
