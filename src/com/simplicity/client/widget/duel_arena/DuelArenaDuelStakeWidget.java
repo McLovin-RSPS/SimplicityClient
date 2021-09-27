@@ -2,6 +2,7 @@ package com.simplicity.client.widget.duel_arena;
 
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.widget.CustomWidget;
+import com.simplicity.client.widget.listener.WidgetStateListener;
 
 /**
  * Duel Arena 2nd Duel Stake Interface Widget
@@ -9,7 +10,7 @@ import com.simplicity.client.widget.CustomWidget;
  * @author Ali/Leonidas https://www.rune-server.ee/members/_ali/
  *
  */
-public class DuelArenaDuelStakeWidget extends CustomWidget {
+public class DuelArenaDuelStakeWidget extends CustomWidget implements WidgetStateListener {
 
 	private static final int ID = 83_700;
 	
@@ -20,6 +21,10 @@ public class DuelArenaDuelStakeWidget extends CustomWidget {
 	private static int EQUIPMENT_TAB_WIDGET_ID;
 	
 	public static int DUEL_CONFIRMATION_WIDGET_ID;
+
+	public static int PLATINUM_MODIFIED;
+
+	public static int COINS_MODIFIED;
 	
 	public DuelArenaDuelStakeWidget() {
 		super(ID);
@@ -153,6 +158,13 @@ public class DuelArenaDuelStakeWidget extends CustomWidget {
 		
 		DUEL_CONFIRMATION_WIDGET_ID = id;
 		System.out.println("3rd duel arena interface: "+id);
+		id = 83_900;
+
+		PLATINUM_MODIFIED = id;
+		add(addRectangle(25, 93, 0x800000, 0, true).flicker(true).hide(true), 346, 70);
+
+		COINS_MODIFIED = id;
+		add(addRectangle(25, 80, 0x800000, 0, true).flicker(true).hide(true), 346, 162);
 	}
 	
 	private RSInterface duelStakeInformationTabWidget() {
@@ -278,4 +290,14 @@ public class DuelArenaDuelStakeWidget extends CustomWidget {
 		return equipment_tab_widget;
 	}
 
+	@Override
+	public void onDisplay() {
+		RSInterface.interfaceCache[PLATINUM_MODIFIED].hide(true);
+		RSInterface.interfaceCache[COINS_MODIFIED].hide(true);
+	}
+
+	@Override
+	public void onClose() {
+
+	}
 }

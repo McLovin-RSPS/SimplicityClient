@@ -14545,6 +14545,17 @@ public class RSInterface {
     public boolean inventoryHover;
     public boolean greyScale;
     public boolean hidden;
+    public boolean flicker;
+
+    public RSInterface hide(boolean hidden) {
+        this.hidden = hidden;
+        return this;
+    }
+
+    public RSInterface flicker(boolean flicker) {
+        this.flicker = flicker;
+        return this;
+    }
     
 	public Sprite enabledAltSprite;
 	public Sprite disabledAltSprite;
