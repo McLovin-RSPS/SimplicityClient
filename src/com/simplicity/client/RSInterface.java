@@ -5128,22 +5128,23 @@ public class RSInterface {
     }
 
     public static void slayerUnlockInterface(TextDrawingArea[] tda) {
-        RSInterface tab = addInterface(97400);
-        addButton(97401, 1949, "Select");
-        addButton(97402, 1948, "Select");
-        addButton(97403, 1948, "Select");
-        addButton(97404, 1948, "Select");
+        int id = 97700;
+        RSInterface tab = addInterface(id); //97400
+        addButton(id + 1, 1949, "Select");
+        addButton(id + 2, 1948, "Select");
+        addButton(id + 3, 1948, "Select");
+        addButton(id + 4, 1948, "Select");
         int x = 9, y = 13;
-        int scrollId = 97405;
+        int scrollId = id + 5;
         tab.totalChildren(14);
         tab.child(0, 97001, x, y);
         tab.child(1, 97002, 460+x, 7+y);
         tab.child(2, 97003, 460+x, 7+y);
         tab.child(3, 97005, 244+x, 9+y);
-        tab.child(4, 97401, 11+x, 36+y);
-        tab.child(5, 97402, 97+x, 36+y);
-        tab.child(6, 97403, 183+x, 36+y);
-        tab.child(7, 97404, 269+x, 36+y);
+        tab.child(4, id + 1, 11+x, 36+y);
+        tab.child(5, id + 2, 97+x, 36+y);
+        tab.child(6, id + 3, 183+x, 36+y);
+        tab.child(7, id + 4, 269+x, 36+y);
         tab.child(8, 97010, 52+x, 40+y);
         tab.child(9, 97011, 138+x, 40+y);
         tab.child(10, 97012, 224+x, 40+y);
@@ -5163,6 +5164,7 @@ public class RSInterface {
             addItemContainer(scrollId + (amount + 4) + i, new int[] {1, 1}, new int[] {1, 1}, new String[5], false);
             interfaceCache[scrollId + (amount + 4) + i].inv[0] = items[i] + 1;
             interfaceCache[scrollId + (amount + 4) + i].invStackSizes[0] = 1;
+            interfaceCache[scrollId + (amount + 4) + i].itemExamine = false;
             addText(scrollId + (amount * 2 + 7) + i, names[i], tda, 1, 0xFFA500, true, true);
             interfaceCache[scrollId + (amount * 2 + 7) + i].useNewFonts = true;
             addText(scrollId + (amount * 3 + 10) + i, desc[i], tda, 0, 0xFFA500, false, true);
@@ -5206,31 +5208,37 @@ public class RSInterface {
         tab.child(12, 97014, 420+x, 40+y);
         tab.child(13, 97305, 10+x, 59+y);
 
-        RSInterface scroll = addInterface(97305);
-        scroll.totalChildren(76);
+        int amount = 24;
+        int scrollId = 97305;
+        RSInterface scroll = addInterface(scrollId);
+        scroll.totalChildren(amount * 4);
         int xx = 0, yy = 0;
-        int[] items = new int[] {6637, 34136, 36695, 37420, 34455, 41864, 41866, 34761, 33687, 33851, 33903, 33260, 33064, 31451, 49639, 49643, 49647, 51264, 51888, 53073, 32360, 36812, 51750, 34139};
-        String[] names = new String[]{"Need more darkness", "Ankou very much", "Suq-a-nother one", "Fire & Darkness", "Pedal to the metals", "I really mith you", "Ada'mind some more", "RUUUUUNE", "Spiritual fervour", "Birds of a feather", "Greater challenge", "It's dark in here", "Bleed me dry", "Smell ya later", "Horrorific", "To dust you shall return", "Wyver-nother one", "Get smashed", "Nechs please"/*, "Augment my abbies", "Krack on", "Get scabaright on it", "Wyver-nother two", "Basilonger"*/};
-        String[] desc = new String[]{"Whenever you get a Dark Beast task, it\\nwill be a bigger task. <col=ff0000>(100 points)", "Whenever you get an Ankou task, it will be\\na bigger task. <col=ff0000>(100 points)", "Whenever you get a Suqah task, it will be\\na bigger task. <col=ff0000>(100 points)", "Whenever you get a Black Dragon task, it\\nwill be a bigger task. <col=ff0000>(50 points)", "Whenever you get a Bronze, Iron or Steel\\nDragon tasks, it will be a bigger task. <col=ff0000>(100\\n<col=ff0000>points)", "Whenever you get a Mithril Dragon tasks, it\\nwill be a bigger task. <col=ff0000>(120 points)", "Whenever you get an Adamant Dragon\\ntask, it will be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Rune Dragon task, it\\nwill be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Spiritual Create\\ntask, it will be a bigger task. <col=ff0000>(100 points)", "Whenever you get an Aviansie task, it will\\nbe a bigger task. <col=ff0000>(100 points)", "Whenever you get a Greater Demon task,\\nit will be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Black Demon task, it\\nwill be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Bloodveld task, it will\\nbe a bigger task. <col=ff0000>(75 points)", "Whenever you get an Aberrant Spectre\\ntask, it will be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Cave Horror task, it\\nwill be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Dust Devil task, it will\\nbe a bigger task. <col=ff0000>(100 points)", "Whenever you get a Skeletal Wyvern task,\\nit will be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Gargoyle task, it will\\nbe a bigger task. <col=ff0000>(100 points)", "Whenever you get a Nechryael task, it will\\nbe a bigger task. <col=ff0000>(100 points)"/*, "Learn how to combine a Hydra head with\\nyour slayer helm to theme it like the\\nAlchemical Hydra. <col=ff0000>(1000 points)", "Mithril dragons drop mithril bars in\\nbanknote form while killed on assignment.\\n<col=ff0000>(200 points)", "Stops you getting Fossil Island Wyvern\\ntasks, without counting towards your\\nblocked task limit. <col=ff0000>(500 points)", "Slaying Dusk and Dawn now counts for two\\nkills towards your task rather than one.\\n<col=ff0000>(500 points)", "Konar, Duradel and Nieve will be able to\\nassign Basilisks as your task. <col=ff0000>(80 points)"*/};
-        for (int i = 0; i < 19; i++) {
-            addConfigButton2(97306 + i, 97305, 1952, 1953, 224, 64, "Unlock", 1, 4, 560 + i);
-            addItemContainer(97325 + i, new int[] {1, 1}, new int[] {1, 1}, new String[5], false);
-            fill(97325 + i);
-            addText(97344 + i, names[i], tda, 1, 0xFFA500, true, true);
-            addText(97363 + i, desc[i], tda, 0, 0xFFA500, false, true);
-            scroll.child(i, 97306 + i, xx, yy);
-            scroll.child(i+19, 97325 + i, 3+xx, 3+yy);
-            scroll.child(i+38, 97344 + i, 128+xx, 13+yy);
-            scroll.child(i+57, 97363 + i, 7+xx, 39+yy);
+        int[] items = new int[] {6637, 34136, 36695, 37420, 34455, 41864, 41866, 34761, 33687, 33851, 33903, 33260, 33064, 31451, 38900, 34145, 36811, 34147, 34148, 34149, 33272, 39052, 34147, 34139, 33272};
+        String[] names = new String[]{"Need more darkness", "Ankou very much", "Suq-a-nother one", "Fire & Darkness", "Pedal to the metals", "I really mith you", "Ada'mind some more", "RUUUUUNE", "Spiritual fervour", "Birds of a feather", "Greater challenge", "It's dark in here", "Bleed me dry", "Smell ya later", "Horrorific", "To dust you shall return", "Wyver-nother one", "Get smashed", "Nechs please", "Augment my abbies", "Krack on", "Get scabaright on it", "Wyver-nother two", "Basilonger" };
+        String[] desc = new String[]{"Whenever you get a Dark Beast task, it\\nwill be a bigger task. <col=ff0000>(100 points)", "Whenever you get an Ankou task, it will be\\na bigger task. <col=ff0000>(100 points)", "Whenever you get a Suqah task, it will be\\na bigger task. <col=ff0000>(100 points)", "Whenever you get a Black Dragon task, it\\nwill be a bigger task. <col=ff0000>(50 points)", "Whenever you get a Bronze, Iron or Steel\\nDragon tasks, it will be a bigger task. <col=ff0000>(100\\n<col=ff0000>points)", "Whenever you get a Mithril Dragon tasks, it\\nwill be a bigger task. <col=ff0000>(120 points)", "Whenever you get an Adamant Dragon\\ntask, it will be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Rune Dragon task, it\\nwill be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Spiritual Create\\ntask, it will be a bigger task. <col=ff0000>(100 points)", "Whenever you get an Aviansie task, it will\\nbe a bigger task. <col=ff0000>(100 points)", "Whenever you get a Greater Demon task,\\nit will be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Black Demon task, it\\nwill be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Bloodveld task, it will\\nbe a bigger task. <col=ff0000>(75 points)", "Whenever you get an Aberrant Spectre\\ntask, it will be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Cave Horror task, it\\nwill be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Dust Devil task, it will\\nbe a bigger task. <col=ff0000>(100 points)", "Whenever you get a Skeletal Wyvern task,\\nit will be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Gargoyle task, it will\\nbe a bigger task. <col=ff0000>(100 points)", "Whenever you get a Nechryael task, it will\\nbe a bigger task. <col=ff0000>(100 points)", "Learn how to combine a Hydra head with\\nyour slayer helm to theme it like the\\nAlchemical Hydra. <col=ff0000>(1000 points)", "Mithril dragons drop mithril bars in\\nbanknote form while killed on assignment.\\n<col=ff0000>(200 points)", "Stops you getting Fossil Island Wyvern\\ntasks, without counting towards your\\nblocked task limit. <col=ff0000>(500 points)", "Slaying Dusk and Dawn now counts for two\\nkills towards your task rather than one.\\n<col=ff0000>(500 points)", "Konar, Duradel and Nieve will be able to\\nassign Basilisks as your task. <col=ff0000>(80 points)"};
+        for (int i = 0; i < amount; i++) {
+            addConfigButton2(scrollId + 1 + i, scrollId, 1954, 1955, 224, 84, "Unlock", 1, 4, 580 + i);
+            addItemContainer(scrollId + (amount + 4) + i, new int[] {1, 1}, new int[] {1, 1}, new String[5], false);
+            interfaceCache[scrollId + (amount + 4) + i].inv[0] = items[i] + 1;
+            interfaceCache[scrollId + (amount + 4) + i].invStackSizes[0] = 1;
+            interfaceCache[scrollId + (amount + 4) + i].itemExamine = false;
+            addText(scrollId + (amount * 2 + 7) + i, names[i], tda, 1, 0xFFA500, true, true);
+            interfaceCache[scrollId + (amount * 2 + 7) + i].useNewFonts = true;
+            addText(scrollId + (amount * 3 + 10) + i, desc[i], tda, 0, 0xFFA500, false, true);
+            interfaceCache[scrollId + (amount * 3 + 10) + i].useNewFonts = true;
+            scroll.child(i, scrollId + 1 + i, xx, yy);
+            scroll.child(i+amount, scrollId + (amount + 4) + i, 3+xx, 3+yy);
+            scroll.child(i+amount*2, scrollId + (amount * 2 + 7) + i, 128+xx, 13+yy);
+            scroll.child(i+amount*3, scrollId + (amount * 3 + 10) + i, 7+xx, 39+yy);
             xx += 227;
             if (xx == 454) {
                 xx = 0;
-                yy += 67;
+                yy += 87;
             }
         }
         scroll.width = 452;
         scroll.height = 234;
-        scroll.scrollMax = yy + 67;
+        scroll.scrollMax = yy;
     }
 
 
