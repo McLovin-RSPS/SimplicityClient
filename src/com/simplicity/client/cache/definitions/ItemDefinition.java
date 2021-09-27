@@ -324,6 +324,12 @@ public final class ItemDefinition {
 
     public static void postOsrsItemDef(ItemDefinition itemDef) {
         switch(itemDef.id) {
+            case 34172:
+                itemDef.name = "Broad arrows";
+                break;
+            case 34296:
+                itemDef.name = "Broad bolts";
+                break;
             case 50405:
                 itemDef.copy(forID(4151));
                 break;
