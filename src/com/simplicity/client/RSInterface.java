@@ -5370,11 +5370,20 @@ public class RSInterface {
         RSInterface scroll = addInterface(97015);
         scroll.totalChildren(26);
         addItemContainer(97016, new int[] {60, 30}, new int[] {5, 5}, new String[] {"Buy 1", "Buy 5", "Buy 10", "Buy 50", "Buy X"}, true);
-        fill(97016);
+
+        final int[] items = {41866, 34296, 34172, 43226, 42791};
+        final int[] prices = {75, 35, 35, 750, 750};
+        RSInterface container = interfaceCache[97016];
+        for (int i = 0; i < items.length; i++) {
+            container.inv[i] = items[i] + 1;
+            container.invStackSizes[i] = 1;
+        }
+        //fill(97016);
         scroll.child(0, 97016, 0, 0);
         int xx = 0, yy = 34;
         for (int i = 1; i < 26; i++) {
-            addText(97016 + i, "100", tda, 1, 0xFFA500, true, true);
+            String val = i - 1 < prices.length ? Integer.toString(prices[i - 1]) : "";
+            addText(97016 + i, val, tda, 1, 0xFFA500, true, true);
             scroll.child(i, 97016 + i, xx + 16, yy);
             xx += 92;
             if (xx == 460) {
