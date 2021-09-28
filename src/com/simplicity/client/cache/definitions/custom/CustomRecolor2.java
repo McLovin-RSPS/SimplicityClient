@@ -2,6 +2,8 @@ package com.simplicity.client.cache.definitions.custom;
 
 import java.awt.Color;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 import com.simplicity.client.cache.definitions.ItemDefinition;
 
@@ -369,7 +371,7 @@ public enum CustomRecolor2 {
 				new int[] {6736, 6709, 43303, 39, 24, 8, 59466, 6602, 28, 59453, 4382},
 				new int[] {9050, 9050, 9087, 127, 127, 8, 127, 9050, 100, 125, 127}),
 		
-		WHITE_GOLD_VITUR_SANGUINE(21147, 55793, "@gold@Syrex Sanguine Scythe of Vitur",
+		WHITE_GOLD_VITUR_SANGUINE(21147, 55739, "@gold@Syrex Sanguine Scythe of Vitur",
 				new int[] {784, 16, 18, 20, 22, 790, 406, 536, 26, 427, 12, 796},
 				new int[] {8056, 127, 127, 127, 127, 8056, 8056, 8056, 127, 9087, 127, 8056}),
 		
@@ -419,7 +421,7 @@ public enum CustomRecolor2 {
 	    /** BLACK GREEN TBOW ***/
 		BLACK_GREEN_SIRENIC_TBOW(21161, 20998, "@gre@Poon Destoryer's Sirenic Twisted Bow",
 				new int[] { 16, 0, 33, 13223, 8, 24, 41, 14236, 10318, 10334 }, 
-				new int[] { 59227, 32254, 59227, 32254, 59227, 32254, 59227, 59227, 59227, 59227 }),
+				new int[] { 22527, 1024, 22527, 1024, 22527, 1024, 22527, 22527, 22527, 22527 }),
 		
 		/** BLACK GREEN HCXI ***/
 		BLACK_GREEN_HAND_CANNON_XI_2(21162, 11620, "@gre@Poon Destoryer's Hand Cannon XI",
@@ -435,7 +437,7 @@ public enum CustomRecolor2 {
 		/** BLACK GOLD ANGELIC CAPE ***/
 		BLACK_GOLD_ANGELIC_CAPE(21164, 11614, "@gold@Kapsalon Angelic Cape",
 				new int[] { 0, 34243, 40036, 36, 11013, 43335, 40040, 6218, 34251, 10348, 9230, 48, 40023, 23, 25, 1822 },
-				getCustomCapeColor(118, 9087)),
+				getCustomCapeColor(1024, 9087)),
 
 		/** BLACK GOLD FEROCIOUS GLOVES ***/
 		BLACK_GOLD_FEROCIOUS_GLOVES(21165, 52981, "@gold@Kapsalon Ferocious Gloves",
@@ -445,7 +447,7 @@ public enum CustomRecolor2 {
 		/** BLACK GOLD NM STAFF ***/
 		BLACK_GOLD_HARMONISED_NM_STAFF(21167, 54424, "@gold@Kapsalon Harmonised Nightmare Staff",
 				new int[] { 0, 35, 7108, 7333, 61962, 61838, 16, 7442, 18, 20, 61718, 8375, 7097, 28, 7326, 61598 },
-				new int[] { 0, 1024, 51136, 1015, 1020, 1024, 1015, 1024, 1015, 119, 1024, 51132, 51136, 1024, 51136, 51136 }),
+				new int[] { 0, 1024, 9087, 1024, 1024, 1024, 1024, 1024, 1024, 9087, 1024, 9087, 8056, 1024, 9087, 8056 }),
 		
 		/** BLACK GOLD SPIRIT SHIELD ***/
 		BLACK_GOLD_SPIRIT_SHIELD(21168, 8421, "@gold@Kapsalon Spirit Shield",
@@ -476,6 +478,38 @@ public enum CustomRecolor2 {
 
 		BLACK_BUNNY_EARS2(12275, 1037, "Black Bunny ears", new int[] { 220 }, new int[] { 12 }),
 
+		/** PURPLE GREY SIRENIC SET **/
+	    GREY_PURPLE_SIRENIC_HELM(21177, 22014, "@pur@Mephistopheles Sirenic Helm",
+	            new int[]{39329, 32197, 38057, 41226, 33066, 40202, 41232, 40084, 41237, 40085, 40344, 40345, 40090, 32060, 40349},
+	            new int[]{21, 50175, 50175, 24, 50175, 25, 22, 22, 22, 21, 23, 24, 24, 50175, 26}),
+	            
+	    GREY_PURPLE_SIRENIC_PLATEBODY(21178, 22016, "@pur@Mephistopheles Sirenic Platebody",
+	            new int[]{39329, 32197, 33066, 43149, 41232, 43153, 42131, 41237, 42133, 40344, 40345, 32060, 40349, 20158},
+	            new int[]{50175, 50175, 50175, 22, 22, 23, 24, 25, 26, 27, 24, 50175, 25, 50175}),
+
+	    GREY_PURPLE_SIRENIC_PLATELEGS(21179, 22018, "@pur@Mephistopheles Sirenic Platelegs",
+	            new int[]{39329, 32197, 33066, 43149, 41232, 43153, 42131, 41237, 42133, 40344, 40345, 32060, 40349},
+	            new int[]{21, 50175, 50175, 22, 24, 25, 24, 23, 22, 24, 23, 50175, 25}),
+
+	    GREY_PURPLE_SIRENIC_GLOVES(21180, 22022, "@pur@Mephistopheles Sirenic Gloves",
+	    		new int[] {43281, 32178, 36242, 43283, 43274, 36254, 40608, 33201, 43283, 40596, 43285, 43276},
+				new int[] {50175, 50175, 23, 22, 25, 23, 24, 24, 50175, 50175, 50175, 50175}),
+
+	    GREY_PURPLE_SIRENIC_BOOTS(21181, 22020, "@pur@Mephistopheles Sirenic Boots",
+	            new int[]{35104, 2, 35092, 35109, 38422, 43275, 38412},
+	            new int[]{50175, 21, 50175, 50175, 23, 24, 24}),
+		
+		GREY_PURPLE_HAND_CANNON_XI(21174, 11620, "@pur@Mephistopheles Hand Cannon XI",
+	            new int[]{ 35840, 64, 35905, 35912, 1097, 35855, 35856, 85, 35862, 23, 35865, 35866, 1051, 35868, 6303, 31, 32, 35873, 1058, 35875, 39, 40, 35882, 6317, 45, 35886, 1070, 35888, 49, 50, 54, 35895, 59 },
+	            new int[]{ 23, 21, 22, 24, 50175, 50175, 50175, 21, 25, 23, 22, 24, 21, 1024, 21, 22, 24, 25, 21, 1024, 1024, 1024, 50175, 50175, 24, 50175, 21, 22, 50175, 50175, 50175, 24, 50175 }),
+		
+		GREY_PURPLE_SIRENIC_TBOW(21175, 20998, "@pur@Mephistopheles Sirenic Twisted Bow",
+				new int[] { 16, 0, 33, 13223, 8, 24, 41, 14236, 10318, 10334 }, 
+				new int[] { 21, 50175, 22, 50175, 23, 50175, 22, 21, 21, 21 }),
+
+		RANDOM_COLOR_SCYTHE_DS(21176, 15000, "@whi@Color Changing Scythe DS", 
+				new int[] { 33, 37, 41, 78, 16, 784, 49, 20, 790, 24, 536, 796, 28, 61 },
+				randomScytheColor());
 		
 		;
 	/**
@@ -488,6 +522,15 @@ public enum CustomRecolor2 {
 	 * @param newModelColor    The new model colors.
 	 **/
 
+	private static int[] randomScytheColor() {
+		List<Integer> colors = Arrays.asList(
+				1017, 58356, 42879, 22527, 9087, 8063, 51199, 25
+		);
+		Random rand = new Random();
+		int COLOR = colors.get(rand.nextInt(colors.size()));
+		return new int[] { 1024, 1024, 1024, COLOR, 1024, COLOR, COLOR, 1024, 1024, 1024, COLOR, COLOR, 1024, COLOR };
+	}
+	
 	private static int[] appendArr(int[] a, int e) {
 	    a  = Arrays.copyOf(a, a.length + 1);
 	    a[a.length - 1] = e;
