@@ -154,6 +154,7 @@ import com.simplicity.tools.ModelViewer;
 import com.simplicity.tools.NpcDefinitionLookup;
 import com.simplicity.tools.ObjectDefinitionLookup;
 import com.simplicity.tools.DevToolbox;
+import com.simplicity.util.Direction;
 import com.simplicity.util.MiscUtils;
 import com.simplicity.util.Stopwatch;
 import com.simplicity.util.StringUtils;
@@ -6768,6 +6769,9 @@ public class Client extends RSApplet {
                 if (k1 == 1) {
                     playersToUpdate[playersToUpdateCount++] = k;
                 }
+
+                final int dir = stream.readBits(3);
+
                 npc.boundDim = npc.desc.squaresNeeded;
                 npc.anInt1504 = npc.desc.degreesToTurn;
                 npc.anInt1554 = npc.desc.walkAnim;
@@ -6786,7 +6790,15 @@ public class Client extends RSApplet {
                 }
 
                 npc.setPos(myPlayer.pathX[0] + i1 - offsetPosX, myPlayer.pathY[0] + l - offsetPosY, j1 == 1);
-                
+
+                try {
+                    final Direction direction = Direction.values()[dir];
+
+                    if (direction != Direction.NONE) {
+                        npc.setFaceDirection(direction);
+                    }
+                } catch (Exception e) { }
+
                 if (runelite != null) {
                 	callbacks.post(new NpcSpawned(npc));
                 }

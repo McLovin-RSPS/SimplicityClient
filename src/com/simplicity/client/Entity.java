@@ -12,6 +12,7 @@ import com.simplicity.client.cache.definitions.Animation;
 
 import com.simplicity.client.cache.definitions.MobDefinition;
 import com.simplicity.client.entity.HealthBar;
+import com.simplicity.util.Direction;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
@@ -314,6 +315,50 @@ public class Entity extends Animable {
 
 	public int getHealthDimension() {
 		return HealthBar.DIM_30;
+	}
+
+	/**
+	 * Gets if this entity is a npc.
+	 *
+	 * @return <code>true</code> if this entity is a npc.
+	 */
+	public boolean isNPC() {
+		return this instanceof NPC;
+	}
+
+	/**
+	 * Casts this entity to a npc.
+	 *
+	 * @return this entity as npc
+	 */
+	public NPC asNPC() {
+		return (NPC) this;
+	}
+
+	/**
+	 * Sets this entity to face in the specified direction.
+	 *
+	 * @param direction The direction to face.
+	 */
+	public void setFaceDirection(Direction direction) {
+		final int size = isNPC() ? asNPC().desc.squaresNeeded : 1;
+		final int worldX = getWorldLocation().getX() + (direction.deltaX * size);
+		final int worldY = getWorldLocation().getY() + (direction.deltaY * size);
+		final int faceX = worldX * 2 + size;
+		final int faceY = worldY * 2 + size;
+
+		final int baseX = Client.getClient().getBaseX();
+		final int baseY = Client.getClient().getBaseY();
+
+		final int tx = x - (faceX - baseX - baseX) * 64;
+		final int ty = y - (faceY - baseY - baseY) * 64;
+
+		if (tx != 0 || ty != 0) {
+			anInt1552 = turnDirection = (int) (Math.atan2(tx, ty) * 325.94900000000001D) & 0x7ff;
+		}
+
+		anInt1538 = 0;
+		anInt1539 = 0;
 	}
 
 }
