@@ -16106,6 +16106,10 @@ public class Client extends RSApplet {
                     continue;
                 }
 
+                if (child.flicker && loopCycle % 40 < 20) {
+                    continue;
+                }
+
                 if (child.fading && loopCycle % child.fadeSpeed == 0) {
                     if (child.transparency >= child.maxFade) {
                         child.decreaseFade = true;
