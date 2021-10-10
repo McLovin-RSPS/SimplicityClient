@@ -1942,6 +1942,14 @@ public class CustomItems2 {
 	            itemDef.actions = new String[5];
 	            itemDef.actions[2] = "Teleport";
 	            break;
+	            
+	        case 19468:
+	            itemDef.copy(ItemDefinition.forID(55744));
+                itemDef.name = "@whi@Sirenic ornament kit";
+	            itemDef.editedModelColor = new int[] {  16, 272, 404, 6315, 796,  };
+	            itemDef.newModelColor = new int[] {  90, 90, 404, 90, 796,  }; 
+
+	        	break;
 	        case 21545:
 	            itemDef.copy(ItemDefinition.forID(6855));
 	            itemDef.name = "Mythical Box";

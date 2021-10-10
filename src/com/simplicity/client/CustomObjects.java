@@ -496,6 +496,7 @@ public class CustomObjects {
             
             // Edge arthur's dream teleporter
             {48661, 3083, 3488, 0, 3}, // Arthur's dream teleporter edgeville
+            {54407, 3090, 3489, 0, 3}, // Halloween 2021 chest
             {27254, 1831, 5163, 2, 0}, // Dark portal arthur's dream
             
             // Lava giant teleporter
