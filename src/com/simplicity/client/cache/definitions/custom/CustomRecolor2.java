@@ -396,7 +396,7 @@ public enum CustomRecolor2 {
 				new int[]{ 127, 49151, 127, 49151 }),
 		WHITE_PURPLE_MYTHICAL_HOOD(21154, 54857, "@pur@Nicky WestSide Mythical Hood Green",
 				new int[] {0, 38325, 4550, 38362, 107, 38348, 38333, 38366, 127},
-				new int[] {0, 49151, 127, 49151, 127, 49151, 49151, 49151, 49151}),
+				new int[] {0, 49151, 127, 49151, 127, 49151, 49151, 49151, 127}),
 		WHITE_PURPLE_MYTHICAL_CAPE(21155, 54855, "@pur@Nicky WestSide Mythical Cape",
 				new int[] {38113, 38210, 99, 522, 107, 76, 38348, 38356, 38325, 88, 38362, 38333, 38366, 49151},
 				new int[] {127, 127, 49151, 49151, 49151, 49151, 127, 127, 127, 49151, 127, 49100, 127, 49151}),
@@ -476,7 +476,7 @@ public enum CustomRecolor2 {
 				new int[] {784, 16, 18, 20, 22, 790, 406, 536, 26, 427, 12, 796},
 				new int[] {50175, 16, 18, 20, 22, 50175, 50170, 50175, 26, 50943, 12, 50175}),
 
-		BLACK_BUNNY_EARS2(12275, 1037, "Black Bunny ears", new int[] { 220 }, new int[] { 12 }),
+		BLACK_BUNNY_EARS2(12275, 1037, "Black Bunny ears", new int[] { 220, 10351 }, new int[] { 12, 20 }),
 
 		/** PURPLE GREY SIRENIC SET **/
 	    GREY_PURPLE_SIRENIC_HELM(21177, 22014, "@pur@Mephistopheles Sirenic Helm",
@@ -493,7 +493,7 @@ public enum CustomRecolor2 {
 
 	    GREY_PURPLE_SIRENIC_GLOVES(21180, 22022, "@pur@Mephistopheles Sirenic Gloves",
 	    		new int[] {43281, 32178, 36242, 43283, 43274, 36254, 40608, 33201, 43283, 40596, 43285, 43276},
-				new int[] {50175, 50175, 23, 22, 25, 23, 24, 24, 50175, 50175, 50175, 50175}),
+				new int[] {50175, 50175, 23, 22, 23, 21, 20, 21, 50175, 50175, 50175, 50175}),
 
 	    GREY_PURPLE_SIRENIC_BOOTS(21181, 22020, "@pur@Mephistopheles Sirenic Boots",
 	            new int[]{35104, 2, 35092, 35109, 38422, 43275, 38412},
@@ -509,8 +509,21 @@ public enum CustomRecolor2 {
 
 		RANDOM_COLOR_SCYTHE_DS(21176, 15000, "@whi@Color Changing Scythe DS", 
 				new int[] { 33, 37, 41, 78, 16, 784, 49, 20, 790, 24, 536, 796, 28, 61 },
-				randomScytheColor());
+				randomScytheColor()),
 		
+		ORANGE_HALLOWEEN_KEY(21182, 3455, "@ora@Orange halloween key",
+			new int[] {960, 7120, 22464, 43968, 32836},
+			new int[] {30, 30, 30, 30, 2936}),
+
+	
+		PURPLE_HALLOWEEN_KEY(21183, 3455, "@pur@Purple halloween key",
+			new int[] {960, 7120, 22464, 43968, 32836},
+			new int[] {30, 30, 30, 30, 47683}),
+		
+		HALLOWEEN_ORB(5519, 5518, "@pur@Halloween Orb",
+				new int[] { 21584, 28989 },
+				new int[] { 20, 50084 }),
+
 		;
 	/**
 	 * Constructs a new {@link CustomRecolor2}.

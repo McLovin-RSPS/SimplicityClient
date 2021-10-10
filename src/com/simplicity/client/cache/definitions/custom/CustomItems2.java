@@ -1912,10 +1912,6 @@ public class CustomItems2 {
 	            itemDef.name = "Old coin";
 	            break;
 	
-	        case 5519:
-	            itemDef.name = "Halloween orb";
-	            break;
-	
 	        case 1050:
 	            itemDef.maleZOffset += 4;
 	            break;
