@@ -342,8 +342,8 @@ public class Entity extends Animable {
 	 */
 	public void setFaceDirection(Direction direction) {
 		final int size = isNPC() ? asNPC().desc.squaresNeeded : 1;
-		final int worldX = getWorldLocation().getX() + (direction.deltaX * size);
-		final int worldY = getWorldLocation().getY() + (direction.deltaY * size);
+		final int worldX = getWorldLocation().getX() + (direction.deltaX * (size * 2));
+		final int worldY = getWorldLocation().getY() + (direction.deltaY * (size * 2));
 		final int faceX = worldX * 2 + size;
 		final int faceY = worldY * 2 + size;
 
@@ -354,10 +354,7 @@ public class Entity extends Animable {
 		final int ty = y - (faceY - baseY - baseY) * 64;
 
 		if (tx != 0 || ty != 0) {
-			// TODO: Need to transform the direction based on the degreesToTurn value in definitions.
-			boolean opp = isNPC() && asNPC().desc.degreesToTurn == 0; 
-
-			anInt1552 = turnDirection = (int) (Math.atan2(opp ? ty : tx, opp ? tx : ty) * 325.94900000000001D) & 0x7ff;
+			anInt1552 = turnDirection = (int) (Math.atan2(tx, ty) * 325.94900000000001D) & 0x7ff;
 		}
 
 		anInt1538 = 0;

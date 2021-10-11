@@ -6770,7 +6770,7 @@ public class Client extends RSApplet {
                     playersToUpdate[playersToUpdateCount++] = k;
                 }
 
-                final int dir = stream.readBits(3);
+                final int dir = stream.readBits(4);
 
                 npc.boundDim = npc.desc.squaresNeeded;
                 npc.anInt1504 = npc.desc.degreesToTurn;
