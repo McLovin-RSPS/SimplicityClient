@@ -4861,7 +4861,7 @@ public class Client extends RSApplet {
             if (!npc.desc.clickable) {
                 k += 0x80000000;
             }
-            worldController.addMutipleTileEntity(plane, npc.anInt1552, getFloorDrawHeight(plane, npc.y, npc.x), k,
+            worldController.addMutipleTileEntity(plane, npc.currentRotation, getFloorDrawHeight(plane, npc.y, npc.x), k,
                     npc.y, (npc.boundDim - 1) * 64 + 60, npc.x, npc, npc.aBoolean1541);
         }
     }
@@ -6773,7 +6773,7 @@ public class Client extends RSApplet {
                 final int dir = stream.readBits(4);
 
                 npc.boundDim = npc.desc.squaresNeeded;
-                npc.anInt1504 = npc.desc.degreesToTurn;
+                npc.degreesToTurn = npc.desc.degreesToTurn;
                 npc.anInt1554 = npc.desc.walkAnim;
                 npc.runAnimation = npc.desc.runAnim;
                 npc.anInt1555 = npc.desc.turn180AnimIndex;
@@ -6881,7 +6881,7 @@ public class Client extends RSApplet {
         if (player.tranformIntoModel != null && tick >= player.startTimeTransform && tick < player.transformedTimer) {
             player.aBoolean1699 = false;
             player.z = getFloorDrawHeight(plane, player.y, player.x);
-            worldController.addSingleTileEntity(plane, player.y, player, player.anInt1552, player.extendedYMax,
+            worldController.addSingleTileEntity(plane, player.y, player, player.currentRotation, player.extendedYMax,
                     player.x, player.z, player.extendedXMin, player.extendedXMax, i1, player.extendedYMin);
             return false;
         }
@@ -6892,7 +6892,7 @@ public class Client extends RSApplet {
             anIntArrayArray929[j1][k1] = anInt1265;
         }
         player.z = getFloorDrawHeight(plane, player.y, player.x);
-        worldController.addMutipleTileEntity(plane, player.anInt1552, player.z, i1, player.y, 60, player.x, player,
+        worldController.addMutipleTileEntity(plane, player.currentRotation, player.z, i1, player.y, 60, player.x, player,
                 player.aBoolean1541);
         return true;
     }
@@ -14373,7 +14373,7 @@ public class Client extends RSApplet {
                 if ((l & 2) != 0) {
                     npc.desc = MobDefinition.forID(stream.readWordBigEndian());
                     npc.boundDim = npc.desc.squaresNeeded;
-                    npc.anInt1504 = npc.desc.degreesToTurn;
+                    npc.degreesToTurn = npc.desc.degreesToTurn;
                     npc.anInt1554 = npc.desc.walkAnim;
                     npc.runAnimation = npc.desc.runAnim;
                     npc.anInt1555 = npc.desc.turn180AnimIndex;
@@ -15420,7 +15420,7 @@ public class Client extends RSApplet {
         if (entity.turnInfo == 3) {
             entity.turnDirection = 512;
         }
-        entity.anInt1552 = entity.turnDirection;
+        entity.currentRotation = entity.turnDirection;
     }
 
     private void processWalkingStep(Entity entity) {
@@ -15470,7 +15470,7 @@ public class Client extends RSApplet {
         } else {
             entity.turnDirection = 0;
         }
-        int i1 = entity.turnDirection - entity.anInt1552 & 0x7ff;
+        int i1 = entity.turnDirection - entity.currentRotation & 0x7ff;
         if (i1 > 1024) {
             i1 -= 2048;
         }
@@ -15487,7 +15487,7 @@ public class Client extends RSApplet {
         }
         entity.entityAnimation = j1;
         int k1 = 4;
-        if (entity.anInt1552 != entity.turnDirection && entity.interactingEntity == -1 && entity.anInt1504 != 0) {
+        if (entity.currentRotation != entity.turnDirection && entity.interactingEntity == -1 && entity.degreesToTurn != 0) {
             k1 = 2;
         }
         if (entity.pathLength > 2) {
@@ -15537,7 +15537,7 @@ public class Client extends RSApplet {
     }
 
     private void appendFocusDest(Entity entity) {
-        if (entity.anInt1504 == 0) {
+        if (entity.degreesToTurn == 0) {
             return;
         }
         if (entity.interactingEntity != -1 && entity.interactingEntity < 32768) {
@@ -15576,17 +15576,17 @@ public class Client extends RSApplet {
             entity.anInt1538 = 0;
             entity.anInt1539 = 0;
         }
-        int l = entity.turnDirection - entity.anInt1552 & 0x7ff;
+        int l = entity.turnDirection - entity.currentRotation & 0x7ff;
         if (l != 0) {
-            if (l < entity.anInt1504 || l > 2048 - entity.anInt1504) {
-                entity.anInt1552 = entity.turnDirection;
+            if (l < entity.degreesToTurn || l > 2048 - entity.degreesToTurn) {
+                entity.currentRotation = entity.turnDirection;
             } else if (l > 1024) {
-                entity.anInt1552 -= entity.anInt1504;
+                entity.currentRotation -= entity.degreesToTurn;
             } else {
-                entity.anInt1552 += entity.anInt1504;
+                entity.currentRotation += entity.degreesToTurn;
             }
-            entity.anInt1552 &= 0x7ff;
-            if (entity.entityAnimation == entity.standAnim && entity.anInt1552 != entity.turnDirection) {
+            entity.currentRotation &= 0x7ff;
+            if (entity.entityAnimation == entity.standAnim && entity.currentRotation != entity.turnDirection) {
                 if (entity.anInt1512 != -1) {
                     entity.entityAnimation = entity.anInt1512;
                     return;
@@ -23089,7 +23089,7 @@ public class Client extends RSApplet {
                     && loopCycle < player.transformedTimer) {
                 player.aBoolean1699 = false;
                 player.z = getFloorDrawHeight(plane, player.y, player.x);
-                worldController.addSingleTileEntity(plane, player.y, player, player.anInt1552, player.extendedYMax,
+                worldController.addSingleTileEntity(plane, player.y, player, player.currentRotation, player.extendedYMax,
                         player.x, player.z, player.extendedXMin, player.extendedXMax, i1, player.extendedYMin);
                 continue;
             }
@@ -23100,7 +23100,7 @@ public class Client extends RSApplet {
                 anIntArrayArray929[j1][k1] = anInt1265;
             }
             player.z = getFloorDrawHeight(plane, player.y, player.x);
-            worldController.addMutipleTileEntity(plane, player.anInt1552, player.z, i1, player.y, 60, player.x, player,
+            worldController.addMutipleTileEntity(plane, player.currentRotation, player.z, i1, player.y, 60, player.x, player,
                     player.aBoolean1541);
         }
     }

@@ -135,7 +135,7 @@ public class Entity extends Animable {
 		pathX = new int[10];
 		pathY = new int[10];
 		interactingEntity = -1;
-		anInt1504 = 32;
+		degreesToTurn = 32;
 		runAnimation = -1;
 		height = 200;
 		standAnim = -1;
@@ -161,7 +161,7 @@ public class Entity extends Animable {
 	public final int[] pathY;
 	public int interactingEntity;
 	int anInt1503;
-	int anInt1504;
+	int degreesToTurn;
 	int runAnimation;
 	public String textSpoken;
 	public int height;
@@ -207,7 +207,7 @@ public class Entity extends Animable {
 	public int x;
 	public int y;
 	public int z;
-	int anInt1552;
+	int currentRotation;
 	final boolean[] aBooleanArray1553;
 	int anInt1554;
 	int anInt1555;
@@ -353,8 +353,16 @@ public class Entity extends Animable {
 		final int tx = x - (faceX - baseX - baseX) * 64;
 		final int ty = y - (faceY - baseY - baseY) * 64;
 
-		if (tx != 0 || ty != 0) {
-			anInt1552 = turnDirection = (int) (Math.atan2(tx, ty) * 325.94900000000001D) & 0x7ff;
+		turnDirection = (int) (Math.atan2(tx, ty) * 325.94900000000001D) & 0x7ff;
+
+		int angle = turnDirection - currentRotation & 0x7ff;
+
+		if (degreesToTurn == 32 || angle < degreesToTurn || angle > 2048 - degreesToTurn) {
+			currentRotation = turnDirection;
+		} else if (angle > 1024) {
+			currentRotation = turnDirection -= angle;
+		} else {
+			currentRotation = turnDirection += angle;
 		}
 
 		anInt1538 = 0;
