@@ -354,7 +354,10 @@ public class Entity extends Animable {
 		final int ty = y - (faceY - baseY - baseY) * 64;
 
 		if (tx != 0 || ty != 0) {
-			anInt1552 = turnDirection = (int) (Math.atan2(tx, ty) * 325.94900000000001D) & 0x7ff;
+			// TODO: Need to transform the direction based on the degreesToTurn value in definitions.
+			boolean opp = isNPC() && asNPC().desc.degreesToTurn == 0; 
+
+			anInt1552 = turnDirection = (int) (Math.atan2(opp ? ty : tx, opp ? tx : ty) * 325.94900000000001D) & 0x7ff;
 		}
 
 		anInt1538 = 0;
