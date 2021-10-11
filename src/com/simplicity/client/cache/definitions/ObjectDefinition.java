@@ -534,6 +534,10 @@ public final class ObjectDefinition {
             objectDef.actions = new String[]{"Search", null, null, null, null};
             objectDef.name = "@gre@Halloween chest";
         }
+        if (i == 54407) {
+            objectDef.actions = new String[]{"Search", null, null, null, null};
+            objectDef.name = "@gre@Halloween chest";
+        }
         if (i == 48661) {
             objectDef.actions = new String[]{"Touch", null, null, null, null};
             objectDef.name = "@yel@Statue of Arthur";
