@@ -752,7 +752,7 @@ public enum CustomRecolor {
    BLACK_ROSEBLOOD_BOOTS(16436, 16917, "@bla@Shadow Roseblood shoes",
 			new int[] { 1305, 1297, 7219, 262, 1319 },
 			new int[] { 1024, 1024, 1024, 1024, 1024 }),
-   ORANGE_SCYTHE_XI(17743, 15000, "@ora@Orange Scythe XI", 
+   ORANGE_SCYTHE_XI(17743, 15000, "@or2@Orange Scythe XI", 
 		   	new int[] { 33, 37, 41, 78, 16, 784, 49, 20, 790, 24, 536, 796, 28, 61 },
 		   	new int[] { 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024, 4024 }),
    BLUE_GREEN_SCYTHE_XI(17744, 15000, "Blue Green Scythe", 
