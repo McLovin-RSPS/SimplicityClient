@@ -511,7 +511,7 @@ public enum CustomRecolor2 {
 				new int[] { 33, 37, 41, 78, 16, 784, 49, 20, 790, 24, 536, 796, 28, 61 },
 				randomScytheColor()),
 		
-		ORANGE_HALLOWEEN_KEY(21182, 3455, "@ora@Orange halloween key",
+		ORANGE_HALLOWEEN_KEY(21182, 3455, "@or1@Orange halloween key",
 			new int[] {960, 7120, 22464, 43968, 32836},
 			new int[] {30, 30, 30, 30, 2936}),
 
