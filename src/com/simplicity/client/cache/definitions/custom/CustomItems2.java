@@ -3337,6 +3337,12 @@ public class CustomItems2 {
 	            itemDef.actions = new String[]{null, "Wear", null, null, "Drop"};
 	            itemDef.modelID = 28823;
 	            break;
+	            
+	            // Fix Dungeoneering cape models
+	        case 15706:
+	        case 18508:
+	            itemDef.copy(ItemDefinition.forID(18509));
+	            break;
 	
 	        case 20555:
 	            itemDef.copy(ItemDefinition.forID(43576));
