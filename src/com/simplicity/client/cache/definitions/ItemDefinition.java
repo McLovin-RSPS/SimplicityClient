@@ -369,6 +369,16 @@ public final class ItemDefinition {
             case 50579:
                 itemDef.copy(forID(4097));
                 break;
+            case 54300:
+            case 54301:
+            case 54302:
+            case 54303:
+            case 54304:
+	            itemDef.actions = new String[5];
+	            itemDef.actions[1] = "Wear";
+	            itemDef.stackable = false;
+	            break;
+	            
         case 52296:
         	itemDef.femaleXOffset = 0;
             itemDef.femaleYOffset = -12;
@@ -417,7 +427,7 @@ public final class ItemDefinition {
 	            itemDef.femaleZOffset = 11;
 	            itemDef.maleZOffset = -11;
 	        	break;
-	        	
+	            
 	        case 55739:
 	            itemDef.modelID = 42295;
 	            itemDef.actions = new String[5];
