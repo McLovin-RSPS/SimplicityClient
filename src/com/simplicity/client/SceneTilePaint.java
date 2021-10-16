@@ -1,8 +1,8 @@
 package com.simplicity.client;
 
-public final class PlainTile {
+public final class SceneTilePaint {
 
-	public PlainTile(int i, int j, int k, int l, int i1, int j1, boolean flag, boolean tex) {
+	public SceneTilePaint(int i, int j, int k, int l, int i1, int j1, boolean flag, boolean tex) {
 		aBoolean721 = true;
 		anInt716 = i;
 		anInt717 = j;

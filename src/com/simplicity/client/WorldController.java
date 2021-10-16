@@ -2,11 +2,7 @@ package com.simplicity.client;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Polygon;
-import java.awt.Rectangle;
 import java.awt.RenderingHints;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -24,7 +20,6 @@ import net.runelite.api.events.GameObjectDespawned;
 import net.runelite.api.events.GameObjectSpawned;
 import net.runelite.api.events.GroundObjectDespawned;
 import net.runelite.api.events.GroundObjectSpawned;
-import net.runelite.api.events.ItemSpawned;
 import net.runelite.api.events.WallObjectDespawned;
 import net.runelite.api.events.WallObjectSpawned;
 
@@ -221,7 +216,7 @@ public final class WorldController {
 			int i3, int j3, int k3, int l3, int i4, int j4, int k4, int l4,
 			boolean tex) {
 		if (l == 0) {
-			PlainTile class43 = new PlainTile(k2, l2, i3, j3, underlaytex, k4,
+			SceneTilePaint class43 = new SceneTilePaint(k2, l2, i3, j3, underlaytex, k4,
 					false, tex);
 
 			for (int i5 = i; i5 >= 0; i5--) {
@@ -235,7 +230,7 @@ public final class WorldController {
 		}
 
 		if (l == 1) {
-			PlainTile class43_1 = new PlainTile(k3, l3, i4, j4, overlaytex, l4,
+			SceneTilePaint class43_1 = new SceneTilePaint(k3, l3, i4, j4, overlaytex, l4,
 					k1 == l1 && k1 == i2 && k1 == j2, tex);
 
 			for (int j5 = i; j5 >= 0; j5--) {
@@ -248,7 +243,7 @@ public final class WorldController {
 			return;
 		}
 
-		ShapedTile class40 = new ShapedTile(k, k3, j3, i2, overlaytex, underlaytex,
+		SceneTileModel class40 = new SceneTileModel(k, k3, j3, i2, overlaytex, underlaytex,
 				i4, i1, k2, k4, i3, j2, l1, k1, l, j4, l3, l2, j, l4, tex);
 
 		for (int k5 = i; k5 >= 0; k5--) {
@@ -863,7 +858,7 @@ public final class WorldController {
 		    if(class30_sub3 == null) {
 		        return;
 		    }
-		    PlainTile class43 = class30_sub3.plainTile;
+		    SceneTilePaint class43 = class30_sub3.plainTile;
 		    if(class43 != null) {
 		        if (class43.anInt716 != 12345678) {
 		            if (class43.anInt722 == 0) {
@@ -912,7 +907,7 @@ public final class WorldController {
 		        }
 		        return;
 		    }
-		    ShapedTile class40 = class30_sub3.shapedTile;
+		    SceneTileModel class40 = class30_sub3.shapedTile;
 		    if(class40 == null) {
 		        return;
 		    }
@@ -1028,7 +1023,7 @@ public final class WorldController {
 			Tile class30_sub3 = tileArray[z][x][y];
 			if(class30_sub3 == null)
 				return;
-			PlainTile class43 = class30_sub3.plainTile;
+			SceneTilePaint class43 = class30_sub3.plainTile;
 			if(class43 != null)
 			{
 				int j1 = class43.anInt722;
@@ -1045,7 +1040,7 @@ public final class WorldController {
 
 				return;
 			}
-			ShapedTile class40 = class30_sub3.shapedTile;
+			SceneTileModel class40 = class30_sub3.shapedTile;
 			if(class40 == null)
 				return;
 			int l1 = class40.anInt684;
@@ -1862,7 +1857,7 @@ public final class WorldController {
 	}
 	
 	public boolean opaque_floor_texture = false;
-	private void drawPlainTile(PlainTile class43, int i, int j, int k, int l, int i1, int j1, int k1) {
+	private void drawPlainTile(SceneTilePaint class43, int i, int j, int k, int l, int i1, int j1, int k1) {
 		int l1;
 		int i2 = l1 = (j1 << 7) - anInt455;
 		int depth_b;
@@ -2065,7 +2060,7 @@ public final class WorldController {
 		g2d.drawLine(x_d, y_d - 1, x_a, y_a - 1);
 	}
 	
-	private void drawShapedTile(int i, int j, int k, ShapedTile class40, int l, int i1, int j1) {
+	private void drawShapedTile(int i, int j, int k, SceneTileModel class40, int l, int i1, int j1) {
 		int vertices = class40.anIntArray673.length;
 		for (int l1 = 0; l1 < vertices; l1++) {
 			int i2 = class40.anIntArray673[l1] - anInt455;
@@ -2081,13 +2076,13 @@ public final class WorldController {
 				return;
 			}
 			if (Configuration.enableHDTextures || class40.anIntArray682 != null) {
-				ShapedTile.anIntArray690[l1] = i2;
-				ShapedTile.anIntArray691[l1] = k2;
-				ShapedTile.anIntArray692[l1] = i3;
+				SceneTileModel.anIntArray690[l1] = i2;
+				SceneTileModel.anIntArray691[l1] = k2;
+				SceneTileModel.anIntArray692[l1] = i3;
 			}
-			ShapedTile.anIntArray688[l1] = Rasterizer.textureInt1 + (i2 << viewDistance) / i3;
-			ShapedTile.anIntArray689[l1] = Rasterizer.textureInt2 + (k2 << viewDistance) / i3;
-			ShapedTile.screenZ[l1] = i3;
+			SceneTileModel.anIntArray688[l1] = Rasterizer.textureInt1 + (i2 << viewDistance) / i3;
+			SceneTileModel.anIntArray689[l1] = Rasterizer.textureInt2 + (k2 << viewDistance) / i3;
+			SceneTileModel.screenZ[l1] = i3;
 		}
 
 		Rasterizer.anInt1465 = 0;
@@ -2096,12 +2091,12 @@ public final class WorldController {
 			int tri_a = class40.anIntArray679[face];
 			int tri_b = class40.anIntArray680[face];
 			int tri_c = class40.anIntArray681[face];
-			int x_a = ShapedTile.anIntArray688[tri_a];
-			int x_b = ShapedTile.anIntArray688[tri_b];
-			int x_c = ShapedTile.anIntArray688[tri_c];
-			int y_a = ShapedTile.anIntArray689[tri_a];
-			int y_b = ShapedTile.anIntArray689[tri_b];
-			int y_c = ShapedTile.anIntArray689[tri_c];
+			int x_a = SceneTileModel.anIntArray688[tri_a];
+			int x_b = SceneTileModel.anIntArray688[tri_b];
+			int x_c = SceneTileModel.anIntArray688[tri_c];
+			int y_a = SceneTileModel.anIntArray689[tri_a];
+			int y_b = SceneTileModel.anIntArray689[tri_b];
+			int y_c = SceneTileModel.anIntArray689[tri_c];
 			if ((x_a - x_b) * (y_c - y_b) - (y_a - y_b) * (x_c - x_b) > 0) {
 				Rasterizer.aBoolean1462 = x_a < 0 || x_b < 0 || x_c < 0 || x_a > DrawingArea.viewportRX || x_b > DrawingArea.viewportRX || x_c > DrawingArea.viewportRX;
 				
@@ -2122,23 +2117,23 @@ public final class WorldController {
 					if (class40.anIntArray676[face] != 0xbc614e) {
 						if (Configuration.enableHDTextures && class40.anIntArray682 != null && class40.anIntArray682[face] != -1) {
 							if (class40.aBoolean683 || class40.anIntArray682[face] == 505) {
-								Rasterizer.drawMaterializedTriangle(y_a, y_b, y_c, x_a, x_b, x_c, class40.anIntArray676[face], class40.anIntArray677[face], class40.anIntArray678[face], ShapedTile.anIntArray690[0], ShapedTile.anIntArray690[1], ShapedTile.anIntArray690[3], ShapedTile.anIntArray691[0], ShapedTile.anIntArray691[1], ShapedTile.anIntArray691[3], ShapedTile.anIntArray692[0], ShapedTile.anIntArray692[1], ShapedTile.anIntArray692[3], class40.anIntArray682[face], ShapedTile.screenZ[tri_a], ShapedTile.screenZ[tri_b], ShapedTile.screenZ[tri_c]);
+								Rasterizer.drawMaterializedTriangle(y_a, y_b, y_c, x_a, x_b, x_c, class40.anIntArray676[face], class40.anIntArray677[face], class40.anIntArray678[face], SceneTileModel.anIntArray690[0], SceneTileModel.anIntArray690[1], SceneTileModel.anIntArray690[3], SceneTileModel.anIntArray691[0], SceneTileModel.anIntArray691[1], SceneTileModel.anIntArray691[3], SceneTileModel.anIntArray692[0], SceneTileModel.anIntArray692[1], SceneTileModel.anIntArray692[3], class40.anIntArray682[face], SceneTileModel.screenZ[tri_a], SceneTileModel.screenZ[tri_b], SceneTileModel.screenZ[tri_c]);
 							} else {
-								Rasterizer.drawMaterializedTriangle(y_a, y_b, y_c, x_a, x_b, x_c, class40.anIntArray676[face], class40.anIntArray677[face], class40.anIntArray678[face], ShapedTile.anIntArray690[tri_a], ShapedTile.anIntArray690[tri_b], ShapedTile.anIntArray690[tri_c], ShapedTile.anIntArray691[tri_a], ShapedTile.anIntArray691[tri_b], ShapedTile.anIntArray691[tri_c], ShapedTile.anIntArray692[tri_a], ShapedTile.anIntArray692[tri_b], ShapedTile.anIntArray692[tri_c], class40.anIntArray682[face], ShapedTile.screenZ[tri_a], ShapedTile.screenZ[tri_b], ShapedTile.screenZ[tri_c]);
+								Rasterizer.drawMaterializedTriangle(y_a, y_b, y_c, x_a, x_b, x_c, class40.anIntArray676[face], class40.anIntArray677[face], class40.anIntArray678[face], SceneTileModel.anIntArray690[tri_a], SceneTileModel.anIntArray690[tri_b], SceneTileModel.anIntArray690[tri_c], SceneTileModel.anIntArray691[tri_a], SceneTileModel.anIntArray691[tri_b], SceneTileModel.anIntArray691[tri_c], SceneTileModel.anIntArray692[tri_a], SceneTileModel.anIntArray692[tri_b], SceneTileModel.anIntArray692[tri_c], class40.anIntArray682[face], SceneTileModel.screenZ[tri_a], SceneTileModel.screenZ[tri_b], SceneTileModel.screenZ[tri_c]);
 							}
 						} else {
-							Rasterizer.drawGouraudTriangle(y_a, y_b, y_c, x_a, x_b, x_c, class40.anIntArray676[face], class40.anIntArray677[face], class40.anIntArray678[face], ShapedTile.screenZ[tri_a], ShapedTile.screenZ[tri_b], ShapedTile.screenZ[tri_c]);
+							Rasterizer.drawGouraudTriangle(y_a, y_b, y_c, x_a, x_b, x_c, class40.anIntArray676[face], class40.anIntArray677[face], class40.anIntArray678[face], SceneTileModel.screenZ[tri_a], SceneTileModel.screenZ[tri_b], SceneTileModel.screenZ[tri_c]);
 						}
 					}
 				} else if (!lowMem) {
 					if (class40.aBoolean683) {
-						Rasterizer.drawTexturedTriangle(y_a, y_b, y_c, x_a, x_b, x_c, class40.anIntArray676[face], class40.anIntArray677[face], class40.anIntArray678[face], ShapedTile.anIntArray690[0], ShapedTile.anIntArray690[1], ShapedTile.anIntArray690[3], ShapedTile.anIntArray691[0], ShapedTile.anIntArray691[1], ShapedTile.anIntArray691[3], ShapedTile.anIntArray692[0], ShapedTile.anIntArray692[1], ShapedTile.anIntArray692[3], class40.anIntArray682[face], ShapedTile.screenZ[tri_a], ShapedTile.screenZ[tri_b], ShapedTile.screenZ[tri_c]);
+						Rasterizer.drawTexturedTriangle(y_a, y_b, y_c, x_a, x_b, x_c, class40.anIntArray676[face], class40.anIntArray677[face], class40.anIntArray678[face], SceneTileModel.anIntArray690[0], SceneTileModel.anIntArray690[1], SceneTileModel.anIntArray690[3], SceneTileModel.anIntArray691[0], SceneTileModel.anIntArray691[1], SceneTileModel.anIntArray691[3], SceneTileModel.anIntArray692[0], SceneTileModel.anIntArray692[1], SceneTileModel.anIntArray692[3], class40.anIntArray682[face], SceneTileModel.screenZ[tri_a], SceneTileModel.screenZ[tri_b], SceneTileModel.screenZ[tri_c]);
 					} else {
-						Rasterizer.drawTexturedTriangle(y_a, y_b, y_c, x_a, x_b, x_c, class40.anIntArray676[face], class40.anIntArray677[face], class40.anIntArray678[face], ShapedTile.anIntArray690[tri_a], ShapedTile.anIntArray690[tri_b], ShapedTile.anIntArray690[tri_c], ShapedTile.anIntArray691[tri_a], ShapedTile.anIntArray691[tri_b], ShapedTile.anIntArray691[tri_c], ShapedTile.anIntArray692[tri_a], ShapedTile.anIntArray692[tri_b], ShapedTile.anIntArray692[tri_c], class40.anIntArray682[face], ShapedTile.screenZ[tri_a], ShapedTile.screenZ[tri_b], ShapedTile.screenZ[tri_c]);
+						Rasterizer.drawTexturedTriangle(y_a, y_b, y_c, x_a, x_b, x_c, class40.anIntArray676[face], class40.anIntArray677[face], class40.anIntArray678[face], SceneTileModel.anIntArray690[tri_a], SceneTileModel.anIntArray690[tri_b], SceneTileModel.anIntArray690[tri_c], SceneTileModel.anIntArray691[tri_a], SceneTileModel.anIntArray691[tri_b], SceneTileModel.anIntArray691[tri_c], SceneTileModel.anIntArray692[tri_a], SceneTileModel.anIntArray692[tri_b], SceneTileModel.anIntArray692[tri_c], class40.anIntArray682[face], SceneTileModel.screenZ[tri_a], SceneTileModel.screenZ[tri_b], SceneTileModel.screenZ[tri_c]);
 					}
 				} else {
 					int k5 = anIntArray485[class40.anIntArray682[face]];
-					Rasterizer.drawGouraudTriangle(y_a, y_b, y_c, x_a, x_b, x_c, method317(k5, class40.anIntArray676[face]), method317(k5, class40.anIntArray677[face]), method317(k5, class40.anIntArray678[face]), ShapedTile.screenZ[tri_a], ShapedTile.screenZ[tri_b], ShapedTile.screenZ[tri_c]);
+					Rasterizer.drawGouraudTriangle(y_a, y_b, y_c, x_a, x_b, x_c, method317(k5, class40.anIntArray676[face]), method317(k5, class40.anIntArray677[face]), method317(k5, class40.anIntArray678[face]), SceneTileModel.screenZ[tri_a], SceneTileModel.screenZ[tri_b], SceneTileModel.screenZ[tri_c]);
 				}
 			}
 		}

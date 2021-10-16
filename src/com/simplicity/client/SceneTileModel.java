@@ -1,6 +1,6 @@
 package com.simplicity.client;
 
-public final class ShapedTile {
+public final class SceneTileModel {
 
 	public final int[] anIntArray673;
 	public final int[] anIntArray674;
@@ -57,9 +57,9 @@ public final class ShapedTile {
 			{ 1, 0, 5, 4, 1, 0, 1, 5, 0, 0, 4, 3, 0, 4, 5, 3, 0, 5, 2, 3, 0, 1,
 					2, 5 } };
 
-	public ShapedTile(int i, int j, int k, int l, int overlaytex, int underlaytex,
-			int j1, int k1, int l1, int i2, int j2, int k2, int l2, int i3,
-			int j3, int k3, int l3, int i4, int k4, int l4, boolean tex) {
+	public SceneTileModel(int i, int j, int k, int l, int overlaytex, int underlaytex,
+						  int j1, int k1, int l1, int i2, int j2, int k2, int l2, int i3,
+						  int j3, int k3, int l3, int i4, int k4, int l4, boolean tex) {
 		color61 = l1;
 		color71 = i4;
 		color81 = j2;

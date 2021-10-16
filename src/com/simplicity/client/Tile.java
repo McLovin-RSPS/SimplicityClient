@@ -22,8 +22,8 @@ public final class Tile extends Node {
 	final int tileX;
 	final int tileY;
 	final int plane;
-	public PlainTile plainTile;
-	public ShapedTile shapedTile;
+	public SceneTilePaint plainTile;
+	public SceneTileModel shapedTile;
 	public WallObject wallObject;
 	public WallDecoration wallDecoration;
 	public GroundDecoration groundDecoration;
