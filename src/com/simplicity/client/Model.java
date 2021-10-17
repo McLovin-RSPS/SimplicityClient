@@ -541,14 +541,14 @@ public class Model extends Animable {
         rendersWithinOneTile = false;
     }
 
-    public Model(boolean flag, boolean flag1, boolean flag2, Model model) {
+    public Model(boolean colored, boolean alphas, boolean animated, Model model) {
         aBoolean1618 = true;
         rendersWithinOneTile = false;
         anInt1620++;
         numberOfVerticeCoordinates = model.numberOfVerticeCoordinates;
         numberOfTriangleFaces = model.numberOfTriangleFaces;
         numberOfTexturesFaces = model.numberOfTexturesFaces;
-        if (flag2) {
+        if (animated) {
             this.verticesParticle = model.verticesParticle;
             verticesXCoordinate = model.verticesXCoordinate;
             verticesYCoordinate = model.verticesYCoordinate;
@@ -566,7 +566,7 @@ public class Model extends Animable {
             }
 
         }
-        if (flag) {
+        if (colored) {
             face_color = model.face_color;
         } else {
             face_color = new int[numberOfTriangleFaces];
@@ -574,7 +574,7 @@ public class Model extends Animable {
                 face_color[k] = model.face_color[k];
 
         }
-        if (flag1) {
+        if (alphas) {
             face_alpha = model.face_alpha;
         } else {
             face_alpha = new int[numberOfTriangleFaces];
@@ -601,14 +601,14 @@ public class Model extends Animable {
         textures_face_c = model.textures_face_c;
     }
 
-    public Model(boolean flag, boolean flag1, Model model) {
+    public Model(boolean adjust, boolean flag1, Model model) {
         aBoolean1618 = true;
         rendersWithinOneTile = false;
         anInt1620++;
         numberOfVerticeCoordinates = model.numberOfVerticeCoordinates;
         numberOfTriangleFaces = model.numberOfTriangleFaces;
         numberOfTexturesFaces = model.numberOfTexturesFaces;
-        if (flag) {
+        if (adjust) {
             verticesYCoordinate = new int[numberOfVerticeCoordinates];
             for (int j = 0; j < numberOfVerticeCoordinates; j++)
                 verticesYCoordinate[j] = model.verticesYCoordinate[j];
@@ -3173,6 +3173,253 @@ public class Model extends Animable {
         }
     }
 
+    void decodeOld(final byte[] data) {
+        System.out.println("decoding old");
+        boolean var2 = false;
+        boolean var3 = false;
+        final Stream var4 = new Stream(data);
+        final Stream var5 = new Stream(data);
+        final Stream var6 = new Stream(data);
+        final Stream var7 = new Stream(data);
+        final Stream var8 = new Stream(data);
+        var4.bitPosition = data.length - 18;
+        final int var9 = var4.readUnsignedWord();
+        final int var10 = var4.readUnsignedWord();
+        final int var11 = var4.readUnsignedByte();
+        final int var12 = var4.readUnsignedByte();
+        final int var13 = var4.readUnsignedByte();
+        final int var14 = var4.readUnsignedByte();
+        final int var15 = var4.readUnsignedByte();
+        final int var16 = var4.readUnsignedByte();
+        final int var17 = var4.readUnsignedWord();
+        final int var18 = var4.readUnsignedWord();
+        final int var19 = var4.readUnsignedWord();
+        final int var20 = var4.readUnsignedWord();
+        final byte var21 = 0;
+        int var45 = var21 + var9;
+        final int var23 = var45;
+        var45 += var10;
+        final int var24 = var45;
+        if (var13 == 255) {
+            var45 += var10;
+        }
+        final int var25 = var45;
+        if (var15 == 1) {
+            var45 += var10;
+        }
+        final int var26 = var45;
+        if (var12 == 1) {
+            var45 += var10;
+        }
+        final int var27 = var45;
+        if (var16 == 1) {
+            var45 += var9;
+        }
+        final int var28 = var45;
+        if (var14 == 1) {
+            var45 += var10;
+        }
+        final int var29 = var45;
+        var45 += var20;
+        final int var30 = var45;
+        var45 += var10 * 2;
+        final int var31 = var45;
+        var45 += var11 * 6;
+        final int var32 = var45;
+        var45 += var17;
+        final int var33 = var45;
+        var45 += var18;
+        this.numberOfVerticeCoordinates = var9;
+        this.numberOfTriangleFaces = var10;
+        this.numberOfTexturesFaces = var11;
+        verticesParticle = new int[numberOfVerticeCoordinates];
+        this.verticesXCoordinate = new int[var9];
+        this.verticesYCoordinate = new int[var9];
+        this.verticesZCoordinate = new int[var9];
+        this.face_a = new int[var10];
+        this.face_b = new int[var10];
+        this.face_c = new int[var10];
+        if (var11 > 0) {
+            this.textureTypes = new byte[var11];
+            this.textures_face_a = new int[var11];
+            this.textures_face_b = new int[var11];
+            this.textures_face_c = new int[var11];
+        }
+        if (var16 == 1) {
+            this.vertexVSkin = new int[var9];
+        }
+        if (var12 == 1) {
+            this.face_render_type = new int[var10];
+            this.textures = new byte[var10];
+            this.materials = new short[var10];
+        }
+        if (var13 == 255) {
+            this.face_render_priorities = new int[var10];
+        } else {
+            this.face_priority = (byte) var13;
+        }
+        if (var14 == 1) {
+            this.face_alpha = new int[var10];
+        }
+        if (var15 == 1) {
+            this.triangleTSkin = new int[var10];
+        }
+        this.face_color = new int[var10];
+        var4.bitPosition = var21;
+        var5.bitPosition = var32;
+        var6.bitPosition = var33;
+        var7.bitPosition = var45;
+        var8.bitPosition = var27;
+        int var35 = 0;
+        int var36 = 0;
+        int var37 = 0;
+        int var38;
+        int var39;
+        int var40;
+        int var41;
+        int var42;
+        for (var38 = 0; var38 < var9; ++var38) {
+            var39 = var4.readUnsignedByte();
+            var40 = 0;
+            if ((var39 & 1) != 0) {
+                var40 = var5.method421();
+            }
+            var41 = 0;
+            if ((var39 & 2) != 0) {
+                var41 = var6.method421();
+            }
+            var42 = 0;
+            if ((var39 & 4) != 0) {
+                var42 = var7.method421();
+            }
+            this.verticesXCoordinate[var38] = var35 + var40;
+            this.verticesYCoordinate[var38] = var36 + var41;
+            this.verticesZCoordinate[var38] = var37 + var42;
+            var35 = this.verticesXCoordinate[var38];
+            var36 = this.verticesYCoordinate[var38];
+            var37 = this.verticesZCoordinate[var38];
+            if (var16 == 1) {
+                this.vertexVSkin[var38] = var8.readUnsignedByte();
+            }
+        }
+        var4.bitPosition = var30;
+        var5.bitPosition = var26;
+        var6.bitPosition = var24;
+        var7.bitPosition = var28;
+        var8.bitPosition = var25;
+        for (var38 = 0; var38 < var10; ++var38) {
+            this.face_color[var38] = (short) var4.readUnsignedWord();
+            if (var12 == 1) {
+                var39 = var5.readUnsignedByte();
+                if ((var39 & 1) == 1) {
+                    this.face_render_type[var38] = 1;
+                    var2 = true;
+                } else {
+                    this.face_render_type[var38] = 0;
+                }
+                if ((var39 & 2) == 2) {
+                    this.textures[var38] = (byte) (var39 >> 2);
+                    this.materials[var38] = (short) this.face_color[var38];
+                    this.face_color[var38] = 127;
+                    if (this.materials[var38] != -1) {
+                        var3 = true;
+                    }
+                } else {
+                    this.textures[var38] = -1;
+                    this.materials[var38] = -1;
+                }
+            }
+            if (var13 == 255) {
+                this.face_render_priorities[var38] = var6.readSignedByte();
+            }
+            if (var14 == 1) {
+                this.face_alpha[var38] = var7.readSignedByte();
+                if (this.face_alpha[var38] < 0) {
+                    this.face_alpha[var38] = 256 + this.face_alpha[var38];
+                }
+            }
+            if (var15 == 1) {
+                this.triangleTSkin[var38] = var8.readUnsignedByte();
+            }
+        }
+        var4.bitPosition = var29;
+        var5.bitPosition = var23;
+        var38 = 0;
+        var39 = 0;
+        var40 = 0;
+        var41 = 0;
+        int var43;
+        int var44;
+        for (var42 = 0; var42 < var10; ++var42) {
+            var43 = var5.readUnsignedByte();
+            if (var43 == 1) {
+                var38 = var4.method421() + var41;
+                var39 = var4.method421() + var38;
+                var40 = var4.method421() + var39;
+                var41 = var40;
+                this.face_a[var42] = var38;
+                this.face_b[var42] = var39;
+                this.face_c[var42] = var40;
+            }
+            if (var43 == 2) {
+                var39 = var40;
+                var40 = var4.method421() + var41;
+                var41 = var40;
+                this.face_a[var42] = var38;
+                this.face_b[var42] = var39;
+                this.face_c[var42] = var40;
+            }
+            if (var43 == 3) {
+                var38 = var40;
+                var40 = var4.method421() + var41;
+                var41 = var40;
+                this.face_a[var42] = var38;
+                this.face_b[var42] = var39;
+                this.face_c[var42] = var40;
+            }
+            if (var43 == 4) {
+                var44 = var38;
+                var38 = var39;
+                var39 = var44;
+                var40 = var4.method421() + var41;
+                var41 = var40;
+                this.face_a[var42] = var38;
+                this.face_b[var42] = var44;
+                this.face_c[var42] = var40;
+            }
+        }
+        var4.bitPosition = var31;
+        for (var42 = 0; var42 < var11; ++var42) {
+            this.textureTypes[var42] = 0;
+            this.textures_face_a[var42] = (short) var4.readUnsignedWord();
+            this.textures_face_b[var42] = (short) var4.readUnsignedWord();
+            this.textures_face_c[var42] = (short) var4.readUnsignedWord();
+        }
+        if (this.textures != null) {
+            boolean var46 = false;
+            for (var43 = 0; var43 < var10; ++var43) {
+                var44 = this.textures[var43] & 255;
+                if (var44 != 255) {
+                    if (this.face_a[var43] == (this.textures_face_a[var44] & '\uffff') && this.face_b[var43] == (this.textures_face_b[var44] & '\uffff') && this.face_c[var43] == (this.textures_face_c[var44] & '\uffff')) {
+                        this.textures[var43] = -1;
+                    } else {
+                        var46 = true;
+                    }
+                }
+            }
+            if (!var46) {
+                this.textures = null;
+            }
+        }
+        System.out.println("decoded old, materials: " + this.materials);
+        if (!var3) {
+            this.materials = null;
+        }
+        if (!var2) {
+            this.face_render_type = null;
+        }
+    }
+
     private void readOldModel(int i, DataType dataType) {
         int j = -870;
         aBoolean1618 = true;
@@ -3617,20 +3864,22 @@ public class Model extends Animable {
         }
     }
 
-    public void renderAtPoint(int i, int cos_y, int sin_y, int sin_x, int cos_x, int start_x, int start_y, int depth, int i2, int id) {
-        renderAtPointX = start_x + Client.instance.xCameraPos;
-        renderAtPointY = depth + Client.instance.yCameraPos;
-        renderAtPointZ = start_y + Client.instance.zCameraPos;
-        lastRenderedRotation = i;
-        int scene_x = depth * cos_x - start_x * sin_x >> 16;
-        int scene_y = start_y * cos_y + scene_x * sin_y >> 16;
-        int dimension_sin_y = anInt1650 * sin_y >> 16;
+    public void renderAtPoint(int orientation, int pitchSine, int pitchCos, int yawSin, int yawCos, int offsetX, int offsetY, int offsetZ, int i2, int id) {
+        renderAtPointX = offsetX + Client.instance.xCameraPos;
+        renderAtPointY = offsetZ + Client.instance.yCameraPos;
+        renderAtPointZ = offsetY + Client.instance.zCameraPos;
+        lastRenderedRotation = orientation;
+        int scene_x = offsetZ * yawCos - offsetX * yawSin >> 16;
+        int scene_y = offsetY * pitchSine + scene_x * pitchCos >> 16;
+        int dimension_sin_y = anInt1650 * pitchCos >> 16;
         int pos = scene_y + dimension_sin_y;
 
-        if (pos <= 50 || scene_y >= DRAW_DISTANCE)
+        final boolean gpu = Client.drawCallbacks != null && Rasterizer.aBoolean1464;
+
+        if (pos <= 50 || (scene_y >= DRAW_DISTANCE && !gpu))
             return;
         
-        int x_rot = depth * sin_x + start_x * cos_x >> 16;
+        int x_rot = offsetZ * yawSin + offsetX * yawCos >> 16;
         int obj_x = x_rot - anInt1650 << WorldController.viewDistance;
         if (obj_x / pos >= DrawingArea.viewport_centerX)
             return;
@@ -3639,18 +3888,18 @@ public class Model extends Animable {
         if (obj_width / pos <= -DrawingArea.viewport_centerX)
             return;
         
-        int y_rot = start_y * sin_y - scene_x * cos_y >> 16;
-        int j4 = anInt1650 * cos_y >> 16;
+        int y_rot = offsetY * pitchCos - scene_x * pitchSine >> 16;
+        int j4 = anInt1650 * pitchSine >> 16;
         int obj_height = y_rot + j4 << WorldController.viewDistance;
         if (obj_height / pos <= -DrawingArea.viewport_centerY)
             return;
         
-        int l4 = j4 + (super.modelHeight * sin_y >> 16);
+        int l4 = j4 + (super.modelHeight * pitchCos >> 16);
         int obj_y = y_rot - l4 << WorldController.viewDistance;
         if (obj_y / pos >= DrawingArea.viewport_centerY)
             return;
         
-        int size = dimension_sin_y + (super.modelHeight * cos_y >> 16);
+        int size = dimension_sin_y + (super.modelHeight * pitchSine >> 16);
         
         boolean near_sight = false;
         if (scene_y - size <= 50)
@@ -3683,6 +3932,11 @@ public class Model extends Animable {
                 if (rendersWithinOneTile) {
                     mapObjectIds[objectsRendered] = id;
                     objectsInCurrentRegion[objectsRendered++] = i2;
+
+                    if (gpu) {
+                        renderOnGpu(orientation, pitchSine, pitchCos, yawSin, yawCos, offsetX, offsetY, offsetZ, id);
+                        return;
+                    }
                 } else {
                     highlighted = true;
                 }
@@ -3691,27 +3945,27 @@ public class Model extends Animable {
         int j6 = Rasterizer.textureInt2;
         int l6 = 0;
         int i7 = 0;
-        if (i != 0) {
-            l6 = SINE[i];
-            i7 = COSINE[i];
+        if (orientation != 0) {
+            l6 = SINE[orientation];
+            i7 = COSINE[orientation];
         }
         for (int j7 = 0; j7 < numberOfVerticeCoordinates; j7++) {
             int k7 = verticesXCoordinate[j7];
             int l7 = verticesYCoordinate[j7];
             int i8 = verticesZCoordinate[j7];
-            if (i != 0) {
+            if (orientation != 0) {
                 int j8 = i8 * l6 + k7 * i7 >> 16;
                 i8 = i8 * i7 - k7 * l6 >> 16;
                 k7 = j8;
             }
-            k7 += start_x;
-            l7 += start_y;
-            i8 += depth;
-            int k8 = i8 * sin_x + k7 * cos_x >> 16;
-            i8 = i8 * cos_x - k7 * sin_x >> 16;
+            k7 += offsetX;
+            l7 += offsetY;
+            i8 += offsetZ;
+            int k8 = i8 * yawSin + k7 * yawCos >> 16;
+            i8 = i8 * yawCos - k7 * yawSin >> 16;
             k7 = k8;
-            k8 = l7 * sin_y - i8 * cos_y >> 16;
-            i8 = l7 * cos_y + i8 * sin_y >> 16;
+            k8 = l7 * pitchCos - i8 * pitchSine >> 16;
+            i8 = l7 * pitchSine + i8 * pitchCos >> 16;
             l7 = k8;
             anIntArray1667[j7] = i8 - scene_y;
             if (i8 >= 50) {
@@ -3730,10 +3984,20 @@ public class Model extends Animable {
         }
 
         try {
-            translateToScreen(near_sight, highlighted, i2, id);
+            if (gpu) {
+                renderOnGpu(orientation, pitchSine, pitchCos, yawSin, yawCos, offsetX, offsetY, offsetZ, id);
+            } else {
+                translateToScreen(near_sight, highlighted, i2, id);
+            }
             return;
         } catch (Exception _ex) {
             return;
+        }
+    }
+
+    void renderOnGpu(int orientation, int pitchSine, int pitchCos, int yawSin, int yawCos, int offsetX, int offsetY, int offsetZ, int hash) {
+        if (Client.drawCallbacks != null) {
+            Client.drawCallbacks.draw(this, orientation, pitchSine, pitchCos, yawSin, yawCos, offsetX, offsetY, offsetZ, hash);
         }
     }
     
@@ -3954,6 +4218,7 @@ public class Model extends Animable {
     }
 
     private final void translateToScreen(boolean flag, boolean needAddToSelectedObjects, int i, int id) {
+        final boolean gpu = Client.drawCallbacks != null && Rasterizer.aBoolean1464;
         if (Client.RENDER_DEBUG) {
             needAddToSelectedObjects = true;
         }
@@ -3972,6 +4237,20 @@ public class Model extends Animable {
             int vertexXA = projected_vertex_x[face_a_pos];
             int vertexXB = projected_vertex_x[face_b_pos];
             int vertexXC = projected_vertex_x[face_c_pos];
+            if (gpu) {
+                if (vertexXA == -5000 || vertexXB == -5000 || vertexXC == -5000) {
+                    continue;
+                }
+
+                if (needAddToSelectedObjects && cursorOn(currentCursorX, currentCursorY, projected_vertex_y[face_a_pos],
+                        projected_vertex_y[face_b_pos], projected_vertex_y[face_c_pos], vertexXA, vertexXB, vertexXC)) {
+                    mapObjectIds[objectsRendered] = id;
+                    objectsInCurrentRegion[objectsRendered++] = i;
+                    needAddToSelectedObjects = false;
+                }
+
+                continue;
+            }
             if (flag && (vertexXA == -5000 || vertexXB == -5000 || vertexXC == -5000)) {
                 outOfReach[triangleId] = true;
                 int j5 = (anIntArray1667[face_a_pos] + anIntArray1667[face_b_pos] + anIntArray1667[face_c_pos]) / 3
@@ -3996,7 +4275,11 @@ public class Model extends Animable {
                 faceLists[k5][depthListIndices[k5]++] = triangleId;
             }
         }
-        
+
+        if (gpu) {
+            return;
+        }
+
         if (face_render_priorities == null) {
             for (int i1 = diagonal3D - 1; i1 >= 0; i1--) {
                 int l1 = depthListIndices[i1];
@@ -4150,6 +4433,10 @@ public class Model extends Animable {
             }
         }
     }
+
+    public transient float[][] faceTextureUCoordinates;
+    public transient float[][] faceTextureVCoordinates;
+    public transient float[][] faceTextureUVCoordinates;
     
     public int getVerticesCount() {
     	return numberOfVerticeCoordinates;
@@ -4194,5 +4481,177 @@ public class Model extends Animable {
     public int getDiameter() {
     	return diagonal3D;
     }
-    
+
+    public short[] getFaceTextures() {
+        return materials;
+    }
+
+    public int[] getFaceColors1() {
+        return face_shade_a;
+    }
+
+    public int[] getFaceColors2() {
+        return face_shade_b;
+    }
+
+    public int[] getFaceColors3() {
+        return face_shade_c;
+    }
+
+    public int[] getFaceRenderPriorities() {
+        return face_render_priorities;
+    }
+
+    public int[] getTriangleTransparencies() {
+        return face_alpha;
+    }
+
+    public int getModelHeight() {
+        return modelHeight;
+    }
+
+    public int bufferOffset = -1;
+
+    public void setBufferOffset(final int offset) {
+        bufferOffset = offset;
+    }
+
+    public int uVBufferOffset = -1;
+
+    public void setUvBufferOffset(final int offset) {
+        uVBufferOffset = offset;
+    }
+
+    public int getBufferOffset() {
+        return bufferOffset;
+    }
+
+    public int sceneId = -1;
+
+    public void setSceneId(final int id) {
+        sceneId = id;
+    }
+
+    public int getSceneId() {
+        return sceneId;
+    }
+
+    public int getUvBufferOffset() {
+        return uVBufferOffset;
+    }
+
+    public float[][] getFaceTextureUCoordinates() {
+        computeTextureUVCoordinates();
+        return faceTextureUCoordinates;
+    }
+
+    public float[][] getFaceTextureVCoordinates() {
+        computeTextureUVCoordinates();
+        return faceTextureVCoordinates;
+    }
+
+    public boolean uvsCalculated = false;
+
+    public void computeTextureUVCoordinates() {
+        if (uvsCalculated) {
+            return;
+        }
+        this.faceTextureUCoordinates = new float[numberOfTriangleFaces][];
+        this.faceTextureVCoordinates = new float[numberOfTriangleFaces][];
+
+        for (int i = 0; i < numberOfTriangleFaces; i++) {
+            int textureCoordinate;
+            if (textures == null) {
+                textureCoordinate = -1;
+            } else {
+                textureCoordinate = textures[i];
+            }
+
+            final int textureIdx;
+            if (materials == null) {
+                textureIdx = -1;
+            } else {
+                textureIdx = materials[i] & 0xFFFF;
+            }
+
+            if (textureIdx != -1) {
+                final float[] u = new float[3];
+                final float[] v = new float[3];
+
+                if (textureCoordinate == -1) {
+                    u[0] = 0.0F;
+                    v[0] = 1.0F;
+
+                    u[1] = 1.0F;
+                    v[1] = 1.0F;
+
+                    u[2] = 0.0F;
+                    v[2] = 0.0F;
+                } else {
+                    textureCoordinate &= 0xFF;
+
+                    byte textureRenderType = 0;
+                    if (textureTypes != null) {
+                        textureRenderType = textureTypes[textureCoordinate];
+                    }
+
+                    if (textureRenderType == 0) {
+                        final int faceVertexIdx1 = face_a[i];
+                        final int faceVertexIdx2 = face_b[i];
+                        final int faceVertexIdx3 = face_c[i];
+
+                        final short triangleVertexIdx1 = (short) textures_face_a[textureCoordinate];
+                        final short triangleVertexIdx2 = (short) textures_face_b[textureCoordinate];
+                        final short triangleVertexIdx3 = (short) textures_face_c[textureCoordinate];
+
+                        final float triangleX = (float) verticesXCoordinate[triangleVertexIdx1];
+                        final float triangleY = (float) verticesYCoordinate[triangleVertexIdx1];
+                        final float triangleZ = (float) verticesZCoordinate[triangleVertexIdx1];
+
+                        final float f_882_ = (float) verticesXCoordinate[triangleVertexIdx2] - triangleX;
+                        final float f_883_ = (float) verticesYCoordinate[triangleVertexIdx2] - triangleY;
+                        final float f_884_ = (float) verticesZCoordinate[triangleVertexIdx2] - triangleZ;
+                        final float f_885_ = (float) verticesXCoordinate[triangleVertexIdx3] - triangleX;
+                        final float f_886_ = (float) verticesYCoordinate[triangleVertexIdx3] - triangleY;
+                        final float f_887_ = (float) verticesZCoordinate[triangleVertexIdx3] - triangleZ;
+                        final float f_888_ = (float) verticesXCoordinate[faceVertexIdx1] - triangleX;
+                        final float f_889_ = (float) verticesYCoordinate[faceVertexIdx1] - triangleY;
+                        final float f_890_ = (float) verticesZCoordinate[faceVertexIdx1] - triangleZ;
+                        final float f_891_ = (float) verticesXCoordinate[faceVertexIdx2] - triangleX;
+                        final float f_892_ = (float) verticesYCoordinate[faceVertexIdx2] - triangleY;
+                        final float f_893_ = (float) verticesZCoordinate[faceVertexIdx2] - triangleZ;
+                        final float f_894_ = (float) verticesXCoordinate[faceVertexIdx3] - triangleX;
+                        final float f_895_ = (float) verticesYCoordinate[faceVertexIdx3] - triangleY;
+                        final float f_896_ = (float) verticesZCoordinate[faceVertexIdx3] - triangleZ;
+
+                        final float f_897_ = f_883_ * f_887_ - f_884_ * f_886_;
+                        final float f_898_ = f_884_ * f_885_ - f_882_ * f_887_;
+                        final float f_899_ = f_882_ * f_886_ - f_883_ * f_885_;
+                        float f_900_ = f_886_ * f_899_ - f_887_ * f_898_;
+                        float f_901_ = f_887_ * f_897_ - f_885_ * f_899_;
+                        float f_902_ = f_885_ * f_898_ - f_886_ * f_897_;
+                        float f_903_ = 1.0F / (f_900_ * f_882_ + f_901_ * f_883_ + f_902_ * f_884_);
+
+                        u[0] = (f_900_ * f_888_ + f_901_ * f_889_ + f_902_ * f_890_) * f_903_;
+                        u[1] = (f_900_ * f_891_ + f_901_ * f_892_ + f_902_ * f_893_) * f_903_;
+                        u[2] = (f_900_ * f_894_ + f_901_ * f_895_ + f_902_ * f_896_) * f_903_;
+
+                        f_900_ = f_883_ * f_899_ - f_884_ * f_898_;
+                        f_901_ = f_884_ * f_897_ - f_882_ * f_899_;
+                        f_902_ = f_882_ * f_898_ - f_883_ * f_897_;
+                        f_903_ = 1.0F / (f_900_ * f_885_ + f_901_ * f_886_ + f_902_ * f_887_);
+
+                        v[0] = (f_900_ * f_888_ + f_901_ * f_889_ + f_902_ * f_890_) * f_903_;
+                        v[1] = (f_900_ * f_891_ + f_901_ * f_892_ + f_902_ * f_893_) * f_903_;
+                        v[2] = (f_900_ * f_894_ + f_901_ * f_895_ + f_902_ * f_896_) * f_903_;
+                    }
+                }
+
+                this.faceTextureUCoordinates[i] = u;
+                this.faceTextureVCoordinates[i] = v;
+            }
+        }
+        uvsCalculated = true;
+    }
+
 }
