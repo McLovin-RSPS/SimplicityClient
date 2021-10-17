@@ -7,17 +7,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import com.simplicity.client.CollisionDetection;
+import com.simplicity.client.*;
+import com.simplicity.client.Model;
 import com.simplicity.client.NPC;
 import com.simplicity.client.Player;
-import com.simplicity.client.RSImageProducer;
 import com.simplicity.client.Tile;
-import com.simplicity.client.WorldController;
 import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.client.container.item.ItemContainer;
 
 import ch.qos.logback.classic.Logger;
 import net.runelite.api.*;
+import net.runelite.api.Client;
+import net.runelite.api.Skill;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.hooks.Callbacks;
@@ -454,14 +455,12 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public int getViewportYOffset() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 4;
 	}
 	
 	@Override
 	public int getViewportXOffset() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 4;
 	}
 	
 	@Override
@@ -559,7 +558,7 @@ public class ClientRuneLite implements Client {
 	@Override
 	public Dimension getStretchedDimensions() {
 		// TODO Auto-generated method stub
-		return null;
+		return new Dimension(765, 503);
 	}
 	
 	@Override
@@ -1184,74 +1183,62 @@ public class ClientRuneLite implements Client {
 
 	@Override
 	public DrawCallbacks getDrawCallbacks() {
-		// TODO Auto-generated method stub
-		return null;
+		return client().drawCallbacks;
 	}
 
 	@Override
 	public void setDrawCallbacks(DrawCallbacks drawCallbacks) {
-		// TODO Auto-generated method stub
-		
+		client().drawCallbacks = drawCallbacks;
 	}
 
 	@Override
 	public int getCanvasHeight() {
-		// TODO Auto-generated method stub
-		return 0;
+		return client().getClientHeight();
 	}
 
 	@Override
 	public int getCanvasWidth() {
-		// TODO Auto-generated method stub
-		return 0;
+		return client().getClientWidth();
 	}
 
 	@Override
 	public boolean isGpu() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void setGpu(boolean gpu) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public int get3dZoom() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 512;
 	}
 
 	@Override
 	public int getCenterX() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getViewportWidth() / 2;
 	}
 
 	@Override
 	public int getCenterY() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getViewportHeight() / 2;
 	}
 
 	@Override
 	public int getCameraX2() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getScene().cameraX2;
 	}
 
 	@Override
 	public int getCameraY2() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getScene().cameraY2;
 	}
 
 	@Override
 	public int getCameraZ2() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getScene().cameraZ2;
 	}
 
 	@Override
@@ -1262,39 +1249,33 @@ public class ClientRuneLite implements Client {
 
 	@Override
 	public int getRasterizer3D_clipMidX2() {
-		// TODO Auto-generated method stub
-		return 0;
+		return DrawingArea.viewport_centerY;
 	}
 
 	@Override
 	public int getRasterizer3D_clipNegativeMidX() {
-		// TODO Auto-generated method stub
-		return 0;
+		return -DrawingArea.viewport_centerY;
 	}
 
 	@Override
 	public int getRasterizer3D_clipNegativeMidY() {
-		// TODO Auto-generated method stub
-		return 0;
+		return -DrawingArea.viewport_centerX;
 	}
 
 	@Override
 	public int getRasterizer3D_clipMidY2() {
-		// TODO Auto-generated method stub
-		return 0;
+		return DrawingArea.viewport_centerX;
 	}
 
 	@Override
 	public void checkClickbox(Model model, int orientation, int pitchSin, int pitchCos, int yawSin, int yawCos, int x,
-			int y, int z, long hash) {
-		// TODO Auto-generated method stub
-		
+							  int y, int z, long hash) {
+
 	}
 
 	@Override
 	public void setSkyboxColor(int skyboxColor) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
