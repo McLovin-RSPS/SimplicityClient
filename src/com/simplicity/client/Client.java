@@ -56,6 +56,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
@@ -176,6 +177,7 @@ import net.runelite.api.events.NpcSpawned;
 import net.runelite.api.events.PlayerDespawned;
 import net.runelite.api.events.PlayerSpawned;
 import net.runelite.api.events.StatChanged;
+import net.runelite.api.hooks.DrawCallbacks;
 import net.runelite.client.RuneLite;
 import net.runelite.client.callback.Hooks;
 import net.runelite.client.plugins.PluginManager;
@@ -183,6 +185,8 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 @SuppressWarnings("all")
 public class Client extends RSApplet {
+
+    private java.util.Queue<Runnable> runnables = new ConcurrentLinkedQueue<Runnable>();
 	
 	private static Injector injector;
 	private static RuneLite runelite;
@@ -192,7 +196,9 @@ public class Client extends RSApplet {
 	public static Hooks getCallbacks() {
 		return callbacks;
 	}
-	
+
+    public static DrawCallbacks drawCallbacks;
+
 	public boolean chatboxInFocus = true;
 
 	private static final int ENTITY_DRAW_DISTANCE = 20;
@@ -6820,6 +6826,7 @@ public class Client extends RSApplet {
             }
         } else {
             try {
+                processTasks();
                 mainGameProcessor();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
@@ -6835,6 +6842,13 @@ public class Client extends RSApplet {
         
         if (runelite != null) {
         	callbacks.clientMainLoop();
+        }
+    }
+
+    private void processTasks() {
+        for (int i = 0; i < runnables.size(); i++) {
+            final Runnable r = runnables.poll();
+            r.run();
         }
     }
 
@@ -16875,7 +16889,9 @@ public class Client extends RSApplet {
                                             model.recolour(currentCape, previousMaxCapeColors[i11], maxCapeColors[i11]);
                                     }
                                 }
+                                Rasterizer.renderOnGpu = true;
                                 model.renderSingle(child.modelRotation2, 0, child.modelRotation1, 0, i5, l5);
+                                Rasterizer.renderOnGpu = false;
                             }
                             // model.reset();
                             // model = null;
@@ -23390,6 +23406,10 @@ public class Client extends RSApplet {
             
             drawUnfixedGame();
             draw3dScreen();
+
+            if (drawCallbacks != null) {
+                drawCallbacks.draw(0);
+            }
             
             if (runelite != null) {
             	callbacks.drawAfterWidgets(mapAreaIP);
@@ -23524,12 +23544,12 @@ public class Client extends RSApplet {
 		}
 	}
 
-	private void method37(int j) {
+	public void method37(int j) {
         // Textures
         int speed = 1;
 
         if (Rasterizer.anIntArray1480[17] >= j) {
-            Background background = Rasterizer.aBackgroundArray1474s[17];
+            Background background = Rasterizer.textures[17];
             int k = background.imgWidth * background.imgHeight - 1;
             int j1 = background.imgWidth * cycleTimer * speed;
             byte abyte0[] = background.imgPixels;
@@ -23542,10 +23562,13 @@ public class Client extends RSApplet {
             background.imgPixels = abyte3;
             aByteArray912 = abyte0;
             Rasterizer.method370(17);
+            if (drawCallbacks != null) {
+                drawCallbacks.animate(Rasterizer.textures[17], cycleTimer);
+            }
         }
 
         if (Rasterizer.anIntArray1480[24] >= j) {
-            Background background_1 = Rasterizer.aBackgroundArray1474s[24];
+            Background background_1 = Rasterizer.textures[24];
             int l = background_1.imgWidth * background_1.imgHeight - 1;
             int k1 = background_1.imgWidth * cycleTimer * 2;
             byte abyte1[] = background_1.imgPixels;
@@ -23558,10 +23581,14 @@ public class Client extends RSApplet {
             background_1.imgPixels = abyte4;
             aByteArray912 = abyte1;
             Rasterizer.method370(24);
+
+            if (drawCallbacks != null) {
+                drawCallbacks.animate(Rasterizer.textures[24], cycleTimer);
+            }
         }
 
         if (Rasterizer.anIntArray1480[34] >= j) {
-            Background background_2 = Rasterizer.aBackgroundArray1474s[34];
+            Background background_2 = Rasterizer.textures[34];
             int i1 = background_2.imgWidth * background_2.imgHeight - 1;
             int l1 = background_2.imgWidth * cycleTimer * 2;
             byte abyte2[] = background_2.imgPixels;
@@ -23574,10 +23601,14 @@ public class Client extends RSApplet {
             background_2.imgPixels = abyte5;
             aByteArray912 = abyte2;
             Rasterizer.method370(34);
+
+            if (drawCallbacks != null) {
+                drawCallbacks.animate(Rasterizer.textures[34], cycleTimer);
+            }
         }
 
         if (Rasterizer.anIntArray1480[40] >= j || Rasterizer.anIntArray1480[40] < j) {
-            Background background_2 = Rasterizer.aBackgroundArray1474s[40];
+            Background background_2 = Rasterizer.textures[40];
             int i1 = background_2.imgWidth * background_2.imgHeight - 1;
             int l1 = background_2.imgWidth * cycleTimer * 1;
             byte abyte2[] = background_2.imgPixels;
@@ -23590,11 +23621,15 @@ public class Client extends RSApplet {
             background_2.imgPixels = abyte5;
             aByteArray912 = abyte2;
             Rasterizer.method370(40);
+
+            if (drawCallbacks != null) {
+                drawCallbacks.animate(Rasterizer.textures[40], cycleTimer);
+            }
         }
 
 		for (int i : MOVING_TEXTURES) {
 			if (Rasterizer.anIntArray1480[i] >= j || (i == 61 || i == 62 || i == 65) && Rasterizer.anIntArray1480[i] < j) {
-				Background texture = Rasterizer.aBackgroundArray1474s[i];
+				Background texture = Rasterizer.textures[i];
 				
 				try {
 					int i1 = texture.imgWidth * texture.imgHeight - 1;
@@ -23609,6 +23644,10 @@ public class Client extends RSApplet {
 					texture.imgPixels = abyte5;
 					aByteArray912 = abyte2;
 					Rasterizer.method370(i);
+
+                    if (drawCallbacks != null) {
+                        drawCallbacks.animate(Rasterizer.textures[i], cycleTimer);
+                    }
 				} catch (Exception e) {
 					System.out.println("Error caused by moving texture, id: " + i + " img size: " + texture.imgWidth
 							+ " x " + texture.imgWidth + " lib width: " + texture.libWidth + " x " + texture.libHeight);
@@ -24298,10 +24337,10 @@ public class Client extends RSApplet {
     private static final String VALID_AUTH_KEYS = "0123456789";
     private static final String VALID_CC_NAME_KEYS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 ";
     public static final String validUserPassChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"\243$%^&*()-_=+[{]};:'@#~,<.>/?\\| ";
-    private RSImageProducer tabAreaIP;
-    private RSImageProducer mapAreaIP;
-    private RSImageProducer gameScreenIP;
-    private RSImageProducer chatAreaIP;
+    public RSImageProducer tabAreaIP;
+    public RSImageProducer mapAreaIP;
+    public RSImageProducer gameScreenIP;
+    public RSImageProducer chatAreaIP;
     private int daysSinceRecovChange;
     private RSSocket socketStream;
     private int minimapZoom;
@@ -27036,4 +27075,18 @@ public class Client extends RSApplet {
             }
         }
     }
+
+    public void reload() {
+        if (!loggedIn || terrainData == null) {
+            return;
+        }
+
+        worldController.clearInteractableObjects();
+        getMapLoadingState();
+    }
+
+    public void submit(Runnable r) {
+        runnables.add(r);
+    }
+
 }

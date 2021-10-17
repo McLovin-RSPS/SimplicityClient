@@ -613,7 +613,8 @@ public class Sprite extends DrawingArea {
 				pixelLevel = spritePixels[i++];
 				if (pixelLevel != 0) {
 					int pixelValue = renderAreaPixels[pixel];
-					renderAreaPixels[pixel++] = ((pixelLevel & 0xff00ff) * alphaValue + (pixelValue & 0xff00ff) * alphaLevel & 0xff00ff00) + ((pixelLevel & 0xff00) * alphaValue + (pixelValue & 0xff00) * alphaLevel & 0xff0000) >> 8;
+					int val = ((pixelLevel & 0xff00ff) * alphaValue + (pixelValue & 0xff00ff) * alphaLevel & 0xff00ff00) + ((pixelLevel & 0xff00) * alphaValue + (pixelValue & 0xff00) * alphaLevel & 0xff0000) >> 8;
+					drawAlpha(renderAreaPixels, pixel++, val, val, Math.max(255, alphaValue));
 				} else {
 					pixel++;
 				}
@@ -880,14 +881,20 @@ public class Sprite extends DrawingArea {
 		j = -(j & 3);
 		for (int i2 = -k; i2 < 0; i2++) {
 			for (int j2 = l1; j2 < 0; j2++) {
-				ai1[i++] = ai[i1++];
-				ai1[i++] = ai[i1++];
-				ai1[i++] = ai[i1++];
-				ai1[i++] = ai[i1++];
+				int val = ai[i1++];
+				drawAlpha(ai1, i++, val, val, 255);
+				val = ai[i1++];
+				drawAlpha(ai1, i++, val, val, 255);
+				val = ai[i1++];
+				drawAlpha(ai1, i++, val, val, 255);
+				val = ai[i1++];
+				drawAlpha(ai1, i++, val, val, 255);
 			}
 
-			for (int k2 = j; k2 < 0; k2++)
-				ai1[i++] = ai[i1++];
+			for (int k2 = j; k2 < 0; k2++) {
+				int val = ai[i1++];
+				drawAlpha(ai1, i++, val, val, 255);
+			}
 
 			i += k1;
 			i1 += l;
@@ -1193,25 +1200,25 @@ public class Sprite extends DrawingArea {
 			for (int j2 = l1; j2 < 0; j2++) {
 				i = ai1[j++];
 				if (i != 0 && i != -1) {
-					ai[k++] = i;
+					drawAlpha(ai, k++, i, i, 255);
 				} else {
 					k++;
 				}
 				i = ai1[j++];
 				if (i != 0 && i != -1) {
-					ai[k++] = i;
+					drawAlpha(ai, k++, i, i, 255);
 				} else {
 					k++;
 				}
 				i = ai1[j++];
 				if (i != 0 && i != -1) {
-					ai[k++] = i;
+					drawAlpha(ai, k++, i, i, 255);
 				} else {
 					k++;
 				}
 				i = ai1[j++];
 				if (i != 0 && i != -1) {
-					ai[k++] = i;
+					drawAlpha(ai, k++, i, i, 255);
 				} else {
 					k++;
 				}
@@ -1220,7 +1227,7 @@ public class Sprite extends DrawingArea {
 			for (int k2 = l; k2 < 0; k2++) {
 				i = ai1[j++];
 				if (i != 0 && i != -1) {
-					ai[k++] = i;
+					drawAlpha(ai, k++, i, i, 255);
 				} else {
 					k++;
 				}
@@ -1238,7 +1245,7 @@ public class Sprite extends DrawingArea {
 				k = ai1[i++];
 				if (k != 0) {
 					int i3 = ai[l1];
-					ai[l1++] = ((k & 0xff00ff) * k1 + (i3 & 0xff00ff) * j2 & 0xff00ff00) + ((k & 0xff00) * k1 + (i3 & 0xff00) * j2 & 0xff0000) >> 8;
+					drawAlpha(ai, l1++, ((k & 0xff00ff) * k1 + (i3 & 0xff00ff) * j2 & 0xff00ff00) + ((k & 0xff00) * k1 + (i3 & 0xff00) * j2 & 0xff0000) >> 8, k, k1);
 				} else {
 					l1++;
 				}
@@ -1289,7 +1296,7 @@ public class Sprite extends DrawingArea {
 				(c3 >> 8 & 0xff) * a3 + (c4 >> 8 & 0xff) * a4 >> 8 & 0xff00;
 			int b = (c1 & 0xff) * a1 + (c2 & 0xff) * a2 +
 					(c3 & 0xff) * a3 + (c4 & 0xff) * a4 >> 16;
-		DrawingArea.pixels[j4++] = r | g | b;
+		drawAlpha(DrawingArea.pixels, j4++, r | g | b, r | g | b, 255);
 		k4 += i3;
 		l4 -= l2;
 			}

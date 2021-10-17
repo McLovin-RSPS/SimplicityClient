@@ -35,11 +35,19 @@ public final class RSImageProducer
 
 	public void draw(Graphics gfx, int x, int y)
 	{
+		if (Client.drawCallbacks != null) {
+			return;
+		}
+
 		gfx.drawImage(image, x, y, component);
 	}
 
 	public void draw(Graphics gfx, int x, int y, int clipX, int clipY, int clipWidth, int clipHeight)
 	{
+		if (Client.drawCallbacks != null) {
+			return;
+		}
+
 		Shape tmp = gfx.getClip();
 		try
 		{

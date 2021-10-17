@@ -38,7 +38,7 @@ public class DrawingArea extends QueueNode {
 			int k2 = (pixels[i3] >> 8 & 0xff) * j1;
 			int l2 = (pixels[i3] & 0xff) * j1;
 			int k3 = ((k1 + j2 >> 8) << 16) + ((l1 + k2 >> 8) << 8) + (i2 + l2 >> 8);
-			pixels[i3++] = k3;
+			drawAlpha(pixels, i3++, k3, k3, alpha);
 		}
 
 	}
@@ -68,7 +68,7 @@ public class DrawingArea extends QueueNode {
 				int i3 = (pixels[l3] >> 8 & 0xff) * l1;
 				int j3 = (pixels[l3] & 0xff) * l1;
 				int k4 = ((i2 + l2 >> 8) << 16) + ((j2 + i3 >> 8) << 8) + (k2 + j3 >> 8);
-				pixels[l3++] = k4;
+				drawAlpha(pixels, l3++, k4, k4, i1);
 			}
 
 			l3 += k3;
@@ -94,8 +94,7 @@ public class DrawingArea extends QueueNode {
 			int k2 = (pixels[i3] >> 8 & 0xff) * j1;
 			int l2 = (pixels[i3] & 0xff) * j1;
 			int k3 = ((k1 + j2 >> 8) << 16) + ((l1 + k2 >> 8) << 8) + (i2 + l2 >> 8);
-			pixels[i3] = k3;
-			i3 += width;
+			drawAlpha(pixels, i3+=width, k3, k3, alpha);
 		}
 
 	}
@@ -120,8 +119,9 @@ public class DrawingArea extends QueueNode {
 		if(l + k > bottomX)
 			k = bottomX - l;
 		int i1 = l + i * width;
-		for(int j1 = 0; j1 < k; j1++)
-			pixels[i1 + j1] = j;
+		for(int j1 = 0; j1 < k; j1++) {
+			drawAlpha(pixels, i1 + j1, j, j, 255);
+		}
 
 	}
 
@@ -153,7 +153,7 @@ public class DrawingArea extends QueueNode {
 				int i3 = (pixels[l3] >> 8 & 0xff) * l1;
 				int j3 = (pixels[l3] & 0xff) * l1;
 				int k4 = ((i2 + l2 >> 8) << 16) + ((j2 + i3 >> 8) << 8) + (k2 + j3 >> 8);
-				pixels[l3++] = k4;
+				drawAlpha(pixels, l3++, k4, k4, opacityLevel);
 			}
 			l3 += k3;
 		}
@@ -274,7 +274,7 @@ public class DrawingArea extends QueueNode {
 		for(; x <= areaWidth; x++) {
 			int l1 = y >> 16;
 		if(l1 >= topY && l1 < bottomY)
-			pixels[x + l1 * width] = color;
+			drawAlpha(pixels, x + l1 * width, color, color, 255);
 		y += j1;
 		}
 		return;
@@ -293,7 +293,7 @@ public class DrawingArea extends QueueNode {
 	for(; y <= areaHeight; y++) {
 		int i2 = x >> 16;
 	if(i2 >= topX && i2 < bottomX)
-		pixels[i2 + y * width] = color;
+		drawAlpha(pixels, i2 + y * width, color, color, 255);
 	x += k1;
 	}
 	}
@@ -323,7 +323,7 @@ public class DrawingArea extends QueueNode {
 	int j3 = ((startColor & 0xff00ff) * l2 + (endColor & 0xff00ff) * i3 & 0xff00ff00)
 			+ ((startColor & 0xff00) * l2 + (endColor & 0xff00) * i3 & 0xff0000) >>> 8;
 		for (int k3 = -gradientWidth; k3 < 0; k3++)
-			pixels[j2++] = j3;
+			drawAlpha(pixels, j2++, j3, j3, 255);
 		j2 += i2;
 		k1 += l1;
 		}
@@ -363,7 +363,7 @@ public class DrawingArea extends QueueNode {
 							int colored_pixel = pixels[total_pixels];
 							colored_pixel = ((colored_pixel & 0xff00ff) * result_alpha >> 8 & 0xff00ff)
 									+ ((colored_pixel & 0xff00) * result_alpha >> 8 & 0xff00);
-							pixels[total_pixels++] = color + colored_pixel;
+							drawAlpha(pixels, total_pixels++, color + colored_pixel, color + colored_pixel, alpha2);
 						}
 						total_pixels += i2;
 						k1 -= l1;
@@ -403,7 +403,7 @@ public class DrawingArea extends QueueNode {
 							int colored_pixel = pixels[total_pixels];
 							colored_pixel = ((colored_pixel & 0xff00ff) * result_alpha >> 8 & 0xff00ff)
 									+ ((colored_pixel & 0xff00) * result_alpha >> 8 & 0xff00);
-							pixels[total_pixels++] = color + colored_pixel;
+							drawAlpha(pixels, total_pixels++, color + colored_pixel, color + colored_pixel, 255);
 						}
 						total_pixels += i2;
 						k1 += l1;
@@ -432,7 +432,7 @@ public class DrawingArea extends QueueNode {
 			int l2 = (pixels[i3] & 0xff) * j1;
 			int k3 = ((k1 + j2 >> 8) << 16) + ((l1 + k2 >> 8) << 8)
 					+ (i2 + l2 >> 8);
-			pixels[i3++] = k3;
+			drawAlpha(pixels, i3++, k3, k3, 255);
 		}
 	}
 
@@ -459,7 +459,7 @@ public class DrawingArea extends QueueNode {
 			height = bottomX - y;
 		int ptr = x + y * width;
 		for(int y_off = 0; y_off < height; y_off++)
-			pixels[ptr + y_off * width] = colour;
+			drawAlpha(pixels, ptr + y_off * width, colour, colour, 255);
 
 	}
 
@@ -486,7 +486,7 @@ public class DrawingArea extends QueueNode {
 			width = bottomX - x;
 		int i1 = x + y * DrawingArea.width;
 		for(int x_off = 0; x_off < width; x_off++)
-			pixels[i1 + x_off] = colour;
+			drawAlpha(pixels, i1 + x_off, colour, colour, 255);
 
 	}
 	public static void fillRectangle(int color, int y, int widthz, int heightz, int opacity, int x)
@@ -519,7 +519,7 @@ public class DrawingArea extends QueueNode {
 				int pixelBlue = (pixels[startPixel] >> 8 & 0xff) * decodedOpacity;
 				int pixelGreen = (pixels[startPixel] & 0xff) * decodedOpacity;
 				int pixelRGB = ((red + pixelRed >> 8) << 16) + ((green + pixelBlue >> 8) << 8) + (blue + pixelGreen >> 8);
-				pixels[startPixel++] = pixelRGB;
+				drawAlpha(pixels, startPixel++, pixelRGB, pixelRGB, opacity);
 			}
 
 			startPixel += pixelWidthStep;
@@ -554,7 +554,7 @@ public class DrawingArea extends QueueNode {
 				int pixelBlue = (pixels[startPixel] >> 8 & 0xff) * decodedOpacity;
 				int pixelGreen = (pixels[startPixel] & 0xff) * decodedOpacity;
 				int pixelRGB = ((red + pixelRed >> 8) << 16) + ((green + pixelBlue >> 8) << 8) + (blue + pixelGreen >> 8);
-				pixels[startPixel++] = pixelRGB;
+				drawAlpha(pixels, startPixel++, pixelRGB, pixelRGB, alpha);
 			}
 
 			startPixel += widthPixelStep;
@@ -587,7 +587,7 @@ public class DrawingArea extends QueueNode {
 				int i3 = (pixels[l3] >> 8 & 0xff) * l1;
 				int j3 = (pixels[l3] & 0xff) * l1;
 				int k4 = ((i2 + l2 >> 8) << 16) + ((j2 + i3 >> 8) << 8) + (k2 + j3 >> 8);
-				pixels[l3++] = k4;
+				drawAlpha(pixels, l3++, k4, k4, alpha);
 			}
 
 			l3 += k3;
@@ -617,7 +617,7 @@ public class DrawingArea extends QueueNode {
 			for(int j2 = -width_; j2 < 0; j2++) {
 				int s = l1++;
 				if(s < pixels.length)
-					pixels[s] = color;
+					drawAlpha(pixels, s, color, color, 255);
 			}
 
 			l1 += k1;
@@ -644,7 +644,7 @@ public class DrawingArea extends QueueNode {
 		int l1 = k + j * width;
 		for (int i2 = -i; i2 < 0; i2++) {
 			for (int j2 = -i1; j2 < 0; j2++) {
-				pixels[l1++] = l;
+				drawAlpha(pixels, l1++, l, l, 255);
 			}
 			l1 += k1;
 		}
@@ -682,8 +682,7 @@ public class DrawingArea extends QueueNode {
 			widthToDraw = bottomX - xPos;
 		int base = xPos + yPos * width;
 		for(int ptr = 0; ptr < widthToDraw; ptr++)
-			pixels[base + ptr] = color;
-
+			drawAlpha(pixels, base + ptr, color, color, 255);
 	}
 
 	public static void drawHorizontalLine(int i, int j, int k, int l) {
@@ -697,7 +696,7 @@ public class DrawingArea extends QueueNode {
 			k = bottomX - l;
 		int i1 = l + i * width;
 		for (int j1 = 0; j1 < k; j1++)
-			pixels[i1 + j1] = j;
+			drawAlpha(pixels, i1 + j1, j, j, 255);
 
 	}
 	
@@ -712,7 +711,7 @@ public class DrawingArea extends QueueNode {
             height = bottomY - yPosition;
         int pixelIndex = xPosition + yPosition * width;
         for (int rowIndex = 0; rowIndex < height; rowIndex++)
-            pixels[pixelIndex + rowIndex * width] = rgbColour;
+			drawAlpha(pixels, pixelIndex + rowIndex * width, rgbColour, rgbColour, 255);
     }
 	
 	protected static void drawHLine(int i, int j, int k, int l, int i1)
@@ -737,7 +736,7 @@ public class DrawingArea extends QueueNode {
 			int k2 = (pixels[i3] >> 8 & 0xff) * j1;
 			int l2 = (pixels[i3] & 0xff) * j1;
 			int k3 = ((k1 + j2 >> 8) << 16) + ((l1 + k2 >> 8) << 8) + (i2 + l2 >> 8);
-			pixels[i3++] = k3;
+			drawAlpha(pixels, i3++, k3, k3, l);
 		}
 
 	}
@@ -756,7 +755,7 @@ public class DrawingArea extends QueueNode {
 		int j1 = xPos + heights * width;
 		for(int k1 = 0; k1 < yPos; k1++) {
 			if(j1 + k1 * width < pixels.length)
-				pixels[j1 + k1 * width] = color;
+				drawAlpha(pixels, j1 + k1 * width, color, color, 255);
 		}
 
 	}
@@ -780,8 +779,7 @@ public class DrawingArea extends QueueNode {
 			int k2 = (pixels[i3] >> 8 & 0xff) * j1;
 			int l2 = (pixels[i3] & 0xff) * j1;
 			int k3 = ((k1 + j2 >> 8) << 16) + ((l1 + k2 >> 8) << 8) + (i2 + l2 >> 8);
-			pixels[i3] = k3;
-			i3 += width;
+			drawAlpha(pixels, i3 += width, k3, k3, k);
 		}
 	}
 
@@ -814,7 +812,7 @@ public class DrawingArea extends QueueNode {
 				int dest_green = (pixels[pixel_offset] >> 8 & 0xff) * dest_intensity;
 				int dest_blue = (pixels[pixel_offset] & 0xff) * dest_intensity;
 				int result_rgb = ((src_red + dest_red >> 8) << 16) + ((src_green + dest_green >> 8) << 8) + (src_blue + dest_blue >> 8);
-				pixels[pixel_offset++] = result_rgb;
+				drawAlpha(pixels, pixel_offset++, result_rgb, result_rgb, alpha);
 			}
 
 		}
@@ -842,7 +840,7 @@ public class DrawingArea extends QueueNode {
 			final int k2 = (pixels[i3] >> 8 & 0xff) * j1;
 			final int l2 = (pixels[i3] & 0xff) * j1;
 			final int k3 = (k1 + j2 >> 8 << 16) + (l1 + k2 >> 8 << 8) + (i2 + l2 >> 8);
-			pixels[i3++] = k3;
+			drawAlpha(pixels, i3++, k3, k3, alpha);
 		}
 	}
 	
@@ -867,8 +865,7 @@ public class DrawingArea extends QueueNode {
 			final int k2 = (pixels[i3] >> 8 & 0xff) * j1;
 			final int l2 = (pixels[i3] & 0xff) * j1;
 			final int k3 = (k1 + j2 >> 8 << 16) + (l1 + k2 >> 8 << 8) + (i2 + l2 >> 8);
-			pixels[i3] = k3;
-			i3 += width;
+			drawAlpha(pixels, i3+=width, k3, k3, alpha);
 		}
 	}
 	
@@ -980,7 +977,8 @@ public class DrawingArea extends QueueNode {
 				int r2 = (pixels[pos] >> 16 & 0xff) * a2;
 				int g2 = (pixels[pos] >> 8 & 0xff) * a2;
 				int b2 = (pixels[pos] & 0xff) * a2;
-				pixels[pos++] = ((r1 + r2 >> 8) << 16) + ((g1 + g2 >> 8) << 8) + (b1 + b2 >> 8);
+				int rgb = ((r1 + r2 >> 8) << 16) + ((g1 + g2 >> 8) << 8) + (b1 + b2 >> 8);
+				drawAlpha(pixels, pos++, rgb, rgb, alpha);
 			}
 		}
 	}
@@ -1011,8 +1009,7 @@ public class DrawingArea extends QueueNode {
 		int pixelIndex = topX + topY * DrawingArea.width;
 		for (int rowIndex = 0; rowIndex < height; rowIndex++) {
 			for (int columnIndex = 0; columnIndex < width; columnIndex++)
-				pixels[pixelIndex++] = rgbColour;
-			pixelIndex += leftOver;
+				drawAlpha(pixels, pixelIndex += leftOver, rgbColour, rgbColour, 255);
 		}
 	}
 	
@@ -1077,7 +1074,7 @@ public class DrawingArea extends QueueNode {
                 int otherGreen = (pixels[pixelIndex] >> 8 & 0xff) * transparency;
                 int otherBlue = (pixels[pixelIndex] & 0xff) * transparency;
                 int transparentColour = ((red + otherRed >> 8) << 16) + ((green + otherGreen >> 8) << 8) + (blue + otherBlue >> 8);
-                pixels[pixelIndex++] = transparentColour;
+				drawAlpha(pixels, pixelIndex++, transparentColour, transparentColour, opacity);
             }
             pixelIndex += leftOver;
         }
@@ -1098,4 +1095,46 @@ public class DrawingArea extends QueueNode {
         drawVerticalLine(leftX, topY, height, rgbColour);
         drawVerticalLine((leftX + width) - 1, topY, height, rgbColour);
     }
+
+	protected static void drawAlpha(int[] pixels, int index, int value, int color, int alpha) {
+		if (Client.drawCallbacks == null) {
+			pixels[index] = value;
+			return;
+		}
+
+		if (alpha == 0) {
+			return;
+		}
+
+		int prevColor = pixels[index];
+
+		if ((prevColor & 0xFF000000) == 0 || alpha == 255) {
+			// No transparency, so we can cheat to save CPU resources
+			pixels[index] = (color & 0xFFFFFF) | (alpha << 24);
+			return;
+		}
+
+		if ((prevColor & 0xFF000000) == 0xFF000000) {
+			// When the background is opaque, the result will also be opaque,
+			// so we can simply use the value calculated by Jagex.
+			pixels[index] = value | 0xFF000000;
+			return;
+		}
+
+		int prevAlpha = (prevColor >>> 24) * (255 - alpha) >>> 8;
+		int finalAlpha = alpha + prevAlpha;
+
+		// Scale alphas so (relativeAlpha >>> 8) is approximately equal to (alpha /
+		// finalAlpha).
+		// Avoiding extra divisions increase performance by quite a bit.
+		// And with divisions we get a problems if dividing a number where
+		// the last bit is 1 (as it will become negative).
+		int relativeAlpha1 = (alpha << 8) / finalAlpha;
+		int relativeAlpha2 = (prevAlpha << 8) / finalAlpha;
+
+		// Red and blue are calculated at the same time to save CPU cycles
+		int finalColor = (((color & 0xFF00FF) * relativeAlpha1 + (prevColor & 0xFF00FF) * relativeAlpha2 & 0xFF00FF00) | ((color & 0x00FF00) * relativeAlpha1 + (prevColor & 0x00FF00) * relativeAlpha2 & 0x00FF0000)) >>> 8;
+
+		pixels[index] = finalColor | (finalAlpha << 24);
+	}
 }

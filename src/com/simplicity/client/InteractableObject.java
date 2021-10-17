@@ -35,6 +35,14 @@ public final class InteractableObject implements TileObject
 	public int uid;
 	int interactiveObjUID;
 	byte objConf;
+
+	public int sizeX() {
+		return tileRight - tileLeft + 1;
+	}
+
+	public int sizeY() {
+		return tileBottom - tileTop + 1;
+	}
 	
 	@Override
 	public long getHash() {
@@ -124,6 +132,14 @@ public final class InteractableObject implements TileObject
 		}
 
 		return model;
+	}
+
+	public Animable getRenderable() {
+		return node;
+	}
+
+	public int getOrientation() {
+		return rotation;
 	}
 	
 }

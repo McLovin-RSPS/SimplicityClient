@@ -2,21 +2,21 @@ package com.simplicity.client;
 
 public final class SceneTileModel {
 
-	public final int[] anIntArray673;
-	public final int[] anIntArray674;
-	public final int[] anIntArray675;
-	public final int[] anIntArray676;
-	public final int[] anIntArray677;
-	public final int[] anIntArray678;
-	public final int[] anIntArray679;
-	public final int[] anIntArray680;
-	public final int[] anIntArray681;
-	public int anIntArray682[];
-	public final boolean aBoolean683;
-	public final int anInt684;
-	public final int anInt685;
-	public final int anInt686;
-	public final int anInt687;
+	public final int[] vertexX;
+	public final int[] vertexY;
+	public final int[] vertexZ;
+	public final int[] triangleColorA;
+	public final int[] triangleColorB;
+	public final int[] triangleColorC;
+	public final int[] faceX;
+	public final int[] faceY;
+	public final int[] faceZ;
+	public int triangleTextureId[];
+	public final boolean flat;
+	public final int shape;
+	public final int rotation;
+	public final int underlay;
+	public final int overlay;
 	public static final int[] anIntArray688 = new int[6];
 	public static final int[] anIntArray689 = new int[6];
 	public static final int[] anIntArray690 = new int[6];
@@ -33,13 +33,13 @@ public final class SceneTileModel {
 	public int color92;
 	public boolean textured;
 
-	private static final int[][] anIntArrayArray696 = { { 1, 3, 5, 7 },
+	private static final int[][] TYPES = { { 1, 3, 5, 7 },
 			{ 1, 3, 5, 7 }, { 1, 3, 5, 7 }, { 1, 3, 5, 7, 6 },
 			{ 1, 3, 5, 7, 6 }, { 1, 3, 5, 7, 6 }, { 1, 3, 5, 7, 6 },
 			{ 1, 3, 5, 7, 2, 6 }, { 1, 3, 5, 7, 2, 8 }, { 1, 3, 5, 7, 2, 8 },
 			{ 1, 3, 5, 7, 11, 12 }, { 1, 3, 5, 7, 11, 12 },
 			{ 1, 3, 5, 7, 13, 14 } };
-	private static final int[][] anIntArrayArray697 = {
+	private static final int[][] DATA = {
 			{ 0, 1, 2, 3, 0, 0, 1, 3 },
 			{ 1, 1, 2, 3, 1, 0, 1, 3 },
 			{ 0, 1, 2, 3, 1, 0, 1, 3 },
@@ -69,20 +69,20 @@ public final class SceneTileModel {
 		color82 = j1;
 		color92 = k3;
 		textured = tex;
-		aBoolean683 = !(i3 != l2 || i3 != l || i3 != k2);
-		anInt684 = j3;
-		anInt685 = k1;
-		anInt686 = i2;
-		anInt687 = l4;
+		flat = !(i3 != l2 || i3 != l || i3 != k2);
+		shape = j3;
+		rotation = k1;
+		underlay = i2;
+		overlay = l4;
 		char c = '\200';
 		int i5 = c / 2;
 		int j5 = c / 4;
 		int k5 = c * 3 / 4;
-		int ai[] = anIntArrayArray696[j3];
+		int ai[] = TYPES[j3];
 		int l5 = ai.length;
-		anIntArray673 = new int[l5];
-		anIntArray674 = new int[l5];
-		anIntArray675 = new int[l5];
+		vertexX = new int[l5];
+		vertexY = new int[l5];
+		vertexZ = new int[l5];
 		int ai1[] = new int[l5];
 		int ai2[] = new int[l5];
 		int i6 = k4 * c;
@@ -200,23 +200,23 @@ public final class SceneTileModel {
 				k8 = k;
 				j9 = k3;
 			}
-			anIntArray673[k6] = i7;
-			anIntArray674[k6] = i8;
-			anIntArray675[k6] = k7;
+			vertexX[k6] = i7;
+			vertexY[k6] = i8;
+			vertexZ[k6] = k7;
 			ai1[k6] = k8;
 			ai2[k6] = j9;
 		}
 
-		int ai3[] = anIntArrayArray697[j3];
+		int ai3[] = DATA[j3];
 		int j7 = ai3.length / 4;
-		anIntArray679 = new int[j7];
-		anIntArray680 = new int[j7];
-		anIntArray681 = new int[j7];
-		anIntArray676 = new int[j7];
-		anIntArray677 = new int[j7];
-		anIntArray678 = new int[j7];
+		faceX = new int[j7];
+		faceY = new int[j7];
+		faceZ = new int[j7];
+		triangleColorA = new int[j7];
+		triangleColorB = new int[j7];
+		triangleColorC = new int[j7];
 		if (overlaytex != -1 || underlaytex != -1) {
-			anIntArray682 = new int[j7];
+			triangleTextureId = new int[j7];
 		}
 		int l7 = 0;
 		for (int j8 = 0; j8 < j7; j8++) {
@@ -234,22 +234,22 @@ public final class SceneTileModel {
 			if (k10 < 4) {
 				k10 = k10 - k1 & 3;
 			}
-			anIntArray679[j8] = k9;
-			anIntArray680[j8] = i10;
-			anIntArray681[j8] = k10;
+			faceX[j8] = k9;
+			faceY[j8] = i10;
+			faceZ[j8] = k10;
 			if (l8 == 0) {
-				anIntArray676[j8] = ai1[k9];
-				anIntArray677[j8] = ai1[i10];
-				anIntArray678[j8] = ai1[k10];
-				if (anIntArray682 != null) {
-					anIntArray682[j8] = underlaytex;
+				triangleColorA[j8] = ai1[k9];
+				triangleColorB[j8] = ai1[i10];
+				triangleColorC[j8] = ai1[k10];
+				if (triangleTextureId != null) {
+					triangleTextureId[j8] = underlaytex;
 				}
 			} else {
-				anIntArray676[j8] = ai2[k9];
-				anIntArray677[j8] = ai2[i10];
-				anIntArray678[j8] = ai2[k10];
-				if (anIntArray682 != null) {
-					anIntArray682[j8] = overlaytex;
+				triangleColorA[j8] = ai2[k9];
+				triangleColorB[j8] = ai2[i10];
+				triangleColorC[j8] = ai2[k10];
+				if (triangleTextureId != null) {
+					triangleTextureId[j8] = overlaytex;
 				}
 			}
 		}
@@ -276,5 +276,75 @@ public final class SceneTileModel {
 		}
 		i9 /= 14;
 		l9 /= 14;
+	}
+
+	public int[] getTriangleTextureId() {
+		return triangleTextureId;
+	}
+
+	public int[] getFaceX() {
+		return faceX;
+	}
+
+	public int[] getFaceY() {
+		return faceY;
+	}
+
+	public int[] getFaceZ() {
+		return faceZ;
+	}
+
+	public int[] getVertexX() {
+		return vertexX;
+	}
+
+	public int[] getVertexY() {
+		return vertexY;
+	}
+
+	public int[] getVertexZ() {
+		return vertexZ;
+	}
+
+	public int[] getTriangleColorA() {
+		return triangleColorA;
+	}
+
+	public int[] getTriangleColorB() {
+		return triangleColorB;
+	}
+
+	public int[] getTriangleColorC() {
+		return triangleColorC;
+	}
+
+	public int bufferOffset = -1;
+
+	public void setBufferOffset(final int offset) {
+		bufferOffset = offset;
+	}
+
+	public int uVBufferOffset = -1;
+
+	public void setUvBufferOffset(final int offset) {
+		uVBufferOffset = offset;
+	}
+
+	public int bufferLength = -1;
+
+	public void setBufferLen(final int length) {
+		bufferLength = length;
+	}
+
+	public int getBufferLen() {
+		return bufferLength;
+	}
+
+	public int getBufferOffset() {
+		return bufferOffset;
+	}
+
+	public int getUvBufferOffset() {
+		return uVBufferOffset;
 	}
 }

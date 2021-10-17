@@ -13998,7 +13998,9 @@ public class RSInterface {
         int k3 = modelZoom;
         int sine = Rasterizer.anIntArray1470[modelRotation1] * k3 >> 16;
         int cosine = Rasterizer.anIntArray1471[modelRotation1] * k3 >> 16;
+        Rasterizer.renderOnGpu = true;
         model.renderSingle(modelRotation2, 0, modelRotation1, 0, sine + model.modelHeight / 2, cosine);
+        Rasterizer.renderOnGpu = false;
         
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {

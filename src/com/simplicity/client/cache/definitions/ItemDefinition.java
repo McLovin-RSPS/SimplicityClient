@@ -1937,7 +1937,9 @@ public final class ItemDefinition {
         }
         int l3 = Rasterizer.anIntArray1470[itemDef.rotationY] * k3 >> 16;
         int i4 = Rasterizer.anIntArray1471[itemDef.rotationY] * k3 >> 16;
+        Rasterizer.renderOnGpu = true;
         model.renderSingle(itemDef.rotationX, itemDef.modelOffsetX, itemDef.rotationY, itemDef.modelOffset1, l3 + model.modelHeight / 2 + itemDef.modelOffsetY, i4 + itemDef.modelOffsetY);
+        Rasterizer.renderOnGpu = false;
         for (int i5 = 31; i5 >= 0; i5--) {
             for (int j4 = 31; j4 >= 0; j4--) {
                 if (sprite2.myPixels[i5 + j4 * 32] != 0) {
@@ -2113,7 +2115,9 @@ public final class ItemDefinition {
 
         int l3 = Rasterizer.anIntArray1470[itemDef.rotationY] * k3 >> 16;
         int i4 = Rasterizer.anIntArray1471[itemDef.rotationY] * k3 >> 16;
+        Rasterizer.renderOnGpu = true;
         model.renderSingle(itemDef.rotationX, itemDef.modelOffsetX, itemDef.rotationY, itemDef.modelOffset1, l3 + model.modelHeight / 2 + itemDef.modelOffsetY, i4 + itemDef.modelOffsetY);
+        Rasterizer.renderOnGpu = false;
         for (int i5 = 31; i5 >= 0; i5--) {
             for (int j4 = 31; j4 >= 0; j4--) {
                 if (sprite2.myPixels[i5 + j4 * 32] == 0) {

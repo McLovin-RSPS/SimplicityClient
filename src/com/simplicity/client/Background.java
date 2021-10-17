@@ -259,22 +259,22 @@ public final class Background extends DrawingArea {
 			{
 				byte byte1 = abyte0[i1++];
 				if(byte1 != 0)
-					ai[k++] = ai1[byte1 & 0xff];
+					drawAlpha(ai, k++, ai1[byte1 & 0xff], ai1[byte1 & 0xff], 255);
 				else
 					k++;
 				byte1 = abyte0[i1++];
 				if(byte1 != 0)
-					ai[k++] = ai1[byte1 & 0xff];
+					drawAlpha(ai, k++, ai1[byte1 & 0xff], ai1[byte1 & 0xff], 255);
 				else
 					k++;
 				byte1 = abyte0[i1++];
 				if(byte1 != 0)
-					ai[k++] = ai1[byte1 & 0xff];
+					drawAlpha(ai, k++, ai1[byte1 & 0xff], ai1[byte1 & 0xff], 255);
 				else
 					k++;
 				byte1 = abyte0[i1++];
 				if(byte1 != 0)
-					ai[k++] = ai1[byte1 & 0xff];
+					drawAlpha(ai, k++, ai1[byte1 & 0xff], ai1[byte1 & 0xff], 255);
 				else
 					k++;
 			}
@@ -283,7 +283,7 @@ public final class Background extends DrawingArea {
 			{
 				byte byte2 = abyte0[i1++];
 				if(byte2 != 0)
-					ai[k++] = ai1[byte2 & 0xff];
+					drawAlpha(ai, k++, ai1[byte2 & 0xff], ai1[byte2 & 0xff], 255);
 				else
 					k++;
 			}
@@ -302,4 +302,33 @@ public final class Background extends DrawingArea {
 	public int yDrawOffset;
 	public int libWidth;
 	public int libHeight;
+
+	float textureU;
+	float textureV;
+
+	public float getU() {
+		return textureU;
+	}
+	public void setU(final float u) {
+		textureU = u;
+	}
+
+	public float getV() {
+		return textureV;
+	}
+	public void setV(final float v) {
+		textureV = v;
+	}
+
+	public int[] getPixels() {
+		return palette;
+	}
+
+	public int getAnimationSpeed() {
+		return 2;
+	}
+
+	public int getAnimationDirection() {
+		return 1;
+	}
 }
