@@ -22885,7 +22885,8 @@ public class Client extends RSApplet {
                         RSInterface.currentInputField = null;
                     }
 
-                    setOpenInterfaceID(-1);
+                    if (openInterfaceID != 83000)
+                    	setOpenInterfaceID(-1);
                     secondaryOpenInterfaceID = -1;
                     bankItemDragSprite = null;
                     dialogOptionsShowing = false;
