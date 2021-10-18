@@ -63,6 +63,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.CRC32;
 import java.util.zip.GZIPOutputStream;
+import java.awt.datatransfer.StringSelection;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
 
 import javax.imageio.ImageIO;
 import javax.sound.midi.MidiSystem;
@@ -9942,16 +9945,43 @@ public class Client extends RSApplet {
 			d.dropdown.getDrop().selectOption(slot, d);
 			p.dropdownOpen = null;
 		}
-		if (l == 86) {
+		if (l == 86) { //Open broadcast url
 		    if (broadcastUrl == null) {
                 pushMessage("This broadcast message has no valid link to open.", 0, null);
 		        return;
             }
 		    launchURL(broadcastUrl);
         }
-		if (l == 85) {
+		if (l == 85) { //Check broadcast
 		    pushMessage("Link opens to: "+ (broadcastUrl == null ? "nowhere" : broadcastUrl), 0, null);
-        }//
+        }
+		if (l == 84) { //Clear broadcast history
+			broadcastText = null;
+            broadcastUrl = null;
+		}
+		if (l == 83) { //Copy broadcast to clipboard
+            
+            StringBuilder sb = new StringBuilder();  
+            
+            sb.append("::broadcast ");
+            
+            if (broadcastUrl != null) {
+            	sb.append(broadcastUrl);
+            }
+            if (broadcastText != null) {
+            	final int tokenIdx = broadcastText.indexOf(":");
+            	System.out.println(tokenIdx);
+                if (tokenIdx != -1) {
+                    String chatMsg = broadcastText.substring(tokenIdx + 2);
+                    sb.append(chatMsg);
+                }
+            }
+            
+            StringSelection stringSelection = new StringSelection(sb.toString());
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection, null);
+            
+		}
         if (l == 646) {
             RSInterface class9_2 = RSInterface.interfaceCache[interfaceId];
             CustomWidget w = Widget.mainForComponent(interfaceId);
@@ -12373,6 +12403,9 @@ public class Client extends RSApplet {
             final boolean hoveringChatMessage = j > k1 - 14 && j <= k1;
             if (j1 == 1337) {
                 if (hoveringChatMessage) {
+                	menuActionName[menuActionRow] = "Copy to clipboard @or2@Notification";
+                    menuActionID[menuActionRow] = 83;
+                    menuActionRow++;
                     menuActionName[menuActionRow] = "Clear history @or2@Notification";
                     menuActionID[menuActionRow] = 84;
                     menuActionRow++;
