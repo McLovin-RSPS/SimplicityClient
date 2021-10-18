@@ -66,7 +66,7 @@ public class NpcDefinitionLookup extends JFrame {
 	private JCheckBox setOnClick;
 	
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private List<String> detailsData = new ArrayList<String>(Arrays.asList(new String[] { "Id", "Name", "Description", "Combat Level", "Actions", "Model IDs", "Head Model IDs", "SizeX", "SizeY", "Size", "On minimap", "Walk anim", "Stand anim", "DataType" }));
+	private List<String> detailsData = new ArrayList<String>(Arrays.asList(new String[] { "Id", "Name", "Description", "Combat Level", "Actions", "Model IDs", "Head Model IDs", "SizeX", "SizeY", "Size", "On minimap", "Walk anim", "Stand anim", "DegreesToTurn", "DataType" }));
 	
 	private static final int TYPE_ID = 0;
 	private static final int TYPE_NAME = 1;
@@ -289,6 +289,7 @@ public class NpcDefinitionLookup extends JFrame {
 		details.getModel().setValueAt(def.drawMinimapDot, column++, 1);
 		details.getModel().setValueAt(def.walkAnim, column++, 1);
 		details.getModel().setValueAt(def.standAnim, column++, 1);
+		details.getModel().setValueAt(def.degreesToTurn, column++, 1);
 		details.getModel().setValueAt(def.dataType, column++, 1);
 		
 		if (setOnClick.isSelected()) {

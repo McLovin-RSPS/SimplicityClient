@@ -1912,10 +1912,6 @@ public class CustomItems2 {
 	            itemDef.name = "Old coin";
 	            break;
 	
-	        case 5519:
-	            itemDef.name = "Halloween orb";
-	            break;
-	
 	        case 1050:
 	            itemDef.maleZOffset += 4;
 	            break;
@@ -1942,6 +1938,14 @@ public class CustomItems2 {
 	            itemDef.actions = new String[5];
 	            itemDef.actions[2] = "Teleport";
 	            break;
+	            
+	        case 19468:
+	            itemDef.copy(ItemDefinition.forID(55744));
+                itemDef.name = "@whi@Sirenic ornament kit";
+	            itemDef.editedModelColor = new int[] {  16, 272, 404, 6315, 796,  };
+	            itemDef.newModelColor = new int[] {  90, 90, 404, 90, 796,  }; 
+
+	        	break;
 	        case 21545:
 	            itemDef.copy(ItemDefinition.forID(6855));
 	            itemDef.name = "Mythical Box";
@@ -3333,6 +3337,12 @@ public class CustomItems2 {
 	            itemDef.actions = new String[]{null, "Wear", null, null, "Drop"};
 	            itemDef.modelID = 28823;
 	            break;
+	            
+	            // Fix Dungeoneering cape models
+	        case 15706:
+	        case 18508:
+	            itemDef.copy(ItemDefinition.forID(18509));
+	            break;
 	
 	        case 20555:
 	            itemDef.copy(ItemDefinition.forID(43576));
@@ -4681,6 +4691,12 @@ public class CustomItems2 {
 	            itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
 	            itemDef.editedModelColor = new int[] { 898, 4502, 38119, 5640, 8363, 7403, 5388, 268, 4750, 9135, 65535, };
 	            itemDef.newModelColor = new int[] { 3, 43, 90, 90, 90, 90, 23, 23, 27, 94, 90, };
+	            break;
+	            
+	        case 4135:
+	            itemDef.name = "@whi@Lil' Banshee";
+	            itemDef.groundActions = new String[]{null, null, "Take", null, null};
+	            itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
 	            break;
 	
 	        case 11884:

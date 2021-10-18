@@ -369,6 +369,16 @@ public final class ItemDefinition {
             case 50579:
                 itemDef.copy(forID(4097));
                 break;
+            case 54300:
+            case 54301:
+            case 54302:
+            case 54303:
+            case 54304:
+	            itemDef.actions = new String[5];
+	            itemDef.actions[1] = "Wear";
+	            itemDef.stackable = false;
+	            break;
+	            
         case 52296:
         	itemDef.femaleXOffset = 0;
             itemDef.femaleYOffset = -12;
@@ -417,7 +427,7 @@ public final class ItemDefinition {
 	            itemDef.femaleZOffset = 11;
 	            itemDef.maleZOffset = -11;
 	        	break;
-	        	
+	            
 	        case 55739:
 	            itemDef.modelID = 42295;
 	            itemDef.actions = new String[5];
@@ -557,7 +567,7 @@ public final class ItemDefinition {
                 itemDef.name = "Lil seren";
                 itemDef.groundActions = new String[]{null, null, "Take", null, null};
                 itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
-                itemDef.modelID = MobDefinition.forID(18132).models[0];
+                itemDef.modelID = MobDefinition.forID(23917).models[0];
                 itemDef.modelZoom = 600;
                 break;
                 
@@ -567,6 +577,62 @@ public final class ItemDefinition {
                 itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
                 itemDef.modelID = MobDefinition.forID(18132).models[0];
                 itemDef.modelZoom = 6200;
+                break;
+                
+            case 33309:
+                itemDef.name = "Lil' dharok";
+                itemDef.copy(forID(4716));
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelZoom = 1200;
+                break;
+                
+            case 33310:
+                itemDef.name = "Lil' verac";
+                itemDef.copy(forID(4753));
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelZoom = 1200;
+                break;
+                
+            case 33311:
+                itemDef.name = "Lil' ahrim";
+                itemDef.copy(forID(4708));
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelZoom = 1200;
+                break;
+                
+            case 33312:
+                itemDef.name = "Lil' torag";
+                itemDef.copy(forID(4745));
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelZoom = 1200;
+                break;
+                
+            case 33313:
+                itemDef.name = "Lil' guthan";
+                itemDef.copy(forID(4724));
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelZoom = 1200;
+                break;
+                
+            case 33314:
+                itemDef.name = "Lil' karil";
+                itemDef.copy(forID(4732));
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelZoom = 1200;
+                break;
+                
+            case 33315:
+                itemDef.name = "Lil' hespori";
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelID = MobDefinition.forID(23583).models[0];
+                itemDef.modelZoom = 10000;
                 break;
                 
             case 43306:

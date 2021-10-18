@@ -396,7 +396,7 @@ public enum CustomRecolor2 {
 				new int[]{ 127, 49151, 127, 49151 }),
 		WHITE_PURPLE_MYTHICAL_HOOD(21154, 54857, "@pur@Nicky WestSide Mythical Hood Green",
 				new int[] {0, 38325, 4550, 38362, 107, 38348, 38333, 38366, 127},
-				new int[] {0, 49151, 127, 49151, 127, 49151, 49151, 49151, 49151}),
+				new int[] {0, 49151, 127, 49151, 127, 49151, 49151, 49151, 127}),
 		WHITE_PURPLE_MYTHICAL_CAPE(21155, 54855, "@pur@Nicky WestSide Mythical Cape",
 				new int[] {38113, 38210, 99, 522, 107, 76, 38348, 38356, 38325, 88, 38362, 38333, 38366, 49151},
 				new int[] {127, 127, 49151, 49151, 49151, 49151, 127, 127, 127, 49151, 127, 49100, 127, 49151}),
@@ -476,7 +476,7 @@ public enum CustomRecolor2 {
 				new int[] {784, 16, 18, 20, 22, 790, 406, 536, 26, 427, 12, 796},
 				new int[] {50175, 16, 18, 20, 22, 50175, 50170, 50175, 26, 50943, 12, 50175}),
 
-		BLACK_BUNNY_EARS2(12275, 1037, "Black Bunny ears", new int[] { 220 }, new int[] { 12 }),
+		BLACK_BUNNY_EARS2(12275, 1037, "Black Bunny ears", new int[] { 220, 10351 }, new int[] { 12, 20 }),
 
 		/** PURPLE GREY SIRENIC SET **/
 	    GREY_PURPLE_SIRENIC_HELM(21177, 22014, "@pur@Mephistopheles Sirenic Helm",
@@ -493,7 +493,7 @@ public enum CustomRecolor2 {
 
 	    GREY_PURPLE_SIRENIC_GLOVES(21180, 22022, "@pur@Mephistopheles Sirenic Gloves",
 	    		new int[] {43281, 32178, 36242, 43283, 43274, 36254, 40608, 33201, 43283, 40596, 43285, 43276},
-				new int[] {50175, 50175, 23, 22, 25, 23, 24, 24, 50175, 50175, 50175, 50175}),
+				new int[] {50175, 50175, 23, 22, 23, 21, 20, 21, 50175, 50175, 50175, 50175}),
 
 	    GREY_PURPLE_SIRENIC_BOOTS(21181, 22020, "@pur@Mephistopheles Sirenic Boots",
 	            new int[]{35104, 2, 35092, 35109, 38422, 43275, 38412},
@@ -509,8 +509,103 @@ public enum CustomRecolor2 {
 
 		RANDOM_COLOR_SCYTHE_DS(21176, 15000, "@whi@Color Changing Scythe DS", 
 				new int[] { 33, 37, 41, 78, 16, 784, 49, 20, 790, 24, 536, 796, 28, 61 },
-				randomScytheColor());
+				randomScytheColor()),
 		
+		PURPLE_HALLOWEEN_KEY(21182, 3455, "@pur@Purple halloween key",
+				new int[] {960, 7120, 22464, 43968, 32836},
+				new int[] {30, 30, 30, 30, 47683}),
+		
+		ORANGE_HALLOWEEN_KEY(21183, 3455, "@or1@Orange halloween key",
+			new int[] {960, 7120, 22464, 43968, 32836},
+			new int[] {30, 30, 30, 30, 2936}),
+		
+		HALLOWEEN_ORB(5519, 5518, "@pur@Halloween Orb",
+				new int[] { 21584, 28989 },
+				new int[] { 20, 50084 }),
+
+
+		PURPLE_NECROLORD_HOOD(22088, 22079, "@pur@Purple necrolord hood", new int[]{10175}, new int[] {49108}),
+		PURPLE_NECROLORD_TOP(22089, 22080, "@pur@Purple necrolord robe top", new int[] {0, 11137, 10113, 27393, 10114, 5378, 3, 7299, 4227, 11140, 10116, 27396, 11141, 1541, 2566, 6151, 2567, 2569, 2570, 8331, 2575, 2576, 8346, 6173, 8224, 7329, 10151, 10152, 10153, 11177, 5161, 11178, 10154, 10155, 11179, 10156, 11180, 10157, 11181, 9134, 10158, 11182, 8366, 10159, 11183, 11056, 10930}, new int[] {0, 11137, 10113, 27393, 10114, 5378, 3, 7299, 4227, 11140, 10116, 27396, 11141, 1541, 2566, 6151, 2567, 2569, 2570, 8331, 2575, 2576, 8346, 6173, 8224, 7329, 49108, 49108, 49108, 49108, 5161, 49108, 49108, 49108, 49108, 49108, 49108, 49108, 49108, 49108, 49108, 49108, 8366, 49108, 49108, 49108, 49108}),
+		PURPLE_NECROLORD_BOTTOM(22090, 22081, "@pur@Purple necrolord robe bottom", new int[] {27393, 8577, 7554, 2178, 5252, 2180, 6404, 6532, 11141, 5, 6277, 5253, 10143, 10144, 11170, 10146, 11171, 10148, 10149, 11176, 10153, 11178, 10155, 11179, 10156, 11180, 10157, 11182, 11183}, new int[] {27393, 8577, 7554, 2178, 5252, 2180, 6404, 6532, 11141, 5, 6277, 5253, 49108, 49108, 49108, 49108, 49108, 49108, 49108, 49108, 49108, 49108, 49108, 49108, 49108, 49108, 49108, 49108, 49108}),
+
+		/** PURPLE BLACK SIRENIC SET **/
+	    BLACK_PURPLE_SIRENIC_HELM(21184, 22014, "@pur@Micmac Paddy Wack Sirenic Helm",
+	            new int[]{39329, 32197, 38057, 41226, 33066, 40202, 41232, 40084, 41237, 40085, 40344, 40345, 40090, 32060, 40349},
+	            new int[]{21, 49151, 49151, 1024, 49151, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 49151, 1024}),
+	            
+	    BLACK_PURPLE_SIRENIC_PLATEBODY(21185, 22016, "@pur@Micmac Paddy Wack Sirenic Platebody",
+	            new int[]{39329, 32197, 33066, 43149, 41232, 43153, 42131, 41237, 42133, 40344, 40345, 32060, 40349, 20158},
+	            new int[]{49151, 49151, 49151, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 49151, 1024, 49151}),
+
+	    BLACK_PURPLE_SIRENIC_PLATELEGS(21186, 22018, "@pur@Micmac Paddy Wack Sirenic Platelegs",
+	            new int[]{39329, 32197, 33066, 43149, 41232, 43153, 42131, 41237, 42133, 40344, 40345, 32060, 40349},
+	            new int[]{21, 49151, 49151, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 49151, 1024}),
+
+	    BLACK_PURPLE_SIRENIC_GLOVES(21187, 22022, "@pur@Micmac Paddy Wack Sirenic Gloves",
+	    		new int[] {43281, 32178, 36242, 43283, 43274, 36254, 40608, 33201, 43283, 40596, 43285, 43276},
+				new int[] {49151, 49151, 1024, 1024, 1024, 1024, 1024, 1024, 49151, 49151, 49151, 49151}),
+
+	    BLACK_PURPLE_SIRENIC_BOOTS(21188, 22020, "@pur@Micmac Paddy Wack Sirenic Boots",
+	            new int[]{35104, 2, 35092, 35109, 38422, 43275, 38412},
+	            new int[]{49151, 1024, 49151, 49151, 1024, 1024, 1024}),
+	    
+		/** BLACK PURPLE HOLY MYTH **/
+		BLACK_PURPLE_HOLY_MYTHICAL_STAFF(21189, 55731, "@red@Micmac Holy Mythical Sangiusteni",
+				new int[] {6736, 6709, 43303, 39, 24, 8, 59466, 6602, 28, 59453, 4382},
+				new int[] {49151, 49151, 22527, 1024, 1024, 1024, 1024, 49151, 1024, 1024, 1024}),
+
+		/** OVERLORD MYTHICAL SET **/
+		OVERLORD_MYTHICAL_SHIELD(21190, 20910, "@red@Micmac Paddy Wack Mythical Shield",
+				new int[] { 44641, 44612, 44564, 44615, 105, 44618, 44570, 44635, 44603, 44606, 44575, 4495,  },
+				new int[] { 950, 950, 950, 950, 19, 950, 950, 950, 950, 950, 950, 950,  }),
+		OVERLORD_MYTHICAL_GLOVES(21191, 1580, "@red@Micmac Paddy Wack Mythical Gloves",
+				new int[] { 10004, },
+				new int[] { 950, }),
+		OVERLORD_MYTHICAL_TOP(21192, 19380, "@red@Micmac Paddy Wack Mythical Robes",
+				new int[] { 115, 916, 84, 6550, 105, 90, 92, 5772, 908, 7050 }, 
+				new int[] {  18, 950, 84, 950, 21, 20, 20, 950, 8056, 8056 }),
+		OVERLORD_MYTHICAL_BOTTOMS(21193, 19386, "@red@Micmac Paddy Wack Mythical Bottoms", 
+	            new int[] { 0, 115, 916, 105, 908 }, 
+	            new int[] { 0, 21, 950, 25, 950 }),
+		OVERLORD_MYTHICAL_ANGELIC_BOOTS(21194, 41860, "@red@Micmac Paddy Wack Mythical Angelic Boots",
+				new int[]{ 8396, 8417, 5293, 20 },
+				new int[]{ 950, 22, 950, 21 }),
+		OVERLORD_MYTHICAL_HOOD(21195, 54857, "@red@Micmac Paddy Wack Mythical Hood Green",
+				new int[] {0, 38325, 4550, 38362, 107, 38348, 38333, 38366, 127},
+				new int[] {0, 950, 4550, 950, 935, 950, 935, 950, 19}),
+		OVERLORD_MYTHICAL_CAPE(21196, 54855, "@red@Micmac Paddy Wack Mythical Cape",
+				new int[] {38113, 38210, 99, 522, 107, 76, 38348, 38356, 38325, 88, 38362, 38333, 38366, 127},
+				new int[] {935, 950, 99, 522, 21, 20, 950, 950, 950, 22, 950, 935, 950, 20}),
+
+		/** BLACK BLACK HOLY MYTH **/
+		BLACK_BLACK_HOLY_MYTHICAL_STAFF(21197, 55731, "@bla@Micmac Black Holy Mythical Sangiusteni",
+				new int[] {6736, 6709, 43303, 39, 24, 8, 59466, 6602, 28, 59453, 4382},
+				new int[] {1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024}),
+		
+		/** SPOOKY SZN 2021 **/
+		SPOOKY_SZN_HOOD(54300, 54300, "@or2@Spooky szn hood",
+				new int[] {0, 6331},
+				new int[] {3059, 8}),
+		
+		SPOOKY_SZN_TOP(54301, 54301, "@or2@Spooky szn top",
+				new int[] {7349, 6331, 8741},
+				new int[] {12, 8, 8}),
+		
+		SPOOKY_SZN_BOTTOM(54302, 54302, "@or2@Spooky szn bottom",
+				new int[] {7349, 6331, 25238},
+				new int[] {12, 8, 8}),
+		
+		SPOOKY_SZN_GLOVES(54303, 54303, "@or2@Spooky szn gloves",
+				new int[] {10275, 10283},
+				new int[] {8, 12}),
+		
+		SPOOKY_SZN_BOOTS(54304, 54304, "@or2@Spooky szn boot",
+				new int[] {4626},
+				new int[] {0}),
+		
+		GHOSTLY_RING(21198, 49538, "@whi@Ghostly Ring",
+				new int[] {3008, 5056, 43045, 43053},
+				new int[] {127, 127, 92, 97}),
 		;
 	/**
 	 * Constructs a new {@link CustomRecolor2}.

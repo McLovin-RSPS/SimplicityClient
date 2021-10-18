@@ -23,7 +23,7 @@ public final class MobDefinition {
     private static final int[] FOLLOWER_IDS = new int[] {
             17130, 17131, 17132, 2222, 2223, 22892, 22891, 1500, 24492, 24493, 24494, 24495, 24496, 24497, 24498, 24499, 24500, 24501, 33306,
             6830, 6825, 6841, 6806, 6796, 7331, 6831, 6837, 7361, 6847, 6994, 6872, 7353, 6835, 6845, 6808, 153, 154, 7519, 15425, 20547, 
-            23492, 23493, 23494, 23495, 2776, 4550, 7370, 7333, 7351, 7367, 6853, 6867, 6851, 6833, 6875, 6877, 6879, 2222, 25761, 25762, 
+            23492, 23493, 23494, 23495, 2776, 4550, 4551, 7370, 7333, 7351, 7367, 6853, 6867, 6851, 6833, 6875, 6877, 6879, 2222, 25761, 25762, 
             6881, 6883, 6885, 6887, 6855, 7377, 22519, 6824, 6843, 6794, 6818, 6992, 6857, 6991, 7365, 7337, 7363, 6809, 25763, 25764, 25765, 21636, 21631,
             21634, 21637, 22368, 21715, 21717, 15964, 21640, 22674, 23731,
             6865, 6820, 6802, 6827, 6859, 6889, 6815, 6813, 6817, 7372, 6839, 8575, 7345, 6849, 6798, 6861, 7335, 7347, 23197, 23336,
@@ -193,6 +193,15 @@ public final class MobDefinition {
                     npc.squaresNeeded = 4;
                     break;
                     
+                case 2667:
+                    npc.copy(forID(22391));
+                    npc.name = "Halloween Banshee";
+                    npc.actions = new String[5];
+                    npc.actions[1] = "Attack";
+                    npc.sizeXZ *= 2;
+                    npc.sizeY *= 2;
+                    npc.squaresNeeded = 4;
+                    break;                    
                     
                 case 8221:
                     npc.copy(forID(3821));
@@ -560,10 +569,22 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
+              
                 
             case 4550:
                 npc.copy(forID(17666));
                 npc.name = "Halloween pet";
+                npc.sizeXZ = 80;
+                npc.sizeY = 80;
+                npc.actions = new String[5];
+                npc.actions[0] = "Pick-up";
+                npc.squaresNeeded = 1;
+                npc.pet = true;
+                break;
+                
+            case 4551:
+                npc.copy(forID(22391));
+                npc.name = "Lil' Banshee";
                 npc.sizeXZ = 80;
                 npc.sizeY = 80;
                 npc.actions = new String[5];
@@ -649,6 +670,99 @@ public final class MobDefinition {
                 npc.combatLevel = 0;
                 npc.sizeXZ = 80;
                 npc.sizeY = 80;
+                npc.actions = new String[5];
+                npc.actions[0] = "Talk-to";
+                npc.actions[2] = "Pick-up";
+                npc.squaresNeeded = 1;
+                npc.pet = true;
+                break;
+                
+                // Barrows pets
+                
+            case 2226:
+                npc.copy(forID(2026));
+                npc.name = "Lil' dharok";
+                npc.combatLevel = 0;
+                npc.sizeXZ = 80;
+                npc.sizeY = 80;
+                npc.actions = new String[5];
+                npc.actions[0] = "Talk-to";
+                npc.actions[2] = "Pick-up";
+                npc.squaresNeeded = 1;
+                npc.pet = true;
+                break;
+                
+            case 2227:
+                npc.copy(forID(2030));
+                npc.name = "Lil' verac";
+                npc.combatLevel = 0;
+                npc.sizeXZ = 80;
+                npc.sizeY = 80;
+                npc.actions = new String[5];
+                npc.actions[0] = "Talk-to";
+                npc.actions[2] = "Pick-up";
+                npc.squaresNeeded = 1;
+                npc.pet = true;
+                break;
+                
+            case 2228:
+                npc.copy(forID(2025));
+                npc.name = "Lil' ahrim";
+                npc.combatLevel = 0;
+                npc.sizeXZ = 80;
+                npc.sizeY = 80;
+                npc.actions = new String[5];
+                npc.actions[0] = "Talk-to";
+                npc.actions[2] = "Pick-up";
+                npc.squaresNeeded = 1;
+                npc.pet = true;
+                break;
+                
+            case 2229:
+                npc.copy(forID(2029));
+                npc.name = "Lil' torag";
+                npc.combatLevel = 0;
+                npc.sizeXZ = 80;
+                npc.sizeY = 80;
+                npc.actions = new String[5];
+                npc.actions[0] = "Talk-to";
+                npc.actions[2] = "Pick-up";
+                npc.squaresNeeded = 1;
+                npc.pet = true;
+                break;
+                
+            case 2230:
+                npc.copy(forID(2027));
+                npc.name = "Lil' guthan";
+                npc.combatLevel = 0;
+                npc.sizeXZ = 80;
+                npc.sizeY = 80;
+                npc.actions = new String[5];
+                npc.actions[0] = "Talk-to";
+                npc.actions[2] = "Pick-up";
+                npc.squaresNeeded = 1;
+                npc.pet = true;
+                break;
+                
+            case 2115:
+                npc.copy(forID(2028));
+                npc.name = "Lil' karil";
+                npc.combatLevel = 0;
+                npc.sizeXZ = 80;
+                npc.sizeY = 80;
+                npc.actions = new String[5];
+                npc.actions[0] = "Talk-to";
+                npc.actions[2] = "Pick-up";
+                npc.squaresNeeded = 1;
+                npc.pet = true;
+                break;
+                
+            case 2232:
+                npc.copy(forID(23583));
+                npc.name = "Lil' hespori";
+                npc.combatLevel = 0;
+                npc.sizeXZ = 30;
+                npc.sizeY = 30;
                 npc.actions = new String[5];
                 npc.actions[0] = "Talk-to";
                 npc.actions[2] = "Pick-up";
