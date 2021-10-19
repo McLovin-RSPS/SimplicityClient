@@ -21805,6 +21805,7 @@ public class Client extends RSApplet {
                 case 50:
                     long l4 = inStream.readQWord();
                     int i18 = inStream.readUnsignedByte();
+                    boolean loggedIn = inStream.readUnsignedByte() == 1;
                     String s7 = TextClass.fixName(TextClass.nameForLong(l4));
                     for (int k24 = 0; k24 < friendsCount; k24++) {
                         if (l4 != friendsListAsLongs[k24]) {
@@ -21814,11 +21815,13 @@ public class Client extends RSApplet {
                             friendsNodeIDs[k24] = i18;
                             needDrawTabArea = true;
 
-                            if (i18 >= 2) {
-                                pushMessage(s7 + " has logged in.", 5, "");
-                            }
-                            if (i18 <= 1) {
-                                pushMessage(s7 + " has logged out.", 5, "");
+                            if (!loggedIn) {
+                            	if (i18 >= 2) {
+                            		pushMessage(s7 + " has logged in.", 5, "");
+                            	}
+                            	if (i18 <= 1) {
+                            		pushMessage(s7 + " has logged out.", 5, "");
+                            	}
                             }
 
                         }
