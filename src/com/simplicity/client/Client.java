@@ -22866,7 +22866,7 @@ public class Client extends RSApplet {
                     return true;
 
                 case 38:
-                    int auto = inStream.readUnsignedWord();
+                    int auto = inStream.readInt();
                     if (auto == -1) {
                         autoCast = false;
                         autocastId = 0;
