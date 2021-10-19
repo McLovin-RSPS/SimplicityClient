@@ -8721,6 +8721,8 @@ public class Client extends RSApplet {
             rollingCharacter = !rollingCharacter;
             return;
         }
+        
+        //System.out.println("slot: "+ slot+" interfaceId: "+interfaceId+" cmd4: "+cmd4+" l: "+l+" entityId: "+entityId+" id: "+id);
         if (l == 476 && alertBoxTimer > 0) {
             alertBoxTimer = 0;
         }
