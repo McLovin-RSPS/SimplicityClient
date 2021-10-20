@@ -16817,7 +16817,25 @@ public class Client extends RSApplet {
                         }
 
                         if (autoCast && child.id == autocastId) {
-                            SpriteCache.spriteCache[47].drawSprite(childX - 3, childY - 2);
+                        	
+                        	int xOffset = 4;
+                            int yOffset = 4;
+                        	
+                        	if (child.id == 101230 || child.id == 101260 || child.id == 101280 || child.id == 101300) { //Strikes
+                        		xOffset = 6;
+                        		yOffset = 7;
+                        	} else if (child.id == 101510) { //Iban Blast
+                        		xOffset = 6;
+                        		yOffset = 5;
+                        	} else if (child.id == 12939 || child.id == 12987 || child.id == 12901 || child.id == 12861 || child.id == 12963
+                        			|| child.id == 13011 || child.id == 12919 || child.id == 12881
+                        			|| child.id == 12951 || child.id == 12999 || child.id == 12911 || child.id == 12871
+                        			|| child.id == 12975 || child.id == 13023 || child.id == 12929 || child.id == 12891) { // Rush & Bursts & Blitz & Barrage
+                        		xOffset = 3;
+                        		yOffset = 2;
+                        	}
+                        		
+                            SpriteCache.spriteCache[47].drawSprite(childX - xOffset, childY - yOffset);
                         }
                         if (child.summonReq > 0) {
                             if (child.summonReq > currentMaxStats[23]) {
