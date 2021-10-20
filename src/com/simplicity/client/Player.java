@@ -379,7 +379,7 @@ public final class Player extends Entity {
 				}
 			}
 			
-			model_1 = new Model(j2, bodyPartModels);
+			model_1 = new Model(j2, bodyPartModels, false);
 			for (int j3 = 0; j3 < 5; j3++)
 				if (anIntArray1700[j3] != 0) {
 					model_1.recolour(Client.anIntArrayArray1003[j3][0], Client.anIntArrayArray1003[j3][anIntArray1700[j3]]);
@@ -388,14 +388,14 @@ public final class Player extends Entity {
 				}
 
 			model_1.createBones();
-			model_1.light(frontLight, backLight, rightLight, middleLight, leftLight, true);
+			model_1.light(frontLight, backLight, rightLight, middleLight, leftLight, true, true);
 			modelCache.put(model_1, l);
 			aLong1697 = l;
 		}
 		if (aBoolean1699)
 			return model_1;
 		Model model_2 = Model.entityModelDesc;
-		model_2.method464(model_1, FrameReader.isNullFrame(currentFrame) & FrameReader.isNullFrame(i1));
+		model_2.method464(model_1, FrameReader.isNullFrame(currentFrame) & FrameReader.isNullFrame(i1), true);
 
 		DataType dataType = DataType.REGULAR;
 		
@@ -498,7 +498,7 @@ public final class Player extends Entity {
 			}
 		}
 
-		Model model = new Model(k, models);
+		Model model = new Model(k, models, false);
 		for (int j1 = 0; j1 < 5; j1++)
 			if (anIntArray1700[j1] != 0) {
 				model.recolour(Client.anIntArrayArray1003[j1][0], Client.anIntArrayArray1003[j1][anIntArray1700[j1]]);

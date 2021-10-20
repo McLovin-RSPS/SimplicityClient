@@ -127,7 +127,7 @@ public final class IDK {
 			model = aclass30_sub2_sub4_sub6s[0];
 		else
 			model = new Model(aclass30_sub2_sub4_sub6s.length,
-					aclass30_sub2_sub4_sub6s);
+					aclass30_sub2_sub4_sub6s, false);
 		for (int j = 0; j < 6; j++) {
 			if (recolourOriginal[j] == 0)
 				break;
@@ -154,7 +154,7 @@ public final class IDK {
 				aclass30_sub2_sub4_sub6s[j++] = Model
 						.fetchModel(headModelIDs[k]);
 
-		Model model = new Model(j, aclass30_sub2_sub4_sub6s);
+		Model model = new Model(j, aclass30_sub2_sub4_sub6s, false);
 		for (int l = 0; l < 6; l++) {
 			if (recolourOriginal[l] == 0)
 				break;

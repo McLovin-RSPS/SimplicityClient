@@ -2605,7 +2605,7 @@ public final class MobDefinition {
                     completedModel.recolour(originalColours[k1], destColours[k1]);
             }
             completedModel.createBones();
-            completedModel.light(frontLight, backLight, rightLight, middleLight, leftLight, true);
+            completedModel.light(frontLight, backLight, rightLight, middleLight, leftLight, true, false);
             if (dataType == DataType.OLDSCHOOL) {
                 modelCacheOSRS.put(completedModel, type);
             } else {
@@ -2613,7 +2613,7 @@ public final class MobDefinition {
             }
         }
         Model animatedModel = Model.entityModelDesc;
-        animatedModel.method464(completedModel, FrameReader.isNullFrame(frame) & FrameReader.isNullFrame(j));
+        animatedModel.method464(completedModel, FrameReader.isNullFrame(frame) & FrameReader.isNullFrame(j), false);
 
         if (frame != -1 && j != -1)
             animatedModel.method471(ai, j, frame, dataType);

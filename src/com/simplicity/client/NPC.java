@@ -63,7 +63,7 @@ public final class NPC extends Entity
 			if(model_1 != null)
 			{
 				int j = spotAnim.animation.frameIDs[super.currentAnim];
-				Model model_2 = new Model(true, FrameReader.isNullFrame(j), false, model_1);
+				Model model_2 = new Model(true, FrameReader.isNullFrame(j), false, true, model_1);
 				model_2.translate(0, -super.graphicHeight, 0);
 				model_2.createBones();
 				model_2.applyTransform(j, spotAnim.dataType);
@@ -71,7 +71,7 @@ public final class NPC extends Entity
 				model_2.vertexSkin = null;
 				if(spotAnim.sizeXY != 128 || spotAnim.sizeZ != 128)
 					model_2.scaleT(spotAnim.sizeXY, spotAnim.sizeXY, spotAnim.sizeZ);
-				model_2.light(64 + spotAnim.shadow, 850 + spotAnim.lightness, -30, -50, -30, true);
+				model_2.light(64 + spotAnim.shadow, 850 + spotAnim.lightness, -30, -50, -30, true, true);
 				Model aModel[] = {
 						model, model_2
 				};
