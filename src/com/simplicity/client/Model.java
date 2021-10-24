@@ -224,7 +224,8 @@ public class Model extends Animable {
         addDepthBufferModel(DataType.OLDSCHOOL, 6031); // Dragon scim
         addDepthBufferModel(DataType.OLDSCHOOL, 490); // Rune scim
         addDepthBufferModel(DataType.OLDSCHOOL, 8962); // Dragon pickaxe upgraded
-        
+        addDepthBufferModel(DataType.OLDSCHOOL, 556); // Book of darkness
+
 		applyTexture(69, 16, 17);
 		applyTexture(58, 10, 11, 12, 13, 14, 15);
         applyTexture(70, 18, 19);

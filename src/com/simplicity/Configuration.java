@@ -13,7 +13,7 @@ public class Configuration {
 	/**
 	 * Client information
 	 */
-	public final static String CLIENT_NAME = "Simplicity RSPS - The Biggest Pre-EOC Server 2020";
+	public final static String CLIENT_NAME = "Simplicity RSPS - The Biggest Pre-EOC Server 2021";
 	public static final boolean SEND_HASH = true;
 	public static boolean upscaling = true;
 	public static final boolean DISCO_ITEMS = false;
@@ -34,9 +34,9 @@ public class Configuration {
 	public static final int[] packetSizes = { 0, 0, -2, 1, 6, 0, 0, 0, 4, 0, // 0
 			0, 2, -1, 1, 1, -1, 1, 0, 0, 0, // 10
 			0, 0, 0, 0, 1, 0, 0, -1, 1, 1, // 20
-			0, 0, 0, 0, -2, 4, 3, 0, 2, 0, // 30
+			0, 0, 0, 0, -2, 4, 3, 0, 4, 0, // 30
 			0, 0, 0, 0, 7, 8, 0, 6, 0, 0, // 40
-			9, 0, 0, -2, 3, 0, 0, 0, 0, 0, // 50
+			10, 0, 0, -2, 3, 0, 0, 0, 0, 0, // 50
 			-2, 1, 0, 0, 2, -2, 0, 0, 0, 0, // 60
 			6, 5, 2, 4, 2, 4, -2, 0, 0, 4, // 70
 			0, -2, 0, 0, 7, 2, 1, 6, 6, 0, // 80

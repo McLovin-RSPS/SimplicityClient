@@ -64,6 +64,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.CRC32;
 import java.util.zip.GZIPOutputStream;
+import java.awt.datatransfer.StringSelection;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
 
 import javax.imageio.ImageIO;
 import javax.sound.midi.MidiSystem;
@@ -8732,6 +8735,8 @@ public class Client extends RSApplet {
             rollingCharacter = !rollingCharacter;
             return;
         }
+        
+        //System.out.println("slot: "+ slot+" interfaceId: "+interfaceId+" cmd4: "+cmd4+" l: "+l+" entityId: "+entityId+" id: "+id);
         if (l == 476 && alertBoxTimer > 0) {
             alertBoxTimer = 0;
         }
@@ -9956,16 +9961,43 @@ public class Client extends RSApplet {
 			d.dropdown.getDrop().selectOption(slot, d);
 			p.dropdownOpen = null;
 		}
-		if (l == 86) {
+		if (l == 86) { //Open broadcast url
 		    if (broadcastUrl == null) {
                 pushMessage("This broadcast message has no valid link to open.", 0, null);
 		        return;
             }
 		    launchURL(broadcastUrl);
         }
-		if (l == 85) {
+		if (l == 85) { //Check broadcast
 		    pushMessage("Link opens to: "+ (broadcastUrl == null ? "nowhere" : broadcastUrl), 0, null);
-        }//
+        }
+		if (l == 84) { //Clear broadcast history
+			broadcastText = null;
+            broadcastUrl = null;
+		}
+		if (l == 83) { //Copy broadcast to clipboard
+            
+            StringBuilder sb = new StringBuilder();  
+            
+            sb.append("::broadcast ");
+            
+            if (broadcastUrl != null) {
+            	sb.append(broadcastUrl);
+            }
+            if (broadcastText != null) {
+            	final int tokenIdx = broadcastText.indexOf(":");
+            	System.out.println(tokenIdx);
+                if (tokenIdx != -1) {
+                    String chatMsg = broadcastText.substring(tokenIdx + 2);
+                    sb.append(chatMsg);
+                }
+            }
+            
+            StringSelection stringSelection = new StringSelection(sb.toString());
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection, null);
+            
+		}
         if (l == 646) {
             RSInterface class9_2 = RSInterface.interfaceCache[interfaceId];
             CustomWidget w = Widget.mainForComponent(interfaceId);
@@ -12387,6 +12419,9 @@ public class Client extends RSApplet {
             final boolean hoveringChatMessage = j > k1 - 14 && j <= k1;
             if (j1 == 1337) {
                 if (hoveringChatMessage) {
+                	menuActionName[menuActionRow] = "Copy to clipboard @or2@Notification";
+                    menuActionID[menuActionRow] = 83;
+                    menuActionRow++;
                     menuActionName[menuActionRow] = "Clear history @or2@Notification";
                     menuActionID[menuActionRow] = 84;
                     menuActionRow++;
@@ -16796,7 +16831,25 @@ public class Client extends RSApplet {
                         }
 
                         if (autoCast && child.id == autocastId) {
-                            SpriteCache.spriteCache[47].drawSprite(childX - 3, childY - 2);
+                        	
+                        	int xOffset = 4;
+                            int yOffset = 4;
+                        	
+                        	if (child.id == 101230 || child.id == 101260 || child.id == 101280 || child.id == 101300) { //Strikes
+                        		xOffset = 6;
+                        		yOffset = 7;
+                        	} else if (child.id == 101510) { //Iban Blast
+                        		xOffset = 6;
+                        		yOffset = 5;
+                        	} else if (child.id == 12939 || child.id == 12987 || child.id == 12901 || child.id == 12861 || child.id == 12963
+                        			|| child.id == 13011 || child.id == 12919 || child.id == 12881
+                        			|| child.id == 12951 || child.id == 12999 || child.id == 12911 || child.id == 12871
+                        			|| child.id == 12975 || child.id == 13023 || child.id == 12929 || child.id == 12891) { // Rush & Bursts & Blitz & Barrage
+                        		xOffset = 3;
+                        		yOffset = 2;
+                        	}
+                        		
+                            SpriteCache.spriteCache[47].drawSprite(childX - xOffset, childY - yOffset);
                         }
                         if (child.summonReq > 0) {
                             if (child.summonReq > currentMaxStats[23]) {
@@ -21788,6 +21841,7 @@ public class Client extends RSApplet {
                 case 50:
                     long l4 = inStream.readQWord();
                     int i18 = inStream.readUnsignedByte();
+                    boolean loggedIn = inStream.readUnsignedByte() == 1;
                     String s7 = TextClass.fixName(TextClass.nameForLong(l4));
                     for (int k24 = 0; k24 < friendsCount; k24++) {
                         if (l4 != friendsListAsLongs[k24]) {
@@ -21797,11 +21851,13 @@ public class Client extends RSApplet {
                             friendsNodeIDs[k24] = i18;
                             needDrawTabArea = true;
 
-                            if (i18 >= 2) {
-                                pushMessage(s7 + " has logged in.", 5, "");
-                            }
-                            if (i18 <= 1) {
-                                pushMessage(s7 + " has logged out.", 5, "");
+                            if (!loggedIn) {
+                            	if (i18 >= 2) {
+                            		pushMessage(s7 + " has logged in.", 5, "");
+                            	}
+                            	if (i18 <= 1) {
+                            		pushMessage(s7 + " has logged out.", 5, "");
+                            	}
                             }
 
                         }
@@ -22844,7 +22900,7 @@ public class Client extends RSApplet {
                     return true;
 
                 case 38:
-                    int auto = inStream.readUnsignedWord();
+                    int auto = inStream.readInt();
                     if (auto == -1) {
                         autoCast = false;
                         autocastId = 0;
@@ -22901,7 +22957,8 @@ public class Client extends RSApplet {
                         RSInterface.currentInputField = null;
                     }
 
-                    setOpenInterfaceID(-1);
+                    if (openInterfaceID != 83000)
+                    	setOpenInterfaceID(-1);
                     secondaryOpenInterfaceID = -1;
                     bankItemDragSprite = null;
                     dialogOptionsShowing = false;
