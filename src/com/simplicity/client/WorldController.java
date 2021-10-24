@@ -1166,16 +1166,16 @@ public final class WorldController {
 
 	public void request2DTrace(int x, int y) {
 		aBoolean467 = true;
-		anInt468 = !Client.antialiasing ? y : y << 1;
-		anInt469 = !Client.antialiasing ? x : x << 1;
+		anInt468 = (!Client.antialiasing || Client.drawCallbacks != null) ? y : y << 1;
+		anInt469 = (!Client.antialiasing || Client.drawCallbacks != null) ? x : x << 1;
 		anInt470 = -1;
 		anInt471 = -1;
 	}
 	
 	public void requestTileTrace(int x, int y) {
 		requestTileTrace = true;
-		requestedTraceX = !Client.antialiasing ? x : x << 1;
-		requestedTraceY = !Client.antialiasing ? y : y << 1;
+		requestedTraceX = (!Client.antialiasing || Client.drawCallbacks != null) ? x : x << 1;
+		requestedTraceY = (!Client.antialiasing || Client.drawCallbacks != null) ? y : y << 1;
 	}
 
 	public void render(int xCam, int yCam, int xCurve, int zCam, int plane, int yCurve) {
