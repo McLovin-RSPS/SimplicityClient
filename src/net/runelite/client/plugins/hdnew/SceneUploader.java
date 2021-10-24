@@ -1103,7 +1103,7 @@ class SceneUploader
 		dotC = Math.max(dotC, 0);
 		color3L = (int) HDUtils.lerp(color3L, lightenC, dotC);
 
-		if (faceTextures != null && faceTextures[face] != -1)
+		if (faceTextures != null && face < faceTextures.length && faceTextures[face] != -1)
 		{
 			// set textured faces to pure white as they are harder to remove shadows from for some reason
 			color1H = color2H = color3H = 0;
@@ -1188,7 +1188,7 @@ class SceneUploader
 		// adjust overly-bright vertex colors to reduce ugly washed-out areas of
 		// brightly-colored models
 		int maxBrightness = 55;
-		if (faceTextures != null && faceTextures[face] != -1)
+		if (faceTextures != null && face < faceTextures.length && faceTextures[face] != -1)
 		{
 			maxBrightness = 90;
 		}
@@ -1241,7 +1241,7 @@ class SceneUploader
 		float[] uf, vf;
 		Material material;
 
-		if (faceTextures != null && faceTextures[face] != -1) {
+		if (faceTextures != null && face < faceTextures.length && faceTextures[face] != -1) {
 			try {
 				if (u != null && v != null && (uf = u[face]) != null && (vf = v[face]) != null) {
 					material = Material.getTexture(faceTextures[face]);
@@ -1306,10 +1306,12 @@ class SceneUploader
 	private static int packAlphaPriority(short[] faceTextures, int[] transparencies, int[] facePriorities, int face)
 	{
 		int alpha = 0;
-		if (transparencies != null && (faceTextures == null || faceTextures[face] == -1))
+
+		if (transparencies != null && (faceTextures == null || face >= faceTextures.length || faceTextures[face] == -1))
 		{
 			alpha = (transparencies[face] & 0xFF) << 24;
 		}
+
 		int priority = 0;
 		if (facePriorities != null)
 		{

@@ -1978,7 +1978,7 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 		
 		
 
-		int[] x = { 0, 4, 0, 516, 516, 553, 516, 550, 0, 0, 722, 743, 0, 516, 516, 496, 0 };
+		int[] x = { 0, 4, 0, /*516*/515, 516, 553, 516, 550, 0, 0, 722, 743, 0, 516, 516, 496, 0 };
 		int[] y = { 0, 4, 338, 168, 0, 205, 160, 4, 4, 357, 4, 205, 0, 4, 205, 357, 338 };
 
 		// Use the texture bound in the first pass
