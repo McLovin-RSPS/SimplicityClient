@@ -23256,7 +23256,7 @@ public class Client extends RSApplet {
         Model.currentCursorX = super.mouseX - 4;
         Model.currentCursorY = super.mouseY - 4;
         int[] pixels = null, offsets = null;
-        if (antialiasing) {
+        if (drawCallbacks != null && antialiasing) {
             Model.currentCursorX <<= 1;
             Model.currentCursorY <<= 1;
             pixels = Rasterizer.pixels;
@@ -23276,13 +23276,13 @@ public class Client extends RSApplet {
         DrawingArea.resetImage();
         worldController.render(xCameraPos, yCameraPos, xCameraCurve, zCameraPos, j, yCameraCurve);
         worldController.renderTileMarkers();
-        if (Configuration.enableFog) {
+        if (drawCallbacks != null && Configuration.enableFog) {
             int baseFogDistance = (int) Math.sqrt(Math.pow(zCameraPos, 2));
             int fogStart = baseFogDistance + 1100;
             int fogEnd = baseFogDistance + 2000;
             Rasterizer.drawFog(fogStart, fogEnd);
         }
-        if (antialiasing) {
+        if (drawCallbacks != null && antialiasing) {
             Model.currentCursorX >>= 1;
             Model.currentCursorY >>= 1;
             Rasterizer.pixels = pixels;
