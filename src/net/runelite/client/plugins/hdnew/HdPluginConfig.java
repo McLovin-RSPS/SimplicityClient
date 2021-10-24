@@ -345,16 +345,16 @@ public interface HdPluginConfig extends Config
 		return true;
 	}
 
-	@ConfigItem(
+	/*@ConfigItem(
 		keyName = "defaultSkyColor",
 		name = "Default Sky Color",
 		description = "Determines the color of the sky when in a location without a custom sky color assigned.",
 		position = 204,
 		section = environmentSettings
-	)
+	)*/
 	default DefaultSkyColor defaultSkyColor()
 	{
-		return DefaultSkyColor.HD2008;
+		return DefaultSkyColor.OSRS;
 	}
 
 	@ConfigItem(
