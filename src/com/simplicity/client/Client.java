@@ -6129,6 +6129,9 @@ public class Client extends RSApplet {
         							} else if (getRegionId() == 12126 && n.getName().equals("Zalcano") && HealthHud.getType() == HealthHud.HudType.ORANGE_SHIELD) {
                                         size = HealthBar.DIM_120;
                                         healthBar = HealthBar.ORANGE;
+                                    } else if (n.getId() == 23370) {
+                                        size = HealthBar.DIM_120;
+                                        healthBar = HealthBar.CYAN;
                                     }
         						}
 
