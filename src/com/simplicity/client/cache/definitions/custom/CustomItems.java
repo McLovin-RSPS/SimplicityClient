@@ -820,7 +820,7 @@ public class CustomItems {
 				
 			case 14940:
 				itemDef.copy(ItemDefinition.forID(6830));
-				itemDef.name = "@red@Supreme's Owner Box (Overlord)";
+				itemDef.name = "@pur@Supreme's Owner Box (Overlord)";
 				itemDef.modelZoom = 3100;
 				itemDef.animateInventory = true;
 				itemDef.dataType = DataType.CUSTOM;
