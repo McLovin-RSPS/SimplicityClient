@@ -1503,6 +1503,7 @@ public final class MobDefinition {
             case 8275:
                 npc.actions[2] = "Get-task";
                 break;
+                
             case 6222:
                 npc.name = "Kree'arra";
                 npc.squaresNeeded = 5;
@@ -1511,6 +1512,7 @@ public final class MobDefinition {
                 npc.actions = new String[]{null, "Attack", null, null, null};
                 npc.sizeY = npc.sizeXZ = 110;
                 break;
+                
             case 6203:
                 npc.models = new int[]{27768, 27773, 27764, 27765, 27770};
                 npc.name = "K'ril Tsutsaroth";
@@ -1520,6 +1522,7 @@ public final class MobDefinition {
                 npc.actions = new String[]{null, "Attack", null, null, null};
                 npc.sizeY = npc.sizeXZ = 110;
                 break;
+                
             case 1610:
             case 491:
             case 10216:
