@@ -5404,12 +5404,33 @@ public class Client extends RSApplet {
 	                                                        child.actions[6] = null;
 	                                                    }
 	                                                }
-	                                                if (child.actions.length > j4  && child.actions[j4] != null) {
-	                                                    String s = myRights == PlayerRights.OWNER.ordinal()
-	                                                            || myRights == PlayerRights.DEVELOPER.ordinal()
-	                                                            ? child.actions[j4] + " @lre@" + itemDef.name + " "
-	                                                            + itemDef.id
-	                                                            : child.actions[j4] + " @lre@" + itemDef.name;
+	                                                
+	                                                final boolean useItemDefEquipActions = child.id == 1688 
+                                            				&& itemDef.equippedStateActions != null 
+                                            				&& itemDef.equippedStateActions.length > j4 
+                                            				&& itemDef.equippedStateActions[j4] != null;
+                                            				
+	                                                if (child.actions.length > j4  && child.actions[j4] != null || useItemDefEquipActions) {
+	                                                	
+	                                                	String s = "";
+	                                                	
+	                                                	if (useItemDefEquipActions) {
+	                                                			                                                		
+	                                                		s = myRights == PlayerRights.OWNER.ordinal()
+	                                                				|| myRights == PlayerRights.DEVELOPER.ordinal()
+	                                                				? itemDef.equippedStateActions[j4] + " @lre@" + itemDef.name + " "
+	                                                				+ itemDef.id
+	                                                				: itemDef.equippedStateActions[j4] + " @lre@" + itemDef.name;
+
+	                                                	} else {
+
+	                                                		s = myRights == PlayerRights.OWNER.ordinal()
+	                                                				|| myRights == PlayerRights.DEVELOPER.ordinal()
+	                                                				? child.actions[j4] + " @lre@" + itemDef.name + " "
+	                                                				+ itemDef.id
+	                                                				: child.actions[j4] + " @lre@" + itemDef.name;
+
+	                                                	}
 
 	                                                    if (child.parentID == 5292 && openInterfaceID == 5292) {
 	                                                        ignoreExamine = true; // Don't

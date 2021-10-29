@@ -1822,6 +1822,7 @@ public class CustomItems2 {
 	            def2 = ItemDefinition.forID(9774);
 	            itemDef.actions = def2.actions;
 				itemDef.actions[2] = "Teleport";
+				itemDef.equippedStateActions = new String[]{ null, "Teleport", null, null, null };
 	            itemDef.name = "Overlord cape";
 	            itemDef.modelID = 98;
 	            itemDef.sizeX = def2.sizeX;

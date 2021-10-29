@@ -217,6 +217,7 @@ public final class ItemDefinition {
         membersObject = false;
         groundActions = null;
         actions = null;
+        equippedStateActions = null;
         maleEquip1 = -1;
         maleEquip2 = -1;
         femaleYOffset = 0;
@@ -2488,6 +2489,7 @@ public final class ItemDefinition {
     public int maleEquip3;
     public int maleEquip2;
     public String actions[];
+    public String equippedStateActions[];
     public int rotationY;
     public int sizeZ;
     public int sizeY;
