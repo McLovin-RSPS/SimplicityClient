@@ -7973,6 +7973,8 @@ public class Client extends RSApplet {
              */
         }
         processShadow();
+        if (displayPouchDepositCountdown > 0)
+        	displayPouchDepositCountdown--;
         if (anInt1016 > 0) {
             anInt1016--;
         }
@@ -18289,8 +18291,17 @@ public class Client extends RSApplet {
                         x += 10;
                     }
                 }
+                
                 newRegularFont.drawBasicString("" + cash, x, y + 21,
                         getAmountColor((long) Long.parseLong(RSInterface.interfaceCache[8135].message)), 0);
+                
+                if (displayPouchDepositCountdown > 0) {
+        			   	
+                	String deposit = formatAmount(amountRecentlyDeposited);
+                    
+        			newSmallFont.drawBasicString("+" + deposit, x - 5,
+        					y + 40, getAmountColor(amountRecentlyDeposited), 0);
+        		}
             }
         }
         drawGrandExchange();
@@ -21693,6 +21704,9 @@ public class Client extends RSApplet {
                         RSInterface.interfaceCache[61503].textColor = shield == 1 ? 0xff0000 : 0;
                     } else if (s.startsWith(":bonus_amount:")) {
 						bonusPercentage = Integer.parseInt(s.substring(s.lastIndexOf(":") + 1));
+                    } else if (s.startsWith(":pouch_deposit_amount:")) {
+                    	amountRecentlyDeposited = (long) Long.parseLong(s.substring(s.lastIndexOf(":") + 1));
+                    	displayPouchDepositCountdown = 200;
                     } else if (s.startsWith(":idle_graphic:")) {
                     	myPlayer.idleGraphicId = Integer.parseInt(s.substring(s.lastIndexOf(":") + 1));
                     	
@@ -26184,6 +26198,10 @@ public class Client extends RSApplet {
      * Money orb
      */
     public boolean coinToggle;
+    
+    private long amountRecentlyDeposited;
+    
+    private static int displayPouchDepositCountdown = 0;
 
     public void drawOnBankInterface() {
         if (openInterfaceID == 5292 && RSInterface.interfaceCache[27000].message.equals("1")) {
