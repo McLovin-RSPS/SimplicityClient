@@ -6336,7 +6336,7 @@ public class RSInterface {
         int c = 0;
         int x = 120;
         int y = 80;
-        tab.totalChildren(6);
+        tab.totalChildren(8);
         int id = 85076;
 
         addSpriteLoader(id, 1031);
@@ -6344,19 +6344,27 @@ public class RSInterface {
 
         addToItemGroup(id, 1, 1, 1, 1, true, "Take", null, null);
         tab.child(c++, id++, 132 + x, 45 + y);
-
+       
         addToItemGroup(id, 1, 1, 1, 1, true, "Take", null, null);
         tab.child(c++, id++, 132 + x, 80 + y);
-
+     
         addToItemGroup(id, 1, 1, 1, 1, true, "Take", null, null);
         tab.child(c++, id++, 132 + x, 115 + y);
-
+        
         addHoverButtonWSpriteLoader(id, 1020, 21, 21, "Close Window", 0, id + 1, 3);
         tab.child(c++, id++, 232 + x, 7 + y);
 
         addHoveredImageWSpriteLoader(id, 1021, 21, 21, id + 1);
         tab.child(c++, id++, 232 + x, 7 + y);
-
+        
+        id++;
+                
+		addHoverOpacityButton(85075, id, 1450, 1448, 4, 8, 150, "Bank all");
+		tab.child(c++, id++, 175 + x, 135 + y);
+		
+		addHoverOpacityButton(85075, id,1450, 1447, 2, 8, 150, "Take all");
+		tab.child(c++, id++, 215 + x, 135 + y);
+		
     }
 
     public static void itemInformation(TextDrawingArea[] tda) {
@@ -12967,6 +12975,26 @@ public class RSInterface {
         addSpriteLoader(id, 779 + skill);
     }
 
+    public static RSInterface addHoverOpacityButton(int mainId, int id, int backgroundSprite, int iconId, int iconX, int iconY, int hoverOpacity, String tooltip) {
+    	RSInterface rsi = RSInterface.addInterface(id);
+    	rsi.componentId = id;
+        rsi.layerId = mainId;
+    	rsi.id = id;
+    	rsi.type = 45;
+    	rsi.disabledSprite = Client.cacheSprite[backgroundSprite];
+    	rsi.enabledSprite = Client.cacheSprite[iconId];
+    	rsi.width = rsi.disabledSprite.myWidth;
+    	rsi.height = rsi.disabledSprite.myHeight;
+    	rsi.hoverIconX = iconX;
+    	rsi.hoverIconY = iconY;
+    	rsi.hoverOpacity = hoverOpacity;
+    	rsi.hoverType = id++;
+    	rsi.tooltip = tooltip;
+    	rsi.contentType = 0;
+    	rsi.atActionType = 1;
+    	return rsi;
+    }
+    
     public static RSInterface addHoverButton(int i, int disabledSprite, int enabledSprite, int width, int height, String text,
                                       int contentType, int hoverOver, int aT) {// hoverable
         // button
