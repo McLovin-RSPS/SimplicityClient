@@ -2098,7 +2098,11 @@ public final class ItemDefinition {
         int j3 = DrawingArea.bottomY;
         Rasterizer.aBoolean1464 = false;
         DrawingArea.initDrawingArea(32, 32, sprite2.myPixels, new float[32 * 32]);
-        DrawingArea.drawPixels(32, 0, 0, 0, 32);
+
+        if (Client.drawCallbacks != null) {
+            DrawingArea.drawPixels(32, 0, 0, 0, 32);
+        }
+        
         Rasterizer.setDefaultBounds();
         int k3 = itemDef.modelZoom;
 
