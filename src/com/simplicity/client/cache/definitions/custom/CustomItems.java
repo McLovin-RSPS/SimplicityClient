@@ -797,6 +797,24 @@ public class CustomItems {
 	        	itemDef.newModelColor = new int[] { 61 };
 				itemDef.modelID = 93;
 				break;
+				
+			case 22500:
+				itemDef.copy(ItemDefinition.forID(6199));
+				itemDef.name = "@or2@Mythical Supreme Box";
+				itemDef.actions = new String[5];
+				itemDef.actions[0] = "Open";
+				itemDef.animateInventory = true;
+				itemDef.modelZoom = 2200;
+				itemDef.rotationY = 120;
+				itemDef.rotationX = 1800;
+				itemDef.modelOffsetX = 0;
+				itemDef.modelOffset1 = 40;
+				itemDef.modelOffsetY = -20;
+				itemDef.dataType = DataType.CUSTOM;
+	        	itemDef.editedModelColor = new int[] { 40 };
+	        	itemDef.newModelColor = new int[] { 40 };
+				itemDef.modelID = 93;
+				break;
 
 			case 6201:
 				itemDef.copy(ItemDefinition.forID(6830));
@@ -820,7 +838,7 @@ public class CustomItems {
 				
 			case 14940:
 				itemDef.copy(ItemDefinition.forID(6830));
-				itemDef.name = "@pur@Supreme's Owner Box (Overlord)";
+				itemDef.name = "@pur@Supreme's Owner Box (O)";
 				itemDef.modelZoom = 3100;
 				itemDef.animateInventory = true;
 				itemDef.dataType = DataType.CUSTOM;
