@@ -18083,6 +18083,10 @@ public class Client extends RSApplet {
             drawLoginScreen();
         } else {
     		drawGameScreen();
+
+            if (drawCallbacks != null) {
+                drawCallbacks.draw(0);
+            }
         }
         anInt1213 = 0;
     }
@@ -23464,10 +23468,6 @@ public class Client extends RSApplet {
             drawUnfixedGame();
             draw3dScreen();
 
-            if (drawCallbacks != null) {
-                drawCallbacks.draw(0);
-            }
-            
             if (runelite != null) {
             	callbacks.drawAfterWidgets(mapAreaIP);
             }

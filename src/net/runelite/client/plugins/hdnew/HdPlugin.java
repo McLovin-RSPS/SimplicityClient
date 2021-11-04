@@ -1511,7 +1511,7 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 		final int viewportHeight = client.getViewportHeight();
 		final int viewportWidth = client.getViewportWidth();
 		
-		resize(canvasWidth, canvasHeight, viewportWidth, viewportHeight);
+		//resize(canvasWidth, canvasHeight, viewportWidth, viewportHeight);
 
 		// Setup anti-aliasing
 		final AntiAliasingMode antiAliasingMode = config.antiAliasingMode();
@@ -1973,7 +1973,7 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 		RSImageProducer[] buffers = { client().fullGameScreen, client().gameScreenIP, client().chatAreaIP, client().tabAreaIP, client().mapAreaIP, null, null, null, null, null };
 		
 		if (RuneLite.getClient().isResized()) {
-			buffers = new RSImageProducer[] { null, client().gameScreenIP };
+			buffers = new RSImageProducer[] { client().gameScreenIP };
 		}
 		
 		
@@ -2012,20 +2012,20 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 			} else {
 				gl.glTexSubImage2D(gl.GL_TEXTURE_2D, 0, x[index], y[index], width, height, gl.GL_BGRA, gl.GL_UNSIGNED_INT_8_8_8_8_REV, interfaceBuffer);
 			}
-			
-			gl.glUseProgram(glUiProgram);
-			gl.glUniform1i(uniTex, 0);
-			gl.glUniform1i(uniTexSamplingMode, uiScalingMode.getMode());
-			gl.glUniform2i(uniTexSourceDimensions, canvasWidth, canvasHeight);
-			gl.glUniform1i(uniUiColorBlindMode, config.colorBlindMode().ordinal());
-			gl.glUniform4f(uniUiAlphaOverlay,
+		}
+
+		gl.glUseProgram(glUiProgram);
+		gl.glUniform1i(uniTex, 0);
+		gl.glUniform1i(uniTexSamplingMode, uiScalingMode.getMode());
+		gl.glUniform2i(uniTexSourceDimensions, canvasWidth, canvasHeight);
+		gl.glUniform1i(uniUiColorBlindMode, config.colorBlindMode().ordinal());
+		gl.glUniform4f(uniUiAlphaOverlay,
 				(overlayColor >> 16 & 0xFF) / 255f,
 				(overlayColor >> 8 & 0xFF) / 255f,
 				(overlayColor & 0xFF) / 255f,
 				(overlayColor >>> 24) / 255f
-			);
-		}
-		
+		);
+
 		if (client.isStretchedEnabled())
 		{
 			Dimension dim = client.getStretchedDimensions();
