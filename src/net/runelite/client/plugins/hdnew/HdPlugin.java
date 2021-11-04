@@ -575,9 +575,8 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 				if (client.getGameState() == GameState.LOGGED_IN)
 				{
 					invokeOnMainThread(this::uploadScene);
+					client().updateGameArea();
 				}
-
-				client().updateGameArea();
 
 				startUpCompleted = true;
 			}
@@ -1512,8 +1511,10 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 
 		final int viewportHeight = client.getViewportHeight();
 		final int viewportWidth = client.getViewportWidth();
-		
-		//resize(canvasWidth, canvasHeight, viewportWidth, viewportHeight);
+
+		if (!RuneLite.getClient().isResized()) {
+			resize(canvasWidth, canvasHeight, viewportWidth, viewportHeight);
+		}
 
 		// Setup anti-aliasing
 		final AntiAliasingMode antiAliasingMode = config.antiAliasingMode();

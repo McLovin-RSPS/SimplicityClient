@@ -18084,7 +18084,7 @@ public class Client extends RSApplet {
         } else {
     		drawGameScreen();
 
-            if (drawCallbacks != null) {
+            if (clientSize != 0 && drawCallbacks != null) {
                 drawCallbacks.draw(0);
             }
         }
@@ -23467,6 +23467,10 @@ public class Client extends RSApplet {
             
             drawUnfixedGame();
             draw3dScreen();
+
+            if (clientSize == 0 && drawCallbacks != null) {
+                drawCallbacks.draw(0);
+            }
 
             if (runelite != null) {
             	callbacks.drawAfterWidgets(mapAreaIP);
