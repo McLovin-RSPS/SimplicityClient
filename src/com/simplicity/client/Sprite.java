@@ -504,7 +504,8 @@ public class Sprite extends DrawingArea {
 				k = ai1[i++];
 				if (k != 0) {
 					int i3 = ai[l1];
-					ai[l1++] = ((k & 0xff00ff) * k1 + (i3 & 0xff00ff) * j2 & 0xff00ff00) + ((k & 0xff00) * k1 + (i3 & 0xff00) * j2 & 0xff0000) >> 8;
+					int val = ((k & 0xff00ff) * k1 + (i3 & 0xff00ff) * j2 & 0xff00ff00) + ((k & 0xff00) * k1 + (i3 & 0xff00) * j2 & 0xff0000) >> 8;
+					drawAlpha(ai, l1++, val, val, j2);
 				} else {
 					l1++;
 				}
@@ -634,7 +635,8 @@ public class Sprite extends DrawingArea {
 				k = ai1[i++];
 				if (k != 0) {
 					int i3 = ai[l1];
-					ai[l1++] = ((k & 0xff00ff) * k1 + (i3 & 0xff00ff) * j2 & 0xff00ff00) + ((k & 0xff00) * k1 + (i3 & 0xff00) * j2 & 0xff0000) >> 8;
+					int val = ((k & 0xff00ff) * k1 + (i3 & 0xff00ff) * j2 & 0xff00ff00) + ((k & 0xff00) * k1 + (i3 & 0xff00) * j2 & 0xff0000) >> 8;
+					drawAlpha(ai, l1++, val, val, j2);
 				} else {
 					l1++;
 				}

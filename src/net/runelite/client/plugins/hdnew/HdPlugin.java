@@ -577,6 +577,8 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 					invokeOnMainThread(this::uploadScene);
 				}
 
+				client().updateGameArea();
+
 				startUpCompleted = true;
 			}
 			catch (Throwable e)
