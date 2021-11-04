@@ -7,6 +7,7 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.DataBufferInt;
@@ -24,7 +25,14 @@ public final class RSImageProducer
 		int count = width * height;
 		depthbuffer = new float[width * height];
 		anIntArray315 = new int[count];
-		image = new BufferedImage(COLOR_MODEL, Raster.createWritableRaster(COLOR_MODEL.createCompatibleSampleModel(width, height), new DataBufferInt(anIntArray315, count), null), false, new Hashtable<Object, Object>());
+		DirectColorModel model;
+		final boolean gpu = Client.drawCallbacks != null;
+		if (gpu) {
+			model = new DirectColorModel(ColorSpace.getInstance(1000), 32, 16711680, 65280, 255, -16777216, true, 3);
+		} else {
+			model = new DirectColorModel(32, 0xff0000, 0xff00, 0xff);
+		}
+		image = new BufferedImage(model, Raster.createWritableRaster(model.createCompatibleSampleModel(width, height), new DataBufferInt(anIntArray315, count), null), false, new Hashtable<Object, Object>());
 		initDrawingArea();
 	}
 
@@ -76,5 +84,4 @@ public final class RSImageProducer
 	public final BufferedImage image;
 	public final Component component;
 	private final Rectangle clip = new Rectangle();
-	private static final ColorModel COLOR_MODEL = new DirectColorModel(32, 0xff0000, 0xff00, 0xff);
 }
