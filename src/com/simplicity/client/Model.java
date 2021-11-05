@@ -2114,7 +2114,6 @@ public class Model extends Animable {
                     int x = (texture_type == -1 || texture_render_type[texture_type] > 0) ? a : textures_face_a[texture_type];
                     int y = (texture_type == -1 || texture_render_type[texture_type] > 0) ? b : textures_face_b[texture_type];
                     int z = (texture_type == -1 || texture_render_type[texture_type] > 0) ? c : textures_face_c[texture_type];
-                    System.out.println("face type is 1");
                     Rasterizer.drawTexturedTriangle(
                             projected_vertex_y[a], projected_vertex_y[b], projected_vertex_y[c],
                             projected_vertex_x[a], projected_vertex_x[b], projected_vertex_x[c],
