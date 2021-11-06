@@ -14490,6 +14490,11 @@ public class Client extends RSApplet {
             }
         } else {
             if (entityDef.actions != null) {
+            	
+            	//Block non-attack options from dummys at home
+            	//I don't think these id's are used also in construction, so i've removed unneeded right click options
+            	//from the npc root definitions
+            	//if (!((entityDef.id == 23598 || entityDef.id == 25507 || entityDef.id == 25511) && getRegionId() == 12342))
                 for (int l = 4; l >= 0; l--) {
                     if (entityDef.actions[l] != null && !entityDef.actions[l].equalsIgnoreCase("attack")) {
                         menuActionName[menuActionRow] = entityDef.actions[l] + " @yel@" + s;

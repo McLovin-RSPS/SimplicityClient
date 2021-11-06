@@ -93,6 +93,13 @@ public final class MobDefinition {
             }
 
             switch (i) {
+            
+            case 8598:
+            case 10507:
+            case 10511:
+            	npc.actions = new String[5];
+                npc.actions[1] = "Attack";
+            	break;
 
             case 7317: // Old Lisa
                 npc.models = new int[] {  398, 20516, 6693, 19951, 13319, 337, 9644, 9640  };
