@@ -171,6 +171,36 @@ public enum MagicItems {
 		public int getReturnValue(int runeId) {
 			return UNLIMITED;
 		}
+	},
+	IBAN_STAFF(1409, new int[]{1409}) {
+		@Override
+		public int getReturnValue(int staffId) {
+			return 1;
+		}
+	},
+	SLAYER_STAFF(4170, new int[]{4170}) {
+		@Override
+		public int getReturnValue(int staffId) {
+			return 1;
+		}
+	},
+	SARADOMIN_STAFF(2415, new int[]{2415}) {
+		@Override
+		public int getReturnValue(int staffId) {
+			return 1;
+		}
+	},
+	GUTHIX_STAFF(2416, new int[]{2416}) {
+		@Override
+		public int getReturnValue(int staffId) {
+			return 1;
+		}
+	},
+	ZAMORAK_STAFF(2417, new int[]{2417}) {
+		@Override
+		public int getReturnValue(int staffId) {
+			return 1;
+		}
 	};
 
 	/**
