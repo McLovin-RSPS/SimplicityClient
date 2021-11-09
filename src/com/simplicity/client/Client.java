@@ -15967,7 +15967,7 @@ public class Client extends RSApplet {
             try {
                 renderWorld();
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
         }
         if (loadingStage == 2) {
