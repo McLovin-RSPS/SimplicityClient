@@ -349,32 +349,37 @@ public class Model extends Animable {
         }
         ModelHeader modelHeader;
 
-        if (dataType == DataType.OLDSCHOOL) {
-            modelHeader = modelHeaderOldschool[i];
-            if (modelHeader == null) {
-                resourceManager.get(Client.OSRS_MODEL_IDX - 1, i);
-                return false;
+        try {
+            if (dataType == DataType.OLDSCHOOL) {
+                modelHeader = modelHeaderOldschool[i];
+                if (modelHeader == null) {
+                    resourceManager.get(Client.OSRS_MODEL_IDX - 1, i);
+                    return false;
+                } else {
+                    return true;
+                }
+            } else if (dataType == DataType.CUSTOM) {
+                modelHeader = modelHeaderCustom[i];
+
+                if (modelHeader == null) {
+                    resourceManager.get(Client.CUSTOM_MODEL_IDX - 1, i);
+                    return false;
+                } else {
+                    return true;
+                }
             } else {
-                return true;
+                modelHeader = modelHeaderRegular[i];
+
+                if (modelHeader == null) {
+                    resourceManager.get(Client.MODEL_IDX - 1, i);
+                    return false;
+                } else {
+                    return true;
+                }
             }
-        } else if (dataType == DataType.CUSTOM) {
-        	modelHeader = modelHeaderCustom[i];
-        	
-            if (modelHeader == null) {
-                resourceManager.get(Client.CUSTOM_MODEL_IDX - 1, i);
-                return false;
-            } else {
-                return true;
-            }
-        } else {
-            modelHeader = modelHeaderRegular[i];
-            
-            if (modelHeader == null) {
-                resourceManager.get(Client.MODEL_IDX - 1, i);
-                return false;
-            } else {
-                return true;
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
