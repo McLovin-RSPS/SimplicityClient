@@ -809,10 +809,6 @@ public class Model extends Animable {
 	}
 
     public Model(int i, Model attach[]) {
-        this(i, attach, false);
-    }
-
-    public Model(int i, Model attach[], boolean object) {
         try {
             aBoolean1618 = true;
             rendersWithinOneTile = false;
@@ -871,11 +867,9 @@ public class Model extends Animable {
                 face_alpha = new int[numberOfTriangleFaces];
             if (has_skin)
                 triangleTSkin = new int[numberOfTriangleFaces];
-            if (object) {
-                face_shade_a = new int[numberOfTriangleFaces];
-                face_shade_b = new int[numberOfTriangleFaces];
-                face_shade_c = new int[numberOfTriangleFaces];
-            }
+            face_shade_a = new int[numberOfTriangleFaces];
+            face_shade_b = new int[numberOfTriangleFaces];
+            face_shade_c = new int[numberOfTriangleFaces];
             if (has_color)
                 face_color = new int[numberOfTriangleFaces];
             if (numberOfTexturesFaces > 0) {
@@ -1033,10 +1027,6 @@ public class Model extends Animable {
     }
 
     public Model(Model amodel[]) {
-        this(2, amodel, true);
-    }
-
-    /*public Model(Model amodel[]) {
         int i = 2;
         aBoolean1618 = true;
         rendersWithinOneTile = false;
@@ -1173,7 +1163,7 @@ public class Model extends Animable {
         }
 
         calculateDiagonals();
-    }*/
+    }
 
     public void applyTransform(int i) {
         applyTransform(i, DataType.REGULAR);
@@ -1997,153 +1987,107 @@ public class Model extends Animable {
                 + (int) (Math.sqrt(anInt1650 * anInt1650 + anInt1651 * anInt1651) + 0.98999999999999999D);
     }
 
-    private final void rasterise(int face) {
-        if (outOfReach[face]) {
-            reduce(face);
+    private final void rasterise(int i) {
+        if (outOfReach[i]) {
+            reduce(i);
             return;
         }
-        int a = face_a[face] & 0xffff;
-        int b = face_b[face] & 0xffff;
-        int c = face_c[face] & 0xffff;
-        if (face_color != null && face_color[face] == -1)
-            return;
-        Rasterizer.aBoolean1462 = hasAnEdgeToRestrict[face];
-        Rasterizer.anInt1465 = (face_alpha == null ? 0 : face_alpha[face]);
-        int face_type;
-        if (face_render_type == null)
-            face_type = 0;
+        int j = face_a[i];
+        int k = face_b[i];
+        int l = face_c[i];
+        Rasterizer.aBoolean1462 = hasAnEdgeToRestrict[i];
+        if (face_alpha == null)
+            Rasterizer.anInt1465 = 0;
         else
-            face_type = face_render_type[face] & 0xff;
-
-        boolean noTextureValues = (face_texture == null || (face < face_texture.length && face_texture[face] == -1) ? true : false);
-        boolean noCoordinates = (texture_coordinates == null || (face < texture_coordinates.length && texture_coordinates[face] == -1) ? true : false);
-
-        if (noTextureValues || noCoordinates) {
-            if (face_type == 0) {
-                Rasterizer.drawGouraudTriangle(projected_vertex_y[a], projected_vertex_y[b],
-                        projected_vertex_y[c], projected_vertex_x[a],
-                        projected_vertex_x[b], projected_vertex_x[c],
-                        face_shade_a[face], face_shade_b[face], face_shade_c[face], projected_vertex_z[a],
-                        projected_vertex_z[b], projected_vertex_z[c]);
+            Rasterizer.anInt1465 = (face_alpha)[i];
+        int type;
+        if (face_render_type == null)
+            type = 0;
+        else
+            type = face_render_type[i] & 3;
+        if (face_texture != null && face_texture[i] != -1) {
+            int texture_a = j;
+            int texture_b = k;
+            int texture_c = l;
+            if (texture_coordinates != null && texture_coordinates[i] != -1) {
+                int coordinate = texture_coordinates[i] & 0xff;
+                texture_a = textures_face_a[coordinate];
+                texture_b = textures_face_b[coordinate];
+                texture_c = textures_face_c[coordinate];
+            }
+            if (face_c[i] == -1 || type == 3) {
+                Rasterizer.drawTexturedTriangle(projected_vertex_y[j], projected_vertex_y[k],
+                        projected_vertex_y[l], projected_vertex_x[j],
+                        projected_vertex_x[k], projected_vertex_x[l],
+                        face_shade_a[i], face_shade_a[i], face_shade_a[i],
+                        camera_vertex_y[texture_a], camera_vertex_y[texture_b],
+                        camera_vertex_y[texture_c], camera_vertex_x[texture_a],
+                        camera_vertex_x[texture_b], camera_vertex_x[texture_c],
+                        camera_vertex_z[texture_a], camera_vertex_z[texture_b],
+                        camera_vertex_z[texture_c], face_texture[i], projected_vertex_z[j],
+                        projected_vertex_z[k], projected_vertex_z[l]);
+            } else {
+                Rasterizer.drawTexturedTriangle(projected_vertex_y[j], projected_vertex_y[k],
+                        projected_vertex_y[l], projected_vertex_x[j],
+                        projected_vertex_x[k], projected_vertex_x[l],
+                        face_shade_a[i], face_shade_b[i], face_shade_c[i],
+                        camera_vertex_y[texture_a], camera_vertex_y[texture_b],
+                        camera_vertex_y[texture_c], camera_vertex_x[texture_a],
+                        camera_vertex_x[texture_b], camera_vertex_x[texture_c],
+                        camera_vertex_z[texture_a], camera_vertex_z[texture_b],
+                        camera_vertex_z[texture_c], face_texture[i], projected_vertex_z[j],
+                        projected_vertex_z[k], projected_vertex_z[l]);
+            }
+        } else {
+            if (type == 0) {
+                Rasterizer.drawGouraudTriangle(projected_vertex_y[j], projected_vertex_y[k],
+                        projected_vertex_y[l], projected_vertex_x[j],
+                        projected_vertex_x[k], projected_vertex_x[l],
+                        face_shade_a[i], face_shade_b[i], face_shade_c[i], projected_vertex_z[j],
+                        projected_vertex_z[k], projected_vertex_z[l]);
                 return;
             }
-            if (face_type == 1) {
-                Rasterizer.drawFlatTriangle(projected_vertex_y[a], projected_vertex_y[b],
-                        projected_vertex_y[c], projected_vertex_x[a],
-                        projected_vertex_x[b], projected_vertex_x[c],
-                        hsl2rgb[face_shade_a[face]], projected_vertex_z[a],
-                        projected_vertex_z[b], projected_vertex_z[c]);
+            if (type == 1) {
+                Rasterizer.drawFlatTriangle(projected_vertex_y[j], projected_vertex_y[k],
+                        projected_vertex_y[l], projected_vertex_x[j],
+                        projected_vertex_x[k], projected_vertex_x[l],
+                        hsl2rgb[face_shade_a[i]], projected_vertex_z[j],
+                        projected_vertex_z[k], projected_vertex_z[l]);
                 return;
             }
-            if (face_type == 2) {
-                int j1 = face_render_type[face] >> 2;
+            if (type == 2) {
+                int j1 = face_render_type[i] >> 2;
                 int l1 = textures_face_a[j1];
                 int j2 = textures_face_b[j1];
                 int l2 = textures_face_c[j1];
-                Rasterizer.drawTexturedTriangle(projected_vertex_y[a], projected_vertex_y[b],
-                        projected_vertex_y[c], projected_vertex_x[a],
-                        projected_vertex_x[b], projected_vertex_x[c],
-                        face_shade_a[face], face_shade_b[face], face_shade_c[face],
+                Rasterizer.drawTexturedTriangle(projected_vertex_y[j], projected_vertex_y[k],
+                        projected_vertex_y[l], projected_vertex_x[j],
+                        projected_vertex_x[k], projected_vertex_x[l],
+                        face_shade_a[i], face_shade_b[i], face_shade_c[i],
                         camera_vertex_y[l1], camera_vertex_y[j2],
                         camera_vertex_y[l2], camera_vertex_x[l1],
                         camera_vertex_x[j2], camera_vertex_x[l2],
                         camera_vertex_z[l1], camera_vertex_z[j2],
-                        camera_vertex_z[l2], face_color[face], projected_vertex_z[a],
-                        projected_vertex_z[b], projected_vertex_z[c]);
+                        camera_vertex_z[l2], face_color[i], projected_vertex_z[j],
+                        projected_vertex_z[k], projected_vertex_z[l]);
                 return;
             }
-            if (face_type == 3) {
-                int k1 = face_render_type[face] >> 2;
+            if (type == 3) {
+                int k1 = face_render_type[i] >> 2;
                 int i2 = textures_face_a[k1];
                 int k2 = textures_face_b[k1];
                 int i3 = textures_face_c[k1];
-                Rasterizer.drawTexturedTriangle(projected_vertex_y[a], projected_vertex_y[b],
-                        projected_vertex_y[c], projected_vertex_x[a],
-                        projected_vertex_x[b], projected_vertex_x[c],
-                        face_shade_a[face], face_shade_a[face], face_shade_a[face],
+                Rasterizer.drawTexturedTriangle(projected_vertex_y[j], projected_vertex_y[k],
+                        projected_vertex_y[l], projected_vertex_x[j],
+                        projected_vertex_x[k], projected_vertex_x[l],
+                        face_shade_a[i], face_shade_a[i], face_shade_a[i],
                         camera_vertex_y[i2], camera_vertex_y[k2],
                         camera_vertex_y[i3], camera_vertex_x[i2],
                         camera_vertex_x[k2], camera_vertex_x[i3],
                         camera_vertex_z[i2], camera_vertex_z[k2],
-                        camera_vertex_z[i3], face_color[face], projected_vertex_z[a],
-                        projected_vertex_z[b], projected_vertex_z[c]);
+                        camera_vertex_z[i3], face_color[i], projected_vertex_z[j],
+                        projected_vertex_z[k], projected_vertex_z[l]);
             }
-        }
-
-        if (face < face_texture.length && face_texture[face] < Rasterizer.textureAmount/* || display_model_specific_texture*/) {
-            if (face_type == 0) {
-                int texture_type = !noCoordinates ? texture_coordinates[face] & 0xff : -1;
-                if (texture_type == 0xff)
-                    texture_type = -1;
-                if (texture_type == -1 || texture_render_type == null || texture_render_type[texture_type] >= 0) {
-                    int x = (texture_type == -1 || texture_render_type[texture_type] > 0) ? a : textures_face_a[texture_type];
-                    int y = (texture_type == -1 || texture_render_type[texture_type] > 0) ? b : textures_face_b[texture_type];
-                    int z = (texture_type == -1 || texture_render_type[texture_type] > 0) ? c : textures_face_c[texture_type];
-
-                    if (face_shade_c[face] == -1) {
-                        Rasterizer.drawTexturedTriangle(
-                                projected_vertex_y[a], projected_vertex_y[b], projected_vertex_y[c],
-                                projected_vertex_x[a], projected_vertex_x[b], projected_vertex_x[c],
-                                face_shade_a[face], face_shade_a[face], face_shade_a[face],
-                                camera_vertex_y[x], camera_vertex_y[y], camera_vertex_y[z],
-                                camera_vertex_x[x], camera_vertex_x[y], camera_vertex_x[z],
-                                camera_vertex_z[x], camera_vertex_z[y], camera_vertex_z[z],
-                                face_texture[face], projected_vertex_z[a], projected_vertex_z[b],
-                                projected_vertex_z[c]);
-                    } else {
-                        Rasterizer.drawTexturedTriangle(
-                                projected_vertex_y[a], projected_vertex_y[b], projected_vertex_y[c],
-                                projected_vertex_x[a], projected_vertex_x[b], projected_vertex_x[c],
-                                face_shade_a[face], face_shade_b[face], face_shade_c[face],
-                                camera_vertex_y[x], camera_vertex_y[y], camera_vertex_y[z],
-                                camera_vertex_x[x], camera_vertex_x[y], camera_vertex_x[z],
-                                camera_vertex_z[x], camera_vertex_z[y], camera_vertex_z[z],
-                                face_texture[face], projected_vertex_z[a], projected_vertex_z[b],
-                                projected_vertex_z[c]);
-                    }
-
-                    return;
-                }
-            }
-
-            if (face_type == 1) {
-                int texture_type = !noCoordinates ? texture_coordinates[face] & 0xff : -1;
-                if (texture_type == 0xff)
-                    texture_type = -1;
-                if (texture_type == -1 || texture_render_type == null || texture_render_type[texture_type] >= 0) {
-                    int x = (texture_type == -1 || texture_render_type[texture_type] > 0) ? a : textures_face_a[texture_type];
-                    int y = (texture_type == -1 || texture_render_type[texture_type] > 0) ? b : textures_face_b[texture_type];
-                    int z = (texture_type == -1 || texture_render_type[texture_type] > 0) ? c : textures_face_c[texture_type];
-                    System.out.println("face type is 1");
-                    Rasterizer.drawTexturedTriangle(
-                            projected_vertex_y[a], projected_vertex_y[b], projected_vertex_y[c],
-                            projected_vertex_x[a], projected_vertex_x[b], projected_vertex_x[c],
-                            face_shade_a[face], face_shade_a[face], face_shade_a[face],
-                            camera_vertex_y[x], camera_vertex_y[y], camera_vertex_y[z],
-                            camera_vertex_x[x], camera_vertex_x[y], camera_vertex_x[z],
-                            camera_vertex_z[x], camera_vertex_z[y], camera_vertex_z[z],
-                            face_texture[face], projected_vertex_z[a], projected_vertex_z[b],
-                            projected_vertex_z[c]);
-                    return;
-                }
-            }
-        }
-
-        if (face_type == 0) {
-            Rasterizer.drawGouraudTriangle(
-                    projected_vertex_y[a], projected_vertex_y[b], projected_vertex_y[c],
-                    projected_vertex_x[a], projected_vertex_x[b], projected_vertex_x[c],
-                    face_shade_a[face], face_shade_b[face], face_shade_c[face],
-                    projected_vertex_z[a], projected_vertex_z[b], projected_vertex_z[c]);
-            return;
-        }
-        if (face_type == 1) {
-            Rasterizer.drawFlatTriangle(
-                    projected_vertex_y[a], projected_vertex_y[b], projected_vertex_y[c],
-                    projected_vertex_x[a], projected_vertex_x[b], projected_vertex_x[c],
-                    hsl2rgb[face_shade_a[face]],
-                    projected_vertex_z[a], projected_vertex_z[b], projected_vertex_z[c]);
-            return;
         }
     }
 
