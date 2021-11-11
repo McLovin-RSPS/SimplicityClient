@@ -412,6 +412,12 @@ public final class ObjectDefinition {
 
         cacheIndex = (cacheIndex + 1) % 200;
         ObjectDefinition objectDef = cache[cacheIndex];
+        objectDef.type = i;
+        objectDef.setDefaults();
+
+        if (loadCustom(i, objectDef)) {
+            return objectDef;
+        }
 
         try {
             if (i >= streamIndices.length || loadNew)
@@ -422,8 +428,6 @@ public final class ObjectDefinition {
             e.printStackTrace();
         }
 
-        objectDef.type = i;
-        objectDef.setDefaults();
         if (i > streamIndices.length || loadNew) {
             objectDef.readValues(stream667);
         } else {
@@ -1018,6 +1022,37 @@ public final class ObjectDefinition {
 			objectDef.actions = new String[] {"lol" , null, null, null, null, null};
 		}
         return objectDef;
+    }
+
+    private static boolean loadCustom(int i, ObjectDefinition objectDef) {
+        switch (i) {
+            case 63000:
+                objectDef.setDefaults();
+                objectDef.objectModelIDs = new int[]{ 139 };
+                objectDef.objectModelTypes = new int[] { 10 };
+                objectDef.dataType = DataType.CUSTOM;
+                return true;
+            case 63001:
+                objectDef.setDefaults();
+                objectDef.objectModelIDs = new int[]{ 140 };
+                objectDef.objectModelTypes = new int[] { 10 };
+                objectDef.dataType = DataType.CUSTOM;
+                return true;
+            case 63002:
+                objectDef.setDefaults();
+                objectDef.objectModelIDs = new int[]{ 141 };
+                objectDef.objectModelTypes = new int[] { 10 };
+                objectDef.dataType = DataType.CUSTOM;
+                return true;
+            case 63003:
+                objectDef.setDefaults();
+                objectDef.objectModelIDs = new int[]{ 143 };
+                objectDef.objectModelTypes = new int[] { 10 };
+                objectDef.dataType = DataType.CUSTOM;
+                return true;
+        }
+
+        return false;
     }
 
     private void setDefaults() {
