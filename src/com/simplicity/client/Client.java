@@ -4643,6 +4643,7 @@ public class Client extends RSApplet {
         ObjectDefinition.completedOSRSModelCache.clear();
         MobDefinition.modelCache.clear();
         MobDefinition.modelCacheOSRS.clear();
+        MobDefinition.modelCacheCustom.clear();
         ItemDefinition.modelCache.clear();
         ItemDefinition.modelCacheOSRS.clear();
         ItemDefinition.modelCacheCustom.clear();

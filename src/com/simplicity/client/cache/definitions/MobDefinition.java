@@ -2527,6 +2527,7 @@ public final class MobDefinition {
     public static void nullLoader() {
         modelCache = null;
         modelCacheOSRS = null;
+        modelCacheCustom = null;
         streamIndices = null;
         cache = null;
         stream = null;
@@ -2540,7 +2541,7 @@ public final class MobDefinition {
             else
                 return npc.getAnimatedModel(j, k, ai);
         }
-        Model completedModel = dataType == DataType.OLDSCHOOL ? (Model) modelCacheOSRS.get(type) : (Model) modelCache.get(type);
+        Model completedModel = dataType == DataType.CUSTOM ? (Model) modelCacheCustom.get(type) : dataType == DataType.OLDSCHOOL ? (Model) modelCacheOSRS.get(type) : (Model) modelCache.get(type);
         if (completedModel == null) {
             boolean everyModelFetched = false;
             for (int ptr = 0; ptr < models.length; ptr++)
@@ -2562,7 +2563,9 @@ public final class MobDefinition {
             }
             completedModel.createBones();
             completedModel.light(frontLight, backLight, rightLight, middleLight, leftLight, true);
-            if (dataType == DataType.OLDSCHOOL) {
+            if (dataType == DataType.CUSTOM) {
+                modelCacheCustom.put(completedModel, type);
+            } else if (dataType == DataType.OLDSCHOOL) {
                 modelCacheOSRS.put(completedModel, type);
             } else {
                 modelCache.put(completedModel, type);
@@ -2592,7 +2595,7 @@ public final class MobDefinition {
             else
                 return npc.method164(j, frame, ai, nextFrame, idk, idk2);
         }
-        Model completedModel = dataType == DataType.OLDSCHOOL ? (Model) modelCacheOSRS.get(type) : (Model) modelCache.get(type);
+        Model completedModel = dataType == DataType.CUSTOM ? (Model) modelCacheCustom.get(type) : dataType == DataType.OLDSCHOOL ? (Model) modelCacheOSRS.get(type) : (Model) modelCache.get(type);
         if (completedModel == null) {
             if (models == null)
             	return null;
@@ -2615,8 +2618,10 @@ public final class MobDefinition {
                     completedModel.recolour(originalColours[k1], destColours[k1]);
             }
             completedModel.createBones();
-            completedModel.light(frontLight, backLight, rightLight, middleLight, leftLight, true);
-            if (dataType == DataType.OLDSCHOOL) {
+            completedModel.light(frontLight, backLight, rightLight, middleLight, leftLight, true, false);
+            if (dataType == DataType.CUSTOM) {
+                modelCacheCustom.put(completedModel, type);
+            } else if (dataType == DataType.OLDSCHOOL) {
                 modelCacheOSRS.put(completedModel, type);
             } else {
                 modelCache.put(completedModel, type);
@@ -2682,6 +2687,7 @@ public final class MobDefinition {
 	public static void reloadCache() {
 		modelCache.clear();
 		modelCacheOSRS.clear();
+        modelCacheCustom.clear();
 		
         cache = new MobDefinition[20];
         cacheOSRS = new MobDefinition[20];
@@ -3016,6 +3022,7 @@ public final class MobDefinition {
     public int[] models;
     public static MemCache modelCache = new MemCache(30);
     public static MemCache modelCacheOSRS = new MemCache(30);
+    public static MemCache modelCacheCustom = new MemCache(30);
     public int id;
     public DataType dataType = DataType.REGULAR;
 }

@@ -346,6 +346,9 @@ public class Model extends Animable {
         if (dataType == DataType.OLDSCHOOL) {
             if (modelHeaderOldschool == null)
                 return false;
+        } else if (dataType == DataType.CUSTOM) {
+            if (modelHeaderCustom == null)
+                return false;
         } else {
             if (modelHeaderRegular == null)
                 return false;
