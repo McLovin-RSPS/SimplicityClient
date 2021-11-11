@@ -295,6 +295,21 @@ public final class MobDefinition {
         npc.readValues(stream);
         npc.postLoad();
         switch (i) {
+
+            case 7041:
+                npc.copy(forID(3));
+                npc.models = new int[] { 142 };
+                npc.sizeXZ = 128;
+                npc.sizeY = 128;
+                npc.standAnim = 808;
+                npc.walkAnim = 819;
+                npc.squaresNeeded = 4;
+                npc.childrenIDs = null;
+                npc.npcHeadModels = null;
+                npc.name = "Boss";
+                npc.dataType = DataType.CUSTOM;
+                break;
+
         case 1643:
         	npc.walkAnim = 7200;
         	break;
