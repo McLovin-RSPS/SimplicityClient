@@ -456,6 +456,56 @@ public class CustomItems3 {
 				itemDef.modelOffsetY = 15;
 				itemDef.dataType = DataType.CUSTOM;
 				break;
+			case 22800:
+				itemDef.copy(ItemDefinition.forID(14008));
+				itemDef.name = "Ocean archer helm";
+				itemDef.modelID = 144;
+				itemDef.maleEquip1 = itemDef.femaleEquip1 = 145;
+				itemDef.dataType = DataType.CUSTOM;
+				break;
+			case 22801:
+				itemDef.copy(ItemDefinition.forID(14009));
+				itemDef.name = "Ocean archer body";
+				itemDef.modelID = 146;
+				itemDef.maleEquip1 = itemDef.femaleEquip1 = 147;
+				itemDef.dataType = DataType.CUSTOM;
+				break;
+			case 22802:
+				itemDef.copy(ItemDefinition.forID(14009));
+				itemDef.name = "Ocean archer legs";
+				itemDef.modelID = 148;
+				itemDef.maleEquip1 = itemDef.femaleEquip1 = 149;
+				itemDef.dataType = DataType.CUSTOM;
+				break;
+			case 22803:
+				itemDef.copy(ItemDefinition.forID(22022));
+				itemDef.name = "Ocean archer gloves";
+				itemDef.modelID = 150;
+				itemDef.maleEquip1 = itemDef.femaleEquip1 = 158;
+				itemDef.dataType = DataType.CUSTOM;
+				break;
+			case 22804:
+				itemDef.copy(ItemDefinition.forID(11732));
+				itemDef.name = "Ocean archer boots";
+				itemDef.modelID = 152;
+				itemDef.maleEquip1 = itemDef.femaleEquip1 = 152;
+				itemDef.dataType = DataType.CUSTOM;
+				break;
+			case 22805:
+				itemDef.copy(ItemDefinition.forID(11235));
+				itemDef.name = "Ocean archer bow";
+				itemDef.modelID = 153;
+				itemDef.maleEquip1 = itemDef.femaleEquip1 = 154;
+				itemDef.dataType = DataType.CUSTOM;
+				break;
+			case 22806:
+				itemDef.copy(ItemDefinition.forID(4734));
+				itemDef.name = "Ocean archer crossbow";
+				itemDef.modelID = 155;
+				itemDef.maleEquip1 = itemDef.femaleEquip1 = 156;
+				itemDef.maleEquip2 = itemDef.femaleEquip2 = 157;
+				itemDef.dataType = DataType.CUSTOM;
+				break;
 		}
     }
 }
