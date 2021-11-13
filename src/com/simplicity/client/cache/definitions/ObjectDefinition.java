@@ -514,6 +514,15 @@ public final class ObjectDefinition {
         if (i == 48661) {
             objectDef.description = new String("Statue of the almighty owner of Simplicity.").getBytes();
         }
+        if (i == 63000) {
+            objectDef.description = new String("Statue of Kevin.").getBytes();
+        }
+        if (i == 63002) {
+            objectDef.description = new String("Statue of Arthur.").getBytes();
+        }
+        if (i == 63003) {
+            objectDef.description = new String("Statue of Supreme.").getBytes();
+        }
         if (i == 56839) {
             objectDef.actions = new String[]{"Pickup", null, null, null, null};
             objectDef.name = "@yel@Mysterious plant";
