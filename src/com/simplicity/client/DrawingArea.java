@@ -403,7 +403,7 @@ public class DrawingArea extends QueueNode {
 							int colored_pixel = pixels[total_pixels];
 							colored_pixel = ((colored_pixel & 0xff00ff) * result_alpha >> 8 & 0xff00ff)
 									+ ((colored_pixel & 0xff00) * result_alpha >> 8 & 0xff00);
-							drawAlpha(pixels, total_pixels++, color + colored_pixel, color + colored_pixel, 255);
+							drawAlpha(pixels, total_pixels++, color + colored_pixel, color + colored_pixel, alpha);
 						}
 						total_pixels += i2;
 						k1 += l1;
