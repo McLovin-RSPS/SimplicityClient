@@ -500,7 +500,6 @@ public class Model extends Animable {
     public byte[] textureTypes;
     public short[] materials;
     public byte[] textures;
-    public boolean display_model_specific_texture;
     public int verticesXCoordinate[];
     public int verticesYCoordinate[];
     public int verticesZCoordinate[];
@@ -574,14 +573,7 @@ public class Model extends Animable {
             }
 
         }
-        if (colored) {
-            face_color = model.face_color;
-        } else {
-            face_color = new int[numberOfTriangleFaces];
-            for (int k = 0; k < numberOfTriangleFaces; k++)
-                face_color[k] = model.face_color[k];
-
-        }
+        face_color = model.face_color;
         if (alphas) {
             face_alpha = model.face_alpha;
         } else {
@@ -604,15 +596,12 @@ public class Model extends Animable {
         face_c = model.face_c;
         face_render_priorities = model.face_render_priorities;
         face_priority = model.face_priority;
-        if (numberOfTexturesFaces > 0) {
-            textures_face_a = model.textures_face_a;
-            textures_face_b = model.textures_face_b;
-            textures_face_c = model.textures_face_c;
-            materials = model.materials;
-            display_model_specific_texture = texture;
-            textures = model.textures;
-            textureTypes = model.textureTypes;
-        }
+        textures_face_a = model.textures_face_a;
+        textures_face_b = model.textures_face_b;
+        textures_face_c = model.textures_face_c;
+        materials = model.materials;
+        textures = model.textures;
+        textureTypes = model.textureTypes;
     }
 
     public Model(boolean adjust, boolean flag1, Model model) {
@@ -629,15 +618,6 @@ public class Model extends Animable {
 
         } else {
             verticesYCoordinate = model.verticesYCoordinate;
-        }
-
-        if (numberOfTexturesFaces > 0) {
-            textures_face_a = model.textures_face_a;
-            textures_face_b = model.textures_face_b;
-            textures_face_c = model.textures_face_c;
-            materials = model.materials;
-            textures = model.textures;
-            textureTypes = model.textureTypes;
         }
 
         if (flag1) {
@@ -687,6 +667,12 @@ public class Model extends Animable {
         face_a = model.face_a;
         face_b = model.face_b;
         face_c = model.face_c;
+        textures_face_a = model.textures_face_a;
+        textures_face_b = model.textures_face_b;
+        textures_face_c = model.textures_face_c;
+        materials = model.materials;
+        textures = model.textures;
+        textureTypes = model.textureTypes;
         super.modelHeight = model.modelHeight;
 
         anInt1650 = model.anInt1650;
@@ -877,16 +863,16 @@ public class Model extends Animable {
             face_shade_c = new int[numberOfTriangleFaces];
             if (has_color)
                 face_color = new int[numberOfTriangleFaces];
+            if (has_texture)
+                materials = new short[numberOfTriangleFaces];
+            if (has_coordinate)
+                textures = new byte[numberOfTriangleFaces];
             if (numberOfTexturesFaces > 0) {
                 textures_face_a = new int[numberOfTexturesFaces];
                 textures_face_b = new int[numberOfTexturesFaces];
                 textures_face_c = new int[numberOfTexturesFaces];
                 textureTypes = new byte[numberOfTexturesFaces];
             }
-            if (has_coordinate)
-                textures = new byte[numberOfTriangleFaces];
-            if (has_texture)
-                materials = new short[numberOfTriangleFaces];
             numberOfVerticeCoordinates = 0;
             numberOfTriangleFaces = 0;
             numberOfTexturesFaces = 0;
@@ -942,7 +928,6 @@ public class Model extends Animable {
                         if (has_texture) {
                             if (connect.materials != null && connect.materials[j1] != -1) {
                                 materials[numberOfTriangleFaces] = connect.materials[j1];
-                                display_model_specific_texture = true;
                             } else
                                 materials[numberOfTriangleFaces] = -1;
                         }
@@ -1100,7 +1085,7 @@ public class Model extends Animable {
         for (int j1 = 0; j1 < i; j1++) {
             Model model_1 = amodel[j1];
             if (model_1 != null) {
-                int k1 = numberOfVerticeCoordinates;
+                int vertice_coord = numberOfVerticeCoordinates;
                 for (int l1 = 0; l1 < model_1.numberOfVerticeCoordinates; l1++) {
                     this.verticesParticle[numberOfVerticeCoordinates] = model_1.verticesParticle[l1];
                     verticesXCoordinate[numberOfVerticeCoordinates] = model_1.verticesXCoordinate[l1];
@@ -1110,9 +1095,9 @@ public class Model extends Animable {
                 }
 
                 for (int i2 = 0; i2 < model_1.numberOfTriangleFaces; i2++) {
-                    face_a[numberOfTriangleFaces] = model_1.face_a[i2] + k1;
-                    face_b[numberOfTriangleFaces] = model_1.face_b[i2] + k1;
-                    face_c[numberOfTriangleFaces] = model_1.face_c[i2] + k1;
+                    face_a[numberOfTriangleFaces] = model_1.face_a[i2] + vertice_coord;
+                    face_b[numberOfTriangleFaces] = model_1.face_b[i2] + vertice_coord;
+                    face_c[numberOfTriangleFaces] = model_1.face_c[i2] + vertice_coord;
                     face_shade_a[numberOfTriangleFaces] = model_1.face_shade_a[i2];
                     face_shade_b[numberOfTriangleFaces] = model_1.face_shade_b[i2];
                     face_shade_c[numberOfTriangleFaces] = model_1.face_shade_c[i2];
@@ -1157,9 +1142,9 @@ public class Model extends Animable {
                 }
 
                 for (int k2 = 0; k2 < model_1.numberOfTexturesFaces; k2++) {
-                    textures_face_a[numberOfTexturesFaces] = model_1.textures_face_a[k2] + k1;
-                    textures_face_b[numberOfTexturesFaces] = model_1.textures_face_b[k2] + k1;
-                    textures_face_c[numberOfTexturesFaces] = model_1.textures_face_c[k2] + k1;
+                    textures_face_a[numberOfTexturesFaces] = model_1.textures_face_a[k2] + vertice_coord;
+                    textures_face_b[numberOfTexturesFaces] = model_1.textures_face_b[k2] + vertice_coord;
+                    textures_face_c[numberOfTexturesFaces] = model_1.textures_face_c[k2] + vertice_coord;
                     numberOfTexturesFaces++;
                 }
 
@@ -1470,7 +1455,6 @@ public class Model extends Animable {
 
     public void light(int i, int j, int k, int l, int i1, boolean flag, boolean texture, boolean renderBlack) {
         try {
-            display_model_specific_texture = texture;
             int j1 = (int) Math.sqrt(k * k + l * l + i1 * i1);
             int k1 = j * j1 >> 8;
             if (face_shade_a == null) {
@@ -1622,26 +1606,6 @@ public class Model extends Animable {
             verticesZCoordinate[k] = model.verticesZCoordinate[k];
         }
 
-        if (numberOfTexturesFaces > 0) {
-            textures_face_a = model.textures_face_a;
-            textures_face_b = model.textures_face_b;
-            textures_face_c = model.textures_face_c;
-
-            if (texture) {
-                materials = model.materials;
-            } else {
-                materials = new short[numberOfTriangleFaces];
-                if (model.materials != null) {
-                    for (int l = 0; l < numberOfTriangleFaces; l++)
-                        materials[l] = -1;
-                }
-            }
-            //force_texture = npc;
-            display_model_specific_texture = texture;
-            textures = model.textures;
-            textureTypes = model.textureTypes;
-        }
-
         if (flag) {
             face_alpha = model.face_alpha;
         } else {
@@ -1682,6 +1646,12 @@ public class Model extends Animable {
         face_shade_a = model.face_shade_a;
         face_shade_b = model.face_shade_b;
         face_shade_c = model.face_shade_c;
+        textures_face_a = model.textures_face_a;
+        textures_face_b = model.textures_face_b;
+        textures_face_c = model.textures_face_c;
+        materials = model.materials;
+        textures = model.textures;
+        textureTypes = model.textureTypes;
     }
 
     private final int method465(Model model, int i) {
@@ -2010,7 +1980,7 @@ public class Model extends Animable {
             type = 0;
         else
             type = face_render_type[i] & 3;
-        if (materials != null && materials[i] != -1) {
+        if (materials != null && materials[i] != -1 && textures != null && textures[i] != -1 && textureTypes != null) {
             int texture_a = j;
             int texture_b = k;
             int texture_c = l;
@@ -2020,7 +1990,7 @@ public class Model extends Animable {
                 texture_b = textures_face_b[coordinate];
                 texture_c = textures_face_c[coordinate];
             }
-            if (face_c[i] == -1 || type == 3) {
+            if (face_c[i] == -1) {
                 Rasterizer.drawTexturedTriangle(projected_vertex_y[j], projected_vertex_y[k],
                         projected_vertex_y[l], projected_vertex_x[j],
                         projected_vertex_x[k], projected_vertex_x[l],
@@ -3048,7 +3018,7 @@ public class Model extends Animable {
             for (var43 = 0; var43 < var10; ++var43) {
                 var44 = this.textures[var43] & 255;
                 if (var44 != 255) {
-                    if (this.face_a[var43] == (this.textures_face_a[var44] & '\uffff') && this.face_b[var43] == (this.textures_face_b[var44] & '\uffff') && this.face_c[var43] == (this.textures_face_c[var44] & '\uffff')) {
+                    if (this.face_a[var43] == (this.textures_face_a[var44] & 0xffff) && this.face_b[var43] == (this.textures_face_b[var44] & 0xffff) && this.face_c[var43] == (this.textures_face_c[var44] & 0xffff)) {
                         this.textures[var43] = -1;
                     } else {
                         textured = true;
@@ -3253,9 +3223,9 @@ public class Model extends Animable {
                 int coordinate = textures[face] & 0xff;
 
                 if (coordinate != 255) {
-                    if (((textures_face_a[coordinate]) == face_a[face])
-                            && ((textures_face_b[coordinate]) == face_b[face])
-                            && ((textures_face_c[coordinate]) == face_c[face])) {
+                    if (((textures_face_a[coordinate] & 0xffff) == face_a[face])
+                            && ((textures_face_b[coordinate] & 0xffff) == face_b[face])
+                            && ((textures_face_c[coordinate] & 0xffff) == face_c[face])) {
                         textures[face] = -1;
                     } else {
                         textured = true;
@@ -3738,7 +3708,7 @@ public class Model extends Animable {
                 projected_vertex_x[j7] = -5000;
                 near_sight = true;
             }
-            if (near_sight || numberOfTexturesFaces > 0) {
+            if ((near_sight || numberOfTexturesFaces > 0) && !gpu) {
                 camera_vertex_y[j7] = k7;
                 camera_vertex_x[j7] = l7;
                 camera_vertex_z[j7] = i8;
@@ -4323,105 +4293,110 @@ public class Model extends Animable {
     public boolean uvsCalculated = false;
 
     public void computeTextureUVCoordinates() {
-        if (uvsCalculated) {
-            return;
-        }
-        this.faceTextureUCoordinates = new float[numberOfTriangleFaces][];
-        this.faceTextureVCoordinates = new float[numberOfTriangleFaces][];
-
-        for (int i = 0; i < numberOfTriangleFaces; i++) {
-            int textureCoordinate;
-            if (textures == null) {
-                textureCoordinate = -1;
-            } else {
-                textureCoordinate = textures[i];
+        try {
+            if (uvsCalculated) {
+                return;
             }
+            this.faceTextureUCoordinates = new float[numberOfTriangleFaces][];
+            this.faceTextureVCoordinates = new float[numberOfTriangleFaces][];
 
-            final int textureIdx;
-            if (materials == null) {
-                textureIdx = -1;
-            } else {
-                textureIdx = materials[i] & 0xFFFF;
-            }
-
-            if (textureIdx != -1) {
-                final float[] u = new float[3];
-                final float[] v = new float[3];
-
-                if (textureCoordinate == -1) {
-                    u[0] = 0.0F;
-                    v[0] = 1.0F;
-
-                    u[1] = 1.0F;
-                    v[1] = 1.0F;
-
-                    u[2] = 0.0F;
-                    v[2] = 0.0F;
+            for (int i = 0; i < numberOfTriangleFaces; i++) {
+                int textureCoordinate;
+                if (textures == null) {
+                    textureCoordinate = -1;
                 } else {
-                    textureCoordinate &= 0xFF;
-
-                    byte textureRenderType = 0;
-                    if (textureTypes != null) {
-                        textureRenderType = textureTypes[textureCoordinate];
-                    }
-
-                    if (textureRenderType == 0) {
-                        final int faceVertexIdx1 = face_a[i];
-                        final int faceVertexIdx2 = face_b[i];
-                        final int faceVertexIdx3 = face_c[i];
-
-                        final short triangleVertexIdx1 = (short) textures_face_a[textureCoordinate];
-                        final short triangleVertexIdx2 = (short) textures_face_b[textureCoordinate];
-                        final short triangleVertexIdx3 = (short) textures_face_c[textureCoordinate];
-
-                        final float triangleX = (float) verticesXCoordinate[triangleVertexIdx1];
-                        final float triangleY = (float) verticesYCoordinate[triangleVertexIdx1];
-                        final float triangleZ = (float) verticesZCoordinate[triangleVertexIdx1];
-
-                        final float f_882_ = (float) verticesXCoordinate[triangleVertexIdx2] - triangleX;
-                        final float f_883_ = (float) verticesYCoordinate[triangleVertexIdx2] - triangleY;
-                        final float f_884_ = (float) verticesZCoordinate[triangleVertexIdx2] - triangleZ;
-                        final float f_885_ = (float) verticesXCoordinate[triangleVertexIdx3] - triangleX;
-                        final float f_886_ = (float) verticesYCoordinate[triangleVertexIdx3] - triangleY;
-                        final float f_887_ = (float) verticesZCoordinate[triangleVertexIdx3] - triangleZ;
-                        final float f_888_ = (float) verticesXCoordinate[faceVertexIdx1] - triangleX;
-                        final float f_889_ = (float) verticesYCoordinate[faceVertexIdx1] - triangleY;
-                        final float f_890_ = (float) verticesZCoordinate[faceVertexIdx1] - triangleZ;
-                        final float f_891_ = (float) verticesXCoordinate[faceVertexIdx2] - triangleX;
-                        final float f_892_ = (float) verticesYCoordinate[faceVertexIdx2] - triangleY;
-                        final float f_893_ = (float) verticesZCoordinate[faceVertexIdx2] - triangleZ;
-                        final float f_894_ = (float) verticesXCoordinate[faceVertexIdx3] - triangleX;
-                        final float f_895_ = (float) verticesYCoordinate[faceVertexIdx3] - triangleY;
-                        final float f_896_ = (float) verticesZCoordinate[faceVertexIdx3] - triangleZ;
-
-                        final float f_897_ = f_883_ * f_887_ - f_884_ * f_886_;
-                        final float f_898_ = f_884_ * f_885_ - f_882_ * f_887_;
-                        final float f_899_ = f_882_ * f_886_ - f_883_ * f_885_;
-                        float f_900_ = f_886_ * f_899_ - f_887_ * f_898_;
-                        float f_901_ = f_887_ * f_897_ - f_885_ * f_899_;
-                        float f_902_ = f_885_ * f_898_ - f_886_ * f_897_;
-                        float f_903_ = 1.0F / (f_900_ * f_882_ + f_901_ * f_883_ + f_902_ * f_884_);
-
-                        u[0] = (f_900_ * f_888_ + f_901_ * f_889_ + f_902_ * f_890_) * f_903_;
-                        u[1] = (f_900_ * f_891_ + f_901_ * f_892_ + f_902_ * f_893_) * f_903_;
-                        u[2] = (f_900_ * f_894_ + f_901_ * f_895_ + f_902_ * f_896_) * f_903_;
-
-                        f_900_ = f_883_ * f_899_ - f_884_ * f_898_;
-                        f_901_ = f_884_ * f_897_ - f_882_ * f_899_;
-                        f_902_ = f_882_ * f_898_ - f_883_ * f_897_;
-                        f_903_ = 1.0F / (f_900_ * f_885_ + f_901_ * f_886_ + f_902_ * f_887_);
-
-                        v[0] = (f_900_ * f_888_ + f_901_ * f_889_ + f_902_ * f_890_) * f_903_;
-                        v[1] = (f_900_ * f_891_ + f_901_ * f_892_ + f_902_ * f_893_) * f_903_;
-                        v[2] = (f_900_ * f_894_ + f_901_ * f_895_ + f_902_ * f_896_) * f_903_;
-                    }
+                    textureCoordinate = textures[i];
                 }
 
-                this.faceTextureUCoordinates[i] = u;
-                this.faceTextureVCoordinates[i] = v;
+                final int textureIdx;
+                if (materials == null) {
+                    textureIdx = -1;
+                } else {
+                    textureIdx = materials[i] & 0xFFFF;
+                }
+
+                if (textureIdx != -1) {
+                    final float[] u = new float[3];
+                    final float[] v = new float[3];
+
+                    if (textureCoordinate == -1) {
+                        u[0] = 0.0F;
+                        v[0] = 1.0F;
+
+                        u[1] = 1.0F;
+                        v[1] = 1.0F;
+
+                        u[2] = 0.0F;
+                        v[2] = 0.0F;
+                    } else {
+                        textureCoordinate &= 0xFF;
+
+                        byte textureRenderType = 0;
+                        if (textureTypes != null) {
+                            textureRenderType = textureTypes[textureCoordinate];
+                        }
+
+                        if (textureRenderType == 0) {
+                            final int faceVertexIdx1 = face_a[i];
+                            final int faceVertexIdx2 = face_b[i];
+                            final int faceVertexIdx3 = face_c[i];
+
+                            final short triangleVertexIdx1 = (short) textures_face_a[textureCoordinate];
+                            final short triangleVertexIdx2 = (short) textures_face_b[textureCoordinate];
+                            final short triangleVertexIdx3 = (short) textures_face_c[textureCoordinate];
+
+                            final float triangleX = (float) verticesXCoordinate[triangleVertexIdx1];
+                            final float triangleY = (float) verticesYCoordinate[triangleVertexIdx1];
+                            final float triangleZ = (float) verticesZCoordinate[triangleVertexIdx1];
+
+                            final float f_882_ = (float) verticesXCoordinate[triangleVertexIdx2] - triangleX;
+                            final float f_883_ = (float) verticesYCoordinate[triangleVertexIdx2] - triangleY;
+                            final float f_884_ = (float) verticesZCoordinate[triangleVertexIdx2] - triangleZ;
+                            final float f_885_ = (float) verticesXCoordinate[triangleVertexIdx3] - triangleX;
+                            final float f_886_ = (float) verticesYCoordinate[triangleVertexIdx3] - triangleY;
+                            final float f_887_ = (float) verticesZCoordinate[triangleVertexIdx3] - triangleZ;
+                            final float f_888_ = (float) verticesXCoordinate[faceVertexIdx1] - triangleX;
+                            final float f_889_ = (float) verticesYCoordinate[faceVertexIdx1] - triangleY;
+                            final float f_890_ = (float) verticesZCoordinate[faceVertexIdx1] - triangleZ;
+                            final float f_891_ = (float) verticesXCoordinate[faceVertexIdx2] - triangleX;
+                            final float f_892_ = (float) verticesYCoordinate[faceVertexIdx2] - triangleY;
+                            final float f_893_ = (float) verticesZCoordinate[faceVertexIdx2] - triangleZ;
+                            final float f_894_ = (float) verticesXCoordinate[faceVertexIdx3] - triangleX;
+                            final float f_895_ = (float) verticesYCoordinate[faceVertexIdx3] - triangleY;
+                            final float f_896_ = (float) verticesZCoordinate[faceVertexIdx3] - triangleZ;
+
+                            final float f_897_ = f_883_ * f_887_ - f_884_ * f_886_;
+                            final float f_898_ = f_884_ * f_885_ - f_882_ * f_887_;
+                            final float f_899_ = f_882_ * f_886_ - f_883_ * f_885_;
+                            float f_900_ = f_886_ * f_899_ - f_887_ * f_898_;
+                            float f_901_ = f_887_ * f_897_ - f_885_ * f_899_;
+                            float f_902_ = f_885_ * f_898_ - f_886_ * f_897_;
+                            float f_903_ = 1.0F / (f_900_ * f_882_ + f_901_ * f_883_ + f_902_ * f_884_);
+
+                            u[0] = (f_900_ * f_888_ + f_901_ * f_889_ + f_902_ * f_890_) * f_903_;
+                            u[1] = (f_900_ * f_891_ + f_901_ * f_892_ + f_902_ * f_893_) * f_903_;
+                            u[2] = (f_900_ * f_894_ + f_901_ * f_895_ + f_902_ * f_896_) * f_903_;
+
+                            f_900_ = f_883_ * f_899_ - f_884_ * f_898_;
+                            f_901_ = f_884_ * f_897_ - f_882_ * f_899_;
+                            f_902_ = f_882_ * f_898_ - f_883_ * f_897_;
+                            f_903_ = 1.0F / (f_900_ * f_885_ + f_901_ * f_886_ + f_902_ * f_887_);
+
+                            v[0] = (f_900_ * f_888_ + f_901_ * f_889_ + f_902_ * f_890_) * f_903_;
+                            v[1] = (f_900_ * f_891_ + f_901_ * f_892_ + f_902_ * f_893_) * f_903_;
+                            v[2] = (f_900_ * f_894_ + f_901_ * f_895_ + f_902_ * f_896_) * f_903_;
+                        }
+                    }
+
+                    this.faceTextureUCoordinates[i] = u;
+                    this.faceTextureVCoordinates[i] = v;
+                }
             }
+            uvsCalculated = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            uvsCalculated = true;
         }
-        uvsCalculated = true;
     }
 
 }
