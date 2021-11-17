@@ -63,7 +63,7 @@ public final class NPC extends Entity
 			if(model_1 != null)
 			{
 				int j = spotAnim.animation.frameIDs[super.currentAnim];
-				Model model_2 = new Model(true, FrameReader.isNullFrame(j), false, true, model_1);
+				Model model_2 = new Model(true, FrameReader.isNullFrame(j), false, model_1);
 				model_2.translate(0, -super.graphicHeight, 0);
 				model_2.createBones();
 				model_2.applyTransform(j, spotAnim.dataType);

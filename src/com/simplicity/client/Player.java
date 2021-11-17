@@ -404,7 +404,7 @@ public final class Player extends Entity {
 			model_2 = Model.entityModelDesc;
 		}
 
-		model_2.method464(model_1, FrameReader.isNullFrame(currentFrame) & FrameReader.isNullFrame(i1), true);
+		model_2.method464(model_1, FrameReader.isNullFrame(currentFrame) & FrameReader.isNullFrame(i1));
 
 		DataType dataType = DataType.REGULAR;
 		

@@ -2613,7 +2613,7 @@ public final class MobDefinition {
             }
         }
         Model animatedModel = Model.entityModelDesc;
-        animatedModel.method464(completedModel, FrameReader.isNullFrame(frame) & FrameReader.isNullFrame(j), false);
+        animatedModel.method464(completedModel, FrameReader.isNullFrame(frame) & FrameReader.isNullFrame(j));
 
         if (frame != -1 && j != -1)
             animatedModel.method471(ai, j, frame, dataType);

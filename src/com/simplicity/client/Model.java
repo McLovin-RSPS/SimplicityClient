@@ -497,9 +497,9 @@ public class Model extends Animable {
     private boolean filtered = false;
     private boolean aBoolean1618;
     public int numberOfVerticeCoordinates;
-    public byte[] texture_render_type;
-    public short[] face_texture;
-    public byte[] texture_coordinates;
+    public byte[] textureTypes;
+    public short[] materials;
+    public byte[] textures;
     public boolean display_model_specific_texture;
     public int verticesXCoordinate[];
     public int verticesYCoordinate[];
@@ -608,10 +608,10 @@ public class Model extends Animable {
             textures_face_a = model.textures_face_a;
             textures_face_b = model.textures_face_b;
             textures_face_c = model.textures_face_c;
-            face_texture = model.face_texture;
+            materials = model.materials;
             display_model_specific_texture = texture;
-            texture_coordinates = model.texture_coordinates;
-            texture_render_type = model.texture_render_type;
+            textures = model.textures;
+            textureTypes = model.textureTypes;
         }
     }
 
@@ -635,9 +635,9 @@ public class Model extends Animable {
             textures_face_a = model.textures_face_a;
             textures_face_b = model.textures_face_b;
             textures_face_c = model.textures_face_c;
-            face_texture = model.face_texture;
-            texture_coordinates = model.texture_coordinates;
-            texture_render_type = model.texture_render_type;
+            materials = model.materials;
+            textures = model.textures;
+            textureTypes = model.textureTypes;
         }
 
         if (flag1) {
@@ -850,8 +850,8 @@ public class Model extends Animable {
                     has_alpha |= connect.face_alpha != null;
                     has_skin |= connect.triangleTSkin != null;
                     has_color |= connect.face_color != null;
-                    has_texture |= connect.face_texture != null;
-                    has_coordinate |= connect.texture_coordinates != null;
+                    has_texture |= connect.materials != null;
+                    has_coordinate |= connect.textures != null;
                 }
             }
 
@@ -881,12 +881,12 @@ public class Model extends Animable {
                 textures_face_a = new int[numberOfTexturesFaces];
                 textures_face_b = new int[numberOfTexturesFaces];
                 textures_face_c = new int[numberOfTexturesFaces];
-                texture_render_type = new byte[numberOfTexturesFaces];
+                textureTypes = new byte[numberOfTexturesFaces];
             }
             if (has_coordinate)
-                texture_coordinates = new byte[numberOfTriangleFaces];
+                textures = new byte[numberOfTriangleFaces];
             if (has_texture)
-                face_texture = new short[numberOfTriangleFaces];
+                materials = new short[numberOfTriangleFaces];
             numberOfVerticeCoordinates = 0;
             numberOfTriangleFaces = 0;
             numberOfTexturesFaces = 0;
@@ -940,11 +940,11 @@ public class Model extends Animable {
                             triangleTSkin[numberOfTriangleFaces] = connect.triangleTSkin[j1];
 
                         if (has_texture) {
-                            if (connect.face_texture != null && connect.face_texture[j1] != -1) {
-                                face_texture[numberOfTriangleFaces] = connect.face_texture[j1];
+                            if (connect.materials != null && connect.materials[j1] != -1) {
+                                materials[numberOfTriangleFaces] = connect.materials[j1];
                                 display_model_specific_texture = true;
                             } else
-                                face_texture[numberOfTriangleFaces] = -1;
+                                materials[numberOfTriangleFaces] = -1;
                         }
 
                         if (vertex_coord != -1) {
@@ -974,8 +974,8 @@ public class Model extends Animable {
                 if (connect != null) {
                     if (has_coordinate) {
                         for (int mapped_pointers = 0; mapped_pointers < connect.numberOfTriangleFaces; mapped_pointers++)
-                            texture_coordinates[face++] = (byte) (connect.texture_coordinates == null || connect.texture_coordinates[mapped_pointers] == -1 ? -1 :
-                                    (connect.texture_coordinates[mapped_pointers] & 0xff) + numberOfTexturesFaces);
+                            textures[face++] = (byte) (connect.textures == null || connect.textures[mapped_pointers] == -1 ? -1 :
+                                    (connect.textures[mapped_pointers] & 0xff) + numberOfTexturesFaces);
                             /*
                                 Removed face++, have not seen any bad results as of yet
                             */
@@ -983,7 +983,7 @@ public class Model extends Animable {
                     }
                     int vertex_coord = offsets != null ? offsets[model_index] : -1;//short vertex_coord = (short) (1 << l1);
                     for (int texture_index = 0; texture_index < connect.numberOfTexturesFaces; texture_index++) {
-                        byte opcode = (texture_render_type[numberOfTexturesFaces] = connect.texture_render_type[texture_index]);
+                        byte opcode = (textureTypes[numberOfTexturesFaces] = connect.textureTypes[texture_index]);
 
                         if (opcode == 0) {
                             if (vertex_coord != -1) {
@@ -1063,8 +1063,8 @@ public class Model extends Animable {
                 }
                 flag3 |= model.face_alpha != null;
                 flag4 |= model.face_color != null;
-				texture_flag |= model.face_texture != null;
-				coordinate_flag |= model.texture_coordinates != null;
+				texture_flag |= model.materials != null;
+				coordinate_flag |= model.textures != null;
             }
         }
 
@@ -1090,9 +1090,9 @@ public class Model extends Animable {
         if (flag4)
             face_color = new int[numberOfTriangleFaces];
         if (texture_flag)
-            face_texture = new short[numberOfTriangleFaces];
+            materials = new short[numberOfTriangleFaces];
         if (coordinate_flag)
-            texture_coordinates = new byte[numberOfTriangleFaces];
+            textures = new byte[numberOfTriangleFaces];
         numberOfVerticeCoordinates = 0;
         numberOfTriangleFaces = 0;
         numberOfTexturesFaces = 0;
@@ -1139,17 +1139,17 @@ public class Model extends Animable {
                         face_color[numberOfTriangleFaces] = model_1.face_color[i2];
                     
                     if (texture_flag) {
-                        if (model_1.face_texture != null) {
-                            face_texture[numberOfTriangleFaces] = model_1.face_texture[numberOfTriangleFaces];
+                        if (model_1.materials != null) {
+                            materials[numberOfTriangleFaces] = model_1.materials[i2];
                         } else {
-                            face_texture[numberOfTriangleFaces] = -1;
+                            materials[numberOfTriangleFaces] = -1;
                         }
                     }
                     if (coordinate_flag) {
-                        if (model_1.texture_coordinates != null && model_1.texture_coordinates[numberOfTriangleFaces] != -1)
-                            texture_coordinates[numberOfTriangleFaces] = (byte) (model_1.texture_coordinates[numberOfTriangleFaces] + numberOfTexturesFaces);
+                        if (model_1.textures != null && model_1.textures[i2] != -1)
+                            textures[numberOfTriangleFaces] = (byte) (model_1.textures[i2] + numberOfTexturesFaces);
                         else
-                            texture_coordinates[numberOfTriangleFaces] = -1;
+                            textures[numberOfTriangleFaces] = -1;
 
                     }
 
@@ -1528,10 +1528,10 @@ public class Model extends Animable {
                 else
                     type = 0;
 
-                if (face_texture == null) {
+                if (materials == null) {
                     texture_id = -1;
                 } else {
-                    texture_id = face_texture[face];
+                    texture_id = materials[face];
                 }
 
                 if (face_render_type == null || (face_render_type[face] & 1) == 0) {
@@ -1628,18 +1628,18 @@ public class Model extends Animable {
             textures_face_c = model.textures_face_c;
 
             if (texture) {
-                face_texture = model.face_texture;
+                materials = model.materials;
             } else {
-                face_texture = new short[numberOfTriangleFaces];
-                if (model.face_texture != null) {
+                materials = new short[numberOfTriangleFaces];
+                if (model.materials != null) {
                     for (int l = 0; l < numberOfTriangleFaces; l++)
-                        face_texture[l] = -1;
+                        materials[l] = -1;
                 }
             }
             //force_texture = npc;
             display_model_specific_texture = texture;
-            texture_coordinates = model.texture_coordinates;
-            texture_render_type = model.texture_render_type;
+            textures = model.textures;
+            textureTypes = model.textureTypes;
         }
 
         if (flag) {
@@ -1907,10 +1907,10 @@ public class Model extends Animable {
 
             int texture_id;
 
-            if (face_texture == null) {
+            if (materials == null) {
                 texture_id = -1;
             } else {
-                texture_id = face_texture[j1];
+                texture_id = materials[j1];
             }
             
             if (face_render_type == null) {
@@ -2010,12 +2010,12 @@ public class Model extends Animable {
             type = 0;
         else
             type = face_render_type[i] & 3;
-        if (face_texture != null && face_texture[i] != -1) {
+        if (materials != null && materials[i] != -1) {
             int texture_a = j;
             int texture_b = k;
             int texture_c = l;
-            if (texture_coordinates != null && texture_coordinates[i] != -1) {
-                int coordinate = texture_coordinates[i] & 0xff;
+            if (textures != null && textures[i] != -1) {
+                int coordinate = textures[i] & 0xff;
                 texture_a = textures_face_a[coordinate];
                 texture_b = textures_face_b[coordinate];
                 texture_c = textures_face_c[coordinate];
@@ -2029,7 +2029,7 @@ public class Model extends Animable {
                         camera_vertex_y[texture_c], camera_vertex_x[texture_a],
                         camera_vertex_x[texture_b], camera_vertex_x[texture_c],
                         camera_vertex_z[texture_a], camera_vertex_z[texture_b],
-                        camera_vertex_z[texture_c], face_texture[i], projected_vertex_z[j],
+                        camera_vertex_z[texture_c], materials[i], projected_vertex_z[j],
                         projected_vertex_z[k], projected_vertex_z[l]);
             } else {
                 Rasterizer.drawTexturedTriangle(projected_vertex_y[j], projected_vertex_y[k],
@@ -2040,7 +2040,7 @@ public class Model extends Animable {
                         camera_vertex_y[texture_c], camera_vertex_x[texture_a],
                         camera_vertex_x[texture_b], camera_vertex_x[texture_c],
                         camera_vertex_z[texture_a], camera_vertex_z[texture_b],
-                        camera_vertex_z[texture_c], face_texture[i], projected_vertex_z[j],
+                        camera_vertex_z[texture_c], materials[i], projected_vertex_z[j],
                         projected_vertex_z[k], projected_vertex_z[l]);
             }
         } else {
@@ -2152,10 +2152,10 @@ public class Model extends Animable {
         int[] y = null;
         int[] N = null;
         if (numberOfTexturesFaces > 0) {
-            texture_render_type = new byte[numberOfTexturesFaces];
+            textureTypes = new byte[numberOfTexturesFaces];
             nc1.currentOffset = 0;
             for (int j5 = 0; j5 < numberOfTexturesFaces; j5++) {
-                byte byte0 = texture_render_type[j5] = nc1.readSignedByte();
+                byte byte0 = textureTypes[j5] = nc1.readSignedByte();
                 if (byte0 == 0)
                     k4++;
                 if (byte0 >= 1 && byte0 <= 3)
@@ -2239,9 +2239,9 @@ public class Model extends Animable {
         if (k2 == 1)
             triangleTSkin = new int[numberOfTriangleFaces];
         if (l2 == 1)
-            face_texture = new short[numberOfTriangleFaces];
+            materials = new short[numberOfTriangleFaces];
         if (l2 == 1 && numberOfTexturesFaces > 0)
-            texture_coordinates = new byte[numberOfTriangleFaces];
+            textures = new byte[numberOfTriangleFaces];
         face_color = new int[numberOfTriangleFaces];
         int i_115_ = k5;
         if (numberOfTexturesFaces > 0) {
@@ -2315,12 +2315,12 @@ public class Model extends Animable {
             if (k2 == 1)
                 triangleTSkin[i12] = nc5.readUnsignedByte();
             if (l2 == 1)
-                face_texture[i12] = (short) (nc6.readUnsignedWord() - 1);
-            if (texture_coordinates != null)
-                if (face_texture[i12] != -1)
-                    texture_coordinates[i12] = (byte) (nc7.readUnsignedByte() - 1);
+                materials[i12] = (short) (nc6.readUnsignedWord() - 1);
+            if (textures != null)
+                if (materials[i12] != -1)
+                    textures[i12] = (byte) (nc7.readUnsignedByte() - 1);
                 else
-                    texture_coordinates[i12] = -1;
+                    textures[i12] = -1;
         }
         nc1.currentOffset = k7;
         nc2.currentOffset = j6;
@@ -2375,7 +2375,7 @@ public class Model extends Animable {
         nc5.currentOffset = j10;
         nc6.currentOffset = k10;
         for (int k14 = 0; k14 < numberOfTexturesFaces; k14++) {
-            int i15 = texture_render_type[k14] & 0xff;
+            int i15 = textureTypes[k14] & 0xff;
             if (i15 == 0) {
                 textures_face_a[k14] = nc1.readUnsignedWord();
                 textures_face_b[k14] = nc1.readUnsignedWord();
@@ -2423,7 +2423,7 @@ public class Model extends Animable {
         }
         // filterTriangles();
         //convertTexturesTo317(modelID, face_texture, textures_face_a, textures_face_b, textures_face_c, texture_coordinates);
-        checkTextures(modelID, face_texture);
+        checkTextures(modelID, materials);
 
         if (isDepthBuffered(modelID, dataType)) {
         	setUseDepthBuffer(modelID, dataType);
@@ -2501,10 +2501,10 @@ public class Model extends Animable {
         int[] N = null;
         face_color = new int[numberOfTriangleFaces];
         if (numberOfTexturesFaces > 0) {
-            texture_render_type = new byte[numberOfTexturesFaces];
+            textureTypes = new byte[numberOfTexturesFaces];
             nc1.currentOffset = 0;
             for (int j5 = 0; j5 < numberOfTexturesFaces; j5++) {
-                byte byte0 = texture_render_type[j5] = nc1.readSignedByte();
+                byte byte0 = textureTypes[j5] = nc1.readSignedByte();
                 if (byte0 == 0)
                     k4++;
                 if (byte0 >= 1 && byte0 <= 3)
@@ -2596,9 +2596,9 @@ public class Model extends Animable {
         if (k2 == 1)
             triangleTSkin = new int[numberOfTriangleFaces];
         if (l2 == 1)
-        	face_texture = new short[numberOfTriangleFaces];
+        	materials = new short[numberOfTriangleFaces];
         if (l2 == 1 && numberOfTexturesFaces > 0)
-        	texture_coordinates = new byte[numberOfTriangleFaces];
+        	textures = new byte[numberOfTriangleFaces];
         face_color = new int[numberOfTriangleFaces];
         int i_115_ = k5;
         if (numberOfTexturesFaces > 0) {
@@ -2672,12 +2672,12 @@ public class Model extends Animable {
             if (k2 == 1)
                 triangleTSkin[triangle] = nc5.readUnsignedByte();
             if (l2 == 1)
-                face_texture[triangle] = (short) (nc6.readUnsignedWord() - 1);
-            if (texture_coordinates != null)
-                if (face_texture[triangle] != -1)
-                    texture_coordinates[triangle] = (byte) (nc7.readUnsignedByte() - 1);
+                materials[triangle] = (short) (nc6.readUnsignedWord() - 1);
+            if (textures != null)
+                if (materials[triangle] != -1)
+                    textures[triangle] = (byte) (nc7.readUnsignedByte() - 1);
                 else
-                    texture_coordinates[triangle] = -1;
+                    textures[triangle] = -1;
         }
         nc1.currentOffset = k7;
         nc2.currentOffset = j6;
@@ -2732,7 +2732,7 @@ public class Model extends Animable {
         nc5.currentOffset = j10;
         nc6.currentOffset = k10;
         for (int k14 = 0; k14 < numberOfTexturesFaces; k14++) {
-            int i15 = texture_render_type[k14] & 0xff;
+            int i15 = textureTypes[k14] & 0xff;
             if (i15 == 0) {
                 textures_face_a[k14] = nc1.readUnsignedWord();
                 textures_face_b[k14] = nc1.readUnsignedWord();
@@ -2807,7 +2807,7 @@ public class Model extends Animable {
         }
         filterTriangles();
         //convertTexturesTo317(modelID, face_texture, textures_face_a, textures_face_b, textures_face_c, texture_coordinates);
-        checkTextures(modelID, face_texture);
+        checkTextures(modelID, materials);
         setUseDepthBuffer(modelID, dataType);
         
         if (modelID == 394 || modelID == 218) { // Turns black visible for full helms
@@ -2888,7 +2888,7 @@ public class Model extends Animable {
         this.face_b = new int[var10];
         this.face_c = new int[var10];
         if (var11 > 0) {
-            this.texture_render_type = new byte[var11];
+            this.textureTypes = new byte[var11];
             this.textures_face_a = new int[var11];
             this.textures_face_b = new int[var11];
             this.textures_face_c = new int[var11];
@@ -2898,8 +2898,8 @@ public class Model extends Animable {
         }
         if (var12 == 1) {
             this.face_render_type = new int[var10];
-            this.texture_coordinates = new byte[var10];
-            this.face_texture = new short[var10];
+            this.textures = new byte[var10];
+            this.materials = new short[var10];
         }
         if (var13 == 255) {
             this.face_render_priorities = new int[var10];
@@ -2966,15 +2966,15 @@ public class Model extends Animable {
                     this.face_render_type[var38] = 0;
                 }
                 if ((var39 & 2) == 2) {
-                    this.texture_coordinates[var38] = (byte) (var39 >> 2);
-                    this.face_texture[var38] = (short) this.face_color[var38];
+                    this.textures[var38] = (byte) (var39 >> 2);
+                    this.materials[var38] = (short) this.face_color[var38];
                     this.face_color[var38] = 127;
-                    if (this.face_texture[var38] != -1) {
+                    if (this.materials[var38] != -1) {
                         var3 = true;
                     }
                 } else {
-                    this.texture_coordinates[var38] = -1;
-                    this.face_texture[var38] = -1;
+                    this.textures[var38] = -1;
+                    this.materials[var38] = -1;
                 }
             }
             if (var13 == 255) {
@@ -3038,30 +3038,30 @@ public class Model extends Animable {
         }
         var4.bitPosition = var31;
         for (var42 = 0; var42 < var11; ++var42) {
-            this.texture_render_type[var42] = 0;
+            this.textureTypes[var42] = 0;
             this.textures_face_a[var42] = (short) var4.readUnsignedWord();
             this.textures_face_b[var42] = (short) var4.readUnsignedWord();
             this.textures_face_c[var42] = (short) var4.readUnsignedWord();
         }
-        if (this.texture_coordinates != null) {
+        if (this.textures != null) {
             boolean textured = false;
             for (var43 = 0; var43 < var10; ++var43) {
-                var44 = this.texture_coordinates[var43] & 255;
+                var44 = this.textures[var43] & 255;
                 if (var44 != 255) {
                     if (this.face_a[var43] == (this.textures_face_a[var44] & '\uffff') && this.face_b[var43] == (this.textures_face_b[var44] & '\uffff') && this.face_c[var43] == (this.textures_face_c[var44] & '\uffff')) {
-                        this.texture_coordinates[var43] = -1;
+                        this.textures[var43] = -1;
                     } else {
                         textured = true;
                     }
                 }
             }
             if (!textured) {
-                this.texture_coordinates = null;
+                this.textures = null;
             }
         }
-        System.out.println("decoded old, materials: " + this.face_texture);
+        System.out.println("decoded old, materials: " + this.materials);
         if (!var3) {
-            this.face_texture = null;
+            this.materials = null;
         }
         if (!var2) {
             this.face_render_type = null;
@@ -3098,7 +3098,7 @@ public class Model extends Animable {
         face_b = new int[numberOfTriangleFaces];
         face_c = new int[numberOfTriangleFaces];
         if (numberOfTexturesFaces > 0) {
-            texture_render_type = new byte[numberOfTexturesFaces];
+            textureTypes = new byte[numberOfTexturesFaces];
             textures_face_a = new int[numberOfTexturesFaces];
             textures_face_b = new int[numberOfTexturesFaces];
             textures_face_c = new int[numberOfTexturesFaces];
@@ -3107,8 +3107,8 @@ public class Model extends Animable {
             vertexVSkin = new int[numberOfVerticeCoordinates];
         if (header.drawTypeBasePos >= 0) {
             face_render_type = new int[numberOfTriangleFaces];
-            face_texture = new short[numberOfTriangleFaces];
-            texture_coordinates = new byte[numberOfTriangleFaces];
+            materials = new short[numberOfTriangleFaces];
+            textures = new byte[numberOfTriangleFaces];
         }
         if (header.facePriorityBasePos >= 0)
             face_render_priorities = new int[numberOfTriangleFaces];
@@ -3170,16 +3170,16 @@ public class Model extends Animable {
                 }
 
                 if ((type & 2) == 2) {
-                    texture_coordinates[l1] = (byte) (type >> 2);
-                    face_texture[l1] = (short) face_color[l1];
+                    textures[l1] = (byte) (type >> 2);
+                    materials[l1] = (short) face_color[l1];
                     face_color[l1] = 127;
 
-                    if (face_texture[l1] != -1) {
+                    if (materials[l1] != -1) {
                         has_texture_type = true;
                     }
                 } else {
-                    texture_coordinates[l1] = -1;
-                    face_texture[l1] = -1;
+                    textures[l1] = -1;
+                    materials[l1] = -1;
                 }
             }
             if (face_render_priorities != null)
@@ -3240,23 +3240,23 @@ public class Model extends Animable {
         }
         stream.currentOffset = header.textureInfoBasePos;
         for (int j4 = 0; j4 < numberOfTexturesFaces; j4++) {
-            texture_render_type[j4] = 0;
+            textureTypes[j4] = 0;
             textures_face_a[j4] = stream.readUnsignedWord();
             textures_face_b[j4] = stream.readUnsignedWord();
             textures_face_c[j4] = stream.readUnsignedWord();
         }
 
-        if (texture_coordinates != null) {
+        if (textures != null) {
             boolean textured = false;
 
             for (int face = 0; face < numberOfTriangleFaces; face++) {
-                int coordinate = texture_coordinates[face] & 0xff;
+                int coordinate = textures[face] & 0xff;
 
                 if (coordinate != 255) {
                     if (((textures_face_a[coordinate]) == face_a[face])
                             && ((textures_face_b[coordinate]) == face_b[face])
                             && ((textures_face_c[coordinate]) == face_c[face])) {
-                        texture_coordinates[face] = -1;
+                        textures[face] = -1;
                     } else {
                         textured = true;
                     }
@@ -3264,17 +3264,17 @@ public class Model extends Animable {
             }
 
             if (!textured)
-                texture_coordinates = null;
+                textures = null;
         }
 
         if (!has_texture_type)
-            face_texture = null;
+            materials = null;
 
         if (!has_face_type)
             face_render_type = null;
         filterTriangles();
         //convertTexturesTo317(i, face_texture, textures_face_a, textures_face_b, textures_face_c, texture_coordinates);
-        checkTextures(i, face_texture);
+        checkTextures(i, materials);
     }
 
     public void forceRecolour(int i, int j) {
@@ -3314,7 +3314,7 @@ public class Model extends Animable {
                     if (face_render_type != null) {
                         face_render_type[i] = 0;
                     }
-                    face_texture[i] = -1;
+                    materials[i] = -1;
                     continue;
                 }
 
@@ -3322,7 +3322,7 @@ public class Model extends Animable {
                     if (face_render_type != null) {
                         face_render_type[i] = 0;
                     }
-                    face_texture[i] = -1;
+                    materials[i] = -1;
                     continue;
                 }
 
@@ -3333,7 +3333,7 @@ public class Model extends Animable {
                     if (face_render_type != null) {
                         face_render_type[i] = 0;
                     }
-                    face_texture[i] = -1;
+                    materials[i] = -1;
                     continue;
                 }
 
@@ -3345,7 +3345,7 @@ public class Model extends Animable {
                     if (face_render_type != null) {
                         face_render_type[i] = 0;
                     }
-                    face_texture[i] = -1;
+                    materials[i] = -1;
                     continue;
                 }
             }
@@ -4253,7 +4253,7 @@ public class Model extends Animable {
     }
 
     public short[] getFaceTextures() {
-        return face_texture;
+        return materials;
     }
 
     public int[] getFaceColors1() {
@@ -4331,17 +4331,17 @@ public class Model extends Animable {
 
         for (int i = 0; i < numberOfTriangleFaces; i++) {
             int textureCoordinate;
-            if (texture_coordinates == null) {
+            if (textures == null) {
                 textureCoordinate = -1;
             } else {
-                textureCoordinate = texture_coordinates[i];
+                textureCoordinate = textures[i];
             }
 
             final int textureIdx;
-            if (face_texture == null) {
+            if (materials == null) {
                 textureIdx = -1;
             } else {
-                textureIdx = face_texture[i] & 0xFFFF;
+                textureIdx = materials[i] & 0xFFFF;
             }
 
             if (textureIdx != -1) {
@@ -4361,8 +4361,8 @@ public class Model extends Animable {
                     textureCoordinate &= 0xFF;
 
                     byte textureRenderType = 0;
-                    if (texture_render_type != null) {
-                        textureRenderType = texture_render_type[textureCoordinate];
+                    if (textureTypes != null) {
+                        textureRenderType = textureTypes[textureCoordinate];
                     }
 
                     if (textureRenderType == 0) {
