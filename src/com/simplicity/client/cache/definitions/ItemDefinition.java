@@ -119,6 +119,11 @@ public final class ItemDefinition {
                 model.recolour(editedModelColor[i1], newModelColor[i1]);
             }
         }
+        if (editedModelTexture != null) {
+            for (int i1 = 0; i1 < editedModelTexture.length; i1++) {
+                model.recolour(editedModelTexture[i1], newModelTexture[i1]);
+            }
+        }
         return model;
     }
 
@@ -187,6 +192,12 @@ public final class ItemDefinition {
 				model.recolour(editedModelColor[i1], newModelColor[i1]);
 			}
 		}
+
+        if (editedModelTexture != null && newModelTexture != null) {
+            for (int i1 = 0; i1 < editedModelTexture.length; i1++) {
+                model.retexture(editedModelTexture[i1], newModelTexture[i1]);
+            }
+        }
 
         return model;
     }
@@ -1667,12 +1678,12 @@ public final class ItemDefinition {
                 }
             } else if (i == 41) {
                 int count = stream.readUnsignedByte();
-                short[] textureFind = new short[count];
-                short[] textureReplace = new short[count];
+                editedModelTexture = new int[count];
+                newModelTexture = new int[count];
 
                 for (int t = 0; t < count; t++) {
-                    textureFind[t] = (short) stream.readUnsignedWord();
-                    textureReplace[t] = (short) stream.readUnsignedWord();
+                    editedModelTexture[t] = (short) stream.readUnsignedWord();
+                    newModelTexture[t] = (short) stream.readUnsignedWord();
                 }
             } else if (i == 42) {
                 stream.readSignedByte(); // shift click drop index
@@ -2248,6 +2259,10 @@ public final class ItemDefinition {
                 model.recolour(editedModelColor[l], newModelColor[l]);
             }
         }
+        if (editedModelTexture != null) {
+            for (int i1 = 0; i1 < editedModelTexture.length; i1++)
+                model.retexture((short) editedModelTexture[i1], (short) newModelTexture[i1]);
+        }
         model.light(64 + shadow, 768 + lightness, -50, -10, -50, true);
         model.rendersWithinOneTile = true;
         if (type == DataType.CUSTOM) {
@@ -2281,6 +2296,11 @@ public final class ItemDefinition {
         if (editedModelColor != null) {
             for (int l = 0; l < editedModelColor.length; l++) {
                 model.recolour(editedModelColor[l], newModelColor[l]);
+            }
+        }
+        if (editedModelTexture != null) {
+            for (int l = 0; l < editedModelTexture.length; l++) {
+                model.retexture(editedModelTexture[l], newModelTexture[l]);
             }
         }
         return model;
@@ -2398,6 +2418,22 @@ public final class ItemDefinition {
             }
         }
 
+        editedModelTexture = copy.editedModelTexture == null ? null : new int[copy.editedModelTexture.length];
+
+        if(editedModelTexture != null) {
+            for (int i = 0; i < editedModelTexture.length; i++) {
+                editedModelTexture[i] = copy.editedModelTexture[i];
+            }
+        }
+
+        newModelTexture = copy.newModelTexture == null ? null : new int[copy.newModelTexture.length];
+
+        if(newModelTexture != null) {
+            for (int i = 0; i < newModelTexture.length; i++) {
+                newModelTexture[i] = copy.newModelTexture[i];
+            }
+        }
+
         femaleEquip1 = copy.femaleEquip1;
         femaleEquip3 = copy.femaleEquip3;
         femaleEquip2 = copy.femaleEquip2;
@@ -2455,12 +2491,14 @@ public final class ItemDefinition {
     public int femaleZScale;
     public int value;
     public int[] editedModelColor;
+    public int[] editedModelTexture;
     public int id;
     public static MemCache spriteCache = new MemCache(100);
     public static MemCache modelCache = new MemCache(50);
     public static MemCache modelCacheOSRS = new MemCache(50);
     public static MemCache modelCacheCustom = new MemCache(50);
     public int[] newModelColor;
+    public int[] newModelTexture;
     public boolean membersObject;
     public int femaleEquip3;
     public int certTemplateID;

@@ -3261,10 +3261,24 @@ public class Model extends Animable {
     }
 
     public void recolour(int i, int j) {
-        for (int k = 0; k < numberOfTriangleFaces; k++)
-            if (face_color[k] == i) {
-                face_color[k] = j;
+        for (int k = 0; k < numberOfTriangleFaces; k++) {
+            boolean isTexture = j < Rasterizer.textureAmount;
+
+            if (isTexture) {
+                retexture(i, j);
+            } else {
+                if (face_color[k] == i) {
+                    face_color[k] = j;
+                }
             }
+        }
+    }
+
+    public void retexture(int i, int j) {
+        if (materials != null)
+            for (int face = 0; face < numberOfTriangleFaces; face++)
+                if (materials[face] == (short) i)
+                    materials[face] = (short) j;
     }
 
     public void checkTextures(int modelId, short[] textureIds) {
