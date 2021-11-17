@@ -16942,9 +16942,35 @@ public class Client extends RSApplet {
                                             model.recolour(currentCape, previousMaxCapeColors[i11], maxCapeColors[i11]);
                                     }
                                 }
-                                Rasterizer.renderOnGpu = true;
-                                model.renderSingle(child.modelRotation2, 0, child.modelRotation1, 0, i5, l5);
-                                Rasterizer.renderOnGpu = false;
+                                if (HdPlugin.process()) {
+                                    int ai[] = Rasterizer.anIntArray1472;
+                                    float depthBuffer[] = DrawingArea.depthBuffer;
+                                    int ai1[] = DrawingArea.pixels;
+                                    int daWidth = DrawingArea.width;
+                                    int daHeight = DrawingArea.height;
+
+                                    Sprite sprite = new Sprite(daWidth, daHeight);
+                                    Rasterizer.aBoolean1464 = false;
+                                    DrawingArea.initDrawingArea(daHeight, daWidth, sprite.myPixels, new float[daWidth * daHeight]);
+                                    Rasterizer.setDefaultBounds();
+
+                                    int sine = Rasterizer.anIntArray1470[child.modelRotation1] * child.modelZoom >> 16;
+                                    int cosine = Rasterizer.anIntArray1471[child.modelRotation1] * child.modelZoom >> 16;
+                                    Rasterizer.renderOnGpu = true;
+                                    model.renderSingle(child.modelRotation2, 0, child.modelRotation1, 0, sine, cosine);
+                                    Rasterizer.renderOnGpu = false;
+                                    DrawingArea.initDrawingArea(daHeight, daWidth, ai1, depthBuffer);
+                                    Rasterizer.anIntArray1472 = ai;
+                                    Rasterizer.aBoolean1464 = true;
+
+                                    final int drawX = x - Rasterizer.textureInt1 + child.width / 2;
+                                    final int drawY = y - Rasterizer.textureInt2 + child.height / 2;
+                                    sprite.drawSprite(drawX, drawY);
+                                } else {
+                                    Rasterizer.renderOnGpu = true;
+                                    model.renderSingle(child.modelRotation2, 0, child.modelRotation1, 0, i5, l5);
+                                    Rasterizer.renderOnGpu = false;
+                                }
                             }
                             // model.reset();
                             // model = null;
