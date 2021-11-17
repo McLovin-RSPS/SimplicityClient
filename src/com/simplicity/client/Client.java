@@ -184,6 +184,7 @@ import net.runelite.api.hooks.DrawCallbacks;
 import net.runelite.client.RuneLite;
 import net.runelite.client.callback.Hooks;
 import net.runelite.client.plugins.PluginManager;
+import net.runelite.client.plugins.hdnew.HdPlugin;
 import org.apache.commons.lang3.math.NumberUtils;
 
 @SuppressWarnings("all")
