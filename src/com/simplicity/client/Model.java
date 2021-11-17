@@ -4333,6 +4333,25 @@ public class Model extends Animable {
                     final float[] u = new float[3];
                     final float[] v = new float[3];
 
+                    if (textureCoordinate != -1) {
+                        int texCoord = textureCoordinate & 0xFF;
+                        int vertexIdx1 = (short) textures_face_a[texCoord];
+                        int vertexIdx2 = (short) textures_face_b[texCoord];
+                        boolean ignore = (
+                                vertexIdx1 >= verticesXCoordinate.length
+                                || vertexIdx1 >= verticesYCoordinate.length
+                                || vertexIdx1 >= verticesZCoordinate.length
+                                || vertexIdx2 >= verticesXCoordinate.length
+                                || vertexIdx2 >= verticesYCoordinate.length
+                                || vertexIdx2 >= verticesZCoordinate.length
+                                || vertexIdx1 < 0
+                                || vertexIdx2 < 0);
+
+                        if (ignore) {
+                            textureCoordinate = -1;
+                        }
+                    }
+
                     if (textureCoordinate == -1) {
                         u[0] = 0.0F;
                         v[0] = 1.0F;
