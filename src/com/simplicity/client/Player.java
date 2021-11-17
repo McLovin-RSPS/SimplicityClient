@@ -15,6 +15,7 @@ import net.runelite.api.Perspective;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.events.InteractingChanged;
 import net.runelite.client.RuneLite;
+import net.runelite.client.plugins.hdnew.HdPlugin;
 
 @SuppressWarnings("all")
 public final class Player extends Entity {
