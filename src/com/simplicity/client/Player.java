@@ -394,7 +394,15 @@ public final class Player extends Entity {
 		}
 		if (aBoolean1699)
 			return model_1;
-		Model model_2 = Model.entityModelDesc;
+
+		Model model_2;
+
+		if (HdPlugin.process()) {
+			model_2 = new Model(true, true, false, Model.entityModelDesc);
+		} else {
+			model_2 = Model.entityModelDesc;
+		}
+
 		model_2.method464(model_1, FrameReader.isNullFrame(currentFrame) & FrameReader.isNullFrame(i1), true);
 
 		DataType dataType = DataType.REGULAR;
