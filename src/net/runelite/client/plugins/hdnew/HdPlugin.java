@@ -690,8 +690,9 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 	
 			// force main buffer provider rebuild to turn off alpha channel
 			client.resizeCanvas();
-			client().resetImageProducers();
 			client().reload();
+			client().resetImageProducers();
+			client().resetImageProducers2();
 		});
 	}
 
