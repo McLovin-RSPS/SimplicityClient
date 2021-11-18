@@ -3261,16 +3261,14 @@ public class Model extends Animable {
     }
 
     public void recolour(int i, int j) {
-        for (int k = 0; k < numberOfTriangleFaces; k++) {
-            boolean isTexture = j < Rasterizer.textureAmount;
+        final boolean isTexture = j < Rasterizer.textureAmount;
 
-            if (isTexture) {
+        for (int k = 0; k < numberOfTriangleFaces; k++) {
+            if (face_color[k] == i)
+                face_color[k] = j;
+
+            if (isTexture)
                 retexture(i, j);
-            } else {
-                if (face_color[k] == i) {
-                    face_color[k] = j;
-                }
-            }
         }
     }
 
