@@ -1980,7 +1980,7 @@ public class Model extends Animable {
             type = 0;
         else
             type = face_render_type[i] & 3;
-        if (materials != null && materials[i] != -1 && textures != null && textures[i] != -1 && textureTypes != null) {
+        if (materials != null && materials[i] != -1) {
             int texture_a = j;
             int texture_b = k;
             int texture_c = l;
@@ -1990,7 +1990,7 @@ public class Model extends Animable {
                 texture_b = textures_face_b[coordinate];
                 texture_c = textures_face_c[coordinate];
             }
-            if (face_c[i] == -1) {
+            if (face_c[i] == -1 || type == 3) {
                 Rasterizer.drawTexturedTriangle(projected_vertex_y[j], projected_vertex_y[k],
                         projected_vertex_y[l], projected_vertex_x[j],
                         projected_vertex_x[k], projected_vertex_x[l],
@@ -3162,50 +3162,50 @@ public class Model extends Animable {
         }
         stream.currentOffset = header.triVPointOffset;
         stream_1.currentOffset = header.triMeshLinkOffset;
-        int j2 = 0;
-        int l2 = 0;
-        int j3 = 0;
-        int k3 = 0;
+        int coordinate_a = 0;
+        int coordinate_b = 0;
+        int coordinate_c = 0;
+        int offset = 0;
         for (int l3 = 0; l3 < numberOfTriangleFaces; l3++) {
-            int i4 = stream_1.readUnsignedByte();
-            if (i4 == 1) {
-                j2 = stream.method421() + k3;
-                k3 = j2;
-                l2 = stream.method421() + k3;
-                k3 = l2;
-                j3 = stream.method421() + k3;
-                k3 = j3;
-                face_a[l3] = j2;
-                face_b[l3] = l2;
-                face_c[l3] = j3;
+            int opcode = stream_1.readUnsignedByte();
+            if (opcode == 1) {
+                coordinate_a = stream.method421() + offset;
+                offset = coordinate_a;
+                coordinate_b = stream.method421() + offset;
+                offset = coordinate_b;
+                coordinate_c = stream.method421() + offset;
+                offset = coordinate_c;
+                face_a[l3] = coordinate_a;
+                face_b[l3] = coordinate_b;
+                face_c[l3] = coordinate_c;
             }
-            if (i4 == 2) {
-                j2 = j2;
-                l2 = j3;
-                j3 = stream.method421() + k3;
-                k3 = j3;
-                face_a[l3] = j2;
-                face_b[l3] = l2;
-                face_c[l3] = j3;
+            if (opcode == 2) {
+                coordinate_a = coordinate_a;
+                coordinate_b = coordinate_c;
+                coordinate_c = stream.method421() + offset;
+                offset = coordinate_c;
+                face_a[l3] = coordinate_a;
+                face_b[l3] = coordinate_b;
+                face_c[l3] = coordinate_c;
             }
-            if (i4 == 3) {
-                j2 = j3;
-                l2 = l2;
-                j3 = stream.method421() + k3;
-                k3 = j3;
-                face_a[l3] = j2;
-                face_b[l3] = l2;
-                face_c[l3] = j3;
+            if (opcode == 3) {
+                coordinate_a = coordinate_c;
+                coordinate_b = coordinate_b;
+                coordinate_c = stream.method421() + offset;
+                offset = coordinate_c;
+                face_a[l3] = coordinate_a;
+                face_b[l3] = coordinate_b;
+                face_c[l3] = coordinate_c;
             }
-            if (i4 == 4) {
-                int k4 = j2;
-                j2 = l2;
-                l2 = k4;
-                j3 = stream.method421() + k3;
-                k3 = j3;
-                face_a[l3] = j2;
-                face_b[l3] = l2;
-                face_c[l3] = j3;
+            if (opcode == 4) {
+                int k4 = coordinate_a;
+                coordinate_a = coordinate_b;
+                coordinate_b = k4;
+                coordinate_c = stream.method421() + offset;
+                offset = coordinate_c;
+                face_a[l3] = coordinate_a;
+                face_b[l3] = coordinate_b;
+                face_c[l3] = coordinate_c;
             }
         }
         stream.currentOffset = header.textureInfoBasePos;
