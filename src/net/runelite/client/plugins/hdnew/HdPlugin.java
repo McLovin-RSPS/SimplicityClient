@@ -81,6 +81,7 @@ import com.simplicity.client.WallObject;
 import com.simplicity.client.WallDecoration;
 import net.runelite.api.*;
 import net.runelite.api.Client;
+import net.runelite.client.plugins.PluginInstantiationException;
 import org.jocl.CL;
 
 import com.google.common.primitives.Ints;
@@ -466,18 +467,20 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 
 				invokeOnMainThread(() ->
 				{
-					// Get and display the device and driver used by the GPU plugin
-					GLDrawable dummyDrawable = GLDrawableFactory.getFactory(GLProfile.getDefault())
-						.createDummyDrawable(GLProfile.getDefaultDevice(), true, new GLCapabilities(GLProfile.getDefault()), null);
-					dummyDrawable.setRealized(true);
-					GLContext versionContext = dummyDrawable.createContext(null);
-					versionContext.makeCurrent();
-					// Due to probable JOGL spaghetti, calling .getGL() once results in versionGL being set to null
-					// I have no idea exactly why the second call works, but it results in the correct GL being gotten.
-					GL versionGL = versionContext.getGL().getGL();
-					log.info("Using device: {}", versionGL.glGetString(GL.GL_RENDERER));
-					log.info("Using driver: {}", versionGL.glGetString(GL.GL_VERSION));
-					versionContext.destroy();
+					try {
+						// Get and display the device and driver used by the GPU plugin
+						GLDrawable dummyDrawable = GLDrawableFactory.getFactory(GLProfile.getDefault())
+								.createDummyDrawable(GLProfile.getDefaultDevice(), true, new GLCapabilities(GLProfile.getDefault()), null);
+						dummyDrawable.setRealized(true);
+						GLContext versionContext = dummyDrawable.createContext(null);
+						versionContext.makeCurrent();
+						GL versionGL = versionContext.getGL();
+						log.info("Using device: {}", versionGL.glGetString(GL.GL_RENDERER));
+						log.info("Using driver: {}", versionGL.glGetString(GL.GL_VERSION));
+						versionContext.destroy();
+					} catch (Exception ex) {
+						log.warn("error checking device and driver version", ex);
+					}
 
 					GLProfile glProfile = GLProfile.get(GLProfile.GL4);
 
@@ -583,7 +586,21 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 			catch (Throwable e)
 			{
 				log.error("Error starting HD plugin", e);
-				stopPlugin();
+
+				SwingUtilities.invokeLater(() ->
+				{
+					try
+					{
+						pluginManager.setPluginEnabled(this, false);
+						pluginManager.stopPlugin(this);
+					}
+					catch (PluginInstantiationException ex)
+					{
+						log.error("error stopping plugin", ex);
+					}
+				});
+
+				shutDown();
 			}
 				
 			client().reload();
@@ -673,6 +690,7 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 	
 			// force main buffer provider rebuild to turn off alpha channel
 			client.resizeCanvas();
+			client().resetImageProducers();
 			client().reload();
 		});
 	}
@@ -2123,13 +2141,22 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 		textureManager.animate(texture, diff);
 	}
 	
-	public void onGameStateChanged() {
-		// shadow call
-	}
-
 	@Subscribe
 	public void onGameStateChanged(GameStateChanged gameStateChanged)
 	{
+		if (enabled && client.getGameState() == GameState.LOGIN_SCREEN) {
+			client.setGpu(false);
+			client.setDrawCallbacks(null);
+
+			client().submit(() -> {
+				if (enabled) {
+					client.setGpu(true);
+					client.setDrawCallbacks(this);
+				}
+			});
+			return;
+		}
+
 		if (!startUpCompleted) {
 			return;
 		}

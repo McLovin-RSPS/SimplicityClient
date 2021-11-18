@@ -8346,7 +8346,7 @@ public class Client extends RSApplet {
 
     }
 
-    private void resetImageProducers() {
+    public void resetImageProducers() {
         super.fullGameScreen = null;
         chatAreaIP = null;
         mapAreaIP = null;
