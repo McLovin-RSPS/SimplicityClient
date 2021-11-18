@@ -230,28 +230,11 @@ public final class Rasterizer extends DrawingArea {
 		anInt1473 = 0;
 		for (int index = textureAmount - 1; index >= 0; index--) {
 			try {
-				/**
-				 * Index 60 does not work at all, no matter which texture is packed at it.
-				 */
-				if (index > 50 && index < 58 || index == 60) {
+				if (index > 50 && index < 58) {
 					textures[index] = textures[59];
 					textureEnabled[index] = false;
 				} else {
 					textures[index] = new Background(streamLoader, String.valueOf(index), 0);
-					
-					/**
-					 * Cheaphax for the textures index loading incorrect sizes.
-					 */
-					if (index > 60) {
-						if (textures[index].libWidth > 128) {
-							textures[index].libWidth = 128;
-						}
-						
-						if (textures[index].libHeight > 128) {
-							textures[index].libHeight = 128;
-						}
-					}
-						
 					textures[index].setOffset();
 					textureEnabled[index] = true;
 				}
