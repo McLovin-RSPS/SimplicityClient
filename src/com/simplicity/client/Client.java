@@ -9670,6 +9670,13 @@ public class Client extends RSApplet {
         if (l == 626) {
             RSInterface class9_1 = RSInterface.interfaceCache[interfaceId];
             int childId = interfaceId;
+            
+            if (childId == 101250) { //Enchant crossbow bolt
+            	stream.createFrame(185);
+            	stream.putInt(interfaceId);
+            	return;
+            }
+            
             spellSelected = 1;
             spellUsableOn = class9_1.spellUsableOn; /*Integer.parseInt(MagicInterfaces.getSpellData(childId, "spellUsableOn"));*/
             itemSelected = 0;
