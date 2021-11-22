@@ -3269,7 +3269,7 @@ public class CustomItems2 {
 	            itemDef.modelOffset1 = -7;
 	            itemDef.modelOffsetY = 4;
 	            itemDef.groundActions = new String[]{null, null, "Take", null, null};
-	            itemDef.actions = new String[]{null, "Wield", "Check", "Unload", "Uncharge"};
+	            itemDef.actions = new String[]{null, "Wield", "Check", "Unload", "Drop"};
 	            itemDef.newModelColor = new int[]{8134, 5058, 926, 957, 3008, 1321, 86, 41, 49, 7110, 3008, 1317};
 	            itemDef.editedModelColor = new int[]{48045, 49069, 48055, 49083, 50114, 33668, 29656, 29603, 33674, 33690, 33680, 33692};
 	            itemDef.modelID = 19219;
