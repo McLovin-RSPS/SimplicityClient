@@ -741,7 +741,7 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 			}
 			
 			try {
-				return inputStreamToString(new FileInputStream(signlink.findcachedir() + "gl117" + File.separator + key));
+				return inputStreamToString(getClass().getResourceAsStream(key));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -1663,7 +1663,7 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 					continue;
 				}
 
-				client().method37(id); // trips the texture load flag which lets textures animate
+				//client().method37(id); // trips the texture load flag which lets textures animate
 
 				textureOffsets[id * 2] = texture.getU();
 				textureOffsets[id * 2 + 1] = texture.getV();

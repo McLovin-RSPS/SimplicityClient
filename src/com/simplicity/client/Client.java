@@ -23465,7 +23465,8 @@ public class Client extends RSApplet {
 
         updateEntities();
         drawHeadIcon();
-        method37(k2);
+        if (drawCallbacks == null)
+            method37(k2);
         if (drawPane) {
             drawBlackPane();
         }
