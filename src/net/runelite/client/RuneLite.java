@@ -52,7 +52,6 @@ import joptsimple.util.EnumConverter;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
-import net.runelite.client.account.SessionManager;
 import net.runelite.client.callback.Hooks;
 import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.chat.CommandManager;
@@ -112,9 +111,6 @@ public class RuneLite
 
 	@Inject
 	private DrawManager drawManager;
-
-	@Inject
-	private SessionManager sessionManager;
 
 	@Inject
 	private ClientSessionManager clientSessionManager;
@@ -256,57 +252,21 @@ public class RuneLite
 			injector.injectMembers(client);
 		}
 
-		startup.execute(new Runnable() {
-
-			public void run() {
-				// Load user configuration
-				configManager.load();
-			}
-
-		});
+		// Load user configuration
+		configManager.load();
 
 		// Tell the plugin manager if client is outdated or not
 		//pluginManager.setOutdated(isOutdated);
 
 		// Load the plugins, but does not start them yet.
 		// This will initialize configuration
-		
-		startup.execute(new Runnable() {
 
-			public void run() {
-				// Load user configuration
-				try {
-					pluginManager.loadCorePlugins();
-					
-					// Plugins have provided their config, so set default config
-					// to main settings
-					pluginManager.loadDefaultPluginConfiguration();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
+		pluginManager.loadCorePlugins();
 
-		});
+		// Plugins have provided their config, so set default config
+		// to main settings
+		pluginManager.loadDefaultPluginConfiguration();
 
-		/*startup.execute(new Runnable() {
-
-			public void run() {
-				// Load user configuration
-					// Start client session
-				clientSessionManager.start();
-			}
-
-		});*/
-		
-		startup.execute(new Runnable() {
-
-			public void run() {
-				// Load the session, including saved configuration
-				sessionManager.loadSession();
-			}
-
-		});
-		
 		// Initialize UI
 		clientUI.open(this);
 		
