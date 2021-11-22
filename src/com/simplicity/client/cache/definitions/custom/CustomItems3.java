@@ -506,6 +506,13 @@ public class CustomItems3 {
 				itemDef.maleEquip2 = itemDef.femaleEquip2 = 157;
 				itemDef.dataType = DataType.CUSTOM;
 				break;
+			case 22807:
+				itemDef.copy(ItemDefinition.forID(49504));
+				itemDef.name = "Dragonstone dragon bolts";
+				itemDef.actions = new String[5];
+	            itemDef.actions[1] = "Wield";
+				itemDef.dataType = DataType.REGULAR;
+				break;
 		}
     }
 }

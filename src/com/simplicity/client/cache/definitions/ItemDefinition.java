@@ -325,6 +325,11 @@ public final class ItemDefinition {
 
     public static void postOsrsItemDef(ItemDefinition itemDef) {
         switch(itemDef.id) {
+        	case 49504:
+	        	itemDef.name = "Dragonstone dragon bolts (e)";
+	        	itemDef.actions = new String[5];
+	            itemDef.actions[1] = "Wield";
+	        	break;
             case 34172:
                 itemDef.name = "Broad arrows";
                 break;
