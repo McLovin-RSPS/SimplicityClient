@@ -135,8 +135,7 @@ class TextureManager
 		int width = 0;
 		int height = 0;
 		//Create the PNGDecoder object and decode the texture to a buffer
-		//try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(Signlink.findcachedir() + "gl" + File.separator + "lighting" + File.separator + filename))))
-		try (InputStream in = new FileInputStream(signlink.findcachedir() + "gl117" + File.separator + "textures" + File.separator + textureId + ".png"))
+		try (InputStream in = getClass().getResourceAsStream("textures/" + textureId + ".png"))
 		{
 			if (in != null)
 			{

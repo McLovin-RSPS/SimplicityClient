@@ -795,8 +795,7 @@ public class LightManager
 		LightType type = defaultType;
 
 		int lineNo = 1;
-		//getClass().getResourceAsStream(filename)
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(signlink.findcachedir() + "gl117" + File.separator + "lighting" + File.separator + filename))))
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(filename))))
 		{
 			Matcher m = PATTERN.matcher("");
 			String line;
