@@ -2634,6 +2634,7 @@ public final class MobDefinition {
             }
             completedModel.createBones();
             completedModel.light(frontLight, backLight, rightLight, middleLight, leftLight, true, false);
+
             if (dataType == DataType.CUSTOM) {
                 modelCacheCustom.put(completedModel, type);
             } else if (dataType == DataType.OLDSCHOOL) {

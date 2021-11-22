@@ -53,7 +53,7 @@ WindowListener {
 	int myWidth;
 	int myHeight;
 	public Graphics graphics;
-	RSImageProducer fullGameScreen;
+	public RSImageProducer fullGameScreen;
 	RSFrame mainFrame;
 	private boolean shouldClearScreen;
 	boolean awtFocus;

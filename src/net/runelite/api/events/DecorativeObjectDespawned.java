@@ -29,7 +29,7 @@ import com.simplicity.client.Tile;
 import lombok.Data;
 
 /**
- * An event where the {@link DecorativeObject} attached to a {@link Tile}
+ * An event where the {@link GroundDecoration} attached to a {@link Tile}
  * is removed.
  */
 @Data

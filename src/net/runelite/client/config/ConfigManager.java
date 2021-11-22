@@ -28,14 +28,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Proxy;
+import java.nio.channels.FileChannel;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.AtomicMoveNotSupportedException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -107,69 +108,16 @@ public class ConfigManager
 
 	private File getPropertiesFile()
 	{
-		// Sessions that aren't logged in have no username
-		if (session == null || session.getUsername() == null)
-		{
-			return new File(RuneLite.RUNELITE_DIR, SETTINGS_FILE_NAME);
-		}
-		else
-		{
-			File profileDir = new File(RuneLite.PROFILES_DIR, session.getUsername().toLowerCase());
-			return new File(profileDir, SETTINGS_FILE_NAME);
-		}
+		return new File(RuneLite.RUNELITE_DIR, SETTINGS_FILE_NAME);
 	}
 
 	public void load()
 	{
-		if (client == null)
-		{
-			loadFromFile();
-			return;
-		}
-
-		Configuration configuration;
-
-		try
-		{
-			configuration = client.get();
-		}
-		catch (IOException ex)
-		{
-			log.debug("Unable to load configuration from client, using saved configuration from disk", ex);
-			loadFromFile();
-			return;
-		}
-
-		if (configuration.getConfig().isEmpty())
-		{
-			log.debug("No configuration from client, using saved configuration on disk");
-			loadFromFile();
-			return;
-		}
-
-		properties.clear();
-
-		for (ConfigEntry entry : configuration.getConfig())
-		{
-			log.debug("Loading configuration value from client {}: {}", entry.getKey(), entry.getValue());
-			final String[] split = entry.getKey().split("\\.");
-			final String groupName = split[0];
-			final String key = split[1];
-			final String value = entry.getValue();
-			final String oldValue = (String) properties.setProperty(entry.getKey(), value);
-
-			ConfigChanged configChanged = new ConfigChanged();
-			configChanged.setGroup(groupName);
-			configChanged.setKey(key);
-			configChanged.setOldValue(oldValue);
-			configChanged.setNewValue(value);
-			eventBus.post(configChanged);
-		}
+		loadFromFile();
 
 		try
 		{
 			saveToFile();
-
 			log.debug("Updated configuration on disk with the latest version");
 		}
 		catch (IOException ex)
@@ -226,11 +174,30 @@ public class ConfigManager
 
 	private synchronized void saveToFile() throws IOException
 	{
-		propertiesFile.getParentFile().mkdirs();
+		File parent = propertiesFile.getParentFile();
 
-		try (FileOutputStream out = new FileOutputStream(propertiesFile))
+		parent.mkdirs();
+
+		File tempFile = File.createTempFile("runelite", null, parent);
+
+		try (FileOutputStream out = new FileOutputStream(tempFile);
+			 FileChannel channel = out.getChannel();
+			 OutputStreamWriter writer = new OutputStreamWriter(out, StandardCharsets.UTF_8))
 		{
-			properties.store(out, "RuneLite configuration");
+			channel.lock();
+			properties.store(writer, "RuneLite configuration");
+			channel.force(true);
+			// FileChannel.close() frees the lock
+		}
+
+		try
+		{
+			Files.move(tempFile.toPath(), propertiesFile.toPath(), StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
+		}
+		catch (AtomicMoveNotSupportedException ex)
+		{
+			log.debug("atomic move not supported", ex);
+			Files.move(tempFile.toPath(), propertiesFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		}
 	}
 

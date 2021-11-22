@@ -478,25 +478,25 @@ public final class TextDrawingArea extends DrawingArea {
 		for (int i2 = -i1; i2 < 0; i2++) {
 			for (int j2 = l1; j2 < 0; j2++) {
 				if (abyte0[j++] != 0)
-					ai[k++] = i;
+					drawAlpha(ai, k++, i, i, 255);
 				else
 					k++;
 				if (abyte0[j++] != 0)
-					ai[k++] = i;
+					drawAlpha(ai, k++, i, i, 255);
 				else
 					k++;
 				if (abyte0[j++] != 0)
-					ai[k++] = i;
+					drawAlpha(ai, k++, i, i, 255);
 				else
 					k++;
 				if (abyte0[j++] != 0)
-					ai[k++] = i;
+					drawAlpha(ai, k++, i, i, 255);
 				else
 					k++;
 			}
 			for (int k2 = l; k2 < 0; k2++)
 				if (abyte0[j++] != 0)
-					ai[k++] = i;
+					drawAlpha(ai, k++, i, i, 255);
 				else
 					k++;
 
@@ -546,7 +546,7 @@ public final class TextDrawingArea extends DrawingArea {
 			for (int k2 = -i1; k2 < 0; k2++)
 				if (abyte0[l++] != 0) {
 					int l2 = ai[j];
-					ai[j++] = (((l2 & 0xff00ff) * i2 & 0xff00ff00) + ((l2 & 0xff00) * i2 & 0xff0000) >> 8) + l1;
+					drawAlpha(ai, j++, (((l2 & 0xff00ff) * i2 & 0xff00ff00) + ((l2 & 0xff00) * i2 & 0xff0000) >> 8) + l1, (((l2 & 0xff00ff) * i2 & 0xff00ff00) + ((l2 & 0xff00) * i2 & 0xff0000) >> 8) + l1, i2);
 				} else {
 					j++;
 				}

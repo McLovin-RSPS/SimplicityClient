@@ -78,6 +78,7 @@ import net.runelite.client.plugins.donate.DonatePlugin;
 import net.runelite.client.plugins.fps.FpsPlugin;
 import net.runelite.client.plugins.grounditems.GroundItemsPlugin;
 import net.runelite.client.plugins.groundmarkers.GroundMarkerPlugin;
+import net.runelite.client.plugins.hdnew.HdPlugin;
 import net.runelite.client.plugins.loottracker.LootTrackerPlugin;
 import net.runelite.client.plugins.mousehighlight.MouseHighlightPlugin;
 import net.runelite.client.plugins.notes.NotesPlugin;
@@ -277,7 +278,8 @@ public class PluginManager
 				StatusOrbsPlugin.class,
 //				FeedPlugin.class,
 				BlastFurnacePlugin.class,
-				DevToolsPlugin.class
+				DevToolsPlugin.class,
+				HdPlugin.class
 		};
 		
 		for (Class<?> clazz : plugins)

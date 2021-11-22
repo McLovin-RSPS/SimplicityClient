@@ -139,5 +139,9 @@ public final class GroundDecoration implements TileObject
 
 		return model;
 	}
+
+	public Animable getRenderable() {
+		return node;
+	}
 	
 }
