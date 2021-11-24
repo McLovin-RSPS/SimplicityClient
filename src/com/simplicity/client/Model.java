@@ -1018,7 +1018,7 @@ public class Model extends Animable {
 
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
     }
