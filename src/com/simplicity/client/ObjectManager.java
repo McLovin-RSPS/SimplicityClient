@@ -632,7 +632,6 @@ final class ObjectManager {
 				if (j == 0)
 					break label0;
 				i += j;
-				System.out.println(i);
 				ObjectDefinition class46 = ObjectDefinition.forID(i);
 				class46.method574(fetcher);
 				do {
