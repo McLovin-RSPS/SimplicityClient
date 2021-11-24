@@ -414,6 +414,7 @@ public final class ObjectDefinition {
         ObjectDefinition objectDef = cache[cacheIndex];
         objectDef.type = i;
         objectDef.setDefaults();
+        objectDef.dataType = DataType.REGULAR;
 
         if (loadCustom(i, objectDef)) {
             return objectDef;
