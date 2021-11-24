@@ -658,19 +658,20 @@ public enum CustomRecolor2 {
 				new int[]{35104, 2, 35092, 35109, 38422, 43275, 38412},
 				new int[]{56304, 3, 56304, 56304, 1030, 1030, 1030}),
 
-		BLACK_PINK_HAND_CANNON_XI(21213, 11620, "@pink@Black Pink Sirenic Hand Cannon XI",
+		/** BLACK PINK HCXI **/
+		BLACK_PINK_HAND_CANNON_XI(21213, 11620, "@pink@Black Pink Hand Cannon XI",
 				new int[]{ 35840, 64, 35905, 35912, 1097, 35855, 35856, 85, 35862, 23, 35865, 35866, 1051, 35868, 6303, 31, 32, 35873, 1058, 35875, 39, 40, 35882, 6317, 45, 35886, 1070, 35888, 49, 50, 54, 35895, 59 },
 				new int[]{ 3, 3, 3, 3, 56304, 56304, 56304, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 56304, 56304, 3, 56304, 3, 3, 56304, 56304, 56304, 3, 56304 }),
 
-		GREY_PURPLE_OVERLORD_CAPE(21214, 21045, "Custom Overlord Cape",
+		GREY_PURPLE_OVERLORD_CAPE(21214, 21045, "Purple Overlord Cape",
 				new int[] { 40, 0, 5 },
 				new int[] { 74, 18, 18 }),
 
-		BLACK_PINK_OVERLORD_CAPE(21215, 21045, "Custom Overlord Cape",
+		BLACK_PINK_OVERLORD_CAPE(21215, 21045, "Black Pink Overlord Cape",
 				new int[] { 40 },
 				new int[] { 72 }),
 
-		BLACK_YELLOW_OVERLORD_CAPE(21216, 21045, "Custom Overlord Cape",
+		BLACK_YELLOW_OVERLORD_CAPE(21216, 21045, "Gold Overlord Cape",
 				new int[] { 40 },
 				new int[] { 73 }),
 	;
