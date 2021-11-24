@@ -606,7 +606,74 @@ public enum CustomRecolor2 {
 		GHOSTLY_RING(21198, 49538, "@whi@Ghostly Ring",
 				new int[] {3008, 5056, 43045, 43053},
 				new int[] {127, 127, 92, 97}),
-		;
+
+		/** ITEMS NOV 2021 **/
+		PINK_AGS(21199, 11694, "Pink armadyl godsword",
+				new int[] {43328, 43072, 43121, 41265, 43059, 43092, 43096, 41257, 43113, 43117, 65535, 43072, 43073, 43330, 43074, 43075, 43076, 41222, 43079, 43080, 43018, 43019, 43083, 43276, 43020, 43085, 43086, 43090, 43348, 43094, 43030, 41239, 43031, 43096, 43033, 43098, 43037, 43296, 43040, 43041, 43042, 43044, 43049, 43053, 43117, 43310, 43056, 43060, 43063, 43065, 43067, 43071, 41279},
+				new int[] {56304, 3, 3, 56304, 3, 3, 3, 56304, 3, 3, 3, 3, 3, 56304, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 56304, 3, 3, 56304, 3, 3, 3, 3, 3, 56304, 3, 13, 3, 2, 3, 3, 3, 56304, 3, 3, 3, 3, 3, 3, 56309}),
+		BLACK_PINK_HOLY_MYTHICAL_STAFF(21200, 55731, "@gre@Pink Holy Mythical Sangiusteni",
+				new int[] {6736, 6709, 43303, 39, 24, 8, 59466, 6602, 28, 59453, 4382},
+				new int[] {56304, 56304, 56304, 3, 3, 8, 3, 56304, 3, 3, 3}),
+
+		/** BLACK PINK MYTHICAL SET ***/
+		BLACK_PINK_MYTHICAL_SHIELD(21201, 20910, "@pur@Black Pink Mythical Shield",
+				new int[] { 44641, 44612, 44564, 44615, 105, 44618, 44570, 44635, 44603, 44606, 44575, 4495,  },
+				new int[] { 3, 3, 3, 3, 56304, 3, 3, 3, 3, 3, 3, 3,  }),
+		BLACK_PINK_MYTHICAL_GLOVES(21202, 1580, "@pur@Black Pink Mythical Gloves",
+				new int[] { 10004, },
+				new int[] { 56304, }),
+		BLACK_PINK_MYTHICAL_TOP(21203, 19380, "@pur@Black Pink Mythical Robes",
+				new int[] { 115, 916, 84, 6550, 105, 90, 92, 5772, 908, 7050 },
+				new int[] {  3, 56304, 3, 56304, 3, 3, 3, 56304, 3, 3 }),
+		BLACK_PINK_MYTHICAL_BOTTOMS(21204, 19386, "@pur@Black Pink Mythical Bottoms",
+				new int[] { 0, 115, 916, 105, 908 },
+				new int[] { 0, 3, 56304, 3, 56304 }),
+		BLACK_PINK_MYTHICAL_ANGELIC_BOOTS(21205, 41860, "@pur@Black Pink Mythical Angelic Boots",
+				new int[]{ 8396, 8417, 5293, 20 },
+				new int[]{ 56304, 3, 56304, 3 }),
+		BLACK_PINK_MYTHICAL_HOOD(21206, 54857, "@pur@Black Pink Mythical Hood Green",
+				new int[] {0, 38325, 4550, 38362, 107, 38348, 38333, 38366, 127},
+				new int[] {3, 56304, 3, 56304, 3, 56304, 56304, 56304, 3}),
+		BLACK_PINK_MYTHICAL_CAPE(21207, 54855, "@pur@Black Pink Mythical Cape",
+				new int[] {38113, 38210, 99, 522, 107, 76, 38348, 38356, 38325, 88, 38362, 38333, 38366, 127},
+				new int[] {56304, 56304, 12, 522, 10, 3, 56304, 56304, 56304, 3, 56304, 56304, 56304, 3}),
+		/** BLACK PINK SIRENIC SET ***/
+		BLACK_PINK_SIRENIC_HELM(21208, 22014, "@pink@Black Pink Sirenic Helm",
+				new int[]{39329, 32197, 38057, 41226, 33066, 40202, 41232, 40084, 41237, 40085, 40344, 40345, 40090, 32060, 40349},
+				new int[]{3, 56304, 56304, 3, 56304, 3, 3, 56304, 3, 1030, 1030, 1030, 1030, 56304, 3}),
+
+		BLACK_PINK_SIRENIC_PLATEBODY(21209, 22016, "@pink@Black Pink Sirenic Platebody",
+				new int[]{39329, 32197, 33066, 43149, 41232, 43153, 42131, 41237, 42133, 40344, 40345, 32060, 40349, 20158},
+				new int[]{56304, 56304, 56304, 3, 3, 3, 3, 3, 3, 3, 3, 56304, 1030, 56304}),
+
+		BLACK_PINK_SIRENIC_PLATELEGS(21210, 22018, "@pink@Black Pink Sirenic Platelegs",
+				new int[]{39329, 32197, 33066, 43149, 41232, 43153, 42131, 41237, 42133, 40344, 40345, 32060, 40349},
+				new int[]{3, 56304, 56304, 3, 3, 3, 3, 3, 3, 1030, 3, 56304, 1030}),
+
+		BLACK_PINK_SIRENIC_GLOVES(21211, 22022, "@pink@Black Pink Sirenic Gloves",
+				new int[] {43281, 32178, 36242, 43283, 43274, 36254, 40608, 33201, 43283, 40596, 43285, 43276},
+				new int[] {56304, 56304, 3, 3, 3, 3, 1030, 1030, 56304, 56304, 56304, 56304}),
+
+		BLACK_PINK_SIRENIC_BOOTS(21212, 22020, "@pink@Black Pink Sirenic Boots",
+				new int[]{35104, 2, 35092, 35109, 38422, 43275, 38412},
+				new int[]{56304, 3, 56304, 56304, 1030, 1030, 1030}),
+
+		BLACK_PINK_HAND_CANNON_XI(21213, 11620, "@pink@Black Pink Sirenic Hand Cannon XI",
+				new int[]{ 35840, 64, 35905, 35912, 1097, 35855, 35856, 85, 35862, 23, 35865, 35866, 1051, 35868, 6303, 31, 32, 35873, 1058, 35875, 39, 40, 35882, 6317, 45, 35886, 1070, 35888, 49, 50, 54, 35895, 59 },
+				new int[]{ 3, 3, 3, 3, 56304, 56304, 56304, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 56304, 56304, 3, 56304, 3, 3, 56304, 56304, 56304, 3, 56304 }),
+
+		GREY_PURPLE_OVERLORD_CAPE(21214, 21045, "Custom Overlord Cape",
+				new int[] { 40, 0, 5 },
+				new int[] { 74, 18, 18 }),
+
+		BLACK_PINK_OVERLORD_CAPE(21215, 21045, "Custom Overlord Cape",
+				new int[] { 40 },
+				new int[] { 72 }),
+
+		BLACK_YELLOW_OVERLORD_CAPE(21216, 21045, "Custom Overlord Cape",
+				new int[] { 40 },
+				new int[] { 73 }),
+	;
 	/**
 	 * Constructs a new {@link CustomRecolor2}.
 	 * 
