@@ -127,7 +127,6 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
                 out.writeInt(getChecksum(type, index));
                 total++;
             }
-            System.out.println(type + "-" + total);
             out.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -907,7 +906,7 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
                 closeRequest(OnDemandRequest_1);
                 waiting = true;
             } catch (Exception e) {
-                System.out.println(OnDemandRequest_1.dataType + " " + OnDemandRequest_1.id);
+                System.out.println("Failed type: " + OnDemandRequest_1.dataType + " id: " + OnDemandRequest_1.id);
             }
         }
     }
