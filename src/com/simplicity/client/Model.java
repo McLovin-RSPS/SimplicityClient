@@ -2398,6 +2398,20 @@ public class Model extends Animable {
             for (int i12 = 0; i12 < numberOfTriangleFaces; i12++)
                 face_render_priorities[i12] = i2;
         }
+
+        for (int triangle = 0; triangle < numberOfTriangleFaces; triangle++) {
+            if (textures != null && textures[triangle] != -1 && textureTypes != null) {
+                int coordinate = textures[triangle] & 0xff;
+                byte textureRenderType = textureTypes[coordinate];
+
+                if (textureRenderType != 0) {
+                    materials = null;
+                    textures = null;
+                    textureTypes = null;
+                }
+            }
+        }
+
         // filterTriangles();
         //convertTexturesTo317(modelID, face_texture, textures_face_a, textures_face_b, textures_face_c, texture_coordinates);
         checkTextures(modelID, materials);
