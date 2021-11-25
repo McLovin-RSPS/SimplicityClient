@@ -580,7 +580,14 @@ public class Model extends Animable {
             }
 
         }
-        face_color = model.face_color;
+        if (colored) {
+            face_color = model.face_color;
+        } else {
+            face_color = new int[numberOfTriangleFaces];
+            for (int k = 0; k < numberOfTriangleFaces; k++)
+                face_color[k] = model.face_color[k];
+
+        }
         if (alphas) {
             face_alpha = model.face_alpha;
         } else {
