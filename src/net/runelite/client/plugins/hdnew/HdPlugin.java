@@ -145,7 +145,7 @@ import net.runelite.client.util.OSType;
 @PluginDescriptor(
 	name = "117 HD (beta)",
 	description = "GPU renderer with a suite of graphical enhancements",
-	tags = {"hd", "high", "detail", "graphics", "shaders", "textures"}
+	tags = {"hd", "high", "detail", "graphics", "shaders", "textures"},
 	enabledByDefault = false
 )
 @Slf4j
