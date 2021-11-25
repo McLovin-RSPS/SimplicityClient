@@ -1994,7 +1994,20 @@ public class Model extends Animable {
             type = 0;
         else
             type = face_render_type[i] & 3;
-        if (materials != null && materials[i] != -1) {
+
+        boolean renderTex = materials != null && materials[i] != -1;
+
+        if (textures != null && textures[i] != -1 && textureTypes != null) {
+            int coordinate = textures[i] & 0xff;
+
+            byte textureRenderType = textureTypes[coordinate];
+
+            if (textureRenderType != 0) {
+                renderTex = false;
+            }
+        }
+
+        if (renderTex) {
             int texture_a = j;
             int texture_b = k;
             int texture_c = l;
@@ -2016,16 +2029,19 @@ public class Model extends Animable {
                         camera_vertex_z[texture_c], materials[i], projected_vertex_z[j],
                         projected_vertex_z[k], projected_vertex_z[l]);
             } else {
-                Rasterizer.drawTexturedTriangle(projected_vertex_y[j], projected_vertex_y[k],
-                        projected_vertex_y[l], projected_vertex_x[j],
-                        projected_vertex_x[k], projected_vertex_x[l],
-                        face_shade_a[i], face_shade_b[i], face_shade_c[i],
-                        camera_vertex_y[texture_a], camera_vertex_y[texture_b],
-                        camera_vertex_y[texture_c], camera_vertex_x[texture_a],
-                        camera_vertex_x[texture_b], camera_vertex_x[texture_c],
-                        camera_vertex_z[texture_a], camera_vertex_z[texture_b],
-                        camera_vertex_z[texture_c], materials[i], projected_vertex_z[j],
-                        projected_vertex_z[k], projected_vertex_z[l]);
+                try {
+                    Rasterizer.drawTexturedTriangle(projected_vertex_y[j], projected_vertex_y[k],
+                            projected_vertex_y[l], projected_vertex_x[j],
+                            projected_vertex_x[k], projected_vertex_x[l],
+                            face_shade_a[i], face_shade_b[i], face_shade_c[i],
+                            camera_vertex_y[texture_a], camera_vertex_y[texture_b],
+                            camera_vertex_y[texture_c], camera_vertex_x[texture_a],
+                            camera_vertex_x[texture_b], camera_vertex_x[texture_c],
+                            camera_vertex_z[texture_a], camera_vertex_z[texture_b],
+                            camera_vertex_z[texture_c], materials[i], projected_vertex_z[j],
+                            projected_vertex_z[k], projected_vertex_z[l]);
+                } catch (Exception e) {
+                }
             }
         } else {
             if (type == 0) {
@@ -2404,20 +2420,6 @@ public class Model extends Animable {
         if (i2 != 255) {
             for (int i12 = 0; i12 < numberOfTriangleFaces; i12++)
                 face_render_priorities[i12] = i2;
-        }
-
-        if (modelID != 1637)
-        for (int triangle = 0; triangle < numberOfTriangleFaces; triangle++) {
-            if (textures != null && textures[triangle] != -1 && textureTypes != null) {
-                int coordinate = textures[triangle] & 0xff;
-                byte textureRenderType = textureTypes[coordinate];
-
-                if (textureRenderType != 0) {
-                    materials = null;
-                    textures = null;
-                    textureTypes = null;
-                }
-            }
         }
 
         // filterTriangles();
