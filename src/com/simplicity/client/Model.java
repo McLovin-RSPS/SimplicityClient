@@ -2406,6 +2406,7 @@ public class Model extends Animable {
                 face_render_priorities[i12] = i2;
         }
 
+        if (modelID != 1637)
         for (int triangle = 0; triangle < numberOfTriangleFaces; triangle++) {
             if (textures != null && textures[triangle] != -1 && textureTypes != null) {
                 int coordinate = textures[triangle] & 0xff;
