@@ -49,7 +49,7 @@ public enum CustomRecolor3 {
 
 	GREEN_VITUR_SANGUINE(21234, 55739, "@gre@Green Sanguine Scythe of Vitur",
 			new int[] {784, 16, 18, 20, 22, 790, 406, 536, 26, 427, 12, 796},
-			new int[] {22427, 1024, 1024, 1024, 1024, 22427, 22427, 22427, 1024, 9087, 1024, 22427}),	;
+			new int[] {22427, 1024, 1024, 1024, 1024, 22427, 22427, 22427, 1024, 22427, 1024, 22427}),	;
 
 	private static int[] randomScytheColor() {
 		List<Integer> colors = Arrays.asList(
