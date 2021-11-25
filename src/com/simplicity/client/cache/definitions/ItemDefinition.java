@@ -18,6 +18,7 @@ import com.simplicity.client.*;
 import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.custom.CustomRecolor;
 import com.simplicity.client.cache.definitions.custom.CustomRecolor2;
+import com.simplicity.client.cache.definitions.custom.CustomRecolor3;
 import com.simplicity.client.cache.definitions.custom.ModelOffsets;
 import com.simplicity.client.widget.ge.GrandExchange;
 import com.simplicity.client.widget.ge.SearchItem;
@@ -1333,6 +1334,7 @@ public final class ItemDefinition {
         
         CustomRecolor.values();
         CustomRecolor2.values();
+        CustomRecolor3.values();
         ModelOffsets.init();
     }
 
