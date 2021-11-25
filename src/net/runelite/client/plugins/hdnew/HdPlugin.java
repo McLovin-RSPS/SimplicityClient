@@ -146,6 +146,7 @@ import net.runelite.client.util.OSType;
 	name = "117 HD (beta)",
 	description = "GPU renderer with a suite of graphical enhancements",
 	tags = {"hd", "high", "detail", "graphics", "shaders", "textures"}
+	enabledByDefault = false
 )
 @Slf4j
 public class HdPlugin extends Plugin implements DrawCallbacks
