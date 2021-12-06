@@ -17612,7 +17612,7 @@ public class Client extends RSApplet {
                     } else if (child.type == 45) {
                     	child.disabledSprite.drawSprite(childX, childY);
                     	
-                    	child.enabledSprite.drawAdvancedSprite(childX + child.hoverIconX, childY + child.hoverIconY, hoverSpriteId == child.hoverType ? child.hoverOpacity : 256);
+                    	child.enabledSprite.drawAdvancedSprite(childX + child.hoverIconX, childY + child.hoverIconY, hoverSpriteId == child.hoverType ? child.hoverOpacity : 255);
                     } else if (child.type == 46) {
                     	boolean selected = interfaceIsSelected(child);
                     	
