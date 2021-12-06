@@ -1009,7 +1009,8 @@ public class DrawingArea extends QueueNode {
 		int pixelIndex = topX + topY * DrawingArea.width;
 		for (int rowIndex = 0; rowIndex < height; rowIndex++) {
 			for (int columnIndex = 0; columnIndex < width; columnIndex++)
-				drawAlpha(pixels, pixelIndex += leftOver, rgbColour, rgbColour, 255);
+				drawAlpha(pixels, pixelIndex++, rgbColour, rgbColour, 255);
+			pixelIndex += leftOver;
 		}
 	}
 	
