@@ -105,7 +105,7 @@ public class SkillOrb {
         drawRing(xpRing, new Color(0, 0, 0, alpha));
         drawRing(progressRing, new Color(255, 200, 0, alpha));
 
-        icon.drawAdvancedSprite(x + size + 2 - icon.myWidth / 2, size + 2 - icon.myHeight / 2 + y, alpha);
+        icon.drawARGBSprite(x + size + 2 - icon.myWidth / 2, size + 2 - icon.myHeight / 2 + y, alpha);
     }
     
 

@@ -344,7 +344,7 @@ public class Client extends RSApplet {
 	            			spriteY -= 2;
 	            		}
 
-	            		sprite.drawAdvancedSprite(spriteX, spriteY);
+	            		sprite.drawARGBSprite(spriteX, spriteY);
 	            	}
 
 	                int seconds = timer.getSecondsTimer().secondsRemaining();
