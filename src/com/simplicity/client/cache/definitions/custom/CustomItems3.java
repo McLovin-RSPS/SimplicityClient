@@ -448,7 +448,7 @@ public class CustomItems3 {
 				break;
 			case 21096:
 				itemDef.copy(ItemDefinition.forID(21045));
-				itemDef.name = "Grotesque Cape (Tier 3)";
+				itemDef.name = "Ocean archer cape";
 				itemDef.modelID = 137;
 				itemDef.maleEquip1 = 138;
 				itemDef.femaleEquip1 = 138;
