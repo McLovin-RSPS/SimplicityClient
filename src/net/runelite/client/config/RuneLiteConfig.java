@@ -24,13 +24,21 @@
  */
 package net.runelite.client.config;
 
-import java.awt.Dimension;
+import java.awt.*;
 
 import net.runelite.api.Constants;
+import net.runelite.client.ui.overlay.components.ComponentConstants;
 
 @ConfigGroup("runelite")
 public interface RuneLiteConfig extends Config
 {
+	@ConfigSection(
+			name = "Overlay Settings",
+			description = "Settings relating to fonts",
+			position = 2
+	)
+	String overlaySettings = "overlaySettings";
+
 	@ConfigItem(
 		keyName = "gameSize",
 		name = "Game size",
@@ -209,6 +217,18 @@ public interface RuneLiteConfig extends Config
 	}
 
 	@ConfigItem(
+			keyName = "tooltipPosition",
+			name = "Tooltip Position",
+			description = "Configures whether to show the tooltip above or under the cursor",
+			position = 35,
+			section = overlaySettings
+	)
+	default TooltipPositionType tooltipPosition()
+	{
+		return TooltipPositionType.UNDER_CURSOR;
+	}
+
+	@ConfigItem(
 		keyName = "infoBoxVertical",
 		name = "Display infoboxes vertically",
 		description = "Toggles the infoboxes to display vertically",
@@ -239,5 +259,18 @@ public interface RuneLiteConfig extends Config
 	default int infoBoxSize()
 	{
 		return 35;
+	}
+
+	@ConfigItem(
+			keyName = "overlayBackgroundColor",
+			name = "Overlay Color",
+			description = "Configures the background color of infoboxes and overlays",
+			position = 44,
+			section = overlaySettings
+	)
+	@Alpha
+	default Color overlayBackgroundColor()
+	{
+		return ComponentConstants.STANDARD_BACKGROUND_COLOR;
 	}
 }

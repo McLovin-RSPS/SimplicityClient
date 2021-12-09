@@ -298,7 +298,7 @@ public class RSFontSystem extends DrawingArea {
 	 *            The sprite effect string.
 	 * @return The values.
 	 */
-	public int[] extractSpriteValues(String effectString) {
+	public static int[] extractSpriteValues(String effectString) {
 		String[] args = effectString.indexOf(":") != -1 ? effectString.substring(4).split(":") : new String[] { effectString.substring(4) };
 
 		int spriteId = Integer.parseInt(args[0]);
