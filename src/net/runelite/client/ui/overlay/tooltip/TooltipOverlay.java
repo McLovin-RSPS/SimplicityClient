@@ -85,9 +85,7 @@ public class TooltipOverlay extends Overlay
 		finally
 		{
 			// Tooltips must always be cleared each frame
-			if (RSImageProducer.clearNeeded) {
-				tooltipManager.clear();
-			}
+			tooltipManager.clear();
 		}
 	}
 
