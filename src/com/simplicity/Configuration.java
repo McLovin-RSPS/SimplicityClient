@@ -5,8 +5,8 @@ public class Configuration {
 	/**
 	 * Connection information
 	 */
-	public final static boolean LOCALHOST = false;
-	public final static boolean BETA = true;
+	public final static boolean LOCALHOST = true;
+	public final static boolean BETA = false;
 	public static String HOST = LOCALHOST ? "127.0.0.1" : BETA ? "beta.simplicity-data.com" : "149.56.28.66";
 	public static int PORT = 43594;
 
@@ -24,7 +24,7 @@ public class Configuration {
 	public final static String JAGGRAB_HOST = "127.0.0.1";
 	public static final boolean JAGCACHED_ENABLED = false;
 
-	public static final boolean debuggingModels = false;
+	public static final boolean debuggingModels = true;
 
 	/**
 	 * The NPC bits. 12 = 317/377 14 = 474+ 16 = 600+

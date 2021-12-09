@@ -426,6 +426,14 @@ public class CustomItems {
                 itemDef.editedModelColor = new int[] { 8128, 7616, 4626, 7091, 6067 };
                 itemDef.newModelColor = new int[] { 9087, 9087, 933, 9087, 9087 };
                 break;
+                
+            case 22850:
+                itemDef.copy(ItemDefinition.forID(15243));
+                itemDef.editedModelColor = new int[]{7223, 7467, 6430, 6798};
+                itemDef.newModelColor = new int[]{40226, 40221, 40221, 40226};
+                itemDef.name = "Ocean archer shots";
+                break;
+                
             case 11222:
                 itemDef.name = "Frost fire arrow";
                 itemDef.editedModelColor = new int[] { 929, 914, 788, 68, 918, 937, 7081, 922, 924};
