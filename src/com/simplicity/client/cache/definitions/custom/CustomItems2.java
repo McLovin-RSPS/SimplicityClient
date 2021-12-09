@@ -1218,6 +1218,10 @@ public class CustomItems2 {
 	        case 1543:
 	            itemDef.name = "Santa's key";
 	            break;
+	        case 1544:
+	            itemDef.copy(ItemDefinition.forID(1543));
+	            itemDef.name = "Santa's key";
+	            break;
 	        case 21000:
 	            ItemDefinition def2 = ItemDefinition.forID(9774);
 	            itemDef.actions = def2.actions;
