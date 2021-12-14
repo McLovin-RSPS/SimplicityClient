@@ -208,9 +208,21 @@ public final class MobDefinition {
                     npc.sizeXZ *= 2;
                     npc.sizeY *= 2;
                     npc.squaresNeeded = 4;
-                    break;                    
+                    break;     
                     
+                    // npc id 8221 true
                 case 8221:
+                    npc.copy(forID(8540));
+                    npc.name = "@red@Evil Santa";
+                    npc.actions = new String[5];
+                    npc.actions[1] = "Attack";
+                    npc.sizeXZ *= 2;
+                    npc.sizeY *= 2;
+                    npc.squaresNeeded = 4;
+                    break;  
+                    
+                    // Santa event boss 2020
+              /*  case 8221:
                     npc.copy(forID(3821));
                     npc.name = "Santa's Evil Brother";
                     npc.actions = new String[5];
@@ -218,7 +230,7 @@ public final class MobDefinition {
                     npc.sizeXZ *= 3;
                     npc.sizeY *= 3;
                     npc.squaresNeeded = 4;
-                    break;                   
+                    break;  */                 
                     
                 case 7519:
                     npc.name = "Superior Olmlet";
