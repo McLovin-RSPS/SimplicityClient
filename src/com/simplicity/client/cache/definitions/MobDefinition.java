@@ -296,6 +296,20 @@ public final class MobDefinition {
         npc.postLoad();
         switch (i) {
 
+            case 33: // Santa
+                npc.copy(forID(3));
+                npc.name = "Santa";
+                npc.combatLevel = 321;
+                npc.actions = new String[5];
+                npc.actions = new String[]{null, "Attack", null, null, null};
+                npc.models = new int[1];
+                npc.models[0] = 159;
+                npc.squaresNeeded = 5;
+                npc.dataType = DataType.CUSTOM;
+                npc.standAnim = 808;
+                npc.walkAnim = 819;
+                break;
+
             case 7041:
                 npc.copy(forID(3));
                 npc.models = new int[] { 142 };
