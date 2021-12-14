@@ -212,7 +212,7 @@ public final class MobDefinition {
                     
                     // npc id 8221 true
                 case 8221:
-                    npc.copy(forID(8540));
+                    npc.copy(forID(1552));
                     npc.name = "@red@Evil Santa";
                     npc.actions = new String[5];
                     npc.actions[1] = "Attack";
