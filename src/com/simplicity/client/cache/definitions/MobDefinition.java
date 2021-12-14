@@ -218,7 +218,7 @@ public final class MobDefinition {
                     npc.sizeXZ *= 3;
                     npc.sizeY *= 3;
                     npc.squaresNeeded = 4;
-                    break;
+                    break;                   
                     
                 case 7519:
                     npc.name = "Superior Olmlet";
@@ -1969,6 +1969,10 @@ public final class MobDefinition {
                 npc.pet = true;
                 break;
 
+            case 1552:
+                npc.name = "Skinny Santa";
+                break;
+                
             case 3048:
                 npc.models = new int[]{44733};
                 npc.name = "Tormented demon";
