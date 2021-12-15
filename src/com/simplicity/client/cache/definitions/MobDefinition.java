@@ -210,6 +210,18 @@ public final class MobDefinition {
                     npc.squaresNeeded = 4;
                     break;     
                     
+                    // giant evil santa
+                    
+                case 8224:
+                    npc.copy(forID(23221));
+                    npc.name = "Giant Evil Santa";
+                    npc.actions = new String[5];
+                    npc.actions[1] = "Attack";
+                    npc.sizeXZ *= 2;
+                    npc.sizeY *= 2;
+                    npc.squaresNeeded = 4;
+                    break; 
+                    
                     // npc id 8221 true
                 case 8221:
                     npc.copy(forID(33));

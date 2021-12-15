@@ -32,6 +32,8 @@ public class OldschoolMaps {
             5179,  //Mount karuulm
             9772, // myth's guild
             
+            6974, // Christmass event boss 2021
+            
             
             
             9823, 9824, // new infernal dungeon

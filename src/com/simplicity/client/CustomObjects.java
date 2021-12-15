@@ -135,11 +135,39 @@ public class CustomObjects {
             
             // old christmas id 47748
             {56933, 3088, 3504, 0, 0}, // christmas 2021 tree
+            {47762, 3091, 3505, 0, 0}, // christmas 2021 presents
+            {47758, 3091, 3504, 0, 0}, // christmas 2021 presents
+            {47760, 3090, 3506, 0, 0}, // christmas 2021 presents
+            {47762, 3089, 3503, 0, 0}, // christmas 2021 presents
+            {47758, 3087, 3505, 0, 0}, // christmas 2021 presents
+            {47760, 3087, 3506, 0, 0}, // christmas 2021 presents
+            {47762, 3088, 3507, 0, 0}, // christmas 2021 presents
+            
+            {10665, 3079, 3484, 0, 0}, // christmas 2021 presents
+            {10665, 3079, 3498, 0, 0}, // christmas 2021 presents
+            {10665, 3110, 3503, 0, 0}, // christmas 2021 presents
+            
+            {47760, 1755, 4009, 0, 0}, // christmas 2021 presents
+            {10680, 1755, 4008, 0, 0}, // christmas 2021 presents
+            {10680, 1754, 4012, 0, 0}, // christmas 2021 presents
+            {47758, 1753, 4012, 0, 0}, // christmas 2021 presents
+            {47762, 1754, 4007, 0, 0}, // christmas 2021 presents
+            {19085, 1755, 4010, 0, 0}, // christmas 2021 presents
+            {10680, 1754, 4012, 0, 0}, // christmas 2021 presents
+            {47857, 1753, 4008, 0, 0}, // santa in cage
+            {47762, 1754, 4010, 0, 0}, // christmas 2021 presents
+            {10680, 1753, 4010, 0, 0}, // christmas 2021 presents
+            {47758, 1753, 4006, 0, 0}, // christmas 2021 presents
+            {10665, 1751, 4005, 0, 0}, // christmas 2021 presents            
+            {10665, 1740, 4007, 0, 0}, // christmas 2021 presents     
+            {107207, 1751, 4014, 0, 0}, // corpse
+            {38810, 1746, 4014, 0, 0}, // corpse 
             
             
             //{132940, 3088, 3503, 0, 0}, 
             //{42651, 3102, 3485, 0, 0}, 
             {-1, 3090, 3503, 0, 0}, 
+            {-1, 3091, 3503, 0, 0}, 
             
             // Cheapfix Chamber bloat
             {0, 3298, 4445, 4, 1}, // block
