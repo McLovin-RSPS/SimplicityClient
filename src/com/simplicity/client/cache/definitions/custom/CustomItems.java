@@ -768,14 +768,14 @@ public class CustomItems {
                 break;
                 
             case 15650:
-                itemDef.name = "Santa's Overlord Box";
 				itemDef.copy(ItemDefinition.forID(6203));
 				itemDef.modelZoom = 3100;
-				itemDef.animateInventory = true;
 				itemDef.dataType = DataType.CUSTOM;
 				itemDef.modelID = 94;
 	        	itemDef.editedModelColor = new int[] { 40 };
 	        	itemDef.newModelColor = new int[] { 66 };
+				itemDef.animateInventory = true;
+                itemDef.name = "Santa's Overlord Box";
                 break;
                 
             case 14935:
@@ -794,6 +794,27 @@ public class CustomItems {
                 itemDef.newModelColor = new int[]{1024, 6451, 6682, 1024, 111, };
 	            break;
                 
+	        case 21260:
+	            itemDef.copy(ItemDefinition.forID(52713));
+	            itemDef.name = "Star-face";
+                itemDef.editedModelColor = new int[]{7104, 0, 4001, 4626, 7108, 6069, 8, 8136, 6028, 7101, 6063, };
+                itemDef.newModelColor = new int[]{689184, 0, 689184, 689184, 7108, 6069, 8, 689184, 689184, 7101, 689184, };
+	            break;
+	            
+	        case 21261:
+	            itemDef.copy(ItemDefinition.forID(52715));
+	            itemDef.name = "Tree top";
+                itemDef.editedModelColor = new int[]{7104, 12818, 12694, 8, 24, 920, 6073, 13194, 12698, 28, 926, 127,  };
+                itemDef.newModelColor = new int[]{689184, 689184, 689184, 8, 24, 920, 6073, 689184, 689184, 28, 926, 127,  };
+	            break;
+	            
+	        case 21262:
+	            itemDef.copy(ItemDefinition.forID(52717));
+	            itemDef.name = "Tree skirt";
+                itemDef.editedModelColor = new int[]{0, 12818, 12694, 8070, 8, 13194, 12942, 127,  };
+                itemDef.newModelColor = new int[]{0, 689184, 689184, 689184, 8, 689184, 689184, 127,  };
+	            break;
+	            
             case 14482:
                 itemDef.copy(ItemDefinition.forID(6830));
                 itemDef.editedModelColor = new int[]{127, 11187};
