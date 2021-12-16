@@ -74,7 +74,7 @@ public class CacheDownloader {
 					System.out.println(cacheFile.identifier + " Sizes: Local - " + CacheLocal + " Remote - " + CacheRemote);
 					
 					if(CacheLocal != CacheRemote && CacheRemote != -1){
-						System.out.println("Cache is not up tp date.");
+						System.out.println("Cache is not up to date.");
 						updateFiles(cacheFile);
 						//writeVersions(CacheRemote);
 					}
