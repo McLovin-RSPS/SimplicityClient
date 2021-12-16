@@ -23,12 +23,12 @@ package net.runelite.api.events;
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+import com.simplicity.client.GroundDecoration;
 import lombok.Data;
-import net.runelite.api.DecorativeObject;
 import net.runelite.api.Tile;
 
 /**
- * An event where the {@link DecorativeObject} attached to a {@link Tile}
+ * An event where the {@link GroundDecoration} attached to a {@link Tile}
  * has been modified.
  */
 @Data
@@ -41,9 +41,9 @@ public class DecorativeObjectChanged
 	/**
 	 * The decorative object that has been replaced.
 	 */
-	private DecorativeObject previous;
+	private GroundDecoration previous;
 	/**
 	 * The new decoration for the tile.
 	 */
-	private DecorativeObject decorativeObject;
+	private GroundDecoration decorativeObject;
 }

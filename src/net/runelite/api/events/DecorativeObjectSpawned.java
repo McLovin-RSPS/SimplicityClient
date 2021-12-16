@@ -29,7 +29,7 @@ import com.simplicity.client.Tile;
 import lombok.Data;
 
 /**
- * An event where a {@link DecorativeObject} is attached to a {@link Tile}.
+ * An event where a {@link GroundDecoration} is attached to a {@link Tile}.
  */
 @Data
 public class DecorativeObjectSpawned

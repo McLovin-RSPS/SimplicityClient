@@ -428,7 +428,7 @@ public class QuestTab extends RSInterface {
 
 	public static void setTab(int buttonId) {
 		int tab = buttonId - 73003;
-		String[] titles = { "", "Player Information", "Activity", "Miscellaneous" };
+		String[] titles = { "", "", "Activity", "Miscellaneous" };
 		int[] tabs = new int[] { INFORMATION_TAB_ID, QUEST_TAB_ID, ACTIVITY_TAB_ID, MISC_TAB_ID };
 		Client.getClient().tabInterfaceIDs[2] = tabs[tab];
 		interfaceCache[INTERFACE_ID + 1].message = titles[tab];

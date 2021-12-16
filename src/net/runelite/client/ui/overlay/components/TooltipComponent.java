@@ -32,14 +32,16 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.regex.Pattern;
 
+import com.simplicity.client.Client;
 import com.simplicity.client.RSFontSystem;
 
+import com.simplicity.client.Sprite;
 import lombok.Setter;
 import net.runelite.api.IndexedSprite;
 import net.runelite.client.ui.overlay.RenderableEntity;
 
 @Setter
-public class TooltipComponent implements RenderableEntity
+public class TooltipComponent implements LayoutableRenderableEntity
 {
 	private static final Pattern BR = Pattern.compile("</br>");
 	private static final int OFFSET = 4;
@@ -139,6 +141,20 @@ public class TooltipComponent implements RenderableEntity
 							lineX += modIcon.getWidth();
 						}
 					}
+					else if (subLine.startsWith("spr="))
+					{
+						try {
+							int[] args = RSFontSystem.extractSpriteValues(subLine);
+							int spriteId = args[0];
+							if (spriteId != 0) {
+								Sprite icon = Client.cacheSprite[spriteId];
+								icon.drawARGBSprite(lineX, textY + i * textHeight - textDescent);
+								lineX += icon.myWidth + icon.drawOffsetX;
+							}
+						} catch (Exception exception) {
+							/* empty */
+						}
+					}
 					else
 					{
 						TextComponent textComponent = new TextComponent();
@@ -180,12 +196,13 @@ public class TooltipComponent implements RenderableEntity
 
 				begin = j;
 			}
-			else if (chars[j] == '>')
-			{
+			else if (chars[j] == '>') {
 				String subLine = line.substring(begin + 1, j);
 
-				if (subLine.startsWith("img="))
-				{
+				if (subLine.startsWith("img=")) {
+					textWidth += MOD_ICON_WIDTH;
+				}
+				else if (subLine.startsWith("spr=")) {
 					textWidth += MOD_ICON_WIDTH;
 				}
 				else if (!subLine.startsWith("col=") && !subLine.startsWith("/col"))
@@ -220,5 +237,35 @@ public class TooltipComponent implements RenderableEntity
 				}
 			}
 		}
+	}
+
+	private void renderSprite(Graphics2D graphics, int x, int y, Sprite sprite)
+	{
+		int sourceOffset = 0;
+
+		for (int y2 = 0; y2 < sprite.myHeight; y2++)
+		{
+			for (int x2 = 0; x2 < sprite.myWidth; x2++)
+			{
+				int index = sprite.myPixels[sourceOffset++] & 0xff;
+
+				if (index != 0)
+				{
+					graphics.setColor(new Color(sprite.myPixels[index]));
+					graphics.drawLine(x + x2, y + y2, x + x2, y + y2);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void setPreferredLocation(Point position) {
+		this.position = position;
+	}
+
+	@Override
+	public void setPreferredSize(Dimension dimension) {
+		// TODO Auto-generated method stub
+
 	}
 }

@@ -105,5 +105,23 @@ public final class WallObject implements TileObject
 
 		return model;
 	}
-	
+
+	public int bufferOffset = -1;
+
+	public void setBufferOffset(final int offset) {
+		bufferOffset = offset;
+	}
+
+	public Animable getRenderable1() {
+		return node1;
+	}
+
+	public Animable getRenderable2() {
+		return node2;
+	}
+
+	public int getOrientationA() {
+		return orientation;
+	}
+
 }

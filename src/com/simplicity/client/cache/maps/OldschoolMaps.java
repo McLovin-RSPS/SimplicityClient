@@ -33,6 +33,12 @@ public class OldschoolMaps {
             9772, // myth's guild
             13205, 13460, 13204, // kalphite lair
             
+            6974, // Christmass event boss 2021
+            
+            
+            
+            9823, 9824, // new infernal dungeon
+            
             7501, 6473, 9870, 9358, 9360, // seren map test
             
             14496, 14495, // Wyvern cave

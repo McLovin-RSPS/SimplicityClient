@@ -16,6 +16,7 @@
 		<java.release>8</java.release>
 		<lombok.version>1.18.4</lombok.version>
 		<guice.version>4.1.0</guice.version>
+		<jogl.version>2.3.2</jogl.version>
 		<maven.javadoc.skip>true</maven.javadoc.skip>
 		<checkstyle.skip>true</checkstyle.skip>
 	</properties>
@@ -49,6 +50,9 @@
 				<excludes>
 					<exclude>**/*.java</exclude>
 				</excludes>
+			</resource>
+			<resource>
+				<directory>resources</directory>
 			</resource>
 		</resources>
 		<plugins>
@@ -138,21 +142,21 @@
 	</build>
 	<dependencies>
 		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.15</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-jar-plugin</artifactId>
 			<version>3.1.1</version>
 			<type>maven-plugin</type>
 		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.12</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.12</version>
-		</dependency>		
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
@@ -194,18 +198,6 @@
 			<groupId>com.jwebmp</groupId>
 			<artifactId>commons-text</artifactId>
 			<version>0.66.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-parent</artifactId>
-			<version>1.2.3</version>
-			<type>pom</type>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.2.3</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.jopt-simple</groupId>
@@ -259,20 +251,76 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-	    <!--<dependency>
-	      <groupId>org.jogamp.gluegen</groupId>
-	      <artifactId>gluegen-rt-main</artifactId>
-	      <version>2.3.2</version>
-	    </dependency>
-	    <dependency>
-	      <groupId>org.jogamp.jogl</groupId>
-	      <artifactId>jogl-all-main</artifactId>
-	      <version>2.3.2</version>
-	    </dependency>		
 		<dependency>
-		  <groupId>org.jogamp.jogl</groupId>
-		  <artifactId>jogl-all</artifactId>
-		  <version>2.3.2</version>
-		</dependency>-->
+			<groupId>org.jocl</groupId>
+			<artifactId>jocl</artifactId>
+			<version>2.0.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jogamp.jogl</groupId>
+			<artifactId>jogl-all</artifactId>
+			<version>${jogl.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jogamp.jogl</groupId>
+			<artifactId>jogl-all</artifactId>
+			<version>${jogl.version}</version>
+			<classifier>natives-windows-amd64</classifier>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jogamp.jogl</groupId>
+			<artifactId>jogl-all</artifactId>
+			<version>${jogl.version}</version>
+			<classifier>natives-windows-i586</classifier>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jogamp.jogl</groupId>
+			<artifactId>jogl-all</artifactId>
+			<version>${jogl.version}</version>
+			<classifier>natives-linux-amd64</classifier>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jogamp.jogl</groupId>
+			<artifactId>jogl-all</artifactId>
+			<version>${jogl.version}</version>
+			<classifier>natives-linux-i586</classifier>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jogamp.gluegen</groupId>
+			<artifactId>gluegen-rt</artifactId>
+			<version>${jogl.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jogamp.gluegen</groupId>
+			<artifactId>gluegen-rt</artifactId>
+			<version>${jogl.version}</version>
+			<classifier>natives-windows-amd64</classifier>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jogamp.gluegen</groupId>
+			<artifactId>gluegen-rt</artifactId>
+			<version>${jogl.version}</version>
+			<classifier>natives-windows-i586</classifier>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jogamp.gluegen</groupId>
+			<artifactId>gluegen-rt</artifactId>
+			<version>${jogl.version}</version>
+			<classifier>natives-linux-amd64</classifier>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jogamp.gluegen</groupId>
+			<artifactId>gluegen-rt</artifactId>
+			<version>${jogl.version}</version>
+			<classifier>natives-linux-i586</classifier>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 </project>

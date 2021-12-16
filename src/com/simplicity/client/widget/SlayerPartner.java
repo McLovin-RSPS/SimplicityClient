@@ -4,7 +4,7 @@ import com.simplicity.client.cache.DataType;
 
 public class SlayerPartner extends CustomWidget {
 
-    public static final int WIDGET_ID = 97_000;
+    public static final int WIDGET_ID = 98_500;
 
     public SlayerPartner() {
         super(WIDGET_ID);

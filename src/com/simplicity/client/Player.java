@@ -15,6 +15,7 @@ import net.runelite.api.Perspective;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.events.InteractingChanged;
 import net.runelite.client.RuneLite;
+import net.runelite.client.plugins.hdnew.HdPlugin;
 
 @SuppressWarnings("all")
 public final class Player extends Entity {
@@ -394,7 +395,15 @@ public final class Player extends Entity {
 		}
 		if (aBoolean1699)
 			return model_1;
-		Model model_2 = Model.entityModelDesc;
+
+		Model model_2;
+
+		if (HdPlugin.process()) {
+			model_2 = new Model(true, true, false, Model.entityModelDesc);
+		} else {
+			model_2 = Model.entityModelDesc;
+		}
+
 		model_2.method464(model_1, FrameReader.isNullFrame(currentFrame) & FrameReader.isNullFrame(i1));
 
 		DataType dataType = DataType.REGULAR;

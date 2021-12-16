@@ -37,6 +37,7 @@ import org.slf4j.Logger;
 import com.simplicity.client.CollisionDetection;
 import com.simplicity.client.NPC;
 import com.simplicity.client.Player;
+import com.simplicity.client.Model;
 import com.simplicity.client.RSImageProducer;
 import com.simplicity.client.Tile;
 import com.simplicity.client.WorldController;

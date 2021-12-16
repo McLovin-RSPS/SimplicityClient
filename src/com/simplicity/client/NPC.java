@@ -71,7 +71,7 @@ public final class NPC extends Entity
 				model_2.vertexSkin = null;
 				if(spotAnim.sizeXY != 128 || spotAnim.sizeZ != 128)
 					model_2.scaleT(spotAnim.sizeXY, spotAnim.sizeXY, spotAnim.sizeZ);
-				model_2.light(64 + spotAnim.shadow, 850 + spotAnim.lightness, -30, -50, -30, true);
+				model_2.light(64 + spotAnim.shadow, 850 + spotAnim.lightness, -30, -50, -30, true, true);
 				Model aModel[] = {
 						model, model_2
 				};

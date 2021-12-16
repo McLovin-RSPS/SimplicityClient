@@ -3,6 +3,7 @@ package com.simplicity.client;
 
 import com.simplicity.client.cache.node.Node;
 
+import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.RuneLite;
@@ -22,8 +23,8 @@ public final class Tile extends Node {
 	final int tileX;
 	final int tileY;
 	final int plane;
-	public PlainTile plainTile;
-	public ShapedTile shapedTile;
+	public SceneTilePaint plainTile;
+	public SceneTileModel shapedTile;
 	public WallObject wallObject;
 	public WallDecoration wallDecoration;
 	public GroundDecoration groundDecoration;
@@ -41,6 +42,18 @@ public final class Tile extends Node {
 	int anInt1327;
 	int anInt1328;
 	public Tile tileBelowThisTile;
+
+	public Tile getBridge() {
+		return tileBelowThisTile;
+	}
+
+	public SceneTilePaint getSceneTilePaint() {
+		return plainTile;
+	}
+
+	public SceneTileModel getSceneTileModel() {
+		return shapedTile;
+	}
 	
 	public InteractableObject[] getGameObjects() {
 		return interactableObjects;
@@ -65,6 +78,11 @@ public final class Tile extends Node {
 	public LocalPoint getLocalLocation() {
 		return LocalPoint.fromScene(tileX, tileY);
 	}
+
+	public Point getSceneLocation()
+	{
+		return new Point(getX(), getY());
+	}
 	
 	public WorldPoint getWorldLocation() {
 		return WorldPoint.fromScene(RuneLite.getClient(), tileX, tileY, tileZ);
@@ -80,6 +98,14 @@ public final class Tile extends Node {
 
 	public int getPlane() {
 		return plane;
+	}
+
+	public int getX() {
+		return tileX;
+	}
+
+	public int getY() {
+		return tileY;
 	}
 	
 }

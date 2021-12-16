@@ -56,6 +56,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
@@ -179,13 +180,17 @@ import net.runelite.api.events.NpcSpawned;
 import net.runelite.api.events.PlayerDespawned;
 import net.runelite.api.events.PlayerSpawned;
 import net.runelite.api.events.StatChanged;
+import net.runelite.api.hooks.DrawCallbacks;
 import net.runelite.client.RuneLite;
 import net.runelite.client.callback.Hooks;
 import net.runelite.client.plugins.PluginManager;
+import net.runelite.client.plugins.hdnew.HdPlugin;
 import org.apache.commons.lang3.math.NumberUtils;
 
 @SuppressWarnings("all")
 public class Client extends RSApplet {
+
+    private java.util.Queue<Runnable> runnables = new ConcurrentLinkedQueue<Runnable>();
 	
 	private static Injector injector;
 	private static RuneLite runelite;
@@ -195,7 +200,9 @@ public class Client extends RSApplet {
 	public static Hooks getCallbacks() {
 		return callbacks;
 	}
-	
+
+    public static DrawCallbacks drawCallbacks;
+
 	public boolean chatboxInFocus = true;
 
 	private static final int ENTITY_DRAW_DISTANCE = 20;
@@ -337,7 +344,7 @@ public class Client extends RSApplet {
 	            			spriteY -= 2;
 	            		}
 
-	            		sprite.drawAdvancedSprite(spriteX, spriteY);
+	            		sprite.drawARGBSprite(spriteX, spriteY);
 	            	}
 
 	                int seconds = timer.getSecondsTimer().secondsRemaining();
@@ -4643,6 +4650,7 @@ public class Client extends RSApplet {
         ObjectDefinition.completedOSRSModelCache.clear();
         MobDefinition.modelCache.clear();
         MobDefinition.modelCacheOSRS.clear();
+        MobDefinition.modelCacheCustom.clear();
         ItemDefinition.modelCache.clear();
         ItemDefinition.modelCacheOSRS.clear();
         ItemDefinition.modelCacheCustom.clear();
@@ -6847,6 +6855,7 @@ public class Client extends RSApplet {
             }
         } else {
             try {
+                processTasks();
                 mainGameProcessor();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
@@ -6862,6 +6871,13 @@ public class Client extends RSApplet {
         
         if (runelite != null) {
         	callbacks.clientMainLoop();
+        }
+    }
+
+    private void processTasks() {
+        for (int i = 0; i < runnables.size(); i++) {
+            final Runnable r = runnables.poll();
+            r.run();
         }
     }
 
@@ -8357,7 +8373,7 @@ public class Client extends RSApplet {
 
     }
 
-    private void resetImageProducers() {
+    public void resetImageProducers() {
         super.fullGameScreen = null;
         chatAreaIP = null;
         mapAreaIP = null;
@@ -9669,6 +9685,13 @@ public class Client extends RSApplet {
         if (l == 626) {
             RSInterface class9_1 = RSInterface.interfaceCache[interfaceId];
             int childId = interfaceId;
+            
+            if (childId == 101250) { //Enchant crossbow bolt
+            	stream.createFrame(185);
+            	stream.putInt(interfaceId);
+            	return;
+            }
+            
             spellSelected = 1;
             spellUsableOn = class9_1.spellUsableOn; /*Integer.parseInt(MagicInterfaces.getSpellData(childId, "spellUsableOn"));*/
             itemSelected = 0;
@@ -15984,7 +16007,7 @@ public class Client extends RSApplet {
             try {
                 renderWorld();
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
         }
         if (loadingStage == 2) {
@@ -16959,7 +16982,35 @@ public class Client extends RSApplet {
                                             model.recolour(currentCape, previousMaxCapeColors[i11], maxCapeColors[i11]);
                                     }
                                 }
-                                model.renderSingle(child.modelRotation2, 0, child.modelRotation1, 0, i5, l5);
+                                if (HdPlugin.process()) {
+                                    int ai[] = Rasterizer.anIntArray1472;
+                                    float depthBuffer[] = DrawingArea.depthBuffer;
+                                    int ai1[] = DrawingArea.pixels;
+                                    int daWidth = DrawingArea.width;
+                                    int daHeight = DrawingArea.height;
+
+                                    Sprite sprite = new Sprite(daWidth, daHeight);
+                                    Rasterizer.aBoolean1464 = false;
+                                    DrawingArea.initDrawingArea(daHeight, daWidth, sprite.myPixels, new float[daWidth * daHeight]);
+                                    Rasterizer.setDefaultBounds();
+
+                                    int sine = Rasterizer.anIntArray1470[child.modelRotation1] * child.modelZoom >> 16;
+                                    int cosine = Rasterizer.anIntArray1471[child.modelRotation1] * child.modelZoom >> 16;
+                                    Rasterizer.renderOnGpu = true;
+                                    model.renderSingle(child.modelRotation2, 0, child.modelRotation1, 0, sine, cosine);
+                                    Rasterizer.renderOnGpu = false;
+                                    DrawingArea.initDrawingArea(daHeight, daWidth, ai1, depthBuffer);
+                                    Rasterizer.anIntArray1472 = ai;
+                                    Rasterizer.aBoolean1464 = true;
+
+                                    final int drawX = x - Rasterizer.textureInt1 + child.width / 2;
+                                    final int drawY = y - Rasterizer.textureInt2 + child.height / 2;
+                                    sprite.drawSprite(drawX, drawY);
+                                } else {
+                                    Rasterizer.renderOnGpu = true;
+                                    model.renderSingle(child.modelRotation2, 0, child.modelRotation1, 0, i5, l5);
+                                    Rasterizer.renderOnGpu = false;
+                                }
                             }
                             // model.reset();
                             // model = null;
@@ -17561,7 +17612,7 @@ public class Client extends RSApplet {
                     } else if (child.type == 45) {
                     	child.disabledSprite.drawSprite(childX, childY);
                     	
-                    	child.enabledSprite.drawAdvancedSprite(childX + child.hoverIconX, childY + child.hoverIconY, hoverSpriteId == child.hoverType ? child.hoverOpacity : 256);
+                    	child.enabledSprite.drawAdvancedSprite(childX + child.hoverIconX, childY + child.hoverIconY, hoverSpriteId == child.hoverType ? child.hoverOpacity : 255);
                     } else if (child.type == 46) {
                     	boolean selected = interfaceIsSelected(child);
                     	
@@ -18098,6 +18149,10 @@ public class Client extends RSApplet {
             drawLoginScreen();
         } else {
     		drawGameScreen();
+
+            if (clientSize != 0 && drawCallbacks != null) {
+                drawCallbacks.draw(0);
+            }
         }
         anInt1213 = 0;
     }
@@ -23283,7 +23338,7 @@ public class Client extends RSApplet {
         Model.currentCursorX = super.mouseX - 4;
         Model.currentCursorY = super.mouseY - 4;
         int[] pixels = null, offsets = null;
-        if (antialiasing) {
+        if (drawCallbacks != null && antialiasing) {
             Model.currentCursorX <<= 1;
             Model.currentCursorY <<= 1;
             pixels = Rasterizer.pixels;
@@ -23303,13 +23358,13 @@ public class Client extends RSApplet {
         DrawingArea.resetImage();
         worldController.render(xCameraPos, yCameraPos, xCameraCurve, zCameraPos, j, yCameraCurve);
         worldController.renderTileMarkers();
-        if (Configuration.enableFog) {
+        if (drawCallbacks == null && Configuration.enableFog) {
             int baseFogDistance = (int) Math.sqrt(Math.pow(zCameraPos, 2));
             int fogStart = baseFogDistance + 1100;
             int fogEnd = baseFogDistance + 2000;
             Rasterizer.drawFog(fogStart, fogEnd);
         }
-        if (antialiasing) {
+        if (drawCallbacks == null && antialiasing) {
             Model.currentCursorX >>= 1;
             Model.currentCursorY >>= 1;
             Rasterizer.pixels = pixels;
@@ -23461,7 +23516,8 @@ public class Client extends RSApplet {
 
         updateEntities();
         drawHeadIcon();
-        method37(k2);
+        if (drawCallbacks == null)
+            method37(k2);
         if (drawPane) {
             drawBlackPane();
         }
@@ -23490,7 +23546,11 @@ public class Client extends RSApplet {
             
             drawUnfixedGame();
             draw3dScreen();
-            
+
+            if (clientSize == 0 && drawCallbacks != null) {
+                drawCallbacks.draw(0);
+            }
+
             if (runelite != null) {
             	callbacks.drawAfterWidgets(mapAreaIP);
             }
@@ -23624,12 +23684,12 @@ public class Client extends RSApplet {
 		}
 	}
 
-	private void method37(int j) {
+	public void method37(int j) {
         // Textures
         int speed = 1;
 
         if (Rasterizer.anIntArray1480[17] >= j) {
-            Background background = Rasterizer.aBackgroundArray1474s[17];
+            Background background = Rasterizer.textures[17];
             int k = background.imgWidth * background.imgHeight - 1;
             int j1 = background.imgWidth * cycleTimer * speed;
             byte abyte0[] = background.imgPixels;
@@ -23642,10 +23702,13 @@ public class Client extends RSApplet {
             background.imgPixels = abyte3;
             aByteArray912 = abyte0;
             Rasterizer.method370(17);
+            if (drawCallbacks != null) {
+                drawCallbacks.animate(Rasterizer.textures[17], cycleTimer);
+            }
         }
 
         if (Rasterizer.anIntArray1480[24] >= j) {
-            Background background_1 = Rasterizer.aBackgroundArray1474s[24];
+            Background background_1 = Rasterizer.textures[24];
             int l = background_1.imgWidth * background_1.imgHeight - 1;
             int k1 = background_1.imgWidth * cycleTimer * 2;
             byte abyte1[] = background_1.imgPixels;
@@ -23658,10 +23721,14 @@ public class Client extends RSApplet {
             background_1.imgPixels = abyte4;
             aByteArray912 = abyte1;
             Rasterizer.method370(24);
+
+            if (drawCallbacks != null) {
+                drawCallbacks.animate(Rasterizer.textures[24], cycleTimer);
+            }
         }
 
         if (Rasterizer.anIntArray1480[34] >= j) {
-            Background background_2 = Rasterizer.aBackgroundArray1474s[34];
+            Background background_2 = Rasterizer.textures[34];
             int i1 = background_2.imgWidth * background_2.imgHeight - 1;
             int l1 = background_2.imgWidth * cycleTimer * 2;
             byte abyte2[] = background_2.imgPixels;
@@ -23674,10 +23741,14 @@ public class Client extends RSApplet {
             background_2.imgPixels = abyte5;
             aByteArray912 = abyte2;
             Rasterizer.method370(34);
+
+            if (drawCallbacks != null) {
+                drawCallbacks.animate(Rasterizer.textures[34], cycleTimer);
+            }
         }
 
         if (Rasterizer.anIntArray1480[40] >= j || Rasterizer.anIntArray1480[40] < j) {
-            Background background_2 = Rasterizer.aBackgroundArray1474s[40];
+            Background background_2 = Rasterizer.textures[40];
             int i1 = background_2.imgWidth * background_2.imgHeight - 1;
             int l1 = background_2.imgWidth * cycleTimer * 1;
             byte abyte2[] = background_2.imgPixels;
@@ -23690,11 +23761,15 @@ public class Client extends RSApplet {
             background_2.imgPixels = abyte5;
             aByteArray912 = abyte2;
             Rasterizer.method370(40);
+
+            if (drawCallbacks != null) {
+                drawCallbacks.animate(Rasterizer.textures[40], cycleTimer);
+            }
         }
 
 		for (int i : MOVING_TEXTURES) {
 			if (Rasterizer.anIntArray1480[i] >= j || (i == 61 || i == 62 || i == 65) && Rasterizer.anIntArray1480[i] < j) {
-				Background texture = Rasterizer.aBackgroundArray1474s[i];
+				Background texture = Rasterizer.textures[i];
 				
 				try {
 					int i1 = texture.imgWidth * texture.imgHeight - 1;
@@ -23709,6 +23784,10 @@ public class Client extends RSApplet {
 					texture.imgPixels = abyte5;
 					aByteArray912 = abyte2;
 					Rasterizer.method370(i);
+
+                    if (drawCallbacks != null) {
+                        drawCallbacks.animate(Rasterizer.textures[i], cycleTimer);
+                    }
 				} catch (Exception e) {
 					System.out.println("Error caused by moving texture, id: " + i + " img size: " + texture.imgWidth
 							+ " x " + texture.imgWidth + " lib width: " + texture.libWidth + " x " + texture.libHeight);
@@ -23718,7 +23797,7 @@ public class Client extends RSApplet {
 		}
 	}
 
-    public static final int[] MOVING_TEXTURES = new int[]{58, 59, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71 };
+    public static final int[] MOVING_TEXTURES = new int[]{58, 59, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75 };
 
     public int[] write(int var1, int var2, int var3, int var4, int var5) {
         if (var1 >= 128 && var3 >= 128 && var1 <= 13056 && var3 <= 13056) {
@@ -24398,10 +24477,10 @@ public class Client extends RSApplet {
     private static final String VALID_AUTH_KEYS = "0123456789";
     private static final String VALID_CC_NAME_KEYS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 ";
     public static final String validUserPassChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"\243$%^&*()-_=+[{]};:'@#~,<.>/?\\| ";
-    private RSImageProducer tabAreaIP;
-    private RSImageProducer mapAreaIP;
-    private RSImageProducer gameScreenIP;
-    private RSImageProducer chatAreaIP;
+    public RSImageProducer tabAreaIP;
+    public RSImageProducer mapAreaIP;
+    public RSImageProducer gameScreenIP;
+    public RSImageProducer chatAreaIP;
     private int daysSinceRecovChange;
     private RSSocket socketStream;
     private int minimapZoom;
@@ -27140,4 +27219,18 @@ public class Client extends RSApplet {
             }
         }
     }
+
+    public void reload() {
+        if (!loggedIn || terrainData == null) {
+            return;
+        }
+
+        worldController.clearInteractableObjects();
+        getMapLoadingState();
+    }
+
+    public void submit(Runnable r) {
+        runnables.add(r);
+    }
+
 }

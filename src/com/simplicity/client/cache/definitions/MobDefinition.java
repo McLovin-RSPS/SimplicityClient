@@ -208,9 +208,43 @@ public final class MobDefinition {
                     npc.sizeXZ *= 2;
                     npc.sizeY *= 2;
                     npc.squaresNeeded = 4;
-                    break;                    
+                    break;     
                     
+                    // giant evil santa
+                    
+                case 8224:
+                    npc.copy(forID(23221));
+                    npc.name = "Giant Evil Santa";
+                    npc.actions = new String[5];
+                    npc.actions[1] = "Attack";
+                    npc.sizeXZ *= 2;
+                    npc.sizeY *= 2;
+                    npc.squaresNeeded = 4;
+                    break; 
+                    
+                case 8223:
+                    npc.copy(forID(23221));
+                    npc.name = "Tiny Evil Santa";
+                    npc.actions = new String[5];
+                    npc.actions[1] = "Attack";
+                    npc.sizeXZ *= 0.5;
+                    npc.sizeY *= 0.5;
+                    npc.squaresNeeded = 2;
+                    break;
+                    
+                    // npc id 8221 true
                 case 8221:
+                    npc.copy(forID(33));
+                    npc.name = "Evil Santa";
+                    npc.actions = new String[5];
+                    npc.actions[1] = "Attack";
+                    npc.sizeXZ *= 2;
+                    npc.sizeY *= 2;
+                    npc.squaresNeeded = 4;
+                    break;  
+                    
+                    // Santa event boss 2020
+              /*  case 8221:
                     npc.copy(forID(3821));
                     npc.name = "Santa's Evil Brother";
                     npc.actions = new String[5];
@@ -218,7 +252,7 @@ public final class MobDefinition {
                     npc.sizeXZ *= 3;
                     npc.sizeY *= 3;
                     npc.squaresNeeded = 4;
-                    break;
+                    break;  */                 
                     
                 case 7519:
                     npc.name = "Superior Olmlet";
@@ -295,6 +329,35 @@ public final class MobDefinition {
         npc.readValues(stream);
         npc.postLoad();
         switch (i) {
+
+            case 33: // Santa
+                npc.copy(forID(3));
+                npc.name = "Santa";
+                npc.combatLevel = 321;
+                npc.actions = new String[5];
+                npc.actions = new String[]{null, "Attack", null, null, null};
+                npc.models = new int[1];
+                npc.models[0] = 159;
+                npc.squaresNeeded = 5;
+                npc.dataType = DataType.CUSTOM;
+                npc.standAnim = 808;
+                npc.walkAnim = 819;
+                break;
+
+            case 7041:
+                npc.copy(forID(3));
+                npc.models = new int[] { 142 };
+                npc.sizeXZ = 128;
+                npc.sizeY = 128;
+                npc.standAnim = 808;
+                npc.walkAnim = 819;
+                npc.squaresNeeded = 4;
+                npc.childrenIDs = null;
+                npc.npcHeadModels = null;
+                npc.name = "Boss";
+                npc.dataType = DataType.CUSTOM;
+                break;
+
         case 1643:
         	npc.walkAnim = 7200;
         	break;
@@ -1954,6 +2017,10 @@ public final class MobDefinition {
                 npc.pet = true;
                 break;
 
+            case 1552:
+                npc.name = "Skinny Santa";
+                break;
+                
             case 3048:
                 npc.models = new int[]{44733};
                 npc.name = "Tormented demon";
@@ -2527,6 +2594,7 @@ public final class MobDefinition {
     public static void nullLoader() {
         modelCache = null;
         modelCacheOSRS = null;
+        modelCacheCustom = null;
         streamIndices = null;
         cache = null;
         stream = null;
@@ -2540,7 +2608,7 @@ public final class MobDefinition {
             else
                 return npc.getAnimatedModel(j, k, ai);
         }
-        Model completedModel = dataType == DataType.OLDSCHOOL ? (Model) modelCacheOSRS.get(type) : (Model) modelCache.get(type);
+        Model completedModel = dataType == DataType.CUSTOM ? (Model) modelCacheCustom.get(type) : dataType == DataType.OLDSCHOOL ? (Model) modelCacheOSRS.get(type) : (Model) modelCache.get(type);
         if (completedModel == null) {
             boolean everyModelFetched = false;
             for (int ptr = 0; ptr < models.length; ptr++)
@@ -2562,7 +2630,9 @@ public final class MobDefinition {
             }
             completedModel.createBones();
             completedModel.light(frontLight, backLight, rightLight, middleLight, leftLight, true);
-            if (dataType == DataType.OLDSCHOOL) {
+            if (dataType == DataType.CUSTOM) {
+                modelCacheCustom.put(completedModel, type);
+            } else if (dataType == DataType.OLDSCHOOL) {
                 modelCacheOSRS.put(completedModel, type);
             } else {
                 modelCache.put(completedModel, type);
@@ -2592,7 +2662,7 @@ public final class MobDefinition {
             else
                 return npc.method164(j, frame, ai, nextFrame, idk, idk2);
         }
-        Model completedModel = dataType == DataType.OLDSCHOOL ? (Model) modelCacheOSRS.get(type) : (Model) modelCache.get(type);
+        Model completedModel = dataType == DataType.CUSTOM ? (Model) modelCacheCustom.get(type) : dataType == DataType.OLDSCHOOL ? (Model) modelCacheOSRS.get(type) : (Model) modelCache.get(type);
         if (completedModel == null) {
             if (models == null)
             	return null;
@@ -2615,8 +2685,11 @@ public final class MobDefinition {
                     completedModel.recolour(originalColours[k1], destColours[k1]);
             }
             completedModel.createBones();
-            completedModel.light(frontLight, backLight, rightLight, middleLight, leftLight, true);
-            if (dataType == DataType.OLDSCHOOL) {
+            completedModel.light(frontLight, backLight, rightLight, middleLight, leftLight, true, false);
+
+            if (dataType == DataType.CUSTOM) {
+                modelCacheCustom.put(completedModel, type);
+            } else if (dataType == DataType.OLDSCHOOL) {
                 modelCacheOSRS.put(completedModel, type);
             } else {
                 modelCache.put(completedModel, type);
@@ -2682,6 +2755,7 @@ public final class MobDefinition {
 	public static void reloadCache() {
 		modelCache.clear();
 		modelCacheOSRS.clear();
+        modelCacheCustom.clear();
 		
         cache = new MobDefinition[20];
         cacheOSRS = new MobDefinition[20];
@@ -3016,6 +3090,7 @@ public final class MobDefinition {
     public int[] models;
     public static MemCache modelCache = new MemCache(30);
     public static MemCache modelCacheOSRS = new MemCache(30);
+    public static MemCache modelCacheCustom = new MemCache(30);
     public int id;
     public DataType dataType = DataType.REGULAR;
 }

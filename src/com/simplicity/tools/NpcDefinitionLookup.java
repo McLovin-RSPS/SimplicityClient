@@ -53,6 +53,7 @@ public class NpcDefinitionLookup extends JFrame {
 	
 	private DefaultMutableTreeNode regular;
 	private DefaultMutableTreeNode osrs;
+	private DefaultMutableTreeNode custom;
 	
 	private JTree tree;
 
@@ -264,9 +265,12 @@ public class NpcDefinitionLookup extends JFrame {
 	public void createNodes(DefaultMutableTreeNode root) {
 		regular = new DefaultMutableTreeNode("Regular");
 		root.add(regular);
-		
+
 		osrs = new DefaultMutableTreeNode("OSRS");
 		root.add(osrs);
+
+		custom = new DefaultMutableTreeNode("Custom");
+		root.add(custom);
 	}
 	
 	public void loadDetails(int id) {
@@ -327,6 +331,8 @@ public class NpcDefinitionLookup extends JFrame {
 				regular.add(itemNode);
 			} else if (def.dataType == DataType.OLDSCHOOL){
 				osrs.add(itemNode);
+			} else if (def.dataType == DataType.CUSTOM) {
+				custom.add(itemNode);
 			}
 		}
 		
@@ -339,6 +345,8 @@ public class NpcDefinitionLookup extends JFrame {
 		regular.removeAllChildren();
 		
 		osrs.removeAllChildren();
+
+		custom.removeAllChildren();
 		
 		model.reload();
 	}
@@ -408,6 +416,8 @@ public class NpcDefinitionLookup extends JFrame {
 			
 			if (def.dataType == DataType.OLDSCHOOL) {
 				osrs.add(new DefaultMutableTreeNode(def.type + " - " + def.name));
+			} else if (def.dataType == DataType.CUSTOM) {
+				custom.add(new DefaultMutableTreeNode(def.type + " - " + def.name));
 			} else {
 				regular.add(new DefaultMutableTreeNode(def.type + " - " + def.name));
 			}

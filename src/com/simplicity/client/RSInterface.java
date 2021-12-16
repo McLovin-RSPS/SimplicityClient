@@ -5114,6 +5114,7 @@ public class RSInterface {
         slayerTaskInterface(textDrawingAreas);
         slayerConfirmInterface(textDrawingAreas);
         slayerBuyInterface(textDrawingAreas);
+        boltEnchantInterface(textDrawingAreas);
         for (RSInterface widget : interfaceCache) {
             if (widget == null || widget.children == null)
                 continue;
@@ -5125,6 +5126,193 @@ public class RSInterface {
             System.arraycopy(widget.childY, 0, widget.originalChildrenY, 0, widget.originalChildrenY.length);
         }
         spriteCache = null;
+    }
+    
+    public static void boltEnchantInterface(TextDrawingArea[] tda) {
+        RSInterface tab = addInterface(59000);
+        
+        // Background
+        addSprite(59001, 1984);
+        // Close button
+        addHoverButton(52002, 1946, 21, 21, "Close", -1, 52003, 3);
+        addHoveredButton(52003, 1947, 21, 21, 52004);
+
+        /**
+         * Opal
+         */
+        addHoverButton(59006, "b", 1, 65, 110, "Enchant Opal Bolts", -1, 59007, 1);
+        addText(59008, "Opal", tda, 1, 0xff9040, true, true);
+        addText(59009, "@gre@Magic 4", tda, 1, 0xff9040, true, true);
+        addText(59012, "@red@0/1", 0xff9b00, true, true, 52, fonts, 0); // Cosmic text
+        addText(59013, "@red@0/2", 0xff9b00, true, true, 52, fonts, 0); // Air text
+
+        /**
+         * Sapphire
+         */
+        addHoverButton(59015, "b", 1, 65, 110, "Enchant Sapphire Bolts", -1, 59007, 1);
+        addText(59016, "Sapphire", tda, 1, 0xff9040, true, true);
+        addText(59017, "@gre@Magic 7", tda, 1, 0xff9040, true, true);
+        addText(59020, "@red@0/2", 0xff9b00, true, true, 52, fonts, 0); // Cosmic text
+        addText(59021, "@red@0/4", 0xff9b00, true, true, 52, fonts, 0); // Water text
+
+        /**
+         * Jade
+         */
+        addHoverButton(59023, "b", 1, 65, 110, "Enchant Jade Bolts", -1, 59007, 1);
+        addText(59024, "Jade", tda, 1, 0xff9040, true, true);
+        addText(59025, "@gre@Magic 14", tda, 1, 0xff9040, true, true);
+        addText(59028, "@red@0/3", 0xff9b00, true, true, 52, fonts, 0); // Cosmic text
+        addText(59029, "@red@0/6", 0xff9b00, true, true, 52, fonts, 0); // Earth text
+
+        /**
+         * Pearl
+         */
+        addHoverButton(59031, "b", 1, 65, 110, "Enchant Pearl Bolts", -1, 59007, 1);
+        addText(59032, "Pearl", tda, 1, 0xff9040, true, true);
+        addText(59033, "@gre@Magic 24", tda, 1, 0xff9040, true, true);
+        addText(59036, "@red@0/4", 0xff9b00, true, true, 52, fonts, 0); // Cosmic text
+        addText(59037, "@red@0/8", 0xff9b00, true, true, 52, fonts, 0); // Water text
+
+        /**
+         * Emerald
+         */
+        addHoverButton(59039, "b", 1, 65, 110, "Enchant Emerald Bolts", -1, 59007, 1);
+        addText(59040, "Emerald", tda, 1, 0xff9040, true, true);
+        addText(59041, "@gre@Magic 27", tda, 1, 0xff9040, true, true);
+        addText(59044, "@red@0/5", 0xff9b00, true, true, 52, fonts, 0); // Cosmic text
+        addText(59045, "@red@0/5", 0xff9b00, true, true, 52, fonts, 0); // Nature text
+
+        /**
+         * Topaz
+         */
+        addHoverButton(59047, "b", 1, 65, 110, "Enchant Red Topaz Bolts", -1, 59007, 1);
+        addText(59048, "Red Topaz", tda, 1, 0xff9040, true, true);
+        addText(59049, "@gre@Magic 29", tda, 1, 0xff9040, true, true);
+        addText(59052, "@red@0/6", 0xff9b00, true, true, 52, fonts, 0); // Cosmic text
+        addText(59053, "@red@0/12", 0xff9b00, true, true, 52, fonts, 0); // Fire text
+
+        /**
+         * Ruby
+         */
+        addHoverButton(59055, "b", 1, 65, 110, "Enchant Ruby Bolts", -1, 59007, 1);
+        addText(59056, "Ruby", tda, 1, 0xff9040, true, true);
+        addText(59057, "@gre@Magic 49", tda, 1, 0xff9040, true, true);
+        addText(59060, "@red@0/5", 0xff9b00, true, true, 52, fonts, 0); // Blood text
+        addText(59061, "@red@0/50", 0xff9b00, true, true, 52, fonts, 0); // Astral text
+
+        /**
+         * Diamond
+         */
+        addHoverButton(59063, "b", 1, 65, 110, "Enchant Diamond Bolts", -1, 59007, 1);
+        addText(59064, "Diamond", tda, 1, 0xff9040, true, true);
+        addText(59065, "@gre@Magic 57", tda, 1, 0xff9040, true, true);
+        addText(59068, "@red@0/5", 0xff9b00, true, true, 52, fonts, 0); // Law text
+        addText(59069, "@red@0/75", 0xff9b00, true, true, 52, fonts, 0); // Astral text
+
+        /**
+         * Dragon
+         */
+        addHoverButton(59071, "b", 1, 65, 110, "Enchant Dragonstone Bolts", -1, 59007, 1);
+        addText(59072, "Dragonstone", tda, 1, 0xff9040, true, true);
+        addText(59073, "@gre@Magic 68", tda, 1, 0xff9040, true, true);
+        addText(59076, "@red@0/5", 0xff9b00, true, true, 52, fonts, 0); // Soul text
+        addText(59077, "@red@0/100", 0xff9b00, true, true, 52, fonts, 0); // Astral text
+
+        /**
+         * Onyx
+         */
+        addHoverButton(59079, "b", 1, 65, 110, "Enchant Onyx Bolts", -1, 59007, 1);
+        addText(59080, "Onyx", tda, 1, 0xff9040, true, true);
+        addText(59081, "@gre@Magic 87", tda, 1, 0xff9040, true, true);
+        addText(59084, "@red@0/10", 0xff9b00, true, true, 52, fonts, 0); // Death text
+        addText(59085, "@red@0/115", 0xff9b00, true, true, 52, fonts, 0); // Astral text
+
+        tab.totalChildren(53);
+        tab.child(0, 59001, 12, 15); // Background
+        tab.child(1, 52002, 471, 22); // Close button
+        tab.child(2, 52003, 471, 22); // Close button
+        
+        /**
+         * Opal
+         */
+        tab.child(3, 59006, 30, 60); // options
+        tab.child(4, 59008, 62, 53); // title
+        tab.child(5, 59009, 62, 67); // magic lvl
+        tab.child(6, 59012, 40, 170); // Cosmic text
+        tab.child(7, 59013, 75, 170); // Air text
+        /**
+         * Sapphire
+         */
+        tab.child(8, 59015, 130, 60); // options
+        tab.child(9, 59016, 162, 53); // title
+        tab.child(10, 59017, 162, 67); // magic lvl
+        tab.child(11, 59020, 140, 170); // Cosmic text
+        tab.child(12, 59021, 175, 170); // Air text
+        /**
+         * Jade
+         */
+        tab.child(13, 59023, 230, 60); // options
+        tab.child(14, 59024, 262, 53); // title
+        tab.child(15, 59025, 262, 67); // magic lvl
+        tab.child(16, 59028, 240, 170); // Cosmic text
+        tab.child(17, 59029, 275, 170); // Air text
+        /**
+         * Pearl
+         */
+        tab.child(18, 59031, 330, 60); // options
+        tab.child(19, 59032, 362, 53); // title
+        tab.child(20, 59033, 362, 67); // magic lvl
+        tab.child(21, 59036, 340, 170); // Cosmic text
+        tab.child(22, 59037, 375, 170); // Air text
+        /**
+         * Emerald
+         */
+        tab.child(23, 59039, 430, 60); // options
+        tab.child(24, 59040, 462, 53); // title
+        tab.child(25, 59041, 462, 67); // magic lvl
+        tab.child(26, 59044, 440, 170); // Cosmic text
+        tab.child(27, 59045, 475, 170); // Air text
+        /**
+         * Topaz
+         */
+        tab.child(28, 59047, 30, 191); // options
+        tab.child(29, 59048, 62, 184); // title
+        tab.child(30, 59049, 62, 198); // magic lvl
+        tab.child(31, 59052, 40, 301); // Cosmic text
+        tab.child(32, 59053, 75, 301); // Air text
+        /**
+         * Ruby
+         */
+        tab.child(33, 59055, 130, 191); // options
+        tab.child(34, 59056, 162, 184); // title
+        tab.child(35, 59057, 162, 198); // magic lvl
+        tab.child(36, 59060, 140, 301); // Cosmic text
+        tab.child(37, 59061, 175, 301); // Air text
+        /**
+         * Diamond
+         */
+        tab.child(38, 59063, 230, 191); // options
+        tab.child(39, 59064, 262, 184); // title
+        tab.child(40, 59065, 262, 198); // magic lvl
+        tab.child(41, 59068, 240, 301); // Cosmic text
+        tab.child(42, 59069, 275, 301); // Air text
+        /**
+         * Dragon
+         */
+        tab.child(43, 59071, 330, 191); // options
+        tab.child(44, 59072, 362, 184); // title
+        tab.child(45, 59073, 362, 198); // magic lvl
+        tab.child(46, 59076, 340, 301); // Cosmic text
+        tab.child(47, 59077, 375, 301); // Air text
+        /**
+         * Onyx
+         */
+        tab.child(48, 59079, 430, 191); // options
+        tab.child(49, 59080, 462, 184); // title
+        tab.child(50, 59081, 462, 198); // magic lvl
+        tab.child(51, 59084, 440, 301); // Cosmic text
+        tab.child(52, 59085, 475, 301); // Air text
+
     }
 
     public static void slayerUnlockInterface(TextDrawingArea[] tda) {
@@ -14026,7 +14214,9 @@ public class RSInterface {
         int k3 = modelZoom;
         int sine = Rasterizer.anIntArray1470[modelRotation1] * k3 >> 16;
         int cosine = Rasterizer.anIntArray1471[modelRotation1] * k3 >> 16;
+        Rasterizer.renderOnGpu = true;
         model.renderSingle(modelRotation2, 0, modelRotation1, 0, sine + model.modelHeight / 2, cosine);
+        Rasterizer.renderOnGpu = false;
         
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {

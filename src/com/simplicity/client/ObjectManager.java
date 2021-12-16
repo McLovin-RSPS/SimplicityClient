@@ -3,6 +3,7 @@ package com.simplicity.client;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.util.Arrays;
 import java.util.Objects;
 
 import com.simplicity.client.cache.DataType;
@@ -631,7 +632,6 @@ final class ObjectManager {
 				if (j == 0)
 					break label0;
 				i += j;
-				System.out.println(i);
 				ObjectDefinition class46 = ObjectDefinition.forID(i);
 				class46.method574(fetcher);
 				do {
@@ -1106,6 +1106,8 @@ final class ObjectManager {
 
 		}
 
+		Client.getClient().worldController.setOverlayIds(Arrays.copyOf(overLay, overLay.length));
+		Client.getClient().worldController.setUnderlayIds(Arrays.copyOf(overLay, overLay.length));
 	}
 
 	public final void method180(int regionId, byte abyte0[], int i, int j, int k, int l, CollisionDetection aclass11[]) {
@@ -1128,6 +1130,9 @@ final class ObjectManager {
 			}
 
 		}
+
+		Client.getClient().worldController.setOverlayIds(Arrays.copyOf(overLay, overLay.length));
+		Client.getClient().worldController.setUnderlayIds(Arrays.copyOf(overLay, overLay.length));
 	}
 
 	private void readTile(int regionId, int tileY, int j, Stream stream, int tileX, int tilePlane, int rotation, int k1) {

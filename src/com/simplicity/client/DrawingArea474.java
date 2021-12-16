@@ -48,7 +48,7 @@ public class DrawingArea474 extends DrawingArea {
 			for (; x <= areaWidth; x++) {
 				int l1 = y >> 16;
 				if (l1 >= topY && l1 < bottomY)
-					pixels[x + l1 * width] = color;
+					drawAlpha(pixels, x + l1 * width, color, color, 255);
 				y += j1;
 			}
 			return;
@@ -68,7 +68,7 @@ public class DrawingArea474 extends DrawingArea {
 		for (; y <= areaHeight; y++) {
 			int i2 = x >> 16;
 			if (i2 >= topX && i2 < bottomX)
-				pixels[i2 + y * width] = color;
+				drawAlpha(pixels, i2 + y * width, color, color, 255);
 			x += k1;
 		}
 	}
@@ -91,7 +91,7 @@ public class DrawingArea474 extends DrawingArea {
 		int k1 = x + y * width;
 		for (int l1 = -pixelHeight; l1 < 0; l1++) {
 			for (int i2 = -pixelWidth; i2 < 0; i2++)
-				pixels[k1++] = color;
+				drawAlpha(pixels, k1++, color, color, 255);
 			k1 += j1;
 		}
 	}
@@ -124,7 +124,7 @@ public class DrawingArea474 extends DrawingArea {
 			lineWidth = bottomX - x;
 		int pixelCount = x + y * width;
 		for (int j1 = 0; j1 < lineWidth; j1++)
-			pixels[pixelCount + j1] = color;
+			drawAlpha(pixels, pixelCount + j1, color, color, 255);
 	}
 
 	public static void drawVerticalLine(int x, int y, int lineHeight, int color) {// drawVerticalLine
@@ -138,7 +138,7 @@ public class DrawingArea474 extends DrawingArea {
 			lineHeight = bottomY - y;
 		int pixelCount = x + y * width;
 		for (int j1 = 0; j1 < lineHeight; j1++)
-			pixels[pixelCount + j1 * width] = color;
+			drawAlpha(pixels, pixelCount + j1 * width, color, color, 255);
 	}
 
 	public static void method582() {
@@ -173,7 +173,7 @@ public class DrawingArea474 extends DrawingArea {
 			int j3 = ((startColor & 0xff00ff) * l2 + (endColor & 0xff00ff) * i3 & 0xff00ff00)
 					+ ((startColor & 0xff00) * l2 + (endColor & 0xff00) * i3 & 0xff0000) >>> 8;
 			for (int k3 = -gradientWidth; k3 < 0; k3++)
-				pixels[j2++] = j3;
+				drawAlpha(pixels, j2++, j3, j3, 255);
 			j2 += i2;
 			k1 += l1;
 		}
@@ -212,7 +212,7 @@ public class DrawingArea474 extends DrawingArea {
 				int pixel_pixels = pixels[total_pixels];
 				pixel_pixels = ((pixel_pixels & 0xff00ff) * result_alpha >> 8 & 0xff00ff)
 						+ ((pixel_pixels & 0xff00) * result_alpha >> 8 & 0xff00);
-				pixels[total_pixels++] = color + pixel_pixels;
+				drawAlpha(pixels, total_pixels++, color + pixel_pixels, color + pixel_pixels, 255);
 			}
 			total_pixels += i2;
 			k1 += l1;
@@ -240,7 +240,7 @@ public class DrawingArea474 extends DrawingArea {
 			int l2 = (pixels[i3] & 0xff) * j1;
 			int k3 = ((k1 + j2 >> 8) << 16) + ((l1 + k2 >> 8) << 8)
 					+ (i2 + l2 >> 8);
-			pixels[i3++] = k3;
+			drawAlpha(pixels, i3++, k3, k3, alpha);
 		}
 	}
 
@@ -265,8 +265,7 @@ public class DrawingArea474 extends DrawingArea {
 			int l2 = (pixels[i3] & 0xff) * j1;
 			int k3 = ((k1 + j2 >> 8) << 16) + ((l1 + k2 >> 8) << 8)
 					+ (i2 + l2 >> 8);
-			pixels[i3] = k3;
-			i3 += width;
+			drawAlpha(pixels, i3+=width, k3, k3, alpha);
 		}
 	}
 
@@ -294,7 +293,7 @@ public class DrawingArea474 extends DrawingArea {
 				int l2 = pixels[i2];
 				l2 = ((l2 & 0xff00ff) * k1 >> 8 & 0xff00ff)
 						+ ((l2 & 0xff00) * k1 >> 8 & 0xff00);
-				pixels[i2++] = color + l2;
+				drawAlpha(pixels, i2++, color + l2, color + l2, alpha);
 			}
 			i2 += l1;
 		}
@@ -363,7 +362,7 @@ public class DrawingArea474 extends DrawingArea {
 		for (j = 0; j < ai.length; j++) {
 			int i1 = l + ai[j];
 			for (i = -ai1[j]; i < 0; i++)
-				pixels[i1++] = k;
+				drawAlpha(pixels, i1++, k, k, 255);
 			l += width;
 		}
 	}

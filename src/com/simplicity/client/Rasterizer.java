@@ -8,7 +8,7 @@ public final class Rasterizer extends DrawingArea {
 	
 	public static boolean saveDepth = true;
 	private static int mipMapLevel;
-	public static int textureAmount = 72;
+	public static int textureAmount = 76;
 	public static boolean[] textureEnabled = new boolean[textureAmount];
 	static boolean aBoolean1462;
 	private static boolean aBoolean1463;
@@ -22,7 +22,7 @@ public final class Rasterizer extends DrawingArea {
 	public static int anIntArray1471[];
 	public static int anIntArray1472[];
 	private static int anInt1473;
-	public static Background aBackgroundArray1474s[] = new Background[textureAmount];
+	public static Background textures[] = new Background[textureAmount];
 	private static boolean[] aBooleanArray1475 = new boolean[textureAmount];
 	private static int[] anIntArray1476 = new int[textureAmount];
 	private static int anInt1477;
@@ -32,6 +32,17 @@ public final class Rasterizer extends DrawingArea {
 	public static int anInt1481;
 	public static int anIntArray1482[] = new int[0x10000];
 	private static int[][] anIntArrayArray1483 = new int[textureAmount][];
+
+	public static boolean renderOnGpu = false;
+	public static double brightness;
+
+	public static double getBrightness() {
+		return brightness;
+	}
+
+	public static void setBrightness(final double b) {
+		brightness = b;
+	}
 
     static {
         anIntArray1468 = new int[512];
@@ -56,7 +67,7 @@ public final class Rasterizer extends DrawingArea {
 		anIntArray1470 = null;
 		anIntArray1471 = null;
 		anIntArray1472 = null;
-		aBackgroundArray1474s = null;
+		textures = null;
 		aBooleanArray1475 = null;
 		anIntArray1476 = null;
 		anIntArrayArray1478 = null;
@@ -219,29 +230,12 @@ public final class Rasterizer extends DrawingArea {
 		anInt1473 = 0;
 		for (int index = textureAmount - 1; index >= 0; index--) {
 			try {
-				/**
-				 * Index 60 does not work at all, no matter which texture is packed at it.
-				 */
-				if (index > 50 && index < 58 || index == 60) {
-					aBackgroundArray1474s[index] = aBackgroundArray1474s[59];
+				if (index > 50 && index < 58) {
+					textures[index] = textures[59];
 					textureEnabled[index] = false;
 				} else {
-					aBackgroundArray1474s[index] = new Background(streamLoader, String.valueOf(index), 0);
-					
-					/**
-					 * Cheaphax for the textures index loading incorrect sizes.
-					 */
-					if (index > 60) {
-						if (aBackgroundArray1474s[index].libWidth > 128) {
-							aBackgroundArray1474s[index].libWidth = 128;
-						}
-						
-						if (aBackgroundArray1474s[index].libHeight > 128) {
-							aBackgroundArray1474s[index].libHeight = 128;
-						}
-					}
-						
-					aBackgroundArray1474s[index].setOffset();
+					textures[index] = new Background(streamLoader, String.valueOf(index), 0);
+					textures[index].setOffset();
 					textureEnabled[index] = true;
 				}
 				anInt1473++;
@@ -310,7 +304,7 @@ public final class Rasterizer extends DrawingArea {
 			anIntArrayArray1479[k] = null;
 		}
 		anIntArrayArray1479[texture] = texels;
-		Background background = aBackgroundArray1474s[texture];
+		Background background = textures[texture];
 		int ai1[] = anIntArrayArray1483[texture];
 		if(background.imgWidth == 64) {
 			for(int j1 = 0; j1 < 128; j1++) {
@@ -365,6 +359,7 @@ public final class Rasterizer extends DrawingArea {
 	}
 
 	public static void method372(double value) {
+		brightness = value;
 		Texture.setBrightness(value);
         int pos = 0;
         for (int index = 0; index < 512; index++) {
@@ -432,8 +427,8 @@ public final class Rasterizer extends DrawingArea {
             }
         }
         for (int index = 0; index < textureAmount; index++) {
-            if (aBackgroundArray1474s[index] != null) {
-                final int[] colors = aBackgroundArray1474s[index].palette;
+            if (textures[index] != null) {
+                final int[] colors = textures[index].palette;
                 anIntArrayArray1483[index] = new int[colors.length];
                 for (int i = 0; i < colors.length; i++) {
                     anIntArrayArray1483[index][i] = method373(colors[i], value);
@@ -462,6 +457,10 @@ public final class Rasterizer extends DrawingArea {
 	}
 	
 	public static void drawMaterializedTriangle(int y1, int y2, int y3, int x1, int x2, int x3, int hsl1, int hsl2, int hsl3, int tx1, int tx2, int tx3, int ty1, int ty2, int ty3, int tz1, int tz2, int tz3, int tex, int z1, int z2, int z3) {
+		if (Client.drawCallbacks != null && !renderOnGpu) {
+			return;
+		}
+
 		if (!Configuration.enableHDTextures || Texture.get(tex) == null) {
 			drawGouraudTriangle(y1, y2, y3, x1, x2, x3, hsl1, hsl2, hsl3, z1, z2, z3);
 			return;
@@ -1251,6 +1250,10 @@ public final class Rasterizer extends DrawingArea {
 	}
 	
 	public static void drawGouraudTriangle(int y1, int y2, int y3, int x1, int x2, int x3, int hsl1, int hsl2, int hsl3, int z1, int z2, int z3) {
+		if (Client.drawCallbacks != null && !renderOnGpu) {
+			return;
+		}
+
 		if (enableSmoothShading && aBoolean1464) {
 			drawHDGouraudTriangle(y1, y2, y3, x1, x2, x3, hsl1, hsl2, hsl3, z1, z2, z3);
 		} else {
@@ -4294,6 +4297,10 @@ public final class Rasterizer extends DrawingArea {
 	}
 	
 	public static void drawTexturedTriangle(int y1, int y2, int y3, int x1, int x2, int x3, int c1, int c2, int c3, int tx1, int tx2, int tx3, int ty1, int ty2, int ty3, int tz1, int tz2, int tz3, int tex, int z1, int z2, int z3) {
+		if (Client.drawCallbacks != null && !renderOnGpu) {
+			return;
+		}
+
 		if (!saveDepth) {
             z1 = z2 = z3 = 0;
         }
@@ -5187,4 +5194,8 @@ public final class Rasterizer extends DrawingArea {
 	}
 
 	public static final int infernalTexture = 59;
+
+	public static int[] getTexturePixels(int textureId) {
+		return method371(textureId)[mipMapLevel];
+	}
 }
