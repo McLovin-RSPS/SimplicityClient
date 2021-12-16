@@ -84,11 +84,11 @@ public enum CustomRecolor3 {
 			new int[] { 56340, 5220, 5240, 5401, 56346, 5230 },
 			new int[] { 12, 5220, 127, 5, 15, 127 }),
 
-	EVIL_SANTA_BOOTS(21243, 42889, "Evil Santa Pants",
+	EVIL_SANTA_BOOTS(21243, 14605, "Evil Santa Pants",
 			new int[] { 56338, 56342, 120, 105, 90, 56334 },
 			new int[] { 10, 12, 127, 127, 127, 12 }),
 
-	EVIL_SANTA_MASK(21244, 14595, "Evil Santa Mask",
+	EVIL_SANTA_MASK(21244, 42887, "Evil Santa Mask",
 			new int[] { 929, 3297, 931, 4325, 935, 231, 7401, 939, 8082, 115, 7834, 123, 7964, 4316, 7518, 127 },
 			new int[] { 10, 3297, 11, 4325, 13, 231, 7401, 14, 8082, 115, 7834, 123, 7964, 4316, 7518, 127 }),
 
