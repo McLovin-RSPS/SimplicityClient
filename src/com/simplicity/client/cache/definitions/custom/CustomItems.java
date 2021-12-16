@@ -781,6 +781,15 @@ public class CustomItems {
                 itemDef.name = "Owner's ultra box";
                 break;
                 
+	        case 11950:
+	            itemDef.copy(ItemDefinition.forID(11949));
+	            itemDef.name = "Evil Santa's Globe";
+	            itemDef.actions = new String[5];
+	            itemDef.actions[1] = "Hold";
+                itemDef.editedModelColor = new int[]{43074, 6451, 6682, 39021, 111, };
+                itemDef.newModelColor = new int[]{1024, 6451, 6682, 1024, 111, };
+	            break;
+                
             case 14482:
                 itemDef.copy(ItemDefinition.forID(6830));
                 itemDef.editedModelColor = new int[]{127, 11187};

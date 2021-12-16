@@ -253,6 +253,7 @@ public class CustomItems3 {
 	            itemDef.actions = new String[5];
 	            itemDef.actions[1] = "Hold";
 	            break;
+	            
 	        case 19111:
 	            itemDef.name = "TokHaar-Kal";
 	            itemDef.value = 60000;
