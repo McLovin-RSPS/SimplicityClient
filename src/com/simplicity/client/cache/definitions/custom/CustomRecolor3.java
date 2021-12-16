@@ -117,7 +117,7 @@ public enum CustomRecolor3 {
 			new int[] { 38113, 38210, 99, 522, 107, 76, 38348, 38356, 38325, 88, 38362, 38333, 38366, 127 },
 			new int[] { 940, 940, 12, 522, 10, 3, 940, 940, 940, 3, 940, 940, 940, 3 }),
 
-	BLACK_RED_HOLY_MYTHICAL_STAFF(21257, 55731, "@red@Corby's Mythical Sangiusteni",
+	BLACK_RED_HOLY_MYTHICAL_STAFF(21257, 55731, "@red@Corby's Holy Mythical Sangiusteni",
 			new int[] {6736, 6709, 43303, 39, 24, 8, 59466, 6602, 28, 59453, 4382},
 			new int[] {940, 940, 940, 3, 3, 8, 3, 940, 3, 3, 3}),
 	;
