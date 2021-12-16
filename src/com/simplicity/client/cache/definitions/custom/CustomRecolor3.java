@@ -120,6 +120,11 @@ public enum CustomRecolor3 {
 	BLACK_RED_HOLY_MYTHICAL_STAFF(21257, 55731, "@red@Corby's Holy Mythical Sangiusteni",
 			new int[] {6736, 6709, 43303, 39, 24, 8, 59466, 6602, 28, 59453, 4382},
 			new int[] {940, 940, 940, 3, 3, 8, 3, 940, 3, 3, 3}),
+
+	BLACK_PINK_ARCANE_STREAM(21258, 18335, "@pink@Playboy arcane stream necklace",
+			new int[] {7459, 10308, 10340, 10822, 7464, 75, 7469, 10318, 33134, 25070, 10862, 10832, 33104, 25040, 7474, 7444, 90, 33114, 25050, 10301, 7454, 24703, 32895},
+			new int[] {4, 56314, 56304, 56314, 4, 56314, 4, 56304, 56314, 56304, 56314, 56314, 56304, 56314, 4, 4, 17364, 56304, 56314, 56314, 4, 56304, 56314}),
+
 	;
 
 	private static int[] randomScytheColor() {
