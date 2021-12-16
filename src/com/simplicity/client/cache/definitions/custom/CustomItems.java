@@ -768,10 +768,14 @@ public class CustomItems {
                 break;
                 
             case 15650:
-                itemDef.copy(ItemDefinition.forID(6830));
-                itemDef.editedModelColor = new int[]{127, 11187};
-                itemDef.newModelColor = new int[]{1666, 32883};
-                itemDef.name = "Santa's Owner Box";
+                itemDef.name = "Santa's Overlord Box";
+				itemDef.copy(ItemDefinition.forID(6203));
+				itemDef.modelZoom = 3100;
+				itemDef.animateInventory = true;
+				itemDef.dataType = DataType.CUSTOM;
+				itemDef.modelID = 94;
+	        	itemDef.editedModelColor = new int[] { 40 };
+	        	itemDef.newModelColor = new int[] { 66 };
                 break;
                 
             case 14935:

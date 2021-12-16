@@ -4698,6 +4698,15 @@ public class CustomItems2 {
 	            itemDef.newModelColor = new int[] { 3, 43, 90, 90, 90, 90, 23, 23, 27, 94, 90, };
 	            break;
 	            
+	        case 16585:
+	            itemDef.copy(ItemDefinition.forID(21244));
+	            itemDef.name = "@whi@Lil' Evil Santa";
+	            itemDef.editedModelColor = new int[] {  929, 3297, 931, 4325, 935, 231, 7401, 939, 8082, 115, 7834, 123, 7964, 4316, 127,  };
+	            itemDef.newModelColor = new int[] {   929, 3297, 931, 1024, 1024, 231, 7401, 939, 1024, 115, 1024, 123, 7964, 4316, 127, };
+	            itemDef.groundActions = new String[]{null, null, "Take", null, null};
+	            itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+	            break;
+	            
 	        case 4135:
 	            itemDef.name = "@whi@Lil' Banshee";
 	            itemDef.groundActions = new String[]{null, null, "Take", null, null};
