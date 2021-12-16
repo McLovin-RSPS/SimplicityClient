@@ -1322,6 +1322,14 @@ public class CustomItems2 {
 	            itemDef.femaleEquip1 = 4946;
 	            itemDef.newModelColor = new int[] { 9583, 9583, 9583, 9583, 9583, 9583, 9583 };
 	            break;
+	        case 21263:
+	            itemDef.copy(ItemDefinition.forID(4084));
+	            itemDef.name = "Sky sled";
+	            itemDef.modelID = 4937;
+	            itemDef.maleEquip1 = 4946;
+	            itemDef.femaleEquip1 = 4946;
+	            itemDef.newModelColor = new int[] { 689484, 689484, 689484, 689484, 689484, 689484, 689484 };
+	            break;
 	        case 11304: // Katt Sang X
 	            itemDef.copy(ItemDefinition.forID(52323));
 	            itemDef.name = "@cya@Katt Sanguinesti staff X";
