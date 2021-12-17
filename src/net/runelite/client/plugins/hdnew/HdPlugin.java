@@ -153,7 +153,7 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 {
 	public static boolean enabled = false;
 	public static boolean process() {
-		return enabled && com.simplicity.client.Client.drawCallbacks != null && com.simplicity.client.Client.loggedIn;
+		return enabled && com.simplicity.client.Client.drawCallbacks != null && com.simplicity.client.Client.loggedIn && com.simplicity.client.Client.instance.loadingStage == 2;
 	}
 	// This is the maximum number of triangles the compute shaders support
 	static final int MAX_TRIANGLE = 4096;
@@ -1166,7 +1166,8 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 
 		//WorldController.setGpuDrawDistance(getDrawDistance()); // TODO: Fix draw dist
 		//WorldController.GPU_DRAW_DISTANCE = getDrawDistance();
-
+		WorldController scene = client.getScene();
+		scene.setDrawDistance(getDrawDistance());
 		environmentManager.update();
 		lightManager.update();
 
@@ -2143,33 +2144,7 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 		textureManager.animate(texture, diff);
 	}
 	
-	@Subscribe
-	public void onGameStateChanged(GameStateChanged gameStateChanged)
-	{
-		if (enabled && client.getGameState() == GameState.LOGIN_SCREEN) {
-			client.setGpu(false);
-			client.setDrawCallbacks(null);
 
-			client().submit(() -> {
-				if (enabled) {
-					client.setGpu(true);
-					client.setDrawCallbacks(this);
-				}
-			});
-			return;
-		}
-
-		if (!startUpCompleted) {
-			return;
-		}
-		
-		if (!client().loggedIn) {
-			lightManager.reset();
-			return;
-		}
-
-		invokeOnMainThread(this::uploadScene);
-	}
 
 	private void uploadScene()
 	{
@@ -2497,7 +2472,40 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 			return modelBuffer;
 		}
 	}
+	public void onGameStateChanged(GameStateChanged gameStateChanged)
+	{
+		if (gameStateChanged.getGameState() != GameState.LOGGED_IN)
+		{
+			lightManager.reset();
+		}
 
+		if (enabled && client.getGameState() == GameState.LOGIN_SCREEN) {
+			client.setGpu(false);
+			client.setDrawCallbacks(null);
+
+			client().submit(() -> {
+				if (enabled) {
+					client.setGpu(true);
+					client.setDrawCallbacks(this);
+				}
+			});
+			return;
+		}
+
+		if (!startUpCompleted) {
+			return;
+		}
+
+		if (!client().loggedIn) {
+			lightManager.reset();
+			return;
+		}
+
+		uploadScene();
+
+		com.simplicity.client.Client.instance.resetImageProducers2();
+		com.simplicity.client.Client.instance.raiseWelcomeScreen();
+	}
 	private int getScaledValue(final double scale, final int value)
 	{
 		return SurfaceScaleUtils.scale(value, (float) scale);

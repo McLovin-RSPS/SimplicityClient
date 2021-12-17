@@ -27,11 +27,11 @@ import net.runelite.client.RuneLite;
 
 @SuppressWarnings("all")
 public final class WorldController {
-	
+
 	public static final int TILE_DRAW_DISTANCE = 50;
-	
+
 	public static final int DEFAULT_RENDER_DISTANCE = 3500;
-	
+
 	public static int MAX_RENDER_DISTANCE = DEFAULT_RENDER_DISTANCE;
 
 	public WorldController(int ai[][][]) {
@@ -86,8 +86,8 @@ public final class WorldController {
 		else
 			return tile.groundDecoration;
 	}
-	
-	
+
+
 	public int fetchWallObjectNewUID(int i, int j, int k) {
 		Tile tile = tileArray[i][j][k];
 		if (tile == null || tile.wallObject == null)
@@ -214,9 +214,9 @@ public final class WorldController {
 	}
 
 	public void addTile(int i, int j, int k, int l, int i1, int overlaytex,
-			int underlaytex, int k1, int l1, int i2, int j2, int k2, int l2,
-			int i3, int j3, int k3, int l3, int i4, int j4, int k4, int l4,
-			boolean tex) {
+						int underlaytex, int k1, int l1, int i2, int j2, int k2, int l2,
+						int i3, int j3, int k3, int l3, int i4, int j4, int k4, int l4,
+						boolean tex) {
 		if (l == 0) {
 			SceneTilePaint class43 = new SceneTilePaint(k2, l2, i3, j3, underlaytex, k4,
 					false, tex);
@@ -257,8 +257,8 @@ public final class WorldController {
 		tileArray[i][j][k].shapedTile = class40;
 	}
 
-	public void addGroundDecoration(int plane, int zPos, int yPos, Animable animable, byte byte0, int uid, int xPos, 
-			int groundDecorUID) {
+	public void addGroundDecoration(int plane, int zPos, int yPos, Animable animable, byte byte0, int uid, int xPos,
+									int groundDecorUID) {
 		if (animable == null)
 			return;
 		GroundDecoration decoration = new GroundDecoration();
@@ -270,11 +270,11 @@ public final class WorldController {
 		decoration.uid = uid;
 		decoration.objConfig = byte0;
 		decoration.plane = plane;
-		
+
 		if (tileArray[plane][xPos][yPos] == null)
 			tileArray[plane][xPos][yPos] = new Tile(plane, xPos, yPos);
 		tileArray[plane][xPos][yPos].groundDecoration = decoration;
-		
+
 		if (Client.instance.getRuneLite() != null) {
 			DecorativeObjectSpawned spawn = new DecorativeObjectSpawned();
 			spawn.setTile(tileArray[plane][xPos][yPos]);
@@ -282,9 +282,9 @@ public final class WorldController {
 			Client.instance.getCallbacks().post(spawn);
 		}
 	}
-	
-	public void addGroundItemTile(int xPos, int uid, Animable secondItem, int zPos, Animable thirdItem, 
-			Animable firstItem, int plane, int yPos) {
+
+	public void addGroundItemTile(int xPos, int uid, Animable secondItem, int zPos, Animable thirdItem,
+								  Animable firstItem, int plane, int yPos) {
 		GroundItem groundItem = new GroundItem();
 		groundItem.firstGroundItem = firstItem;
 		groundItem.xPos = xPos * 128 + 64;
@@ -308,7 +308,7 @@ public final class WorldController {
 		if (tileArray[plane][xPos][yPos] == null)
 			tileArray[plane][xPos][yPos] = new Tile(plane, xPos, yPos);
 		tileArray[plane][xPos][yPos].groundItem = groundItem;
-		
+
 		if (Client.instance.getRuneLite() != null) {
 			GroundObjectSpawned spawn = new GroundObjectSpawned();
 			spawn.setTile(tileArray[plane][xPos][yPos]);
@@ -317,8 +317,8 @@ public final class WorldController {
 		}
 	}
 
-	public void addWallObject(int orientation, Animable node, int uid, int yPos, byte objConfig, int xPos, Animable node2, 
-			int zPos, int orientation_2, int plane, int wallObjUID) {
+	public void addWallObject(int orientation, Animable node, int uid, int yPos, byte objConfig, int xPos, Animable node2,
+							  int zPos, int orientation_2, int plane, int wallObjUID) {
 		if (node == null && node2 == null)
 			return;
 		WallObject wallObject = new WallObject();
@@ -337,7 +337,7 @@ public final class WorldController {
 				tileArray[zPtr][xPos][yPos] = new Tile(zPtr, xPos, yPos);
 
 		tileArray[plane][xPos][yPos].wallObject = wallObject;
-		
+
 		if (Client.instance.getRuneLite() != null) {
 			WallObjectSpawned spawn = new WallObjectSpawned();
 			spawn.setTile(tileArray[plane][xPos][yPos]);
@@ -346,8 +346,8 @@ public final class WorldController {
 		}
 	}
 
-	public void addWallDecoration(int uid, int yPos, int rotation, int plane, int xOff, int zPos, 
-			Animable node, int xPos, byte config, int yOff, int configBits, int wallDecorUID) {
+	public void addWallDecoration(int uid, int yPos, int rotation, int plane, int xOff, int zPos,
+								  Animable node, int xPos, byte config, int yOff, int configBits, int wallDecorUID) {
 		if (node == null)
 			return;
 		WallDecoration dec = new WallDecoration();
@@ -367,20 +367,20 @@ public final class WorldController {
 		tileArray[plane][xPos][yPos].wallDecoration = dec;
 	}
 
-	public boolean addInteractableEntity(int ui, byte config, int worldZ, int tileBottom, Animable node, int tileRight, int z, 
-			int rotation, int tileTop, int tileLeft, int interactiveUID) {
+	public boolean addInteractableEntity(int ui, byte config, int worldZ, int tileBottom, Animable node, int tileRight, int z,
+										 int rotation, int tileTop, int tileLeft, int interactiveUID) {
 		if (node == null) {
 			return true;
 		} else {
 			int worldX = tileLeft * 128 + 64 * tileRight;
 			int worldY = tileTop * 128 + 64 * tileBottom;
-			return addEntity(z, tileLeft, tileTop, tileRight, tileBottom, 
+			return addEntity(z, tileLeft, tileTop, tileRight, tileBottom,
 					worldX, worldY, worldZ, node, rotation, false, ui, config, interactiveUID);
 		}
 	}
 
-	public boolean addMutipleTileEntity(int z, int rotation, int worldZ, int ui, int worldY, int j1, int worldX, 
-			Animable nodeToAdd, boolean flag) {
+	public boolean addMutipleTileEntity(int z, int rotation, int worldZ, int ui, int worldY, int j1, int worldX,
+										Animable nodeToAdd, boolean flag) {
 		if (nodeToAdd == null)
 			return true;
 		int tileLeft = worldX - j1;
@@ -401,17 +401,17 @@ public final class WorldController {
 		tileTop /= 128;
 		tileRight /= 128;
 		tileBottom /= 128;
-		return addEntity(z, tileLeft, tileTop, (tileRight - tileLeft) + 1, (tileBottom - tileTop) + 1, 
+		return addEntity(z, tileLeft, tileTop, (tileRight - tileLeft) + 1, (tileBottom - tileTop) + 1,
 				worldX, worldY, worldZ, nodeToAdd, rotation, true, ui, (byte) 0, 0);
 	}
 
 	public boolean addSingleTileEntity(int z, int worldY, Animable node, int rotation, int tileBottom, int worldX, int worldZ, int tileLeft, int tileRight, int ui, int tileTop) {
-		return node == null || addEntity(z, tileLeft, tileTop, (tileRight - tileLeft) + 1, (tileBottom - tileTop) + 1, 
+		return node == null || addEntity(z, tileLeft, tileTop, (tileRight - tileLeft) + 1, (tileBottom - tileTop) + 1,
 				worldX, worldY, worldZ, node, rotation, true, ui, (byte) 0, 0);
 	}
 
-	private boolean addEntity(int z, int tileLeft, int tileTop, int tileRight, int tileBottom, int worldX, int worldY, 
-			int worldZ, Animable node, int rotation, boolean flag, int ui, byte objConf, int interactiveObjUID) {
+	private boolean addEntity(int z, int tileLeft, int tileTop, int tileRight, int tileBottom, int worldX, int worldY,
+							  int worldZ, Animable node, int rotation, boolean flag, int ui, byte objConf, int interactiveObjUID) {
 		/**
 		 * Max entities on coord is 5 i guess
 		 */
@@ -462,7 +462,7 @@ public final class WorldController {
 				tile.entityCount++;
 			}
 		}
-		
+
 		if (interactiveObjUID > 0) {
 			if (Client.instance.getRuneLite() != null) {
 				GameObjectSpawned spawn = new GameObjectSpawned();
@@ -500,7 +500,7 @@ public final class WorldController {
 							tile.interactableObjects[entityPtr] = tile.interactableObjects[entityPtr + 1];
 							tile.anIntArray1319[entityPtr] = tile.anIntArray1319[entityPtr + 1];
 						}
-						
+
 						tile.interactableObjects[tile.entityCount] = null;
 						break;
 					}
@@ -532,13 +532,13 @@ public final class WorldController {
 	public void removeWallObject(int x, int y, int z) {
 		Tile tile = tileArray[y][x][z];
 		if (tile != null) {
-			
+
 			if (Client.instance.getRuneLite() != null) {
 				WallObjectDespawned despawn = new WallObjectDespawned();
 				despawn.setWallObject(tile.wallObject);
 				Client.instance.getCallbacks().post(despawn);
 			}
-			
+
 			tile.wallObject = null;
 		}
 	}
@@ -557,14 +557,14 @@ public final class WorldController {
 		for (int i = 0; i < tile.entityCount; i++) {
 			InteractableObject subObject = tile.interactableObjects[i];
 			if ((subObject.uid >> 29 & 3) == 2 && subObject.tileLeft == x && subObject.tileTop == y) {
-				
+
 				if (Client.instance.getRuneLite() != null) {
 					GameObjectDespawned despawn = new GameObjectDespawned();
 					despawn.setTile(tile);
 					despawn.setGameObject(subObject);
 					Client.instance.getCallbacks().post(despawn);
 				}
-				
+
 				updateObjectEntities(subObject);
 				return;
 			}
@@ -576,32 +576,32 @@ public final class WorldController {
 		Tile tile = tileArray[z][x][y];
 		if (tile == null)
 			return;
-		
+
 		if (Client.instance.getRuneLite() != null) {
 			DecorativeObjectDespawned despawn = new DecorativeObjectDespawned();
 			despawn.setTile(tile);
 			despawn.setDecorativeObject(tile.groundDecoration);
 			Client.instance.getCallbacks().post(despawn);
 		}
-		
+
 		tile.groundDecoration = null;
 	}
 
 	public void removeGroundItemFromTIle(int z, int x, int y) {
 		Tile tile = tileArray[z][x][y];
 		if (tile != null) {
-			
+
 			if (Client.instance.getRuneLite() != null) {
 				GroundObjectDespawned despawn = new GroundObjectDespawned();
 				despawn.setTile(tile);
 				despawn.setGroundObject(tile.groundItem);
 				Client.instance.getCallbacks().post(despawn);
 			}
-			
+
 			tile.groundItem = null;
 		}
 	}
-	
+
 	public Tile getTile(int z, int x, int y) {
 		return tileArray[z][x][y];
 	}
@@ -853,173 +853,173 @@ public final class WorldController {
 	}
 
 	private boolean hdMinimap = true;
-	
+
 	public void method309(int pixels[], int pixelOffset, int z, int x, int y) {
 		if (hdMinimap) {
 			Tile class30_sub3 = tileArray[z][x][y];
-		    if(class30_sub3 == null) {
-		        return;
-		    }
-		    SceneTilePaint class43 = class30_sub3.plainTile;
-		    if(class43 != null) {
-		        if (class43.swColor != 12345678) {
-		            if (class43.rgb == 0) {
-		                return;
-		            }
-		            int hs = class43.swColor & ~0x7f;
-		            int l1 = class43.nwColor & 0x7f;
-		            int l2 = class43.neColor & 0x7f;
-		            int l3 = (class43.swColor & 0x7f) - l1;
-		            int l4 = (class43.seColor & 0x7f) - l2;
-		            l1 <<= 2;
-		            l2 <<= 2;
-		            for(int k1 = 0; k1 < 4; k1++) {
-		                if (!class43.textured) {
-		                    pixels[pixelOffset] = Rasterizer.anIntArray1482[hs | (l1 >> 2)];
-		                    pixels[pixelOffset + 1] = Rasterizer.anIntArray1482[hs | (l1 * 3 + l2 >> 4)];
-		                    pixels[pixelOffset + 2] = Rasterizer.anIntArray1482[hs | (l1 + l2 >> 3)];
-		                    pixels[pixelOffset + 3] = Rasterizer.anIntArray1482[hs | (l1 + l2 * 3 >> 4)];
-		                } else {
-		                    int j1 = class43.rgb;
-		                    int lig = 0xff - ((l1 >> 1) * (l1 >> 1) >> 8);
-		                    pixels[pixelOffset] = ((j1 & 0xff00ff) * lig & ~0xff00ff) + ((j1 & 0xff00) * lig & 0xff0000) >> 8;
-		                    lig = 0xff - ((l1 * 3 + l2 >> 3) * (l1 * 3 + l2 >> 3) >> 8);
-		                    pixels[pixelOffset + 1] = ((j1 & 0xff00ff) * lig & ~0xff00ff) + ((j1 & 0xff00) * lig & 0xff0000) >> 8;
-		                    lig = 0xff - ((l1 + l2 >> 2) * (l1 + l2 >> 2) >> 8);
-		                    pixels[pixelOffset + 2] = ((j1 & 0xff00ff) * lig & ~0xff00ff) + ((j1 & 0xff00) * lig & 0xff0000) >> 8;
-		                    lig = 0xff - ((l1 + l2 * 3 >> 3) * (l1 + l2 * 3 >> 3) >> 8);
-		                    pixels[pixelOffset + 3] = ((j1 & 0xff00ff) * lig & ~0xff00ff) + ((j1 & 0xff00) * lig & 0xff0000) >> 8;
-		                }
-		                l1 += l3;
-		                l2 += l4;
-		                pixelOffset += 512;
-		            }
-		            return;
-		        }
-		        int mapColor = class43.rgb;
-		        if(mapColor == 0) {
-		            return;
-		        }
-		        for(int k1 = 0; k1 < 4; k1++) {
-		            pixels[pixelOffset] = mapColor;
-		            pixels[pixelOffset + 1] = mapColor;
-		            pixels[pixelOffset + 2] = mapColor;
-		            pixels[pixelOffset + 3] = mapColor;
-		            pixelOffset += 512;
-		        }
-		        return;
-		    }
-		    SceneTileModel class40 = class30_sub3.shapedTile;
-		    if(class40 == null) {
-		        return;
-		    }
-		    int l1 = class40.shape;
-		    int i2 = class40.rotation;
-		    int j2 = class40.underlay;
-		    int k2 = class40.overlay;
-		    int ai1[] = tileShapePoints[l1];
-		    int ai2[] = tileShapeIndices[i2];
-		    int l2 = 0;
-		    if (class40.color62 != 12345678) {
-		        int hs1 = class40.color62 & ~0x7f;
-		        int l11 = class40.color92 & 0x7f;
-		        int l21 = class40.color82 & 0x7f;
-		        int l31 = (class40.color62 & 0x7f) - l11;
-		        int l41 = (class40.color72 & 0x7f) - l21;
-		        l11 <<= 2;
-		        l21 <<= 2;
-		        for(int k1 = 0; k1 < 4; k1++) {
-		            if (!class40.textured) {
-		                if(ai1[ai2[l2++]] != 0) {
-		                    pixels[pixelOffset] = Rasterizer.anIntArray1482[hs1 | (l11 >> 2)];
-		                }
-		                if(ai1[ai2[l2++]] != 0) {
-		                    pixels[pixelOffset + 1] = Rasterizer.anIntArray1482[hs1 | (l11 * 3 + l21 >> 4)];
-		                }
-		                if(ai1[ai2[l2++]] != 0) {
-		                    pixels[pixelOffset + 2] = Rasterizer.anIntArray1482[hs1 | (l11 + l21 >> 3)];
-		                }
-		                if(ai1[ai2[l2++]] != 0) {
-		                    pixels[pixelOffset + 3] = Rasterizer.anIntArray1482[hs1 | (l11 + l21 * 3 >> 4)];
-		                }
-		            } else {
-		                int j1 = k2;
-		                if(ai1[ai2[l2++]] != 0) {
-		                    int lig = 0xff - ((l11 >> 1) * (l11 >> 1) >> 8);
-		                    pixels[pixelOffset] = ((j1 & 0xff00ff) * lig & ~0xff00ff) + ((j1 & 0xff00) * lig & 0xff0000) >> 8;
-		                }
-		                if(ai1[ai2[l2++]] != 0) {
-		                    int lig = 0xff - ((l11 * 3 + l21 >> 3) * (l11 * 3 + l21 >> 3) >> 8);
-		                    pixels[pixelOffset + 1] = ((j1 & 0xff00ff) * lig & ~0xff00ff) + ((j1 & 0xff00) * lig & 0xff0000) >> 8;
-		                }
-		                if(ai1[ai2[l2++]] != 0) {
-		                    int lig = 0xff - ((l11 + l21 >> 2) * (l11 + l21 >> 2) >> 8);
-		                    pixels[pixelOffset + 2] = ((j1 & 0xff00ff) * lig & ~0xff00ff) + ((j1 & 0xff00) * lig & 0xff0000) >> 8;
-		                }
-		                if(ai1[ai2[l2++]] != 0) {
-		                    int lig = 0xff - ((l11 + l21 * 3 >> 3) * (l11 + l21 * 3 >> 3) >> 8);
-		                    pixels[pixelOffset + 3] = ((j1 & 0xff00ff) * lig & ~0xff00ff) + ((j1 & 0xff00) * lig & 0xff0000) >> 8;
-		                }
-		            }
-		            l11 += l31;
-		            l21 += l41;
-		            pixelOffset += 512;
-		        }
-		        if (j2 != 0 && class40.color61 != 12345678) {
-		            pixelOffset -= 512 << 2;
-		            l2 -= 16;
-		            hs1 = class40.color61 & ~0x7f;
-		            l11 = class40.color91 & 0x7f;
-		            l21 = class40.color81 & 0x7f;
-		            l31 = (class40.color61 & 0x7f) - l11;
-		            l41 = (class40.color71 & 0x7f) - l21;
-		            l11 <<= 2;
-		            l21 <<= 2;
-		            for(int k1 = 0; k1 < 4; k1++) {
-		                if(ai1[ai2[l2++]] == 0) {
-		                    pixels[pixelOffset] = Rasterizer.anIntArray1482[hs1 | (l11 >> 2)];
-		                }
-		                if(ai1[ai2[l2++]] == 0) {
-		                    pixels[pixelOffset + 1] = Rasterizer.anIntArray1482[hs1 | (l11 * 3 + l21 >> 4)];
-		                }
-		                if(ai1[ai2[l2++]] == 0) {
-		                    pixels[pixelOffset + 2] = Rasterizer.anIntArray1482[hs1 | (l11 + l21 >> 3)];
-		                }
-		                if(ai1[ai2[l2++]] == 0) {
-		                    pixels[pixelOffset + 3] = Rasterizer.anIntArray1482[hs1 | (l11 + l21 * 3 >> 4)];
-		                }
-		                l11 += l31;
-		                l21 += l41;
-		                pixelOffset += 512;
-		            }
-		        }
-		        return;
-		    }
-		    if(j2 != 0) {
-		        for(int i3 = 0; i3 < 4; i3++) {
-		            pixels[pixelOffset] = ai1[ai2[l2++]] != 0 ? k2 : j2;
-		            pixels[pixelOffset + 1] = ai1[ai2[l2++]] != 0 ? k2 : j2;
-		            pixels[pixelOffset + 2] = ai1[ai2[l2++]] != 0 ? k2 : j2;
-		            pixels[pixelOffset + 3] = ai1[ai2[l2++]] != 0 ? k2 : j2;
-		            pixelOffset += 512;
-		        }
-		        return;
-		    }
-		    for(int j3 = 0; j3 < 4; j3++) {
-		        if(ai1[ai2[l2++]] != 0) {
-		            pixels[pixelOffset] = k2;
-		        }
-		        if(ai1[ai2[l2++]] != 0) {
-		            pixels[pixelOffset + 1] = k2;
-		        }
-		        if(ai1[ai2[l2++]] != 0) {
-		            pixels[pixelOffset + 2] = k2;
-		        }
-		        if(ai1[ai2[l2++]] != 0) {
-		            pixels[pixelOffset + 3] = k2;
-		        }
-		        pixelOffset += 512;
-		    }
+			if(class30_sub3 == null) {
+				return;
+			}
+			SceneTilePaint class43 = class30_sub3.plainTile;
+			if(class43 != null) {
+				if (class43.swColor != 12345678) {
+					if (class43.rgb == 0) {
+						return;
+					}
+					int hs = class43.swColor & ~0x7f;
+					int l1 = class43.nwColor & 0x7f;
+					int l2 = class43.neColor & 0x7f;
+					int l3 = (class43.swColor & 0x7f) - l1;
+					int l4 = (class43.seColor & 0x7f) - l2;
+					l1 <<= 2;
+					l2 <<= 2;
+					for(int k1 = 0; k1 < 4; k1++) {
+						if (!class43.textured) {
+							pixels[pixelOffset] = Rasterizer.anIntArray1482[hs | (l1 >> 2)];
+							pixels[pixelOffset + 1] = Rasterizer.anIntArray1482[hs | (l1 * 3 + l2 >> 4)];
+							pixels[pixelOffset + 2] = Rasterizer.anIntArray1482[hs | (l1 + l2 >> 3)];
+							pixels[pixelOffset + 3] = Rasterizer.anIntArray1482[hs | (l1 + l2 * 3 >> 4)];
+						} else {
+							int j1 = class43.rgb;
+							int lig = 0xff - ((l1 >> 1) * (l1 >> 1) >> 8);
+							pixels[pixelOffset] = ((j1 & 0xff00ff) * lig & ~0xff00ff) + ((j1 & 0xff00) * lig & 0xff0000) >> 8;
+							lig = 0xff - ((l1 * 3 + l2 >> 3) * (l1 * 3 + l2 >> 3) >> 8);
+							pixels[pixelOffset + 1] = ((j1 & 0xff00ff) * lig & ~0xff00ff) + ((j1 & 0xff00) * lig & 0xff0000) >> 8;
+							lig = 0xff - ((l1 + l2 >> 2) * (l1 + l2 >> 2) >> 8);
+							pixels[pixelOffset + 2] = ((j1 & 0xff00ff) * lig & ~0xff00ff) + ((j1 & 0xff00) * lig & 0xff0000) >> 8;
+							lig = 0xff - ((l1 + l2 * 3 >> 3) * (l1 + l2 * 3 >> 3) >> 8);
+							pixels[pixelOffset + 3] = ((j1 & 0xff00ff) * lig & ~0xff00ff) + ((j1 & 0xff00) * lig & 0xff0000) >> 8;
+						}
+						l1 += l3;
+						l2 += l4;
+						pixelOffset += 512;
+					}
+					return;
+				}
+				int mapColor = class43.rgb;
+				if(mapColor == 0) {
+					return;
+				}
+				for(int k1 = 0; k1 < 4; k1++) {
+					pixels[pixelOffset] = mapColor;
+					pixels[pixelOffset + 1] = mapColor;
+					pixels[pixelOffset + 2] = mapColor;
+					pixels[pixelOffset + 3] = mapColor;
+					pixelOffset += 512;
+				}
+				return;
+			}
+			SceneTileModel class40 = class30_sub3.shapedTile;
+			if(class40 == null) {
+				return;
+			}
+			int l1 = class40.shape;
+			int i2 = class40.rotation;
+			int j2 = class40.underlay;
+			int k2 = class40.overlay;
+			int ai1[] = tileShapePoints[l1];
+			int ai2[] = tileShapeIndices[i2];
+			int l2 = 0;
+			if (class40.color62 != 12345678) {
+				int hs1 = class40.color62 & ~0x7f;
+				int l11 = class40.color92 & 0x7f;
+				int l21 = class40.color82 & 0x7f;
+				int l31 = (class40.color62 & 0x7f) - l11;
+				int l41 = (class40.color72 & 0x7f) - l21;
+				l11 <<= 2;
+				l21 <<= 2;
+				for(int k1 = 0; k1 < 4; k1++) {
+					if (!class40.textured) {
+						if(ai1[ai2[l2++]] != 0) {
+							pixels[pixelOffset] = Rasterizer.anIntArray1482[hs1 | (l11 >> 2)];
+						}
+						if(ai1[ai2[l2++]] != 0) {
+							pixels[pixelOffset + 1] = Rasterizer.anIntArray1482[hs1 | (l11 * 3 + l21 >> 4)];
+						}
+						if(ai1[ai2[l2++]] != 0) {
+							pixels[pixelOffset + 2] = Rasterizer.anIntArray1482[hs1 | (l11 + l21 >> 3)];
+						}
+						if(ai1[ai2[l2++]] != 0) {
+							pixels[pixelOffset + 3] = Rasterizer.anIntArray1482[hs1 | (l11 + l21 * 3 >> 4)];
+						}
+					} else {
+						int j1 = k2;
+						if(ai1[ai2[l2++]] != 0) {
+							int lig = 0xff - ((l11 >> 1) * (l11 >> 1) >> 8);
+							pixels[pixelOffset] = ((j1 & 0xff00ff) * lig & ~0xff00ff) + ((j1 & 0xff00) * lig & 0xff0000) >> 8;
+						}
+						if(ai1[ai2[l2++]] != 0) {
+							int lig = 0xff - ((l11 * 3 + l21 >> 3) * (l11 * 3 + l21 >> 3) >> 8);
+							pixels[pixelOffset + 1] = ((j1 & 0xff00ff) * lig & ~0xff00ff) + ((j1 & 0xff00) * lig & 0xff0000) >> 8;
+						}
+						if(ai1[ai2[l2++]] != 0) {
+							int lig = 0xff - ((l11 + l21 >> 2) * (l11 + l21 >> 2) >> 8);
+							pixels[pixelOffset + 2] = ((j1 & 0xff00ff) * lig & ~0xff00ff) + ((j1 & 0xff00) * lig & 0xff0000) >> 8;
+						}
+						if(ai1[ai2[l2++]] != 0) {
+							int lig = 0xff - ((l11 + l21 * 3 >> 3) * (l11 + l21 * 3 >> 3) >> 8);
+							pixels[pixelOffset + 3] = ((j1 & 0xff00ff) * lig & ~0xff00ff) + ((j1 & 0xff00) * lig & 0xff0000) >> 8;
+						}
+					}
+					l11 += l31;
+					l21 += l41;
+					pixelOffset += 512;
+				}
+				if (j2 != 0 && class40.color61 != 12345678) {
+					pixelOffset -= 512 << 2;
+					l2 -= 16;
+					hs1 = class40.color61 & ~0x7f;
+					l11 = class40.color91 & 0x7f;
+					l21 = class40.color81 & 0x7f;
+					l31 = (class40.color61 & 0x7f) - l11;
+					l41 = (class40.color71 & 0x7f) - l21;
+					l11 <<= 2;
+					l21 <<= 2;
+					for(int k1 = 0; k1 < 4; k1++) {
+						if(ai1[ai2[l2++]] == 0) {
+							pixels[pixelOffset] = Rasterizer.anIntArray1482[hs1 | (l11 >> 2)];
+						}
+						if(ai1[ai2[l2++]] == 0) {
+							pixels[pixelOffset + 1] = Rasterizer.anIntArray1482[hs1 | (l11 * 3 + l21 >> 4)];
+						}
+						if(ai1[ai2[l2++]] == 0) {
+							pixels[pixelOffset + 2] = Rasterizer.anIntArray1482[hs1 | (l11 + l21 >> 3)];
+						}
+						if(ai1[ai2[l2++]] == 0) {
+							pixels[pixelOffset + 3] = Rasterizer.anIntArray1482[hs1 | (l11 + l21 * 3 >> 4)];
+						}
+						l11 += l31;
+						l21 += l41;
+						pixelOffset += 512;
+					}
+				}
+				return;
+			}
+			if(j2 != 0) {
+				for(int i3 = 0; i3 < 4; i3++) {
+					pixels[pixelOffset] = ai1[ai2[l2++]] != 0 ? k2 : j2;
+					pixels[pixelOffset + 1] = ai1[ai2[l2++]] != 0 ? k2 : j2;
+					pixels[pixelOffset + 2] = ai1[ai2[l2++]] != 0 ? k2 : j2;
+					pixels[pixelOffset + 3] = ai1[ai2[l2++]] != 0 ? k2 : j2;
+					pixelOffset += 512;
+				}
+				return;
+			}
+			for(int j3 = 0; j3 < 4; j3++) {
+				if(ai1[ai2[l2++]] != 0) {
+					pixels[pixelOffset] = k2;
+				}
+				if(ai1[ai2[l2++]] != 0) {
+					pixels[pixelOffset + 1] = k2;
+				}
+				if(ai1[ai2[l2++]] != 0) {
+					pixels[pixelOffset + 2] = k2;
+				}
+				if(ai1[ai2[l2++]] != 0) {
+					pixels[pixelOffset + 3] = k2;
+				}
+				pixelOffset += 512;
+			}
 		} else {
 			int j = 512;//was parameter
 			Tile class30_sub3 = tileArray[z][x][y];
@@ -1079,7 +1079,7 @@ public final class WorldController {
 			}
 		}
 	}
-	
+
 
 	public static void setupViewport(int minZ, int maxZ, int width, int height, int ai[]) {
 		left = 0;
@@ -1088,7 +1088,7 @@ public final class WorldController {
 		bottom = height;
 		midX = width / 2;
 		midY = height / 2;
-		boolean isOnScreen[][][][] = new boolean[9][32][(TILE_DRAW_DISTANCE * 2) + 3][(TILE_DRAW_DISTANCE * 2) + 3];
+		boolean isOnScreen[][][][] = new boolean[9][32][(300 * 2) + 3][(300 * 2) + 3];
 		for (int yAngle = 128; yAngle <= 384; yAngle += 32) {
 			for (int xAngle = 0; xAngle < 2048; xAngle += 64) {
 				yCurveSin = Model.SINE[yAngle];
@@ -1097,8 +1097,8 @@ public final class WorldController {
 				xCurveCos = Model.COSINE[xAngle];
 				int l1 = (yAngle - 128) / 32;
 				int j2 = xAngle / 64;
-				for (int l2 = -TILE_DRAW_DISTANCE - 1; l2 <= TILE_DRAW_DISTANCE + 1; l2++) {
-					for (int j3 = -TILE_DRAW_DISTANCE - 1; j3 <= TILE_DRAW_DISTANCE + 1; j3++) {
+				for (int l2 = -26; l2 <= 26; l2++) {
+					for (int j3 = -26; j3 <= 26; j3++) {
 						int k3 = l2 * 128;
 						int i4 = j3 * 128;
 						boolean flag2 = false;
@@ -1109,7 +1109,7 @@ public final class WorldController {
 							break;
 						}
 
-						isOnScreen[l1][j2][l2 + TILE_DRAW_DISTANCE + 1][j3 + TILE_DRAW_DISTANCE + 1] = flag2;
+						isOnScreen[l1][j2][l2 + getDrawDistance() + 1][j3 + getDrawDistance() + 1] = flag2;
 					}
 
 				}
@@ -1120,19 +1120,19 @@ public final class WorldController {
 
 		for (int k1 = 0; k1 < 8; k1++) {
 			for (int i2 = 0; i2 < 32; i2++) {
-				for (int k2 = -TILE_DRAW_DISTANCE; k2 < TILE_DRAW_DISTANCE; k2++) {
-					for (int i3 = -TILE_DRAW_DISTANCE; i3 < TILE_DRAW_DISTANCE; i3++) {
+				for (int k2 = -getDrawDistance(); k2 < getDrawDistance(); k2++) {
+					for (int i3 = -getDrawDistance(); i3 < getDrawDistance(); i3++) {
 						boolean flag1 = false;
 						label0: for (int l3 = -1; l3 <= 1; l3++) {
 							for (int j4 = -1; j4 <= 1; j4++) {
-								if (isOnScreen[k1][i2][k2 + l3 + TILE_DRAW_DISTANCE + 1][i3 + j4 + TILE_DRAW_DISTANCE + 1])
+								if (isOnScreen[k1][i2][k2 + l3 + getDrawDistance() + 1][i3 + j4 + getDrawDistance() + 1])
 									flag1 = true;
-								else if (isOnScreen[k1][(i2 + 1) % 31][k2 + l3 + TILE_DRAW_DISTANCE + 1][i3 + j4 + TILE_DRAW_DISTANCE + 1])
+								else if (isOnScreen[k1][(i2 + 1) % 31][k2 + l3 + getDrawDistance() + 1][i3 + j4 + getDrawDistance() + 1])
 									flag1 = true;
-								else if (isOnScreen[k1 + 1][i2][k2 + l3 + TILE_DRAW_DISTANCE + 1][i3 + j4 + TILE_DRAW_DISTANCE + 1]) {
+								else if (isOnScreen[k1 + 1][i2][k2 + l3 + getDrawDistance() + 1][i3 + j4 + getDrawDistance() + 1]) {
 									flag1 = true;
 								} else {
-									if (!isOnScreen[k1 + 1][(i2 + 1) % 31][k2 + l3 + TILE_DRAW_DISTANCE + 1][i3 + j4 + TILE_DRAW_DISTANCE + 1])
+									if (!isOnScreen[k1 + 1][(i2 + 1) % 31][k2 + l3 + getDrawDistance() + 1][i3 + j4 + getDrawDistance() + 1])
 										continue;
 									flag1 = true;
 								}
@@ -1141,7 +1141,7 @@ public final class WorldController {
 
 						}
 
-						tile_visibility_maps[k1][i2][k2+ TILE_DRAW_DISTANCE][i3+ TILE_DRAW_DISTANCE] = flag1;
+						tile_visibility_maps[k1][i2][k2+ getDrawDistance()][i3+ getDrawDistance()] = flag1;
 					}
 
 				}
@@ -1157,7 +1157,7 @@ public final class WorldController {
 		int i1 = y * xCurveCos - x * xCurveSin >> 16;
 		int dist = z * yCurveSin + i1 * yCUrveCos >> 16;
 		int k1 = z * yCUrveCos - i1 * yCurveSin >> 16;
-		if (dist < 50 || dist > MAX_RENDER_DISTANCE && Client.drawCallbacks == null)
+		if (dist < 50 || dist >= MAX_RENDER_DISTANCE && Client.drawCallbacks == null)
 			return false;
 		int l1 = midX + (l << viewDistance) / dist;
 		int i2 = midY + (k1 << viewDistance) / dist;
@@ -1171,7 +1171,7 @@ public final class WorldController {
 		anInt470 = -1;
 		anInt471 = -1;
 	}
-	
+
 	public void requestTileTrace(int x, int y) {
 		requestTileTrace = true;
 		requestedTraceX = (!Client.antialiasing || Client.drawCallbacks != null) ? x : x << 1;
@@ -1205,27 +1205,28 @@ public final class WorldController {
 		xCamPosTile = xCam / 128;
 		yCamPosTile = yCam / 128;
 		plane__ = plane;
-		anInt449 = xCamPosTile - TILE_DRAW_DISTANCE;
+		anInt449 = xCamPosTile - getDrawDistance();
 		if (anInt449 < 0)
 			anInt449 = 0;
-		anInt451 = yCamPosTile - TILE_DRAW_DISTANCE;
+		anInt451 = yCamPosTile - getDrawDistance();
 		if (anInt451 < 0)
 			anInt451 = 0;
-		anInt450 = xCamPosTile + TILE_DRAW_DISTANCE;
+		anInt450 = xCamPosTile + getDrawDistance();
 		if (anInt450 > xMapSize)
 			anInt450 = xMapSize;
-		anInt452 = yCamPosTile + TILE_DRAW_DISTANCE;
+		anInt452 = yCamPosTile + getDrawDistance();
 		if (anInt452 > yMapSize)
 			anInt452 = yMapSize;
 		processCulling();
 		anInt446 = 0;
+		boolean isGpu = Client.drawCallbacks != null;
 		for (int k1 = currentHL; k1 < zMapSize; k1++) {
 			Tile tiles[][] = tileArray[k1];
 			for (int x_ = anInt449; x_ < anInt450; x_++) {
 				for (int y_ = anInt451; y_ < anInt452; y_++) {
 					Tile tile = tiles[x_][y_];
 					if (tile != null) {
-						if (tile.logicHeight > plane || !tile_visibility_map[(x_ - xCamPosTile)+ TILE_DRAW_DISTANCE][(y_ - yCamPosTile)+ TILE_DRAW_DISTANCE] && anIntArrayArrayArray440[k1][x_][y_] - zCam < 3000) {
+						if (tile.logicHeight > plane || (!isGpu && !tile_visibility_map[(x_ - xCamPosTile)+ getDrawDistance()][(y_ - yCamPosTile)+ getDrawDistance()] && anIntArrayArrayArray440[k1][x_][y_] - zCam < 2000)) {
 							tile.aBoolean1322 = false;
 							tile.aBoolean1323 = false;
 							tile.anInt1325 = 0;
@@ -1244,11 +1245,11 @@ public final class WorldController {
 
 		for (int l1 = currentHL; l1 < zMapSize; l1++) {
 			Tile aclass30_sub3_1[][] = tileArray[l1];
-			for (int l2 = -TILE_DRAW_DISTANCE; l2 <= 0; l2++) {
+			for (int l2 = -getDrawDistance(); l2 <= 0; l2++) {
 				int i3 = xCamPosTile + l2;
 				int k3 = xCamPosTile - l2;
 				if (i3 >= anInt449 || k3 < anInt450) {
-					for (int i4 = -TILE_DRAW_DISTANCE; i4 <= 0; i4++) {
+					for (int i4 = -getDrawDistance(); i4 <= 0; i4++) {
 						int k4 = yCamPosTile + i4;
 						int i5 = yCamPosTile - i4;
 						if (i3 >= anInt449) {
@@ -1279,9 +1280,9 @@ public final class WorldController {
 								}
 							}
 						}
-						
-						
-						
+
+
+
 						if (anInt446 == 0) {
 							aBoolean467 = false;
 							requestTileTrace = false;
@@ -1297,14 +1298,14 @@ public final class WorldController {
 			}
 
 		}
-		
+
 		for (int j2 = currentHL; j2 < zMapSize; j2++) {
 			Tile aclass30_sub3_2[][] = tileArray[j2];
-			for (int j3 = -TILE_DRAW_DISTANCE; j3 <= 0; j3++) {
+			for (int j3 = -getDrawDistance(); j3 <= 0; j3++) {
 				int l3 = xCamPosTile + j3;
 				int j4 = xCamPosTile - j3;
 				if (l3 >= anInt449 || j4 < anInt450) {
-					for (int l4 = -TILE_DRAW_DISTANCE; l4 <= 0; l4++) {
+					for (int l4 = -getDrawDistance(); l4 <= 0; l4++) {
 						int j5 = yCamPosTile + l4;
 						int k5 = yCamPosTile - l4;
 						if (l3 >= anInt449) {
@@ -1345,7 +1346,7 @@ public final class WorldController {
 				}
 			}
 		}
-		
+
 		aBoolean467 = false;
 		requestTileTrace = false;
 
@@ -1353,14 +1354,14 @@ public final class WorldController {
 			drawCallbacks.postDrawScene();
 		}
 	}
-	
+
 	public static Map<Integer, List<Position>> markedTiles = new HashMap<>();
-	
+
 	public static Map<Integer, List<Position>> highlighted = new HashMap<>();
-	
+
 	public boolean isMarked(Tile tile) {
 		Position pos = new Position(Client.instance.getBaseX() + tile.tileX, Client.instance.getBaseY() + tile.tileY, tile.plane);
-		
+
 		if (!Client.instance.getPlayerPos().isWithinDistance(pos)) {
 			return false;
 		}
@@ -1368,13 +1369,13 @@ public final class WorldController {
 		if (!markedTiles.containsKey(pos.getRegionID())) {
 			return false;
 		}
-		
+
 		return markedTiles.get(pos.getRegionID()).contains(pos);
 	}
-	
+
 	public boolean isHighlighted(Tile tile) {
 		Position pos = new Position(Client.instance.getBaseX() + tile.tileX, Client.instance.getBaseY() + tile.tileY, tile.plane);
-		
+
 		if (!Client.instance.getPlayerPos().isWithinDistance(pos)) {
 			return false;
 		}
@@ -1382,24 +1383,24 @@ public final class WorldController {
 		if (!highlighted.containsKey(pos.getRegionID())) {
 			return false;
 		}
-		
+
 		return highlighted.get(pos.getRegionID()).contains(pos);
 	}
-	
+
 	public void markTile(int x, int y, int z) {
 		Position pos = new Position(Client.instance.getBaseX() + x, Client.instance.getBaseY() + y, z);
-		
+
 		if (!Client.instance.getPlayerPos().isWithinDistance(pos)) {
 			Client.instance.pushMessage("You are too far away to do that.", 0, "");
 			return;
 		}
-		
+
 		if (markedTiles.containsKey(pos.getRegionID())) {
 			List<Position> list = markedTiles.get(pos.getRegionID());
-			
+
 			if (list.contains(pos)) {
 				list.remove(pos);
-				
+
 				if (list.isEmpty()) {
 					markedTiles.remove(pos.getRegionID());
 				}
@@ -1408,30 +1409,30 @@ public final class WorldController {
 					Client.instance.pushMessage("You have reached the limit of marking tiles.", 0, "");
 					return;
 				}
-				
+
 				list.add(pos);
 			}
-			
+
 			markedTiles.put(pos.getRegionID(), list);
 		} else {
 			markedTiles.put(pos.getRegionID(), new ArrayList<>(Arrays.asList(pos)));
 		}
 	}
-	
+
 	public void highlight(int x, int y, int z, boolean local) {
 		Position pos = new Position(local ? Client.instance.getBaseX() : 0 + x, local ? Client.instance.getBaseY() : 0 + y, z);
-		
+
 		if (!Client.instance.getPlayerPos().isWithinDistance(pos)) {
 			Client.instance.pushMessage("You are too far away to do that.", 0, "");
 			return;
 		}
-		
+
 		if (highlighted.containsKey(pos.getRegionID())) {
 			List<Position> list = highlighted.get(pos.getRegionID());
-			
+
 			if (list.contains(pos)) {
 				list.remove(pos);
-				
+
 				if (list.isEmpty()) {
 					highlighted.remove(pos.getRegionID());
 				}
@@ -1440,39 +1441,39 @@ public final class WorldController {
 					Client.instance.pushMessage("You have reached the limit of marking tiles.", 0, "");
 					return;
 				}
-				
+
 				list.add(pos);
 			}
-			
+
 			highlighted.put(pos.getRegionID(), list);
 		} else {
 			highlighted.put(pos.getRegionID(), new ArrayList<>(Arrays.asList(pos)));
 		}
 	}
-	
+
 	public void renderTileMarkers() {
 		for (int k1 = currentHL; k1 < zMapSize; k1++) {
 			Tile tiles[][] = tileArray[k1];
 			for (int x_ = anInt449; x_ < anInt450; x_++) {
 				for (int y_ = anInt451; y_ < anInt452; y_++) {
 					Tile tile = tiles[x_][y_];
-					
+
 					if (tile == null) {
 						continue;
 					}
-					
-					if (tile.logicHeight > tile.plane || !tile_visibility_map[(x_ - xCamPosTile)+ TILE_DRAW_DISTANCE][(y_ - yCamPosTile)+ TILE_DRAW_DISTANCE] && anIntArrayArrayArray440[k1][x_][y_] - cameraY2 < 3000) {
+
+					if (tile.logicHeight > tile.plane || !tile_visibility_map[(x_ - xCamPosTile)+ getDrawDistance()][(y_ - yCamPosTile)+ getDrawDistance()] && anIntArrayArrayArray440[k1][x_][y_] - cameraY2 < 3000) {
 						continue;
 					}
-					
+
 					boolean highlighted = isHighlighted(tile);
-					
+
 					if (!isMarked(tile) && !highlighted) {
 						continue;
 					}
-					
+
 					int color = highlighted ? 0x0000ff : 0xffff00;
-					
+
 					drawTileMarker(tile.plane, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, tile.tileX, tile.tileY, color);
 				}
 
@@ -1553,7 +1554,7 @@ public final class WorldController {
 					flag1 = true;
 					drawShapedTile(camera_x, yCurveSin, xCurveSin, tempTile.shapedTile, yCUrveCos, camera_y, xCurveCos);
 				}
-				
+
 				int j1 = 0;
 				int j2 = 0;
 				WallObject class10_3 = tempTile.wallObject;
@@ -1640,7 +1641,7 @@ public final class WorldController {
 							object4_1.firstGroundItem.renderAtPoint(0, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, object4_1.xPos - cameraX2, object4_1.zPos - cameraY2, object4_1.yPos - cameraZ2, object4_1.uid, object4_1.newuid);
 					}
 				}
-				
+
 				int k4 = tempTile.anInt1320;
 				if (k4 != 0) {
 					if (camera_x < xCamPosTile && (k4 & 4) != 0) {
@@ -1871,7 +1872,7 @@ public final class WorldController {
 			}
 		} while (true);
 	}
-	
+
 	public boolean opaque_floor_texture = false;
 	private void drawPlainTile(SceneTilePaint class43, int i, int j, int k, int l, int i1, int j1, int k1) {
 		final DrawCallbacks drawCallbacks = Client.drawCallbacks;
@@ -1939,7 +1940,7 @@ public final class WorldController {
 		Rasterizer.anInt1465 = 0;
 		if ((x_c - x_d) * (y_b - y_d) - (y_c - y_d) * (x_b - x_d) > 0) {
 			Rasterizer.aBoolean1462 = x_c < 0 || x_d < 0 || x_b < 0 || x_c > DrawingArea.viewportRX || x_d > DrawingArea.viewportRX || x_b > DrawingArea.viewportRX;
-			
+
 			if (aBoolean467 && method318(anInt468, anInt469, y_c, y_d, y_b, x_c, x_d, x_b)) {
 				anInt470 = j1;
 				anInt471 = k1;
@@ -1948,11 +1949,11 @@ public final class WorldController {
 				tracedTileX = j1;
 				tracedTileY = k1;
 			}
-			
+
 			if (!Client.instance.isMenuOpen() && method318(Client.instance.mouseX, Client.instance.mouseY, y_c, y_d, y_b, x_c, x_d, x_b)) {
 				setTargetTile(j1, k1);
 			}
-			
+
 			if (class43.texture == -1 || class43.texture > 50) {
 				if (class43.neColor != 0xbc614e) {
 					if (Configuration.enableHDTextures && class43.texture != -1) {
@@ -1978,7 +1979,7 @@ public final class WorldController {
 		}
 		if ((x_a - x_b) * (y_d - y_b) - (y_a - y_b) * (x_d - x_b) > 0) {
 			Rasterizer.aBoolean1462 = x_a < 0 || x_b < 0 || x_d < 0 || x_a > DrawingArea.viewportRX || x_b > DrawingArea.viewportRX || x_d > DrawingArea.viewportRX;
-			
+
 			if (aBoolean467 && method318(anInt468, anInt469, y_a, y_b, y_d, x_a, x_b, x_d)) {
 				anInt470 = j1;
 				anInt471 = k1;
@@ -1987,11 +1988,11 @@ public final class WorldController {
 				tracedTileX = j1;
 				tracedTileY = k1;
 			}
-			
+
 			if (!Client.instance.isMenuOpen() && method318(Client.instance.mouseX, Client.instance.mouseY, y_a, y_b, y_d, x_a, x_b, x_d)) {
 				setTargetTile(j1, k1);
 			}
-			
+
 			if (class43.texture == -1 || class43.texture > 50) {
 				if (class43.swColor != 0xbc614e) {
 					if (Configuration.enableHDTextures && class43.texture != -1) {
@@ -2030,32 +2031,32 @@ public final class WorldController {
 		l4 = l3 * cos_y - depth_a * sin_y >> 16;
 		depth_a = l3 * sin_y + depth_a * cos_y >> 16;
 		l3 = l4;
-		
-		
+
+
 		l4 = depth_b * sin_x + i3 * cos_x >> 16;
 		depth_b = depth_b * cos_x - i3 * sin_x >> 16;
 		i3 = l4;
 		l4 = i4 * cos_y - depth_b * sin_y >> 16;
 		depth_b = i4 * sin_y + depth_b * cos_y >> 16;
 		i4 = l4;
-		
-		
+
+
 		l4 = depth_c * sin_x + l2 * cos_x >> 16;
 		depth_c = depth_c * cos_x - l2 * sin_x >> 16;
 		l2 = l4;
 		l4 = j4 * cos_y - depth_c * sin_y >> 16;
 		depth_c = j4 * sin_y + depth_c * cos_y >> 16;
 		j4 = l4;
-		
-		
+
+
 		l4 = depth_d * sin_x + l1 * cos_x >> 16;
 		depth_d = depth_d * cos_x - l1 * sin_x >> 16;
 		l1 = l4;
 		l4 = k4 * cos_y - depth_d * sin_y >> 16;
 		depth_d = k4 * sin_y + depth_d * cos_y >> 16;
 		k4 = l4;
-		
-		
+
+
 		int x_a = Rasterizer.textureInt1 + (i2 << viewDistance) / depth_a;
 		int y_a = Rasterizer.textureInt2 + (l3 << viewDistance) / depth_a;
 		int x_b = Rasterizer.textureInt1 + (i3 << viewDistance) / depth_b;
@@ -2064,24 +2065,24 @@ public final class WorldController {
 		int y_c = Rasterizer.textureInt2 + (j4 << viewDistance) / depth_c;
 		int x_d = Rasterizer.textureInt1 + (l1 << viewDistance) / depth_d;
 		int y_d = Rasterizer.textureInt2 + (k4 << viewDistance) / depth_d;
-		
+
 		Graphics2D g2d = DrawingArea.createGraphics(true);
 		g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
 		g2d.setColor(new Color(color));
-		
+
 		g2d.drawLine(x_c, y_c, x_d, y_d);
 		g2d.drawLine(x_c, y_c - 1, x_d, y_d - 1);
-		
+
 		g2d.drawLine(x_b, y_b, x_c, y_c);
 		g2d.drawLine(x_b, y_b, x_c, y_c - 1);
-		
+
 		g2d.drawLine(x_b, y_b, x_a, y_a);
 		g2d.drawLine(x_b, y_b - 1, x_a, y_a - 1);
-		
+
 		g2d.drawLine(x_d, y_d, x_a, y_a);
 		g2d.drawLine(x_d, y_d - 1, x_a, y_a - 1);
 	}
-	
+
 	private void drawShapedTile(int x, int pitchSin, int yawSin, SceneTileModel tile, int pitchCos, int y, int yawCos) {
 
 		final DrawCallbacks drawCallbacks = Client.drawCallbacks;
@@ -2105,9 +2106,9 @@ public final class WorldController {
 			i3 = i3 * yawCos - i2 * yawSin >> 16;
 			i2 = k3;
 			k3 = k2 * pitchCos
-			 - i3 * pitchSin >> 16;
+					- i3 * pitchSin >> 16;
 			i3 = k2 * pitchSin + i3 * pitchCos
-			 >> 16;
+					>> 16;
 			k2 = k3;
 			if (i3 < 50) {
 				return;
@@ -2136,7 +2137,7 @@ public final class WorldController {
 			int y_c = SceneTileModel.anIntArray689[tri_c];
 			if ((x_a - x_b) * (y_c - y_b) - (y_a - y_b) * (x_c - x_b) > 0) {
 				Rasterizer.aBoolean1462 = x_a < 0 || x_b < 0 || x_c < 0 || x_a > DrawingArea.viewportRX || x_b > DrawingArea.viewportRX || x_c > DrawingArea.viewportRX;
-				
+
 				if (aBoolean467 && method318(anInt468, anInt469, y_a, y_b, y_c, x_a, x_b, x_c)) {
 					anInt470 = x;
 					anInt471 = y;
@@ -2145,11 +2146,11 @@ public final class WorldController {
 					tracedTileX = x;
 					tracedTileY = y;
 				}
-				
+
 				if (!Client.instance.isMenuOpen() && method318(Client.instance.mouseX, Client.instance.mouseY, y_a, y_b, y_c, x_a, x_b, x_c)) {
 					setTargetTile(y, y);
 				}
-				
+
 				if (tile.triangleTextureId == null || tile.triangleTextureId[face] == -1 || tile.triangleTextureId[face] > 50) {
 					if (tile.triangleColorA[face] != 0xbc614e) {
 						if (Configuration.enableHDTextures && tile.triangleTextureId != null && tile.triangleTextureId[face] != -1) {
@@ -2208,13 +2209,13 @@ public final class WorldController {
 		for (int k = 0; k < count; k++) {
 			CullingCluster cluster = clusters[k];
 			if (cluster.searchMask == 1) {
-				int xDistFromCamStart = (cluster.tileStartX - xCamPosTile) + TILE_DRAW_DISTANCE;
+				int xDistFromCamStart = (cluster.tileStartX - xCamPosTile) + getDrawDistance();
 				if (xDistFromCamStart < 0 || xDistFromCamStart > 50)
 					continue;
-				int yDistFromCamStart = (cluster.tileStartY - yCamPosTile) + TILE_DRAW_DISTANCE;
+				int yDistFromCamStart = (cluster.tileStartY - yCamPosTile) + getDrawDistance();
 				if (yDistFromCamStart < 0)
 					yDistFromCamStart = 0;
-				int yDistFromCamEnd = (cluster.tileEndY - yCamPosTile) + TILE_DRAW_DISTANCE;
+				int yDistFromCamEnd = (cluster.tileEndY - yCamPosTile) + getDrawDistance();
 				if (yDistFromCamEnd > 50)
 					yDistFromCamEnd = 50;
 				boolean visisble = false;
@@ -2242,13 +2243,13 @@ public final class WorldController {
 				continue;
 			}
 			if (cluster.searchMask == 2) {
-				int yDIstFromCamStart = (cluster.tileStartY - yCamPosTile) + TILE_DRAW_DISTANCE;
+				int yDIstFromCamStart = (cluster.tileStartY - yCamPosTile) + getDrawDistance();
 				if (yDIstFromCamStart < 0 || yDIstFromCamStart > 50)
 					continue;
-				int xDistFromCamStart = (cluster.tileStartX - xCamPosTile) + TILE_DRAW_DISTANCE;
+				int xDistFromCamStart = (cluster.tileStartX - xCamPosTile) + getDrawDistance();
 				if (xDistFromCamStart < 0)
 					xDistFromCamStart = 0;
-				int xDistFromCamEnd = (cluster.tileEndX - xCamPosTile) + TILE_DRAW_DISTANCE;
+				int xDistFromCamEnd = (cluster.tileEndX - xCamPosTile) + getDrawDistance();
 				if (xDistFromCamEnd > 50)
 					xDistFromCamEnd = 50;
 				boolean visible = false;
@@ -2276,17 +2277,17 @@ public final class WorldController {
 			} else if (cluster.searchMask == 4) {
 				int yDistFromCamStartReal = cluster.worldStartZ - cameraY2;
 				if (yDistFromCamStartReal > 128) {
-					int yDistFromCamStart = (cluster.tileStartY - yCamPosTile) + TILE_DRAW_DISTANCE;
+					int yDistFromCamStart = (cluster.tileStartY - yCamPosTile) + getDrawDistance();
 					if (yDistFromCamStart < 0)
 						yDistFromCamStart = 0;
-					int yDistFromCamEnd = (cluster.tileEndY - yCamPosTile) + TILE_DRAW_DISTANCE;
+					int yDistFromCamEnd = (cluster.tileEndY - yCamPosTile) + getDrawDistance();
 					if (yDistFromCamEnd > 50)
 						yDistFromCamEnd = 50;
 					if (yDistFromCamStart <= yDistFromCamEnd) {
-						int xDistFromCamStart = (cluster.tileStartX - xCamPosTile) + TILE_DRAW_DISTANCE;
+						int xDistFromCamStart = (cluster.tileStartX - xCamPosTile) + getDrawDistance();
 						if (xDistFromCamStart < 0)
 							xDistFromCamStart = 0;
-						int xDistFromCamEnd = (cluster.tileEndX - xCamPosTile) + TILE_DRAW_DISTANCE;
+						int xDistFromCamEnd = (cluster.tileEndX - xCamPosTile) + getDrawDistance();
 						if (xDistFromCamEnd > 50)
 							xDistFromCamEnd = 50;
 						boolean visisble = false;
@@ -2573,7 +2574,7 @@ public final class WorldController {
 	private int anInt488;
 	private final int[][] tileShapePoints = { new int[16], { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, { 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1 }, { 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 }, { 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1 }, { 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, { 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1 }, { 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0 }, { 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1 }, { 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1 } };
 	private final int[][] tileShapeIndices = { { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, { 12, 8, 4, 0, 13, 9, 5, 1, 14, 10, 6, 2, 15, 11, 7, 3 }, { 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 }, { 3, 7, 11, 15, 2, 6, 10, 14, 1, 5, 9, 13, 0, 4, 8, 12 } };
-	private static boolean[][][][] tile_visibility_maps = new boolean[8][32][(TILE_DRAW_DISTANCE * 2) + 1][(TILE_DRAW_DISTANCE * 2) + 1];
+	private static boolean[][][][] tile_visibility_maps = new boolean[8][32][(300 * 2) + 1][(300 * 2) + 1];
 	private static boolean[][] tile_visibility_map;
 	private static int midX;
 	private static int midY;
@@ -2582,7 +2583,14 @@ public final class WorldController {
 	private static int right;
 	private static int bottom;
 	public static int viewDistance = 9;
+	public static int distance = 25;
 
+	public static int getDrawDistance() {
+		if(Client.drawCallbacks != null && Client.loggedIn) {
+			return distance;
+		}
+		return 25;
+	}
 	public Tile getSelectedSceneTile() {
 		int tileX = selectedSceneTileX;
 		int tileY = selectedSceneTileY;
@@ -2593,12 +2601,12 @@ public final class WorldController {
 
 		return getTile(Client.instance.plane, tileX, tileY);
 	}
-	
+
 	private static final int MAX_TARGET_DISTANCE = 45;
 	private static int selectedSceneTileX;
 	private static int selectedSceneTileY;
 	private static boolean checkClick;
-	
+
 	static void setTargetTile(int targetX, int targetY) {
 		final LocalPoint current = Client.instance.myPlayer.getLocalLocation();
 
@@ -2621,7 +2629,7 @@ public final class WorldController {
 		selectedSceneTileX = x;
 		selectedSceneTileY = y;
 	}
-	
+
 	static {
 		amountOfCullingClusters = 4;
 		cullingClusterPointer = new int[amountOfCullingClusters];
@@ -2632,23 +2640,19 @@ public final class WorldController {
 		return tileArray;
 	}
 
-	public int getDrawDistance() {
-		return TILE_DRAW_DISTANCE;
-	}
-
 	public void setDrawDistance(int drawDistance) {
-		
+		this.distance = drawDistance;
 	}
 
 	private byte[][][] overlayIds = new byte[4][104][104];
 	private byte[][][] underlayIds = new byte[4][104][104];
 
 	public byte[][][] getOverlayIds() {
-		return overlayIds;
+		return Client.instance.objectManager.overLay;
 	}
 
 	public byte[][][] getUnderlayIds() {
-		return underlayIds;
+		return Client.instance.objectManager.underLay;
 	}
 
 	public void setOverlayIds(byte[][][] overlayIds) {

@@ -3,6 +3,8 @@ package com.simplicity.client;
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
+import net.runelite.client.plugins.hdnew.HdPlugin;
+
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -26,7 +28,7 @@ public final class RSImageProducer
 		depthbuffer = new float[width * height];
 		anIntArray315 = new int[count];
 		DirectColorModel model;
-		final boolean gpu = Client.drawCallbacks != null;
+		final boolean gpu = HdPlugin.process();
 		if (gpu) {
 			model = new DirectColorModel(ColorSpace.getInstance(1000), 32, 16711680, 65280, 255, -16777216, true, 3);
 		} else {
@@ -43,7 +45,7 @@ public final class RSImageProducer
 
 	public void draw(Graphics gfx, int x, int y)
 	{
-		if (Client.drawCallbacks != null) {
+		if (HdPlugin.process()) {
 			return;
 		}
 
@@ -52,7 +54,7 @@ public final class RSImageProducer
 
 	public void draw(Graphics gfx, int x, int y, int clipX, int clipY, int clipWidth, int clipHeight)
 	{
-		if (Client.drawCallbacks != null) {
+		if (HdPlugin.process()) {
 			return;
 		}
 

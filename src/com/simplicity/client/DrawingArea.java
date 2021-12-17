@@ -1,5 +1,7 @@
 package com.simplicity.client;
 
+import net.runelite.client.plugins.hdnew.HdPlugin;
+
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
@@ -1098,7 +1100,7 @@ public class DrawingArea extends QueueNode {
     }
 
 	protected static void drawAlpha(int[] pixels, int index, int value, int color, int alpha) {
-		if (Client.drawCallbacks == null) {
+		if (!HdPlugin.process()) {
 			pixels[index] = value;
 			return;
 		}

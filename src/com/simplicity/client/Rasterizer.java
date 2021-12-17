@@ -457,7 +457,7 @@ public final class Rasterizer extends DrawingArea {
 	}
 	
 	public static void drawMaterializedTriangle(int y1, int y2, int y3, int x1, int x2, int x3, int hsl1, int hsl2, int hsl3, int tx1, int tx2, int tx3, int ty1, int ty2, int ty3, int tz1, int tz2, int tz3, int tex, int z1, int z2, int z3) {
-		if (Client.drawCallbacks != null && !renderOnGpu) {
+		if (net.runelite.client.plugins.hdnew.HdPlugin.process() && !renderOnGpu) {
 			return;
 		}
 
@@ -1250,7 +1250,7 @@ public final class Rasterizer extends DrawingArea {
 	}
 	
 	public static void drawGouraudTriangle(int y1, int y2, int y3, int x1, int x2, int x3, int hsl1, int hsl2, int hsl3, int z1, int z2, int z3) {
-		if (Client.drawCallbacks != null && !renderOnGpu) {
+		if (net.runelite.client.plugins.hdnew.HdPlugin.process() && !renderOnGpu) {
 			return;
 		}
 
@@ -4297,7 +4297,7 @@ public final class Rasterizer extends DrawingArea {
 	}
 	
 	public static void drawTexturedTriangle(int y1, int y2, int y3, int x1, int x2, int x3, int c1, int c2, int c3, int tx1, int tx2, int tx3, int ty1, int ty2, int ty3, int tz1, int tz2, int tz3, int tex, int z1, int z2, int z3) {
-		if (Client.drawCallbacks != null && !renderOnGpu) {
+		if (net.runelite.client.plugins.hdnew.HdPlugin.process() && !renderOnGpu) {
 			return;
 		}
 

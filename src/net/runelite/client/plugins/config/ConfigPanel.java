@@ -377,7 +377,7 @@ public class ConfigPanel extends PluginPanel
 				value = Ints.constrainToRange(value, min, max);
 				
 
-				SpinnerModel model = new SpinnerNumberModel(value, 0, Integer.MAX_VALUE, 1);
+				SpinnerModel model = new SpinnerNumberModel(value, min, max, 1);
 				JSpinner spinner = new JSpinner(model);
 				Component editor = spinner.getEditor();
 				JFormattedTextField spinnerTextField = ((JSpinner.DefaultEditor) editor).getTextField();

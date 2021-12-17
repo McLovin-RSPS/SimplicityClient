@@ -18150,7 +18150,7 @@ public class Client extends RSApplet {
         } else {
     		drawGameScreen();
 
-            if (clientSize != 0 && drawCallbacks != null) {
+            if (clientSize != 0 && HdPlugin.process()) {
                 drawCallbacks.draw(0);
             }
         }
@@ -23338,7 +23338,7 @@ public class Client extends RSApplet {
         Model.currentCursorX = super.mouseX - 4;
         Model.currentCursorY = super.mouseY - 4;
         int[] pixels = null, offsets = null;
-        if (drawCallbacks != null && antialiasing) {
+        if (!HdPlugin.process() && antialiasing) {
             Model.currentCursorX <<= 1;
             Model.currentCursorY <<= 1;
             pixels = Rasterizer.pixels;
@@ -23358,13 +23358,13 @@ public class Client extends RSApplet {
         DrawingArea.resetImage();
         worldController.render(xCameraPos, yCameraPos, xCameraCurve, zCameraPos, j, yCameraCurve);
         worldController.renderTileMarkers();
-        if (drawCallbacks == null && Configuration.enableFog) {
+        if (!HdPlugin.process() && Configuration.enableFog) {
             int baseFogDistance = (int) Math.sqrt(Math.pow(zCameraPos, 2));
             int fogStart = baseFogDistance + 1100;
             int fogEnd = baseFogDistance + 2000;
             Rasterizer.drawFog(fogStart, fogEnd);
         }
-        if (drawCallbacks == null && antialiasing) {
+        if (!HdPlugin.process() && antialiasing) {
             Model.currentCursorX >>= 1;
             Model.currentCursorY >>= 1;
             Rasterizer.pixels = pixels;
@@ -23516,7 +23516,7 @@ public class Client extends RSApplet {
 
         updateEntities();
         drawHeadIcon();
-        if (drawCallbacks == null)
+        if (!HdPlugin.process())
             method37(k2);
         if (drawPane) {
             drawBlackPane();
@@ -23547,7 +23547,7 @@ public class Client extends RSApplet {
             drawUnfixedGame();
             draw3dScreen();
 
-            if (clientSize == 0 && drawCallbacks != null) {
+            if (clientSize == 0 && HdPlugin.process()) {
                 drawCallbacks.draw(0);
             }
 
@@ -23702,7 +23702,7 @@ public class Client extends RSApplet {
             background.imgPixels = abyte3;
             aByteArray912 = abyte0;
             Rasterizer.method370(17);
-            if (drawCallbacks != null) {
+            if (HdPlugin.process()) {
                 drawCallbacks.animate(Rasterizer.textures[17], cycleTimer);
             }
         }
@@ -23722,7 +23722,7 @@ public class Client extends RSApplet {
             aByteArray912 = abyte1;
             Rasterizer.method370(24);
 
-            if (drawCallbacks != null) {
+            if (HdPlugin.process()) {
                 drawCallbacks.animate(Rasterizer.textures[24], cycleTimer);
             }
         }
@@ -23742,7 +23742,7 @@ public class Client extends RSApplet {
             aByteArray912 = abyte2;
             Rasterizer.method370(34);
 
-            if (drawCallbacks != null) {
+            if (HdPlugin.process()) {
                 drawCallbacks.animate(Rasterizer.textures[34], cycleTimer);
             }
         }
@@ -23762,7 +23762,7 @@ public class Client extends RSApplet {
             aByteArray912 = abyte2;
             Rasterizer.method370(40);
 
-            if (drawCallbacks != null) {
+            if (HdPlugin.process()) {
                 drawCallbacks.animate(Rasterizer.textures[40], cycleTimer);
             }
         }
@@ -23785,7 +23785,7 @@ public class Client extends RSApplet {
 					aByteArray912 = abyte2;
 					Rasterizer.method370(i);
 
-                    if (drawCallbacks != null) {
+                    if (HdPlugin.process()) {
                         drawCallbacks.animate(Rasterizer.textures[i], cycleTimer);
                     }
 				} catch (Exception e) {
@@ -24326,7 +24326,7 @@ public class Client extends RSApplet {
     public static int[] myHeadAndJaw = new int[2];
     private int anInt996;
     private int anInt997;
-    private ObjectManager objectManager;
+    public ObjectManager objectManager;
     private int anInt998;
     private int anInt999;
     private ISAACRandomGen encryption;
@@ -24353,7 +24353,7 @@ public class Client extends RSApplet {
     private static final int[] levelXPs;
     private int minimapStatus;
     private int anInt1022;
-    private int loadingStage;
+    public int loadingStage;
     private int anInt1026;
     private final int[] anIntArray1030;
     private boolean aBoolean1031;
@@ -27103,7 +27103,10 @@ public class Client extends RSApplet {
 		
 		GameStateChanged gameStateChange = new GameStateChanged();
 		gameStateChange.setGameState(state);
-		callbacks.post(gameStateChange);
+
+        if(drawCallbacks != null)
+            drawCallbacks.onGameStateChanged(gameStateChange);
+		callbacks.postDeferred(gameStateChange);
 	}
 	
 	public RSImageProducer getGameScreenIP() {

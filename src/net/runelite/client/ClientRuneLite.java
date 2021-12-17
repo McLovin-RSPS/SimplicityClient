@@ -1213,7 +1213,7 @@ public class ClientRuneLite implements Client {
 
 	@Override
 	public int get3dZoom() {
-		return 512;
+		return WorldController.viewDistance;
 	}
 
 	@Override

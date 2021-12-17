@@ -1,6 +1,7 @@
 package net.runelite.api.hooks;
 
 import com.simplicity.client.*;
+import net.runelite.api.events.GameStateChanged;
 
 public interface DrawCallbacks
 {
@@ -26,6 +27,7 @@ public interface DrawCallbacks
 
 	void drawScene(int cameraX, int cameraY, int cameraZ, int cameraPitch, int cameraYaw, int plane);
 
+	void onGameStateChanged(GameStateChanged gameStateChanged);
 	/**
 	 * Called after the scene has been drawn
 	 */
