@@ -210,6 +210,9 @@ public interface Client extends GameEngine
 	 */
 	int getCameraPitch();
 
+	int getObjectRenderCutoffDistance();
+	void setObjectRenderCutoffDistance(int distance);
+
 	/**
 	 * Gets the yaw of the camera.
 	 *

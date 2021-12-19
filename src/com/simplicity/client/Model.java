@@ -18,10 +18,12 @@ import com.simplicity.tools.util.ModelColorMapping;
 
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
+import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.model.Jarvis;
 import net.runelite.api.model.Triangle;
 import net.runelite.api.model.Vertex;
 import net.runelite.client.RuneLite;
+import net.runelite.client.plugins.hdnew.HdPlugin;
 
 @SuppressWarnings("all")
 public class Model extends Animable {
@@ -3638,8 +3640,10 @@ public class Model extends Animable {
             }
         }
     }
-
     public void renderAtPoint(int orientation, int pitchSine, int pitchCos, int yawSin, int yawCos, int offsetX, int offsetY, int offsetZ, int i2, int id) {
+        renderAtPoint(orientation, pitchSine, pitchCos, yawSin, yawCos, offsetX, offsetY, offsetZ, i2, id, 0);
+    }
+    public void renderAtPoint(int orientation, int pitchSine, int pitchCos, int yawSin, int yawCos, int offsetX, int offsetY, int offsetZ, int i2, int id, int distance) {
         renderAtPointX = offsetX + Client.instance.xCameraPos;
         renderAtPointY = offsetZ + Client.instance.yCameraPos;
         renderAtPointZ = offsetY + Client.instance.zCameraPos;
@@ -3650,10 +3654,10 @@ public class Model extends Animable {
         int pos = scene_y + dimension_sin_y;
 
         final boolean gpu = Client.drawCallbacks != null && Rasterizer.aBoolean1464;
-
         if (pos <= 50 || (scene_y >= DRAW_DISTANCE && !gpu))
             return;
-        
+        if(HdPlugin.process() && (distance != 10 && distance > Client.instance.objectRenderCutoffDistance))
+            return;
         int x_rot = offsetZ * yawSin + offsetX * yawCos >> 16;
         int obj_x = x_rot - anInt1650 << WorldController.viewDistance;
         if (obj_x / pos >= DrawingArea.viewport_centerX)
@@ -3709,7 +3713,7 @@ public class Model extends Animable {
                     objectsInCurrentRegion[objectsRendered++] = i2;
 
                     if (gpu) {
-                        renderOnGpu(orientation, pitchSine, pitchCos, yawSin, yawCos, offsetX, offsetY, offsetZ, id);
+                        renderOnGpu(orientation, pitchSine, pitchCos, yawSin, yawCos, offsetX, offsetY, offsetZ, i2, distance);
                         return;
                     }
                 } else {
@@ -3764,7 +3768,7 @@ public class Model extends Animable {
             }
 
             if (gpu) {
-                renderOnGpu(orientation, pitchSine, pitchCos, yawSin, yawCos, offsetX, offsetY, offsetZ, id);
+                renderOnGpu(orientation, pitchSine, pitchCos, yawSin, yawCos, offsetX, offsetY, offsetZ, i2, distance);
             }
 
             return;
@@ -3773,10 +3777,10 @@ public class Model extends Animable {
         }
     }
 
-    void renderOnGpu(int orientation, int pitchSine, int pitchCos, int yawSin, int yawCos, int offsetX, int offsetY, int offsetZ, int hash) {
+    void renderOnGpu(int orientation, int pitchSine, int pitchCos, int yawSin, int yawCos, int offsetX, int offsetY, int offsetZ, int hash, int distanceFromPlayer) {
         if (Client.drawCallbacks != null) {
             try {
-                Client.drawCallbacks.draw(this, orientation, pitchSine, pitchCos, yawSin, yawCos, offsetX, offsetY, offsetZ, hash);
+                Client.drawCallbacks.draw(this, orientation, pitchSine, pitchCos, yawSin, yawCos, offsetX, offsetY, offsetZ, hash, distanceFromPlayer);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -4461,4 +4465,7 @@ public class Model extends Animable {
         }
     }
 
+    public void calculateBoundsCylinder() {
+        calculateDiagonals();
+    }
 }

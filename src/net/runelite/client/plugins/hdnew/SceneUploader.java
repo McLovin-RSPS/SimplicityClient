@@ -133,6 +133,8 @@ class SceneUploader
 
 		for (int face = 0; face < faceCount; ++face)
 		{
+			if(faceCount > HdPlugin.MAX_TRIANGLE && (face % 2 == 0) && face > 2500)
+				continue;
 			int[] bufferLengths = pushFace(model, face, vertexBuffer, uvBuffer, normalBuffer, tileZ, tileX, tileY, objectProperties, objectType);
 			vertexLength += bufferLengths[0];
 			uvLength += bufferLengths[1];

@@ -32,9 +32,10 @@ import lombok.RequiredArgsConstructor;
 public enum LevelOfDetail
 {
 	FULL("Full", 90),
-	HIGH("High", 50),
-	MEDIUM("Medium", 30),
-	LOW("Low", 20);
+	HIGH("High", 65),
+	MEDIUM("Medium", 45),
+	LOW("Low", 30),
+	DEFAULT("Default", 20);
 
 	private final String name;
 	private final int distance;

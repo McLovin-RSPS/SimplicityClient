@@ -1079,6 +1079,12 @@ public class ClientRuneLite implements Client {
 	public int getCameraPitch() {
 		return client().yCameraCurve;
 	}
+	public int getObjectRenderCutoffDistance() {
+		return client().objectRenderCutoffDistance;
+	}
+	public void setObjectRenderCutoffDistance(int distance) {
+		client().objectRenderCutoffDistance = distance;
+	}
 	
 	@Override
 	public Callbacks getCallbacks() {

@@ -5,7 +5,7 @@ import net.runelite.api.events.GameStateChanged;
 
 public interface DrawCallbacks
 {
-	void draw(Animable renderable, int orientation, int pitchSin, int pitchCos, int yawSin, int yawCos, int x, int y, int z, long hash);
+	void draw(Animable renderable, int orientation, int pitchSin, int pitchCos, int yawSin, int yawCos, int x, int y, int z, long hash, int distanceFromPlayer);
 
 	void drawScenePaint(int orientation, int pitchSin, int pitchCos, int yawSin, int yawCos, int x, int y, int z,
 						SceneTilePaint paint, int tileZ, int tileX, int tileY,

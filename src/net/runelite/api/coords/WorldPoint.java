@@ -153,6 +153,14 @@ public class WorldPoint
 			plane
 		);
 	}
+	public static WorldPoint fromLocal(com.simplicity.client.Client client, int x, int y, int plane)
+	{
+		return new WorldPoint(
+				(x >>> Perspective.LOCAL_COORD_BITS) + client.getBaseX(),
+				(y >>> Perspective.LOCAL_COORD_BITS) + client.getBaseY(),
+				plane
+		);
+	}
 
 	/**
 	 * Gets the coordinate of the tile that contains the passed local point,

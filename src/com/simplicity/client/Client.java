@@ -3054,8 +3054,11 @@ public class Client extends RSApplet {
 		}
 	}
 
+    public int objectRenderCutoffDistance = 0;
     private void drawTabArea() {
         if (clientSize == 0) {
+            if(tabAreaIP == null)
+                tabAreaIP = new RSImageProducer(250, 335, getGameComponent());
             tabAreaIP.initDrawingArea();
         }
         Rasterizer.anIntArray1472 = anIntArray1181;
@@ -22716,12 +22719,16 @@ public class Client extends RSApplet {
                                 itemAmt = inStream.method440();
                             }
                             it = inStream.readWordBigEndian();
-                            rsi_1.inv[idx] = it;
-                            rsi_1.invStackSizes[idx] = itemAmt;
+                            if(rsi_1.inv != null) {
+                                rsi_1.inv[idx] = it;
+                                rsi_1.invStackSizes[idx] = itemAmt;
+                            }
                         }
-                        for (int idx = totalItems; idx < rsi_1.inv.length && idx < rsi_1.invStackSizes.length; idx++) {
-                            rsi_1.inv[idx] = 0;
-                            rsi_1.invStackSizes[idx] = 0;
+                        if(rsi_1.inv != null) {
+                            for (int idx = totalItems; idx < rsi_1.inv.length && idx < rsi_1.invStackSizes.length; idx++) {
+                                rsi_1.inv[idx] = 0;
+                                rsi_1.invStackSizes[idx] = 0;
+                            }
                         }
                         
                         if (runelite != null) {

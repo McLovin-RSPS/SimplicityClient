@@ -427,6 +427,7 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 			configGroundBlending = config.groundBlending();
 			configWaterEffects = config.waterEffects();
 			configLevelOfDetail = config.levelOfDetail();
+			client.setObjectRenderCutoffDistance(configLevelOfDetail.getDistance());
 			configObjectTextures = config.objectTextures();
 			configTzhaarHD = config.tzhaarHD();
 			configProjectileLights = config.projectileLights();
@@ -2225,6 +2226,8 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 				break;
 			case "levelOfDetail":
 				configLevelOfDetail = config.levelOfDetail();
+				client.setObjectRenderCutoffDistance(configLevelOfDetail.getDistance());
+				reloadScene();
 				break;
 			case "shadowsEnabled":
 				configShadowsEnabled = config.shadowsEnabled();
@@ -2277,14 +2280,13 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 	/**
 	 * Check is a model is visible and should be drawn.
 	 */
-	private boolean isVisible(Model model, int orientation, int pitchSin, int pitchCos, int yawSin, int yawCos, int _x, int _y, int _z, long hash)
+	private boolean isVisible(Model model, int pitchSin, int pitchCos, int yawSin, int yawCos, int x, int y, int z)
 	{
+		model.calculateBoundsCylinder();
+
 		final int XYZMag = model.getXYZMag();
-		int zoom = client.get3dZoom();
-		if (configShadowsEnabled && configExpandShadowDraw)
-		{
-			zoom /= 2;
-		}
+		final int bottomY = model.getModelHeight();
+		final int zoom = (configShadowsEnabled && configExpandShadowDraw) ? client.get3dZoom() / 2 : client.get3dZoom();
 		final int modelHeight = model.getModelHeight();
 
 		int Rasterizer3D_clipMidX2 = client.getRasterizer3D_clipMidX2();
@@ -2292,27 +2294,28 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 		int Rasterizer3D_clipNegativeMidY = client.getRasterizer3D_clipNegativeMidY();
 		int Rasterizer3D_clipMidY2 = client.getRasterizer3D_clipMidY2();
 
-		int var11 = yawCos * _z - yawSin * _x >> 16;
-		int var12 = pitchSin * _y + pitchCos * var11 >> 16;
+		int var11 = yawCos * z - yawSin * x >> 16;
+		int var12 = pitchSin * y + pitchCos * var11 >> 16;
 		int var13 = pitchCos * XYZMag >> 16;
-		int var14 = var12 + var13;
-		if (var14 > 50)
+		int depth = var12 + var13;
+		if (depth > 50)
 		{
-			int var15 = _z * yawSin + yawCos * _x >> 16;
-			int var16 = (var15 - XYZMag) * zoom;
-			if (var16 / var14 < Rasterizer3D_clipMidX2)
+			int rx = z * yawSin + yawCos * x >> 16;
+			int var16 = (rx - XYZMag) * zoom;
+			if (var16 / depth < Rasterizer3D_clipMidX2)
 			{
-				int var17 = (var15 + XYZMag) * zoom;
-				if (var17 / var14 > Rasterizer3D_clipNegativeMidX)
+				int var17 = (rx + XYZMag) * zoom;
+				if (var17 / depth > Rasterizer3D_clipNegativeMidX)
 				{
-					int var18 = pitchCos * _y - var11 * pitchSin >> 16;
-					int var19 = pitchSin * XYZMag >> 16;
-					int var20 = (var18 + var19) * zoom;
-					if (var20 / var14 > Rasterizer3D_clipNegativeMidY)
+					int ry = pitchCos * y - var11 * pitchSin >> 16;
+					int yheight = pitchSin * XYZMag >> 16;
+					int ybottom = (pitchCos * bottomY >> 16) + yheight;
+					int var20 = (ry + ybottom) * zoom;
+					if (var20 / depth > Rasterizer3D_clipNegativeMidY)
 					{
-						int var21 = (pitchCos * modelHeight >> 16) + var19;
-						int var22 = (var18 - var21) * zoom;
-						return var22 / var14 < Rasterizer3D_clipMidY2;
+						int ytop = (pitchCos * modelHeight >> 16) + yheight;
+						int var22 = (ry - ytop) * zoom;
+						return var22 / depth < Rasterizer3D_clipMidY2;
 					}
 				}
 			}
@@ -2335,7 +2338,7 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 	 * @param hash
 	 */
 	@Override
-	public void draw(Animable renderable, int orientation, int pitchSin, int pitchCos, int yawSin, int yawCos, int x, int y, int z, long hash)
+	public void draw(Animable renderable, int orientation, int pitchSin, int pitchCos, int yawSin, int yawCos, int x, int y, int z, long hash, int distanceToPlayer)
 	{
 		final int camX = camTarget[0];
 		final int camY = camTarget[1];
@@ -2346,9 +2349,10 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 		double distance = 0;
 		if (configLevelOfDetail != LevelOfDetail.FULL)
 		{
-			distance = Math.sqrt(Math.pow(camX - adjustedX, 2) + Math.pow(camY - adjustedY, 2) + Math.pow(camZ - adjustedZ, 2));
+			distance = distanceToPlayer;//Math.sqrt(Math.pow(camX - adjustedX, 2) + Math.pow(camY - adjustedY, 2) + Math.pow(camZ - adjustedZ, 2));
 		}
-		int drawObjectCutoff = configLevelOfDetail.getDistance() * Perspective.LOCAL_TILE_SIZE;
+		int drawObjectCutoff = configLevelOfDetail.getDistance();//configLevelOfDetail.getDistance() * Perspective.LOCAL_TILE_SIZE;
+		//log.info("DrawObjectCutoff: {}, Distance: {}, Render? {}", drawObjectCutoff, distance, (distance > drawObjectCutoff));
 
 		// Model may be in the scene buffer
 		if (renderable instanceof Model && ((Model) renderable).getSceneId() == sceneUploader.sceneId)
@@ -2357,12 +2361,7 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 
 			model.calculateDiagonals();
 
-			if (!isVisible(model, orientation, pitchSin, pitchCos, yawSin, yawCos, x, y, z, hash))
-			{
-				return;
-			}
-
-			if ((model.getBufferOffset() & 0b1) == 0b1 && distance > drawObjectCutoff)
+			if (!isVisible(model, pitchSin, pitchCos, yawSin, yawCos, x, y, z))
 			{
 				return;
 			}
@@ -2401,12 +2400,7 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 
 				model.calculateDiagonals();
 
-				if (!isVisible(model, orientation, pitchSin, pitchCos, yawSin, yawCos, x, y, z, hash))
-				{
-					return;
-				}
-
-				if ((model.getBufferOffset() & 0b1) == 0b1 && distance > drawObjectCutoff)
+				if (!isVisible(model, pitchSin, pitchCos, yawSin, yawCos, x, y, z))
 				{
 					return;
 				}

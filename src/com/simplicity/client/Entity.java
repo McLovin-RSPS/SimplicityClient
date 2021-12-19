@@ -228,13 +228,12 @@ public class Entity extends Animable {
 		// OLD (x - 6 >> 7), (y - 6 >> 7)
 		return new LocalPoint(x, y);
 	}
-	
+
 	public WorldPoint getWorldLocation() {
-		int baseX = Client.getBaseX();
-		int baseY = Client.getBaseY();
-		int z = Client.instance.plane;
-		
-		return new WorldPoint(baseX + (x - 6 >> 7), baseY + (y - 6 >> 7), z);
+		return WorldPoint.fromLocal(Client.instance,
+				this.pathX[0] * Perspective.LOCAL_TILE_SIZE + Perspective.LOCAL_TILE_SIZE / 2,
+				this.pathY[0] * Perspective.LOCAL_TILE_SIZE + Perspective.LOCAL_TILE_SIZE / 2,
+				Client.instance.plane);
 	}
 	
 	public Polygon getCanvasTilePoly()

@@ -14,6 +14,7 @@ import com.simplicity.client.cache.node.Deque;
 import com.simplicity.client.entity.Position;
 
 import net.runelite.api.coords.LocalPoint;
+import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.DecorativeObjectDespawned;
 import net.runelite.api.events.DecorativeObjectSpawned;
 import net.runelite.api.events.GameObjectDespawned;
@@ -435,6 +436,8 @@ public final class WorldController {
 		io.interactiveObjUID = interactiveObjUID;
 		io.worldZ = worldZ;
 		io.node = node;
+		io.node.x = worldX;
+		io.node.y = worldY;
 		io.rotation = rotation;
 		io.tileLeft = tileLeft;
 		io.tileTop = tileTop;
@@ -1091,10 +1094,10 @@ public final class WorldController {
 		boolean isOnScreen[][][][] = new boolean[9][32][(300 * 2) + 3][(300 * 2) + 3];
 		for (int yAngle = 128; yAngle <= 384; yAngle += 32) {
 			for (int xAngle = 0; xAngle < 2048; xAngle += 64) {
-				yCurveSin = Model.SINE[yAngle];
-				yCUrveCos = Model.COSINE[yAngle];
-				xCurveSin = Model.SINE[xAngle];
-				xCurveCos = Model.COSINE[xAngle];
+				camUpDownY = Model.SINE[yAngle];
+				camUpDownX = Model.COSINE[yAngle];
+				camLeftRightY = Model.SINE[xAngle];
+				camLeftRightX = Model.COSINE[xAngle];
 				int l1 = (yAngle - 128) / 32;
 				int j2 = xAngle / 64;
 				for (int l2 = -26; l2 <= 26; l2++) {
@@ -1153,10 +1156,10 @@ public final class WorldController {
 	}
 
 	private static boolean isOnScreen(int z, int y, int x) {
-		int l = y * xCurveSin + x * xCurveCos >> 16;
-		int i1 = y * xCurveCos - x * xCurveSin >> 16;
-		int dist = z * yCurveSin + i1 * yCUrveCos >> 16;
-		int k1 = z * yCUrveCos - i1 * yCurveSin >> 16;
+		int l = y * camLeftRightY + x * camLeftRightX >> 16;
+		int i1 = y * camLeftRightX - x * camLeftRightY >> 16;
+		int dist = z * camUpDownY + i1 * camUpDownX >> 16;
+		int k1 = z * camUpDownX - i1 * camUpDownY >> 16;
 		if (dist < 50 || dist >= MAX_RENDER_DISTANCE && Client.drawCallbacks == null)
 			return false;
 		int l1 = midX + (l << viewDistance) / dist;
@@ -1194,10 +1197,10 @@ public final class WorldController {
 		else if (yCam >= yMapSize * 128)
 			yCam = yMapSize * 128 - 1;
 		anInt448++;
-		yCurveSin = Model.SINE[yCurve];
-		yCUrveCos = Model.COSINE[yCurve];
-		xCurveSin = Model.SINE[xCurve];
-		xCurveCos = Model.COSINE[xCurve];
+		camUpDownY = Model.SINE[yCurve];
+		camUpDownX = Model.COSINE[yCurve];
+		camLeftRightY = Model.SINE[xCurve];
+		camLeftRightX = Model.COSINE[xCurve];
 		tile_visibility_map = tile_visibility_maps[(yCurve - 128) / 32][xCurve / 64];
 		cameraX2 = xCam;
 		cameraY2 = zCam;
@@ -1474,7 +1477,7 @@ public final class WorldController {
 
 					int color = highlighted ? 0x0000ff : 0xffff00;
 
-					drawTileMarker(tile.plane, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, tile.tileX, tile.tileY, color);
+					drawTileMarker(tile.plane, camUpDownY, camUpDownX, camLeftRightY, camLeftRightX, tile.tileX, tile.tileY, color);
 				}
 
 			}
@@ -1526,21 +1529,39 @@ public final class WorldController {
 				} else {
 					flag = true;
 				}
+				WorldPoint tileLocation = tempTile.getWorldLocation();
+				WorldPoint playerLocation = Client.myPlayer.getWorldLocation();
+				int xDiff = 0;
+				int yDiff = 0;
+				if(tileLocation.getX() > playerLocation.getX()) {
+					xDiff = tileLocation.getX() - playerLocation.getX();
+				} else {
+					xDiff = playerLocation.getX() - tileLocation.getX();
+				}
+				if(tileLocation.getY() > playerLocation.getY()) {
+					yDiff = tileLocation.getY() - playerLocation.getY();
+				} else {
+					yDiff = playerLocation.getY() - tileLocation.getY();
+				}
+				int distance = xDiff + yDiff;
 				tempTile.aBoolean1322 = false;
 				if (tempTile.tileBelowThisTile != null) {
 					Tile lowerTile = tempTile.tileBelowThisTile;
 					if (lowerTile.plainTile != null) {
 						if (!method320(0, camera_x, camera_y))
-							drawPlainTile(lowerTile.plainTile, 0, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, camera_x, camera_y);
+							drawPlainTile(lowerTile.plainTile, 0, camUpDownY, camUpDownX, camLeftRightY, camLeftRightX, camera_x, camera_y);
 					} else if (lowerTile.shapedTile != null && !method320(0, camera_x, camera_y))
-						drawShapedTile(camera_x, yCurveSin, xCurveSin, lowerTile.shapedTile, yCUrveCos, camera_y, xCurveCos);
+						drawShapedTile(camera_x, camUpDownY, camLeftRightY, lowerTile.shapedTile, camUpDownX, camera_y, camLeftRightX);
 					WallObject wallObject = lowerTile.wallObject;
-					if (wallObject != null)
-						wallObject.node1.renderAtPoint(0, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, wallObject.xPos - cameraX2, wallObject.zPos - cameraY2, wallObject.yPos - cameraZ2, wallObject.uid, wallObject.wallObjUID);
+					if (wallObject != null) {
+						wallObject.node1.renderAtPoint(0, camUpDownY, camUpDownX, camLeftRightY,
+								camLeftRightX, wallObject.xPos - cameraX2, wallObject.zPos - cameraY2,
+								wallObject.yPos - cameraZ2, wallObject.uid, wallObject.wallObjUID, distance);
+					}
 					for (int i2 = 0; i2 < lowerTile.entityCount; i2++) {
 						InteractableObject iObject = lowerTile.interactableObjects[i2];
 						if (iObject != null)
-							iObject.node.renderAtPoint(iObject.rotation, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, iObject.worldX - cameraX2, iObject.worldZ - cameraY2, iObject.worldY - cameraZ2, iObject.uid, iObject.interactiveObjUID);
+							iObject.node.renderAtPoint(iObject.rotation, camUpDownY, camUpDownX, camLeftRightY, camLeftRightX, iObject.worldX - cameraX2, iObject.worldZ - cameraY2, iObject.worldY - cameraZ2, iObject.uid, iObject.interactiveObjUID, distance);
 					}
 
 				}
@@ -1548,11 +1569,11 @@ public final class WorldController {
 				if (tempTile.plainTile != null) {
 					if (!method320(plane, camera_x, camera_y)) {
 						flag1 = true;
-						drawPlainTile(tempTile.plainTile, plane, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, camera_x, camera_y);
+						drawPlainTile(tempTile.plainTile, plane, camUpDownY, camUpDownX, camLeftRightY, camLeftRightX, camera_x, camera_y);
 					}
 				} else if (tempTile.shapedTile != null && !method320(plane, camera_x, camera_y)) {
 					flag1 = true;
-					drawShapedTile(camera_x, yCurveSin, xCurveSin, tempTile.shapedTile, yCUrveCos, camera_y, xCurveCos);
+					drawShapedTile(camera_x, camUpDownY, camLeftRightY, tempTile.shapedTile, camUpDownX, camera_y, camLeftRightX);
 				}
 
 				int j1 = 0;
@@ -1594,13 +1615,13 @@ public final class WorldController {
 						tempTile.anInt1325 = 0;
 					}
 					if ((class10_3.orientation & j2) != 0 && !method321(plane, camera_x, camera_y, class10_3.orientation))
-						class10_3.node1.renderAtPoint(0, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, class10_3.xPos - cameraX2, class10_3.zPos - cameraY2, class10_3.yPos - cameraZ2, class10_3.uid, class10_3.wallObjUID);
+						class10_3.node1.renderAtPoint(0, camUpDownY, camUpDownX, camLeftRightY, camLeftRightX, class10_3.xPos - cameraX2, class10_3.zPos - cameraY2, class10_3.yPos - cameraZ2, class10_3.uid, class10_3.wallObjUID, distance);
 					if ((class10_3.orientation1 & j2) != 0 && !method321(plane, camera_x, camera_y, class10_3.orientation1))
-						class10_3.node2.renderAtPoint(0, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, class10_3.xPos - cameraX2, class10_3.zPos - cameraY2, class10_3.yPos - cameraZ2, class10_3.uid, class10_3.wallObjUID);
+						class10_3.node2.renderAtPoint(0, camUpDownY, camUpDownX, camLeftRightY, camLeftRightX, class10_3.xPos - cameraX2, class10_3.zPos - cameraY2, class10_3.yPos - cameraZ2, class10_3.uid, class10_3.wallObjUID, distance);
 				}
 				if (class26_1 != null && !method322(plane, camera_x, camera_y, class26_1.node.modelHeight))
 					if ((class26_1.configurationBits & j2) != 0)
-						class26_1.node.renderAtPoint(class26_1.rotation, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, class26_1.xPos - cameraX2, class26_1.zPos - cameraY2, class26_1.yPos - cameraZ2, class26_1.uid, class26_1.wallDecorUID);
+						class26_1.node.renderAtPoint(class26_1.rotation, camUpDownY, camUpDownX, camLeftRightY, camLeftRightX, class26_1.xPos - cameraX2, class26_1.zPos - cameraY2, class26_1.yPos - cameraZ2, class26_1.uid, class26_1.wallDecorUID, distance);
 					else if ((class26_1.configurationBits & 0x300) != 0) {
 						int j4 = class26_1.xPos - cameraX2;
 						int l5 = class26_1.zPos - cameraY2;
@@ -1619,26 +1640,26 @@ public final class WorldController {
 						if ((class26_1.configurationBits & 0x100) != 0 && k10 < k9) {
 							int i11 = j4 + faceXoffset2[i8];
 							int k11 = k6 + faceYOffset2[i8];
-							class26_1.node.renderAtPoint(i8 * 512 + 256, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, i11, l5, k11, class26_1.uid, class26_1.wallDecorUID);
+							class26_1.node.renderAtPoint(i8 * 512 + 256, camUpDownY, camUpDownX, camLeftRightY, camLeftRightX, i11, l5, k11, class26_1.uid, class26_1.wallDecorUID, distance);
 						}
 						if ((class26_1.configurationBits & 0x200) != 0 && k10 > k9) {
 							int j11 = j4 + faceXOffset3[i8];
 							int l11 = k6 + faceYOffset3[i8];
-							class26_1.node.renderAtPoint(i8 * 512 + 1280 & 0x7ff, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, j11, l5, l11, class26_1.uid, class26_1.wallDecorUID);
+							class26_1.node.renderAtPoint(i8 * 512 + 1280 & 0x7ff, camUpDownY, camUpDownX, camLeftRightY, camLeftRightX, j11, l5, l11, class26_1.uid, class26_1.wallDecorUID, distance);
 						}
 					}
 				if (flag1) {
 					GroundDecoration class49 = tempTile.groundDecoration;
 					if (class49 != null)
-						class49.node.renderAtPoint(0, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, class49.xPos - cameraX2, class49.zPos - cameraY2, class49.yPos - cameraZ2, class49.uid, class49.groundDecorUID);
+						class49.node.renderAtPoint(0, camUpDownY, camUpDownX, camLeftRightY, camLeftRightX, class49.xPos - cameraX2, class49.zPos - cameraY2, class49.yPos - cameraZ2, class49.uid, class49.groundDecorUID, distance);
 					GroundItem object4_1 = tempTile.groundItem;
 					if (object4_1 != null && object4_1.topItem == 0) {
 						if (object4_1.secondGroundItem != null)
-							object4_1.secondGroundItem.renderAtPoint(0, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, object4_1.xPos - cameraX2, object4_1.zPos - cameraY2, object4_1.yPos - cameraZ2, object4_1.uid, object4_1.newuid);
+							object4_1.secondGroundItem.renderAtPoint(0, camUpDownY, camUpDownX, camLeftRightY, camLeftRightX, object4_1.xPos - cameraX2, object4_1.zPos - cameraY2, object4_1.yPos - cameraZ2, object4_1.uid, object4_1.newuid, distance);
 						if (object4_1.thirdGroundItem != null)
-							object4_1.thirdGroundItem.renderAtPoint(0, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, object4_1.xPos - cameraX2, object4_1.zPos - cameraY2, object4_1.yPos - cameraZ2, object4_1.uid, object4_1.newuid);
+							object4_1.thirdGroundItem.renderAtPoint(0, camUpDownY, camUpDownX, camLeftRightY, camLeftRightX, object4_1.xPos - cameraX2, object4_1.zPos - cameraY2, object4_1.yPos - cameraZ2, object4_1.uid, object4_1.newuid, distance);
 						if (object4_1.firstGroundItem != null)
-							object4_1.firstGroundItem.renderAtPoint(0, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, object4_1.xPos - cameraX2, object4_1.zPos - cameraY2, object4_1.yPos - cameraZ2, object4_1.uid, object4_1.newuid);
+							object4_1.firstGroundItem.renderAtPoint(0, camUpDownY, camUpDownX, camLeftRightY, camLeftRightX, object4_1.xPos - cameraX2, object4_1.zPos - cameraY2, object4_1.yPos - cameraZ2, object4_1.uid, object4_1.newuid, distance);
 					}
 				}
 
@@ -1678,7 +1699,7 @@ public final class WorldController {
 				if (flag2) {
 					WallObject class10_1 = tempTile.wallObject;
 					if (!method321(plane, camera_x, camera_y, class10_1.orientation))
-						class10_1.node1.renderAtPoint(0, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, class10_1.xPos - cameraX2, class10_1.zPos - cameraY2, class10_1.yPos - cameraZ2, class10_1.uid, class10_1.wallObjUID);
+						class10_1.node1.renderAtPoint(0, camUpDownY, camUpDownX, camLeftRightY, camLeftRightX, class10_1.xPos - cameraX2, class10_1.zPos - cameraY2, class10_1.yPos - cameraZ2, class10_1.uid, class10_1.wallObjUID, distance);
 					tempTile.anInt1325 = 0;
 				}
 			}
@@ -1754,7 +1775,7 @@ public final class WorldController {
 						InteractableObject class28_3 = aClass28Array462[l3];
 						class28_3.height = anInt448;
 						if (!method323(plane, class28_3.tileLeft, class28_3.tileRight, class28_3.tileTop, class28_3.tileBottom, class28_3.node.modelHeight))
-							class28_3.node.renderAtPoint(class28_3.rotation, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, class28_3.worldX - cameraX2, class28_3.worldZ - cameraY2, class28_3.worldY - cameraZ2, class28_3.uid, class28_3.interactiveObjUID);
+							class28_3.node.renderAtPoint(class28_3.rotation, camUpDownY, camUpDownX, camLeftRightY, camLeftRightX, class28_3.worldX - cameraX2, class28_3.worldZ - cameraY2, class28_3.worldY - cameraZ2, class28_3.uid, class28_3.interactiveObjUID);
 						for (int k7 = class28_3.tileLeft; k7 <= class28_3.tileRight; k7++) {
 							for (int l8 = class28_3.tileTop; l8 <= class28_3.tileBottom; l8++) {
 								Tile class30_sub3_22 = tiles[k7][l8];
@@ -1800,17 +1821,17 @@ public final class WorldController {
 			GroundItem object4 = tempTile.groundItem;
 			if (object4 != null && object4.topItem != 0) {
 				if (object4.secondGroundItem != null)
-					object4.secondGroundItem.renderAtPoint(0, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, object4.xPos - cameraX2, object4.zPos - cameraY2 - object4.topItem, object4.yPos - cameraZ2, object4.uid, object4.newuid);
+					object4.secondGroundItem.renderAtPoint(0, camUpDownY, camUpDownX, camLeftRightY, camLeftRightX, object4.xPos - cameraX2, object4.zPos - cameraY2 - object4.topItem, object4.yPos - cameraZ2, object4.uid, object4.newuid, distance);
 				if (object4.thirdGroundItem != null)
-					object4.thirdGroundItem.renderAtPoint(0, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, object4.xPos - cameraX2, object4.zPos - cameraY2 - object4.topItem, object4.yPos - cameraZ2, object4.uid, object4.newuid);
+					object4.thirdGroundItem.renderAtPoint(0, camUpDownY, camUpDownX, camLeftRightY, camLeftRightX, object4.xPos - cameraX2, object4.zPos - cameraY2 - object4.topItem, object4.yPos - cameraZ2, object4.uid, object4.newuid, distance);
 				if (object4.firstGroundItem != null)
-					object4.firstGroundItem.renderAtPoint(0, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, object4.xPos - cameraX2, object4.zPos - cameraY2 - object4.topItem, object4.yPos - cameraZ2, object4.uid, object4.newuid);
+					object4.firstGroundItem.renderAtPoint(0, camUpDownY, camUpDownX, camLeftRightY, camLeftRightX, object4.xPos - cameraX2, object4.zPos - cameraY2 - object4.topItem, object4.yPos - cameraZ2, object4.uid, object4.newuid, distance);
 			}
 			if (tempTile.anInt1328 != 0) {
 				WallDecoration class26 = tempTile.wallDecoration;
 				if (class26 != null && !method322(plane, camera_x, camera_y, class26.node.modelHeight))
 					if ((class26.configurationBits & tempTile.anInt1328) != 0)
-						class26.node.renderAtPoint(class26.rotation, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, class26.xPos - cameraX2, class26.zPos - cameraY2, class26.yPos - cameraZ2, class26.uid, class26.wallDecorUID);
+						class26.node.renderAtPoint(class26.rotation, camUpDownY, camUpDownX, camLeftRightY, camLeftRightX, class26.xPos - cameraX2, class26.zPos - cameraY2, class26.yPos - cameraZ2, class26.uid, class26.wallDecorUID, distance);
 					else if ((class26.configurationBits & 0x300) != 0) {
 						int l2 = class26.xPos - cameraX2;
 						int j3 = class26.zPos - cameraY2;
@@ -1829,20 +1850,20 @@ public final class WorldController {
 						if ((class26.configurationBits & 0x100) != 0 && l7 >= j6) {
 							int i9 = l2 + faceXoffset2[k5];
 							int i10 = i4 + faceYOffset2[k5];
-							class26.node.renderAtPoint(k5 * 512 + 256, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, i9, j3, i10, class26.uid, class26.wallDecorUID);
+							class26.node.renderAtPoint(k5 * 512 + 256, camUpDownY, camUpDownX, camLeftRightY, camLeftRightX, i9, j3, i10, class26.uid, class26.wallDecorUID, distance);
 						}
 						if ((class26.configurationBits & 0x200) != 0 && l7 <= j6) {
 							int j9 = l2 + faceXOffset3[k5];
 							int j10 = i4 + faceYOffset3[k5];
-							class26.node.renderAtPoint(k5 * 512 + 1280 & 0x7ff, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, j9, j3, j10, class26.uid, class26.wallDecorUID);
+							class26.node.renderAtPoint(k5 * 512 + 1280 & 0x7ff, camUpDownY, camUpDownX, camLeftRightY, camLeftRightX, j9, j3, j10, class26.uid, class26.wallDecorUID, distance);
 						}
 					}
 				WallObject class10_2 = tempTile.wallObject;
 				if (class10_2 != null) {
 					if ((class10_2.orientation1 & tempTile.anInt1328) != 0 && !method321(plane, camera_x, camera_y, class10_2.orientation1))
-						class10_2.node2.renderAtPoint(0, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, class10_2.xPos - cameraX2, class10_2.zPos - cameraY2, class10_2.yPos - cameraZ2, class10_2.uid, class10_2.wallObjUID);
+						class10_2.node2.renderAtPoint(0, camUpDownY, camUpDownX, camLeftRightY, camLeftRightX, class10_2.xPos - cameraX2, class10_2.zPos - cameraY2, class10_2.yPos - cameraZ2, class10_2.uid, class10_2.wallObjUID, distance);
 					if ((class10_2.orientation & tempTile.anInt1328) != 0 && !method321(plane, camera_x, camera_y, class10_2.orientation))
-						class10_2.node1.renderAtPoint(0, yCurveSin, yCUrveCos, xCurveSin, xCurveCos, class10_2.xPos - cameraX2, class10_2.zPos - cameraY2, class10_2.yPos - cameraZ2, class10_2.uid, class10_2.wallObjUID);
+						class10_2.node1.renderAtPoint(0, camUpDownY, camUpDownX, camLeftRightY, camLeftRightX, class10_2.xPos - cameraX2, class10_2.zPos - cameraY2, class10_2.yPos - cameraZ2, class10_2.uid, class10_2.wallObjUID, distance);
 				}
 			}
 			if (k < zMapSize - 1) {
@@ -2536,10 +2557,10 @@ public final class WorldController {
 	public static int cameraX2;
 	public static int cameraY2;
 	public static int cameraZ2;
-	private static int yCurveSin;
-	private static int yCUrveCos;
-	private static int xCurveSin;
-	private static int xCurveCos;
+	private static int camUpDownY;
+	private static int camUpDownX;
+	private static int camLeftRightY;
+	private static int camLeftRightX;
 	private static InteractableObject[] aClass28Array462 = new InteractableObject[100];
 	private static final int[] faceXoffset2 = { 53, -53, -53, 53 };
 	private static final int[] faceYOffset2 = { -53, -53, 53, 53 };
