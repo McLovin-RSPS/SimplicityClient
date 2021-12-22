@@ -29,6 +29,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -80,14 +81,15 @@ public class PlayerIndicatorsOverlay extends Overlay
 		}
 
 		final int zOffset;
+		final int modelHeight = actor.method452() != null ? actor.method452().modelHeight : 0;
 		switch (drawPlayerNamesConfig)
 		{
 			case MODEL_CENTER:
 			case MODEL_RIGHT:
-				zOffset = actor.modelHeight / 2;
+				zOffset = modelHeight / 2;
 				break;
 			default:
-				zOffset = actor.modelHeight + ACTOR_OVERHEAD_TEXT_MARGIN;
+				zOffset = modelHeight + ACTOR_OVERHEAD_TEXT_MARGIN;
 		}
 
 		final String name = Text.sanitize(actor.getName());
