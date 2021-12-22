@@ -369,14 +369,22 @@ public class LightManager
 
 			if (tileX < Perspective.SCENE_SIZE && tileY < Perspective.SCENE_SIZE && tileX >= 0 && tileY >= 0)
 			{
-				Tile aboveTile = tileZ < 3 ? client.getScene().getTiles()[tileZ + 1][tileX][tileY] : null;
-
+				Tile aboveTile;
+				try {
+					aboveTile = tileZ < 3 ? client.getScene().getTiles()[tileZ + 1][tileX][tileY] : null;
+				} catch (ArrayIndexOutOfBoundsException e) {
+					aboveTile = null; //in some areas/regions, the Tiles z index is limited throwing an ArrayIndexOutOfBoundsException
+				}
 				if (aboveTile != null && (aboveTile.getSceneTilePaint() != null || aboveTile.getSceneTileModel() != null))
 				{
 					light.belowFloor = true;
 				}
-
-				Tile lightTile = client.getScene().getTiles()[tileZ][tileX][tileY];
+				Tile lightTile;
+				try {
+					lightTile = client.getScene().getTiles()[tileZ][tileX][tileY];
+				} catch (ArrayIndexOutOfBoundsException e) {
+					lightTile = null; //in some areas/regions, the Tiles z index is limited throwing an ArrayIndexOutOfBoundsException
+				}
 
 				if (lightTile != null && (lightTile.getSceneTilePaint() != null || lightTile.getSceneTileModel() != null))
 				{
