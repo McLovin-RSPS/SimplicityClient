@@ -43,21 +43,23 @@ public class NpcDropChecker extends CustomWidget {
 		add(addDynamicButton("Search a Monster", 1, 0xff981f, 130, 23), 13, 54);
 		add(addDynamicButton("Search an Item", 1, 0xff981f, 130, 23), 13, 79);
 		add(addText("Showing Results For:", 0, 0xffffff, true), 78, 105);
+		//System.out.println("NPC SEARCH RESULT ID: "+id);
 		add(addText("", 0, 0xff981f, true), 78, 120);
 	
+		//System.out.println("npc scroll list parent id: "+id);
 		final RSInterface npc_list_widget = RSInterface.addTabInterface(id);
 		npc_list_widget.componentId = id;
         id++;
 		npc_list_widget.height = 180;
 		npc_list_widget.width = 122;
-		npc_list_widget.scrollMax = 3210; //3750
+		npc_list_widget.scrollMax = 7000; //3210
 
-		npc_list_widget.totalChildren(250);
+		npc_list_widget.totalChildren(350);
 		
         int yPosition = 0;
-        for (int index = 0; index < 250; index++) {
+        for (int index = 0; index < 350; index++) {
             final int childId = id;
-            RSInterface.addClickableText(childId, "", "Check NPC Drops", RSInterface.fonts, 0, 0xFFFFFF, 70, 13);
+            RSInterface.addClickableText(childId, "# "+childId, "Check NPC Drops", RSInterface.fonts, 0, 0xFFFFFF, 70, 13);
             RSInterface.setBounds(childId, 10, yPosition, index, npc_list_widget);
             yPosition += 15;
             id++;
@@ -69,6 +71,7 @@ public class NpcDropChecker extends CustomWidget {
         add(addRectangle(343, 20, 0x897661, 0, false), 153, 54);
         add(addTextList(new String[] { "Name", "Qty", "Chance" }, 1, 0xff981f, false, 90, false), 240, 57);
         
+        //System.out.println("npc DROP RESULTS SCROLL WIDGET ID: "+id);
         final RSInterface result_list_widget = RSInterface.addTabInterface(id);
         result_list_widget.componentId = id;
         id++;
@@ -85,7 +88,7 @@ public class NpcDropChecker extends CustomWidget {
            yPosition += 875;
         }
         
-        
+        //System.out.println("ITEM CONTAINER ID: "+id);
         RSInterface.addToItemGroup(id, 1, 100, 10, 3, false, null, null, null);
         RSInterface.setBounds(id++, 20, 3, 4, result_list_widget);
         
