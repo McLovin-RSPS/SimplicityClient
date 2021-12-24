@@ -222,6 +222,27 @@ public final class MobDefinition {
                     npc.squaresNeeded = 4;
                     break; 
                     
+                case 8223:
+                    npc.copy(forID(23221));
+                    npc.name = "Tiny Evil Santa";
+                    npc.actions = new String[5];
+                    npc.actions[1] = "Attack";
+                    npc.sizeXZ *= 0.5;
+                    npc.sizeY *= 0.5;
+                    npc.squaresNeeded = 2;
+                    break;                    
+                    
+                case 8225:
+                    npc.copy(forID(23221));
+                    npc.name = "Lil' Evil Santa";
+                    npc.sizeXZ = 80;
+                    npc.sizeY = 80;
+                    npc.actions = new String[5];
+                    npc.actions[0] = "Pick-up";
+                    npc.squaresNeeded = 1;
+                    npc.pet = true;
+                    break;
+                    
                     // npc id 8221 true
                 case 8221:
                     npc.copy(forID(33));

@@ -253,6 +253,7 @@ public class CustomItems3 {
 	            itemDef.actions = new String[5];
 	            itemDef.actions[1] = "Hold";
 	            break;
+	            
 	        case 19111:
 	            itemDef.name = "TokHaar-Kal";
 	            itemDef.value = 60000;
@@ -480,9 +481,6 @@ public class CustomItems3 {
 			case 22803:
 				itemDef.copy(ItemDefinition.forID(22022));
 				itemDef.name = "Ocean archer gloves";
-				itemDef.modelID = 150;
-				itemDef.maleEquip1 = itemDef.femaleEquip1 = 158;
-				itemDef.dataType = DataType.CUSTOM;
 				break;
 			case 22804:
 				itemDef.copy(ItemDefinition.forID(11732));
