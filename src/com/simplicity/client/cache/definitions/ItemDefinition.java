@@ -885,6 +885,7 @@ public final class ItemDefinition {
                 itemDef.actions[1] = "Wield";
                 itemDef.actions[2] = "Check";
                 itemDef.actions[3] = "Toggle Config";
+                itemDef.equippedStateActions = new String[]{ null, "Check", "Toggle Config", null, null };
                 break;
             case 52993:
                 itemDef.copy(forID(6199));

@@ -953,6 +953,7 @@ public class CustomItems {
                 itemDef.editedModelColor = new int[]{43177, 43105, 46249, 5281, 935, 43181, 43189, 43185, 39013, 41135, 3235};
                 itemDef.newModelColor = new int[]{43177, 43105, 46249, 32883, 32883, 43181, 43189, 43185, 39013, 41135, 32883};
                 itemDef.name = "Ring of Bosses (i)";
+                itemDef.equippedStateActions = new String[]{ null, "Check", "Toggle Config", null, null };
                 break;
                 
             case 8471:
