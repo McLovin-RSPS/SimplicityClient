@@ -367,6 +367,8 @@ public class SceneOverlay extends Overlay
 			client.getNpcs().stream()
 		).forEach(fa ->
 		{
+			if(fa == null)
+				return;
 			Entity ta = fa.getInteracting();
 			if (ta == null)
 			{
