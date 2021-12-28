@@ -67,8 +67,9 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.swing.SwingUtilities;
@@ -422,18 +423,18 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 	@Override
 	public void startUp()
 	{
+		configGroundTextures = config.groundTextures();
+		configGroundBlending = config.groundBlending();
+		configWaterEffects = config.waterEffects();
+		configLevelOfDetail = config.levelOfDetail();
+		client.setObjectRenderCutoffDistance(configLevelOfDetail.getDistance());
+		configObjectTextures = config.objectTextures();
+		configTzhaarHD = config.tzhaarHD();
+		configProjectileLights = config.projectileLights();
+		configNpcLights = config.npcLights();
+		configShadowsEnabled = config.shadowsEnabled();
+		configExpandShadowDraw = config.expandShadowDraw();
 		invokeClientTask(() -> {
-			configGroundTextures = config.groundTextures();
-			configGroundBlending = config.groundBlending();
-			configWaterEffects = config.waterEffects();
-			configLevelOfDetail = config.levelOfDetail();
-			client.setObjectRenderCutoffDistance(configLevelOfDetail.getDistance());
-			configObjectTextures = config.objectTextures();
-			configTzhaarHD = config.tzhaarHD();
-			configProjectileLights = config.projectileLights();
-			configNpcLights = config.npcLights();
-			configShadowsEnabled = config.shadowsEnabled();
-			configExpandShadowDraw = config.expandShadowDraw();
 	
 			try
 			{
@@ -604,15 +605,15 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 
 				shutDown();
 			}
-				
-			client().reload();
 		});
+		if(client.getLocalPlayer() != null)
+			reloadScene();
 	}
 
 	@Override
 	public void shutDown()
 	{
-		client().submit(() -> {
+		invokeClientTask(() -> {
 			
 			enabled = false;
 			startUpCompleted = false;
@@ -692,9 +693,21 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 	
 			// force main buffer provider rebuild to turn off alpha channel
 			client.resizeCanvas();
-			client().reload();
-			client().resetImageProducers();
-			client().resetImageProducers2();
+
+			reloadScene();
+			invokeClientTask(() -> {
+				Map<Integer, Long> countPixels = Arrays.stream(client().gameScreenIP.anIntArray315)
+						.boxed()
+						.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+				int averageCol = countPixels.entrySet().stream()
+						.max((first, second) -> (int) (first.getValue() - second.getValue()))
+						.get().getKey();
+				if(averageCol <= 0) {
+					client().pushMessage("It appears you have switched the HD plugin too quickly and encountered a black screen!", 0, "RuneLite");
+					client().pushMessage("Please re-log to fix this if it doesn't fix it's self.", 0, "RuneLite");
+					client().updateGameArea();
+				}
+			});
 		});
 	}
 
@@ -1994,7 +2007,7 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 
 	private void drawUi(final int overlayColor, final int canvasHeight, final int canvasWidth)
 	{
-		RSImageProducer[] buffers = { client().fullGameScreen, client().gameScreenIP, client().chatAreaIP, client().tabAreaIP, client().mapAreaIP, null, null, null, null, null };
+		RSImageProducer[] buffers = { client().gameScreenIP, client().chatAreaIP, client().tabAreaIP, client().mapAreaIP, null, null, null, null, null };
 		
 		if (RuneLite.getClient().isResized()) {
 			buffers = new RSImageProducer[] { client().gameScreenIP };
@@ -2002,8 +2015,8 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 		
 		
 
-		int[] x = { 0, 4, 0, /*516*/515, 516, 553, 516, 550, 0, 0, 722, 743, 0, 516, 516, 496, 0 };
-		int[] y = { 0, 4, 338, 168, 0, 205, 160, 4, 4, 357, 4, 205, 0, 4, 205, 357, 338 };
+		int[] x = { client.isResized() ? 0 : 4, 0, /*516*/515, 516, 553, 516, 550, 0, 0, 722, 743, 0, 516, 516, 496, 0 };
+		int[] y = { client.isResized() ? 0 : 4, 338, 168, 0, 205, 160, 4, 4, 357, 4, 205, 0, 4, 205, 357, 338 };
 
 		// Use the texture bound in the first pass
 		final UIScalingMode uiScalingMode = config.uiScalingMode();
@@ -2014,8 +2027,9 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 			if (buffers[index] == null) {
 				continue;
 			}
+			RSImageProducer rsImageProducer = buffers[index];
 			
-			int[] pixels = ((DataBufferInt) buffers[index].image.getRaster().getDataBuffer()).getData();
+			int[] pixels = rsImageProducer.anIntArray315;
 			int width = buffers[index].width;
 			int height = buffers[index].height;
 			
@@ -2275,13 +2289,14 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 
 	private void reloadScene()
 	{
-		if (client.getGameState() == GameState.LOGGED_IN)
+		clientThread.invoke(() ->
 		{
-			// Reload the scene
-			invokeClientTask(() -> {
-				client().reload();
-			});
-		}
+			if (client.getGameState() == GameState.LOGGED_IN)
+			{
+				// Reload the scene
+				client().setGameState(GameState.LOADING);
+			}
+		});
 	}
 
 	/**

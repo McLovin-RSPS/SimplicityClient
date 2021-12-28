@@ -29,11 +29,11 @@ public final class RSImageProducer
 		anIntArray315 = new int[count];
 		DirectColorModel model;
 		final boolean gpu = HdPlugin.process();
-		if (gpu) {
-			model = new DirectColorModel(ColorSpace.getInstance(1000), 32, 16711680, 65280, 255, -16777216, true, 3);
-		} else {
+		//if (gpu) {
+		//	model = new DirectColorModel(ColorSpace.getInstance(1000), 32, 16711680, 65280, 255, -16777216, true, 3);
+		//} else {
 			model = new DirectColorModel(32, 0xff0000, 0xff00, 0xff);
-		}
+		//}
 		image = new BufferedImage(model, Raster.createWritableRaster(model.createCompatibleSampleModel(width, height), new DataBufferInt(anIntArray315, count), null), false, new Hashtable<Object, Object>());
 		initDrawingArea();
 	}

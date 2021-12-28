@@ -13763,8 +13763,8 @@ public class Client extends RSApplet {
                 }
                 itemSelected = 0;
                 spellSelected = 0;
-                loadingStage = 0;
                 currentSound = 0;
+                loadingStage = 0;
                 cameraOffsetX = (int) (Math.random() * 100D) - 50;
                 cameraOffsetY = (int) (Math.random() * 110D) - 55;
                 viewRotationOffset = (int) (Math.random() * 80D) - 40;
@@ -15888,7 +15888,11 @@ public class Client extends RSApplet {
                         clientSize == 0 ? 8 : (clientHeight / 2) - 503 / 2);
                 if (!menuOpen) {
                     processRightClick();
+                    if(clientSize == 0)
+                        tabAreaIP.initDrawingArea();
                     drawTooltip();
+                    if(clientSize == 0)
+                        super.fullGameScreen.initDrawingArea();
                 } else {
                     drawMenu();
                 }
@@ -18141,7 +18145,6 @@ public class Client extends RSApplet {
             }
         }
     }
-
     public void processDrawing() {
         if (loadingError || spritesLoadingError) {
             showErrorScreen();
@@ -27102,19 +27105,20 @@ public class Client extends RSApplet {
 	public boolean[] getPlayerOptionPriorities() {
 		return atPlayerArray;
 	}
-	
-	public void setGameState(GameState state) {
-		if (runelite == null) {
-			return;
-		}
-		
-		GameStateChanged gameStateChange = new GameStateChanged();
-		gameStateChange.setGameState(state);
 
+    public void setGameState(GameState state) {
+        GameStateChanged event = new GameStateChanged();
+        event.setGameState(state);
+        callbacks.postDeferred(event);
         if(drawCallbacks != null)
-            drawCallbacks.onGameStateChanged(gameStateChange);
-		callbacks.postDeferred(gameStateChange);
-	}
+            drawCallbacks.onGameStateChanged(event);
+        if(state == GameState.LOADING) {
+            raiseWelcomeScreen();
+            resetImageProducers2();
+            loadRegion();
+            loadingStage = 1;
+        }
+    }
 	
 	public RSImageProducer getGameScreenIP() {
 		return gameScreenIP;
