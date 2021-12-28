@@ -3768,6 +3768,35 @@ public class Model extends Animable {
             }
 
             if (gpu) {
+                if (Configuration.enableParticles) {
+
+                    for (int vertex = 0; vertex < numberOfVerticeCoordinates; ++vertex) {
+                        int pid = verticesParticle[vertex] - 1;
+                        if (pid >= 0) {
+                            ParticleDefinition def = ParticleDefinition.cache[pid];
+                            int x = verticesXCoordinate[vertex];
+                            int y = verticesYCoordinate[vertex];
+                            int z = verticesZCoordinate[vertex];
+                            int depth = projected_vertex_z[vertex];
+                            if (lastRenderedRotation != 0) {
+                                int sine = SINE[lastRenderedRotation];
+                                int cosine = COSINE[lastRenderedRotation];
+                                int rotatedX = z * sine + x * cosine >> 16;
+                                z = z * cosine - x * sine >> 16;
+                                x = rotatedX;
+                            }
+                            x += renderAtPointX;
+                            z += renderAtPointY;
+
+                            ParticleVector particleVector = new ParticleVector(x, -y, z);
+
+                            for (int p = 0; p < def.getSpawnRate(); p++) {
+                                Particle particle = new Particle(def, particleVector, depth, pid);
+                                Client.instance.addParticle(particle);
+                            }
+                        }
+                    }
+                }
                 renderOnGpu(orientation, pitchSine, pitchCos, yawSin, yawCos, offsetX, offsetY, offsetZ, i2, distance);
             }
 
@@ -4004,7 +4033,7 @@ public class Model extends Animable {
     }
 
     private final void translateToScreen(boolean flag, boolean needAddToSelectedObjects, int i, int id) {
-        final boolean gpu = Client.drawCallbacks != null && Rasterizer.aBoolean1464;
+        final boolean gpu = HdPlugin.process() && Rasterizer.aBoolean1464;
         if (Client.RENDER_DEBUG) {
             needAddToSelectedObjects = true;
         }
@@ -4059,6 +4088,35 @@ public class Model extends Animable {
                     int k5 = (anIntArray1667[face_a_pos] + anIntArray1667[face_b_pos] + anIntArray1667[face_c_pos]) / 3
                             + anInt1653;
                     faceLists[k5][depthListIndices[k5]++] = triangleId;
+                }
+            }
+        }
+        if (Configuration.enableParticles) {
+
+            for (int vertex = 0; vertex < numberOfVerticeCoordinates; ++vertex) {
+                int pid = verticesParticle[vertex] - 1;
+                if (pid >= 0) {
+                    ParticleDefinition def = ParticleDefinition.cache[pid];
+                    int x = verticesXCoordinate[vertex];
+                    int y = verticesYCoordinate[vertex];
+                    int z = verticesZCoordinate[vertex];
+                    int depth = projected_vertex_z[vertex];
+                    if (lastRenderedRotation != 0) {
+                        int sine = SINE[lastRenderedRotation];
+                        int cosine = COSINE[lastRenderedRotation];
+                        int rotatedX = z * sine + x * cosine >> 16;
+                        z = z * cosine - x * sine >> 16;
+                        x = rotatedX;
+                    }
+                    x += renderAtPointX;
+                    z += renderAtPointY;
+
+                    ParticleVector pos = new ParticleVector(x, -y, z);
+
+                    for (int p = 0; p < def.getSpawnRate(); p++) {
+                        Particle particle = new Particle(def, pos, depth, pid);
+                        Client.instance.addParticle(particle);
+                    }
                 }
             }
         }
@@ -4188,36 +4246,6 @@ public class Model extends Animable {
                 i5 = ai3[i6];
             else
                 i5 = -500;
-        }
-
-        if (Configuration.enableParticles) {
-
-            for (int vertex = 0; vertex < numberOfVerticeCoordinates; ++vertex) {
-                int pid = verticesParticle[vertex] - 1;
-                if (pid >= 0) {
-                    ParticleDefinition def = ParticleDefinition.cache[pid];
-                    int x = verticesXCoordinate[vertex];
-                    int y = verticesYCoordinate[vertex];
-                    int z = verticesZCoordinate[vertex];
-                    int depth = projected_vertex_z[vertex];
-                    if (lastRenderedRotation != 0) {
-                        int sine = SINE[lastRenderedRotation];
-                        int cosine = COSINE[lastRenderedRotation];
-                        int rotatedX = z * sine + x * cosine >> 16;
-                        z = z * cosine - x * sine >> 16;
-                        x = rotatedX;
-                    }
-                    x += renderAtPointX;
-                    z += renderAtPointY;
-
-                    ParticleVector pos = new ParticleVector(x, -y, z);
-
-                    for (int p = 0; p < def.getSpawnRate(); p++) {
-                        Particle particle = new Particle(def, pos, depth, pid);
-                        Client.instance.addParticle(particle);
-                    }
-                }
-            }
         }
     }
 
