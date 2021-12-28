@@ -167,19 +167,7 @@ import net.runelite.api.ChatMessageType;
 import net.runelite.api.GameState;
 import net.runelite.api.MenuAction;
 import net.runelite.api.Skill;
-import net.runelite.api.events.ChatMessage;
-import net.runelite.api.events.GameStateChanged;
-import net.runelite.api.events.InteractingChanged;
-import net.runelite.api.events.ItemContainerChanged;
-import net.runelite.api.events.ItemDespawned;
-import net.runelite.api.events.ItemSpawned;
-import net.runelite.api.events.MenuEntryAdded;
-import net.runelite.api.events.MenuOptionClicked;
-import net.runelite.api.events.NpcDespawned;
-import net.runelite.api.events.NpcSpawned;
-import net.runelite.api.events.PlayerDespawned;
-import net.runelite.api.events.PlayerSpawned;
-import net.runelite.api.events.StatChanged;
+import net.runelite.api.events.*;
 import net.runelite.api.hooks.DrawCallbacks;
 import net.runelite.client.RuneLite;
 import net.runelite.client.callback.Hooks;
@@ -16166,6 +16154,9 @@ public class Client extends RSApplet {
             if (rsInterface.id == WildernessWidget.INTERFACE_ID && !Configuration.enableBountyTarget) {
             	return;
             }
+            WidgetLoaded widgetLoaded = new WidgetLoaded();
+            widgetLoaded.setGroupId(rsInterface.id);
+            callbacks.post(widgetLoaded);
             int origTopX = DrawingArea.topX;
             int origTopY = DrawingArea.topY;
             int origBottomX = DrawingArea.bottomX;
