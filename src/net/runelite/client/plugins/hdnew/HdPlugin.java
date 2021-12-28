@@ -1666,7 +1666,6 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 					continue;
 				}
 
-				//client().method37(id); // trips the texture load flag which lets textures animate
 
 				textureOffsets[id * 2] = texture.getU();
 				textureOffsets[id * 2 + 1] = texture.getV();
@@ -2088,6 +2087,8 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 		vertexBuffer.clear();
 	}
 
+	public boolean animateTexture;
+
 	/**
 	 * Convert the front framebuffer to an Image
 	 *
@@ -2142,7 +2143,9 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 	@Override
 	public void animate(Background texture, int diff)
 	{
-		textureManager.animate(texture, diff);
+		if(animateTexture)
+			invokeOnMainThread(() -> textureManager.animate(texture, diff));
+		//textureManager.animate(texture, diff);
 	}
 	
 
@@ -2212,6 +2215,10 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 
 		switch (key)
 		{
+			case "animateTextures":
+				animateTexture = config.animateTextures();
+				client().gpuAnimateTexture = config.animateTextures();
+				break;
 			case "groundTextures":
 				configGroundTextures = config.groundTextures();
 				reloadScene();

@@ -325,7 +325,7 @@ public final class Background extends DrawingArea {
 	}
 
 	public int getAnimationSpeed() {
-		return 2;
+		return 1;
 	}
 
 	public int getAnimationDirection() {

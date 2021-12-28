@@ -441,4 +441,15 @@ public interface HdPluginConfig extends Config
 	{
 		return false;
 	}
+	@ConfigItem(
+			keyName = "animateTextures",
+			name = "Animate Textures",
+			description = "Enable textures to move/animate.",
+			position = 302,
+			section = workaroundSettings
+	)
+	default boolean animateTextures()
+	{
+		return false;
+	}
 }

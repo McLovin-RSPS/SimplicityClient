@@ -23523,7 +23523,7 @@ public class Client extends RSApplet {
 
         updateEntities();
         drawHeadIcon();
-        if (!HdPlugin.process())
+        if(HdPlugin.process() && gpuAnimateTexture)
             method37(k2);
         if (drawPane) {
             drawBlackPane();
@@ -23601,7 +23601,7 @@ public class Client extends RSApplet {
             xCameraCurve = l1;
         }
     }
-    
+    public boolean gpuAnimateTexture;
 	/**
 	 * Returns an item from the equipment container by the specified slot.
 	 * 
