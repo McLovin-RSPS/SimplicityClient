@@ -357,7 +357,7 @@ public class PrayerPlugin extends Plugin
 		final double secondsPerPoint = (60.0 / drainRate) * (1.0 + (prayerBonus / 30.0));
 
 		// Calculate the number of seconds left
-		final double secondsLeft = (currentPrayer * secondsPerPoint);
+		final double secondsLeft = (currentPrayer / 10 * secondsPerPoint);
 
 		LocalTime timeLeft = LocalTime.ofSecondOfDay((long) secondsLeft);
 
