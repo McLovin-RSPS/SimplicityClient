@@ -1292,18 +1292,11 @@ public interface Client extends GameEngine
 	 */
 	boolean isInInstancedRegion();
 
-	/**
-	 * Sets whether the client is hiding entities.
-	 * <p>
-	 * This method does not itself hide any entities. It behaves as a master
-	 * switch for whether or not any of the related entities are hidden or
-	 * shown. If this method is set to false, changing the configurations for
-	 * specific entities will have no effect.
-	 *
-	 * @param state new entity hiding state
-	 */
-	void setIsHidingEntities(boolean state);
+	void setPetsHidden(boolean hidePets);
 
+	void setIgnoresHidden(boolean hideIgnores);
+
+	void setOthersHidden(boolean hideOthers);
 	/**
 	 * Sets whether or not other players are hidden.
 	 *
@@ -1340,13 +1333,7 @@ public interface Client extends GameEngine
 	 */
 	void setLocalPlayerHidden(boolean state);
 
-	/**
-	 * Sets whether 2D sprites (ie. overhead prayers, PK skull) related to
-	 * the local player are hidden.
-	 *
-	 * @param state new local player 2D hidden state
-	 */
-	void setLocalPlayerHidden2D(boolean state);
+
 
 	/**
 	 * Sets whether NPCs are hidden.
@@ -1499,5 +1486,6 @@ public interface Client extends GameEngine
 	int getRasterizer3D_clipMidY2();
 	
 	void checkClickbox(Model model, int orientation, int pitchSin, int pitchCos, int yawSin, int yawCos, int x, int y, int z, long hash);
+
 
 }

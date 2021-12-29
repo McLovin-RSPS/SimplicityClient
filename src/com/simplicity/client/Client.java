@@ -4859,6 +4859,11 @@ public class Client extends RSApplet {
             if (!npc.desc.clickable) {
                 k += 0x80000000;
             }
+            if(npcsHidden)
+                continue;
+            if(petsHidden && npc.desc.name.toLowerCase().contains("pet"))
+                continue;
+
             worldController.addMutipleTileEntity(plane, npc.currentRotation, getFloorDrawHeight(plane, npc.y, npc.x), k,
                     npc.y, (npc.boundDim - 1) * 64 + 60, npc.x, npc, npc.aBoolean1541);
         }
@@ -6901,6 +6906,14 @@ public class Client extends RSApplet {
         if (player == null || !player.isVisible()) {
             return false;
         }
+        if(localPlayerHidden && i1 == myPlayerIndex << 14)
+            return false;
+        if(othersHidden && player != myPlayer)
+            return false;
+        if(friendsHidden && isFriend(player.name))
+            return false;
+        if(ignoredHidden && isIgnored(player.name))
+            return false;
         player.aBoolean1699 = (/* lowMem && playerCount > 50 || */playerCount > 200) && !flag
                 && player.entityAnimation == player.standAnim;
         int j1 = player.x >> 7;
@@ -6908,6 +6921,7 @@ public class Client extends RSApplet {
         if (j1 < 0 || j1 >= 104 || k1 < 0 || k1 >= 104) {
             return false;
         }
+
         if (player.tranformIntoModel != null && tick >= player.startTimeTransform && tick < player.transformedTimer) {
             player.aBoolean1699 = false;
             player.z = getFloorDrawHeight(plane, player.y, player.x);
@@ -6922,6 +6936,7 @@ public class Client extends RSApplet {
             anIntArrayArray929[j1][k1] = anInt1265;
         }
         player.z = getFloorDrawHeight(plane, player.y, player.x);
+
         worldController.addMutipleTileEntity(plane, player.currentRotation, player.z, i1, player.y, 60, player.x, player,
                 player.aBoolean1541);
         return true;
@@ -7517,6 +7532,8 @@ public class Client extends RSApplet {
                     }
                 }
                 projectile.processMovement(cycleTimer);
+                if(projectilesHidden)
+                    continue;
                 worldController.addMutipleTileEntity(plane, projectile.rotationY, (int) projectile.currentPositionZ, -1,
                         (int) projectile.currentPositionY, 60, (int) projectile.currentPositionX, projectile, false);
             }
@@ -18174,6 +18191,14 @@ public class Client extends RSApplet {
         
         return false;
     }
+    public boolean isIgnored(String name) {
+        long l = TextClass.longForName(name);
+        for(long ignore: ignoreListAsLongs) {
+            if(ignore == l)
+                return true;
+        }
+        return false;
+    }
 
     private static String combatDiffColor(int i, int j) {
         int k = i - j;
@@ -23233,6 +23258,14 @@ public class Client extends RSApplet {
             if (j1 < 0 || j1 >= 104 || k1 < 0 || k1 >= 104) {
                 continue;
             }
+            if(localPlayerHidden && i1 == myPlayerIndex << 14)
+                continue;
+            if(othersHidden && player != myPlayer)
+                continue;
+            if(friendsHidden && isFriend(player.name))
+                continue;
+            if(ignoredHidden && isIgnored(player.name))
+                continue;
             if (player.tranformIntoModel != null && loopCycle >= player.startTimeTransform
                     && loopCycle < player.transformedTimer) {
                 player.aBoolean1699 = false;
@@ -24506,6 +24539,9 @@ public class Client extends RSApplet {
     /* Gameframe update */
     // public Sprite newMapBack;
     public String[] menuActionName;
+    public boolean othersHidden, friendsHidden, ignoredHidden,
+            localPlayerHidden, npcsHidden, petsHidden, attackerHidden, projectilesHidden;
+
     private final int[] anIntArray1203;
     static final int[] anIntArray1204 = {9104, 10275, 7595, 3610, 7975, 8526, 918, 38802, 24466, 10145, 58654, 5027,
             1457, 16565, 34991, 25486};
