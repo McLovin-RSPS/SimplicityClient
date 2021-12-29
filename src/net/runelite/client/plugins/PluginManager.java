@@ -35,6 +35,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -44,11 +45,13 @@ import javax.inject.Singleton;
 import javax.swing.SwingUtilities;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.graph.Graph;
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.Graphs;
 import com.google.common.graph.MutableGraph;
+import com.google.common.reflect.ClassPath;
 import com.google.inject.Binder;
 import com.google.inject.CreationException;
 import com.google.inject.Injector;
@@ -221,7 +224,16 @@ public class PluginManager
 
 	public void loadCorePlugins() throws IOException
 	{
-		plugins.addAll(scanAndInstantiate(getClass().getClassLoader(), PLUGIN_PACKAGE));
+		ClassPath classPath = ClassPath.from(getClass().getClassLoader());
+
+		List<Class<?>> plugins = classPath.getTopLevelClassesRecursive(PLUGIN_PACKAGE).stream()
+				.map(ClassPath.ClassInfo::load)
+				.collect(Collectors.toList());
+		try {
+			loadPlugins(plugins, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void startCorePlugins()
@@ -240,7 +252,83 @@ public class PluginManager
 			}
 		}
 	}
+	public List<Plugin> loadPlugins(List<Class<?>> plugins, BiConsumer<Integer, Integer> onPluginLoaded) throws PluginInstantiationException
+	{
+		MutableGraph<Class<? extends Plugin>> graph = GraphBuilder
+				.directed()
+				.build();
 
+		for (Class<?> clazz : plugins)
+		{
+			PluginDescriptor pluginDescriptor = clazz.getAnnotation(PluginDescriptor.class);
+
+			if (pluginDescriptor == null)
+			{
+				if (clazz.getSuperclass() == Plugin.class)
+				{
+					log.warn("Class {} is a plugin, but has no plugin descriptor", clazz);
+				}
+				continue;
+			}
+
+			if (clazz.getSuperclass() != Plugin.class)
+			{
+				log.warn("Class {} has plugin descriptor, but is not a plugin", clazz);
+				continue;
+			}
+
+			if (pluginDescriptor.developerPlugin() && !developerMode)
+			{
+				continue;
+			}
+
+			if(pluginDescriptor.disabled())
+				continue;
+
+
+			Class<Plugin> pluginClass = (Class<Plugin>) clazz;
+			graph.addNode(pluginClass);
+		}
+		for (Class<? extends Plugin> pluginClazz : (Iterable<Class<? extends Plugin>>)graph.nodes()) {
+			PluginDependency[] pluginDependencies = pluginClazz.<PluginDependency>getAnnotationsByType(PluginDependency.class);
+			for (PluginDependency pluginDependency : pluginDependencies)
+			{
+				if (graph.nodes().contains(pluginDependency.value()))
+				{
+					graph.putEdge(pluginClazz, pluginDependency.value());
+				}
+			}
+		}
+		if (Graphs.hasCycle((Graph)graph))
+			throw new RuntimeException("Plugin dependency graph contains a cycle!");
+		List<Class<? extends Plugin>> sortedPlugins = topologicalSort((Graph<Class<? extends Plugin>>)graph);
+		sortedPlugins = Lists.reverse(sortedPlugins);
+
+		int loaded = 0;
+		List<Plugin> newPlugins = new ArrayList<>();
+		for (Class<? extends Plugin> pluginClazz : sortedPlugins)
+		{
+			Plugin plugin;
+			try
+			{
+				plugin = instantiate(this.plugins, (Class<Plugin>) pluginClazz);
+				newPlugins.add(plugin);
+				this.plugins.add(plugin);
+			}
+			catch (PluginInstantiationException ex)
+			{
+				log.warn("Error instantiating plugin!", ex);
+			}
+
+			loaded++;
+			if (onPluginLoaded != null)
+			{
+				onPluginLoaded.accept(loaded, sortedPlugins.size());
+			}
+		}
+
+		return newPlugins;
+	}
 	List<Plugin> scanAndInstantiate(ClassLoader classLoader, String packageName) throws IOException
 	{
 		MutableGraph<Class<? extends Plugin>> graph = GraphBuilder
