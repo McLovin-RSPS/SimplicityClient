@@ -2,6 +2,7 @@ package com.simplicity.client;
 
 
 import java.awt.Polygon;
+import java.awt.image.BufferedImage;
 
 import com.simplicity.client.cache.definitions.Animation;
 import com.simplicity.client.cache.definitions.MobDefinition;
@@ -9,6 +10,7 @@ import com.simplicity.client.cache.definitions.SpotAnimDefinition;
 
 import com.simplicity.client.entity.HealthBar;
 import net.runelite.api.Perspective;
+import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.client.RuneLite;
 
@@ -142,4 +144,6 @@ public final class NPC extends Entity
 
 		return super.getHealthDimension();
 	}
+
+
 }

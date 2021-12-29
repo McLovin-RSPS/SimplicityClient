@@ -3,6 +3,7 @@ package com.simplicity.client;
 
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.image.BufferedImage;
 
 // Decompiled by Jad v1.5.8f. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
@@ -375,4 +376,7 @@ public class Entity extends Animable {
 		anInt1539 = 0;
 	}
 
+	public Point getCanvasImageLocation(BufferedImage fishImage, int modelHeight) {
+		return Perspective.getCanvasImageLocation(RuneLite.getClient(), getLocalLocation(), fishImage, modelHeight);
+	}
 }
