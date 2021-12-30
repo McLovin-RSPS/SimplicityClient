@@ -65,8 +65,6 @@ import java.util.regex.Pattern;
 import java.util.zip.CRC32;
 import java.util.zip.GZIPOutputStream;
 import java.awt.datatransfer.StringSelection;
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
 
 import javax.imageio.ImageIO;
 import javax.sound.midi.MidiSystem;
@@ -167,24 +165,13 @@ import net.runelite.api.ChatMessageType;
 import net.runelite.api.GameState;
 import net.runelite.api.MenuAction;
 import net.runelite.api.Skill;
-import net.runelite.api.events.ChatMessage;
-import net.runelite.api.events.GameStateChanged;
-import net.runelite.api.events.InteractingChanged;
-import net.runelite.api.events.ItemContainerChanged;
-import net.runelite.api.events.ItemDespawned;
-import net.runelite.api.events.ItemSpawned;
-import net.runelite.api.events.MenuEntryAdded;
-import net.runelite.api.events.MenuOptionClicked;
-import net.runelite.api.events.NpcDespawned;
-import net.runelite.api.events.NpcSpawned;
-import net.runelite.api.events.PlayerDespawned;
-import net.runelite.api.events.PlayerSpawned;
-import net.runelite.api.events.StatChanged;
+import net.runelite.api.events.*;
 import net.runelite.api.hooks.DrawCallbacks;
 import net.runelite.client.RuneLite;
 import net.runelite.client.callback.Hooks;
 import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.plugins.hdnew.HdPlugin;
+import net.runelite.client.ui.ClientUI;
 import org.apache.commons.lang3.math.NumberUtils;
 
 @SuppressWarnings("all")
@@ -4227,8 +4214,8 @@ public class Client extends RSApplet {
                     if (rsi.deleteOnDrag2 || rsi.dragDeletes) {
                         aBoolean1242 = false;
                         anInt989 = 0;
-                        anInt1084 = j2;
-                        anInt1085 = l1;
+                        draggedWidget = j2;
+                        widgetDraggedIndex = l1;
                         activeInterfaceType = 2;
                         anInt1087 = super.saveClickX;
                         anInt1088 = super.saveClickY;
@@ -4875,6 +4862,11 @@ public class Client extends RSApplet {
             if (!npc.desc.clickable) {
                 k += 0x80000000;
             }
+            if(npcsHidden)
+                continue;
+            if(petsHidden && npc.desc.name.toLowerCase().contains("pet"))
+                continue;
+
             worldController.addMutipleTileEntity(plane, npc.currentRotation, getFloorDrawHeight(plane, npc.y, npc.x), k,
                     npc.y, (npc.boundDim - 1) * 64 + 60, npc.x, npc, npc.aBoolean1541);
         }
@@ -6917,6 +6909,14 @@ public class Client extends RSApplet {
         if (player == null || !player.isVisible()) {
             return false;
         }
+        if(localPlayerHidden && i1 == myPlayerIndex << 14)
+            return false;
+        if(othersHidden && player != myPlayer)
+            return false;
+        if(friendsHidden && isFriend(player.name))
+            return false;
+        if(ignoredHidden && isIgnored(player.name))
+            return false;
         player.aBoolean1699 = (/* lowMem && playerCount > 50 || */playerCount > 200) && !flag
                 && player.entityAnimation == player.standAnim;
         int j1 = player.x >> 7;
@@ -6924,6 +6924,7 @@ public class Client extends RSApplet {
         if (j1 < 0 || j1 >= 104 || k1 < 0 || k1 >= 104) {
             return false;
         }
+
         if (player.tranformIntoModel != null && tick >= player.startTimeTransform && tick < player.transformedTimer) {
             player.aBoolean1699 = false;
             player.z = getFloorDrawHeight(plane, player.y, player.x);
@@ -6938,6 +6939,7 @@ public class Client extends RSApplet {
             anIntArrayArray929[j1][k1] = anInt1265;
         }
         player.z = getFloorDrawHeight(plane, player.y, player.x);
+
         worldController.addMutipleTileEntity(plane, player.currentRotation, player.z, i1, player.y, 60, player.x, player,
                 player.aBoolean1541);
         return true;
@@ -7533,6 +7535,8 @@ public class Client extends RSApplet {
                     }
                 }
                 projectile.processMovement(cycleTimer);
+                if(projectilesHidden)
+                    continue;
                 worldController.addMutipleTileEntity(plane, projectile.rotationY, (int) projectile.currentPositionZ, -1,
                         (int) projectile.currentPositionY, 60, (int) projectile.currentPositionX, projectile, false);
             }
@@ -8073,7 +8077,7 @@ public class Client extends RSApplet {
                     bankItemDragSprite = null;
                     int x = clientSize == 0 ? 0 : (clientWidth / 2) - getInterfaceOffX();
                     int y = clientSize == 0 ? 40 : 40 + (clientHeight / 2) - getInterfaceOffY();
-                    if (anInt1084 == 5382 && super.mouseY >= y && super.mouseY <= y + 37) {// check
+                    if (draggedWidget == 5382 && super.mouseY >= y && super.mouseY <= y + 37) {// check
                         // if
                         // bank
                         // interface
@@ -8082,7 +8086,7 @@ public class Client extends RSApplet {
                             stream.createFrame(214);
                             stream.method433(5);// 5 = maintab
                             stream.method424(0);
-                            stream.method433(anInt1085);// Selected item slot
+                            stream.method433(widgetDraggedIndex);// Selected item slot
                             stream.method431(mouseInvInterfaceIndex);// unused
 
                         }
@@ -8092,7 +8096,7 @@ public class Client extends RSApplet {
                             stream.method433(13);// tab # x 13 (originally
                             // movewindow)
                             stream.method424(0);
-                            stream.method433(anInt1085);// Selected item slot
+                            stream.method433(widgetDraggedIndex);// Selected item slot
                             stream.method431(mouseInvInterfaceIndex);// unused
 
                         }
@@ -8102,7 +8106,7 @@ public class Client extends RSApplet {
                             stream.method433(26);// tab # x 13 (originally
                             // movewindow)
                             stream.method424(0);
-                            stream.method433(anInt1085);// Selected item slot
+                            stream.method433(widgetDraggedIndex);// Selected item slot
                             stream.method431(mouseInvInterfaceIndex);// unused
 
                         }
@@ -8112,7 +8116,7 @@ public class Client extends RSApplet {
                             stream.method433(39);// tab # x 13 (originally
                             // movewindow)
                             stream.method424(0);
-                            stream.method433(anInt1085);// Selected item slot
+                            stream.method433(widgetDraggedIndex);// Selected item slot
                             stream.method431(mouseInvInterfaceIndex);// unused
 
                         }
@@ -8122,7 +8126,7 @@ public class Client extends RSApplet {
                             stream.method433(52);// tab # x 13 (originally
                             // movewindow)
                             stream.method424(0);
-                            stream.method433(anInt1085);// Selected item slot
+                            stream.method433(widgetDraggedIndex);// Selected item slot
                             stream.method431(mouseInvInterfaceIndex);// unused
 
                         }
@@ -8132,7 +8136,7 @@ public class Client extends RSApplet {
                             stream.method433(65);// tab # x 13 (originally
                             // movewindow)
                             stream.method424(0);
-                            stream.method433(anInt1085);// Selected item slot
+                            stream.method433(widgetDraggedIndex);// Selected item slot
                             stream.method431(mouseInvInterfaceIndex);// unused
 
                         }
@@ -8142,7 +8146,7 @@ public class Client extends RSApplet {
                             stream.method433(78);// tab # x 13 (originally
                             // movewindow)
                             stream.method424(0);
-                            stream.method433(anInt1085);// Selected item slot
+                            stream.method433(widgetDraggedIndex);// Selected item slot
                             stream.method431(mouseInvInterfaceIndex);// unused
 
                         }
@@ -8152,7 +8156,7 @@ public class Client extends RSApplet {
                             stream.method433(91);// tab # x 13 (originally
                             // movewindow)
                             stream.method424(0);
-                            stream.method433(anInt1085);// Selected item slot
+                            stream.method433(widgetDraggedIndex);// Selected item slot
                             stream.method431(mouseInvInterfaceIndex);// unused
 
                         }
@@ -8162,13 +8166,13 @@ public class Client extends RSApplet {
                             stream.method433(104);// tab # x 13 (originally
                             // movewindow)
                             stream.method424(0);
-                            stream.method433(anInt1085);// Selected item slot
+                            stream.method433(widgetDraggedIndex);// Selected item slot
                             stream.method431(mouseInvInterfaceIndex);// unused
 
                         }
                     }
-                    if (lastActiveInvInterface == anInt1084 && mouseInvInterfaceIndex != anInt1085) {
-                        RSInterface class9 = RSInterface.interfaceCache[anInt1084];
+                    if (lastActiveInvInterface == draggedWidget && mouseInvInterfaceIndex != widgetDraggedIndex) {
+                        RSInterface class9 = RSInterface.interfaceCache[draggedWidget];
                         int j1 = 0;
                         if (anInt913 == 1 && class9.contentType == 206) {
                             j1 = 1;
@@ -8177,14 +8181,14 @@ public class Client extends RSApplet {
                             j1 = 0;
                         }
                         if (class9.dragDeletes) {
-                            int l2 = anInt1085;
+                            int l2 = widgetDraggedIndex;
                             int l3 = mouseInvInterfaceIndex;
                             class9.inv[l3] = class9.inv[l2];
                             class9.invStackSizes[l3] = class9.invStackSizes[l2];
                             class9.inv[l2] = -1;
                             class9.invStackSizes[l2] = 0;
                         } else if (j1 == 1) {
-                            int i3 = anInt1085;
+                            int i3 = widgetDraggedIndex;
                             for (int i4 = mouseInvInterfaceIndex; i3 != i4; ) {
                                 if (i3 > i4) {
                                     class9.swapInventoryItems(i3, i3 - 1);
@@ -8196,12 +8200,12 @@ public class Client extends RSApplet {
                             }
 
                         } else {
-                            class9.swapInventoryItems(anInt1085, mouseInvInterfaceIndex);
+                            class9.swapInventoryItems(widgetDraggedIndex, mouseInvInterfaceIndex);
                         }
                         stream.createFrame(214);
-                        stream.writeSignedBigEndian(anInt1084);
+                        stream.writeSignedBigEndian(draggedWidget);
                         stream.method424(j1);
-                        stream.writeSignedBigEndian(anInt1085);
+                        stream.writeSignedBigEndian(widgetDraggedIndex);
                         stream.writeUnsignedWordBigEndian(mouseInvInterfaceIndex);
                     }
 
@@ -16173,6 +16177,9 @@ public class Client extends RSApplet {
             if (rsInterface.id == WildernessWidget.INTERFACE_ID && !Configuration.enableBountyTarget) {
             	return;
             }
+            WidgetLoaded widgetLoaded = new WidgetLoaded();
+            widgetLoaded.setGroupId(rsInterface.id);
+            callbacks.post(widgetLoaded);
             int origTopX = DrawingArea.topX;
             int origTopY = DrawingArea.topY;
             int origBottomX = DrawingArea.bottomX;
@@ -16386,7 +16393,7 @@ public class Client extends RSApplet {
                                     int j9 = child.inv[spriteIndex] - 1;
                                     if (itemSpriteX > DrawingArea.topX - 32 && itemSpriteX < DrawingArea.bottomX
                                             && itemSpriteY > DrawingArea.topY - 32 && itemSpriteY < DrawingArea.bottomY
-                                            || activeInterfaceType != 0 && anInt1085 == spriteIndex) {
+                                            || activeInterfaceType != 0 && widgetDraggedIndex == spriteIndex) {
                                         int selectedColour = 0;
                                         if (itemSelected == 1 && lastItemSelectedSlot == spriteIndex
                                                 && lastItemSelectedInterface == child.id) {
@@ -16405,8 +16412,9 @@ public class Client extends RSApplet {
                                         Sprite sprite_2 = ItemDefinition.getSprite(j9, itemAmount,
                                                 selectedColour);
                                         if (sprite_2 != null) {
-                                            if (activeInterfaceType != 0 && anInt1085 == spriteIndex
-                                                    && anInt1084 == child.id) {
+                                            if (activeInterfaceType != 0 && widgetDraggedIndex == spriteIndex
+                                                    && draggedWidget == child.id) {
+                                                parentWidgetDragged = rsInterface.id;
                                                 k6 = super.mouseX - anInt1087;
                                                 j7 = super.mouseY - anInt1088;
                                                 if (k6 < 5 && k6 > -5) {
@@ -16465,8 +16473,10 @@ public class Client extends RSApplet {
                                                 }
                                             } else if (atInventoryInterfaceType != 0 && atInventoryIndex == spriteIndex
                                                     && atInventoryInterface == child.id) {
+                                                parentWidgetDragged = 0;
                                                 sprite_2.drawSprite1(itemSpriteX, itemSpriteY);
                                             } else {
+                                                parentWidgetDragged = 0;
                                             	int opacity = child.id == 70228 && itemAmount == 0 ? 100 : 255;
 
                                                 sprite_2.drawSprite1(itemSpriteX, itemSpriteY, opacity);
@@ -18185,6 +18195,14 @@ public class Client extends RSApplet {
             }
         }
         
+        return false;
+    }
+    public boolean isIgnored(String name) {
+        long l = TextClass.longForName(name);
+        for(long ignore: ignoreListAsLongs) {
+            if(ignore == l)
+                return true;
+        }
         return false;
     }
 
@@ -23250,6 +23268,14 @@ public class Client extends RSApplet {
             if (j1 < 0 || j1 >= 104 || k1 < 0 || k1 >= 104) {
                 continue;
             }
+            if(localPlayerHidden && i1 == myPlayerIndex << 14)
+                continue;
+            if(othersHidden && player != myPlayer)
+                continue;
+            if(friendsHidden && isFriend(player.name))
+                continue;
+            if(ignoredHidden && isIgnored(player.name))
+                continue;
             if (player.tranformIntoModel != null && loopCycle >= player.startTimeTransform
                     && loopCycle < player.transformedTimer) {
                 player.aBoolean1699 = false;
@@ -24423,8 +24449,9 @@ public class Client extends RSApplet {
     private boolean loadingMap;
     private String[] friendsList;
     private Stream inStream;
-    private int anInt1084;
-    private int anInt1085;
+    private int parentWidgetDragged;
+    public int draggedWidget;
+    public int widgetDraggedIndex;
     private int activeInterfaceType;
     private int anInt1087;
     private int anInt1088;
@@ -24522,6 +24549,9 @@ public class Client extends RSApplet {
     /* Gameframe update */
     // public Sprite newMapBack;
     public String[] menuActionName;
+    public boolean othersHidden, friendsHidden, ignoredHidden,
+            localPlayerHidden, npcsHidden, petsHidden, attackerHidden, projectilesHidden;
+
     private final int[] anIntArray1203;
     static final int[] anIntArray1204 = {9104, 10275, 7595, 3610, 7975, 8526, 918, 38802, 24466, 10145, 58654, 5027,
             1457, 16565, 34991, 25486};
@@ -26551,10 +26581,14 @@ public class Client extends RSApplet {
 	
     private int cursor;
 
+    public Image customCursor;
+
     public void setCursor(int id) {
-        if (resourceLoader == null) {
-            return;
-        }
+            if (resourceLoader == null || RuneLite.getInjector().getInstance(ClientUI.class).getDefaultCursor() != Cursor.getDefaultCursor()) {
+                return;
+            }
+            if(customCursor != null)
+                return;
         if (id == -1 || id == -2 || id == -3) {
             getMainFrame().setCursor(
                     new Cursor(id == -1 ? Cursor.DEFAULT_CURSOR : id == -2 ? Cursor.HAND_CURSOR : Cursor.TEXT_CURSOR));
@@ -26566,7 +26600,7 @@ public class Client extends RSApplet {
             try {
                 cursor = id;
                 int imageId = id == 0 ? 631 : 630 + id;
-                Image image = resourceLoader.getImage("data/curs/Cursor " + id + "");
+                Image image = image = resourceLoader.getImage("data/curs/Cursor " + id + "");
                 if (image == null) {
                     return;
                 }

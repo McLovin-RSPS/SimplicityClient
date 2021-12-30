@@ -3,6 +3,7 @@ package com.simplicity.client;
 
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.image.BufferedImage;
 
 // Decompiled by Jad v1.5.8f. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
@@ -13,11 +14,13 @@ import com.simplicity.client.cache.definitions.Animation;
 import com.simplicity.client.cache.definitions.MobDefinition;
 import com.simplicity.client.entity.HealthBar;
 import com.simplicity.util.Direction;
+import net.runelite.api.Hitsplat;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
+import net.runelite.api.events.HitsplatApplied;
 import net.runelite.client.RuneLite;
 
 public class Entity extends Animable {
@@ -66,6 +69,10 @@ public class Entity extends Animable {
 	public int[] indexes = new int[4];
 
 	public final void updateHitData(int markType, int damage, int l, int icon, int soak, int entityIndex) {
+		HitsplatApplied hitsplatApplied = new HitsplatApplied();
+		hitsplatApplied.setActor(this);
+		hitsplatApplied.setHitsplat(new Hitsplat(Hitsplat.HitsplatType.DAMAGE, damage, l + 70));
+		Client.getCallbacks().post(hitsplatApplied);
 		for (int i1 = 0; i1 < 4; i1++)
 			if (hitsLoopCycle[i1] <= l) {
 				hitIcon[i1] = icon;
@@ -368,4 +375,7 @@ public class Entity extends Animable {
 		anInt1539 = 0;
 	}
 
+	public Point getCanvasImageLocation(BufferedImage fishImage, int modelHeight) {
+		return Perspective.getCanvasImageLocation(RuneLite.getClient(), getLocalLocation(), fishImage, modelHeight);
+	}
 }

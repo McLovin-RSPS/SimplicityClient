@@ -25,19 +25,10 @@
 package net.runelite.client.ui;
 
 import java.applet.Applet;
-import java.awt.Canvas;
-import java.awt.CardLayout;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.GraphicsConfiguration;
-import java.awt.LayoutManager;
-import java.awt.Rectangle;
-import java.awt.TrayIcon;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 import javax.annotation.Nullable;
 import javax.imageio.ImageIO;
@@ -52,6 +43,7 @@ import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 
+import com.simplicity.client.cache.definitions.ItemDefinition;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceTitlePaneUtilities;
@@ -773,5 +765,68 @@ public class ClientUI
 			configManager.unsetConfiguration(CONFIG_GROUP, CONFIG_CLIENT_MAXIMIZED);
 			configManager.setConfiguration(CONFIG_GROUP, CONFIG_CLIENT_BOUNDS, bounds);
 		}
+	}
+	private static Cursor defaultCursor;
+
+	/**
+	 * Returns current cursor set on game container
+	 * @return awt cursor
+	 */
+	public Cursor getCurrentCursor()
+	{
+		return container.getCursor();
+	}
+
+	/**
+	 * Returns current custom cursor or default system cursor if cursor is not set
+	 * @return awt cursor
+	 */
+	public Cursor getDefaultCursor()
+	{
+		return defaultCursor != null ? defaultCursor : Cursor.getDefaultCursor();
+	}
+
+	/**
+	 * Changes cursor for client window. Requires ${@link ClientUI#open(RuneLite)} to be called first.
+	 * FIXME: This is working properly only on Windows, Linux and Mac are displaying cursor incorrectly
+	 * @param image cursor image
+	 * @param name  cursor name
+	 */
+	public void setCursor(final BufferedImage image, final String name)
+	{
+		if (container == null)
+		{
+			return;
+		}
+
+		final java.awt.Point hotspot = new java.awt.Point(0, 0);
+		final Cursor cursorAwt = Toolkit.getDefaultToolkit().createCustomCursor(image, hotspot, name);
+		defaultCursor = cursorAwt;
+		setCursor(cursorAwt);
+	}
+
+	/**
+	 * Changes cursor for client window. Requires ${@link ClientUI#open(RuneLite)} ()} to be called first.
+	 * @param cursor awt cursor
+	 */
+	public void setCursor(final Cursor cursor)
+	{
+		com.simplicity.client.Client.getClient().getMainFrame().setCursor(cursor);
+		container.setCursor(cursor);
+	}
+
+	/**
+	 * Resets client window cursor to default one.
+	 * @see ClientUI#setCursor(BufferedImage, String)
+	 */
+	public void resetCursor()
+	{
+		if (container == null)
+		{
+			return;
+		}
+
+		defaultCursor = null;
+		container.setCursor(Cursor.getDefaultCursor());
 	}
 }

@@ -58,6 +58,7 @@ import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.Module;
 
+import com.simplicity.client.Entity;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.events.SessionClose;
@@ -78,6 +79,9 @@ import net.runelite.client.plugins.config.ConfigPlugin;
 import net.runelite.client.plugins.devtools.DevToolsPlugin;
 import net.runelite.client.plugins.discord.DiscordPlugin;
 import net.runelite.client.plugins.donate.DonatePlugin;
+import net.runelite.client.plugins.entityhider.EntityHiderConfig;
+import net.runelite.client.plugins.entityhider.EntityHiderPlugin;
+import net.runelite.client.plugins.fishing.FishingPlugin;
 import net.runelite.client.plugins.fps.FpsPlugin;
 import net.runelite.client.plugins.grounditems.GroundItemsPlugin;
 import net.runelite.client.plugins.groundmarkers.GroundMarkerPlugin;
@@ -350,6 +354,7 @@ public class PluginManager
 				NpcIndicatorsPlugin.class,
 				GroundMarkerPlugin.class,
 				AmmoPlugin.class,
+				FishingPlugin.class,
 				FpsPlugin.class,
 				OpponentInfoPlugin.class,
 				BoostsPlugin.class,
@@ -367,7 +372,8 @@ public class PluginManager
 //				FeedPlugin.class,
 				BlastFurnacePlugin.class,
 				DevToolsPlugin.class,
-				HdPlugin.class
+				HdPlugin.class,
+				EntityHiderPlugin.class
 		};
 		
 		for (Class<?> clazz : plugins)

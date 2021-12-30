@@ -119,6 +119,7 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public void setProjectilesHidden(boolean state) {
+		client().projectilesHidden = state;
 		// TODO Auto-generated method stub
 		
 	}
@@ -155,6 +156,7 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public void setNPCsHidden(boolean state) {
+		client().npcsHidden = state;
 		// TODO Auto-generated method stub
 		
 	}
@@ -181,24 +183,31 @@ public class ClientRuneLite implements Client {
 		client().addMenuEntry(entry.getOption(), entry.getTarget(), entry.getType(), entry.getIdentifier(), entry.getParam0(), entry.getParam1(), entry.isDeprioritize());
 	}
 	
-	@Override
-	public void setLocalPlayerHidden2D(boolean state) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	
 	@Override
 	public void setLocalPlayerHidden(boolean state) {
 		// TODO Auto-generated method stub
-		
+		client().localPlayerHidden = state;
 	}
-	
+
 	@Override
-	public void setIsHidingEntities(boolean state) {
-		// TODO Auto-generated method stub
-		
+	public void setPetsHidden(boolean state) {
+		client().petsHidden = state;
+
 	}
-	
+
+	@Override
+	public void setIgnoresHidden(boolean state) {
+		client().ignoredHidden = state;
+
+	}
+
+	@Override
+	public void setOthersHidden(boolean state) {
+		client().othersHidden = state;
+	}
+
 	@Override
 	public void setInventoryDragDelay(int delay) {
 		// TODO Auto-generated method stub
@@ -256,6 +265,7 @@ public class ClientRuneLite implements Client {
 	@Override
 	public void setFriendsHidden(boolean state) {
 		// TODO Auto-generated method stub
+		client().friendsHidden = state;
 		
 	}
 	
@@ -292,6 +302,7 @@ public class ClientRuneLite implements Client {
 	@Override
 	public void setAttackersHidden(boolean state) {
 		// TODO Auto-generated method stub
+		client().attackerHidden = state;
 		
 	}
 	
