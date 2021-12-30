@@ -88,10 +88,7 @@ class FishingOverlay extends OverlayPanel
 			return null;
 		}
 
-		if (client.getLocalPlayer().getInteracting() != null
-			&& client.getLocalPlayer().getInteracting().getName().contains(FISHING_SPOT)
-			&& client.getLocalPlayer().getInteracting().getGraphic() != GraphicID.FLYING_FISH
-			&& FISHING_ANIMATIONS.contains(client.getLocalPlayer().anim))
+		if (FISHING_ANIMATIONS.contains(client.getLocalPlayer().anim))
 		{
 			panelComponent.getChildren().add(TitleComponent.builder()
 				.text("Fishing")
