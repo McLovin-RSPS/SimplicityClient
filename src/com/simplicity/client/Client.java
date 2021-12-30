@@ -27146,7 +27146,7 @@ public class Client extends RSApplet {
         callbacks.postDeferred(event);
         if(drawCallbacks != null)
             drawCallbacks.onGameStateChanged(event);
-        if(state == GameState.LOADING) {
+        if(state == GameState.LOADING && HdPlugin.process()) {
             raiseWelcomeScreen();
             resetImageProducers2();
             loadRegion();
