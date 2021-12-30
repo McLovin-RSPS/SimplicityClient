@@ -108,6 +108,12 @@ public class OldschoolMaps {
 
             6971, 7227, 6970, 7226, 6969, 7225,
 
+            // wilderness slayer dungeon
+            13469, 13470, 13726, 13725,
+
+            //slayer basement
+            13723,
+
             //tournament
             13133,
             
