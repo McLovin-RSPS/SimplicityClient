@@ -3711,11 +3711,6 @@ public class Model extends Animable {
                 if (rendersWithinOneTile) {
                     mapObjectIds[objectsRendered] = id;
                     objectsInCurrentRegion[objectsRendered++] = i2;
-
-                    if (gpu) {
-                        renderOnGpu(orientation, pitchSine, pitchCos, yawSin, yawCos, offsetX, offsetY, offsetZ, i2, distance);
-                        return;
-                    }
                 } else {
                     highlighted = true;
                 }
@@ -3763,7 +3758,7 @@ public class Model extends Animable {
         }
 
         try {
-            if (!gpu || (highlighted && !(Math.sqrt(offsetX * offsetX + offsetZ * offsetZ) > 35 * Perspective.LOCAL_TILE_SIZE))) {
+            if ((highlighted && !(Math.sqrt(offsetX * offsetX + offsetZ * offsetZ) > 35 * Perspective.LOCAL_TILE_SIZE))) {
                 translateToScreen(near_sight, highlighted, i2, id);
             }
 
@@ -4091,7 +4086,7 @@ public class Model extends Animable {
                 }
             }
         }
-        if (Configuration.enableParticles) {
+        if (Configuration.enableParticles && !gpu) {
 
             for (int vertex = 0; vertex < numberOfVerticeCoordinates; ++vertex) {
                 int pid = verticesParticle[vertex] - 1;
