@@ -333,6 +333,11 @@ WindowListener {
 	}
 
 	public void mouseWheelMoved(MouseWheelEvent event) {
+		if(Client.getClient().getRuneLite() != null)
+			Client.getClient().getCallbacks().mouseWheelMoved(event);
+
+		if(event.isConsumed())
+			return;
 		int rotation = event.getWheelRotation();
 		
 		boolean interfaceScrolling = handleInterfaceScrolling(event);
@@ -516,6 +521,10 @@ WindowListener {
 	public boolean shiftDown;
 
 	public final void mousePressed(MouseEvent e) {
+		if(Client.getClient().getRuneLite() != null)
+			Client.instance.getCallbacks().mousePressed(e);
+		if(e.isConsumed())
+			return;
 		int x = e.getX();
 		int y = e.getY();
 		int type = e.getButton();
@@ -560,6 +569,10 @@ WindowListener {
 	}
 
 	public final void mouseReleased(MouseEvent e) {
+		if(Client.getClient().getRuneLite() != null)
+			Client.instance.getCallbacks().mouseReleased(e);
+		if(e.isConsumed())
+			return;
 		int x = e.getX();
 		int y = e.getY();
 		if (mainFrame != null) {
@@ -583,13 +596,25 @@ WindowListener {
 	}
 
 	public final void mouseClicked(MouseEvent mouseevent) {
+		if(Client.getClient().getRuneLite() != null)
+		Client.instance.getCallbacks().mouseClicked(mouseevent);
 
+		if(mouseevent.isConsumed())
+			return;
 	}
 
 	public final void mouseEntered(MouseEvent mouseevent) {
+		if(Client.getClient().getRuneLite() != null)
+		Client.instance.getCallbacks().mouseEntered(mouseevent);
+		if(mouseevent.isConsumed())
+			return;
 	}
 
 	public final void mouseExited(MouseEvent mouseevent) {
+		if(Client.getClient().getRuneLite() != null)
+		Client.instance.getCallbacks().mouseExited(mouseevent);
+		if(mouseevent.isConsumed())
+			return;
 		idleTime = 0;
 		mouseX = -1;
 		mouseY = -1;
@@ -599,6 +624,10 @@ WindowListener {
 	public int mouseWheelY;
 
 	public final void mouseDragged(MouseEvent e) {
+		if(Client.getClient().getRuneLite() != null)
+		Client.instance.getCallbacks().mouseDragged(e);
+		if(e.isConsumed())
+			return;
 		int x = e.getX();
 		int y = e.getY();
 
@@ -631,6 +660,10 @@ WindowListener {
 	}
 
 	public final void mouseMoved(MouseEvent mouseevent) {
+		if(Client.getClient().getRuneLite() != null)
+		Client.instance.getCallbacks().mouseMoved(mouseevent);
+		if(mouseevent.isConsumed())
+			return;
 		int x = mouseevent.getX();
 		int y = mouseevent.getY();
 		if (mainFrame != null) {
@@ -643,8 +676,13 @@ WindowListener {
 		mouseY = y;
 	}
 
+
 	int lastB = -1;
 	public final void keyPressed(KeyEvent keyevent) {
+		if(Client.getClient().getRuneLite() != null)
+		Client.instance.getCallbacks().keyPressed(keyevent);
+		if(keyevent.isConsumed())
+			return;
 		idleTime = 0;
 		int i = keyevent.getKeyCode();
 		int j = keyevent.getKeyChar();
@@ -775,6 +813,10 @@ WindowListener {
 
 	}
 	public final void keyReleased(KeyEvent keyevent) {
+		if(Client.getClient().getRuneLite() != null)
+		Client.instance.getCallbacks().keyReleased(keyevent);
+		if(keyevent.isConsumed())
+			return;
 		idleTime = 0;
 		int i = keyevent.getKeyCode();
 		char c = keyevent.getKeyChar();
@@ -832,6 +874,10 @@ WindowListener {
 	}
 
 	public final void keyTyped(KeyEvent keyevent) {
+		if(Client.getClient().getRuneLite() != null)
+		Client.instance.getCallbacks().keyTyped(keyevent);
+		if(keyevent.isConsumed())
+			return;
 	}
 
 	public final int readChar(int i) {
