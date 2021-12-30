@@ -3714,7 +3714,6 @@ public class Model extends Animable {
 
                     if (gpu) {
                         renderOnGpu(orientation, pitchSine, pitchCos, yawSin, yawCos, offsetX, offsetY, offsetZ, i2, distance);
-                        return;
                     }
                 } else {
                     highlighted = true;
