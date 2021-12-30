@@ -130,11 +130,11 @@ public class Model extends Animable {
 
     static boolean outOfReach[] = new boolean[MAX_POLYGON];
 
-    static int projected_vertex_x[] = new int[MAX_POLYGON];
+    public static int projected_vertex_x[] = new int[MAX_POLYGON];
 
-    static int projected_vertex_y[] = new int[MAX_POLYGON];
+    public static int projected_vertex_y[] = new int[MAX_POLYGON];
 
-    static int projected_vertex_z[] = new int[MAX_POLYGON];
+    public static int projected_vertex_z[] = new int[MAX_POLYGON];
 
     static int anIntArray1667[] = new int[MAX_POLYGON];
 

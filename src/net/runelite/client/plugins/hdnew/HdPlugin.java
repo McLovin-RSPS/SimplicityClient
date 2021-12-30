@@ -2390,10 +2390,9 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 
 			model.calcDiagonalsAndStats(orientation);
 			client.checkClickbox(model, orientation, pitchSin, pitchCos, yawSin, yawCos, x, y, z, hash);
-
-			int tc = Math.min(MAX_TRIANGLE, model.getTrianglesCount());
+			int triangleCount = model.getTrianglesCount();
+			int tc = triangleCount;
 			int uvOffset = model.getUvBufferOffset();
-
 			GpuIntBuffer b = bufferForTriangles(tc);
 
 			b.ensureCapacity(8);
@@ -2430,20 +2429,32 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 				model.calcDiagonalsAndStats(orientation);
 				client.checkClickbox(model, orientation, pitchSin, pitchCos, yawSin, yawCos, x, y, z, hash);
 
-				int faceCount = Math.min(MAX_TRIANGLE, model.getTrianglesCount());
+				int faceCount = model.getTrianglesCount();
 				vertexBuffer.ensureCapacity(12 * faceCount);
 				uvBuffer.ensureCapacity(12 * faceCount);
 				normalBuffer.ensureCapacity(12 * faceCount);
 
 				int vertexLength = 0;
 				int uvLength = 0;
-				int[] bufferLengths;
+				int[] bufferLengths = null;
+				for (int face = 0; face < faceCount; ++face) {
 
-				for (int face = 0; face < faceCount; ++face)
-				{
-					bufferLengths = sceneUploader.pushFace(model, face, vertexBuffer, uvBuffer, normalBuffer, 0, 0, 0, ObjectProperties.NONE, ObjectType.NONE);
-					vertexLength += bufferLengths[0];
-					uvLength += bufferLengths[1];
+					int face_a_pos = model.face_a[face];
+					int face_b_pos = model.face_b[face];
+					int face_c_pos = model.face_c[face];
+					int vertexXA = Model.projected_vertex_x[face_a_pos];
+					int vertexXB = model.projected_vertex_x[face_b_pos];
+					int vertexXC = model.projected_vertex_x[face_c_pos];
+
+					if ((vertexXA == -5000 || vertexXB == -5000 || vertexXC == -5000)) {
+						continue;
+					} else {
+						if ((vertexXA - vertexXB) * (Model.projected_vertex_y[face_c_pos] - Model.projected_vertex_y[face_b_pos]) - (Model.projected_vertex_y[face_a_pos] - Model.projected_vertex_y[face_b_pos]) * (vertexXC - vertexXB) > 0) {
+							bufferLengths = sceneUploader.pushFace(model, face, vertexBuffer, uvBuffer, normalBuffer, 0, 0, 0, ObjectProperties.NONE, ObjectType.NONE);
+							vertexLength += bufferLengths[0];
+							uvLength += bufferLengths[1];
+						}
+					}
 				}
 
 				GpuIntBuffer b = bufferForTriangles(faceCount);
