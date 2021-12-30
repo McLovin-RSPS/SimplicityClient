@@ -5416,7 +5416,7 @@ public class RSInterface {
                 "Krack on", "Get scabaright on it", "Wyver-nother two", "Basilonger", "More at stake" };
         final String[] desc = new String[]{"Whenever you get a Dark Beast task, it\\nwill be a bigger task. <col=ff0000>(100 points)", "Whenever you get an Ankou task, it will be\\na bigger task. <col=ff0000>(100 points)", "Whenever you get a Suqah task, it will be\\na bigger task. <col=ff0000>(100 points)", "Whenever you get a Black Dragon task, it\\nwill be a bigger task. <col=ff0000>(50 points)", "Whenever you get a Bronze, Iron or Steel\\nDragon tasks, it will be a bigger task. <col=ff0000>(100\\n<col=ff0000>points)", "Whenever you get a Mithril Dragon tasks, it\\nwill be a bigger task. <col=ff0000>(120 points)", "Whenever you get an Adamant Dragon\\ntask, it will be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Rune Dragon task, it\\nwill be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Spiritual Create\\ntask, it will be a bigger task. <col=ff0000>(100 points)", "Whenever you get an Aviansie task, it will\\nbe a bigger task. <col=ff0000>(100 points)", "Whenever you get a Greater Demon task,\\nit will be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Black Demon task, it\\nwill be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Bloodveld task, it will\\nbe a bigger task. <col=ff0000>(75 points)", "Whenever you get an Aberrant Spectre\\ntask, it will be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Cave Horror task, it\\nwill be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Dust Devil task, it will\\nbe a bigger task. <col=ff0000>(100 points)", "Whenever you get a Skeletal Wyvern task,\\nit will be a bigger task. <col=ff0000>(100 points)", "Whenever you get a Gargoyle task, it will\\nbe a bigger task. <col=ff0000>(100 points)", "Whenever you get a Nechryael task, it will\\nbe a bigger task. <col=ff0000>(100 points)", "Learn how to combine a Hydra head with\\nyour slayer helm to theme it like the\\nAlchemical Hydra. <col=ff0000>(1000 points)", "Mithril dragons drop mithril bars in\\nbanknote form while killed on assignment.\\n<col=ff0000>(200 points)", "Stops you getting Fossil Island Wyvern\\ntasks, without counting towards your\\nblocked task limit. <col=ff0000>(500 points)", "Slaying Dusk and Dawn now counts for two\\nkills towards your task rather than one.\\n<col=ff0000>(500 points)", "Konar, Duradel and Nieve will be able to\\nassign Basilisks as your task. <col=ff0000>(80 points)", "Whenever you get a Vampyre task, it will\\nbe a bigger task. <col=ff0000>(100 points)"};
         for (int i = 0; i < amount; i++) {
-            addConfigButton2(scrollId + 1 + i, scrollId, 1954, 1955, 224, 84, "Unlock", 1, 4, 605 + i);
+            addConfigButton2(scrollId + 1 + i, scrollId, 1954, 1955, 224, 84, "Unlock", 1, 4, 1605 + i);
             addItemContainer(scrollId + (amount + 4) + i, new int[] {1, 1}, new int[] {1, 1}, new String[5], false);
             interfaceCache[scrollId + (amount + 4) + i].inv[0] = ItemDefinition.OSRS_ITEMS_OFFSET + items[i] + 1;
             interfaceCache[scrollId + (amount + 4) + i].invStackSizes[0] = 1;
@@ -5576,15 +5576,17 @@ public class RSInterface {
 
         RSInterface scroll = addInterface(97015);
         scroll.totalChildren(26);
-        addItemContainer(97016, new int[] {60, 30}, new int[] {5, 5}, new String[] {"Buy 1", "Buy 5", "Buy 10", "Buy 50", "Buy X"}, true);
+        addItemContainer(97016, new int[] {60, 30}, new int[] {5, 5}, new String[] {"Check Price", "Buy 1", "Buy 5", "Buy 10", "Buy 50", "Buy X"}, true);
 
-        final int[] items = {41866, 34296, 34172, 43226, 42791};
+        final int[] items = {13281, 34296, 34172, 43226, 42791};
         final int[] prices = {75, 35, 35, 750, 750};
         RSInterface container = interfaceCache[97016];
+        container.atActionType = 1;
         for (int i = 0; i < items.length; i++) {
             container.inv[i] = items[i] + 1;
             container.invStackSizes[i] = 1;
         }
+
         //fill(97016);
         scroll.child(0, 97016, 0, 0);
         int xx = 0, yy = 34;
