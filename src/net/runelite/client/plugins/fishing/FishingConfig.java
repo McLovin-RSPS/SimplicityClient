@@ -149,47 +149,4 @@ public interface FishingConfig extends Config
 		return true;
 	}
 
-	@ConfigItem(
-		position = 9,
-		keyName = "showMinnowOverlay",
-		name = "Show Minnow Movement overlay",
-		description = "Display the minnow progress pie overlay."
-	)
-	default boolean showMinnowOverlay()
-	{
-		return true;
-	}
-
-	@ConfigItem(
-		position = 10,
-		keyName = "flyingFishNotification",
-		name = "Flying fish notification",
-		description = "Send a notification when a flying fish spawns on your fishing spot."
-	)
-	default boolean flyingFishNotification()
-	{
-		return true;
-	}
-
-	@ConfigItem(
-		position = 11,
-		keyName = "trawlerTimer",
-		name = "Trawler timer in M:SS",
-		description = "Trawler timer will display a more accurate timer in M:SS format."
-	)
-	default boolean trawlerTimer()
-	{
-		return true;
-	}
-
-	@ConfigItem(
-		position = 12,
-		keyName = "trawlerContribution",
-		name = "Trawler contribution",
-		description = "Display the exact number of trawler contribution points gained."
-	)
-	default boolean trawlerContribution()
-	{
-		return true;
-	}
 }

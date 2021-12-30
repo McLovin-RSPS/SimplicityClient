@@ -34,82 +34,24 @@ import static net.runelite.api.NpcID.*;
 public enum FishingSpot
 {
     SHRIMP("Shrimp, Anchovies", "Anchovies", ItemID.RAW_SHRIMPS,
-            316, FISHING_SPOT_1514, FISHING_SPOT_1517, FISHING_SPOT_1518,
-            FISHING_SPOT_1521, FISHING_SPOT_1523, FISHING_SPOT_1524,
-            FISHING_SPOT_1525, FISHING_SPOT_1528, FISHING_SPOT_1530,
-            FISHING_SPOT_1544, FISHING_SPOT_3913, FISHING_SPOT_7155,
-            FISHING_SPOT_7459, FISHING_SPOT_7462, FISHING_SPOT_7467,
-            FISHING_SPOT_7469, FISHING_SPOT_7947
+            316
     ),
     LOBSTER("Lobster, Swordfish, Tuna", "Lobster", ItemID.RAW_LOBSTER,
-            FISHING_SPOT_1510, FISHING_SPOT_1519, FISHING_SPOT_1522,
-            FISHING_SPOT_3914, FISHING_SPOT_5820, FISHING_SPOT_7199,
-            FISHING_SPOT_7460, FISHING_SPOT_7465, FISHING_SPOT_7470,
-            FISHING_SPOT_7946
+            312
     ),
     SHARK("Shark, Bass", "Shark", ItemID.RAW_SHARK,
-            FISHING_SPOT_1511, FISHING_SPOT_1520, FISHING_SPOT_3419,
-            FISHING_SPOT_3915, FISHING_SPOT_4476, FISHING_SPOT_4477,
-            FISHING_SPOT_5233, FISHING_SPOT_5234, FISHING_SPOT_5821,
-            FISHING_SPOT_7200, FISHING_SPOT_7461, FISHING_SPOT_7466
+            313
     ),
+    ROCKTAIL("Rocktail", 15270,
+            10091),
     MONKFISH("Monkfish", ItemID.RAW_MONKFISH,
-            FISHING_SPOT_4316
+            318
     ),
     SALMON("Salmon, Trout", "Salmon", ItemID.RAW_SALMON,
-            ROD_FISHING_SPOT, ROD_FISHING_SPOT_1507,
-            ROD_FISHING_SPOT_1508, ROD_FISHING_SPOT_1509, ROD_FISHING_SPOT_1513,
-            ROD_FISHING_SPOT_1515, ROD_FISHING_SPOT_1516, ROD_FISHING_SPOT_1526,
-            ROD_FISHING_SPOT_1527, ROD_FISHING_SPOT_3417, ROD_FISHING_SPOT_3418,
-            ROD_FISHING_SPOT_7463, ROD_FISHING_SPOT_7464, ROD_FISHING_SPOT_7468
+            318
     ),
-    LAVA_EEL("Lava eel", ItemID.LAVA_EEL,
-            FISHING_SPOT_4928
-    ),
-    BARB_FISH("Sturgeon, Salmon, Trout", ItemID.LEAPING_STURGEON,
-            FISHING_SPOT_1542, FISHING_SPOT_7323
-    ),
-    ANGLERFISH("Anglerfish", ItemID.RAW_ANGLERFISH,
-            ROD_FISHING_SPOT_6825
-    ),
-    MINNOW("Minnow", ItemID.MINNOW,
-            FISHING_SPOT_7730, FISHING_SPOT_7731, FISHING_SPOT_7732, FISHING_SPOT_7733
-    ),
-    INFERNAL_EEL("Infernal Eel", ItemID.INFERNAL_EEL,
-            ROD_FISHING_SPOT_7676
-    ),
-    KARAMBWAN("Karambwan", ItemID.RAW_KARAMBWAN,
-            FISHING_SPOT_4712, FISHING_SPOT_4713
-    ),
-    KARAMBWANJI("Karambwanji, Shrimp", "Karambwanji", ItemID.KARAMBWANJI,
-            FISHING_SPOT_4710
-    ),
-    SACRED_EEL("Sacred eel", ItemID.SACRED_EEL,
-            FISHING_SPOT_6488
-    ),
-    CAVE_EEL("Cave eel", ItemID.RAW_CAVE_EEL,
-            FISHING_SPOT_1497, FISHING_SPOT_1498, FISHING_SPOT_1499
-    ),
-    SLIMY_EEL("Slimy eel", ItemID.RAW_SLIMY_EEL,
-            FISHING_SPOT_2653, FISHING_SPOT_2654, FISHING_SPOT_2655
-    ),
-    DARK_CRAB("Dark Crab", ItemID.RAW_DARK_CRAB,
-            FISHING_SPOT_1535, FISHING_SPOT_1536
-    ),
-    TUTORIAL_SHRIMP("Shrimp", ItemID.RAW_SHRIMPS,
-            FISHING_SPOT_3317
-    ),
-    ETCETERIA_LOBSTER("Lobster", "Lobster (Approval only)", ItemID.RAW_LOBSTER,
-            FISHING_SPOT_3657
-    ),
-    QUEST_RUM_DEAL("Sluglings", "Rum deal (Quest)", ItemID.SLUGLINGS,
-            FISHING_SPOT
-    ),
-    QUEST_TAI_BWO_WANNAI_TRIO("Karambwan", "Tai Bwo Wannai Trio (Quest)", ItemID.RAW_KARAMBWAN,
-            FISHING_SPOT_4714
-    ),
-    QUEST_FISHING_CONTEST("Giant carp", "Fishing Contest (Quest)", ItemID.GIANT_CARP,
-            FISHING_SPOT_4079, FISHING_SPOT_4080, FISHING_SPOT_4081, FISHING_SPOT_4082
+    ANGLERFISH("Anglerfish", 43439,
+            10089
     ),
     ;
 

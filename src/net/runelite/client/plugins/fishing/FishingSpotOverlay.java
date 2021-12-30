@@ -116,32 +116,6 @@ class FishingSpotOverlay extends Overlay
 				color = config.getOverlayColor();
 			}
 
-			if (spot == FishingSpot.MINNOW && config.showMinnowOverlay())
-			{
-				MinnowSpot minnowSpot = plugin.getMinnowSpots().get(npc.index);
-				if (minnowSpot != null)
-				{
-					long millisLeft = MINNOW_MOVE.toMillis() - Duration.between(minnowSpot.getTime(), Instant.now()).toMillis();
-					if (millisLeft < MINNOW_WARN.toMillis())
-					{
-						color = Color.ORANGE;
-					}
-
-					LocalPoint localPoint = npc.getLocalLocation();
-					Point location = Perspective.localToCanvas(client, localPoint, client.getPlane());
-
-					if (location != null)
-					{
-						ProgressPieComponent pie = new ProgressPieComponent();
-						pie.setFill(color);
-						pie.setBorderColor(color);
-						pie.setPosition(location);
-						pie.setProgress((float) millisLeft / MINNOW_MOVE.toMillis());
-						pie.render(graphics);
-					}
-				}
-			}
-
 			if (config.showSpotTiles())
 			{
 				Polygon poly = npc.getCanvasTilePoly();

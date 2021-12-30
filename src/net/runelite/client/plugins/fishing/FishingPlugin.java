@@ -202,11 +202,6 @@ public class FishingPlugin extends Plugin
 			spotOverlay.setHidden(false);
 			fishingSpotMinimapOverlay.setHidden(false);
 		}
-
-		if (event.getMessage().equals("A flying fish jumps up and eats some of your minnows!") && config.flyingFishNotification())
-		{
-			notifier.notify("A flying fish is eating your minnows!");
-		}
 	}
 
 	@Subscribe
@@ -295,22 +290,6 @@ public class FishingPlugin extends Plugin
 
 		inverseSortSpotDistanceFromPlayer();
 
-		for (com.simplicity.client.NPC npc : fishingSpots)
-		{
-			if (FishingSpot.findSpot(npc.getId()) == FishingSpot.MINNOW && config.showMinnowOverlay())
-			{
-				final int id = npc.index;
-				final MinnowSpot minnowSpot = minnowSpots.get(id);
-
-				// create the minnow spot if it doesn't already exist
-				// or if it was moved, reset it
-				if (minnowSpot == null
-					|| !minnowSpot.getLoc().equals(npc.getWorldLocation()))
-				{
-					minnowSpots.put(id, new MinnowSpot(npc.getWorldLocation(), Instant.now()));
-				}
-			}
-		}
 
 		updateTrawlerTimer();
 		updateTrawlerContribution();
@@ -361,16 +340,7 @@ public class FishingPlugin extends Plugin
 	 */
 	private void updateTrawlerContribution()
 	{
-		int regionID = client.getLocalPlayer().getWorldLocation().getRegionID();
-		if (regionID != TRAWLER_SHIP_REGION_NORMAL && regionID != TRAWLER_SHIP_REGION_SINKING)
-		{
-			return;
-		}
 
-		if (!config.trawlerContribution())
-		{
-			return;
-		}
 
 		/*Widget trawlerContributionWidget = client.getWidget(WidgetInfo.FISHING_TRAWLER_CONTRIBUTION);
 		if (trawlerContributionWidget == null)
@@ -392,56 +362,7 @@ public class FishingPlugin extends Plugin
 			return;
 		}
 
-		int regionID = client.getLocalPlayer().getWorldLocation().getRegionID();
-		if (regionID != TRAWLER_SHIP_REGION_NORMAL && regionID != TRAWLER_SHIP_REGION_SINKING)
-		{
-			log.debug("Trawler session ended");
-			trawlerStartTime = null;
-			return;
-		}
 
-		if (!config.trawlerTimer())
-		{
-			return;
-		}
-
-		/*Widget trawlerTimerWidget = client.getWidget(WidgetInfo.FISHING_TRAWLER_TIMER);
-		if (trawlerTimerWidget == null)
-		{
-			return;
-		}*/
-
-		long timeLeft = TRAWLER_TIME_LIMIT_IN_SECONDS - Duration.between(trawlerStartTime, Instant.now()).getSeconds();
-		if (timeLeft < 0)
-		{
-			timeLeft = 0;
-		}
-
-		int minutes = (int) timeLeft / 60;
-		int seconds = (int) timeLeft % 60;
-
-		final StringBuilder trawlerText = new StringBuilder();
-		trawlerText.append("Time Left: ");
-
-		if (minutes > 0)
-		{
-			trawlerText.append(minutes);
-		}
-		else
-		{
-			trawlerText.append('0');
-		}
-
-		trawlerText.append(':');
-
-		if (seconds < 10)
-		{
-			trawlerText.append("0");
-		}
-
-		trawlerText.append(seconds);
-
-		//trawlerTimerWidget.setText(trawlerText.toString());
 	}
 
 	private void inverseSortSpotDistanceFromPlayer()
