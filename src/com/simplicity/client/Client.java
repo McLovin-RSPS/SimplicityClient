@@ -2723,6 +2723,7 @@ public class Client extends RSApplet {
             } else {
                 SpriteLoader.sprites[621].drawSprite(0, 0);
             }
+
         } else {
             if (clientWidth >= smallTabs) {
                 for (int positionX = clientWidth - 480, positionY = clientHeight
@@ -24227,8 +24228,8 @@ public class Client extends RSApplet {
     public Sprite loadingPleaseWait;
     public Sprite reestablish;
     /**/
-    private RSImageProducer leftFrame;
-    private RSImageProducer topFrame;
+    public RSImageProducer leftFrame;
+    public RSImageProducer topFrame;
     private int ignoreCount;
     private long mapLoadingTime;
     private int[][] anIntArrayArray825;
