@@ -1292,13 +1292,13 @@ public class ClientRuneLite implements Client {
 
 	@Override
 	public void setSkyboxColor(int skyboxColor) {
-
+		client().skyboxColor = skyboxColor;
 	}
 
 	@Override
 	public int getSkyboxColor() {
 		// TODO Auto-generated method stub
-		return 0;
+		return client().skyboxColor;
 	}
 
 	@Override

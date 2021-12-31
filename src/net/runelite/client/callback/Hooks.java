@@ -50,6 +50,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.RenderOverview;
 import net.runelite.api.WorldMapManager;
+import net.runelite.api.events.BeforeRender;
 import net.runelite.api.events.ClientTick;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.hooks.Callbacks;
@@ -148,7 +149,8 @@ public class Hooks implements Callbacks
 	public void clientMainLoop()
 	{
 		post(CLIENT_TICK);
-		
+
+		eventBus.post(new BeforeRender());
 		clientThread.invoke();
 
 		long now = System.currentTimeMillis();

@@ -6864,10 +6864,6 @@ public class Client extends RSApplet {
             }
         }
         processOnDemandQueue();
-        
-        if (runelite != null) {
-        	callbacks.clientMainLoop();
-        }
     }
 
     private void processTasks() {
@@ -7799,7 +7795,11 @@ public class Client extends RSApplet {
 
     private void mainGameProcessor() throws ClassNotFoundException, InstantiationException, IllegalAccessException,
             UnsupportedLookAndFeelException {
-    	
+
+
+        if (runelite != null) {
+            callbacks.clientMainLoop();
+        }
         if (Configuration.DISCO_ITEMS && myPlayer.updateColor) {
             RandomColor.process();
             ItemDefinition.spriteCache.clear();
@@ -13162,7 +13162,7 @@ public class Client extends RSApplet {
         DrawingArea.resetImage();
     	cacheSprite[Configuration.enableOldschoolFrame ? 1714 : 6].drawSprite(Configuration.enableOldschoolFrame ? 0 : 3, 0);
         // drawSpecOrb();
-        tabAreaIP = new RSImageProducer(250, 335, getGameComponent());
+        tabAreaIP = new RSImageProducer(249, 335, getGameComponent());
         gameScreenIP = new RSImageProducer(clientSize == 0 ? 512 : clientWidth, clientSize == 0 ? 334 : clientHeight,
                 getGameComponent());
         DrawingArea.resetImage();
@@ -18166,10 +18166,6 @@ public class Client extends RSApplet {
             drawLoginScreen();
         } else {
     		drawGameScreen();
-
-            if (clientSize != 0 && HdPlugin.process()) {
-                drawCallbacks.draw(0);
-            }
         }
         anInt1213 = 0;
     }
@@ -23393,6 +23389,8 @@ public class Client extends RSApplet {
             Rasterizer.textureInt2 <<= 1;
         }
         DrawingArea.resetImage();
+        if(skyboxColor > 0)
+            Rasterizer.drawRectangle(0, gameAreaHeight, 255, skyboxColor, gameAreaWidth, 0);
         worldController.render(xCameraPos, yCameraPos, xCameraCurve, zCameraPos, j, yCameraCurve);
         worldController.renderTileMarkers();
         if (!HdPlugin.process() && Configuration.enableFog) {
@@ -23584,10 +23582,6 @@ public class Client extends RSApplet {
             drawUnfixedGame();
             draw3dScreen();
 
-            if (clientSize == 0 && HdPlugin.process()) {
-                drawCallbacks.draw(0);
-            }
-
             if (runelite != null) {
             	callbacks.drawAfterWidgets(mapAreaIP);
             }
@@ -23622,7 +23616,10 @@ public class Client extends RSApplet {
         	if (runelite != null && clientSize != 0) {
             	callbacks.drawAfterWidgets(gameScreenIP);
             }
-        	
+
+            if(HdPlugin.process()) {
+                drawCallbacks.draw(0);
+            }
             gameScreenIP.drawGraphics(clientSize == 0 ? 4 : 0, super.graphics, clientSize == 0 ? 4 : 0);
             xCameraPos = l;
             zCameraPos = i1;
@@ -24466,6 +24463,7 @@ public class Client extends RSApplet {
     private Sprite[] headIcons;
     private Sprite[] skullIcons;
     private Sprite[] headIconsHint;
+    public int skyboxColor;
     private static int anInt1097;
     private int anInt1098;
     private int anInt1099;

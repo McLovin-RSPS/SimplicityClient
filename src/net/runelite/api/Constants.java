@@ -114,4 +114,8 @@ public class Constants
 	 * @see ItemComposition#getPrice
 	 */
 	public static final float HIGH_ALCHEMY_MULTIPLIER = .6f;
+	/**
+	 * The height of the overworld, in tiles. Coordinates above this are in caves and other such zones.
+	 */
+	public static final int OVERWORLD_MAX_Y = 4160;
 }

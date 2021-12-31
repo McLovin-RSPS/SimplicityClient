@@ -1593,8 +1593,7 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 			gl.glDisable(gl.GL_MULTISAMPLE);
 			shutdownAAFbo();
 		}
-		gl.glClearColor(0, 0, 0, 1f);
-		gl.glClear(gl.GL_COLOR_BUFFER_BIT);
+
 		// Draw 3d scene
 		//final TextureProvider textureProvider = client.getTextureProvider();
 		if (/*textureProvider != null*/true)
@@ -2008,16 +2007,18 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 
 	private void drawUi(final int overlayColor, final int canvasHeight, final int canvasWidth)
 	{
-		RSImageProducer[] buffers = { client().gameScreenIP, client().chatAreaIP, client().tabAreaIP, client().mapAreaIP, client().topFrame, client().leftFrame, null, null, null };
-		
-		if (RuneLite.getClient().isResized()) {
-			buffers = new RSImageProducer[] { client().gameScreenIP };
-		}
-		
-		
 
-		int[] x = { client.isResized() ? 0 : 4, 0, 515, 515, 0, 0, 550, 0, 0, 722, 743, 0, 516, 516, 496, 0 };
-		int[] y = { client.isResized() ? 0 : 4, 338, 168, 0, 0, 4, 4, 4, 357, 4, 205, 0, 4, 205, 357, 338 };
+		RSImageProducer[] buffers = {
+				client().gameScreenIP,
+				client().topFrame,
+				client().leftFrame,
+				client().mapAreaIP,
+				client().tabAreaIP,
+				client().chatAreaIP
+		};
+		boolean resized = client.isResized();
+		int[] x = {resized ? 0 : 4, 0, 0, 516, 516, 0};
+		int[] y = {resized ? 0 : 4, 0, 4, 0, 168, 338};
 
 		// Use the texture bound in the first pass
 		final UIScalingMode uiScalingMode = config.uiScalingMode();
@@ -2025,7 +2026,7 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 		gl.glEnable(gl.GL_BLEND);
 		
 		for (int index = 0; index < buffers.length; index++) {
-			if (buffers[index] == null) {
+			if (buffers[index] == null || client.isResized() && index > 0) {
 				continue;
 			}
 			RSImageProducer rsImageProducer = buffers[index];

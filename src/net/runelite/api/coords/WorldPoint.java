@@ -44,6 +44,14 @@ import net.runelite.api.Perspective;
 @Value
 public class WorldPoint
 {
+
+	private static final int[] REGION_MIRRORS = {
+			// Prifddinas
+			12894, 8755,
+			12895, 8756,
+			13150, 9011,
+			13151, 9012
+	};
 	/**
 	 * X-axis coordinate.
 	 */
@@ -161,7 +169,30 @@ public class WorldPoint
 				plane
 		);
 	}
+	/**
+	 * Translate a coordinate either between overworld and real, or real and overworld
+	 *
+	 * @param worldPoint
+	 * @param toOverworld whether to convert to overworld coordinates, or to real coordinates
+	 * @return
+	 */
+	public static WorldPoint getMirrorPoint(WorldPoint worldPoint, boolean toOverworld)
+	{
+		int region = worldPoint.getRegionID();
+		for (int i = 0; i < REGION_MIRRORS.length; i += 2)
+		{
+			int real = REGION_MIRRORS[i];
+			int overworld = REGION_MIRRORS[i + 1];
 
+			// Test against what we are converting from
+			if (region == (toOverworld ? real : overworld))
+			{
+				return fromRegion(toOverworld ? overworld : real,
+						worldPoint.getRegionX(), worldPoint.getRegionY(), worldPoint.getPlane());
+			}
+		}
+		return worldPoint;
+	}
 	/**
 	 * Gets the coordinate of the tile that contains the passed local point,
 	 * accounting for instances.
