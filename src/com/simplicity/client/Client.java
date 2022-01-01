@@ -10453,7 +10453,7 @@ public class Client extends RSApplet {
             RSInterface class9_3 = RSInterface.interfaceCache[interfaceId];
             if (class9_3.valueIndexArray != null && class9_3.valueIndexArray[0][0] == 5) {
                 int l2 = class9_3.valueIndexArray[0][1];
-                if(!(l2 >= 580 && l2 <= 603)) {
+                if(!(l2 >= 580 && l2 <= 603 || l2 >= 1605 && l2 <= 1628)) {
                     variousSettings[l2] = 1 - variousSettings[l2];
                     handleActions(l2);
                     needDrawTabArea = true;
