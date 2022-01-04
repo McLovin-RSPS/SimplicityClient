@@ -10317,7 +10317,7 @@ public class Client extends RSApplet {
             }
         }
         if (l == 606) {
-            tabToReplyPm();
+            replyToPM(menuActionName[i]);
         }
         if (l == 491) {
             Player class30_sub2_sub4_sub1_sub2_6 = playerArray[entityId];
@@ -10461,7 +10461,7 @@ public class Client extends RSApplet {
             RSInterface class9_3 = RSInterface.interfaceCache[interfaceId];
             if (class9_3.valueIndexArray != null && class9_3.valueIndexArray[0][0] == 5) {
                 int l2 = class9_3.valueIndexArray[0][1];
-                if(!(l2 >= 580 && l2 <= 603)) {
+                if(!(l2 >= 580 && l2 <= 603 || l2 >= 1605 && l2 <= 1628 || l2 >= 1580 && l2 <= 1603)) {
                     variousSettings[l2] = 1 - variousSettings[l2];
                     handleActions(l2);
                     needDrawTabArea = true;
@@ -10506,6 +10506,40 @@ public class Client extends RSApplet {
         spellSelected = 0;
         needDrawTabArea = true;
 
+    }
+
+    public void replyToPM(String nameToReplyTo) {
+        int index = nameToReplyTo.indexOf("@whi@");
+        if (index != -1) {
+            String name = nameToReplyTo.substring(index + 5).trim();
+            long nameLong = TextClass.longForName(name);
+            int node = -1;
+            for (int count = 0; count < friendsCount; count++) {
+                if (friendsListAsLongs[count] != nameLong) {
+                    continue;
+                }
+                node = count;
+                break;
+            }
+
+            if (node != -1 && friendsNodeIDs[node] > 0) {
+                inputTaken = true;
+                inputDialogState = 0;
+                showInput = true;
+                promptInput = "";
+                friendsListAction = 3;
+                aLong953 = friendsListAsLongs[node];
+                promptMessage = "Enter message to send to " + friendsList[node];
+            } else if (isStaff(myRights)) { // Not in friend list
+                inputTaken = true;
+                inputDialogState = 0;
+                showInput = true;
+                promptInput = "";
+                aLong953 = nameLong;
+                friendsListAction = 3;
+                promptMessage = "Enter message to send to " + name;
+            }
+        }
     }
 
     private void checkTutorialIsland() {
