@@ -2591,10 +2591,10 @@ public final class MobDefinition {
             i += stream3.readUnsignedWord();
         }
 
-        cache = new MobDefinition[20];
-        cacheOSRS = new MobDefinition[20];
+        cache = new MobDefinition[50];
+        cacheOSRS = new MobDefinition[50];
 
-        for (int k = 0; k < 20; k++) {
+        for (int k = 0; k < 50; k++) {
             cache[k] = new MobDefinition();
             cacheOSRS[k] = new MobDefinition();
         }
@@ -2768,10 +2768,10 @@ public final class MobDefinition {
 		modelCacheOSRS.clear();
         modelCacheCustom.clear();
 		
-        cache = new MobDefinition[20];
-        cacheOSRS = new MobDefinition[20];
+        cache = new MobDefinition[50];
+        cacheOSRS = new MobDefinition[50];
 
-        for (int k = 0; k < 20; k++) {
+        for (int k = 0; k < 50; k++) {
             cache[k] = new MobDefinition();
             cacheOSRS[k] = new MobDefinition();
         }
@@ -3099,9 +3099,9 @@ public final class MobDefinition {
     public int shadow;
     public boolean hasRenderPriority;
     public int[] models;
-    public static MemCache modelCache = new MemCache(30);
-    public static MemCache modelCacheOSRS = new MemCache(30);
-    public static MemCache modelCacheCustom = new MemCache(30);
+    public static MemCache modelCache = new MemCache(50);
+    public static MemCache modelCacheOSRS = new MemCache(50);
+    public static MemCache modelCacheCustom = new MemCache(50);
     public int id;
     public DataType dataType = DataType.REGULAR;
 }
