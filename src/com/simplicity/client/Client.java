@@ -23585,7 +23585,7 @@ public class Client extends RSApplet {
 
         updateEntities();
         drawHeadIcon();
-        if(HdPlugin.process() && gpuAnimateTexture)
+        if (!HdPlugin.process() || HdPlugin.process() && gpuAnimateTexture)
             method37(k2);
         if (drawPane) {
             drawBlackPane();
