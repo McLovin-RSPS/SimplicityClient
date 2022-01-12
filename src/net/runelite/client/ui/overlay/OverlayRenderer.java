@@ -157,7 +157,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		
 		for (Overlay overlay : overlays)
 		{
-			if(overlay.graphicsBuffer != null && overlay.graphicsBuffer != imageProducer && overlay.graphicsBuffer != GraphicsBufferType.ALL)
+			if(overlay.graphicsBuffer != null && !overlay.graphicsBuffer.contains(imageProducer) && !overlay.graphicsBuffer.contains(GraphicsBufferType.ALL))
 				continue;
 			OverlayPosition overlayPosition = overlay.getPosition();
 			

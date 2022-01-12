@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 kulers
+ * Copyright (c) 2019, Hydrox6 <ikada@protonmail.ch>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,48 +22,44 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.inventorytags;
+package net.runelite.client.plugins.itemidentification;
 
-import com.simplicity.client.Client;
-import net.runelite.api.GraphicsBufferType;
-import net.runelite.api.widgets.WidgetItem;
-import net.runelite.client.game.ItemManager;
-import net.runelite.client.ui.overlay.WidgetItemOverlay;
+import com.google.inject.Provides;
+import net.runelite.client.config.ConfigManager;
+import net.runelite.client.plugins.Plugin;
+import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.ui.overlay.OverlayManager;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 
-@Singleton
-public class InventoryTagsOverlay extends WidgetItemOverlay
+@PluginDescriptor(
+	name = "Item Identification",
+	description = "Show identifying text over items with difficult to distinguish sprites",
+	enabledByDefault = false
+)
+public class ItemIdentificationPlugin extends Plugin
 {
-	private final ItemManager itemManager;
-	private final InventoryTagsPlugin plugin;
+	@Inject
+	private OverlayManager overlayManager;
 
 	@Inject
-	private InventoryTagsOverlay(final ItemManager itemManager, final InventoryTagsPlugin plugin)
+	private ItemIdentificationOverlay overlay;
+
+	@Provides
+	ItemIdentificationConfig getConfig(ConfigManager configManager)
 	{
-		this.itemManager = itemManager;
-		this.plugin = plugin;
-		showOnEquipment();
-		showOnInventory();
-		setGraphicsBuffer(GraphicsBufferType.TAB_AREA);
+		return configManager.getConfig(ItemIdentificationConfig.class);
 	}
 
 	@Override
-	public void renderItemOverlay(Graphics2D graphics, int itemId, WidgetItem itemWidget)
+	protected void startUp()
 	{
-		final String group = plugin.getTag(itemId);
-		if (group != null)
-		{
-			final Color color = plugin.getGroupNameColor(group);
-			if (color != null)
-			{
-				Rectangle bounds = itemWidget.getCanvasBounds();
-				final BufferedImage outline = itemManager.getItemOutline(itemId, itemWidget.getQuantity(), color);
-				graphics.drawImage(outline, (int) bounds.getX(), (int) bounds.getY(), null);
-			}
-		}
+		overlayManager.add(overlay);
+	}
+
+	@Override
+	protected void shutDown()
+	{
+		overlayManager.remove(overlay);
 	}
 }

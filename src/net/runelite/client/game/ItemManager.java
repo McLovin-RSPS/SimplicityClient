@@ -39,6 +39,7 @@ import javax.inject.Singleton;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import com.google.common.collect.ImmutableMap;
 import com.simplicity.client.Item;
 import com.simplicity.client.Sprite;
 import com.simplicity.client.cache.definitions.ItemDefinition;
@@ -60,6 +61,8 @@ import net.runelite.http.api.item.ItemClient;
 import net.runelite.http.api.item.ItemPrice;
 import net.runelite.http.api.item.SearchResult;
 import static net.runelite.api.Constants.*;
+import static net.runelite.api.ItemID.*;
+import static net.runelite.api.ItemID.AGILITY_CAPE;
 
 @Singleton
 @Slf4j
@@ -196,7 +199,7 @@ public class ItemManager
 	 * Look up an item's price
 	 *
 	 * @param itemID item id
-	 * @param ignoreUntradeableMap should the price returned ignore the {@link UntradeableItemMapping}
+	 * @param ignoreUntradeableMap should the price returned ignore the {@link }
 	 * @return item price
 	 */
 	public int getItemPrice(int itemID, boolean ignoreUntradeableMap)
@@ -323,7 +326,22 @@ public class ItemManager
 			return null;
 		}
 	}
+	public int canonicalize(int itemID)
+	{
+		ItemComposition itemComposition = getItemComposition(itemID);
 
+		if (itemComposition.getNote() != -1)
+		{
+			return itemComposition.getLinkedNoteId();
+		}
+
+		if (itemComposition.getPlaceholderTemplateId() != -1)
+		{
+			return itemComposition.getPlaceholderId();
+		}
+		int found = WORN_ITEMS.getOrDefault(itemID, itemID);
+		return found > 0 ? found : itemID;
+	}
 	/**
 	 * Create item sprite and applies an outline.
 	 *
@@ -357,4 +375,66 @@ public class ItemManager
 			return null;
 		}
 	}
+
+	private static final ImmutableMap<Integer, Integer> WORN_ITEMS = ImmutableMap.<Integer, Integer>builder().
+			put(BOOTS_OF_LIGHTNESS_89, BOOTS_OF_LIGHTNESS).
+			put(PENANCE_GLOVES_10554, PENANCE_GLOVES).
+
+			put(GRACEFUL_HOOD_11851, GRACEFUL_HOOD).
+			put(GRACEFUL_CAPE_11853, GRACEFUL_CAPE).
+			put(GRACEFUL_TOP_11855, GRACEFUL_TOP).
+			put(GRACEFUL_LEGS_11857, GRACEFUL_LEGS).
+			put(GRACEFUL_GLOVES_11859, GRACEFUL_GLOVES).
+			put(GRACEFUL_BOOTS_11861, GRACEFUL_BOOTS).
+			put(GRACEFUL_HOOD_13580, GRACEFUL_HOOD_13579).
+			put(GRACEFUL_CAPE_13582, GRACEFUL_CAPE_13581).
+			put(GRACEFUL_TOP_13584, GRACEFUL_TOP_13583).
+			put(GRACEFUL_LEGS_13586, GRACEFUL_LEGS_13585).
+			put(GRACEFUL_GLOVES_13588, GRACEFUL_GLOVES_13587).
+			put(GRACEFUL_BOOTS_13590, GRACEFUL_BOOTS_13589).
+			put(GRACEFUL_HOOD_13592, GRACEFUL_HOOD_13591).
+			put(GRACEFUL_CAPE_13594, GRACEFUL_CAPE_13593).
+			put(GRACEFUL_TOP_13596, GRACEFUL_TOP_13595).
+			put(GRACEFUL_LEGS_13598, GRACEFUL_LEGS_13597).
+			put(GRACEFUL_GLOVES_13600, GRACEFUL_GLOVES_13599).
+			put(GRACEFUL_BOOTS_13602, GRACEFUL_BOOTS_13601).
+			put(GRACEFUL_HOOD_13604, GRACEFUL_HOOD_13603).
+			put(GRACEFUL_CAPE_13606, GRACEFUL_CAPE_13605).
+			put(GRACEFUL_TOP_13608, GRACEFUL_TOP_13607).
+			put(GRACEFUL_LEGS_13610, GRACEFUL_LEGS_13609).
+			put(GRACEFUL_GLOVES_13612, GRACEFUL_GLOVES_13611).
+			put(GRACEFUL_BOOTS_13614, GRACEFUL_BOOTS_13613).
+			put(GRACEFUL_HOOD_13616, GRACEFUL_HOOD_13615).
+			put(GRACEFUL_CAPE_13618, GRACEFUL_CAPE_13617).
+			put(GRACEFUL_TOP_13620, GRACEFUL_TOP_13619).
+			put(GRACEFUL_LEGS_13622, GRACEFUL_LEGS_13621).
+			put(GRACEFUL_GLOVES_13624, GRACEFUL_GLOVES_13623).
+			put(GRACEFUL_BOOTS_13626, GRACEFUL_BOOTS_13625).
+			put(GRACEFUL_HOOD_13628, GRACEFUL_HOOD_13627).
+			put(GRACEFUL_CAPE_13630, GRACEFUL_CAPE_13629).
+			put(GRACEFUL_TOP_13632, GRACEFUL_TOP_13631).
+			put(GRACEFUL_LEGS_13634, GRACEFUL_LEGS_13633).
+			put(GRACEFUL_GLOVES_13636, GRACEFUL_GLOVES_13635).
+			put(GRACEFUL_BOOTS_13638, GRACEFUL_BOOTS_13637).
+			put(GRACEFUL_HOOD_13668, GRACEFUL_HOOD_13667).
+			put(GRACEFUL_CAPE_13670, GRACEFUL_CAPE_13669).
+			put(GRACEFUL_TOP_13672, GRACEFUL_TOP_13671).
+			put(GRACEFUL_LEGS_13674, GRACEFUL_LEGS_13673).
+			put(GRACEFUL_GLOVES_13676, GRACEFUL_GLOVES_13675).
+			put(GRACEFUL_BOOTS_13678, GRACEFUL_BOOTS_13677).
+			put(GRACEFUL_HOOD_21063, GRACEFUL_HOOD_21061).
+			put(GRACEFUL_CAPE_21066, GRACEFUL_CAPE_21064).
+			put(GRACEFUL_TOP_21069, GRACEFUL_TOP_21067).
+			put(GRACEFUL_LEGS_21072, GRACEFUL_LEGS_21070).
+			put(GRACEFUL_GLOVES_21075, GRACEFUL_GLOVES_21073).
+			put(GRACEFUL_BOOTS_21078, GRACEFUL_BOOTS_21076).
+
+			put(MAX_CAPE_13342, MAX_CAPE).
+
+			put(SPOTTED_CAPE_10073, SPOTTED_CAPE).
+			put(SPOTTIER_CAPE_10074, SPOTTIER_CAPE).
+
+			put(AGILITY_CAPET_13341, AGILITY_CAPET).
+			put(AGILITY_CAPE_13340, AGILITY_CAPE).
+			build();
 }

@@ -101,25 +101,17 @@ public abstract class WidgetItemOverlay extends Overlay
 
 	protected void showOnInventory()
 	{
-		showOnInterfaces(
-			DEPOSIT_BOX_GROUP_ID,
-			BANK_INVENTORY_GROUP_ID,
-			SHOP_INVENTORY_GROUP_ID,
-			GRAND_EXCHANGE_INVENTORY_GROUP_ID,
-			GUIDE_PRICES_INVENTORY_GROUP_ID,
-			EQUIPMENT_INVENTORY_GROUP_ID,
-			3214/*,
-			SEED_VAULT_INVENTORY_GROUP_ID*/);
+		showOnInterfaces(3214);
 	}
 
 	protected void showOnBank()
 	{
-		showOnInterfaces(BANK_GROUP_ID);
+		showOnInterfaces(5292, 5062, 5064);
 	}
 
 	protected void showOnEquipment()
 	{
-		showOnInterfaces(EQUIPMENT_GROUP_ID);
+		showOnInterfaces(18691);
 	}
 
 	protected void showOnInterfaces(int... ids)

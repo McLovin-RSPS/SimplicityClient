@@ -28,6 +28,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.google.inject.internal.Nullable;
@@ -52,10 +53,15 @@ public abstract class Overlay implements LayoutableRenderableEntity
 	private OverlayPosition position = OverlayPosition.TOP_LEFT;
 	private OverlayPriority priority = OverlayPriority.NONE;
 	public OverlayLayer layer = OverlayLayer.UNDER_WIDGETS;
-	public GraphicsBufferType graphicsBuffer;
+	public List<GraphicsBufferType> graphicsBuffer = new LinkedList<>();
 	private final List<OverlayMenuEntry> menuEntries = new ArrayList<>();
 	private boolean resizable;
 	private boolean resettable = true;
+
+	protected void setGraphicsBuffer(GraphicsBufferType graphicsBufferType) {
+		if(!graphicsBuffer.contains(graphicsBufferType))
+			graphicsBuffer.add(graphicsBufferType);
+	}
 	
 	protected Overlay()
 	{

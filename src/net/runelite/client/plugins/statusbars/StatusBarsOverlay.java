@@ -34,14 +34,8 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
 import javax.inject.Inject;
-import net.runelite.api.Client;
-import net.runelite.api.MenuEntry;
-import net.runelite.api.Point;
-import net.runelite.api.Prayer;
-import net.runelite.api.Skill;
-import net.runelite.api.SpriteID;
-import net.runelite.api.Varbits;
-import net.runelite.api.VarPlayer;
+
+import net.runelite.api.*;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.game.ItemManager;
@@ -104,7 +98,7 @@ class StatusBarsOverlay extends Overlay
 		this.config = config;
 		//this.itemStatService = itemstatservice;
 		this.spriteManager = spriteManager;
-
+		setGraphicsBuffer(GraphicsBufferType.TAB_AREA);
 		prayerIcon = ImageUtil.resizeCanvas(skillIconManager.getSkillImage(Skill.PRAYER, true), ICON_DIMENSIONS, ICON_DIMENSIONS);
 		initRenderers();
 	}
