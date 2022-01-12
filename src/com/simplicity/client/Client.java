@@ -21352,6 +21352,22 @@ public class Client extends RSApplet {
                     if (id == 23) {
                         sendFrame126("" + maxLevel + "", 28171);
                     }
+                    ExperienceChanged event = new ExperienceChanged();
+                    Skill[] skills = Skill.values();
+                    if (id < skills.length - 1) {
+                        Skill skill = skills[id];
+                        event.setSkill(skill);
+                        Client.instance.getCallbacks().post(event);
+                    }
+                    try {
+                        if (id >= 0 && id < skills.length - 1) {
+                            BoostedLevelChanged boosted = new BoostedLevelChanged();
+                            boosted.setSkill(Skill.values()[id]);
+                            Client.instance.getCallbacks().post(boosted);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     // updateSkilltab();
                     opCode = -1;
                     return true;
