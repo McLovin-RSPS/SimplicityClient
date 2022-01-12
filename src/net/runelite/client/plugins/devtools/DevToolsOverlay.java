@@ -40,12 +40,15 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import com.simplicity.client.*;
+import com.simplicity.client.Item;
+import com.simplicity.client.NPC;
+import com.simplicity.client.Player;
+import com.simplicity.client.Projectile;
+import com.simplicity.client.Tile;
+import com.simplicity.client.WallObject;
 import com.simplicity.client.cache.definitions.MobDefinition;
+import net.runelite.api.*;
 import net.runelite.api.Client;
-import net.runelite.api.Constants;
-import net.runelite.api.ItemLayer;
-import net.runelite.api.Perspective;
-import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
@@ -88,6 +91,7 @@ class DevToolsOverlay extends Overlay
 		this.client = client;
 		this.plugin = plugin;
 		this.toolTipManager = toolTipManager;
+		setGraphicsBuffer(GraphicsBufferType.ALL);
 	}
 
 	@Override

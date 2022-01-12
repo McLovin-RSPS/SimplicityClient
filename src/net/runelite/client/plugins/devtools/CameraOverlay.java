@@ -28,6 +28,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
 import net.runelite.api.Client;
+import net.runelite.api.GraphicsBufferType;
 import net.runelite.client.ui.overlay.OverlayPanel;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.LineComponent;
@@ -44,6 +45,7 @@ public class CameraOverlay extends OverlayPanel
 		this.client = client;
 		this.plugin = plugin;
 		setPosition(OverlayPosition.TOP_LEFT);
+		setGraphicsBuffer(GraphicsBufferType.MAIN_GAME);
 	}
 
 	@Override

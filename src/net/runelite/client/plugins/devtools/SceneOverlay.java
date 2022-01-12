@@ -38,10 +38,7 @@ import javax.inject.Inject;
 import com.simplicity.client.Entity;
 import com.simplicity.client.NPC;
 import com.simplicity.client.Player;
-import net.runelite.api.Actor;
-import net.runelite.api.Client;
-import net.runelite.api.Perspective;
-import net.runelite.api.Point;
+import net.runelite.api.*;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
@@ -84,6 +81,7 @@ public class SceneOverlay extends Overlay
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.client = client;
 		this.plugin = plugin;
+		setGraphicsBuffer(GraphicsBufferType.MAIN_GAME);
 	}
 
 	@Override
