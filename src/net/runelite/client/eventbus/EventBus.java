@@ -114,10 +114,6 @@ public class EventBus
 						throw new IllegalArgumentException("@Subscribed method \"" + method + "\" cannot subscribe to class which inherits from subscribed class \"" + psc + "\"");
 					}
 				}
-
-				final String preferredName = "on" + parameterClazz.getSimpleName();
-				Preconditions.checkArgument(method.getName().equals(preferredName), "Subscribed method " + method + " should be named " + preferredName);
-
 				method.setAccessible(true);
 				SubscriberMethod lambda = null;
 
