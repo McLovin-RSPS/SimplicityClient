@@ -39,6 +39,10 @@ public enum OverlayPosition
 	 */
 	TOP_LEFT,
 	/**
+	 * Place overlay in the top center viewport area
+	 */
+	TOP_CENTER,
+	/**
 	 * Place overlay in the top right most area possible
 	 */
 	TOP_RIGHT,

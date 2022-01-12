@@ -452,6 +452,11 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 			isResizeable ? BORDER_LEFT_RESIZABLE : BORDER_LEFT_FIXED,
 			isResizeable ? BORDER_TOP_RESIZABLE : BORDER_TOP_FIXED);
 
+		final Point topCenterPoint = new Point(
+				viewportBounds.width / 2,
+				BORDER_LEFT_FIXED
+		);
+
 		final Point topRightPoint = new Point(
 			viewportBounds.x + viewportBounds.width - BORDER_RIGHT,
 			BORDER_TOP_FIXED);
@@ -476,10 +481,11 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		}
 
 		return new OverlayBounds(
-			new Rectangle(topLeftPoint, SNAP_CORNER_SIZE),
-			new Rectangle(topRightPoint, SNAP_CORNER_SIZE),
-			new Rectangle(bottomLeftPoint, SNAP_CORNER_SIZE),
-			new Rectangle(bottomRightPoint, SNAP_CORNER_SIZE),
-			new Rectangle(rightChatboxPoint, SNAP_CORNER_SIZE));
+				new Rectangle(topLeftPoint, SNAP_CORNER_SIZE),
+				new Rectangle(topCenterPoint, SNAP_CORNER_SIZE),
+				new Rectangle(topRightPoint, SNAP_CORNER_SIZE),
+				new Rectangle(bottomLeftPoint, SNAP_CORNER_SIZE),
+				new Rectangle(bottomRightPoint, SNAP_CORNER_SIZE),
+				new Rectangle(rightChatboxPoint, SNAP_CORNER_SIZE));
 	}
 }

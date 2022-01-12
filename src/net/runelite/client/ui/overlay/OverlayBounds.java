@@ -24,12 +24,6 @@
  */
 package net.runelite.client.ui.overlay;
 
-import static net.runelite.client.ui.overlay.OverlayPosition.ABOVE_CHATBOX_RIGHT;
-import static net.runelite.client.ui.overlay.OverlayPosition.BOTTOM_LEFT;
-import static net.runelite.client.ui.overlay.OverlayPosition.BOTTOM_RIGHT;
-import static net.runelite.client.ui.overlay.OverlayPosition.TOP_LEFT;
-import static net.runelite.client.ui.overlay.OverlayPosition.TOP_RIGHT;
-
 import java.awt.Rectangle;
 import java.util.Arrays;
 import java.util.Collection;
@@ -37,15 +31,18 @@ import java.util.Collection;
 import lombok.AllArgsConstructor;
 import lombok.Value;
 
+import static net.runelite.client.ui.overlay.OverlayPosition.*;
+
 @AllArgsConstructor
 @Value
 class OverlayBounds
 {
-	private final Rectangle topLeft, topRight, bottomLeft, bottomRight, aboveChatboxRight;
+	private final Rectangle topLeft, topCenter, topRight, bottomLeft, bottomRight, aboveChatboxRight;
 
 	OverlayBounds(OverlayBounds other)
 	{
 		topLeft = new Rectangle(other.topLeft);
+		topCenter = new Rectangle(other.topCenter);
 		topRight = new Rectangle(other.topRight);
 		bottomLeft = new Rectangle(other.bottomLeft);
 		bottomRight = new Rectangle(other.bottomRight);
@@ -68,6 +65,8 @@ class OverlayBounds
 		{
 			case TOP_LEFT:
 				return topLeft;
+			case TOP_CENTER:
+				return topCenter;
 			case TOP_RIGHT:
 				return topRight;
 			case BOTTOM_LEFT:
@@ -86,6 +85,10 @@ class OverlayBounds
 		if (bounds == topLeft)
 		{
 			return TOP_LEFT;
+		}
+		else if (bounds == topCenter)
+		{
+			return TOP_CENTER;
 		}
 		else if (bounds == topRight)
 		{
