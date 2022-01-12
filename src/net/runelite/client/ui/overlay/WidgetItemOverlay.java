@@ -106,7 +106,7 @@ public abstract class WidgetItemOverlay extends Overlay
 
 	protected void showOnBank()
 	{
-		showOnInterfaces(5292, 5062, 5064);
+		showOnInterfaces(5385, 5062, 5064, 5382, 22042, 22041, 22035);
 	}
 
 	protected void showOnEquipment()
