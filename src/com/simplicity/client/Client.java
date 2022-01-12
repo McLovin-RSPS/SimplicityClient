@@ -173,6 +173,8 @@ import net.runelite.client.plugins.hdnew.HdPlugin;
 import net.runelite.client.ui.ClientUI;
 import org.apache.commons.lang3.math.NumberUtils;
 
+import static java.lang.System.out;
+
 @SuppressWarnings("all")
 public class Client extends RSApplet {
 
@@ -5830,6 +5832,7 @@ public class Client extends RSApplet {
 
     public void handleShadow() {
         variousSettings[166] = shadowIndex;
+        sendVarbitChanged(166);
         if (shadowIndex == 1) {
             Rasterizer.method372(0.90000000000000002D);
             currentShadow = 0.90000000000000002D;
@@ -5847,7 +5850,9 @@ public class Client extends RSApplet {
             currentShadow = 0.59999999999999998D;
         }
         variousSettings[169] = SoundPlayer.getVolume();
+        sendVarbitChanged(169);
         variousSettings[168] = musicEnabled ? 3 : 4;
+        sendVarbitChanged(168);
     }
 
     public void handleActions(int configID) {
@@ -5895,6 +5900,7 @@ public class Client extends RSApplet {
             } else {
                 musicEnabled = true;
                 variousSettings[configID] = 3;
+                sendVarbitChanged(configID);
                 adjustVolume(musicEnabled, 300);
             }
             if (musicEnabled != music) {
@@ -8823,6 +8829,8 @@ public class Client extends RSApplet {
 
         if (interfaceId == 957) {
             variousSettings[287] = variousSettings[502] = variousSettings[502] == 1 ? 0 : 1;
+            sendVarbitChanged(287);
+            sendVarbitChanged(502);
             handleActions(287);
         }
 
@@ -10084,6 +10092,7 @@ public class Client extends RSApplet {
                     // System.out.println("Config ID: "+i2);
                     if ((i2 < 670 || i2 > 674) && !(i2 >= 1000 && i2 <= 1012) && variousSettings[i2] != class9_2.requiredValues[0]) {
                         variousSettings[i2] = class9_2.requiredValues[0];
+                        sendVarbitChanged(i2);
                         handleActions(i2);
                         needDrawTabArea = true;
                     }
@@ -10489,6 +10498,7 @@ public class Client extends RSApplet {
                 int l2 = class9_3.valueIndexArray[0][1];
                 if(!(l2 >= 580 && l2 <= 603 || l2 >= 1605 && l2 <= 1628 || l2 >= 1580 && l2 <= 1603)) {
                     variousSettings[l2] = 1 - variousSettings[l2];
+                    sendVarbitChanged(l2);
                     handleActions(l2);
                     needDrawTabArea = true;
                 }
@@ -20822,6 +20832,7 @@ public class Client extends RSApplet {
         if (rsi.valueIndexArray != null && rsi.valueIndexArray[0][0] == 5) {
             int configID = rsi.valueIndexArray[0][1];
             variousSettings[configID] = 1 - variousSettings[configID];
+            sendVarbitChanged(configID);
             handleActions(configID);
             needDrawTabArea = true;
         }
@@ -20847,6 +20858,7 @@ public class Client extends RSApplet {
                 if (class9_2.valueIndexArray != null && class9_2.valueIndexArray[0][0] == 5) {
                     if (variousSettings[toggle] != class9_2.requiredValues[0]) {
                         variousSettings[toggle] = class9_2.requiredValues[0];
+                        sendVarbitChanged(toggle);
                         handleActions(toggle);
                         needDrawTabArea = true;
                     }
@@ -20861,6 +20873,7 @@ public class Client extends RSApplet {
                 RSInterface clickedInterface = RSInterface.interfaceCache[button];
                 if (clickedInterface.valueIndexArray != null && clickedInterface.valueIndexArray[0][0] == 5) {
                     variousSettings[toggle] = 1 - variousSettings[toggle];
+                    sendVarbitChanged(toggle);
                     handleActions(toggle);
                     needDrawTabArea = true;
                 }
@@ -20882,6 +20895,7 @@ public class Client extends RSApplet {
         varbitConfigs[id] = state;
         if (variousSettings[id] != state) {
             variousSettings[id] = state;
+            sendVarbitChanged(id);
             handleActions(id);
             needDrawTabArea = true;
             if (dialogID != -1) {
@@ -22183,6 +22197,7 @@ public class Client extends RSApplet {
                     for (int k5 = 0; k5 < variousSettings.length; k5++) {
                         if (variousSettings[k5] != varbitConfigs[k5]) {
                             variousSettings[k5] = varbitConfigs[k5];
+                            sendVarbitChanged(k5);
                             handleActions(k5);
                             needDrawTabArea = true;
                         }
@@ -22360,6 +22375,7 @@ public class Client extends RSApplet {
                 case 113:
                     running = inStream.readUnsignedByte() > 0;
                     variousSettings[173] = running ? 1 : 0;
+                    sendVarbitChanged(173);
                     opCode = -1;
                     return true;
 
@@ -23047,6 +23063,7 @@ public class Client extends RSApplet {
                     }
                     if (variousSettings[settingIdx] != settingValue) {
                         variousSettings[settingIdx] = settingValue;
+                        sendVarbitChanged(settingIdx);
                         TotemsOverlay.onVarpChange(settingIdx, settingValue);
                         PortalNexusTeleportMenu.onVarpChange(settingIdx, settingValue);
                         handleActions(settingIdx);
@@ -23066,6 +23083,7 @@ public class Client extends RSApplet {
                         varbitConfigs[k8] = byte0;
                         if (variousSettings[k8] != byte0) {
                             variousSettings[k8] = byte0;
+                            sendVarbitChanged(k8);
                             handleActions(k8);
                             needDrawTabArea = true;
                             if (dialogID != -1) {
@@ -24466,6 +24484,11 @@ public class Client extends RSApplet {
     private static int baseX;
     private static int baseY;
 
+    public static void sendVarbitChanged(int index) {
+        out.println("Sending varbit for index [" + index + "]");
+        if(RuneLite.getClient() != null)
+            callbacks.post(new VarbitChanged(index));
+    }
     public static int getBaseX() {
         return baseX;
     }
@@ -26238,6 +26261,7 @@ public class Client extends RSApplet {
                             }
                             quickPrayers[types[i]] = 0;
                             variousSettings[quickConfigIDs[types[i]]] = 0;
+                            sendVarbitChanged(quickConfigIDs[types[i]]);
                             handleActions(quickConfigIDs[types[i]]);
                             if (dialogID != -1) {
                                 inputTaken = true;
@@ -26245,6 +26269,7 @@ public class Client extends RSApplet {
                         } else {
                             quickPrayers[index] = (quickPrayers[index] + 1) % 2;
                             variousSettings[quickConfigIDs[index]] = quickPrayers[index];
+                            sendVarbitChanged(quickConfigIDs[index]);
                             handleActions(quickConfigIDs[index]);
                             if (dialogID != -1) {
                                 inputTaken = true;
@@ -26254,6 +26279,7 @@ public class Client extends RSApplet {
                 } else {
                     quickPrayers[index] = (quickPrayers[index] + 1) % 2;
                     variousSettings[quickConfigIDs[index]] = quickPrayers[index];
+                    sendVarbitChanged(quickConfigIDs[index]);
                     handleActions(quickConfigIDs[index]);
                     if (dialogID != -1) {
                         inputTaken = true;
@@ -26271,6 +26297,7 @@ public class Client extends RSApplet {
                         if (index != types[i]) {
                             quickCurses[types[i]] = 0;
                             variousSettings[quickConfigIDs[types[i]]] = 0;
+                            sendVarbitChanged(quickConfigIDs[types[i]]);
                             handleActions(quickConfigIDs[types[i]]);
                             if (dialogID != -1) {
                                 inputTaken = true;
@@ -26280,6 +26307,7 @@ public class Client extends RSApplet {
                 }
                 quickCurses[index] = (quickCurses[index] + 1) % 2;
                 variousSettings[quickConfigIDs[index]] = quickCurses[index];
+                sendVarbitChanged(quickConfigIDs[index]);
                 handleActions(quickConfigIDs[index]);
                 if (dialogID != -1) {
                     inputTaken = true;

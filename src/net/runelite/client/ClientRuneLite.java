@@ -495,8 +495,7 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public int[] getVarps() {
-		// TODO Auto-generated method stub
-		return null;
+		return client().variousSettings;
 	}
 	
 	@Override
@@ -520,7 +519,7 @@ public class ClientRuneLite implements Client {
 	@Override
 	public int getVar(VarClientInt varClientInt) {
 		// TODO Auto-generated method stub
-		return 0;
+		return getVarps()[varClientInt.getIndex()];
 	}
 	
 	@Override
@@ -535,7 +534,7 @@ public class ClientRuneLite implements Client {
 	@Override
 	public int getVar(VarPlayer varPlayer) {
 		// TODO Auto-generated method stub
-		return 0;
+		return getVarps()[varPlayer.getId()];
 	}
 	
 	@Override
@@ -1171,7 +1170,9 @@ public class ClientRuneLite implements Client {
 		// TODO Auto-generated method stub
 		return ItemDefinition.getSprite(itemId, quantity, shadowColor);
 	}
-	
+	public int[] getSidebarIds() {
+		return client().tabInterfaceIDs;
+	}
 	@Override
 	public IndexedSprite createIndexedSprite() {
 		// TODO Auto-generated method stub

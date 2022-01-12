@@ -94,9 +94,11 @@ public class DuelArenaDuelOptionsWidget extends CustomWidget implements WidgetSt
 	public void onDisplay() {
 		for (int i = 0; i < rules.length; i++) {
 			Client.instance.variousSettings[1000 + i] = i == 1 ? 0 : 1;
+			Client.sendVarbitChanged(1000 + i);
 		}
 
 		Client.instance.variousSettings[1650] = 1;
+		Client.sendVarbitChanged(1650);
 	}
 
 	@Override

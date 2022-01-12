@@ -358,6 +358,8 @@ public interface Client extends GameEngine
 	 */
 	SpritePixels getSprite(IndexDataBase source, int archiveId, int fileId);
 
+
+	int[] getSidebarIds();
 	/**
 	 * Gets the sprite index database.
 	 *

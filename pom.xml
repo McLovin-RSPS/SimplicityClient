@@ -227,7 +227,7 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>23.2-jre</version>
+			<version>28.1-jre</version>
 			<exclusions>
 				<!--
 				compile time annotations for static analysis in Guava

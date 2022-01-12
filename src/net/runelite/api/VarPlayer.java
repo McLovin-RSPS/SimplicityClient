@@ -38,6 +38,7 @@ public enum VarPlayer
 	
 	QUEST_POINTS(101),
 	IS_POISONED(102),
+	CAST_MODE(108),
 	/**
 	 * Seems to start at 50(10 splash) and goes down by 1 every 30 seconds
 	 */

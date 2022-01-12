@@ -8,7 +8,9 @@ public class SetVarp implements VoidInstruction {
 
     @Override
     public Void invoke(InstructionArgs args) {
-        Client.instance.variousSettings[args.getNextInt()] = args.getNextInt();
+        int idx = args.getNextInt();
+        Client.instance.variousSettings[idx] = args.getNextInt();
+        Client.sendVarbitChanged(idx);
         return null;
     }
 }

@@ -152,14 +152,17 @@ public class ClientSettings {
 			
 			if (reader.has("chat-effects")) {
 				Client.instance.variousSettings[171] = reader.get("chat-effects").getAsBoolean() ? 1 : 0;
+				Client.sendVarbitChanged(171);
 			}
 			
 			if (reader.has("split-private-chat")) {
 				Client.instance.variousSettings[287] = reader.get("split-private-chat").getAsBoolean() ? 0 : 1;
+				Client.sendVarbitChanged(287);
 			}
 			
 			if (reader.has("mouse-buttons")) {
 				Client.instance.anInt1253 = Client.instance.variousSettings[170] = reader.get("mouse-buttons").getAsBoolean() ? 1 : 0;
+				Client.sendVarbitChanged(170);
 			}
 			
 			if (reader.has("mouse-camera")) {
