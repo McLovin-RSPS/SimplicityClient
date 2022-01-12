@@ -372,12 +372,11 @@ public class CustomItems {
             case 18620: 
             	itemDef.copy(ItemDefinition.forID(8151));
             	itemDef.name = "@whi@Arthur's Executive Box";
-            	//itemDef.name = "Executive box";
             	itemDef.actions = new String[5];
             	itemDef.actions[0] = "Open";
             	itemDef.modelID = 114;
             	itemDef.editedModelColor =new int[]{ 40 };
-            	itemDef.newModelColor = new int[]{ 67 };
+            	itemDef.newModelColor = new int[]{ 64 };
             	itemDef.animateInventory = true;
             	itemDef.dataType = DataType.CUSTOM;
             	break;
