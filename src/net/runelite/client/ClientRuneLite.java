@@ -461,7 +461,13 @@ public class ClientRuneLite implements Client {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
+
+	@Override
+	public RSInterface getWidget(int widget) {
+		// TODO Auto-generated method stub
+		return RSInterface.interfaceCache[widget];
+	}
 	@Override
 	public Widget getWidget(WidgetInfo widget) {
 		// TODO Auto-generated method stub

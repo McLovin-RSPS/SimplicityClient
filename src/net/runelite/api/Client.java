@@ -31,16 +31,14 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
-import com.simplicity.client.Projectile;
-import org.slf4j.Logger;
-
-import com.simplicity.client.CollisionDetection;
+import com.simplicity.client.*;
+import com.simplicity.client.Model;
 import com.simplicity.client.NPC;
 import com.simplicity.client.Player;
-import com.simplicity.client.Model;
-import com.simplicity.client.RSImageProducer;
+import com.simplicity.client.Projectile;
 import com.simplicity.client.Tile;
-import com.simplicity.client.WorldController;
+import org.slf4j.Logger;
+
 import com.simplicity.client.container.item.ItemContainer;
 
 import net.runelite.api.annotations.VisibleForDevtools;
@@ -446,6 +444,8 @@ public interface Client extends GameEngine
 	 * @return the widget
 	 */
 	Widget getWidget(WidgetInfo widget);
+
+	RSInterface getWidget(int id);
 
 	/**
 	 * Gets a widget by its raw group ID and child ID.
