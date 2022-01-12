@@ -166,16 +166,20 @@ public class ClientRuneLite implements Client {
 		// TODO Auto-generated method stub
 		
 	}
-	
 	@Override
 	public void setMenuEntries(MenuEntry[] entries) {
+		int menuActionRow = 0;
 		for (int i = 0; i < client().menuActionRow; i++) {
 			client().menuActionID[i] = entries[i].getType();
-			client().menuActionName[i] = entries[i].getOption() + entries[i].getTarget();
+			client().menuActionName[i] = entries[i].getOption();
 			client().menuActionCmd1[i] = entries[i].getIdentifier();
 			client().menuActionCmd2[i] = entries[i].getParam0();
 			client().menuActionCmd3[i] = entries[i].getParam1();
+			client().menuActionTarget[i] = entries[i].getTarget();
+			menuActionRow++;
 		}
+		if(isMenuOpen())
+			client().menuActionRow = menuActionRow;
 	}
 	
 	@Override
@@ -727,16 +731,16 @@ public class ClientRuneLite implements Client {
 	@Override
 	public MenuEntry[] getMenuEntries() {
 		MenuEntry[] entries = new MenuEntry[client().menuActionRow];
-		
 		for (int i = 0; i < client().menuActionRow; i++) {
 			String action = client().menuActionName[i];
-			String target = "";
+			String target = (client().menuActionTarget[i] != null && !client().menuActionTarget[i].equalsIgnoreCase("null")) ? client().menuActionTarget[i] : null;
 			
 			if (action != null) {
-				
-				if (action.contains("@")) {
-					target = action.substring(action.indexOf("@"));
-					action = action.substring(0, action.indexOf("@"));
+				if(target != null && target.length() <= 0) {
+					if (action.contains("@")) {
+						target = action.substring(action.indexOf("@"));
+						action = action.substring(0, action.indexOf("@"));
+					}
 				}
 				
 				entries[i] = new MenuEntry();
@@ -1165,7 +1169,7 @@ public class ClientRuneLite implements Client {
 	public SpritePixels createItemSprite(int itemId, int quantity, int border, int shadowColor, int stackable,
 			boolean noted, int scale) {
 		// TODO Auto-generated method stub
-		return null;
+		return ItemDefinition.getSprite(itemId, quantity, shadowColor);
 	}
 	
 	@Override

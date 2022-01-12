@@ -82,4 +82,8 @@ public class MenuOptionClicked
 	{
 		this.consumed = true;
 	}
+
+	public int getIdentifier() {
+		return getMenuAction().getId();
+	}
 }

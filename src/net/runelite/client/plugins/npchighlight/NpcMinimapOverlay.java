@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import com.simplicity.client.cache.definitions.MobDefinition;
 
 import net.runelite.api.Client;
+import net.runelite.api.GraphicsBufferType;
 import net.runelite.api.Point;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
@@ -31,6 +32,7 @@ public class NpcMinimapOverlay extends Overlay
 		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
+		setGraphicsBuffer(GraphicsBufferType.MINIMAP);
 	}
 
 	@Override

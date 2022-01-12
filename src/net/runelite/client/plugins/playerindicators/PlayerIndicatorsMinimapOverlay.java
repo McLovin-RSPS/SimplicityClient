@@ -32,6 +32,7 @@ import javax.inject.Singleton;
 
 import com.simplicity.client.Player;
 
+import net.runelite.api.GraphicsBufferType;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -50,6 +51,7 @@ public class PlayerIndicatorsMinimapOverlay extends Overlay
 		this.config = config;
 		this.playerIndicatorsService = playerIndicatorsService;
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
+		setGraphicsBuffer(GraphicsBufferType.MINIMAP);
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.HIGH);
 	}

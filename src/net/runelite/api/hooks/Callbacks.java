@@ -31,7 +31,9 @@ import java.awt.event.MouseWheelEvent;
 
 import com.simplicity.client.RSImageProducer;
 
+import net.runelite.api.GraphicsBufferType;
 import net.runelite.api.MainBufferProvider;
+import net.runelite.api.widgets.WidgetItem;
 
 /**
  * Interface of callbacks the injected client uses to send events
@@ -64,12 +66,12 @@ public interface Callbacks {
 	/**
 	 * Called after the scene is drawn.
 	 */
-	void drawScene();
+	void drawScene(GraphicsBufferType graphicsBufferType);
 
 	/**
 	 * Called after logic that is drawing 2D objects is processed.
 	 */
-	void drawAboveOverheads();
+	void drawAboveOverheads(GraphicsBufferType graphicsBufferType);
 
 	/**
 	 * Client top-most draw method, rendering over top of most of game interfaces.
@@ -79,8 +81,10 @@ public interface Callbacks {
 	 * @param x                  the x
 	 * @param y                  the y
 	 */
-	void draw(RSImageProducer mainBufferProvider, Graphics graphics, int x, int y);
+	void draw(RSImageProducer mainBufferProvider, Graphics graphics, int x, int y, GraphicsBufferType graphicsBufferType);
 
+
+	void drawItem(int itemId, WidgetItem widgetItem);
 	/**
 	 * Mouse pressed event. If this event will be consumed it will not be propagated
 	 * further to client.

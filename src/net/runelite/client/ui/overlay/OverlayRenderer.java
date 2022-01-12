@@ -43,6 +43,7 @@ import com.google.common.base.MoreObjects;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
+import net.runelite.api.GraphicsBufferType;
 import net.runelite.api.events.FocusChanged;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
@@ -113,7 +114,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		}
 	}
 
-	public void render(Graphics2D graphics, final OverlayLayer layer)
+	public void render(Graphics2D graphics, final OverlayLayer layer, GraphicsBufferType imageProducer)
 	{
 		final Client client = RuneLite.getClient();
 		final List<Overlay> overlays = overlayManager.getLayer(layer);
@@ -156,6 +157,8 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		
 		for (Overlay overlay : overlays)
 		{
+			if(overlay.graphicsBuffer != null && overlay.graphicsBuffer != imageProducer && overlay.graphicsBuffer != GraphicsBufferType.ALL)
+				continue;
 			OverlayPosition overlayPosition = overlay.getPosition();
 			
 			if (overlay.getPreferredPosition() != null)

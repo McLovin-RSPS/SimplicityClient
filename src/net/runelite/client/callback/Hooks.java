@@ -47,14 +47,13 @@ import com.simplicity.client.DrawingArea;
 import com.simplicity.client.RSImageProducer;
 
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.Client;
-import net.runelite.api.RenderOverview;
-import net.runelite.api.WorldMapManager;
+import net.runelite.api.*;
 import net.runelite.api.events.BeforeRender;
 import net.runelite.api.events.ClientTick;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.hooks.Callbacks;
 import net.runelite.api.widgets.Widget;
+import net.runelite.api.widgets.WidgetItem;
 import net.runelite.client.Notifier;
 import net.runelite.client.RuneLite;
 import net.runelite.client.chat.ChatMessageManager;
@@ -65,6 +64,7 @@ import net.runelite.client.task.Scheduler;
 import net.runelite.client.ui.ClientUI;
 import net.runelite.client.ui.DrawManager;
 import net.runelite.client.ui.overlay.OverlayLayer;
+import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.OverlayRenderer;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import net.runelite.client.util.DeferredEventBus;
@@ -93,7 +93,9 @@ public class Hooks implements Callbacks
 	
 	@Inject
 	private Client client;
-	
+
+	@Inject
+	private OverlayManager overlayManager;
 	@Inject
 	private EventBus eventBus;
 
@@ -144,7 +146,12 @@ public class Hooks implements Callbacks
 	{
 		deferredEventBus.post(event);
 	}
+	@Override
+	public void drawItem(int itemId, WidgetItem widgetItem)
+	{
+		overlayManager.getItemWidgets().add(widgetItem);
 
+	}
 	@Override
 	public void clientMainLoop()
 	{
@@ -281,7 +288,7 @@ public class Hooks implements Callbacks
 	}
 
 	@Override
-	public void draw(RSImageProducer mainBufferProvider, Graphics graphics, int x, int y)
+	public void draw(RSImageProducer mainBufferProvider, Graphics graphics, int x, int y, GraphicsBufferType graphicsBufferType)
 	{
 		if (graphics == null)
 		{
@@ -294,7 +301,7 @@ public class Hooks implements Callbacks
 
 		try
 		{
-			renderer.render(graphics2d, OverlayLayer.ALWAYS_ON_TOP);
+			renderer.render(graphics2d, OverlayLayer.ALWAYS_ON_TOP, graphicsBufferType);
 		}
 		catch (Exception ex)
 		{
@@ -367,7 +374,7 @@ public class Hooks implements Callbacks
 
 
 	@Override
-	public void drawScene()
+	public void drawScene(GraphicsBufferType graphicsBufferType)
 	{
 		RSImageProducer bufferProvider = client().getGameScreenIP();
 		BufferedImage image = bufferProvider.image;
@@ -375,7 +382,7 @@ public class Hooks implements Callbacks
 
 		try
 		{
-			renderer.render(graphics2d, OverlayLayer.ABOVE_SCENE);
+			renderer.render(graphics2d, OverlayLayer.ABOVE_SCENE, graphicsBufferType);
 		}
 		catch (Exception ex)
 		{
@@ -388,7 +395,7 @@ public class Hooks implements Callbacks
 	}
 
 	@Override
-	public void drawAboveOverheads()
+	public void drawAboveOverheads(GraphicsBufferType graphicsBufferType)
 	{
 		RSImageProducer bufferProvider = client().getGameScreenIP();
 		BufferedImage image = bufferProvider.image;
@@ -396,7 +403,7 @@ public class Hooks implements Callbacks
 
 		try
 		{
-			renderer.render(graphics2d, OverlayLayer.UNDER_WIDGETS);
+			renderer.render(graphics2d, OverlayLayer.UNDER_WIDGETS, graphicsBufferType);
 		}
 		catch (Exception ex)
 		{
@@ -408,7 +415,7 @@ public class Hooks implements Callbacks
 		}
 	}
 
-	public static void drawAfterWidgets(RSImageProducer bufferProvider)
+	public static void drawAfterWidgets(RSImageProducer bufferProvider, GraphicsBufferType graphicsBufferType)
 	{
 		BufferedImage image = bufferProvider.image;
 		
@@ -416,7 +423,7 @@ public class Hooks implements Callbacks
 
 		try
 		{
-			renderer.render(graphics2d, OverlayLayer.ABOVE_WIDGETS);
+			renderer.render(graphics2d, OverlayLayer.ABOVE_WIDGETS, graphicsBufferType);
 		}
 		catch (Exception ex)
 		{
@@ -426,9 +433,10 @@ public class Hooks implements Callbacks
 		{
 			graphics2d.dispose();
 		}
+		RuneLite.getInjector().getInstance(OverlayManager.class).getItemWidgets().clear();
 	}
 	
-	public static void drawAfterTabArea(RSImageProducer bufferProvider)
+	public static void drawAfterTabArea(RSImageProducer bufferProvider, GraphicsBufferType graphicsBufferType)
 	{
 		BufferedImage image = bufferProvider.image;
 		
@@ -436,7 +444,7 @@ public class Hooks implements Callbacks
 
 		try
 		{
-			renderer.render(graphics2d, OverlayLayer.TAB_AREA);
+			renderer.render(graphics2d, OverlayLayer.TAB_AREA, graphicsBufferType);
 		}
 		catch (Exception ex)
 		{
@@ -445,23 +453,6 @@ public class Hooks implements Callbacks
 		finally
 		{
 			graphics2d.dispose();
-		}
-	}
-	
-	public static void drawAfterWidgets(Graphics graphics2d)
-	{
-		try
-		{
-			renderer.render((Graphics2D) graphics2d, OverlayLayer.ABOVE_WIDGETS);
-		}
-		catch (Exception ex)
-		{
-			ex.printStackTrace();
-			log.warn("Error during overlay rendering", ex);
-		}
-		finally
-		{
-			//graphics2d.dispose();
 		}
 	}
 	

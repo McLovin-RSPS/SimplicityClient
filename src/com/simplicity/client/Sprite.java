@@ -1,6 +1,8 @@
 package com.simplicity.client;
 
 
+import net.runelite.api.SpritePixels;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -19,7 +21,7 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-public class Sprite extends DrawingArea {
+public class Sprite extends DrawingArea implements SpritePixels {
 
 	public void setAlphaTransparency(int a) {
 		for (int pixel = 0; pixel < myPixels.length; pixel++){
@@ -1618,7 +1620,27 @@ public class Sprite extends DrawingArea {
 		
 		return y2;
 	}
-	
+
+	@Override
+	public void drawAt(int x, int y) {
+
+	}
+
+	@Override
+	public int getWidth() {
+		return myWidth;
+	}
+
+	@Override
+	public int getHeight() {
+		return myHeight;
+	}
+
+	@Override
+	public int[] getPixels() {
+		return myPixels;
+	}
+
 	public BufferedImage toBufferedImage() {
 		BufferedImage img = new BufferedImage(myWidth, myHeight, BufferedImage.TYPE_INT_ARGB);
 		

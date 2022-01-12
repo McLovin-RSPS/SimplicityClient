@@ -30,6 +30,7 @@ import java.awt.Graphics2D;
 import java.util.Collection;
 import javax.inject.Inject;
 import net.runelite.api.Client;
+import net.runelite.api.GraphicsBufferType;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
@@ -59,6 +60,7 @@ class GroundMarkerMinimapOverlay extends Overlay
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.LOW);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
+		setGraphicsBuffer(GraphicsBufferType.MINIMAP);
 	}
 
 	@Override

@@ -29,6 +29,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
 import net.runelite.api.Client;
+import net.runelite.api.GraphicsBufferType;
 import net.runelite.api.Point;
 import net.runelite.api.events.FocusChanged;
 import net.runelite.api.widgets.Widget;
@@ -66,6 +67,7 @@ public class FpsOverlay extends Overlay
 	{
 		this.config = config;
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
+		setGraphicsBuffer(GraphicsBufferType.MINIMAP);
 		setPriority(OverlayPriority.HIGH);
 		setPosition(OverlayPosition.DYNAMIC);
 	}

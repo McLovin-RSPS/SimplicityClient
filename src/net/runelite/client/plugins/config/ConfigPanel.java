@@ -337,9 +337,76 @@ public class ConfigPanel extends PluginPanel
 
 		for (ConfigItemDescriptor cid : cd.getItems())
 		{
-			if (cid.getItem().hidden())
+			if (cid == null)
 			{
 				continue;
+			}
+
+			Boolean unhide = cid.getItem().hidden();
+			Boolean hide = !cid.getItem().hide().isEmpty();
+
+			if (unhide || hide)
+			{
+				boolean show = false;
+
+				List<String> itemHide = Splitter
+						.onPattern("\\|\\|")
+						.trimResults()
+						.omitEmptyStrings()
+						.splitToList(String.format("%s || %s", cid.getItem().unhide(), cid.getItem().hide()));
+
+				for (ConfigItemDescriptor cid2 : cd.getItems())
+				{
+					if (itemHide.contains(cid2.getItem().keyName()))
+					{
+						if (cid2.getType() == boolean.class)
+						{
+							show = Boolean.parseBoolean(configManager.getConfiguration(cd.getGroup().value(), cid2.getItem().keyName()));
+						}
+						else if (cid2.getType().isEnum())
+						{
+							@SuppressWarnings("unchecked") Class<? extends Enum> type = (Class<? extends Enum>) cid2.getType();
+							try
+							{
+								@SuppressWarnings("unchecked") Enum selectedItem = Enum.valueOf(type, configManager.getConfiguration(cd.getGroup().value(), cid2.getItem().keyName()));
+								if (!cid.getItem().unhideValue().equals(""))
+								{
+									List<String> unhideValue = Splitter
+											.onPattern("\\|\\|")
+											.trimResults()
+											.omitEmptyStrings()
+											.splitToList(cid.getItem().unhideValue());
+
+									show = unhideValue.contains(selectedItem.toString());
+								}
+								else if (!cid.getItem().hideValue().equals(""))
+								{
+									List<String> hideValue = Splitter
+											.onPattern("\\|\\|")
+											.trimResults()
+											.omitEmptyStrings()
+											.splitToList(cid.getItem().hideValue());
+
+									show = !hideValue.contains(selectedItem.toString());
+								}
+							}
+							catch (IllegalArgumentException ex)
+							{
+								log.info("So bad, so sad: {}", ex.toString());
+							}
+						}
+					}
+
+					if (show)
+					{
+						break;
+					}
+				}
+
+				if ((unhide && !show) || (hide && show))
+				{
+					continue;
+				}
 			}
 
 			JPanel item = new JPanel();

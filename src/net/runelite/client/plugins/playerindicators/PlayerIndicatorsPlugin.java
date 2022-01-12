@@ -107,6 +107,8 @@ public class PlayerIndicatorsPlugin extends Plugin
 
 		for (MenuEntry entry : menuEntries)
 		{
+			if(entry == null)
+				continue;
 			int type = entry.getType();
 
 			if (type >= MENU_ACTION_DEPRIORITIZE_OFFSET)

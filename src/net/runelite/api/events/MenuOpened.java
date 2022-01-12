@@ -23,8 +23,12 @@ package net.runelite.api.events;
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Setter;
 import net.runelite.api.MenuEntry;
+
+import java.util.Iterator;
 
 /**
  * An event where a menu has been opened.
@@ -41,6 +45,13 @@ public class MenuOpened
 	private MenuEntry[] menuEntries;
 
 	/**
+	 * This should be set to true if anything about the menu
+	 * in menuEntries is changed, so the changes can be
+	 * propagated through to the client.
+	 */
+	@Setter(AccessLevel.NONE)
+	private boolean modified;
+	/**
 	 * Gets the entry that will be displayed first in the menu.
 	 *
 	 * @return the first entry
@@ -53,5 +64,28 @@ public class MenuOpened
 		}
 
 		return null;
+	}
+	public void setModified()
+	{
+		this.modified = true;
+	}
+	public Iterator<MenuEntry> iterator()
+	{
+		return new Iterator<MenuEntry>()
+		{
+			int index = 0;
+
+			@Override
+			public boolean hasNext()
+			{
+				return index < menuEntries.length;
+			}
+
+			@Override
+			public MenuEntry next()
+			{
+				return menuEntries[index++];
+			}
+		};
 	}
 }

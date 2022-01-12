@@ -31,6 +31,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import com.simplicity.client.RSInterface;
 import lombok.AccessLevel;
 import lombok.Setter;
 import net.runelite.api.widgets.Widget;
@@ -75,58 +77,24 @@ public abstract class WidgetItemOverlay extends Overlay
 		}
 		final List<WidgetItem> itemWidgets = overlayManager.getItemWidgets();
 		final Rectangle originalClipBounds = graphics.getClipBounds();
-		Widget curClipParent = null;
+		if(itemWidgets.size() > 0) {
+		}
 		for (WidgetItem widgetItem : itemWidgets)
 		{
-			Widget widget = widgetItem.getWidget();
-			int interfaceGroup = TO_GROUP(widget.getId());
+			RSInterface widget = widgetItem.getWidget();
+			int interfaceGroup = widget.id;
 
 			// Don't draw if this widget isn't one of the allowed nor in tag tab/item tab
 			if (!interfaceGroups.contains(interfaceGroup) ||
 				(interfaceGroup == BANK_GROUP_ID
 					/*&& (widget.getParentId() == BANK_CONTENT_CONTAINER.getId() || widget.getParentId() == BANK_TAB_CONTAINER.getId())*/))
 			{
+				System.out.println("Skipping because interfaceID not allowed: " + interfaceGroup);
 				continue;
 			}
-
-			Widget parent = widget.getParent();
-			Rectangle parentBounds = parent.getBounds();
-			Rectangle itemCanvasBounds = widgetItem.getCanvasBounds();
-			boolean dragging = widgetItem.getDraggingCanvasBounds() != null;
-
-			boolean shouldClip;
-			if (dragging)
-			{
-				// If dragging, clip if the dragged item is outside of the parent bounds
-				shouldClip = itemCanvasBounds.x < parentBounds.x;
-				shouldClip |= itemCanvasBounds.x + itemCanvasBounds.width >= parentBounds.x + parentBounds.width;
-				shouldClip |= itemCanvasBounds.y < parentBounds.y;
-				shouldClip |= itemCanvasBounds.y + itemCanvasBounds.height >= parentBounds.y + parentBounds.height;
-			}
-			else
-			{
-				// Otherwise, we only need to clip the overlay if it intersects the parent bounds,
-				// since items completely outside of the parent bounds are not drawn
-				shouldClip = itemCanvasBounds.y < parentBounds.y && itemCanvasBounds.y + itemCanvasBounds.height >= parentBounds.y;
-				shouldClip |= itemCanvasBounds.y < parentBounds.y + parentBounds.height && itemCanvasBounds.y + itemCanvasBounds.height >= parentBounds.y + parentBounds.height;
-				shouldClip |= itemCanvasBounds.x < parentBounds.x && itemCanvasBounds.x + itemCanvasBounds.width >= parentBounds.x;
-				shouldClip |= itemCanvasBounds.x < parentBounds.x + parentBounds.width && itemCanvasBounds.x + itemCanvasBounds.width >= parentBounds.x + parentBounds.width;
-			}
-			if (shouldClip)
-			{
-				if (curClipParent != parent)
-				{
-					graphics.setClip(parentBounds);
-					curClipParent = parent;
-				}
-			}
-			else if (curClipParent != null && curClipParent != parent)
-			{
 				graphics.setClip(originalClipBounds);
-				curClipParent = null;
-			}
 
-			renderItemOverlay(graphics, widgetItem.getId(), widgetItem);
+			renderItemOverlay(graphics, widgetItem.getId() - 1, widgetItem);
 		}
 		return null;
 	}
@@ -140,7 +108,7 @@ public abstract class WidgetItemOverlay extends Overlay
 			GRAND_EXCHANGE_INVENTORY_GROUP_ID,
 			GUIDE_PRICES_INVENTORY_GROUP_ID,
 			EQUIPMENT_INVENTORY_GROUP_ID,
-			INVENTORY_GROUP_ID/*,
+			3214/*,
 			SEED_VAULT_INVENTORY_GROUP_ID*/);
 	}
 
@@ -176,6 +144,6 @@ public abstract class WidgetItemOverlay extends Overlay
 	@Override
 	public void setLayer(OverlayLayer layer)
 	{
-		throw new IllegalStateException();
+		this.layer = layer;
 	}
 }

@@ -26,8 +26,10 @@ package net.runelite.client.menus;
 
 import java.awt.Color;
 
+import lombok.ToString;
 import net.runelite.api.widgets.WidgetInfo;
 
+@ToString
 public final class WidgetMenuOption
 {
 	/**

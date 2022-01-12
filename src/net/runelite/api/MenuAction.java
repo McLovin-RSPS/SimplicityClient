@@ -32,6 +32,8 @@ import java.util.Map;
  */
 public enum MenuAction
 {
+
+	CLICK_TAB(1076),
 	/**
 	 * Menu action for using an item in your inventory on a tile object (GameObject or GroundObject).
 	 */

@@ -29,6 +29,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
@@ -43,6 +44,7 @@ import net.runelite.api.Varbits;
 import net.runelite.api.VarPlayer;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
+import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.SkillIconManager;
 import net.runelite.client.game.SpriteManager;
 import net.runelite.client.plugins.statusbars.Config.BarMode;
@@ -90,6 +92,8 @@ class StatusBarsOverlay extends Overlay
 	private final Map<BarMode, BarRenderer> barRenderers = new EnumMap<>(BarMode.class);
 	@Inject
 	private OverlayManager overlayManager;
+	@Inject
+	private ItemManager itemManager;
 
 	@Inject
 	private StatusBarsOverlay(Client client, StatusBarsConfig config, SkillIconManager skillIconManager, /*ItemStatChangesService itemstatservice,*/ SpriteManager spriteManager)

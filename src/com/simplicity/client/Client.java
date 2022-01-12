@@ -161,12 +161,11 @@ import com.simplicity.util.MiscUtils;
 import com.simplicity.util.Stopwatch;
 import com.simplicity.util.StringUtils;
 
-import net.runelite.api.ChatMessageType;
-import net.runelite.api.GameState;
-import net.runelite.api.MenuAction;
+import net.runelite.api.*;
 import net.runelite.api.Skill;
 import net.runelite.api.events.*;
 import net.runelite.api.hooks.DrawCallbacks;
+import net.runelite.api.widgets.WidgetItem;
 import net.runelite.client.RuneLite;
 import net.runelite.client.callback.Hooks;
 import net.runelite.client.plugins.PluginManager;
@@ -3051,9 +3050,9 @@ public class Client extends RSApplet {
         }
         Rasterizer.anIntArray1472 = anIntArray1181;
         handleTabArea(clientSize == 0);
-        
+
         if (runelite != null) {
-        	callbacks.drawAfterTabArea(clientSize == 0 ? tabAreaIP : gameScreenIP);
+        	callbacks.drawAfterTabArea(clientSize == 0 ? tabAreaIP : gameScreenIP, GraphicsBufferType.TAB_AREA);
         }
         
         if (Configuration.enableSkillStatusBars) {
@@ -3088,7 +3087,9 @@ public class Client extends RSApplet {
         if ((Configuration.enableItemStats == 1 && controlIsDown || Configuration.enableItemStats == 2) && tabInterfaceIDs[tabID] == 3213 && tabID == 3 && itemStatsId > 0 && hoverInventory()) {
         	drawItemStats(itemStatsId);
         }
-
+        if(RuneLite.getClient() != null) {
+            callbacks.drawAfterWidgets(tabAreaIP, GraphicsBufferType.TAB_AREA);
+        }
         if (clientSize == 0) {
             tabAreaIP.drawGraphics(168, super.graphics, 516);
         }
@@ -3109,7 +3110,11 @@ public class Client extends RSApplet {
         }
         menuActionName[1] = tooltipString[TabHoverId];
         menuActionID[1] = 1076;
+        menuActionCmd3[1] = 1076;
         menuActionRow = 2;
+        if (runelite != null) {
+            callbacks.post(new MenuEntryAdded(menuActionName[menuActionRow - 1], "", menuActionID[menuActionRow - 1], menuActionCmd1[menuActionRow - 1], menuActionCmd2[menuActionRow - 1], menuActionCmd3[menuActionRow - 1]));
+        }
         tooltipString = null;
     }
     
@@ -5367,6 +5372,9 @@ public class Client extends RSApplet {
                                                         menuActionCmd2[menuActionRow] = ptr;
                                                         menuActionCmd3[menuActionRow] = child.id;
                                                         menuActionRow++;
+                                                        if (runelite != null) {
+                                                            callbacks.post(new MenuEntryAdded(menuActionName[menuActionRow - 1], itemDef.name, menuActionID[menuActionRow - 1], menuActionCmd1[menuActionRow - 1], menuActionCmd2[menuActionRow - 1], menuActionCmd3[menuActionRow - 1]));
+                                                        }
                                                     }
                                                 }
                                             }
@@ -6522,8 +6530,20 @@ public class Client extends RSApplet {
             xCameraCurve = i2;
         }
     }
-
     private void drawMenu() {
+        MenuOpened menuOpened = new MenuOpened();
+        if(RuneLite.getClient() != null) {
+            menuOpened.setMenuEntries(RuneLite.getClient().getMenuEntries());
+            callbacks.post(menuOpened);
+
+            if (menuOpened.isModified()) {
+                menuActionRow = 1;
+                Arrays.stream(menuOpened.getMenuEntries()).forEach(entry -> {
+                    if(entry != null)   RuneLite.getClient().addMenuEntry(entry);
+                });
+            }
+        }
+        determineMenuSize();
         int xPos = menuOffsetX;
         int yPos = menuOffsetY;
         int k = menuWidth;
@@ -6576,7 +6596,10 @@ public class Client extends RSApplet {
                 if (posX > xPos && posX < xPos + k && posY > textY - 13 && posY < textY + 3) {
                     textColor = 0xffff00;
                 }
-                newBoldFont.drawBasicString(menuActionName[l1], xPos + 3, textY, textColor, 1);
+                String action = menuActionName[l1];
+                if(menuActionTarget[l1] != null && !menuActionTarget[l1].equalsIgnoreCase("null"))
+                    action = action + " " + menuActionTarget[l1];
+                newBoldFont.drawBasicString(action, xPos + 3, textY, textColor, 1);
             }
         } else if (menuToggle == true) {
             // DrawingArea.drawPixels(height, yPos, xPos, color, width);
@@ -6616,7 +6639,10 @@ public class Client extends RSApplet {
                     disColor = 0xeee5c6;
                     currentActionMenu = l1;
                 }
-                newBoldFont.drawBasicString(menuActionName[l1], xPos + 3, textY, disColor, 1);
+                String action = menuActionName[l1];
+                if(menuActionTarget[l1] != null && !menuActionTarget[l1].equalsIgnoreCase("null"))
+                    action = action + " " + menuActionTarget[l1];
+                newBoldFont.drawBasicString(action, xPos + 3, textY, disColor, 1);
             }
         }
     }
@@ -8997,7 +9023,7 @@ public class Client extends RSApplet {
         	MenuOptionClicked option = new MenuOptionClicked();
         	option.setActionParam(slot);
         	option.setMenuOption(menuActionName[i]);
-        	option.setMenuTarget("");
+        	option.setMenuTarget(menuActionTarget[i] != null ? menuActionTarget[i] : "");
         	option.setMenuAction(MenuAction.of(l));
         	option.setId((entityId > 0x7fff ? cmd4 : entityId)); // obj id
         	option.setWidgetId(interfaceId);
@@ -13275,6 +13301,11 @@ public class Client extends RSApplet {
         if (activeInterfaceType != 0) {
             return;
         }
+        for(int i = 0; i <= menuActionRow; i++) {
+            if(menuActionTarget[i] != null)
+                menuActionTarget[i] = null;
+            continue;
+        }
         
         menuActionName[0] = "Cancel";
         menuActionID[0] = 1107;
@@ -14584,7 +14615,7 @@ public class Client extends RSApplet {
                         menuActionRow++;
                         
                         if (runelite != null && !menuOpen) {
-                    		callbacks.post(new MenuEntryAdded(menuActionName[menuActionRow - 1], "@yel@" + entityDef.name, menuActionID[menuActionRow - 1], menuActionCmd1[menuActionRow - 1], menuActionCmd2[menuActionRow - 1], menuActionCmd3[menuActionRow - 1]));
+                    		callbacks.post(new MenuEntryAdded(menuActionName[menuActionRow - 1], entityDef.name, menuActionID[menuActionRow - 1], menuActionCmd1[menuActionRow - 1], menuActionCmd2[menuActionRow - 1], menuActionCmd3[menuActionRow - 1]));
                         }
                     }
                 }
@@ -14640,7 +14671,7 @@ public class Client extends RSApplet {
             menuActionRow++;
             
             if (runelite != null && !menuOpen) {
-            	callbacks.post(new MenuEntryAdded(menuActionName[menuActionRow - 1], "@yel@" + entityDef.name, menuActionID[menuActionRow - 1], menuActionCmd1[menuActionRow - 1], menuActionCmd2[menuActionRow - 1], menuActionCmd3[menuActionRow - 1]));
+            	callbacks.post(new MenuEntryAdded(menuActionName[menuActionRow - 1], entityDef.name, menuActionID[menuActionRow - 1], menuActionCmd1[menuActionRow - 1], menuActionCmd2[menuActionRow - 1], menuActionCmd3[menuActionRow - 1]));
             }
 
             if (entityDef.combatLevel > 0) {
@@ -16061,7 +16092,7 @@ public class Client extends RSApplet {
                 drawMinimap();
                 
                 if (runelite != null) {
-                	callbacks.drawAfterWidgets(mapAreaIP);
+                	callbacks.drawAfterWidgets(mapAreaIP, GraphicsBufferType.MINIMAP);
                 }
                 
                 mapAreaIP.drawGraphics(0, super.graphics, 516);
@@ -16586,6 +16617,9 @@ public class Client extends RSApplet {
                                     if (sprite_1 != null) {
                                         sprite_1.drawSprite(itemSpriteX, itemSpriteY);
                                     }
+                                }
+                                if(RuneLite.getClient() != null) {
+                                    callbacks.drawItem(child.inv[spriteIndex], new WidgetItem(child.inv[spriteIndex], child.invStackSizes[spriteIndex], spriteIndex, new Rectangle(itemSpriteX, itemSpriteY, 32, 32), child, null));
                                 }
                                 spriteIndex++;
                             }
@@ -18649,6 +18683,8 @@ public class Client extends RSApplet {
         int i = newBoldFont.getTextWidth("Choose Option");
         for (int j = 0; j < menuActionRow; j++) {
             int k = newBoldFont.getTextWidth(menuActionName[j]);
+            if(menuActionTarget[j] != null)
+                k += newBoldFont.getTextWidth(" " + menuActionTarget[j]);
             if (k > i) {
                 i = k;
             }
@@ -23592,7 +23628,7 @@ public class Client extends RSApplet {
         }
         if (loggedIn) {
         	if (runelite != null && getGameScreenIP() != null) {
-        		callbacks.draw(getGameScreenIP(), getGameScreenIP().image.getGraphics(), clientSize == 0 ? 4 : 0, clientSize == 0 ? 4 : 0);
+        		callbacks.draw(getGameScreenIP(), getGameScreenIP().image.getGraphics(), clientSize == 0 ? 4 : 0, clientSize == 0 ? 4 : 0, GraphicsBufferType.ALL);
         	}
         	
         	ScreenOverlayManager.process();
@@ -23609,15 +23645,15 @@ public class Client extends RSApplet {
             }
             
             if (runelite != null && gameScreenIP != null) {
-        		callbacks.drawScene();
-        		callbacks.drawAboveOverheads();
+        		callbacks.drawScene(GraphicsBufferType.MAIN_GAME);
+        		callbacks.drawAboveOverheads(GraphicsBufferType.MAIN_GAME);
         	}
             
             drawUnfixedGame();
             draw3dScreen();
 
             if (runelite != null) {
-            	callbacks.drawAfterWidgets(mapAreaIP);
+            	callbacks.drawAfterWidgets(mapAreaIP, GraphicsBufferType.MINIMAP);
             }
         }
         if (consoleOpen && loggedIn) {
@@ -23648,7 +23684,7 @@ public class Client extends RSApplet {
         
         if (loggedIn) {
         	if (runelite != null && clientSize != 0) {
-            	callbacks.drawAfterWidgets(gameScreenIP);
+            	callbacks.drawAfterWidgets(gameScreenIP, GraphicsBufferType.MAIN_GAME);
             }
 
             if(HdPlugin.process()) {
@@ -24582,6 +24618,7 @@ public class Client extends RSApplet {
     /* Gameframe update */
     // public Sprite newMapBack;
     public String[] menuActionName;
+    public String[] menuActionTarget = new String[500];
     public boolean othersHidden, friendsHidden, ignoredHidden,
             localPlayerHidden, npcsHidden, petsHidden, attackerHidden, projectilesHidden;
 
@@ -27238,13 +27275,13 @@ public class Client extends RSApplet {
     }
 	
 	public void addMenuEntry(String actionName, String target, int actionId, int identifier, int actionParam0, int actionParam1, boolean deprioritize) {
-		if (deprioritize) {
+        if (deprioritize) {
 			menuActionID[menuActionRow] = actionId + '\0';
 		} else {
 			menuActionID[menuActionRow] = actionId;
 		}
-		
-		menuActionName[menuActionRow] = actionName + " " + target;
+		menuActionTarget[menuActionRow] = target;
+		menuActionName[menuActionRow] = actionName;//TODO
 		menuActionCmd1[menuActionRow] = identifier;
 		menuActionCmd2[menuActionRow] = actionParam0;
 		menuActionCmd3[menuActionRow] = actionParam1;

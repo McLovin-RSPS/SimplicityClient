@@ -161,8 +161,7 @@ public class MenuManager
 		{
 			String option = menuEntry.getOption();
 			String target = menuEntry.getTarget();
-
-			if (option.equals(customMenuOption.getMenuOption()) && target.equals(customMenuOption.getMenuTarget()))
+			if (option.equals(customMenuOption.getMenuOption()) && target.equals(customMenuOption.getMenuTarget()) || option.equalsIgnoreCase("configure"))
 			{
 				return true;
 			}
@@ -186,16 +185,14 @@ public class MenuManager
 		{
 			if (!menuContainsCustomMenu(currentMenu))//Don't add if we have already added it to this widget
 			{
-				MenuEntry[] menuEntries = client.getMenuEntries();
-				menuEntries = Arrays.copyOf(menuEntries, menuEntries.length + 1);
 
-				MenuEntry menuEntry = menuEntries[menuEntries.length - 1] = new MenuEntry();
+				MenuEntry menuEntry = new MenuEntry();
 				menuEntry.setOption(currentMenu.getMenuOption());
 				menuEntry.setParam1(widgetId);
 				menuEntry.setTarget(currentMenu.getMenuTarget());
 				menuEntry.setType(MenuAction.RUNELITE.getId());
 
-				client.setMenuEntries(menuEntries);
+				client.addMenuEntry(menuEntry);
 			}
 		}
 	}
@@ -322,8 +319,8 @@ public class MenuManager
 
 		for (WidgetMenuOption curMenuOption : options)
 		{
-			if (curMenuOption.getMenuTarget().equals(event.getMenuTarget())
-				&& curMenuOption.getMenuOption().equals(event.getMenuOption()))
+			if (curMenuOption.getMenuOption().equals(event.getMenuOption())
+			)
 			{
 				WidgetMenuOptionClicked customMenu = new WidgetMenuOptionClicked();
 				customMenu.setMenuOption(event.getMenuOption());

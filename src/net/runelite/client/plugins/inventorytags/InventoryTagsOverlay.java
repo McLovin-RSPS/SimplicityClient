@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2018 kulers
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,61 +22,49 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.ui.overlay;
+package net.runelite.client.plugins.inventorytags;
 
-import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.google.inject.internal.Nullable;
-
-import com.simplicity.client.RSImageProducer;
-import lombok.Getter;
-import lombok.Setter;
+import com.simplicity.client.Client;
 import net.runelite.api.GraphicsBufferType;
-import net.runelite.client.plugins.Plugin;
-import net.runelite.client.ui.overlay.components.LayoutableRenderableEntity;
+import net.runelite.api.widgets.WidgetItem;
+import net.runelite.client.game.ItemManager;
+import net.runelite.client.ui.overlay.WidgetItemOverlay;
 
-@Getter
-@Setter
-public abstract class Overlay implements LayoutableRenderableEntity
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
+@Singleton
+public class InventoryTagsOverlay extends WidgetItemOverlay
 {
-	@Nullable
-	private final Plugin plugin;
-	private Point preferredLocation;
-	private Dimension preferredSize;
-	private OverlayPosition preferredPosition;
-	private Rectangle bounds = new Rectangle();
-	private OverlayPosition position = OverlayPosition.TOP_LEFT;
-	private OverlayPriority priority = OverlayPriority.NONE;
-	public OverlayLayer layer = OverlayLayer.UNDER_WIDGETS;
-	public GraphicsBufferType graphicsBuffer;
-	private final List<OverlayMenuEntry> menuEntries = new ArrayList<>();
-	private boolean resizable;
-	private boolean resettable = true;
-	
-	protected Overlay()
-	{
-		plugin = null;
-	}
+	private final ItemManager itemManager;
+	private final InventoryTagsPlugin plugin;
 
-	protected Overlay(Plugin plugin)
+	@Inject
+	private InventoryTagsOverlay(final ItemManager itemManager, final InventoryTagsPlugin plugin)
 	{
+		this.itemManager = itemManager;
 		this.plugin = plugin;
+		showOnEquipment();
+		showOnInventory();
+		setGraphicsBuffer(GraphicsBufferType.TAB_AREA);
 	}
 
-	/**
-	 * Overlay name, used for saving the overlay, needs to be unique
-	 * @return overlay name
-	 */
-	public String getName()
+	@Override
+	public void renderItemOverlay(Graphics2D graphics, int itemId, WidgetItem itemWidget)
 	{
-		return this.getClass().getSimpleName();
-	}
-	
-	public void onMouseOver()
-	{
+		final String group = plugin.getTag(itemId);
+		if (group != null)
+		{
+			final Color color = plugin.getGroupNameColor(group);
+			if (color != null)
+			{
+				Rectangle bounds = itemWidget.getCanvasBounds();
+				final BufferedImage outline = itemManager.getItemOutline(itemId, itemWidget.getQuantity(), color);
+				System.out.println(bounds.getX() + "/" + bounds.getY());
+				graphics.drawImage(outline, (int) bounds.getX(), (int) bounds.getY(), null);
+			}
+		}
 	}
 }

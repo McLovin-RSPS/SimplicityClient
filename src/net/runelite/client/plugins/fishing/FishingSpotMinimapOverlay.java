@@ -31,8 +31,7 @@ import javax.inject.Inject;
 import lombok.AccessLevel;
 import lombok.Setter;
 import net.runelite.api.GraphicID;
-import net.runelite.api.NPC;
-import net.runelite.api.NpcID;
+import net.runelite.api.GraphicsBufferType;
 import net.runelite.client.game.FishingSpot;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
@@ -52,6 +51,7 @@ class FishingSpotMinimapOverlay extends Overlay
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
+		setGraphicsBuffer(GraphicsBufferType.MINIMAP);
 		this.plugin = plugin;
 		this.config = config;
 	}

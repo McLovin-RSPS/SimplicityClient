@@ -26,6 +26,8 @@ package net.runelite.api.widgets;
 
 import java.awt.Rectangle;
 import javax.annotation.Nullable;
+
+import com.simplicity.client.RSInterface;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
@@ -63,7 +65,7 @@ public class WidgetItem
 	/**
 	 * The widget which contains this item.
 	 */
-	private final Widget widget;
+	private final RSInterface widget;
 	/**
 	 * The canvas bounds for the widget, if it is being dragged.
 	 */
