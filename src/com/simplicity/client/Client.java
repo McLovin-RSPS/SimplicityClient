@@ -13543,7 +13543,7 @@ public class Client extends RSApplet {
             menuActionRow = 2;
         }
 
-		if (mouseInRegion(effectTimerToggleX, effectTimerToggleY, effectTimerToggleX + 19, effectTimerToggleY + 42)) {
+		if (mouseInRegion(effectTimerToggleX, effectTimerToggleY, effectTimerToggleX + 19, effectTimerToggleY + 42) && !effects_list.isEmpty()) {
 			menuActionName[1] = "Toggle";
             menuActionID[1] = 477;
             menuActionRow = 2;
