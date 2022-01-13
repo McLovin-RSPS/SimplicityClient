@@ -120,7 +120,7 @@ public enum WidgetInfo
 	FIXED_VIEWPORT_COMBAT_TAB(WidgetID.FIXED_VIEWPORT_GROUP_ID, WidgetID.FixedViewport.COMBAT_TAB),
 	FIXED_VIEWPORT_STATS_TAB(WidgetID.FIXED_VIEWPORT_GROUP_ID, WidgetID.FixedViewport.STATS_TAB),
 	FIXED_VIEWPORT_QUESTS_TAB(WidgetID.FIXED_VIEWPORT_GROUP_ID, WidgetID.FixedViewport.QUESTS_TAB),
-	FIXED_VIEWPORT_INVENTORY_TAB(1076, WidgetID.FixedViewport.INVENTORY_TAB),
+	FIXED_VIEWPORT_INVENTORY_TAB(1076, WidgetID.FixedViewport.INVENTORY_TAB, "Inventory"),
 	FIXED_VIEWPORT_EQUIPMENT_TAB(WidgetID.FIXED_VIEWPORT_GROUP_ID, WidgetID.FixedViewport.EQUIPMENT_TAB),
 	FIXED_VIEWPORT_PRAYER_TAB(WidgetID.FIXED_VIEWPORT_GROUP_ID, WidgetID.FixedViewport.PRAYER_TAB),
 	FIXED_VIEWPORT_MAGIC_TAB(WidgetID.FIXED_VIEWPORT_GROUP_ID, WidgetID.FixedViewport.MAGIC_TAB),
@@ -165,7 +165,7 @@ public enum WidgetInfo
 	RESIZABLE_VIEWPORT_COMBAT_TAB(WidgetID.RESIZABLE_VIEWPORT_OLD_SCHOOL_BOX_GROUP_ID, WidgetID.ResizableViewport.COMBAT_TAB),
 	RESIZABLE_VIEWPORT_STATS_TAB(WidgetID.RESIZABLE_VIEWPORT_OLD_SCHOOL_BOX_GROUP_ID, WidgetID.ResizableViewport.STATS_TAB),
 	RESIZABLE_VIEWPORT_QUESTS_TAB(WidgetID.RESIZABLE_VIEWPORT_OLD_SCHOOL_BOX_GROUP_ID, WidgetID.ResizableViewport.QUESTS_TAB),
-	RESIZABLE_VIEWPORT_INVENTORY_TAB(1076, WidgetID.ResizableViewport.INVENTORY_TAB),
+	RESIZABLE_VIEWPORT_INVENTORY_TAB(558794, WidgetID.ResizableViewport.INVENTORY_TAB),
 	RESIZABLE_VIEWPORT_EQUIPMENT_TAB(WidgetID.RESIZABLE_VIEWPORT_OLD_SCHOOL_BOX_GROUP_ID, WidgetID.ResizableViewport.EQUIPMENT_TAB),
 	RESIZABLE_VIEWPORT_PRAYER_TAB(WidgetID.RESIZABLE_VIEWPORT_OLD_SCHOOL_BOX_GROUP_ID, WidgetID.ResizableViewport.PRAYER_TAB),
 	RESIZABLE_VIEWPORT_MAGIC_TAB(WidgetID.RESIZABLE_VIEWPORT_OLD_SCHOOL_BOX_GROUP_ID, WidgetID.ResizableViewport.MAGIC_TAB),
@@ -361,10 +361,24 @@ public enum WidgetInfo
 	private final int groupId;
 	private final int childId;
 
+	public String getMenuName() {
+		return menuName;
+	}
+
+	private String menuName;
+
 	WidgetInfo(int groupId, int childId)
 	{
 		this.groupId = groupId;
 		this.childId = childId;
+		this.menuName = "";
+	}
+
+	WidgetInfo(int groupId, int childId, String menuName)
+	{
+		this.groupId = groupId;
+		this.childId = childId;
+		this.menuName = menuName;
 	}
 
 	/**

@@ -183,6 +183,8 @@ public class MenuManager
 
 		for (WidgetMenuOption currentMenu : options)
 		{
+			if(currentMenu.getWidget().getMenuName().length() > 1 && !event.getOption().toLowerCase().contains(currentMenu.getWidget().getMenuName().toLowerCase()))
+				continue;
 			if (!menuContainsCustomMenu(currentMenu))//Don't add if we have already added it to this widget
 			{
 
