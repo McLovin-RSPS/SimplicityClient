@@ -3,6 +3,7 @@ package com.simplicity.client;
 import java.awt.Color;
 
 import com.simplicity.Configuration;
+import net.runelite.client.plugins.hdnew.HdPlugin;
 
 public final class Rasterizer extends DrawingArea {
 	
@@ -361,6 +362,11 @@ public final class Rasterizer extends DrawingArea {
 	public static void method372(double value) {
 		brightness = value;
 		Texture.setBrightness(value);
+		if(HdPlugin.process()) {
+			Client.instance.pushMessage("This setting does not work in HD!", 0, "NOTICE");
+			Client.instance.pushMessage("Please check your 117 plugin configs to set the brightness.", 0, "NOTICE");
+			return;
+		}
         int pos = 0;
         for (int index = 0; index < 512; index++) {
             final double d1 = index / 8 / 64D + 0.0078125D;
