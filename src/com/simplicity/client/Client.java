@@ -7456,20 +7456,11 @@ public class Client extends RSApplet {
 
                 gameScreenIP.drawGraphics(clientSize == 0 ? 4 : 0, super.graphics, clientSize == 0 ? 4 : 0);
                 loadingStage = 1;
-                setGameState(GameState.LOADING);
                 mapLoadingTime = System.currentTimeMillis();
+                setGameState(GameState.LOADING);
             }
             if (loadingStage == 1) {
-                /*
-                 * SpriteCache.spriteCache[31].drawSprite(8, 9); int todo =
-                 * onDemandFetcher.getRemaining(); if (todo > highestAmtToLoad) {
-                 * highestAmtToLoad = todo; } double percentage = (((double) todo / (double)
-                 * highestAmtToLoad) * 100D); normalFont.drawRegularText(false, 180 - 36,
-                 * 0xc8c8c8, "(" + (100 - (int) percentage) + "%)", 30);
-                 *
-                 */
                 drawLoadingMessages(1, "Loading - please wait.", null);
-                gameScreenIP.drawGraphics(clientSize == 0 ? 4 : 0, super.graphics, clientSize == 0 ? 4 : 0);
                 int j = getMapLoadingState();
                 if (j != 0 && System.currentTimeMillis() - mapLoadingTime > 0x57e40L) {
                     System.out.println(myUsername + " glcfb " + aLong1215 + "," + j + "," + lowMem + ","
@@ -7527,6 +7518,9 @@ public class Client extends RSApplet {
         } else {
             loadingStage = 2;
             ObjectManager.anInt131 = plane;
+            if(RuneLite.getClient() != null) {
+                callbacks.post(new RegionChanged(lastKnownPlane, plane));
+            }
             loadRegion();
             if (loggedIn) {
                 stream.createFrame(121);
