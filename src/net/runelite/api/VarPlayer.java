@@ -34,6 +34,13 @@ import lombok.Getter;
 @Getter
 public enum VarPlayer
 {
+	/**
+ * -1 : Poison immune
+ *  Normal poison damage is ceil( this / 5.0f )
+ *  If this is greater than or equal to 1000000, the player is envenomed.
+ *  Venom damage is (this - 999997) * 2
+ */
+	POISON(102),
 	ATTACK_STYLE(43),
 	
 	QUEST_POINTS(101),

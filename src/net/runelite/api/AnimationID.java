@@ -32,6 +32,7 @@ package net.runelite.api;
  */
 public final class AnimationID
 {
+	public static final int DRAGONFIRE_SHIELD_SPECIAL = 6696;
 	public static final int IDLE = -1;
 	public static final int WOODCUTTING_BRONZE = 879;
 	public static final int WOODCUTTING_IRON = 877;

@@ -34,6 +34,29 @@ import lombok.Getter;
 @Getter
 public enum Varbits
 {
+	/**
+	 * Vengeance is active
+	 */
+	VENGEANCE_ACTIVE(2450),
+	/**
+	 * Whether the Special Attack orb is disabled due to being in a PvP area
+	 *
+	 * 0 = Enabled (player is not in PvP)
+	 * 1 = Disabled (player in in PvP)
+	 *
+	 * @see <a href="https://oldschool.runescape.wiki/w/Minimap#Special_attack_orb">The OSRS Wiki's Minimap page</a>
+	 */
+	PVP_SPEC_ORB(8121),
+	/**
+	 * Imbued Heart cooldown
+	 * Number of game tick remaining on cooldown in intervals of 10; for a value X there are 10 * X game ticks remaining.
+	 * The heart regains its power once this reaches 0.
+	 */
+	IMBUED_HEART_COOLDOWN(5361),
+	/**
+	 * Spell cooldowns
+	 */
+	VENGEANCE_COOLDOWN(2451),
 	/*
 	 * If chatbox is transparent or not
 	 */

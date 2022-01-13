@@ -166,19 +166,19 @@ public enum MenuAction
 	/**
 	 * First menu action for an item.
 	 */
-	ITEM_FIRST_OPTION(33),
+	ITEM_FIRST_OPTION(74),
 	/**
 	 * Second menu action for an item.
 	 */
-	ITEM_SECOND_OPTION(34),
+	ITEM_SECOND_OPTION(454),
 	/**
 	 * Third menu action for an item.
 	 */
-	ITEM_THIRD_OPTION(35),
+	ITEM_THIRD_OPTION(539),
 	/**
 	 * Fourth menu action for an item.
 	 */
-	ITEM_FOURTH_OPTION(36),
+	ITEM_FOURTH_OPTION(493),
 	/**
 	 * Fifth menu action for an item.
 	 */

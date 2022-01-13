@@ -9027,7 +9027,16 @@ public class Client extends RSApplet {
         	option.setMenuOption(menuActionName[i]);
         	option.setMenuTarget(menuActionTarget[i] != null ? menuActionTarget[i] : "");
         	option.setMenuAction(MenuAction.of(l));
-        	option.setId((entityId > 0x7fff ? cmd4 : entityId)); // obj id
+            int itemId = 0;
+            int[] itemContainerParentIds = new int[] {3214};
+            int finalInterfaceId = interfaceId;
+            if(RSInterface.interfaceCache[interfaceId] != null && RSInterface.interfaceCache[interfaceId].inv == null
+                    || Arrays.stream(itemContainerParentIds).anyMatch(wid -> finalInterfaceId == wid)){
+                itemId = entityId;
+            } else {
+                itemId = (entityId > 0x7fff ? cmd4 : entityId);
+            }
+        	option.setId(itemId); // obj id
         	option.setWidgetId(interfaceId);
         	callbacks.post(option);
         }
@@ -22847,9 +22856,9 @@ public class Client extends RSApplet {
                         
                         if (runelite != null) {
                             if (rsi_frame == 3214)
-                                callbacks.post(new ItemContainerChanged(getInventory()));
+                                callbacks.post(new ItemContainerChanged(3214, getInventory()));
                             else if (rsi_frame == 1688)
-                        	    callbacks.post(new ItemContainerChanged(getEquipment()));
+                        	    callbacks.post(new ItemContainerChanged(1688, getEquipment()));
                         }
                         
                         if (rsi_frame == 24680) {

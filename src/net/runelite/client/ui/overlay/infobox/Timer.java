@@ -33,6 +33,7 @@ import java.time.temporal.ChronoUnit;
 import com.google.inject.internal.util.Preconditions;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import net.runelite.client.plugins.Plugin;
 
@@ -42,7 +43,8 @@ public class Timer extends InfoBox
 {
 	private final Instant startTime;
 	private final Instant endTime;
-	private final Duration duration;
+	@Setter
+	private Duration duration;
 
 	public Timer(long period, ChronoUnit unit, BufferedImage image, Plugin plugin)
 	{

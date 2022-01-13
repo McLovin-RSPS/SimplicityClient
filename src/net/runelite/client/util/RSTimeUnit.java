@@ -1,8 +1,5 @@
-package net.runelite.api.events;
-import com.simplicity.client.container.item.ItemContainer;
-
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020, Jordan Atwood <jordan.atwood423@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,26 +22,69 @@ import com.simplicity.client.container.item.ItemContainer;
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import lombok.Value;
+package net.runelite.client.util;
 
-/**
- * An event called whenever the stack size of an {@link net.runelite.api.Item}
- * in an {@link ItemContainer} is modified.
- * <p>
- * Examples of when this event may trigger include:
- * <ul>
- *     <li>Withdrawing an item from bank (triggers for both bank and player inv)
- *     <li>Picking up an item</li>
- *     <li>Dropping an item</li>
- * </ul>
- */
-@Value
-public class ItemContainerChanged
+import java.time.Duration;
+import java.time.temporal.Temporal;
+import java.time.temporal.TemporalUnit;
+import lombok.Getter;
+import net.runelite.api.Constants;
+
+@Getter
+public enum RSTimeUnit implements TemporalUnit
 {
-	private final int containerId;
-	/**
-	 * The modified item container.
-	 */
-	private final ItemContainer itemContainer;
+	CLIENT_TICKS("Client tick", Duration.ofMillis(Constants.CLIENT_TICK_LENGTH)),
+	GAME_TICKS("Game tick", Duration.ofMillis(Constants.GAME_TICK_LENGTH)),
+	;
 
+	private final String name;
+	private final Duration duration;
+
+	RSTimeUnit(String name, Duration estimatedDuration)
+	{
+		this.name = name;
+		duration = estimatedDuration;
+	}
+
+	@Override
+	public boolean isDurationEstimated()
+	{
+		return false;
+	}
+
+	@Override
+	public boolean isDateBased()
+	{
+		return false;
+	}
+
+	@Override
+	public boolean isTimeBased()
+	{
+		return true;
+	}
+
+	@Override
+	public boolean isSupportedBy(Temporal temporal)
+	{
+		return temporal.isSupported(this);
+	}
+
+	@Override
+	public <R extends Temporal> R addTo(R temporal, long amount)
+	{
+		return (R) temporal.plus(amount, this);
+	}
+
+	@Override
+	public long between(Temporal temporal1Inclusive, Temporal temporal2Exclusive)
+	{
+		return temporal1Inclusive.until(temporal2Exclusive, this);
+	}
+
+	@Override
+	public String toString()
+	{
+		return name + " (" + duration.toMillis() + "ms)";
+	}
 }

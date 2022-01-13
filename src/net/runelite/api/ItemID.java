@@ -7791,10 +7791,10 @@ public final class ItemID
 	public static final int ANCIENT_PAGE_2 = 12622;
 	public static final int ANCIENT_PAGE_3 = 12623;
 	public static final int ANCIENT_PAGE_4 = 12624;
-	public static final int STAMINA_POTION4 = 12625;
-	public static final int STAMINA_POTION3 = 12627;
-	public static final int STAMINA_POTION2 = 12629;
-	public static final int STAMINA_POTION1 = 12631;
+	public static final int STAMINA_POTION4 = 42625;
+	public static final int STAMINA_POTION3 = 42627;
+	public static final int STAMINA_POTION2 = 42629;
+	public static final int STAMINA_POTION1 = 42631;
 	public static final int STAMINA_MIX2 = 12633;
 	public static final int STAMINA_MIX1 = 12635;
 	public static final int SARADOMIN_HALO = 12637;
