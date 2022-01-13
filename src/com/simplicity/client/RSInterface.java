@@ -14557,6 +14557,10 @@ public class RSInterface {
         return interfaceCache[children[idx]];
     }
 
+    public void setHidden(boolean b) {
+        hidden = b;
+    }
+
     public enum SummonData {
         SPIRIT_WOLF(1, new int[]{GOLD_CHARM, 2859}, 7), SPIRIT_DREADFOWL(2, new int[]{GOLD_CHARM, 2138}, 8),
         SPIRIT_SPIDER(3, new int[]{GOLD_CHARM, 6291}, 8), THORNY_SNAIL(4, new int[]{GOLD_CHARM, 3363}, 9),
