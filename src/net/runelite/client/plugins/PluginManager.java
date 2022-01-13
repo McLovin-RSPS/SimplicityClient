@@ -485,7 +485,7 @@ public class PluginManager
 				final GameEventManager gameEventManager = this.sceneTileManager.get();
 				if (gameEventManager != null)
 				{
-					//gameEventManager.simulateGameEvents(plugin);
+					gameEventManager.simulateGameEvents(plugin);
 				}
 			}
 			eventBus.register(plugin);
