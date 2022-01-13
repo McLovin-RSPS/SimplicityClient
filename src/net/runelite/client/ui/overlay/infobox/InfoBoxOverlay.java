@@ -38,6 +38,7 @@ import javax.inject.Singleton;
 import com.google.common.base.Strings;
 
 import net.runelite.api.Client;
+import net.runelite.api.GraphicsBufferType;
 import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -69,6 +70,7 @@ public class InfoBoxOverlay extends Overlay
 		this.infoboxManager = infoboxManager;
 		this.clientProvider = clientProvider;
 		this.config = config;
+		setGraphicsBuffer(GraphicsBufferType.MAIN_GAME);
 		setPosition(OverlayPosition.TOP_LEFT);
 
 		panelComponent.setBackgroundColor(null);

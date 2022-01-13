@@ -1917,7 +1917,7 @@ public final class NpcID
 	public static final int BLACK_DEMON_2051 = 2051;
 	public static final int BLACK_DEMON_2052 = 2052;
 	public static final int FRITZ_THE_GLASSBLOWER = 2053;
-	public static final int CHAOS_ELEMENTAL = 2054;
+	public static final int CHAOS_ELEMENTAL = 3200;
 	public static final int CHAOS_ELEMENTAL_JR = 2055;
 	public static final int DARK_WIZARD = 2056;
 	public static final int DARK_WIZARD_2057 = 2057;
@@ -5566,7 +5566,7 @@ public final class NpcID
 	public static final int BABY_TANGLEFOOT_5854 = 5854;
 	public static final int GATEKEEPER_5855 = 5855;
 	public static final int FAIRY_CHEF = 5856;
-	public static final int CERBERUS = 5862;
+	public static final int CERBERUS = 1999;
 	public static final int CERBERUS_5863 = 5863;
 	public static final int CAPTAIN_NED_5864 = 5864;
 	public static final int CERBERUS_5866 = 5866;
