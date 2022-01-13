@@ -52,25 +52,7 @@ import net.runelite.api.TileItem;
 
 import static net.runelite.api.Skill.AGILITY;
 import net.runelite.api.coords.WorldPoint;
-import net.runelite.api.events.DecorativeObjectChanged;
-import net.runelite.api.events.DecorativeObjectDespawned;
-import net.runelite.api.events.DecorativeObjectSpawned;
-import net.runelite.api.events.GameObjectChanged;
-import net.runelite.api.events.GameObjectDespawned;
-import net.runelite.api.events.GameObjectSpawned;
-import net.runelite.api.events.GameStateChanged;
-import net.runelite.api.events.GameTick;
-import net.runelite.api.events.GroundObjectChanged;
-import net.runelite.api.events.GroundObjectDespawned;
-import net.runelite.api.events.GroundObjectSpawned;
-import net.runelite.api.events.ItemDespawned;
-import net.runelite.api.events.ItemSpawned;
-import net.runelite.api.events.NpcDespawned;
-import net.runelite.api.events.NpcSpawned;
-import net.runelite.api.events.StatChanged;
-import net.runelite.api.events.WallObjectChanged;
-import net.runelite.api.events.WallObjectDespawned;
-import net.runelite.api.events.WallObjectSpawned;
+import net.runelite.api.events.*;
 import net.runelite.client.Notifier;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -172,18 +154,6 @@ public class AgilityPlugin extends Plugin
 		npcs.clear();
 	}
 
-	/*@Subscribe
-	public void onOverlayMenuClicked(OverlayMenuClicked overlayMenuClicked)
-	{
-		OverlayMenuEntry overlayMenuEntry = overlayMenuClicked.getEntry();
-		if (overlayMenuEntry.getMenuAction() == MenuAction.RUNELITE_OVERLAY
-			&& overlayMenuClicked.getOverlay() == lapCounterOverlay
-			&& overlayMenuClicked.getEntry().getOption().equals(LapCounterOverlay.AGILITY_RESET))
-		{
-			session = null;
-		}
-	}*/
-
 	@Subscribe
 	public void onGameStateChanged(GameStateChanged event)
 	{
@@ -194,11 +164,6 @@ public class AgilityPlugin extends Plugin
 				lastArenaTicketPosition = null;
 				removeAgilityArenaTimer();
 				npcs.clear();
-				break;
-			case LOADING:
-				marksOfGrace.clear();
-				obstacles.clear();
-				stickTile = null;
 				break;
 			case LOGGED_IN:
 				if (!isInAgilityArena())
@@ -261,6 +226,15 @@ public class AgilityPlugin extends Plugin
 			session.resetLapCount();
 			session.incrementLapCount(client, xpTrackerService);
 		}
+	}
+	private int[] agilityRegions = new int[] {
+
+	};
+	@Subscribe
+	public void onRegionChange(RegionChanged regionChanged) {
+		marksOfGrace.clear();
+		obstacles.clear();
+		stickTile = null;
 	}
 
 	@Subscribe
@@ -351,6 +325,7 @@ public class AgilityPlugin extends Plugin
 		infoBoxManager.addInfoBox(new AgilityArenaTimer(this, itemManager.getImage(AGILITY_ARENA_TICKET)));
 	}
 
+
 	@Subscribe
 	public void onGameObjectSpawned(GameObjectSpawned event)
 	{
@@ -414,7 +389,7 @@ public class AgilityPlugin extends Plugin
 	@Subscribe
 	public void onDecorativeObjectChanged(DecorativeObjectChanged event)
 	{
-		//onTileObject(event.getTile(), event.getPrevious(), event.getDecorativeObject());
+		onTileObject(event.getTile(), event.getPrevious(), event.getDecorativeObject());
 	}
 
 	@Subscribe

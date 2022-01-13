@@ -181,6 +181,14 @@ public final class ObjectDefinition {
             objectDef.actions = new String[5];
             objectDef.actions[0] = "Open";
         }
+        if(i == 9326) {
+            objectDef.dataType = forID(14435).dataType;
+            objectDef.objectModelIDs = forID(14435).objectModelIDs;
+            for(int part = 0; part < 4; part++) {
+                objectDef.modelParts[part] = forID(14435).modelParts[part];
+            }
+            objectDef.objectModelTypes = forID(14435).objectModelTypes;
+        }
         if (i == 133122) {
             objectDef.name = "Elite chest";
             objectDef.hasActions = true;
@@ -464,7 +472,10 @@ public final class ObjectDefinition {
         if (BLACK_TRIANGLES.contains(i)) {
         	objectDef.showBlackTriangles = true;
         }
-
+        if(i == 9326) {
+            objectDef.dataType = forID(14435).dataType;
+            objectDef.objectModelIDs = forID(14435).objectModelIDs;
+        }
         if(i == 9074) {
             objectDef.actions = new String[5];
             objectDef.name = "Strange casket";

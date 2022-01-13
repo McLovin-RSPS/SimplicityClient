@@ -28,6 +28,7 @@ public class OldschoolMaps {
             8536, //Demonic gorillas
             8280, // Demonic gorillas
             8789,
+            11837,//Wildy agility course
             6457, // Great Kourand
             5179,  //Mount karuulm
             9772, // myth's guild

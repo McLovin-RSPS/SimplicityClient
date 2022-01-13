@@ -24,21 +24,20 @@
  */
 package net.runelite.client.plugins.devtools;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Polygon;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.util.List;
 import java.util.stream.Stream;
 import javax.inject.Inject;
 
-import com.simplicity.client.Entity;
+import com.simplicity.client.*;
 import com.simplicity.client.NPC;
 import com.simplicity.client.Player;
+import com.simplicity.client.Tile;
 import net.runelite.api.*;
+import net.runelite.api.Client;
+import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
@@ -83,7 +82,32 @@ public class SceneOverlay extends Overlay
 		this.plugin = plugin;
 		setGraphicsBuffer(GraphicsBufferType.MAIN_GAME);
 	}
+	private static final Color GREEN = new Color(0, 200, 83);
+	private void renderGameObjects(Graphics2D graphics, com.simplicity.client.Tile tile, Player player)
+	{
+		InteractableObject[] gameObjects = tile.getGameObjects();
+		if (gameObjects != null)
+		{
+			for (InteractableObject gameObject : gameObjects)
+			{
+				if (gameObject != null)
+				{
+					if (player.getLocalLocation().distanceTo(gameObject.getLocalLocation()) <= 2400)
+					{
+						OverlayUtil.renderTileOverlay(graphics, gameObject, "ID: " + gameObject.getId(), GREEN);
+					}
 
+					// Draw a polygon around the convex hull
+					// of the model vertices
+					Shape p = gameObject.getConvexHull();
+					if (p != null)
+					{
+						graphics.draw(p);
+					}
+				}
+			}
+		}
+	}
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{

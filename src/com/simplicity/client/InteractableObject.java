@@ -109,8 +109,13 @@ public final class InteractableObject implements TileObject
 	}
 
 	public Polygon getConvexHull() {
+		Model model = null;
 
-		Model model = getModel();
+		if (node instanceof Model) {
+			model = (Model) node;
+		} else if (node instanceof Animable) {
+			model = node.getRotatedModel();
+		}
 
 		if (model == null) {
 			return null;

@@ -39,11 +39,7 @@ import com.simplicity.client.Tile;
 import com.simplicity.client.cache.definitions.MobDefinition;
 import com.simplicity.util.ObjectID667;
 
-import net.runelite.api.Client;
-import net.runelite.api.NPCComposition;
-import net.runelite.api.ObjectID;
-import net.runelite.api.Perspective;
-import net.runelite.api.Point;
+import net.runelite.api.*;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.client.game.AgilityShortcut;
 import net.runelite.client.ui.overlay.Overlay;
@@ -66,6 +62,7 @@ class AgilityOverlay extends Overlay
 		super(plugin);
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
+		setGraphicsBuffer(GraphicsBufferType.MAIN_GAME);
 		this.client = client;
 		this.plugin = plugin;
 		this.config = config;
@@ -110,6 +107,8 @@ class AgilityOverlay extends Overlay
 					}
 					return;
 				}
+				if(object.getId() == 9326)
+					System.out.println("Rendering poly on " + object.getId());
 				Shape objectClickbox = object.getClickbox();
 				if (objectClickbox != null)
 				{

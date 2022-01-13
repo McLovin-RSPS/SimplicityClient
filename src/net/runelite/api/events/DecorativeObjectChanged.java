@@ -24,8 +24,8 @@ package net.runelite.api.events;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 import com.simplicity.client.GroundDecoration;
+import com.simplicity.client.Tile;
 import lombok.Data;
-import net.runelite.api.Tile;
 
 /**
  * An event where the {@link GroundDecoration} attached to a {@link Tile}

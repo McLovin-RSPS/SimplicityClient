@@ -32,6 +32,8 @@ import javax.inject.Inject;
 import static net.runelite.api.MenuAction.RUNELITE_OVERLAY;
 import static net.runelite.api.MenuAction.RUNELITE_OVERLAY_CONFIG;
 import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
+
+import net.runelite.api.GraphicsBufferType;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPanel;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -50,6 +52,7 @@ class LapCounterOverlay extends OverlayPanel
 	{
 		super(plugin);
 		setPosition(OverlayPosition.TOP_LEFT);
+		setGraphicsBuffer(GraphicsBufferType.MAIN_GAME);
 		setPriority(OverlayPriority.LOW);
 		this.plugin = plugin;
 		this.config = config;
