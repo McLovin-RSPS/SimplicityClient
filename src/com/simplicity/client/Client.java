@@ -171,6 +171,7 @@ import net.runelite.client.callback.Hooks;
 import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.plugins.hdnew.HdPlugin;
 import net.runelite.client.ui.ClientUI;
+import net.runelite.client.ui.overlay.Overlay;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import static java.lang.System.out;
@@ -9023,6 +9024,9 @@ public class Client extends RSApplet {
         }
         
         if (runelite != null && MenuAction.of(l) != MenuAction.UNKNOWN) {
+            if(menuConsumers[i] != null) {
+                menuConsumers[i].accept(RuneLite.getClient().getMenuEntries()[i]);
+            }
         	MenuOptionClicked option = new MenuOptionClicked();
         	option.setActionParam(slot);
         	option.setMenuOption(menuActionName[i]);
@@ -9031,7 +9035,7 @@ public class Client extends RSApplet {
             int itemId = 0;
             int[] itemContainerParentIds = new int[] {3214};
             int finalInterfaceId = interfaceId;
-            if(RSInterface.interfaceCache[interfaceId] != null && RSInterface.interfaceCache[interfaceId].inv == null
+            if(interfaceId > 0 && RSInterface.interfaceCache[interfaceId] != null && RSInterface.interfaceCache[interfaceId].inv == null
                     || Arrays.stream(itemContainerParentIds).anyMatch(wid -> finalInterfaceId == wid)){
                 itemId = entityId;
             } else {
@@ -10945,6 +10949,7 @@ public class Client extends RSApplet {
         menuActionCmd3 = null;
         menuActionCmd4 = null;
         menuActionID = null;
+        menuConsumers = null;
         menuActionCmd1 = null;
         menuActionName = null;
         variousSettings = null;
@@ -24224,6 +24229,7 @@ public class Client extends RSApplet {
         menuActionCmd3 = new int[500];
         menuActionCmd4 = new int[500];
         menuActionID = new int[500];
+        menuConsumers = new Consumer[500];
         menuActionCmd1 = new int[500];
         headIcons = new Sprite[20];
         skullIcons = new Sprite[20];
@@ -24531,6 +24537,7 @@ public class Client extends RSApplet {
     public int[] menuActionCmd3;
     public int[] menuActionCmd4;
     public int[] menuActionID;
+    public Consumer<MenuEntry>[] menuConsumers;
     public int[] menuActionCmd1;
     private Sprite[] headIcons;
     private Sprite[] skullIcons;
@@ -27294,6 +27301,20 @@ public class Client extends RSApplet {
 		menuActionCmd3[menuActionRow] = actionParam1;
 		menuActionRow++;
 	}
+    public void addMenuEntry(String actionName, String target, int actionId, int identifier, int actionParam0, int actionParam1, boolean deprioritize, Consumer<MenuEntry> onClick) {
+        if (deprioritize) {
+            menuActionID[menuActionRow] = actionId + '\0';
+        } else {
+            menuActionID[menuActionRow] = actionId;
+        }
+        menuActionTarget[menuActionRow] = target;
+        menuActionName[menuActionRow] = actionName;//TODO
+        menuActionCmd1[menuActionRow] = identifier;
+        menuActionCmd2[menuActionRow] = actionParam0;
+        menuActionCmd3[menuActionRow] = actionParam1;
+        menuConsumers[menuActionRow] = onClick;
+        menuActionRow++;
+    }
 
     public boolean isSearchingGe() {
         return inputDialogState == 6;

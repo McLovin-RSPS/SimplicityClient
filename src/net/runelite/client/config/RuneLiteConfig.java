@@ -273,4 +273,16 @@ public interface RuneLiteConfig extends Config
 	{
 		return ComponentConstants.STANDARD_BACKGROUND_COLOR;
 	}
+
+	@ConfigItem(
+			keyName = "menuEntryShift",
+			name = "Require Shift for overlay menu",
+			description = "Overlay right-click menu will require shift to be added",
+			position = 34,
+			section = overlaySettings
+	)
+	default boolean menuEntryShift()
+	{
+		return true;
+	}
 }

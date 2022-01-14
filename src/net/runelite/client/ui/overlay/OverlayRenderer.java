@@ -44,17 +44,24 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.GraphicsBufferType;
+import net.runelite.api.KeyCode;
+import net.runelite.api.events.BeforeRender;
+import net.runelite.api.events.ClientTick;
 import net.runelite.api.events.FocusChanged;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.RuneLite;
 import net.runelite.client.config.RuneLiteConfig;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.OverlayMenuClicked;
 import net.runelite.client.input.KeyListener;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.input.MouseAdapter;
 import net.runelite.client.input.MouseManager;
 import net.runelite.client.ui.FontManager;
+import net.runelite.client.ui.JagexColors;
+import net.runelite.client.util.ColorUtil;
 
 @Singleton
 @Slf4j
@@ -89,6 +96,9 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 	private boolean chatboxHidden;
 	private boolean isResizeable;
 	private OverlayBounds snapCorners;
+	private EventBus eventBus;
+	private Client client;
+	private Overlay hoveredOverlay;
 
 	@Inject
 	private OverlayRenderer(
@@ -96,11 +106,15 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		final OverlayManager overlayManager,
 		final RuneLiteConfig runeLiteConfig,
 		final MouseManager mouseManager,
-		final KeyManager keyManager)
+		final KeyManager keyManager,
+		final EventBus eventBus,
+		final Client client)
 	{
 		this.clientProvider = clientProvider;
 		this.overlayManager = overlayManager;
 		this.runeLiteConfig = runeLiteConfig;
+		this.eventBus = eventBus;
+		this.client = client;
 		keyManager.registerKeyListener(this);
 		mouseManager.registerMouseListener(this);
 	}
@@ -112,6 +126,44 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		{
 			inOverlayDraggingMode = false;
 		}
+		hoveredOverlay = null;
+	}
+
+	@Subscribe
+	protected void onClientTick(ClientTick t)
+	{
+		final Overlay overlay = hoveredOverlay;
+		if (overlay == null || client.isMenuOpen())
+		{
+			return;
+		}
+
+		final boolean shift = client.isKeyPressed(KeyCode.KC_SHIFT);
+		if (!shift && runeLiteConfig.menuEntryShift())
+		{
+			return;
+		}
+
+		List<OverlayMenuEntry> menuEntries = overlay.getMenuEntries();
+		if (menuEntries.isEmpty())
+		{
+			return;
+		}
+
+		// Add in reverse order so they display correctly in the right-click menu
+		for (int i = menuEntries.size() - 1; i >= 0; --i)
+		{
+			OverlayMenuEntry overlayMenuEntry = menuEntries.get(i);
+			com.simplicity.client.Client.instance.addMenuEntry(overlayMenuEntry.getOption(),
+					ColorUtil.wrapWithColorTag(overlayMenuEntry.getTarget(), JagexColors.MENU_TARGET),
+					overlayMenuEntry.getMenuAction().getId(), overlayMenuEntry.getMenuAction().getId(), -1, -1, false,
+					e -> eventBus.post(new OverlayMenuClicked(overlayMenuEntry, overlay)));
+		}
+	}
+
+	@Subscribe
+	public void onBeforeRender(BeforeRender beforeRender) {
+		hoveredOverlay = null;
 	}
 
 	public void render(Graphics2D graphics, final OverlayLayer layer, GraphicsBufferType imageProducer)
@@ -154,7 +206,9 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 
 			graphics.setColor(previous);
 		}
-		
+		// Get mouse position
+		final net.runelite.api.Point mouseCanvasPosition = client.getMouseCanvasPosition();
+		final Point mouse = new Point(mouseCanvasPosition.getX(), mouseCanvasPosition.getY());
 		for (Overlay overlay : overlays)
 		{
 			if(overlay.graphicsBuffer != null && !overlay.graphicsBuffer.contains(imageProducer) && !overlay.graphicsBuffer.contains(GraphicsBufferType.ALL))
@@ -224,6 +278,11 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 					graphics.setColor(movedOverlay == overlay ? MOVING_OVERLAY_ACTIVE_COLOR : MOVING_OVERLAY_COLOR);
 					graphics.draw(bounds);
 					graphics.setColor(previous);
+				}
+				if (!client.isMenuOpen() && bounds.contains(mouse))
+				{
+					hoveredOverlay = overlay;
+					overlay.onMouseOver();
 				}
 			}
 		}
