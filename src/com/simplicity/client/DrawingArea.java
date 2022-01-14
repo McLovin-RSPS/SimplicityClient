@@ -442,7 +442,7 @@ public class DrawingArea extends QueueNode {
 	{
 		int i = width * height;
 		for(int j = 0; j < i; j++) {
-			pixels[j] = 0;
+			pixels[j] = HdPlugin.process() ? 0 : Client.instance.skyboxColor;
 			depthBuffer[j] = Float.MAX_VALUE;
 		}
 

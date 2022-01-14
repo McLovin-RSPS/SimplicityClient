@@ -23456,8 +23456,8 @@ public class Client extends RSApplet {
             Rasterizer.textureInt2 <<= 1;
         }
         DrawingArea.resetImage();
-        if(skyboxColor > 0)
-            Rasterizer.drawRectangle(0, gameAreaHeight, 255, skyboxColor, gameAreaWidth, 0);
+        if(RuneLite.getClient() != null)
+            callbacks.post(new BeforeRender());
         worldController.render(xCameraPos, yCameraPos, xCameraCurve, zCameraPos, j, yCameraCurve);
         worldController.renderTileMarkers();
         if (!HdPlugin.process() && Configuration.enableFog) {
@@ -24535,7 +24535,7 @@ public class Client extends RSApplet {
     private Sprite[] headIcons;
     private Sprite[] skullIcons;
     private Sprite[] headIconsHint;
-    public int skyboxColor;
+    public int skyboxColor = 0;
     private static int anInt1097;
     private int anInt1098;
     private int anInt1099;
