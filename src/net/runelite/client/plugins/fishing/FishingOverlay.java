@@ -30,12 +30,12 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Set;
 import javax.inject.Inject;
-import net.runelite.api.AnimationID;
-import net.runelite.api.Client;
-import net.runelite.api.GraphicID;
+
+import net.runelite.api.*;
+
 import static net.runelite.api.MenuAction.RUNELITE_OVERLAY;
 import static net.runelite.api.MenuAction.RUNELITE_OVERLAY_CONFIG;
-import net.runelite.api.Skill;
+
 import net.runelite.client.plugins.xptracker.XpTrackerService;
 import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
@@ -72,6 +72,7 @@ class FishingOverlay extends OverlayPanel
 	{
 		super(plugin);
 		setPosition(OverlayPosition.TOP_LEFT);
+		setGraphicsBuffer(GraphicsBufferType.MAIN_GAME);
 		this.client = client;
 		this.plugin = plugin;
 		this.config = config;

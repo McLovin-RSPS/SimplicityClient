@@ -34,12 +34,7 @@ import java.time.Instant;
 import javax.inject.Inject;
 import lombok.AccessLevel;
 import lombok.Setter;
-import net.runelite.api.Client;
-import net.runelite.api.GraphicID;
-import net.runelite.api.NPC;
-import net.runelite.api.NpcID;
-import net.runelite.api.Perspective;
-import net.runelite.api.Point;
+import net.runelite.api.*;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.game.FishingSpot;
@@ -70,6 +65,7 @@ class FishingSpotOverlay extends Overlay
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
+		setGraphicsBuffer(GraphicsBufferType.MAIN_GAME);
 		this.plugin = plugin;
 		this.config = config;
 		this.client = client;
