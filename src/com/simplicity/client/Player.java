@@ -249,15 +249,19 @@ public final class Player extends Entity {
 			if(super.anim >= 0 && super.animationDelay == 0) {
 				Animation animation = Animation.anims[super.anim];
 				currentFrame = animation.frameIDs[super.currentAnimFrame];
-				nextFrame = animation.frameIDs[super.nextAnimationFrame];
-				cycle1 = animation.delays[super.currentAnimFrame];
-				cycle2 = super.anInt1528;
+				if(Client.instance.tweenPlayerAnimations && super.nextAnimationFrame != -1) {
+					nextFrame = animation.frameIDs[super.nextAnimationFrame];
+					cycle1 = animation.delays[super.currentAnimFrame];
+					cycle2 = super.anInt1528;
+				}
 			} else if(super.entityAnimation >= 0) {
 				Animation animation = Animation.anims[super.entityAnimation];
 				currentFrame = animation.frameIDs[super.currentForcedAnimFrame];
-				nextFrame = animation.frameIDs[super.nextIdleAnimationFrame];
-				cycle1 = animation.delays[super.currentForcedAnimFrame];
-				cycle2 = super.anInt1519;
+				if(Client.instance.tweenPlayerAnimations && super.nextAnimationFrame != -1) {
+					nextFrame = animation.frameIDs[super.nextIdleAnimationFrame];
+					cycle1 = animation.delays[super.currentForcedAnimFrame];
+					cycle2 = super.anInt1519;
+				}
 			}
 			Model model = desc.method164(-1, currentFrame, null, nextFrame, cycle1, cycle2);
 			return model;
@@ -277,10 +281,11 @@ public final class Player extends Entity {
 		{
 			Animation animation = Animation.anims[super.anim];
 			currentFrame = animation.frameIDs[super.currentAnimFrame];
-			if(super.nextAnimationFrame < animation.frameIDs.length)
+			if(Client.instance.tweenPlayerAnimations && super.nextAnimationFrame != -1) {
 				nextFrame = animation.frameIDs[super.nextAnimationFrame];
-			cycle1 = animation.delays[super.currentAnimFrame];
-			cycle2 = super.anInt1528;
+				cycle1 = animation.delays[super.currentAnimFrame];
+				cycle2 = super.anInt1528;
+			}
 			if(super.entityAnimation >= 0 && super.entityAnimation != super.standAnim)
 				i1 = Animation.anims[super.entityAnimation].frameIDs[super.currentForcedAnimFrame];
 
@@ -299,9 +304,11 @@ public final class Player extends Entity {
 			if(super.entityAnimation >= 0) {
 				Animation animation = Animation.anims[super.entityAnimation];
 				currentFrame = animation.frameIDs[super.currentForcedAnimFrame];
-				nextFrame = animation.frameIDs[super.nextIdleAnimationFrame];
-				cycle1 = animation.delays[super.currentForcedAnimFrame];
-				cycle2 = super.anInt1519;
+				if(Client.instance.tweenPlayerAnimations && super.nextAnimationFrame != -1) {
+					nextFrame = animation.frameIDs[super.nextIdleAnimationFrame];
+					cycle1 = animation.delays[super.currentForcedAnimFrame];
+					cycle2 = super.anInt1519;
+				}
 			}
 
 
@@ -416,7 +423,7 @@ public final class Player extends Entity {
 		
 		if (currentFrame != -1 && i1 != -1)
 			model_2.method471(Animation.anims[super.anim].animationFlowControl, i1, currentFrame);
-		else if (currentFrame != -1 && nextFrame != -1)
+		else if (currentFrame != -1 && nextFrame != -1 && Client.instance.tweenPlayerAnimations)
 			model_2.applyTransform(currentFrame, nextFrame, cycle1, cycle2, dataType);
 		else
 			model_2.applyTransform(currentFrame, dataType);

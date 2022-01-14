@@ -220,20 +220,17 @@ public class ClientRuneLite implements Client {
 	
 	@Override
 	public void setInterpolatePlayerAnimations(boolean interpolate) {
-		// TODO Auto-generated method stub
-		
+		client().tweenPlayerAnimations = interpolate;
 	}
 	
 	@Override
 	public void setInterpolateObjectAnimations(boolean interpolate) {
-		// TODO Auto-generated method stub
-		
+		client().tweenObjectAnimations = interpolate;
 	}
 	
 	@Override
 	public void setInterpolateNpcAnimations(boolean interpolate) {
-		// TODO Auto-generated method stub
-		
+		client().tweenNpcAnimations = interpolate;
 	}
 	
 	@Override
@@ -369,19 +366,19 @@ public class ClientRuneLite implements Client {
 	@Override
 	public boolean isInterpolatePlayerAnimations() {
 		// TODO Auto-generated method stub
-		return false;
+		return client().tweenPlayerAnimations;
 	}
 	
 	@Override
 	public boolean isInterpolateObjectAnimations() {
 		// TODO Auto-generated method stub
-		return false;
+		return client().tweenObjectAnimations;
 	}
 	
 	@Override
 	public boolean isInterpolateNpcAnimations() {
 		// TODO Auto-generated method stub
-		return false;
+		return client().tweenNpcAnimations;
 	}
 	
 	@Override
