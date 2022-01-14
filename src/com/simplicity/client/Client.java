@@ -16214,7 +16214,8 @@ public class Client extends RSApplet {
             }
             WidgetLoaded widgetLoaded = new WidgetLoaded();
             widgetLoaded.setGroupId(rsInterface.id);
-            callbacks.post(widgetLoaded);
+            if(RuneLite.getClient() != null)
+                callbacks.post(widgetLoaded);
             int origTopX = DrawingArea.topX;
             int origTopY = DrawingArea.topY;
             int origBottomX = DrawingArea.bottomX;
@@ -26619,7 +26620,7 @@ public class Client extends RSApplet {
     public Image customCursor;
 
     public void setCursor(int id) {
-            if (resourceLoader == null || RuneLite.getInjector().getInstance(ClientUI.class).getDefaultCursor() != Cursor.getDefaultCursor()) {
+            if (resourceLoader == null || RuneLite.getInjector() != null && RuneLite.getInjector().getInstance(ClientUI.class).getDefaultCursor() != Cursor.getDefaultCursor()) {
                 return;
             }
             if(customCursor != null)

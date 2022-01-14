@@ -150,10 +150,11 @@ public class RuneLite
 	//private Client client;
 	
 	@Getter
-	private static final Client client = new ClientRuneLite();
+	private static Client client;
 	
 	public static void main(String[] args) throws Exception
 	{
+		client = new ClientRuneLite();
 		RICH_PRESENCE.initiate();
         if (args.length > 0) {
             Configuration.HOST = args[0];
