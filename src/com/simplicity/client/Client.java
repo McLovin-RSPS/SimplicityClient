@@ -27178,7 +27178,8 @@ public class Client extends RSApplet {
     public void setGameState(GameState state) {
         GameStateChanged event = new GameStateChanged();
         event.setGameState(state);
-        callbacks.postDeferred(event);
+        if(RuneLite.getClient() != null)
+            callbacks.postDeferred(event);
         if(drawCallbacks != null)
             drawCallbacks.onGameStateChanged(event);
         if(state == GameState.LOADING && HdPlugin.process()) {
