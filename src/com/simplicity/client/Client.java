@@ -5819,10 +5819,6 @@ public class Client extends RSApplet {
                 throw new RuntimeException("eek");
             }
         }
-        
-    	if (runelite != null) {
-    		callbacks.onGameTick();
-    	}
     }
 
     private int cButtonHPos;
@@ -6874,6 +6870,8 @@ public class Client extends RSApplet {
             return;
         }
         loopCycle++;
+
+
         checkSize();
         if (!loggedIn) {
             try {
@@ -6885,6 +6883,9 @@ public class Client extends RSApplet {
             try {
                 processTasks();
                 mainGameProcessor();
+                if (runelite != null) {
+                    callbacks.onGameTick();
+                }
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } catch (InstantiationException e) {
@@ -27260,7 +27261,7 @@ public class Client extends RSApplet {
     public void setGameState(GameState state) {
         GameStateChanged event = new GameStateChanged();
         event.setGameState(state);
-        callbacks.postDeferred(event);
+        callbacks.post(event);
         if(drawCallbacks != null)
             drawCallbacks.onGameStateChanged(event);
         if(state == GameState.LOADING && HdPlugin.process()) {
