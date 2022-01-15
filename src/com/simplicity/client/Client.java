@@ -5934,9 +5934,8 @@ public class Client extends RSApplet {
         try {
             int anInt974 = 0;
             for (int j = -1; j < playerCount + npcCount; j++) {
-                boolean self = j == -1;
                 Object obj;
-                if (self) {
+                if (j == -1) {
                     obj = myPlayer;
                 } else if (j < playerCount) {
                     obj = playerArray[playerIndices[j]];
@@ -5958,7 +5957,7 @@ public class Client extends RSApplet {
                 if (j < playerCount) {
                     int l = 30;
                     Player player = (Player) obj;
-                    if(self && player.hiding == 1) {
+                    if(player.hiding == 1) {
                     	npcScreenPos(((Entity) (obj)), ((Entity) (obj)).height + 15);
 
                     	Graphics2D g = DrawingArea.createGraphics(true);
