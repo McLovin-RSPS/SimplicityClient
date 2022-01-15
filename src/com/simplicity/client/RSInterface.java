@@ -12788,6 +12788,7 @@ public class RSInterface {
         list.height = 174;
         list.width = 174;
         list.scrollMax = 1360 * (max_slots / 100);
+        list.children[max_slots] = -1;
     }
 
     private static void magicFiltering(TextDrawingArea[] tda) {
