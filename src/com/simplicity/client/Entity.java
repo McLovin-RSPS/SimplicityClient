@@ -72,7 +72,8 @@ public class Entity extends Animable {
 		HitsplatApplied hitsplatApplied = new HitsplatApplied();
 		hitsplatApplied.setActor(this);
 		hitsplatApplied.setHitsplat(new Hitsplat(Hitsplat.HitsplatType.DAMAGE, damage, l + 70));
-		Client.getCallbacks().post(hitsplatApplied);
+		if(RuneLite.getClient() != null)
+			Client.getCallbacks().post(hitsplatApplied);
 		for (int i1 = 0; i1 < 4; i1++)
 			if (hitsLoopCycle[i1] <= l) {
 				hitIcon[i1] = icon;

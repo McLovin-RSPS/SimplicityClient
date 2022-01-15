@@ -97,6 +97,7 @@ public class NpcDropChecker extends CustomWidget {
         int frame = 5;
         yPosition = 9;
         int xPosition = 110;
+        id = 104000;
         for (int index = 0; index < 100; index++) {
         	
         	RSInterface.addText(id, "", 0xFFFFFF, true, true, -1, 1);

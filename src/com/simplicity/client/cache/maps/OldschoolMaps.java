@@ -55,7 +55,9 @@ public class OldschoolMaps {
             5432, 5433, // Lake Molch
             11316, // Entrana maybe use for donator zone
             
-            8757, 8754, 9010, 9265, 9013, 7483, 7482, // Elven fishing locations 
+            8757, 8754, 9010, 9265, 9013, 7483, 7482, // Elven fishing locations
+
+            14645, 14901, 14644, 14900, 14643, 14899,
             
             5789, // CHASM OF FIRE
             
@@ -95,7 +97,9 @@ public class OldschoolMaps {
             12613, 12612, 12869, 13125, 13123, 12611, 13122,
             12867, // Tob treasure
 
-            9519,
+            9519, 10833, 9625, 9624, 9881, 9880,
+            9526, 9782, 9525, 9781, 9783, 9527, 13623, 13114, 13102, 12190,
+            8253, 8509, 8252, 8508,
 
             9619, 9363, // Elite dungeon
             14386, 14642,

@@ -1529,19 +1529,21 @@ public final class WorldController {
 				} else {
 					flag = true;
 				}
-				WorldPoint tileLocation = tempTile.getWorldLocation();
-				WorldPoint playerLocation = Client.myPlayer.getWorldLocation();
 				int xDiff = 0;
 				int yDiff = 0;
-				if(tileLocation.getX() > playerLocation.getX()) {
-					xDiff = tileLocation.getX() - playerLocation.getX();
-				} else {
-					xDiff = playerLocation.getX() - tileLocation.getX();
-				}
-				if(tileLocation.getY() > playerLocation.getY()) {
-					yDiff = tileLocation.getY() - playerLocation.getY();
-				} else {
-					yDiff = playerLocation.getY() - tileLocation.getY();
+				if(RuneLite.getClient() != null) {
+					WorldPoint tileLocation = tempTile.getWorldLocation();
+					WorldPoint playerLocation = Client.myPlayer.getWorldLocation();
+					if (tileLocation.getX() > playerLocation.getX()) {
+						xDiff = tileLocation.getX() - playerLocation.getX();
+					} else {
+						xDiff = playerLocation.getX() - tileLocation.getX();
+					}
+					if (tileLocation.getY() > playerLocation.getY()) {
+						yDiff = tileLocation.getY() - playerLocation.getY();
+					} else {
+						yDiff = playerLocation.getY() - tileLocation.getY();
+					}
 				}
 				int distance = xDiff + yDiff;
 				tempTile.aBoolean1322 = false;
