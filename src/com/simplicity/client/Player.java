@@ -282,9 +282,11 @@ public final class Player extends Entity {
 			Animation animation = Animation.anims[super.anim];
 			currentFrame = animation.frameIDs[super.currentAnimFrame];
 			if(Client.instance.tweenPlayerAnimations && super.nextAnimationFrame != -1) {
-				nextFrame = animation.frameIDs[super.nextAnimationFrame];
-				cycle1 = animation.delays[super.currentAnimFrame];
-				cycle2 = super.anInt1528;
+				try {
+					nextFrame = animation.frameIDs[super.nextAnimationFrame];
+					cycle1 = animation.delays[super.currentAnimFrame];
+					cycle2 = super.anInt1528;
+				} catch (Exception e) {}
 			}
 			if(super.entityAnimation >= 0 && super.entityAnimation != super.standAnim)
 				i1 = Animation.anims[super.entityAnimation].frameIDs[super.currentForcedAnimFrame];
