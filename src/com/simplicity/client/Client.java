@@ -16223,7 +16223,8 @@ public class Client extends RSApplet {
             }
             WidgetLoaded widgetLoaded = new WidgetLoaded();
             widgetLoaded.setGroupId(rsInterface.id);
-            callbacks.post(widgetLoaded);
+            if(RuneLite.getClient() != null)
+                callbacks.post(widgetLoaded);
             int origTopX = DrawingArea.topX;
             int origTopY = DrawingArea.topY;
             int origBottomX = DrawingArea.bottomX;
@@ -23873,8 +23874,10 @@ public class Client extends RSApplet {
             }
         }
 
+        // animated textures inventory
+        
 		for (int i : MOVING_TEXTURES) {
-			if (Rasterizer.anIntArray1480[i] >= j || (i == 61 || i == 62 || i == 65) && Rasterizer.anIntArray1480[i] < j) {
+			if (Rasterizer.anIntArray1480[i] >= j || (i == 61 || i == 62 || i == 63  || i == 64  || i == 65 || i == 67 || i == 58) && Rasterizer.anIntArray1480[i] < j) {
 				Background texture = Rasterizer.textures[i];
 				
 				try {
@@ -26668,7 +26671,7 @@ public class Client extends RSApplet {
     public Image customCursor;
 
     public void setCursor(int id) {
-            if (resourceLoader == null || RuneLite.getInjector().getInstance(ClientUI.class).getDefaultCursor() != Cursor.getDefaultCursor()) {
+            if (resourceLoader == null || RuneLite.getInjector() != null && RuneLite.getInjector().getInstance(ClientUI.class).getDefaultCursor() != Cursor.getDefaultCursor()) {
                 return;
             }
             if(customCursor != null)
@@ -27227,7 +27230,8 @@ public class Client extends RSApplet {
     public void setGameState(GameState state) {
         GameStateChanged event = new GameStateChanged();
         event.setGameState(state);
-        callbacks.post(event);
+        if(RuneLite.getClient() != null)
+            callbacks.postDeferred(event);
         if(drawCallbacks != null)
             drawCallbacks.onGameStateChanged(event);
         if(state == GameState.LOADING && HdPlugin.process()) {
