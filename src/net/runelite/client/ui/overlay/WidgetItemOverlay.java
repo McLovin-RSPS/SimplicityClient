@@ -35,6 +35,7 @@ import java.util.Set;
 import com.simplicity.client.RSInterface;
 import lombok.AccessLevel;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.widgets.Widget;
 import static net.runelite.api.widgets.WidgetID.BANK_GROUP_ID;
 import static net.runelite.api.widgets.WidgetID.BANK_INVENTORY_GROUP_ID;
@@ -51,6 +52,7 @@ import static net.runelite.api.widgets.WidgetID.SHOP_INVENTORY_GROUP_ID;
 import static net.runelite.api.widgets.WidgetInfo.TO_GROUP;
 import net.runelite.api.widgets.WidgetItem;
 
+@Slf4j
 public abstract class WidgetItemOverlay extends Overlay
 {
 	@Setter(AccessLevel.PACKAGE)
@@ -89,7 +91,7 @@ public abstract class WidgetItemOverlay extends Overlay
 				(interfaceGroup == BANK_GROUP_ID
 					/*&& (widget.getParentId() == BANK_CONTENT_CONTAINER.getId() || widget.getParentId() == BANK_TAB_CONTAINER.getId())*/))
 			{
-				System.out.println("Skipping because interfaceID not allowed: " + interfaceGroup);
+				log.debug("Skipping because widget {} not allowed: ", interfaceGroup);
 				continue;
 			}
 				graphics.setClip(originalClipBounds);
