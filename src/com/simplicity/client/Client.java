@@ -3090,6 +3090,24 @@ public class Client extends RSApplet {
         }
 
         if (clientSize == 0) {
+            if (menuActionRow >= 1) {
+                String s;
+                //itemSelected != 0 && spellSelected != 0
+                if (itemSelected == 1 && menuActionRow < 2) {
+                    s = "Use " + selectedItemName + " with...";
+                } else if (spellSelected == 1 && menuActionRow < 2) {
+                    s = spellTooltip + "...";
+                } else {
+                    s = menuActionName[menuActionRow - 1];
+                }
+                if (s.contains("[GE]")) {
+                    return;
+                }
+                if (!s.contains("Cancel") && !s.contains("Walk here") && Configuration.enableTooltipHover) {
+                    boolean add = Configuration.enableCursors && cursor > 0;
+                    drawHoverBox(super.mouseX + (add ? 20 : 10), super.mouseY - (add ? 20 : 10), 0x101010, 0xFFFFFF, s);
+                }
+            }
             tabAreaIP.drawGraphics(168, super.graphics, 516);
         }
         gameScreenIP.initDrawingArea();
@@ -4932,6 +4950,14 @@ public class Client extends RSApplet {
     }
 
     public void drawHoverBox(int xPos, int yPos, int color, int color2, String text) {
+        boolean tabArea = false;
+        if (menuScreenArea == 1) {
+            if (!(clientSize > 0)) {
+                xPos -= 519;
+                yPos -= 168;
+                tabArea = true;
+            }
+        }
         String[] results = text.split("\n");
         int height = (results.length * 16) + 6;
         int width;
@@ -4941,9 +4967,8 @@ public class Client extends RSApplet {
                 width = chatTextDrawingArea.getTextWidth(results[i]) + 6;
             }
         }
-        if (xPos + width > clientWidth) {
-            xPos -= width + 10;
-        }
+        while((tabArea ? xPos + 519 : xPos) + width > (clientWidth - 10))
+            xPos -= 3;
         if (yPos + height > clientHeight) {
             yPos -= height + 10;
         }
@@ -4951,7 +4976,7 @@ public class Client extends RSApplet {
         DrawingArea.fillPixels(xPos, width, height, color2, yPos);
         yPos += 14;
         for (int i = 0; i < results.length; i++) {
-            drawingArea.drawRegularText(false, xPos + 5, color2, results[i], yPos + 1);
+            newBoldFont.drawBasicString(results[i], xPos + 5, yPos + 1, color2, 1);
             yPos += 16;
         }
     }
@@ -15270,6 +15295,8 @@ public class Client extends RSApplet {
     }
 
     public int getCursorID() {
+        if(menuActionRow == 0)
+            return 0;
         for (int x = 0; x < cursorInfo.length; x++) {
             if (menuActionName[menuActionRow - 1].startsWith(cursorInfo[x])) {
                 if (menuActionName[menuActionRow - 1].contains("Chop") && tabID == 0) {
@@ -15981,12 +16008,6 @@ public class Client extends RSApplet {
         if (activeInterfaceType == 2) {
             needDrawTabArea = true;
         }
-        if (needDrawTabArea) {
-            if (clientSize == 0) {
-                drawTabArea();
-            }
-            needDrawTabArea = false;
-        }
         if (backDialogID == -1 && inputDialogState == 3) {
             int position = totalItemResults * 14 + 7;
             aClass9_1059.scrollPosition = itemResultScrollPos;
@@ -16066,6 +16087,12 @@ public class Client extends RSApplet {
                 
                 mapAreaIP.drawGraphics(0, super.graphics, 516);
             }
+        }
+        if (needDrawTabArea) {
+            if (clientSize == 0) {
+                drawTabArea();
+            }
+            needDrawTabArea = false;
         }
         if (anInt1054 != -1) {
             tabAreaAltered = true;
@@ -17876,9 +17903,8 @@ public class Client extends RSApplet {
                         sendFrame126("" + playerReporting, 10004);
                     }
                 }
-
                 if (childHovered && child.tooltipBox != null && mouseInGameArea()) {
-    				drawTooltip(childX + child.tooltipOffsetX, childY + child.height + child.tooltipOffsetY, child.tooltipBox);
+                        drawTooltip(childX + child.tooltipOffsetX, childY + child.height + child.tooltipOffsetY, child.tooltipBox);
     			}
             }
             
@@ -19213,7 +19239,11 @@ public class Client extends RSApplet {
         }
         if (!s.contains("Walk here") && Configuration.enableTooltipHover) {
             boolean add = Configuration.enableCursors && cursor > 0;
-            drawHoverBox(super.mouseX + (add ? 20 : 10), super.mouseY - (add ? 20 : 10), 0x101010, 0xFFFFFF, s);
+            boolean tabArea = false;
+            if(mouseX >= 519 && mouseY >= 168 && clientSize == 0)
+                tabArea = true;
+            if(!tabArea)
+                drawHoverBox(super.mouseX + (add ? 20 : 10), super.mouseY - (add ? 20 : 10), 0x101010, 0xFFFFFF, s);
         }
         if (menuActionRow > 2) {
             s = s + "@whi@ / " + (menuActionRow - 2) + " more options";
