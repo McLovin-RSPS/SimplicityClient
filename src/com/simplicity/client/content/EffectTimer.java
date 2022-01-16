@@ -4,7 +4,7 @@ import com.simplicity.util.SecondsTimer;
 
 public class EffectTimer {
 	
-	public enum Type {
+	public enum EffectType {
 		DOUBLE_DONATION(1057),
 		EXPERIENCE(15389, true),
 		BARRAGE(1307),
@@ -30,11 +30,11 @@ public class EffectTimer {
 	    
 	    private boolean isItem;
 	    
-	    Type(int sprite) {
+	    EffectType(int sprite) {
 	    	this(sprite, false);
 	    }
 
-	    Type(int sprite, boolean isItem) {
+	    EffectType(int sprite, boolean isItem) {
 	        this.sprite = sprite;
 	        this.isItem = isItem;
 	    }
@@ -48,12 +48,12 @@ public class EffectTimer {
 	    }
 	}
 	
-	private Type type;
+	private EffectType effectType;
     private final SecondsTimer secondsTimer;
 
-    public EffectTimer(int seconds, Type type) {
+    public EffectTimer(int seconds, EffectType effectType) {
         this.secondsTimer = new SecondsTimer(seconds);
-        this.type = type;
+        this.effectType = effectType;
     }
 
     public void setSeconds(int seconds) {
@@ -64,7 +64,7 @@ public class EffectTimer {
         return secondsTimer;
     }
     
-    public Type getType() {
-    	return type;
+    public EffectType getType() {
+    	return effectType;
     }
 }

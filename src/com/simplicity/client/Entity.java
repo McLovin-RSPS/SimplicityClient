@@ -20,14 +20,21 @@ import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
+import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.HitsplatApplied;
 import net.runelite.client.RuneLite;
 
 public class Entity extends Animable {
 
 	public final void setPos(int i, int j, boolean flag) {
-		if (anim != -1 && Animation.anims[anim].priority == 1)
+		if (anim != -1 && Animation.anims[anim].priority == 1) {
 			anim = -1;
+			if(RuneLite.getClient() != null) {
+				AnimationChanged animationChanged = new AnimationChanged();
+				animationChanged.setActor(this);
+				Client.instance.getCallbacks().post(animationChanged);
+			}
+		}
 		if (!flag) {
 			int k = i - pathX[0];
 			int l = j - pathY[0];
@@ -117,8 +124,14 @@ public class Entity extends Animable {
 			j++;
 			k--;
 		}
-		if (anim != -1 && Animation.anims[anim].priority == 1)
+		if (anim != -1 && Animation.anims[anim].priority == 1) {
 			anim = -1;
+			if(RuneLite.getClient() != null) {
+				AnimationChanged animationChanged = new AnimationChanged();
+				animationChanged.setActor(this);
+				Client.instance.getCallbacks().post(animationChanged);
+			}
+		}
 		if (pathLength < 9)
 			pathLength++;
 		for (int l = pathLength; l > 0; l--) {

@@ -7150,7 +7150,7 @@ public final class ItemID
 	public static final int SUPER_MAGIC_POTION_3 = 11727;
 	public static final int SUPER_MAGIC_POTION_2 = 11728;
 	public static final int SUPER_MAGIC_POTION_1 = 11729;
-	public static final int OVERLOAD_4 = 11730;
+	public static final int OVERLOAD_4 = 15332;
 	public static final int OVERLOAD_3 = 11731;
 	public static final int OVERLOAD_2 = 11732;
 	public static final int OVERLOAD_1 = 11733;
@@ -7208,7 +7208,7 @@ public final class ItemID
 	public static final int ARMADYL_CROSSBOW = 11785;
 	public static final int STEAM_BATTLESTAFF = 11787;
 	public static final int MYSTIC_STEAM_STAFF = 11789;
-	public static final int STAFF_OF_THE_DEAD = 11791;
+	public static final int STAFF_OF_THE_DEAD = 12284;
 	public static final int AGILITY_JUMP_11793 = 11793;
 	public static final int GODSWORD_SHARDS_1__2 = 11794;
 	public static final int GODSWORD_SHARDS_1__3 = 11796;
@@ -9265,7 +9265,7 @@ public final class ItemID
 	public static final int BURNT_PAGE = 20718;
 	public static final int BRUMA_TORCH = 20720;
 	public static final int EMERALD_LANTERN_20722 = 20722;
-	public static final int IMBUED_HEART = 20724;
+	public static final int IMBUED_HEART = 50724;
 	public static final int LEAFBLADED_BATTLEAXE = 20727;
 	public static final int MIST_BATTLESTAFF = 20730;
 	public static final int MYSTIC_MIST_STAFF = 20733;
@@ -9629,7 +9629,7 @@ public final class ItemID
 	public static final int INFERNAL_MAX_CAPE_BROKEN = 21289;
 	public static final int JALNIBREK = 21291;
 	public static final int INFERNAL_EEL = 21293;
-	public static final int INFERNAL_CAPE = 21295;
+	public static final int INFERNAL_CAPE = 51295;
 	public static final int INFERNAL_CAPE_21297 = 21297;
 	public static final int OBSIDIAN_HELMET = 21298;
 	public static final int OBSIDIAN_PLATEBODY = 21301;
@@ -10771,10 +10771,10 @@ public final class ItemID
 	public static final int DRAGON_PICKAXE_OR = 23677;
 	public static final int CRYSTAL_PICKAXE = 23680;
 	public static final int CRYSTAL_PICKAXE_INACTIVE = 23682;
-	public static final int DIVINE_SUPER_COMBAT_POTION4 = 23685;
-	public static final int DIVINE_SUPER_COMBAT_POTION3 = 23688;
-	public static final int DIVINE_SUPER_COMBAT_POTION2 = 23691;
-	public static final int DIVINE_SUPER_COMBAT_POTION1 = 23694;
+	public static final int DIVINE_SUPER_COMBAT_POTION4 = 53685;
+	public static final int DIVINE_SUPER_COMBAT_POTION3 = 53688;
+	public static final int DIVINE_SUPER_COMBAT_POTION2 = 53691;
+	public static final int DIVINE_SUPER_COMBAT_POTION1 = 536894;
 	public static final int DIVINE_SUPER_ATTACK_POTION4 = 23697;
 	public static final int DIVINE_SUPER_ATTACK_POTION3 = 23700;
 	public static final int DIVINE_SUPER_ATTACK_POTION2 = 23703;

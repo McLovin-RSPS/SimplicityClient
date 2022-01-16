@@ -340,10 +340,10 @@ public final class SpriteID
 	public static final int SPELL_CHARGE = 322;
 	public static final int SPELL_TROLLHEIM_TELEPORT = 323;
 	public static final int SPELL_MAGIC_DART = 324;
-	public static final int SPELL_ICE_RUSH = 325;
-	public static final int SPELL_ICE_BURST = 326;
-	public static final int SPELL_ICE_BLITZ = 327;
-	public static final int SPELL_ICE_BARRAGE = 328;
+	public static final int SPELL_ICE_RUSH = 1333;
+	public static final int SPELL_ICE_BURST = 1333;
+	public static final int SPELL_ICE_BLITZ = 1333;
+	public static final int SPELL_ICE_BARRAGE = 1333;
 	public static final int SPELL_SMOKE_RUSH = 329;
 	public static final int SPELL_SMOKE_BURST = 330;
 	public static final int SPELL_SMOKE_BLITZ = 331;
@@ -367,7 +367,7 @@ public final class SpriteID
 	public static final int SPELL_TELEOTHER_LUMBRIDGE = 349;
 	public static final int SPELL_TELEOTHER_FALADOR = 350;
 	public static final int SPELL_TELEOTHER_CAMELOT = 351;
-	public static final int SPELL_TELE_BLOCK = 352;
+	public static final int SPELL_TELE_BLOCK = 1333;
 	public static final int SPELL_LVL_6_ENCHANT = 353;
 	public static final int SPELL_BONES_TO_PEACHES = 354;
 	public static final int SPELL_TELEPORT_TO_HOUSE = 355;
@@ -569,10 +569,10 @@ public final class SpriteID
 	public static final int SPELL_ENERGY_TRANSFER = 558;
 	public static final int SPELL_CURE_OTHER = 559;
 	public static final int SPELL_HEAL_OTHER = 560;
-	public static final int SPELL_VENGEANCE_OTHER = 561;
+	public static final int SPELL_VENGEANCE_OTHER = 1701;
 	public static final int SPELL_CURE_ME = 562;
 	public static final int SPELL_GEOMANCY = 563;
-	public static final int SPELL_VENGEANCE = 564;
+	public static final int SPELL_VENGEANCE = 1306;
 	public static final int SPELL_CURE_GROUP = 565;
 	public static final int SPELL_HEAL_GROUP = 566;
 	public static final int SPELL_CURE_PLANT = 567;

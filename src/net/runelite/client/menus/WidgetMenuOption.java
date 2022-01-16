@@ -26,6 +26,8 @@ package net.runelite.client.menus;
 
 import java.awt.Color;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import net.runelite.api.widgets.WidgetInfo;
 
@@ -49,6 +51,10 @@ public final class WidgetMenuOption
 	 * The widget to add the option to
 	 */
 	private final WidgetInfo widget;
+
+	@Getter
+	@Setter
+	private boolean deprioritized;
 
 	/**
 	 * Creates a menu to be added to right click menus. The menu will only be added if match is found within the menu options

@@ -11,7 +11,7 @@ import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.util.StringUtils;
 
 /**
- * An enumerated type that represents and handles a setting under the advanced
+ * An enumerated effectType that represents and handles a setting under the advanced
  * options interface.
  * 
  * @author Blake
@@ -75,19 +75,6 @@ public enum Setting {
 			return enableFog;
 		}
 	},
-
-	GROUND_ITEM_NAMES() {
-
-		@Override
-		public void handle() {
-			enableGroundItemNames = !enableGroundItemNames;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableHDTextures;
-		}
-	},
 	
 	MIP_MAPPING() {
 		@Override
@@ -144,20 +131,6 @@ public enum Setting {
 	},
 
 	ITEM_STATS(new DropdownMenu(75, false, 1, new String[] { "On Hover", "Hold Ctrl", "Disabled" }, Dropdown.ITEM_STATS)) { },
-
-	EFFECT_TIMERS() {
-
-		@Override
-		public void handle() {
-			enableTimers = !enableTimers;
-			Client.timersEnabled = enableTimers;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableTimers;
-		}
-	},
 	
 	KDR() {
 		@Override
@@ -168,18 +141,6 @@ public enum Setting {
 		@Override
 		public boolean enabled() {
 			return Configuration.enableKDROverlay;
-		}
-	},
-	
-	RUNE_POUCH() {
-		@Override
-		public void handle() {
-			Configuration.enableRunePouchOverlay = !Configuration.enableRunePouchOverlay;
-		}
-
-		@Override
-		public boolean enabled() {
-			return Configuration.enableRunePouchOverlay;
 		}
 	},
 	

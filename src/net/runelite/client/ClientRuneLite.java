@@ -524,7 +524,15 @@ public class ClientRuneLite implements Client {
 		// TODO Auto-generated method stub
 		return getVarps()[varClientInt.getIndex()];
 	}
-	
+
+	@Override
+	public int getVar(int varbit) {
+		if (varbit >= client().variousSettings.length) {
+			return 0;
+		}
+
+		return client().variousSettings[varbit];
+	}
 	@Override
 	public int getVar(Varbits varbit) {
 		if (varbit.getId() >= client().variousSettings.length) {
@@ -747,7 +755,7 @@ public class ClientRuneLite implements Client {
 				
 				entries[i] = new MenuEntry();
 				entries[i].setParam1(client().menuActionCmd3[i]); // widget id
-				entries[i].setType(client().menuActionID[i]); // action type
+				entries[i].setType(client().menuActionID[i]); // action effectType
 				entries[i].setIdentifier(client().menuActionCmd1[i]);
 				entries[i].setParam0(client().menuActionCmd2[i]);
 				entries[i].setParam1(client().menuActionCmd3[i]);
@@ -1201,7 +1209,7 @@ public class ClientRuneLite implements Client {
 	}
 	
 	@Override
-	public void addChatMessage(ChatMessageType type, String name, String message, String sender) {
+	public void addChatMessage(ChatMessageType effectType, String name, String message, String sender) {
 		// TODO Auto-generated method stub
 		
 	}

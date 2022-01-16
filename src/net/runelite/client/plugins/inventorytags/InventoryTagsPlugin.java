@@ -267,6 +267,8 @@ public class InventoryTagsPlugin extends Plugin
 
 	private void refreshInventoryMenuOptions()
 	{
+		FIXED_INVENTORY_TAB_CONFIGURE.setDeprioritized(true);
+		FIXED_INVENTORY_TAB_SAVE.setDeprioritized(true);
 		removeInventoryMenuOptions();
 		if (editorMode)
 		{
