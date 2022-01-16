@@ -171,6 +171,7 @@ import net.runelite.client.callback.Hooks;
 import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.plugins.hdnew.HdPlugin;
 import net.runelite.client.ui.ClientUI;
+import net.runelite.client.ui.overlay.Overlay;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import static java.lang.System.out;
@@ -5819,10 +5820,6 @@ public class Client extends RSApplet {
                 throw new RuntimeException("eek");
             }
         }
-        
-    	if (runelite != null) {
-    		callbacks.onGameTick();
-    	}
     }
 
     private int cButtonHPos;
@@ -6874,6 +6871,8 @@ public class Client extends RSApplet {
             return;
         }
         loopCycle++;
+
+
         checkSize();
         if (!loggedIn) {
             try {
@@ -6885,6 +6884,9 @@ public class Client extends RSApplet {
             try {
                 processTasks();
                 mainGameProcessor();
+                if (runelite != null) {
+                    callbacks.onGameTick();
+                }
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } catch (InstantiationException e) {
@@ -9022,6 +9024,9 @@ public class Client extends RSApplet {
         }
         
         if (runelite != null && MenuAction.of(l) != MenuAction.UNKNOWN) {
+            if(menuConsumers[i] != null) {
+                menuConsumers[i].accept(RuneLite.getClient().getMenuEntries()[i]);
+            }
         	MenuOptionClicked option = new MenuOptionClicked();
         	option.setActionParam(slot);
         	option.setMenuOption(menuActionName[i]);
@@ -9030,7 +9035,7 @@ public class Client extends RSApplet {
             int itemId = 0;
             int[] itemContainerParentIds = new int[] {3214};
             int finalInterfaceId = interfaceId;
-            if(RSInterface.interfaceCache[interfaceId] != null && RSInterface.interfaceCache[interfaceId].inv == null
+            if(interfaceId > 0 && RSInterface.interfaceCache[interfaceId] != null && RSInterface.interfaceCache[interfaceId].inv == null
                     || Arrays.stream(itemContainerParentIds).anyMatch(wid -> finalInterfaceId == wid)){
                 itemId = entityId;
             } else {
@@ -10944,6 +10949,7 @@ public class Client extends RSApplet {
         menuActionCmd3 = null;
         menuActionCmd4 = null;
         menuActionID = null;
+        menuConsumers = null;
         menuActionCmd1 = null;
         menuActionName = null;
         variousSettings = null;
@@ -11372,6 +11378,8 @@ public class Client extends RSApplet {
                                 return;
                             }
                             Skills.goalType = "Target Level: ";
+                            variousSettings[1229 + Skills.selectedSkillId] = currentExp[Skills.selectedSkillId];
+                            variousSettings[1253 + Skills.selectedSkillId] = getXPForLevel(goalLevel) + 1;
                             Skills.goalData[Skills.selectedSkillId][0] = currentExp[Skills.selectedSkillId];
                             Skills.goalData[Skills.selectedSkillId][1] = getXPForLevel(goalLevel) + 1;
                             Skills.goalData[Skills.selectedSkillId][2] = (Skills.goalData[Skills.selectedSkillId][0]
@@ -11396,6 +11404,8 @@ public class Client extends RSApplet {
                             goalExp = 1000000000;
                         }
                         Skills.goalType = "Target Exp: ";
+                        variousSettings[1229 + Skills.selectedSkillId] = currentExp[Skills.selectedSkillId];
+                        variousSettings[1253 + Skills.selectedSkillId] = ((int) goalExp);
                         Skills.goalData[Skills.selectedSkillId][0] = currentExp[Skills.selectedSkillId];
                         Skills.goalData[Skills.selectedSkillId][1] = ((int) goalExp);
                         Skills.goalData[Skills.selectedSkillId][2] = (Skills.goalData[Skills.selectedSkillId][0]
@@ -15772,51 +15782,8 @@ public class Client extends RSApplet {
     }
 
     private void appendAnimation(Entity entity) {
+        boolean tween = entity instanceof NPC ? tweenNpcAnimations : tweenPlayerAnimations;
     	try {
-	        /*
-	         * entity.aBoolean1541 = false; if (entity.entityAnimation != -1) { try { Animation
-	         * animation = Animation.anims[entity.entityAnimation]; entity.anInt1519++; if
-	         * (entity.currentForcedAnimFrame < animation.frameCount && entity.anInt1519 >
-	         * animation .getFrameLength(entity.currentForcedAnimFrame)) {
-	         * //entity.anInt1519 = 1;// this is the frame delay. 0 is what it's // normally
-	         * at. higher number = faster // animations. entity.anInt1519 -=
-	         * animation.getFrameLength(entity.currentForcedAnimFrame);
-	         * entity.currentForcedAnimFrame++; } if (entity.currentForcedAnimFrame >=
-	         * animation.frameCount) { entity.anInt1519 = 1; entity.currentForcedAnimFrame =
-	         * 0; } } catch(Exception e) {
-	         *
-	         * } } if (entity.anInt1520 != -1 && loopCycle >= entity.graphicDelay) { if
-	         * (entity.currentAnim < 0) entity.currentAnim = 0; Animation animation_1 =
-	         * SpotAnimDefinition.cache[entity.anInt1520].animation; if (animation_1 !=
-	         * null) { for (entity.animCycle++; entity.currentAnim < animation_1.frameCount
-	         * && entity.animCycle > animation_1 .getFrameLength(entity.currentAnim);
-	         * entity.currentAnim++) entity.animCycle -= animation_1
-	         * .getFrameLength(entity.currentAnim);
-	         *
-	         * if (entity.currentAnim >= animation_1.frameCount && (entity.currentAnim < 0
-	         * || entity.currentAnim >= animation_1.frameCount)) entity.anInt1520 = -1; } }
-	         * if (entity.anim != -1 && entity.animationDelay <= 1) { if
-	         * (Animation.anims.length <= entity.anim) { return; } Animation animation_2 =
-	         * Animation.anims[entity.anim]; if (animation_2.resetWhenWalk == 1 &&
-	         * entity.anInt1542 > 0 && entity.anInt1547 <= loopCycle && entity.anInt1548 <
-	         * loopCycle) { entity.animationDelay = 1; return; } } try { if (entity.anim !=
-	         * -1 && entity.animationDelay == 0) { Animation animation_3 =
-	         * Animation.anims[entity.anim]; for (entity.anInt1528++;
-	         * entity.currentAnimFrame < animation_3.frameCount && entity.anInt1528 >
-	         * animation_3 .getFrameLength(entity.currentAnimFrame);
-	         * entity.currentAnimFrame++) entity.anInt1528 -= animation_3
-	         * .getFrameLength(entity.currentAnimFrame);
-	         *
-	         * if (entity.currentAnimFrame >= animation_3.frameCount) {
-	         * entity.currentAnimFrame -= animation_3.loopDelay; entity.anInt1530++; if
-	         * (entity.anInt1530 >= animation_3.frameStep) entity.anim = -1; if
-	         * (entity.currentAnimFrame < 0 || entity.currentAnimFrame >=
-	         * animation_3.frameCount) entity.anim = -1; } entity.aBoolean1541 =
-	         * animation_3.oneSquareAnimation; } } catch (Exception e) {
-	         *
-	         * } if (entity.animationDelay > 0) entity.animationDelay--;
-	         */
-
 	        entity.aBoolean1541 = false;
 	        if (entity.entityAnimation != -1) {
 	            if (entity.entityAnimation > Animation.anims.length) {
@@ -15832,7 +15799,7 @@ public class Client extends RSApplet {
 	                entity.currentForcedAnimFrame++;
 	                entity.nextIdleAnimationFrame++;
 	            }
-	            entity.nextIdleAnimationFrame = entity.currentForcedAnimFrame + 1;
+	                entity.nextIdleAnimationFrame = entity.currentForcedAnimFrame + 1;
 	            if (entity.nextIdleAnimationFrame >= animation.frameCount) {
 	                if (entity.nextIdleAnimationFrame >= animation.frameCount) {
 	                    entity.nextIdleAnimationFrame = 0;
@@ -15861,8 +15828,9 @@ public class Client extends RSApplet {
 	                    && (entity.currentAnim < 0 || entity.currentAnim >= animation_1.frameCount)) {
 	                entity.anInt1520 = -1;
 	            }
+                if(tween)
+                    entity.nextGraphicsAnimationFrame = entity.currentAnim + 1;
 
-	            entity.nextGraphicsAnimationFrame = entity.currentAnim + 1;
 	            if (entity.nextGraphicsAnimationFrame >= animation_1.frameCount) {
 	                if (entity.nextGraphicsAnimationFrame < 0
 	                        || entity.nextGraphicsAnimationFrame >= animation_1.frameCount) {
@@ -15895,7 +15863,8 @@ public class Client extends RSApplet {
 	                    entity.anim = -1;
 	                }
 	            }
-	            entity.nextAnimationFrame = entity.currentAnimFrame + 1;
+                if(tween)
+                    entity.nextAnimationFrame = entity.currentAnimFrame + 1;
 	            if (entity.nextAnimationFrame >= animation_3.frameCount) {
 	            	if (entity.anInt1530 >= animation_3.frameCount) {
 	                    entity.nextAnimationFrame = getNextFrame(entity);
@@ -23497,8 +23466,8 @@ public class Client extends RSApplet {
             Rasterizer.textureInt2 <<= 1;
         }
         DrawingArea.resetImage();
-        if(skyboxColor > 0)
-            Rasterizer.drawRectangle(0, gameAreaHeight, 255, skyboxColor, gameAreaWidth, 0);
+        if(RuneLite.getClient() != null)
+            callbacks.post(new BeforeRender());
         worldController.render(xCameraPos, yCameraPos, xCameraCurve, zCameraPos, j, yCameraCurve);
         worldController.renderTileMarkers();
         if (!HdPlugin.process() && Configuration.enableFog) {
@@ -24267,6 +24236,7 @@ public class Client extends RSApplet {
         menuActionCmd3 = new int[500];
         menuActionCmd4 = new int[500];
         menuActionID = new int[500];
+        menuConsumers = new Consumer[500];
         menuActionCmd1 = new int[500];
         headIcons = new Sprite[20];
         skullIcons = new Sprite[20];
@@ -24574,11 +24544,12 @@ public class Client extends RSApplet {
     public int[] menuActionCmd3;
     public int[] menuActionCmd4;
     public int[] menuActionID;
+    public Consumer<MenuEntry>[] menuConsumers;
     public int[] menuActionCmd1;
     private Sprite[] headIcons;
     private Sprite[] skullIcons;
     private Sprite[] headIconsHint;
-    public int skyboxColor;
+    public int skyboxColor = 0;
     private static int anInt1097;
     private int anInt1098;
     private int anInt1099;
@@ -26811,6 +26782,9 @@ public class Client extends RSApplet {
                 Skills.goalData[index][1] = in.readInt();
                 Skills.goalData[index][2] = in.readInt();
                 Skills.goalType = in.readUTF();
+
+                instance.variousSettings[1229 + index] = Skills.goalData[index][0];
+                instance.variousSettings[1253 + index] = Skills.goalData[index][1];
             }
             in.close();
         } catch (Exception e) {
@@ -27338,6 +27312,20 @@ public class Client extends RSApplet {
 		menuActionCmd3[menuActionRow] = actionParam1;
 		menuActionRow++;
 	}
+    public void addMenuEntry(String actionName, String target, int actionId, int identifier, int actionParam0, int actionParam1, boolean deprioritize, Consumer<MenuEntry> onClick) {
+        if (deprioritize) {
+            menuActionID[menuActionRow] = actionId + '\0';
+        } else {
+            menuActionID[menuActionRow] = actionId;
+        }
+        menuActionTarget[menuActionRow] = target;
+        menuActionName[menuActionRow] = actionName;//TODO
+        menuActionCmd1[menuActionRow] = identifier;
+        menuActionCmd2[menuActionRow] = actionParam0;
+        menuActionCmd3[menuActionRow] = actionParam1;
+        menuConsumers[menuActionRow] = onClick;
+        menuActionRow++;
+    }
 
     public boolean isSearchingGe() {
         return inputDialogState == 6;
@@ -27401,5 +27389,10 @@ public class Client extends RSApplet {
     public void submit(Runnable r) {
         runnables.add(r);
     }
+
+
+    public boolean tweenPlayerAnimations;
+    public boolean tweenNpcAnimations;
+    public boolean tweenObjectAnimations;
 
 }

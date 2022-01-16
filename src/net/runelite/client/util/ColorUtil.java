@@ -60,7 +60,23 @@ public class ColorUtil
 	{
 		return "#" + colorToHexCode(color);
 	}
+	/**
+	 * Gets the same RGB color with the specified alpha value.
+	 *
+	 * @param color The RGB color to use.
+	 * @param alpha The alpha value to use (0-255).
+	 * @return      A Color with the given RGB and alpha.
+	 */
+	public static Color colorWithAlpha(final Color color, int alpha)
+	{
+		if (color.getAlpha() == alpha)
+		{
+			return color;
+		}
 
+		alpha = constrainValue(alpha);
+		return new Color((color.getRGB() & 0x00ffffff) | (alpha << 24), true);
+	}
 	/**
 	 * Linearly interpolates between colors a and b by t.
 	 *

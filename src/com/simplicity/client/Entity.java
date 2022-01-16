@@ -379,4 +379,8 @@ public class Entity extends Animable {
 	public Point getCanvasImageLocation(BufferedImage fishImage, int modelHeight) {
 		return Perspective.getCanvasImageLocation(RuneLite.getClient(), getLocalLocation(), fishImage, modelHeight);
 	}
+
+    public int getAnimation() {
+		return anim;
+    }
 }

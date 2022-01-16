@@ -156,8 +156,6 @@ public class Hooks implements Callbacks
 	public void clientMainLoop()
 	{
 		post(CLIENT_TICK);
-
-		eventBus.post(new BeforeRender());
 		clientThread.invoke();
 
 		long now = System.currentTimeMillis();

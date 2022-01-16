@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, Seth <Sethtroll3@gmail.com>
+ * Copyright (c) 2020, Jordan Zomerlei <https://github.com/JZomerlei>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,20 +22,14 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.fishing;
+package net.runelite.client.plugins.mining;
 
-import com.google.common.collect.ImmutableSet;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.util.Set;
 import javax.inject.Inject;
 
 import net.runelite.api.*;
-
-import static net.runelite.api.MenuAction.RUNELITE_OVERLAY;
-import static net.runelite.api.MenuAction.RUNELITE_OVERLAY_CONFIG;
-
 import net.runelite.client.plugins.xptracker.XpTrackerService;
 import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
@@ -44,79 +38,67 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.LineComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
 
-class FishingOverlay extends OverlayPanel
+class MiningOverlay extends OverlayPanel
 {
-	private static final String FISHING_SPOT = "Fishing spot";
-	static final String FISHING_RESET = "Reset";
-
-	private static final Set<Integer> FISHING_ANIMATIONS = ImmutableSet.of(
-		AnimationID.FISHING_BARBTAIL_HARPOON,
-		AnimationID.FISHING_BAREHAND,
-		AnimationID.FISHING_BIG_NET,
-		AnimationID.FISHING_CAGE,
-		AnimationID.FISHING_DRAGON_HARPOON,
-		AnimationID.FISHING_HARPOON,
-		AnimationID.FISHING_INFERNAL_HARPOON,
-		AnimationID.FISHING_KARAMBWAN,
-		AnimationID.FISHING_NET,
-		AnimationID.FISHING_OILY_ROD,
-		AnimationID.FISHING_POLE_CAST);
+	static final String MINING_RESET = "Reset";
 
 	private final Client client;
-	private final FishingPlugin plugin;
-	private final FishingConfig config;
+	private final MiningPlugin plugin;
+	private final MiningConfig config;
 	private final XpTrackerService xpTrackerService;
 
 	@Inject
-	public FishingOverlay(Client client, FishingPlugin plugin, FishingConfig config, XpTrackerService xpTrackerService)
+	private MiningOverlay(final Client client, final MiningPlugin plugin, final MiningConfig config, XpTrackerService xpTrackerService)
 	{
 		super(plugin);
 		setPosition(OverlayPosition.TOP_LEFT);
-		setGraphicsBuffer(GraphicsBufferType.MAIN_GAME);
 		this.client = client;
+		setGraphicsBuffer(GraphicsBufferType.MAIN_GAME);
 		this.plugin = plugin;
 		this.config = config;
 		this.xpTrackerService = xpTrackerService;
-		getMenuEntries().add(new OverlayMenuEntry(RUNELITE_OVERLAY_CONFIG, OPTION_CONFIGURE, "Fishing overlay"));
-		getMenuEntries().add(new OverlayMenuEntry(RUNELITE_OVERLAY, FISHING_RESET, "Fishing overlay"));
+		getMenuEntries().add(new OverlayMenuEntry(MenuAction.RUNELITE_OVERLAY_CONFIG, OPTION_CONFIGURE, "Mining overlay"));
+		getMenuEntries().add(new OverlayMenuEntry(MenuAction.RUNELITE_OVERLAY, MINING_RESET, "Mining overlay"));
 	}
 
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!config.showFishingStats() || plugin.getSession().getLastFishCaught() == null)
+		MiningSession session = plugin.getSession();
+		if (session == null || session.getLastMined() == null || !config.showMiningStats())
 		{
 			return null;
 		}
 
-		if (FISHING_ANIMATIONS.contains(client.getLocalPlayer().anim))
+		Pickaxe pickaxe = plugin.getPickaxe();
+		if (pickaxe != null && (pickaxe.matchesMiningAnimation(client.getLocalPlayer())))
 		{
 			panelComponent.getChildren().add(TitleComponent.builder()
-				.text("Fishing")
+				.text("Mining")
 				.color(Color.GREEN)
 				.build());
 		}
 		else
 		{
 			panelComponent.getChildren().add(TitleComponent.builder()
-				.text("NOT fishing")
+				.text("NOT mining")
 				.color(Color.RED)
 				.build());
 		}
 
-		int actions = xpTrackerService.getActions(Skill.FISHING);
+		int actions = xpTrackerService.getActions(Skill.MINING);
 		if (actions > 0)
 		{
 			panelComponent.getChildren().add(LineComponent.builder()
-				.left("Caught fish:")
+				.left("Total mined:")
 				.right(Integer.toString(actions))
 				.build());
 
 			if (actions > 2)
 			{
 				panelComponent.getChildren().add(LineComponent.builder()
-					.left("Fish/hr:")
-					.right(Integer.toString(xpTrackerService.getActionsHr(Skill.FISHING)))
+					.left("Mined/hr:")
+					.right(Integer.toString(xpTrackerService.getActionsHr(Skill.MINING)))
 					.build());
 			}
 		}

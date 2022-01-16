@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2017, Seth <Sethtroll3@gmail.com>
+ * Copyright (c) 2018, Joris K <kjorisje@gmail.com>
+ * Copyright (c) 2018, Lasse <cronick@zytex.dk>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,20 +23,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.fishing;
+package net.runelite.client.plugins.cooking;
 
-import com.google.common.collect.ImmutableSet;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.util.Set;
+import java.text.DecimalFormat;
+import java.time.Duration;
+import java.time.Instant;
 import javax.inject.Inject;
-
-import net.runelite.api.*;
-
+import static net.runelite.api.AnimationID.COOKING_FIRE;
+import static net.runelite.api.AnimationID.COOKING_RANGE;
+import net.runelite.api.Client;
 import static net.runelite.api.MenuAction.RUNELITE_OVERLAY;
 import static net.runelite.api.MenuAction.RUNELITE_OVERLAY_CONFIG;
 
+import net.runelite.api.GraphicsBufferType;
+import net.runelite.api.Skill;
 import net.runelite.client.plugins.xptracker.XpTrackerService;
 import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
@@ -44,83 +48,75 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.LineComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
 
-class FishingOverlay extends OverlayPanel
+class CookingOverlay extends OverlayPanel
 {
-	private static final String FISHING_SPOT = "Fishing spot";
-	static final String FISHING_RESET = "Reset";
-
-	private static final Set<Integer> FISHING_ANIMATIONS = ImmutableSet.of(
-		AnimationID.FISHING_BARBTAIL_HARPOON,
-		AnimationID.FISHING_BAREHAND,
-		AnimationID.FISHING_BIG_NET,
-		AnimationID.FISHING_CAGE,
-		AnimationID.FISHING_DRAGON_HARPOON,
-		AnimationID.FISHING_HARPOON,
-		AnimationID.FISHING_INFERNAL_HARPOON,
-		AnimationID.FISHING_KARAMBWAN,
-		AnimationID.FISHING_NET,
-		AnimationID.FISHING_OILY_ROD,
-		AnimationID.FISHING_POLE_CAST);
+	private static final int COOK_TIMEOUT = 3;
+	private static final DecimalFormat FORMAT = new DecimalFormat("#.#");
+	static final String COOKING_RESET = "Reset";
 
 	private final Client client;
-	private final FishingPlugin plugin;
-	private final FishingConfig config;
+	private final CookingPlugin plugin;
 	private final XpTrackerService xpTrackerService;
 
 	@Inject
-	public FishingOverlay(Client client, FishingPlugin plugin, FishingConfig config, XpTrackerService xpTrackerService)
+	private CookingOverlay(Client client, CookingPlugin plugin, XpTrackerService xpTrackerService)
 	{
 		super(plugin);
-		setPosition(OverlayPosition.TOP_LEFT);
 		setGraphicsBuffer(GraphicsBufferType.MAIN_GAME);
+		setPosition(OverlayPosition.TOP_LEFT);
 		this.client = client;
 		this.plugin = plugin;
-		this.config = config;
 		this.xpTrackerService = xpTrackerService;
-		getMenuEntries().add(new OverlayMenuEntry(RUNELITE_OVERLAY_CONFIG, OPTION_CONFIGURE, "Fishing overlay"));
-		getMenuEntries().add(new OverlayMenuEntry(RUNELITE_OVERLAY, FISHING_RESET, "Fishing overlay"));
+		getMenuEntries().add(new OverlayMenuEntry(RUNELITE_OVERLAY_CONFIG, OPTION_CONFIGURE, "Cooking overlay"));
+		getMenuEntries().add(new OverlayMenuEntry(RUNELITE_OVERLAY, COOKING_RESET, "Cooking overlay"));
 	}
 
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!config.showFishingStats() || plugin.getSession().getLastFishCaught() == null)
+		CookingSession session = plugin.getSession();
+		if (session == null)
 		{
 			return null;
 		}
 
-		if (FISHING_ANIMATIONS.contains(client.getLocalPlayer().anim))
+		if (isCooking() || Duration.between(session.getLastCookingAction(), Instant.now()).getSeconds() < COOK_TIMEOUT)
 		{
 			panelComponent.getChildren().add(TitleComponent.builder()
-				.text("Fishing")
+				.text("Cooking")
 				.color(Color.GREEN)
 				.build());
 		}
 		else
 		{
 			panelComponent.getChildren().add(TitleComponent.builder()
-				.text("NOT fishing")
+				.text("NOT cooking")
 				.color(Color.RED)
 				.build());
 		}
 
-		int actions = xpTrackerService.getActions(Skill.FISHING);
-		if (actions > 0)
-		{
-			panelComponent.getChildren().add(LineComponent.builder()
-				.left("Caught fish:")
-				.right(Integer.toString(actions))
-				.build());
+		panelComponent.getChildren().add(LineComponent.builder()
+			.left("Cooked:")
+			.right(session.getCookAmount() + (session.getCookAmount() >= 1 ? " (" + xpTrackerService.getActionsHr(Skill.COOKING) + "/hr)" : ""))
+			.build());
 
-			if (actions > 2)
-			{
-				panelComponent.getChildren().add(LineComponent.builder()
-					.left("Fish/hr:")
-					.right(Integer.toString(xpTrackerService.getActionsHr(Skill.FISHING)))
-					.build());
-			}
-		}
+		panelComponent.getChildren().add(LineComponent.builder()
+			.left("Burnt:")
+			.right(session.getBurnAmount() + (session.getBurnAmount() >= 1 ? " (" + FORMAT.format(session.getBurntPercentage()) + "%)" : ""))
+			.build());
 
 		return super.render(graphics);
+	}
+
+	private boolean isCooking()
+	{
+		switch (client.getLocalPlayer().getAnimation())
+		{
+			case COOKING_FIRE:
+			case COOKING_RANGE:
+				return true;
+			default:
+				return false;
+		}
 	}
 }

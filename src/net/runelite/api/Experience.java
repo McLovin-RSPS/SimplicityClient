@@ -99,7 +99,10 @@ public class Experience
 	{
 		if (xp < 0)
 		{
-			throw new IllegalArgumentException("XP (" + xp + ") must not be negative");
+			/**
+			 * Only time XP hits negative is at really high amounts, which always results in level 99
+			 */
+			return 99;
 		}
 
 		int low = 0;
