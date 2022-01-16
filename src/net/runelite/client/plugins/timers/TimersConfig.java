@@ -33,7 +33,51 @@ import java.time.Instant;
 public interface TimersConfig extends Config
 {
 	String GROUP = "timers";
-
+	@ConfigItem(
+			keyName = "showSpecialRestore",
+			name = "Special Restore",
+			description = "Configures whether timers for special restore potions are displayed"
+	)
+	default boolean showSpecialRestore()
+	{
+		return true;
+	}
+	@ConfigItem(
+			keyName = "showDoubleDonation",
+			name = "Double Donation",
+			description = "Configures whether timers for double donations are displayed"
+	)
+	default boolean showDoubleDonation()
+	{
+		return true;
+	}
+	@ConfigItem(
+			keyName = "showFamiliarSpecial",
+			name = "Familiar Special",
+			description = "Configures whether timers for familiar specials are displayed"
+	)
+	default boolean showFamiliarSpecial()
+	{
+		return true;
+	}
+	@ConfigItem(
+			keyName = "showPrayerRenewal",
+			name = "Prayer Renewal",
+			description = "Configures whether timers for prayer renewal are displayed"
+	)
+	default boolean showPrayerRenewal()
+	{
+		return true;
+	}
+	@ConfigItem(
+			keyName = "showExperience",
+			name = "Experience",
+			description = "Configures whether timers for bonus experience are displayed"
+	)
+	default boolean showExperience()
+	{
+		return true;
+	}
 	@ConfigItem(
 		keyName = "showAntipoison",
 		name = "Antipoison/Venom timers",

@@ -647,6 +647,7 @@ public interface Client extends GameEngine
 	 * @return the value
 	 */
 	int getVar(VarPlayer varPlayer);
+	int getVar(int varbit);
 
 	/**
 	 * Gets a value corresponding to the passed variable.

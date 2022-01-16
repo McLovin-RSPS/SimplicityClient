@@ -5,7 +5,7 @@ public class Configuration {
 	/**
 	 * Connection information
 	 */
-	public final static boolean LOCALHOST = false;
+	public final static boolean LOCALHOST = true;
 	public final static boolean BETA = true;
 	public static String HOST = LOCALHOST ? "127.0.0.1" : BETA ? "beta.simplicity-data.com" : "149.56.28.66";
 	public static int PORT = 43594;
@@ -107,11 +107,7 @@ public class Configuration {
 	 * Indicates whether the escape key can be used to close interface or not.
 	 */
     public static boolean escapeClosesInterface;
-    
-    /**
-     * Indicates whether the ground item names feature is enabled or not.
-     */
-    public static boolean enableGroundItemNames;
+
     
     /**
      * Indicates whether hd textures are enabled or not.
@@ -122,11 +118,6 @@ public class Configuration {
      * Indicates whether the special orb is enabled or not.
      */
 	public static boolean enableSpecialOrb;
-	
-    /**
-     * Indicates whether the timers are enabled or not.
-     */
-	public static boolean enableTimers = true;
 	
     /**
      * Indicates whether tooltips on hover are enabled or not.
@@ -252,11 +243,6 @@ public class Configuration {
 	 * Indicates whether new hp bars are enabled or not.
 	 */
 	public static boolean enableNewHpBars = true;
-	
-	/**
-	 * Indicates whether rune pouch overlay is enabled or not.
-	 */
-	public static boolean enableRunePouchOverlay = true;
 	
 	/**
 	 * Indicates whether oldschool frame is enabled or not.

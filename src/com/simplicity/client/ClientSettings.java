@@ -82,10 +82,6 @@ public class ClientSettings {
 				Configuration.enableSpecialOrb = reader.get("special-orb").getAsBoolean();
 			}
 			
-			if (reader.has("veng-timer")) {
-				Configuration.enableTimers = reader.get("veng-timer").getAsBoolean();
-			}
-			
 			if (reader.has("tooltip-hover")) {
 				Configuration.enableTooltipHover = reader.get("tooltip-hover").getAsBoolean();
 			}
@@ -142,10 +138,6 @@ public class ClientSettings {
 				Configuration.enableXpOrbs = reader.get("xp-orbs").getAsBoolean();
 			}
 			
-			if (reader.has("ground-item-names")) {
-				Configuration.enableGroundItemNames = reader.get("ground-item-names").getAsBoolean();
-			}
-			
 			if (reader.has("shift-click-drop")) {
 				Configuration.enableShiftClickDrop = reader.get("shift-click-drop").getAsBoolean();
 			}
@@ -187,10 +179,6 @@ public class ClientSettings {
 			
 			if (reader.has("kdr-overlay")) {
 				Configuration.enableKDROverlay = reader.get("kdr-overlay").getAsBoolean();
-			}
-			
-			if (reader.has("runepouch-overlay")) {
-				Configuration.enableRunePouchOverlay = reader.get("runepouch-overlay").getAsBoolean();
 			}
 			
 			if (reader.has("new-hp-bars")) {
@@ -248,7 +236,6 @@ public class ClientSettings {
 			object.addProperty("brightness", Client.instance.shadowIndex);
 			object.addProperty("hd-textures", Configuration.enableHDTextures);
 			object.addProperty("special-orb", Configuration.enableSpecialOrb);
-			object.addProperty("veng-timer", Configuration.enableTimers);
 			object.addProperty("tooltip-hover", Configuration.enableTooltipHover);
 			object.addProperty("old-hits", Configuration.enableOldHitmarkers);
 			object.addProperty("constitution", Configuration.enableConstitution);
@@ -262,7 +249,6 @@ public class ClientSettings {
 			object.addProperty("hd-shading", Configuration.enableHDShading);
 			object.addProperty("particles", Configuration.enableParticles);
 			object.addProperty("xp-orbs", Configuration.enableXpOrbs);
-			object.addProperty("ground-item-names", Configuration.enableGroundItemNames);
 			object.addProperty("shift-click-drop", Configuration.enableShiftClickDrop);
 			object.addProperty("chat-effects", Client.instance.variousSettings[171] == 1);
 			object.addProperty("split-private-chat", Client.instance.variousSettings[287] == 0);
@@ -274,7 +260,6 @@ public class ClientSettings {
 			object.addProperty("zooming", Configuration.enableZooming);
 			object.addProperty("bounty-target", Configuration.enableBountyTarget);
 			object.addProperty("kdr-overlay", Configuration.enableKDROverlay);
-			object.addProperty("runepouch-overlay", Configuration.enableRunePouchOverlay);
 			object.addProperty("new-hp-bars", Configuration.enableNewHpBars);
 			object.add("keybindings", builder.toJsonTree(Keybinding.KEYBINDINGS));
 			object.add("quick-prayers", builder.toJsonTree(Client.instance.getQuickPrayers()));
@@ -293,10 +278,8 @@ public class ClientSettings {
 	 * Sets the default values for the toggles.
 	 */
 	public static void setDefaults() {
-		Configuration.enableGroundItemNames = false;
 		Configuration.enableHDTextures = false;
 		Configuration.enableSpecialOrb = true;
-		Configuration.enableTimers = true;
 		Configuration.enableTooltipHover = false;
 		Configuration.enableOldHitmarkers = false;
 		Configuration.enableConstitution = false;
@@ -317,7 +300,6 @@ public class ClientSettings {
 		Configuration.enableBountyTarget = true;
 		Configuration.enableModerationMenu = true;
 		Configuration.enableKDROverlay = false;
-		Configuration.enableRunePouchOverlay = true;
 		Configuration.enableNewHpBars = true;
 		Client.instance.musicEnabled = false;
 		SoundPlayer.setVolume(4);

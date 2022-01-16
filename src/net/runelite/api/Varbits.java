@@ -74,7 +74,7 @@ public enum Varbits
 	POUCH_MEDIUM(604),
 	POUCH_LARGE(605),
 	POUCH_GIANT(606),
-
+	CUSTOM_EFFECT_TIMER(6550),
 	/**
 	 * Runepouch
 	 */

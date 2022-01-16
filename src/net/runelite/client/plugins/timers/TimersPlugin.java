@@ -38,6 +38,8 @@ import com.simplicity.client.Item;
 import com.simplicity.client.NPC;
 import com.simplicity.client.Player;
 import com.simplicity.client.container.item.ItemContainer;
+import com.simplicity.client.content.EffectTimer;
+import com.simplicity.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Actor;
 import net.runelite.api.AnimationID;
@@ -195,6 +197,43 @@ public class TimersPlugin extends Plugin
 	@Subscribe
 	public void onVarbitChanged(VarbitChanged event)
 	{
+		if(event.getIndex() > Varbits.CUSTOM_EFFECT_TIMER.getId()) {
+			int effectIndex = event.getIndex() - Varbits.CUSTOM_EFFECT_TIMER.getId();
+			if (effectIndex < EffectTimer.EffectType.values().length) {
+				EffectTimer.EffectType type = EffectTimer.EffectType.values()[effectIndex];
+				boolean addTimer = false;
+				switch (type) {
+					case ANTI_VENOM:
+					case ANTIPOISON_POTION:
+					case SUPER_ANTIPOISON_POTION:
+						addTimer = config.showAntiPoison();
+						break;
+					case EXPERIENCE:
+						addTimer = config.showExperience();
+						break;
+					case PRAYER_RENEWAL:
+						addTimer = config.showPrayerRenewal();
+						break;
+					case ANTIFIRE_POTION:
+					case SUPER_ANTIFIRE_POTION:
+						addTimer = config.showAntiFire();
+						break;
+					case DOUBLE_DONATION:
+						addTimer = config.showDoubleDonation();
+						break;
+					case FAMILIAR_SPECIAL:
+						addTimer = config.showFamiliarSpecial();
+						break;
+					case SPECIAL_RESTORE_FLASK:
+					case SPECIAL_RESTORE_POTION:
+						addTimer = config.showSpecialRestore();
+						break;
+				}
+				int seconds = client.getVar(Varbits.CUSTOM_EFFECT_TIMER.getId() + type.ordinal());
+				if(addTimer)
+					createCustomEffectTimer(type, seconds);
+			}
+		}
 		int raidVarb = client.getVar(Varbits.IN_RAID);
 		int vengCooldownVarb = client.getVar(Varbits.VENGEANCE_COOLDOWN);
 		int isVengeancedVarb = client.getVar(Varbits.VENGEANCE_ACTIVE);
@@ -235,36 +274,6 @@ public class TimersPlugin extends Plugin
 			}
 
 			lastIsVengeancedVarb = isVengeancedVarb;
-		}
-
-		if (lastPoisonVarp != poisonVarp && config.showAntiPoison())
-		{
-			final int tickCount = client.getTickCount();
-
-			if (nextPoisonTick - tickCount <= 0 || lastPoisonVarp == 0)
-			{
-				nextPoisonTick = tickCount + POISON_TICK_LENGTH;
-			}
-
-			if (poisonVarp >= 0)
-			{
-				removeGameTimer(ANTIPOISON);
-				removeGameTimer(ANTIVENOM);
-			}
-			else if (poisonVarp >= VENOM_VALUE_CUTOFF)
-			{
-				Duration duration = Duration.ofMillis((long) Constants.GAME_TICK_LENGTH * (nextPoisonTick - tickCount + Math.abs((poisonVarp + 1) * POISON_TICK_LENGTH)));
-				removeGameTimer(ANTIVENOM);
-				createGameTimer(ANTIPOISON, duration);
-			}
-			else
-			{
-				Duration duration = Duration.ofMillis((long) Constants.GAME_TICK_LENGTH * (nextPoisonTick - tickCount + Math.abs((poisonVarp + 1 - VENOM_VALUE_CUTOFF) * POISON_TICK_LENGTH)));
-				removeGameTimer(ANTIPOISON);
-				createGameTimer(ANTIVENOM, duration);
-			}
-
-			lastPoisonVarp = poisonVarp;
 		}
 
 		if (lastPvpVarb != pvpVarb)
@@ -372,6 +381,9 @@ public class TimersPlugin extends Plugin
 		{
 			removeGameTimer(ANTIPOISON);
 			removeGameTimer(ANTIVENOM);
+			removeEffectTimer(EffectTimer.EffectType.ANTI_VENOM);
+			removeEffectTimer(EffectTimer.EffectType.ANTIPOISON_POTION);
+			removeEffectTimer(EffectTimer.EffectType.SUPER_ANTIPOISON_POTION);
 		}
 
 		if (!config.showTzhaarTimers())
@@ -406,46 +418,6 @@ public class TimersPlugin extends Plugin
 		{
 			// Needs menu option hook because mixes use a common drink message, distinct from their standard potion messages
 			createStaminaTimer();
-			return;
-		}
-
-		if (config.showAntiFire()
-			&& event.getMenuOption().contains("Drink")
-			&& (event.getId() == ItemID.ANTIFIRE_MIX1
-			|| event.getId() == ItemID.ANTIFIRE_MIX2))
-		{
-			// Needs menu option hook because mixes use a common drink message, distinct from their standard potion messages
-			createGameTimer(ANTIFIRE);
-			return;
-		}
-
-		if (config.showAntiFire()
-			&& event.getMenuOption().contains("Drink")
-			&& (event.getId() == ItemID.EXTENDED_ANTIFIRE_MIX1
-			|| event.getId() == ItemID.EXTENDED_ANTIFIRE_MIX2))
-		{
-			// Needs menu option hook because mixes use a common drink message, distinct from their standard potion messages
-			createGameTimer(EXANTIFIRE);
-			return;
-		}
-
-		if (config.showAntiFire()
-			&& event.getMenuOption().contains("Drink")
-			&& (event.getId() == ItemID.SUPER_ANTIFIRE_MIX1
-			|| event.getId() == ItemID.SUPER_ANTIFIRE_MIX2))
-		{
-			// Needs menu option hook because mixes use a common drink message, distinct from their standard potion messages
-			createGameTimer(SUPERANTIFIRE);
-			return;
-		}
-
-		if (config.showAntiFire()
-			&& event.getMenuOption().contains("Drink")
-			&& (event.getId() == ItemID.EXTENDED_SUPER_ANTIFIRE_MIX1
-			|| event.getId() == ItemID.EXTENDED_SUPER_ANTIFIRE_MIX2))
-		{
-			// Needs menu option hook because mixes use a common drink message, distinct from their standard potion messages
-			createGameTimer(EXSUPERANTIFIRE);
 			return;
 		}
 	}
@@ -485,28 +457,6 @@ public class TimersPlugin extends Plugin
 			staminaTimer = null;
 		}
 
-		if (config.showAntiFire() && message.equals(ANTIFIRE_DRINK_MESSAGE))
-		{
-			createGameTimer(ANTIFIRE);
-		}
-
-		if (config.showAntiFire() && message.equals(EXTENDED_ANTIFIRE_DRINK_MESSAGE))
-		{
-			createGameTimer(EXANTIFIRE);
-		}
-
-		if (config.showAntiFire() && message.equals(EXTENDED_SUPER_ANTIFIRE_DRINK_MESSAGE))
-		{
-			createGameTimer(EXSUPERANTIFIRE);
-		}
-
-		if (config.showAntiFire() && message.equals(ANTIFIRE_EXPIRED_MESSAGE))
-		{
-			//they have the same expired message
-			removeGameTimer(ANTIFIRE);
-			removeGameTimer(EXANTIFIRE);
-		}
-
 		if (config.showOverload() && message.startsWith("You drink some of your") && message.contains("overload"))
 		{
 			if (client.getVar(Varbits.IN_RAID) == 1)
@@ -540,16 +490,6 @@ public class TimersPlugin extends Plugin
 			{
 				removeGameTimer(TELEBLOCK);
 			}
-		}
-
-		if (config.showAntiFire() && message.contains(SUPER_ANTIFIRE_DRINK_MESSAGE))
-		{
-			createGameTimer(SUPERANTIFIRE);
-		}
-
-		if (config.showAntiFire() && message.equals(SUPER_ANTIFIRE_EXPIRED_MESSAGE))
-		{
-			removeGameTimer(SUPERANTIFIRE);
 		}
 
 		if (config.showStaffOfTheDead() && (message.contains(STAFF_OF_THE_DEAD_SPEC_MESSAGE) || message.contains(STAFF_OF_LIGHT_SPEC_MESSAGE)))
@@ -930,7 +870,22 @@ public class TimersPlugin extends Plugin
 		}
 		return createGameTimer(timer, timer.getDuration());
 	}
-
+	private EffectTime createCustomEffectTimer(EffectTimer.EffectType effect, int seconds) {
+		if(seconds <= 0) {
+			removeEffectTimer(effect);
+			return null;
+		}
+		removeEffectTimer(effect);
+		EffectTime t = new EffectTime(effect, Duration.ofSeconds(seconds), this);
+		if(effect.isItem()) {
+			t.setImage(itemManager.getImage(effect.getSprite()));
+		} else {
+			t.setImage(spriteManager.getSprite(1, effect.getSprite()));
+		}
+		t.setTooltip(StringUtils.capitalizeFirst(effect.name()));
+		infoBoxManager.addInfoBox(t);
+		return t;
+	}
 	private TimerTimer createGameTimer(final GameTimer timer, Duration duration)
 	{
 		removeGameTimer(timer);
@@ -953,6 +908,9 @@ public class TimersPlugin extends Plugin
 	private void removeGameTimer(GameTimer timer)
 	{
 		infoBoxManager.removeIf(t -> t instanceof TimerTimer && ((TimerTimer) t).getTimer() == timer);
+	}
+	private void removeEffectTimer(EffectTimer.EffectType effectTimer) {
+		infoBoxManager.removeIf(t -> t instanceof EffectTime && ((EffectTime) t).getTimer() == effectTimer);
 	}
 
 	private IndicatorIndicator createGameIndicator(GameIndicator gameIndicator)
