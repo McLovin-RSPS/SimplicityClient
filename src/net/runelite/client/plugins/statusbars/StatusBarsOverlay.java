@@ -114,12 +114,12 @@ class StatusBarsOverlay extends Overlay
 			{
 				final int poisonState = client.getVar(VarPlayer.IS_POISONED);
 
-				if (poisonState >= 1000000)
+				if (poisonState == 2)
 				{
 					return VENOMED_COLOR;
 				}
 
-				if (poisonState > 0)
+				if (poisonState == 1)
 				{
 					return POISONED_COLOR;
 				}
@@ -136,19 +136,19 @@ class StatusBarsOverlay extends Overlay
 			{
 				final int poisonState = client.getVar(VarPlayer.IS_POISONED);
 
-				if (poisonState > 0 && poisonState < 50)
+				if (poisonState == 1)
 				{
-					return heartPoison;
+					return heartIcon;
 				}
 
-				if (poisonState >= 1000000)
+				if (poisonState == 2)
 				{
-					return heartVenom;
+					return heartIcon;
 				}
 
 				if (client.getVar(VarPlayer.DISEASE_VALUE) > 0)
 				{
-					return heartDisease;
+					return heartIcon;
 				}
 
 				return heartIcon;
@@ -279,9 +279,9 @@ class StatusBarsOverlay extends Overlay
 		}
 
 		heartIcon = ImageUtil.resizeCanvas(Objects.requireNonNull(spriteManager.getSprite(0, SpriteID.MINIMAP_ORB_HITPOINTS_ICON)), ICON_DIMENSIONS, ICON_DIMENSIONS);
-		/*heartDisease = ImageUtil.resizeCanvas(ImageUtil.getResourceStreamFromClass(AlternateSprites.class, AlternateSprites.DISEASE_HEART), ICON_DIMENSIONS, ICON_DIMENSIONS);
-		heartPoison = ImageUtil.resizeCanvas(ImageUtil.getResourceStreamFromClass(AlternateSprites.class, AlternateSprites.POISON_HEART), ICON_DIMENSIONS, ICON_DIMENSIONS);
-		heartVenom = ImageUtil.resizeCanvas(ImageUtil.getResourceStreamFromClass(AlternateSprites.class, AlternateSprites.VENOM_HEART), ICON_DIMENSIONS, ICON_DIMENSIONS);*/
+		heartDisease = ImageUtil.resizeCanvas(Objects.requireNonNull(spriteManager.getSprite(0, SpriteID.MINIMAP_ORB_HITPOINTS_DISEASE)), ICON_DIMENSIONS, ICON_DIMENSIONS);
+		heartPoison = ImageUtil.resizeCanvas(Objects.requireNonNull(spriteManager.getSprite(0, SpriteID.MINIMAP_ORB_HITPOINTS_POISON)), ICON_DIMENSIONS, ICON_DIMENSIONS);
+		heartVenom = ImageUtil.resizeCanvas(Objects.requireNonNull(spriteManager.getSprite(0, SpriteID.MINIMAP_ORB_HITPOINTS_VENOM)), ICON_DIMENSIONS, ICON_DIMENSIONS);
 		energyIcon = ImageUtil.resizeCanvas(Objects.requireNonNull(spriteManager.getSprite(0, SpriteID.MINIMAP_ORB_RUN_ICON)), ICON_DIMENSIONS, ICON_DIMENSIONS);
 		specialIcon = ImageUtil.resizeCanvas(Objects.requireNonNull(spriteManager.getSprite(0, SpriteID.MINIMAP_ORB_SPECIAL_ICON)), ICON_DIMENSIONS, ICON_DIMENSIONS);
 	}
