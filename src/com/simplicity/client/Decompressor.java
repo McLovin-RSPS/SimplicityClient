@@ -91,7 +91,92 @@ public final class Decompressor {
 		}
 		return -1;
 	}
-
+	public byte[] decompress(int fileId) {
+		synchronized (dataFile) {
+			byte[] is;
+			try {
+				if (indexFile.length() < fileId * 6 + 6) {
+					byte[] is_2_ = null;
+					byte[] is_3_ = is_2_;
+					return is_3_;
+				}
+				indexFile.seek(fileId * 6);
+				indexFile.read(buffer, 0, 6);
+				int i_4_ = (buffer[2] & 0xff) + ((buffer[1] & 0xff) << 8) + ((buffer[0] & 0xff) << 16);
+				int i_5_ = (buffer[5] & 0xff) + ((buffer[4] & 0xff) << 8) + ((buffer[3] & 0xff) << 16);
+				if (i_4_ < 0) {
+					byte[] is_6_ = null;
+					byte[] is_7_ = is_6_;
+					return is_7_;
+				}
+				if (i_5_ <= 0 || i_5_ > dataFile.length() / 520L) {
+					byte[] is_8_ = null;
+					byte[] is_9_ = is_8_;
+					return is_9_;
+				}
+				byte[] is_10_ = new byte[i_4_];
+				int i_11_ = 0;
+				int i_12_ = 0;
+				while (i_11_ < i_4_) {
+					if (i_5_ == 0) {
+						byte[] is_13_ = null;
+						byte[] is_14_ = is_13_;
+						return is_14_;
+					}
+					dataFile.seek(i_5_ * 520L);
+					int i_15_ = i_4_ - i_11_;
+					int i_16_;
+					int i_17_;
+					int i_18_;
+					int i_19_;
+					int i_20_;
+					if (fileId > 65535) {
+						if (i_15_ > 510)
+							i_15_ = 510;
+						i_16_ = 10;
+						dataFile.read(buffer, 0, i_16_ + i_15_);
+						i_17_ = (buffer[3] & 0xff) + ((buffer[2] & 0xff) << 8) + ((buffer[0] & 0xff) << 24) + ((buffer[1] & 0xff) << 16);
+						i_18_ = (buffer[5] & 0xff) + ((buffer[4] & 0xff) << 8);
+						i_19_ = ((buffer[7] & 0xff) << 8) + ((buffer[6] & 0xff) << 16) + (buffer[8] & 0xff);
+						i_20_ = buffer[9] & 0xff;
+					}
+					else {
+						if (i_15_ > 512)
+							i_15_ = 512;
+						i_16_ = 8;
+						dataFile.read(buffer, 0, i_16_ + i_15_);
+						i_17_ = (buffer[1] & 0xff) + ((buffer[0] & 0xff) << 8);
+						i_18_ = ((buffer[2] & 0xff) << 8) + (buffer[3] & 0xff);
+						i_19_ = ((buffer[5] & 0xff) << 8) + ((buffer[4] & 0xff) << 16) + (buffer[6] & 0xff);
+						i_20_ = buffer[7] & 0xff;
+					}
+					if (i_17_ != fileId || i_18_ != i_12_ || i_20_ != anInt311) {
+						byte[] is_21_ = null;
+						byte[] is_22_ = is_21_;
+						return is_22_;
+					}
+					if (i_19_ < 0 || i_19_ > dataFile.length() / 520L) {
+						byte[] is_23_ = null;
+						byte[] is_24_ = is_23_;
+						return is_24_;
+					}
+					int i_25_ = i_16_ + i_15_;
+					for (int i_26_ = i_16_; i_26_ < i_25_; i_26_++)
+						is_10_[i_11_++] = buffer[i_26_];
+					i_5_ = i_19_;
+					i_12_++;
+				}
+				is = is_10_;
+			}
+			catch (java.io.IOException ioexception) {
+				byte[] is_27_ = null;
+				byte[] is_28_ = is_27_;
+				return is_28_;
+			}
+			byte[] is_29_ = is;
+			return is_29_;
+		}
+	}
 	public synchronized byte[] get(int i) {
 		try {
 			seekTo(indexFile, i * 6);

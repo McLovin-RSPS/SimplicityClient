@@ -926,7 +926,7 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
             waiting = true;
             byte data[] = null;
             if (clientInstance.cacheIndices[0] != null)
-                data = clientInstance.cacheIndices[OnDemandRequest.dataType + 1].get(OnDemandRequest.id);
+                data = clientInstance.cacheIndices[OnDemandRequest.dataType + 1].decompress(OnDemandRequest.id);
             if (Configuration.JAGCACHED_ENABLED) {
                 if (!crcMatches(crcs[OnDemandRequest.dataType][OnDemandRequest.id], data)) {
                     data = null;
