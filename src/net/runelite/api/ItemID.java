@@ -9265,7 +9265,7 @@ public final class ItemID
 	public static final int BURNT_PAGE = 20718;
 	public static final int BRUMA_TORCH = 20720;
 	public static final int EMERALD_LANTERN_20722 = 20722;
-	public static final int IMBUED_HEART = 20724;
+	public static final int IMBUED_HEART = 50724;
 	public static final int LEAFBLADED_BATTLEAXE = 20727;
 	public static final int MIST_BATTLESTAFF = 20730;
 	public static final int MYSTIC_MIST_STAFF = 20733;
