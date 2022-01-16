@@ -11378,6 +11378,8 @@ public class Client extends RSApplet {
                                 return;
                             }
                             Skills.goalType = "Target Level: ";
+                            variousSettings[1229 + Skills.selectedSkillId] = currentExp[Skills.selectedSkillId];
+                            variousSettings[1253 + Skills.selectedSkillId] = getXPForLevel(goalLevel) + 1;
                             Skills.goalData[Skills.selectedSkillId][0] = currentExp[Skills.selectedSkillId];
                             Skills.goalData[Skills.selectedSkillId][1] = getXPForLevel(goalLevel) + 1;
                             Skills.goalData[Skills.selectedSkillId][2] = (Skills.goalData[Skills.selectedSkillId][0]
@@ -11402,6 +11404,8 @@ public class Client extends RSApplet {
                             goalExp = 1000000000;
                         }
                         Skills.goalType = "Target Exp: ";
+                        variousSettings[1229 + Skills.selectedSkillId] = currentExp[Skills.selectedSkillId];
+                        variousSettings[1253 + Skills.selectedSkillId] = ((int) goalExp);
                         Skills.goalData[Skills.selectedSkillId][0] = currentExp[Skills.selectedSkillId];
                         Skills.goalData[Skills.selectedSkillId][1] = ((int) goalExp);
                         Skills.goalData[Skills.selectedSkillId][2] = (Skills.goalData[Skills.selectedSkillId][0]
@@ -26778,6 +26782,9 @@ public class Client extends RSApplet {
                 Skills.goalData[index][1] = in.readInt();
                 Skills.goalData[index][2] = in.readInt();
                 Skills.goalType = in.readUTF();
+
+                instance.variousSettings[1229 + index] = Skills.goalData[index][0];
+                instance.variousSettings[1253 + index] = Skills.goalData[index][1];
             }
             in.close();
         } catch (Exception e) {
