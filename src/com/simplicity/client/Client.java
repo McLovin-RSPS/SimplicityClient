@@ -14470,6 +14470,11 @@ public class Client extends RSApplet {
                     } else if (requestAnim == -1 || npc.anim == -1
                             || Animation.anims[requestAnim].forcedPriority >= Animation.anims[npc.anim].forcedPriority) {
                         npc.anim = requestAnim;
+                        if(RuneLite.getClient() != null) {
+                            AnimationChanged animationChanged = new AnimationChanged();
+                            animationChanged.setActor(npc);
+                            Client.instance.getCallbacks().post(animationChanged);
+                        }
                         npc.currentAnimFrame = 0;
                         npc.anInt1528 = 0;
                         npc.animationDelay = i2;
@@ -15532,6 +15537,11 @@ public class Client extends RSApplet {
     private void entityUpdateBlock(Entity entity) {
         if (entity.x < 128 || entity.y < 128 || entity.x >= 13184 || entity.y >= 13184) {
             entity.anim = -1;
+            if(RuneLite.getClient() != null) {
+                AnimationChanged animationChanged = new AnimationChanged();
+                animationChanged.setActor(entity);
+                Client.instance.getCallbacks().post(animationChanged);
+            }
             entity.anInt1520 = -1;
             entity.anInt1547 = 0;
             entity.anInt1548 = 0;
@@ -15541,6 +15551,11 @@ public class Client extends RSApplet {
         }
         if (entity == myPlayer && (entity.x < 1536 || entity.y < 1536 || entity.x >= 11776 || entity.y >= 11776)) {
             entity.anim = -1;
+            if(RuneLite.getClient() != null) {
+                AnimationChanged animationChanged = new AnimationChanged();
+                animationChanged.setActor(entity);
+                Client.instance.getCallbacks().post(animationChanged);
+            }
             entity.anInt1520 = -1;
             entity.anInt1547 = 0;
             entity.anInt1548 = 0;
@@ -15858,9 +15873,19 @@ public class Client extends RSApplet {
 	                entity.anInt1530++;
 	                if (entity.anInt1530 >= animation_3.frameStep) {
 	                    entity.anim = -1;
+                        if(RuneLite.getClient() != null) {
+                            AnimationChanged animationChanged = new AnimationChanged();
+                            animationChanged.setActor(entity);
+                            Client.instance.getCallbacks().post(animationChanged);
+                        }
 	                }
 	                if (entity.currentAnimFrame < 0 || entity.currentAnimFrame >= animation_3.frameCount) {
 	                    entity.anim = -1;
+                        if(RuneLite.getClient() != null) {
+                            AnimationChanged animationChanged = new AnimationChanged();
+                            animationChanged.setActor(entity);
+                            Client.instance.getCallbacks().post(animationChanged);
+                        }
 	                }
 	            }
                 if(tween)
@@ -17954,6 +17979,11 @@ public class Client extends RSApplet {
             } else if (requestAnim == -1 || player.anim == -1
                     || Animation.anims[requestAnim].forcedPriority >= Animation.anims[player.anim].forcedPriority) {
                 player.anim = requestAnim;
+                if(RuneLite.getClient() != null) {
+                    AnimationChanged animationChanged = new AnimationChanged();
+                    animationChanged.setActor(player);
+                    Client.instance.getCallbacks().post(animationChanged);
+                }
                 player.currentAnimFrame = 0;
                 player.anInt1528 = 0;
                 player.animationDelay = i2;
@@ -21997,11 +22027,21 @@ public class Client extends RSApplet {
                     for (int k4 = 0; k4 < playerArray.length; k4++) {
                         if (playerArray[k4] != null) {
                             playerArray[k4].anim = -1;
+                            if(RuneLite.getClient() != null) {
+                                AnimationChanged animationChanged = new AnimationChanged();
+                                animationChanged.setActor(playerArray[k4]);
+                                Client.instance.getCallbacks().post(animationChanged);
+                            }
                         }
                     }
                     for (int j12 = 0; j12 < npcArray.length; j12++) {
                         if (npcArray[j12] != null) {
                             npcArray[j12].anim = -1;
+                            if(RuneLite.getClient() != null) {
+                                AnimationChanged animationChanged = new AnimationChanged();
+                                animationChanged.setActor(npcArray[j12]);
+                                Client.instance.getCallbacks().post(animationChanged);
+                            }
                         }
                     }
                     opCode = -1;
@@ -27076,6 +27116,11 @@ public class Client extends RSApplet {
 	public void playAnim(int animationID) {
 		try {
 	        myPlayer.anim = animationID;
+            if(RuneLite.getClient() != null) {
+                AnimationChanged animationChanged = new AnimationChanged();
+                animationChanged.setActor(myPlayer);
+                Client.instance.getCallbacks().post(animationChanged);
+            }
 	        myPlayer.currentAnimFrame = 0;
 	        myPlayer.anInt1528 = 0;
 	        myPlayer.animationDelay = 0;
