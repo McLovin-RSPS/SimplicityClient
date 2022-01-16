@@ -29,10 +29,12 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.SpriteID;
 
+import static net.runelite.api.SpriteID.SPELL_VENGEANCE;
+
 @Getter(AccessLevel.PACKAGE)
 enum GameIndicator
 {
-	VENGEANCE_ACTIVE(944, GameTimerImageType.SPRITE, "Vengeance active");
+	VENGEANCE_ACTIVE(SPELL_VENGEANCE, GameTimerImageType.SPRITE, "Vengeance active");
 
 	private final String description;
 	private String text;

@@ -193,6 +193,7 @@ public class MenuManager
 				menuEntry.setParam1(widgetId);
 				menuEntry.setTarget(currentMenu.getMenuTarget());
 				menuEntry.setType(MenuAction.RUNELITE.getId());
+				menuEntry.setDeprioritize(currentMenu.isDeprioritized());
 
 				client.addMenuEntry(menuEntry);
 			}

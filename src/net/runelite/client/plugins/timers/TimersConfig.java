@@ -75,51 +75,11 @@ public interface TimersConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "showPrayerEnhance",
-		name = "Prayer enhance timer",
-		description = "Configures whether prayer enhance timer is displayed"
-	)
-	default boolean showPrayerEnhance()
-	{
-		return true;
-	}
-
-	@ConfigItem(
 		keyName = "showDivine",
 		name = "Divine potion timer",
 		description = "Configures whether divine potion timer is displayed"
 	)
 	default boolean showDivine()
-	{
-		return true;
-	}
-
-	@ConfigItem(
-		keyName = "showCannon",
-		name = "Cannon timer",
-		description = "Configures whether cannon timer is displayed"
-	)
-	default boolean showCannon()
-	{
-		return true;
-	}
-
-	@ConfigItem(
-		keyName = "showMagicImbue",
-		name = "Magic imbue timer",
-		description = "Configures whether magic imbue timer is displayed"
-	)
-	default boolean showMagicImbue()
-	{
-		return true;
-	}
-
-	@ConfigItem(
-		keyName = "showCharge",
-		name = "Charge timer",
-		description = "Configures whether to show a timer for the Charge spell"
-	)
-	default boolean showCharge()
 	{
 		return true;
 	}
@@ -241,16 +201,6 @@ public interface TimersConfig extends Config
 		description = "Configures whether the special attack cooldown timer for the Dragonfire Shield is displayed"
 	)
 	default boolean showDFSSpecial()
-	{
-		return true;
-	}
-
-	@ConfigItem(
-		keyName = "showPickpocketStun",
-		name = "Pickpocket stun timer",
-		description = "Configures whether pickpocket stun timer is displayed"
-	)
-	default boolean showPickpocketStun()
 	{
 		return true;
 	}

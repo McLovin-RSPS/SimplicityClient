@@ -3111,13 +3111,14 @@ public class Client extends RSApplet {
         if (tooltipString[TabHoverId] == "") {
             return;
         }
-        menuActionName[1] = tooltipString[TabHoverId];
-        menuActionID[1] = 1076;
-        menuActionCmd3[1] = 1076;
-        menuActionRow = 2;
         if (runelite != null) {
-            callbacks.post(new MenuEntryAdded(menuActionName[menuActionRow - 1], "", menuActionID[menuActionRow - 1], menuActionCmd1[menuActionRow - 1], menuActionCmd2[menuActionRow - 1], menuActionCmd3[menuActionRow - 1]));
+            callbacks.post(new MenuEntryAdded(tooltipString[TabHoverId], "", 1076, 0, 0, 1076));
         }
+        menuActionName[menuActionRow] = tooltipString[TabHoverId];
+        menuActionID[menuActionRow] = 1076;
+        menuActionCmd3[menuActionRow] = 1076;
+        menuActionRow++;
+
         tooltipString = null;
     }
     
@@ -27364,12 +27365,12 @@ public class Client extends RSApplet {
 	
 	public void addMenuEntry(String actionName, String target, int actionId, int identifier, int actionParam0, int actionParam1, boolean deprioritize) {
         if (deprioritize) {
-			menuActionID[menuActionRow] = actionId + '\0';
+			menuActionID[menuActionRow] = actionId + '\u07D0';
 		} else {
 			menuActionID[menuActionRow] = actionId;
 		}
 		menuActionTarget[menuActionRow] = target;
-		menuActionName[menuActionRow] = actionName;//TODO
+		menuActionName[menuActionRow] = actionName;
 		menuActionCmd1[menuActionRow] = identifier;
 		menuActionCmd2[menuActionRow] = actionParam0;
 		menuActionCmd3[menuActionRow] = actionParam1;
@@ -27377,12 +27378,12 @@ public class Client extends RSApplet {
 	}
     public void addMenuEntry(String actionName, String target, int actionId, int identifier, int actionParam0, int actionParam1, boolean deprioritize, Consumer<MenuEntry> onClick) {
         if (deprioritize) {
-            menuActionID[menuActionRow] = actionId + '\0';
+            menuActionID[menuActionRow] = actionId + '\u07D0';
         } else {
             menuActionID[menuActionRow] = actionId;
         }
         menuActionTarget[menuActionRow] = target;
-        menuActionName[menuActionRow] = actionName;//TODO
+        menuActionName[menuActionRow] = actionName;
         menuActionCmd1[menuActionRow] = identifier;
         menuActionCmd2[menuActionRow] = actionParam0;
         menuActionCmd3[menuActionRow] = actionParam1;

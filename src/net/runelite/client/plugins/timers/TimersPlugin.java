@@ -100,6 +100,7 @@ public class TimersPlugin extends Plugin
 	private static final String MAGIC_IMBUE_MESSAGE = "You are charged to combine runes!";
 	private static final String STAFF_OF_THE_DEAD_SPEC_EXPIRED_MESSAGE = "Your protection fades away";
 	private static final String STAFF_OF_THE_DEAD_SPEC_MESSAGE = "Spirits of deceased evildoers offer you their protection";
+	private static final String STAFF_OF_LIGHT_SPEC_MESSAGE = "You are shielded by the spirits of the Staff of light!";
 	private static final String STAMINA_DRINK_MESSAGE = "You drink some of your stamina potion.";
 	private static final String STAMINA_SHARED_DRINK_MESSAGE = "You have received a shared dose of stamina potion.";
 	private static final String STAMINA_EXPIRED_MESSAGE = "<col=8f4808>Your stamina potion has expired.</col>";
@@ -320,11 +321,6 @@ public class TimersPlugin extends Plugin
 			removeGameTimer(OVERLOAD_RAID);
 		}
 
-		if (!config.showPrayerEnhance())
-		{
-			removeGameTimer(PRAYER_ENHANCE);
-		}
-
 		if (!config.showDivine())
 		{
 			removeGameTimer(DIVINE_SUPER_ATTACK);
@@ -333,21 +329,6 @@ public class TimersPlugin extends Plugin
 			removeGameTimer(DIVINE_SUPER_COMBAT);
 			removeGameTimer(DIVINE_RANGING);
 			removeGameTimer(DIVINE_MAGIC);
-		}
-
-		if (!config.showCannon())
-		{
-			removeGameTimer(CANNON);
-		}
-
-		if (!config.showMagicImbue())
-		{
-			removeGameTimer(MAGICIMBUE);
-		}
-
-		if (!config.showCharge())
-		{
-			removeGameTimer(CHARGE);
 		}
 
 		if (!config.showImbuedHeart())
@@ -483,18 +464,6 @@ public class TimersPlugin extends Plugin
 			removeGameTimer(PICKPOCKET_STUN);
 		}
 
-		if (message.contains(PICKPOCKET_FAILURE_MESSAGE) && config.showPickpocketStun() && message.contains("pocket"))
-		{
-			if (message.contains("hero") || message.contains("elf"))
-			{
-				createGameTimer(PICKPOCKET_STUN, Duration.ofSeconds(6));
-			}
-			else
-			{
-				createGameTimer(PICKPOCKET_STUN, Duration.ofSeconds(5));
-			}
-		}
-
 		if (message.equals(ABYSSAL_SIRE_STUN_MESSAGE) && config.showAbyssalSireStun())
 		{
 			createGameTimer(ABYSSAL_SIRE_STUN);
@@ -551,34 +520,6 @@ public class TimersPlugin extends Plugin
 
 		}
 
-		if (config.showCannon())
-		{
-			if (message.equals(CANNON_BASE_MESSAGE) || message.equals(CANNON_STAND_MESSAGE)
-				|| message.equals(CANNON_BARRELS_MESSAGE) || message.equals(CANNON_FURNACE_MESSAGE)
-				|| message.contains(CANNON_REPAIR_MESSAGE))
-			{
-				removeGameTimer(CANNON_REPAIR);
-				TimerTimer cannonTimer = createGameTimer(CANNON);
-				cannonTimer.setTooltip(cannonTimer.getTooltip() + " - World " + client.getWorld());
-			}
-			else if (message.equals(CANNON_BROKEN_MESSAGE))
-			{
-				removeGameTimer(CANNON);
-				TimerTimer cannonTimer = createGameTimer(CANNON_REPAIR);
-				cannonTimer.setTooltip(cannonTimer.getTooltip() + " - World " + client.getWorld());
-			}
-			else if (message.equals(CANNON_PICKUP_MESSAGE) || message.equals(CANNON_DESTROYED_MESSAGE))
-			{
-				removeGameTimer(CANNON);
-				removeGameTimer(CANNON_REPAIR);
-			}
-		}
-
-		if (config.showMagicImbue() && message.equals(MAGIC_IMBUE_MESSAGE))
-		{
-			createGameTimer(MAGICIMBUE);
-		}
-
 		if (message.equals(MAGIC_IMBUE_EXPIRED_MESSAGE))
 		{
 			removeGameTimer(MAGICIMBUE);
@@ -611,27 +552,7 @@ public class TimersPlugin extends Plugin
 			removeGameTimer(SUPERANTIFIRE);
 		}
 
-		if (config.showPrayerEnhance() && message.startsWith("You drink some of your") && message.contains("prayer enhance"))
-		{
-			createGameTimer(PRAYER_ENHANCE);
-		}
-
-		if (config.showPrayerEnhance() && message.equals(PRAYER_ENHANCE_EXPIRED))
-		{
-			removeGameTimer(PRAYER_ENHANCE);
-		}
-
-		if (config.showCharge() && message.equals(CHARGE_MESSAGE))
-		{
-			createGameTimer(CHARGE);
-		}
-
-		if (config.showCharge() && message.equals(CHARGE_EXPIRED_MESSAGE))
-		{
-			removeGameTimer(CHARGE);
-		}
-
-		if (config.showStaffOfTheDead() && message.contains(STAFF_OF_THE_DEAD_SPEC_MESSAGE))
+		if (config.showStaffOfTheDead() && (message.contains(STAFF_OF_THE_DEAD_SPEC_MESSAGE) || message.contains(STAFF_OF_LIGHT_SPEC_MESSAGE)))
 		{
 			createGameTimer(STAFF_OF_THE_DEAD);
 		}
@@ -779,11 +700,11 @@ public class TimersPlugin extends Plugin
 		removeTzhaarTimer();
 
 		int imageItem = isInFightCaves() ? FIRE_CAPE : (isInInferno() ? INFERNAL_CAPE : -1);
-		if (imageItem == -1)
+		if (imageItem == -1 || tzhaarTimer != null)
 		{
 			return;
 		}
-
+		config.tzhaarStartTime(Instant.now());
 		tzhaarTimer = new ElapsedTimer(itemManager.getImage(imageItem), this, config.tzhaarStartTime(), config.tzhaarLastTime());
 		infoBoxManager.addInfoBox(tzhaarTimer);
 	}
@@ -1042,7 +963,7 @@ public class TimersPlugin extends Plugin
 		switch (gameIndicator.getImageType())
 		{
 			case SPRITE:
-				spriteManager.getSpriteAsync(gameIndicator.getImageId(), 0, indicator);
+				indicator.setImage(spriteManager.getSprite(1, gameIndicator.getImageId()));
 				break;
 			case ITEM:
 				indicator.setImage(itemManager.getImage(gameIndicator.getImageId()));
