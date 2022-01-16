@@ -295,7 +295,7 @@ public class TimersPlugin extends Plugin
 			}
 			else if (!imbuedHeartTimerActive)
 			{
-				createGameTimer(IMBUEDHEART, Duration.of(10L * imbuedHeartCooldownVarb, RSTimeUnit.GAME_TICKS));
+				createGameTimer(IMBUEDHEART, Duration.of(700, RSTimeUnit.GAME_TICKS));
 				imbuedHeartTimerActive = true;
 			}
 
@@ -1020,7 +1020,7 @@ public class TimersPlugin extends Plugin
 		switch (timer.getImageType())
 		{
 			case SPRITE:
-				spriteManager.getSpriteAsync(timer.getImageId(), 0, t);
+				t.setImage(spriteManager.getSprite(1, timer.getImageId()));
 				break;
 			case ITEM:
 				t.setImage(itemManager.getImage(timer.getImageId()));
