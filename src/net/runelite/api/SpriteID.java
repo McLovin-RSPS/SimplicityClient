@@ -1038,8 +1038,11 @@ public final class SpriteID
 	public static final int MINIMAP_ORB_PRAYER_ICON_ACTIVATED = 1058;
 	public static final int MINIMAP_ORB_EMPTY = 1059;
 	public static final int MINIMAP_ORB_HITPOINTS = 1060;
-	public static final int MINIMAP_ORB_HITPOINTS_POISON = 1061;
-	public static final int MINIMAP_ORB_HITPOINTS_DISEASE = 1062;
+
+	public static final int MINIMAP_ORB_HITPOINTS_POISON = 1029;
+
+	public static final int MINIMAP_ORB_HITPOINTS_DISEASE = 1030;
+
 	public static final int MINIMAP_ORB_PRAYER = 1063;
 	public static final int MINIMAP_ORB_RUN = 1064;
 	public static final int MINIMAP_ORB_RUN_ACTIVATED = 1065;
