@@ -23067,13 +23067,31 @@ public class Client extends RSApplet {
 
                 case 36:
                     int k8 = inStream.ig2();
-                    byte byte0 = inStream.readSignedByte();
+                    int byte0 = inStream.readSignedByte();
                     if (k8 < varbitConfigs.length && k8 < variousSettings.length) {
                         varbitConfigs[k8] = byte0;
                         if (variousSettings[k8] != byte0) {
                             variousSettings[k8] = byte0;
                             sendVarbitChanged(k8);
                             handleActions(k8);
+                            needDrawTabArea = true;
+                            if (dialogID != -1) {
+                                inputTaken = true;
+                            }
+                        }
+                    }
+                    opCode = -1;
+                    return true;
+
+                case 238:
+                    int varIndex = inStream.ig2();
+                    int varValue = inStream.readSignedByte();
+                    if (varIndex < varbitConfigs.length && varIndex < variousSettings.length) {
+                        varbitConfigs[varIndex] = varValue;
+                        if (variousSettings[varIndex] != varValue) {
+                            variousSettings[varIndex] = varValue;
+                            sendVarbitChanged(varIndex);
+                            handleActions(varIndex);
                             needDrawTabArea = true;
                             if (dialogID != -1) {
                                 inputTaken = true;
