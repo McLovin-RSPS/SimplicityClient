@@ -23359,9 +23359,9 @@ public class Client extends RSApplet {
 
                 int drawHeight = 50;
                 
-                if (getRegionId() == 12611) {
-                	extraZoom = clientSize == 0 ? 600 : 400;
-                	drawHeight = clientSize == 0 ? 500 : 100;
+                if (getRegionId() == 12611) {                	
+                    extraZoom = clientSize == 0 ? 300 : 200;
+                    drawHeight = clientSize == 0 ? 230 : 100;
                 }
                 
                 setCameraPos(extraZoom + cameraZoom + (clientSize > 0 ? i + 300 : i) * (WorldController.viewDistance == 10 ? 1 : 3), i, anInt1014, getFloorDrawHeight(plane, myPlayer.y, myPlayer.x) - drawHeight, k, anInt1015);

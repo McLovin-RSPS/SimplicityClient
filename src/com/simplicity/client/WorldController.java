@@ -29,7 +29,7 @@ import net.runelite.client.RuneLite;
 @SuppressWarnings("all")
 public final class WorldController {
 
-	public static final int TILE_DRAW_DISTANCE = 50;
+	public static int TILE_DRAW_DISTANCE = 25;
 
 	public static final int DEFAULT_RENDER_DISTANCE = 3500;
 
@@ -1229,7 +1229,7 @@ public final class WorldController {
 				for (int y_ = anInt451; y_ < anInt452; y_++) {
 					Tile tile = tiles[x_][y_];
 					if (tile != null) {
-						if (tile.logicHeight > plane || (!isGpu && !tile_visibility_map[(x_ - xCamPosTile)+ getDrawDistance()][(y_ - yCamPosTile)+ getDrawDistance()] && anIntArrayArrayArray440[k1][x_][y_] - zCam < 2000)) {
+						if (tile.logicHeight > plane || (!isGpu && Client.instance.getRegionId() != 12611 && !tile_visibility_map[(x_ - xCamPosTile)+ getDrawDistance()][(y_ - yCamPosTile)+ getDrawDistance()] && anIntArrayArrayArray440[k1][x_][y_] - zCam < 2000)) {
 							tile.aBoolean1322 = false;
 							tile.aBoolean1323 = false;
 							tile.anInt1325 = 0;
@@ -2612,7 +2612,7 @@ public final class WorldController {
 		if(Client.drawCallbacks != null && Client.loggedIn) {
 			return distance;
 		}
-		return 25;
+		return TILE_DRAW_DISTANCE;
 	}
 	public Tile getSelectedSceneTile() {
 		int tileX = selectedSceneTileX;
