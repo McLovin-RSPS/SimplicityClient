@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2018 Abex
+ * Copyright (c) 2018, Kamiel, <https://github.com/Kamielvf>
+ * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,17 +23,22 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.client.plugins.screenmarkers;
 
-public final class WidgetType
+import java.awt.Color;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ScreenMarker
 {
-	public static final int LAYER = 0;
-	public static final int INVENTORY = 2;
-	public static final int RECTANGLE = 3;
-	public static final int TEXT = 4;
-	public static final int GRAPHIC = 5;
-	public static final int MODEL = 6;
-	public static final int TEXT_INVENTORY = 7;
-	public static final int IF1_TOOLTIP = 8;
-	public static final int LINE = 9;
+	private long id;
+	private String name;
+	private int borderThickness;
+	private Color color;
+	private Color fill;
+	private boolean visible;
 }
