@@ -26,6 +26,8 @@ public class CustomObjects {
     // id, x, y, z, face, type
     // 0 = north, 1 = east, 2 = south, 3 = west
     public static final int[][] CUSTOM_OBJECTS = {
+            {8390, 3228, 3458, 0, 0},//varrock tree patch
+
             {134829, 3020, 3960, 0, 0},//larrans big chest
             /**
              * TOB
