@@ -708,7 +708,7 @@ WindowListener {
 			if(Client.loggedIn) {
 				if(Client.openInterfaceID == -1) {
 					Client.stream.createFrame(185);
-					Client.stream.writeWord(10000);
+					Client.stream.putInt(10000);
 				}
 			}
 		}
