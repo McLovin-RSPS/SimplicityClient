@@ -3014,7 +3014,7 @@ public class Client extends RSApplet {
             callbacks.drawAfterWidgets(tabAreaIP, GraphicsBufferType.TAB_AREA);
         }
         if (clientSize == 0) {
-            if (menuActionRow >= 1) {
+            if (menuActionRow >= 1 && mouseInTabArea()) {
                 String s;
                 //itemSelected != 0 && spellSelected != 0
                 if (itemSelected == 1 && menuActionRow < 2) {
