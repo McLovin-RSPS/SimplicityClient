@@ -30,6 +30,7 @@ import java.awt.Graphics2D;
 import javax.inject.Inject;
 import lombok.AccessLevel;
 import lombok.Setter;
+import net.runelite.api.Client;
 import net.runelite.api.GraphicID;
 import net.runelite.api.GraphicsBufferType;
 import net.runelite.client.game.FishingSpot;
@@ -42,18 +43,20 @@ class FishingSpotMinimapOverlay extends Overlay
 {
 	private final FishingPlugin plugin;
 	private final FishingConfig config;
+	private final Client client;
 
 	@Setter(AccessLevel.PACKAGE)
 	private boolean hidden;
 
 	@Inject
-	public FishingSpotMinimapOverlay(FishingPlugin plugin, FishingConfig config)
+	public FishingSpotMinimapOverlay(FishingPlugin plugin, FishingConfig config, Client client)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 		setGraphicsBuffer(GraphicsBufferType.MINIMAP);
 		this.plugin = plugin;
 		this.config = config;
+		this.client = client;
 	}
 
 	@Override
@@ -64,8 +67,11 @@ class FishingSpotMinimapOverlay extends Overlay
 			return null;
 		}
 
-		for (com.simplicity.client.NPC npc : plugin.getFishingSpots())
+		for (com.simplicity.client.NPC npc : com.simplicity.client.Client.instance.getNpcs())
 		{
+			if(npc == null)
+				continue;
+
 			FishingSpot spot = FishingSpot.findSpot(npc.getId());
 
 			if (spot == null)

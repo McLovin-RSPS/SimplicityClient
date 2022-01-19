@@ -48,9 +48,6 @@ import net.runelite.client.util.ImageUtil;
 
 class FishingSpotOverlay extends Overlay
 {
-	private static final Duration MINNOW_MOVE = Duration.ofSeconds(15);
-	private static final Duration MINNOW_WARN = Duration.ofSeconds(3);
-	private static final int ONE_TICK_AERIAL_FISHING = 3;
 
 	private final FishingPlugin plugin;
 	private final FishingConfig config;
@@ -82,8 +79,10 @@ class FishingSpotOverlay extends Overlay
 
 		FishingSpot previousSpot = null;
 		WorldPoint previousLocation = null;
-		for (com.simplicity.client.NPC npc : plugin.getFishingSpots())
+		for (com.simplicity.client.NPC npc : com.simplicity.client.Client.instance.getNpcs())
 		{
+			if(npc == null)
+				continue;
 			FishingSpot spot = FishingSpot.findSpot(npc.getId());
 
 			if (spot == null)

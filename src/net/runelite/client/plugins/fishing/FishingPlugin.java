@@ -100,9 +100,6 @@ public class FishingPlugin extends Plugin
 	private final Map<Integer, MinnowSpot> minnowSpots = new HashMap<>();
 
 	@Getter(AccessLevel.PACKAGE)
-	private final List<com.simplicity.client.NPC> fishingSpots = new ArrayList<>();
-
-	@Getter(AccessLevel.PACKAGE)
 	private FishingSpot currentSpot;
 
 	@Inject
@@ -148,7 +145,6 @@ public class FishingPlugin extends Plugin
 		overlayManager.remove(overlay);
 		overlayManager.remove(spotOverlay);
 		overlayManager.remove(fishingSpotMinimapOverlay);
-		fishingSpots.clear();
 		minnowSpots.clear();
 		currentSpot = null;
 		trawlerStartTime = null;
@@ -160,7 +156,6 @@ public class FishingPlugin extends Plugin
 		GameState gameState = gameStateChanged.getGameState();
 		if (gameState == GameState.CONNECTION_LOST || gameState == GameState.LOGIN_SCREEN)
 		{
-			fishingSpots.clear();
 			minnowSpots.clear();
 		}
 	}
@@ -299,101 +294,5 @@ public class FishingPlugin extends Plugin
 				session.setLastFishCaught(null);
 			}
 		}
-
-		inverseSortSpotDistanceFromPlayer();
-
-
-		updateTrawlerTimer();
-		updateTrawlerContribution();
-	}
-
-	@Subscribe
-	public void onNpcSpawned(NpcSpawned event)
-	{
-		final com.simplicity.client.NPC npc = event.getNpc();
-		if(npc.getName().toLowerCase().contains("spot")) {
-			log.info("npc name: " + npc.getName() + " - " + npc.getId() + " - " + npc.getWorldLocation().toString());
-		}
-		if (FishingSpot.findSpot(npc.getId()) == null)
-		{
-			return;
-		}
-
-		fishingSpots.add(npc);
-		inverseSortSpotDistanceFromPlayer();
-	}
-
-	@Subscribe
-	public void onNpcDespawned(NpcDespawned npcDespawned)
-	{
-		final com.simplicity.client.NPC npc = npcDespawned.getNpc();
-
-		fishingSpots.remove(npc);
-
-		MinnowSpot minnowSpot = minnowSpots.remove(npc.index);
-		if (minnowSpot != null)
-		{
-			log.debug("Minnow spot {} despawned", npc);
-		}
-	}
-
-	@Subscribe
-	public void onWidgetLoaded(WidgetLoaded event)
-	{
-		/*if (event.getGroupId() == WidgetID.FISHING_TRAWLER_GROUP_ID)
-		{
-			trawlerStartTime = Instant.now();
-			log.debug("Trawler session started");
-		}*/
-	}
-
-	/**
-	 * Updates the trawler contribution value
-	 */
-	private void updateTrawlerContribution()
-	{
-
-
-		/*Widget trawlerContributionWidget = client.getWidget(WidgetInfo.FISHING_TRAWLER_CONTRIBUTION);
-		if (trawlerContributionWidget == null)
-		{
-			return;
-		}
-
-		int trawlerContribution = client.getVar(Varbits.FISHING_TRAWLER_ACTIVITY);
-		trawlerContributionWidget.setText("Contribution: " + trawlerContribution);*/
-	}
-
-	/**
-	 * Changes the Fishing Trawler timer widget from minutes to minutes and seconds
-	 */
-	private void updateTrawlerTimer()
-	{
-		if (trawlerStartTime == null)
-		{
-			return;
-		}
-
-
-	}
-
-	private void inverseSortSpotDistanceFromPlayer()
-	{
-		if (fishingSpots.isEmpty())
-		{
-			return;
-		}
-
-		final LocalPoint cameraPoint = new LocalPoint(client.getCameraX(), client.getCameraY());
-		fishingSpots.sort(
-			Comparator.comparingInt(
-				// Negate to have the furthest first
-				(com.simplicity.client.NPC npc) -> -npc.getLocalLocation().distanceTo(cameraPoint))
-				// Order by position
-				.thenComparing(com.simplicity.client.NPC::getLocalLocation, Comparator.comparingInt(LocalPoint::getX)
-					.thenComparingInt(LocalPoint::getY))
-				// And then by id
-				.thenComparingInt(com.simplicity.client.NPC::getId)
-		);
 	}
 }
