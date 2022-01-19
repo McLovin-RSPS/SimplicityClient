@@ -79,13 +79,6 @@ class BarrowsBrotherSlainOverlay extends OverlayPanel
 				.build());
 		}
 
-		final int rewardPotential = rewardPotential();
-		panelComponent.getChildren().add(LineComponent.builder()
-			.left("Potential")
-			.right(REWARD_POTENTIAL_FORMATTER.format(rewardPotential / 1012f))
-			.rightColor(rewardPotential >= 756 && rewardPotential < 881 ? Color.GREEN : rewardPotential < 631 ? Color.WHITE : Color.YELLOW)
-			.build());
-
 		return super.render(graphics);
 	}
 
@@ -105,15 +98,5 @@ class BarrowsBrotherSlainOverlay extends OverlayPanel
 	 * @return potential, 0-1012 inclusive
 	 * @see <a href="https://twitter.com/jagexkieren/status/705428283509366785?lang=en">source</a>
 	 */
-	private int rewardPotential()
-	{
-		// this is from [proc,barrows_overlay_reward]
-		int brothers = client.getVar(Varbits.BARROWS_KILLED_AHRIM)
-			+ client.getVar(Varbits.BARROWS_KILLED_DHAROK)
-			+ client.getVar(Varbits.BARROWS_KILLED_GUTHAN)
-			+ client.getVar(Varbits.BARROWS_KILLED_KARIL)
-			+ client.getVar(Varbits.BARROWS_KILLED_TORAG)
-			+ client.getVar(Varbits.BARROWS_KILLED_VERAC);
-		return client.getVar(Varbits.BARROWS_REWARD_POTENTIAL) + brothers * 2;
-	}
+
 }
