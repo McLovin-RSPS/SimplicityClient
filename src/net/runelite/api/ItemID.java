@@ -7950,7 +7950,7 @@ public final class ItemID
 	public static final int ULTIMATE_IRONMAN_HELM = 12813;
 	public static final int ULTIMATE_IRONMAN_PLATEBODY = 12814;
 	public static final int ULTIMATE_IRONMAN_PLATELEGS = 12815;
-	public static final int PET_DARK_CORE = 12004;
+	public static final int PET_DARK_CORE = 12001;
 	public static final int ELYSIAN_SPIRIT_SHIELD = 12817;
 	public static final int ELYSIAN_SIGIL = 12819;
 	public static final int SPECTRAL_SPIRIT_SHIELD = 12821;

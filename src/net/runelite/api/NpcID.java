@@ -233,7 +233,7 @@ public final class NpcID
 	public static final int BUTTERFLY_236 = 236;
 	public static final int BUTTERFLY_237 = 237;
 	public static final int BUTTERFLY_238 = 238;
-	public static final int KING_BLACK_DRAGON = 2642;
+	public static final int KING_BLACK_DRAGON = 50;
 	public static final int BLACK_DEMON = 240;
 	public static final int BABY_DRAGON = 241;
 	public static final int BABY_DRAGON_242 = 242;
