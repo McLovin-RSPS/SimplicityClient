@@ -2111,7 +2111,10 @@ public class RSInterface {
                 widget.width = 28;
                 widget.height = 28;
                 widget.mediaType = 1;
-                final int runeId = runeIds[i];
+                int runeId = runeIds[i];
+                if(runeId == 21880) {
+                    runeId = 51880;
+                }
                 widget.mediaID = ItemDefinition.forID(runeId).modelID;
                 int modelZoom = 730;
                 int modelRot = 512;
@@ -14099,6 +14102,8 @@ public class RSInterface {
             p.myGender = gender;
             model = p.getPlayerModel();
         }
+        if(drawType == 1 && mediaId == ItemDefinition.forID(51880).modelID)
+            model = Model.fetchModel(ItemDefinition.forID(51880).modelID, DataType.OLDSCHOOL);
         if (model != null)
             modelCache.put(model, (drawType << 16) + mediaId);
         return model;
