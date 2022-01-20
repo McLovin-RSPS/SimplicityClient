@@ -88,12 +88,13 @@ extends WidgetItemOverlay {
                 return;
 
             for(int l = 0; l < widget.inv.length; l++) {
-                if(widget.inv[l] <= 0 || widget.invStackSizes[l] <= 0 || Runes.getRune(widget.inv[l]) == null
-                || this.config.runePouchOverlayMode() == RunePouchOverlayMode.MOUSE_HOVER || getRuneImage(Runes.getRune(widget.inv[l])) == null
+                if(widget.inv[l] <= 0 || widget.invStackSizes[l] <= 0 || Runes.getRune(widget.inv[l] - 1) == null
+                || this.config.runePouchOverlayMode() == RunePouchOverlayMode.MOUSE_HOVER || getRuneImage(Runes.getRune(widget.inv[l] - 1)) == null
                 || !this.config.showIcons()) {
                     continue;
                 }
-                rune = Runes.getRune(widget.inv[l]);
+                rune = Runes.getRune(widget.inv[l] - 1);
+                System.out.println("Getting rune " + (widget.inv[l] - 1));
                 image = getRuneImage(rune);
                 int amount = widget.invStackSizes[l];
                 tooltipBuilder.append(amount).append(" ").append(ColorUtil.wrapWithColorTag(rune.getName(), Color.YELLOW)).append("</br>");

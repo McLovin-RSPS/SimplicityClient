@@ -30,7 +30,7 @@ public enum Runes {
     LAVA(18, 4699),
     STEAM(19, 4694),
     SMOKE(20, 4697),
-    WRATH(21, 21880);
+    WRATH(21, 51880);
 
     private final int id;
     private final int itemId;
