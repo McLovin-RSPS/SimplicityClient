@@ -806,7 +806,7 @@ public class Model extends Animable {
 	 */
 	private void setUseDepthBuffer(int modelID, DataType type) {
 		if (type.equals(DataType.OLDSCHOOL)) {
-			if (modelID == 35439 || modelID == 35425 || modelID == 35446 || modelID == 35448 || modelID == 35414 || modelID ==32525 || modelID == 32526) { // Exclude monumental chest
+			if (modelID == 35439 || modelID == 35425 || modelID == 35446 || modelID == 35448 || modelID == 35414 || modelID ==32525 || modelID == 32526 || modelID == 35107) { // Exclude monumental chest
 				return;
 			}
 		}
@@ -4487,7 +4487,6 @@ public class Model extends Animable {
             }
             uvsCalculated = true;
         } catch (Exception e) {
-            e.printStackTrace();
             uvsCalculated = true;
         }
     }
