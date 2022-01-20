@@ -94,7 +94,6 @@ extends WidgetItemOverlay {
                     continue;
                 }
                 rune = Runes.getRune(widget.inv[l] - 1);
-                System.out.println("Getting rune " + (widget.inv[l] - 1));
                 image = getRuneImage(rune);
                 int amount = widget.invStackSizes[l];
                 tooltipBuilder.append(amount).append(" ").append(ColorUtil.wrapWithColorTag(rune.getName(), Color.YELLOW)).append("</br>");
