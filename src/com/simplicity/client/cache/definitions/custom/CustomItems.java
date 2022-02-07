@@ -840,6 +840,24 @@ public class CustomItems {
 				itemDef.modelID = 93;
 				break;
 				
+			case 11560:
+				itemDef.copy(ItemDefinition.forID(6199));
+				itemDef.name = "@red@Runelocus Crystal Box";
+				itemDef.actions = new String[5];
+				itemDef.actions[0] = "Open";
+				itemDef.animateInventory = true;
+				itemDef.modelZoom = 2200;
+				itemDef.rotationY = 120;
+				itemDef.rotationX = 1800;
+				itemDef.modelOffsetX = 0;
+				itemDef.modelOffset1 = 40;
+				itemDef.modelOffsetY = -20;
+				itemDef.dataType = DataType.CUSTOM;
+	        	itemDef.editedModelColor = new int[] { 40 };
+	        	itemDef.newModelColor = new int[] { 64 };
+				itemDef.modelID = 93;
+				break;
+				
 			case 22500:
 				itemDef.copy(ItemDefinition.forID(6199));
 				itemDef.name = "@or2@Mythical Supreme Box";
