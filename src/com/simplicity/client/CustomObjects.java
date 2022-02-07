@@ -133,21 +133,21 @@ public class CustomObjects {
             //{47748, 3107, 3498, 0, 0},
             //{15969, 3097, 3503, 0, 0},
             //{47748, 3088, 3505, 0, 0},
-            // {137975, 3088, 3504, 0, 0}, overlord afk tree
+            {137975, 3088, 3504, 0, 0}, //overlord afk tree
             
             // old christmas id 47748
-            {56933, 3088, 3504, 0, 0}, // christmas 2021 tree
-            {47762, 3091, 3505, 0, 0}, // christmas 2021 presents
-            {47758, 3091, 3504, 0, 0}, // christmas 2021 presents
-            {47760, 3090, 3506, 0, 0}, // christmas 2021 presents
-            {47762, 3089, 3503, 0, 0}, // christmas 2021 presents
-            {47758, 3087, 3505, 0, 0}, // christmas 2021 presents
-            {47760, 3087, 3506, 0, 0}, // christmas 2021 presents
-            {47762, 3088, 3507, 0, 0}, // christmas 2021 presents
+            //{56933, 3088, 3504, 0, 0}, // christmas 2021 tree
+            //{47762, 3091, 3505, 0, 0}, // christmas 2021 presents
+            //{47758, 3091, 3504, 0, 0}, // christmas 2021 presents
+            //{47760, 3090, 3506, 0, 0}, // christmas 2021 presents
+            //{47762, 3089, 3503, 0, 0}, // christmas 2021 presents
+            //{47758, 3087, 3505, 0, 0}, // christmas 2021 presents
+            //{47760, 3087, 3506, 0, 0}, // christmas 2021 presents
+            //{47762, 3088, 3507, 0, 0}, // christmas 2021 presents
             
-            {10665, 3079, 3484, 0, 0}, // christmas 2021 presents
-            {10665, 3079, 3498, 0, 0}, // christmas 2021 presents
-            {10665, 3110, 3503, 0, 0}, // christmas 2021 presents
+            //{10665, 3079, 3484, 0, 0}, // christmas 2021 presents
+            //{10665, 3079, 3498, 0, 0}, // christmas 2021 presents
+            //{10665, 3110, 3503, 0, 0}, // christmas 2021 presents
             
             {47760, 1755, 4009, 0, 0}, // christmas 2021 presents
             {10680, 1755, 4008, 0, 0}, // christmas 2021 presents
