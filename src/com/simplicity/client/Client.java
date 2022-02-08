@@ -119,20 +119,7 @@ import com.simplicity.client.instruction.InstructionArgs;
 import com.simplicity.client.instruction.InstructionProcessor;
 import com.simplicity.client.particles.Particle;
 import com.simplicity.client.particles.ParticleDefinition;
-import com.simplicity.client.widget.AchievementsWidget;
-import com.simplicity.client.widget.BestiaryLookup;
-import com.simplicity.client.widget.CollectionLogWidget;
-import com.simplicity.client.widget.CustomWidget;
-import com.simplicity.client.widget.PortalNexusConfirm;
-import com.simplicity.client.widget.PortalNexusTeleportMenu;
-import com.simplicity.client.widget.QuestTab;
-import com.simplicity.client.widget.SettingsWidget;
-import com.simplicity.client.widget.SkillQuantityWidget;
-import com.simplicity.client.widget.Slider;
-import com.simplicity.client.widget.StarterWidget;
-import com.simplicity.client.widget.TobPlayerOrbsWidget;
-import com.simplicity.client.widget.Widget;
-import com.simplicity.client.widget.WildernessWidget;
+import com.simplicity.client.widget.*;
 import com.simplicity.client.widget.deals.DealBoardWidget;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.client.widget.ge.*;
@@ -18141,9 +18128,14 @@ public class Client extends RSApplet {
                         xPosition = clientSize == 0 ? 0 : clientWidth / 2 - 358;
                         yPosition = 0;
                         break;
+                    case ShootingStarHud.WIDGET_ID:
+                        xPosition = clientSize == 0 ? 0 : clientWidth - 725;
+                        yPosition = 0;
+                        break;
                     case TotemsOverlay.WIDGET_ID:
                         xPosition = 0;
                         yPosition = 0;
+                        break;
                 }
                 
                 if (widget.id != TobPlayerOrbsWidget.INTERFACE_ID && widget.id != TobPartyOverlayWidget.WIDGET_ID && widget.id != XericPointsWidget.WIDGET_ID) {

@@ -25,8 +25,7 @@ public class ShootingStarHud extends CustomWidget {
         add(addText("<spr=1884:-1> Shooting Star <spr=1884:-1>", 0, 0xff9800, true), x + w / 2, y += 10);
         add(addText("Total Miners: <col=ffffff>0</col>", 0, 0x9d9996, true), x + w / 2, y += 16);
         add(addText("Total Stardust Mined: <col=ffffff>0</col>", 0, 0x9d9996, true), x + w / 2, y += 16);
-        add(addText("Time left:", 0, 0x9d9996, true), x + w / 2 - 14, y += 16);
-        add(addTimer(w / 2, 16, 0, 0xffffff, "00:00"), x + w / 2 + 28, y);
+        add(addText("Stardust Left: <col=ffffff>0</col>", 0, 0x9d9996, true), x + w / 2, y += 16);
     }
 
     @Override
