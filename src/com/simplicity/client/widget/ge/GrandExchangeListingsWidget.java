@@ -124,9 +124,9 @@ public class GrandExchangeListingsWidget extends CustomWidget implements WidgetS
 			getWidget(id).parentID = parent;
 			RSInterface.setBounds(id++, xPos + 220, yPos + 4, scroll_frame++, scroll);
 
-			RSInterface.addText(id,"", RSInterface.fonts, 1, 0xff981f, true);
+			RSInterface.addText(id,"", RSInterface.fonts, 0, 0xff981f, true);
 			getWidget(id).parentID = parent;
-			RSInterface.setBounds(id++, xPos + 360, yPos + 13, scroll_frame++, scroll);
+			RSInterface.setBounds(id++, xPos + 360, yPos + 15, scroll_frame++, scroll);
 
 			RSInterface.addText(id, "", 0, 0xff981f);
 			getWidget(id).parentID = parent;
