@@ -27,6 +27,8 @@ public class GrandExchangeListingsWidget extends CustomWidget implements WidgetS
 	public static int EXCHANGE_BUTTON_ID;
 	public static int SEARCH_ITEM_BUTTON;
 	public static int RECENT_LISTINGS_BUTTON;
+
+	public static int ITEM_CONTAINER_START;
 	
 	public static Set<Integer> OFFER_BUTTONS = new HashSet<>();
 
@@ -46,6 +48,8 @@ public class GrandExchangeListingsWidget extends CustomWidget implements WidgetS
 		addStateListener(this);
 		addButtonListener(this);
 		addContainerListener(this);
+
+		ITEM_CONTAINER_START = 96_800;
 
 		add(addClosableWindow(484, 304, false, getName()), 14, 15);
 		add(drawBox(149 + 293, 91 + 77 + 75, 1, 0x5a5245, 0x5a5245, 250), 40 - 4, 60 - 4);
@@ -91,7 +95,7 @@ public class GrandExchangeListingsWidget extends CustomWidget implements WidgetS
         RSInterface scroll = RSInterface.addInterface(id);
         scroll.componentId = id;
         id++;
-        scroll.totalChildren(LISTINGS_AMOUNT * 7);
+        scroll.totalChildren(LISTINGS_AMOUNT * 8);
         scroll.height = scrollHeight;
         scroll.width = scrollWidth;
         scroll.scrollMax = LISTINGS_AMOUNT * (RECT_HEIGHT - 1);
@@ -114,23 +118,27 @@ public class GrandExchangeListingsWidget extends CustomWidget implements WidgetS
 			RSInterface.addText(id, "", 1, 0xff981f);
 			getWidget(id).parentID = parent;
 			getWidget(id).useNewFonts = true;
-			RSInterface.setBounds(id++, xPos + 3, yPos + 6, scroll_frame++, scroll);
+			RSInterface.setBounds(id++, xPos, yPos + 6, scroll_frame++, scroll);
 
 			RSInterface.addText(id, "", RSInterface.fonts, 1, 0xff981f, true);
 			getWidget(id).parentID = parent;
-			RSInterface.setBounds(id++, xPos + 200, yPos + 4, scroll_frame++, scroll);
+			RSInterface.setBounds(id++, xPos + 220, yPos + 4, scroll_frame++, scroll);
 
 			RSInterface.addText(id,"", RSInterface.fonts, 1, 0xff981f, true);
 			getWidget(id).parentID = parent;
-			RSInterface.setBounds(id++, xPos + 355, yPos + 13, scroll_frame++, scroll);
+			RSInterface.setBounds(id++, xPos + 360, yPos + 13, scroll_frame++, scroll);
 
 			RSInterface.addText(id, "", 0, 0xff981f);
 			getWidget(id).parentID = parent;
-			RSInterface.setBounds(id++, xPos + 8, yPos + 25, scroll_frame++, scroll);
+			RSInterface.setBounds(id++, xPos + 4, yPos + 25, scroll_frame++, scroll);
+
+			RSInterface.addItemContainer(ITEM_CONTAINER_START, new int[] {1, 1}, new int[] {1,1}, new String[] {}, false);
+			getWidget(ITEM_CONTAINER_START).parentID = parent;
+			RSInterface.setBounds(ITEM_CONTAINER_START++, xPos + 116, yPos + 5, scroll_frame++, scroll);
 
 			RSInterface.addGeProgress(id, 127, 15, true);
 			getWidget(id).parentID = parent;
-			RSInterface.setBounds(id++, xPos + 136, yPos + 22, scroll_frame++, scroll);
+			RSInterface.setBounds(id++, xPos + 156, yPos + 22, scroll_frame++, scroll);
 			
 			yPos += RECT_HEIGHT - 1;
 		}
