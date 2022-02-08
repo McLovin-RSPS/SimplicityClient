@@ -409,12 +409,8 @@ WindowListener {
 				tabInterfaceID = 1151;
 			}
 
-			if (tabInterfaceID == 73300) {
-				tabInterfaceID = AchievementsWidget.INTERFACE_ID;
-			}
-
 			if (tabInterfaceID == 67000) {
-				tabInterfaceID = QuestTab.QUEST_TAB_ID;
+				tabInterfaceID = AchievementsWidget.INTERFACE_ID;
 			}
 
 			if (tabInterfaceID == 73800) {
