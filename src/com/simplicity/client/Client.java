@@ -17632,7 +17632,7 @@ public class Client extends RSApplet {
                         	sprite.drawSprite(childX, childY);
                         }
                     } else if (child.type == 47) {
-                		child.disabledSprite.drawAdvancedSprite(childX, childY, childHovered ? child.hoverOpacity : child.defaultOpacity);
+                		child.disabledSprite.drawAdvancedSprite(childX, childY, childHovered ? child.hoverOpacity : 255);
                     } else if (child.type == 50) { // TOB ORBS
                         if (child.message.isEmpty()) {
                             continue;

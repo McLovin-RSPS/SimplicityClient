@@ -450,40 +450,40 @@ public class Sprite extends DrawingArea implements SpritePixels {
 			i2 += i3;
 		}
 		if (!(l1 <= 0 || k1 <= 0)) {
-			drawAlphaSprite(j1, l1, DrawingArea.pixels, myPixels, j2, k1, i2, k, i1);
+			drawAlphaGlow(j1, l1, DrawingArea.pixels, myPixels, j2, k1, i2, k, i1);
 		}
 	}
 
-	public void drawAdvancedSprite2(int i, int j, int alpha) {
+	public void drawAdvancedSprite2(int x, int y, int alpha) {
 		int k = alpha;
-		i += myHeight;
-		j += myWidth;
-		int i1 = i + j * DrawingArea.width;
+		x += myHeight;
+		y += myWidth;
+		int i1 = x + y * DrawingArea.width;
 		int j1 = 0;
 		int k1 = myHeight;
 		int l1 = myWidth;
 		int i2 = DrawingArea.width - l1;
 		int j2 = 0;
-		if (j < DrawingArea.topY) {
-			int k2 = DrawingArea.topY - j;
+		if (y < DrawingArea.topY) {
+			int k2 = DrawingArea.topY - y;
 			k1 -= k2;
-			j = DrawingArea.topY;
+			y = DrawingArea.topY;
 			j1 += k2 * l1;
 			i1 += k2 * DrawingArea.width;
 		}
-		if (j + k1 > DrawingArea.bottomY)
-			k1 -= (j + k1) - DrawingArea.bottomY;
-		if (i < DrawingArea.topX) {
-			int l2 = DrawingArea.topX - i;
+		if (y + k1 > DrawingArea.bottomY)
+			k1 -= (y + k1) - DrawingArea.bottomY;
+		if (x < DrawingArea.topX) {
+			int l2 = DrawingArea.topX - x;
 			l1 -= l2;
-			i = DrawingArea.topX;
+			x = DrawingArea.topX;
 			j1 += l2;
 			i1 += l2;
 			j2 += l2;
 			i2 += l2;
 		}
-		if (i + l1 > DrawingArea.bottomX) {
-			int i3 = (i + l1) - DrawingArea.bottomX;
+		if (x + l1 > DrawingArea.bottomX) {
+			int i3 = (x + l1) - DrawingArea.bottomX;
 			l1 -= i3;
 			j2 += i3;
 			i2 += i3;
