@@ -666,8 +666,8 @@ public class DrawingArea extends QueueNode {
 		drawHLine(color, width, (y + height) - 1, opacity, x);
 		if(height >= 3)
 		{
-			drawVLine(color, x, opacity, y + 1, height - 2);
-			drawVLine(color, (x + width) - 1, opacity, y + 1, height - 2);
+			drawVLine(color, x, opacity, y, height - 2);
+			drawVLine(color, (x + width) - 1, opacity, y, height - 2);
 		}
 	}
 
@@ -1015,14 +1015,14 @@ public class DrawingArea extends QueueNode {
 			pixelIndex += leftOver;
 		}
 	}
-	
+
 	public static void drawBox(int x, int y, int width, int height, int border, int color, int alpha) {
 		for (int i = 0; i < border; i++) {
 			drawHorizontalLine(x, y + i, width, color, alpha);
 			drawHorizontalLine(x, y + height - i - border, width, color, alpha);
 			
-			drawVerticalLine(x + i, y + border, height - border * 2, color, alpha);
-			drawVerticalLine(x + width - border + i, y + border, height - border * 2, color, alpha);
+			drawVerticalLine(x + i, y + border - 1, height - border * 2, color, alpha);
+			drawVerticalLine(x + width - border + i, y + border - 1, height - border * 2, color, alpha);
 		}
 	}
 	
