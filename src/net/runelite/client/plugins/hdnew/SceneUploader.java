@@ -383,7 +383,7 @@ class SceneUploader
 					neColor = 0;
 				}
 			}
-			else if (!proceduralGenerator.useDefaultColor(tile) && sceneTilePaint.getTexture() == -1)
+			else if (hdPlugin.configGroundBlending && !proceduralGenerator.useDefaultColor(tile) && sceneTilePaint.getTexture() == -1)
 			{
 				// get the vertices' colors and textures from hashmaps
 
@@ -400,7 +400,7 @@ class SceneUploader
 					nwMaterial = proceduralGenerator.vertexTerrainTexture.getOrDefault(nwVertexKey, nwMaterial);
 				}
 			}
-			else
+			else if (hdPlugin.configGroundTextures)
 			{
 				GroundMaterial groundMaterial;
 
@@ -425,13 +425,10 @@ class SceneUploader
 					neColor = HDUtils.colorHSLToInt(proceduralGenerator.recolorUnderlay(underlay, HDUtils.colorIntToHSL(neColor)));
 				}
 
-				if (hdPlugin.configGroundTextures)
-				{
-					swMaterial = groundMaterial.getRandomMaterial(tileZ, baseX + tileX, baseY + tileY);
-					seMaterial = groundMaterial.getRandomMaterial(tileZ, baseX + tileX + 1, baseY + tileY);
-					nwMaterial = groundMaterial.getRandomMaterial(tileZ, baseX + tileX, baseY + tileY + 1);
-					neMaterial = groundMaterial.getRandomMaterial(tileZ, baseX + tileX + 1, baseY + tileY + 1);
-				}
+				swMaterial = groundMaterial.getRandomMaterial(tileZ, baseX + tileX, baseY + tileY);
+				seMaterial = groundMaterial.getRandomMaterial(tileZ, baseX + tileX + 1, baseY + tileY);
+				nwMaterial = groundMaterial.getRandomMaterial(tileZ, baseX + tileX, baseY + tileY + 1);
+				neMaterial = groundMaterial.getRandomMaterial(tileZ, baseX + tileX + 1, baseY + tileY + 1);
 			}
 
 			if (proceduralGenerator.vertexIsOverlay.containsKey(neVertexKey) && proceduralGenerator.vertexIsUnderlay.containsKey(neVertexKey))
@@ -727,7 +724,7 @@ class SceneUploader
 					colorC = 0;
 				}
 			}
-			else if (!(proceduralGenerator.isOverlayFace(tile, face) && proceduralGenerator.useDefaultColor(tile)) && materialA == Material.NONE)
+			else if (hdPlugin.configGroundBlending && !(proceduralGenerator.isOverlayFace(tile, face) && proceduralGenerator.useDefaultColor(tile)) && materialA == Material.NONE)
 			{
 				// get the vertices' colors and textures from hashmaps
 
@@ -742,7 +739,7 @@ class SceneUploader
 					materialC = proceduralGenerator.vertexTerrainTexture.getOrDefault(vertexKeyC, materialC);
 				}
 			}
-			else
+			else if (hdPlugin.configGroundTextures)
 			{
 				// ground textures without blending
 
@@ -767,12 +764,9 @@ class SceneUploader
 					colorC = HDUtils.colorHSLToInt(proceduralGenerator.recolorUnderlay(underlay, HDUtils.colorIntToHSL(colorC)));
 				}
 
-				if (hdPlugin.configGroundTextures)
-				{
-					materialA = groundMaterial.getRandomMaterial(tileZ, baseX + tileX + (int) Math.floor((float) localVertices[0][0] / Perspective.LOCAL_TILE_SIZE), baseY + tileY + (int) Math.floor((float) localVertices[0][1] / Perspective.LOCAL_TILE_SIZE));
-					materialB = groundMaterial.getRandomMaterial(tileZ, baseX + tileX + (int) Math.floor((float) localVertices[1][0] / Perspective.LOCAL_TILE_SIZE), baseY + tileY + (int) Math.floor((float) localVertices[1][1] / Perspective.LOCAL_TILE_SIZE));
-					materialC = groundMaterial.getRandomMaterial(tileZ, baseX + tileX + (int) Math.floor((float) localVertices[2][0] / Perspective.LOCAL_TILE_SIZE), baseY + tileY + (int) Math.floor((float) localVertices[2][1] / Perspective.LOCAL_TILE_SIZE));
-				}
+				materialA = groundMaterial.getRandomMaterial(tileZ, baseX + tileX + (int) Math.floor((float) localVertices[0][0] / Perspective.LOCAL_TILE_SIZE), baseY + tileY + (int) Math.floor((float) localVertices[0][1] / Perspective.LOCAL_TILE_SIZE));
+				materialB = groundMaterial.getRandomMaterial(tileZ, baseX + tileX + (int) Math.floor((float) localVertices[1][0] / Perspective.LOCAL_TILE_SIZE), baseY + tileY + (int) Math.floor((float) localVertices[1][1] / Perspective.LOCAL_TILE_SIZE));
+				materialC = groundMaterial.getRandomMaterial(tileZ, baseX + tileX + (int) Math.floor((float) localVertices[2][0] / Perspective.LOCAL_TILE_SIZE), baseY + tileY + (int) Math.floor((float) localVertices[2][1] / Perspective.LOCAL_TILE_SIZE));
 			}
 
 			if (proceduralGenerator.vertexIsOverlay.containsKey(vertexKeyA) && proceduralGenerator.vertexIsUnderlay.containsKey(vertexKeyA))
@@ -1041,6 +1035,10 @@ class SceneUploader
 			bufferLengths[0] = 3;
 			bufferLengths[1] = uvLength;
 			return bufferLengths;
+		} else if (faceTextures == null || faceTextures[face] == -1) {
+			color1 = interpolateHSL(color1, (byte) 55, (byte) 1, (byte) 5, (byte) 5);
+			color2 = interpolateHSL(color2, (byte) 55, (byte) 1, (byte) 5, (byte) 5);
+			color3 = interpolateHSL(color3, (byte) 55, (byte) 1, (byte) 5, (byte) 5);
 		}
 
 		int vnAX, vnAY, vnAZ;
@@ -1141,6 +1139,19 @@ class SceneUploader
 								HDUtils.colorIntToHSL(tile.getSceneTilePaint().getNeColor())[2]
 						) / 4;
 
+					int overlayId = client.getScene().getOverlayIds()[tileZ][tileX][tileY];
+					int underlayId = client.getScene().getUnderlayIds()[tileZ][tileX][tileY];
+					if (overlayId != 0)
+					{
+						Overlay overlay = Overlay.getOverlay(overlayId, tile, client);
+						tileColorHSL = proceduralGenerator.recolorOverlay(overlay, tileColorHSL);
+					}
+					else
+					{
+						Underlay underlay = Underlay.getUnderlay(underlayId, tile, client);
+						tileColorHSL = proceduralGenerator.recolorUnderlay(underlay, tileColorHSL);
+					}
+
 					color1H = color2H = color3H = tileColorHSL[0];
 					color1S = color2S = color3S = tileColorHSL[1];
 					color1L = color2L = color3L = tileColorHSL[2];
@@ -1162,6 +1173,11 @@ class SceneUploader
 					if (faceColorIndex != -1)
 					{
 						tileColorHSL = HDUtils.colorIntToHSL(tile.getSceneTileModel().getTriangleColorA()[faceColorIndex]);
+
+						int underlayId = client.getScene().getUnderlayIds()[tileZ][tileX][tileY];
+						Underlay underlay = Underlay.getUnderlay(underlayId, tile, client);
+						tileColorHSL = proceduralGenerator.recolorUnderlay(underlay, tileColorHSL);
+
 						color1H = color2H = color3H = tileColorHSL[0];
 						color1S = color2S = color3S = tileColorHSL[1];
 						color1L = color2L = color3L = tileColorHSL[2];
@@ -1301,6 +1317,30 @@ class SceneUploader
 		bufferLengths[0] = 3;
 		bufferLengths[1] = uvLength;
 		return bufferLengths;
+	}
+
+	private static int interpolateHSL(int hsl, byte hue2, byte sat2, byte lum2, byte lerp)
+	{
+		int hue = hsl >> 10 & 63;
+		int sat = hsl >> 7 & 7;
+		int lum = hsl & 127;
+		int var9 = lerp & 255;
+		if (hue2 != -1)
+		{
+			hue += var9 * (hue2 - hue) >> 7;
+		}
+
+		if (sat2 != -1)
+		{
+			sat += var9 * (sat2 - sat) >> 7;
+		}
+
+		if (lum2 != -1)
+		{
+			lum += var9 * (lum2 - lum) >> 7;
+		}
+
+		return (hue << 10 | sat << 7 | lum) & 65535;
 	}
 
 	private static int packAlphaPriority(short[] faceTextures, int[] transparencies, int[] facePriorities, int face)

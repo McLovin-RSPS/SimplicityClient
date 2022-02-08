@@ -2671,11 +2671,11 @@ public final class WorldController {
 	private byte[][][] underlayIds = new byte[4][104][104];
 
 	public byte[][][] getOverlayIds() {
-		return Client.instance.objectManager.overLay;
+		return overlayIds;
 	}
 
 	public byte[][][] getUnderlayIds() {
-		return Client.instance.objectManager.underLay;
+		return underlayIds;
 	}
 
 	public void setOverlayIds(byte[][][] overlayIds) {
