@@ -82,6 +82,7 @@ public class Widget {
 		init(new SlayerPartner());
 		init(new PrivateStorageWidget());
 		init(new SharedStorageWidget());
+		init(new EquipmentBonuses());
 	}
 
 	/**

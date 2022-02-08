@@ -62,11 +62,11 @@ public abstract class CustomWidget {
     public void addInputFieldListener(WidgetInputFieldListener listener) {
         this.inputFieldListener = listener;
     }
-    
-    public abstract String getName();
 
     public abstract void init();
     
+    public abstract String getName();
+
     public void add(RSInterface widget, int x, int y) {
         widget.componentId = widget.id;
 
@@ -791,6 +791,12 @@ public abstract class CustomWidget {
 
         Widget.componentForMain.put(button.id, mainId);
         Widget.componentForMain.put(text.id, mainId);
+        return rsi;
+    }
+
+    public RSInterface addChar() {
+        RSInterface rsi = RSInterface.addChar(id);
+        rsi.componentId = id++;
         return rsi;
     }
 

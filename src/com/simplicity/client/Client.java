@@ -12864,7 +12864,7 @@ public class Client extends RSApplet {
         if (j == 328) {
             RSInterface rsInterface = rsi;
             rsInterface.modelZoom = 550;
-            rsInterface.modelRotation1 = 0;
+            rsInterface.modelRotation1 = 80;
             if (rollingCharacter) {
                 if (rsInterface.modelRotation2 >= 0) {
                     rsInterface.modelRotation2 -= 10;

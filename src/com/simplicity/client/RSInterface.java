@@ -4946,7 +4946,6 @@ public class RSInterface {
         friendsTabInterface(textDrawingAreas);
         ignoreTabInterface(textDrawingAreas);
         EquipmentTab(textDrawingAreas);
-        equipmentScreenInterface();
         itemsKeptOnDeathInterface();
         clanChatTabInterface();
 //        redoSpellBooks(textDrawingAreas);
@@ -11225,98 +11224,6 @@ public class RSInterface {
         }
     }
 
-    public static void equipmentScreen(TextDrawingArea[] wid) {
-
-        RSInterface tab = addTabInterface(15106);
-        addHDSprite(15107, 677, 677);
-        addHoverButton(15210, 141, 141, 21, 21, "Close", 250, 15211, 3);
-        addHoveredButton(15211, 142, 142, 21, 21, 15212);
-        addText(15111, "", wid, 2, 0xe4a146, false, true);
-        int rofl = 3;
-        addText(15112, "Attack bonuses", wid, 2, 0xFF8900, false, true);
-        addText(15113, "Defence bonuses", wid, 2, 0xFF8900, false, true);
-        addText(15114, "Other bonuses", wid, 2, 0xFF8900, false, true);
-        addText(19148, "Summoning: +0", wid, 1, 0xFF8900, false, true);
-        addText(19149, "Absorb Melee: +0%", wid, 1, 0xFF9200, false, true);
-        addText(19150, "Absorb Magic: +0%", wid, 1, 0xFF9200, false, true);
-        addText(19151, "Absorb Ranged: +0%", wid, 1, 0xFF9200, false, true);
-        addText(19152, "Ranged Strength: 0", wid, 1, 0xFF9200, false, true);
-        addText(19153, "Magic Damage: +0%", wid, 1, 0xFF9200, false, true);
-        for (int i = 1675; i <= 1684; i++) {
-            textSize(i, wid, 1);
-        }
-        textSize(1686, wid, 1);
-        textSize(1687, wid, 1);
-        addChar(15125);
-        tab.totalChildren(50);
-        tab.child(0, 15107, 15, 5);
-        tab.child(1, 15210, 476, 8);
-        tab.child(2, 15211, 476, 8);
-        tab.child(3, 15111, 14, 30);
-        int Child = 4;
-        int Y = 45;
-        tab.child(16, 15112, 24, 30 - rofl);
-        for (int i = 1675; i <= 1679; i++) {
-            tab.child(Child, i, 29, Y - rofl);
-            Child++;
-            Y += 14;
-        }
-        int edit = 7 + rofl;
-        tab.child(18, 15113, 24, 122 - edit); // 147
-        tab.child(9, 1680, 29, 137 - edit - 2); // 161
-        tab.child(10, 1681, 29, 153 - edit - 3);
-        tab.child(11, 1682, 29, 168 - edit - 3);
-        tab.child(12, 1683, 29, 183 - edit - 3);
-        tab.child(13, 1684, 29, 197 - edit - 3);
-        tab.child(44, 19148, 29, 211 - edit - 3);
-        tab.child(45, 19149, 29, 225 - edit - 3);
-        tab.child(46, 19150, 29, 239 - edit - 3);
-        tab.child(47, 19151, 29, 253 - edit - 3);
-        /* bottom */
-        int edit2 = 33 - rofl, edit3 = 2;
-        tab.child(19, 15114, 24, 223 + edit2);
-        tab.child(14, 1686, 29, 262 - 24 + edit2 - edit3);
-        tab.child(17, 19152, 29, 276 - 24 + edit2 - edit3);
-        tab.child(48, 1687, 29, 290 - 24 + edit2 - edit3);
-        tab.child(49, 19153, 29, 304 - 24 + edit2 - edit3);
-
-        tab.child(15, 15125, 170, 200);
-        tab.child(20, 1645, 104 + 295, 149 - 52);
-        tab.child(21, 1646, 399, 163);
-        tab.child(22, 1647, 399, 163);
-        tab.child(23, 1648, 399, 58 + 146);
-        tab.child(24, 1649, 26 + 22 + 297 - 2, 110 - 44 + 118 - 13 + 5);
-        tab.child(25, 1650, 321 + 22, 58 + 154);
-        tab.child(26, 1651, 321 + 134, 58 + 118);
-        tab.child(27, 1652, 321 + 134, 58 + 154);
-        tab.child(28, 1653, 321 + 48, 58 + 81);
-        tab.child(29, 1654, 321 + 107, 58 + 81);
-        tab.child(30, 1655, 321 + 58, 58 + 42);
-        tab.child(31, 1656, 321 + 112, 58 + 41);
-        tab.child(32, 1657, 321 + 78, 58 + 4);
-        tab.child(33, 1658, 321 + 37, 58 + 43);
-        tab.child(34, 1659, 321 + 78, 58 + 43);
-        tab.child(35, 1660, 321 + 119, 58 + 43);
-        tab.child(36, 1661, 321 + 22, 58 + 82);
-        tab.child(37, 1662, 321 + 78, 58 + 82);
-        tab.child(38, 1663, 321 + 134, 58 + 82);
-        tab.child(39, 1664, 321 + 78, 58 + 122);
-        tab.child(40, 1665, 321 + 78, 58 + 162);
-        tab.child(41, 1666, 321 + 22, 58 + 162);
-        tab.child(42, 1667, 321 + 134, 58 + 162);
-        tab.child(43, 1688, 50 + 297 - 2, 110 - 13 + 5);
-        for (int i = 1675; i <= 1684; i++) {
-            RSInterface rsi = interfaceCache[i];
-            rsi.disabledColor = 0xFF9200;
-            rsi.centerText = false;
-        }
-        for (int i = 1686; i <= 1687; i++) {
-            RSInterface rsi = interfaceCache[i];
-            rsi.disabledColor = 0xFF9200;
-            rsi.centerText = false;
-        }
-    }
-
     public static void formParty(TextDrawingArea[] tda) {
         RSInterface tab = addTabInterface(27224);
         addHDSprite(27225, 143, 143);
@@ -14290,7 +14197,7 @@ public class RSInterface {
         return model_1;
     }
 
-    public static void addChar(int ID) {
+    public static RSInterface addChar(int ID) {
         RSInterface t = interfaceCache[ID] = new RSInterface();
         t.id = ID;
         t.parentID = ID;
@@ -14306,6 +14213,7 @@ public class RSInterface {
         t.modelRotation2 = 0;
         t.disabledAnimationId = -1;
         t.enabledAnimationId = -1;
+        return t;
     }
 
     public static void setBounds(int ID, int X, int Y, int frame, RSInterface RSinterface) {
@@ -14563,8 +14471,9 @@ public class RSInterface {
         return interfaceCache[children[idx]];
     }
 
-    public void setHidden(boolean b) {
+    public RSInterface setHidden(boolean b) {
         hidden = b;
+        return this;
     }
 
     public enum SummonData {
@@ -14860,97 +14769,6 @@ public class RSInterface {
     public static void addCloseButton(int child, int hoverChild, int hoverImageChild, boolean small) {
         addHoverButtonWSpriteLoader(child, 737, 16, 16, "Close", 250, hoverChild, 3);
         addHoveredImageWSpriteLoader(hoverChild, 738, 16, 16, hoverImageChild);
-    }
-
-    private static void equipmentScreenInterface() {
-        interfaceCache[1688].usableItemInterface = true;
-        RSInterface tab = addTabInterface(21172);
-        addSpriteLoader(21173, 857);
-        addCloseButton(15210, 15215, 15216);
-        addText(15111, "", fonts, 2, 0xe4a146, false, true);
-        int rofl = 3;
-        addText(15112, "Attack bonuses", fonts, 2, 0xFF8900, false, true);
-        addText(15113, "Defence bonuses", fonts, 2, 0xFF8900, false, true);
-        addText(15114, "Other bonuses", fonts, 2, 0xFF8900, false, true);
-        addText(66100, "Summoning: +0", fonts, 1, 0xFF8900, false, true);// 19148
-        addText(66101, "Absorb Melee: +0%", fonts, 1, 0xFF9200, false, true);// 19149
-        addText(66102, "Absorb Magic: +0%", fonts, 1, 0xFF9200, false, true);// 19150
-        addText(66103, "Absorb Ranged: +0%", fonts, 1, 0xFF9200, false, true);// 19151
-        addText(66104, "Ranged Strength: +0", fonts, 1, 0xFF9200, false, true);// 19152
-        addText(66105, "Magic Damage: +0%", fonts, 1, 0xFF9200, false, true);// 19153
-        for (int i = 1675; i <= 1684; i++) {
-            textSize(i, fonts, 1);
-        }
-        textSize(1686, fonts, 1);
-        textSize(1687, fonts, 1);
-        addChar(15125);
-        tab.totalChildren(51);
-        tab.child(0, 21173, 15, 5);
-        tab.child(1, 15210, 476, 6);
-        tab.child(2, 15111, 14, 30);
-        tab.child(3, 15111, 14, 30);
-        int Child = 4;
-        int Y = 45;
-        tab.child(16, 15112, 24, 30 - rofl);
-        for (int i = 1675; i <= 1679; i++) {
-            tab.child(Child, i, 29, Y - rofl);
-            Child++;
-            Y += 14;
-        }
-        int edit = 7 + rofl;
-        tab.child(18, 15113, 24, 122 - edit);
-        tab.child(9, 1680, 29, 137 - edit - 2);
-        tab.child(10, 1681, 29, 153 - edit - 3);
-        tab.child(11, 1682, 29, 168 - edit - 3);
-        tab.child(12, 1683, 29, 183 - edit - 3);
-        tab.child(13, 1684, 29, 197 - edit - 3);
-        tab.child(44, 66100, 29, 211 - edit - 3);
-        tab.child(45, 66101, 29, 225 - edit - 3);
-        tab.child(46, 66102, 29, 239 - edit - 3);
-        tab.child(47, 66103, 29, 253 - edit - 3);
-        /* bottom */
-        int edit2 = 33 - rofl, edit3 = 2;
-        tab.child(19, 15114, 24, 223 + edit2);
-        tab.child(14, 1686, 29, 262 - 24 + edit2 - edit3);
-        tab.child(17, 66104, 29, 276 - 24 + edit2 - edit3);
-        tab.child(48, 1687, 29, 290 - 24 + edit2 - edit3);
-        tab.child(49, 66105, 29, 304 - 24 + edit2 - edit3);
-        tab.child(15, 15125, 170, 200);
-        tab.child(20, 1645, 104 + 295, 149 - 52);
-        tab.child(21, 1646, 399, 163);
-        tab.child(22, 1647, 399, 163);
-        tab.child(23, 1648, 399, 58 + 146);
-        tab.child(24, 1649, 26 + 22 + 297 - 2, 110 - 44 + 118 - 13 + 5);
-        tab.child(25, 1650, 321 + 22, 58 + 154);
-        tab.child(26, 1651, 321 + 134, 58 + 118);
-        tab.child(27, 1652, 321 + 134, 58 + 154);
-        tab.child(28, 1653, 321 + 48, 58 + 81);
-        tab.child(29, 1654, 321 + 107, 58 + 81);
-        tab.child(30, 1655, 321 + 58, 58 + 42);
-        tab.child(31, 1656, 321 + 112, 58 + 41);
-        tab.child(32, 1657, 321 + 78, 58 + 4);
-        tab.child(33, 1658, 321 + 37, 58 + 43);
-        tab.child(34, 1659, 321 + 78, 58 + 43);
-        tab.child(35, 1660, 321 + 119, 58 + 43);
-        tab.child(36, 1661, 321 + 22, 58 + 82);
-        tab.child(37, 1662, 321 + 78, 58 + 82);
-        tab.child(38, 1663, 321 + 134, 58 + 82);
-        tab.child(39, 1664, 321 + 78, 58 + 122);
-        tab.child(40, 1665, 321 + 78, 58 + 162);
-        tab.child(41, 1666, 321 + 22, 58 + 162);
-        tab.child(42, 1667, 321 + 134, 58 + 162);
-        tab.child(43, 1688, 50 + 297 - 2, 110 - 13 + 5);
-        for (int i = 1675; i <= 1684; i++) {
-            RSInterface rsi = interfaceCache[i];
-            rsi.textColor(i, 0xFF9200);
-            rsi.centerText = false;
-        }
-        for (int i = 1686; i <= 1687; i++) {
-            RSInterface rsi = interfaceCache[i];
-            rsi.textColor(i, 0xFF9200);
-            rsi.centerText = false;
-        }
-        tab.child(50, 15215, 476, 6);
     }
 
     public static void addSpriteLoaderButtonWithTooltipBox(int childId, int spriteId, String tooltip, int hoverSpriteId,
