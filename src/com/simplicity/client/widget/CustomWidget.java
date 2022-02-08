@@ -415,6 +415,7 @@ public abstract class CustomWidget {
     	rsi.tooltip = tooltip;
     	rsi.contentType = 0;
     	rsi.atActionType = 1;
+        rsi.hovers = true;
     	id++;
     	return rsi;
     }
