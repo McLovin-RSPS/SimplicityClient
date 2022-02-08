@@ -52,7 +52,7 @@ public class FlashingSprite {
 		} else {
 			opacity += rate;
 		}
-		SpriteLoader.sprites[sprite].drawAdvancedSprite(x, y, opacity);
+		SpriteLoader.sprites[sprite].drawGlowingSprite(x, y, opacity);
 	}
 	
 	/**

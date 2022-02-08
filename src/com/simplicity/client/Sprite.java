@@ -379,7 +379,7 @@ public class Sprite extends DrawingArea implements SpritePixels {
 			block_copy_alpha(j1, l1, DrawingArea.pixels, myPixels, j2, k1, i2, k, i1);
 	}
 
-	public void drawAdvancedSprite(int i, int j, int alpha) {
+	public void drawGlowingSprite(int i, int j, int alpha) {
 		int k = alpha;
 		i += drawOffsetX;
 		j += drawOffsetY;
@@ -418,7 +418,7 @@ public class Sprite extends DrawingArea implements SpritePixels {
 		}
 	}
 
-	/*public void drawAdvancedSprite(int i, int j, int k) {
+	public void drawAdvancedSprite(int i, int j, int k) {
 		int i1 = i + j * DrawingArea.width;
 		int j1 = 0;
 		int k1 = myHeight;
@@ -452,7 +452,7 @@ public class Sprite extends DrawingArea implements SpritePixels {
 		if (!(l1 <= 0 || k1 <= 0)) {
 			drawAlphaSprite(j1, l1, DrawingArea.pixels, myPixels, j2, k1, i2, k, i1);
 		}
-	}*/
+	}
 
 	public void drawAdvancedSprite2(int i, int j, int alpha) {
 		int k = alpha;
