@@ -9,7 +9,7 @@ public final class Rasterizer extends DrawingArea {
 	
 	public static boolean saveDepth = true;
 	private static int mipMapLevel;
-	public static int textureAmount = 76;
+	public static int textureAmount = 77;
 	public static boolean[] textureEnabled = new boolean[textureAmount];
 	static boolean aBoolean1462;
 	private static boolean aBoolean1463;
