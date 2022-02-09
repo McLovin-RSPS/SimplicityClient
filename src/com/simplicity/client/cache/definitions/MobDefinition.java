@@ -2489,58 +2489,20 @@ public final class MobDefinition {
         }
     }
 
+    public void copy(int id) {
+        copy(forID(id));
+    }
+
     public void copy(MobDefinition def) {
+        if (def == null) {
+            System.out.println("Attempted to copy a nulled definition");
+            return;
+        }
+
         name = def.name;
         description = def.description;
         combatLevel = def.combatLevel;
-
-        if (def.models != null) {
-            models = new int[def.models.length];
-
-            for (int i = 0; i < models.length; i++) {
-                models[i] = def.models[i];
-            }
-        }
-
-        if (def.actions != null) {
-	        actions = new String[def.actions.length];
-	        for (int i = 0; i < actions.length; i++) {
-	            actions[i] = def.actions[i];
-	        }
-        }
-
-        if (def.originalColours != null) {
-            originalColours = new int[def.originalColours.length];
-
-            for (int i = 0; i < originalColours.length; i++) {
-                originalColours[i] = def.originalColours[i];
-            }
-        }
-
-        if (def.destColours != null) {
-            destColours = new int[def.destColours.length];
-
-            for (int i = 0; i < def.destColours.length; i++) {
-                destColours[i] = def.destColours[i];
-            }
-        }
-
-        if (def.childrenIDs != null) {
-            childrenIDs = new int[def.childrenIDs.length];
-
-            for (int i = 0; i < def.childrenIDs.length; i++) {
-                childrenIDs[i] = def.childrenIDs[i];
-            }
-        }
-
-        if (def.npcHeadModels != null) {
-            npcHeadModels = new int[def.npcHeadModels.length];
-
-            for (int i = 0; i < def.npcHeadModels.length; i++) {
-                npcHeadModels[i] = def.npcHeadModels[i];
-            }
-        }
-
+        clickable = def.clickable;
         dataType = def.dataType;
         drawMinimapDot = def.drawMinimapDot;
         sizeXZ = def.sizeXZ;
@@ -2554,12 +2516,64 @@ public final class MobDefinition {
         rightLight = def.rightLight;
         standAnim = def.standAnim;
         walkAnim = def.walkAnim;
+        runAnim = def.runAnim;
         squaresNeeded = def.squaresNeeded;
         hasRenderPriority = def.hasRenderPriority;
         degreesToTurn = def.degreesToTurn;
+        turn90CCWAnimIndex = def.turn90CCWAnimIndex;
+        turn90CWAnimIndex = def.turn90CCWAnimIndex;
+        turn180AnimIndex = def.turn180AnimIndex;
+        healthBar = def.healthBar;
+        healthBarDimension = def.healthBarDimension;
+        headIcon = def.headIcon;
         varbitId = def.varbitId;
         varSettingsId = def.varSettingsId;
         pet = def.pet;
+
+        if (def.models != null) {
+            models = new int[def.models.length];
+
+            for (int i = 0; i < models.length; i++) {
+                models[i] = def.models[i];
+            }
+        } else {
+            models = null;
+        }
+
+        if (def.actions != null) {
+            actions = new String[def.actions.length];
+            System.arraycopy(def.actions, 0, actions, 0, def.actions.length);
+        } else {
+            actions = null;
+        }
+
+        if (def.originalColours != null) {
+            originalColours = new int[def.originalColours.length];
+            System.arraycopy(def.originalColours, 0, originalColours, 0, def.originalColours.length);
+        } else {
+            originalColours = null;
+        }
+
+        if (def.destColours != null) {
+            destColours = new int[def.destColours.length];
+            System.arraycopy(def.destColours, 0, destColours, 0, def.destColours.length);
+        } else {
+            destColours = null;
+        }
+
+        if (def.childrenIDs != null) {
+            childrenIDs = new int[def.childrenIDs.length];
+            System.arraycopy(def.childrenIDs, 0, childrenIDs, 0, def.childrenIDs.length);
+        } else {
+            childrenIDs = null;
+        }
+
+        if (def.npcHeadModels != null) {
+            npcHeadModels = new int[def.npcHeadModels.length];
+            System.arraycopy(def.npcHeadModels, 0, npcHeadModels, 0, def.npcHeadModels.length);
+        } else {
+            npcHeadModels = null;
+        }
     }
 
     public static int NPCAMOUNT = 11599;
