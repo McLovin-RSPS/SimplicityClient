@@ -16,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 import com.simplicity.client.Client;
+import com.simplicity.client.Decompressor;
 import com.simplicity.client.Model;
 import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.client.cache.definitions.MobDefinition;
@@ -26,6 +27,8 @@ import javafx.embed.swing.JFXPanel;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import org.apache.commons.lang3.math.NumberUtils;
+
+import static javax.swing.JOptionPane.QUESTION_MESSAGE;
 
 /**
  * A tool used for looking up object definitions.
@@ -198,7 +201,7 @@ public class DevToolbox extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				String[] options = {"1 - model", "2 - animation", "3 - music", "4 - map", "7 - osrs model", "8 - osrs anim", "9 - osrs map", "10 - custom model"};
 				Object searchType = JOptionPane.showInputDialog(null, null, "Choose archive",
-				        JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+				        QUESTION_MESSAGE, null, options, options[0]);
 				System.out.println(searchType);
 				
 				String type = searchType.toString();
@@ -239,7 +242,7 @@ public class DevToolbox extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				String[] options = {"1 - model", "2 - animation", "3 - music", "4 - map", "7 - osrs model", "8 - osrs anim", "9 - osrs map", "10 - custom model"};
 				Object searchType = JOptionPane.showInputDialog(null, null, "Choose archive to repack",
-				        JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+				        QUESTION_MESSAGE, null, options, options[0]);
 				
 				String type = searchType.toString();
 				
@@ -254,25 +257,21 @@ public class DevToolbox extends JFrame {
 					File selected = chooser2.showOpenDialog(null);
 					
 					if (selected != null) {
-						int fileIndex = NumberUtils.toInt(Client.getFileNameWithoutExtension(selected.getName()), -1);
+						final int fileIndex = NumberUtils.toInt(Client.getFileNameWithoutExtension(selected.getName()), -1);
+						final Decompressor cacheIndex = Client.instance.getCacheIndice(archive);
 
 						SwingUtilities.invokeLater(() -> {
-							int fileId = -1;
-
-							if (fileIndex != -1) {
-								fileId = NumberUtils.toInt(JOptionPane.showInputDialog(null, "Enter file id:", fileIndex), -1);
-							} else {
-								fileId = NumberUtils.toInt(JOptionPane.showInputDialog(null, "Enter file id:"), -1);
-							}
+							final String input = JOptionPane.showInputDialog(null, "Enter file id: ", "(Next free id: " + cacheIndex.nextFreeIndex() + ")", QUESTION_MESSAGE, null, null, fileIndex != -1 ? fileIndex : null).toString();
+							final int fileId = NumberUtils.toInt(input, -1);
 
 							if (fileId != -1) {
-								Client.instance.getCacheIndice(archive).pack(fileId, selected);
+								cacheIndex.pack(fileId, selected);
 
 								if (archive == Client.MODEL_IDX || archive == Client.OSRS_MODEL_IDX || archive == Client.CUSTOM_MODEL_IDX) { // Models
 									reloadModelCache();
 								}
 
-								JOptionPane.showInputDialog("Successfully packed the file at index: " + fileId);
+								JOptionPane.showMessageDialog(null, "Successfully packed the file at index: " + fileId);
 							}
 						});
 					}

@@ -177,6 +177,19 @@ public final class Decompressor {
 			return is_29_;
 		}
 	}
+
+	public long nextFreeIndex() {
+		for (int i = 0; i < getFileCount(); i++) {
+			byte[] data = get(i);
+
+			if (data == null || data.length == 0) {
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
 	public synchronized byte[] get(int i) {
 		try {
 			seekTo(indexFile, i * 6);
