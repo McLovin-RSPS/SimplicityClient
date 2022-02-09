@@ -25,6 +25,7 @@ import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import org.apache.commons.lang3.math.NumberUtils;
 
 /**
  * A tool used for looking up object definitions.
@@ -253,13 +254,27 @@ public class DevToolbox extends JFrame {
 					File selected = chooser2.showOpenDialog(null);
 					
 					if (selected != null) {
-						int fileIndex = Integer.parseInt(Client.getFileNameWithoutExtension(selected.getName()));
-						
-						Client.instance.getCacheIndice(archive).pack(fileIndex, selected);
-						
-						if (archive == Client.MODEL_IDX || archive == Client.OSRS_MODEL_IDX || archive == Client.CUSTOM_MODEL_IDX) { // Models
-							reloadModelCache();
-						}
+						int fileIndex = NumberUtils.toInt(Client.getFileNameWithoutExtension(selected.getName()), -1);
+
+						SwingUtilities.invokeLater(() -> {
+							int fileId = -1;
+
+							if (fileIndex != -1) {
+								fileId = NumberUtils.toInt(JOptionPane.showInputDialog(null, "Enter file id:", fileIndex), -1);
+							} else {
+								fileId = NumberUtils.toInt(JOptionPane.showInputDialog(null, "Enter file id:"), -1);
+							}
+
+							if (fileId != -1) {
+								Client.instance.getCacheIndice(archive).pack(fileId, selected);
+
+								if (archive == Client.MODEL_IDX || archive == Client.OSRS_MODEL_IDX || archive == Client.CUSTOM_MODEL_IDX) { // Models
+									reloadModelCache();
+								}
+
+								JOptionPane.showInputDialog("Successfully packed the file at index: " + fileId);
+							}
+						});
 					}
 				});
 			}
