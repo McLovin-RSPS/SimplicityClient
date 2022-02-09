@@ -132,13 +132,13 @@ public class GrandExchangeListingsWidget extends CustomWidget implements WidgetS
 			getWidget(id).parentID = parent;
 			RSInterface.setBounds(id++, xPos + 4, yPos + 25, scroll_frame++, scroll);
 
-			RSInterface.addItemContainer(ITEM_CONTAINER_START, new int[] {1, 1}, new int[] {1,1}, new String[] {}, false);
-			getWidget(ITEM_CONTAINER_START).parentID = parent;
-			RSInterface.setBounds(ITEM_CONTAINER_START++, xPos + 116, yPos + 5, scroll_frame++, scroll);
-
 			RSInterface.addGeProgress(id, 127, 15, true);
 			getWidget(id).parentID = parent;
 			RSInterface.setBounds(id++, xPos + 156, yPos + 22, scroll_frame++, scroll);
+
+			RSInterface.addItemContainer(ITEM_CONTAINER_START + i, new int[] {1, 1}, new int[] {1,1}, new String[] {}, false);
+			getWidget(ITEM_CONTAINER_START + i).parentID = parent;
+			RSInterface.setBounds(ITEM_CONTAINER_START + i, xPos + 116, yPos + 5, scroll_frame++, scroll);
 			
 			yPos += RECT_HEIGHT - 1;
 		}
@@ -206,6 +206,8 @@ public class GrandExchangeListingsWidget extends CustomWidget implements WidgetS
 				widget.hidden = false;
 			}
 
+			getWidget(ITEM_CONTAINER_START + i).yOffset = 0;
+			getWidget(ITEM_CONTAINER_START + i).hidden = false;
 			child += 7;
 		}
 	}
@@ -230,6 +232,7 @@ public class GrandExchangeListingsWidget extends CustomWidget implements WidgetS
 			}
 
 			getWidget(child).hidden = hide;
+			getWidget(ITEM_CONTAINER_START + i).hidden = hide;
 
 			if (hide) {
 				hiddenIdxs.add(i);
@@ -251,6 +254,7 @@ public class GrandExchangeListingsWidget extends CustomWidget implements WidgetS
 				getWidget(child + idx).yOffset = -nextY;
 			}
 
+			getWidget(ITEM_CONTAINER_START + i).yOffset = -nextY;
 			child += 7;
 		}
 
