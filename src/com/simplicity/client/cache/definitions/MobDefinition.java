@@ -2532,10 +2532,7 @@ public final class MobDefinition {
 
         if (def.models != null) {
             models = new int[def.models.length];
-
-            for (int i = 0; i < models.length; i++) {
-                models[i] = def.models[i];
-            }
+            System.arraycopy(def.models, 0, models, 0, def.models.length);
         } else {
             models = null;
         }
