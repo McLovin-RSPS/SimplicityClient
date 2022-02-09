@@ -1182,6 +1182,10 @@ public class CustomObjects {
             // Overlord dungeon
             {123709, 1881, 4954, 2, 2}, // box of life
             
+            // Cooking location
+            {114, 3138, 3449, 0, 0}, // cooking
+            {4483, 3140, 3453, 0, 0}, // bank
+            
             /**Edgeville north hall**/
             {9074, 3083, 3500, 0, 3}, // strange casket
             {123709, 3083, 3499, 0, 1}, // box of life           
