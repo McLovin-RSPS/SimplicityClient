@@ -127,7 +127,19 @@ public class CustomItems2 {
 	            itemDef.newModelColor = new int[] { 58 };
 	            itemDef.dataType = DataType.CUSTOM;
 	            break;
-	
+	        case 21285:
+	            itemDef.name = "@pur@Purple Solak Pet";
+	            itemDef.groundActions = new String[]{null, null, "Take", null, null};
+	            itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+	            itemDef.modelZoom = 500;
+	            itemDef.rotationX = 100;
+	            itemDef.rotationY = 300;
+	            itemDef.modelID = 109;
+	            itemDef.modelOffset1 = 0;
+	            itemDef.modelOffsetY = 10;
+	            itemDef.modelOffsetX = 0;
+	            itemDef.dataType = DataType.CUSTOM;
+	            break;
 	        case 22006:
 	            itemDef.copy(ItemDefinition.forID(14009));
 	            itemDef.modelID = 14;
@@ -3414,6 +3426,7 @@ public class CustomItems2 {
 	            itemDef.modelOffsetY = 0;
 	            itemDef.modelOffsetX = 0;
 	            break;
+	            
 	        case 11997:
 	            itemDef.name = "Pet General graardor";
 	            itemDef.groundActions = new String[]{null, null, "Take", null, null};
