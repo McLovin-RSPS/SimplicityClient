@@ -5,7 +5,6 @@ import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.tools.ModelViewer;
-import com.sun.org.apache.xerces.internal.impl.dv.xs.IntegerDV;
 
 import net.runelite.api.IntegerNode;
 

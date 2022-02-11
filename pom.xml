@@ -19,6 +19,8 @@
 		<jogl.version>2.3.2</jogl.version>
 		<maven.javadoc.skip>true</maven.javadoc.skip>
 		<checkstyle.skip>true</checkstyle.skip>
+		<javafx.version>11</javafx.version>
+        <javafx.maven.plugin.version>0.0.6</javafx.maven.plugin.version>
 	</properties>
 	
 	<repositories>
@@ -83,7 +85,14 @@
 			    </execution>
 			  </executions>
 			</plugin>
-					
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>${javafx.maven.plugin.version}</version>
+                <configuration>
+                    <mainClass>org.openjfx.App</mainClass>
+                </configuration>
+            </plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.7.0</version>
@@ -173,6 +182,16 @@
 			<groupId>com.squareup.okhttp3</groupId>
 			<artifactId>okhttp</artifactId>
 			<version>3.14.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.openjfx</groupId>
+		    <artifactId>javafx-controls</artifactId>
+		    <version>11</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.openjfx</groupId>
+		    <artifactId>javafx-swing</artifactId>
+		    <version>11</version>
 		</dependency>
 		<dependency>
 			<groupId>net.java.dev.jna</groupId>
