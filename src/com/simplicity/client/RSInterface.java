@@ -6564,12 +6564,15 @@ public class RSInterface {
 
         addText(58002, "Title", tda, 2, 0xff981f, true, true);
         addSpriteLoader(58001, 581);
+        
+        hoverButton(58003, 892, 914, "Close Window").setLayer(inter.id);
+        interfaceCache[58003].atActionType = 3;
 
         inter.totalChildren(4);
 
         inter.child(0, 58001, 4, 5);
         inter.child(1, 58002, 250, 9);
-        inter.child(2, 15210, 480, 6);
+        inter.child(2, 58003, 478, 8);
         inter.child(3, 58050, 0, 38);
 
         inter = addTabInterface(58050);
