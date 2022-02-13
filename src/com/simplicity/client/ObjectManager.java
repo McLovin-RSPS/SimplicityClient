@@ -710,6 +710,10 @@ final class ObjectManager {
 				x--;
 			}
 		}
+
+		if (regionId == 12342 && (objId >= 1257 && objId <= 1259)) { // Grass objects at home
+			return;
+		}
 		
 		boolean debug = false;
 		
