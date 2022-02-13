@@ -9,6 +9,11 @@ public class CustomItems3 {
 	public static void loadDefinition(ItemDefinition itemDef) {
 		ItemDefinition itemDef2 = new ItemDefinition();
 		switch (itemDef.id) {
+			case 16397:
+				itemDef.femaleEquip1 = itemDef.maleEquip1;
+				itemDef.femaleXOffset = 5;
+				itemDef.femaleYOffset = -9;
+				break;
 	        case 14044:
 	            itemDef.name = "Black Party Hat";
 	            itemDef.modelID = 2635;
