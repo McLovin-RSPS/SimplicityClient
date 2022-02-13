@@ -862,12 +862,14 @@ public class DrawingArea extends QueueNode {
 		final int l1 = (color >> 8 & 0xff) * alpha;
 		final int i2 = (color & 0xff) * alpha;
 		int i3 = x + y * width;
-		for (int j3 = 0; j3 < length; j3++) {
-			final int j2 = (pixels[i3] >> 16 & 0xff) * j1;
-			final int k2 = (pixels[i3] >> 8 & 0xff) * j1;
-			final int l2 = (pixels[i3] & 0xff) * j1;
-			final int k3 = (k1 + j2 >> 8 << 16) + (l1 + k2 >> 8 << 8) + (i2 + l2 >> 8);
-			drawAlpha(pixels, i3+=width, k3, k3, alpha);
+
+		int pixelIndex = x + y * width;
+		for (int rowIndex = 0; rowIndex < length; rowIndex++) {
+			int dest_red = (pixels[i3] >> 16 & 0xff) * j1;
+			int dest_green = (pixels[i3] >> 8 & 0xff) * j1;
+			int dest_blue = (pixels[i3] & 0xff) * j1;
+			int result_rgb = ((k1 + dest_red >> 8) << 16) + ((l1 + dest_green >> 8) << 8) + (i2 + dest_blue >> 8);
+			drawAlpha(pixels, pixelIndex + rowIndex * width, result_rgb, result_rgb, 255);
 		}
 	}
 	
