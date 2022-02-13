@@ -1728,7 +1728,7 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 				gl.glUniform1i(uniShadowTexturesHD, 2); // HD texture sampler array is bound to texture2
 				gl.glUniform2fv(uniShadowTextureOffsets, textureOffsets.length, textureOffsets, 0);
 
-				gl.glEnable(gl.GL_CULL_FACE);
+				gl.glEnable(gl.GL_BACK);
 				gl.glEnable(gl.GL_DEPTH_TEST);
 
 				// Draw buffers
@@ -1744,7 +1744,7 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 
 				gl.glDrawArrays(gl.GL_TRIANGLES, 0, targetBufferOffset);
 
-				gl.glDisable(gl.GL_CULL_FACE);
+				gl.glDisable(gl.GL_BACK);
 				gl.glDisable(GL_DEPTH_TEST);
 
 				gl.glBindFramebuffer(gl.GL_FRAMEBUFFER, 0);
