@@ -174,6 +174,10 @@ public class InterfaceDebugger extends JFrame {
 					
 					if (child2.children != null) {
 						for (int j = 0; j < child2.children.length; j++) {
+							if (child2.children[j] == -1) {
+								continue;
+							}
+
 							RSInterface child3 = RSInterface.interfaceCache[child2.children[j]];
 							
 							if (child3 != null) {
