@@ -16986,6 +16986,10 @@ public class Client extends RSApplet {
                                     int daWidth = DrawingArea.width;
                                     int daHeight = DrawingArea.height;
 
+                                    if (child.contentType == 328) {
+                                        daHeight += child.height;
+                                    }
+
                                     Sprite sprite = new Sprite(daWidth, daHeight);
                                     Rasterizer.aBoolean1464 = false;
                                     DrawingArea.initDrawingArea(daHeight, daWidth, sprite.myPixels, new float[daWidth * daHeight]);
