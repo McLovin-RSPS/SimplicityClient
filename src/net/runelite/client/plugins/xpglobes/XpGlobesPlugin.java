@@ -71,6 +71,9 @@ extends Plugin {
         if (this.config.hideMaxed() && currentLevel >= 99) {
             return;
         }
+        if (client().getRegionId() == 12611) { // Disabled in Verzik's room
+            return;
+        }
         if (cachedGlobe != null) {
             cachedGlobe.setSkill(skill);
             cachedGlobe.setCurrentXp(currentXp);
