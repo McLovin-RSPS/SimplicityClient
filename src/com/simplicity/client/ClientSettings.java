@@ -134,10 +134,6 @@ public class ClientSettings {
 				Configuration.enableParticles = reader.get("particles").getAsBoolean();
 			}
 			
-			if (reader.has("xp-orbs")) {
-				Configuration.enableXpOrbs = reader.get("xp-orbs").getAsBoolean();
-			}
-			
 			if (reader.has("shift-click-drop")) {
 				Configuration.enableShiftClickDrop = reader.get("shift-click-drop").getAsBoolean();
 			}
@@ -248,7 +244,6 @@ public class ClientSettings {
 			object.addProperty("save-input", Configuration.enableSaveInput);
 			object.addProperty("hd-shading", Configuration.enableHDShading);
 			object.addProperty("particles", Configuration.enableParticles);
-			object.addProperty("xp-orbs", Configuration.enableXpOrbs);
 			object.addProperty("shift-click-drop", Configuration.enableShiftClickDrop);
 			object.addProperty("chat-effects", Client.instance.variousSettings[171] == 1);
 			object.addProperty("split-private-chat", Client.instance.variousSettings[287] == 0);
@@ -292,7 +287,6 @@ public class ClientSettings {
 		Configuration.enableSaveInput = true;
 		Configuration.enableHDShading = true;
 		Configuration.enableParticles = true;
-		Configuration.enableXpOrbs = true;
 		Configuration.enableMipmapping = false;
 		Configuration.enableItemStats = 1;
 		Configuration.enableWASDCamera = false;

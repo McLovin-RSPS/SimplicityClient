@@ -189,7 +189,7 @@ public class XpDrops {
     private static int getDrawY() {
         int hideCounterOffset = !showCounter() ? 2 : 0;
         int[] yValues = { 2 - hideCounterOffset,
-                Configuration.enableXpOrbs && SkillOrbs.showingOrbs() && showCounter() ? 65 : 2 - hideCounterOffset,
+                showCounter() ? 65 : 2 - hideCounterOffset,
                 24};
         return yValues[Configuration.xpDropsPosition];
     }

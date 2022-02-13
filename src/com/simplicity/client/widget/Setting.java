@@ -117,19 +117,6 @@ public enum Setting {
 		}
 	},
 
-	XP_ORBS() {
-
-		@Override
-		public void handle() {
-			enableXpOrbs = !enableXpOrbs;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableXpOrbs;
-		}
-	},
-
 	ITEM_STATS(new DropdownMenu(75, false, 1, new String[] { "On Hover", "Hold Ctrl", "Disabled" }, Dropdown.ITEM_STATS)) { },
 	
 	KDR() {

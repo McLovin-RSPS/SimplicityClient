@@ -15218,7 +15218,6 @@ public class Client extends RSApplet {
                     System.out.println("invalid");
                 }
             }
-            SkillOrbs.init();
             ScreenOverlayManager.init();
             setSkillSprites();
             AnimatedSprite.load();
@@ -21248,7 +21247,6 @@ public class Client extends RSApplet {
                     currentStats[id] = level;
                     currentMaxStats[id] = maxLevel;
                     if (!blockXPGain && gainedExperience > 0) {
-						SkillOrbs.orbs[id].receivedExperience();
 						XpDrops.add(id, gainedExperience);
 						
 						if (id != 3) {
@@ -23564,10 +23562,6 @@ public class Client extends RSApplet {
         displayedParticles.removeAll(removeDeadParticles);
         removeDeadParticles.clear();
         
-        if (shouldDrawSkillOrb()) {
-			SkillOrbs.process();
-		}
-
         int pX = baseX + (myPlayer.x - 6 >> 7);
         int pY = baseY + (myPlayer.y - 6 >> 7);
 
@@ -26959,15 +26953,6 @@ public class Client extends RSApplet {
     	return !NON_TOGGLABLE_ROOF_REGIONS.contains(getRegionId());
     }
     
-	/**
-	 * Determines whether the skill orb should be drawn or not.
-	 * 
-	 * @return <code>true</code> if drawn.
-	 */
-	private boolean shouldDrawSkillOrb() {
-		return Configuration.enableXpOrbs && openInterfaceID == -1 && getRegionId() != 12611;
-	}
-
 	/**
 	 * Determines whether the hp overlay should be drawn or not.
 	 * 
