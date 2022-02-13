@@ -110,6 +110,16 @@ public abstract class CustomWidget {
         component.parentId = mainId;
         components.add(component);
     }
+
+    public void copyWidget(int from, int x, int y) {
+        RSInterface rsi = RSInterface.copy(id, from);
+        Widget.componentForMain.put(id, mainId);
+
+        WidgetComponent component = new WidgetComponent(new Point(x, y), RSInterface.interfaceCache[id]);
+        component.componentId = id++;
+        component.parentId = mainId;
+        components.add(component);
+    }
     
     public RSInterface addTimer(int width, int height, int fontId, int textColor, String defaultText) {
     	RSInterface rsi = RSInterface.addTimer(id, width, height, fontId, textColor, defaultText);
@@ -241,24 +251,31 @@ public abstract class CustomWidget {
 	 * @return The closable window.
 	 */
     public RSInterface addClosableWindow(int width, int height, boolean modernBorder, String title) {
-    	RSInterface tab = RSInterface.addInterface(id, width, height);
-    	tab.componentId = id++;
-    	
-    	tab.totalChildren(4);
-    	
-    	int child = 0;
-    	
-    	RSInterface window = addWindow(width, height, modernBorder);
-    	RSInterface titles = addCenteredText(title, 2, 0xFF981F);
-        RSInterface close = hoverButton(1068, 1069, "Close Window").setActionType(3);
+    	return addClosableWindow(width, height, modernBorder, true, true, title);
+    }
+
+    public RSInterface addClosableWindow(int width, int height, boolean modernBorder, boolean separator, boolean bigCloseButton, String title) {
+        RSInterface tab = RSInterface.addInterface(id, width, height);
+        tab.componentId = id++;
+
+        tab.totalChildren(separator ? 4 : 3);
+
+        int child = 0;
+
+        RSInterface window = addWindow(width, height, modernBorder);
+        RSInterface titles = addCenteredText(title, 2, 0xFF981F);
+        RSInterface close = hoverButton(bigCloseButton ? 1068 : 1015, bigCloseButton ? 1069 : 1016, "Close Window").setActionType(3);
         id += 3;
-    	RSInterface separator = addHorizontalSeparator(width - 10, modernBorder);
-    	
-    	tab.child(child++, window.id, 0, 0);
-    	tab.child(child++, titles.id, width / 2, 10);
-    	tab.child(child++, close.id, width - (modernBorder ? 26 : 28), modernBorder ? 10 : 7);
-    	tab.child(child++, separator.id, 5, 29);
-    	return tab;
+
+        tab.child(child++, window.id, 0, 0);
+        tab.child(child++, titles.id, width / 2, 10);
+        tab.child(child++, close.id, width - (modernBorder ? 26 : 28), modernBorder ? 10 : 7);
+
+        if (separator) {
+            tab.child(child++, addHorizontalSeparator(width - 10, modernBorder).id, 5, 29);
+        }
+
+        return tab;
     }
     
 	/**
