@@ -2448,14 +2448,20 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 					int vertexXB = model.projected_vertex_x[face_b_pos];
 					int vertexXC = model.projected_vertex_x[face_c_pos];
 
-					if ((vertexXA == -5000 || vertexXB == -5000 || vertexXC == -5000)) {
-						continue;
-					} else {
-						if ((vertexXA - vertexXB) * (Model.projected_vertex_y[face_c_pos] - Model.projected_vertex_y[face_b_pos]) - (Model.projected_vertex_y[face_a_pos] - Model.projected_vertex_y[face_b_pos]) * (vertexXC - vertexXB) > 0) {
-							bufferLengths = sceneUploader.pushFace(model, face, vertexBuffer, uvBuffer, normalBuffer, 0, 0, 0, ObjectProperties.NONE, ObjectType.NONE);
-							vertexLength += bufferLengths[0];
-							uvLength += bufferLengths[1];
+					if (faceCount > MAX_TRIANGLE) {
+						if ((vertexXA == -5000 || vertexXB == -5000 || vertexXC == -5000)) {
+							continue;
+						} else {
+							if ((vertexXA - vertexXB) * (Model.projected_vertex_y[face_c_pos] - Model.projected_vertex_y[face_b_pos]) - (Model.projected_vertex_y[face_a_pos] - Model.projected_vertex_y[face_b_pos]) * (vertexXC - vertexXB) > 0) {
+								bufferLengths = sceneUploader.pushFace(model, face, vertexBuffer, uvBuffer, normalBuffer, 0, 0, 0, ObjectProperties.NONE, ObjectType.NONE);
+								vertexLength += bufferLengths[0];
+								uvLength += bufferLengths[1];
+							}
 						}
+					} else {
+						bufferLengths = sceneUploader.pushFace(model, face, vertexBuffer, uvBuffer, normalBuffer, 0, 0, 0, ObjectProperties.NONE, ObjectType.NONE);
+						vertexLength += bufferLengths[0];
+						uvLength += bufferLengths[1];
 					}
 				}
 
