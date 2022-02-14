@@ -72,6 +72,7 @@ public class StatusOrbsOverlay extends Overlay
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
+		setGraphicsBuffer(GraphicsBufferType.MINIMAP);
 		this.client = client;
 		this.plugin = plugin;
 		this.tooltipManager = tooltipManager;

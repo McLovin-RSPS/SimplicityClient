@@ -32,6 +32,7 @@ import java.awt.Polygon;
 import java.util.Collection;
 import javax.inject.Inject;
 import net.runelite.api.Client;
+import net.runelite.api.GraphicsBufferType;
 import net.runelite.api.Perspective;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
@@ -58,6 +59,7 @@ public class GroundMarkerOverlay extends Overlay
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.LOW);
 		setLayer(OverlayLayer.ABOVE_SCENE);
+		setGraphicsBuffer(GraphicsBufferType.MAIN_GAME);
 	}
 
 	@Override

@@ -38,9 +38,8 @@ import com.simplicity.Configuration;
 import com.simplicity.client.Client;
 import com.simplicity.client.Entity;
 
-import net.runelite.client.ui.overlay.OverlayPanel;
-import net.runelite.client.ui.overlay.OverlayPosition;
-import net.runelite.client.ui.overlay.OverlayPriority;
+import net.runelite.api.GraphicsBufferType;
+import net.runelite.client.ui.overlay.*;
 import net.runelite.client.ui.overlay.components.ComponentConstants;
 import net.runelite.client.ui.overlay.components.ProgressBarComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
@@ -65,6 +64,8 @@ class OpponentInfoOverlay extends OverlayPanel
 
 		setPosition(OverlayPosition.TOP_LEFT);
 		setPriority(OverlayPriority.HIGH);
+		setLayer(OverlayLayer.ABOVE_SCENE);
+		setGraphicsBuffer(GraphicsBufferType.ALL);
 
 		panelComponent.setBorder(new Rectangle(2, 2, 2, 2));
 		panelComponent.setGap(new Point(0, 2));

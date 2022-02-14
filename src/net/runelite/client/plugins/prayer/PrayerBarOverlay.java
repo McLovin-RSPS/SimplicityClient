@@ -35,11 +35,7 @@ import javax.inject.Singleton;
 import com.simplicity.Configuration;
 import com.simplicity.client.Player;
 
-import net.runelite.api.Client;
-import net.runelite.api.Perspective;
-import net.runelite.api.Point;
-import net.runelite.api.Skill;
-import net.runelite.api.SpriteID;
+import net.runelite.api.*;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
@@ -74,6 +70,7 @@ class PrayerBarOverlay extends Overlay
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.HIGH);
 		setLayer(OverlayLayer.ABOVE_SCENE);
+		setGraphicsBuffer(GraphicsBufferType.MAIN_GAME);
 	}
 
 	@Override

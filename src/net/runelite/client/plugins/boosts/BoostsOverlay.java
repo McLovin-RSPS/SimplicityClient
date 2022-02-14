@@ -32,6 +32,7 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import net.runelite.api.Client;
+import net.runelite.api.GraphicsBufferType;
 import net.runelite.api.Skill;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPanel;
@@ -59,6 +60,7 @@ class BoostsOverlay extends OverlayPanel
 		setPosition(OverlayPosition.TOP_LEFT);
 		setPriority(OverlayPriority.MED);
 		getMenuEntries().add(new OverlayMenuEntry(RUNELITE_OVERLAY_CONFIG, OPTION_CONFIGURE, "Boosts overlay"));
+		setGraphicsBuffer(GraphicsBufferType.MAIN_GAME);
 	}
 
 	@Override

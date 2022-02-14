@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.blastfurnace;
 
 import net.runelite.api.Client;
+import net.runelite.api.GraphicsBufferType;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
@@ -60,6 +61,7 @@ class BlastFurnaceOverlay extends Overlay
 		setPosition(OverlayPosition.TOP_LEFT);
 		imagePanelComponent.setOrientation(ComponentOrientation.HORIZONTAL);
 		getMenuEntries().add(new OverlayMenuEntry(RUNELITE_OVERLAY_CONFIG, OPTION_CONFIGURE, "Blast furnace overlay"));
+		setGraphicsBuffer(GraphicsBufferType.MAIN_GAME);
 	}
 
 	@Override

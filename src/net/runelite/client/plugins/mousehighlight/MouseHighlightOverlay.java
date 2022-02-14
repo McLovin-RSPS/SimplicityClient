@@ -30,10 +30,8 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Set;
 import javax.inject.Inject;
-import net.runelite.api.Client;
-import net.runelite.api.MenuAction;
-import net.runelite.api.MenuEntry;
-import net.runelite.api.VarClientInt;
+
+import net.runelite.api.*;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.ui.overlay.Overlay;
@@ -82,6 +80,7 @@ class MouseHighlightOverlay extends Overlay
 	MouseHighlightOverlay(Client client, TooltipManager tooltipManager, MouseHighlightConfig config)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
+		setGraphicsBuffer(GraphicsBufferType.ALL);
 		this.client = client;
 		this.tooltipManager = tooltipManager;
 		this.config = config;

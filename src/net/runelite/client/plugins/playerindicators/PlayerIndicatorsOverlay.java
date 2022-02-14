@@ -36,6 +36,7 @@ import javax.inject.Singleton;
 import com.simplicity.client.Player;
 
 //import net.runelite.api.FriendsChatRank;
+import net.runelite.api.GraphicsBufferType;
 import net.runelite.api.Point;
 //import net.runelite.client.game.FriendChatManager;
 import net.runelite.client.ui.overlay.Overlay;
@@ -63,6 +64,7 @@ public class PlayerIndicatorsOverlay extends Overlay
 		//this.friendChatManager = friendChatManager;
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.MED);
+		setGraphicsBuffer(GraphicsBufferType.MAIN_GAME);
 	}
 
 	@Override

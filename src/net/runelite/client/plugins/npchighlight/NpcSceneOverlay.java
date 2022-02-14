@@ -17,10 +17,7 @@ import javax.inject.Inject;
 import com.simplicity.client.NPC;
 import com.simplicity.client.cache.definitions.MobDefinition;
 
-import net.runelite.api.Client;
-import net.runelite.api.Constants;
-import net.runelite.api.Perspective;
-import net.runelite.api.Point;
+import net.runelite.api.*;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.RuneLite;
@@ -55,6 +52,7 @@ public class NpcSceneOverlay extends Overlay
 		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
+		setGraphicsBuffer(GraphicsBufferType.MAIN_GAME);
 	}
 
 	@Override

@@ -30,6 +30,7 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import javax.inject.Inject;
 import net.runelite.api.Client;
+import net.runelite.api.GraphicsBufferType;
 import net.runelite.api.Perspective;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
@@ -52,6 +53,7 @@ public class TileIndicatorsOverlay extends Overlay
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		setPriority(OverlayPriority.MED);
+		setGraphicsBuffer(GraphicsBufferType.MAIN_GAME);
 	}
 
 	@Override

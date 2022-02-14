@@ -34,10 +34,7 @@ import com.simplicity.client.GroundDecoration;
 import com.simplicity.client.InteractableObject;
 import com.simplicity.client.TileObject;
 
-import net.runelite.api.Client;
-import net.runelite.api.DecorativeObject;
-import net.runelite.api.GroundObject;
-import net.runelite.api.WallObject;
+import net.runelite.api.*;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -59,6 +56,7 @@ class ObjectIndicatorsOverlay extends Overlay
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.LOW);
 		setLayer(OverlayLayer.ABOVE_SCENE);
+		setGraphicsBuffer(GraphicsBufferType.MAIN_GAME);
 	}
 
 	@Override
