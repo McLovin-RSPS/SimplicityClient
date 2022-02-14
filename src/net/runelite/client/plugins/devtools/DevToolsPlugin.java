@@ -155,6 +155,7 @@ public class DevToolsPlugin extends Plugin
 
 		inventory = new DevToolsButton("Inventory");
 		projectiles = new DevToolsButton("Projectiles");
+		projectiles.setEnabled(false);
 
 		location = new DevToolsButton("Location");
 		worldMapLocation = new DevToolsButton("World Map Location");
@@ -165,15 +166,20 @@ public class DevToolsPlugin extends Plugin
 		mapSquares = new DevToolsButton("Map Squares");
 
 		lineOfSight = new DevToolsButton("Line Of Sight");
+		lineOfSight.setEnabled(false);
+
 		validMovement = new DevToolsButton("Valid Movement");
 		movementFlags = new DevToolsButton("Movement Flags");
 		interacting = new DevToolsButton("Interacting");
 		examine = new DevToolsButton("Examine");
 
 		detachedCamera = new DevToolsButton("Detached Camera");
+		detachedCamera.setEnabled(false);
 		soundEffects = new DevToolsButton("Sound Effects");
+		soundEffects.setEnabled(false);
 		scriptInspector = new DevToolsButton("Script Inspector");
 		inventoryInspector = new DevToolsButton("Inventory Inspector");
+		inventoryInspector.setEnabled(false);
 
 		overlayManager.add(overlay);
 		overlayManager.add(locationOverlay);
