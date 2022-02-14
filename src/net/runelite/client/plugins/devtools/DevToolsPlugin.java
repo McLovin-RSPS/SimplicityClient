@@ -68,7 +68,8 @@ import org.slf4j.LoggerFactory;
 
 @PluginDescriptor(
 	name = "Developer Tools",
-	tags = {"panel"}
+	tags = {"panel"},
+	developerPlugin = true
 )
 @Getter
 public class DevToolsPlugin extends Plugin
