@@ -55,7 +55,7 @@ import java.awt.image.BufferedImage;
 )
 public class StatusOrbsPlugin extends Plugin
 {
-	private static final int SPEC_REGEN_TICKS = 20;
+	private static final int SPEC_REGEN_TICKS = 600;
 	private static final int NORMAL_HP_REGEN_TICKS = 50;
 
 	@Inject
@@ -154,19 +154,23 @@ public class StatusOrbsPlugin extends Plugin
 		}
 	}
 
+	int lastSpec;
+
 	@Subscribe
 	private void onGameTick(GameTick event)
 	{
 		int spec = com.simplicity.client.Client.getClient().currentSpec;
-		if (spec == 100)
+		if (spec == 100 || spec != lastSpec)
 		{
 			// The recharge doesn't tick when at 100%
 			ticksSinceSpecRegen = 0;
+			lastSpec = spec;
 		}
 		else
 		{
 			ticksSinceSpecRegen = (ticksSinceSpecRegen + 1) % SPEC_REGEN_TICKS;
 		}
+
 		specialPercentage = ticksSinceSpecRegen / (double) SPEC_REGEN_TICKS;
 
 		int ticksPerHPRegen = NORMAL_HP_REGEN_TICKS;
