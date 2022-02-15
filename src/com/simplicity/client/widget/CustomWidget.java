@@ -111,7 +111,7 @@ public abstract class CustomWidget {
         components.add(component);
     }
 
-    public void copyWidget(int from, int x, int y) {
+    public RSInterface copyWidget(int from, int x, int y) {
         RSInterface rsi = RSInterface.copy(id, from);
         Widget.componentForMain.put(id, mainId);
 
@@ -119,6 +119,7 @@ public abstract class CustomWidget {
         component.componentId = id++;
         component.parentId = mainId;
         components.add(component);
+        return rsi;
     }
     
     public RSInterface addTimer(int width, int height, int fontId, int textColor, String defaultText) {

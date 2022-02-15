@@ -13,6 +13,7 @@ import com.simplicity.client.widget.duel_arena.DuelArenaDuelStakeWidget;
 import com.simplicity.client.widget.duel_arena.DuelArenaEquipmentWidget;
 import com.simplicity.client.widget.ge.*;
 import com.simplicity.client.widget.npc_drop_checker.NpcDropChecker;
+import com.simplicity.client.widget.presets.PresetsWidget;
 import com.simplicity.client.widget.raids.cox.*;
 import com.simplicity.client.widget.raids.cox.party.RaidingPartyContainerWidget;
 import com.simplicity.client.widget.raids.cox.party.RaidingPartyWidget;
@@ -84,6 +85,7 @@ public class Widget {
 		init(new SharedStorageWidget());
 		init(new ShootingStarHud());
 		init(new EquipmentBonuses());
+		init(new PresetsWidget());
 	}
 
 	/**
