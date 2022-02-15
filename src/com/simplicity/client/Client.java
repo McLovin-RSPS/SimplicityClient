@@ -22356,7 +22356,9 @@ public class Client extends RSApplet {
                         String[] args = text.split(" ");
                         int scrollValue = Integer.parseInt(args[2]);
                         int scrollInterfaceId = Integer.parseInt(args[1]);
-                        RSInterface.interfaceCache[scrollInterfaceId].scrollMax = scrollValue;
+                        if (RSInterface.interfaceCache[scrollInterfaceId] != null) {
+                            RSInterface.interfaceCache[scrollInterfaceId].scrollMax = scrollValue;
+                        }
                     } else if (text.startsWith("selectedItf")) {
                     	String[] args = text.split(" ");
                         int selectedItf = Integer.parseInt(args[1]);
