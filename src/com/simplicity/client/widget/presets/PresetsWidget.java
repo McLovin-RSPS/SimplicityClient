@@ -130,7 +130,6 @@ public class PresetsWidget extends CustomWidget implements WidgetButtonListener 
     public boolean onClick(int id) {
         if (Arrays.binarySearch(RECTANGLE_IDS, id) >= 0) {
             RSInterface.setSelectedInterface(id, true);
-            return true;
         }
 
         return false;
