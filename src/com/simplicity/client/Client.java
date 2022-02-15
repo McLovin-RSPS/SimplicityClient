@@ -16275,7 +16275,7 @@ public class Client extends RSApplet {
                     hoverY -= 168;
                 }
 
-                if (!child.hoverDisabled && child.hovers && (hoverChatInterface || hoverGameInterface || hoverTabInterface)) {
+                if (!menuOpen && !child.hoverDisabled && child.hovers && (hoverChatInterface || hoverGameInterface || hoverTabInterface)) {
                     boolean inBounds = (hoverX >= childX && hoverX <= childX + child.width && hoverY >= childY && hoverY < childY + child.height);
 
                     childHovered = inBounds;
