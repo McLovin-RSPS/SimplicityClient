@@ -16,6 +16,7 @@ import com.simplicity.client.widget.raids.cox.StorageUnitBuildingWidget;
 import com.simplicity.client.widget.raids.nightmare.HealthHud;
 
 import java.util.Arrays;
+import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 
 @SuppressWarnings("all")
@@ -18437,6 +18438,11 @@ public class RSInterface {
     public Runnable onOpen;
 
     /**
+     * Determines when this interface is interactable.
+     */
+    public BooleanSupplier interactable;
+
+    /**
      * A set of instructions to execute upon an interface opening.
      * Should ideally be used on type 0 (often a layer or parent of widgets) however it is up to developer's choice of
      * usage.
@@ -18534,6 +18540,11 @@ public class RSInterface {
 
     public RSInterface setActionType(int actionType) {
         this.atActionType = actionType;
+        return this;
+    }
+
+    public RSInterface setInteractable(BooleanSupplier when) {
+        this.interactable = when;
         return this;
     }
 

@@ -9273,6 +9273,11 @@ public class Client extends RSApplet {
         }
         if (l == 315) {
             RSInterface class9 = RSInterface.interfaceCache[interfaceId];
+
+            if (class9.interactable != null && !class9.interactable.getAsBoolean()) {
+                return;
+            }
+
             boolean flag8 = true;
             if (class9.contentType > 0) {
                 if ((class9.contentType == 1321) || (class9.contentType == 1322) || (class9.contentType == 1323)) {
@@ -10014,6 +10019,11 @@ public class Client extends RSApplet {
 		}
         if (l == 646) {
             RSInterface class9_2 = RSInterface.interfaceCache[interfaceId];
+
+            if (class9_2.interactable != null && !class9_2.interactable.getAsBoolean()) {
+                return;
+            }
+
             CustomWidget w = Widget.mainForComponent(interfaceId);
 			if (w != null && w.buttonListener != null && w.buttonListener.onClick(interfaceId)) {
 			}
