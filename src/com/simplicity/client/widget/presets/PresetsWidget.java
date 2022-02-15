@@ -117,9 +117,10 @@ public class PresetsWidget extends CustomWidget implements WidgetButtonListener 
             RSInterface.interfaceCache[id].enabledMouseOverColor = 0x5a5245;
             Widget.componentForMain.put(id, mainId);
 
-            RSInterface.addText(id + 1, "Preset " + (i + 1), RSInterface.defaultFont, 0, 0xFFA500);
+            RSInterface.addText(id + 1, "Preset " + (i + 1), RSInterface.defaultFont, 0, 0xFFA500, true);
+            RSInterface.interfaceCache[id + 1].width = 105;
             rsi.child(child++, id, 13, (i * 30));
-            rsi.child(child++, id + 1, 45, (i * 30) + 9);
+            rsi.child(child++, id + 1, 13, (i * 30) + 9);
             id += 2;
         }
 
