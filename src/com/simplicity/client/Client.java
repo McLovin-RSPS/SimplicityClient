@@ -15777,8 +15777,7 @@ public class Client extends RSApplet {
 	                    && (entity.currentAnim < 0 || entity.currentAnim >= animation_1.frameCount)) {
 	                entity.anInt1520 = -1;
 	            }
-                if(tween)
-                    entity.nextGraphicsAnimationFrame = entity.currentAnim + 1;
+                entity.nextGraphicsAnimationFrame = tween ? entity.currentAnim + 1 : entity.currentAnim;
 
 	            if (entity.nextGraphicsAnimationFrame >= animation_1.frameCount) {
 	                if (entity.nextGraphicsAnimationFrame < 0
@@ -15822,8 +15821,8 @@ public class Client extends RSApplet {
                         }
 	                }
 	            }
-                if(tween)
-                    entity.nextAnimationFrame = entity.currentAnimFrame + 1;
+                entity.nextAnimationFrame = tween ? entity.currentAnimFrame + 1 : entity.currentAnimFrame;
+
 	            if (entity.nextAnimationFrame >= animation_3.frameCount) {
 	            	if (entity.anInt1530 >= animation_3.frameCount) {
 	                    entity.nextAnimationFrame = getNextFrame(entity);
