@@ -295,7 +295,7 @@ public class QuestTab extends RSInterface {
 		int y = 9;
 		
 		for (int i = 0; i < scroll.children.length; i++) {
-			addText(id, "" + id, tda, 0, 0xFFB000);
+			addText(id, "", tda, 0, 0xFFB000);
 			scroll.child(i, id, 0, y);
 			y += 17;
 			id++;
@@ -329,7 +329,7 @@ public class QuestTab extends RSInterface {
 		int y = 9;
 		
 		for (int i = 0; i < scroll.children.length; i++) {
-			addText(id, "" + id, tda, 0, 0xFFB000);
+			addText(id, "", tda, 0, 0xFFB000);
 			scroll.child(i, id, 0, y);
 			y += 17;
 			id++;
@@ -363,7 +363,7 @@ public class QuestTab extends RSInterface {
 		int y = 9;
 		
 		for (int i = 0; i < scroll.children.length; i++) {
-			addText(id, "" + id, tda, 0, 0xFFB000);
+			addText(id, "", tda, 0, 0xFFB000);
 			scroll.child(i, id, 0, y);
 			y += 17;
 			id++;
@@ -397,7 +397,7 @@ public class QuestTab extends RSInterface {
 		int y = 9;
 		
 		for (int i = 0; i < scroll.children.length; i++) {
-			addText(id, "" + id, tda, 0, 0xFFB000);
+			addText(id, "", tda, 0, 0xFFB000);
 			scroll.child(i, id, 0, y);
 			y += 17;
 			id++;
