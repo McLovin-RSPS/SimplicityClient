@@ -35,8 +35,9 @@ public class OldschoolMaps {
             13205, 13460, 13204, // kalphite lair
             
             6974, // Christmass event boss 2021
-            
-            
+
+            // barbarian village
+            12341,
             
             9823, 9824, // new infernal dungeon
             
