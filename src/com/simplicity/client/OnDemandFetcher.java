@@ -348,6 +348,7 @@ public class OnDemandFetcher extends OnDemandFetcherParent implements Runnable {
 
         clearNearRegions(13914); // LMS
 
+        setNullRegion(11345); // Nex surrounding
         setNullRegion(13401);
         setNullRegion(13402);
         setNullRegion(13403);
