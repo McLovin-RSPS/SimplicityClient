@@ -19,6 +19,7 @@ import ch.qos.logback.classic.Logger;
 import net.runelite.api.*;
 import net.runelite.api.Client;
 import net.runelite.api.Skill;
+import net.runelite.api.Texture;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.hooks.Callbacks;
@@ -1276,8 +1277,27 @@ public class ClientRuneLite implements Client {
 
 	@Override
 	public TextureProvider getTextureProvider() {
-		// TODO Auto-generated method stub
-		return null;
+		return new TextureProvider() {
+			@Override
+			public double getBrightness() {
+				return Rasterizer.getBrightness();
+			}
+
+			@Override
+			public void setBrightness(double brightness) {
+				Rasterizer.setBrightness(brightness);
+			}
+
+			@Override
+			public Background[] getTextures() {
+				return Rasterizer.textures;
+			}
+
+			@Override
+			public int[] load(int textureId) {
+				return Rasterizer.getTexturePixels(textureId);
+			}
+		};
 	}
 
 	@Override

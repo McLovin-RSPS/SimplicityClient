@@ -24,6 +24,8 @@
  */
 package net.runelite.api;
 
+import com.simplicity.client.Background;
+
 public interface TextureProvider
 {
 	double getBrightness();
@@ -39,7 +41,7 @@ public interface TextureProvider
 	/**
 	 * Get all textures
 	 */
-	Texture[] getTextures();
+	Background[] getTextures();
 
 	/**
 	 * Get the pixels for a texture
