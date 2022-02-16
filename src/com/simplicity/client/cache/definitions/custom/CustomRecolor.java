@@ -679,7 +679,7 @@ public enum CustomRecolor {
    
   STAFF_SANTA_2022_1(21265, 1050, "Nthos Santa",
 		   	new int[]{ 10351, 933 },
-		   	new int[]{ 39801, 58367 }),
+		   	new int[]{ 9073, 41927 }),
   STAFF_SANTA_2022_2(21266, 1050, "Lausacs Santa",
 		   	new int[]{ 10351, 933 },
 		   	new int[]{ 49151, 48178 }),
@@ -957,6 +957,7 @@ public enum CustomRecolor {
 	YELLOW_BLACK_HAND_CANNON_XI(21528, 11620, "@yel@Kanker Cannon XI",
             new int[]{ 35840, 64, 35905, 35912, 1097, 35855, 35856, 85, 35862, 23, 35865, 35866, 1051, 35868, 6303, 31, 32, 35873, 1058, 35875, 39, 40, 35882, 6317, 45, 35886, 1070, 35888, 49, 50, 54, 35895, 59 },
             new int[]{ 1024, 1024, 1024, 1024, 11237, 11237, 11237, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 11237, 11237, 1024, 11237, 1024, 1024, 11237, 11237, 11237, 1024, 11237 }),
+
 	//11200, 6036, 37, 103, 74
 
 	
@@ -1006,6 +1007,9 @@ public enum CustomRecolor {
 		def.name = name;
 		def.editedModelColor = editedModelColor;
 		def.newModelColor = newModelColor;
+		if(name.toLowerCase().contains("overlord cape")) {
+			def.equippedStateActions = new String[]{ null, "Teleport", null, null, null };
+		}
 
 		ItemDefinition.getCustomRecolors().put(itemId, def);
 	}
