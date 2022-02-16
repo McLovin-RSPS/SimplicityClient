@@ -2609,6 +2609,9 @@ public final class WorldController {
 	public static int distance = 25;
 
 	public static int getDrawDistance() {
+		if (Client.loggedIn && Client.getClient().getRegionId() == 11601) { // TODO: Fix nex region
+			return 35;
+		}
 		if(Client.drawCallbacks != null && Client.loggedIn) {
 			return distance;
 		}
