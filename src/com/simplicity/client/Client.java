@@ -23433,7 +23433,7 @@ public class Client extends RSApplet {
         if(RuneLite.getClient() != null)
             callbacks.post(new BeforeRender());
         worldController.render(xCameraPos, yCameraPos, xCameraCurve, zCameraPos, j, yCameraCurve);
-        worldController.renderTileMarkers();
+        //worldController.renderTileMarkers();
         if (!HdPlugin.process() && Configuration.enableFog) {
             int baseFogDistance = (int) Math.sqrt(Math.pow(zCameraPos, 2));
             int fogStart = baseFogDistance + 1100;
