@@ -1,5 +1,7 @@
 package com.simplicity.client.widget.dropdown;
 
+import lombok.Getter;
+
 public class DropdownMenu {
 
     private final int height;
@@ -8,7 +10,7 @@ public class DropdownMenu {
     private final Dropdown dropdown;
     private final boolean split;
     private boolean open;
-    private String optionSelected;
+    @Getter private String optionSelected;
 
     public DropdownMenu(int width, boolean split, int defaultOption, String[] options, Dropdown d) {
         this.width = width;

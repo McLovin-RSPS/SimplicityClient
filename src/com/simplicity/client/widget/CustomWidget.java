@@ -111,6 +111,19 @@ public abstract class CustomWidget {
         components.add(component);
     }
 
+    public void setComponent(int index, int id) {
+        if (index >= components.size() || components.get(index) == null) {
+            return;
+        }
+
+        WidgetComponent component = components.get(index);
+        component.componentId = id;
+        component.component = RSInterface.interfaceCache[id];
+
+        RSInterface tab = RSInterface.interfaceCache[mainId];
+        tab.child(index, component.componentId, component.point.x, component.point.y);
+    }
+
     public RSInterface copyWidget(int from, int x, int y) {
         RSInterface rsi = RSInterface.copy(id, from);
         Widget.componentForMain.put(id, mainId);
@@ -500,6 +513,10 @@ public abstract class CustomWidget {
 
     public RSInterface hoverButton(int disabledSprite, int enabledSprite, String[] actions) {
         return RSInterface.hoverButton(id++, disabledSprite, enabledSprite, actions).setLayer(mainId);
+    }
+
+    public RSInterface configHoverButton(String tooltip, int enabledSprite, int disabledSprite, int enabledAltSprite, int disabledAltSprite, boolean active, String buttonText, RSFontSystem rsFont, int colour, int hoveredColour, boolean centerText, int[] buttonsToDisable) {
+        return RSInterface.configHoverButton(id++, tooltip, enabledSprite, disabledSprite, enabledAltSprite, disabledAltSprite, active, buttonText, rsFont, colour, hoveredColour, centerText, buttonsToDisable).setLayer(mainId);
     }
 
     public RSInterface addConfigButton(String tooltip, int sprite1, int sprite2, int aT, int configSlot, int configId) {

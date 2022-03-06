@@ -17519,7 +17519,7 @@ public class RSInterface {
         tab.hovers = true;
 	}
 
-	public static void configHoverButton(int id, String tooltip, int enabledSprite, int disabledSprite,
+	public static RSInterface configHoverButton(int id, String tooltip, int enabledSprite, int disabledSprite,
 			int enabledAltSprite, int disabledAltSprite, boolean active, String buttonText, RSFontSystem rsFont, int colour,
 			int hoveredColour, boolean centerText, int... buttonsToDisable) {
 		RSInterface tab = addInterface(id);
@@ -17543,6 +17543,7 @@ public class RSInterface {
 		tab.centerText = centerText;
 		tab.spriteOpacity = 255;
         tab.hovers = true;
+        return tab;
 	}
 	
 	public void setConfigHoverButton(String tooltip, int enabledSpriteId, int disabledSpriteId) {
@@ -17673,11 +17674,11 @@ public class RSInterface {
 		}
 	}
 	
-	public static void slider(int id, double min, double max, int width, int icon, int background, int contentType) {
-		slider(id, min, min, max, width, icon, background, contentType);
+	public static RSInterface slider(int id, double min, double max, int width, int icon, int background, int contentType) {
+		return slider(id, min, min, max, width, icon, background, contentType);
 	}
 
-	public static void slider(int id, double value, double min, double max, int width, int icon, int background,
+	public static RSInterface slider(int id, double value, double min, double max, int width, int icon, int background,
 			int contentType) {
 		RSInterface widget = addInterface(id);
 		widget.width = width;
@@ -17685,6 +17686,7 @@ public class RSInterface {
 		widget.slider = new Slider(Client.cacheSprite[icon], Client.cacheSprite[background], value, min, max);
 		widget.type = 14;
 		widget.contentType = contentType;
+        return widget;
 	}
 
     public static void addInAreaHover(int i, String imageName, int sId, int sId2, int w, int h, String text,
