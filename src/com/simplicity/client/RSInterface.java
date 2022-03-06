@@ -18446,6 +18446,8 @@ public class RSInterface {
     @Deprecated
     public Runnable onOpen;
 
+    public BooleanSupplier onClick;
+
     /**
      * Determines when this interface is interactable.
      */

@@ -9258,6 +9258,16 @@ public class Client extends RSApplet {
             }
         }
         if (l == 222) {
+            RSInterface class9 = RSInterface.interfaceCache[interfaceId];
+
+            if (class9.interactable != null && !class9.interactable.getAsBoolean()) {
+                return;
+            }
+
+            if (class9.onClick != null && class9.onClick.getAsBoolean()) {
+                return;
+            }
+
 			if (SettingsTabWidget.handleButton(interfaceId, currentActionMenu)) {
 				return;
 			}
@@ -9324,6 +9334,10 @@ public class Client extends RSApplet {
 					WildernessWidget.toggle();
 					return;
 				}
+
+                if (class9.onClick != null && class9.onClick.getAsBoolean()) {
+                    return;
+                }
 
 				TheatrePerformersWidget.clickButton(interfaceId);
 
