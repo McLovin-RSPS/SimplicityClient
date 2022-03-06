@@ -3478,22 +3478,22 @@ public class RSInterface {
 
         int i = 14229;
         newChildren[childCount] = ++i;
-        newChildX[childCount] = 92;
+        newChildX[childCount] = 87;
         newChildY[childCount] = 83;
         addText(i, ours.message, ours.enabledMessage, ours.disabledColor, ours.enabledColor, ours.centerText, ours.shadowed, ours.hoverType, 0);
 
         newChildren[childCount + 1] = ++i;
-        newChildX[childCount + 1] = 202;
+        newChildX[childCount + 1] = 199;
         newChildY[childCount + 1] = 83;
         addText(i, ours.message, ours.enabledMessage, ours.disabledColor, ours.enabledColor, ours.centerText, ours.shadowed, ours.hoverType, 0);
 
         newChildren[childCount + 2] = ++i;
-        newChildX[childCount + 2] = 331;
+        newChildX[childCount + 2] = 326;
         newChildY[childCount + 2] = 84;
         addText(i, theirs.message, theirs.enabledMessage, theirs.disabledColor, theirs.enabledColor, theirs.centerText, theirs.shadowed, theirs.hoverType, 0);
 
         newChildren[childCount + 3] = ++i;
-        newChildX[childCount + 3] = 441;
+        newChildX[childCount + 3] = 338;
         newChildY[childCount + 3] = 84;
         addText(i, theirs.message, theirs.enabledMessage, theirs.disabledColor, theirs.enabledColor, theirs.centerText, theirs.shadowed, theirs.hoverType, 0);
 
