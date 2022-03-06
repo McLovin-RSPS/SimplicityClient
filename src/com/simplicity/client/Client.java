@@ -130,6 +130,7 @@ import com.simplicity.client.widget.raids.tob.TheatrePartyWidget;
 import com.simplicity.client.widget.raids.tob.TheatrePerformersWidget;
 import com.simplicity.client.widget.raids.tob.TobFadeText;
 import com.simplicity.client.widget.raids.tob.TobPartyOverlayWidget;
+import com.simplicity.client.widget.settings.SettingsTabWidget;
 import com.simplicity.client.widget.spellfiltering.AncientSpellBookFilter;
 import com.simplicity.client.widget.spellfiltering.LunarSpellBookFilter;
 import com.simplicity.client.widget.spellfiltering.ModernSpellBookFilter;
@@ -4942,7 +4943,7 @@ public class Client extends RSApplet {
 
 			boolean hover = mouseX >= childX && mouseY > childY
                     && mouseX <= childX + child.width && mouseY < childY + child.height + hoverYOff;
-			if (child.id == SettingsWidget.ADVANCED) {
+			if (child.id == SettingsTabWidget.ADVANCED) {
 				hover = mouseX >= childX && mouseY >= childY + 7 - child.height / 2 && mouseX < childX + child.width && mouseY < childY - 9 + child.height;
 			}
 
@@ -8951,7 +8952,7 @@ public class Client extends RSApplet {
         if (l >= 2000) {
             l -= 2000;
         }
-        
+
         if (runelite != null && MenuAction.of(l) != MenuAction.UNKNOWN) {
             if(menuConsumers[i] != null) {
                 menuConsumers[i].accept(RuneLite.getClient().getMenuEntries()[i]);
@@ -9257,7 +9258,7 @@ public class Client extends RSApplet {
             }
         }
         if (l == 222) {
-			if (SettingsWidget.handleButton(interfaceId, currentActionMenu)) {
+			if (SettingsTabWidget.handleButton(interfaceId, currentActionMenu)) {
 				return;
 			}
 
@@ -9313,7 +9314,7 @@ public class Client extends RSApplet {
 
             if (flag8) {
 
-				if (SettingsWidget.handleButton(interfaceId, slot)) {
+				if (SettingsTabWidget.handleButton(interfaceId, slot)) {
 					return;
 				}
 
@@ -9337,11 +9338,11 @@ public class Client extends RSApplet {
                 }
 
                 switch (interfaceId) {
-                case SettingsWidget.DISPLAY_BUTTON:
-				case SettingsWidget.AUDIO_BUTTON:
-				case SettingsWidget.CHAT_BUTTON:
-				case SettingsWidget.CONTROL_BUTTON:
-					SettingsWidget.switchSettings(interfaceId);
+                case SettingsTabWidget.DISPLAY_BUTTON:
+				case SettingsTabWidget.AUDIO_BUTTON:
+				case SettingsTabWidget.CHAT_BUTTON:
+				case SettingsTabWidget.CONTROL_BUTTON:
+					SettingsTabWidget.switchSettings(interfaceId);
 					break;
 
                     case Keybinding.RESTORE_DEFAULT: // Restore default button for hot keys.
@@ -13862,7 +13863,7 @@ public class Client extends RSApplet {
                 anInt1155 = 0;
                 anInt1226 = 0;
 
-                SettingsWidget.updateSettingsTab();
+                SettingsTabWidget.updateSettingsTab();
 
                 resetImageProducers2();
                 clientHeight += 1;
@@ -22949,7 +22950,7 @@ public class Client extends RSApplet {
                             interfaceButtonAction = 0;
                         }
                         if (interfaceID == 56_000) {
-                        	SettingsWidget.updateAdvancedOptions();
+                        	SettingsTabWidget.updateAdvancedOptions();
                         }
                         
                         if (interfaceID == StarterWidget.INTERFACE_ID) {

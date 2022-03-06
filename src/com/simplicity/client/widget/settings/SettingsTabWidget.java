@@ -1,4 +1,4 @@
-package com.simplicity.client.widget;
+package com.simplicity.client.widget.settings;
 
 import java.awt.Color;
 import java.util.LinkedHashMap;
@@ -11,6 +11,7 @@ import com.simplicity.client.ClientSettings;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.TextDrawingArea;
 import com.simplicity.client.content.Keybinding;
+import com.simplicity.client.widget.Setting;
 import com.simplicity.client.widget.dropdown.Dropdown;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 
@@ -20,7 +21,7 @@ import com.simplicity.client.widget.dropdown.DropdownMenu;
  * @author Blake
  *
  */
-public class SettingsWidget extends RSInterface {
+public class SettingsTabWidget extends RSInterface {
 	
 	public static final int DISPLAY_BUTTON = 46_000;
 	public static final int AUDIO_BUTTON = 46_001;
@@ -116,11 +117,12 @@ public class SettingsWidget extends RSInterface {
 		tab.child(child++, id + 1, 106, 124 - 5);
 		id+=2;
 		
-		
-		addSpriteLoader(id, 1230);
-		addHoverText(id + 1, "Advanced Options", "Advanced Options", tda, 1, 0xff981f, true, true, 140, 30);
+
+
+		addDynamicButton(id, "All Settings", 138, 28, StyleScheme.DARK);
+		addText(id + 1, "All Settings", tda, 0, 0xfe971e, true, true).setSize(138, 28);
 		tab.child(child++, id, 28, 180 - 5);
-		tab.child(child++, id + 1, 28, 187 - 5);
+		tab.child(child++, id + 1, 28, 187 - 4);
 		id += 2;
 		
 		configHoverButton(TOGGLE_ZOOM, "Toggle Zooming", new String[] { "Restore Default Zoom" }, 1343, 1344, 1342, 1341, false, new int[] {TOGGLE_ZOOM});

@@ -29,8 +29,7 @@ import com.simplicity.Configuration;
 import com.simplicity.Jframe;
 import com.simplicity.client.content.Keybinding;
 import com.simplicity.client.widget.AchievementsWidget;
-import com.simplicity.client.widget.QuestTab;
-import com.simplicity.client.widget.SettingsWidget;
+import com.simplicity.client.widget.settings.SettingsTabWidget;
 import com.simplicity.client.widget.ge.GrandExchangeOfferWidget;
 import com.simplicity.client.widget.ge.GrandExchangeSearchWidget;
 import com.simplicity.client.widget.raids.cox.tab.RaidingTab;
@@ -382,7 +381,7 @@ WindowListener {
 				
 				int value = Math.negateExact(1800 - Client.cameraZoom);
 				
-				RSInterface.interfaceCache[SettingsWidget.ZOOM_SLIDER].slider.setValue(value);
+				RSInterface.interfaceCache[SettingsTabWidget.ZOOM_SLIDER].slider.setValue(value);
 			}
 			
 			if (Configuration.enableWASDCamera && Client.instance.chatboxInFocus) {

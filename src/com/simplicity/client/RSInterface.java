@@ -14,6 +14,7 @@ import com.simplicity.client.widget.dropdown.Dropdown;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 import com.simplicity.client.widget.raids.cox.StorageUnitBuildingWidget;
 import com.simplicity.client.widget.raids.nightmare.HealthHud;
+import com.simplicity.client.widget.settings.SettingsTabWidget;
 
 import java.util.Arrays;
 import java.util.function.BooleanSupplier;
@@ -5072,7 +5073,7 @@ public class RSInterface {
         magicFiltering(textDrawingAreas);
         makeAllSkilling(textDrawingAreas);
         
-        SettingsWidget.unpack(textDrawingAreas);
+        SettingsTabWidget.unpack(textDrawingAreas);
 
         StorageUnitBuildingWidget.unpack(textDrawingAreas);
 
@@ -17957,7 +17958,7 @@ public class RSInterface {
         rsi.hovers = true;
         return rsi;
     }
-	
+
 	public static RSInterface addTimer(int id, int width, int height, int fontId, int textColor, String defaultText) {
     	RSInterface rsi = addInterface(id);
     	rsi.type = 44;
