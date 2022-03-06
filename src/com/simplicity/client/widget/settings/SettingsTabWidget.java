@@ -119,10 +119,10 @@ public class SettingsTabWidget extends RSInterface {
 		
 
 
-		addDynamicButton(id, "All Settings", 138, 28, StyleScheme.DARK);
-		addText(id + 1, "All Settings", tda, 0, 0xfe971e, true, true).setSize(138, 28);
-		tab.child(child++, id, 28, 180 - 5);
-		tab.child(child++, id + 1, 28, 187 - 4);
+		addDynamicButton(id + 1, "All Settings", 138, 28, StyleScheme.DARK);
+		addText(id, "All Settings", tda, 0, 0xfe971e, true, true).setSize(138, 28);
+		tab.child(child++, id + 1, 28, 180 - 5);
+		tab.child(child++, id, 28, 187 - 4);
 		id += 2;
 		
 		configHoverButton(TOGGLE_ZOOM, "Toggle Zooming", new String[] { "Restore Default Zoom" }, 1343, 1344, 1342, 1341, false, new int[] {TOGGLE_ZOOM});
