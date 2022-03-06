@@ -1,15 +1,11 @@
 package com.simplicity.client.widget;
 
 import java.awt.event.KeyEvent;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
-import com.simplicity.client.Sprite;
 import com.simplicity.client.TextDrawingArea;
 import com.simplicity.client.cache.definitions.ItemDefinition;
-import com.simplicity.client.entity.Position;
 
 /**
  * A class that handles the skilling quantity interface.
@@ -105,7 +101,7 @@ public class SkillQuantityWidget extends RSInterface {
 		BUTTON_START = id;
 		
 		for (int i = 0; i < 5; i++) {
-			addDynamicButton(id, "Make", width, height);
+			addDynamicButton(id, "Make", width, height, StyleScheme.LIGHT);
 			interfaceCache[id].layerId = INTERFACE_ID;
 			rsi.child(child++, id, startX + (width * i + 7 * i), startY);
 			id++;
@@ -120,7 +116,7 @@ public class SkillQuantityWidget extends RSInterface {
 		String[] text = new String[] { "1", "5", "10", "X", "All" };
 		
 		for (int i = 0; i < 5; i++) {
-			addDynamicButton(id, text[i], width, height);
+			addDynamicButton(id, text[i], width, height, StyleScheme.LIGHT);
 			interfaceCache[id].layerId = INTERFACE_ID;
 			interfaceCache[id].selectableInterfaces = new int[] { QUANTITY_BUTTON_START, QUANTITY_BUTTON_START + 1, QUANTITY_BUTTON_START + 2, QUANTITY_BUTTON_START + 3, QUANTITY_BUTTON_START + 4 };
 			rsi.child(child++, id, startX + (width * i + 5 * i), startY);

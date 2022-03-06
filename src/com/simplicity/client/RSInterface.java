@@ -17924,23 +17924,28 @@ public class RSInterface {
 		widget.atActionType = 7;
 		widget.inverted = inverted;
 	}
-	
-	public static void addDynamicButton(int id, String tooltip, int width, int height) {
+
+    public enum StyleScheme {
+        LIGHT, DARK
+    }
+
+	public static RSInterface addDynamicButton(int id, String tooltip, int width, int height, StyleScheme scheme) {
 		RSInterface rsi = addInterface(id, width, height);
 		rsi.id = id;
-		rsi.type = 38;
+        rsi.type = scheme == StyleScheme.LIGHT ? 38 : 41;
 		rsi.width = width;
 		rsi.height = height;
         rsi.atActionType = 1;
         rsi.contentType = 0;
         rsi.tooltip = tooltip;
         rsi.hovers = true;
+        return rsi;
 	}
 
-    public static void addDynamicButton(int id, String tooltip, int width, int height, boolean inverted) {
+    public static RSInterface addDynamicButton(int id, String tooltip, int width, int height, StyleScheme scheme, boolean inverted) {
         RSInterface rsi = addInterface(id, width, height);
         rsi.id = id;
-        rsi.type = 38;
+        rsi.type = scheme == StyleScheme.LIGHT ? 38 : 41;
         rsi.width = width;
         rsi.height = height;
         rsi.atActionType = 1;
@@ -17948,6 +17953,7 @@ public class RSInterface {
         rsi.tooltip = tooltip;
         rsi.inverted = inverted;
         rsi.hovers = true;
+        return rsi;
     }
 	
 	public static RSInterface addTimer(int id, int width, int height, int fontId, int textColor, String defaultText) {

@@ -193,7 +193,7 @@ public class ItemsKeptOnDeath extends RSInterface {
         button.totalChildren(2);
 
         widgetId++;
-        addDynamicButton(widgetId, "Select", width, height, true);
+        addDynamicButton(widgetId, "Select", width, height, StyleScheme.DARK, true);
         button.child(0, widgetId, 0, 0);
 
         widgetId++;
