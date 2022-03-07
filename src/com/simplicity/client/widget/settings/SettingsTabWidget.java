@@ -11,7 +11,7 @@ import com.simplicity.client.ClientSettings;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.TextDrawingArea;
 import com.simplicity.client.content.Keybinding;
-import com.simplicity.client.widget.Setting;
+import com.simplicity.client.widget.SettingOld;
 import com.simplicity.client.widget.dropdown.Dropdown;
 import com.simplicity.client.widget.dropdown.DropdownMenu;
 
@@ -53,7 +53,7 @@ public class SettingsTabWidget extends RSInterface {
 	
 	private static final int ADVANCED_OPTIONS = 56_000;
 	
-	private static Map<Integer, Setting> TOGGLES = new LinkedHashMap<Integer, Setting>();
+	private static Map<Integer, SettingOld> TOGGLES = new LinkedHashMap<Integer, SettingOld>();
 	
 	public static void unpack(TextDrawingArea[] tda) {
 		init();
@@ -267,7 +267,7 @@ public class SettingsTabWidget extends RSInterface {
 	public static void init() {
 		int button = ADVANCED_OPTIONS + 12;
 		
-		for (Setting setting : Setting.values()) {
+		for (SettingOld setting : SettingOld.values()) {
 			TOGGLES.put(button, setting);
 			
 			button += 4;
@@ -295,7 +295,7 @@ public class SettingsTabWidget extends RSInterface {
 		tab.child(child++, id, 58, 42);
 		id++;
 		
-		boolean scrollbar = Setting.size() > 21;
+		boolean scrollbar = SettingOld.size() > 21;
 
 		addHoverText(id, "Restore defaults", "Restore defaults", tda, 1, 0xebe0bc, true, true, 100, 16);
 		tab.child(child++, id, 205, scrollbar ? 64 : 62);
@@ -311,7 +311,7 @@ public class SettingsTabWidget extends RSInterface {
 		/** Scroll start **/
 		child = 0;
 		tab = addInterface(id++);
-		tab.totalChildren(Setting.size());
+		tab.totalChildren(SettingOld.size());
 		tab.height = 228;
 		tab.scrollMax = scrollbar ? 425 : tab.height;
 		tab.width = 477;
@@ -327,7 +327,7 @@ public class SettingsTabWidget extends RSInterface {
 		
 		child = tab.children.length - 1;
 		
-		for (Setting s : Setting.values()) {
+		for (SettingOld s : SettingOld.values()) {
 			if (s.isCategory()) {
 				x = 22;
 				
@@ -417,16 +417,8 @@ public class SettingsTabWidget extends RSInterface {
 			Client.instance.sendFrame36(170, Client.instance.variousSettings[170] == 1 ? 0 : 1);
 			ClientSettings.save();
 			return true;
-		case MOUSE_CAMERA:
-			Configuration.enableMouseCamera = !Configuration.enableMouseCamera;
-			ClientSettings.save();
-			return true;
 		case FOLLOWER_OPTIONS:
 			Configuration.enableFollowerOptionPriority = !Configuration.enableFollowerOptionPriority;
-			ClientSettings.save();
-			return true;
-		case SHIFT_CLICK_DROP:
-			Configuration.enableShiftClickDrop = !Configuration.enableShiftClickDrop;
 			ClientSettings.save();
 			return true;
 		case KEYBINDING:
@@ -450,8 +442,6 @@ public class SettingsTabWidget extends RSInterface {
 		interfaceCache[CHAT_EFFECTS].active = Client.instance.variousSettings[171] == 1;
 		interfaceCache[SPLIT_PRIVATE_CHAT].active = Client.instance.variousSettings[287] == 0;
 		interfaceCache[MOUSE_BUTTONS].active = Client.instance.variousSettings[170] == 1;
-		interfaceCache[MOUSE_CAMERA].active = !Configuration.enableMouseCamera;
-		interfaceCache[SHIFT_CLICK_DROP].active = !Configuration.enableShiftClickDrop;
 		interfaceCache[PLAYER_ATTACK_DROPDOWN].dropdown.setSelected(interfaceCache[PLAYER_ATTACK_DROPDOWN].dropdown.getOptions()[Configuration.playerAttackOptionPriority]);
         interfaceCache[NPC_ATTACK_DROPDOWN].dropdown.setSelected(interfaceCache[NPC_ATTACK_DROPDOWN].dropdown.getOptions()[Configuration.npcAttackOptionPriority]);
 	}
@@ -460,10 +450,10 @@ public class SettingsTabWidget extends RSInterface {
 	 * Updates the advanced options interface button states.
 	 */
 	public static void updateAdvancedOptions() {
-		for (Entry<Integer, Setting> toggle : TOGGLES.entrySet()) {
+		for (Entry<Integer, SettingOld> toggle : TOGGLES.entrySet()) {
 			int button = toggle.getKey();
-			
-			Setting setting = toggle.getValue();
+
+			SettingOld setting = toggle.getValue();
 			
 			if (!setting.isCategory()) {
 				DropdownMenu menu = setting.getDropdownMenu();

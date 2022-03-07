@@ -130,6 +130,8 @@ import com.simplicity.client.widget.raids.tob.TheatrePartyWidget;
 import com.simplicity.client.widget.raids.tob.TheatrePerformersWidget;
 import com.simplicity.client.widget.raids.tob.TobFadeText;
 import com.simplicity.client.widget.raids.tob.TobPartyOverlayWidget;
+import com.simplicity.client.widget.settings.Setting;
+import com.simplicity.client.widget.settings.Settings;
 import com.simplicity.client.widget.settings.SettingsTabWidget;
 import com.simplicity.client.widget.spellfiltering.AncientSpellBookFilter;
 import com.simplicity.client.widget.spellfiltering.LunarSpellBookFilter;
@@ -338,7 +340,7 @@ public class Client extends RSApplet {
             return;
         }
 
-        if (Configuration.enableMouseCamera) {
+        if (Settings.CONTROLS.getBoolean(Setting.MIDDLE_MOUSE_CAMERA)) {
         	this.anInt1186 += i * 3;
         	this.anInt1187 += (j << 1);
         }
@@ -1753,26 +1755,25 @@ public class Client extends RSApplet {
             	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
             		return 0;
             	}
-            	
-                return clientSize != 0 ? clientWidth - 212 : Configuration.enableSpecialOrb ? 167 : 172;
+                return clientSize != 0 ? clientWidth - 212 : Settings.INTERFACES.getBoolean(Setting.SPECIAL_ORB) ? 167 : 172;
             case 1:
             	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
             		return 0;
             	}
             	
-                return clientSize != 0 ? clientWidth - 215 : Configuration.enableSpecialOrb ? 179 : 188;
+                return clientSize != 0 ? clientWidth - 215 : Settings.INTERFACES.getBoolean(Setting.SPECIAL_ORB) ? 179 : 188;
             case 2:
             	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
             		return 14;
             	}
             	
-                return clientSize != 0 ? clientWidth - 206 : Configuration.enableSpecialOrb ? 181 : 188;
+                return clientSize != 0 ? clientWidth - 206 : Settings.INTERFACES.getBoolean(Setting.SPECIAL_ORB) ? 181 : 188;
             case 3:
             	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
             		return 172;
             	}
             	
-                return clientSize != 0 ? clientWidth - 188 : Configuration.enableSpecialOrb ? 174 : 172;
+                return clientSize != 0 ? clientWidth - 188 : Settings.INTERFACES.getBoolean(Setting.SPECIAL_ORB) ? 174 : 172;
             case 4:
             	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
             		return 36;
@@ -1789,25 +1790,25 @@ public class Client extends RSApplet {
             		return 45;
             	}
             	
-                return clientSize != 0 ? 39 : Configuration.enableSpecialOrb ? 10 : 15;
+                return clientSize != 0 ? 39 : Settings.INTERFACES.getBoolean(Setting.SPECIAL_ORB) ? 10 : 15;
             case 1:
             	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
             		return 79;
             	}
             	
-                return clientSize != 0 ? 73 : Configuration.enableSpecialOrb ? 43 : 54;
+                return clientSize != 0 ? 73 : Settings.INTERFACES.getBoolean(Setting.SPECIAL_ORB) ? 43 : 54;
             case 2:
 				if (clientSize == 0 && Configuration.enableOldschoolFrame) {
 					return 109;
 				}
 				
-                return clientSize != 0 ? 106 : Configuration.enableSpecialOrb ? 76 : 93;
+                return clientSize != 0 ? 106 : Settings.INTERFACES.getBoolean(Setting.SPECIAL_ORB) ? 76 : 93;
             case 3:
             	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
             		return 128;
             	}
             	
-                return clientSize != 0 ? 135 : Configuration.enableSpecialOrb ? 107 : 128;
+                return clientSize != 0 ? 135 : Settings.INTERFACES.getBoolean(Setting.SPECIAL_ORB) ? 107 : 128;
             case 4:
             	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
             		return 134;
@@ -2061,9 +2062,9 @@ public class Client extends RSApplet {
     private double fillSpec;
 
     public void drawSpecOrb() {
-    	if (!Configuration.enableSpecialOrb) {
-    		return;
-    	}
+        if (!Settings.INTERFACES.getBoolean(Setting.SPECIAL_ORB)) {
+            return;
+        }
         int spec = (int) (((double) currentSpec / (double) 100) * 100D);
         int x = getOrbX(4);
         int y = getOrbY(4);
@@ -4133,7 +4134,7 @@ public class Client extends RSApplet {
         } else {
         	processInterfaceClick(j);
 
-            if (Configuration.enableShiftClickDrop && mouseClickInventory() && j == LEFT && shiftDown) {
+            if (Settings.CONTROLS.getBoolean(Setting.SHIFT_CLICK_DROP) && mouseClickInventory() && j == LEFT && shiftDown) {
                 stream.createFrame(87);
                 stream.method432((RSInterface.interfaceCache[3214].inv[mouseInvInterfaceIndex] - 1));
                 stream.writeWord(3214);
@@ -4195,7 +4196,7 @@ public class Client extends RSApplet {
 				if (!chatboxInFocus) {
 					chatboxInFocus = true;
 				}
-			} else if (Configuration.enableWASDCamera) {
+			} else if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
 				if (chatboxInFocus) {
 					chatboxInFocus = false;
 				}
@@ -10978,7 +10979,7 @@ public class Client extends RSApplet {
                 break;
             }
             if (openInterfaceID == 32600) {
-            	if (Configuration.enableWASDCamera) {
+            	if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
 					chatboxInFocus = true;
 				}
 
@@ -11020,9 +11021,9 @@ public class Client extends RSApplet {
                 return;
             }
             if (consoleOpen) {
-            	if (Configuration.enableWASDCamera) {
-					chatboxInFocus = true;
-				}
+                if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
+                    chatboxInFocus = true;
+                }
 
                 if (key == 8 && consoleInput.length() > 0) {
                     consoleInput = consoleInput.substring(0, consoleInput.length() - 1);
@@ -11038,8 +11039,82 @@ public class Client extends RSApplet {
                     inputTaken = true;
                 }
                 return;
+            } else if (textInput != null) {
+                if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
+                    chatboxInFocus = true;
+                }
+
+                boolean update = false;
+
+                String message = MiscUtils.capitalize(textInput.message);
+
+                if (key == 8 && message.length() > 0) {
+                    message = message.substring(0, message.length() - 1);
+                    if (message.length() > 0 && textInput.onlyNumbers && !textInput.displayAsterisks) {
+                        long num = Long.valueOf(message.replaceAll(",", ""));
+
+                        if (num > Integer.MAX_VALUE) {
+                            num = Integer.MAX_VALUE;
+                            textInput.message = num + "";
+                        }
+
+                        message = NumberFormat.getInstance(Locale.US).format(num);
+                    }
+                    update = true;
+                }
+
+                if ((textInput.onlyNumbers ? (key >= 48 && key <= 57) : (key >= 32 && key <= 122)) && message.length() < textInput.characterLimit) {
+                    message += (char) key;
+                    if (textInput.onlyNumbers && !textInput.displayAsterisks) {
+                        long num = Long.valueOf(message.replaceAll(",", ""));
+
+                        if (num > Integer.MAX_VALUE) {
+                            num = Integer.MAX_VALUE;
+                            textInput.message = num + "";
+                        }
+
+                        message = NumberFormat.getInstance(Locale.US).format(num);
+                    }
+                    update = true;
+                }
+
+                textInput.message = message;
+
+                if ((key == 13 || key == 10) && textInput.message.length() > 0) {
+                    if (textInput.onlyNumbers) {
+                        long amount = 0;
+
+                        try {
+                            amount = Long.parseLong(message.replaceAll(",", ""));
+
+                            // overflow concious code
+                            if (amount < -Integer.MAX_VALUE) {
+                                amount = -Integer.MAX_VALUE;
+                            } else if (amount > Integer.MAX_VALUE) {
+                                amount = Integer.MAX_VALUE;
+                            }
+                        } catch (Exception ignored) {
+                        }
+
+                        if (amount > 0) {
+                            stream.createFrame(208);
+                            stream.writeDWord((int) amount);
+                        }
+                    } else {
+                        stream.createFrame(150);
+                        stream.writeByte(textInput.message.length() + 3);
+                        stream.writeWord(textInput.id);
+                        stream.writeString(textInput.message);
+                    }
+                    textInput.message = "";
+                    textInput = null;
+                }
+
+                if (update) {
+                    doTextField(textInput);
+                }
             } else if (RSInterface.currentInputField != null) {
-                if (Configuration.enableWASDCamera) {
+                if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
                     chatboxInFocus = true;
                 }
 
@@ -11119,7 +11194,7 @@ public class Client extends RSApplet {
                 }
             }
             if (openInterfaceID == 10000) {
-            	if (Configuration.enableWASDCamera) {
+            	if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
 					chatboxInFocus = true;
 				}
 
@@ -11210,7 +11285,7 @@ public class Client extends RSApplet {
                 }
             }
             if (openInterfaceID != -1 && openInterfaceID == reportAbuseInterfaceID) {
-            	if (Configuration.enableWASDCamera) {
+            	if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
 					chatboxInFocus = true;
 				}
 
@@ -11222,7 +11297,7 @@ public class Client extends RSApplet {
                     reportAbuseInput += (char) key;
                 }
             } else if (showInput) {
-            	if (Configuration.enableWASDCamera) {
+            	if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
 					chatboxInFocus = true;
 				}
 
@@ -11369,7 +11444,7 @@ public class Client extends RSApplet {
                     }
                 }
             } else if (inputDialogState == 1) {
-            	if (Configuration.enableWASDCamera) {
+            	if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
 					chatboxInFocus = true;
 				}
 
@@ -11563,7 +11638,7 @@ public class Client extends RSApplet {
                 }
 
             } else if (inputDialogState == 3) {
-            	if (Configuration.enableWASDCamera) {
+            	if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
 					chatboxInFocus = true;
 				}
 
@@ -11588,7 +11663,7 @@ public class Client extends RSApplet {
                     inputTaken = true;
                 }
             } else if (inputDialogState == 2 || isSearchingGe()) {
-            	if (Configuration.enableWASDCamera) {
+            	if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
 					chatboxInFocus = true;
 				}
 
@@ -11622,7 +11697,7 @@ public class Client extends RSApplet {
                     inputTaken = true;
                 }
             } else if (inputDialogState == 5) {
-            	if (Configuration.enableWASDCamera) {
+            	if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
 					chatboxInFocus = true;
 				}
 
@@ -11651,7 +11726,7 @@ public class Client extends RSApplet {
                     inputTaken = true;
                 }
             } else if (backDialogID == -1) {
-            	if (Configuration.enableWASDCamera) {
+            	if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
 					chatboxInFocus = true;
 				}
 
@@ -14949,13 +15024,6 @@ public class Client extends RSApplet {
             e.printStackTrace();
         }
 
-        ClientSettings.load();
-
-		if (rememberMe && lastCharacter != null) {
-			myUsername = lastCharacter.getUsername();
-			myPassword = lastCharacter.getPassword();
-		}
-
         /**
          * DOWNLOADING CACHE *
          */
@@ -15249,6 +15317,14 @@ public class Client extends RSApplet {
             setLoadingText(100, "");
             isLoading = false;
             setGameState(GameState.LOGIN_SCREEN);
+
+            ClientSettings.load();
+
+            if (rememberMe && lastCharacter != null) {
+                myUsername = lastCharacter.getUsername();
+                myPassword = lastCharacter.getPassword();
+            }
+
         } catch (Exception exception) {
             exception.printStackTrace();
             isLoading = false;
@@ -16727,6 +16803,7 @@ public class Client extends RSApplet {
                         if (SkillQuantityWidget.isQuantitySelected(child.id)) {
                     		color = child.enabledColor;
                         }
+                        int firstIndex = -1;
                         for (int l6 = childY + textDrawingArea.anInt1497; s
                                 .length() > 0; l6 += textDrawingArea.anInt1497) {
                             if (s.indexOf("%") != -1) {
@@ -16778,6 +16855,8 @@ public class Client extends RSApplet {
                                 } while (true);
                             }
                             int l8 = s.indexOf("\\n");
+                            if (firstIndex == -1)
+                                firstIndex = l8;
                             String s1;
                             if (l8 != -1) {
                                 s1 = s.substring(0, l8);
@@ -16786,6 +16865,9 @@ public class Client extends RSApplet {
                                 if (child.centerText) { // Vertically center the string which has a new line
                                     l6 -= 5;
                                 }
+
+                                if (firstIndex != l8)
+                                    l6 += 2;
                             } else {
                                 s1 = s;
                                 s = "";
@@ -17836,6 +17918,19 @@ public class Client extends RSApplet {
 
                             font.drawCenteredString(current + " / " + maximum, childX + (child.width - 3) / 2, childY + child.height / 2 + 5, 0xFFFFFF, 0);
                         }
+                    } else if (child.type == 58) {
+
+                        if (childHovered && !child.inFocus && super.mouseDown == 1 && !menuOpen) {
+                            child.inFocus = true;
+                            textInput = child;
+                            CustomWidget cw = Widget.mainForComponent(child.id);
+
+                            if (cw != null && cw.inputFieldListener != null) {
+                                cw.inputFieldListener.onInputFocus(child.id);
+                            }
+                        }
+
+                        child.rsFont.drawBasicString(child.message + (childHovered || child.inFocus ? "<col=ffffff>*</col>" : "*"), childX + 6, childY + 16, child.disabledColor, 0);
                     }
                 }
                 if (openInterfaceID == 10000) {
@@ -23491,7 +23586,7 @@ public class Client extends RSApplet {
 
         Iterator<Particle> iterator;
         Particle particle;
-        if (Configuration.enableParticles) {
+        if (Settings.INTERFACES.getBoolean(Setting.PARTICLES)) {
             iterator = displayedParticles.iterator();
             while (iterator.hasNext()) {
                 particle = iterator.next();
@@ -24025,6 +24120,11 @@ public class Client extends RSApplet {
 
         if (openInterfaceID > -1)
             RSInterface.interfaceCache[openInterfaceID].onClose();
+
+        if (textInput != null) {
+            textInput.message = "";
+            textInput = null;
+        }
 
         if (RSInterface.currentInputField != null) {
             RSInterface.currentInputField.enabledMessage = "";
@@ -27340,5 +27440,7 @@ public class Client extends RSApplet {
     public boolean tweenPlayerAnimations;
     public boolean tweenNpcAnimations;
     public boolean tweenObjectAnimations;
+
+    public RSInterface textInput;
 
 }

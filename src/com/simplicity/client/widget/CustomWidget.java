@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import com.simplicity.client.Client;
+import com.simplicity.client.RSFontSystem;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.Sprite;
 import com.simplicity.client.cache.DataType;
@@ -1147,6 +1148,21 @@ public abstract class CustomWidget {
         for (int i = from; i <= to; i++) {
             RSInterface.interfaceCache[i].message = "";
         }
+    }
+
+    public RSInterface addTextInput(int width, int height, String tooltip, int characterLimit) {
+        RSInterface rsi = RSInterface.addInterface(id, width, height);
+        rsi.type = 58;
+        rsi.componentId = id++;
+        rsi.disabledColor = 0xff981f;
+        rsi.message = "";
+        rsi.tooltip = tooltip;
+        rsi.rsFont = Client.getClient().newRegularFont;
+        rsi.atActionType = 5;
+        rsi.contentType = 0;
+        rsi.hovers = true;
+        rsi.characterLimit = characterLimit;
+        return rsi;
     }
     
 }

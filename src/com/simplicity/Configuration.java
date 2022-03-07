@@ -88,26 +88,10 @@ public class Configuration {
 	public static int playerAttackOptionPriority = 2;
 	public static int npcAttackOptionPriority = 2;
     
-	/**
-	 * Indicates whether the shift click drop function is enabled or not.
-	 */
-    public static boolean enableShiftClickDrop;
-    
     /**
      * Indicates whether the follower options priority is enabled or not.
      */
     public static boolean enableFollowerOptionPriority;
-    
-    /**
-     * Indicates whether the mouse camera rotation is enabled or not.
-     */
-    public static boolean enableMouseCamera = true;
-    
-    /**
-	 * Indicates whether the escape key can be used to close interface or not.
-	 */
-    public static boolean escapeClosesInterface;
-
     
     /**
      * Indicates whether hd textures are enabled or not.
@@ -173,12 +157,7 @@ public class Configuration {
      * Indicates whether hd shading is enabled or not.
      */
 	public static boolean enableHDShading = true;
-	
-    /**
-     * Indicates whether the particles are enabled or not.
-     */
-	public static boolean enableParticles = true;
-	
+
     /**
      * Indicates whether skill status bars are enabled or not.
      */
@@ -203,11 +182,6 @@ public class Configuration {
 	 * Indicates whether the tile markers are enabled or not.
 	 */
 	public static boolean enableTileMarkers = false;
-	
-	/**
-	 * Indicates whether the WASD camera is enabled or not.
-	 */
-	public static boolean enableWASDCamera = false;
 	
 	/**
 	 * Indicates whether tweening is enabled or not.

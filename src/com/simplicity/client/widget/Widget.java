@@ -22,6 +22,7 @@ import com.simplicity.client.widget.raids.cox.tab.RaidingTabContainerWidget;
 import com.simplicity.client.widget.raids.nightmare.HealthHud;
 import com.simplicity.client.widget.raids.nightmare.TotemsOverlay;
 import com.simplicity.client.widget.raids.tob.*;
+import com.simplicity.client.widget.settings.SettingsWidget;
 
 public class Widget {
 	
@@ -86,6 +87,7 @@ public class Widget {
 		init(new ShootingStarHud());
 		init(new EquipmentBonuses());
 		init(new PresetsWidget());
+		init(new SettingsWidget());
 	}
 
 	/**

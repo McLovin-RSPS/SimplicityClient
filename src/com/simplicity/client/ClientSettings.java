@@ -5,21 +5,16 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.simplicity.Configuration;
 import com.simplicity.client.content.Keybinding;
 import com.simplicity.client.content.login.LoginScreen;
 import com.simplicity.client.content.login.LoginScreen.CharacterFile;
-import com.simplicity.client.entity.Position;
-import com.simplicity.client.widget.QuestTab;
-import com.simplicity.client.widget.SettingsWidget;
+import com.simplicity.client.widget.settings.Setting;
+import com.simplicity.client.widget.settings.Settings;
 
 /**
  * A class that handles the client settings saving & loading for the player.
@@ -70,16 +65,8 @@ public class ClientSettings {
 				SoundPlayer.setVolume(reader.get("sound-volume").getAsInt());
 			}
 			
-			if (reader.has("brightness")) {
-				Client.instance.shadowIndex = reader.get("brightness").getAsInt();
-			}
-			
 			if (reader.has("hd-textures")) {
 				Configuration.enableHDTextures = reader.get("hd-textures").getAsBoolean();
-			}
-			
-			if (reader.has("special-orb")) {
-				Configuration.enableSpecialOrb = reader.get("special-orb").getAsBoolean();
 			}
 			
 			if (reader.has("tooltip-hover")) {
@@ -130,14 +117,6 @@ public class ClientSettings {
 				Configuration.enableHDShading = reader.get("hd-shading").getAsBoolean();
 			}
 			
-			if (reader.has("particles")) {
-				Configuration.enableParticles = reader.get("particles").getAsBoolean();
-			}
-			
-			if (reader.has("shift-click-drop")) {
-				Configuration.enableShiftClickDrop = reader.get("shift-click-drop").getAsBoolean();
-			}
-			
 			if (reader.has("chat-effects")) {
 				Client.instance.variousSettings[171] = reader.get("chat-effects").getAsBoolean() ? 1 : 0;
 				Client.sendVarbitChanged(171);
@@ -151,14 +130,6 @@ public class ClientSettings {
 			if (reader.has("mouse-buttons")) {
 				Client.instance.anInt1253 = Client.instance.variousSettings[170] = reader.get("mouse-buttons").getAsBoolean() ? 1 : 0;
 				Client.sendVarbitChanged(170);
-			}
-			
-			if (reader.has("mouse-camera")) {
-				Configuration.enableMouseCamera = reader.get("mouse-camera").getAsBoolean();
-			}
-			
-			if (reader.has("esc-closes-interface")) {
-				Configuration.escapeClosesInterface = reader.get("esc-closes-interface").getAsBoolean();
 			}
 			
 			if (reader.has("item-stats-hover")) {
@@ -194,6 +165,23 @@ public class ClientSettings {
 			
 			if (reader.has("quick-curses")) {
 				Client.instance.setQuickCurses(builder.fromJson(reader.get("quick-curses"), int[].class));
+			}
+
+			for (Map.Entry<String, Object> entry : Settings.settings.entrySet()) {
+				String key = entry.getKey();
+
+				if (reader.has(key)) {
+					JsonArray arr = reader.getAsJsonArray(key);
+					String type = arr.get(0).getAsString();
+
+					if (type.equals("str")) {
+						Settings.settings.put(key, arr.get(1).getAsString());
+					} else if (type.equals("bool")) {
+						Settings.settings.put(key, arr.get(1).getAsBoolean());
+					} else if (type.equals("int")) {
+						Settings.settings.put(key, arr.get(1).getAsInt());
+					}
+				}
 			}
 			
 			fileReader.close();
@@ -231,7 +219,6 @@ public class ClientSettings {
 			object.addProperty("sound-volume", SoundPlayer.getVolume());
 			object.addProperty("brightness", Client.instance.shadowIndex);
 			object.addProperty("hd-textures", Configuration.enableHDTextures);
-			object.addProperty("special-orb", Configuration.enableSpecialOrb);
 			object.addProperty("tooltip-hover", Configuration.enableTooltipHover);
 			object.addProperty("old-hits", Configuration.enableOldHitmarkers);
 			object.addProperty("constitution", Configuration.enableConstitution);
@@ -243,13 +230,9 @@ public class ClientSettings {
 			object.addProperty("anti-aliasing", Configuration.enableAntiAliasing);
 			object.addProperty("save-input", Configuration.enableSaveInput);
 			object.addProperty("hd-shading", Configuration.enableHDShading);
-			object.addProperty("particles", Configuration.enableParticles);
-			object.addProperty("shift-click-drop", Configuration.enableShiftClickDrop);
 			object.addProperty("chat-effects", Client.instance.variousSettings[171] == 1);
 			object.addProperty("split-private-chat", Client.instance.variousSettings[287] == 0);
 			object.addProperty("mouse-buttons", Client.instance.variousSettings[170] == 1);
-			object.addProperty("mouse-camera", Configuration.enableMouseCamera);
-			object.addProperty("esc-closes-interface", Configuration.escapeClosesInterface);
 			object.addProperty("item-stats-hover", Configuration.enableItemStats);
 			object.addProperty("moderation-menu-enabled", Configuration.enableModerationMenu);
 			object.addProperty("zooming", Configuration.enableZooming);
@@ -259,6 +242,28 @@ public class ClientSettings {
 			object.add("keybindings", builder.toJsonTree(Keybinding.KEYBINDINGS));
 			object.add("quick-prayers", builder.toJsonTree(Client.instance.getQuickPrayers()));
 			object.add("quick-curses", builder.toJsonTree(Client.instance.getQuickCurses()));
+
+
+			for (Map.Entry<String, Object> entry : Settings.settings.entrySet()) {
+				String key = entry.getKey();
+				Object value = entry.getValue();
+
+				JsonArray arr = new JsonArray();
+
+				if (value instanceof String) {
+					arr.add("str");
+				} else if (value instanceof Boolean) {
+					arr.add("bool");
+				} else if (value instanceof Integer) {
+					arr.add("int");
+				} else {
+					System.out.println("Invalid setting value: " + value.getClass().getSimpleName());
+					continue;
+				}
+
+				arr.add(String.valueOf(value));
+				object.add(key, arr);
+			}
 
 			writer.write(builder.toJson(object));
 			writer.close();
@@ -286,10 +291,8 @@ public class ClientSettings {
 		Configuration.enableAntiAliasing = false;
 		Configuration.enableSaveInput = true;
 		Configuration.enableHDShading = true;
-		Configuration.enableParticles = true;
 		Configuration.enableMipmapping = false;
 		Configuration.enableItemStats = 1;
-		Configuration.enableWASDCamera = false;
 		Configuration.enableZooming = true;
 		Configuration.enableBountyTarget = true;
 		Configuration.enableModerationMenu = true;

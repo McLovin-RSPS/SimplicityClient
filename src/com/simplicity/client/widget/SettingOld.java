@@ -17,25 +17,10 @@ import com.simplicity.util.StringUtils;
  * @author Blake
  *
  */
-public enum Setting {
+public enum SettingOld {
 	
 	GRAPHICS(true),
 	
-	PARTICLES() {
-
-		@Override
-		public void handle() {
-			enableParticles = !enableParticles;
-			Client.enableParticles = enableParticles;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableParticles;
-		}
-
-	},
-
 	HD_TEXTURES() {
 
 		@Override
@@ -133,31 +118,6 @@ public enum Setting {
 	
 	TOGGLES(true),
 	
-	SPECIAL_ORB() {
-
-		@Override
-		public void handle() {
-			enableSpecialOrb = !enableSpecialOrb;
-			
-            RSInterface iface2 = RSInterface.interfaceCache[41005];
-            
-            if (enableSpecialOrb) {
-                if (!Client.instance.parallelWidgetList.contains(iface2)) {
-                    Client.instance.parallelWidgetList.add(iface2);
-                }
-            } else {
-                if (Client.instance.parallelWidgetList.contains(iface2)) {
-                	Client.instance.parallelWidgetList.remove(iface2);
-                }
-            }
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableSpecialOrb;
-		}
-	},
-	
 	HITMARKERS(new DropdownMenu(75, false, 0, new String[] { "562", "OSRS" }, Dropdown.HITMARKERS)) { },
 	
 	HP_BARS(new DropdownMenu(75, false, 0, new String[] { "562", "OSRS" }, Dropdown.HPBARS)) { },
@@ -230,20 +190,6 @@ public enum Setting {
 		}
 	},
 	
-	W_A_S_D() {
-		@Override
-		public void handle() {
-			Configuration.enableWASDCamera = !Configuration.enableWASDCamera;
-			
-			Client.instance.chatboxInFocus = !Configuration.enableWASDCamera;
-		}
-
-		@Override
-		public boolean enabled() {
-			return Configuration.enableWASDCamera;
-		}
-	},
-	
 	BOUNTY_TARGET() {
 		@Override
 		public void handle() {
@@ -256,25 +202,25 @@ public enum Setting {
 		}
 	};
 	
-	Setting() {
+	SettingOld() {
 		
 	}
 	
 	/**
-	 * Constructs a new {@link Setting}.
+	 * Constructs a new {@link SettingOld}.
 	 * 
 	 * @param category A flag which indicates if the setting is a category or not.
 	 */
-	Setting(boolean category) {
+	SettingOld(boolean category) {
 		this.category = category;
 	}
 
 	/**
-	 * Constructs a new {@link Setting}.
+	 * Constructs a new {@link SettingOld}.
 	 * 
 	 * @param dropdownMenu The drop down menu.
 	 */
-	Setting(DropdownMenu dropdownMenu) {
+	SettingOld(DropdownMenu dropdownMenu) {
 		this.dropdownMenu = dropdownMenu;
 	}
 	
@@ -333,7 +279,7 @@ public enum Setting {
 	public static int size() {
 		int size = 0;
 		
-		for (Setting s : values()) {
+		for (SettingOld s : values()) {
 			size += s.isCategory() ? 1 : 4;
 		}
 		
