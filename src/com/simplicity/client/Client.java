@@ -9356,7 +9356,6 @@ public class Client extends RSApplet {
                 case SettingsTabWidget.DISPLAY_BUTTON:
 				case SettingsTabWidget.AUDIO_BUTTON:
 				case SettingsTabWidget.CHAT_BUTTON:
-				case SettingsTabWidget.CONTROL_BUTTON:
 					SettingsTabWidget.switchSettings(interfaceId);
 					break;
 

@@ -6,6 +6,10 @@ public class Setting {
     public static final String SOUND_VOLUME = "soundVolume";
     public static final String MUSIC_VOLUME = "musicVolume";
 
+    /* Chat */
+    public static final String CHAT_EFFECTS = "chatEffects";
+    public static final String SPLIT_PRIVATE = "splitPrivate";
+
     /* Display */
     public static final String BRIGHTNESS = "brightness";
     public static final String ZOOM = "zoomLevel";
@@ -25,6 +29,7 @@ public class Setting {
     public static final String MIDDLE_MOUSE_CAMERA = "middleMouseCamera";
     public static final String WASD_CAMERA = "wasdCamera";
     public static final String SHIFT_CLICK_DROP = "shiftClickDrop";
+    public static final String FOLLOWER_PRIORITY = "followerPriority";
     public static final String ESC_CLOSES_INTERFACE = "escClosesInterface";
 
     /* Interfaces */

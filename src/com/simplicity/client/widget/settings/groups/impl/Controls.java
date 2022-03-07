@@ -34,7 +34,7 @@ public class Controls extends SettingGroup {
 
         add(control, new Toggle(SINGLE_MOUSE_BUTTON, "Single mouse button mode",
                 "When enabled, if you left click where there is more than one\\noption, the click will act as if you right clicked.",
-                false));
+                false, enabled -> Client.instance.sendFrame36(170, enabled ? 0 : 1)));
 
         add(control, new Toggle(MIDDLE_MOUSE_CAMERA, "Middle mouse camera",
                 "When enabled, if you hold down the middle mouse button, you\\ncan move the camera.",
@@ -47,6 +47,10 @@ public class Controls extends SettingGroup {
         add(control, new Toggle(SHIFT_CLICK_DROP, "Shift click to drop items",
                 "When enabled, if you hold shift, your left click option on items\\nin your inventory will default to drop.",
                 false));
+
+        /*add(control, new Toggle(FOLLOWER_PRIORITY, "Move follower options lower down",
+                "Moves the pet options lower down in the options menu, this\\nstops your left click on the pet being Talk-to.",
+                false));*/
 
         add(control, new Toggle(ESC_CLOSES_INTERFACE, "Esc closes the current interface",
                 "When enabled, the escape key will close your active interface.",
