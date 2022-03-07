@@ -14681,13 +14681,13 @@ public class Client extends RSApplet {
                     if (entityDef.actions[i1] != null && entityDef.actions[i1].equalsIgnoreCase("attack")) {
 						char c = '\0';
 
-						if (Configuration.npcAttackOptionPriority == 0) {
+						if (Settings.getInt(Setting.NPC_ATT_OPT) == 0) {
 							if (entityDef.combatLevel > myPlayer.combatLevel) {
 								c = '\u07D0';
 							}
-						} else if (Configuration.npcAttackOptionPriority == 1) {
+						} else if (Settings.getInt(Setting.NPC_ATT_OPT) == 1) {
 							c = '\u07D0';
-						} else if (Configuration.npcAttackOptionPriority == 3) {
+						} else if (Settings.getInt(Setting.NPC_ATT_OPT) == 3) {
 							continue;
 						}
 
@@ -14802,13 +14802,13 @@ public class Client extends RSApplet {
 
                     if (atPlayerActions[l].equalsIgnoreCase("attack")) {
 
-						if (Configuration.playerAttackOptionPriority == 0) {
+                        if (Settings.getInt(Setting.PLAYER_ATT_OPT) == 0) {
 							if (player.combatLevel > myPlayer.combatLevel) {
 								c = '\u07D0';
 							}
-						} else if (Configuration.playerAttackOptionPriority == 1) {
+						} else if (Settings.getInt(Setting.PLAYER_ATT_OPT) == 1) {
 							c = '\u07D0';
-						} else if (Configuration.playerAttackOptionPriority == 3) {
+						} else if (Settings.getInt(Setting.PLAYER_ATT_OPT) == 3) {
 							continue;
 						}
 

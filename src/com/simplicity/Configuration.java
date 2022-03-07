@@ -85,9 +85,7 @@ public class Configuration {
 	 * 2: Left-click where available
 	 * 3: Hidden
 	 */
-	public static int playerAttackOptionPriority = 2;
-	public static int npcAttackOptionPriority = 2;
-    
+
     /**
      * Indicates whether the follower options priority is enabled or not.
      */

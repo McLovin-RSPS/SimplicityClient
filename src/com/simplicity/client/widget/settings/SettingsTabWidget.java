@@ -442,8 +442,8 @@ public class SettingsTabWidget extends RSInterface {
 		interfaceCache[CHAT_EFFECTS].active = Client.instance.variousSettings[171] == 1;
 		interfaceCache[SPLIT_PRIVATE_CHAT].active = Client.instance.variousSettings[287] == 0;
 		interfaceCache[MOUSE_BUTTONS].active = Client.instance.variousSettings[170] == 1;
-		interfaceCache[PLAYER_ATTACK_DROPDOWN].dropdown.setSelected(interfaceCache[PLAYER_ATTACK_DROPDOWN].dropdown.getOptions()[Configuration.playerAttackOptionPriority]);
-        interfaceCache[NPC_ATTACK_DROPDOWN].dropdown.setSelected(interfaceCache[NPC_ATTACK_DROPDOWN].dropdown.getOptions()[Configuration.npcAttackOptionPriority]);
+		interfaceCache[PLAYER_ATTACK_DROPDOWN].dropdown.setSelected(interfaceCache[PLAYER_ATTACK_DROPDOWN].dropdown.getOptions()[Settings.getInt(Setting.PLAYER_ATT_OPT)]);
+        interfaceCache[NPC_ATTACK_DROPDOWN].dropdown.setSelected(interfaceCache[NPC_ATTACK_DROPDOWN].dropdown.getOptions()[Settings.getInt(Setting.NPC_ATT_OPT)]);
 	}
 
 	/**
