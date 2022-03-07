@@ -31,4 +31,7 @@ public abstract class SettingObject<T> {
     public void draw(int idx, int y, int width, int height, CustomWidget widget) {
         widget.add(widget.addRectangle(width, 27 + height, 0, idx % 2 == 0 ? 200 : 225, true), 97, 12 + y);
     }
+
+    public abstract void update();
+
 }
