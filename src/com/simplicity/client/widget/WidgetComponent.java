@@ -13,6 +13,8 @@ public class WidgetComponent {
     
     public int parentId;
 
+    public int priority;
+
     public WidgetComponent(Point point, RSInterface component) {
         this.point = point;
         this.component = component;

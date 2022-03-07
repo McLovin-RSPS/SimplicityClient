@@ -69,6 +69,10 @@ public abstract class CustomWidget {
     public abstract String getName();
 
     public void add(RSInterface widget, int x, int y) {
+        add(widget, x, y, 0);
+    }
+
+    public void add(RSInterface widget, int x, int y, int priority) {
         widget.componentId = widget.id;
 
         if (RSInterface.interfaceCache[widget.componentId] != null) {
@@ -89,9 +93,10 @@ public abstract class CustomWidget {
         WidgetComponent component = new WidgetComponent(new Point(x, y), widget);
         component.componentId = widget.componentId;
         component.parentId = mainId;
+        component.priority = priority;
         components.add(component);
     }
-    
+
     public void add(WidgetComponent component, int x, int y) {
     	Widget.componentForMain.put(component.componentId, mainId);
     	components.add(component);
