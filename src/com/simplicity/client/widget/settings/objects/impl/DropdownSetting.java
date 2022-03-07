@@ -33,4 +33,9 @@ public class DropdownSetting extends SettingObject<Integer> {
 
         widget.add(rsi, width - menu.getWidth() / 2 + 8, 28 + y, priority);
     }
+
+    @Override
+    public void update() {
+    }
+
 }

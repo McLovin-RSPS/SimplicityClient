@@ -39,4 +39,9 @@ public class Toggle extends SettingObject<Boolean> {
         widget.add(rectangle, 97, 12 + y);
         widget.add(toggle, 461, 6 + height + y);
     }
+
+    @Override
+    public void update() {
+    }
+
 }

@@ -8,14 +8,14 @@ import java.util.*;
 
 public abstract class SettingGroup {
 
-    @Getter public Map<String, List<SettingObject>> settings = new HashMap<>();
+    @Getter public Map<String, List<SettingObject>> data = new HashMap<>();
 
     public abstract void init();
 
     public void add(String section, SettingObject setting) {
-        final List<SettingObject> objects = settings.getOrDefault(section, new ArrayList<>());
+        final List<SettingObject> objects = data.getOrDefault(section, new ArrayList<>());
         objects.add(setting);
-        settings.put(section, objects);
+        data.put(section, objects);
         Settings.settings.put(setting.getKey(), setting.getValue());
     }
 

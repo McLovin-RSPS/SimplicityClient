@@ -3,11 +3,11 @@ package com.simplicity.client.widget.settings;
 import com.simplicity.client.ClientSettings;
 import com.simplicity.client.widget.settings.groups.SettingGroup;
 import com.simplicity.client.widget.settings.groups.impl.*;
-import com.simplicity.client.widget.settings.objects.SettingObject;
 import com.simplicity.util.MiscUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,8 +34,18 @@ public enum Settings {
      * @param key The key.
      * @return The setting as an integer.
      */
-    public int getInt(String key) {
+    public static int getInt(String key) {
         return (int) settings.getOrDefault(key, 0);
+    }
+
+    /**
+     * Gets the setting as a double.
+     *
+     * @param key The key.
+     * @return The setting as an integer.
+     */
+    public static double getDouble(String key) {
+        return (double) settings.getOrDefault(key, 0D);
     }
 
     /**
@@ -59,23 +69,6 @@ public enum Settings {
     }
 
     /**
-     * Gets the setting.
-     *
-     * @param key The key.
-     * @return The setting.
-     */
-    private static Object get(String key) {
-        Object value = settings.get(key);
-
-        if (value == null) {
-            System.out.println("The key: " + key + " is not associated with any setting.");
-            return null;
-        }
-
-        return value;
-    }
-
-    /**
      * Sets the specified setting.
      *
      * @param key   The key.
@@ -89,6 +82,10 @@ public enum Settings {
 
         settings.put(key, value);
         ClientSettings.save();
+    }
+
+    public static void updateAll() {
+        Arrays.stream(values()).forEach(setting -> setting.group.updateSettings());
     }
 
     /**

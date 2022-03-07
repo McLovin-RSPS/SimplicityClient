@@ -11,18 +11,18 @@ public abstract class SettingObject<T> {
     private final String key;
     private final String name;
     private final String description;
-    private final Alignment alignment;
+    private final Alignment textAlignment;
     private final T defaultValue;
     private final Consumer<T> handle;
 
     @Setter
     private T value;
 
-    public SettingObject(String key, String name, String description, Alignment alignment, T defaultValue, Consumer<T> handle) {
+    public SettingObject(String key, String name, String description, Alignment textAlignment, T defaultValue, Consumer<T> handle) {
         this.key = key;
         this.name = name;
         this.description = description;
-        this.alignment = alignment;
+        this.textAlignment = textAlignment;
         this.defaultValue = value = defaultValue;
         this.handle = handle;
     }

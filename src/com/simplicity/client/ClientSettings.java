@@ -174,12 +174,14 @@ public class ClientSettings {
 					JsonArray arr = reader.getAsJsonArray(key);
 					String type = arr.get(0).getAsString();
 
-					if (type.equals("str")) {
+					if (type.equals("s")) {
 						Settings.settings.put(key, arr.get(1).getAsString());
-					} else if (type.equals("bool")) {
+					} else if (type.equals("b")) {
 						Settings.settings.put(key, arr.get(1).getAsBoolean());
-					} else if (type.equals("int")) {
+					} else if (type.equals("i")) {
 						Settings.settings.put(key, arr.get(1).getAsInt());
+					} else if (type.equals("d")) {
+						Settings.settings.put(key, arr.get(1).getAsDouble());
 					}
 				}
 			}
@@ -191,6 +193,8 @@ public class ClientSettings {
 			setDefaults();
 			save();
 		}
+
+		Settings.updateAll();
 	}
 
 	/**
@@ -251,11 +255,13 @@ public class ClientSettings {
 				JsonArray arr = new JsonArray();
 
 				if (value instanceof String) {
-					arr.add("str");
+					arr.add("s");
 				} else if (value instanceof Boolean) {
-					arr.add("bool");
+					arr.add("b");
 				} else if (value instanceof Integer) {
-					arr.add("int");
+					arr.add("i");
+				} else if (value instanceof Double) {
+					arr.add("d");
 				} else {
 					System.out.println("Invalid setting value: " + value.getClass().getSimpleName());
 					continue;

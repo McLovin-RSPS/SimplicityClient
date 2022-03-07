@@ -25,7 +25,7 @@ public class SettingGroupWidget extends CustomWidget {
 
         int y = 0;
 
-        Map<String, List<SettingObject>> settings = this.settings.getGroup().getSettings();
+        Map<String, List<SettingObject>> settings = this.settings.getGroup().getData();
 
         int idx = 0;
 
@@ -57,9 +57,9 @@ public class SettingGroupWidget extends CustomWidget {
                 final RSInterface text = addText(setting.getName(), 2, 0xff981f).setSize(width, 14);
                 final RSInterface desc = addText(setting.getDescription(), 1, 0x9f9f9f).setSize(width, height);
 
-                if (setting.getAlignment() == Alignment.RIGHT) {
+                if (setting.getTextAlignment() == Alignment.RIGHT) {
                     text.rightAlignText = true;
-                } else if (setting.getAlignment() == Alignment.CENTER) {
+                } else if (setting.getTextAlignment() == Alignment.CENTER) {
                     text.centerText = true;
                     desc.centerText = true;
                     descYOffset = 6;

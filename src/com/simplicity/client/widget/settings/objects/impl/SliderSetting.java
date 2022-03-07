@@ -2,12 +2,13 @@ package com.simplicity.client.widget.settings.objects.impl;
 
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.widget.CustomWidget;
+import com.simplicity.client.widget.settings.Settings;
 import com.simplicity.client.widget.settings.objects.SettingObject;
 import com.simplicity.util.Alignment;
 
 import java.util.function.Consumer;
 
-public class SliderSetting extends SettingObject<Integer> {
+public class SliderSetting extends SettingObject<Double> {
 
     private int sliderType;
 
@@ -22,5 +23,9 @@ public class SliderSetting extends SettingObject<Integer> {
 
         RSInterface slider = RSInterface.slider(widget.id++, 35, 0, 100, 372, 1340, 1338, sliderType);
         widget.add(slider, width / 2 + 32, 18 + height + y);
+    }
+
+    @Override
+    public void update() {
     }
 }

@@ -45,8 +45,6 @@ public class Keybinding {
                 KeyEvent.VK_F12,
         };
 
-        Settings.set(Setting.ESC_CLOSES_INTERFACE, true);
-
         if (RSInterface.interfaceCache != null && RSInterface.interfaceCache[ESCAPE_CONFIG] != null) {
         	RSInterface.interfaceCache[ESCAPE_CONFIG].active = true;
         }
