@@ -36,6 +36,9 @@ public class DropdownSetting extends SettingObject<Integer> {
 
     @Override
     public void update() {
+        int selected = Settings.getInt(getKey());
+        String option = menu.getOptions()[selected];
+        menu.setSelected(option);
     }
 
 }

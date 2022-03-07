@@ -9993,7 +9993,11 @@ public class Client extends RSApplet {
 				return;
 			d.dropdown.setSelected(d.dropdown.getOptions()[slot]);
 			d.dropdown.setOpen(false);
-			d.dropdown.getDrop().selectOption(slot, d);
+            if (d.dropdown.onSelect != null) {
+                d.dropdown.onSelect.accept(slot);
+            } else {
+                d.dropdown.getDrop().selectOption(slot, d);
+            }
 			p.dropdownOpen = null;
 		}
 		if (l == 86) { //Open broadcast url

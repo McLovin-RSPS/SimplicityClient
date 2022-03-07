@@ -19,4 +19,12 @@ public abstract class SettingGroup {
         Settings.settings.put(setting.getKey(), setting.getValue());
     }
 
+    public void updateSettings() {
+        try {
+            data.values().forEach(list -> list.forEach(SettingObject::update));
+        } catch (Exception e) {
+            System.out.println("Failed to update settings for " + getClass().getSimpleName());
+            e.printStackTrace();
+        }
+    }
 }

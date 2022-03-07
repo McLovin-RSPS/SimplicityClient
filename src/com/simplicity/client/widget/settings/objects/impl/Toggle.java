@@ -13,6 +13,8 @@ import java.util.function.Consumer;
 @Getter
 public class Toggle extends SettingObject<Boolean> {
 
+    private RSInterface toggle;
+
     public Toggle(String key, String name, String description, boolean defaultValue) {
         this(key, name, description, defaultValue, b -> {});
     }
@@ -23,7 +25,7 @@ public class Toggle extends SettingObject<Boolean> {
 
     @Override
     public void draw(int idx, int y, int width, int height, CustomWidget widget) {
-        RSInterface toggle = widget.configButton("Toggle", 1994, 1993);
+        toggle = widget.configButton("Toggle", 1994, 1993);
         toggle.interactable = () -> false;
         RSInterface rectangle = widget.addRectangleClickable(idx % 2 == 0 ? 200 : 225, 0, true, width, 27 + height, new String[] { "Toggle" });
         rectangle.hovers = true;
@@ -42,6 +44,7 @@ public class Toggle extends SettingObject<Boolean> {
 
     @Override
     public void update() {
+        toggle.active = Settings.getBoolean(getKey());
     }
 
 }
