@@ -1,6 +1,9 @@
 package com.simplicity.client.widget.dropdown;
 
+import com.simplicity.client.Client;
 import lombok.Getter;
+
+import java.util.function.Consumer;
 
 public class DropdownMenu {
 
@@ -11,8 +14,13 @@ public class DropdownMenu {
     private final boolean split;
     private boolean open;
     @Getter private String optionSelected;
+    public Consumer<Integer> onSelect;
 
     public DropdownMenu(int width, boolean split, int defaultOption, String[] options, Dropdown d) {
+        this(width, split, defaultOption, options, d, null);
+    }
+
+    public DropdownMenu(int width, boolean split, int defaultOption, String[] options, Dropdown d, Consumer<Integer> onSelect) {
         this.width = width;
         this.height = split ? ((14 * options.length) / 2) + 3 : (14 * options.length) + 3;
         this.options = options;
@@ -20,6 +28,18 @@ public class DropdownMenu {
         this.open = false;
         this.dropdown = d;
         this.split = split;
+        this.onSelect = onSelect;
+    }
+
+    public DropdownMenu(boolean split, int defaultOption, String[] options, Dropdown d, Consumer<Integer> onSelect) {
+        this.width = getMaxWidth(options);
+        this.height = split ? ((14 * options.length) / 2) + 3 : (14 * options.length) + 3;
+        this.options = options;
+        this.optionSelected = defaultOption == -1 ? "Select an option" : options[defaultOption];
+        this.open = false;
+        this.dropdown = d;
+        this.split = split;
+        this.onSelect = onSelect;
     }
 
     public int getHeight() {
@@ -71,5 +91,16 @@ public class DropdownMenu {
     public void reset() {
         this.setOpen(false);
         this.optionSelected = options[0];
+    }
+
+    private int getMaxWidth(String[] options) {
+        int maxWidth = 0;
+
+        for (String option: options) {
+            int width = Client.getClient().newSmallFont.getTextWidth(option);
+            maxWidth = Math.max(width, maxWidth);
+        }
+
+        return 36 + maxWidth;
     }
 }
