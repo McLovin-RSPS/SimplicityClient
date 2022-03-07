@@ -16,12 +16,12 @@ public class Display extends SettingGroup {
         add(graphics, new SliderSetting(BRIGHTNESS, "Screen Brightness",
                 "Change the level of brightness to make the world look lighter or\\ndarker.",
                 Slider.ZOOM,
-                4, brightness -> { }));
+                4D, brightness -> { }));
 
         add(graphics, new SliderSetting(ZOOM, "Camera zoom distance",
                 "Use the slider to change the camera zoom level.",
                 Slider.ZOOM,
-                1, zoom -> { }));
+                1D, zoom -> { }));
 
         add(graphics, new Toggle(ROOFS, "Hide roofs",
                 "When enabled, hides all roofs. If you are inside a building, the\\nroof will be hidden regardless of the setting being disabled.",

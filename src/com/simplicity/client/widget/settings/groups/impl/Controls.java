@@ -10,18 +10,23 @@ import static com.simplicity.client.widget.settings.Setting.*;
 public class Controls extends SettingGroup {
 
     final String control = "Control";
+    final String[] attackOptions = { "Depends on combat levels", "Always right-click", "Left-click where available", "Hidden" };
 
     @Override
     public void init() {
         add(control, new DropdownSetting(PLAYER_ATT_OPT,
                 "Player attack options",
                 "Select what the default left click\\noption on another player will be.",
-                2, value -> {}));
+                attackOptions,
+                slot -> System.out.println("Slot: " + slot),
+                2, 2, value -> {}));
 
         add(control, new DropdownSetting(NPC_ATT_OPT,
                 "Npc attack options",
                 "Select what the default left click\\noption on on an NPC will be.",
-                2, value -> {}));
+                attackOptions,
+                slot -> System.out.println("Slot: " + slot),
+                1, 2, value -> {}));
 
         add(control, new Toggle(PK_SKULL_PREVENTION, "PK skull prevention",
                 "When enabled, you will be prevented from attacking players in\\nany way that would cause you to become skulled.",
@@ -31,9 +36,9 @@ public class Controls extends SettingGroup {
                 "When enabled, if you left click where there is more than one\\noption, the click will act as if you right clicked.",
                 false));
 
-        add(control, new Toggle(SINGLE_MOUSE_BUTTON, "Middle mouse camera",
+        add(control, new Toggle(MIDDLE_MOUSE_CAMERA, "Middle mouse camera",
                 "When enabled, if you hold down the middle mouse button, you\\ncan move the camera.",
-                false));
+                true));
 
         add(control, new Toggle(WASD_CAMERA, "WASD camera",
                 "When enabled, you can use WASD keys to move the camera.",

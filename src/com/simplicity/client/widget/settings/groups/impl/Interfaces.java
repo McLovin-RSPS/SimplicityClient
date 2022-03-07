@@ -2,6 +2,7 @@ package com.simplicity.client.widget.settings.groups.impl;
 
 import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
+import com.simplicity.client.widget.dropdown.Dropdown;
 import com.simplicity.client.widget.settings.groups.SettingGroup;
 import com.simplicity.client.widget.settings.objects.impl.DropdownSetting;
 import com.simplicity.client.widget.settings.objects.impl.Toggle;
@@ -17,7 +18,9 @@ public class Interfaces extends SettingGroup {
         add(general, new DropdownSetting(CLIENT_LAYOUT,
                 "Game client layout",
                 "Select which client mode you\\nwould like to play the game in.\\nFixed mode is the classic client\\nlayout.\\nResizable will let you make the\\nclient as large as your screen.",
-                0,
+                new String[] { "First", "Second" },
+                slot -> System.out.println("Slot: " + slot),
+                1, 0,
                 Client.getClient()::toggleSize
         ));
 

@@ -14,10 +14,10 @@ public class Audio extends SettingGroup {
     public void init() {
         add(general, new SliderSetting(SOUND_VOLUME,
                 "Sound effect volume", "",
-                Slider.ZOOM,1, vol -> {}));
+                Slider.ZOOM,1D, vol -> {}));
 
         add(general, new SliderSetting(MUSIC_VOLUME,
                 "Music volume", "",
-                Slider.ZOOM, 1, vol -> {}));
+                Slider.ZOOM, 1D, vol -> {}));
     }
 }

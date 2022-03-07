@@ -93,14 +93,12 @@ public enum Dropdown {
     PLAYER_ATTACK_OPTION_PRIORITY() {
         @Override
         public void selectOption(int selected, RSInterface dropdown) {
-        	Configuration.playerAttackOptionPriority = selected;
         }
     },
 
     NPC_ATTACK_OPTION_PRIORITY() {
         @Override
         public void selectOption(int selected, RSInterface dropdown) {
-        	Configuration.npcAttackOptionPriority = selected;
         }
     };
 
