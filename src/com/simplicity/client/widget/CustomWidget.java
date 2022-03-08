@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import com.simplicity.client.Client;
+import com.simplicity.client.RSFontSystem;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.Sprite;
 import com.simplicity.client.cache.DataType;

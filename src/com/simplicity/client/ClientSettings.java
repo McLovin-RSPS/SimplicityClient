@@ -19,7 +19,6 @@ import com.simplicity.client.content.login.LoginScreen;
 import com.simplicity.client.content.login.LoginScreen.CharacterFile;
 import com.simplicity.client.entity.Position;
 import com.simplicity.client.widget.QuestTab;
-import com.simplicity.client.widget.SettingsWidget;
 
 /**
  * A class that handles the client settings saving & loading for the player.
