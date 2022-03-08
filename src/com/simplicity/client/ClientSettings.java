@@ -197,10 +197,26 @@ public class ClientSettings {
 		Settings.updateAll();
 	}
 
+	public static long lastSave;
+	public static long nextSave;
+
+	public static boolean shouldSave() {
+		return nextSave != 0 && System.currentTimeMillis() > nextSave;
+	}
+
 	/**
 	 * Attempts to save the client's settings.
 	 */
 	public static void save() {
+		if (nextSave > System.currentTimeMillis()) {
+			return;
+		}
+
+		if (nextSave == 0 && System.currentTimeMillis() - lastSave < 1_000) {
+			nextSave = System.currentTimeMillis() + 1_000;
+			return;
+		}
+
 		try {
 			File file = new File(SETTINGS_FILE_PATH);
 
@@ -278,6 +294,9 @@ public class ClientSettings {
 			e.printStackTrace();
 			setDefaults();
 		}
+
+		lastSave = System.currentTimeMillis();
+		nextSave = 0;
 	}
 
 	/**

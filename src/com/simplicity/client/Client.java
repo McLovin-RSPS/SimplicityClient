@@ -6823,6 +6823,10 @@ public class Client extends RSApplet {
                 if (runelite != null) {
                     callbacks.onGameTick();
                 }
+
+                if (ClientSettings.shouldSave()) {
+                    ClientSettings.save();
+                }
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } catch (InstantiationException e) {
