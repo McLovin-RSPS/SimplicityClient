@@ -204,7 +204,7 @@ public class SettingsTabWidget extends RSInterface {
 		int child = 0;
 
 		System.out.println("TOGGLE ZOOM ID: " + id);
-		configHoverButton(TOGGLE_ZOOM, "Toggle Zooming", new String[] { "Restore Default Zoom" }, 1343, 1344, 1342, 1341, false, new int[] {TOGGLE_ZOOM});
+		configHoverButton(TOGGLE_ZOOM, "Toggle Zooming", new String[] { "Restore Default Zoom" }, 1343, 1344, 1342, 1341, false, TOGGLE_ZOOM);
 		tab.child(child++, TOGGLE_ZOOM, 13, 100 - 5);
 		id+=3;
 
