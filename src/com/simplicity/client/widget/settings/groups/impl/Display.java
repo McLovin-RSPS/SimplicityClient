@@ -2,6 +2,7 @@ package com.simplicity.client.widget.settings.groups.impl;
 
 import com.simplicity.client.widget.Slider;
 import com.simplicity.client.widget.settings.groups.SettingGroup;
+import com.simplicity.client.widget.settings.objects.impl.LegacySliderSetting;
 import com.simplicity.client.widget.settings.objects.impl.SliderSetting;
 import com.simplicity.client.widget.settings.objects.impl.Toggle;
 
@@ -13,10 +14,9 @@ public class Display extends SettingGroup {
 
     @Override
     public void init() {
-        add(graphics, new SliderSetting(BRIGHTNESS, "Screen Brightness",
+        add(graphics, new LegacySliderSetting(BRIGHTNESS, "Screen Brightness",
                 "Change the level of brightness to make the world look lighter or\\ndarker.",
-                Slider.ZOOM,
-                4D, brightness -> { }));
+                32, 906, 908, 910, 912));
 
         add(graphics, new SliderSetting(ZOOM, "Camera zoom distance",
                 "Use the slider to change the camera zoom level.",

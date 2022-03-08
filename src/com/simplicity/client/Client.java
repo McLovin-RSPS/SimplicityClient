@@ -133,6 +133,7 @@ import com.simplicity.client.widget.raids.tob.TobPartyOverlayWidget;
 import com.simplicity.client.widget.settings.Setting;
 import com.simplicity.client.widget.settings.Settings;
 import com.simplicity.client.widget.settings.SettingsTabWidget;
+import com.simplicity.client.widget.settings.SettingsWidget;
 import com.simplicity.client.widget.spellfiltering.AncientSpellBookFilter;
 import com.simplicity.client.widget.spellfiltering.LunarSpellBookFilter;
 import com.simplicity.client.widget.spellfiltering.ModernSpellBookFilter;
@@ -9353,6 +9354,14 @@ public class Client extends RSApplet {
                 }
 
                 switch (interfaceId) {
+                    case SettingsTabWidget.ALL_SETTINGS:
+                        if (openInterfaceID > 0) {
+                            pushMessage("Please close the interface you have open before opening another one.", 0, "");
+                            return;
+                        }
+
+                        setOpenInterfaceID(SettingsWidget.WIDGET_ID);
+                        break;
                 case SettingsTabWidget.DISPLAY_BUTTON:
 				case SettingsTabWidget.AUDIO_BUTTON:
 				case SettingsTabWidget.CHAT_BUTTON:

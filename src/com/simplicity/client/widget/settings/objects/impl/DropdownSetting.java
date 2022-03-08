@@ -15,9 +15,12 @@ public class DropdownSetting extends SettingObject<Integer> {
     private DropdownMenu menu;
     private int priority;
 
-    public DropdownSetting(String key, String name, String description, String[] options, Consumer<Integer> onSelect, int priority, int defaultValue, Consumer<Integer> handle) {
+    public DropdownSetting(String key, String name, String description, String[] options, int priority, int defaultValue, Consumer<Integer> handle) {
         super(key, name, description, Alignment.LEFT, defaultValue, handle);
-        this.menu = new DropdownMenu(false, defaultValue, options, null, option -> Settings.set(key, option));
+        this.menu = new DropdownMenu(false, defaultValue, options, null, option -> {
+            Settings.set(key, option);
+            handle.accept(option);
+        });
         this.priority = priority;
     }
 

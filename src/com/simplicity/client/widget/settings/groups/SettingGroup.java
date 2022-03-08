@@ -27,4 +27,19 @@ public abstract class SettingGroup {
             e.printStackTrace();
         }
     }
+
+    public void updateSetting(String key) {
+        try {
+            data.values().forEach(list -> {
+                list.forEach(obj -> {
+                    if (obj.getKey().equals(key)) {
+                        obj.update();
+                    }
+                });
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

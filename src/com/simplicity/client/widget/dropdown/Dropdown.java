@@ -8,6 +8,8 @@ import com.simplicity.client.RSInterface;
 import com.simplicity.client.content.Keybinding;
 import com.simplicity.client.widget.ge.GrandExchange;
 import com.simplicity.client.widget.ge.GrandExchangeListingsWidget;
+import com.simplicity.client.widget.settings.Setting;
+import com.simplicity.client.widget.settings.Settings;
 
 public enum Dropdown {
 
@@ -88,20 +90,10 @@ public enum Dropdown {
         public void selectOption(int selected, RSInterface dropdown) {
         	Keybinding.bind((dropdown.id - Keybinding.MIN_FRAME) / 3, selected);
         }
-    },
+    }
+
+	;
     
-    PLAYER_ATTACK_OPTION_PRIORITY() {
-        @Override
-        public void selectOption(int selected, RSInterface dropdown) {
-        }
-    },
-
-    NPC_ATTACK_OPTION_PRIORITY() {
-        @Override
-        public void selectOption(int selected, RSInterface dropdown) {
-        }
-    };
-
     private Dropdown() {
     }
     

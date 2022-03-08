@@ -1,6 +1,7 @@
 package com.simplicity.client.widget.settings.groups.impl;
 
 import com.simplicity.client.Client;
+import com.simplicity.client.widget.settings.SettingsTabWidget;
 import com.simplicity.client.widget.settings.groups.SettingGroup;
 import com.simplicity.client.widget.settings.objects.impl.DropdownSetting;
 import com.simplicity.client.widget.settings.objects.impl.Toggle;
@@ -18,15 +19,13 @@ public class Controls extends SettingGroup {
                 "Player attack options",
                 "Select what the default left click\\noption on another player will be.",
                 attackOptions,
-                slot -> System.out.println("Slot: " + slot),
-                2, 2, value -> {}));
+                2, 2, value -> SettingsTabWidget.updatePlayerAttackDropdown()));
 
         add(control, new DropdownSetting(NPC_ATT_OPT,
                 "Npc attack options",
                 "Select what the default left click\\noption on on an NPC will be.",
                 attackOptions,
-                slot -> System.out.println("Slot: " + slot),
-                1, 2, value -> {}));
+                1, 2, value -> SettingsTabWidget.updateNpcAttackDropdown()));
 
         add(control, new Toggle(PK_SKULL_PREVENTION, "PK skull prevention",
                 "When enabled, you will be prevented from attacking players in\\nany way that would cause you to become skulled.",

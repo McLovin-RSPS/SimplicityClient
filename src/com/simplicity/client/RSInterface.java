@@ -17898,6 +17898,15 @@ public class RSInterface {
 				new int[] { 0x0d0d0b, 0x464644, 0x473d32, 0x51483c, 0x787169 }, false);
 	}
 
+    public static RSInterface dropdownMenu(int id, int width, int defaultOption, String[] options, Consumer<Integer> onSelect) {
+        RSInterface menu = addInterface(id);
+        menu.type = 36;
+        menu.dropdown = new DropdownMenu(width, false, defaultOption, options, null, onSelect);
+        menu.atActionType = 7;
+        menu.dropdownColours = new int[] { 0x0d0d0b, 0x464644, 0x473d32, 0x51483c, 0x787169 };
+        return menu;
+    }
+
 	public static RSInterface dropdownMenu(int id, DropdownMenu d) {
 		RSInterface menu = addInterface(id);
 		menu.type = 36;

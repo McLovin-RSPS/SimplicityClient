@@ -26,6 +26,8 @@ public class SettingsTabWidget extends RSInterface {
 	public static final int AUDIO_BUTTON = 46_001;
 	public static final int CHAT_BUTTON = 46_002;
 
+	public static final int ALL_SETTINGS = 46_045;
+
 	public static final int PLAYER_ATTACK_DROPDOWN = 46_004;
     public static final int NPC_ATTACK_DROPDOWN = 46_005;
 
@@ -40,6 +42,7 @@ public class SettingsTabWidget extends RSInterface {
 	public static final int ADVANCED = CONTROL_SETTINGS + 4;
 	public static final int TOGGLE_ZOOM = 20201;
 	public static final int ZOOM_SLIDER = 20204;
+	public static final int CLIENT_LAYOUT_DROPDOWN = 20205;
 	
 	private static final int ADVANCED_OPTIONS = 56_000;
 	
@@ -89,7 +92,7 @@ public class SettingsTabWidget extends RSInterface {
 		tab.child(child++, 46045, 28, 229);
 		tab.child(child++, 46044, 28, 236);
 
-		addText(HEADER_ID, "Controls Settings", tda, 2, 0xfe971e, true, true).setSize(138, 28);
+		addText(HEADER_ID, "Controls Settings", tda, 2, 0xfe971e, true, true).setSize(141, 28);
 		tab.child(child++, HEADER_ID, 22, 32);
 	}
 	
@@ -104,11 +107,17 @@ public class SettingsTabWidget extends RSInterface {
 
 		String[] options = {"Depends on combat levels", "Always right-click", "Left-click where available", "Hidden"};
 
-		dropdownMenu(PLAYER_ATTACK_DROPDOWN, 166, 0, options, Dropdown.PLAYER_ATTACK_OPTION_PRIORITY);
+		dropdownMenu(PLAYER_ATTACK_DROPDOWN, 166, 0, options, option -> {
+			Settings.set(Setting.PLAYER_ATT_OPT, option);
+			Settings.CONTROLS.getGroup().updateSetting(Setting.PLAYER_ATT_OPT);
+		});
 
 		addText(id, "Player 'Attack' options:", tda, 1, 0xfe971e, false, true);
 
-		dropdownMenu(NPC_ATTACK_DROPDOWN, 166, 2, options, Dropdown.NPC_ATTACK_OPTION_PRIORITY);
+		dropdownMenu(NPC_ATTACK_DROPDOWN, 166, 2, options, option -> {
+			Settings.set(Setting.NPC_ATT_OPT, option);
+			Settings.CONTROLS.getGroup().updateSetting(Setting.NPC_ATT_OPT);
+		});
 
 		addText(id + 1, "NPC 'Attack' options:", tda, 1, 0xfe971e, false, true);
 
@@ -216,7 +225,11 @@ public class SettingsTabWidget extends RSInterface {
 		tab.child(child++, 910, 112, 66);
 		tab.child(child++, 912, 144, 66);
 
-		dropdownMenu(id, 162, 0, new String[] { "Fixed", "Resizable" }, Dropdown.PLAYER_ATTACK_OPTION_PRIORITY);
+		dropdownMenu(CLIENT_LAYOUT_DROPDOWN, 162, 0, new String[] { "Fixed", "Resizable" }, size -> {
+			Settings.set(Setting.CLIENT_LAYOUT, size);
+			Client.getClient().toggleSize(size);
+			Settings.INTERFACES.getGroup().updateSetting(Setting.CLIENT_LAYOUT);
+		});
 		addText(id + 1, "Game client layout:", tda, 1, 0xfe971e, false, true);
 		setBounds(id, 14, 152, child++, tab);
 		setBounds(id + 1, 14, 134, child++, tab);
@@ -381,8 +394,23 @@ public class SettingsTabWidget extends RSInterface {
 	 * Updates the settings tab button states.
 	 */
 	public static void updateSettingsTab() {
-		interfaceCache[PLAYER_ATTACK_DROPDOWN].dropdown.setSelected(interfaceCache[PLAYER_ATTACK_DROPDOWN].dropdown.getOptions()[Settings.getInt(Setting.PLAYER_ATT_OPT)]);
-        interfaceCache[NPC_ATTACK_DROPDOWN].dropdown.setSelected(interfaceCache[NPC_ATTACK_DROPDOWN].dropdown.getOptions()[Settings.getInt(Setting.NPC_ATT_OPT)]);
+		updatePlayerAttackDropdown();
+		updateNpcAttackDropdown();
+	}
+
+	public static void updatePlayerAttackDropdown() {
+		RSInterface rsi = interfaceCache[PLAYER_ATTACK_DROPDOWN];
+		rsi.dropdown.setSelected(rsi.dropdown.getOptions()[Settings.getInt(Setting.PLAYER_ATT_OPT)]);
+	}
+
+	public static void updateNpcAttackDropdown() {
+		RSInterface rsi = interfaceCache[NPC_ATTACK_DROPDOWN];
+		rsi.dropdown.setSelected(rsi.dropdown.getOptions()[Settings.getInt(Setting.NPC_ATT_OPT)]);
+	}
+
+	public static void updateClientLayout() {
+		RSInterface rsi = interfaceCache[CLIENT_LAYOUT_DROPDOWN];
+		rsi.dropdown.setSelected(rsi.dropdown.getOptions()[Settings.getInt(Setting.CLIENT_LAYOUT)]);
 	}
 
 	/**

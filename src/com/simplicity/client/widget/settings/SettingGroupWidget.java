@@ -3,6 +3,7 @@ package com.simplicity.client.widget.settings;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.widget.CustomWidget;
 import com.simplicity.client.widget.settings.objects.SettingObject;
+import com.simplicity.client.widget.settings.objects.impl.LegacySliderSetting;
 import com.simplicity.client.widget.settings.objects.impl.SliderSetting;
 import com.simplicity.util.Alignment;
 import org.apache.commons.lang3.StringUtils;
@@ -48,7 +49,7 @@ public class SettingGroupWidget extends CustomWidget {
                     height += lineBreaks * 13;
                 }
 
-                if (setting instanceof SliderSetting) {
+                if (setting instanceof SliderSetting || setting instanceof LegacySliderSetting) {
                     height += 24;
                 }
 
