@@ -16,6 +16,7 @@ import java.util.Map;
 public enum Settings {
 
     AUDIO(new Audio()),
+    CHAT(new Chat()),
     CONTROLS(new Controls()),
     DISPLAY(new Display()),
     GAMEPLAY(new Gameplay()),
