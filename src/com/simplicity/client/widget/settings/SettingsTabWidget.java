@@ -107,17 +107,11 @@ public class SettingsTabWidget extends RSInterface {
 
 		String[] options = {"Depends on combat levels", "Always right-click", "Left-click where available", "Hidden"};
 
-		dropdownMenu(PLAYER_ATTACK_DROPDOWN, 166, 0, options, option -> {
-			Settings.set(Setting.PLAYER_ATT_OPT, option);
-			Settings.CONTROLS.getGroup().updateSetting(Setting.PLAYER_ATT_OPT);
-		});
+		dropdownMenu(PLAYER_ATTACK_DROPDOWN, 166, 0, options, option -> Settings.set(Setting.PLAYER_ATT_OPT, option, true));
 
 		addText(id, "Player 'Attack' options:", tda, 1, 0xfe971e, false, true);
 
-		dropdownMenu(NPC_ATTACK_DROPDOWN, 166, 2, options, option -> {
-			Settings.set(Setting.NPC_ATT_OPT, option);
-			Settings.CONTROLS.getGroup().updateSetting(Setting.NPC_ATT_OPT);
-		});
+		dropdownMenu(NPC_ATTACK_DROPDOWN, 166, 2, options, option -> Settings.set(Setting.NPC_ATT_OPT, option, true));
 
 		addText(id + 1, "NPC 'Attack' options:", tda, 1, 0xfe971e, false, true);
 
@@ -226,9 +220,8 @@ public class SettingsTabWidget extends RSInterface {
 		tab.child(child++, 912, 144, 66);
 
 		dropdownMenu(CLIENT_LAYOUT_DROPDOWN, 162, 0, new String[] { "Fixed", "Resizable" }, size -> {
-			Settings.set(Setting.CLIENT_LAYOUT, size);
+			Settings.set(Setting.CLIENT_LAYOUT, size, true);
 			Client.getClient().toggleSize(size);
-			Settings.INTERFACES.getGroup().updateSetting(Setting.CLIENT_LAYOUT);
 		});
 		addText(id + 1, "Game client layout:", tda, 1, 0xfe971e, false, true);
 		setBounds(id, 14, 152, child++, tab);

@@ -76,12 +76,33 @@ public enum Settings {
      * @param value The value to set.
      */
     public static void set(String key, Object value) {
+        set(key, value, false);
+    }
+
+    /**
+     * Sets the specified setting.
+     *
+     * @param key    The key.
+     * @param value  The value to set.
+     * @param update Whether to update the component.
+     */
+    public static void set(String key, Object value, boolean update) {
         if (settings.get(key) == null) {
             System.out.println("The key: " + key + " is not associated with any setting.");
             return;
         }
 
         settings.put(key, value);
+
+        if (update) {
+            try {
+                String group = key.substring(0, key.indexOf("_"));
+                Settings.valueOf(group.toUpperCase()).getGroup().updateSetting(key);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         ClientSettings.save();
     }
 
