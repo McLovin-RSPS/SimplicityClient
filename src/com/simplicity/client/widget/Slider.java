@@ -3,6 +3,8 @@ package com.simplicity.client.widget;
 import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.Sprite;
+import com.simplicity.client.widget.settings.Setting;
+import com.simplicity.client.widget.settings.Settings;
 import com.simplicity.util.MiscUtils;
 
 public class Slider {
@@ -53,6 +55,14 @@ public class Slider {
     }
 
     public static void setSelected(RSInterface widget, int drawX, int clickX) {
+        RSInterface selected = getSelectedSlider();
+
+        if (widget == null && selected != null) {
+            if (selected.contentType == ZOOM) {
+                Settings.set(Setting.ZOOM, selected.slider.value, true);
+            }
+        }
+
         setSelectedSlider(widget);
         setSelectedDrawX(drawX);
         setSelectedClickX(clickX);
