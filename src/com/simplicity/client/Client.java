@@ -17531,7 +17531,7 @@ public class Client extends RSApplet {
     					// If dropdown inverted, don't draw following 2 menus
     					if (dropdownInversionFlag > 0) {
     						dropdownInversionFlag--;
-    						continue;
+    						//continue;
     					}
     					
     					int downArrow = 1036;
