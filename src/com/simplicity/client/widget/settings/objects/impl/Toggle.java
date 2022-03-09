@@ -1,5 +1,6 @@
 package com.simplicity.client.widget.settings.objects.impl;
 
+import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.widget.CustomWidget;
 import com.simplicity.client.widget.settings.Settings;
@@ -14,6 +15,8 @@ import java.util.function.Consumer;
 public class Toggle extends SettingObject<Boolean> {
 
     private RSInterface toggle;
+    private static final int DISABLED_SPRITE = 1993;
+    private static final int ENABLED_SPRITE = 1994;
 
     public Toggle(String key, String name, String description, boolean defaultValue) {
         this(key, name, description, defaultValue, b -> {});
@@ -25,8 +28,7 @@ public class Toggle extends SettingObject<Boolean> {
 
     @Override
     public int draw(int idx, int y, int width, int height, CustomWidget widget) {
-        toggle = widget.configButton("Toggle", 1994, 1993);
-        toggle.interactable = () -> false;
+        toggle = widget.addSprite(DISABLED_SPRITE);
         RSInterface rectangle = widget.addRectangleClickable(idx % 2 == 0 ? 200 : 225, 0, true, width, 27 + height, new String[] { "Toggle" });
         rectangle.hovers = true;
         rectangle.setLayer(SettingsWidget.WIDGET_ID);
@@ -34,7 +36,7 @@ public class Toggle extends SettingObject<Boolean> {
         rectangle.enabledColor = 0;
         rectangle.enabledMouseOverColor = 0;
         rectangle.onClick = () -> {
-            toggle.active = !toggle.active;
+            toggleSprite(!toggle.active);
             Settings.set(getKey(), toggle.active);
             getHandle().accept(toggle.active);
             return true;
@@ -44,9 +46,14 @@ public class Toggle extends SettingObject<Boolean> {
         return 0;
     }
 
+    private void toggleSprite(boolean active) {
+        toggle.active = active;
+        toggle.disabledSprite = Client.getClient().cacheSprite[active ? ENABLED_SPRITE : DISABLED_SPRITE];
+    }
+
     @Override
     public void update() {
-        toggle.active = Settings.getBoolean(getKey());
+        toggleSprite(Settings.getBoolean(getKey()));
     }
 
 }
