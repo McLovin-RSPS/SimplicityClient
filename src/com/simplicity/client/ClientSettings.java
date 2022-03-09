@@ -17,8 +17,6 @@ import com.simplicity.Configuration;
 import com.simplicity.client.content.Keybinding;
 import com.simplicity.client.content.login.LoginScreen;
 import com.simplicity.client.content.login.LoginScreen.CharacterFile;
-import com.simplicity.client.entity.Position;
-import com.simplicity.client.widget.QuestTab;
 
 /**
  * A class that handles the client settings saving & loading for the player.

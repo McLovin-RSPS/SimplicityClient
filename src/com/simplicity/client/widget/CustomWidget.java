@@ -327,7 +327,7 @@ public abstract class CustomWidget {
     /**
 	 * Adds a vertical separator.
 	 * 
-	 * @param width        The width.
+	 * @param height        The width.
 	 * @param modernBorder Whether to use the modern border or not.
 	 * @return The separator inside a wrapper.
 	 */
@@ -427,7 +427,7 @@ public abstract class CustomWidget {
 	/**
 	 * Adds an opaque hover button.
 	 * 
-	 * @param iconId           The icon sprite id.
+	 * @param spriteId           The icon sprite id.
 	 * @param hoverOpacity     The hover opacity.
 	 * @param tooltip          The tooltip.
 	 * @return The RSInterface.

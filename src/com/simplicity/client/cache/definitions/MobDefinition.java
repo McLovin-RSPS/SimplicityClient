@@ -19,11 +19,13 @@ public final class MobDefinition {
 
     public int healthBarDimension = 30;
 
-    /** Hardcoded until we pack another byte into npc definitions to flag followers such as pets and familiars/bobs. **/
-    private static final int[] FOLLOWER_IDS = new int[] {
+    /**
+     * Hardcoded until we pack another byte into npc definitions to flag followers such as pets and familiars/bobs.
+     **/
+    private static final int[] FOLLOWER_IDS = new int[]{
             17130, 17131, 17132, 2222, 7093, 2223, 22892, 22891, 1500, 24492, 24493, 24494, 24495, 24496, 24497, 24498, 24499, 24500, 24501, 33306,
             6830, 6825, 6841, 6806, 6796, 7331, 6831, 6837, 7361, 6847, 6994, 6872, 7353, 6835, 6845, 6808, 153, 154, 7519, 15425, 20547, 7093,
-            23492, 23493, 23494, 23495, 2776, 4550, 4551, 7370, 7333, 7351, 7367, 6853, 6867, 6851, 6833, 6875, 6877, 6879, 2222, 7093, 25761, 25762, 
+            23492, 23493, 23494, 23495, 2776, 4550, 4551, 7370, 7333, 7351, 7367, 6853, 6867, 6851, 6833, 6875, 6877, 6879, 2222, 7093, 25761, 25762,
             6881, 6883, 6885, 6887, 6855, 7377, 22519, 6824, 6843, 6794, 6818, 6992, 6857, 6991, 7365, 7337, 7363, 6809, 25763, 25764, 25765, 21636, 21631,
             21634, 21637, 22368, 21715, 21717, 15964, 21640, 22674, 23731,
             6865, 6820, 6802, 6827, 6859, 6889, 6815, 6813, 6817, 7372, 6839, 8575, 7345, 6849, 6798, 6861, 7335, 7347, 23197, 23336,
@@ -56,16 +58,16 @@ public final class MobDefinition {
             MobDefinition npc = cacheOSRS[cacheIndexOSRS] = new MobDefinition();
 
             if (i == 15_000) { // OSRS House pet
-            	npc.id = OSRS_NPCS_OFFSET + i;
-            	npc.type = OSRS_NPCS_OFFSET + i;
-            	npc.dataType = DataType.OLDSCHOOL;
-            	npc.copy(forID(18836));
-            	npc.sizeXZ /= 5;
+                npc.id = OSRS_NPCS_OFFSET + i;
+                npc.type = OSRS_NPCS_OFFSET + i;
+                npc.dataType = DataType.OLDSCHOOL;
+                npc.copy(forID(18836));
+                npc.sizeXZ /= 5;
                 npc.sizeY /= 5;
                 npc.squaresNeeded = 1;
                 npc.actions = new String[5];
-                npc.actions[0] = "Pick-up"; 
-            	return npc;
+                npc.actions[0] = "Pick-up";
+                return npc;
             }
 
             if (i >= streamIndicesOSRS.length) {
@@ -84,7 +86,7 @@ public final class MobDefinition {
                     npc.name = "Inferno";
                     npc.actions = new String[5];
                     npc.actions[0] = "Start";
-                 //   System.out.println("asdfasdfsfsdf " + npc.models[0]);
+                    //   System.out.println("asdfasdfsfsdf " + npc.models[0]);
                 }
 
                 if (npc.name.contains("00ffff")) {
@@ -93,64 +95,69 @@ public final class MobDefinition {
             }
 
             switch (i) {
-            
-            case 8598:
-            case 10507:
-            case 10511:
-            	npc.actions = new String[5];
-                npc.actions[1] = "Attack";
-            	break;
+                case 7663:
+                case 8623:
+                case 6797:
+                    npc.actions = new String[]{"Talk-to", "Solo-task", "Duo-task", "Trade", "Rewards"};
+                    break;
+                case 8598:
+                case 10507:
+                case 10511:
+                    npc.actions = new String[5];
+                    npc.actions[1] = "Attack";
+                    break;
 
-            case 7317: // Old Lisa
-                npc.models = new int[] {  398, 20516, 6693, 19951, 13319, 337, 9644, 9640  };
-                npc.npcHeadModels = new int[] { 106 };
-                npc.standAnim = 808;
-                npc.walkAnim = 819;
-                npc.turn90CWAnimIndex = 821;
-                npc.turn180AnimIndex = 820;
-                npc.turn90CCWAnimIndex = 822;
-                npc.hasRenderPriority = true;
-                npc.dataType = DataType.REGULAR;
-                break;
-            
-            case 8202: // Tektiny
-                npc.actions = new String[5];
-                npc.actions[0] = "Pick-up";
-                npc.actions[2] = "Metamorphosis";
-                break;
-            
-            case 8009:
-            case 7674:
-                npc.actions = new String[5];
-                npc.actions[0] = "Pick-up";
-                npc.actions[2] = "Metamorphosis";
-                break;
-                
-            case 8492:
-            	npc.standAnim = 23493;
-            	npc.walkAnim = 23492;
-            	break;
+                case 7317: // Old Lisa
+                    npc.models = new int[]{398, 20516, 6693, 19951, 13319, 337, 9644, 9640};
+                    npc.npcHeadModels = new int[]{106};
+                    npc.standAnim = 808;
+                    npc.walkAnim = 819;
+                    npc.turn90CWAnimIndex = 821;
+                    npc.turn180AnimIndex = 820;
+                    npc.turn90CCWAnimIndex = 822;
+                    npc.hasRenderPriority = true;
+                    npc.dataType = DataType.REGULAR;
+                    break;
 
-            // Kalphite princess
-			case 6637:
-			case 6638:
-				npc.actions[0] = "Pick-up";
-				npc.actions[3] = null;
-				break;
+                case 8202: // Tektiny
+                    npc.actions = new String[5];
+                    npc.actions[0] = "Pick-up";
+                    npc.actions[2] = "Metamorphosis";
+                    break;
+
+                case 8009:
+                case 7674:
+                    npc.actions = new String[5];
+                    npc.actions[0] = "Pick-up";
+                    npc.actions[2] = "Metamorphosis";
+                    break;
+
+                case 8492:
+                    npc.standAnim = 23493;
+                    npc.walkAnim = 23492;
+                    break;
+
+                // Kalphite princess
+                case 6637:
+                case 6638:
+                    npc.actions[0] = "Talk-to";
+                    npc.actions[2] = "Pick-up";
+                    npc.actions[3] = "Metamorphosis";
+                    break;
                 case 17130:
                 case 17131:
                 case 17132:
                     npc.actions = new String[5];
                     npc.actions[0] = "Pick-up";
                     break;
-				
+
                 case 6332:
                     npc.name = "Dracula";
                     npc.sizeY = 180;
                     npc.sizeXZ = 180;
                     npc.combatLevel = 1031;
                     break;
-                    
+
                 case 3481:
                     npc.name = "Pet Dracula";
                     npc.sizeY = 80;
@@ -158,8 +165,8 @@ public final class MobDefinition {
                     npc.actions = new String[5];
                     npc.actions[0] = "Pick-up";
                     break;
-                  
-                    
+
+
                 case 3113:
                     npc.name = "The Pet Tradesman";
                     break;
@@ -179,7 +186,7 @@ public final class MobDefinition {
                     npc.sizeY *= 3;
                     npc.squaresNeeded = 4;
                     break;
-                    
+
                 case 2665:
                     npc.copy(forID(18627));
                     npc.name = "Halloween Ghost";
@@ -189,7 +196,7 @@ public final class MobDefinition {
                     npc.sizeY *= 4;
                     npc.squaresNeeded = 2;
                     break;
-                    
+
                 case 2666:
                     npc.copy(forID(23709));
                     npc.name = "Halloween Beast";
@@ -199,7 +206,7 @@ public final class MobDefinition {
                     npc.sizeY *= 2;
                     npc.squaresNeeded = 4;
                     break;
-                    
+
                 case 2667:
                     npc.copy(forID(22391));
                     npc.name = "Halloween Banshee";
@@ -208,10 +215,10 @@ public final class MobDefinition {
                     npc.sizeXZ *= 2;
                     npc.sizeY *= 2;
                     npc.squaresNeeded = 4;
-                    break;     
-                    
-                    // giant evil santa
-                    
+                    break;
+
+                // giant evil santa
+
                 case 8224:
                     npc.copy(forID(23221));
                     npc.name = "Giant Evil Santa";
@@ -220,8 +227,8 @@ public final class MobDefinition {
                     npc.sizeXZ *= 2;
                     npc.sizeY *= 2;
                     npc.squaresNeeded = 4;
-                    break; 
-                    
+                    break;
+
                 case 8223:
                     npc.copy(forID(23221));
                     npc.name = "Tiny Evil Santa";
@@ -230,8 +237,8 @@ public final class MobDefinition {
                     npc.sizeXZ *= 0.5;
                     npc.sizeY *= 0.5;
                     npc.squaresNeeded = 2;
-                    break;                    
-                    
+                    break;
+
                 case 8225:
                     npc.copy(forID(23221));
                     npc.name = "Lil' Evil Santa";
@@ -242,8 +249,8 @@ public final class MobDefinition {
                     npc.squaresNeeded = 1;
                     npc.pet = true;
                     break;
-                    
-                    // npc id 8221 true
+
+                // npc id 8221 true
                 case 8221:
                     npc.copy(forID(33));
                     npc.name = "Evil Santa";
@@ -252,9 +259,9 @@ public final class MobDefinition {
                     npc.sizeXZ *= 2;
                     npc.sizeY *= 2;
                     npc.squaresNeeded = 4;
-                    break;  
-                    
-                    // Santa event boss 2020
+                    break;
+
+                // Santa event boss 2020
               /*  case 8221:
                     npc.copy(forID(3821));
                     npc.name = "Santa's Evil Brother";
@@ -263,20 +270,20 @@ public final class MobDefinition {
                     npc.sizeXZ *= 3;
                     npc.sizeY *= 3;
                     npc.squaresNeeded = 4;
-                    break;  */                 
-                    
+                    break;  */
+
                 case 7519:
                     npc.name = "Superior Olmlet";
                     npc.actions = new String[5];
                     npc.actions[0] = "Pick-up";
                     npc.actions[2] = "Toggle Special";
                     break;
-                    
+
                 case 8897: // Master achievements
                     npc.name = "@cya@Master Achievements";
                     npc.actions[0] = "Open";
                     break;
-                    
+
                 case 10493:
                     npc.name = "Headless beast";
                     npc.actions = new String[]{null, "Attack", null, null, null};
@@ -287,33 +294,33 @@ public final class MobDefinition {
                     npc.sizeXZ = 220;
                     npc.sizeY = 220;
                     break;
-                    
+
                 case 8390:
                     npc.name = "Blood money dealer";
                     npc.standAnim = 22313;
                     npc.actions[2] = "Blood money";
                     npc.actions[3] = "Untradeables";
                     break;
-                    
+
                 case 3132:
                     npc.name = "Kevin's Demonic Boss";
                     npc.sizeXZ = 220;
                     npc.sizeY = 220;
                     break;
-                    
+
                 case 7252:
                     npc.name = "Lava giant";
                     break;
-                    
+
                 case 7852:
                     npc.name = "Dawn";
                     npc.standAnim = 23035;
                     break;
-                    
+
                 case 7892:
                     npc.name = "Noon";
                     npc.standAnim = 23035;
-                	npc.walkAnim = 23035;
+                    npc.walkAnim = 23035;
                     break;
             }
             return npc;
@@ -340,6 +347,16 @@ public final class MobDefinition {
         npc.readValues(stream);
         npc.postLoad();
         switch (i) {
+            case 8273:
+            case 8274:
+            case 8275:
+            case 1597:
+            case 9085:
+            case 7780:
+            case 1598:
+            case 8462:
+                npc.actions = new String[]{"Talk-to", "Solo-task", "Duo-task", "Trade", "Rewards"};
+                break;
 
             case 33: // Santa
                 npc.copy(forID(3));
@@ -357,7 +374,7 @@ public final class MobDefinition {
 
             case 7041:
                 npc.copy(forID(3));
-                npc.models = new int[] { 142 };
+                npc.models = new int[]{142};
                 npc.sizeXZ = 128;
                 npc.sizeY = 128;
                 npc.standAnim = 808;
@@ -369,9 +386,9 @@ public final class MobDefinition {
                 npc.dataType = DataType.CUSTOM;
                 break;
 
-        case 1643:
-        	npc.walkAnim = 7200;
-        	break;
+            case 1643:
+                npc.walkAnim = 7200;
+                break;
             case 13282:
                 npc.name = "Snowman";
                 npc.combatLevel = 137;
@@ -475,7 +492,7 @@ public final class MobDefinition {
                 npc.sizeY = 120;
                 npc.squaresNeeded = 1;
                 break;
-                
+
             case 627:
                 npc.name = "@or1@Sirenic twisted bow";
                 npc.description = "A mystical bow carved from the twisted remains of the Great Olm.";
@@ -600,46 +617,45 @@ public final class MobDefinition {
                 npc.destColours = new int[]{127, 127, 127, 127};
                 npc.originalColours = new int[]{65214, 65200, 65186, 62995};
                 break;
-                
+
             case 777:
                 npc.copy(forID(23360));
                 npc.name = "The Maiden Of Sugadinti (comp)";
                 break;
-                
+
             case 500:
                 npc.copy(forID(22409));
                 npc.name = "Night beast (emerald)";
                 break;
-                
+
             case 8888:
                 npc.copy(forID(23388));
                 npc.name = "Sotetseg (comp)";
                 break;
-            	
+
             case 9999:
                 npc.copy(forID(23060));
                 npc.name = "Workath";
                 npc.actions = new String[5];
                 npc.actions[1] = "Attack";
-                npc.models = new int[] { 60000 };
-                break;        
-                
+                npc.models = new int[]{60000};
+                break;
 
 
             case 30001:
-            	npc.copy(forID(13447));
-            	npc.name = "Blue Nex";
-            	npc.originalColours = new int[] {48130, 6147, 48139, 48140, 6414, 6419, 48147, 48149, 6166, 48150, 6424, 6171, 6429, 48159, 6434, 6181, 294, 6439, 6443, 299, 6444, 6191, 6449, 6195, 6453, 6202, 314, 6203, 319, 20287, 6212, 6469, 6220, 6221, 6233, 349, 350, 6241, 355, 6245, 369, 370, 375, 6271, 50306, 50311, 48266, 50315, 1420, 50320, 50321, 48275, 6291, 50325, 1430, 48278, 50326, 6296, 50330, 6301, 50335, 48287, 6304, 50336, 1440, 1441, 50340, 6311, 6312, 50345, 48297, 6315, 1451, 6316, 6317, 50350, 6322, 6323, 6327, 1208, 6329, 6332, 50367, 6337, 6338, 50372, 6341, 6342, 6346, 6347, 1228, 6352, 6357, 6361, 6362, 1500, 6365, 6366, 6367, 6372, 6373, 6376, 6377, 6378, 6382, 6387, 6390, 6392, 6393, 6397, 6398, 6399};
-            	npc.destColours = new int[] {48130, 6147, 48139, 48140, 6414, 6419, 48147, 48149, 6166, 48150, 6424, 6171, 6429, 48159, 6434, 6181, 37470, 6439, 6443, 37470, 6444, 6191, 6449, 6195, 6453, 6202, 37470, 6203, 37470, 20287, 6212, 6469, 6220, 6221, 6233, 38399, 38399, 6241, 38399, 6245, 43007, 38399, 38399, 6271, 50306, 50311, 48266, 50315, 1420, 50320, 50321, 48275, 6291, 50325, 43960, 48278, 50326, 6296, 50330, 6301, 50335, 48287, 6304, 50336, 41983, 39935, 50340, 6311, 6312, 50345, 48297, 6315, 39935, 6316, 6317, 50350, 6322, 6323, 6327, 35711, 6329, 6332, 50367, 6337, 6338, 50372, 6341, 6342, 6346, 6347, 37887, 6352, 6357, 6361, 6362, 38911, 6365, 6366, 6367, 6372, 6373, 6376, 6377, 6378, 6382, 6387, 6390, 6392, 6393, 6397, 6398, 6399};
-            	break;
-            
+                npc.copy(forID(13447));
+                npc.name = "Blue Nex";
+                npc.originalColours = new int[]{48130, 6147, 48139, 48140, 6414, 6419, 48147, 48149, 6166, 48150, 6424, 6171, 6429, 48159, 6434, 6181, 294, 6439, 6443, 299, 6444, 6191, 6449, 6195, 6453, 6202, 314, 6203, 319, 20287, 6212, 6469, 6220, 6221, 6233, 349, 350, 6241, 355, 6245, 369, 370, 375, 6271, 50306, 50311, 48266, 50315, 1420, 50320, 50321, 48275, 6291, 50325, 1430, 48278, 50326, 6296, 50330, 6301, 50335, 48287, 6304, 50336, 1440, 1441, 50340, 6311, 6312, 50345, 48297, 6315, 1451, 6316, 6317, 50350, 6322, 6323, 6327, 1208, 6329, 6332, 50367, 6337, 6338, 50372, 6341, 6342, 6346, 6347, 1228, 6352, 6357, 6361, 6362, 1500, 6365, 6366, 6367, 6372, 6373, 6376, 6377, 6378, 6382, 6387, 6390, 6392, 6393, 6397, 6398, 6399};
+                npc.destColours = new int[]{48130, 6147, 48139, 48140, 6414, 6419, 48147, 48149, 6166, 48150, 6424, 6171, 6429, 48159, 6434, 6181, 37470, 6439, 6443, 37470, 6444, 6191, 6449, 6195, 6453, 6202, 37470, 6203, 37470, 20287, 6212, 6469, 6220, 6221, 6233, 38399, 38399, 6241, 38399, 6245, 43007, 38399, 38399, 6271, 50306, 50311, 48266, 50315, 1420, 50320, 50321, 48275, 6291, 50325, 43960, 48278, 50326, 6296, 50330, 6301, 50335, 48287, 6304, 50336, 41983, 39935, 50340, 6311, 6312, 50345, 48297, 6315, 39935, 6316, 6317, 50350, 6322, 6323, 6327, 35711, 6329, 6332, 50367, 6337, 6338, 50372, 6341, 6342, 6346, 6347, 37887, 6352, 6357, 6361, 6362, 38911, 6365, 6366, 6367, 6372, 6373, 6376, 6377, 6378, 6382, 6387, 6390, 6392, 6393, 6397, 6398, 6399};
+                break;
+
             case 30002:
-            	npc.copy(forID(13447));
-            	npc.name = "Shadow Nex";
-            	npc.originalColours = new int[] {48130, 6147, 48139, 48140, 6414, 6419, 48147, 48149, 6166, 48150, 6424, 6171, 6429, 48159, 6434, 6181, 294, 6439, 6443, 299, 6444, 6191, 6449, 6195, 6453, 6202, 314, 6203, 319, 20287, 6212, 6469, 6220, 6221, 6233, 349, 350, 6241, 355, 6245, 369, 370, 375, 6271, 50306, 50311, 48266, 50315, 1420, 50320, 50321, 48275, 6291, 50325, 1430, 48278, 50326, 6296, 50330, 6301, 50335, 48287, 6304, 50336, 1440, 1441, 50340, 6311, 6312, 50345, 48297, 6315, 1451, 6316, 6317, 50350, 6322, 6323, 6327, 1208, 6329, 6332, 50367, 6337, 6338, 50372, 6341, 6342, 6346, 6347, 1228, 6352, 6357, 6361, 6362, 1500, 6365, 6366, 6367, 6372, 6373, 6376, 6377, 6378, 6382, 6387, 6390, 6392, 6393, 6397, 6398, 6399};
-            	npc.destColours = new int[] {48130, 6147, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130};
-            	break;
-            	
+                npc.copy(forID(13447));
+                npc.name = "Shadow Nex";
+                npc.originalColours = new int[]{48130, 6147, 48139, 48140, 6414, 6419, 48147, 48149, 6166, 48150, 6424, 6171, 6429, 48159, 6434, 6181, 294, 6439, 6443, 299, 6444, 6191, 6449, 6195, 6453, 6202, 314, 6203, 319, 20287, 6212, 6469, 6220, 6221, 6233, 349, 350, 6241, 355, 6245, 369, 370, 375, 6271, 50306, 50311, 48266, 50315, 1420, 50320, 50321, 48275, 6291, 50325, 1430, 48278, 50326, 6296, 50330, 6301, 50335, 48287, 6304, 50336, 1440, 1441, 50340, 6311, 6312, 50345, 48297, 6315, 1451, 6316, 6317, 50350, 6322, 6323, 6327, 1208, 6329, 6332, 50367, 6337, 6338, 50372, 6341, 6342, 6346, 6347, 1228, 6352, 6357, 6361, 6362, 1500, 6365, 6366, 6367, 6372, 6373, 6376, 6377, 6378, 6382, 6387, 6390, 6392, 6393, 6397, 6398, 6399};
+                npc.destColours = new int[]{48130, 6147, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130, 48130};
+                break;
+
             case 2776:
                 npc.copy(forID(22405));
                 npc.name = "Kura";
@@ -650,8 +666,8 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-              
-                
+
+
             case 4550:
                 npc.copy(forID(17666));
                 npc.name = "Halloween pet";
@@ -662,7 +678,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 4551:
                 npc.copy(forID(22391));
                 npc.name = "Lil' Banshee";
@@ -673,8 +689,8 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-             
-                
+
+
             case 13337:
                 npc.copy(forID(25493));
                 npc.name = "Headless Beast";
@@ -687,7 +703,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 6565:
                 npc.copy(forID(22519));
                 npc.name = "Elite Olmlet";
@@ -698,7 +714,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 6566:
                 npc.copy(forID(23337));
                 npc.name = "Elite Zik";
@@ -709,7 +725,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 6567:
                 npc.copy(forID(24398));
                 npc.name = "Elite Nightmare";
@@ -720,7 +736,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 2576:
                 npc.copy(forID(23360));
                 //npc.npcHeadModels = new int[]{35385};
@@ -734,7 +750,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 23492:
                 npc.name = "Ikkle Hydra";
                 npc.actions = new String[5];
@@ -744,7 +760,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 1500:
                 npc.copy(forID(23917));
                 npc.name = "Lil' seren";
@@ -757,9 +773,9 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
-                // Barrows pets
-                
+
+            // Barrows pets
+
             case 2226:
                 npc.copy(forID(2026));
                 npc.name = "Lil' dharok";
@@ -772,7 +788,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 2227:
                 npc.copy(forID(2030));
                 npc.name = "Lil' verac";
@@ -785,7 +801,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 2228:
                 npc.copy(forID(2025));
                 npc.name = "Lil' ahrim";
@@ -798,7 +814,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 2229:
                 npc.copy(forID(2029));
                 npc.name = "Lil' torag";
@@ -811,7 +827,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 2230:
                 npc.copy(forID(2027));
                 npc.name = "Lil' guthan";
@@ -824,7 +840,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 2115:
                 npc.copy(forID(2028));
                 npc.name = "Lil' karil";
@@ -837,7 +853,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 2232:
                 npc.copy(forID(23583));
                 npc.name = "Lil' hespori";
@@ -850,7 +866,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 1502:
                 npc.copy(forID(18132));
                 npc.name = "Superior Demon Baby";
@@ -863,7 +879,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 1503:
                 npc.copy(forID(18132));
                 npc.actions = new String[]{null, "Attack", null, null, null};
@@ -872,7 +888,7 @@ public final class MobDefinition {
                 npc.sizeXZ = 70;
                 npc.sizeY = 70;
                 break;
-                
+
             case 2530:
                 npc.copy(forID(23359));
                 npc.combatLevel = 0;
@@ -886,8 +902,8 @@ public final class MobDefinition {
                 npc.actions[2] = "Pick-up";
                 npc.squaresNeeded = 1;
                 npc.pet = true;
-                break;               
-                
+                break;
+
 
             case 2532:
                 npc.copy(forID(23355));
@@ -902,7 +918,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 2533:
                 npc.copy(forID(23388));
                 npc.npcHeadModels = new int[]{35403};
@@ -915,7 +931,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 2534:
                 npc.copy(forID(23340));
                 npc.npcHeadModels = new int[]{35383};
@@ -928,7 +944,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 13212:
                 npc.copy(forID(1321));
                 npc.combatLevel = 1337;
@@ -938,8 +954,8 @@ public final class MobDefinition {
                 npc.sizeXZ = 825;
                 npc.sizeY = 820;
                 break;
-                
-                
+
+
             case 3476:
                 npc.combatLevel = 1007;
                 npc.name = "Bunny Bird";
@@ -1033,14 +1049,14 @@ public final class MobDefinition {
                 npc.destColours = new int[]{226770, 34503, 34503, 34503, 34503};
                 npc.originalColours = new int[]{926, 65214, 65200, 65186, 62995};
                 break;
-                
+
             case 23611:
                 npc.name = "Draconic Wyrm";
                 npc.combatLevel = 399;
                 break;
-                
+
             case 3333:
-            	npc.copy(forID(3));
+                npc.copy(forID(3));
                 npc.name = "Solak";
                 npc.combatLevel = 321;
                 npc.actions = new String[5];
@@ -1054,13 +1070,13 @@ public final class MobDefinition {
                 npc.standAnim = 808;
                 npc.walkAnim = 819;
                 break;
-                
+
             case 2222:
-            	npc.copy(forID(3));
+                npc.copy(forID(3));
                 npc.name = "Mini Solak";
                 npc.combatLevel = 321;
                 npc.actions = new String[5];
-                npc.actions[0] = "Pick-up"; 
+                npc.actions[0] = "Pick-up";
                 npc.models = new int[1];
                 npc.models[0] = 105;
                 npc.squaresNeeded = 1;
@@ -1071,7 +1087,7 @@ public final class MobDefinition {
                 npc.walkAnim = 819;
                 break;
             case 7093:
-            	npc.copy(forID(3));
+                npc.copy(forID(3));
                 npc.name = "@pur@Purple Mini Solak";
                 npc.combatLevel = 321;
                 npc.actions = new String[5];
@@ -1084,7 +1100,7 @@ public final class MobDefinition {
                 npc.walkAnim = 819;
                 break;
             case 1668:
-            	npc.copy(forID(3));
+                npc.copy(forID(3));
                 npc.name = "@whi@Cupid";
                 npc.combatLevel = 99;
                 npc.actions = new String[5];
@@ -1100,7 +1116,7 @@ public final class MobDefinition {
                 npc.name = "Warmi";
                 npc.combatLevel = 321;
                 npc.actions = new String[5];
-                npc.actions[0] = "Pick-up"; 
+                npc.actions[0] = "Pick-up";
                 npc.models = new int[1];
                 npc.models[0] = 59611;
                 npc.squaresNeeded = 1;
@@ -1110,7 +1126,7 @@ public final class MobDefinition {
                 npc.standAnim = 14967;
                 npc.walkAnim = 14966;
                 break;
-               
+
 
             case 3334:
                 npc.name = "WildyWyrm";
@@ -1250,7 +1266,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 6727:
                 npc.name = "Tangleroot";
                 npc.copy(forID(22335));
@@ -1604,12 +1620,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.actions = new String[]{"Talk-to", null, "Start", "Rewards", null};
                 break;
-            case 8273:
-            case 8274:
-            case 8275:
-                npc.actions[2] = "Get-task";
-                break;
-                
+
             case 6222:
                 npc.name = "Kree'arra";
                 npc.squaresNeeded = 5;
@@ -1618,7 +1629,7 @@ public final class MobDefinition {
                 npc.actions = new String[]{null, "Attack", null, null, null};
                 npc.sizeY = npc.sizeXZ = 110;
                 break;
-                
+
             case 6203:
                 npc.models = new int[]{27768, 27773, 27764, 27765, 27770};
                 npc.name = "K'ril Tsutsaroth";
@@ -1628,7 +1639,7 @@ public final class MobDefinition {
                 npc.actions = new String[]{null, "Attack", null, null, null};
                 npc.sizeY = npc.sizeXZ = 110;
                 break;
-                
+
             case 1610:
             case 491:
             case 10216:
@@ -1898,7 +1909,7 @@ public final class MobDefinition {
                 npc.name = "Pure";
                 npc.actions = new String[]{"Trade", null, null, null, null};
                 break;
-                
+
             case 3030:
                 npc.copy(forID(21636));
                 npc.pet = true;
@@ -1946,6 +1957,7 @@ public final class MobDefinition {
                 npc.actions = new String[5];
                 npc.actions[0] = "Talk-to";
                 npc.actions[2] = "Pick-up";
+                npc.actions[3] = "Metamorphosis";
                 npc.models = new int[]{40955};
                 npc.combatLevel = 785;
                 npc.standAnim = 10056;
@@ -2011,7 +2023,7 @@ public final class MobDefinition {
                 break;
 
             case 3039:
-                npc.name = "Dagannoth prime"; 
+                npc.name = "Dagannoth prime";
                 npc.actions = new String[5];
                 npc.actions[0] = "Talk-to";
                 npc.actions[2] = "Pick-up";
@@ -2056,7 +2068,7 @@ public final class MobDefinition {
             case 1552:
                 npc.name = "Skinny Santa";
                 break;
-                
+
             case 3048:
                 npc.models = new int[]{44733};
                 npc.name = "Tormented demon";
@@ -2217,7 +2229,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 3061:
                 npc.models = new int[]{14294, 49144};
                 npc.name = "Black dragon";
@@ -2232,7 +2244,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 3062:
                 npc.name = "Venenatis";
                 npc.actions = new String[5];
@@ -2245,7 +2257,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 2;
                 npc.pet = true;
                 break;
-                
+
             case 3063:
                 npc.models = new int[1];
                 npc.models[0] = 28293;
@@ -2261,7 +2273,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 3064:
                 npc.name = "Skotizo";
                 npc.combatLevel = 321;
@@ -2277,7 +2289,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 3065:
                 npc.name = "Lizardman Shaman";
                 npc.description = "It's a lizardman.";
@@ -2310,7 +2322,7 @@ public final class MobDefinition {
                 //npc.sizeXZ = 35;
                 //npc.sizeY = 75;
                 break;
-                
+
             case 3067:
                 npc.name = "Bork";
                 npc.models = new int[]{40590};
@@ -2342,7 +2354,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 3069:
                 npc.name = "Rock Crab";
                 npc.models = new int[2];
@@ -2359,7 +2371,7 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 3070:
                 npc.name = "Abyssal Sire";
                 npc.description = "It's an abyssal sire.";
@@ -2375,20 +2387,20 @@ public final class MobDefinition {
                 npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
-                
+
             case 153:
                 npc.copy(forID(23009));
                 npc.name = "Superior TzRek-Zuk";
                 npc.pet = true;
                 break;
-                
+
             case 154:
                 npc.copy(forID(23025));
                 npc.npcHeadModels = new int[]{35024};
                 npc.name = "Superior Vorki";
                 npc.pet = true;
                 break;
-                
+
             case 23025:
                 npc.copy(forID(23025));
                 npc.npcHeadModels = new int[]{35024};
@@ -2599,7 +2611,7 @@ public final class MobDefinition {
     }
 
     public static int NPCAMOUNT = 11599;
-    
+
     public static int totalOSRSNPCs;
 
     public static void unpackConfig(CacheArchive streamLoader) {
@@ -2712,7 +2724,7 @@ public final class MobDefinition {
         Model completedModel = dataType == DataType.CUSTOM ? (Model) modelCacheCustom.get(type) : dataType == DataType.OLDSCHOOL ? (Model) modelCacheOSRS.get(type) : (Model) modelCache.get(type);
         if (completedModel == null) {
             if (models == null)
-            	return null;
+                return null;
             boolean everyModelFetched = false;
             for (int ptr = 0; ptr < models.length; ptr++)
                 if (!Model.modelIsFetched(models[ptr], dataType))
@@ -2798,12 +2810,12 @@ public final class MobDefinition {
                 break;
         }
     }
-    
-	public static void reloadCache() {
-		modelCache.clear();
-		modelCacheOSRS.clear();
+
+    public static void reloadCache() {
+        modelCache.clear();
+        modelCacheOSRS.clear();
         modelCacheCustom.clear();
-		
+
         cache = new MobDefinition[50];
         cacheOSRS = new MobDefinition[50];
 
@@ -2811,7 +2823,7 @@ public final class MobDefinition {
             cache[k] = new MobDefinition();
             cacheOSRS[k] = new MobDefinition();
         }
-	}
+    }
 
     public void readValues(Stream stream) {
         boolean osrs = stream == streamOSRS;
@@ -3057,13 +3069,9 @@ public final class MobDefinition {
                     int key = stream.read24BitInt();
                     Object value;
 
-                    if (isString)
-                    {
+                    if (isString) {
                         value = stream.readStringOSRS();
-                    }
-
-                    else
-                    {
+                    } else {
                         value = stream.getInt();
                     }
 

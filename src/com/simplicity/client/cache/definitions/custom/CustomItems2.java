@@ -3439,6 +3439,30 @@ public class CustomItems2 {
 	            itemDef.modelOffsetY = 0;
 	            itemDef.modelOffsetX = 0;
 	            break;
+			case 42816:
+				itemDef.name = "Pet dark core";
+				itemDef.groundActions = new String[]{null, null, "Take", null, null};
+				itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+				itemDef.modelZoom = 1872;
+				itemDef.rotationX = 0;
+				itemDef.rotationY = 0;
+				itemDef.modelID = 40853;
+				itemDef.modelOffset1 = -3;
+				itemDef.modelOffsetY = 0;
+				itemDef.modelOffsetX = 0;
+				break;
+			case 52318:
+				itemDef.name = "Pet corporeal critter";
+				itemDef.groundActions = new String[]{null, null, "Take", null, null};
+				itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+				itemDef.modelZoom = 1872;
+				itemDef.rotationX = 0;
+				itemDef.rotationY = 0;
+				itemDef.modelID = 40853;
+				itemDef.modelOffset1 = -3;
+				itemDef.modelOffsetY = 0;
+				itemDef.modelOffsetX = 0;
+				break;
 	        case 11978:
 	            itemDef.name = "Pet TzTok-Jad";
 	            itemDef.groundActions = new String[]{null, null, "Take", null, null};

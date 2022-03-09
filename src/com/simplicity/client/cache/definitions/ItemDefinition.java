@@ -534,6 +534,22 @@ public final class ItemDefinition {
                 itemDef.modelID = MobDefinition.forID(21332).models[0];
                 itemDef.modelZoom = 1200;
                 break;
+
+            case 42816:
+                itemDef.name = "Pet dark core";
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelID = MobDefinition.forID(15320).models[0];
+                itemDef.modelZoom = 1200;
+                break;
+
+            case 52318:
+                itemDef.name = "Pet corporeal critter";
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelID = MobDefinition.forID(23008).models[0];
+                itemDef.modelZoom = 3400;
+                break;
                 
 	        case 54975:
 	            itemDef.name = "Headless beast pet";
