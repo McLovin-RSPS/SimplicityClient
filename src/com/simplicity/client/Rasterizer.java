@@ -3,6 +3,8 @@ package com.simplicity.client;
 import java.awt.Color;
 
 import com.simplicity.Configuration;
+import com.simplicity.client.widget.settings.Setting;
+import com.sun.scenario.Settings;
 import net.runelite.client.plugins.hdnew.HdPlugin;
 
 public final class Rasterizer extends DrawingArea {
