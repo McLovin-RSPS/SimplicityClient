@@ -4916,6 +4916,8 @@ public class Client extends RSApplet {
             return;
         }
 
+        Runnable dropdown = null;
+
         int[] children = class9.children;
         int[] childrenX = class9.childX;
         int[] childrenY = class9.childY;
@@ -5133,16 +5135,18 @@ public class Client extends RSApplet {
 							flag = true;
 						}
 						if (flag) {
-							if (menuActionRow != 1) {
-								menuActionRow = 1;
-							}
+                            dropdown = () -> {
+                                if (menuActionRow != 1) {
+                                    menuActionRow = 1;
+                                }
 
-							menuActionName[menuActionRow] = "Select";
-							menuActionID[menuActionRow] = 770;
-							menuActionCmd3[menuActionRow] = child.id;
-							menuActionCmd2[menuActionRow] = child.dropdownHover;
-							menuActionCmd1[menuActionRow] = class9.id;
-							menuActionRow++;
+                                menuActionName[menuActionRow] = "Select";
+                                menuActionID[menuActionRow] = 770;
+                                menuActionCmd3[menuActionRow] = child.id;
+                                menuActionCmd2[menuActionRow] = child.dropdownHover;
+                                menuActionCmd1[menuActionRow] = class9.id;
+                                menuActionRow++;
+                            };
 						}
 					}
 					if (super.mouseX >= childX && super.mouseY >= childY
@@ -5626,6 +5630,10 @@ public class Client extends RSApplet {
 
                 }
             }
+        }
+
+        if (dropdown != null) {
+            dropdown.run();
         }
 
     }
