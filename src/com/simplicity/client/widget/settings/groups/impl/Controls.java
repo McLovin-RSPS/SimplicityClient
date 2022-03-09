@@ -38,7 +38,7 @@ public class Controls extends SettingGroup {
                 "When enabled, if you left click where there is more than one\\noption, the click will act as if you right clicked.",
                 false, enabled -> Client.instance.sendFrame36(170, enabled ? 0 : 1)));
 
-        add(control, new Toggle(MIDDLE_MOUSE_CAMERA, "Middle mouse camera",
+        add(control, new Toggle(MIDDLE_MOUSE_CAMERA, "Middle mouse button controls the camera",
                 "When enabled, if you hold down the middle mouse button, you\\ncan move the camera.",
                 true));
 
