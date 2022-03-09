@@ -1,5 +1,6 @@
 package com.simplicity.client.widget.settings.groups.impl;
 
+import com.simplicity.Configuration;
 import com.simplicity.client.Client;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.widget.dropdown.Dropdown;
@@ -25,6 +26,37 @@ public class Interfaces extends SettingGroup {
                     SettingsTabWidget.updateClientLayout();
                 }
         ));
+
+        add(general, new DropdownSetting(GAMEFRAME,
+                "Gameframe style",
+                "Select what the style for the\\ngame frame is.",
+                new String[]{ "#500+ (2009)", "#600+ (2010)", "OSRS" },
+                100, false, 2, 1, selected -> {
+            if (selected != 2) {
+                Configuration.enableOldschoolFrame = false;
+            }
+
+            if (selected == 0) {
+                Configuration.enableOldFrame = true;
+
+                if (Client.tabID == 13) {
+                    Client.tabID = 15;
+                }
+            } else if (selected == 1) {
+                Configuration.enableOldFrame = false;
+
+                if (Client.tabID == 15) {
+                    Client.tabID = 13;
+                }
+            } else if (selected == 2) {
+                Configuration.enableOldFrame = true;
+                Configuration.enableOldschoolFrame = true;
+
+                if (Client.tabID == 15) {
+                    Client.tabID = 13;
+                }
+            }
+        }));
 
         add(general, new Toggle(SHOW_ORBS,
                 "Show data orbs",
