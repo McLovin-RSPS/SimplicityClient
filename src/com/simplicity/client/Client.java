@@ -17497,33 +17497,38 @@ public class Client extends RSApplet {
     							fontColour, 0);
 
     					if (d.isOpen()) {
-    						// Up arrow
-    						cacheSprite[upArrow].drawSprite(childX + d.getWidth() - 18, childY + 2);
+                            int finalChildX = childX;
+                            int finalChildY = childY;
 
-    						DrawingArea.drawPixels(d.getHeight(), childY + 19, childX, child.dropdownColours[0],
-    								d.getWidth());
-    						DrawingArea.drawPixels(d.getHeight() - 2, childY + 20, childX + 1,
-    								child.dropdownColours[1], d.getWidth() - 2);
-    						DrawingArea.drawPixels(d.getHeight() - 4, childY + 21, childX + 2,
-    								child.dropdownColours[3], d.getWidth() - 4);
+                            dropdown = () -> {
+                                // Up arrow
+                                cacheSprite[upArrow].drawSprite(finalChildX + d.getWidth() - 18, finalChildY + 2);
 
-    						int yy = 2;
-    						for (int i = 0; i < d.getOptions().length; i++) {
-    							if (child.dropdownHover == i) {
-    								DrawingArea.drawPixels(13, childY + 19 + yy, childX + 2, child.dropdownColours[4], d.getWidth() - 4);
-    								newSmallFont.drawCenteredString(d.getOptions()[i], childX + (d.getWidth() - xOffset) / 2, childY + 29 + yy, 0xffb83f, 0);
-    							} else {
-    								DrawingArea.drawPixels(13, childY + 19 + yy, childX + 2, child.dropdownColours[3], d.getWidth() - 4);
-    								newSmallFont.drawCenteredString(d.getOptions()[i], childX + (d.getWidth() - xOffset) / 2, childY + 29 + yy, 0xfe971e, 0);
-    							}
-    							yy += 14;
-    						}
+                                DrawingArea.drawPixels(d.getHeight(), finalChildY + 19, finalChildX, child.dropdownColours[0],
+                                        d.getWidth());
+                                DrawingArea.drawPixels(d.getHeight() - 2, finalChildY + 20, finalChildX + 1,
+                                        child.dropdownColours[1], d.getWidth() - 2);
+                                DrawingArea.drawPixels(d.getHeight() - 4, finalChildY + 21, finalChildX + 2,
+                                        child.dropdownColours[3], d.getWidth() - 4);
 
-    						if (white) {
-    							//drawWhiteScrollbar(d.getHeight() - 4, child.scrollPosition, childY + 21, childX + d.getWidth() - 18, d.getHeight() -5, false, true);
-    						} else {
-    							drawScrollbar(d.getHeight() - 4, child.scrollPosition, childY + 21, childX + d.getWidth() - 18, d.getHeight() - 5, false, false);
-    						}
+                                int yy = 2;
+                                for (int i = 0; i < d.getOptions().length; i++) {
+                                    if (child.dropdownHover == i) {
+                                        DrawingArea.drawPixels(13, finalChildY + 19 + yy, finalChildX + 2, child.dropdownColours[4], d.getWidth() - 4);
+                                        newSmallFont.drawCenteredString(d.getOptions()[i], finalChildX + (d.getWidth() - xOffset) / 2, finalChildY + 29 + yy, 0xffb83f, 0);
+                                    } else {
+                                        DrawingArea.drawPixels(13, finalChildY + 19 + yy, finalChildX + 2, child.dropdownColours[3], d.getWidth() - 4);
+                                        newSmallFont.drawCenteredString(d.getOptions()[i], finalChildX + (d.getWidth() - xOffset) / 2, finalChildY + 29 + yy, 0xfe971e, 0);
+                                    }
+                                    yy += 14;
+                                }
+
+                                if (white) {
+                                    //drawWhiteScrollbar(d.getHeight() - 4, child.scrollPosition, childY + 21, childX + d.getWidth() - 18, d.getHeight() -5, false, true);
+                                } else {
+                                    drawScrollbar(d.getHeight() - 4, child.scrollPosition, finalChildY + 21, finalChildX + d.getWidth() - 18, d.getHeight() - 5, false, false);
+                                }
+                            };
     					} else {
     						cacheSprite[downArrow].drawSprite(childX + d.getWidth() - 18, childY + 2);
     					}
