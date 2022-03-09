@@ -37,8 +37,6 @@ public class SettingsTabWidget extends RSInterface {
 	private static final int AUDIO_SETTINGS = CONTROL_SETTINGS + 100;
 	private static final int DISPLAY_SETTINGS = AUDIO_SETTINGS + 100;
 
-	public static final int FIXED = CONTROL_SETTINGS + 1;
-	public static final int RESIZABLE = CONTROL_SETTINGS + 2;
 	public static final int ADVANCED = CONTROL_SETTINGS + 4;
 	public static final int TOGGLE_ZOOM = 20201;
 	public static final int ZOOM_SLIDER = 20204;
@@ -101,7 +99,7 @@ public class SettingsTabWidget extends RSInterface {
 
 		RSInterface tab = addTabInterface(id++);
 		
-		tab.totalChildren(9);
+		tab.totalChildren(13);
 		
 		int child = 0;
 
@@ -127,17 +125,31 @@ public class SettingsTabWidget extends RSInterface {
 		addConfigButtonWSpriteLoader(152, 904, 1219, 1220, 40, 40, "Toggle-run", 1, 5, 173);
 		addSpriteLoader(947, 1247);
 
-		/*configHoverButton(id, "Fixed mode", 1225, 1225, 1224, 1228, true, id + 1);
-        configHoverButton(id + 1, "Resizable mode", 1226, 1229, 1227, 1227, false, id);
-		tab.child(child++, id, 28, 124 - 5);
-		tab.child(child++, id + 1, 106, 124 - 5);
-		id+=2;*/
-		
+		addButton(id, 1219, "View House Options");
+		interfaceCache[id].onClick = () -> {
+			Client.getClient().pushMessage("Coming soon", 0, "");
+			return false;
+		};
+		tab.child(child++, id++, 54 + 42, 223 - 4 - 45);
+
+		addSprite(id, 2003);
+		tab.child(child++, id++, 54 + 46, 223 - 4 - 40);
+
+		addButton(id, 1219, "View Store");
+		interfaceCache[id].onClick = () -> {
+			Client.getClient().launchURL("https://store.simplicityps.org/");
+			return false;
+		};
+		tab.child(child++, id++, 54 + 84, 223 - 4 - 45);
+
+		addSprite(id, 2004);
+		tab.child(child++, id++, 54 + 88, 223 - 4 - 40);
+
 		tab.child(child++, 12464, 7 + 4, 223 - 4 - 45);
 		tab.child(child++, 949, 12 + 4, 228 - 4 - 45);
-		tab.child(child++, 152, 54 + 4, 223 - 4 - 45);
-		tab.child(child++, 947, 65 + 4, 226 - 4 - 45);
-		tab.child(child++, 149, 59 + 4, 243 - 4 - 45);
+		tab.child(child++, 152, 54, 223 - 4 - 45);
+		tab.child(child++, 947, 65, 226 - 4 - 45);
+		tab.child(child++, 149, 59, 243 - 4 - 45);
 
 		setBounds(id, 12, 118 - 35, child++, tab);
 		setBounds(NPC_ATTACK_DROPDOWN, 12, 174 - 35, child++, tab);
@@ -362,12 +374,6 @@ public class SettingsTabWidget extends RSInterface {
 				
 				interfaceCache[ZOOM_SLIDER].slider.setValue(Math.negateExact(1800 - Client.cameraZoom));
 			}
-			return true;
-		case FIXED:
-			Client.instance.toggleSize(0);
-			return true;
-		case RESIZABLE:
-			Client.instance.toggleSize(1);
 			return true;
 		/*case KEYBINDING:
 			Keybinding.updateInterface();
