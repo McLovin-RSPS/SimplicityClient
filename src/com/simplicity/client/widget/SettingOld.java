@@ -21,72 +21,6 @@ public enum SettingOld {
 	
 	GRAPHICS(true),
 	
-	HD_TEXTURES() {
-
-		@Override
-		public void handle() {
-			enableHDTextures = !enableHDTextures;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableHDTextures;
-		}
-	},
-	
-	HD_SHADING() {
-
-		@Override
-		public void handle() {
-			enableHDShading = !enableHDShading;
-			Rasterizer.enableSmoothShading = enableHDShading;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableHDShading;
-		}
-	},
-	
-	FOG() {
-
-		@Override
-		public void handle() {
-			enableFog = !enableFog;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableFog;
-		}
-	},
-	
-	MIP_MAPPING() {
-		@Override
-		public void handle() {
-			enableMipmapping = !enableMipmapping;
-			Rasterizer.enableMipmapping = enableMipmapping;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableMipmapping;
-		}
-	},
-	
-	ANTI_ALIASING() {
-
-		@Override
-		public void handle() {
-			enableAntiAliasing = !enableAntiAliasing;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableAntiAliasing;
-		}
-	},
-	
 	OVERLAYS(true),
 	
 	TOOLTIP_HOVERS() {
@@ -102,8 +36,6 @@ public enum SettingOld {
 		}
 	},
 
-	ITEM_STATS(new DropdownMenu(75, false, 1, new String[] { "On Hover", "Hold Ctrl", "Disabled" }, Dropdown.ITEM_STATS)) { },
-	
 	KDR() {
 		@Override
 		public void handle() {
@@ -118,25 +50,6 @@ public enum SettingOld {
 	
 	TOGGLES(true),
 	
-	HITMARKERS(new DropdownMenu(75, false, 0, new String[] { "562", "OSRS" }, Dropdown.HITMARKERS)) { },
-	
-	HP_BARS(new DropdownMenu(75, false, 0, new String[] { "562", "OSRS" }, Dropdown.HPBARS)) { },
-	
-	GAMEFRAME(new DropdownMenu(75, false, 1, new String[] { "500+", "600+", "OSRS" }, Dropdown.GAMEFRAME)) { },
-
-	CONSTITUTION() {
-
-		@Override
-		public void handle() {
-			enableConstitution = !enableConstitution;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableConstitution;
-		}
-	},
-
 	CURSORS() {
 
 		@Override
@@ -177,19 +90,6 @@ public enum SettingOld {
 		}
 	},
 
-	SAVE_INPUT() {
-
-		@Override
-		public void handle() {
-			enableSaveInput = !enableSaveInput;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableSaveInput;
-		}
-	},
-	
 	BOUNTY_TARGET() {
 		@Override
 		public void handle() {

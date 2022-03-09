@@ -466,8 +466,7 @@ public final class Rasterizer extends DrawingArea {
 		if (net.runelite.client.plugins.hdnew.HdPlugin.process() && !renderOnGpu) {
 			return;
 		}
-
-		if (!Configuration.enableHDTextures || Texture.get(tex) == null) {
+		if (!Settings.getBoolean(Setting.HD_TEXTURES) || Texture.get(tex) == null) {
 			drawGouraudTriangle(y1, y2, y3, x1, x2, x3, hsl1, hsl2, hsl3, z1, z2, z3);
 			return;
 		}

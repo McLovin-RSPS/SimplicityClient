@@ -13,6 +13,8 @@ import com.simplicity.Configuration;
 import com.simplicity.client.cache.node.Deque;
 import com.simplicity.client.entity.Position;
 
+import com.simplicity.client.widget.settings.Setting;
+import com.simplicity.client.widget.settings.Settings;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.DecorativeObjectDespawned;
@@ -1979,7 +1981,7 @@ public final class WorldController {
 
 			if (class43.texture == -1 || class43.texture > 50) {
 				if (class43.neColor != 0xbc614e) {
-					if (Configuration.enableHDTextures && class43.texture != -1) {
+					if (Settings.getBoolean(Setting.HD_TEXTURES) && class43.texture != -1) {
 						if (class43.flat) {
 							Rasterizer.drawMaterializedTriangle(y_c, y_d, y_b, x_c, x_d, x_b, class43.neColor, class43.nwColor, class43.seColor, i2, i3, l1, l3, i4, k4, depth_a, depth_b, depth_d, class43.texture, depth_c, depth_d, depth_b);
 						} else {
@@ -2018,7 +2020,7 @@ public final class WorldController {
 
 			if (class43.texture == -1 || class43.texture > 50) {
 				if (class43.swColor != 0xbc614e) {
-					if (Configuration.enableHDTextures && class43.texture != -1) {
+					if (Settings.getBoolean(Setting.HD_TEXTURES) && class43.texture != -1) {
 						Rasterizer.drawMaterializedTriangle(y_a, y_b, y_d, x_a, x_b, x_d, class43.swColor, class43.seColor, class43.nwColor, i2, i3, l1, l3, i4, k4, depth_a, depth_b, depth_d, class43.texture, depth_a, depth_b, depth_d);
 					} else {
 						Rasterizer.drawGouraudTriangle(y_a, y_b, y_d, x_a, x_b, x_d, class43.swColor, class43.seColor, class43.nwColor, depth_a, depth_b, depth_d);
@@ -2136,7 +2138,7 @@ public final class WorldController {
 			if (i3 < 50) {
 				return;
 			}
-			if (Configuration.enableHDTextures || tile.triangleTextureId != null) {
+			if (Settings.getBoolean(Setting.HD_TEXTURES) || tile.triangleTextureId != null) {
 				SceneTileModel.anIntArray690[l1] = i2;
 				SceneTileModel.anIntArray691[l1] = k2;
 				SceneTileModel.anIntArray692[l1] = i3;
@@ -2176,7 +2178,7 @@ public final class WorldController {
 
 				if (tile.triangleTextureId == null || tile.triangleTextureId[face] == -1 || tile.triangleTextureId[face] > 50) {
 					if (tile.triangleColorA[face] != 0xbc614e) {
-						if (Configuration.enableHDTextures && tile.triangleTextureId != null && tile.triangleTextureId[face] != -1) {
+						if (Settings.getBoolean(Setting.HD_TEXTURES) && tile.triangleTextureId != null && tile.triangleTextureId[face] != -1) {
 							if (tile.flat || tile.triangleTextureId[face] == 505) {
 								Rasterizer.drawMaterializedTriangle(y_a, y_b, y_c, x_a, x_b, x_c, tile.triangleColorA[face], tile.triangleColorB[face], tile.triangleColorC[face], SceneTileModel.anIntArray690[0], SceneTileModel.anIntArray690[1], SceneTileModel.anIntArray690[3], SceneTileModel.anIntArray691[0], SceneTileModel.anIntArray691[1], SceneTileModel.anIntArray691[3], SceneTileModel.anIntArray692[0], SceneTileModel.anIntArray692[1], SceneTileModel.anIntArray692[3], tile.triangleTextureId[face], SceneTileModel.screenZ[tri_a], SceneTileModel.screenZ[tri_b], SceneTileModel.screenZ[tri_c]);
 							} else {

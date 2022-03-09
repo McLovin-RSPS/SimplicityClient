@@ -2,6 +2,7 @@ package com.simplicity.client.widget.settings.groups.impl;
 
 import com.simplicity.Configuration;
 import com.simplicity.client.Client;
+import com.simplicity.client.Rasterizer;
 import com.simplicity.client.widget.Slider;
 import com.simplicity.client.widget.settings.SettingsTabWidget;
 import com.simplicity.client.widget.settings.groups.SettingGroup;
@@ -33,5 +34,26 @@ public class Display extends SettingGroup {
         add(graphics, new Toggle(PARTICLES, "Particles",
                 "When enabled, particles will be rendered.",
                 true));
+
+        add(graphics, new Toggle(FOG, "FOG",
+                "When enabled, fog will be rendered.",
+                false));
+
+        add(graphics, new Toggle(HD_TEXTURES, "HD Textures",
+                "When enabled, textures will be rendered in higher quality.",
+                false));
+
+        add(graphics, new Toggle(MIP_MAPPING, "Mip-mapping",
+                "When enabled, textures will appear smoother.",
+                false, enabled -> Rasterizer.enableMipmapping = enabled));
+
+        /* Disabled in client? */
+        /*add(graphics, new Toggle(ANTI_ALIASING, "Anti-aliasing",
+                "When enabled, models will be rendered with smooth edges instead of sharp.",
+                false));*/
+
+        add(graphics, new Toggle(HD_SHADING, "Tile shading",
+                "When enabled, shading will be applied to tiles.",
+                true, enabled -> Rasterizer.enableSmoothShading = enabled));
     }
 }

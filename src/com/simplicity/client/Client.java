@@ -457,7 +457,7 @@ public class Client extends RSApplet {
                 cameraZoom = 900;
                 WorldController.viewDistance = 10;
             }
-            if (size != 0 && Configuration.enableAntiAliasing) {
+            if (size != 0 && Settings.getBoolean(Setting.ANTI_ALIASING)) {
                 pushMessage("Anti aliasing is not avaible on resized mode yet", 0, "");
             }
             rebuildFrame(size, width, height);
@@ -1825,10 +1825,10 @@ public class Client extends RSApplet {
     public void drawHPOrb() {
         int currentHp = (currentStats[3] / 10);
         int health = (int) (((double) currentStats[3] / (double) currentMaxStats[3]) * 100D);
-        if (!Configuration.enableConstitution) {
+        if (!Settings.getBoolean(Setting.CONSTITUTION)) {
             currentHp = (currentHp / 10);
         }
-        if(health == 0 && (currentStats[3] > 0 && currentStats[3] < 100) && !Configuration.enableConstitution) {
+        if(health == 0 && (currentStats[3] > 0 && currentStats[3] < 100) && !Settings.getBoolean(Setting.CONSTITUTION)) {
             currentHp = 1;
             health = 1;
         }
@@ -2996,8 +2996,9 @@ public class Client extends RSApplet {
                 drawMenu();
             }
         }
+        int itemStats = Settings.getInt(Setting.ITEM_STATS);
 
-        if ((Configuration.enableItemStats == 1 && controlIsDown || Configuration.enableItemStats == 2) && tabInterfaceIDs[tabID] == 3213 && tabID == 3 && itemStatsId > 0 && hoverInventory()) {
+        if ((itemStats == 1 && controlIsDown || itemStats == 2) && tabInterfaceIDs[tabID] == 3213 && tabID == 3 && itemStatsId > 0 && hoverInventory()) {
         	drawItemStats(itemStatsId);
         }
         if(RuneLite.getClient() != null) {
@@ -5287,7 +5288,8 @@ public class Client extends RSApplet {
                                                 if (itemDef.actions[i4] != null) {
                                                 	if (child.id == 3214) {
 	                                                	if (itemDef.actions[i4].equals("Wield") || itemDef.actions[i4].equals("Wear")) {
-		                                                	if (Configuration.enableItemStats == 1 && controlIsDown || Configuration.enableItemStats == 2) {
+                                                            int itemStats = Settings.getInt(Setting.ITEM_STATS);
+		                                                	if (itemStats == 1 && controlIsDown || itemStats == 2) {
 		                                                    	itemStatsId = itemDef.id;
 		                                                    	itemStatsIndex = ptr;
 		                                                    	drawStats = true;
@@ -5607,7 +5609,8 @@ public class Client extends RSApplet {
                                     }
 
                                 } else {
-                                	if (Configuration.enableItemStats == 1 && controlIsDown || Configuration.enableItemStats == 2) {
+                                    int itemStats = Settings.getInt(Setting.ITEM_STATS);
+                                	if (itemStats == 1 && controlIsDown || itemStats == 2) {
                                 		itemStatsId = 0;
                                 	}
                                 }
@@ -6185,7 +6188,7 @@ public class Client extends RSApplet {
                                         }
                                 	}
                                 	
-                                    if (!Configuration.enableConstitution) {
+                                    if (!Settings.getBoolean(Setting.CONSTITUTION)) {
                                         dmg = dmg / 10;
                                         if (dmg == 0) {
                                             dmg = 1;
@@ -8850,7 +8853,7 @@ public class Client extends RSApplet {
                 return;
             }
             inputTitle = "Enter amount of coins to withdraw:";
-            if (!Configuration.enableSaveInput) {
+            if (!Settings.getBoolean(Setting.SAVE_INPUT)) {
                 amountOrNameInput = "";
             }
             interfaceButtonAction = 557;
@@ -8865,7 +8868,7 @@ public class Client extends RSApplet {
                 return;
             }
             inputTitle = "Enter amount of tickets to withdraw:";
-            if (!Configuration.enableSaveInput) {
+            if (!Settings.getBoolean(Setting.SAVE_INPUT)) {
                 amountOrNameInput = "";
             }
             interfaceButtonAction = 559;
@@ -13740,9 +13743,6 @@ public class Client extends RSApplet {
                 socketStream.read();
             }
             int loginCode = socketStream.read();
-            Configuration.enableSaveInput = false;
-            Configuration.enableHDShading = true;
-            Rasterizer.enableSmoothShading = true;
             handleSettings();
 
             int i1 = loginCode;
@@ -23050,7 +23050,7 @@ public class Client extends RSApplet {
                     inputTitle = new String(inStream.readString());
                     showInput = false;
                     inputDialogState = 1;
-                    if (!Configuration.enableSaveInput) {
+                    if (!Settings.getBoolean(Setting.SAVE_INPUT)) {
                         amountOrNameInput = "";
                     }
                     inputTaken = true;
@@ -23059,7 +23059,7 @@ public class Client extends RSApplet {
 
                 case 31:
                     inputDialogState = 1;
-                    if (!Configuration.enableSaveInput) {
+                    if (!Settings.getBoolean(Setting.SAVE_INPUT)) {
                         amountOrNameInput = "";
                     }
                     inputTaken = true;
@@ -23070,7 +23070,7 @@ public class Client extends RSApplet {
                     inputTitle = new String(inStream.readString());
                     showInput = false;
                     inputDialogState = 2;
-                    if (!Configuration.enableSaveInput) {
+                    if (!Settings.getBoolean(Setting.SAVE_INPUT)) {
                         amountOrNameInput = "";
                     }
                     inputTaken = true;
@@ -23584,7 +23584,7 @@ public class Client extends RSApplet {
             callbacks.post(new BeforeRender());
         worldController.render(xCameraPos, yCameraPos, xCameraCurve, zCameraPos, j, yCameraCurve);
         //worldController.renderTileMarkers();
-        if (!HdPlugin.process() && Configuration.enableFog) {
+        if (!HdPlugin.process() && Settings.getBoolean(Setting.FOG)) {
             int baseFogDistance = (int) Math.sqrt(Math.pow(zCameraPos, 2));
             int fogStart = baseFogDistance + 1100;
             int fogEnd = baseFogDistance + 2000;
@@ -25865,7 +25865,7 @@ public class Client extends RSApplet {
         if (damage > 0) {
             Sprite end1 = null, middle = null, end2 = null;
             int x = 0;
-            if (!Configuration.enableConstitution) {
+            if (!Settings.getBoolean(Setting.CONSTITUTION)) {
                 damage = (damage / 10);
                 if (damage == 0) {
                     damage = 1;
@@ -25889,7 +25889,7 @@ public class Client extends RSApplet {
             
             int lengthOffset = 3;
             
-            if (Configuration.enableConstitution) {
+            if (Settings.getBoolean(Setting.CONSTITUTION)) {
         		lengthOffset++;
             }
             
@@ -25914,7 +25914,7 @@ public class Client extends RSApplet {
             	textXOffset += 6;
             } else if (damage > 99) {
             	textXOffset += 3;
-			} else if (Configuration.enableConstitution) {
+			} else if (Settings.getBoolean(Setting.CONSTITUTION)) {
 				textXOffset += 2;
 			}
             

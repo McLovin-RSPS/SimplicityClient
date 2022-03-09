@@ -19,5 +19,9 @@ public class Chat extends SettingGroup {
         add(options, new Toggle(SPLIT_PRIVATE, "Split friends private chat",
                 "When enabled, shows your private messages above your chat\\nbox.",
                 true, enabled -> Client.instance.sendFrame36(287, enabled ? 1 : 0)));
+
+        add(options, new Toggle(SAVE_INPUT, "Save input",
+                "When enabled, enter amount input will be saved.",
+                true));
     }
 }

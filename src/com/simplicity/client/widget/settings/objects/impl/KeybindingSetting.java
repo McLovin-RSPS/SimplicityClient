@@ -18,8 +18,8 @@ public class KeybindingSetting extends DropdownSetting {
 
     private int col;
 
-    public KeybindingSetting(String key, int col, int priority, Integer defaultValue, Consumer<Integer> handle) {
-        super(key, "", "", Keybinding.OPTIONS, 60, true, priority, defaultValue, handle);
+    public KeybindingSetting(String key, int col, Integer defaultValue, Consumer<Integer> handle) {
+        super(key, "", "", Keybinding.OPTIONS, 60, true, defaultValue, handle);
         this.col = col;
     }
 
@@ -40,7 +40,7 @@ public class KeybindingSetting extends DropdownSetting {
         rsi.dropdownColours = new int[] { 0x0d0d0b, 0x464644, 0x473d32, 0x51483c, 0x787169 };
         rsi.dropdown = menu;
 
-        widget.add(rsi, x + 46, yPos + 12, priority);
+        widget.add(rsi, x + 46, yPos + 12);
 
         if (col == 13) {
             RSInterface button = widget.hoverButton(2001, 2002, "Select").setLayer(SettingsWidget.WIDGET_ID);

@@ -65,20 +65,8 @@ public class ClientSettings {
 				SoundPlayer.setVolume(reader.get("sound-volume").getAsInt());
 			}
 			
-			if (reader.has("hd-textures")) {
-				Configuration.enableHDTextures = reader.get("hd-textures").getAsBoolean();
-			}
-			
 			if (reader.has("tooltip-hover")) {
 				Configuration.enableTooltipHover = reader.get("tooltip-hover").getAsBoolean();
-			}
-			
-			if (reader.has("old-hits")) {
-				Configuration.enableOldHitmarkers = reader.get("old-hits").getAsBoolean();
-			}
-			
-			if (reader.has("constitution")) {
-				Configuration.enableConstitution = reader.get("constitution").getAsBoolean();
 			}
 			
 			if (reader.has("cursors")) {
@@ -93,30 +81,14 @@ public class ClientSettings {
 				Configuration.enableCensor = reader.get("censor").getAsBoolean();
 			}
 			
-			if (reader.has("fog")) {
-				Configuration.enableFog = reader.get("fog").getAsBoolean();
-			}
-			
 			if (reader.has("absorb-damage")) {
 				Configuration.enableAbsorbDamage = reader.get("absorb-damage").getAsBoolean();
 			}
 			
-			if (reader.has("anti-aliasing")) {
-				Configuration.enableAntiAliasing = reader.get("anti-aliasing").getAsBoolean();
-			}
-			
-			if (reader.has("save-input")) {
-				Configuration.enableSaveInput = reader.get("save-input").getAsBoolean();
-			}
-
 			if (reader.has("moderation-menu-enabled")) {
 				Configuration.enableModerationMenu = reader.get("moderation-menu-enabled").getAsBoolean();
 			}
 
-			if (reader.has("hd-shading")) {
-				Configuration.enableHDShading = reader.get("hd-shading").getAsBoolean();
-			}
-			
 			if (reader.has("chat-effects")) {
 				Client.instance.variousSettings[171] = reader.get("chat-effects").getAsBoolean() ? 1 : 0;
 				Client.sendVarbitChanged(171);
@@ -132,10 +104,6 @@ public class ClientSettings {
 				Client.sendVarbitChanged(170);
 			}
 			
-			if (reader.has("item-stats-hover")) {
-				Configuration.enableItemStats = reader.get("item-stats-hover").getAsInt();
-			}
-			
 			if (reader.has("zooming")) {
 				Configuration.enableZooming = reader.get("zooming").getAsBoolean();
 			}
@@ -146,10 +114,6 @@ public class ClientSettings {
 			
 			if (reader.has("kdr-overlay")) {
 				Configuration.enableKDROverlay = reader.get("kdr-overlay").getAsBoolean();
-			}
-			
-			if (reader.has("new-hp-bars")) {
-				Configuration.enableNewHpBars = reader.get("new-hp-bars").getAsBoolean();
 			}
 			
 			if (reader.has("keybindings")) {
@@ -238,27 +202,18 @@ public class ClientSettings {
 			object.addProperty("music-enabled", Client.instance.musicEnabled);
 			object.addProperty("sound-volume", SoundPlayer.getVolume());
 			object.addProperty("brightness", Client.instance.shadowIndex);
-			object.addProperty("hd-textures", Configuration.enableHDTextures);
 			object.addProperty("tooltip-hover", Configuration.enableTooltipHover);
-			object.addProperty("old-hits", Configuration.enableOldHitmarkers);
-			object.addProperty("constitution", Configuration.enableConstitution);
 			object.addProperty("cursors", Configuration.enableCursors);
 			object.addProperty("old-frame", Configuration.enableOldFrame);
 			object.addProperty("censor", Configuration.enableCensor);
-			object.addProperty("fog", Configuration.enableFog);
 			object.addProperty("absorb-damage", Configuration.enableAbsorbDamage);
-			object.addProperty("anti-aliasing", Configuration.enableAntiAliasing);
-			object.addProperty("save-input", Configuration.enableSaveInput);
-			object.addProperty("hd-shading", Configuration.enableHDShading);
 			object.addProperty("chat-effects", Client.instance.variousSettings[171] == 1);
 			object.addProperty("split-private-chat", Client.instance.variousSettings[287] == 0);
 			object.addProperty("mouse-buttons", Client.instance.variousSettings[170] == 1);
-			object.addProperty("item-stats-hover", Configuration.enableItemStats);
 			object.addProperty("moderation-menu-enabled", Configuration.enableModerationMenu);
 			object.addProperty("zooming", Configuration.enableZooming);
 			object.addProperty("bounty-target", Configuration.enableBountyTarget);
 			object.addProperty("kdr-overlay", Configuration.enableKDROverlay);
-			object.addProperty("new-hp-bars", Configuration.enableNewHpBars);
 			object.add("keybindings", builder.toJsonTree(Keybinding.KEYBINDINGS));
 			object.add("quick-prayers", builder.toJsonTree(Client.instance.getQuickPrayers()));
 			object.add("quick-curses", builder.toJsonTree(Client.instance.getQuickCurses()));
@@ -303,25 +258,15 @@ public class ClientSettings {
 	 * Sets the default values for the toggles.
 	 */
 	public static void setDefaults() {
-		Configuration.enableHDTextures = false;
 		Configuration.enableTooltipHover = false;
-		Configuration.enableOldHitmarkers = false;
-		Configuration.enableConstitution = false;
 		Configuration.enableCursors = true;
 		Configuration.enableOldFrame = false;
 		Configuration.enableCensor = false;
-		Configuration.enableFog = false;
 		Configuration.enableAbsorbDamage = true;
-		Configuration.enableAntiAliasing = false;
-		Configuration.enableSaveInput = true;
-		Configuration.enableHDShading = true;
-		Configuration.enableMipmapping = false;
-		Configuration.enableItemStats = 1;
 		Configuration.enableZooming = true;
 		Configuration.enableBountyTarget = true;
 		Configuration.enableModerationMenu = true;
 		Configuration.enableKDROverlay = false;
-		Configuration.enableNewHpBars = true;
 		Client.instance.musicEnabled = false;
 		SoundPlayer.setVolume(4);
 	}

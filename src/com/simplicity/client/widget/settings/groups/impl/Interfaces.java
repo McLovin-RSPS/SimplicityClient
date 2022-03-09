@@ -21,7 +21,7 @@ public class Interfaces extends SettingGroup {
                 "Game client layout",
                 "Select which client mode you\\nwould like to play the game in.\\nFixed mode is the classic client\\nlayout.\\nResizable will let you make the\\nclient as large as your screen.",
                 new String[] { "Fixed", "Resizable" },
-                100, false, 1, 0, size -> {
+                100, false, 0, size -> {
                     Client.getClient().toggleSize(size);
                     SettingsTabWidget.updateClientLayout();
                 }
@@ -31,7 +31,7 @@ public class Interfaces extends SettingGroup {
                 "Gameframe style",
                 "Select what the style for the\\ngame frame is.",
                 new String[]{ "#500+ (2009)", "#600+ (2010)", "OSRS" },
-                100, false, 2, 1, selected -> {
+                100, false, 1, selected -> {
             if (selected != 2) {
                 Configuration.enableOldschoolFrame = false;
             }
@@ -57,6 +57,27 @@ public class Interfaces extends SettingGroup {
                 }
             }
         }));
+
+        add(general, new DropdownSetting(HITMARKERS,
+                "Hitmarkers style",
+                "Select what the style for the hitmarkers is.",
+                new String[] { "562", "OSRS" },
+                100, false, 0, value -> Configuration.enableOldHitmarkers = value == 0 ? false : true
+        ));
+
+        add(general, new DropdownSetting(HP_BARS,
+                "HP Bar style",
+                "Select what the style for the hp bar is.",
+                new String[] { "562", "OSRS" },
+                100, false, 0, value -> Configuration.enableNewHpBars = value == 0 ? true : false
+        ));
+
+        add(general, new DropdownSetting(ITEM_STATS,
+                "Item stats",
+                "Select when item stats should be enabled.",
+                new String[] { "On Hover", "Hold Ctrl", "Disabled" },
+                100, false, 1, value -> {}
+        ));
 
         add(general, new Toggle(SHOW_ORBS,
                 "Show data orbs",

@@ -5959,7 +5959,7 @@ public class RSInterface {
 			addSprite(id, 1037);
 			addSprite(id + 1, icons[i]);
 			boolean inverted = i == 3 || i == 4 || i == 8 || i == 9 || i == 13;
-			keybindingDropdown(id + 2, 86, 0, Keybinding.OPTIONS, Dropdown.KEYBIND_SELECTION, inverted);
+			keybindingDropdown(id + 2, 86, 0, Keybinding.OPTIONS, null, inverted);
 			rsi.child(child--, id + 1, 40 + xPos + offX[i], 70 + yPos + offY[i]);
 			rsi.child(child--, id, 40 + xPos, 70 + yPos);
 			rsi.child(child--, id + 2, 80 + xPos, 70 + yPos);

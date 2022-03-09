@@ -22,13 +22,13 @@ public class Controls extends SettingGroup {
                 "Player attack options",
                 "Select what the default left click\\noption on another player will be.",
                 attackOptions, false,
-                2, 2, value -> SettingsTabWidget.updatePlayerAttackDropdown()));
+                2, value -> SettingsTabWidget.updatePlayerAttackDropdown()));
 
         add(control, new DropdownSetting(NPC_ATT_OPT,
                 "Npc attack options",
                 "Select what the default left click\\noption on on an NPC will be.",
                 attackOptions, false,
-                1, 2, value -> SettingsTabWidget.updateNpcAttackDropdown()));
+                2, value -> SettingsTabWidget.updateNpcAttackDropdown()));
 
         /*add(control, new Toggle(PK_SKULL_PREVENTION, "PK skull prevention",
                 "When enabled, you will be prevented from attacking players in\\nany way that would cause you to become skulled.",
@@ -58,7 +58,7 @@ public class Controls extends SettingGroup {
 
         for (int idx = 0; idx < 14; idx++) {
             int index = idx;
-            add(keybinds, new KeybindingSetting(KEYBIND + idx, idx, 14 - idx, defaults[idx], key -> {
+            add(keybinds, new KeybindingSetting(KEYBIND + idx, idx, defaults[idx], key -> {
                 Keybinding.bind(index, key);
             }));
         }

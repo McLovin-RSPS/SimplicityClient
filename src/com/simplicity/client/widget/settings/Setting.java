@@ -9,18 +9,23 @@ public class Setting {
     /* Chat */
     public static final String CHAT_EFFECTS = "chat_effects";
     public static final String SPLIT_PRIVATE = "chat_split_pm";
+    public static final String SAVE_INPUT = "chat_save_input";
+
 
     /* Display */
     public static final String BRIGHTNESS = "display_brightness";
     public static final String ZOOM = "display_zoom";
     public static final String ROOFS = "display_roofs";
     public static final String PARTICLES = "display_particles";
-    public static final String GAMEFRAME = "display_gameframe";
+    public static final String FOG = "display_fog";
+    public static final String HD_TEXTURES = "display_hd_tex";
+    public static final String MIP_MAPPING = "display_mm";
+    public static final String ANTI_ALIASING = "display_aa";
+    public static final String HD_SHADING = "display_aa";
 
-    /* Game */
-    public static final String ACCEPT_AID = "game_accept_aid";
-    public static final String CLIENT_LAYOUT = "game_layout";
-    public static final String SHOW_ORBS = "game_data_orbs";
+    /* Gameplay */
+    public static final String ACCEPT_AID = "gameplay_accept_aid";
+    public static final String CONSTITUTION = "gameplay_constitution";
 
     /* Controls */
     public static final String PLAYER_ATT_OPT = "controls_plr_att";
@@ -35,6 +40,12 @@ public class Setting {
     public static final String KEYBIND = "controls_keybind_";
 
     /* Interfaces */
+    public static final String CLIENT_LAYOUT = "interfaces_layout";
+    public static final String GAMEFRAME = "interfaces_gameframe";
+    public static final String HITMARKERS = "interfaces_hitmarkers";
+    public static final String HP_BARS = "interfaces_hp_bars";
+    public static final String ITEM_STATS = "interfaces_item_stats";
+    public static final String SHOW_ORBS = "interfaces_data_orbs";
     public static final String SPECIAL_ORB = "interfaces_spec_orb";
 
 }

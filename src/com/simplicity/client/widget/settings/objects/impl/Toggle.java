@@ -36,6 +36,7 @@ public class Toggle extends SettingObject<Boolean> {
         rectangle.onClick = () -> {
             toggle.active = !toggle.active;
             Settings.set(getKey(), toggle.active);
+            getHandle().accept(toggle.active);
             return true;
         };
         widget.add(rectangle, 97, 12 + y);
