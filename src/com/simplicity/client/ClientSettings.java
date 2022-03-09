@@ -304,7 +304,6 @@ public class ClientSettings {
 	 */
 	public static void setDefaults() {
 		Configuration.enableHDTextures = false;
-		Configuration.enableSpecialOrb = true;
 		Configuration.enableTooltipHover = false;
 		Configuration.enableOldHitmarkers = false;
 		Configuration.enableConstitution = false;

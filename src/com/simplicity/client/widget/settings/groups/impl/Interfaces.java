@@ -20,7 +20,7 @@ public class Interfaces extends SettingGroup {
                 "Game client layout",
                 "Select which client mode you\\nwould like to play the game in.\\nFixed mode is the classic client\\nlayout.\\nResizable will let you make the\\nclient as large as your screen.",
                 new String[] { "Fixed", "Resizable" },
-                1, 0, size -> {
+                100, false, 1, 0, size -> {
                     Client.getClient().toggleSize(size);
                     SettingsTabWidget.updateClientLayout();
                 }

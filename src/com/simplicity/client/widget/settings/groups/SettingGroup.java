@@ -32,11 +32,21 @@ public abstract class SettingGroup {
         try {
             data.values().forEach(list -> {
                 list.forEach(obj -> {
-                    if (obj.getKey().equals(key)) {
-                        obj.update();
-                    }
+                    if (obj.getKey().equals(key)) obj.update();
                 });
             });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setDefault(String key, boolean update) {
+        try {
+            data.values().forEach(list ->
+                list.forEach(obj -> {
+                    if (obj.getKey().equals(key)) Settings.set(key, obj.getDefaultValue(), update);
+                })
+            );
         } catch (Exception e) {
             e.printStackTrace();
         }

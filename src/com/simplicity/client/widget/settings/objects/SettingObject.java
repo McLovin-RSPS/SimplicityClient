@@ -28,9 +28,10 @@ public abstract class SettingObject<T> {
         this.handle = handle;
     }
 
-    public void draw(int idx, int y, int width, int height, CustomWidget widget) {
+    public int draw(int idx, int y, int width, int height, CustomWidget widget) {
         RSInterface rect = widget.addRectangle(width, 27 + height, 0, idx % 2 == 0 ? 200 : 225, true);
         widget.add(rect, 97, 12 + y);
+        return 0;
     }
 
     public abstract void update();

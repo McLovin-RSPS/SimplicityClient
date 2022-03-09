@@ -15,6 +15,7 @@ public class Setting {
     public static final String ZOOM = "display_zoom";
     public static final String ROOFS = "display_roofs";
     public static final String PARTICLES = "display_particles";
+    public static final String GAMEFRAME = "display_gameframe";
 
     /* Game */
     public static final String ACCEPT_AID = "game_accept_aid";
@@ -31,6 +32,7 @@ public class Setting {
     public static final String SHIFT_CLICK_DROP = "controls_shift_drop";
     public static final String FOLLOWER_PRIORITY = "controls_follower_pri";
     public static final String ESC_CLOSES_INTERFACE = "controls_esc_close";
+    public static final String KEYBIND = "controls_keybind_";
 
     /* Interfaces */
     public static final String SPECIAL_ORB = "interfaces_spec_orb";

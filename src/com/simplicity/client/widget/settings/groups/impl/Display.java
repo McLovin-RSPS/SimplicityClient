@@ -1,8 +1,11 @@
 package com.simplicity.client.widget.settings.groups.impl;
 
+import com.simplicity.Configuration;
+import com.simplicity.client.Client;
 import com.simplicity.client.widget.Slider;
 import com.simplicity.client.widget.settings.SettingsTabWidget;
 import com.simplicity.client.widget.settings.groups.SettingGroup;
+import com.simplicity.client.widget.settings.objects.impl.DropdownSetting;
 import com.simplicity.client.widget.settings.objects.impl.LegacySliderSetting;
 import com.simplicity.client.widget.settings.objects.impl.SliderSetting;
 import com.simplicity.client.widget.settings.objects.impl.Toggle;

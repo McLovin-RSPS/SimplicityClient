@@ -19,11 +19,12 @@ public class SliderSetting extends SettingObject<Double> {
     }
 
     @Override
-    public void draw(int idx, int y, int width, int height, CustomWidget widget) {
+    public int draw(int idx, int y, int width, int height, CustomWidget widget) {
         widget.add(widget.addRectangle(width, 27 + height, 0, idx % 2 == 0 ? 200 : 225, true), 97, 12 + y);
 
         slider = RSInterface.slider(widget.id++, 35, 0, 100, 372, 1340, 1338, sliderType);
         widget.add(slider, width / 2 + 32, 18 + height + y);
+        return 0;
     }
 
     @Override

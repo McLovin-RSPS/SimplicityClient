@@ -12,12 +12,22 @@ import java.util.function.Consumer;
 
 public class DropdownSetting extends SettingObject<Integer> {
 
-    private DropdownMenu menu;
-    private int priority;
+    protected DropdownMenu menu;
+    protected int priority;
 
-    public DropdownSetting(String key, String name, String description, String[] options, int priority, int defaultValue, Consumer<Integer> handle) {
+
+    public DropdownSetting(String key, String name, String description, String[] options, boolean split, int priority, int defaultValue, Consumer<Integer> handle) {
         super(key, name, description, Alignment.LEFT, defaultValue, handle);
-        this.menu = new DropdownMenu(false, defaultValue, options, null, option -> {
+        this.menu = new DropdownMenu(split, defaultValue, options, null, option -> {
+            Settings.set(key, option);
+            handle.accept(option);
+        });
+        this.priority = priority;
+    }
+
+    public DropdownSetting(String key, String name, String description, String[] options, int width, boolean split, int priority, int defaultValue, Consumer<Integer> handle) {
+        super(key, name, description, Alignment.LEFT, defaultValue, handle);
+        this.menu = new DropdownMenu(width, split, defaultValue, options, null, option -> {
             Settings.set(key, option);
             handle.accept(option);
         });
@@ -25,7 +35,7 @@ public class DropdownSetting extends SettingObject<Integer> {
     }
 
     @Override
-    public void draw(int idx, int y, int width, int height, CustomWidget widget) {
+    public int draw(int idx, int y, int width, int height, CustomWidget widget) {
         widget.add(widget.addRectangle(width, 27 + height, 0, idx % 2 == 0 ? 200 : 225, true), 97, 12 + y);
 
         RSInterface rsi = RSInterface.addInterface(widget.id++);
@@ -35,6 +45,7 @@ public class DropdownSetting extends SettingObject<Integer> {
         rsi.dropdown = menu;
 
         widget.add(rsi, width - menu.getWidth() / 2 + 8, 28 + y, priority);
+        return 0;
     }
 
     @Override

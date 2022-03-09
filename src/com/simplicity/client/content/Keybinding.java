@@ -48,6 +48,10 @@ public class Keybinding {
         if (RSInterface.interfaceCache != null && RSInterface.interfaceCache[ESCAPE_CONFIG] != null) {
         	RSInterface.interfaceCache[ESCAPE_CONFIG].active = true;
         }
+
+        for (int i = 0; i < KEYBINDINGS.length; i++) {
+            Settings.setDefault(Setting.KEYBIND + i, true);
+        }
     }
 
     public static void checkDuplicates(int key, int index) {
@@ -55,6 +59,7 @@ public class Keybinding {
             if (i == 3 && Settings.CONTROLS.getBoolean(Setting.ESC_CLOSES_INTERFACE) && KEYBINDINGS[3] == KeyEvent.VK_ESCAPE || KEYS[key] == KEYBINDINGS[i] && i != index && KEYBINDINGS[i] != -1) {
                 KEYBINDINGS[i] = -1;
                 RSInterface.interfaceCache[MIN_FRAME + 3 * i].dropdown.setSelected("None");
+                Settings.set(Setting.KEYBIND + i, 0, true);
             }
         }
     }
@@ -102,6 +107,7 @@ public class Keybinding {
                 current = OPTIONS[key - KeyEvent.VK_F1 + 2];
             }
 
+            Settings.set(Setting.KEYBIND + i, key == KeyEvent.VK_ESCAPE ? 1 : key, true);
         	RSInterface.interfaceCache[MIN_FRAME + 3 * i].dropdown.setSelected(current);
         }
         

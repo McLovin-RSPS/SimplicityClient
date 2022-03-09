@@ -24,7 +24,7 @@ public class Toggle extends SettingObject<Boolean> {
     }
 
     @Override
-    public void draw(int idx, int y, int width, int height, CustomWidget widget) {
+    public int draw(int idx, int y, int width, int height, CustomWidget widget) {
         toggle = widget.configButton("Toggle", 1994, 1993);
         toggle.interactable = () -> false;
         RSInterface rectangle = widget.addRectangleClickable(idx % 2 == 0 ? 200 : 225, 0, true, width, 27 + height, new String[] { "Toggle" });
@@ -40,6 +40,7 @@ public class Toggle extends SettingObject<Boolean> {
         };
         widget.add(rectangle, 97, 12 + y);
         widget.add(toggle, 461, 6 + height + y);
+        return 0;
     }
 
     @Override

@@ -17,7 +17,7 @@ public class LegacySliderSetting extends SettingObject<Integer> {
     }
 
     @Override
-    public void draw(int idx, int y, int width, int height, CustomWidget widget) {
+    public int draw(int idx, int y, int width, int height, CustomWidget widget) {
         widget.add(widget.addRectangle(width, 27 + height, 0, idx % 2 == 0 ? 200 : 225, true), 97, 12 + y);
 
         int xPos = width / 2 + (spriteWidth == 32 ? 0 : spriteWidth / 2);
@@ -25,6 +25,8 @@ public class LegacySliderSetting extends SettingObject<Integer> {
         for (int id : ids) {
             widget.add(RSInterface.interfaceCache[id], xPos += spriteWidth, 18 + height + y);
         }
+
+        return 0;
     }
 
     @Override

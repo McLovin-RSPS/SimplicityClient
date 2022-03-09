@@ -106,6 +106,16 @@ public enum Settings {
         ClientSettings.save();
     }
 
+    public static void setDefault(String key, boolean update) {
+        try {
+            String groupName = key.substring(0, key.indexOf("_"));
+            SettingGroup group = Settings.valueOf(groupName.toUpperCase()).getGroup();
+            group.setDefault(key, update);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void updateAll() {
         Arrays.stream(values()).forEach(setting -> setting.group.updateSettings());
     }

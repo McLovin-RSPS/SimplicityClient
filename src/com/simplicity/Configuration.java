@@ -92,11 +92,6 @@ public class Configuration {
 	public static boolean enableHDTextures;
 	
     /**
-     * Indicates whether the special orb is enabled or not.
-     */
-	public static boolean enableSpecialOrb;
-	
-    /**
      * Indicates whether tooltips on hover are enabled or not.
      */
 	public static boolean enableTooltipHover;
