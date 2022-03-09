@@ -39,7 +39,6 @@ public class KeybindingSetting extends DropdownSetting {
         rsi.atActionType = 7;
         rsi.dropdownColours = new int[] { 0x0d0d0b, 0x464644, 0x473d32, 0x51483c, 0x787169 };
         rsi.dropdown = menu;
-        rsi.inverted = row == 4 || row == 5;
 
         widget.add(rsi, x + 46, yPos + 12, priority);
 

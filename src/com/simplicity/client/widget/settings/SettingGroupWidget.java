@@ -66,10 +66,16 @@ public class SettingGroupWidget extends CustomWidget {
                     descYOffset = 6;
                 }
 
-                setting.draw(idx, y, width, height, this);
-                add(text, 102, 17 + y);
-                add(desc, 102, 31 + y + descYOffset);
-                y += 27 + height;
+                if (setting instanceof KeybindingSetting) {
+                    y += setting.draw(idx, y, width, height, this);
+                } else {
+                    setting.draw(idx, y, width, height, this);
+                    add(text, 102, 17 + y);
+                    add(desc, 102, 31 + y + descYOffset);
+                    y += 27 + height;
+                }
+
+
                 idx++;
             }
 

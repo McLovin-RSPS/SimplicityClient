@@ -16301,6 +16301,8 @@ public class Client extends RSApplet {
             DrawingArea.setDrawingArea(interfaceY + rsInterface.height, interfaceX, interfaceX + rsInterface.width,
                     interfaceY);
 
+            Runnable dropdown = null;
+
             int[] children = rsInterface.children;
             int[] childrenX = rsInterface.childX;
             int[] childrenY = rsInterface.childY;
@@ -17526,63 +17528,75 @@ public class Client extends RSApplet {
     						cacheSprite[downArrow].drawSprite(childX + d.getWidth() - 18, childY + 2);
     					}
                     } else if (child.type == 37) {
-    					DropdownMenu d = child.dropdown;
+                        DropdownMenu d = child.dropdown;
 
-    					// If dropdown inverted, don't draw following 2 menus
-    					if (dropdownInversionFlag > 0) {
-    						dropdownInversionFlag--;
-    						//continue;
-    					}
-    					
-    					int downArrow = 1036;
-    					int upArrow = 1035;
+                        // If dropdown inverted, don't draw following 2 menus
+                        if (dropdownInversionFlag > 0) {
+                            dropdownInversionFlag--;
+                            //continue;
+                        }
 
-    					DrawingArea.drawPixels(18, childY + 1, childX + 1, 0x544834, d.getWidth() - 2);
-    					DrawingArea.drawPixels(16, childY + 2, childX + 2, 0x2e281d, d.getWidth() - 4);
-    					newRegularFont.drawBasicString(d.getSelected(), childX + 7, childY + 15, 0xff8a1f, 0);
-    					cacheSprite[upArrow].drawSprite(childX + d.getWidth() - 18, childY + 2); // Arrow
+                        int downArrow = 1036;
+                        int upArrow = 1035;
 
-    					if (d.isOpen()) {
+                        DrawingArea.drawPixels(18, childY + 1, childX + 1, 0x544834, d.getWidth() - 2);
+                        DrawingArea.drawPixels(16, childY + 2, childX + 2, 0x2e281d, d.getWidth() - 4);
+                        newRegularFont.drawBasicString(d.getSelected(), childX + 7, childY + 15, 0xff8a1f, 0);
+                        cacheSprite[upArrow].drawSprite(childX + d.getWidth() - 18, childY + 2); // Arrow
 
-    						RSInterface.interfaceCache[child.id - 1].active = true; // Alter
-    						// stone
-    						// colour
+                        if (d.isOpen()) {
 
-    						int yPos = childY + 18;
+                            int finalChildX = childX;
+                            int finalChildY = childY;
 
-    						// Dropdown inversion for lower stones
-    						if (child.inverted) {
-    							yPos = childY - d.getHeight() - 10;
-    							dropdownInversionFlag = 2;
-    						}
+                            dropdown = () -> {
+                                RSInterface.interfaceCache[child.id - 1].active = true; // Alter
+                                // stone
+                                // colour
 
-    						DrawingArea.drawPixels(d.getHeight() + 12, yPos, childX + 1, 0x544834, d.getWidth() - 2);
-    						DrawingArea.drawPixels(d.getHeight() + 10, yPos + 1, childX + 2, 0x2e281d, d.getWidth() - 4);
+                                int yPos = finalChildY + 18;
 
-    						int yy = 2;
-    						int xx = 0;
-    						int bb = d.getWidth() / 2;
+                                int scrollMax = rsInterface.scrollMax;
 
-    						for (int i = 0; i < d.getOptions().length; i++) {
+                                if (scrollMax > 0) {
+                                    child.inverted = rsInterface.scrollPosition - finalChildY < d.getHeight() - 24 + interfaceY;
+                                }
 
-    							int fontColour = 0xff981f;
-    							if (child.dropdownHover == i) {
-    								fontColour = 0xffffff;
-    							}
+                                // Dropdown inversion for lower stones
+                                if (child.inverted) {
+                                    yPos = finalChildY - d.getHeight() - 10;
+                                    dropdownInversionFlag = 2;
+                                }
 
-    							if (xx == 0) {
-    								newRegularFont.drawBasicString(d.getOptions()[i], childX + 5, yPos + 14 + yy, fontColour, 0x2e281d);
-    								xx = 1;
+                                DrawingArea.drawPixels(d.getHeight() + 12, yPos, finalChildX + 1, 0x544834, d.getWidth() - 2);
+                                DrawingArea.drawPixels(d.getHeight() + 10, yPos + 1, finalChildX + 2, 0x2e281d, d.getWidth() - 4);
 
-    							} else {
-    								newRegularFont.drawBasicString(d.getOptions()[i], childX + 5 + bb, yPos + 14 + yy, fontColour, 0x2e281d);
-    								xx = 0;
-    								yy += 15;
-    							}
-    						}
-    					} else {
-    						RSInterface.interfaceCache[child.id - 1].active = false;
-    					}
+                                int yy = 2;
+                                int xx = 0;
+                                int bb = d.getWidth() / 2;
+
+                                for (int i = 0; i < d.getOptions().length; i++) {
+
+                                    int fontColour = 0xff981f;
+                                    if (child.dropdownHover == i) {
+                                        fontColour = 0xffffff;
+                                    }
+
+                                    if (xx == 0) {
+                                        newRegularFont.drawBasicString(d.getOptions()[i], finalChildX + 5, yPos + 14 + yy, fontColour, 0x2e281d);
+                                        xx = 1;
+
+                                    } else {
+                                        newRegularFont.drawBasicString(d.getOptions()[i], finalChildX + 5 + bb, yPos + 14 + yy, fontColour, 0x2e281d);
+                                        xx = 0;
+                                        yy += 15;
+                                    }
+                                }
+                            };
+
+                        } else {
+                            RSInterface.interfaceCache[child.id - 1].active = false;
+                        }
                     } else if (child.type == 38) {
                     	boolean clicked = SkillQuantityWidget.clickedSkillButton(child.id);
                     	
@@ -17961,6 +17975,11 @@ public class Client extends RSApplet {
                 if (childHovered && child.tooltipBox != null && mouseInGameArea()) {
                         drawTooltip(childX + child.tooltipOffsetX, childY + child.height + child.tooltipOffsetY, child.tooltipBox);
     			}
+            }
+
+            // Draw dropdown menus
+            if (dropdown != null) {
+                dropdown.run();
             }
             
             DrawingArea.setDrawingArea(origBottomY, origTopX, origBottomX, origTopY);
