@@ -3,7 +3,7 @@ package com.simplicity.client.widget.raids.cox;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.TextDrawingArea;
 import com.simplicity.client.cache.DataType;
-import com.simplicity.client.widget.Setting;
+import com.simplicity.client.widget.SettingOld;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -18,23 +18,10 @@ public class StorageUnitBuildingWidget extends RSInterface {
 
 	private static final int INTERFACE_ID = 54800;
 
-	private static Map<Integer, Setting> TOGGLES = new LinkedHashMap<>();
-	
 	public static void unpack(TextDrawingArea[] tda) {
-		init();
 		buildingMenu(tda);
 	}
-	
-	public static void init() {
-		int button = INTERFACE_ID + 12;
-		
-		for (Setting setting : Setting.values()) {
-			TOGGLES.put(button, setting);
-			
-			button += 4;
-		}
-	}
-	
+
 	private static void buildingMenu(TextDrawingArea[] tda) {
 		int id = INTERFACE_ID;
 		

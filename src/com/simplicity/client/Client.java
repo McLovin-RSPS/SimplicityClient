@@ -130,7 +130,10 @@ import com.simplicity.client.widget.raids.tob.TheatrePartyWidget;
 import com.simplicity.client.widget.raids.tob.TheatrePerformersWidget;
 import com.simplicity.client.widget.raids.tob.TobFadeText;
 import com.simplicity.client.widget.raids.tob.TobPartyOverlayWidget;
+import com.simplicity.client.widget.settings.Setting;
+import com.simplicity.client.widget.settings.Settings;
 import com.simplicity.client.widget.settings.SettingsTabWidget;
+import com.simplicity.client.widget.settings.SettingsWidget;
 import com.simplicity.client.widget.spellfiltering.AncientSpellBookFilter;
 import com.simplicity.client.widget.spellfiltering.LunarSpellBookFilter;
 import com.simplicity.client.widget.spellfiltering.ModernSpellBookFilter;
@@ -338,7 +341,7 @@ public class Client extends RSApplet {
             return;
         }
 
-        if (Configuration.enableMouseCamera) {
+        if (Settings.CONTROLS.getBoolean(Setting.MIDDLE_MOUSE_CAMERA)) {
         	this.anInt1186 += i * 3;
         	this.anInt1187 += (j << 1);
         }
@@ -454,7 +457,7 @@ public class Client extends RSApplet {
                 cameraZoom = 900;
                 WorldController.viewDistance = 10;
             }
-            if (size != 0 && Configuration.enableAntiAliasing) {
+            if (size != 0 && Settings.getBoolean(Setting.ANTI_ALIASING)) {
                 pushMessage("Anti aliasing is not avaible on resized mode yet", 0, "");
             }
             rebuildFrame(size, width, height);
@@ -1753,26 +1756,25 @@ public class Client extends RSApplet {
             	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
             		return 0;
             	}
-            	
-                return clientSize != 0 ? clientWidth - 212 : Configuration.enableSpecialOrb ? 167 : 172;
+                return clientSize != 0 ? clientWidth - 212 : Settings.INTERFACES.getBoolean(Setting.SPECIAL_ORB) ? 167 : 172;
             case 1:
             	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
             		return 0;
             	}
             	
-                return clientSize != 0 ? clientWidth - 215 : Configuration.enableSpecialOrb ? 179 : 188;
+                return clientSize != 0 ? clientWidth - 215 : Settings.INTERFACES.getBoolean(Setting.SPECIAL_ORB) ? 179 : 188;
             case 2:
             	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
             		return 14;
             	}
             	
-                return clientSize != 0 ? clientWidth - 206 : Configuration.enableSpecialOrb ? 181 : 188;
+                return clientSize != 0 ? clientWidth - 206 : Settings.INTERFACES.getBoolean(Setting.SPECIAL_ORB) ? 181 : 188;
             case 3:
             	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
             		return 172;
             	}
             	
-                return clientSize != 0 ? clientWidth - 188 : Configuration.enableSpecialOrb ? 174 : 172;
+                return clientSize != 0 ? clientWidth - 188 : Settings.INTERFACES.getBoolean(Setting.SPECIAL_ORB) ? 174 : 172;
             case 4:
             	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
             		return 36;
@@ -1789,25 +1791,25 @@ public class Client extends RSApplet {
             		return 45;
             	}
             	
-                return clientSize != 0 ? 39 : Configuration.enableSpecialOrb ? 10 : 15;
+                return clientSize != 0 ? 39 : Settings.INTERFACES.getBoolean(Setting.SPECIAL_ORB) ? 10 : 15;
             case 1:
             	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
             		return 79;
             	}
             	
-                return clientSize != 0 ? 73 : Configuration.enableSpecialOrb ? 43 : 54;
+                return clientSize != 0 ? 73 : Settings.INTERFACES.getBoolean(Setting.SPECIAL_ORB) ? 43 : 54;
             case 2:
 				if (clientSize == 0 && Configuration.enableOldschoolFrame) {
 					return 109;
 				}
 				
-                return clientSize != 0 ? 106 : Configuration.enableSpecialOrb ? 76 : 93;
+                return clientSize != 0 ? 106 : Settings.INTERFACES.getBoolean(Setting.SPECIAL_ORB) ? 76 : 93;
             case 3:
             	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
             		return 128;
             	}
             	
-                return clientSize != 0 ? 135 : Configuration.enableSpecialOrb ? 107 : 128;
+                return clientSize != 0 ? 135 : Settings.INTERFACES.getBoolean(Setting.SPECIAL_ORB) ? 107 : 128;
             case 4:
             	if (clientSize == 0 && Configuration.enableOldschoolFrame) {
             		return 134;
@@ -1823,10 +1825,10 @@ public class Client extends RSApplet {
     public void drawHPOrb() {
         int currentHp = (currentStats[3] / 10);
         int health = (int) (((double) currentStats[3] / (double) currentMaxStats[3]) * 100D);
-        if (!Configuration.enableConstitution) {
+        if (!Settings.getBoolean(Setting.CONSTITUTION)) {
             currentHp = (currentHp / 10);
         }
-        if(health == 0 && (currentStats[3] > 0 && currentStats[3] < 100) && !Configuration.enableConstitution) {
+        if(health == 0 && (currentStats[3] > 0 && currentStats[3] < 100) && !Settings.getBoolean(Setting.CONSTITUTION)) {
             currentHp = 1;
             health = 1;
         }
@@ -2061,9 +2063,9 @@ public class Client extends RSApplet {
     private double fillSpec;
 
     public void drawSpecOrb() {
-    	if (!Configuration.enableSpecialOrb) {
-    		return;
-    	}
+        if (!Settings.INTERFACES.getBoolean(Setting.SPECIAL_ORB)) {
+            return;
+        }
         int spec = (int) (((double) currentSpec / (double) 100) * 100D);
         int x = getOrbX(4);
         int y = getOrbY(4);
@@ -2994,8 +2996,9 @@ public class Client extends RSApplet {
                 drawMenu();
             }
         }
+        int itemStats = Settings.getInt(Setting.ITEM_STATS);
 
-        if ((Configuration.enableItemStats == 1 && controlIsDown || Configuration.enableItemStats == 2) && tabInterfaceIDs[tabID] == 3213 && tabID == 3 && itemStatsId > 0 && hoverInventory()) {
+        if ((itemStats == 1 && controlIsDown || itemStats == 2) && tabInterfaceIDs[tabID] == 3213 && tabID == 3 && itemStatsId > 0 && hoverInventory()) {
         	drawItemStats(itemStatsId);
         }
         if(RuneLite.getClient() != null) {
@@ -4133,7 +4136,7 @@ public class Client extends RSApplet {
         } else {
         	processInterfaceClick(j);
 
-            if (Configuration.enableShiftClickDrop && mouseClickInventory() && j == LEFT && shiftDown) {
+            if (Settings.CONTROLS.getBoolean(Setting.SHIFT_CLICK_DROP) && mouseClickInventory() && j == LEFT && shiftDown) {
                 stream.createFrame(87);
                 stream.method432((RSInterface.interfaceCache[3214].inv[mouseInvInterfaceIndex] - 1));
                 stream.writeWord(3214);
@@ -4195,7 +4198,7 @@ public class Client extends RSApplet {
 				if (!chatboxInFocus) {
 					chatboxInFocus = true;
 				}
-			} else if (Configuration.enableWASDCamera) {
+			} else if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
 				if (chatboxInFocus) {
 					chatboxInFocus = false;
 				}
@@ -4913,6 +4916,8 @@ public class Client extends RSApplet {
             return;
         }
 
+        Runnable dropdown = null;
+
         int[] children = class9.children;
         int[] childrenX = class9.childX;
         int[] childrenY = class9.childY;
@@ -5130,16 +5135,18 @@ public class Client extends RSApplet {
 							flag = true;
 						}
 						if (flag) {
-							if (menuActionRow != 1) {
-								menuActionRow = 1;
-							}
+                            dropdown = () -> {
+                                if (menuActionRow != 1) {
+                                    menuActionRow = 1;
+                                }
 
-							menuActionName[menuActionRow] = "Select";
-							menuActionID[menuActionRow] = 770;
-							menuActionCmd3[menuActionRow] = child.id;
-							menuActionCmd2[menuActionRow] = child.dropdownHover;
-							menuActionCmd1[menuActionRow] = class9.id;
-							menuActionRow++;
+                                menuActionName[menuActionRow] = "Select";
+                                menuActionID[menuActionRow] = 770;
+                                menuActionCmd3[menuActionRow] = child.id;
+                                menuActionCmd2[menuActionRow] = child.dropdownHover;
+                                menuActionCmd1[menuActionRow] = class9.id;
+                                menuActionRow++;
+                            };
 						}
 					}
 					if (super.mouseX >= childX && super.mouseY >= childY
@@ -5285,7 +5292,8 @@ public class Client extends RSApplet {
                                                 if (itemDef.actions[i4] != null) {
                                                 	if (child.id == 3214) {
 	                                                	if (itemDef.actions[i4].equals("Wield") || itemDef.actions[i4].equals("Wear")) {
-		                                                	if (Configuration.enableItemStats == 1 && controlIsDown || Configuration.enableItemStats == 2) {
+                                                            int itemStats = Settings.getInt(Setting.ITEM_STATS);
+		                                                	if (itemStats == 1 && controlIsDown || itemStats == 2) {
 		                                                    	itemStatsId = itemDef.id;
 		                                                    	itemStatsIndex = ptr;
 		                                                    	drawStats = true;
@@ -5605,7 +5613,8 @@ public class Client extends RSApplet {
                                     }
 
                                 } else {
-                                	if (Configuration.enableItemStats == 1 && controlIsDown || Configuration.enableItemStats == 2) {
+                                    int itemStats = Settings.getInt(Setting.ITEM_STATS);
+                                	if (itemStats == 1 && controlIsDown || itemStats == 2) {
                                 		itemStatsId = 0;
                                 	}
                                 }
@@ -5621,6 +5630,10 @@ public class Client extends RSApplet {
 
                 }
             }
+        }
+
+        if (dropdown != null) {
+            dropdown.run();
         }
 
     }
@@ -6183,7 +6196,7 @@ public class Client extends RSApplet {
                                         }
                                 	}
                                 	
-                                    if (!Configuration.enableConstitution) {
+                                    if (!Settings.getBoolean(Setting.CONSTITUTION)) {
                                         dmg = dmg / 10;
                                         if (dmg == 0) {
                                             dmg = 1;
@@ -6820,6 +6833,10 @@ public class Client extends RSApplet {
                 mainGameProcessor();
                 if (runelite != null) {
                     callbacks.onGameTick();
+                }
+
+                if (ClientSettings.shouldSave()) {
+                    ClientSettings.save();
                 }
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
@@ -8844,7 +8861,7 @@ public class Client extends RSApplet {
                 return;
             }
             inputTitle = "Enter amount of coins to withdraw:";
-            if (!Configuration.enableSaveInput) {
+            if (!Settings.getBoolean(Setting.SAVE_INPUT)) {
                 amountOrNameInput = "";
             }
             interfaceButtonAction = 557;
@@ -8859,7 +8876,7 @@ public class Client extends RSApplet {
                 return;
             }
             inputTitle = "Enter amount of tickets to withdraw:";
-            if (!Configuration.enableSaveInput) {
+            if (!Settings.getBoolean(Setting.SAVE_INPUT)) {
                 amountOrNameInput = "";
             }
             interfaceButtonAction = 559;
@@ -9352,10 +9369,17 @@ public class Client extends RSApplet {
                 }
 
                 switch (interfaceId) {
+                    case SettingsTabWidget.ALL_SETTINGS:
+                        if (openInterfaceID > 0) {
+                            pushMessage("Please close the interface you have open before opening another one.", 0, "");
+                            return;
+                        }
+
+                        setOpenInterfaceID(SettingsWidget.WIDGET_ID);
+                        break;
                 case SettingsTabWidget.DISPLAY_BUTTON:
 				case SettingsTabWidget.AUDIO_BUTTON:
 				case SettingsTabWidget.CHAT_BUTTON:
-				case SettingsTabWidget.CONTROL_BUTTON:
 					SettingsTabWidget.switchSettings(interfaceId);
 					break;
 
@@ -9992,7 +10016,11 @@ public class Client extends RSApplet {
 				return;
 			d.dropdown.setSelected(d.dropdown.getOptions()[slot]);
 			d.dropdown.setOpen(false);
-			d.dropdown.getDrop().selectOption(slot, d);
+            if (d.dropdown.onSelect != null) {
+                d.dropdown.onSelect.accept(slot);
+            } else {
+                d.dropdown.getDrop().selectOption(slot, d);
+            }
 			p.dropdownOpen = null;
 		}
 		if (l == 86) { //Open broadcast url
@@ -10978,7 +11006,7 @@ public class Client extends RSApplet {
                 break;
             }
             if (openInterfaceID == 32600) {
-            	if (Configuration.enableWASDCamera) {
+            	if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
 					chatboxInFocus = true;
 				}
 
@@ -11020,9 +11048,9 @@ public class Client extends RSApplet {
                 return;
             }
             if (consoleOpen) {
-            	if (Configuration.enableWASDCamera) {
-					chatboxInFocus = true;
-				}
+                if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
+                    chatboxInFocus = true;
+                }
 
                 if (key == 8 && consoleInput.length() > 0) {
                     consoleInput = consoleInput.substring(0, consoleInput.length() - 1);
@@ -11038,8 +11066,82 @@ public class Client extends RSApplet {
                     inputTaken = true;
                 }
                 return;
+            } else if (textInput != null) {
+                if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
+                    chatboxInFocus = true;
+                }
+
+                boolean update = false;
+
+                String message = MiscUtils.capitalize(textInput.message);
+
+                if (key == 8 && message.length() > 0) {
+                    message = message.substring(0, message.length() - 1);
+                    if (message.length() > 0 && textInput.onlyNumbers && !textInput.displayAsterisks) {
+                        long num = Long.valueOf(message.replaceAll(",", ""));
+
+                        if (num > Integer.MAX_VALUE) {
+                            num = Integer.MAX_VALUE;
+                            textInput.message = num + "";
+                        }
+
+                        message = NumberFormat.getInstance(Locale.US).format(num);
+                    }
+                    update = true;
+                }
+
+                if ((textInput.onlyNumbers ? (key >= 48 && key <= 57) : (key >= 32 && key <= 122)) && message.length() < textInput.characterLimit) {
+                    message += (char) key;
+                    if (textInput.onlyNumbers && !textInput.displayAsterisks) {
+                        long num = Long.valueOf(message.replaceAll(",", ""));
+
+                        if (num > Integer.MAX_VALUE) {
+                            num = Integer.MAX_VALUE;
+                            textInput.message = num + "";
+                        }
+
+                        message = NumberFormat.getInstance(Locale.US).format(num);
+                    }
+                    update = true;
+                }
+
+                textInput.message = message;
+
+                if ((key == 13 || key == 10) && textInput.message.length() > 0) {
+                    if (textInput.onlyNumbers) {
+                        long amount = 0;
+
+                        try {
+                            amount = Long.parseLong(message.replaceAll(",", ""));
+
+                            // overflow concious code
+                            if (amount < -Integer.MAX_VALUE) {
+                                amount = -Integer.MAX_VALUE;
+                            } else if (amount > Integer.MAX_VALUE) {
+                                amount = Integer.MAX_VALUE;
+                            }
+                        } catch (Exception ignored) {
+                        }
+
+                        if (amount > 0) {
+                            stream.createFrame(208);
+                            stream.writeDWord((int) amount);
+                        }
+                    } else {
+                        stream.createFrame(150);
+                        stream.writeByte(textInput.message.length() + 3);
+                        stream.writeWord(textInput.id);
+                        stream.writeString(textInput.message);
+                    }
+                    textInput.message = "";
+                    textInput = null;
+                }
+
+                if (update) {
+                    doTextField(textInput);
+                }
             } else if (RSInterface.currentInputField != null) {
-                if (Configuration.enableWASDCamera) {
+                if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
                     chatboxInFocus = true;
                 }
 
@@ -11119,7 +11221,7 @@ public class Client extends RSApplet {
                 }
             }
             if (openInterfaceID == 10000) {
-            	if (Configuration.enableWASDCamera) {
+            	if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
 					chatboxInFocus = true;
 				}
 
@@ -11210,7 +11312,7 @@ public class Client extends RSApplet {
                 }
             }
             if (openInterfaceID != -1 && openInterfaceID == reportAbuseInterfaceID) {
-            	if (Configuration.enableWASDCamera) {
+            	if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
 					chatboxInFocus = true;
 				}
 
@@ -11222,7 +11324,7 @@ public class Client extends RSApplet {
                     reportAbuseInput += (char) key;
                 }
             } else if (showInput) {
-            	if (Configuration.enableWASDCamera) {
+            	if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
 					chatboxInFocus = true;
 				}
 
@@ -11369,7 +11471,7 @@ public class Client extends RSApplet {
                     }
                 }
             } else if (inputDialogState == 1) {
-            	if (Configuration.enableWASDCamera) {
+            	if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
 					chatboxInFocus = true;
 				}
 
@@ -11563,7 +11665,7 @@ public class Client extends RSApplet {
                 }
 
             } else if (inputDialogState == 3) {
-            	if (Configuration.enableWASDCamera) {
+            	if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
 					chatboxInFocus = true;
 				}
 
@@ -11588,7 +11690,7 @@ public class Client extends RSApplet {
                     inputTaken = true;
                 }
             } else if (inputDialogState == 2 || isSearchingGe()) {
-            	if (Configuration.enableWASDCamera) {
+            	if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
 					chatboxInFocus = true;
 				}
 
@@ -11622,7 +11724,7 @@ public class Client extends RSApplet {
                     inputTaken = true;
                 }
             } else if (inputDialogState == 5) {
-            	if (Configuration.enableWASDCamera) {
+            	if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
 					chatboxInFocus = true;
 				}
 
@@ -11651,7 +11753,7 @@ public class Client extends RSApplet {
                     inputTaken = true;
                 }
             } else if (backDialogID == -1) {
-            	if (Configuration.enableWASDCamera) {
+            	if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
 					chatboxInFocus = true;
 				}
 
@@ -13649,9 +13751,6 @@ public class Client extends RSApplet {
                 socketStream.read();
             }
             int loginCode = socketStream.read();
-            Configuration.enableSaveInput = false;
-            Configuration.enableHDShading = true;
-            Rasterizer.enableSmoothShading = true;
             handleSettings();
 
             int i1 = loginCode;
@@ -14602,13 +14701,13 @@ public class Client extends RSApplet {
                     if (entityDef.actions[i1] != null && entityDef.actions[i1].equalsIgnoreCase("attack")) {
 						char c = '\0';
 
-						if (Configuration.npcAttackOptionPriority == 0) {
+						if (Settings.getInt(Setting.NPC_ATT_OPT) == 0) {
 							if (entityDef.combatLevel > myPlayer.combatLevel) {
 								c = '\u07D0';
 							}
-						} else if (Configuration.npcAttackOptionPriority == 1) {
+						} else if (Settings.getInt(Setting.NPC_ATT_OPT) == 1) {
 							c = '\u07D0';
-						} else if (Configuration.npcAttackOptionPriority == 3) {
+						} else if (Settings.getInt(Setting.NPC_ATT_OPT) == 3) {
 							continue;
 						}
 
@@ -14723,13 +14822,13 @@ public class Client extends RSApplet {
 
                     if (atPlayerActions[l].equalsIgnoreCase("attack")) {
 
-						if (Configuration.playerAttackOptionPriority == 0) {
+                        if (Settings.getInt(Setting.PLAYER_ATT_OPT) == 0) {
 							if (player.combatLevel > myPlayer.combatLevel) {
 								c = '\u07D0';
 							}
-						} else if (Configuration.playerAttackOptionPriority == 1) {
+						} else if (Settings.getInt(Setting.PLAYER_ATT_OPT) == 1) {
 							c = '\u07D0';
-						} else if (Configuration.playerAttackOptionPriority == 3) {
+						} else if (Settings.getInt(Setting.PLAYER_ATT_OPT) == 3) {
 							continue;
 						}
 
@@ -14948,13 +15047,6 @@ public class Client extends RSApplet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        ClientSettings.load();
-
-		if (rememberMe && lastCharacter != null) {
-			myUsername = lastCharacter.getUsername();
-			myPassword = lastCharacter.getPassword();
-		}
 
         /**
          * DOWNLOADING CACHE *
@@ -15249,6 +15341,14 @@ public class Client extends RSApplet {
             setLoadingText(100, "");
             isLoading = false;
             setGameState(GameState.LOGIN_SCREEN);
+
+            ClientSettings.load();
+
+            if (rememberMe && lastCharacter != null) {
+                myUsername = lastCharacter.getUsername();
+                myPassword = lastCharacter.getPassword();
+            }
+
         } catch (Exception exception) {
             exception.printStackTrace();
             isLoading = false;
@@ -16209,6 +16309,8 @@ public class Client extends RSApplet {
             DrawingArea.setDrawingArea(interfaceY + rsInterface.height, interfaceX, interfaceX + rsInterface.width,
                     interfaceY);
 
+            Runnable dropdown = null;
+
             int[] children = rsInterface.children;
             int[] childrenX = rsInterface.childX;
             int[] childrenY = rsInterface.childY;
@@ -16727,6 +16829,7 @@ public class Client extends RSApplet {
                         if (SkillQuantityWidget.isQuantitySelected(child.id)) {
                     		color = child.enabledColor;
                         }
+                        int firstIndex = -1;
                         for (int l6 = childY + textDrawingArea.anInt1497; s
                                 .length() > 0; l6 += textDrawingArea.anInt1497) {
                             if (s.indexOf("%") != -1) {
@@ -16778,6 +16881,8 @@ public class Client extends RSApplet {
                                 } while (true);
                             }
                             int l8 = s.indexOf("\\n");
+                            if (firstIndex == -1)
+                                firstIndex = l8;
                             String s1;
                             if (l8 != -1) {
                                 s1 = s.substring(0, l8);
@@ -16786,6 +16891,9 @@ public class Client extends RSApplet {
                                 if (child.centerText) { // Vertically center the string which has a new line
                                     l6 -= 5;
                                 }
+
+                                if (firstIndex != l8)
+                                    l6 += 2;
                             } else {
                                 s1 = s;
                                 s = "";
@@ -17397,94 +17505,111 @@ public class Client extends RSApplet {
     							fontColour, 0);
 
     					if (d.isOpen()) {
-    						// Up arrow
-    						cacheSprite[upArrow].drawSprite(childX + d.getWidth() - 18, childY + 2);
+                            int finalChildX = childX;
+                            int finalChildY = childY;
 
-    						DrawingArea.drawPixels(d.getHeight(), childY + 19, childX, child.dropdownColours[0],
-    								d.getWidth());
-    						DrawingArea.drawPixels(d.getHeight() - 2, childY + 20, childX + 1,
-    								child.dropdownColours[1], d.getWidth() - 2);
-    						DrawingArea.drawPixels(d.getHeight() - 4, childY + 21, childX + 2,
-    								child.dropdownColours[3], d.getWidth() - 4);
+                            dropdown = () -> {
+                                // Up arrow
+                                cacheSprite[upArrow].drawSprite(finalChildX + d.getWidth() - 18, finalChildY + 2);
 
-    						int yy = 2;
-    						for (int i = 0; i < d.getOptions().length; i++) {
-    							if (child.dropdownHover == i) {
-    								DrawingArea.drawPixels(13, childY + 19 + yy, childX + 2, child.dropdownColours[4], d.getWidth() - 4);
-    								newSmallFont.drawCenteredString(d.getOptions()[i], childX + (d.getWidth() - xOffset) / 2, childY + 29 + yy, 0xffb83f, 0);
-    							} else {
-    								DrawingArea.drawPixels(13, childY + 19 + yy, childX + 2, child.dropdownColours[3], d.getWidth() - 4);
-    								newSmallFont.drawCenteredString(d.getOptions()[i], childX + (d.getWidth() - xOffset) / 2, childY + 29 + yy, 0xfe971e, 0);
-    							}
-    							yy += 14;
-    						}
+                                DrawingArea.drawPixels(d.getHeight(), finalChildY + 19, finalChildX, child.dropdownColours[0],
+                                        d.getWidth());
+                                DrawingArea.drawPixels(d.getHeight() - 2, finalChildY + 20, finalChildX + 1,
+                                        child.dropdownColours[1], d.getWidth() - 2);
+                                DrawingArea.drawPixels(d.getHeight() - 4, finalChildY + 21, finalChildX + 2,
+                                        child.dropdownColours[3], d.getWidth() - 4);
 
-    						if (white) {
-    							//drawWhiteScrollbar(d.getHeight() - 4, child.scrollPosition, childY + 21, childX + d.getWidth() - 18, d.getHeight() -5, false, true);
-    						} else {
-    							drawScrollbar(d.getHeight() - 4, child.scrollPosition, childY + 21, childX + d.getWidth() - 18, d.getHeight() - 5, false, false);
-    						}
+                                int yy = 2;
+                                for (int i = 0; i < d.getOptions().length; i++) {
+                                    if (child.dropdownHover == i) {
+                                        DrawingArea.drawPixels(13, finalChildY + 19 + yy, finalChildX + 2, child.dropdownColours[4], d.getWidth() - 4);
+                                        newSmallFont.drawCenteredString(d.getOptions()[i], finalChildX + (d.getWidth() - xOffset) / 2, finalChildY + 29 + yy, 0xffb83f, 0);
+                                    } else {
+                                        DrawingArea.drawPixels(13, finalChildY + 19 + yy, finalChildX + 2, child.dropdownColours[3], d.getWidth() - 4);
+                                        newSmallFont.drawCenteredString(d.getOptions()[i], finalChildX + (d.getWidth() - xOffset) / 2, finalChildY + 29 + yy, 0xfe971e, 0);
+                                    }
+                                    yy += 14;
+                                }
+
+                                if (white) {
+                                    //drawWhiteScrollbar(d.getHeight() - 4, child.scrollPosition, childY + 21, childX + d.getWidth() - 18, d.getHeight() -5, false, true);
+                                } else {
+                                    drawScrollbar(d.getHeight() - 4, child.scrollPosition, finalChildY + 21, finalChildX + d.getWidth() - 18, d.getHeight() - 5, false, false);
+                                }
+                            };
     					} else {
     						cacheSprite[downArrow].drawSprite(childX + d.getWidth() - 18, childY + 2);
     					}
                     } else if (child.type == 37) {
-    					DropdownMenu d = child.dropdown;
+                        DropdownMenu d = child.dropdown;
 
-    					// If dropdown inverted, don't draw following 2 menus
-    					if (dropdownInversionFlag > 0) {
-    						dropdownInversionFlag--;
-    						continue;
-    					}
-    					
-    					int downArrow = 1036;
-    					int upArrow = 1035;
+                        // If dropdown inverted, don't draw following 2 menus
+                        if (dropdownInversionFlag > 0) {
+                            dropdownInversionFlag--;
+                            //continue;
+                        }
 
-    					DrawingArea.drawPixels(18, childY + 1, childX + 1, 0x544834, d.getWidth() - 2);
-    					DrawingArea.drawPixels(16, childY + 2, childX + 2, 0x2e281d, d.getWidth() - 4);
-    					newRegularFont.drawBasicString(d.getSelected(), childX + 7, childY + 15, 0xff8a1f, 0);
-    					cacheSprite[upArrow].drawSprite(childX + d.getWidth() - 18, childY + 2); // Arrow
+                        int downArrow = 1036;
+                        int upArrow = 1035;
 
-    					if (d.isOpen()) {
+                        DrawingArea.drawPixels(18, childY + 1, childX + 1, 0x544834, d.getWidth() - 2);
+                        DrawingArea.drawPixels(16, childY + 2, childX + 2, 0x2e281d, d.getWidth() - 4);
+                        newRegularFont.drawBasicString(d.getSelected(), childX + 7, childY + 15, 0xff8a1f, 0);
+                        cacheSprite[upArrow].drawSprite(childX + d.getWidth() - 18, childY + 2); // Arrow
 
-    						RSInterface.interfaceCache[child.id - 1].active = true; // Alter
-    						// stone
-    						// colour
+                        if (d.isOpen()) {
 
-    						int yPos = childY + 18;
+                            int finalChildX = childX;
+                            int finalChildY = childY;
 
-    						// Dropdown inversion for lower stones
-    						if (child.inverted) {
-    							yPos = childY - d.getHeight() - 10;
-    							dropdownInversionFlag = 2;
-    						}
+                            dropdown = () -> {
+                                RSInterface.interfaceCache[child.id - 1].active = true; // Alter
+                                // stone
+                                // colour
 
-    						DrawingArea.drawPixels(d.getHeight() + 12, yPos, childX + 1, 0x544834, d.getWidth() - 2);
-    						DrawingArea.drawPixels(d.getHeight() + 10, yPos + 1, childX + 2, 0x2e281d, d.getWidth() - 4);
+                                int yPos = finalChildY + 18;
 
-    						int yy = 2;
-    						int xx = 0;
-    						int bb = d.getWidth() / 2;
+                                int scrollMax = rsInterface.scrollMax;
 
-    						for (int i = 0; i < d.getOptions().length; i++) {
+                                if (scrollMax > 0) {
+                                    child.inverted = rsInterface.scrollPosition - finalChildY < d.getHeight() - 24 + interfaceY;
+                                }
 
-    							int fontColour = 0xff981f;
-    							if (child.dropdownHover == i) {
-    								fontColour = 0xffffff;
-    							}
+                                // Dropdown inversion for lower stones
+                                if (child.inverted) {
+                                    yPos = finalChildY - d.getHeight() - 10;
+                                    dropdownInversionFlag = 2;
+                                }
 
-    							if (xx == 0) {
-    								newRegularFont.drawBasicString(d.getOptions()[i], childX + 5, yPos + 14 + yy, fontColour, 0x2e281d);
-    								xx = 1;
+                                DrawingArea.drawPixels(d.getHeight() + 12, yPos, finalChildX + 1, 0x544834, d.getWidth() - 2);
+                                DrawingArea.drawPixels(d.getHeight() + 10, yPos + 1, finalChildX + 2, 0x2e281d, d.getWidth() - 4);
 
-    							} else {
-    								newRegularFont.drawBasicString(d.getOptions()[i], childX + 5 + bb, yPos + 14 + yy, fontColour, 0x2e281d);
-    								xx = 0;
-    								yy += 15;
-    							}
-    						}
-    					} else {
-    						RSInterface.interfaceCache[child.id - 1].active = false;
-    					}
+                                int yy = 2;
+                                int xx = 0;
+                                int bb = d.getWidth() / 2;
+
+                                for (int i = 0; i < d.getOptions().length; i++) {
+
+                                    int fontColour = 0xff981f;
+                                    if (child.dropdownHover == i) {
+                                        fontColour = 0xffffff;
+                                    }
+
+                                    if (xx == 0) {
+                                        newRegularFont.drawBasicString(d.getOptions()[i], finalChildX + 5, yPos + 14 + yy, fontColour, 0x2e281d);
+                                        xx = 1;
+
+                                    } else {
+                                        newRegularFont.drawBasicString(d.getOptions()[i], finalChildX + 5 + bb, yPos + 14 + yy, fontColour, 0x2e281d);
+                                        xx = 0;
+                                        yy += 15;
+                                    }
+                                }
+                            };
+
+                        } else {
+                            RSInterface.interfaceCache[child.id - 1].active = false;
+                        }
                     } else if (child.type == 38) {
                     	boolean clicked = SkillQuantityWidget.clickedSkillButton(child.id);
                     	
@@ -17836,6 +17961,19 @@ public class Client extends RSApplet {
 
                             font.drawCenteredString(current + " / " + maximum, childX + (child.width - 3) / 2, childY + child.height / 2 + 5, 0xFFFFFF, 0);
                         }
+                    } else if (child.type == 58) {
+
+                        if (childHovered && !child.inFocus && super.mouseDown == 1 && !menuOpen) {
+                            child.inFocus = true;
+                            textInput = child;
+                            CustomWidget cw = Widget.mainForComponent(child.id);
+
+                            if (cw != null && cw.inputFieldListener != null) {
+                                cw.inputFieldListener.onInputFocus(child.id);
+                            }
+                        }
+
+                        child.rsFont.drawBasicString(child.message + (childHovered || child.inFocus ? "<col=ffffff>*</col>" : "*"), childX + 6, childY + 16, child.disabledColor, 0);
                     }
                 }
                 if (openInterfaceID == 10000) {
@@ -17850,6 +17988,11 @@ public class Client extends RSApplet {
                 if (childHovered && child.tooltipBox != null && mouseInGameArea()) {
                         drawTooltip(childX + child.tooltipOffsetX, childY + child.height + child.tooltipOffsetY, child.tooltipBox);
     			}
+            }
+
+            // Draw dropdown menus
+            if (dropdown != null) {
+                dropdown.run();
             }
             
             DrawingArea.setDrawingArea(origBottomY, origTopX, origBottomX, origTopY);
@@ -22915,7 +23058,7 @@ public class Client extends RSApplet {
                     inputTitle = new String(inStream.readString());
                     showInput = false;
                     inputDialogState = 1;
-                    if (!Configuration.enableSaveInput) {
+                    if (!Settings.getBoolean(Setting.SAVE_INPUT)) {
                         amountOrNameInput = "";
                     }
                     inputTaken = true;
@@ -22924,7 +23067,7 @@ public class Client extends RSApplet {
 
                 case 31:
                     inputDialogState = 1;
-                    if (!Configuration.enableSaveInput) {
+                    if (!Settings.getBoolean(Setting.SAVE_INPUT)) {
                         amountOrNameInput = "";
                     }
                     inputTaken = true;
@@ -22935,7 +23078,7 @@ public class Client extends RSApplet {
                     inputTitle = new String(inStream.readString());
                     showInput = false;
                     inputDialogState = 2;
-                    if (!Configuration.enableSaveInput) {
+                    if (!Settings.getBoolean(Setting.SAVE_INPUT)) {
                         amountOrNameInput = "";
                     }
                     inputTaken = true;
@@ -23449,7 +23592,7 @@ public class Client extends RSApplet {
             callbacks.post(new BeforeRender());
         worldController.render(xCameraPos, yCameraPos, xCameraCurve, zCameraPos, j, yCameraCurve);
         //worldController.renderTileMarkers();
-        if (!HdPlugin.process() && Configuration.enableFog) {
+        if (!HdPlugin.process() && Settings.getBoolean(Setting.FOG)) {
             int baseFogDistance = (int) Math.sqrt(Math.pow(zCameraPos, 2));
             int fogStart = baseFogDistance + 1100;
             int fogEnd = baseFogDistance + 2000;
@@ -23491,7 +23634,7 @@ public class Client extends RSApplet {
 
         Iterator<Particle> iterator;
         Particle particle;
-        if (Configuration.enableParticles) {
+        if (Settings.INTERFACES.getBoolean(Setting.PARTICLES)) {
             iterator = displayedParticles.iterator();
             while (iterator.hasNext()) {
                 particle = iterator.next();
@@ -24025,6 +24168,11 @@ public class Client extends RSApplet {
 
         if (openInterfaceID > -1)
             RSInterface.interfaceCache[openInterfaceID].onClose();
+
+        if (textInput != null) {
+            textInput.message = "";
+            textInput = null;
+        }
 
         if (RSInterface.currentInputField != null) {
             RSInterface.currentInputField.enabledMessage = "";
@@ -25725,7 +25873,7 @@ public class Client extends RSApplet {
         if (damage > 0) {
             Sprite end1 = null, middle = null, end2 = null;
             int x = 0;
-            if (!Configuration.enableConstitution) {
+            if (!Settings.getBoolean(Setting.CONSTITUTION)) {
                 damage = (damage / 10);
                 if (damage == 0) {
                     damage = 1;
@@ -25749,7 +25897,7 @@ public class Client extends RSApplet {
             
             int lengthOffset = 3;
             
-            if (Configuration.enableConstitution) {
+            if (Settings.getBoolean(Setting.CONSTITUTION)) {
         		lengthOffset++;
             }
             
@@ -25774,7 +25922,7 @@ public class Client extends RSApplet {
             	textXOffset += 6;
             } else if (damage > 99) {
             	textXOffset += 3;
-			} else if (Configuration.enableConstitution) {
+			} else if (Settings.getBoolean(Setting.CONSTITUTION)) {
 				textXOffset += 2;
 			}
             
@@ -27340,5 +27488,7 @@ public class Client extends RSApplet {
     public boolean tweenPlayerAnimations;
     public boolean tweenNpcAnimations;
     public boolean tweenObjectAnimations;
+
+    public RSInterface textInput;
 
 }

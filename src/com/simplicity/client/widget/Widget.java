@@ -1,8 +1,12 @@
 package com.simplicity.client.widget;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import com.google.common.collect.ComparisonChain;
 import com.simplicity.client.RSInterface;
 import com.simplicity.client.widget.deals.DealBoardWidget;
 import com.simplicity.client.widget.deals.ItemDealBoardWidget;
@@ -22,6 +26,7 @@ import com.simplicity.client.widget.raids.cox.tab.RaidingTabContainerWidget;
 import com.simplicity.client.widget.raids.nightmare.HealthHud;
 import com.simplicity.client.widget.raids.nightmare.TotemsOverlay;
 import com.simplicity.client.widget.raids.tob.*;
+import com.simplicity.client.widget.settings.SettingsWidget;
 
 public class Widget {
 	
@@ -86,6 +91,7 @@ public class Widget {
 		init(new ShootingStarHud());
 		init(new EquipmentBonuses());
 		init(new PresetsWidget());
+		init(new SettingsWidget());
 	}
 
 	/**
@@ -105,7 +111,12 @@ public class Widget {
 
         int lastId = 0;
 
-        for (WidgetComponent w : widget.components) {
+		List<WidgetComponent> sorted = widget.components.stream()
+				.sorted((a, b) -> ComparisonChain.start()
+				.compare(a.priority, b.priority)
+				.result()).collect(Collectors.toList());
+
+        for (WidgetComponent w : sorted) {
             tab.child(frame++, w.componentId, w.point.x, w.point.y);
             lastId = w.componentId;
         }

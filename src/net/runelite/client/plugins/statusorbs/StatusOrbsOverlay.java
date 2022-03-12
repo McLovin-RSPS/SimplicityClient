@@ -26,6 +26,8 @@
 package net.runelite.client.plugins.statusorbs;
 
 import com.simplicity.Configuration;
+import com.simplicity.client.widget.settings.Setting;
+import com.simplicity.client.widget.settings.Settings;
 import net.runelite.api.Point;
 import net.runelite.api.*;
 import net.runelite.api.widgets.Widget;
@@ -123,7 +125,7 @@ public class StatusOrbsOverlay extends Overlay
 	{
 		Rectangle bounds = null;
 
-		if (widgetInfo == WidgetInfo.MINIMAP_SPEC_ORB && Configuration.enableSpecialOrb) {
+		if (widgetInfo == WidgetInfo.MINIMAP_SPEC_ORB && Settings.getBoolean(Setting.SPECIAL_ORB)) {
 			int orbX = com.simplicity.client.Client.getClient().getOrbX(4);
 			int orbY = com.simplicity.client.Client.getClient().getOrbY(4);
 			if (!Configuration.enableOldschoolFrame && !client.isResized()) {

@@ -14,6 +14,8 @@ import com.simplicity.client.particles.Particle;
 import com.simplicity.client.particles.ParticleAttachment;
 import com.simplicity.client.particles.ParticleDefinition;
 import com.simplicity.client.particles.ParticleVector;
+import com.simplicity.client.widget.settings.Setting;
+import com.simplicity.client.widget.settings.Settings;
 import com.simplicity.tools.util.ModelColorMapping;
 
 import net.runelite.api.Perspective;
@@ -3767,7 +3769,7 @@ public class Model extends Animable {
             }
 
             if (gpu) {
-                if (Configuration.enableParticles) {
+                if (Settings.INTERFACES.getBoolean(Setting.PARTICLES)) {
 
                     for (int vertex = 0; vertex < numberOfVerticeCoordinates; ++vertex) {
                         int pid = verticesParticle[vertex] - 1;
@@ -4090,7 +4092,7 @@ public class Model extends Animable {
                 }
             }
         }
-        if (Configuration.enableParticles) {
+        if (Settings.INTERFACES.getBoolean(Setting.PARTICLES)) {
 
             for (int vertex = 0; vertex < numberOfVerticeCoordinates; ++vertex) {
                 int pid = verticesParticle[vertex] - 1;

@@ -29,6 +29,8 @@ import com.simplicity.Configuration;
 import com.simplicity.Jframe;
 import com.simplicity.client.content.Keybinding;
 import com.simplicity.client.widget.AchievementsWidget;
+import com.simplicity.client.widget.settings.Setting;
+import com.simplicity.client.widget.settings.Settings;
 import com.simplicity.client.widget.settings.SettingsTabWidget;
 import com.simplicity.client.widget.ge.GrandExchangeOfferWidget;
 import com.simplicity.client.widget.ge.GrandExchangeSearchWidget;
@@ -384,7 +386,7 @@ WindowListener {
 				RSInterface.interfaceCache[SettingsTabWidget.ZOOM_SLIDER].slider.setValue(value);
 			}
 			
-			if (Configuration.enableWASDCamera && Client.instance.chatboxInFocus) {
+			if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA) && Client.instance.chatboxInFocus) {
 				Client.instance.chatboxInFocus = false;
 			}
 		}
@@ -543,7 +545,7 @@ WindowListener {
 			mouseWheelX = x;
 			mouseWheelY = y;
 			
-			if (Configuration.enableWASDCamera && Client.instance.chatboxInFocus) {
+			if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA) && Client.instance.chatboxInFocus) {
 				Client.instance.chatboxInFocus = false;
 			}
 			return;
@@ -682,7 +684,7 @@ WindowListener {
 		int i = keyevent.getKeyCode();
 		int j = keyevent.getKeyChar();
 		
-		if (i == KeyEvent.VK_ESCAPE && Configuration.escapeClosesInterface && Client.loggedIn && Client.openInterfaceID != -1) {
+		if (i == KeyEvent.VK_ESCAPE && Settings.CONTROLS.getBoolean(Setting.ESC_CLOSES_INTERFACE) && Client.loggedIn && Client.openInterfaceID != -1) {
 			Client.instance.clearTopInterfaces();
 			return;
 		}
@@ -738,13 +740,13 @@ WindowListener {
 		}*/
 		if (j < 30)
 			j = 0;
-		if (i == 37 || Configuration.enableWASDCamera && !Client.instance.chatboxInFocus && i == KeyEvent.VK_A)
+		if (i == 37 || Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA) && !Client.instance.chatboxInFocus && i == KeyEvent.VK_A)
 			j = 1;
-		if (i == 39 || Configuration.enableWASDCamera && !Client.instance.chatboxInFocus && i == KeyEvent.VK_D)
+		if (i == 39 || Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA) && !Client.instance.chatboxInFocus && i == KeyEvent.VK_D)
 			j = 2;
-		if (i == 38 || Configuration.enableWASDCamera && !Client.instance.chatboxInFocus && i == KeyEvent.VK_W)
+		if (i == 38 || Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA) && !Client.instance.chatboxInFocus && i == KeyEvent.VK_W)
 			j = 3;
-		if (i == 40 || Configuration.enableWASDCamera && !Client.instance.chatboxInFocus && i == KeyEvent.VK_S)
+		if (i == 40 || Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA) && !Client.instance.chatboxInFocus && i == KeyEvent.VK_S)
 			j = 4;
 		if (i == 17)
 			j = 5;
@@ -821,16 +823,16 @@ WindowListener {
 		if (c < '\036') {
 			c = '\0';
 		}
-		if (i == 37 || Configuration.enableWASDCamera && !Client.instance.chatboxInFocus && i == KeyEvent.VK_A) {
+		if (i == 37 || Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA) && !Client.instance.chatboxInFocus && i == KeyEvent.VK_A) {
 			c = '\001';
 		}
-		if (i == 39 || Configuration.enableWASDCamera && !Client.instance.chatboxInFocus && i == KeyEvent.VK_D) {
+		if (i == 39 || Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA) && !Client.instance.chatboxInFocus && i == KeyEvent.VK_D) {
 			c = '\002';
 		}
-		if (i == 38 || Configuration.enableWASDCamera && !Client.instance.chatboxInFocus && i == KeyEvent.VK_W) {
+		if (i == 38 || Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA) && !Client.instance.chatboxInFocus && i == KeyEvent.VK_W) {
 			c = '\003';
 		}
-		if (i == 40 || Configuration.enableWASDCamera && !Client.instance.chatboxInFocus && i == KeyEvent.VK_S) {
+		if (i == 40 || Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA) && !Client.instance.chatboxInFocus && i == KeyEvent.VK_S) {
 			c = '\004';
 		}
 		if (i == 17) {

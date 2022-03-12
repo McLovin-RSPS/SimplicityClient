@@ -38,6 +38,8 @@ import com.simplicity.Configuration;
 import com.simplicity.client.Client;
 import com.simplicity.client.Entity;
 
+import com.simplicity.client.widget.settings.Setting;
+import com.simplicity.client.widget.settings.Settings;
 import net.runelite.api.GraphicsBufferType;
 import net.runelite.client.ui.overlay.*;
 import net.runelite.client.ui.overlay.components.ComponentConstants;
@@ -86,7 +88,7 @@ class OpponentInfoOverlay extends OverlayPanel
 			return null;
 		}
 
-		boolean x10 = Configuration.enableConstitution;
+		boolean x10 = Settings.getBoolean(Setting.CONSTITUTION);
 		
 		opponentName = Text.removeTags(opponent.getName()).replaceAll("@cya@", "");
 		currentHealth = !x10 ? opponent.currentHealth / 10 : opponent.currentHealth;

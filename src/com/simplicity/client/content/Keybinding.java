@@ -6,6 +6,8 @@ import com.simplicity.Configuration;
 import com.simplicity.client.Client;
 import com.simplicity.client.ClientSettings;
 import com.simplicity.client.RSInterface;
+import com.simplicity.client.widget.settings.Setting;
+import com.simplicity.client.widget.settings.Settings;
 
 public class Keybinding {
 	
@@ -42,25 +44,28 @@ public class Keybinding {
                 KeyEvent.VK_F10,
                 KeyEvent.VK_F12,
         };
-        
-        Configuration.escapeClosesInterface = true;
-        
+
         if (RSInterface.interfaceCache != null && RSInterface.interfaceCache[ESCAPE_CONFIG] != null) {
-        	RSInterface.interfaceCache[ESCAPE_CONFIG].active = Configuration.escapeClosesInterface;
+        	RSInterface.interfaceCache[ESCAPE_CONFIG].active = true;
+        }
+
+        for (int i = 0; i < KEYBINDINGS.length; i++) {
+            Settings.setDefault(Setting.KEYBIND + i, true);
         }
     }
 
     public static void checkDuplicates(int key, int index) {
         for (int i = 0; i < KEYBINDINGS.length; i++) {
-            if (i == 3 && Configuration.escapeClosesInterface && KEYBINDINGS[3] == KeyEvent.VK_ESCAPE || KEYS[key] == KEYBINDINGS[i] && i != index && KEYBINDINGS[i] != -1) {
+            if (i == 3 && Settings.CONTROLS.getBoolean(Setting.ESC_CLOSES_INTERFACE) && KEYBINDINGS[3] == KeyEvent.VK_ESCAPE || KEYS[key] == KEYBINDINGS[i] && i != index && KEYBINDINGS[i] != -1) {
                 KEYBINDINGS[i] = -1;
                 RSInterface.interfaceCache[MIN_FRAME + 3 * i].dropdown.setSelected("None");
+                Settings.set(Setting.KEYBIND + i, 0, true);
             }
         }
     }
     
     public static void toggleEsc() {
-    	Configuration.escapeClosesInterface = !Configuration.escapeClosesInterface;
+        Settings.set(Setting.ESC_CLOSES_INTERFACE, !Settings.getBoolean(Setting.ESC_CLOSES_INTERFACE));
     }
 
     public static void bind(int index, int key) {
@@ -102,9 +107,10 @@ public class Keybinding {
                 current = OPTIONS[key - KeyEvent.VK_F1 + 2];
             }
 
+            Settings.set(Setting.KEYBIND + i, key == KeyEvent.VK_ESCAPE ? 1 : key, true);
         	RSInterface.interfaceCache[MIN_FRAME + 3 * i].dropdown.setSelected(current);
         }
         
-        Client.instance.sendFrame36(1014, Configuration.escapeClosesInterface ? 0 : 1);
+        Client.instance.sendFrame36(1014, Settings.CONTROLS.getBoolean(Setting.ESC_CLOSES_INTERFACE) ? 0 : 1);
     }
 }

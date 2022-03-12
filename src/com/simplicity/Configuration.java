@@ -5,7 +5,7 @@ public class Configuration {
 	/**
 	 * Connection information
 	 */
-	public final static boolean LOCALHOST = false;
+	public final static boolean LOCALHOST = true;
 	public final static boolean BETA = true;
 	public static String HOST = LOCALHOST ? "127.0.0.1" : BETA ? "beta.simplicity-data.com" : "149.56.28.66";
 	public static int PORT = 43594;
@@ -78,47 +78,6 @@ public class Configuration {
     public static int xpDropsColour = 0xffffff;
     public static boolean xpDropsGroup = true;
     
-	/**
-	 * Priorities:
-	 * 0: Depends on combat
-	 * 1: Always right-click
-	 * 2: Left-click where available
-	 * 3: Hidden
-	 */
-	public static int playerAttackOptionPriority = 2;
-	public static int npcAttackOptionPriority = 2;
-    
-	/**
-	 * Indicates whether the shift click drop function is enabled or not.
-	 */
-    public static boolean enableShiftClickDrop;
-    
-    /**
-     * Indicates whether the follower options priority is enabled or not.
-     */
-    public static boolean enableFollowerOptionPriority;
-    
-    /**
-     * Indicates whether the mouse camera rotation is enabled or not.
-     */
-    public static boolean enableMouseCamera = true;
-    
-    /**
-	 * Indicates whether the escape key can be used to close interface or not.
-	 */
-    public static boolean escapeClosesInterface;
-
-    
-    /**
-     * Indicates whether hd textures are enabled or not.
-     */
-	public static boolean enableHDTextures;
-	
-    /**
-     * Indicates whether the special orb is enabled or not.
-     */
-	public static boolean enableSpecialOrb;
-	
     /**
      * Indicates whether tooltips on hover are enabled or not.
      */
@@ -128,11 +87,6 @@ public class Configuration {
      * Indicates whether osrs hitmarkers are enabled or not.
      */
 	public static boolean enableOldHitmarkers;
-	
-    /**
-     * Indicates whether the hp orb is enabled or not.
-     */
-	public static boolean enableConstitution;
 	
     /**
      * Indicates whether custom cursors are enabled or not.
@@ -150,69 +104,14 @@ public class Configuration {
 	public static boolean enableCensor;
 	
     /**
-     * Indicates whether the fog is enabled or not.
-     */
-	public static boolean enableFog;
-	
-    /**
      * Indicates whether the absorb damage feature is enabled or not.
      */
 	public static boolean enableAbsorbDamage = true;
 	
     /**
-     * Indicates whether anti-aliasing is enabled or not.
-     */
-	public static boolean enableAntiAliasing = false;
-	
-    /**
-     * Indicates whether the save input feature is enabled or not.
-     */
-	public static boolean enableSaveInput = true;
-	
-    /**
-     * Indicates whether hd shading is enabled or not.
-     */
-	public static boolean enableHDShading = true;
-	
-    /**
-     * Indicates whether the particles are enabled or not.
-     */
-	public static boolean enableParticles = true;
-	
-    /**
      * Indicates whether skill status bars are enabled or not.
      */
 	public static boolean enableSkillStatusBars = false;
-	
-    /**
-     * Indicates whether xp orbs are enabled or not.
-     */
-	public static boolean enableXpOrbs = true;
-	
-    /**
-     * Indicates whether mipmapping is enabled or not.
-     */
-	public static boolean enableMipmapping;
-	
-	/**
-	 * Indicates the state of item stats.
-	 */
-	public static int enableItemStats = 1;
-	
-	/**
-	 * Indicates whether the tile markers are enabled or not.
-	 */
-	public static boolean enableTileMarkers = false;
-	
-	/**
-	 * Indicates whether the WASD camera is enabled or not.
-	 */
-	public static boolean enableWASDCamera = false;
-	
-	/**
-	 * Indicates whether tweening is enabled or not.
-	 */
-	public static boolean enableTweening = true;
 	
 	/**
 	 * Indicates whether zooming is enabled or not.

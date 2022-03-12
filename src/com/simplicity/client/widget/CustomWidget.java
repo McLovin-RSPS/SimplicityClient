@@ -69,6 +69,10 @@ public abstract class CustomWidget {
     public abstract String getName();
 
     public void add(RSInterface widget, int x, int y) {
+        add(widget, x, y, 0);
+    }
+
+    public void add(RSInterface widget, int x, int y, int priority) {
         widget.componentId = widget.id;
 
         if (RSInterface.interfaceCache[widget.componentId] != null) {
@@ -89,9 +93,10 @@ public abstract class CustomWidget {
         WidgetComponent component = new WidgetComponent(new Point(x, y), widget);
         component.componentId = widget.componentId;
         component.parentId = mainId;
+        component.priority = priority;
         components.add(component);
     }
-    
+
     public void add(WidgetComponent component, int x, int y) {
     	Widget.componentForMain.put(component.componentId, mainId);
     	components.add(component);
@@ -1148,6 +1153,21 @@ public abstract class CustomWidget {
         for (int i = from; i <= to; i++) {
             RSInterface.interfaceCache[i].message = "";
         }
+    }
+
+    public RSInterface addTextInput(int width, int height, String tooltip, int characterLimit) {
+        RSInterface rsi = RSInterface.addInterface(id, width, height);
+        rsi.type = 58;
+        rsi.componentId = id++;
+        rsi.disabledColor = 0xff981f;
+        rsi.message = "";
+        rsi.tooltip = tooltip;
+        rsi.rsFont = Client.getClient().newRegularFont;
+        rsi.atActionType = 5;
+        rsi.contentType = 0;
+        rsi.hovers = true;
+        rsi.characterLimit = characterLimit;
+        return rsi;
     }
     
 }
