@@ -106,13 +106,6 @@ public final class MobDefinition {
                     npc.actions = new String[5];
                     npc.actions[1] = "Attack";
                     break;
-                    
-                //verzik webs
-                case 8376:
-                	npc.actions = null;
-                	npc.clickable = false;
-                	npc.combatLevel = 0;
-                	break;
 
                 case 7317: // Old Lisa
                     npc.models = new int[]{398, 20516, 6693, 19951, 13319, 337, 9644, 9640};
