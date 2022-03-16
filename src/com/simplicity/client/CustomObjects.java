@@ -621,14 +621,54 @@ public class CustomObjects {
             // {42651, 3104, 3497, 0, 0}, // Eggs
             //{42651, 3097, 3504, 0, 0}, // Eggs
             
+            // Platinum Executive Chest
+            {138519, 2272, 5835, 2, 0}, // Platinum Executive Chest
+            
+            {37924, 2268, 5835, 2, 0}, // Portal energy animation
+            {37924, 2269, 5835, 2, 0}, // Portal energy animation
+            {37924, 2270, 5835, 2, 0}, // Portal energy animation
+            {37925, 2271, 5835, 2, 0}, // Portal energy animation
+            
+            {37925, 2273, 5835, 2, 0}, // Portal energy animation
+            {37924, 2274, 5835, 2, 0}, // Portal energy animation
+            {37924, 2275, 5835, 2, 0}, // Portal energy animation
+            {37924, 2276, 5835, 2, 0}, // Portal energy animation
+            
+            {-1, 2272, 5830, 2, 0}, // Removed statue
+            {-1, 2272, 5831, 2, 0}, // Removed statue
+            {-1, 2272, 5832, 2, 0}, // Removed statue
+            {-1, 2273, 5831, 2, 0}, // Removed statue
+            {37925, 2271, 5830, 2, 0}, // Removed statue
+            {37925, 2273, 5830, 2, 0}, // Removed statue
+            
             // Chest island                   
             {136088, 2847, 5081, 0, 0}, // Executive chest
+            
+            {136081, 2845, 5086, 0, 0}, // Platinum chest portal
+            
+            {135075, 2845, 5087, 0, 0}, // Platinum chest portal
+            {135075, 2846, 5087, 0, 0}, // Platinum chest portal
+            {135075, 2847, 5087, 0, 0}, // Platinum chest portal
+            {135075, 2848, 5087, 0, 0}, // Platinum chest portal
+            {135075, 2849, 5087, 0, 0}, // Platinum chest portal
+            {135075, 2850, 5087, 0, 0}, // Platinum chest portal
+            
+            {135183, 2844, 5086, 0, 0}, // light pillar
+            {135183, 2851, 5086, 0, 0}, // light pillar
+            {-1, 2841, 5083, 0, 0}, // removed tree
+            {-1, 2841, 5079, 0, 0}, // removed tree
+            {135183, 2842, 5079, 0, 0}, // light pillar
+            {135183, 2842, 5083, 0, 0}, // light pillar
+            {135183, 2851, 5086, 0, 0}, // light pillar
+            {135183, 2853, 5079, 0, 0}, // light pillar
+            {135183, 2853, 5083, 0, 0}, // light pillar
+            {-1, 2850, 5086, 0, 0}, //  removed tree
             
             //{10607, 2847, 5078, 0, 2}, // Elite chest
             {10611, 2849, 5079, 0, 2}, // Elite chest
             {10616, 2846, 5079, 0, 2}, // Elite chest
             
-            {137818, 2850, 5075, 0, 0}, // Statue
+            {-1, 2850, 5075, 0, 0}, // Statue
             {-1, 2843, 5075, 0, 1}, // Statue
             
             /* Easter 2020 */
