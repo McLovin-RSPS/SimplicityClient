@@ -221,6 +221,15 @@ public class CustomItems2 {
 	            itemDef.actions = new String[5];
 	            itemDef.actions[2] = "Teleport";
 	            break;
+	            
+	        case 22200:
+	            itemDef.copy(ItemDefinition.forID(53951));
+	            itemDef.name = "@whi@Platinum key";
+	            itemDef.editedModelColor = new int[] { 32995, 7227, };
+	            itemDef.newModelColor = new int[] { 689484, 689484, };
+	            itemDef.actions = new String[5];
+	            itemDef.actions[2] = "Teleport";
+	            break;
 	
 	        case 22011: // SOV DS Inferno textured Hellraty
 	            itemDef.copy(ItemDefinition.forID(15000));

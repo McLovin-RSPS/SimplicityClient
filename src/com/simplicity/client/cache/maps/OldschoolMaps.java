@@ -34,10 +34,14 @@ public class OldschoolMaps {
             9772, // myth's guild
             13205, 13460, 13204, // kalphite lair
             
+            11408, 11409, // Platinum chest zone
+            
             6974, // Christmass event boss 2021
 
             // barbarian village
             12341,
+            
+            9051, 9563, 10075, // Executive Platinum zone
             
             9823, 9824, // new infernal dungeon
             

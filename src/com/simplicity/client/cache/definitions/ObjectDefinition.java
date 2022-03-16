@@ -237,6 +237,12 @@ public final class ObjectDefinition {
             objectDef.actions = new String[]{"Search", "Lookup", null, null, null};
             objectDef.name = "@cya@Executive Chest";
         }
+        
+        if (i == 138519) {
+            objectDef.actions = new String[]{"Search", "Lookup", null, null, null};
+            objectDef.name = "@whi@Platinum Chest";
+        }
+        
         if (i == 131923) {
             objectDef.actions = new String[5];
             objectDef.actions[0] = "Venerate";
@@ -264,6 +270,10 @@ public final class ObjectDefinition {
         if (i == 111978) {
             objectDef.actions = new String[]{"Teleport", null, null, null, null};
             objectDef.name = "@yel@Lava cave";
+        }
+        if (i == 136081) {
+            objectDef.actions = new String[]{"Teleport", null, null, null, null};
+            objectDef.name = "@cya@Platinum Portal";
         }
         if (i == 137975) {
         objectDef.actions = new String[]{"Cut", null, null, null, null};
