@@ -17,6 +17,7 @@ public class SettingsWidget extends CustomWidget implements WidgetButtonListener
     private static int searchField;
 
     private int containerIndex;
+    private int searchWidgetId;
 
     public SettingsWidget() {
         super(WIDGET_ID);
@@ -57,6 +58,9 @@ public class SettingsWidget extends CustomWidget implements WidgetButtonListener
             settingGroupWidgets[i] = groupWidgetId;
         }
 
+        searchWidgetId = 105_000 + (settingGroupWidgets.length * 1000);
+        Widget.init(new SettingGroupWidget(null, searchWidgetId));
+
         containerIndex = components.size();
         addWidget(settingGroupWidgets[0], 0, 72);
     }
@@ -91,6 +95,9 @@ public class SettingsWidget extends CustomWidget implements WidgetButtonListener
 
     @Override
     public void onUpdateInputField(int widgetId, String text) {
+        if (widgetId == searchField) {
+            searchWidget().handleSearch(text.toLowerCase());
+        }
     }
 
     @Override
@@ -110,6 +117,12 @@ public class SettingsWidget extends CustomWidget implements WidgetButtonListener
         }
 
         getWidget(widgetId).active = true;
+        setComponent(containerIndex, searchWidgetId);
+        searchWidget().displaySearch(null, true);
+    }
+
+    private SettingGroupWidget searchWidget() {
+        return Widget.get(searchWidgetId);
     }
 
 }

@@ -35,7 +35,12 @@ public abstract class CustomWidget {
         this.id = id + 1;
         this.components = new ArrayList<WidgetComponent>();
     }
-    
+
+    public void clear() {
+        this.id = mainId + 1;
+        this.components = new ArrayList<>();
+    }
+
     public void addButtonListener(WidgetButtonListener listener) {
     	this.buttonListener = listener;
     }
