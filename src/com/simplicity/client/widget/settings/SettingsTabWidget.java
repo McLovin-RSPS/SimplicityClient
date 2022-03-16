@@ -91,7 +91,7 @@ public class SettingsTabWidget extends RSInterface {
 		tab.child(child++, 46044, 28, 236);
 
 		addText(HEADER_ID, "Controls Settings", tda, 2, 0xfe971e, true, true).setSize(141, 28);
-		tab.child(child++, HEADER_ID, 22, 32);
+		tab.child(child++, HEADER_ID, 24, 32);
 	}
 	
 	private static void controlSettings(TextDrawingArea[] tda) {
@@ -99,19 +99,23 @@ public class SettingsTabWidget extends RSInterface {
 
 		RSInterface tab = addTabInterface(id++);
 		
-		tab.totalChildren(13);
+		tab.totalChildren(14);
 		
 		int child = 0;
 
 		String[] options = {"Depends on combat levels", "Always right-click", "Left-click where available", "Hidden"};
 
-		dropdownMenu(PLAYER_ATTACK_DROPDOWN, 166, 0, options, option -> Settings.set(Setting.PLAYER_ATT_OPT, option, true));
-
+		dropdownMenu(PLAYER_ATTACK_DROPDOWN, 162, 0, options, option -> Settings.set(Setting.PLAYER_ATT_OPT, option, true));
 		addText(id, "Player 'Attack' options:", tda, 1, 0xfe971e, false, true);
 
-		dropdownMenu(NPC_ATTACK_DROPDOWN, 166, 2, options, option -> Settings.set(Setting.NPC_ATT_OPT, option, true));
-
+		dropdownMenu(NPC_ATTACK_DROPDOWN, 162, 2, options, option -> Settings.set(Setting.NPC_ATT_OPT, option, true));
 		addText(id + 1, "NPC 'Attack' options:", tda, 1, 0xfe971e, false, true);
+
+		setBounds(id, 14, 118 - 25, child++, tab);
+		setBounds(NPC_ATTACK_DROPDOWN, 14, 174 - 25, child++, tab);
+		setBounds(id + 1, 14, 157 - 25, child++, tab);
+		setBounds(PLAYER_ATTACK_DROPDOWN, 14, 136 - 25, child++, tab);
+		id += 2;
 
 		RSInterface energy = interfaceCache[149];
 		energy.disabledColor = 0xff9933;
@@ -130,32 +134,35 @@ public class SettingsTabWidget extends RSInterface {
 			Client.getClient().pushMessage("Coming soon", 0, "");
 			return false;
 		};
-		tab.child(child++, id++, 54 + 42, 223 - 4 - 45);
+		tab.child(child++, id++, 55 + 41, 223 - 4 - 45);
 
 		addSprite(id, 2003);
-		tab.child(child++, id++, 54 + 46, 223 - 4 - 40);
+		tab.child(child++, id++, 55 + 45, 223 - 4 - 40);
 
 		addButton(id, 1219, "View Store");
 		interfaceCache[id].onClick = () -> {
 			Client.getClient().launchURL("https://store.simplicityps.org/");
 			return false;
 		};
-		tab.child(child++, id++, 54 + 84, 223 - 4 - 45);
+		tab.child(child++, id++, 55 + 83, 223 - 4 - 45);
 
 		addSprite(id, 2004);
-		tab.child(child++, id++, 54 + 88, 223 - 4 - 40);
+		tab.child(child++, id++, 55 + 87, 223 - 4 - 40);
 
-		tab.child(child++, 12464, 7 + 4, 223 - 4 - 45);
-		tab.child(child++, 949, 12 + 4, 228 - 4 - 45);
+		tab.child(child++, 12464, 7 + 5, 223 - 4 - 45);
+		tab.child(child++, 949, 12 + 5, 228 - 4 - 45);
 		tab.child(child++, 152, 54, 223 - 4 - 45);
 		tab.child(child++, 947, 65, 226 - 4 - 45);
 		tab.child(child++, 149, 59, 243 - 4 - 45);
 
-		setBounds(id, 12, 118 - 35, child++, tab);
-		setBounds(NPC_ATTACK_DROPDOWN, 12, 174 - 35, child++, tab);
-		setBounds(id + 1, 12, 157 - 35, child++, tab);
-		setBounds(PLAYER_ATTACK_DROPDOWN, 12, 136 - 35, child++, tab);
-		id += 2;
+		addHoverText(id, "<spr=2005:0> PK Skull Prevention", "Toggle skull prevention", tda, 1, 0xff981f, false, true, 200, 16);
+		interfaceCache[id].useNewFonts = true;
+		interfaceCache[id].onClick = () -> {
+			// TODO: toggle change text according to setting value
+			Client.getClient().pushMessage("Coming soon", 0, "");
+			return false;
+		};
+		tab.child(child++, id++, 14, 68);
 		
 		if (!Configuration.enableZooming) {
 			configHoverButtonSwitch(interfaceCache[TOGGLE_ZOOM]);
