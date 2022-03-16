@@ -520,7 +520,9 @@ public class Client extends RSApplet {
 
 				runelite.clientUI.container.revalidate();
 				runelite.clientUI.frame.revalidate();
-				
+                SwingUtilities.invokeLater(() -> {
+                    runelite.clientUI.frame.setResizable(size == 1);
+                });
 				resetImageProducers2();
             	
             } else {

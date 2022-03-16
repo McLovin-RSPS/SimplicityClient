@@ -298,7 +298,7 @@ public class ClientUI
 			frame.setIconImage(ICON);
 			frame.getLayeredPane().setCursor(Cursor.getDefaultCursor()); // Prevent substance from using a resize cursor for pointing
 			frame.setLocationRelativeTo(frame.getOwner());
-			frame.setResizable(true);
+			frame.setResizable(false);
 
 			SwingUtil.addGracefulExitCallback(frame,
 				() ->
@@ -701,7 +701,7 @@ public class ClientUI
 			frame.setAlwaysOnTop(config.gameAlwaysOnTop());
 		}
 
-		frame.setResizable(!config.lockWindowSize());
+		//frame.setResizable(!config.lockWindowSize());
 		frame.setExpandResizeType(config.automaticResizeType());
 		frame.setContainedInScreen(config.containInScreen() && config.enableCustomChrome());
 
