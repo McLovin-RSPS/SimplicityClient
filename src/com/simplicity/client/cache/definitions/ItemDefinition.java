@@ -598,6 +598,14 @@ public final class ItemDefinition {
                 itemDef.modelZoom = 600;
                 break;
                 
+            case 25418:
+                itemDef.name = "Chicken nugget";
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelID = MobDefinition.forID(41).models[0];
+                itemDef.modelZoom = 1400;
+                break;
+                
             case 33308:
                 itemDef.name = "@whi@Superior Demon Baby";
                 itemDef.groundActions = new String[]{null, null, "Take", null, null};
