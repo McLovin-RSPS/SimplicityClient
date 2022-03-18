@@ -622,7 +622,7 @@ public class CustomObjects {
             //{42651, 3097, 3504, 0, 0}, // Eggs
             
             // Platinum Executive Chest
-            {138519, 2272, 5835, 2, 0}, // Platinum Executive Chest
+            {138519, 2272, 5834, 2, 0}, // Platinum Executive Chest
             
             {37924, 2268, 5835, 2, 0}, // Portal energy animation
             {37924, 2269, 5835, 2, 0}, // Portal energy animation

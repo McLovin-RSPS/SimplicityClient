@@ -241,6 +241,12 @@ public final class ObjectDefinition {
         if (i == 138519) {
             objectDef.actions = new String[]{"Search", "Lookup", null, null, null};
             objectDef.name = "@whi@Platinum Chest";
+            objectDef.objectModelIDs = new int[] { 42607 };
+            objectDef.originalModelTexture = new int[] { 40 };
+            objectDef.newModelTexture = new int[] { 67 };
+            objectDef.sizeX = 2;
+            objectDef.sizeY = 2;
+            objectDef.offsetH = -12;
         }
         
         if (i == 131923) {
