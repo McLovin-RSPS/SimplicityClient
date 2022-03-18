@@ -227,6 +227,7 @@ public class CustomItems2 {
 	            itemDef.name = "@whi@Platinum key";
 	            itemDef.editedModelColor = new int[] { 32995, 7227, };
 	            itemDef.newModelColor = new int[] { 689484, 689484, };
+				itemDef.modelID = 42606;
 	            itemDef.actions = new String[5];
 	            itemDef.actions[2] = "Teleport";
 	            break;
