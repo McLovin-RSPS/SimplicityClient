@@ -330,6 +330,9 @@ public final class ItemDefinition {
 
     public static void postOsrsItemDef(ItemDefinition itemDef) {
         switch(itemDef.id) {
+            case 53951:
+                itemDef.modelOffset1 = 0;
+                break;
         	case 49504:
 	        	itemDef.name = "Dragonstone dragon bolts (e)";
 	        	itemDef.actions = new String[5];
