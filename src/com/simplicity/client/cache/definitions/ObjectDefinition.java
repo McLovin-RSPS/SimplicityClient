@@ -1360,6 +1360,11 @@ public final class ObjectDefinition {
             for (int k2 = 0; k2 < modifiedModelColors.length; k2++)
                 model_3.recolour(modifiedModelColors[k2], originalModelColors[k2]);
         }
+        if (originalModelTexture != null) {
+            for (int i1 = 0; i1 < originalModelTexture.length; i1++) {
+                model.retexture(originalModelTexture[i1], newModelTexture[i1]);
+            }
+        }
         if (rescale)
             model_3.scaleT(modelSizeX, modelSizeY, modelSizeH);
         if (hasOffsets)
@@ -1607,11 +1612,11 @@ public final class ObjectDefinition {
 				}
 			} else if (opcode == 41) {
                 int i1 = stream.readUnsignedByte();
-                short[] modifiedModelTexture = new short[i1];
-                short[] originalModelTexture = new short[i1];
+                originalModelTexture = new int[i1];
+                newModelTexture = new int[i1];
                 for (int i2 = 0; i2 < i1; i2++) {
-                    modifiedModelTexture[i2] = (short) stream.readUnsignedWord();
-                    originalModelTexture[i2] = (short) stream.readUnsignedWord();
+                    originalModelTexture[i2] = stream.readUnsignedWord();
+                    newModelTexture[i2] = stream.readUnsignedWord();
                 }
             } else if (opcode == 61) {
 			    int category = stream.readUnsignedWord();
@@ -1999,6 +2004,8 @@ public final class ObjectDefinition {
     private static ObjectDefinition[] cacheOSRS;
     private int offsetY;
     private int[] modifiedModelColors;
+    private int[] originalModelTexture;
+    private int[] newModelTexture;
     public static MemCache modelCache = new MemCache(500);
     public static MemCache osrsModelCache = new MemCache(500);
     public boolean canRandomAnimStart = true;
