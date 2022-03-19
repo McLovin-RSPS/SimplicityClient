@@ -32,7 +32,9 @@ public class DropdownSetting extends SettingObject<Integer> {
 
     @Override
     public int draw(int idx, int y, int width, int height, CustomWidget widget) {
-        widget.add(widget.addRectangle(width, 27 + height, 0, idx % 2 == 0 ? 200 : 225, true), 97, 12 + y);
+        final int rectHeight = 27 + height;
+        final int rectY = 12 + y;
+        widget.add(widget.addRectangle(width, rectHeight, 0, idx % 2 == 0 ? 200 : 225, true), 97, rectY);
 
         RSInterface rsi = RSInterface.addInterface(widget.id++);
         rsi.type = 36;
@@ -40,7 +42,9 @@ public class DropdownSetting extends SettingObject<Integer> {
         rsi.dropdownColours = new int[] { 0x0d0d0b, 0x464644, 0x473d32, 0x51483c, 0x787169 };
         rsi.dropdown = menu;
 
-        widget.add(rsi, width - menu.getWidth() / 2 + 8, 28 + y);
+        final int midY = (rectHeight / 2);
+        final int dropDownHeight = 20;
+        widget.add(rsi, 97 + width - menu.getWidth() - 5, rectY + midY - (dropDownHeight / 2));
         return 0;
     }
 

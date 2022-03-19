@@ -238,7 +238,7 @@ public class SettingsTabWidget extends RSInterface {
 		tab.child(child++, 910, 112, 66);
 		tab.child(child++, 912, 144, 66);
 
-		dropdownMenu(CLIENT_LAYOUT_DROPDOWN, 162, 0, new String[] { "Fixed", "Resizable" }, size -> {
+		dropdownMenu(CLIENT_LAYOUT_DROPDOWN, 162, 0, new String[] { "Fixed - Classic layout", "Resizable - Classic layout" }, size -> {
 			Settings.set(Setting.CLIENT_LAYOUT, size, true);
 			Client.getClient().toggleSize(size);
 		});

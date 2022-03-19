@@ -20,8 +20,8 @@ public class Interfaces extends SettingGroup {
         add(general, new DropdownSetting(CLIENT_LAYOUT,
                 "Game client layout",
                 "Select which client mode you\\nwould like to play the game in.\\nFixed mode is the classic client\\nlayout.\\nResizable will let you make the\\nclient as large as your screen.",
-                new String[] { "Fixed", "Resizable" },
-                100, false, 0, size -> {
+                new String[] { "Fixed - Classic layout", "Resizable - Classic layout" },
+                180, false, 0, size -> {
                     Client.getClient().toggleSize(size);
                     SettingsTabWidget.updateClientLayout();
                 }
@@ -31,7 +31,7 @@ public class Interfaces extends SettingGroup {
                 "Gameframe style",
                 "Select what the style for the\\ngame frame is.",
                 new String[]{ "#500+ (2009)", "#600+ (2010)", "OSRS" },
-                100, false, 1, selected -> {
+                150, false, 1, selected -> {
             if (selected != 2) {
                 Configuration.enableOldschoolFrame = false;
             }
