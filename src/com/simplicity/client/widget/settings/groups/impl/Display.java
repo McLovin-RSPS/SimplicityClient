@@ -1,14 +1,9 @@
 package com.simplicity.client.widget.settings.groups.impl;
 
-import com.simplicity.Configuration;
-import com.simplicity.client.Client;
 import com.simplicity.client.Rasterizer;
-import com.simplicity.client.widget.Slider;
 import com.simplicity.client.widget.settings.SettingsTabWidget;
 import com.simplicity.client.widget.settings.groups.SettingGroup;
-import com.simplicity.client.widget.settings.objects.impl.DropdownSetting;
 import com.simplicity.client.widget.settings.objects.impl.LegacySliderSetting;
-import com.simplicity.client.widget.settings.objects.impl.SliderSetting;
 import com.simplicity.client.widget.settings.objects.impl.Toggle;
 
 import static com.simplicity.client.widget.settings.Setting.*;
@@ -27,9 +22,9 @@ public class Display extends SettingGroup {
                 "Use the slider to change the camera zoom level.",
                 32, SettingsTabWidget.ZOOM_SLIDER));
 
-        add(graphics, new Toggle(ROOFS, "Hide roofs",
+        add(graphics, new Toggle(HIDE_ROOFS, "Hide roofs",
                 "When enabled, hides all roofs. If you are inside a building, the\\nroof will be hidden regardless of the setting being disabled.",
-                false));
+                true));
 
         add(graphics, new Toggle(SCROLL_ZOOM, "Scroll wheel can change zoom distance",
                 "When enabled, the scroll wheel can change zoom distance.",

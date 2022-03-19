@@ -15,7 +15,7 @@ public class Setting {
     /* Display */
     public static final String BRIGHTNESS = "display_brightness";
     public static final String ZOOM = "display_zoom";
-    public static final String ROOFS = "display_roofs";
+    public static final String HIDE_ROOFS = "display_roofs";
     public static final String SCROLL_ZOOM = "display_scroll_zoom";
     public static final String PARTICLES = "display_particles";
     public static final String FOG = "display_fog";
