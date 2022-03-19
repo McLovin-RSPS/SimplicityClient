@@ -82,12 +82,7 @@ public class SettingsWidget extends CustomWidget implements WidgetButtonListener
             }
 
             setComponent(containerIndex, settingGroupWidgets[i]);
-
-            if (Client.getClient().textInput != null) {
-                Client.getClient().textInput.message = "";
-                Client.getClient().textInput.inFocus = false;
-                Client.getClient().textInput = null;
-            }
+            Client.getClient().resetTextInputField();
         }
 
         return true;

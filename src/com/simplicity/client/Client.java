@@ -3882,7 +3882,7 @@ public class Client extends RSApplet {
         return null;
     }
 
-    public void resetInputFocus() {
+    public void resetInputFocus() { // TODO: this is bad, convert to textInput
         RSInterface.currentInputField = null;
 
         for (RSInterface rsi : RSInterface.interfaceCache) {
@@ -3892,9 +3892,17 @@ public class Client extends RSApplet {
         }
     }
 
+    public void resetTextInputField() {
+        if (textInput != null) {
+            textInput.message = "";
+            textInput.inFocus = false;
+            textInput = null;
+        }
+    }
+
     public boolean isFieldInFocus() {
         for (RSInterface rsi : RSInterface.interfaceCache)
-            if (rsi != null)
+            if (rsi != null && rsi != textInput)
                 if (rsi.inFocus)
                     return true;
         return false;
@@ -11135,8 +11143,6 @@ public class Client extends RSApplet {
                         stream.writeWord(textInput.id);
                         stream.writeString(textInput.message);
                     }
-                    textInput.message = "";
-                    textInput = null;
                 }
 
                 if (update) {
@@ -11754,7 +11760,7 @@ public class Client extends RSApplet {
                     inputDialogState = 0;
                     inputTaken = true;
                 }
-            } else if (backDialogID == -1) {
+            } else if (backDialogID == -1 && !chatInputDisabled()) {
             	if (Settings.CONTROLS.getBoolean(Setting.WASD_CAMERA)) {
 					chatboxInFocus = true;
 				}
@@ -12248,6 +12254,10 @@ public class Client extends RSApplet {
                 }
             }
         } while (true);
+    }
+
+    private boolean chatInputDisabled() {
+        return textInputFocused();
     }
 
     private void doTextField(RSInterface rsint) {
@@ -23259,6 +23269,11 @@ public class Client extends RSApplet {
                         this.resetInputFocus();
                         this.inputString = "";
                     }
+
+                    if (textInputFocused()) {
+                        resetTextInputField();
+                    }
+
                     if (RSInterface.currentInputField != null) {
                         RSInterface.currentInputField.enabledMessage = "";
                         RSInterface.currentInputField.message = "";
@@ -24171,17 +24186,13 @@ public class Client extends RSApplet {
         if (openInterfaceID > -1)
             RSInterface.interfaceCache[openInterfaceID].onClose();
 
-        if (textInput != null) {
-            textInput.message = "";
-            textInput = null;
-        }
-
         if (RSInterface.currentInputField != null) {
             RSInterface.currentInputField.enabledMessage = "";
             RSInterface.currentInputField.message = "";
             RSInterface.currentInputField = null;
         }
 
+        resetTextInputField();
         setOpenInterfaceID(-1);
         fullscreenInterfaceID = -1;
         
@@ -27493,4 +27504,7 @@ public class Client extends RSApplet {
 
     public RSInterface textInput;
 
+    public boolean textInputFocused() {
+        return textInput != null && textInput.inFocus;
+    }
 }
