@@ -149,6 +149,7 @@ class DevToolsPanel extends PluginPanel
 			}
 		});
 
+		container.add(plugin.getTileDebug());
 		return container;
 	}
 }

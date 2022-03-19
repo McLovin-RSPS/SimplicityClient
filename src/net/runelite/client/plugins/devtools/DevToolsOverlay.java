@@ -109,7 +109,7 @@ class DevToolsOverlay extends Overlay
 			renderNpcs(graphics);
 		}
 
-		if (plugin.getGroundItems().isActive() || plugin.getGroundObjects().isActive() || plugin.getGameObjects().isActive() || plugin.getWalls().isActive() || plugin.getDecorations().isActive() || plugin.getTileLocation().isActive() || plugin.getMovementFlags().isActive())
+		if (plugin.getGroundItems().isActive() || plugin.getGroundObjects().isActive() || plugin.getGameObjects().isActive() || plugin.getWalls().isActive() || plugin.getDecorations().isActive() || plugin.getTileLocation().isActive() || plugin.getMovementFlags().isActive() || plugin.getTileDebug().isActive())
 		{
 			renderTileObjects(graphics);
 		}
@@ -235,6 +235,10 @@ class DevToolsOverlay extends Overlay
 					renderTileTooltip(graphics, tile);
 				}
 
+				if (plugin.getTileDebug().isActive()) {
+					renderTileDebug(graphics, tile);
+				}
+
 				if (plugin.getMovementFlags().isActive())
 				{
 					renderMovementInfo(graphics, tile);
@@ -249,6 +253,15 @@ class DevToolsOverlay extends Overlay
 		if (poly != null && poly.contains(client.getMouseCanvasPosition().getX(), client.getMouseCanvasPosition().getY()))
 		{
 			toolTipManager.add(new Tooltip("World Location: " + tile.getWorldLocation().getX() + ", " + tile.getWorldLocation().getY() + ", " + client.getPlane()));
+			OverlayUtil.renderPolygon(graphics, poly, GREEN);
+		}
+	}
+
+	private void renderTileDebug(Graphics2D graphics, Tile tile)
+	{
+		Polygon poly = Perspective.getCanvasTilePoly(client, tile.getLocalLocation());
+		if (poly != null && poly.contains(client.getMouseCanvasPosition().getX(), client.getMouseCanvasPosition().getY()))
+		{
 			OverlayUtil.renderPolygon(graphics, poly, GREEN);
 		}
 	}

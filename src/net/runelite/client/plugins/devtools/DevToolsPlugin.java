@@ -99,6 +99,9 @@ public class DevToolsPlugin extends Plugin
 	private CameraOverlay cameraOverlay;
 
 	@Inject
+	private TileDebugOverlay tileDebugOverlay;
+
+	@Inject
 	private EventBus eventBus;
 
 	@Inject
@@ -132,6 +135,7 @@ public class DevToolsPlugin extends Plugin
 	private DevToolsButton soundEffects;
 	private DevToolsButton scriptInspector;
 	private DevToolsButton inventoryInspector;
+	private DevToolsButton tileDebug;
 	private NavigationButton navButton;
 
 	@Provides
@@ -180,11 +184,13 @@ public class DevToolsPlugin extends Plugin
 		scriptInspector = new DevToolsButton("Script Inspector");
 		inventoryInspector = new DevToolsButton("Inventory Inspector");
 		inventoryInspector.setEnabled(false);
+		tileDebug = new DevToolsButton("Tile Debug");
 
 		overlayManager.add(overlay);
 		overlayManager.add(locationOverlay);
 		overlayManager.add(sceneOverlay);
 		overlayManager.add(cameraOverlay);
+		overlayManager.add(tileDebugOverlay);
 
 		final DevToolsPanel panel = injector.getInstance(DevToolsPanel.class);
 
@@ -207,6 +213,7 @@ public class DevToolsPlugin extends Plugin
 		overlayManager.remove(locationOverlay);
 		overlayManager.remove(sceneOverlay);
 		overlayManager.remove(cameraOverlay);
+		overlayManager.remove(tileDebugOverlay);
 		clientToolbar.removeNavigation(navButton);
 	}
 
