@@ -65,7 +65,7 @@ public class Controls extends SettingGroup {
 
         add(keybinds, new Toggle(ESC_CLOSES_INTERFACE, "Esc closes the current interface",
                 "When enabled, the escape key will close your active interface.",
-                false));
+                true));
     }
 
 }
