@@ -25868,7 +25868,7 @@ public class Client extends RSApplet {
             drawPos = e.hitMarkPos[mask];
         }
         if (soak > 0) {
-            if (!Configuration.enableAbsorbDamage) {
+            if (!Settings.getBoolean(Setting.ABSORPTION)) {
                 soak = 0;
             }
         }

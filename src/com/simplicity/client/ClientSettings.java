@@ -81,10 +81,6 @@ public class ClientSettings {
 				Configuration.enableCensor = reader.get("censor").getAsBoolean();
 			}
 			
-			if (reader.has("absorb-damage")) {
-				Configuration.enableAbsorbDamage = reader.get("absorb-damage").getAsBoolean();
-			}
-			
 			if (reader.has("moderation-menu-enabled")) {
 				Configuration.enableModerationMenu = reader.get("moderation-menu-enabled").getAsBoolean();
 			}
@@ -206,7 +202,6 @@ public class ClientSettings {
 			object.addProperty("cursors", Configuration.enableCursors);
 			object.addProperty("old-frame", Configuration.enableOldFrame);
 			object.addProperty("censor", Configuration.enableCensor);
-			object.addProperty("absorb-damage", Configuration.enableAbsorbDamage);
 			object.addProperty("chat-effects", Client.instance.variousSettings[171] == 1);
 			object.addProperty("split-private-chat", Client.instance.variousSettings[287] == 0);
 			object.addProperty("mouse-buttons", Client.instance.variousSettings[170] == 1);
@@ -262,7 +257,6 @@ public class ClientSettings {
 		Configuration.enableCursors = true;
 		Configuration.enableOldFrame = false;
 		Configuration.enableCensor = false;
-		Configuration.enableAbsorbDamage = true;
 		Configuration.enableZooming = true;
 		Configuration.enableBountyTarget = true;
 		Configuration.enableModerationMenu = true;

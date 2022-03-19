@@ -26,6 +26,7 @@ public class Setting {
     /* Gameplay */
     public static final String ACCEPT_AID = "gameplay_accept_aid";
     public static final String CONSTITUTION = "gameplay_constitution";
+    public static final String ABSORPTION = "gameplay_absorption";
 
     /* Controls */
     public static final String PLAYER_ATT_OPT = "controls_plr_att";

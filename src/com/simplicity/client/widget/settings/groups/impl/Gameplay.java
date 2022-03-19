@@ -18,5 +18,9 @@ public class Gameplay extends SettingGroup {
         add(options, new Toggle(CONSTITUTION, "Constitution",
                 "When enabled, hits and damage will be multiplied by 10 (X10).",
                 false));
+
+        add(options, new Toggle(ABSORPTION, "Damage Absorption",
+                "When enabled, damage absorption will be shown.",
+                true));
     }
 }

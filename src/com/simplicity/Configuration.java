@@ -102,12 +102,7 @@ public class Configuration {
      * Indicates whether chat censor is enabled or not.
      */
 	public static boolean enableCensor;
-	
-    /**
-     * Indicates whether the absorb damage feature is enabled or not.
-     */
-	public static boolean enableAbsorbDamage = true;
-	
+
     /**
      * Indicates whether skill status bars are enabled or not.
      */

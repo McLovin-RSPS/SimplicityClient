@@ -77,19 +77,6 @@ public enum SettingOld {
 		}
 	},
 
-	ABSORB_DAMAGE() {
-
-		@Override
-		public void handle() {
-			enableAbsorbDamage = !enableAbsorbDamage;
-		}
-
-		@Override
-		public boolean enabled() {
-			return enableAbsorbDamage;
-		}
-	},
-
 	BOUNTY_TARGET() {
 		@Override
 		public void handle() {
