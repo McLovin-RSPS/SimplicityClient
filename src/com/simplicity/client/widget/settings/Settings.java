@@ -79,6 +79,15 @@ public enum Settings {
         set(key, value, false);
     }
 
+    public static boolean toggle(String key) {
+        return toggle(key, false);
+    }
+
+    public static boolean toggle(String key, boolean update) {
+        set(key, !getBoolean(key), update);
+        return getBoolean(key);
+    }
+
     /**
      * Sets the specified setting.
      *

@@ -31,6 +31,10 @@ public class Display extends SettingGroup {
                 "When enabled, hides all roofs. If you are inside a building, the\\nroof will be hidden regardless of the setting being disabled.",
                 false));
 
+        add(graphics, new Toggle(SCROLL_ZOOM, "Scroll wheel can change zoom distance",
+                "When enabled, the scroll wheel can change zoom distance.",
+                true, enabled -> SettingsTabWidget.updateZoomToggle()));
+
         add(graphics, new Toggle(PARTICLES, "Particles",
                 "When enabled, particles will be rendered.",
                 true));

@@ -109,11 +109,6 @@ public class Configuration {
 	public static boolean enableSkillStatusBars = false;
 	
 	/**
-	 * Indicates whether zooming is enabled or not.
-	 */
-	public static boolean enableZooming = true;
-	
-	/**
 	 * Indicates whether bounty target is enabled or not.
 	 */
 	public static boolean enableBountyTarget = true;

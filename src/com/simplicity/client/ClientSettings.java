@@ -99,11 +99,7 @@ public class ClientSettings {
 				Client.instance.anInt1253 = Client.instance.variousSettings[170] = reader.get("mouse-buttons").getAsBoolean() ? 1 : 0;
 				Client.sendVarbitChanged(170);
 			}
-			
-			if (reader.has("zooming")) {
-				Configuration.enableZooming = reader.get("zooming").getAsBoolean();
-			}
-			
+
 			if (reader.has("bounty-target")) {
 				Configuration.enableBountyTarget = reader.get("bounty-target").getAsBoolean();
 			}
@@ -206,7 +202,6 @@ public class ClientSettings {
 			object.addProperty("split-private-chat", Client.instance.variousSettings[287] == 0);
 			object.addProperty("mouse-buttons", Client.instance.variousSettings[170] == 1);
 			object.addProperty("moderation-menu-enabled", Configuration.enableModerationMenu);
-			object.addProperty("zooming", Configuration.enableZooming);
 			object.addProperty("bounty-target", Configuration.enableBountyTarget);
 			object.addProperty("kdr-overlay", Configuration.enableKDROverlay);
 			object.add("keybindings", builder.toJsonTree(Keybinding.KEYBINDINGS));
@@ -257,7 +252,6 @@ public class ClientSettings {
 		Configuration.enableCursors = true;
 		Configuration.enableOldFrame = false;
 		Configuration.enableCensor = false;
-		Configuration.enableZooming = true;
 		Configuration.enableBountyTarget = true;
 		Configuration.enableModerationMenu = true;
 		Configuration.enableKDROverlay = false;

@@ -365,8 +365,8 @@ WindowListener {
 				return;
 			}
 
-			if (Configuration.enableZooming) {
-				
+			if (Settings.getBoolean(Setting.SCROLL_ZOOM)) {
+
 				int minZoom = 50;
 				
 				int maxZoom = 1800;

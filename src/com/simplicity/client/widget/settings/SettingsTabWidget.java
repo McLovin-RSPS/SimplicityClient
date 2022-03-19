@@ -163,10 +163,6 @@ public class SettingsTabWidget extends RSInterface {
 			return false;
 		};
 		tab.child(child++, id++, 14, 68);
-		
-		if (!Configuration.enableZooming) {
-			configHoverButtonSwitch(interfaceCache[TOGGLE_ZOOM]);
-		}
 	}
 	
 	private static void audioSettings(TextDrawingArea[] tda) {
@@ -223,7 +219,7 @@ public class SettingsTabWidget extends RSInterface {
 		int child = 0;
 
 		System.out.println("TOGGLE ZOOM ID: " + id);
-		configHoverButton(TOGGLE_ZOOM, "Toggle Zooming", new String[] { "Restore Default Zoom" }, 1343, 1344, 1342, 1341, false, TOGGLE_ZOOM);
+		configHoverButton(TOGGLE_ZOOM, "Disable", new String[] { "Restore Default Zoom" }, 1343, 1344, 1342, 1341, false, TOGGLE_ZOOM);
 		tab.child(child++, TOGGLE_ZOOM, 13, 100 - 5);
 		id+=3;
 
@@ -245,6 +241,10 @@ public class SettingsTabWidget extends RSInterface {
 		addText(id + 1, "Game client layout:", tda, 1, 0xfe971e, false, true);
 		setBounds(id, 14, 152, child++, tab);
 		setBounds(id + 1, 14, 134, child++, tab);
+
+		if (Settings.getBoolean(Setting.SCROLL_ZOOM)) {
+			configHoverButtonSwitch(interfaceCache[TOGGLE_ZOOM]);
+		}
 	}
 	
 	public static void init() {
@@ -373,7 +373,7 @@ public class SettingsTabWidget extends RSInterface {
 		switch (button) {
 		case TOGGLE_ZOOM:
 			if (index == 0) {
-				Configuration.enableZooming = !Configuration.enableZooming;
+				Settings.toggle(Setting.SCROLL_ZOOM, true);
 				configHoverButtonSwitch(interfaceCache[TOGGLE_ZOOM]);
 				ClientSettings.save();
 			} else if (index == 1) {
@@ -417,6 +417,10 @@ public class SettingsTabWidget extends RSInterface {
 	public static void updateClientLayout() {
 		RSInterface rsi = interfaceCache[CLIENT_LAYOUT_DROPDOWN];
 		rsi.dropdown.setSelected(rsi.dropdown.getOptions()[Settings.getInt(Setting.CLIENT_LAYOUT)]);
+	}
+
+	public static void updateZoomToggle() {
+		configHoverButtonSwitch(interfaceCache[TOGGLE_ZOOM]);
 	}
 
 	/**
