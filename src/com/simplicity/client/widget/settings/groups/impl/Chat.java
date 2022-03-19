@@ -22,6 +22,6 @@ public class Chat extends SettingGroup {
 
         add(options, new Toggle(SAVE_INPUT, "Save input",
                 "When enabled, enter amount input will be saved.",
-                true));
+                false));
     }
 }
