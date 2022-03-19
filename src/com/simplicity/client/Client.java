@@ -15984,6 +15984,10 @@ public class Client extends RSApplet {
     		return entity.currentAnimFrame;
     	}
 
+        if (entity.anim == 102) { // Chaos dwarf
+            return -1;
+        }
+
     	return 0;
     }
 
