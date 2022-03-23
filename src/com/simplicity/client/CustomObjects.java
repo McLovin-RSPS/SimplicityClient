@@ -538,7 +538,81 @@ public class CustomObjects {
             // Lava giant teleporter
             {111978, 3103, 3495, 0, 0}, // Portal
            
+            // Disable sapphire zone portal
+            {0, 2678, 5214, 2, 0}, // Portal
             
+            {1, 1311, 3515, 0, 0}, // block to elite zone
+            {1, 1310, 3515, 0, 0}, // block to elite zone
+            {127886, 1658, 3762, 0, 0}, // block to elite zone
+            {127886, 1659, 3762, 0, 0}, // block to elite zone
+            {127886, 1660, 3762, 0, 0}, // block to elite zone
+            {127886, 1661, 3762, 0, 0}, // block to elite zone
+            {127886, 1662, 3762, 0, 0}, // block to elite zone
+            {127886, 1663, 3762, 0, 0}, // block to elite zone
+            {127886, 1664, 3762, 0, 0}, // block to elite zone
+            {127886, 1665, 3762, 0, 0}, // block to elite zone
+            {127886, 1666, 3762, 0, 0}, // block to elite zone
+            {127886, 1667, 3762, 0, 0}, // block to elite zone
+            {127886, 1667, 3763, 0, 0}, // block to elite zone
+            
+            {127886, 1652, 3739, 0, 0}, // block to elite zone
+            {127886, 1652, 3740, 0, 0}, // block to elite zone
+            {127886, 1652, 3741, 0, 0}, // block to elite zone
+            {127886, 1652, 3742, 0, 0}, // block to elite zone
+            {127886, 1652, 3743, 0, 0}, // block to elite zone
+            
+            {127886, 1663, 3722, 0, 0}, // block to elite zone
+            {127886, 1662, 3722, 0, 0}, // block to elite zone
+            {127886, 1661, 3722, 0, 0}, // block to elite zone
+            {127886, 1660, 3722, 0, 0}, // block to elite zone
+            {127886, 1659, 3722, 0, 0}, // block to elite zone
+            
+            {127886, 1676, 3729, 0, 0}, // block to elite zone
+            {127886, 1677, 3729, 0, 0}, // block to elite zone
+            {127886, 1682, 3728, 0, 0}, // block to elite zone
+            
+            
+            {127886, 1695, 3737, 0, 0}, // block to elite zone
+            {127886, 1695, 3736, 0, 0}, // block to elite zone
+            {127886, 1696, 3736, 0, 0}, // block to elite zone
+            {127886, 1697, 3736, 0, 0}, // block to elite zone
+            {127886, 1698, 3736, 0, 0}, // block to elite zone
+            {127886, 1699, 3736, 0, 0}, // block to elite zone
+            {127886, 1700, 3736, 0, 0}, // block to elite zone
+            {127886, 1701, 3736, 0, 0}, // block to elite zone
+            {127886, 1702, 3736, 0, 0}, // block to elite zone
+            {127886, 1703, 3736, 0, 0}, // block to elite zone
+            {127886, 1704, 3736, 0, 0}, // block to elite zone
+            {127886, 1705, 3736, 0, 0}, // block to elite zone
+            {127886, 1706, 3736, 0, 0}, // block to elite zone
+            {127886, 1707, 3736, 0, 0}, // block to elite zone
+            {127886, 1708, 3736, 0, 0}, // block to elite zone
+            {127886, 1709, 3736, 0, 0}, // block to elite zone
+            {127886, 1710, 3736, 0, 0}, // block to elite zone
+            {127886, 1711, 3736, 0, 0}, // block to elite zone
+            {127886, 1712, 3736, 0, 0}, // block to elite zone
+            {127886, 1713, 3736, 0, 0}, // block to elite zone
+            {127886, 1714, 3736, 0, 0}, // block to elite zone
+            {127886, 1715, 3736, 0, 0}, // block to elite zone
+            
+            {127886, 1713, 3755, 0, 0}, // block to elite zone
+            
+            {127886, 1691, 3765, 0, 0}, // block to elite zone
+            {127886, 1692, 3765, 0, 0}, // block to elite zone
+            {127886, 1693, 3765, 0, 0}, // block to elite zone
+            {127886, 1694, 3765, 0, 0}, // block to elite zone
+            {127886, 1695, 3765, 0, 0}, // block to elite zone
+            
+            {127886, 1708, 3765, 0, 0}, // block to elite zone
+            {127886, 1709, 3765, 0, 0}, // block to elite zone
+            {127886, 1710, 3765, 0, 0}, // block to elite zone
+            
+            {127886, 1701, 3730, 0, 0}, // block to elite zone
+            {127886, 1701, 3731, 0, 0}, // block to elite zone
+            {127886, 1701, 3732, 0, 0}, // block to elite zone
+            {127886, 1701, 3733, 0, 0}, // block to elite zone
+            {127886, 1701, 3734, 0, 0}, // block to elite zone
+            {127886, 1701, 3735, 0, 0}, // block to elite zone
             
             // New FFA maps pillars added
             
