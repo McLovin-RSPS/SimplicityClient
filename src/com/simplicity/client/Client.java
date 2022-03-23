@@ -19012,10 +19012,6 @@ public class Client extends RSApplet {
     		return 3;
     	}
 
-        if (Settings.getBoolean(Setting.HIDE_ROOFS)) {
-            return 0;
-        }
-
         int j = 3;
         if (yCameraCurve < 310) {
             int k = xCameraPos >> 7;

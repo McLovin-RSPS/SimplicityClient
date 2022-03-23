@@ -22,9 +22,9 @@ public class Display extends SettingGroup {
                 "Use the slider to change the camera zoom level.",
                 32, SettingsTabWidget.ZOOM_SLIDER));
 
-        add(graphics, new Toggle(HIDE_ROOFS, "Hide roofs",
+        /*add(graphics, new Toggle(HIDE_ROOFS, "Hide roofs",
                 "When enabled, hides all roofs. If you are inside a building, the\\nroof will be hidden regardless of the setting being disabled.",
-                true));
+                true));*/
 
         add(graphics, new Toggle(SCROLL_ZOOM, "Scroll wheel can change zoom distance",
                 "When enabled, the scroll wheel can change zoom distance.",
