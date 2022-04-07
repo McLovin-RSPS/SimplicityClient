@@ -38,6 +38,9 @@ public class OldschoolMaps {
             
             6974, // Christmass event boss 2021
 
+            // easter event 2022
+            13646,
+            
             // barbarian village
             12341,
             

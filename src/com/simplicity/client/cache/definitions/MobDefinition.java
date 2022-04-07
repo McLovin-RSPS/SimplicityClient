@@ -959,7 +959,7 @@ public final class MobDefinition {
             case 3476:
                 npc.combatLevel = 1007;
                 npc.name = "Bunny Bird";
-                npc.sizeXZ = 225;
+                npc.sizeXZ = 215;
                 npc.sizeY = 220;
                 npc.actions = new String[]{null, "Attack", null, null, null};
                 break;
