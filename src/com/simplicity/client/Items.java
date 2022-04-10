@@ -103,6 +103,10 @@ public class Items {
         if (itemDef.id < prices.length) {
             itemDef.value = prices[itemDef.id];
         }
+        
+        if (itemId == 12642) { //Easter Egg Currency
+        	itemDef.actions = null;
+        }
 
         CustomItems.loadDefinition(itemDef);
         CustomItems2.loadDefinition(itemDef);

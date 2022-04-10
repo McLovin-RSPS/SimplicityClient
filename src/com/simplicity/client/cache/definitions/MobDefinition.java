@@ -347,6 +347,18 @@ public final class MobDefinition {
         npc.readValues(stream);
         npc.postLoad();
         switch (i) {
+        
+        	case 1835:
+            	npc.actions = new String[5];
+            	npc.actions[1] = "Attack";
+           		break;
+           		
+        	case 7407:
+            	npc.actions = new String[5];
+            	npc.actions[0] = "Talk-to";
+                npc.actions[2] = "Trade";
+           		break;
+            
             case 8273:
             case 8274:
             case 8275:
