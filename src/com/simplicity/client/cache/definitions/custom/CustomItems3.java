@@ -516,6 +516,20 @@ public class CustomItems3 {
 	            itemDef.actions[1] = "Wield";
 				itemDef.dataType = DataType.REGULAR;
 				break;
+	        case 21290:
+	        	itemDef.copy(ItemDefinition.forID(21045));
+	            itemDef.name = "Overlord cape";
+	            itemDef.modelID = 98;
+	            itemDef.maleEquip1 = 111;
+	            itemDef.femaleEquip1 = 111;
+	            itemDef.rotationX = 1024;
+	            itemDef.rotationY = 300;
+	            itemDef.modelZoom = 2000;
+	            itemDef.modelOffsetY = 130;
+	            itemDef.maleYOffset = -10;
+	            itemDef.femaleYOffset = -10;
+	            itemDef.dataType = DataType.CUSTOM;
+	            break;
 		}
     }
 }

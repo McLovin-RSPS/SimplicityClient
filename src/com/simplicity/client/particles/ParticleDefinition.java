@@ -256,7 +256,21 @@ public class ParticleDefinition {
             updateSteps();
             setColorStep(0x000900);
         }
-    },           
+    }, new ParticleDefinition() {
+        { // blue particle gs 2
+            setStartVelocity(new ParticleVector(0, -3, 0)); // x z y
+            setEndVelocity(new ParticleVector(0, -3, 0));
+            setGravity(new ParticleVector(0, 1 / 2, 0));
+            setLifeSpan(19);
+            setStartColor(0x0091ff);
+            setSpawnRate(2);
+            setStartSize(1.2f);
+            setEndSize(0);
+            setStartAlpha(0.2f);
+            updateSteps();
+            setColorStep(0x000900);
+        }
+    },          
     };
 
     public final SpawnShape getSpawnedShape() {
