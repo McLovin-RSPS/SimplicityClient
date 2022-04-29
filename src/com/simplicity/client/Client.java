@@ -24016,9 +24016,10 @@ public class Client extends RSApplet {
                         drawCallbacks.animate(Rasterizer.textures[i], cycleTimer);
                     }
 				} catch (Exception e) {
-					System.out.println("Error caused by moving texture, id: " + i + " img size: " + texture.imgWidth
-							+ " x " + texture.imgWidth + " lib width: " + texture.libWidth + " x " + texture.libHeight);
-					e.printStackTrace();
+                    if(texture != null)
+                        System.out.println("Error caused by moving texture, id: " + i + " img size: " + texture.imgWidth
+                                + " x " + texture.imgWidth + " lib width: " + texture.libWidth + " x " + texture.libHeight);
+                    e.printStackTrace();
 				}
 			}
 		}
