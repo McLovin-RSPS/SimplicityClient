@@ -2291,7 +2291,7 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 
 	private void reloadScene()
 	{
-		clientThread.invoke(() ->
+		invokeClientTask(() ->
 		{
 			if (client.getGameState() == GameState.LOGGED_IN)
 			{
