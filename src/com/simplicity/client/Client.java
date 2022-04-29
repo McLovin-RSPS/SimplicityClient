@@ -16671,7 +16671,9 @@ public class Client extends RSApplet {
                                     }
                                 }
                                 if(RuneLite.getClient() != null) {
-                                    callbacks.drawItem(child.inv[spriteIndex], new WidgetItem(child.inv[spriteIndex], child.invStackSizes[spriteIndex], spriteIndex, new Rectangle(itemSpriteX, itemSpriteY, 32, 32), child, null));
+                                    try {
+                                        callbacks.drawItem(child.inv[spriteIndex], new WidgetItem(child.inv[spriteIndex], child.invStackSizes[spriteIndex], spriteIndex, new Rectangle(itemSpriteX, itemSpriteY, 32, 32), child, null));
+                                    } catch (Exception e) {}
                                 }
                                 spriteIndex++;
                             }
