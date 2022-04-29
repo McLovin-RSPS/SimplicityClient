@@ -873,7 +873,7 @@ public class CustomItems2 {
 	            itemDef.copy(ItemDefinition.forID(151));
 	            itemDef.editedModelColor = new int[] { 61 };
 	            itemDef.newModelColor = new int[] { 921 };
-	            itemDef.name = "Prayer renewal (1)";
+	            itemDef.name = "Prayer renewal (3)";
 	            break;
 	        case 21634:
 	            itemDef.copy(ItemDefinition.forID(153));
