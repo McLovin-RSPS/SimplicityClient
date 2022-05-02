@@ -535,6 +535,11 @@ public class CustomObjects {
             //{54407, 3090, 3489, 0, 3}, // Halloween 2021 chest
             {27254, 1831, 5163, 2, 0}, // Dark portal arthur's dream
             
+            // Alchemy table
+            {127880, 1723, 3824, 0, 0}, // Blood crystal barrier
+            {-1, 1715, 3828, 0, 0}, // Removed blood altar
+            {133011, 1715, 3827, 0, 0}, // Alchemy table
+            
             // Lava giant teleporter
             {111978, 3103, 3495, 0, 0}, // Portal
            
