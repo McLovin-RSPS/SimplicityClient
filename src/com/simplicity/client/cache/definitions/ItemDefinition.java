@@ -2286,7 +2286,7 @@ public final class ItemDefinition {
                 colors.add(i);
             }
             
-            System.out.print(id + " Model colours: ");
+            //System.out.print(id + " Model colours: ");
             // colors.forEach(c -> System.out.print((c + ":#" +Integer.toHexString(RS2HSB_to_RGB(c)).substring(2) + ", ")));
         colors.forEach(c -> System.out.print((c + ", ")));
         System.out.println();

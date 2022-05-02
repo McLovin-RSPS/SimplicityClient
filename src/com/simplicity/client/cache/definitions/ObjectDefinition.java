@@ -282,10 +282,18 @@ public final class ObjectDefinition {
             objectDef.name = "@cya@Platinum Portal";
         }
         if (i == 137975) {
-        objectDef.actions = new String[]{"Cut", null, null, null, null};
-        objectDef.name = "@red@Overlord Tree";
-        objectDef.modifiedModelColors = new int[] {12818, 32995, 6435, 35955, 6550, 33114, 6554, 13212, 37340, 13964, 12942, 14734};
-        objectDef.originalModelColors = new int[] {15, 972, 15, 35955, 30, 930, 20, 940, 0, 10, 941, 940};
+            objectDef.actions = new String[]{"Cut", null, null, null, null};
+            objectDef.name = "@red@Overlord Tree";
+            objectDef.modifiedModelColors = new int[] {12818, 32995, 6435, 35955, 6550, 33114, 6554, 13212, 37340, 13964, 12942, 14734};
+            objectDef.originalModelColors = new int[] {15, 972, 15, 35955, 30, 930, 20, 940, 0, 10, 941, 940};
+        }
+        if (i == 142500) {
+            objectDef.copy(133011);
+            objectDef.dataType = DataType.OLDSCHOOL;
+            objectDef.actions = new String[]{"Craft", null, null, null, null};
+            objectDef.name = "@red@Alchemy Table";
+            objectDef.modifiedModelColors = new int[] {9152, 7104, 0, 8128, 6852, 33226, 74, 50574, 78, 51728, 16, 784, 7504, 20, 3350, 790, 24, 536, 922, 51484, 796, 28, 33, 10275, 37, 5413, 5161, 41, 8875, 10283, 5551, 5297, 5169, 49, 9015, 6587, 5309, 61, 33341, 33213, 127};
+            objectDef.originalModelColors = new int[] {3, 3, 0, 8128, 3, 33226, 74, 50574, 78, 920, 16, 784, 7504, 20, 3350, 790, 24, 536, 922, 920, 796, 28, 33, 7, 37, 5413, 9, 10, 3, 13, 5551, 5297, 10, 5161, 3, 6587, 10, 61, 33341, 33213, 127};
         }
         if (i == 132940) {
         objectDef.actions = new String[]{"Take", null, null, null, null};
@@ -1133,6 +1141,46 @@ public final class ObjectDefinition {
         varbitIndex = -1;
         configID = -1;
         configObjectIDs = null;
+    }
+
+    private void copy(int i) {
+        ObjectDefinition targetObject = forID(i);
+        objectModelIDs = targetObject.objectModelIDs;
+        objectModelTypes = targetObject.objectModelTypes;
+        name = targetObject.name;
+        description = targetObject.description;
+        modifiedModelColors = targetObject.modifiedModelColors;
+        originalModelColors = targetObject.originalModelColors;
+        sizeX = targetObject.sizeX;
+        sizeY = targetObject.sizeY;
+        isUnwalkable = targetObject.isUnwalkable;
+        aBoolean757 = targetObject.aBoolean757;
+        hasActions = targetObject.hasActions;
+        adjustToTerrain = targetObject.adjustToTerrain;
+        nonFlatShading = targetObject.nonFlatShading;
+        aBoolean764 = targetObject.aBoolean764;
+        animationID = targetObject.animationID;
+        anInt775 = targetObject.anInt775;
+        brightness = targetObject.brightness;
+        contrast = targetObject.contrast;
+        actions = targetObject.actions;
+        mapFunctionID = targetObject.mapFunctionID;
+        mapSceneID = targetObject.mapSceneID;
+        aBoolean751 = targetObject.aBoolean751;
+        aBoolean779 = targetObject.aBoolean779;
+        modelSizeX = targetObject.modelSizeX;
+        modelSizeH = targetObject.modelSizeH;
+        modelSizeY = targetObject.modelSizeY;
+        plane = targetObject.plane;
+        offsetX = targetObject.offsetX;
+        offsetH = targetObject.offsetH;
+        offsetY = targetObject.offsetY;
+        aBoolean736 = targetObject.aBoolean736;
+        isSolidObject = targetObject.isSolidObject;
+        anInt760 = targetObject.anInt760;
+        varbitIndex = targetObject.varbitIndex;
+        configID = targetObject.configID;
+        configObjectIDs = targetObject.configObjectIDs;
     }
 
     public void method574(OnDemandFetcher fetcher) {
