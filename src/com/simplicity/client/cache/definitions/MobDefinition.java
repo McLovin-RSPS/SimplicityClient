@@ -283,6 +283,11 @@ public final class MobDefinition {
                     npc.name = "@cya@Master Achievements";
                     npc.actions[0] = "Open";
                     break;
+                    
+                case 8501: // Alchemy Master
+                    npc.name = "@red@Alchemy Master";
+                    npc.actions[0] = "Talk-to";
+                    break;
 
                 case 10493:
                     npc.name = "Headless beast";

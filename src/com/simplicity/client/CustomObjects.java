@@ -538,7 +538,7 @@ public class CustomObjects {
             // Alchemy table
             {127880, 1723, 3824, 0, 0}, // Blood crystal barrier
             {-1, 1715, 3828, 0, 0}, // Removed blood altar
-            {133011, 1715, 3827, 0, 0}, // Alchemy table
+            {142500, 1715, 3827, 0, 0}, // Alchemy table
             
             // Lava giant teleporter
             {111978, 3103, 3495, 0, 0}, // Portal
