@@ -2431,12 +2431,16 @@ public final class MobDefinition {
                 npc.npcHeadModels = new int[]{35024};
                 npc.name = "Superior Vorki";
                 npc.pet = true;
+                npc.walkAnim = 23219;
+                //npc.squaresNeeded = 1;
                 break;
 
             case 23025:
                 npc.copy(forID(23025));
                 npc.npcHeadModels = new int[]{35024};
                 npc.name = "Vorki";
+                npc.walkAnim = 23219;
+                //npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
 		/*  		     
