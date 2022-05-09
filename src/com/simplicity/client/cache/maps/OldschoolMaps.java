@@ -86,6 +86,8 @@ public class OldschoolMaps {
             // ent dungeon in wc guild
             6298,6223,
 
+            10577,
+
             11153,
 
             // full kourend and lowlands
