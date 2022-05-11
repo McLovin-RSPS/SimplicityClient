@@ -905,9 +905,7 @@ public class CustomItems2 {
 	            itemDef.modelID = 62917;
 	            itemDef.name = "@whi@Sanguinesti staff";
 	            break;
-	        case 15448:
-	            itemDef.name = "@red@Overlord defender";
-	            break;
+
 	        case 4037:
 	            itemDef.maleEquip1 = 4850;
 	            itemDef.femaleEquip1 = 4850;
