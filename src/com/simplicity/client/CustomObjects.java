@@ -1478,6 +1478,9 @@ public class CustomObjects {
 
             {47180, 3424, 2923, 0, 0},
             {11356, 3418, 2917, 0, 1}, // Sapphire zone wildywyrm portal
+            {-1, 2858, 9749, 0, 1}, // Removed corpse
+            {-1, 2857, 9749, 0, 1}, // Removed corpse
+            {-1, 2857, 9747, 0, 1}, // Removed corpse
             {-1, 2860, 9734, 0, 1},
             {-1, 2857, 9736, 0, 1},
             {664, 2859, 9742, 0, 1},

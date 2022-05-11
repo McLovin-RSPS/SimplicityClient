@@ -539,6 +539,14 @@ public final class ItemDefinition {
                 itemDef.modelZoom = 1200;
                 break;
 
+            case 43301:
+                itemDef.name = "Lil' Mounted terrorbird gnome";
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelID = MobDefinition.forID(20971).models[0];
+                itemDef.modelZoom = 1200;
+                break;
+                
             case 42816:
                 itemDef.name = "Pet dark core";
                 itemDef.groundActions = new String[]{null, null, "Take", null, null};
@@ -2386,7 +2394,7 @@ public final class ItemDefinition {
 
     public static final int[] UNTRADEABLE_ITEMS
             = {                    54423, 54424, 54425, 22100, 22200,
-            43300, 10933, 10939, 10940, 10941, 10945, 14936, 14937, 14938, 14939, 13612, 13613, 13614, 13615, 13616, 13617, 13618, 13619, 13620, 54975, 22076,
+            43300, 10933, 10939, 10940, 10941, 10945, 14936, 14937, 14938, 14939, 13612, 13613, 13614, 13615, 13616, 13617, 13618, 13619, 13620, 54975, 22076, 43301,
             13621, 13622, 13623, 13624, 13625, 13626, 13627, 13628, 11296, 11297, 11298, 11299, 3070, 3071, 3072, 3073, 3074, 3075, 3076, 3077, 3078, 21560, 22101,
             43241, 52316, 21004, 13661, 13262, 20072, 16956, 16426, 16910, 605, 13320, 17273, 17274, 13321, 13322, 13323, 13324, 13325, 13326, 13327, 21540,
             11995, 11996, 11997, 11978, 12001, 12002, 12003, 12004, 21024, 21025, 21026, 21087, 51748, 14935, 51791, 51793, 51795, 20085, 11951, 42653, 22046, 6203,
