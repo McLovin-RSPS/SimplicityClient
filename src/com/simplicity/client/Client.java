@@ -16540,7 +16540,14 @@ public class Client extends RSApplet {
                                             selectedColour = 0xffffff;
                                         }
                                         int itemAmount = child.invStackSizes[spriteIndex];
-
+                                        
+                                        //alchemy table selected colour look for required items
+                                        if (child.id == 103182 && itemAmount > 0) {
+                                        	selectedColour = 0xADD8E6; //light blue
+                                        	//selectedColour = 0x0000FF; //blue
+                                        	//selectedColour = 0xFF0000; //red
+                                        }
+                                        
                                         boolean drawCustom = false;
 
                                         if (itemAmount == 0 && j9 == 995 && child.id == GrandExchangeStatusWidget.COLLECT_CONTAINER_ID) {
@@ -16617,7 +16624,7 @@ public class Client extends RSApplet {
                                                 sprite_2.drawSprite1(itemSpriteX, itemSpriteY);
                                             } else {
                                                 parentWidgetDragged = 0;
-                                            	int opacity = child.id == 70228 && itemAmount == 0 ? 100 : 255;
+                                            	int opacity = (child.id == 103182 || child.id == 70228) && itemAmount == 0 ? 100 : 255;
 
                                                 sprite_2.drawSprite1(itemSpriteX, itemSpriteY, opacity);
                                             }
@@ -16625,7 +16632,7 @@ public class Client extends RSApplet {
                                                 boolean bankTab = child.id >= 22035 && child.id <= 22042;
                                                 if (!bankTab) {
 
-                                                    if (rsInterface.id == 33213) {
+                                                    if (rsInterface.id == 33213 || child.id == 103182) {
                                                         if (itemAmount == Integer.MAX_VALUE && (child.id == 3900 || child.drawInfinity)) {
                                                             SpriteLoader.sprites[653].drawSprite(itemSpriteX, itemSpriteY);
                                                         } else if (itemAmount == 0) {

@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import com.google.common.collect.ComparisonChain;
 import com.simplicity.client.RSInterface;
+import com.simplicity.client.widget.alchemy.AlchemyTable;
 import com.simplicity.client.widget.deals.DealBoardWidget;
 import com.simplicity.client.widget.deals.ItemDealBoardWidget;
 import com.simplicity.client.widget.deals.MultipleItemDealBoxWidget;
@@ -50,6 +51,7 @@ public class Widget {
 		init(new DuelArenaDuelOptionsWidget());
 		init(new DuelArenaDuelConfirmationWidget());
 		init(new NpcDropChecker());
+		init(new AlchemyTable());
 		init(new DealBoardWidget());
 		init(new ItemDealBoardWidget());
 		init(new MultipleItemDealBoxWidget());
