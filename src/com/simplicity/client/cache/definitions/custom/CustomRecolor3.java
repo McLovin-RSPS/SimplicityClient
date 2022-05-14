@@ -48,6 +48,10 @@ public enum CustomRecolor3 {
 	        new int[] { 40,0,5 },
 	        new int[] { 76,127,127 }),
 	
+	OVERLORD_DEFENDER(15448, 15448, "@red@Overlord Defender",
+	        new int[] { 8002, 8006, 22439, 7994, 8014},
+	        new int[] { 902, 900, 917, 915, 901}),
+	
 	LIME_OVERLORD_CAPE(21289, 21045, "@gre@Snot Rocket Overlord Cape",
 	        new int[] { 40,8134,9036,8127,6975,7098,127,1953,789,792,3642 },
 	        new int[] { 75,22527,22527,22527,22527,22527,22527,22527,22527,22527,22527 }),

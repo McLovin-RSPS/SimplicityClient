@@ -740,7 +740,7 @@ public final class ObjectDefinition {
             objectDef.actions[0] = "Enter";
         }
         if (i == 11356) {
-            objectDef.name = "Porazdirs";
+            objectDef.name = "Sapphire cave";
         }
         if (i == 47120) {
             objectDef.name = "Altar";
