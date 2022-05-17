@@ -93,12 +93,12 @@ public class AlchemyTable extends CustomWidget {
         
         add(inventory_item_container, 165, 193);
         
-        RSInterface item = RSInterface.interfaceCache[id - 1];
+        /*RSInterface item = RSInterface.interfaceCache[id - 1];
 
         for (int idx = 0; idx < item.inv.length; idx++) {
         	item.inv[idx] = 4152;
         	item.invStackSizes[idx] = 1;
-        }
+        }*/
         
         System.out.println("ALCHEMY TABLE RESULT ITEM CONTAINER ID: "+id);
         RSInterface result_item_container = RSInterface.addToItemGroup(id, 3, 1, 15, 0, false, null, null, null);
@@ -106,12 +106,12 @@ public class AlchemyTable extends CustomWidget {
         
         add(result_item_container, 259, 75);
         
-        item = RSInterface.interfaceCache[id - 1];
+        /*item = RSInterface.interfaceCache[id - 1];
 
         for (int idx = 0; idx < item.inv.length; idx++) {
         	item.inv[idx] = 4152;
         	item.invStackSizes[idx] = 1;
-        }
+        }*/
         
         RSInterface model = addModelSprite(30, 40, 4612, 2500, 0, 0, DataType.OLDSCHOOL);
         model.disabledAnimationId = 7385 + Animation.OSRS_ANIM_OFFSET;
@@ -151,12 +151,12 @@ public class AlchemyTable extends CustomWidget {
         
         add(required_items_container, 165, 138);
         
-        item = RSInterface.interfaceCache[id - 1];
+        /*item = RSInterface.interfaceCache[id - 1];
 
         for (int idx = 0; idx < item.inv.length; idx++) {
         	item.inv[idx] = 4152;
         	item.invStackSizes[idx] = 1;
-        }
+        }*/
         
         RSInterface close = RSInterface.hoverButton(id, 1068, 1069, "Close Window").setLayer(ID);
         RSInterface.interfaceCache[id].atActionType = 3;
