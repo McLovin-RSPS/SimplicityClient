@@ -157,6 +157,10 @@ public class AlchemyTable extends CustomWidget {
         	item.inv[idx] = 4152;
         	item.invStackSizes[idx] = 1;
         }
+        
+        RSInterface close = RSInterface.hoverButton(id, 1068, 1069, "Close Window").setLayer(ID);
+        RSInterface.interfaceCache[id].atActionType = 3;
+        add(close, 472, 20);
 	}
 
 }
