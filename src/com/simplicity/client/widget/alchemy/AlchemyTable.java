@@ -21,7 +21,7 @@ public class AlchemyTable extends CustomWidget {
 	
 	@Override
 	public String getName() {
-		return "ALCHEMY TABLE";
+		return "Alchemy Table";
 	}
 	
 	@Override
@@ -36,8 +36,8 @@ public class AlchemyTable extends CustomWidget {
 		
 		add(addButton(1068, 1069, "Close Window", 0, 3), 472, 20);
 		
-		add(addCenteredText(getName(), 2, 0xFF981F), 260, 22);
-		add(addHorizontalLine(99, 0xFF981F, 0), 211, 37);
+		add(addCenteredText(getName(), 2, 0xFF981F), 260, 18);
+		add(addHorizontalLine(99, 0xFF981F, 0), 211, 34);
 		
 		//add(addButton(1024, 1024, "Search a Monster", 0, 1), 80, 250);
 		add(addDynamicButton("Search a Result", 1, 0xff981f, 130, 23), 13, 54);
@@ -69,29 +69,29 @@ public class AlchemyTable extends CustomWidget {
         
         //Header for results item group
         System.out.println("idddd  : "+id);
-        add(addCenteredText("RESULT", 2, 0xFF981F), 323, 53);
-        add(addHorizontalLine(42, 0xFF981F, 255), 302, 68);
+        add(addCenteredText("Result", 2, 0xFF981F), 323, 51);
+        add(addHorizontalLine(42, 0xFF981F, 255), 302, 65);
         
         //Box holding result items
-        add(addBox(205, 73, 3, 0xFF981F, 0, 255), 220, 74);
-        add(addVerticalLine(70, 0xFF981F, 255), 288, 75);
-        add(addVerticalLine(70, 0xFF981F, 255), 289, 75);
-        add(addVerticalLine(70, 0xFF981F, 255), 357, 75);
-        add(addVerticalLine(70, 0xFF981F, 255), 358, 75);
+        add(addBox(148, 42, 3, 0xFF981F, 0, 255), 247, 69);
+        add(addVerticalLine(36, 0xFF981F, 255), 298, 71);
+        add(addVerticalLine(36, 0xFF981F, 255), 299, 71);
+        add(addVerticalLine(36, 0xFF981F, 255), 347, 71);
+        add(addVerticalLine(36, 0xFF981F, 255), 348, 71);
         //addRectangle(150, 200, 0x897661, 0, false)
         
         //Header for inventory item group
-        add(addCenteredText("RESULT INGREDIENTS", 2, 0xFF981F), 323, 147);
-        add(addHorizontalLine(131, 0xFF981F, 255), 258, 162);
+        add(addCenteredText("Result Ingredients", 2, 0xFF981F), 323, 173);
+        add(addHorizontalLine(131, 0xFF981F, 255), 258, 187);
         
         //Box holding inventory items
-        add(addBox(326, 138, 3, 0xFF981F, 0, 255), 160, 175);
+        add(addBox(326, 128, 3, 0xFF981F, 0, 255), 160, 190);
         
         System.out.println("ALCHEMY TABLE INVENTORY ITEM CONTAINER ID: "+id);
-        RSInterface inventory_item_container = RSInterface.addToItemGroup(id, 7, 4, 15, 0, false, null, null, null);
+        RSInterface inventory_item_container = RSInterface.addToItemGroup(id, 7, 4, 15, -2, false, null, null, null);
         id++;
         
-        add(inventory_item_container, 165, 180);
+        add(inventory_item_container, 165, 193);
         
         RSInterface item = RSInterface.interfaceCache[id - 1];
 
@@ -101,10 +101,10 @@ public class AlchemyTable extends CustomWidget {
         }
         
         System.out.println("ALCHEMY TABLE RESULT ITEM CONTAINER ID: "+id);
-        RSInterface result_item_container = RSInterface.addToItemGroup(id, 3, 1, 35, 0, false, null, null, null);
+        RSInterface result_item_container = RSInterface.addToItemGroup(id, 3, 1, 15, 0, false, null, null, null);
         id++;
         
-        add(result_item_container, 240, 95);
+        add(result_item_container, 259, 75);
         
         item = RSInterface.interfaceCache[id - 1];
 
@@ -113,17 +113,50 @@ public class AlchemyTable extends CustomWidget {
         	item.invStackSizes[idx] = 1;
         }
         
-        RSInterface model = addModelSprite(30, 70, 4612, 2500, 0, 0, DataType.OLDSCHOOL);
+        RSInterface model = addModelSprite(30, 40, 4612, 2500, 0, 0, DataType.OLDSCHOOL);
         model.disabledAnimationId = 7385 + Animation.OSRS_ANIM_OFFSET;
 		model.enabledAnimationId = 7385 + Animation.OSRS_ANIM_OFFSET;
-		add(model, 180, 75);
-		add(model, 436, 75);
+		add(model, 213, 70);
+		add(model, 401, 70);
 		
 		System.out.println("IDDDDDDD recipe: "+id);
 		//Warning message about missing recipe scroll
-        add(addCenteredText("", 0, 0xFF0000), 323, 164);
+        add(addCenteredText("", 0, 0xFF0000), 278, 32);
         
         add(addDynamicButton("Craft", 1, 0xff981f, 65, 23), 13, 19);
+        
+        //Header for required items item group
+        System.out.println("idddd for required items section  : "+id);
+        add(addCenteredText("Required Items", 2, 0xFF981F), 323, 115);
+        add(addHorizontalLine(103, 0xFF981F, 255), 272, 129);
+        
+        //Box holding required items
+        add(addBox(326, 42, 3, 0xFF981F, 0, 255), 160, 132);
+        add(addVerticalLine(36, 0xFF981F, 255), 204, 134);
+        add(addVerticalLine(36, 0xFF981F, 255), 205, 134);
+        add(addVerticalLine(36, 0xFF981F, 255), 250, 134);
+        add(addVerticalLine(36, 0xFF981F, 255), 251, 134);
+        add(addVerticalLine(36, 0xFF981F, 255), 297, 134);
+        add(addVerticalLine(36, 0xFF981F, 255), 298, 134);
+        add(addVerticalLine(36, 0xFF981F, 255), 344, 134);
+        add(addVerticalLine(36, 0xFF981F, 255), 345, 134);
+        add(addVerticalLine(36, 0xFF981F, 255), 392, 134);
+        add(addVerticalLine(36, 0xFF981F, 255), 393, 134);
+        add(addVerticalLine(36, 0xFF981F, 255), 438, 134);
+        add(addVerticalLine(36, 0xFF981F, 255), 439, 134);
+        
+        System.out.println("ALCHEMY TABLE REQUIRED ITEMS CONTAINER ID: "+id);
+        RSInterface required_items_container = RSInterface.addToItemGroup(id, 7, 1, 15, 0, false, null, null, null);
+        id++;
+        
+        add(required_items_container, 165, 138);
+        
+        item = RSInterface.interfaceCache[id - 1];
+
+        for (int idx = 0; idx < item.inv.length; idx++) {
+        	item.inv[idx] = 4152;
+        	item.invStackSizes[idx] = 1;
+        }
 	}
 
 }
