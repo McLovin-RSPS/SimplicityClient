@@ -742,7 +742,7 @@ public class Model extends Animable {
             }
         }
         
-        int[][] attachments = ParticleAttachment.getAttachments(modelId, dataType);
+       /* int[][] attachments = ParticleAttachment.getAttachments(modelId, dataType);
         
         if (attachments != null) {
             for (int n = 0; n < attachments.length; n++) {
@@ -775,7 +775,7 @@ public class Model extends Animable {
                     verticesParticle[attach[0]] = attach[1] + 1;
                 }
             }
-        }
+        }*/
         
         if (DEV_COLOR_MAPPINGS.containsKey(modelId)) {
         	ModelColorMapping map = DEV_COLOR_MAPPINGS.get(modelId);

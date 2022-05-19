@@ -2601,4 +2601,5 @@ public final class ItemDefinition {
     public int lentItemID;
     public boolean untradeable;
     public DataType dataType = DataType.REGULAR;
+    public int[][] particles;
 }

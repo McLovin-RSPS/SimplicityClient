@@ -1879,6 +1879,8 @@ public class CustomItems2 {
 	            itemDef.newModelColor = new int[] { 61 };
 	            itemDef.maleYOffset = -10;
 	            itemDef.femaleYOffset = -10;
+				// Overlord cape
+				itemDef.particles = new int[][]{ { 439, 12 }, { 302, 12 }, { 324, 12 }};
 	            itemDef.dataType = DataType.CUSTOM;
 	            break;
 	            

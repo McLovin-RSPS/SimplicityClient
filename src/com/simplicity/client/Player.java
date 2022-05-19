@@ -383,7 +383,16 @@ public final class Player extends Entity {
 							} else if (myGender == 0 && (def.maleXScale != 0 || def.maleYScale != 0 || def.maleZScale != 0)) {
 								model_4.scale2(def.maleXScale, def.maleYScale, def.maleZScale);
 							}
-							
+
+							if (def.particles != null) {
+								model_4.verticesParticle = new int[model_4.numberOfVerticeCoordinates];
+
+								for (int i = 0; i < def.particles.length; i++) {
+									int[] particles = def.particles[i];
+									model_4.verticesParticle[particles[0]] = particles[1] + 1;
+								}
+							}
+
 							bodyPartModels[j2++] = model_4;
 						}
 				}
