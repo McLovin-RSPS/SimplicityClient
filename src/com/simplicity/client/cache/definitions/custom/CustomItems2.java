@@ -3029,10 +3029,8 @@ public class CustomItems2 {
 	        case 12708:
 	            itemDef.name = "Pegasian boots";
 	            itemDef.modelID = 29396;
-	            itemDef.actions = new String[5];
-	            itemDef.actions[1] = "Wear";
-	            itemDef.groundActions = new String[5];
-	            itemDef.groundActions[1] = "Take";
+	            itemDef.groundActions = new String[]{null, null, "Take", null, null};
+	            itemDef.actions = new String[]{null, "Wear", null, null, "Drop"};
 	            itemDef.modelZoom = 900;
 	            itemDef.rotationY = 165;
 	            itemDef.rotationX = 279;
