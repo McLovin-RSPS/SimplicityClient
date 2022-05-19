@@ -161,6 +161,14 @@ public class AlchemyTable extends CustomWidget {
         RSInterface close = RSInterface.hoverButton(id, 1068, 1069, "Close Window").setLayer(ID);
         RSInterface.interfaceCache[id].atActionType = 3;
         add(close, 472, 20);
+        id++;
+        System.out.println("IDDD for chance of success text: "+id);
+		//Warning message about missing recipe scroll
+        add(addCenteredText("Success Rate:", 0, 0x00FF00), 461, 80);
+        
+        System.out.println("success rate text: "+id);
+		//Warning message about missing recipe scroll
+        add(addCenteredText("Guaranteed", 0, 0xFF981F), 461, 92);
 	}
 
 }
