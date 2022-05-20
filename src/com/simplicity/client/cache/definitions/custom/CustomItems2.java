@@ -4,6 +4,7 @@ import com.simplicity.client.RandomColor;
 import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.ItemDefinition;
 import com.simplicity.client.cache.definitions.MobDefinition;
+import com.simplicity.client.particles.ParticleDefinition;
 
 public class CustomItems2 {
 	
@@ -1880,7 +1881,11 @@ public class CustomItems2 {
 	            itemDef.maleYOffset = -10;
 	            itemDef.femaleYOffset = -10;
 				// Overlord cape
-				itemDef.particles = new int[][]{ { 439, 12 }, { 302, 12 }, { 324, 12 }};
+				itemDef.particles = new int[][]{
+						{ 439, ParticleDefinition.OVERLORD_CAPE.ordinal() },
+						{ 302, ParticleDefinition.OVERLORD_CAPE.ordinal() },
+						{ 324, ParticleDefinition.OVERLORD_CAPE.ordinal() }
+				};
 	            itemDef.dataType = DataType.CUSTOM;
 	            break;
 	            

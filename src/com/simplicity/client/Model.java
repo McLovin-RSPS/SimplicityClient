@@ -3774,7 +3774,7 @@ public class Model extends Animable {
                     for (int vertex = 0; vertex < numberOfVerticeCoordinates; ++vertex) {
                         int pid = verticesParticle[vertex] - 1;
                         if (pid >= 0) {
-                            ParticleDefinition def = ParticleDefinition.cache[pid];
+                            ParticleDefinition def = ParticleDefinition.values()[pid];
                             int x = verticesXCoordinate[vertex];
                             int y = verticesYCoordinate[vertex];
                             int z = verticesZCoordinate[vertex];
@@ -4097,7 +4097,7 @@ public class Model extends Animable {
             for (int vertex = 0; vertex < numberOfVerticeCoordinates; ++vertex) {
                 int pid = verticesParticle[vertex] - 1;
                 if (pid >= 0) {
-                    ParticleDefinition def = ParticleDefinition.cache[pid];
+                    ParticleDefinition def = ParticleDefinition.values()[pid];
                     int x = verticesXCoordinate[vertex];
                     int y = verticesYCoordinate[vertex];
                     int z = verticesZCoordinate[vertex];

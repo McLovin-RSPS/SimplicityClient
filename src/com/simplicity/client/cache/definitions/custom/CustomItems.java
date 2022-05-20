@@ -2,6 +2,7 @@ package com.simplicity.client.cache.definitions.custom;
 
 import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.ItemDefinition;
+import com.simplicity.client.particles.ParticleDefinition;
 
 public class CustomItems {
 

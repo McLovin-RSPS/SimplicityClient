@@ -3,6 +3,7 @@ package com.simplicity.client.cache.definitions.custom;
 import com.simplicity.client.RandomColor;
 import com.simplicity.client.cache.DataType;
 import com.simplicity.client.cache.definitions.ItemDefinition;
+import com.simplicity.client.particles.ParticleDefinition;
 
 public class CustomItems3 {
 	
@@ -529,6 +530,11 @@ public class CustomItems3 {
 	            itemDef.maleYOffset = -10;
 	            itemDef.femaleYOffset = -10;
 	            itemDef.dataType = DataType.CUSTOM;
+				itemDef.particles = new int[][]{
+						{ 439, ParticleDefinition.BLUE_PARTICLE.ordinal() },
+						{ 302, ParticleDefinition.BLUE_PARTICLE.ordinal() },
+						{ 324, ParticleDefinition.BLUE_PARTICLE.ordinal() }
+				};
 	            break;
 		}
     }

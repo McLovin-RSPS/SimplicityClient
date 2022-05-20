@@ -1,6 +1,7 @@
 package com.simplicity.client.cache.definitions.custom;
 
 import com.simplicity.client.cache.definitions.ItemDefinition;
+import com.simplicity.client.particles.ParticleDefinition;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -47,7 +48,12 @@ public enum CustomRecolor4 {
 
 	PURPLE_LIME_OVERLORD_CAPE(25413, 21045, "@gre@Sunset Overlord Cape",
 	        new int[] { 40,8134,9036,8127,6975,7098,127,1953,789,792,3642,0,5,6 },
-	        new int[] { 75,22527,22527,22527,22527,22527,22527,22527,22527,22527,22527,49151,49151,49151 }),
+	        new int[] { 75,22527,22527,22527,22527,22527,22527,22527,22527,22527,22527,49151,49151,49151 },
+			new int[][]{
+				{ 439, ParticleDefinition.LIME_PARTICLE.ordinal() },
+				{ 302, ParticleDefinition.LIME_PARTICLE.ordinal() },
+				{ 324, ParticleDefinition.LIME_PARTICLE.ordinal() }
+			}),
 
 	PINK_GREEN_HAND_CANNON_XI_2(25414, 11620, "@gre@Pink Green Hand Cannon XI",
             new int[]{ 35840, 64, 35905, 35912, 1097, 35855, 35856, 85, 35862, 23, 35865, 35866, 1051, 35868, 6303, 31, 32, 35873, 1058, 35875, 39, 40, 35882, 6317, 45, 35886, 1070, 35888, 49, 50, 54, 35895, 59 },
@@ -72,7 +78,12 @@ public enum CustomRecolor4 {
 			new int[] {127, 9085, 9087, 9085, 127, 9085, 127, 9087, 9085, 9087, 9085, 9085, 9087, 9085, 127, 127, 9087, 9087, 9085, 9085, 127, 9087, 9085}),
 	WHITE_GOLD_OVERLORD_CAPE(21324, 21045, "@gold@Syrex Overlord Cape",
 	        new int[] { 40,0,5,6 },
-	        new int[] { 76,127,127,127 }),
+	        new int[] { 76,127,127,127 },
+			new int[][]{
+					{ 439, ParticleDefinition.GOLD_PARTICLE.ordinal() },
+					{ 302, ParticleDefinition.GOLD_PARTICLE.ordinal() },
+					{ 324, ParticleDefinition.GOLD_PARTICLE.ordinal() }
+			}),
 
 	PASTEL_BLUE_BUNNY_TOP(25419, 43663, "@cya@Easter Bunny Top 2022",
 			new int[] {2370, 119, 2378, 2382, 127},
@@ -275,6 +286,20 @@ public enum CustomRecolor4 {
 	private CustomRecolor4(int itemId, int copyFromId, String name, int[] editedModelColor, int[] newModelColor) {
 		ItemDefinition def = new ItemDefinition();
 
+		def.id = itemId;
+		def.setDefaults();
+		def.copy(ItemDefinition.forID(copyFromId));
+		def.name = name;
+		def.editedModelColor = editedModelColor;
+		def.newModelColor = newModelColor;
+
+		ItemDefinition.getCustomRecolors().put(itemId, def);
+	}
+
+	private CustomRecolor4(int itemId, int copyFromId, String name, int[] editedModelColor, int[] newModelColor, int[][] particles) {
+		ItemDefinition def = new ItemDefinition();
+
+		def.particles = particles;
 		def.id = itemId;
 		def.setDefaults();
 		def.copy(ItemDefinition.forID(copyFromId));

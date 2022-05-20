@@ -16,11 +16,7 @@ import java.util.Set;
 import com.simplicity.Configuration;
 import com.simplicity.client.*;
 import com.simplicity.client.cache.DataType;
-import com.simplicity.client.cache.definitions.custom.CustomRecolor;
-import com.simplicity.client.cache.definitions.custom.CustomRecolor2;
-import com.simplicity.client.cache.definitions.custom.CustomRecolor3;
-import com.simplicity.client.cache.definitions.custom.CustomRecolor4;
-import com.simplicity.client.cache.definitions.custom.ModelOffsets;
+import com.simplicity.client.cache.definitions.custom.*;
 import com.simplicity.client.widget.ge.GrandExchange;
 import com.simplicity.client.widget.ge.SearchItem;
 

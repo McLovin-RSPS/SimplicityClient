@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.simplicity.client.cache.definitions.ItemDefinition;
+import com.simplicity.client.particles.ParticleDefinition;
 
 /**
  * An enumerated type that represents a custom recolored item.
@@ -665,15 +666,30 @@ public enum CustomRecolor2 {
 
 		GREY_PURPLE_OVERLORD_CAPE(21214, 21045, "Purple Overlord Cape",
 				new int[] { 40, 0, 5 },
-				new int[] { 74, 18, 18 }),
+				new int[] { 74, 18, 18 },
+				new int[][]{
+						{ 439, ParticleDefinition.DARK_PURPLE_PARTICLE.ordinal() },
+						{ 302, ParticleDefinition.DARK_PURPLE_PARTICLE.ordinal() },
+						{ 324, ParticleDefinition.DARK_PURPLE_PARTICLE.ordinal() }
+				}),
 
 		BLACK_PINK_OVERLORD_CAPE(21215, 21045, "Playboy Overlord Cape",
 				new int[] { 40 },
-				new int[] { 72 }),
+				new int[] { 72 },
+				new int[][]{
+						{ 439, ParticleDefinition.PINK_PARTICLE.ordinal() },
+						{ 302, ParticleDefinition.PINK_PARTICLE.ordinal() },
+						{ 324, ParticleDefinition.PINK_PARTICLE.ordinal() }
+				}),
 
 		BLACK_YELLOW_OVERLORD_CAPE(21216, 21045, "Gold Overlord Cape",
 				new int[] { 40 },
-				new int[] { 73 }),
+				new int[] { 73 },
+				new int[][]{
+						{ 439, ParticleDefinition.GOLD_PARTICLE.ordinal() },
+						{ 302, ParticleDefinition.GOLD_PARTICLE.ordinal() },
+						{ 324, ParticleDefinition.GOLD_PARTICLE.ordinal() }
+				}),
 
 		/** Garnet Gold Sirenic Set **/
 		GARNET_GOLD_SIRENIC_HELM(21217, 22014, "@gold@Flawless Sirenic Helm",
@@ -760,4 +776,17 @@ public enum CustomRecolor2 {
 		ItemDefinition.getCustomRecolors().put(itemId, def);
 	}
 
+	private CustomRecolor2(int itemId, int copyFromId, String name, int[] editedModelColor, int[] newModelColor, int[][] particles) {
+		ItemDefinition def = new ItemDefinition();
+
+		def.particles = particles;
+		def.id = itemId;
+		def.setDefaults();
+		def.copy(ItemDefinition.forID(copyFromId));
+		def.name = name;
+		def.editedModelColor = editedModelColor;
+		def.newModelColor = newModelColor;
+
+		ItemDefinition.getCustomRecolors().put(itemId, def);
+	}
 }

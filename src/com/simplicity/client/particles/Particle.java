@@ -35,7 +35,7 @@ public class Particle {
 	}
 	
 	public Particle(ParticleDefinition def, ParticleVector position, int particleDepth, int definitionID) {
-		this(def.getStartColor(), def.getStartSize(), def.getStartVelocity(definitionID).clone(), def.getSpawnedShape().divide(ParticleDefinition.RANDOM).addLocal(position), def.getStartAlpha(), particleDepth);
+		this(def.getStartColor(), def.getStartSize(), def.getStartVelocity(definitionID).clone(), def.getSpawnedShape().divide(def.getRandom()).addLocal(position), def.getStartAlpha(), particleDepth);
 		this.def = def;
 	}
 

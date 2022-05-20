@@ -1,6 +1,7 @@
 package com.simplicity.client.cache.definitions.custom;
 
 import com.simplicity.client.cache.definitions.ItemDefinition;
+import com.simplicity.client.particles.ParticleDefinition;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -42,11 +43,21 @@ public enum CustomRecolor3 {
 
 	MERCORAS_OVERLORD_CAPE(21287, 21045, "Mercora's Master Overlord Cape",
 	        new int[] { 40 },
-	        new int[] { 59 }),
-	
+	        new int[] { 59 },
+			new int[][]{
+					{ 439, ParticleDefinition.DARK_GREY_PARTICLE.ordinal() },
+					{ 302, ParticleDefinition.DARK_GREY_PARTICLE.ordinal() },
+					{ 324, ParticleDefinition.DARK_GREY_PARTICLE.ordinal() }
+			}),
+
 	NICKYS_OVERLORD_CAPE(21288, 21045, "@pur@Nicky WestSide Overlord Cape",
 	        new int[] { 40,0,5 },
-	        new int[] { 76,127,127 }),
+	        new int[] { 76,127,127 },
+			new int[][]{
+					{ 439, ParticleDefinition.DARK_PURPLE_PARTICLE.ordinal() },
+					{ 302, ParticleDefinition.DARK_PURPLE_PARTICLE.ordinal() },
+					{ 324, ParticleDefinition.DARK_PURPLE_PARTICLE.ordinal() }
+			}),
 	
 	OVERLORD_DEFENDER(15448, 15448, "@red@Overlord Defender",
 	        new int[] { 8002, 8006, 22439, 7994, 8014},
@@ -54,7 +65,12 @@ public enum CustomRecolor3 {
 	
 	LIME_OVERLORD_CAPE(21289, 21045, "@gre@Snot Rocket Overlord Cape",
 	        new int[] { 40,8134,9036,8127,6975,7098,127,1953,789,792,3642 },
-	        new int[] { 75,22527,22527,22527,22527,22527,22527,22527,22527,22527,22527 }),
+	        new int[] { 75,22527,22527,22527,22527,22527,22527,22527,22527,22527,22527 },
+			new int[][]{
+					{ 439, ParticleDefinition.LIME_PARTICLE.ordinal() },
+					{ 302, ParticleDefinition.LIME_PARTICLE.ordinal() },
+					{ 324, ParticleDefinition.LIME_PARTICLE.ordinal() }
+			}),
 	
 	RED_BLUE_OVERLORD_CAPE(21290, 21290, "@red@Red Blue Overlord Cape",
 	        new int[] { 40,8134,9036,8127,6975,7098,127,1953,789,792,3642 },
@@ -298,4 +314,17 @@ public enum CustomRecolor3 {
 		ItemDefinition.getCustomRecolors().put(itemId, def);
 	}
 
+	private CustomRecolor3(int itemId, int copyFromId, String name, int[] editedModelColor, int[] newModelColor, int[][] particles) {
+		ItemDefinition def = new ItemDefinition();
+
+		def.particles = particles;
+		def.id = itemId;
+		def.setDefaults();
+		def.copy(ItemDefinition.forID(copyFromId));
+		def.name = name;
+		def.editedModelColor = editedModelColor;
+		def.newModelColor = newModelColor;
+
+		ItemDefinition.getCustomRecolors().put(itemId, def);
+	}
 }
