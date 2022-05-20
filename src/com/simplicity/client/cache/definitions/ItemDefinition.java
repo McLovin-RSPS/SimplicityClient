@@ -1369,6 +1369,7 @@ public final class ItemDefinition {
         CustomRecolor2.values();
         CustomRecolor3.values();
         CustomRecolor4.values();
+        AlchemyScrolls.values();
         ModelOffsets.init();
     }
 
