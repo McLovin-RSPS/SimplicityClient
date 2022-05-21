@@ -291,7 +291,19 @@ public enum ParticleDefinition {
             0,
             0.095f,
             0x000000
-    )
+    ),
+    MUTED_BLUE_PARTICLE(
+            new ParticleVector(0, 3, 0),
+            new ParticleVector(0, -30, 0),
+            new ParticleVector(0, 0, 0),
+            28,
+                    0x83b6be,
+                    8,
+                    1.25f,
+                    0,
+                    0.095f,
+                    0x000000
+                    )
 
     ;
 
