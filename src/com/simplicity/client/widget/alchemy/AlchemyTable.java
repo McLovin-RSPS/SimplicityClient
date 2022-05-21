@@ -81,7 +81,7 @@ public class AlchemyTable extends CustomWidget {
         //addRectangle(150, 200, 0x897661, 0, false)
         
         //Header for inventory item group
-        add(addCenteredText("Result Ingredients", 2, 0xFF981F), 323, 173);
+        add(addCenteredText("Your Ingredients", 2, 0xFF981F), 323, 173);
         add(addHorizontalLine(131, 0xFF981F, 255), 258, 187);
         
         //Box holding inventory items
@@ -119,15 +119,15 @@ public class AlchemyTable extends CustomWidget {
 		add(model, 213, 70);
 		add(model, 401, 70);
 		
-		System.out.println("IDDDDDDD recipe: "+id);
+		//System.out.println("IDDDDDDD recipe: "+id);
 		//Warning message about missing recipe scroll
         add(addCenteredText("", 0, 0xFF0000), 278, 32);
         
         add(addDynamicButton("Craft", 1, 0xff981f, 65, 23), 13, 19);
         
         //Header for required items item group
-        System.out.println("idddd for required items section  : "+id);
-        add(addCenteredText("Required Items", 2, 0xFF981F), 323, 115);
+        //System.out.println("idddd for required items section  : "+id);
+        add(addCenteredText("Required Ingredients", 2, 0xFF981F), 323, 115);
         add(addHorizontalLine(103, 0xFF981F, 255), 272, 129);
         
         //Box holding required items
