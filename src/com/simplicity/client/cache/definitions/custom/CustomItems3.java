@@ -517,7 +517,7 @@ public class CustomItems3 {
 	            itemDef.actions[1] = "Wield";
 				itemDef.dataType = DataType.REGULAR;
 				break;
-	        case 21290:
+	        /*case 21290:
 	        	itemDef.copy(ItemDefinition.forID(21045));
 	            itemDef.name = "Overlord cape";
 	            itemDef.modelID = 98;
@@ -535,7 +535,7 @@ public class CustomItems3 {
 						{ 302, ParticleDefinition.BLUE_PARTICLE.ordinal() },
 						{ 324, ParticleDefinition.BLUE_PARTICLE.ordinal() }
 				};
-	            break;
+	            break;*/
 		}
     }
 }

@@ -24004,7 +24004,7 @@ public class Client extends RSApplet {
         // animated textures inventory
         
 		for (int i : MOVING_TEXTURES) {
-			if (Rasterizer.anIntArray1480[i] >= j || (i == 61 || i == 62 || i==76 || i == 63  || i == 64  || i == 65 || i == 67 || i == 58) && Rasterizer.anIntArray1480[i] < j) {
+			if (Rasterizer.anIntArray1480[i] >= j || (i == 61 || i == 62 || i==77 || i == 63  || i == 64  || i == 65 || i == 67 || i == 58) && Rasterizer.anIntArray1480[i] < j) {
 				Background texture = Rasterizer.textures[i];
 				
 				try {
@@ -24034,7 +24034,7 @@ public class Client extends RSApplet {
 		}
 	}
 
-    public static final int[] MOVING_TEXTURES = new int[]{58, 59, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77 };
+    public static final int[] MOVING_TEXTURES = new int[]{58, 59, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78 };
 
     public int[] write(int var1, int var2, int var3, int var4, int var5) {
         if (var1 >= 128 && var3 >= 128 && var1 <= 13056 && var3 <= 13056) {

@@ -197,9 +197,9 @@ public enum ParticleDefinition {
             0x000000
     ),
     BLUE_PARTICLE(
-            new ParticleVector(0, -3, 0), // x z y
-            new ParticleVector(0, -3, 0),
-            new ParticleVector(0, 1 / 2, 0),
+            new ParticleVector(0, 3, 0),
+            new ParticleVector(0, -30, 0),
+            new ParticleVector(0, 0, 0),
             28,
             0x0091ff,
             8,
@@ -208,10 +208,22 @@ public enum ParticleDefinition {
             0.095f,
             0x000000
     ),
+    PRIME_BLUE_PARTICLE(
+            new ParticleVector(0, 3, 0),
+            new ParticleVector(0, -30, 0),
+            new ParticleVector(0, 0, 0),
+            28,
+            0x000EFF,
+            8,
+            1.25f,
+            0,
+            0.095f,
+            0x000000
+    ),
     PURPLE_PARTICLE(
-            new ParticleVector(0, -3, 0), // x z y
-            new ParticleVector(0, -3, 0),
-            new ParticleVector(0, 1 / 2, 0),
+            new ParticleVector(0, 3, 0),
+            new ParticleVector(0, -30, 0),
+            new ParticleVector(0, 0, 0),
             28,
             0xaa00ff,
             8,
@@ -221,9 +233,9 @@ public enum ParticleDefinition {
             0x000000
     ),
     LIME_PARTICLE(
-            new ParticleVector(0, -3, 0), // x z y
-            new ParticleVector(0, -3, 0),
-            new ParticleVector(0, 1 / 2, 0),
+            new ParticleVector(0, 3, 0),
+            new ParticleVector(0, -30, 0),
+            new ParticleVector(0, 0, 0),
             28,
             0x00ff00,
             8,
@@ -233,9 +245,9 @@ public enum ParticleDefinition {
             0x000000
     ),
     PINK_PARTICLE(
-            new ParticleVector(0, -3, 0), // x z y
-            new ParticleVector(0, -3, 0),
-            new ParticleVector(0, 1 / 2, 0),
+            new ParticleVector(0, 3, 0),
+            new ParticleVector(0, -30, 0),
+            new ParticleVector(0, 0, 0),
             28,
             0xff0099,
             8,
@@ -245,9 +257,9 @@ public enum ParticleDefinition {
             0x000000
     ),
     GOLD_PARTICLE(
-            new ParticleVector(0, -3, 0), // x z y
-            new ParticleVector(0, -3, 0),
-            new ParticleVector(0, 1 / 2, 0),
+            new ParticleVector(0, 3, 0),
+            new ParticleVector(0, -30, 0),
+            new ParticleVector(0, 0, 0),
             28,
             0xFFD700,
             8,
@@ -257,9 +269,9 @@ public enum ParticleDefinition {
             0x000000
     ),
     DARK_PURPLE_PARTICLE(
-            new ParticleVector(0, -3, 0), // x z y
-            new ParticleVector(0, -3, 0),
-            new ParticleVector(0, 1 / 2, 0),
+            new ParticleVector(0, 3, 0),
+            new ParticleVector(0, -30, 0),
+            new ParticleVector(0, 0, 0),
             28,
             0x65009B,
             8,
@@ -269,9 +281,9 @@ public enum ParticleDefinition {
             0x000000
     ),
     DARK_GREY_PARTICLE(
-            new ParticleVector(0, -3, 0), // x z y
-            new ParticleVector(0, -3, 0),
-            new ParticleVector(0, 1 / 2, 0),
+            new ParticleVector(0, 3, 0),
+            new ParticleVector(0, -30, 0),
+            new ParticleVector(0, 0, 0),
             28,
             0x2A2A2A,
             8,

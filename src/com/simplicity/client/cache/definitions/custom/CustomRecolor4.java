@@ -78,7 +78,7 @@ public enum CustomRecolor4 {
 			new int[] {127, 9085, 9087, 9085, 127, 9085, 127, 9087, 9085, 9087, 9085, 9085, 9087, 9085, 127, 127, 9087, 9087, 9085, 9085, 127, 9087, 9085}),
 	WHITE_GOLD_OVERLORD_CAPE(21324, 21045, "@gold@Syrex Overlord Cape",
 	        new int[] { 40,0,5,6 },
-	        new int[] { 76,127,127,127 },
+	        new int[] { 78,127,127,127 },
 			new int[][]{
 					{ 439, ParticleDefinition.GOLD_PARTICLE.ordinal() },
 					{ 302, ParticleDefinition.GOLD_PARTICLE.ordinal() },
@@ -245,7 +245,10 @@ public enum CustomRecolor4 {
 			new int[] { 836, 156, 3127, 142, 3140, 24, 20, 28, 836, 37, 49, 41, 57, 33, 16, 284 },
 			new int[] {  40862, 40862, 40862, 40862, 40862, 40862, 40862, 40862, 40862, 40862, 40862, 40862, 40862, 40862, 40862, 40862}),
 
-
+	/** GREEN DEMONIC HAMMERS **/
+	GREEN_DEMONIC_HAMMERS(25441, 4747, "Green Demonic Hammers",
+			new int[] { 10514, 10291 },
+			new int[] { 20, 22427 }),
 	;
 
 	private static int[] randomScytheColor() {
