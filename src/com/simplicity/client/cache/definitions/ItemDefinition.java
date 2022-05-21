@@ -543,6 +543,14 @@ public final class ItemDefinition {
                 itemDef.modelZoom = 1200;
                 break;
                 
+            case 43250:
+                itemDef.name = "Ninja Monkey Pet";
+                itemDef.groundActions = new String[]{null, null, "Take", null, null};
+                itemDef.actions = new String[]{null, null, "Summon", null, "Drop"};
+                itemDef.modelID = MobDefinition.forID(1480).models[0];
+                itemDef.modelZoom = 1200;
+                break;
+                
             case 42816:
                 itemDef.name = "Pet dark core";
                 itemDef.groundActions = new String[]{null, null, "Take", null, null};

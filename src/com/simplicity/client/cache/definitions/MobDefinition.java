@@ -28,7 +28,7 @@ public final class MobDefinition {
             23492, 23493, 23494, 23495, 2776, 4550, 4551, 7370, 7333, 7351, 7367, 6853, 6867, 6851, 6833, 6875, 6877, 6879, 2222, 7093, 25761, 25762,
             6881, 6883, 6885, 6887, 6855, 7377, 22519, 6824, 6843, 6794, 6818, 6992, 6857, 6991, 7365, 7337, 7363, 6809, 25763, 25764, 25765, 21636, 21631,
             21634, 21637, 22368, 21715, 21717, 15964, 21640, 22674, 23731, 13172,
-            6865, 6820, 6802, 6827, 6859, 6889, 6815, 6813, 6817, 7372, 6839, 8575, 7345, 6849, 6798, 6861, 7335, 7347, 23197, 23336,
+            6820, 6802, 6827, 6859, 6889, 6815, 6813, 6817, 7372, 6839, 8575, 7345, 6849, 6798, 6861, 7335, 7347, 23197, 23336,
             6800, 7355, 7357, 7359, 9488, 6804, 7341, 7329, 6863, 6822, 7339, 6869, 7349, 7375, 6873, 7343, 3033, 3030, 21636,
             3031, 3032, 3034, 3035, 3036, 3037, 3038, 3039, 3040, 3047, 3048, 21637, 21638, 3051, 3052, 3053, 3054,
             3055, 3056, 3057, 3058, 3059, 3060, 3061, 3063, 3064, 3066, 3067, 3068, 3070, 3069, 3065, 6723, 6724, 6726,
@@ -402,6 +402,7 @@ public final class MobDefinition {
                 npc.name = "Boss";
                 npc.dataType = DataType.CUSTOM;
                 break;
+
 
             case 1643:
                 npc.walkAnim = 7200;
@@ -1013,7 +1014,7 @@ public final class MobDefinition {
                 npc.sizeY = 200;
                 npc.squaresNeeded = 2;
                 break;
-
+                
             case 1335:
                 npc.name = "Zamorak Dro";
                 npc.description = "A cool looking dude, but Arthur looks cooler.";
@@ -1070,6 +1071,13 @@ public final class MobDefinition {
             case 23611:
                 npc.name = "Draconic Wyrm";
                 npc.combatLevel = 399;
+                break;
+                
+            case 6865:
+                npc.dataType = DataType.REGULAR;
+                npc.name = "Smoke devil";
+                npc.actions = new String[5];
+                npc.actions = new String[]{null, "Attack", null, null, null};
                 break;
 
             case 3333:
@@ -1268,6 +1276,15 @@ public final class MobDefinition {
                 npc.sizeXZ = 80;
                 npc.sizeY = 80;
                 npc.pet = true;
+                break;
+                
+            case 1480:
+                npc.name = "Ninja Monkey Pet";
+                npc.pet = true;
+                npc.squaresNeeded = 1;
+                npc.actions = new String[5];
+                npc.actions[0] = "Talk-to";
+                npc.actions[2] = "Pick-up";
                 break;
 
             case 3244:
@@ -1851,7 +1868,6 @@ public final class MobDefinition {
             case 7375:
             case 7343:
             case 6820:
-            case 6865:
             case 6809:
             case 7363:
             case 7337:
@@ -2443,17 +2459,16 @@ public final class MobDefinition {
                 npc.name = "Superior Vorki";
                 npc.pet = true;
                 npc.walkAnim = 23219;
-                //npc.squaresNeeded = 1;
                 break;
-
+                
             case 23025:
                 npc.copy(forID(23025));
                 npc.npcHeadModels = new int[]{35024};
                 npc.name = "Vorki";
                 npc.walkAnim = 23219;
-                //npc.squaresNeeded = 1;
                 npc.pet = true;
                 break;
+                
 		/*  		     
 		case 1265:
 			 System.out.println("Models: " + npc.models[1]);
