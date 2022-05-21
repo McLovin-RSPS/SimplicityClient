@@ -24004,7 +24004,7 @@ public class Client extends RSApplet {
         // animated textures inventory
         
 		for (int i : MOVING_TEXTURES) {
-			if (Rasterizer.anIntArray1480[i] >= j || (i == 61 || i == 62 || i==77 || i == 63  || i == 64  || i == 65 || i == 67 || i == 58) && Rasterizer.anIntArray1480[i] < j) {
+			if (Rasterizer.anIntArray1480[i] >= j || (i == 61 || i == 62 || i == 63  || i == 64  || i == 65 || i == 67 || i == 58) && Rasterizer.anIntArray1480[i] < j) {
 				Background texture = Rasterizer.textures[i];
 				
 				try {
