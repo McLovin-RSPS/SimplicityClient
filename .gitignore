@@ -5,6 +5,8 @@
 client.iml
 SimplicityClientNew.iml
 *.class
+*.class
 *.classpath
 *.project
 /target/
+/out/
